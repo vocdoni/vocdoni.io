@@ -1,14 +1,18 @@
 import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 
 export function TodoList({ initialTodoItems }: { initialTodoItems: { text: string }[] }) {
   const [todoItems, setTodoItems] = useState(initialTodoItems);
   const [newTodo, setNewTodo] = useState("");
   return (
     <>
-      <ul>
+      <ul className="space-y-2 mb-4">
         {todoItems.map((todoItem, index) => (
           // biome-ignore lint: example
-          <li key={index}>{todoItem.text}</li>
+          <li key={index} className="p-2 bg-muted rounded-md">
+            {todoItem.text}
+          </li>
         ))}
       </ul>
       <div>
@@ -18,24 +22,18 @@ export function TodoList({ initialTodoItems }: { initialTodoItems: { text: strin
 
             // Optimistic UI update
             setTodoItems((prev) => [...prev, { text: newTodo }]);
+            setNewTodo("");
           }}
+          className="flex gap-2"
         >
-          <input
+          <Input
             type="text"
+            placeholder="Enter a new todo..."
             onChange={(ev) => setNewTodo(ev.target.value)}
             value={newTodo}
-            className={
-              "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full sm:w-auto p-2 mr-1 mb-1"
-            }
+            className="flex-1"
           />
-          <button
-            type="submit"
-            className={
-              "text-white bg-blue-700 hover:bg-blue-800 focus:ring-2 focus:outline-hidden focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto p-2"
-            }
-          >
-            Add to-do
-          </button>
+          <Button type="submit">Add to-do</Button>
         </form>
       </div>
     </>
