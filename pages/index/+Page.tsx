@@ -24,7 +24,7 @@ export default function Page() {
   return (
     <>
       <Navigation activeSection={activeSection} onNavigate={handleNavigation} />
-      <SectionScroller activeSection={activeSection}>
+      <SectionScroller activeSection={activeSection} onSectionChange={handleNavigation}>
         <Technology />
         <Services />
         <Product />

@@ -12,47 +12,92 @@ interface SectionScrollerProps {
 export function SectionScroller({
   children,
   activeSection,
-
   sectionClassName = "",
   containerClassName = "",
-}: SectionScrollerProps) {
+  onSectionChange,
+}: SectionScrollerProps & { onSectionChange?: (index: number) => void }) {
   const containerRef = useRef<HTMLDivElement>(null);
-  const sectionRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const touchStartY = useRef<number | null>(null);
 
-  // Scroll to active section when it changes
+  // Handle wheel, keyboard, and touch events for section navigation
   useEffect(() => {
     if (typeof window === "undefined") return;
-    const target = sectionRefs.current[activeSection];
-    if (target) {
-      target.scrollIntoView({ behavior: "smooth", block: "start" });
-    }
-  }, [activeSection]);
+    const handleWheel = (e: WheelEvent) => {
+      if (e.deltaY > 0 && activeSection < children.length - 1) {
+        onSectionChange?.(activeSection + 1);
+      } else if (e.deltaY < 0 && activeSection > 0) {
+        onSectionChange?.(activeSection - 1);
+      }
+      e.preventDefault();
+    };
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "ArrowDown" && activeSection < children.length - 1) {
+        onSectionChange?.(activeSection + 1);
+        e.preventDefault();
+      } else if (e.key === "ArrowUp" && activeSection > 0) {
+        onSectionChange?.(activeSection - 1);
+        e.preventDefault();
+      }
+    };
+    const handleTouchStart = (e: TouchEvent) => {
+      touchStartY.current = e.touches[0].clientY;
+    };
+    const handleTouchEnd = (e: TouchEvent) => {
+      if (touchStartY.current === null) return;
+      const deltaY = touchStartY.current - e.changedTouches[0].clientY;
+      if (deltaY > 50 && activeSection < children.length - 1) {
+        onSectionChange?.(activeSection + 1);
+      } else if (deltaY < -50 && activeSection > 0) {
+        onSectionChange?.(activeSection - 1);
+      }
+      touchStartY.current = null;
+    };
+    window.addEventListener("wheel", handleWheel, { passive: false });
+    window.addEventListener("keydown", handleKeyDown);
+    window.addEventListener("touchstart", handleTouchStart);
+    window.addEventListener("touchend", handleTouchEnd);
+    return () => {
+      window.removeEventListener("wheel", handleWheel);
+      window.removeEventListener("keydown", handleKeyDown);
+      window.removeEventListener("touchstart", handleTouchStart);
+      window.removeEventListener("touchend", handleTouchEnd);
+    };
+  }, [activeSection, children.length, onSectionChange]);
 
   return (
     <div
       ref={containerRef}
       className={cn(
-        "h-screen w-full overflow-y-scroll scroll-snap-y-mandatory", // Tailwind v4 syntax
-        "scrollbar-hide", // Hide scrollbar (custom utility)
+        "h-screen w-full overflow-hidden relative", // Lock scroll
         containerClassName,
       )}
-      style={{ scrollSnapType: "y mandatory" }}
+      style={{
+        touchAction: "none",
+      }}
+      tabIndex={0}
+      aria-live="polite"
     >
-      {children.map((child, i) => (
-        <div
-          key={i}
-          ref={(el) => {
-            sectionRefs.current[i] = el;
-          }}
-          className={cn(
-            "h-screen w-full flex items-center justify-center scroll-snap-start", // Tailwind v4 syntax
-            sectionClassName,
-          )}
-          id={`section-${i}`}
-        >
-          {child}
-        </div>
-      ))}
+      <div
+        style={{
+          height: `${children.length * 100}vh`,
+          transform: `translateY(-${activeSection * 100}vh)`,
+          transition: "transform 0.7s cubic-bezier(0.77,0,0.175,1)",
+        }}
+      >
+        {children.map((child, i) => (
+          <div
+            key={i}
+            className={cn(
+              "h-screen w-full flex items-center justify-center", // Full viewport
+              sectionClassName,
+            )}
+            id={`section-${i}`}
+            aria-hidden={activeSection !== i}
+          >
+            {child}
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
