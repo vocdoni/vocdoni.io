@@ -51,7 +51,13 @@ export function useUrlSync() {
     return sectionIndex >= 0 ? sectionIndex : 0;
   }, []);
 
-  const [activeSection, setActiveSection] = useState(getInitialSection);
+  const [activeSection, setActiveSection] = useState(0);
+
+  // After hydration, update activeSection based on client URL
+  useEffect(() => {
+    const sectionIndex = getInitialSection();
+    setActiveSection(sectionIndex);
+  }, [getInitialSection]);
 
   // Navigate to a section (updates URL and title)
   const navigateToSection = useCallback((sectionIndex: number, pushToHistory = true) => {
