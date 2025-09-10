@@ -10,8 +10,9 @@ export default {
   Layout,
 
   // https://vike.dev/head-tags
-  title: "My Vike App",
-  description: "Demo showcasing Vike",
+  title: "Vocdoni - Blockchain Voting Technology",
+  description:
+    "Cutting-edge blockchain technology powering the future of democratic participation with transparent, secure, and accessible voting infrastructure.",
 
   extends: vikeReact,
 } satisfies Config;
