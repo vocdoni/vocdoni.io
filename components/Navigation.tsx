@@ -8,9 +8,9 @@ interface NavigationProps {
   onNavigate?: (sectionIndex: number) => void
 }
 
-const menuItems = SECTIONS.map((section, index) => ({
+const menuItems = SECTIONS.slice(1).map((section, index) => ({
   label: section.name.charAt(0).toUpperCase() + section.name.slice(1),
-  index,
+  index: index + 1, // Adjust index to account for skipped home section
   path: section.path,
 }))
 

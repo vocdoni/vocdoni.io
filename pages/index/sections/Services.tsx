@@ -1,6 +1,6 @@
 export function Services() {
   return (
-    <div className='h-screen flex items-center justify-center bg-muted/30'>
+    <div className='h-screen w-full flex items-center justify-center bg-muted/30'>
       <div className='max-w-4xl mx-auto px-4 text-center'>
         <h1 className='text-4xl md:text-6xl font-bold text-foreground mb-6'>Services</h1>
         <p className='text-lg md:text-xl text-muted-foreground mb-8 max-w-2xl mx-auto'>

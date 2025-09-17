@@ -4,6 +4,7 @@ import { StaticFallback } from '@/components/StaticFallback'
 import { useIsClient } from '@/lib/useIsClient'
 import { useUrlSync } from '@/lib/useUrlSync'
 import { Contact } from './sections/Contact'
+import { Landing } from './sections/Landing'
 import { Product } from './sections/Product'
 import { Services } from './sections/Services'
 import { Technology } from './sections/Technology'
@@ -25,6 +26,7 @@ export default function Page() {
     <>
       <Navigation activeSection={activeSection} onNavigate={handleNavigation} />
       <SectionScroller activeSection={activeSection} onSectionChange={handleNavigation}>
+        <Landing onNavigate={handleNavigation} />
         <Technology />
         <Services />
         <Product />

@@ -3,6 +3,13 @@ import { useCallback, useEffect, useState } from 'react'
 // Section configuration
 export const SECTIONS = [
   {
+    path: '/',
+    name: 'home',
+    title: 'Vocdoni - Blockchain Voting Technology',
+    description:
+      'Cutting-edge blockchain technology powering the future of democratic participation with transparent, secure, and accessible voting infrastructure.',
+  },
+  {
     path: '/technology',
     name: 'technology',
     title: 'Vocdoni - Blockchain Voting Technology',
