@@ -1,9 +1,10 @@
 import { Navigation } from '@/components/Navigation'
-import { Contact } from '@/pages/index/sections/Contact'
-import { Landing } from '@/pages/index/sections/Landing'
-import { Product } from '@/pages/index/sections/Product'
-import { Services } from '@/pages/index/sections/Services'
-import { Technology } from '@/pages/index/sections/Technology'
+import { Contact } from './sections/Contact'
+import { Explore } from './sections/Explore'
+import { Landing } from './sections/Landing'
+import { Product } from './sections/Product'
+import { Services } from './sections/Services'
+import { Technology } from './sections/Technology'
 
 interface StaticFallbackProps {
   activeSection?: number
@@ -16,18 +17,21 @@ export function StaticFallback({ activeSection = 0, onNavigate }: StaticFallback
       <Navigation activeSection={activeSection} onNavigate={onNavigate} />
       <div className='space-y-0'>
         <div id='section-0' className='min-h-screen'>
-          <Landing onNavigate={onNavigate} />
+          <Landing />
         </div>
         <div id='section-1' className='min-h-screen'>
-          <Technology />
+          <Explore />
         </div>
         <div id='section-2' className='min-h-screen'>
-          <Services />
+          <Technology />
         </div>
         <div id='section-3' className='min-h-screen'>
-          <Product />
+          <Services />
         </div>
         <div id='section-4' className='min-h-screen'>
+          <Product />
+        </div>
+        <div id='section-5' className='min-h-screen'>
           <Contact />
         </div>
       </div>

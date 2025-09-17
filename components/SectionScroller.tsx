@@ -85,7 +85,7 @@ export function SectionScroller({
         }}
       >
         {children.map((child, i) => (
-          <div
+          <section
             key={i}
             className={cn(
               'h-screen w-full flex items-center justify-center', // Full viewport
@@ -95,7 +95,7 @@ export function SectionScroller({
             aria-hidden={activeSection !== i}
           >
             {child}
-          </div>
+          </section>
         ))}
       </div>
     </div>

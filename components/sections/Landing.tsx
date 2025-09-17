@@ -1,18 +1,16 @@
 import { Button } from '@/components/ui/button'
+import { Link } from '@/components/Link'
+import { cn } from '@/lib/utils'
 import { ChevronDown } from 'lucide-react'
 
-interface LandingProps {
-  onNavigate?: (sectionIndex: number) => void
-}
-
-export function Landing({ onNavigate }: LandingProps) {
+export function Landing() {
   return (
     <div
-      className='relative h-screen w-full flex flex-col items-center justify-center text-black bg-cover bg-top'
-      style={{
-        backgroundImage: 'url(/assets/images/hero_background.png)',
-        backgroundRepeat: 'no-repeat',
-      }}
+      className={cn(
+        'bg-[url(/assets/images/hero_background.png)] bg-cover bg-top bg-no-repeat',
+        'relative h-screen w-full flex flex-col items-center',
+        'justify-center text-black'
+      )}
     >
       {/* Main content */}
       <div className='relative z-10 flex flex-col items-center justify-center text-center px-4 max-w-4xl mx-auto'>
@@ -36,13 +34,13 @@ export function Landing({ onNavigate }: LandingProps) {
       </div>
 
       {/* Explore Vocdoni - Bottom */}
-      <div
-        className='absolute bottom-8 left-1/2 transform -translate-x-1/2 flex flex-col items-center text-white/80 hover:text-white transition-colors cursor-pointer'
-        onClick={() => onNavigate?.(1)}
+      <Link
+        href='/explore'
+        className='absolute bottom-8 left-1/2 transform -translate-x-1/2 flex flex-col items-center text-white/80 hover:text-white transition-colors'
       >
         <span className='text-lg font-medium mb-2'>Explore Vocdoni</span>
         <ChevronDown className='w-6 h-6 animate-bounce' />
-      </div>
+      </Link>
     </div>
   )
 }
