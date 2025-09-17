@@ -3,7 +3,8 @@
     "dev": "vike dev",
     "build": "vike build",
     "preview": "vike preview",
-    "shadcn": "npx shadcn@latest"
+    "shadcn": "npx shadcn@latest",
+    "lint": "prettier --check ."
   },
   "dependencies": {
     "@fullpage/react-fullpage": "^0.1.49",
