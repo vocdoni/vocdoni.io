@@ -3,6 +3,7 @@ import { VocdoniLogo } from '@/components/Logo'
 import { Button } from '@/components/ui/button'
 import { SECTIONS } from '@/lib/useUrlSync'
 import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 
 interface NavigationProps {
   activeSection?: number
@@ -21,6 +22,7 @@ const menuItems = SECTIONS.filter((section) => section.appearsOnMenu).map((secti
 })
 
 export function Navigation({ activeSection = 0, onNavigate }: NavigationProps) {
+  const { t } = useTranslation()
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
   return (
@@ -45,7 +47,7 @@ export function Navigation({ activeSection = 0, onNavigate }: NavigationProps) {
           <div className='hidden md:flex items-center'>
             <Button asChild className='bg-gray-400 text-white hover:bg-gray-600'>
               <a href='https://app.vocdoni.io' target='_blank' rel='noopener noreferrer'>
-                Login
+                {t('navigation.login', { defaultValue: 'Login' })}
               </a>
             </Button>
           </div>
@@ -87,7 +89,7 @@ export function Navigation({ activeSection = 0, onNavigate }: NavigationProps) {
                   className='block px-3 py-2 text-sm font-medium bg-black text-white hover:bg-gray-800 rounded-md transition-colors text-center'
                   onClick={() => setIsMenuOpen(false)}
                 >
-                  Login
+                  {t('navigation.login', { defaultValue: 'Login' })}
                 </a>
               </div>
             </div>
