@@ -4,7 +4,8 @@
     "build": "vike build",
     "preview": "vike preview",
     "shadcn": "npx shadcn@latest",
-    "lint": "prettier --check ."
+    "lint": "prettier --check .",
+    "translations": "i18next --config i18next-parser.config.cjs"
   },
   "dependencies": {
     "@fullpage/react-fullpage": "^0.1.49",
@@ -27,6 +28,7 @@
     "@tailwindcss/vite": "^4.1.13",
     "@types/react": "^19.1.12",
     "@types/react-dom": "^19.1.9",
+    "i18next-parser": "^9.3.0",
     "prettier": "^3.6.2",
     "tailwindcss": "^4.1.13",
     "typescript": "^5.9.2",
