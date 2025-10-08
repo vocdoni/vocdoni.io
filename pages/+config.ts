@@ -15,4 +15,5 @@ export default {
     'Cutting-edge blockchain technology powering the future of democratic participation with transparent, secure, and accessible voting infrastructure.',
 
   extends: vikeReact,
+  passToClient: ['locale', 'initialI18nStore', 'initialLocale'],
 } satisfies Config

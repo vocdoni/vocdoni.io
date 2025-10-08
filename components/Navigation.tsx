@@ -1,8 +1,10 @@
+import LanguageSwitcher from '@/components/LanguageSwitcher'
 import { Link } from '@/components/Link'
 import { VocdoniLogo } from '@/components/Logo'
 import { Button } from '@/components/ui/button'
 import { SECTIONS } from '@/lib/useUrlSync'
 import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 
 interface NavigationProps {
   activeSection?: number
@@ -21,37 +23,41 @@ const menuItems = SECTIONS.filter((section) => section.appearsOnMenu).map((secti
 })
 
 export function Navigation({ activeSection = 0, onNavigate }: NavigationProps) {
+  const { t } = useTranslation()
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
   return (
     <nav className='fixed top-0 left-0 right-0 z-50 backdrop-blur-sm'>
-      <div className='max-w-7xl mx-auto px-4'>
-        <div className='flex items-center justify-between h-16'>
+      <div className='px-4'>
+        <div className='h-16 flex items-center md:grid md:grid-cols-3'>
           {/* Logo */}
           <div className='flex items-center'>
             <VocdoniLogo minimal />
           </div>
 
           {/* Center Navigation with White Background */}
-          <div className='hidden md:flex items-center bg-white rounded-sm px-6 py-2'>
-            {menuItems.map((item) => (
-              <Link key={item.label} href={item.path} variant='nav' className='px-4 py-2 text-sm'>
-                {item.label}
-              </Link>
-            ))}
+          <div className='hidden md:flex items-center justify-center'>
+            <div className='bg-white rounded-sm px-6 py-2'>
+              {menuItems.map((item) => (
+                <Link key={item.label} href={item.path} variant='nav' className='px-4 py-2 text-sm'>
+                  {item.label}
+                </Link>
+              ))}
+            </div>
           </div>
 
           {/* Login Button */}
-          <div className='hidden md:flex items-center'>
+          <div className='hidden md:flex items-center justify-end gap-3'>
+            <LanguageSwitcher />
             <Button asChild className='bg-gray-400 text-white hover:bg-gray-600'>
               <a href='https://app.vocdoni.io' target='_blank' rel='noopener noreferrer'>
-                Login
+                {t('navigation.login', { defaultValue: 'Login' })}
               </a>
             </Button>
           </div>
 
           {/* Mobile menu button */}
-          <div className='md:hidden'>
+          <div className='ml-auto md:hidden'>
             <Button variant='ghost' size='sm' onClick={() => setIsMenuOpen(!isMenuOpen)} className='p-2'>
               <svg className='w-6 h-6' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
                 {isMenuOpen ? (
@@ -87,7 +93,7 @@ export function Navigation({ activeSection = 0, onNavigate }: NavigationProps) {
                   className='block px-3 py-2 text-sm font-medium bg-black text-white hover:bg-gray-800 rounded-md transition-colors text-center'
                   onClick={() => setIsMenuOpen(false)}
                 >
-                  Login
+                  {t('navigation.login', { defaultValue: 'Login' })}
                 </a>
               </div>
             </div>
