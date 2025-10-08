@@ -26,14 +26,14 @@ export function Navigation({ activeSection = 0, onNavigate }: NavigationProps) {
   const { t } = useTranslation()
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
+  const isLanding = activeSection === 0
+
   return (
     <nav className='fixed top-0 left-0 right-0 z-50 backdrop-blur-sm'>
       <div className='px-4'>
         <div className='h-16 flex items-center md:grid md:grid-cols-3'>
           {/* Logo */}
-          <div className='flex items-center'>
-            <VocdoniLogo minimal />
-          </div>
+          <div className='flex items-center'>{isLanding && <VocdoniLogo minimal />}</div>
 
           {/* Center Navigation with White Background */}
           <div className='hidden md:flex items-center justify-center'>
@@ -47,14 +47,16 @@ export function Navigation({ activeSection = 0, onNavigate }: NavigationProps) {
           </div>
 
           {/* Login Button */}
-          <div className='hidden md:flex items-center justify-end gap-3'>
-            <LanguageSwitcher />
-            <Button asChild className='bg-gray-400 text-white hover:bg-gray-600'>
-              <a href='https://app.vocdoni.io' target='_blank' rel='noopener noreferrer'>
-                {t('navigation.login', { defaultValue: 'Login' })}
-              </a>
-            </Button>
-          </div>
+          {isLanding && (
+            <div className='hidden md:flex items-center justify-end gap-3'>
+              <LanguageSwitcher />
+              <Button asChild className='bg-gray-400 text-white hover:bg-gray-600'>
+                <a href='https://app.vocdoni.io' target='_blank' rel='noopener noreferrer'>
+                  {t('navigation.login', { defaultValue: 'Login' })}
+                </a>
+              </Button>
+            </div>
+          )}
 
           {/* Mobile menu button */}
           <div className='ml-auto md:hidden'>
