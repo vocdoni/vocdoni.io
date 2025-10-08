@@ -1,7 +1,8 @@
-import { cva, type VariantProps } from 'class-variance-authority'
 import { cn } from '@/lib/utils'
-import { usePageContext } from 'vike-react/usePageContext'
+import { localeDefault } from '@/locales'
+import { cva, type VariantProps } from 'class-variance-authority'
 import * as React from 'react'
+import { usePageContext } from 'vike-react/usePageContext'
 
 const linkVariants = cva('transition-colors', {
   variants: {
@@ -15,15 +16,18 @@ const linkVariants = cva('transition-colors', {
   },
 })
 
-export interface LinkProps
-  extends React.AnchorHTMLAttributes<HTMLAnchorElement>,
-    VariantProps<typeof linkVariants> {
+export interface LinkProps extends React.AnchorHTMLAttributes<HTMLAnchorElement>, VariantProps<typeof linkVariants> {
   href: string
   children: React.ReactNode
+  locale?: string
 }
 
-export function Link({ href, children, className, variant, ...props }: LinkProps) {
+export function Link({ href, locale, children, className, variant, ...props }: LinkProps) {
   const pageContext = usePageContext()
+  locale = locale || pageContext.locale
+  if (locale !== localeDefault) {
+    href = '/' + locale + href
+  }
   const { urlPathname } = pageContext
   const isActive = href === '/' ? urlPathname === href : urlPathname.startsWith(href)
 

@@ -22,7 +22,7 @@ function createI18nSync(lng: string, resources: any) {
 }
 
 export default function LayoutDefault({ children }: { children: React.ReactNode }) {
-  const { initialLocale, initialI18nStore } = usePageContext() as any // 👈 obtener pageContext aquí
+  const { initialLocale, initialI18nStore } = usePageContext() as any
 
   const i18n = React.useMemo(() => createI18nSync(initialLocale, initialI18nStore), [initialLocale, initialI18nStore])
 
