@@ -52,8 +52,8 @@ export function Technology() {
   return (
     <section className='min-h-screen w-full grid grid-cols-1 lg:grid-cols-2'>
       {/* Technology Overview */}
-      <div className={cn('bg-background flex flex-col', open && 'hidden lg:flex')}>
-        <div className='w-full px-6 flex-1 flex flex-col gap-6 justify-center'>
+      <div className='bg-background flex flex-col items-center justify-center'>
+        <div className='w-full px-6 flex flex-col gap-6'>
           <p className='text-3xl font-medium'>→ {t('technology.headline', { defaultValue: 'Technology' })}</p>
 
           <p className='text-2xl md:text-3xl leading-relaxed tracking-tight'>
@@ -74,7 +74,7 @@ export function Technology() {
                 })}
               </p>
               <div>
-                <Button size='sm' className='mt-2'>
+                <Button variant='outline' size='sm' className='mt-2'>
                   {t('technology.cta', { defaultValue: 'Find out more' })}
                   <ArrowUpRight className='ml-2 h-4 w-4' />
                 </Button>
@@ -84,39 +84,36 @@ export function Technology() {
         </div>
         <div className='hidden lg:block w-full px-6 py-6'>
           <Link href='/services' className='block text-2xl font-semibold text-muted-foreground'>
-            {t('technology.our_services', { defaultValue: 'Our Services' })} ↓
+            {t('services.our_services', { defaultValue: 'Our Services' })} ↓
           </Link>
         </div>
       </div>
 
       {/* Accordion Container */}
-      <div className='relative md:border-l md:border-black/10 bg-[#FFFBEA]'>
-        <div className='flex h-full flex-col justify-end'>
+      <div className='relative md:border-l md:border-black/10 min-h-0'>
+        <div className='flex h-full min-h-0 flex-col justify-end'>
           <Accordion
             defaultValue='transparent'
             value={open}
             onValueChange={setOpen}
             type='single'
-            collapsible
-            className='w-full'
+            className='w-full flex-1 min-h-0 flex flex-col'
           >
             {rows.map((r) => (
               <AccordionItem
                 key={r.key}
                 value={r.key}
-                className={cn('border-none', open === r.key && 'flex-1')}
+                className={cn(r.bg, 'border-none flex flex-col', 'data-[state=open]:flex-1')}
                 onMouseEnter={() => setOpen(r.key)}
               >
                 <AccordionTrigger
-                  className={[
+                  className={cn(
                     r.bg,
-                    'group',
-                    'border-0',
-                    'px-6 md:px-10 h-20 md:h-25',
+                    'group border-0 px-6 md:px-10 h-20 md:h-25',
                     'text-left text-4xl md:text-4xl font-semibold',
                     'hover:no-underline',
-                    '[&>svg]:hidden',
-                  ].join(' ')}
+                    '[&>svg]:hidden'
+                  )}
                 >
                   <div className='flex w-full items-center justify-between'>
                     <span>{r.label}</span>
@@ -132,7 +129,7 @@ export function Technology() {
                   </div>
                 </AccordionTrigger>
 
-                <AccordionContent className={[r.bg, 'border-0', 'px-6 md:px-10 py-4 text-lg md:text-lg'].join(' ')}>
+                <AccordionContent className={cn(r.bg, 'border-0', 'px-6 md:px-10 py-4 text-lg md:text-lg')}>
                   <p className='max-w-2xl'>{r.description}</p>
                 </AccordionContent>
               </AccordionItem>
