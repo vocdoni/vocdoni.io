@@ -31,12 +31,12 @@ export function Navigation({ activeSection = 0, onNavigate }: NavigationProps) {
   return (
     <nav className='fixed top-0 left-0 right-0 z-50 backdrop-blur-sm'>
       <div className='px-4'>
-        <div className='h-16 flex items-center md:grid md:grid-cols-3'>
+        <div className='h-16 flex items-center lg:grid md:grid-cols-3'>
           {/* Logo */}
           <div className='flex items-center'>{isLanding && <VocdoniLogo minimal />}</div>
 
           {/* Center Navigation with White Background */}
-          <div className='hidden md:flex items-center justify-center'>
+          <div className='hidden lg:flex items-center justify-center'>
             <div className='bg-white rounded-sm px-6 py-2'>
               {menuItems.map((item) => (
                 <Link key={item.label} href={item.path} variant='nav' className='px-4 py-2 text-sm'>
@@ -48,7 +48,7 @@ export function Navigation({ activeSection = 0, onNavigate }: NavigationProps) {
 
           {/* Login Button */}
           {isLanding && (
-            <div className='hidden md:flex items-center justify-end gap-3'>
+            <div className='hidden lg:flex items-center justify-end gap-3'>
               <LanguageSwitcher />
               <Button asChild className='bg-gray-400 text-white hover:bg-gray-600'>
                 <a href='https://app.vocdoni.io' target='_blank' rel='noopener noreferrer'>
@@ -59,7 +59,7 @@ export function Navigation({ activeSection = 0, onNavigate }: NavigationProps) {
           )}
 
           {/* Mobile menu button */}
-          <div className='ml-auto md:hidden'>
+          <div className='ml-auto lg:hidden'>
             <Button variant='ghost' size='sm' onClick={() => setIsMenuOpen(!isMenuOpen)} className='p-2'>
               <svg className='w-6 h-6' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
                 {isMenuOpen ? (
@@ -74,7 +74,7 @@ export function Navigation({ activeSection = 0, onNavigate }: NavigationProps) {
 
         {/* Mobile Navigation Menu */}
         {isMenuOpen && (
-          <div className='md:hidden border-t border-border bg-white mt-2 mx-2 shadow-lg'>
+          <div className='lg:hidden border-t border-border bg-white mt-2 mx-2 shadow-lg'>
             <div className='px-2 pt-2 pb-3 space-y-1'>
               {menuItems.map((item) => (
                 <Link
