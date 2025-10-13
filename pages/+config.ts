@@ -1,5 +1,6 @@
 import vikeReact from 'vike-react/config'
 import type { Config } from 'vike/types'
+import Head from '../layouts/Head.js'
 import Layout from '../layouts/LayoutDefault.js'
 
 // Default config (can be overridden by pages)
@@ -8,6 +9,7 @@ import Layout from '../layouts/LayoutDefault.js'
 export default {
   // https://vike.dev/Layout
   Layout,
+  Head,
 
   // https://vike.dev/head-tags
   title: 'Vocdoni - Blockchain Voting Technology',
