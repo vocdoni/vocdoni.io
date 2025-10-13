@@ -57,89 +57,89 @@ export function Services() {
   return (
     <section className='min-h-screen w-full grid grid-cols-1 lg:grid-cols-2'>
       {/* services Overview */}
-      <div className='bg-background flex flex-col items-center justify-center'>
-        <div className='w-full px-6 flex flex-col gap-6 '>
-          <p className='text-3xl font-medium'>→ {t('services.our_services', { defaultValue: 'Our Services' })}</p>
-          <p className='text-2xl md:text-3xl hidden lg:block leading-relaxed tracking-tight'>
-            {t('services.explanation', {
-              defaultValue:
-                'Whether you need a quick self-service vote, developer integration, or a fully customised governance solution, Vocdoni has you covered.',
-            })}
-          </p>
+      <div className='flex flex-col'>
+        <div className='flex-1 bg-background flex flex-col items-center justify-center'>
+          <div className='w-full px-6 flex flex-col gap-6'>
+            <p className='text-3xl font-medium'>→ {t('services.our_services', { defaultValue: 'Our Services' })}</p>
+            <p className='text-2xl md:text-3xl hidden lg:block leading-relaxed tracking-tight'>
+              {t('services.explanation', {
+                defaultValue:
+                  'Whether you need a quick self-service vote, developer integration, or a fully customised governance solution, Vocdoni has you covered.',
+              })}
+            </p>
+          </div>
         </div>
         <div className='hidden lg:block w-full px-6 py-6'>
           <Link href='/impact' className='block text-2xl font-semibold text-muted-foreground'>
-            {t('services.impact', { defaultValue: 'Impact in numbers' })} ↓
+            {t('services.impact', { defaultValue: 'Impact in Numbers' })} ↓
           </Link>
         </div>
       </div>
 
       {/* Accordion Container */}
-      <div className='md:border-l md:border-black/10 min-h-0'>
-        <div className='flex h-full min-h-0 flex-col justify-end'>
-          <Accordion
-            defaultValue='app'
-            value={open}
-            onValueChange={setOpen}
-            type='single'
-            className='w-full flex-1 min-h-0 flex flex-col'
-          >
-            {services.map((service) => {
-              const { id, bg, title, subtitle, description, buttonIcon, button, href } = service
+      <div className='md:border-l md:border-black/10 min-h-0 flex flex-col justify-end bg-[#FBE3D9]'>
+        <Accordion
+          defaultValue='app'
+          value={open}
+          onValueChange={setOpen}
+          type='single'
+          className='w-full min-h-0 flex flex-col'
+        >
+          {services.map((service) => {
+            const { id, bg, title, subtitle, description, buttonIcon, button, href } = service
 
-              return (
-                <AccordionItem
-                  key={id}
-                  value={id}
-                  className={cn(bg, 'border-none flex flex-col', 'data-[state=open]:flex-1')}
-                  onMouseEnter={() => setOpen(id)}
+            return (
+              <AccordionItem
+                key={id}
+                value={id}
+                className={cn(bg, 'border-none flex flex-col', 'data-[state=open]:flex-1')}
+                onMouseEnter={() => setOpen(id)}
+              >
+                <AccordionTrigger
+                  className={cn(
+                    bg,
+                    'group border-0 px-6 md:px-10 h-20 md:h-25',
+                    'text-left text-4xl md:text-4xl font-semibold',
+                    'hover:no-underline',
+                    '[&>svg]:hidden'
+                  )}
                 >
-                  <AccordionTrigger
-                    className={cn(
-                      bg,
-                      'group border-0 px-6 md:px-10 h-20 md:h-25',
-                      'text-left text-4xl md:text-4xl font-semibold',
-                      'hover:no-underline',
-                      '[&>svg]:hidden'
-                    )}
-                  >
-                    <div className='flex w-full items-center justify-between'>
-                      <span>{title}</span>
-                      <ArrowUpRight
-                        className={cn(
-                          'h-5 w-5 origin-center transition-transform duration-200',
-                          'group-data-[state=open]:rotate-90',
-                          'group-data-[state=open]:translate-x-0.5 group-data-[state=open]:-translate-y-0.5'
-                        )}
-                        aria-hidden='true'
-                      />
-                    </div>
-                  </AccordionTrigger>
+                  <div className='flex w-full items-center justify-between'>
+                    <span>{title}</span>
+                    <ArrowUpRight
+                      className={cn(
+                        'h-5 w-5 origin-center transition-transform duration-200',
+                        'group-data-[state=open]:rotate-90',
+                        'group-data-[state=open]:translate-x-0.5 group-data-[state=open]:-translate-y-0.5'
+                      )}
+                      aria-hidden='true'
+                    />
+                  </div>
+                </AccordionTrigger>
 
-                  <AccordionContent
-                    className={cn(
-                      bg,
-                      'border-0 px-6 md:px-10 py-4 text-lg md:text-lg h-full',
-                      'overflow-auto data-[state=open]:flex-1',
-                      'data-[state=open]:[&>div]:min-h-0 data-[state=open]:[&>div]:h-full',
-                      'flex flex-col justify-center gap-4'
-                    )}
-                  >
-                    <p className='mb-2 italic'>{subtitle}</p>
-                    <p className='max-w-2xl'>{description}</p>
-                    <div className='flex justify-end'>
-                      <Button asChild variant='outline' className='flex gap-2'>
-                        <Link href={href} target='_blank' rel='noopener noreferrer'>
-                          <p>{buttonIcon}</p> <p>{button}</p> <p>→</p>
-                        </Link>
-                      </Button>
-                    </div>
-                  </AccordionContent>
-                </AccordionItem>
-              )
-            })}
-          </Accordion>
-        </div>
+                <AccordionContent
+                  className={cn(
+                    bg,
+                    'border-0 px-6 md:px-10 py-4 text-lg md:text-lg h-full',
+                    'overflow-auto data-[state=open]:flex-1',
+                    'data-[state=open]:[&>div]:min-h-0 data-[state=open]:[&>div]:h-full',
+                    'flex flex-col justify-center gap-4'
+                  )}
+                >
+                  <p className='mb-2 italic'>{subtitle}</p>
+                  <p className='max-w-2xl'>{description}</p>
+                  <div className='flex justify-end'>
+                    <Button asChild variant='outline' className='flex gap-2'>
+                      <Link href={href} target='_blank' rel='noopener noreferrer'>
+                        <p>{buttonIcon}</p> <p>{button}</p> <p>→</p>
+                      </Link>
+                    </Button>
+                  </div>
+                </AccordionContent>
+              </AccordionItem>
+            )
+          })}
+        </Accordion>
       </div>
     </section>
   )

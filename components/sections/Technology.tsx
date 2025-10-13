@@ -52,32 +52,33 @@ export function Technology() {
   return (
     <section className='min-h-screen w-full grid grid-cols-1 lg:grid-cols-2'>
       {/* Technology Overview */}
-      <div className='bg-background flex flex-col items-center justify-center'>
-        <div className='w-full px-6 flex flex-col gap-6'>
-          <p className='text-3xl font-medium'>→ {t('technology.headline', { defaultValue: 'Technology' })}</p>
+      <div className='flex flex-col'>
+        <div className='flex-1 bg-background flex flex-col items-center justify-center'>
+          <div className='w-full px-6 flex flex-col gap-6'>
+            <p className='text-3xl font-medium'>→ {t('technology.headline', { defaultValue: 'Technology' })}</p>
+            <p className='text-2xl md:text-3xl hidden lg:block leading-relaxed tracking-tight'>
+              {t('technology.vision', {
+                defaultValue:
+                  'Our vision is simple: a world where collective decision–making can happen anywhere, from any device, transparently and securely. No intermediaries, no barriers.',
+              })}
+            </p>
 
-          <p className='text-2xl md:text-3xl leading-relaxed tracking-tight'>
-            {t('technology.vision', {
-              defaultValue:
-                'Our vision is simple: a world where collective decision–making can happen anywhere, from any device, transparently and securely. No intermediaries, no barriers.',
-            })}
-          </p>
-
-          <div className='hidden lg:block mb-10'>
-            <div className='flex flex-col gap-4'>
-              <p className='text-2xl md:text-3xl leading-relaxed tracking-tight'>
-                {t('technology.why', { defaultValue: 'Why?' })}
-              </p>
-              <p className='text-2xl md:text-3xl leading-relaxed tracking-tight'>
-                {t('technology.why_description', {
-                  defaultValue: 'Because fair, accessible governance should be a right, not a luxury.',
-                })}
-              </p>
-              <div>
-                <Button variant='outline' size='sm' className='mt-2'>
-                  {t('technology.cta', { defaultValue: 'Find out more' })}
-                  <ArrowUpRight className='ml-2 h-4 w-4' />
-                </Button>
+            <div className='hidden lg:block mb-10'>
+              <div className='flex flex-col gap-4'>
+                <p className='text-2xl md:text-3xl leading-relaxed tracking-tight'>
+                  {t('technology.why', { defaultValue: 'Why?' })}
+                </p>
+                <p className='text-2xl md:text-3xl leading-relaxed tracking-tight'>
+                  {t('technology.why_description', {
+                    defaultValue: 'Because fair, accessible governance should be a right, not a luxury.',
+                  })}
+                </p>
+                <div>
+                  <Button variant='outline' size='sm' className='mt-2'>
+                    {t('technology.cta', { defaultValue: 'Find out more' })}
+                    <ArrowUpRight className='ml-2 h-4 w-4' />
+                  </Button>
+                </div>
               </div>
             </div>
           </div>
@@ -90,52 +91,50 @@ export function Technology() {
       </div>
 
       {/* Accordion Container */}
-      <div className='relative md:border-l md:border-black/10 min-h-0'>
-        <div className='flex h-full min-h-0 flex-col justify-end'>
-          <Accordion
-            defaultValue='transparent'
-            value={open}
-            onValueChange={setOpen}
-            type='single'
-            className='w-full flex-1 min-h-0 flex flex-col'
-          >
-            {rows.map((r) => (
-              <AccordionItem
-                key={r.key}
-                value={r.key}
-                className={cn(r.bg, 'border-none flex flex-col', 'data-[state=open]:flex-1')}
-                onMouseEnter={() => setOpen(r.key)}
+      <div className='relative md:border-l md:border-black/10 min-h-0 flex flex-col justify-end bg-[#FFFBEA]'>
+        <Accordion
+          defaultValue='transparent'
+          value={open}
+          onValueChange={setOpen}
+          type='single'
+          className='w-full min-h-0 flex flex-col'
+        >
+          {rows.map((r) => (
+            <AccordionItem
+              key={r.key}
+              value={r.key}
+              className={cn(r.bg, 'border-none flex flex-col', 'data-[state=open]:flex-1')}
+              onMouseEnter={() => setOpen(r.key)}
+            >
+              <AccordionTrigger
+                className={cn(
+                  r.bg,
+                  'group border-0 px-6 md:px-10 h-20 md:h-25',
+                  'text-left text-4xl md:text-4xl font-semibold',
+                  'hover:no-underline',
+                  '[&>svg]:hidden'
+                )}
               >
-                <AccordionTrigger
-                  className={cn(
-                    r.bg,
-                    'group border-0 px-6 md:px-10 h-20 md:h-25',
-                    'text-left text-4xl md:text-4xl font-semibold',
-                    'hover:no-underline',
-                    '[&>svg]:hidden'
-                  )}
-                >
-                  <div className='flex w-full items-center justify-between'>
-                    <span>{r.label}</span>
-                    <ArrowUpRight
-                      className='
+                <div className='flex w-full items-center justify-between'>
+                  <span>{r.label}</span>
+                  <ArrowUpRight
+                    className='
             h-5 w-5 origin-center
             transition-transform duration-200
             group-data-[state=open]:rotate-90
             group-data-[state=open]:translate-x-0.5 group-data-[state=open]:-translate-y-0.5
           '
-                      aria-hidden='true'
-                    />
-                  </div>
-                </AccordionTrigger>
+                    aria-hidden='true'
+                  />
+                </div>
+              </AccordionTrigger>
 
-                <AccordionContent className={cn(r.bg, 'border-0', 'px-6 md:px-10 py-4 text-lg md:text-lg')}>
-                  <p className='max-w-2xl'>{r.description}</p>
-                </AccordionContent>
-              </AccordionItem>
-            ))}
-          </Accordion>
-        </div>
+              <AccordionContent className={cn(r.bg, 'border-0', 'px-6 md:px-10 py-4 text-lg md:text-lg')}>
+                <p className='max-w-2xl'>{r.description}</p>
+              </AccordionContent>
+            </AccordionItem>
+          ))}
+        </Accordion>
       </div>
     </section>
   )
