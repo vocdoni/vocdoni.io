@@ -1,87 +1,65 @@
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
+import { ArrowUpRight } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
+import { Textarea } from '../ui/textarea'
 
 export function Contact() {
   const { t } = useTranslation()
   return (
-    <div className='h-screen w-full flex items-center justify-center bg-muted/30'>
-      <div className='max-w-4xl mx-auto px-4'>
-        <div className='text-center mb-12'>
-          <h1 className='text-4xl md:text-6xl font-bold text-foreground mb-6'>
-            {t('contact.headline', { defaultValue: 'Contact' })}
-          </h1>
-          <p className='text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto'>
-            {t('contact.subtitle', {
-              defaultValue:
-                'Ready to revolutionize your voting process? Get in touch with our team to discuss your requirements and see how Vocdoni can help.',
+    <div className='min-h-screen w-full grid grid-cols-1 lg:grid-cols-2'>
+      {/* Contact Overview */}
+      <div className='flex-1 bg-background flex flex-col items-center justify-center'>
+        <div className='w-full px-6 flex flex-col gap-6'>
+          <p className='text-lg font-medium mb-6'>
+            → {t('contact.want_to_talk', { defaultValue: 'Want to talk with us?' })}
+          </p>
+          <h2 className='text-[clamp(2rem,6vw,3.8rem)] leading-tight font-semibold max-w-[22ch]'>
+            {t('contact.description', { defaultValue: 'Let’s Build the Future of Governance' })}
+          </h2>
+        </div>
+      </div>
+
+      {/* Contact Form */}
+      <div className='flex-1 bg-background flex flex-col justify-center px-6'>
+        <form className='grid grid-cols-1 lg:grid-cols-2 gap-3'>
+          <Input
+            required
+            placeholder={t('contact.name_placeholder', { defaultValue: 'Name' })}
+            className='h-11 bg-[#ECEEF2] border-0 placeholder:text-foreground/70 text-sm'
+          />
+          <Input
+            placeholder={t('contact.company_placeholder', { defaultValue: 'Company' })}
+            className='h-11 bg-[#ECEEF2] border-0 placeholder:text-foreground/70 text-sm'
+          />
+          <Input
+            type='email'
+            required
+            placeholder={t('contact.email_placeholder', { defaultValue: 'Email' })}
+            className='lg:col-span-2 h-11 bg-[#ECEEF2] border-0 placeholder:text-foreground/70 text-sm'
+          />
+          <Textarea
+            placeholder={t('contact.message_placeholder', { defaultValue: 'Message' })}
+            className='lg:col-span-2 min-h-40 bg-[#ECEEF2] border-0 placeholder:text-foreground/70 text-sm resize-y'
+          />
+
+          <p className='lg:col-span-2 text-xs'>
+            {t('contact.disclaimer', {
+              defaultValue: 'By clicking the “Submit” button, you agree to the privacy policy.',
             })}
           </p>
-        </div>
 
-        <div className='grid grid-cols-1 md:grid-cols-2 gap-12 items-start'>
-          {/* Contact Form */}
-          <div className='bg-card p-6 rounded-lg border'>
-            <h3 className='text-2xl font-semibold mb-6'>
-              {t('contact.form_title', { defaultValue: 'Send us a message' })}
-            </h3>
-            <form className='space-y-4'>
-              <div>
-                <Input placeholder={t('contact.name_placeholder', { defaultValue: 'Your Name' })} className='w-full' />
-              </div>
-              <div>
-                <Input
-                  type='email'
-                  placeholder={t('contact.email_placeholder', { defaultValue: 'Email Address' })}
-                  className='w-full'
-                />
-              </div>
-              <div>
-                <Input placeholder={t('contact.company_placeholder', { defaultValue: 'Company' })} className='w-full' />
-              </div>
-              <div>
-                <textarea
-                  placeholder={t('contact.message_placeholder', { defaultValue: 'Tell us about your project...' })}
-                  className='w-full min-h-32 px-3 py-2 text-base ring-offset-background border border-input bg-background rounded-md placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 resize-none'
-                />
-              </div>
-              <Button className='w-full'>{t('contact.submit_button', { defaultValue: 'Send Message' })}</Button>
-            </form>
+          <div className='lg:col-span-2 mt-4'>
+            <Button
+              type='submit'
+              size='sm'
+              className='px-3 bg-[#D7C2A6] text-foreground hover:opacity-90 border border-black/10'
+            >
+              {t('contact.submit_button', { defaultValue: 'Submit' })}
+              <ArrowUpRight className='ml-2 h-4 w-4' />
+            </Button>
           </div>
-
-          {/* Contact Info */}
-          <div className='space-y-8'>
-            <div>
-              <h3 className='text-2xl font-semibold mb-6'>{t('contact.title', { defaultValue: 'Get in Touch' })}</h3>
-              <div className='space-y-4'>
-                <div>
-                  <h4 className='font-medium mb-2'>{t('contact.email', { defaultValue: 'Email' })}</h4>
-                  <p className='text-muted-foreground'>hello@vocdoni.io</p>
-                </div>
-                <div>
-                  <h4 className='font-medium mb-2'>{t('contact.location', { defaultValue: 'Location' })}</h4>
-                  <p className='text-muted-foreground'>
-                    {t('contact.location_value', { defaultValue: 'Barcelona, Spain' })}
-                  </p>
-                </div>
-                <div>
-                  <h4 className='font-medium mb-2'>{t('contact.follow_us', { defaultValue: 'Follow Us' })}</h4>
-                  <div className='flex space-x-4'>
-                    <Button variant='outline' size='sm'>
-                      Twitter
-                    </Button>
-                    <Button variant='outline' size='sm'>
-                      GitHub
-                    </Button>
-                    <Button variant='outline' size='sm'>
-                      LinkedIn
-                    </Button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        </form>
       </div>
     </div>
   )
