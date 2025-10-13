@@ -1,14 +1,15 @@
 import { Navigation } from '@/components/Navigation'
-import { SectionScroller } from '@/components/SectionScroller'
-import { StaticFallback } from '@/components/StaticFallback'
-import { useIsClient } from '@/lib/useIsClient'
-import { useUrlSync } from '@/lib/useUrlSync'
 import { Contact } from '@/components/sections/Contact'
 import { Explore } from '@/components/sections/Explore'
+import { Impact } from '@/components/sections/Impact'
 import { Landing } from '@/components/sections/Landing'
 import { Product } from '@/components/sections/Product'
 import { Services } from '@/components/sections/Services'
 import { Technology } from '@/components/sections/Technology'
+import { SectionScroller } from '@/components/SectionScroller'
+import { StaticFallback } from '@/components/StaticFallback'
+import { useIsClient } from '@/lib/useIsClient'
+import { useUrlSync } from '@/lib/useUrlSync'
 
 export default function Page() {
   const isClient = useIsClient()
@@ -33,6 +34,7 @@ export default function Page() {
         <Technology />
         <Services />
         <Product />
+        <Impact />
         <Contact />
       </SectionScroller>
     </>

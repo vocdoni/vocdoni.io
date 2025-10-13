@@ -56,6 +56,14 @@ export const SECTIONS: Section[] = [
     appearsOnMenu: true,
   },
   {
+    path: '/impact',
+    name: 'impact',
+    title: 'Vocdoni - Impact',
+    label: 'Impact',
+    description: "Explore the impact of Vocdoni's technology on democratic participation and voting processes.",
+    appearsOnMenu: true,
+  },
+  {
     path: '/contact',
     name: 'contact',
     title: 'Vocdoni - Contact Us',
