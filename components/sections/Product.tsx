@@ -1,51 +1,114 @@
-import { Button } from '@/components/ui/button'
+import { cn } from '@/lib/utils'
+import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { Link } from '../Link'
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '../ui/accordion'
+
+const steps = [
+  {
+    id: 'step1',
+    title: 'Create your organization',
+    description: 'Sign up and create your organization.',
+    img: '/assets/steps/org.png',
+  },
+  {
+    id: 'step2',
+    title: 'Upload your memberbase',
+    description: 'Upload your memberbase and create a group of eligible voters.',
+    img: '/assets/steps/upload.png',
+  },
+  {
+    id: 'step3',
+    title: 'Run a vote',
+    description:
+      'Create a vote with the chosen census and settings, then share the link so eligible voters can participate.',
+    img: '/assets/steps/run.png',
+  },
+  {
+    id: 'step4',
+    title: 'See the results',
+    description: 'Results are computed instantly, verifiable by anyone.',
+    img: '/assets/steps/results.png',
+  },
+]
 
 export function Product() {
   const { t } = useTranslation()
+  const [open, setOpen] = useState<string | undefined>(undefined)
+
   return (
-    <div className='h-screen flex items-center justify-center bg-background'>
-      <div className='max-w-4xl mx-auto px-4 text-center'>
-        <h1 className='text-4xl md:text-6xl font-bold text-foreground mb-6'>
-          {t('product.headline', { defaultValue: 'Product' })}
-        </h1>
-        <p className='text-lg md:text-xl text-muted-foreground mb-8 max-w-2xl mx-auto'>
-          {t('product.description', {
-            defaultValue:
-              'The Vocdoni Platform delivers enterprise-grade voting solutions with unmatched security, scalability, and user experience for any size organization.',
-          })}
-        </p>
-        <div className='flex flex-col sm:flex-row gap-4 justify-center mb-12'>
-          <Button size='lg' className='px-8'>
-            {t('product.try_demo', { defaultValue: 'Try Demo' })}
-          </Button>
-          <Button variant='outline' size='lg' className='px-8'>
-            {t('product.view_features', { defaultValue: 'View Features' })}
-          </Button>
+    <div className='min-h-screen w-full grid grid-cols-1 lg:grid-cols-2'>
+      {/* Impact Overview */}
+      <div className='flex flex-col order-2 lg:order-1'>
+        <div className='flex-1 bg-background flex flex-col items-center justify-center'>
+          <div className='w-full px-6 flex flex-col gap-6'>
+            <div className='flex-col gap-6 hidden lg:flex'>
+              <p className='text-3xl font-medium'>
+                → {t('product.title', { defaultValue: 'How we make secure voting simple' })}
+              </p>
+              <p className='text-2xl md:text-3xl hidden lg:block leading-relaxed tracking-tight'>
+                {t('product.description', {
+                  defaultValue:
+                    'With Vocdoni APP, you can create a secure vote in just 4 steps and without previous experience.',
+                })}
+              </p>
+            </div>
+            <Accordion
+              defaultValue='app'
+              value={open}
+              onValueChange={setOpen}
+              type='single'
+              className='w-full min-h-0 flex flex-col'
+            >
+              {steps.map((step, i) => {
+                const { id, title, description, img } = step
+                const index = i + 1
+
+                return (
+                  <AccordionItem
+                    key={id}
+                    value={id}
+                    className=' flex flex-col data-[state=open]:flex-1'
+                    onMouseEnter={() => setOpen(id)}
+                  >
+                    <AccordionTrigger
+                      className={cn(
+                        'group border-0 hover:no-underline [&>svg]:hidden',
+                        'text-left text-2xl md:text-4xl font-semibold'
+                      )}
+                    >
+                      <div className='flex w-full items-start gap-3'>
+                        <span className='flex-1'>
+                          {index}. {title}
+                        </span>
+                      </div>
+                    </AccordionTrigger>
+
+                    <AccordionContent
+                      className={cn(
+                        'border-0 px-6 md:px-10 py-4 text-lg md:text-lg h-full',
+                        'overflow-hidden data-[state=open]:flex-1',
+                        'data-[state=open]:[&>div]:min-h-0 data-[state=open]:[&>div]:h-full',
+                        'flex flex-col justify-center gap-4'
+                      )}
+                    >
+                      <p className='max-w-2xl'>{description}</p>
+                    </AccordionContent>
+                  </AccordionItem>
+                )
+              })}
+            </Accordion>
+          </div>
         </div>
-        <div className='grid grid-cols-1 md:grid-cols-2 gap-8 text-left'>
-          <div>
-            <h3 className='text-2xl font-semibold mb-4'>
-              {t('product.key_features', { defaultValue: 'Key Features' })}
-            </h3>
-            <ul className='space-y-2 text-muted-foreground'>
-              <li>• {t('product.feature1', { defaultValue: 'End-to-end encryption' })}</li>
-              <li>• {t('product.feature2', { defaultValue: 'Anonymous voting' })}</li>
-              <li>• {t('product.feature3', { defaultValue: 'Real-time results' })}</li>
-              <li>• {t('product.feature4', { defaultValue: 'Multi-platform access' })}</li>
-            </ul>
-          </div>
-          <div>
-            <h3 className='text-2xl font-semibold mb-4'>{t('product.benefits', { defaultValue: 'Benefits' })}</h3>
-            <ul className='space-y-2 text-muted-foreground'>
-              <li>• {t('product.benefit1', { defaultValue: 'Increased participation' })}</li>
-              <li>• {t('product.benefit2', { defaultValue: 'Cost reduction' })}</li>
-              <li>• {t('product.benefit3', { defaultValue: 'Complete transparency' })}</li>
-              <li>• {t('product.benefit4', { defaultValue: 'Instant verification' })}</li>
-            </ul>
-          </div>
+        <div className='hidden lg:block w-full px-6 py-6'>
+          <Link href='/stories' className='block text-2xl font-semibold text-muted-foreground'>
+            {t('product.the_vocdoni_advantage', { defaultValue: 'The Vocdoni Advantage' })} ↓
+          </Link>
         </div>
       </div>
+
+      {/* Images */}
+      <div className='grid w-full h-full min-h-[420px] grid-cols-1 lg:grid-cols-2 order-1 lg:order-2'></div>
     </div>
   )
 }
