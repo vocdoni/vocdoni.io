@@ -61,7 +61,7 @@ export function Services() {
         <div className='flex-1 bg-background flex flex-col items-center justify-center'>
           <div className='w-full px-6 flex flex-col gap-6'>
             <p className='text-3xl font-medium'>→ {t('services.our_services', { defaultValue: 'Our Services' })}</p>
-            <p className='text-2xl md:text-3xl hidden lg:block leading-relaxed tracking-tight'>
+            <p className='text-2xl md:text-3xl leading-relaxed tracking-tight'>
               {t('services.explanation', {
                 defaultValue:
                   'Whether you need a quick self-service vote, developer integration, or a fully customised governance solution, Vocdoni has you covered.',
@@ -79,6 +79,7 @@ export function Services() {
       {/* Accordion Container */}
       <div className='md:border-l md:border-black/10 min-h-0 flex flex-col justify-end bg-[#FBE3D9]'>
         <Accordion
+          collapsible
           defaultValue='app'
           value={open}
           onValueChange={setOpen}

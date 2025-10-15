@@ -56,7 +56,7 @@ export function Technology() {
         <div className='flex-1 bg-background flex flex-col items-center justify-center'>
           <div className='w-full px-6 flex flex-col gap-6'>
             <p className='text-3xl font-medium'>→ {t('technology.headline', { defaultValue: 'Technology' })}</p>
-            <p className='text-2xl md:text-3xl hidden lg:block leading-relaxed tracking-tight'>
+            <p className='text-2xl md:text-3xl leading-relaxed tracking-tight'>
               {t('technology.vision', {
                 defaultValue:
                   'Our vision is simple: a world where collective decision–making can happen anywhere, from any device, transparently and securely. No intermediaries, no barriers.',
@@ -93,6 +93,7 @@ export function Technology() {
       {/* Accordion Container */}
       <div className='relative md:border-l md:border-black/10 min-h-0 flex flex-col justify-end bg-[#FFFBEA]'>
         <Accordion
+          collapsible
           defaultValue='transparent'
           value={open}
           onValueChange={setOpen}
