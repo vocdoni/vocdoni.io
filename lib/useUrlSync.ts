@@ -56,6 +56,14 @@ export const SECTIONS: Section[] = [
     appearsOnMenu: true,
   },
   {
+    path: '/advantages',
+    name: 'advantages',
+    title: 'Vocdoni - Advantages',
+    label: 'Advantages',
+    description: 'Discover the unique advantages of using Vocdoni for secure and transparent voting.',
+    appearsOnMenu: true,
+  },
+  {
     path: '/impact',
     name: 'impact',
     title: 'Vocdoni - Impact',
@@ -63,6 +71,7 @@ export const SECTIONS: Section[] = [
     description: "Explore the impact of Vocdoni's technology on democratic participation and voting processes.",
     appearsOnMenu: true,
   },
+
   {
     path: '/contact',
     name: 'contact',

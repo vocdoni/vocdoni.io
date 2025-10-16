@@ -1,4 +1,5 @@
 import { Navigation } from '@/components/Navigation'
+import { Advantages } from '@/components/sections/Advantages'
 import { Contact } from '@/components/sections/Contact'
 import { Explore } from '@/components/sections/Explore'
 import { Impact } from '@/components/sections/Impact'
@@ -34,6 +35,7 @@ export default function Page() {
         <Technology />
         <Services />
         <Product />
+        <Advantages />
         <Impact />
         <Contact />
       </SectionScroller>
