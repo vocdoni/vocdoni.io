@@ -2,6 +2,7 @@ import { Navigation } from '@/components/Navigation'
 import { Advantages } from '@/components/sections/Advantages'
 import { Contact } from '@/components/sections/Contact'
 import { Explore } from '@/components/sections/Explore'
+import { Footer } from '@/components/sections/Footer'
 import { Impact } from '@/components/sections/Impact'
 import { Landing } from '@/components/sections/Landing'
 import { Product } from '@/components/sections/Product'
@@ -38,6 +39,7 @@ export default function Page() {
         <Advantages />
         <Impact />
         <Contact />
+        <Footer />
       </SectionScroller>
     </>
   )

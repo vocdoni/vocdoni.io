@@ -81,6 +81,13 @@ export const SECTIONS: Section[] = [
       'Ready to revolutionize your voting process? Get in touch with our team to discuss your requirements and see how Vocdoni can help.',
     appearsOnMenu: true,
   },
+  {
+    path: '/footer',
+    name: 'footer',
+    title: 'Vocdoni - Footer',
+    description: 'Footer section of Vocdoni website.',
+    appearsOnMenu: false,
+  },
 ] as const
 
 export type SectionPath = (typeof SECTIONS)[number]['path']

@@ -2,6 +2,7 @@ import { Navigation } from '@/components/Navigation'
 import { Advantages } from './sections/Advantages'
 import { Contact } from './sections/Contact'
 import { Explore } from './sections/Explore'
+import { Footer } from './sections/Footer'
 import { Impact } from './sections/Impact'
 import { Landing } from './sections/Landing'
 import { Product } from './sections/Product'
@@ -41,6 +42,9 @@ export function StaticFallback({ activeSection = 0, onNavigate }: StaticFallback
         </div>
         <div id='section-7' className='min-h-screen'>
           <Contact />
+        </div>
+        <div id='section-8' className='min-h-screen'>
+          <Footer />
         </div>
       </div>
     </div>
