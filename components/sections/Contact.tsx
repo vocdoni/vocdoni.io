@@ -11,10 +11,10 @@ export function Contact() {
       {/* Contact Overview */}
       <div className='flex-1 bg-background flex flex-col items-center justify-center'>
         <div className='w-full px-6 flex flex-col gap-6'>
-          <p className='text-lg font-medium mb-6'>
+          <p className='text-2xl lg:text-3xl font-medium mb-6'>
             → {t('contact.want_to_talk', { defaultValue: 'Want to talk with us?' })}
           </p>
-          <h2 className='text-[clamp(2rem,6vw,3.8rem)] leading-tight font-semibold max-w-[22ch]'>
+          <h2 className='text-4xl leading-tight font-semibold'>
             {t('contact.description', { defaultValue: 'Let’s Build the Future of Governance' })}
           </h2>
         </div>
