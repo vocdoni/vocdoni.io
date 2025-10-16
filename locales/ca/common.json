@@ -1,22 +1,61 @@
 {
+  "advantage": {
+    "description": "See how Vocdoni outperforms traditional and digital voting platforms in security, cost, scalability, and transparency, with the added power of open-source technology.",
+    "title": "The Vocdoni advantage"
+  },
   "contact": {
     "company_placeholder": "Empresa",
-    "email": "Correu electrònic",
+    "description": "Let’s Build the Future of Governance",
+    "disclaimer": "By clicking the “Submit” button, you agree to the privacy policy.",
     "email_placeholder": "Adreça de correu electrònic",
-    "follow_us": "Segueix-nos",
-    "form_title": "Envia’ns un missatge",
-    "headline": "Contacte",
-    "location": "Ubicació",
-    "location_value": "Barcelona, Espanya",
     "message_placeholder": "Explica’ns el teu projecte...",
     "name_placeholder": "El teu nom",
     "submit_button": "Envia el missatge",
-    "subtitle": "Preparat per revolucionar el teu procés de votació? Posa’t en contacte amb el nostre equip per parlar de les teves necessitats i descobrir com Vocdoni et pot ajudar.",
-    "title": "Posa’t en contacte"
+    "want_to_talk": "Want to talk with us?"
   },
   "explore": {
     "headline": "Vocdoni ofereix tecnologia de votació digital <6>🗳️</6> segura <1>🔒</1> i centrada en la privadesa <4>🕶️</4> que apodera comunitats, associacions i institucions perquè prenguin decisions col·lectives amb total transparència, privadesa i confiança. <8>🤝</8>",
     "trusted_by": "Amb la confiança de"
+  },
+  "features": {
+    "cost_efficiency": "Cost-Efficiency",
+    "other": {
+      "cost_efficiency": "Moderate to high",
+      "privacy_security": "Varies, often centralized",
+      "remote_accessibility": "Limited platforms",
+      "scalability": "Limited load capacity",
+      "sustainability": "Moderate impact",
+      "transparency": "Opaque systems"
+    },
+    "privacy_security": "Privacy & Security",
+    "remote_accessibility": "Remote Accessibility",
+    "scalability": "Scalability",
+    "sustainability": "Sustainability",
+    "title": "Features",
+    "traditional": {
+      "cost_efficiency": "High logistics costs",
+      "privacy_security": "Paper secrecy",
+      "remote_accessibility": "In-person only",
+      "scalability": "Slow, resource-heavy",
+      "sustainability": "High paper/travel waste",
+      "transparency": "Manual counts"
+    },
+    "transparency": "Transparency",
+    "vocdoni": {
+      "cost_efficiency": "≈10× cheaper",
+      "privacy_security": "End-to-end encryption",
+      "remote_accessibility": "Vote anywhere, any device",
+      "scalability": "Millions of votes, global",
+      "sustainability": "Paperless, low carbon",
+      "transparency": "Fully auditable, open-source"
+    }
+  },
+  "impact": {
+    "average_turnout": "Average turnout when using Vocdoni",
+    "cheaper_than_alternatives": "Cheaper than alternatives",
+    "description": "Transforming governance, one vote at a time. Our technology drives participation, reduces costs, and provides secure participation with the best user experience.",
+    "real_stories": "Real Stories, Real Impact",
+    "votes_processed": "Votes processed"
   },
   "landing": {
     "explore": "Explora Vocdoni",
@@ -28,36 +67,46 @@
   "navigation": {
     "login": "Inicia sessió"
   },
+  "plans": {
+    "other": "Other Digital Voting",
+    "traditional": "Traditional Voting",
+    "vocdoni": "Vocdoni"
+  },
   "product": {
-    "benefit1": "Més participació",
-    "benefit2": "Reducció de costos",
-    "benefit3": "Transparència total",
-    "benefit4": "Verificació instantània",
-    "benefits": "Avantatges",
     "description": "La plataforma Vocdoni ofereix solucions de votació d’alt nivell empresarial amb una seguretat, escalabilitat i experiència d’usuari inigualables, per a organitzacions de qualsevol mida.",
-    "feature1": "Xifratge d’extrem a extrem",
-    "feature2": "Votació anònima",
-    "feature3": "Resultats en temps real",
-    "feature4": "Accés multiplataforma",
-    "headline": "Producte",
-    "key_features": "Característiques principals",
-    "try_demo": "Prova la demo",
-    "view_features": "Mostra les característiques"
+    "the_vocdoni_advantage": "The Vocdoni Advantage",
+    "title": "How we make secure voting simple"
   },
   "services": {
-    "consultation": "Consultoria",
-    "consultation_description": "Assessorament expert per a les teves necessitats de votació",
-    "description": "Solucions integrals per a organitzacions que busquen sistemes de votació segurs, transparents i eficients. Des de la consultoria fins a la implementació i el suport tècnic.",
-    "headline": "Serveis",
-    "implementation": "Implementació",
-    "implementation_description": "Desplegament i integració sense complicacions",
-    "support": "Suport",
-    "support_description": "Assistència tècnica i manteniment 24/7"
+    "app": "APP",
+    "app_button": "Start your vote",
+    "app_desc": "Run secure elections in minutes with our easy-to-use app. Perfect for associations, towns, cooperatives, or organizations that need simple, secure, and accessible voting without technical complexity.",
+    "app_desc_intro": "Quick, self-service digital voting.",
+    "explanation": "Whether you need a quick self-service vote, developer integration, or a fully customised governance solution, Vocdoni has you covered.",
+    "impact": "Impact in Numbers",
+    "our_services": "Our Services",
+    "projects": "Projects",
+    "projects_button": "Request a Custom Solution",
+    "projects_desc": "For governments, enterprises, and large organizations that need tailored governance systems, we provide end-to-end solutions with expert support and dedicated infrastructure.",
+    "projects_desc_intro": "Custom solutions for institutions.",
+    "sdk": "SDK",
+    "sdk_button": "Explore the SDK",
+    "sdk_desc": "Our Software Development Kit lets you seamlessly integrate Vocdoni’s secure voting infrastructure into your own platforms. Scalable, open-source, and flexible for advanced customization.",
+    "sdk_desc_intro": "Built for developers and integrators."
   },
   "technology": {
-    "description": "Tecnologia blockchain d’avantguarda que impulsa el futur de la participació democràtica. La nostra infraestructura de votació descentralitzada garanteix transparència, seguretat i accessibilitat.",
-    "documentation": "Documentació",
-    "explore": "Explora la nostra tecnologia",
-    "headline": "Tecnologia"
+    "accessible": "Accessible",
+    "accessible_desc": "Anyone, anywhere, from any device can take part. Designed for inclusivity, Vocdoni removes barriers so every voice can be heard, without technical or geographical limitations.",
+    "cta": "Find out more",
+    "efficient": "Efficient",
+    "efficient_desc": "From a small cooperative to a national election, Vocdoni scales seamlessly. It’s fast, cost-effective, and sustainable, cutting costs and environmental impact compared to traditional methods.",
+    "headline": "Tecnologia",
+    "secure": "Secure",
+    "secure_desc": "Advanced cryptography and zero-knowledge proofs keep every vote secret while keeping results fully verifiable. Voters remain anonymous, yet the election outcome is beyond doubt.",
+    "transparent": "Transparent",
+    "transparent_desc": "Every process is open-source and fully auditable. From ballot creation to vote counting, anyone can verify the integrity of the election, eliminating the need for blind trust in intermediaries.",
+    "vision": "Our vision is simple: a world where collective decision–making can happen anywhere, from any device, transparently and securely. No intermediaries, no barriers.",
+    "why": "Why?",
+    "why_description": "Because fair, accessible governance should be a right, not a luxury."
   }
 }

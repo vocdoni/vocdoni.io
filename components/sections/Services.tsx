@@ -71,7 +71,7 @@ export function Services() {
         </div>
         <div className='hidden lg:block w-full px-6 py-6'>
           <Link href='/impact' className='block text-2xl font-semibold text-muted-foreground'>
-            {t('services.impact', { defaultValue: 'Impact in Numbers' })} ↓
+            {t('services.impact', { defaultValue: 'Impact in numbers' })} ↓
           </Link>
         </div>
       </div>
