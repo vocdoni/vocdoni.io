@@ -1,43 +1,49 @@
 import { cn } from '@/lib/utils'
+import { ArrowUpRight } from 'lucide-react'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link } from '../Link'
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '../ui/accordion'
+import { Button } from '../ui/button'
 
 const steps = [
   {
     id: 'step1',
     title: 'Create your organization',
     description: 'Sign up and create your organization.',
-    img: '/assets/steps/org.png',
+    img: '/assets/product/org.png',
   },
   {
     id: 'step2',
     title: 'Upload your memberbase',
     description: 'Upload your memberbase and create a group of eligible voters.',
-    img: '/assets/steps/upload.png',
+    img: '/assets/product/upload.png',
   },
   {
     id: 'step3',
     title: 'Run a vote',
     description:
       'Create a vote with the chosen census and settings, then share the link so eligible voters can participate.',
-    img: '/assets/steps/run.png',
+    img: '/assets/product/run.png',
   },
   {
     id: 'step4',
     title: 'See the results',
     description: 'Results are computed instantly, verifiable by anyone.',
-    img: '/assets/steps/results.png',
+    img: '/assets/product/results.png',
   },
 ]
 
 export function Product() {
   const { t } = useTranslation()
-  const [open, setOpen] = useState<string | undefined>(undefined)
+  const [open, setOpen] = useState<string>('step1')
+
+  const currentStep = steps.find((s) => s.id === open)
+  const currentImg = currentStep?.img
+  const currentAlt = currentStep?.title
 
   return (
-    <div className='min-h-screen w-full grid grid-cols-1 lg:grid-cols-2'>
+    <div className='min-h-screen w-full grid grid-rows-2 lg:grid-rows-1 grid-cols-1 lg:grid-cols-2'>
       {/* Impact Overview */}
       <div className='flex flex-col order-2 lg:order-1'>
         <div className='flex-1 bg-background flex flex-col items-center justify-center'>
@@ -54,14 +60,14 @@ export function Product() {
               </p>
             </div>
             <Accordion
-              defaultValue='app'
+              defaultValue='step1'
               value={open}
               onValueChange={setOpen}
               type='single'
               className='w-full min-h-0 flex flex-col'
             >
               {steps.map((step, i) => {
-                const { id, title, description, img } = step
+                const { id, title, description } = step
                 const index = i + 1
 
                 return (
@@ -101,14 +107,27 @@ export function Product() {
           </div>
         </div>
         <div className='hidden lg:block w-full px-6 py-6'>
-          <Link href='/stories' className='block text-2xl font-semibold text-muted-foreground'>
+          <Link href='/advantages' className='block text-2xl font-semibold text-muted-foreground'>
             {t('product.the_vocdoni_advantage', { defaultValue: 'The Vocdoni Advantage' })} ↓
           </Link>
         </div>
       </div>
 
       {/* Images */}
-      <div className='grid w-full h-full min-h-[420px] grid-cols-1 lg:grid-cols-2 order-1 lg:order-2'></div>
+      <div className='relative order-1 lg:order-2 w-full h-full min-h-0 overflow-hidden'>
+        <img
+          key={currentImg}
+          src={currentImg}
+          alt={currentAlt}
+          className='absolute inset-0 w-full h-full object-cover -z-10 pointer-events-none select-none transition-opacity duration-300'
+          decoding='async'
+        />
+
+        {/* Botón superpuesto */}
+        <Button variant='outline' className='absolute left-4 bottom-4 z-10'>
+          {t('product.go_to_app', { defaultValue: 'Go to APP' })} <ArrowUpRight className='ml-2 h-4 w-4' />
+        </Button>
+      </div>
     </div>
   )
 }
