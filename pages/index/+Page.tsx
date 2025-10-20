@@ -36,10 +36,10 @@ export default function Page() {
         <Explore />
         <Technology />
         <Services />
-        <Product />
-        <Testimonials />
-        <Advantages />
         <Impact />
+        <Testimonials />
+        <Product />
+        <Advantages />
         <Contact />
         <Footer />
       </SectionScroller>

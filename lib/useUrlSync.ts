@@ -47,12 +47,11 @@ export const SECTIONS: Section[] = [
     appearsOnMenu: true,
   },
   {
-    path: '/product',
-    name: 'product',
-    title: 'Vocdoni - Voting Platform & Product',
-    label: 'Product',
-    description:
-      'Enterprise-grade voting platform delivering unmatched security, scalability, and user experience for any size organization.',
+    path: '/impact',
+    name: 'impact',
+    title: 'Vocdoni - Impact',
+    label: 'Impact',
+    description: "Explore the impact of Vocdoni's technology on democratic participation and voting processes.",
     appearsOnMenu: true,
   },
   {
@@ -64,19 +63,21 @@ export const SECTIONS: Section[] = [
     appearsOnMenu: true,
   },
   {
+    path: '/product',
+    name: 'product',
+    title: 'Vocdoni - Voting Platform & Product',
+    label: 'Product',
+    description:
+      'Enterprise-grade voting platform delivering unmatched security, scalability, and user experience for any size organization.',
+    appearsOnMenu: true,
+  },
+
+  {
     path: '/advantages',
     name: 'advantages',
     title: 'Vocdoni - Advantages',
     label: 'Advantages',
     description: 'Discover the unique advantages of using Vocdoni for secure and transparent voting.',
-    appearsOnMenu: true,
-  },
-  {
-    path: '/impact',
-    name: 'impact',
-    title: 'Vocdoni - Impact',
-    label: 'Impact',
-    description: "Explore the impact of Vocdoni's technology on democratic participation and voting processes.",
     appearsOnMenu: true,
   },
 

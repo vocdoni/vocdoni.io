@@ -33,16 +33,16 @@ export function StaticFallback({ activeSection = 0, onNavigate }: StaticFallback
           <Services />
         </div>
         <div id='section-4' className='min-h-screen'>
-          <Product />
+          <Impact />
         </div>
         <div id='section-5' className='min-h-screen'>
           <Testimonials />
         </div>
         <div id='section-6' className='min-h-screen'>
-          <Advantages />
+          <Product />
         </div>
         <div id='section-7' className='min-h-screen'>
-          <Impact />
+          <Advantages />
         </div>
         <div id='section-8' className='min-h-screen'>
           <Contact />
