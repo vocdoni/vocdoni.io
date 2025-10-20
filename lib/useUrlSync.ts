@@ -56,6 +56,14 @@ export const SECTIONS: Section[] = [
     appearsOnMenu: true,
   },
   {
+    path: '/testimonials',
+    name: 'testimonials',
+    title: 'Vocdoni - Testimonials',
+    label: 'Testimonials',
+    description: 'Hear from our satisfied clients about their experiences with Vocdoni.',
+    appearsOnMenu: true,
+  },
+  {
     path: '/advantages',
     name: 'advantages',
     title: 'Vocdoni - Advantages',

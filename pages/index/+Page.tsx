@@ -8,6 +8,7 @@ import { Landing } from '@/components/sections/Landing'
 import { Product } from '@/components/sections/Product'
 import { Services } from '@/components/sections/Services'
 import { Technology } from '@/components/sections/Technology'
+import { Testimonials } from '@/components/sections/Testimonials'
 import { SectionScroller } from '@/components/SectionScroller'
 import { StaticFallback } from '@/components/StaticFallback'
 import { useIsClient } from '@/lib/useIsClient'
@@ -36,6 +37,7 @@ export default function Page() {
         <Technology />
         <Services />
         <Product />
+        <Testimonials />
         <Advantages />
         <Impact />
         <Contact />

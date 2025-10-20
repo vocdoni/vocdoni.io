@@ -8,6 +8,7 @@ import { Landing } from './sections/Landing'
 import { Product } from './sections/Product'
 import { Services } from './sections/Services'
 import { Technology } from './sections/Technology'
+import { Testimonials } from './sections/Testimonials'
 
 interface StaticFallbackProps {
   activeSection?: number
@@ -35,15 +36,18 @@ export function StaticFallback({ activeSection = 0, onNavigate }: StaticFallback
           <Product />
         </div>
         <div id='section-5' className='min-h-screen'>
-          <Advantages />
+          <Testimonials />
         </div>
         <div id='section-6' className='min-h-screen'>
-          <Impact />
+          <Advantages />
         </div>
         <div id='section-7' className='min-h-screen'>
-          <Contact />
+          <Impact />
         </div>
         <div id='section-8' className='min-h-screen'>
+          <Contact />
+        </div>
+        <div id='section-9' className='min-h-screen'>
           <Footer />
         </div>
       </div>
