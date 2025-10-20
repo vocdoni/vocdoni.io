@@ -55,7 +55,7 @@ export function Services() {
   ]
 
   return (
-    <section className='min-h-screen w-full grid grid-cols-1 lg:grid-cols-2'>
+    <div className='min-h-screen w-full grid grid-cols-1 lg:grid-cols-2'>
       {/* services Overview */}
       <div className='flex flex-col'>
         <div className='flex-1 bg-background flex flex-col items-center justify-center'>
@@ -142,6 +142,6 @@ export function Services() {
           })}
         </Accordion>
       </div>
-    </section>
+    </div>
   )
 }
