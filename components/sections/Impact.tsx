@@ -19,7 +19,7 @@ export function Impact() {
           </div>
         </div>
         <div className='hidden lg:block w-full px-6 py-6'>
-          <Link href='/stories' className='block text-2xl font-semibold text-muted-foreground'>
+          <Link href='/testimonials' className='block text-2xl font-semibold text-muted-foreground'>
             {t('impact.real_stories', { defaultValue: 'Real Stories, Real Impact' })} ↓
           </Link>
         </div>
