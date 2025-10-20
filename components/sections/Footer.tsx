@@ -1,4 +1,7 @@
+import { useTranslation } from 'react-i18next'
+
 export const Footer = () => {
+  const { t } = useTranslation()
   return (
     <div
       className='
@@ -14,12 +17,12 @@ export const Footer = () => {
         <div className='grid justify-items-center lg:justify-items-end gap-6'>
           <div className='w-fit'>
             <div className='grid grid-cols-2 gap-y-2 gap-x-30 text-sm md:text-base'>
-              <a className='w-fit'>Technology ↗</a>
-              <a className='w-fit'>Resources ↗</a>
-              <a className='w-fit'>Our Services ↗</a>
-              <a className='w-fit'>Research ↗</a>
-              <a className='w-fit'>Product ↗</a>
-              <a className='w-fit'>Blog ↗</a>
+              <a className='w-fit'>{t('footer.technology', { defaultValue: 'Technology' })} ↗</a>
+              <a className='w-fit'>{t('footer.resources', { defaultValue: 'Resources' })} ↗</a>
+              <a className='w-fit'>{t('footer.our_services', { defaultValue: 'Our Services' })} ↗</a>
+              <a className='w-fit'>{t('footer.research', { defaultValue: 'Research' })} ↗</a>
+              <a className='w-fit'>{t('footer.product', { defaultValue: 'Product' })} ↗</a>
+              <a className='w-fit'>{t('footer.blog', { defaultValue: 'Blog' })} ↗</a>
             </div>
           </div>
           <div className='mt-2 flex gap-6'>
@@ -53,7 +56,10 @@ export const Footer = () => {
           <img src='/assets/images/vocdoni.png' alt='Vocdoni' className='h-18 lg:h-90 w-auto' />
         </div>
         <div className='self-start text-xs lg:text-sm text-black/70'>
-          © {new Date().getFullYear()} Vocdoni. All rights reserved.
+          {t('footer.copyright', {
+            defaultValue: '© {year} Vocdoni. All rights reserved.',
+            year: new Date().getFullYear(),
+          })}
         </div>
       </div>
     </div>
