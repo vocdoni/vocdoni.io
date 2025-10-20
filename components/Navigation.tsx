@@ -50,9 +50,9 @@ export function Navigation({ activeSection = 0, onNavigate }: NavigationProps) {
           {isLanding && (
             <div className='hidden lg:flex items-center justify-end gap-3'>
               <LanguageSwitcher />
-              <Button asChild className='bg-gray-400 text-white hover:bg-gray-600'>
+              <Button asChild className='bg-[#E3D6C5] text-black hover:bg-[#d1bfa8]'>
                 <a href='https://app.vocdoni.io' target='_blank' rel='noopener noreferrer'>
-                  {t('navigation.login', { defaultValue: 'Login' })}
+                  {t('navigation.app', { defaultValue: 'App' })}
                 </a>
               </Button>
             </div>
@@ -95,7 +95,7 @@ export function Navigation({ activeSection = 0, onNavigate }: NavigationProps) {
                   className='block px-3 py-2 text-sm font-medium bg-black text-white hover:bg-gray-800 rounded-md transition-colors text-center'
                   onClick={() => setIsMenuOpen(false)}
                 >
-                  {t('navigation.login', { defaultValue: 'Login' })}
+                  {t('navigation.app', { defaultValue: 'App' })}
                 </a>
               </div>
             </div>
