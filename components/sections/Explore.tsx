@@ -1,4 +1,4 @@
-import Autoplay from 'embla-carousel-autoplay'
+import AutoScroll from 'embla-carousel-auto-scroll'
 import { Trans, useTranslation } from 'react-i18next'
 import { Carousel, CarouselContent, CarouselItem } from '../ui/carousel'
 
@@ -46,19 +46,23 @@ export function Explore() {
           opts={{
             align: 'start',
             loop: true,
-            slidesToScroll: 1,
+            dragFree: true,
             containScroll: 'trimSnaps',
           }}
           plugins={[
-            Autoplay({
-              delay: 2000,
+            AutoScroll({
+              playOnInit: true,
+              speed: 1.0,
+              stopOnInteraction: false,
+              stopOnMouseEnter: false,
+              startDelay: 0,
             }),
           ]}
           className='w-full'
         >
           <CarouselContent className='-ml-1'>
             {clients.map(({ name, logo }) => (
-              <CarouselItem key={name} className='pl-1 md:basis-auto lg:basis-1/10'>
+              <CarouselItem key={name} className='pl-1 basis-1/2 sm:basis-1/3 md:basis-1/5 lg:basis-1/7 xl:basis-1/10'>
                 <div className='p-1 flex items-center justify-center'>
                   <img src={logo} alt={name} className='block h-10 w-auto' />
                 </div>
