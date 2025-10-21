@@ -1,3 +1,11 @@
+import blueskyIcon from '@/assets/images/social/bluesky.png'
+import discordIcon from '@/assets/images/social/discord.png'
+import farcasterIcon from '@/assets/images/social/farcaster.png'
+import githubIcon from '@/assets/images/social/github.png'
+import paragraphIcon from '@/assets/images/social/paragraph.png'
+import whatsappIcon from '@/assets/images/social/whatsapp.png'
+import xIcon from '@/assets/images/social/x.png'
+import vocdoniLogo from '@/assets/images/vocdoni.png'
 import { useTranslation } from 'react-i18next'
 
 export const Footer = () => {
@@ -27,25 +35,25 @@ export const Footer = () => {
           </div>
           <div className='mt-2 flex gap-6'>
             <a href='https://bsky.app/profile/vocdoni.io' target='_blank' rel='noopener noreferrer'>
-              <img src='/assets/images/social/bluesky.png' alt='Bluesky' className='h-5 w-5' />
+              <img src={blueskyIcon} alt='Bluesky' className='h-5 w-5' />
             </a>
             <a href='https://x.com/vocdoni' target='_blank' rel='noopener noreferrer'>
-              <img src='/assets/images/social/x.png' alt='X' className='h-5 w-5' />
+              <img src={xIcon} alt='X' className='h-5 w-5' />
             </a>
             <a href='#' target='_blank' rel='noopener noreferrer'>
-              <img src='/assets/images/social/whatsapp.png' alt='WhatsApp' className='h-5 w-5' />
+              <img src={whatsappIcon} alt='WhatsApp' className='h-5 w-5' />
             </a>
             <a href='https://discord.com/invite/vocdoni' target='_blank' rel='noopener noreferrer'>
-              <img src='/assets/images/social/discord.png' alt='Discord' className='h-5 w-5' />
+              <img src={discordIcon} alt='Discord' className='h-5 w-5' />
             </a>
             <a href='https://blog.vocdoni.io' target='_blank' rel='noopener noreferrer'>
-              <img src='/assets/images/social/paragraph.png' alt='Paragraph' className='h-5 w-5' />
+              <img src={paragraphIcon} alt='Paragraph' className='h-5 w-5' />
             </a>
             <a href='https://farcaster.xyz/vocdoni' target='_blank' rel='noopener noreferrer'>
-              <img src='/assets/images/social/farcaster.png' alt='Farcaster' className='h-5 w-5' />
+              <img src={farcasterIcon} alt='Farcaster' className='h-5 w-5' />
             </a>
             <a href='https://github.com/vocdoni' target='_blank' rel='noopener noreferrer'>
-              <img src='/assets/images/social/github.png' alt='Github' className='h-5 w-5' />
+              <img src={githubIcon} alt='Github' className='h-5 w-5' />
             </a>
           </div>
         </div>
@@ -53,7 +61,7 @@ export const Footer = () => {
 
       <div className='flex flex-col justify-end px-4'>
         <div aria-hidden className='pointer-events-none select-none self-center'>
-          <img src='/assets/images/vocdoni.png' alt='Vocdoni' className='h-18 lg:h-90 w-auto' />
+          <img src={vocdoniLogo} alt='Vocdoni' className='h-18 lg:h-90 w-auto' />
         </div>
         <div className='self-start text-xs lg:text-sm text-black/70'>
           {t('footer.copyright', {
