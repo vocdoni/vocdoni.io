@@ -57,7 +57,7 @@ export const Footer = () => {
         </div>
         <div className='self-start text-xs lg:text-sm text-black/70'>
           {t('footer.copyright', {
-            defaultValue: '© {year} Vocdoni. All rights reserved.',
+            defaultValue: '© {{year}} Vocdoni. All rights reserved.',
             year: new Date().getFullYear(),
           })}
         </div>
