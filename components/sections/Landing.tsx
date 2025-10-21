@@ -1,5 +1,4 @@
 import { Link } from '@/components/Link'
-import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
 import { ChevronDown } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
@@ -28,12 +27,12 @@ export function Landing() {
 
         {/* CTA Buttons */}
         <div className='flex flex-col sm:flex-row gap-4 mb-20'>
-          <Button variant='hero' size='xl'>
+          <Link href='https://app.vocdoni.io/admin/processes/create' variant='hero' size='xl'>
             🗳️ {t('landing.start_vote', { defaultValue: 'Start your vote' })} →
-          </Button>
-          <Button variant='hero' size='xl'>
+          </Link>
+          <Link href='/contact' variant='hero' size='xl'>
             ☎️ {t('landing.talk_with_us', { defaultValue: 'Talk with us' })} →
-          </Button>
+          </Link>
         </div>
       </div>
 

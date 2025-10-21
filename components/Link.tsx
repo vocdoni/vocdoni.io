@@ -9,6 +9,14 @@ const linkVariants = cva('transition-colors', {
     variant: {
       default: 'text-foreground hover:text-primary underline-offset-4 hover:underline',
       nav: 'text-gray-700 hover:text-gray-900 font-medium',
+      hero: 'inline-flex items-center justify-center gap-2 cursor-pointer whitespace-nowrap rounded-md font-medium text-lg bg-white text-black hover:bg-gray-100 ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2',
+    },
+    size: {
+      default: 'h-10 px-4 py-2',
+      sm: 'h-9 rounded-md px-3',
+      lg: 'h-11 rounded-md px-8',
+      xl: 'h-14 rounded-md px-8 py-4',
+      icon: 'h-10 w-10',
     },
   },
   defaultVariants: {
@@ -22,25 +30,28 @@ export interface LinkProps extends React.AnchorHTMLAttributes<HTMLAnchorElement>
   locale?: string
 }
 
-export function Link({ href, locale, children, className, variant, ...props }: LinkProps) {
+export function Link({ href, locale, children, className, variant, size, ...props }: LinkProps) {
   const pageContext = usePageContext()
   locale = locale || pageContext.locale
 
-  // Build the full href with locale prefix if not default locale
+  // Detect external URLs (starting with http:// or https://)
+  const isExternal = href.startsWith('http://') || href.startsWith('https://')
+
+  // Build the full href with locale prefix if not default locale and not external
   let fullHref = href
-  if (locale !== localeDefault) {
+  if (!isExternal && locale !== localeDefault) {
     fullHref = `/${locale}${href}`
   }
 
   // Check if link is active based on urlLogical (without locale)
   const { urlLogical } = pageContext as any
-  const isActive = href === '/' ? urlLogical === href : urlLogical?.startsWith(href)
+  const isActive = !isExternal && (href === '/' ? urlLogical === href : urlLogical?.startsWith(href))
 
   return (
     <a
       href={fullHref}
       className={cn(
-        linkVariants({ variant }),
+        linkVariants({ variant, size }),
         isActive && variant === 'nav' && 'text-gray-900 font-semibold',
         isActive && variant === 'default' && 'text-primary font-medium',
         className
