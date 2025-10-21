@@ -34,7 +34,7 @@ export function Link({ href, locale, children, className, variant, size, ...prop
   const pageContext = usePageContext()
   locale = locale || pageContext.locale
 
-  // Detect external URLs (starting with http:// or https://)
+  // Auto-detect external URLs (starting with http:// or https://)
   const isExternal = href.startsWith('http://') || href.startsWith('https://')
 
   // Build the full href with locale prefix if not default locale and not external
@@ -47,6 +47,14 @@ export function Link({ href, locale, children, className, variant, size, ...prop
   const { urlLogical } = pageContext as any
   const isActive = !isExternal && (href === '/' ? urlLogical === href : urlLogical?.startsWith(href))
 
+  // Set target and rel for external links (unless explicitly overridden)
+  const externalProps = isExternal
+    ? {
+        target: props.target ?? '_blank',
+        rel: props.rel ?? 'noopener noreferrer',
+      }
+    : {}
+
   return (
     <a
       href={fullHref}
@@ -56,6 +64,7 @@ export function Link({ href, locale, children, className, variant, size, ...prop
         isActive && variant === 'default' && 'text-primary font-medium',
         className
       )}
+      {...externalProps}
       {...props}
     >
       {children}
