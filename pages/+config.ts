@@ -18,4 +18,8 @@ export default {
 
   extends: vikeReact,
   passToClient: ['locale', 'initialI18nStore', 'initialLocale'],
+  prerender: {
+    enable: true,
+    keepDistServer: false,
+  },
 } satisfies Config

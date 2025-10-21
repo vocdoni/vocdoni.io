@@ -1,6 +1,6 @@
 import { Button } from '@/components/ui/button'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
-import { availableLocales, Locale } from '@/locales'
+import { availableLocales, Locale, localeDefault } from '@/locales'
 import { ChevronDown } from 'lucide-react'
 import { usePageContext } from 'vike-react/usePageContext'
 
@@ -11,8 +11,13 @@ function buildHref(target: Locale, urlLogical?: string) {
     suffix = `${window.location.search ?? ''}${window.location.hash ?? ''}`
   }
 
-  const cleanPath = pathname === '/' ? '' : pathname
-  return `/${target}${cleanPath}${suffix}`
+  // For default locale, use the path without locale prefix
+  // For other locales, prepend the locale
+  if (target === localeDefault) {
+    return `${pathname}${suffix}`
+  }
+
+  return `/${target}${pathname}${suffix}`
 }
 
 export function LanguageSwitcher() {

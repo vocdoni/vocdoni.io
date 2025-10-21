@@ -5,7 +5,8 @@
     "preview": "vike preview",
     "shadcn": "npx shadcn@latest",
     "lint": "prettier --check .",
-    "translations": "i18next --config i18next-parser.config.cjs"
+    "translations": "i18next --config i18next-parser.config.cjs",
+    "prerender": "vike prerender"
   },
   "dependencies": {
     "@fullpage/react-fullpage": "^0.1.49",

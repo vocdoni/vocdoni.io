@@ -1,5 +1,4 @@
 import { Locale, localeDefault, locales } from '@/locales'
-import { modifyUrl } from 'vike/modifyUrl'
 import type { PageContext } from 'vike/types'
 
 const extractLocale = (urlPathname: string) => {
@@ -21,12 +20,17 @@ const extractLocale = (urlPathname: string) => {
 }
 
 const onBeforeRoute = (pageContext: PageContext) => {
-  const url = pageContext.urlParsed
-  const { urlPathnameWithoutLocale, locale } = extractLocale(url.pathname)
-  const pathname = urlPathnameWithoutLocale || '/'
-  const urlLogical = modifyUrl(url.href, { pathname })
+  const { urlOriginal } = pageContext
+  const { urlPathnameWithoutLocale, locale } = extractLocale(urlOriginal)
+
+  // Create urlLogical without the locale prefix for routing
+  const urlLogical = urlPathnameWithoutLocale
+
   return {
-    pageContext: { locale, urlLogical },
+    pageContext: {
+      locale,
+      urlLogical,
+    },
   }
 }
 

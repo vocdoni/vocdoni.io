@@ -1,4 +1,6 @@
 import { useCallback, useEffect, useState } from 'react'
+import { usePageContext } from 'vike-react/usePageContext'
+import { localeDefault } from '@/locales'
 
 type Section = {
   path: string
@@ -106,52 +108,88 @@ export type SectionName = (typeof SECTIONS)[number]['name']
  * Hook for managing URL synchronization with sections
  */
 export function useUrlSync(onSectionChange?: (sectionIndex: number) => void) {
+  const pageContext = usePageContext()
+  const locale = (pageContext as any).locale || localeDefault
+  const urlLogical = (pageContext as any).urlLogical || '/'
+
+  // Helper function to build full URL with locale prefix
+  const buildFullPath = useCallback(
+    (path: string) => {
+      if (locale === localeDefault) {
+        return path
+      }
+      return `/${locale}${path}`
+    },
+    [locale]
+  )
+
+  // Helper function to extract path without locale from any pathname
+  const getPathWithoutLocale = useCallback((pathname: string) => {
+    if (locale === localeDefault) {
+      return pathname
+    }
+    // Remove locale prefix if present
+    if (pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`) {
+      return pathname.substring(locale.length + 1) || '/'
+    }
+    return pathname
+  }, [locale])
+
   // Get initial section from current URL
   const getInitialSection = useCallback(() => {
     if (typeof window === 'undefined') return 0
 
-    const currentPath = window.location.pathname
+    // Use urlLogical from pageContext instead of window.location.pathname
+    const currentPath = urlLogical
     // Handle root path - default to first section (technology)
     if (currentPath === '/') return 0
 
     const sectionIndex = SECTIONS.findIndex((section) => section.path === currentPath)
     return sectionIndex >= 0 ? sectionIndex : 0
+  }, [urlLogical])
+
+  const [activeSection, setActiveSection] = useState(getInitialSection)
+
+  // Helper to update document title and meta tags
+  const updatePageMeta = useCallback((sectionIndex: number) => {
+    if (typeof document === 'undefined') return
+    const section = SECTIONS[sectionIndex]
+    document.title = section.title
+
+    const metaDescription = document.querySelector('meta[name="description"]')
+    if (metaDescription) {
+      metaDescription.setAttribute('content', section.description)
+    }
   }, [])
 
-  const [activeSection, setActiveSection] = useState(0)
-
-  // After hydration, update activeSection based on client URL
+  // Sync with URL on mount (for SSR hydration)
   useEffect(() => {
     const sectionIndex = getInitialSection()
     setActiveSection(sectionIndex)
-    // Also trigger scrolling on initial load
-    onSectionChange?.(sectionIndex)
-  }, [getInitialSection, onSectionChange])
+    updatePageMeta(sectionIndex)
+    // Scrolling happens automatically via CSS transform in SectionScroller
+  }, [getInitialSection, updatePageMeta])
 
   // Navigate to a section (updates URL and title)
-  const navigateToSection = useCallback((sectionIndex: number, pushToHistory = true) => {
-    if (sectionIndex < 0 || sectionIndex >= SECTIONS.length) return
+  const navigateToSection = useCallback(
+    (sectionIndex: number, pushToHistory = true) => {
+      if (sectionIndex < 0 || sectionIndex >= SECTIONS.length) return
 
-    const section = SECTIONS[sectionIndex]
+      const section = SECTIONS[sectionIndex]
 
-    // Update browser history
-    if (pushToHistory && typeof window !== 'undefined') {
-      window.history.pushState({ sectionIndex }, section.title, section.path)
-    }
-
-    // Update document title and meta description
-    if (typeof document !== 'undefined') {
-      document.title = section.title
-
-      // Update meta description
-      const metaDescription = document.querySelector('meta[name="description"]')
-      if (metaDescription) {
-        metaDescription.setAttribute('content', section.description)
+      // Update browser history with locale-aware full path
+      if (pushToHistory && typeof window !== 'undefined') {
+        const fullPath = buildFullPath(section.path)
+        window.history.pushState({ sectionIndex }, section.title, fullPath)
       }
-    }
 
-    setActiveSection(sectionIndex)
-  }, [])
+      // Update document title and meta
+      updatePageMeta(sectionIndex)
+
+      setActiveSection(sectionIndex)
+    },
+    [buildFullPath, updatePageMeta]
+  )
 
   // Handle browser back/forward navigation
   useEffect(() => {
@@ -159,27 +197,26 @@ export function useUrlSync(onSectionChange?: (sectionIndex: number) => void) {
 
     const handlePopState = (event: PopStateEvent) => {
       if (event.state?.sectionIndex !== undefined) {
-        // Browser navigation - don't push to history again
-        navigateToSection(event.state.sectionIndex, false)
+        // Browser navigation with state - update section and meta without pushing to history
+        const sectionIndex = event.state.sectionIndex
+        setActiveSection(sectionIndex)
+        updatePageMeta(sectionIndex)
       } else {
-        // Direct URL navigation
-        const currentPath = window.location.pathname
-        if (currentPath === '/') {
-          setActiveSection(0) // Root path maps to first section
-          onSectionChange?.(0) // Trigger scrolling
-        } else {
-          const sectionIndex = SECTIONS.findIndex((section) => section.path === currentPath)
-          if (sectionIndex >= 0) {
-            setActiveSection(sectionIndex)
-            onSectionChange?.(sectionIndex) // Trigger scrolling
-          }
+        // Direct URL navigation - extract locale-free path
+        const fullPath = window.location.pathname
+        const currentPath = getPathWithoutLocale(fullPath)
+
+        const sectionIndex = currentPath === '/' ? 0 : SECTIONS.findIndex((section) => section.path === currentPath)
+        if (sectionIndex >= 0) {
+          setActiveSection(sectionIndex)
+          updatePageMeta(sectionIndex)
         }
       }
     }
 
     window.addEventListener('popstate', handlePopState)
     return () => window.removeEventListener('popstate', handlePopState)
-  }, [navigateToSection, onSectionChange])
+  }, [updatePageMeta, getPathWithoutLocale])
 
   // Listen for external URL changes (like Link navigation)
   useEffect(() => {
@@ -188,20 +225,20 @@ export function useUrlSync(onSectionChange?: (sectionIndex: number) => void) {
     let lastPathname = window.location.pathname
 
     const checkUrlChange = () => {
-      const currentPath = window.location.pathname
-      if (currentPath !== lastPathname) {
-        lastPathname = currentPath
+      const fullPath = window.location.pathname
+      if (fullPath !== lastPathname) {
+        lastPathname = fullPath
 
-        // URL changed externally (like Link click)
-        if (currentPath === '/') {
-          setActiveSection(0)
-          onSectionChange?.(0)
-        } else {
-          const sectionIndex = SECTIONS.findIndex((section) => section.path === currentPath)
-          if (sectionIndex >= 0) {
-            setActiveSection(sectionIndex)
-            onSectionChange?.(sectionIndex)
-          }
+        // Extract locale-free path for comparison
+        const currentPath = getPathWithoutLocale(fullPath)
+
+        // URL changed externally (like Link click or navigateToSection)
+        const sectionIndex = currentPath === '/' ? 0 : SECTIONS.findIndex((section) => section.path === currentPath)
+        if (sectionIndex >= 0) {
+          setActiveSection(sectionIndex)
+          updatePageMeta(sectionIndex)
+          // Don't call onSectionChange here - scrolling happens automatically via CSS
+          // and calling it would cause navigateToSection to be called again (re-entrancy)
         }
       }
     }
@@ -210,33 +247,7 @@ export function useUrlSync(onSectionChange?: (sectionIndex: number) => void) {
     const interval = setInterval(checkUrlChange, 100)
 
     return () => clearInterval(interval)
-  }, [onSectionChange])
-
-  // Set initial state on page load
-  useEffect(() => {
-    const currentPath = window.location.pathname
-    let sectionIndex = 0
-
-    if (currentPath === '/') {
-      sectionIndex = 0 // Root path maps to first section
-    } else {
-      const foundIndex = SECTIONS.findIndex((section) => section.path === currentPath)
-      if (foundIndex >= 0) {
-        sectionIndex = foundIndex
-      }
-    }
-
-    const section = SECTIONS[sectionIndex]
-    document.title = section.title
-
-    // Update meta description
-    const metaDescription = document.querySelector('meta[name="description"]')
-    if (metaDescription) {
-      metaDescription.setAttribute('content', section.description)
-    }
-
-    setActiveSection(sectionIndex)
-  }, [])
+  }, [getPathWithoutLocale, updatePageMeta])
 
   return {
     activeSection,

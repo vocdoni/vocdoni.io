@@ -25,15 +25,20 @@ export interface LinkProps extends React.AnchorHTMLAttributes<HTMLAnchorElement>
 export function Link({ href, locale, children, className, variant, ...props }: LinkProps) {
   const pageContext = usePageContext()
   locale = locale || pageContext.locale
+
+  // Build the full href with locale prefix if not default locale
+  let fullHref = href
   if (locale !== localeDefault) {
-    href = '/' + locale + href
+    fullHref = `/${locale}${href}`
   }
-  const { urlPathname } = pageContext
-  const isActive = href === '/' ? urlPathname === href : urlPathname.startsWith(href)
+
+  // Check if link is active based on urlLogical (without locale)
+  const { urlLogical } = pageContext as any
+  const isActive = href === '/' ? urlLogical === href : urlLogical?.startsWith(href)
 
   return (
     <a
-      href={href}
+      href={fullHref}
       className={cn(
         linkVariants({ variant }),
         isActive && variant === 'nav' && 'text-gray-900 font-semibold',
