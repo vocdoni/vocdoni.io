@@ -6,6 +6,9 @@ import { Link } from '../Link'
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '../ui/accordion'
 
 import org from '/assets/product/org.png'
+import results from '/assets/product/results.png'
+import upload from '/assets/product/upload.png'
+import vote from '/assets/product/vote.png'
 
 const steps = [
   {
@@ -18,20 +21,20 @@ const steps = [
     id: 'step2',
     title: 'Upload your memberbase',
     description: 'Upload your memberbase and create a group of eligible voters.',
-    img: org,
+    img: upload,
   },
   {
     id: 'step3',
     title: 'Run a vote',
     description:
       'Create a vote with the chosen census and settings, then share the link so eligible voters can participate.',
-    img: org,
+    img: vote,
   },
   {
     id: 'step4',
     title: 'See the results',
     description: 'Results are computed instantly, verifiable by anyone.',
-    img: org,
+    img: results,
   },
 ]
 
