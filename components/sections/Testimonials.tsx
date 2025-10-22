@@ -57,8 +57,10 @@ export function Testimonials() {
 
   const testimonials: Testimonials = [
     {
-      stat: '5,000',
-      text: t('testimonials.barcelona_stat', { defaultValue: 'citizens engaged in participatory budgeting.' }),
+      stat: '45',
+      text: t('testimonials.barcelona_stat', {
+        defaultValue: 'representatives voting with Vocdoni at Barcelona City Council',
+      }),
       org: 'Ajuntament de Barcelona',
       logo: barcelona,
     },
@@ -73,6 +75,14 @@ export function Testimonials() {
       logo: bellpuig,
     },
     {
+      stat: '82%',
+      text: t('testimonials.erc_stat', {
+        defaultValue: 'turnout in an internal election to elect a president and board members.',
+      }),
+      org: 'Esquerra Republicana',
+      logo: erc,
+    },
+    {
       quote: t('testimonials.anna_quote', {
         defaultValue:
           'The commitment to Vocdoni has been clear, as from Òmnium Cultural we opted for a secure and verifiable voting system that would allow us to hold our statutory meetings with full guarantees to the more than 180,000 members who make up our organization.',
@@ -83,14 +93,6 @@ export function Testimonials() {
       logo: omnium,
     },
     {
-      stat: '82%',
-      text: t('testimonials.erc_stat', {
-        defaultValue: 'turnout in an internal election to elect a president and board members.',
-      }),
-      org: 'Esquerra Republicana',
-      logo: erc,
-    },
-    {
       stat: '6,723',
       text: t('testimonials.new_belarus_stat', {
         defaultValue: 'votes cast with international observers under a repressive scenario.',
@@ -98,16 +100,6 @@ export function Testimonials() {
       org: 'New Belarus',
       readMore: true,
       logo: belarus,
-    },
-    {
-      quote: t('testimonials.eic_quote', {
-        defaultValue:
-          'Vocdoni provides us with an easy, secure, anonymous, scalable voting system that is fully integrated into our institutional environment. We will certainly continue to trust their solution!',
-      }),
-      name: 'Oscar Tirivó',
-      role: t('testimonials.eic_role', { defaultValue: 'IT Director' }),
-      org: 'Enginyers Industrials de Catalunya',
-      logo: eic,
     },
     {
       quote: t('testimonials.ton_quote', {
@@ -127,6 +119,16 @@ export function Testimonials() {
       org: 'Ajuntament de Bellpuig',
       readMore: true,
       logo: bellpuig,
+    },
+    {
+      quote: t('testimonials.eic_quote', {
+        defaultValue:
+          'Vocdoni provides us with an easy, secure, anonymous, scalable voting system that is fully integrated into our institutional environment. We will certainly continue to trust their solution!',
+      }),
+      name: 'Oscar Tirivó',
+      role: t('testimonials.eic_role', { defaultValue: 'IT Director' }),
+      org: 'Enginyers Industrials de Catalunya',
+      logo: eic,
     },
   ]
 

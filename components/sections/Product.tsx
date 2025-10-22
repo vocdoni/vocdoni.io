@@ -4,33 +4,34 @@ import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link } from '../Link'
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '../ui/accordion'
-import { Button } from '../ui/button'
+
+import org from '/assets/product/org.png'
 
 const steps = [
   {
     id: 'step1',
     title: 'Create your organization',
     description: 'Sign up and create your organization.',
-    img: '/assets/product/org.png',
+    img: org,
   },
   {
     id: 'step2',
     title: 'Upload your memberbase',
     description: 'Upload your memberbase and create a group of eligible voters.',
-    img: '/assets/product/upload.png',
+    img: org,
   },
   {
     id: 'step3',
     title: 'Run a vote',
     description:
       'Create a vote with the chosen census and settings, then share the link so eligible voters can participate.',
-    img: '/assets/product/run.png',
+    img: org,
   },
   {
     id: 'step4',
     title: 'See the results',
     description: 'Results are computed instantly, verifiable by anyone.',
-    img: '/assets/product/results.png',
+    img: org,
   },
 ]
 
@@ -115,18 +116,28 @@ export function Product() {
 
       {/* Images */}
       <div className='relative order-1 lg:order-2 w-full h-full min-h-0 overflow-hidden'>
-        <img
-          key={currentImg}
-          src={currentImg}
-          alt={currentAlt}
-          className='absolute inset-0 w-full h-full object-cover -z-10 pointer-events-none select-none transition-opacity duration-300'
-          decoding='async'
-        />
+        <div
+          className={cn(
+            'absolute inset-0 w-full h-full',
+            'mx-auto pt-[15%] md:pt-[5%] lg:pt-[15%] xl:pt-[10%] 2xl:pt-[20%]',
+            'object-cover -z-10',
+            'pointer-events-none select-none',
+            'transition-opacity duration-300',
+            'bg-gradient-to-br from-[#e5e4de] to-[#cdcdca]'
+          )}
+        >
+          <img
+            key={currentImg}
+            src={currentImg}
+            alt={currentAlt}
+            decoding='async'
+            className='max-h-full ml-auto mr-auto'
+          />
+        </div>
 
-        {/* Botón superpuesto */}
-        <Button variant='outline' className='absolute left-4 bottom-4 z-10'>
+        <Link variant='hero' className='absolute left-4 bottom-4 z-10 py-2 px-4' href='https://app.vocdoni.io'>
           {t('product.go_to_app', { defaultValue: 'Go to APP' })} <ArrowUpRight className='ml-2 h-4 w-4' />
-        </Button>
+        </Link>
       </div>
     </div>
   )
