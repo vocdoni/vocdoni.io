@@ -135,18 +135,26 @@ export function useUrlSync(onSectionChange?: (sectionIndex: number) => void) {
     return pathname
   }, [locale])
 
+  // Helper to normalize paths by removing trailing slashes (except for root)
+  const normalizePath = useCallback((path: string) => {
+    // Keep root as '/', remove trailing slash from others
+    if (!path || path === '/') return '/'
+    return path.endsWith('/') ? path.slice(0, -1) : path
+  }, [])
+
   // Get initial section from current URL
   const getInitialSection = useCallback(() => {
-    if (typeof window === 'undefined') return 0
+    // Use urlLogical from pageContext (available in both SSR and client)
+    // This ensures consistent behavior on Netlify and locally
+    const currentPath = normalizePath(urlLogical || '/')
 
-    // Use urlLogical from pageContext instead of window.location.pathname
-    const currentPath = urlLogical
-    // Handle root path - default to first section (technology)
+    // Handle root path - default to first section
     if (currentPath === '/') return 0
 
+    // Find matching section by path (normalize for Netlify trailing slash)
     const sectionIndex = SECTIONS.findIndex((section) => section.path === currentPath)
     return sectionIndex >= 0 ? sectionIndex : 0
-  }, [urlLogical])
+  }, [urlLogical, normalizePath])
 
   const [activeSection, setActiveSection] = useState(getInitialSection)
 
@@ -202,9 +210,10 @@ export function useUrlSync(onSectionChange?: (sectionIndex: number) => void) {
         setActiveSection(sectionIndex)
         updatePageMeta(sectionIndex)
       } else {
-        // Direct URL navigation - extract locale-free path
+        // Direct URL navigation - extract locale-free path and normalize
         const fullPath = window.location.pathname
-        const currentPath = getPathWithoutLocale(fullPath)
+        const pathWithoutLocale = getPathWithoutLocale(fullPath)
+        const currentPath = normalizePath(pathWithoutLocale)
 
         const sectionIndex = currentPath === '/' ? 0 : SECTIONS.findIndex((section) => section.path === currentPath)
         if (sectionIndex >= 0) {
@@ -216,7 +225,7 @@ export function useUrlSync(onSectionChange?: (sectionIndex: number) => void) {
 
     window.addEventListener('popstate', handlePopState)
     return () => window.removeEventListener('popstate', handlePopState)
-  }, [updatePageMeta, getPathWithoutLocale])
+  }, [updatePageMeta, getPathWithoutLocale, normalizePath])
 
   // Listen for external URL changes (like Link navigation)
   useEffect(() => {
@@ -229,8 +238,9 @@ export function useUrlSync(onSectionChange?: (sectionIndex: number) => void) {
       if (fullPath !== lastPathname) {
         lastPathname = fullPath
 
-        // Extract locale-free path for comparison
-        const currentPath = getPathWithoutLocale(fullPath)
+        // Extract locale-free path and normalize for comparison
+        const pathWithoutLocale = getPathWithoutLocale(fullPath)
+        const currentPath = normalizePath(pathWithoutLocale)
 
         // URL changed externally (like Link click or navigateToSection)
         const sectionIndex = currentPath === '/' ? 0 : SECTIONS.findIndex((section) => section.path === currentPath)
@@ -247,7 +257,7 @@ export function useUrlSync(onSectionChange?: (sectionIndex: number) => void) {
     const interval = setInterval(checkUrlChange, 100)
 
     return () => clearInterval(interval)
-  }, [getPathWithoutLocale, updatePageMeta])
+  }, [getPathWithoutLocale, updatePageMeta, normalizePath])
 
   return {
     activeSection,
