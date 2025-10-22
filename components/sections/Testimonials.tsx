@@ -1,6 +1,14 @@
 import { useTranslation } from 'react-i18next'
 import { Link } from '../Link'
 
+import barcelona from '/assets/images/barcelona.png'
+import bellpuig from '/assets/images/bellpuig.png'
+import cec from '/assets/images/cec.png'
+import eic from '/assets/images/eic.png'
+import erc from '/assets/images/erc.png'
+import belarus from '/assets/images/new_belarus.png'
+import omnium from '/assets/images/omnium.png'
+
 type QuoteTestimonial = { quote: string; name: string; role: string; org: string; logo: string }
 type StatTestimonial = { stat: string; text: string; org: string; logo: string; readMore?: boolean }
 type Testimonials = Array<QuoteTestimonial | StatTestimonial>
@@ -52,7 +60,7 @@ export function Testimonials() {
       stat: '5,000',
       text: t('testimonials.barcelona_stat', { defaultValue: 'citizens engaged in participatory budgeting.' }),
       org: 'Ajuntament de Barcelona',
-      logo: '/assets/logos/barcelona.png',
+      logo: barcelona,
     },
     {
       quote: t('testimonials.jordi_quote', {
@@ -62,7 +70,7 @@ export function Testimonials() {
       name: 'Jordi Estiarte',
       role: t('testimonials.jordi_role', { defaultValue: 'Mayor' }),
       org: 'Ajuntament de Bellpuig',
-      logo: '/assets/logos/bellpuig.png',
+      logo: bellpuig,
     },
     {
       quote: t('testimonials.anna_quote', {
@@ -72,7 +80,7 @@ export function Testimonials() {
       name: 'Anna Giralt',
       role: t('testimonials.anna_role', { defaultValue: 'Executive Manager' }),
       org: 'Òmnium Cultural',
-      logo: '/assets/logos/omnium.png',
+      logo: omnium,
     },
     {
       stat: '82%',
@@ -80,7 +88,7 @@ export function Testimonials() {
         defaultValue: 'turnout in an internal election to elect a president and board members.',
       }),
       org: 'Esquerra Republicana',
-      logo: '/assets/logos/erc.png',
+      logo: erc,
     },
     {
       stat: '6,723',
@@ -89,7 +97,7 @@ export function Testimonials() {
       }),
       org: 'New Belarus',
       readMore: true,
-      logo: '/assets/logos/new_belarus.png',
+      logo: belarus,
     },
     {
       quote: t('testimonials.eic_quote', {
@@ -99,7 +107,7 @@ export function Testimonials() {
       name: 'Oscar Tirivó',
       role: t('testimonials.eic_role', { defaultValue: 'IT Director' }),
       org: 'Enginyers Industrials de Catalunya',
-      logo: '/assets/logos/eic.png',
+      logo: eic,
     },
     {
       quote: t('testimonials.ton_quote', {
@@ -109,7 +117,7 @@ export function Testimonials() {
       name: 'Ton Barnils',
       role: t('testimonials.ton_role', { defaultValue: 'CEO' }),
       org: 'Centre Excursionista de Catalunya',
-      logo: '/assets/logos/cec.png',
+      logo: cec,
     },
     {
       stat: '32%',
@@ -118,7 +126,7 @@ export function Testimonials() {
       }),
       org: 'Ajuntament de Bellpuig',
       readMore: true,
-      logo: '/assets/logos/bellpuig.png',
+      logo: bellpuig,
     },
   ]
 

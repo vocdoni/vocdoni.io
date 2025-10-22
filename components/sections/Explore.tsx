@@ -2,24 +2,42 @@ import AutoScroll from 'embla-carousel-auto-scroll'
 import { Trans, useTranslation } from 'react-i18next'
 import { Carousel, CarouselContent, CarouselItem } from '../ui/carousel'
 
+import alhora from '/assets/images/alhora.png'
+import barcelona from '/assets/images/barcelona.png'
+import bellpuig from '/assets/images/bellpuig.png'
+import berga from '/assets/images/berga.png'
+import bisbal from '/assets/images/bisbal.png'
+import cec from '/assets/images/cec.png'
+import coec from '/assets/images/coec.png'
+import coib from '/assets/images/coib.png'
+import decidim from '/assets/images/decidim.png'
+import eic from '/assets/images/eic.png'
+import erc from '/assets/images/erc.png'
+import fcb from '/assets/images/fcb.png'
+import belarus from '/assets/images/new_belarus.png'
+import omnium from '/assets/images/omnium.png'
+import pirates from '/assets/images/pirates.png'
+import plataforma from '/assets/images/plataforma.png'
+import votify from '/assets/images/votify.png'
+
 const clients = [
-  { name: 'Ajuntament de Barcelona', logo: '/assets/images/barcelona.png' },
-  { name: 'Esquerra Republicana de Catalunya', logo: '/assets/images/erc.png' },
-  { name: 'Alhora', logo: '/assets/images/alhora.png' },
-  { name: 'Fútbol Club Barcelona', logo: '/assets/images/fcb.png' },
-  { name: "Ajuntament de la Bisbal d'Empordà", logo: '/assets/images/bisbal.png' },
-  { name: 'Associació Decidim', logo: '/assets/images/decidim.png' },
-  { name: 'Ajuntament de Bellpuig', logo: '/assets/images/bellpuig.png' },
-  { name: 'New Belarus', logo: '/assets/images/new_belarus.png' },
-  { name: 'Plataforma per la Llengua', logo: '/assets/images/plataforma.png' },
-  { name: 'Pirates', logo: '/assets/images/pirates.png' },
-  { name: 'Enginyers Industrials de Catalunya', logo: '/assets/images/eic.png' },
-  { name: 'Ajuntament de Berga', logo: '/assets/images/berga.png' },
-  { name: 'Centre Excursionista de Catalunya', logo: '/assets/images/cec.png' },
-  { name: "Col·legi Oficial d'Infermeres i Infermers de Barcelona", logo: '/assets/images/coib.png' },
-  { name: 'Omnium Cultural', logo: '/assets/images/omnium.png' },
-  { name: 'Votify', logo: '/assets/images/votify.png' },
-  { name: "Col·legi Oficial d'Odontòlegs i Estomatòlegs de Catalunya", logo: '/assets/images/coec.png' },
+  { name: 'Ajuntament de Barcelona', logo: barcelona },
+  { name: 'Esquerra Republicana de Catalunya', logo: erc },
+  { name: 'Alhora', logo: alhora },
+  { name: 'Fútbol Club Barcelona', logo: fcb },
+  { name: "Ajuntament de la Bisbal d'Empordà", logo: bisbal },
+  { name: 'Associació Decidim', logo: decidim },
+  { name: 'Ajuntament de Bellpuig', logo: bellpuig },
+  { name: 'New Belarus', logo: belarus },
+  { name: 'Plataforma per la Llengua', logo: plataforma },
+  { name: 'Pirates', logo: pirates },
+  { name: 'Enginyers Industrials de Catalunya', logo: eic },
+  { name: 'Ajuntament de Berga', logo: berga },
+  { name: 'Centre Excursionista de Catalunya', logo: cec },
+  { name: "Col·legi Oficial d'Infermeres i Infermers de Barcelona", logo: coib },
+  { name: 'Omnium Cultural', logo: omnium },
+  { name: 'Votify', logo: votify },
+  { name: "Col·legi Oficial d'Odontòlegs i Estomatòlegs de Catalunya", logo: coec },
 ]
 
 export function Explore() {
