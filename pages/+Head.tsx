@@ -1,13 +1,22 @@
 // https://vike.dev/Head
 
-//# BATI.has("mantine")
+import { useEffect } from 'react'
+import TagManager from 'react-gtm-module'
 
 export default function HeadDefault() {
-  if (!PLAUSIBLE_DOMAIN) return null
+  useEffect(() => {
+    if (GTM_ID) {
+      TagManager.initialize({ gtmId: GTM_ID })
+    }
+  }, [])
+
+  if (!PLAUSIBLE_DOMAIN && !GTM_ID) return null
 
   return (
     <>
-      <script defer data-domain={PLAUSIBLE_DOMAIN} src='https://plausible.io/js/script.js'></script>
+      {PLAUSIBLE_DOMAIN && (
+        <script defer data-domain={PLAUSIBLE_DOMAIN} src='https://plausible.io/js/script.js'></script>
+      )}
     </>
   )
 }

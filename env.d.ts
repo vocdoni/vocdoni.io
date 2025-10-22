@@ -1,6 +1,7 @@
 /// <reference types="vite/client" />
 
 declare const PLAUSIBLE_DOMAIN: string
+declare const GTM_ID: string
 // EmailJS configuration variables defined in vite.config.ts
 declare const EMAILJS_PUBLIC_KEY: string
 declare const EMAILJS_SERVICE_ID: string
