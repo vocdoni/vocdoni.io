@@ -3,11 +3,11 @@
 //# BATI.has("mantine")
 
 export default function HeadDefault() {
+  if (!PLAUSIBLE_DOMAIN) return null
+
   return (
     <>
-      {/* See https://plausible.io/docs/plausible-script */}
-      {/* TODO: update data-domain */}
-      <script defer data-domain='yourdomain.com' src='https://plausible.io/js/script.js'></script>
+      <script defer data-domain={PLAUSIBLE_DOMAIN} src='https://plausible.io/js/script.js'></script>
     </>
   )
 }
