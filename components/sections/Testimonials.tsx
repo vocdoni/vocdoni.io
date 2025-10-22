@@ -1,13 +1,13 @@
 import { useTranslation } from 'react-i18next'
 import { Link } from '../Link'
 
-import barcelona from '/assets/images/barcelona.png'
-import bellpuig from '/assets/images/bellpuig.png'
-import cec from '/assets/images/cec.png'
-import eic from '/assets/images/eic.png'
-import erc from '/assets/images/erc.png'
-import belarus from '/assets/images/new_belarus.png'
-import omnium from '/assets/images/omnium.png'
+import barcelona from '/assets/logos/barcelona.png'
+import bellpuig from '/assets/logos/bellpuig.png'
+import cec from '/assets/logos/cec.png'
+import eic from '/assets/logos/eic.png'
+import erc from '/assets/logos/erc.png'
+import belarus from '/assets/logos/new_belarus.png'
+import omnium from '/assets/logos/omnium.png'
 
 type QuoteTestimonial = { quote: string; name: string; role: string; org: string; logo: string }
 type StatTestimonial = { stat: string; text: string; org: string; logo: string; readMore?: boolean }

@@ -27,9 +27,11 @@ export const Footer = () => {
           <div className='w-fit'>
             <div className='grid grid-cols-2 gap-y-2 gap-x-30 text-sm md:text-base'>
               <Link href='/technology'>{t('footer.technology', { defaultValue: 'Technology' })} ↗</Link>
-              <Link href='#'>{t('footer.resources', { defaultValue: 'Resources' })} ↗</Link>
+              <Link href='https://developer.vocdoni.io'>
+                {t('footer.developers', { defaultValue: 'Developers' })} ↗
+              </Link>
               <Link href='/services'>{t('footer.our_services', { defaultValue: 'Our Services' })} ↗</Link>
-              <Link href='#'>{t('footer.research', { defaultValue: 'Research' })} ↗</Link>
+              <Link href='https://davinci.vote'>{t('footer.research', { defaultValue: 'Research' })} ↗</Link>
               <Link href='/product'>{t('footer.product', { defaultValue: 'Product' })} ↗</Link>
               <Link href='https://blog.vocdoni.io'>{t('footer.blog', { defaultValue: 'Blog' })} ↗</Link>
             </div>
