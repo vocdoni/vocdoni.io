@@ -1,5 +1,6 @@
 import vikeReact from 'vike-react/config'
 import type { Config } from 'vike/types'
+import favicon from '../assets/favicon.ico'
 import Head from '../layouts/Head.js'
 import Layout from '../layouts/LayoutDefault.js'
 
@@ -22,4 +23,5 @@ export default {
     enable: true,
     keepDistServer: false,
   },
+  favicon,
 } satisfies Config
