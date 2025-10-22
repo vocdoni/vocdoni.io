@@ -72,13 +72,13 @@ export function SectionScroller({
     }
 
     const handleKeyDown = (e: KeyboardEvent) => {
-      const keys = ['ArrowDown', 'ArrowUp', 'PageDown', 'PageUp', ' ', 'Spacebar']
+      const keys = ['ArrowDown', 'ArrowUp', 'PageDown', 'PageUp']
       if (!keys.includes(e.key)) return
 
       const target = (e.target as HTMLElement) ?? document.activeElement
       const scrollable = findScrollableAncestor(target)
 
-      const deltaY = e.key === 'ArrowDown' || e.key === 'PageDown' || e.key === ' ' || e.key === 'Spacebar' ? 100 : -100
+      const deltaY = e.key === 'ArrowDown' || e.key === 'PageDown' ? 100 : -100
 
       if (scrollable && canScrollInDirection(scrollable, deltaY)) {
         return

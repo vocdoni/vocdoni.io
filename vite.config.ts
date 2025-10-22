@@ -1,18 +1,30 @@
 import tailwindcss from '@tailwindcss/vite'
 import react from '@vitejs/plugin-react'
 import vike from 'vike/plugin'
-import { defineConfig } from 'vite'
+import { ConfigEnv, defineConfig, loadEnv } from 'vite'
 
-export default defineConfig({
-  plugins: [vike(), react(), tailwindcss()],
+const viteconfig = ({ mode }: ConfigEnv) => {
+  process.env = { ...process.env, ...loadEnv(mode, process.cwd(), '') }
 
-  build: {
-    target: 'es2022',
-  },
+  return defineConfig({
+    plugins: [vike(), react(), tailwindcss()],
 
-  resolve: {
-    alias: {
-      '@': new URL('./', import.meta.url).pathname,
+    build: {
+      target: 'es2022',
     },
-  },
-})
+
+    resolve: {
+      alias: {
+        '@': new URL('./', import.meta.url).pathname,
+      },
+    },
+
+    define: {
+      EMAILJS_PUBLIC_KEY: JSON.stringify(process.env.EMAILJS_PUBLIC_KEY || ''),
+      EMAILJS_SERVICE_ID: JSON.stringify(process.env.EMAILJS_SERVICE_ID || ''),
+      EMAILJS_TEMPLATE_ID: JSON.stringify(process.env.EMAILJS_TEMPLATE_ID || ''),
+    },
+  })
+}
+
+export default viteconfig

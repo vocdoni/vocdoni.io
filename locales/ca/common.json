@@ -6,11 +6,20 @@
   "contact": {
     "company_placeholder": "Empresa",
     "description": "Construïm el Futur de la Governança",
-    "disclaimer": "En fer clic al botó “Enviar”, accepteu la política de privadesa.",
+    "disclaimer": "En fer clic al botó \"Enviar\", accepteu la política de privadesa.",
     "email_placeholder": "Adreça de correu electrònic",
+    "error": "No s'ha pogut enviar el missatge. Si us plau, torna-ho a provar més tard.",
+    "error_not_configured": "El formulari de contacte encara no està configurat. Si us plau, contacta'ns directament per correu electrònic o xarxes socials.",
+    "errors": {
+      "email_invalid": "Adreça de correu electrònic invàlida",
+      "email_required": "El correu electrònic és obligatori",
+      "name_required": "El nom és obligatori"
+    },
     "message_placeholder": "Explica'ns el teu projecte...",
     "name_placeholder": "El teu nom",
+    "sending": "Enviant...",
     "submit_button": "Envia el teu missatge",
+    "success": "Missatge enviat amb èxit! T'respondrem aviat.",
     "want_to_talk": "Voleu parlar amb nosaltres?"
   },
   "explore": {

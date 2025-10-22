@@ -1,6 +1,6 @@
+import { localeDefault } from '@/locales'
 import { useCallback, useEffect, useState } from 'react'
 import { usePageContext } from 'vike-react/usePageContext'
-import { localeDefault } from '@/locales'
 
 type Section = {
   path: string
@@ -124,16 +124,19 @@ export function useUrlSync(onSectionChange?: (sectionIndex: number) => void) {
   )
 
   // Helper function to extract path without locale from any pathname
-  const getPathWithoutLocale = useCallback((pathname: string) => {
-    if (locale === localeDefault) {
+  const getPathWithoutLocale = useCallback(
+    (pathname: string) => {
+      if (locale === localeDefault) {
+        return pathname
+      }
+      // Remove locale prefix if present
+      if (pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`) {
+        return pathname.substring(locale.length + 1) || '/'
+      }
       return pathname
-    }
-    // Remove locale prefix if present
-    if (pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`) {
-      return pathname.substring(locale.length + 1) || '/'
-    }
-    return pathname
-  }, [locale])
+    },
+    [locale]
+  )
 
   // Helper to normalize paths by removing trailing slashes (except for root)
   const normalizePath = useCallback((path: string) => {
