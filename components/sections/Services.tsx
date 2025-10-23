@@ -22,7 +22,7 @@ export function Services() {
       }),
       buttonIcon: '🗳️',
       button: t('services.app_button', { defaultValue: 'Start your vote' }),
-      href: 'https://app.vocdoni.io',
+      href: 'https://app.vocdoni.io/admin/processes/create',
     },
     {
       id: 'sdk',
@@ -50,7 +50,7 @@ export function Services() {
       }),
       buttonIcon: '🏛️',
       button: t('services.projects_button', { defaultValue: 'Request a Custom Solution' }),
-      href: '#',
+      href: '/contact',
     },
   ]
 
@@ -133,7 +133,7 @@ export function Services() {
                   <p className='max-w-2xl'>{description}</p>
                   <div className='flex justify-end'>
                     <Button asChild variant='outline' className='flex gap-2'>
-                      <Link href={href} target='_blank' rel='noopener noreferrer'>
+                      <Link href={href}>
                         <p>{buttonIcon}</p> <p>{button}</p> <p>→</p>
                       </Link>
                     </Button>

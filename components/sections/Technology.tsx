@@ -81,7 +81,7 @@ export function Technology() {
               size='sm'
               className={cn(
                 'border border-input bg-background',
-                'hover:bg-accent hover:text-accent-foreground',
+                'hover:bg-accent hover:text-accent-foreground hover:no-underline',
                 'content-center font-medium self-start'
               )}
               href='https://davinci.vote'
