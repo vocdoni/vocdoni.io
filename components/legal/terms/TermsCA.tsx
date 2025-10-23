@@ -1,6 +1,7 @@
 import {
   LegalCompanyInfo,
   LegalHeader,
+  LegalLastUpdated,
   LegalLink,
   LegalList,
   LegalListItem,
@@ -11,14 +12,13 @@ import {
   LegalSubsection,
   LegalSubsectionTitle,
   LegalTitle,
-  LegalLastUpdated,
 } from '@/components/ui/legal-document'
 
 export function TermsCA() {
   return (
     <LegalPageContainer>
       <LegalHeader>
-        <LegalTitle>Vocdoni App - Termes i Condicions d'Ús</LegalTitle>
+        <LegalTitle>Termes i Condicions d'Ús</LegalTitle>
         <LegalCompanyInfo>
           <p>
             <strong>Synergize SL</strong>
@@ -53,8 +53,8 @@ export function TermsCA() {
         <LegalSectionTitle>1. PROPÒSIT</LegalSectionTitle>
         <LegalParagraph>
           El propòsit de l'APLICACIÓ és proporcionar una plataforma digital de votació i participació que permeti a
-          organitzacions, associacions i comunitats dur a terme processos de votació segurs, verificables i que preservin
-          la privacitat, i gestionar la seva base de membres per configurar censos.
+          organitzacions, associacions i comunitats dur a terme processos de votació segurs, verificables i que
+          preservin la privacitat, i gestionar la seva base de membres per configurar censos.
         </LegalParagraph>
         <LegalParagraph>
           Alguns dels grups que poden beneficiar-se d'aquest projecte són{' '}
@@ -66,17 +66,15 @@ export function TermsCA() {
           d'usuaris que van participar en el període de prova.
         </LegalParagraph>
         <LegalParagraph>
-          És compatible amb navegadors basats en Chromium (p. ex., Google Chrome, Microsoft Edge, Brave), WebKit (p. ex.,
-          Safari) i Gecko (p. ex., Mozilla Firefox), i també pot ser compatible amb altres navegadors web moderns, tot i
-          que no es pot garantir aquesta compatibilitat.
+          És compatible amb navegadors basats en Chromium (p. ex., Google Chrome, Microsoft Edge, Brave), WebKit (p.
+          ex., Safari) i Gecko (p. ex., Mozilla Firefox), i també pot ser compatible amb altres navegadors web moderns,
+          tot i que no es pot garantir aquesta compatibilitat.
         </LegalParagraph>
       </LegalSection>
 
       <LegalSection>
         <LegalSectionTitle>2. CARACTERÍSTIQUES</LegalSectionTitle>
-        <LegalParagraph>
-          L'APLICACIÓ proporciona diferents funcionalitats segons el tipus d'usuari:
-        </LegalParagraph>
+        <LegalParagraph>L'APLICACIÓ proporciona diferents funcionalitats segons el tipus d'usuari:</LegalParagraph>
         <LegalSubsection>
           <LegalSubsectionTitle>Per a usuaris votants (no registrats):</LegalSubsectionTitle>
           <LegalList variant='none'>
@@ -112,9 +110,9 @@ export function TermsCA() {
       <LegalSection>
         <LegalSectionTitle>3. DRETS DE PROPIETAT INTEL·LECTUAL I INDUSTRIAL</LegalSectionTitle>
         <LegalParagraph>
-          Els drets de propietat intel·lectual i industrial sobre l'APLICACIÓ són propietat de Synergize SL, corresponent
-          l'exercici exclusiu dels drets d'ús per ells en qualsevol forma i, en particular, els drets de reproducció,
-          distribució, comunicació pública i modificació.
+          Els drets de propietat intel·lectual i industrial sobre l'APLICACIÓ són propietat de Synergize SL,
+          corresponent l'exercici exclusiu dels drets d'ús per ells en qualsevol forma i, en particular, els drets de
+          reproducció, distribució, comunicació pública i modificació.
         </LegalParagraph>
         <LegalParagraph>
           Els titulars de tercers de drets de propietat intel·lectual i industrial sobre fotografies, logotips i
@@ -122,11 +120,12 @@ export function TermsCA() {
           reproducció, distribució i disponibilitat al públic.
         </LegalParagraph>
         <LegalParagraph>
-          L'usuari reconeix que la reproducció, modificació, distribució, comercialització, descompilació, desassemblatge,
-          enginyeria inversa o qualsevol altre mitjà per obtenir el codi font, transformació o publicació de qualsevol
-          resultat de prova de referència no autoritzat de qualsevol dels elements i utilitats integrats dins de la
-          seqüència d'operacions constitueix una violació dels drets de propietat intel·lectual de Synergize SL, i per
-          tant es compromet a abstenir-se de realitzar qualsevol de les accions esmentades anteriorment.
+          L'usuari reconeix que la reproducció, modificació, distribució, comercialització, descompilació,
+          desassemblatge, enginyeria inversa o qualsevol altre mitjà per obtenir el codi font, transformació o
+          publicació de qualsevol resultat de prova de referència no autoritzat de qualsevol dels elements i utilitats
+          integrats dins de la seqüència d'operacions constitueix una violació dels drets de propietat intel·lectual de
+          Synergize SL, i per tant es compromet a abstenir-se de realitzar qualsevol de les accions esmentades
+          anteriorment.
         </LegalParagraph>
       </LegalSection>
 
@@ -175,9 +174,9 @@ export function TermsCA() {
           només amb fins relacionats amb el correcte funcionament de l'aplicació i mai es comparteixen sense base legal.
         </LegalParagraph>
         <LegalParagraph>
-          Les possibles causes de modificació poden ser per raons com l'adaptació a possibles canvis legislatius i canvis
-          en l'APLICACIÓ mateixa, així com aquelles que puguin derivar-se dels codis de conducta existents en el camp, o
-          per raons estratègiques o corporatives.
+          Les possibles causes de modificació poden ser per raons com l'adaptació a possibles canvis legislatius i
+          canvis en l'APLICACIÓ mateixa, així com aquelles que puguin derivar-se dels codis de conducta existents en el
+          camp, o per raons estratègiques o corporatives.
         </LegalParagraph>
         <LegalParagraph>
           Synergize SL no serà responsable de l'ús de l'APLICACIÓ per part d'un menor. La descàrrega i l'ús de
@@ -215,8 +214,8 @@ export function TermsCA() {
       <LegalSection>
         <LegalSectionTitle>6. LEGISLACIÓ I JURISDICCIÓ</LegalSectionTitle>
         <LegalParagraph>
-          L'usuari accepta que la llei aplicable i els Tribunals i Tribunals competents que coneixeran les diferències en
-          la interpretació o aplicació d'aquesta clàusula són els tribunals espanyols, i renuncia expressament a
+          L'usuari accepta que la llei aplicable i els Tribunals i Tribunals competents que coneixeran les diferències
+          en la interpretació o aplicació d'aquesta clàusula són els tribunals espanyols, i renuncia expressament a
           qualsevol altra jurisdicció, és a dir, els tribunals més pròxims a la ciutat de Sant Celoni.
         </LegalParagraph>
         <LegalParagraph>

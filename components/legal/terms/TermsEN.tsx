@@ -1,6 +1,7 @@
 import {
   LegalCompanyInfo,
   LegalHeader,
+  LegalLastUpdated,
   LegalLink,
   LegalList,
   LegalListItem,
@@ -11,14 +12,13 @@ import {
   LegalSubsection,
   LegalSubsectionTitle,
   LegalTitle,
-  LegalLastUpdated,
 } from '@/components/ui/legal-document'
 
 export function TermsEN() {
   return (
     <LegalPageContainer>
       <LegalHeader>
-        <LegalTitle>Vocdoni App - Terms and Conditions of Use</LegalTitle>
+        <LegalTitle>Terms and Conditions of Use</LegalTitle>
         <LegalCompanyInfo>
           <p>
             <strong>Synergize SL</strong>
@@ -53,25 +53,30 @@ export function TermsEN() {
         <LegalSectionTitle>1. PURPOSE</LegalSectionTitle>
         <LegalParagraph>
           The purpose of the APPLICATION is to provide a digital voting and participation platform that allows
-          organizations, associations, and communities to run secure, verifiable, and privacy-preserving voting processes
-          and manage their memberbase to setup censuses.
+          organizations, associations, and communities to run secure, verifiable, and privacy-preserving voting
+          processes and manage their memberbase to setup censuses.
         </LegalParagraph>
         <LegalParagraph>
-          Some of the groups that can benefit from this project are <strong>non-profit organizations, cooperatives, associations,
-          community groups, city councils, and other entities that need transparent and trustworthy decision-making
-          mechanisms</strong>. The design and development of this APPLICATION has involved professional specialists as well as a
-          group of users who participated in the trial period.
+          Some of the groups that can benefit from this project are{' '}
+          <strong>
+            non-profit organizations, cooperatives, associations, community groups, city councils, and other entities
+            that need transparent and trustworthy decision-making mechanisms
+          </strong>
+          . The design and development of this APPLICATION has involved professional specialists as well as a group of
+          users who participated in the trial period.
         </LegalParagraph>
         <LegalParagraph>
           It is compatible with browsers based on Chromium (e.g., Google Chrome, Microsoft Edge, Brave), WebKit (e.g.,
-          Safari), and Gecko (e.g., Mozilla Firefox), and may also be compatible with other modern web browsers, although
-          such compatibility cannot be guaranteed.
+          Safari), and Gecko (e.g., Mozilla Firefox), and may also be compatible with other modern web browsers,
+          although such compatibility cannot be guaranteed.
         </LegalParagraph>
       </LegalSection>
 
       <LegalSection>
         <LegalSectionTitle>2. FEATURES</LegalSectionTitle>
-        <LegalParagraph>The APPLICATION provides different functionalities depending on the type of user:</LegalParagraph>
+        <LegalParagraph>
+          The APPLICATION provides different functionalities depending on the type of user:
+        </LegalParagraph>
         <LegalSubsection>
           <LegalSubsectionTitle>For voting users (non-registered):</LegalSubsectionTitle>
           <LegalList variant='none'>
@@ -88,9 +93,7 @@ export function TermsEN() {
         <LegalSubsection>
           <LegalSubsectionTitle>For registered users (administrators):</LegalSubsectionTitle>
           <LegalList variant='none'>
-            <LegalListItem>
-              ○ Create and configure voting processes on behalf of their organization.
-            </LegalListItem>
+            <LegalListItem>○ Create and configure voting processes on behalf of their organization.</LegalListItem>
             <LegalListItem>
               ○ Upload and manage members lists, which may include personal information of members of the organization
               (who are also potential voters).
@@ -108,19 +111,19 @@ export function TermsEN() {
         <LegalSectionTitle>3. INTELLECTUAL AND INDUSTRIAL PROPERTY RIGHTS</LegalSectionTitle>
         <LegalParagraph>
           The intellectual and industrial property rights on the APPLICATION are owned by Synergize SL, corresponding to
-          the exclusive exercise of the rights of use by them in any form and, in particular, the rights of reproduction,
-          distribution, communication to the public and change.
+          the exclusive exercise of the rights of use by them in any form and, in particular, the rights of
+          reproduction, distribution, communication to the public and change.
         </LegalParagraph>
         <LegalParagraph>
-          Third party holders of intellectual and industrial property rights on photographs, logos, and any other symbols
-          or contents included in the APPLICATION have granted the corresponding authorisation for their reproduction,
-          distribution and availability to the public.
+          Third party holders of intellectual and industrial property rights on photographs, logos, and any other
+          symbols or contents included in the APPLICATION have granted the corresponding authorisation for their
+          reproduction, distribution and availability to the public.
         </LegalParagraph>
         <LegalParagraph>
           The user acknowledges that the reproduction, modification, distribution, commercialisation, decompiling,
-          disassembly, reverse engineering or any other means to obtain the source code, transformation or publication of
-          any unauthorised reference test results of any of the elements and utilities integrated within the sequence of
-          operations constitutes a breach of intellectual property rights of Synergize SL, and therefore commits to
+          disassembly, reverse engineering or any other means to obtain the source code, transformation or publication
+          of any unauthorised reference test results of any of the elements and utilities integrated within the sequence
+          of operations constitutes a breach of intellectual property rights of Synergize SL, and therefore commits to
           refraining from carrying out any of the aforementioned actions.
         </LegalParagraph>
       </LegalSection>
@@ -130,9 +133,9 @@ export function TermsEN() {
         <LegalParagraph>
           The users, by marking the corresponding boxes and entering data in the fields, marked with an asterisk (*) in
           the APPLICATION's forms, accept expressly and in a free and unequivocal way that their personal data are
-          necessary for the supplier to meet their request, voluntarily providing their data in the remaining fields. The
-          user ensures that the personal data provided to Synergize SL are true and is responsible for communicating any
-          changes to them.
+          necessary for the supplier to meet their request, voluntarily providing their data in the remaining fields.
+          The user ensures that the personal data provided to Synergize SL are true and is responsible for communicating
+          any changes to them.
         </LegalParagraph>
         <LegalParagraph>
           Registered users (administrators) are also responsible for the accuracy and lawfulness of the personal data of
@@ -140,8 +143,8 @@ export function TermsEN() {
         </LegalParagraph>
         <LegalParagraph>
           Synergize SL informs that all data requested through the APPLICATION are mandatory, as they are necessary for
-          the provision of an optimal service to the user. In the event that not all of the data is provided, there is no
-          guarantee that the information and services provided will be completely adapted to the User's needs.
+          the provision of an optimal service to the user. In the event that not all of the data is provided, there is
+          no guarantee that the information and services provided will be completely adapted to the User's needs.
         </LegalParagraph>
       </LegalSection>
 
@@ -157,8 +160,8 @@ export function TermsEN() {
           the APPLICATION and the data processed through it. The design of the APPLICATION follows the principle of data
           minimization, collecting only the information strictly necessary for its operation. In addition, the most
           sensitive data handled by the APPLICATION are stored in encrypted form to enhance confidentiality and
-          protection. However, users acknowledge that no system is completely secure and Synergize SL cannot guarantee the
-          absolute security of the APPLICATION or of the information transmitted or stored through it.
+          protection. However, users acknowledge that no system is completely secure and Synergize SL cannot guarantee
+          the absolute security of the APPLICATION or of the information transmitted or stored through it.
         </LegalParagraph>
         <LegalParagraph>
           Synergize S.L. applies technical and organizational measures in accordance with the GDPR to protect personal
@@ -175,10 +178,11 @@ export function TermsEN() {
           APPLICATION is the sole responsibility of the user.
         </LegalParagraph>
         <LegalParagraph>
-          The APPLICATION is provided «as is» without warranty of any kind. Synergize SL is not responsible for the final
-          quality of the APPLICATION or for it serving and fulfilling all the APPLICATION's purposes. Notwithstanding the
-          foregoing, Synergize SL undertakes to contribute to improving the quality of the APPLICATION to the best of its
-          ability, but cannot guarantee the accuracy or timeliness of the content thereof.
+          The APPLICATION is provided «as is» without warranty of any kind. Synergize SL is not responsible for the
+          final quality of the APPLICATION or for it serving and fulfilling all the APPLICATION's purposes.
+          Notwithstanding the foregoing, Synergize SL undertakes to contribute to improving the quality of the
+          APPLICATION to the best of its ability, but cannot guarantee the accuracy or timeliness of the content
+          thereof.
         </LegalParagraph>
         <LegalParagraph>
           The responsibility for using the APPLICATION rests solely with the user. Except for that which is set forth in
@@ -207,8 +211,8 @@ export function TermsEN() {
         <LegalSectionTitle>6. LEGISLATION AND JURISDICTION</LegalSectionTitle>
         <LegalParagraph>
           The user accepts that governing law and the competent Courts and Tribunals that will hear differences in the
-          interpretation or application of this clause are the Spanish courts and tribunals, and expressly waive any other
-          jurisdiction, that is the courts and tribunals closest to the city of Sant Celoni.
+          interpretation or application of this clause are the Spanish courts and tribunals, and expressly waive any
+          other jurisdiction, that is the courts and tribunals closest to the city of Sant Celoni.
         </LegalParagraph>
         <LegalParagraph>
           This agreement shall be governed by Spanish law and the GDPR for data protection matters

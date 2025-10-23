@@ -1,6 +1,7 @@
 import {
   LegalCompanyInfo,
   LegalHeader,
+  LegalLastUpdated,
   LegalLink,
   LegalList,
   LegalListItem,
@@ -11,14 +12,13 @@ import {
   LegalSubsection,
   LegalSubsectionTitle,
   LegalTitle,
-  LegalLastUpdated,
 } from '@/components/ui/legal-document'
 
 export function TermsES() {
   return (
     <LegalPageContainer>
       <LegalHeader>
-        <LegalTitle>Vocdoni App - Términos y Condiciones de Uso</LegalTitle>
+        <LegalTitle>Términos y Condiciones de Uso</LegalTitle>
         <LegalCompanyInfo>
           <p>
             <strong>Synergize SL</strong>
@@ -74,9 +74,7 @@ export function TermsES() {
 
       <LegalSection>
         <LegalSectionTitle>2. CARACTERÍSTICAS</LegalSectionTitle>
-        <LegalParagraph>
-          La APLICACIÓN proporciona diferentes funcionalidades según el tipo de usuario:
-        </LegalParagraph>
+        <LegalParagraph>La APLICACIÓN proporciona diferentes funcionalidades según el tipo de usuario:</LegalParagraph>
         <LegalSubsection>
           <LegalSubsectionTitle>Para usuarios votantes (no registrados):</LegalSubsectionTitle>
           <LegalList variant='none'>
@@ -173,13 +171,13 @@ export function TermsES() {
         </LegalParagraph>
         <LegalParagraph>
           Synergize S.L. aplica medidas técnicas y organizativas de acuerdo con el RGPD para proteger los datos
-          personales, incluido el cifrado, el control de acceso y la retención limitada de datos. Los datos personales se
-          procesan solo con fines relacionados con el correcto funcionamiento de la aplicación y nunca se comparten sin
-          base legal.
+          personales, incluido el cifrado, el control de acceso y la retención limitada de datos. Los datos personales
+          se procesan solo con fines relacionados con el correcto funcionamiento de la aplicación y nunca se comparten
+          sin base legal.
         </LegalParagraph>
         <LegalParagraph>
-          Las posibles causas de modificación pueden ser por razones como la adaptación a posibles cambios legislativos y
-          cambios en la APLICACIÓN misma, así como aquellas que puedan derivarse de los códigos de conducta existentes
+          Las posibles causas de modificación pueden ser por razones como la adaptación a posibles cambios legislativos
+          y cambios en la APLICACIÓN misma, así como aquellas que puedan derivarse de los códigos de conducta existentes
           en el campo, o por razones estratégicas o corporativas.
         </LegalParagraph>
         <LegalParagraph>
@@ -188,22 +186,22 @@ export function TermsES() {
         </LegalParagraph>
         <LegalParagraph>
           La APLICACIÓN se proporciona «tal cual» sin garantía de ningún tipo. Synergize SL no es responsable de la
-          calidad final de la APLICACIÓN o de que sirva y cumpla con todos los propósitos de la APLICACIÓN. Sin perjuicio
-          de lo anterior, Synergize SL se compromete a contribuir a mejorar la calidad de la APLICACIÓN en la medida de
-          sus posibilidades, pero no puede garantizar la exactitud o la puntualidad del contenido de la misma.
+          calidad final de la APLICACIÓN o de que sirva y cumpla con todos los propósitos de la APLICACIÓN. Sin
+          perjuicio de lo anterior, Synergize SL se compromete a contribuir a mejorar la calidad de la APLICACIÓN en la
+          medida de sus posibilidades, pero no puede garantizar la exactitud o la puntualidad del contenido de la misma.
         </LegalParagraph>
         <LegalParagraph>
           La responsabilidad de usar la APLICACIÓN recae únicamente en el usuario. Excepto por lo establecido en estos
           Términos y Condiciones, Synergize SL no es responsable de ninguna pérdida o daño que surja en relación con la
-          descarga o el uso de la APLICACIÓN, como el resultante de fallas, averías o bloqueos en el funcionamiento de la
-          APLICACIÓN (por ejemplo, pero no limitado a: error en las líneas de comunicación, defectos en el hardware o
+          descarga o el uso de la APLICACIÓN, como el resultante de fallas, averías o bloqueos en el funcionamiento de
+          la APLICACIÓN (por ejemplo, pero no limitado a: error en las líneas de comunicación, defectos en el hardware o
           software de la APLICACIÓN o fallas en la red de Internet). De manera similar, Synergize SL no será responsable
           de los daños resultantes del uso inadecuado o inapropiado de la APLICACIÓN por parte de los usuarios.
         </LegalParagraph>
         <LegalParagraph>
           En particular, los usuarios registrados (administradores) son únicamente responsables de garantizar que los
-          datos personales de sus miembros cargados en la APLICACIÓN se recopilen y procesen de conformidad con las leyes
-          de protección de datos aplicables.
+          datos personales de sus miembros cargados en la APLICACIÓN se recopilen y procesen de conformidad con las
+          leyes de protección de datos aplicables.
         </LegalParagraph>
         <LegalParagraph>
           Los administradores deben asegurarse de que los datos de los miembros y votantes se recopilen y procesen de
