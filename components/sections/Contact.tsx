@@ -4,7 +4,8 @@ import { send } from '@emailjs/browser'
 import { ArrowUpRight, Loader2 } from 'lucide-react'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { useTranslation } from 'react-i18next'
+import { Trans, useTranslation } from 'react-i18next'
+import { Link } from '../Link'
 import { Textarea } from '../ui/textarea'
 
 interface ContactFormData {
@@ -141,9 +142,13 @@ export function Contact() {
           </div>
 
           <p className='lg:col-span-2 text-xs'>
-            {t('contact.disclaimer', {
-              defaultValue: 'By clicking the "Submit" button, you agree to the privacy policy.',
-            })}
+            <Trans
+              i18nKey='contact.disclaimer'
+              defaults='By clicking the "Submit" button, you agree to the <1>privacy policy</1>.'
+              components={{
+                1: <Link href='/privacy' className='underline hover:text-primary' />,
+              }}
+            />
           </p>
 
           {status === 'success' && (

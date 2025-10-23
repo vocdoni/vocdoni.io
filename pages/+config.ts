@@ -1,8 +1,8 @@
 import vikeReact from 'vike-react/config'
 import type { Config } from 'vike/types'
 import favicon from '../assets/favicon.ico'
-import Head from '../layouts/Head.js'
-import Layout from '../layouts/LayoutDefault.js'
+import Head from '../layouts/Head'
+import Layout from '../layouts/LayoutDefault'
 
 // Default config (can be overridden by pages)
 // https://vike.dev/config

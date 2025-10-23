@@ -3,12 +3,13 @@ import { Link } from '@/components/Link'
 import { VocdoniLogo } from '@/components/Logo'
 import { Button } from '@/components/ui/button'
 import { SECTIONS } from '@/lib/useUrlSync'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 
 interface NavigationProps {
   activeSection?: number
   onNavigate?: (sectionIndex: number) => void
+  usesScroll?: boolean
 }
 
 // Use existing sections but with new labels, filter by appearsOnMenu
@@ -22,18 +23,35 @@ const menuItems = SECTIONS.filter((section) => section.appearsOnMenu).map((secti
   }
 })
 
-export function Navigation({ activeSection = 0, onNavigate }: NavigationProps) {
+export function Navigation({ activeSection = 0, onNavigate, usesScroll = false }: NavigationProps) {
   const { t } = useTranslation()
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [isAtTop, setIsAtTop] = useState(true)
 
-  const isLanding = activeSection === 0
+  useEffect(() => {
+    // Only listen to scroll events if usesScroll is true
+    if (!usesScroll) return
+
+    const handleScroll = () => {
+      setIsAtTop(window.scrollY === 0)
+    }
+
+    // Set initial state
+    handleScroll()
+
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [usesScroll])
+
+  // Determine visibility based on mode
+  const showRightMenu = usesScroll ? isAtTop : activeSection === 0
 
   return (
     <nav className='fixed top-0 left-0 right-0 z-50 lg:backdrop-blur-sm'>
       <div className='px-4'>
         <div className='h-16 flex items-center lg:grid md:grid-cols-3'>
           {/* Logo */}
-          <div className='flex items-center'>{isLanding && <VocdoniLogo minimal />}</div>
+          <div className='flex items-center'>{showRightMenu && <VocdoniLogo minimal />}</div>
 
           {/* Center Navigation with White Background */}
           <div className='hidden lg:flex items-center justify-center'>
@@ -47,7 +65,7 @@ export function Navigation({ activeSection = 0, onNavigate }: NavigationProps) {
           </div>
 
           {/* Login Button */}
-          {isLanding && (
+          {showRightMenu && (
             <div className='hidden lg:flex items-center justify-end gap-3'>
               <LanguageSwitcher />
               <Button asChild className='bg-[#E3D6C5] text-black hover:bg-[#d1bfa8]'>

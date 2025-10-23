@@ -34,6 +34,8 @@ export const Footer = () => {
               <Link href='https://davinci.vote'>{t('footer.research', { defaultValue: 'Research' })} ↗</Link>
               <Link href='/product'>{t('footer.product', { defaultValue: 'Product' })} ↗</Link>
               <Link href='https://blog.vocdoni.io'>{t('footer.blog', { defaultValue: 'Blog' })} ↗</Link>
+              <Link href='/privacy'>{t('footer.privacy_policy', { defaultValue: 'Privacy Policy' })} ↗</Link>
+              <Link href='/terms'>{t('footer.terms_conditions', { defaultValue: 'Terms & Conditions' })} ↗</Link>
             </div>
           </div>
           <div className='mt-2 flex gap-6'>

@@ -26,7 +26,7 @@ const linkVariants = cva('transition-colors', {
 
 export interface LinkProps extends React.AnchorHTMLAttributes<HTMLAnchorElement>, VariantProps<typeof linkVariants> {
   href: string
-  children: React.ReactNode
+  children?: React.ReactNode
   locale?: string
 }
 
