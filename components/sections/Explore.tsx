@@ -78,11 +78,11 @@ export function Explore() {
           ]}
           className='w-full'
         >
-          <CarouselContent className='-ml-1'>
+          <CarouselContent className='gap-2 md:gap-3 lg:gap-4'>
             {clients.map(({ name, logo }) => (
-              <CarouselItem key={name} className='pl-1 basis-1/2 sm:basis-1/3 md:basis-1/5 lg:basis-1/7 xl:basis-1/10'>
-                <div className='p-1 flex items-center justify-center'>
-                  <img src={logo} alt={name} className='block h-10 w-auto' />
+              <CarouselItem key={name} className='basis-1/2 sm:basis-1/3 md:basis-1/5 lg:basis-1/7 xl:basis-1/10'>
+                <div className='p-1 h-12 flex items-center justify-center'>
+                  <img src={logo} alt={name} className='block h-auto max-h-10 w-auto max-w-full object-contain' />
                 </div>
               </CarouselItem>
             ))}
