@@ -3,7 +3,7 @@ import { Link } from '@/components/Link'
 import { VocdoniLogo } from '@/components/Logo'
 import { Button } from '@/components/ui/button'
 import { useMediaQuery } from '@/hooks/use-media-query'
-import { SECTIONS } from '@/lib/useUrlSync'
+import { useSections } from '@/lib/useUrlSync'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
@@ -12,22 +12,18 @@ interface NavigationProps {
   usesScroll?: boolean
 }
 
-// Use existing sections but with new labels, filter by appearsOnMenu
-
-const menuItems = SECTIONS.filter((section) => section.appearsOnMenu).map((section, index) => {
-  const sectionIndex = SECTIONS.findIndex((s) => s === section)
-  return {
-    label: section.label || section.name.charAt(0).toUpperCase() + section.name.slice(1),
-    index: sectionIndex,
-    path: section.path,
-  }
-})
-
 export function Navigation({ activeSection = 0, usesScroll = false }: NavigationProps) {
   const { t } = useTranslation()
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const sections = useSections()
   const [isAtTop, setIsAtTop] = useState(true)
   const isLargeScreen = useMediaQuery('(min-width: 1024px)')
+  const menuItems = sections
+    .filter((section) => section.appearsOnMenu)
+    .map((section) => ({
+      label: section.label || section.name,
+      path: section.path,
+    }))
 
   useEffect(() => {
     // Only listen to scroll events if usesScroll is true
