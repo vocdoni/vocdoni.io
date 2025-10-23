@@ -64,7 +64,7 @@ export function Navigation({ activeSection = 0, usesScroll = false }: Navigation
           {/* Right side buttons */}
           <div className='hidden lg:flex items-center justify-end gap-3'>
             <LanguageSwitcher />
-            <Button asChild className='bg-[#E3D6C5] text-black hover:bg-[#d1bfa8]'>
+            <Button asChild>
               <a href='https://app.vocdoni.io' target='_blank' rel='noopener noreferrer'>
                 {t('navigation.app', { defaultValue: 'App' })}
               </a>

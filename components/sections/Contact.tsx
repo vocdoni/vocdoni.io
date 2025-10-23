@@ -173,12 +173,7 @@ export function Contact() {
           )}
 
           <div className='lg:col-span-2 mt-4'>
-            <Button
-              type='submit'
-              size='sm'
-              disabled={status === 'loading'}
-              className='px-3 bg-[#D7C2A6] text-foreground border border-black/10 disabled:opacity-50'
-            >
+            <Button type='submit' size='sm' disabled={status === 'loading'}>
               {status === 'loading' ? (
                 <>
                   <Loader2 className='mr-2 h-4 w-4 animate-spin' />
