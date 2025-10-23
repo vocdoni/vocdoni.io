@@ -1,63 +1,60 @@
+import { Link } from '@/components/Link'
 import {
   LegalCompanyInfo,
   LegalHeader,
   LegalLastUpdated,
-  LegalLink,
   LegalList,
   LegalListItem,
   LegalPageContainer,
-  LegalParagraph,
   LegalSection,
-  LegalSectionTitle,
   LegalSubsection,
-  LegalSubsectionTitle,
-  LegalTitle,
 } from '@/components/ui/legal-document'
+import { Heading, Paragraph } from '@/components/ui/typography'
 
 export function PrivacyPolicyCA() {
   return (
     <LegalPageContainer>
       <LegalHeader>
-        <LegalTitle>Política de Privacitat</LegalTitle>
+        <Heading.H1 variant='legal'>Política de Privacitat</Heading.H1>
         <LegalCompanyInfo>
           <p>
             <strong>Synergize SL</strong>
           </p>
           <p>Jaume I, 65 (Local Esquerra) - 08470 Sant Celoni (Barcelona) ESPAÑA</p>
           <p>
-            E-mail: <LegalLink href='mailto:dpo@vocdoni.org'>dpo@vocdoni.org</LegalLink>
+            E-mail: <Link href='mailto:dpo@vocdoni.org'>dpo@vocdoni.org</Link>
           </p>
         </LegalCompanyInfo>
       </LegalHeader>
 
       <LegalSection>
-        <LegalSectionTitle>Política de Privacitat</LegalSectionTitle>
-        <LegalParagraph>Operem d'acord amb els principis establerts a continuació:</LegalParagraph>
-        <LegalParagraph>
+        <Heading.H2 variant='legal'>Política de Privacitat</Heading.H2>
+        <Paragraph variant='legal'>Operem d'acord amb els principis establerts a continuació:</Paragraph>
+        <Paragraph variant='legal'>
           Ens comprometem a complir amb les disposicions legals sobre protecció de dades i ens esforcem per observar
           sempre els principis d'evitació de dades i minimització de dades.
-        </LegalParagraph>
+        </Paragraph>
       </LegalSection>
 
       <LegalSection>
-        <LegalSectionTitle>1. El Responsable del Tractament</LegalSectionTitle>
+        <Heading.H2 variant='legal'>1. El Responsable del Tractament</Heading.H2>
         <LegalSubsection>
-          <LegalSubsectionTitle>Qui és el responsable de les teves dades personals?</LegalSubsectionTitle>
-          <LegalParagraph>
+          <Heading.H3 variant='legal'>Qui és el responsable de les teves dades personals?</Heading.H3>
+          <Paragraph variant='legal'>
             Synergize S.L. és el responsable del tractament de dades personals en compliment del Reglament (UE) 2016/679
             (RGPD) i la Llei Orgànica 3/2018 (LOPDGDD). Vocdoni App està dissenyada i operada d'acord amb els principis
             de legalitat, equitat, transparència, minimització de dades i integritat, integrant la privacitat per
             disseny i per defecte.
-          </LegalParagraph>
+          </Paragraph>
         </LegalSubsection>
       </LegalSection>
 
       <LegalSection>
-        <LegalSectionTitle>2. Amb quina finalitat processem les teves dades personals?</LegalSectionTitle>
-        <LegalParagraph>
+        <Heading.H2 variant='legal'>2. Amb quina finalitat processem les teves dades personals?</Heading.H2>
+        <Paragraph variant='legal'>
           Processem les teves dades personals per operar la Vocdoni App (d'ara endavant, l'«APLICACIÓ»), que proporciona
           processos de votació i participació segurs, verificables i que preserven la privacitat.
-        </LegalParagraph>
+        </Paragraph>
         <LegalList>
           <LegalListItem>
             <strong>(a) Administradors:</strong> processem dades d'identificació, contacte i autenticació per gestionar
@@ -73,16 +70,16 @@ export function PrivacyPolicyCA() {
             de seguretat i anàlisi no identificables.
           </LegalListItem>
         </LegalList>
-        <LegalParagraph>
+        <Paragraph variant='legal'>
           Tot el processament segueix el principi de minimització de dades: només es recopila la informació estrictament
           necessària per operar el servei. Les dades sensibles s'emmagatzemen de forma xifrada per millorar la
           confidencialitat i la protecció.
-        </LegalParagraph>
+        </Paragraph>
       </LegalSection>
 
       <LegalSection>
-        <LegalSectionTitle>3. Per què podem processar les teves dades personals?</LegalSectionTitle>
-        <LegalParagraph>El processament de les teves dades està legitimat sobre la base de:</LegalParagraph>
+        <Heading.H2 variant='legal'>3. Per què podem processar les teves dades personals?</Heading.H2>
+        <Paragraph variant='legal'>El processament de les teves dades està legitimat sobre la base de:</Paragraph>
         <LegalList>
           <LegalListItem>Necessitat contractual (Art. 6(1)(b) RGPD)</LegalListItem>
           <LegalListItem>Consentiment explícit (Art. 6(1)(a) RGPD) per a funcions opcionals</LegalListItem>
@@ -91,7 +88,7 @@ export function PrivacyPolicyCA() {
       </LegalSection>
 
       <LegalSection>
-        <LegalSectionTitle>4. Durant quant de temps conservarem les teves dades personals?</LegalSectionTitle>
+        <Heading.H2 variant='legal'>4. Durant quant de temps conservarem les teves dades personals?</Heading.H2>
         <LegalList>
           <LegalListItem>
             Les dades d'usuaris registrats (administradors) i les dades carregades per ells (per exemple, llistes de
@@ -109,15 +106,15 @@ export function PrivacyPolicyCA() {
             amb dades personals.
           </LegalListItem>
         </LegalList>
-        <LegalParagraph>
+        <Paragraph variant='legal'>
           Quan les dades ja no siguin necessàries per a aquests fins, s'eliminaran amb les mesures de seguretat
           apropiades per a una destrucció completa.
-        </LegalParagraph>
+        </Paragraph>
       </LegalSection>
 
       <LegalSection>
-        <LegalSectionTitle>5. A qui divulguem les teves dades personals?</LegalSectionTitle>
-        <LegalParagraph>Les teves dades personals poden divulgar-se a:</LegalParagraph>
+        <Heading.H2 variant='legal'>5. A qui divulguem les teves dades personals?</Heading.H2>
+        <Paragraph variant='legal'>Les teves dades personals poden divulgar-se a:</Paragraph>
         <LegalList>
           <LegalListItem>
             <strong>Administracions Públiques i autoritats</strong> quan sigui legalment requerit.
@@ -128,15 +125,15 @@ export function PrivacyPolicyCA() {
             del tractament sota contractes que compleixen amb l'Article 28.3 RGPD.
           </LegalListItem>
         </LegalList>
-        <LegalParagraph>
+        <Paragraph variant='legal'>
           <strong>Específicament:</strong>
-        </LegalParagraph>
+        </Paragraph>
         <LegalList>
           <LegalListItem>
             Dins de l'APLICACIÓ, les anàlisis es realitzen utilitzant <strong>Plausible</strong>, una plataforma
             d'anàlisi que prioritza la privacitat, que no utilitza galetes i no recopila ni emmagatzema informació
             d'identificació personal. Per a més detalls, pots revisar{' '}
-            <LegalLink href='https://plausible.io/privacy'>plausible.io/privacy</LegalLink>.
+            <Link href='https://plausible.io/privacy'>plausible.io/privacy</Link>.
           </LegalListItem>
           <LegalListItem>
             La pàgina d'inici de vocdoni.app utilitza <strong>Google Analytics</strong> per a l'anàlisi del trànsit web.
@@ -144,18 +141,18 @@ export function PrivacyPolicyCA() {
             personal) i s'utilitzen exclusivament amb fins estadístics interns. L'APLICACIÓ pot recopilar, emmagatzemar
             o compilar certa informació no personal sobre el seu ús. Google Analytics es regeix pels Termes i Condicions
             Generals de Google{' '}
-            <LegalLink href='http://www.google.com/analytics/terms/us.html'>
+            <Link href='http://www.google.com/analytics/terms/us.html'>
               google.com/analytics/terms/us.html
-            </LegalLink>{' '}
+            </Link>{' '}
             i la Política de Privacitat de Google{' '}
-            <LegalLink href='https://policies.google.com/privacy?hl=ca&gl=es'>policies.google.com/privacy</LegalLink>.
+            <Link href='https://policies.google.com/privacy?hl=ca&gl=es'>policies.google.com/privacy</Link>.
           </LegalListItem>
         </LegalList>
       </LegalSection>
 
       <LegalSection>
-        <LegalSectionTitle>6. Quins són els teus drets com a usuari registrat?</LegalSectionTitle>
-        <LegalParagraph>Els teus drets inclouen els següents, però no es limiten a:</LegalParagraph>
+        <Heading.H2 variant='legal'>6. Quins són els teus drets com a usuari registrat?</Heading.H2>
+        <Paragraph variant='legal'>Els teus drets inclouen els següents, però no es limiten a:</Paragraph>
         <LegalList>
           <LegalListItem>Dret a sol·licitar informació d'acord amb l'Art. 15 RGPD</LegalListItem>
           <LegalListItem>Dret a sol·licitar rectificació segons l'Article 16 RGPD</LegalListItem>
@@ -175,37 +172,37 @@ export function PrivacyPolicyCA() {
           </LegalListItem>
           <LegalListItem>
             Dret a presentar una queixa davant l'autoritat supervisora espanyola (
-            <LegalLink href='https://www.aepd.es'>www.aepd.es</LegalLink>) si consideres que el processament no compleix
+            <Link href='https://www.aepd.es'>www.aepd.es</Link>) si consideres que el processament no compleix
             amb la legislació vigent.
           </LegalListItem>
         </LegalList>
-        <LegalParagraph>
+        <Paragraph variant='legal'>
           <strong>Informació de contacte per exercir els teus drets:</strong>
-        </LegalParagraph>
-        <LegalParagraph>
+        </Paragraph>
+        <Paragraph variant='legal'>
           Synergize SL. Jaume I, 65 (Local Esquerra) - 08470 Sant Celoni (Barcelona).
           <br />
-          E-mail: <LegalLink href='mailto:dpo@vocdoni.org'>dpo@vocdoni.org</LegalLink>
-        </LegalParagraph>
-        <LegalParagraph>
+          E-mail: <Link href='mailto:dpo@vocdoni.org'>dpo@vocdoni.org</Link>
+        </Paragraph>
+        <Paragraph variant='legal'>
           Consulta la nostra política de privacitat / Consulta la nostra política de galetes
-        </LegalParagraph>
+        </Paragraph>
       </LegalSection>
 
       <LegalSection>
-        <LegalSectionTitle>7. MESURES DE SEGURETAT</LegalSectionTitle>
-        <LegalParagraph>
+        <Heading.H2 variant='legal'>7. MESURES DE SEGURETAT</Heading.H2>
+        <Paragraph variant='legal'>
           D'acord amb les disposicions de les regulacions actuals sobre protecció de dades personals, el RESPONSABLE
           compleix amb totes les disposicions de les regulacions RGPD i LOPDGDD per al processament de les dades
           personals de les quals és responsable, i compleix manifestament amb els principis descrits a l'Article 5 del
           RGPD, pels quals es processen de manera lícita, justa i transparent en relació amb l'interessat i són
           apropiades, rellevants i limitades al necessari en relació amb les finalitats per a les quals es processen.
-        </LegalParagraph>
-        <LegalParagraph>
+        </Paragraph>
+        <Paragraph variant='legal'>
           Synergize SL garanteix que s'han implementat polítiques tècniques i organitzatives apropiades per aplicar les
           mesures de seguretat establertes per RGPD i LOPDGDD amb la finalitat de protegir els drets i llibertats dels
           usuaris.
-        </LegalParagraph>
+        </Paragraph>
         <LegalList>
           <LegalListItem>
             Totes les comunicacions entre l'APLICACIÓ i els servidors estan xifrades (HTTPS/TLS).
@@ -223,45 +220,45 @@ export function PrivacyPolicyCA() {
             identitat del votant.
           </LegalListItem>
         </LegalList>
-        <LegalParagraph>
+        <Paragraph variant='legal'>
           Aquesta Política de Privacitat va ser publicada el 26 de setembre de 2025 i és efectiva a partir d'aquesta
           data. Per a més informació sobre les garanties de la teva privacitat, pots contactar Synergize SL a{' '}
-          <LegalLink href='mailto:legal@vocdoni.org'>legal@vocdoni.org</LegalLink>.
-        </LegalParagraph>
+          <Link href='mailto:legal@vocdoni.org'>legal@vocdoni.org</Link>.
+        </Paragraph>
       </LegalSection>
 
       <LegalSection>
-        <LegalSectionTitle>8. Delegat de Protecció de Dades (DPO)</LegalSectionTitle>
-        <LegalParagraph>
+        <Heading.H2 variant='legal'>8. Delegat de Protecció de Dades (DPO)</Heading.H2>
+        <Paragraph variant='legal'>
           Synergize S.L. ha designat <strong>4Dlegal S.L.</strong> com el seu Delegat de Protecció de Dades (DPO)
           d'acord amb els Articles 37–39 del RGPD.
-        </LegalParagraph>
-        <LegalParagraph>
-          Pots contactar el DPO a <LegalLink href='mailto:dpo@vocdoni.org'>dpo@vocdoni.org</LegalLink> respecte a
+        </Paragraph>
+        <Paragraph variant='legal'>
+          Pots contactar el DPO a <Link href='mailto:dpo@vocdoni.org'>dpo@vocdoni.org</Link> respecte a
           qualsevol pregunta, preocupació o sol·licitud relacionada amb el processament de dades personals o l'exercici
           dels teus drets de protecció de dades.
-        </LegalParagraph>
-        <LegalParagraph>El DPO actua de manera independent i reporta a l'alta direcció de Synergize.</LegalParagraph>
-        <LegalParagraph>
+        </Paragraph>
+        <Paragraph variant='legal'>El DPO actua de manera independent i reporta a l'alta direcció de Synergize.</Paragraph>
+        <Paragraph variant='legal'>
           Totes les comunicacions rebudes pel DPO es tracten de manera confidencial i es respondran en un termini d'un
           mes, prorrogable fins a dos mesos addicionals si és necessari a causa de la complexitat o el nombre de
           sol·licituds.
-        </LegalParagraph>
+        </Paragraph>
       </LegalSection>
 
       <LegalSection>
-        <LegalSectionTitle>9. Actualitzacions d'aquesta Política</LegalSectionTitle>
-        <LegalParagraph>
+        <Heading.H2 variant='legal'>9. Actualitzacions d'aquesta Política</Heading.H2>
+        <Paragraph variant='legal'>
           Aquesta Política de Privacitat es revisa periòdicament i cada vegada que hi ha canvis legals, tècnics o
           organitzatius rellevants que afecten el processament de dades personals.
-        </LegalParagraph>
-        <LegalParagraph>
+        </Paragraph>
+        <Paragraph variant='legal'>
           Les actualitzacions materials es comunicaran a través de l'APLICACIÓ o per correu electrònic als usuaris
           registrats i administradors.
-        </LegalParagraph>
-        <LegalParagraph>
+        </Paragraph>
+        <Paragraph variant='legal'>
           Cada versió de la Política inclourà la seva <strong>data de revisió</strong> i <strong>data efectiva</strong>.
-        </LegalParagraph>
+        </Paragraph>
         <LegalLastUpdated>La versió actual va ser revisada per última vegada el 16 d'octubre de 2025.</LegalLastUpdated>
       </LegalSection>
     </LegalPageContainer>
