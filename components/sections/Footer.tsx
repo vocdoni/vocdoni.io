@@ -26,16 +26,30 @@ export const Footer = () => {
         <div className='grid justify-items-center lg:justify-items-end gap-6'>
           <div className='w-fit'>
             <div className='grid grid-cols-2 gap-y-2 gap-x-30 text-sm md:text-base'>
-              <Link href='/technology'>{t('footer.technology', { defaultValue: 'Technology' })} ↗</Link>
-              <Link href='https://developer.vocdoni.io'>
-                {t('footer.developers', { defaultValue: 'Developers' })} ↗
+              <Link variant='text' href='/technology'>
+                {t('footer.technology', { defaultValue: 'Technology' })}
               </Link>
-              <Link href='/services'>{t('footer.our_services', { defaultValue: 'Our Services' })} ↗</Link>
-              <Link href='https://davinci.vote'>{t('footer.research', { defaultValue: 'Research' })} ↗</Link>
-              <Link href='/product'>{t('footer.product', { defaultValue: 'Product' })} ↗</Link>
-              <Link href='https://blog.vocdoni.io'>{t('footer.blog', { defaultValue: 'Blog' })} ↗</Link>
-              <Link href='/privacy'>{t('footer.privacy_policy', { defaultValue: 'Privacy Policy' })} ↗</Link>
-              <Link href='/terms'>{t('footer.terms_conditions', { defaultValue: 'Terms & Conditions' })} ↗</Link>
+              <Link variant='text' href='https://developer.vocdoni.io'>
+                {t('footer.developers', { defaultValue: 'Developers' })}
+              </Link>
+              <Link variant='text' href='/services'>
+                {t('footer.our_services', { defaultValue: 'Our Services' })}
+              </Link>
+              <Link variant='text' href='https://davinci.vote'>
+                {t('footer.research', { defaultValue: 'Research' })}
+              </Link>
+              <Link variant='text' href='/product'>
+                {t('footer.product', { defaultValue: 'Product' })}
+              </Link>
+              <Link variant='text' href='https://blog.vocdoni.io'>
+                {t('footer.blog', { defaultValue: 'Blog' })}
+              </Link>
+              <Link variant='text' href='/privacy'>
+                {t('footer.privacy_policy', { defaultValue: 'Privacy Policy' })}
+              </Link>
+              <Link variant='text' href='/terms'>
+                {t('footer.terms_conditions', { defaultValue: 'Terms & Conditions' })}
+              </Link>
             </div>
           </div>
           <div className='mt-2 flex gap-6'>

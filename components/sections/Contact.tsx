@@ -146,7 +146,7 @@ export function Contact() {
               i18nKey='contact.disclaimer'
               defaults='By clicking the "Submit" button, you agree to the <1>privacy policy</1>.'
               components={{
-                1: <Link href='/privacy' className='underline hover:text-primary' />,
+                1: <Link variant='text' href='/privacy' />,
               }}
             />
           </p>
@@ -177,7 +177,7 @@ export function Contact() {
               type='submit'
               size='sm'
               disabled={status === 'loading'}
-              className='px-3 bg-[#D7C2A6] text-foreground hover:opacity-90 border border-black/10 disabled:opacity-50'
+              className='px-3 bg-[#D7C2A6] text-foreground border border-black/10 disabled:opacity-50'
             >
               {status === 'loading' ? (
                 <>
