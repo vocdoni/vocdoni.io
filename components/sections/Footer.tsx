@@ -3,7 +3,6 @@ import discordIcon from '@/assets/images/social/discord.png'
 import farcasterIcon from '@/assets/images/social/farcaster.png'
 import githubIcon from '@/assets/images/social/github.png'
 import paragraphIcon from '@/assets/images/social/paragraph.png'
-import whatsappIcon from '@/assets/images/social/whatsapp.png'
 import xIcon from '@/assets/images/social/x.png'
 import vocdoniLogo from '@/assets/images/vocdoni.png'
 import { useTranslation } from 'react-i18next'
@@ -58,9 +57,6 @@ export const Footer = () => {
             </Link>
             <Link href='https://x.com/vocdoni'>
               <img src={xIcon} alt='X' className='h-5 w-5' />
-            </Link>
-            <Link href='#'>
-              <img src={whatsappIcon} alt='WhatsApp' className='h-5 w-5' />
             </Link>
             <Link href='https://discord.com/invite/vocdoni'>
               <img src={discordIcon} alt='Discord' className='h-5 w-5' />
