@@ -13,16 +13,16 @@ export const Footer = () => {
   return (
     <div
       className='
-        min-h-screen w-full grid grid-cols-1
+        min-h-screen w-full flex flex-col justify-end lg:grid lg:grid-cols-1
         bg-gradient-to-b from-[#F9F7F333] to-[#D1D1D1]
       '
     >
-      <div className='grid grid-cols-1 lg:grid-cols-2 items-center px-4'>
+      <div className='grid grid-cols-1 lg:grid-cols-2 items-end lg:items-center px-4'>
         <a href='mailto:info@vocdoni.org' className='hidden lg:block text-sm md:text-base hover:underline'>
           info@vocdoni.org
         </a>
 
-        <div className='grid justify-items-center lg:justify-items-end gap-6'>
+        <div className='grid justify-items-center lg:justify-items-end gap-6 mb-20 lg:mb-0'>
           <div className='w-fit'>
             <div className='grid grid-cols-2 gap-y-2 gap-x-30 text-sm md:text-base'>
               <Link variant='text' href='/technology'>
@@ -76,9 +76,9 @@ export const Footer = () => {
 
       <div className='flex flex-col justify-end px-4'>
         <div aria-hidden className='pointer-events-none select-none self-center'>
-          <img src={vocdoniLogo} alt='Vocdoni' className='h-18 lg:h-90 w-auto' />
+          <img src={vocdoniLogo} alt='Vocdoni' className='h-18 lg:h-90 w-auto max-w-full object-contain' />
         </div>
-        <div className='self-start text-xs lg:text-sm text-black/70'>
+        <div className='self-center text-center text-xs lg:text-sm text-black/70'>
           {t('footer.copyright', {
             defaultValue: '© {{year}} Vocdoni. All rights reserved.',
             year: new Date().getFullYear(),
