@@ -36,6 +36,7 @@ export type SectionName = (typeof SECTIONS_CONFIG)[number]['name']
  * Hook to get sections enriched with translations
  */
 export function useSections(): Section[] {
+  const { locale } = usePageContext()
   const { t } = useTranslation()
 
   return useMemo(
@@ -44,11 +45,41 @@ export function useSections(): Section[] {
         ...config,
         title: t(`sections.${config.name}.title`),
         description: t(`sections.${config.name}.description`),
-        label: t(`sections.${config.name}.label`, { defaultValue: undefined }),
+        label: t(`sections.${config.name}.label`),
       })),
-    [t]
+    [locale]
   )
 }
+
+// i18next-extract-mark-ns:categories
+// t('sections.home.title')
+// t('sections.home.description')
+// t('sections.explore.title')
+// t('sections.explore.description')
+// t('sections.explore.label')
+// t('sections.technology.title')
+// t('sections.technology.description')
+// t('sections.technology.label')
+// t('sections.services.title')
+// t('sections.services.description')
+// t('sections.services.label')
+// t('sections.impact.title')
+// t('sections.impact.description')
+// t('sections.impact.label')
+// t('sections.testimonials.title')
+// t('sections.testimonials.description')
+// t('sections.testimonials.label')
+// t('sections.product.title')
+// t('sections.product.description')
+// t('sections.product.label')
+// t('sections.advantages.title')
+// t('sections.advantages.description')
+// t('sections.advantages.label')
+// t('sections.contact.title')
+// t('sections.contact.description')
+// t('sections.contact.label')
+// t('sections.footer.title')
+// t('sections.footer.description')
 
 /**
  * Hook for managing URL synchronization with sections

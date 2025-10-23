@@ -118,7 +118,7 @@ export function Technology() {
                 className={cn(
                   r.bg,
                   'group border-0 px-6 md:px-10 h-20 md:h-25',
-                  'text-left text-lg md:text-4xl md:text-4xl font-semibold',
+                  'text-left text-lg md:text-4xl font-semibold',
                   'hover:no-underline',
                   '[&>svg]:hidden'
                 )}
