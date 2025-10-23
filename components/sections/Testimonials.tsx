@@ -142,7 +142,7 @@ export function Testimonials() {
               <p className='text-2xl md:text-3xl font-medium'>
                 → {t('testimonials.title', { defaultValue: 'Real stories, Real impact' })}
               </p>
-              <p className='text-xl md:text-2xl mt-6 max-w-md leading-relaxed'>
+              <p className='text-lg md:text-2xl mt-6 max-w-md leading-relaxed'>
                 {t('testimonials.description', {
                   defaultValue:
                     'From grassroots movements to large institutions, see how Vocdoni transforms decision-making through secure, accessible, and transparent technology.',

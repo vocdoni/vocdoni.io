@@ -112,10 +112,10 @@ export function Advantages() {
       <div className='flex flex-col'>
         <div className='flex-1 bg-background flex flex-col items-center justify-center'>
           <div className='w-full px-6 flex flex-col gap-6'>
-            <p className='text-2xl md:text-3xl font-medium'>
+            <p className='text-sm sm:text-2xl md:text-3xl font-medium'>
               → {t('advantage.title', { defaultValue: 'The Vocdoni advantage' })}
             </p>
-            <p className='text-2xl md:text-3xl leading-relaxed tracking-tight'>
+            <p className='text-sm sm:text-2xl md:text-3xl leading-relaxed tracking-tight'>
               {t('advantage.description', {
                 defaultValue:
                   'See how Vocdoni outperforms traditional and digital voting platforms in security, cost, scalability, and transparency, with the added power of open-source technology.',

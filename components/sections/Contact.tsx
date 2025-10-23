@@ -83,7 +83,7 @@ export function Contact() {
           <p className='text-2xl lg:text-3xl font-medium mb-6'>
             → {t('contact.want_to_talk', { defaultValue: 'Want to talk with us?' })}
           </p>
-          <h2 className='text-4xl leading-tight font-semibold'>
+          <h2 className='text-2xl md:text-4xl leading-tight font-semibold'>
             {t('contact.description', { defaultValue: "Let's Build the Future of Governance" })}
           </h2>
         </div>

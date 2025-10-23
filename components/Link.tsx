@@ -11,6 +11,7 @@ const linkVariants = cva('transition-colors', {
       nav: 'text-gray-700 hover:text-gray-900 font-medium capitalize',
       hero: 'inline-flex items-center justify-center gap-2 cursor-pointer whitespace-nowrap rounded-md font-medium text-lg bg-white text-black hover:bg-gray-100 ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2',
       text: 'hover:decoration-solid hover:underline underline-offset-4',
+      outline: 'border border-input bg-background hover:bg-accent hover:text-accent-foreground',
     },
     size: {
       default: 'h-10 px-4 py-2',

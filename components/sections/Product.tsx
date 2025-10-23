@@ -53,10 +53,10 @@ export function Product() {
         <div className='flex-1 bg-background flex flex-col items-center justify-center'>
           <div className='w-full px-6 flex flex-col gap-6'>
             <div className='flex-col gap-6 hidden lg:flex'>
-              <p className='text-3xl font-medium'>
+              <p className='text-2xl md:text-3xl font-medium'>
                 → {t('product.title', { defaultValue: 'How we make secure voting simple' })}
               </p>
-              <p className='text-2xl md:text-3xl hidden lg:block leading-relaxed tracking-tight'>
+              <p className='text-lg sm:text-2xl md:text-3xl hidden lg:block leading-relaxed tracking-tight'>
                 {t('product.description', {
                   defaultValue:
                     'With Vocdoni APP, you can create a secure vote in just 4 steps and without previous experience.',
@@ -84,7 +84,7 @@ export function Product() {
                     <AccordionTrigger
                       className={cn(
                         'group border-0 hover:no-underline [&>svg]:hidden',
-                        'text-left text-2xl md:text-4xl font-semibold'
+                        'text-left text-lg md:text-4xl font-semibold'
                       )}
                     >
                       <div className='flex w-full items-start gap-3'>

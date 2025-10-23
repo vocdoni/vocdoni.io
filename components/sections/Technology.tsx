@@ -1,5 +1,4 @@
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
-import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
 import { ArrowUpRight } from 'lucide-react'
 import { useState } from 'react'
@@ -50,13 +49,15 @@ export function Technology() {
   ]
 
   return (
-    <div className='min-h-screen w-full grid grid-cols-1 lg:grid-cols-2'>
+    <div className='min-h-screen w-full grid grid-cols-1 lg:grid-cols-2 content-between lg:content-stretch'>
       {/* Technology Overview */}
-      <div className='flex flex-col'>
+      <div className='flex flex-col mt-5 lg:mt-20 xl:mt-0'>
         <div className='flex-1 bg-background flex flex-col items-center justify-center'>
           <div className='w-full px-6 flex flex-col gap-6'>
-            <p className='text-3xl font-medium'>→ {t('technology.headline', { defaultValue: 'Technology' })}</p>
-            <p className='text-2xl md:text-3xl leading-relaxed tracking-tight'>
+            <p className='text-2xl md:text-3xl font-medium'>
+              → {t('technology.headline', { defaultValue: 'Technology' })}
+            </p>
+            <p className='text-lg sm:text-2xl md:text-3xl leading-relaxed tracking-tight'>
               {t('technology.vision', {
                 defaultValue:
                   'Our vision is simple: a world where collective decision–making can happen anywhere, from any device, transparently and securely. No intermediaries, no barriers.',
@@ -65,22 +66,28 @@ export function Technology() {
 
             <div className='hidden lg:block mb-10'>
               <div className='flex flex-col gap-4'>
-                <p className='text-2xl md:text-3xl leading-relaxed tracking-tight'>
+                <p className='text-lg sm:text-2xl md:text-3xl leading-relaxed tracking-tight'>
                   {t('technology.why', { defaultValue: 'Why?' })}
                 </p>
-                <p className='text-2xl md:text-3xl leading-relaxed tracking-tight'>
+                <p className='text-lg sm:text-2xl md:text-3xl leading-relaxed tracking-tight'>
                   {t('technology.why_description', {
                     defaultValue: 'Because fair, accessible governance should be a right, not a luxury.',
                   })}
                 </p>
-                <div>
-                  <Button variant='outline' size='sm' className='mt-2'>
-                    {t('technology.cta', { defaultValue: 'Find out more' })}
-                    <ArrowUpRight className='ml-2 h-4 w-4' />
-                  </Button>
-                </div>
               </div>
             </div>
+            <Link
+              variant='text'
+              size='sm'
+              className={cn(
+                'border border-input bg-background',
+                'hover:bg-accent hover:text-accent-foreground',
+                'content-center font-medium self-start'
+              )}
+              href='https://davinci.vote'
+            >
+              {t('technology.cta', { defaultValue: 'Find out more' })}
+            </Link>
           </div>
         </div>
         <div className='hidden lg:block w-full px-6 py-6'>
@@ -111,7 +118,7 @@ export function Technology() {
                 className={cn(
                   r.bg,
                   'group border-0 px-6 md:px-10 h-20 md:h-25',
-                  'text-left text-4xl md:text-4xl font-semibold',
+                  'text-left text-lg md:text-4xl md:text-4xl font-semibold',
                   'hover:no-underline',
                   '[&>svg]:hidden'
                 )}
@@ -130,7 +137,7 @@ export function Technology() {
                 </div>
               </AccordionTrigger>
 
-              <AccordionContent className={cn(r.bg, 'border-0', 'px-6 md:px-10 py-4 text-lg md:text-lg')}>
+              <AccordionContent className={cn(r.bg, 'border-0', 'px-6 md:px-10 py-4 text-md md:text-lg')}>
                 <p className='max-w-2xl'>{r.description}</p>
               </AccordionContent>
             </AccordionItem>

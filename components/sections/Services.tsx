@@ -55,13 +55,15 @@ export function Services() {
   ]
 
   return (
-    <div className='min-h-screen w-full grid grid-cols-1 lg:grid-cols-2'>
+    <div className='min-h-screen w-full grid grid-cols-1 lg:grid-cols-2 content-between lg:content-stretch'>
       {/* services Overview */}
-      <div className='flex flex-col'>
+      <div className='flex flex-col mt-5 lg:mt-20 xl:mt-0'>
         <div className='flex-1 bg-background flex flex-col items-center justify-center'>
           <div className='w-full px-6 flex flex-col gap-6'>
-            <p className='text-3xl font-medium'>→ {t('services.our_services', { defaultValue: 'Our Services' })}</p>
-            <p className='text-2xl md:text-3xl leading-relaxed tracking-tight'>
+            <p className='text-2xl md:text-3xl font-medium'>
+              → {t('services.our_services', { defaultValue: 'Our Services' })}
+            </p>
+            <p className='text-lg sm:text-2xl md:text-3xl leading-relaxed tracking-tight'>
               {t('services.explanation', {
                 defaultValue:
                   'Whether you need a quick self-service vote, developer integration, or a fully customised governance solution, Vocdoni has you covered.',
@@ -100,7 +102,7 @@ export function Services() {
                   className={cn(
                     bg,
                     'group border-0 px-6 md:px-10 h-20 md:h-25',
-                    'text-left text-4xl md:text-4xl font-semibold',
+                    'text-left text-lg md:text-4xl font-semibold',
                     'hover:no-underline',
                     '[&>svg]:hidden'
                   )}
