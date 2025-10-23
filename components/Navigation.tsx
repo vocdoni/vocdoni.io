@@ -2,13 +2,13 @@ import LanguageSwitcher from '@/components/LanguageSwitcher'
 import { Link } from '@/components/Link'
 import { VocdoniLogo } from '@/components/Logo'
 import { Button } from '@/components/ui/button'
+import { useMediaQuery } from '@/hooks/use-media-query'
 import { SECTIONS } from '@/lib/useUrlSync'
-import { useState, useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 interface NavigationProps {
   activeSection?: number
-  onNavigate?: (sectionIndex: number) => void
   usesScroll?: boolean
 }
 
@@ -23,10 +23,11 @@ const menuItems = SECTIONS.filter((section) => section.appearsOnMenu).map((secti
   }
 })
 
-export function Navigation({ activeSection = 0, onNavigate, usesScroll = false }: NavigationProps) {
+export function Navigation({ activeSection = 0, usesScroll = false }: NavigationProps) {
   const { t } = useTranslation()
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isAtTop, setIsAtTop] = useState(true)
+  const isLargeScreen = useMediaQuery('(min-width: 1024px)')
 
   useEffect(() => {
     // Only listen to scroll events if usesScroll is true
@@ -51,7 +52,7 @@ export function Navigation({ activeSection = 0, onNavigate, usesScroll = false }
       <div className='px-4'>
         <div className='h-16 flex items-center lg:grid md:grid-cols-3'>
           {/* Logo */}
-          <div className='flex items-center'>{showRightMenu && <VocdoniLogo minimal />}</div>
+          <div className='flex items-center'>{(showRightMenu || isLargeScreen) && <VocdoniLogo minimal />}</div>
 
           {/* Center Navigation with White Background */}
           <div className='hidden lg:flex items-center justify-center'>
@@ -64,17 +65,15 @@ export function Navigation({ activeSection = 0, onNavigate, usesScroll = false }
             </div>
           </div>
 
-          {/* Login Button */}
-          {showRightMenu && (
-            <div className='hidden lg:flex items-center justify-end gap-3'>
-              <LanguageSwitcher />
-              <Button asChild className='bg-[#E3D6C5] text-black hover:bg-[#d1bfa8]'>
-                <a href='https://app.vocdoni.io' target='_blank' rel='noopener noreferrer'>
-                  {t('navigation.app', { defaultValue: 'App' })}
-                </a>
-              </Button>
-            </div>
-          )}
+          {/* Right side buttons */}
+          <div className='hidden lg:flex items-center justify-end gap-3'>
+            <LanguageSwitcher />
+            <Button asChild className='bg-[#E3D6C5] text-black hover:bg-[#d1bfa8]'>
+              <a href='https://app.vocdoni.io' target='_blank' rel='noopener noreferrer'>
+                {t('navigation.app', { defaultValue: 'App' })}
+              </a>
+            </Button>
+          </div>
 
           {/* Mobile menu button */}
           <div className='ml-auto lg:hidden'>
