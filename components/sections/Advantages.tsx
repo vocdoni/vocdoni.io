@@ -61,7 +61,7 @@ export function Advantages() {
         text: t('features.traditional.sustainability', { defaultValue: 'High paper/travel waste' }),
         good: false,
       },
-      other: { text: t('features.other.sustainability', { defaultValue: 'Moderate impact' }), good: false },
+      other: { text: t('features.other.sustainability', { defaultValue: 'Moderate impact' }), good: true },
     },
   ]
 
