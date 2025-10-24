@@ -50,6 +50,7 @@ export function SectionScroller({
   const containerRef = useRef<HTMLDivElement>(null)
   const touchStartY = useRef<number | null>(null)
   const touchStartTarget = useRef<EventTarget | null>(null)
+  const lastScrollTime = useRef<number>(0)
 
   useEffect(() => {
     if (typeof window === 'undefined') return
@@ -66,6 +67,16 @@ export function SectionScroller({
       if (scrollable && canScrollInDirection(scrollable, e.deltaY)) {
         return
       }
+
+      // Throttle scroll events to prevent multiple rapid scrolls
+      const now = Date.now()
+      const timeSinceLastScroll = now - lastScrollTime.current
+      if (timeSinceLastScroll < 150) {
+        e.preventDefault()
+        return
+      }
+
+      lastScrollTime.current = now
       if (e.deltaY > 0) goNext()
       else if (e.deltaY < 0) goPrev()
       e.preventDefault()
