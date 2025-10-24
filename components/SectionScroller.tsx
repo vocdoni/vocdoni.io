@@ -1,6 +1,9 @@
 import { cn } from '@/lib/utils'
 import React, { useEffect, useRef } from 'react'
 
+const SCROLL_TRANSITION_DURATION = 700
+const SCROLL_PIXEL_THRESHOLD = 100
+
 function isScrollableEl(el: Element | null) {
   if (!el || !(el instanceof HTMLElement)) return false
   const style = window.getComputedStyle(el)
@@ -12,7 +15,6 @@ function isScrollableEl(el: Element | null) {
 function findScrollableAncestor(target: EventTarget | null): HTMLElement | null {
   let el = (target as Node) instanceof Node ? (target as Node) : null
   while (el && el instanceof HTMLElement) {
-    // Prioriza elementos marcados con data-scrollable
     if (el.dataset && el.dataset.scrollable !== undefined) return el
     if (isScrollableEl(el)) return el
     el = el.parentElement
@@ -30,6 +32,10 @@ function canScrollInDirection(el: HTMLElement, deltaY: number) {
     return !atTop
   }
   return false
+}
+
+function msToCssTime(ms: number): string {
+  return `${(ms / 1000).toFixed(ms % 1000 === 0 ? 0 : 1)}s`
 }
 
 interface SectionScrollerProps {
@@ -50,7 +56,8 @@ export function SectionScroller({
   const containerRef = useRef<HTMLDivElement>(null)
   const touchStartY = useRef<number | null>(null)
   const touchStartTarget = useRef<EventTarget | null>(null)
-  const lastScrollTime = useRef<number>(0)
+  const accumulatedDelta = useRef<number>(0)
+  const isTransitioning = useRef<boolean>(false)
 
   useEffect(() => {
     if (typeof window === 'undefined') return
@@ -68,17 +75,29 @@ export function SectionScroller({
         return
       }
 
-      // Throttle scroll events to prevent multiple rapid scrolls
-      const now = Date.now()
-      const timeSinceLastScroll = now - lastScrollTime.current
-      if (timeSinceLastScroll < 150) {
+      // Prevent new section changes during transition
+      if (isTransitioning.current) {
         e.preventDefault()
         return
       }
 
-      lastScrollTime.current = now
-      if (e.deltaY > 0) goNext()
-      else if (e.deltaY < 0) goPrev()
+      // Accumulate scroll delta for smooth trackpad/mouse wheel handling
+      accumulatedDelta.current += e.deltaY
+
+      if (Math.abs(accumulatedDelta.current) >= SCROLL_PIXEL_THRESHOLD) {
+        isTransitioning.current = true
+
+        if (accumulatedDelta.current > 0) goNext()
+        else goPrev()
+
+        accumulatedDelta.current = 0
+
+        // Reset after CSS transition completes (matches 0.7s transition)
+        setTimeout(() => {
+          isTransitioning.current = false
+        }, SCROLL_TRANSITION_DURATION)
+      }
+
       e.preventDefault()
     }
 
@@ -167,7 +186,7 @@ export function SectionScroller({
         style={{
           height: `${children.length * 100}vh`,
           transform: `translateY(-${activeSection * 100}vh)`,
-          transition: 'transform 0.7s cubic-bezier(0.77,0,0.175,1)',
+          transition: `transform ${msToCssTime(SCROLL_TRANSITION_DURATION)} cubic-bezier(0.77,0,0.175,1)`,
         }}
       >
         {children.map((child, i) => (
