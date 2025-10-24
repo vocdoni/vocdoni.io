@@ -58,7 +58,7 @@ export const Footer = () => {
             <Link href='https://x.com/vocdoni'>
               <img src={xIcon} alt='X' className='h-5 w-5' />
             </Link>
-            <Link href='https://discord.com/invite/vocdoni'>
+            <Link href='https://chat.vocdoni.io'>
               <img src={discordIcon} alt='Discord' className='h-5 w-5' />
             </Link>
             <Link href='https://blog.vocdoni.io'>

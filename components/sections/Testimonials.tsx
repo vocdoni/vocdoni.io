@@ -10,7 +10,7 @@ import belarus from '/assets/logos/new_belarus.png'
 import omnium from '/assets/logos/omnium.png'
 
 type QuoteTestimonial = { quote: string; name: string; role: string; org: string; logo: string }
-type StatTestimonial = { stat: string; text: string; org: string; logo: string; readMore?: boolean }
+type StatTestimonial = { stat: string; text: string; org: string; logo: string; readMore?: string }
 type Testimonials = Array<QuoteTestimonial | StatTestimonial>
 
 function StatCard(testimonial: StatTestimonial) {
@@ -25,7 +25,7 @@ function StatCard(testimonial: StatTestimonial) {
         {testimonial.readMore && (
           <Link
             variant='default'
-            href='/stories'
+            href={testimonial.readMore}
             className='text-sm font-medium decoration-current underline-offset-4 hover:underline'
           >
             {t('testimonials.read_more', { defaultValue: 'Read more' })}
@@ -98,7 +98,7 @@ export function Testimonials() {
         defaultValue: 'votes cast with international observers under a repressive scenario.',
       }),
       org: 'New Belarus',
-      readMore: true,
+      readMore: 'https://blog.vocdoni.io/new-belarus-vocdoni',
       logo: belarus,
     },
     {
@@ -117,7 +117,7 @@ export function Testimonials() {
         defaultValue: 'turnout in the first fully digital consultative referendum held under Spanish law.',
       }),
       org: 'Ajuntament de Bellpuig',
-      readMore: true,
+      readMore: 'https://blog.vocdoni.io/referendum-bellpuig',
       logo: bellpuig,
     },
     {
