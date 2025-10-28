@@ -49,7 +49,13 @@ export function Navigation({ activeSection = 0, usesScroll = false }: Navigation
       <div className='px-4'>
         <div className='h-16 flex items-center lg:grid md:grid-cols-3'>
           {/* Logo */}
-          <div className='flex items-center'>{(showRightMenu || isLargeScreen) && <VocdoniLogo minimal />}</div>
+          <div className='flex items-center'>
+            {(showRightMenu || isLargeScreen) && (
+              <Link href='/'>
+                <VocdoniLogo minimal />
+              </Link>
+            )}
+          </div>
 
           {/* Center Navigation with White Background */}
           <div className='hidden lg:flex items-center justify-center'>
