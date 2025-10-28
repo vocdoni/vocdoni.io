@@ -1,5 +1,6 @@
 import { Button } from '@/components/ui/button'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
+import { useUrlSync } from '@/lib/useUrlSync'
 import { availableLocales, Locale, localeDefault } from '@/locales'
 import { ChevronDown } from 'lucide-react'
 import { usePageContext } from 'vike-react/usePageContext'
@@ -23,7 +24,9 @@ function buildHref(target: Locale, urlLogical?: string) {
 export function LanguageSwitcher() {
   const pageContext = usePageContext() as any
   const current: Locale = pageContext?.initialLocale ?? pageContext?.locale
-  const urlLogical: string | undefined = pageContext?.urlLogical
+  // Use useUrlSync to get the current section path
+  const { getCurrentSection } = useUrlSync()
+  const currentSectionPath = getCurrentSection()?.path || '/'
 
   const currentLabel = availableLocales.find((l) => l.value === current)?.label ?? current.toUpperCase()
 
@@ -44,7 +47,7 @@ export function LanguageSwitcher() {
         {availableLocales
           .filter((l) => l.value !== current)
           .map(({ value, label }) => {
-            const href = buildHref(value, urlLogical)
+            const href = buildHref(value, currentSectionPath)
             return (
               <DropdownMenuItem key={value} asChild className='px-3 py-2'>
                 <a href={href} className='flex w-full items-center justify-between'>
