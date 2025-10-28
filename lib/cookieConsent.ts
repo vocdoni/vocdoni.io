@@ -47,11 +47,10 @@ export function hasAcceptedCookies(): boolean {
 export function initializeGTM(withCookies: boolean): void {
   if (typeof window === 'undefined') return
 
-  const gtmId = (window as any).GTM_ID
-  if (!gtmId) return
+  if (!GTM_ID) return
 
   // Initialize GTM
-  TagManager.initialize({ gtmId })
+  TagManager.initialize({ gtmId: GTM_ID })
 
   // If cookies are rejected, configure gtag to disable all storage
   if (!withCookies) {
