@@ -5,19 +5,17 @@ import { Heading, Paragraph } from '../ui/typography'
 export function Impact() {
   const { t } = useTranslation()
   return (
-    <div className='min-h-screen w-full grid grid-cols-1 lg:grid-cols-2'>
+    <div className='min-h-screen w-full grid grid-cols-1 lg:grid-cols-2 '>
       {/* Impact Overview */}
       <div className='flex flex-col'>
-        <div className='flex-1 bg-background flex flex-col items-center justify-center'>
-          <div className='w-full px-6 flex flex-col gap-6'>
-            <Heading variant='section'>→ {t('services.impact', { defaultValue: 'Impact in numbers' })}</Heading>
-            <Paragraph variant='section'>
-              {t('impact.description', {
-                defaultValue:
-                  'Transforming governance, one vote at a time. Our technology drives participation, reduces costs, and provides secure participation with the best user experience.',
-              })}
-            </Paragraph>
-          </div>
+        <div className='flex-1 flex flex-col items-start justify-center w-full px-6 gap-6'>
+          <Heading variant='section'>→ {t('services.impact', { defaultValue: 'Impact in numbers' })}</Heading>
+          <Paragraph variant='section'>
+            {t('impact.description', {
+              defaultValue:
+                'Transforming governance, one vote at a time. Our technology drives participation, reduces costs, and provides secure participation with the best user experience.',
+            })}
+          </Paragraph>
         </div>
         <div className='hidden lg:block w-full px-6 py-6'>
           <Link href='/testimonials' className='block text-2xl font-semibold text-muted-foreground'>

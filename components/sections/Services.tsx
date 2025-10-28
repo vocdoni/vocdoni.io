@@ -59,16 +59,14 @@ export function Services() {
     <div className='min-h-screen w-full grid grid-cols-1 lg:grid-cols-2 content-between lg:content-stretch'>
       {/* services Overview */}
       <div className='flex flex-col mt-5 lg:mt-20 xl:mt-0'>
-        <div className='flex-1 bg-background flex flex-col items-center justify-center'>
-          <div className='w-full px-6 flex flex-col gap-6'>
-            <Heading variant='section'>→ {t('services.our_services', { defaultValue: 'Our Services' })}</Heading>
-            <Paragraph variant='section'>
-              {t('services.explanation', {
-                defaultValue:
-                  'Whether you need a quick self-service vote, developer integration, or a fully customised governance solution, Vocdoni has you covered.',
-              })}
-            </Paragraph>
-          </div>
+        <div className='flex-1 bg-background flex flex-col items-start justify-center w-full px-6 gap-6'>
+          <Heading variant='section'>→ {t('services.our_services', { defaultValue: 'Our Services' })}</Heading>
+          <Paragraph variant='section'>
+            {t('services.explanation', {
+              defaultValue:
+                'Whether you need a quick self-service vote, developer integration, or a fully customised governance solution, Vocdoni has you covered.',
+            })}
+          </Paragraph>
         </div>
         <div className='hidden lg:block w-full px-6 py-6'>
           <Link href='/impact' className='block text-2xl font-semibold text-muted-foreground'>
@@ -91,17 +89,8 @@ export function Services() {
             const { id, bg, title, subtitle, description, buttonIcon, button, href } = service
 
             return (
-              <AccordionItem
-                key={id}
-                value={id}
-                variant='section'
-                className={bg}
-                onMouseEnter={() => setOpen(id)}
-              >
-                <AccordionTrigger
-                  variant='section'
-                  className={cn(bg, 'px-6 md:px-10 h-20 md:h-25')}
-                >
+              <AccordionItem key={id} value={id} variant='section' className={bg} onMouseEnter={() => setOpen(id)}>
+                <AccordionTrigger variant='section' className={cn(bg, 'px-6 md:px-10 h-20 md:h-25')}>
                   <div className='flex w-full items-center justify-between'>
                     <span>{title}</span>
                     <ArrowUpRight
