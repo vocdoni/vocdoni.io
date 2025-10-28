@@ -47,7 +47,7 @@ export function useSections(): Section[] {
         description: t(`sections.${config.name}.description`),
         label: t(`sections.${config.name}.label`),
       })),
-    [locale]
+    [locale, t]
   )
 }
 
