@@ -36,8 +36,9 @@ export function Link({ href, locale, children, className, variant, size, ...prop
   const pageContext = usePageContext()
   locale = locale || pageContext.locale
 
-  // Auto-detect external URLs (starting with http:// or https://)
-  const isExternal = href.startsWith('http://') || href.startsWith('https://')
+  // Auto-detect external URLs
+  const isExternal =
+    href.startsWith('http://') || href.startsWith('https://') || href.startsWith('mailto:') || href.startsWith('tel:')
 
   // Build the full href with locale prefix if not default locale and not external
   let fullHref = href

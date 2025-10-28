@@ -34,6 +34,15 @@ export function PrivacyPolicyES() {
           Nos comprometemos a cumplir con las disposiciones legales sobre protección de datos y nos esforzamos por
           observar siempre los principios de evitación de datos y minimización de datos.
         </Paragraph>
+        <Paragraph variant='legal'>
+          Esta Política de Privacidad se aplica tanto a la aplicación Vocdoni (<Link href='https://app.vocdoni.io'>app.vocdoni.io</Link>) como
+          al sitio web de Vocdoni (<Link href='https://vocdoni.io'>vocdoni.io</Link>).
+        </Paragraph>
+        <Paragraph variant='legal'>
+          La aplicación incluye actividades de tratamiento adicionales relacionadas con usuarios registrados,
+          administradores y procesos de votación, mientras que el sitio web se limita a finalidades informativas
+          generales y analíticas.
+        </Paragraph>
       </LegalSection>
 
       <LegalSection>
@@ -51,6 +60,17 @@ export function PrivacyPolicyES() {
 
       <LegalSection>
         <Heading.H2 variant='legal'>2. ¿Con qué finalidad procesamos tus datos personales?</Heading.H2>
+        <Paragraph variant='legal'>
+          Cuando visitas nuestro sitio web, solo procesamos datos técnicos mínimos (por ejemplo, dirección IP,
+          navegador, tipo de dispositivo) necesarios para su correcto funcionamiento y con fines analíticos.
+        </Paragraph>
+        <Paragraph variant='legal'>
+          Utilizamos Google Analytics (con direcciones IP anonimizadas) y Plausible.io para obtener estadísticas
+          agregadas y no identificables.
+        </Paragraph>
+        <Paragraph variant='legal'>
+          No se recogen datos personales con fines de marketing ni se lleva a cabo ningún perfilado de usuarios.
+        </Paragraph>
         <Paragraph variant='legal'>
           Procesamos tus datos personales para operar la Vocdoni App (en adelante, la «APLICACIÓN»), que proporciona
           procesos de votación y participación seguros, verificables y que preservan la privacidad.
@@ -126,29 +146,39 @@ export function PrivacyPolicyES() {
             tratamiento bajo contratos que cumplen con el Artículo 28.3 RGPD.
           </LegalListItem>
         </LegalList>
-        <Paragraph variant='legal'>
-          <strong>Específicamente:</strong>
-        </Paragraph>
-        <LegalList>
-          <LegalListItem>
-            Dentro de la APLICACIÓN, los análisis se realizan utilizando <strong>Plausible</strong>, una plataforma de
-            análisis que prioriza la privacidad, que no utiliza cookies y no recopila ni almacena información de
-            identificación personal. Para más detalles, puedes revisar{' '}
-            <Link href='https://plausible.io/privacy'>plausible.io/privacy</Link>.
-          </LegalListItem>
-          <LegalListItem>
-            La página de inicio de vocdoni.app utiliza <strong>Google Analytics</strong> para el análisis del tráfico
-            web. Los datos recopilados a través de esta herramienta se procesan de manera disociada (sin identificación
-            personal) y se utilizan exclusivamente con fines estadísticos internos. La APLICACIÓN puede recopilar,
-            almacenar o compilar cierta información no personal sobre su uso. Google Analytics se rige por los Términos
-            y Condiciones Generales de Google{' '}
-            <Link href='http://www.google.com/analytics/terms/us.html'>
-              google.com/analytics/terms/us.html
-            </Link>{' '}
-            y la Política de Privacidad de Google{' '}
-            <Link href='https://policies.google.com/privacy?hl=es&gl=es'>policies.google.com/privacy</Link>.
-          </LegalListItem>
-        </LegalList>
+
+        <LegalSubsection>
+          <Heading.H3 variant='legal'>Sitio web (vocdoni.io):</Heading.H3>
+          <Paragraph variant='legal'>
+            El sitio web utiliza Google Analytics (con cookies) y Plausible.io (sin cookies) para obtener estadísticas
+            agregadas y no identificables sobre las visitas y patrones de uso.
+          </Paragraph>
+          <Paragraph variant='legal'>
+            Los datos se procesan de forma anonimizada y solo con fines analíticos internos.
+          </Paragraph>
+          <Paragraph variant='legal'>
+            Estos mecanismos están limitados a fines de análisis y no realizan seguimiento entre diferentes sitios web.
+          </Paragraph>
+        </LegalSubsection>
+
+        <LegalSubsection>
+          <Heading.H3 variant='legal'>Aplicación (app.vocdoni.io):</Heading.H3>
+          <Paragraph variant='legal'>
+            La aplicación Vocdoni utiliza Plausible, una plataforma de analítica respetuosa con la privacidad, sin
+            cookies ni identificadores personales.
+          </Paragraph>
+          <Paragraph variant='legal'>
+            Otros encargados del tratamiento conforme al artículo 28(3) del RGPD:
+          </Paragraph>
+          <LegalList variant='none'>
+            <LegalListItem>Stripe Payments Europe, Ltd. – Procesamiento de pagos.</LegalListItem>
+            <LegalListItem>Twilio, Inc. – Envío de SMS y correos electrónicos.</LegalListItem>
+          </LegalList>
+          <Paragraph variant='legal'>
+            Estos proveedores tratan los datos únicamente para las finalidades contratadas y bajo garantías adecuadas de
+            protección de datos.
+          </Paragraph>
+        </LegalSubsection>
       </LegalSection>
 
       <LegalSection>
@@ -223,7 +253,7 @@ export function PrivacyPolicyES() {
         <Paragraph variant='legal'>
           Esta Política de Privacidad fue publicada el 26 de septiembre de 2025 y es efectiva a partir de esa fecha.
           Para más información sobre las garantías de tu privacidad, puedes contactar a Synergize SL en{' '}
-          <Link href='mailto:legal@vocdoni.org'>legal@vocdoni.org</Link>.
+          <Link href='mailto:dpo@vocdoni.org'>dpo@vocdoni.org</Link>.
         </Paragraph>
       </LegalSection>
 
@@ -249,19 +279,42 @@ export function PrivacyPolicyES() {
       </LegalSection>
 
       <LegalSection>
-        <Heading.H2 variant='legal'>9. Actualizaciones de esta Política</Heading.H2>
+        <Heading.H2 variant='legal'>9. Cookies y Tecnologías de Seguimiento</Heading.H2>
         <Paragraph variant='legal'>
-          Esta Política de Privacidad se revisa periódicamente y cada vez que hay cambios legales, técnicos u
-          organizativos relevantes que afectan el procesamiento de datos personales.
+          El sitio web (vocdoni.io) y la aplicación (app.vocdoni.io) utilizan un número mínimo de cookies y tecnologías
+          de seguimiento:
         </Paragraph>
         <Paragraph variant='legal'>
-          Las actualizaciones materiales se comunicarán a través de la APLICACIÓN o por correo electrónico a los
+          <strong>Google Analytics</strong> – Utilizado en vocdoni.io para obtener estadísticas anónimas y agregadas
+          sobre visitas y uso. Las direcciones IP se anonimizan antes del almacenamiento.
+        </Paragraph>
+        <Paragraph variant='legal'>
+          <strong>Plausible.io</strong> – Utilizado para una analítica respetuosa con la privacidad, sin cookies ni
+          identificadores personales, tanto en el sitio web como en la aplicación.
+        </Paragraph>
+        <Paragraph variant='legal'>
+          No se utilizan cookies con fines de marketing, perfilado o publicidad.
+        </Paragraph>
+        <Paragraph variant='legal'>
+          Puedes desactivar las cookies en cualquier momento mediante la configuración de tu navegador.
+        </Paragraph>
+      </LegalSection>
+
+      <LegalSection>
+        <Heading.H2 variant='legal'>10. Actualizaciones de esta Política</Heading.H2>
+        <Paragraph variant='legal'>
+          Esta política de privacidad se aplica tanto a la aplicación Vocdoni App (app.vocdoni.io) como al sitio web
+          Vocdoni (vocdoni.io). Se revisa periódicamente y siempre que existan cambios legales, técnicos u
+          organizativos relevantes en el tratamiento de datos.
+        </Paragraph>
+        <Paragraph variant='legal'>
+          Las actualizaciones sustanciales se comunicarán a través de la APLICACIÓN o por correo electrónico a los
           usuarios registrados y administradores.
         </Paragraph>
         <Paragraph variant='legal'>
-          Cada versión de la Política incluirá su <strong>fecha de revisión</strong> y <strong>fecha efectiva</strong>.
+          Cada versión de la política incluirá su <strong>fecha de revisión</strong> y <strong>fecha de entrada en vigor</strong>.
         </Paragraph>
-        <LegalLastUpdated>La versión actual fue revisada por última vez el 16 de octubre de 2025.</LegalLastUpdated>
+        <LegalLastUpdated>La última revisión de esta política es del 24 de octubre de 2025.</LegalLastUpdated>
       </LegalSection>
     </LegalPageContainer>
   )

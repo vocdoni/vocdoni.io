@@ -34,6 +34,14 @@ export function PrivacyPolicyEN() {
           We undertake to comply with the statutory provisions on data protection and endeavor to always observe the
           principles of data avoidance and data minimization.
         </Paragraph>
+        <Paragraph variant='legal'>
+          This Privacy Policy applies both to the Vocdoni App (<Link href='https://app.vocdoni.io'>app.vocdoni.io</Link>) and to the Vocdoni
+          website (<Link href='https://vocdoni.io'>vocdoni.io</Link>).
+        </Paragraph>
+        <Paragraph variant='legal'>
+          The App includes additional processing activities related to registered users, administrators, and voting
+          processes, while the Website is limited to general information and analytics purposes.
+        </Paragraph>
       </LegalSection>
 
       <LegalSection>
@@ -51,6 +59,17 @@ export function PrivacyPolicyEN() {
 
       <LegalSection>
         <Heading.H2 variant='legal'>2. For what purpose do we process your personal data?</Heading.H2>
+        <Paragraph variant='legal'>
+          When you visit our website, we only process minimal technical data (e.g., IP, browser, device type) necessary
+          for its correct operation and analytics purposes.
+        </Paragraph>
+        <Paragraph variant='legal'>
+          We use Google Analytics (with anonymized IP addresses) and Plausible.io for aggregated, non-identifiable
+          analytics.
+        </Paragraph>
+        <Paragraph variant='legal'>
+          No personal data is collected for marketing purposes, and no profiling is performed.
+        </Paragraph>
         <Paragraph variant='legal'>
           We process your personal data to operate the Vocdoni App (hereinafter the «APPLICATION»), which provides
           secure, verifiable, and privacy-preserving voting and participation processes.
@@ -124,29 +143,39 @@ export function PrivacyPolicyEN() {
             Article 28.3 GDPR.
           </LegalListItem>
         </LegalList>
-        <Paragraph variant='legal'>
-          <strong>Specifically:</strong>
-        </Paragraph>
-        <LegalList>
-          <LegalListItem>
-            Within the APPLICATION, analytics are performed using <strong>Plausible</strong>, a privacy-first analytics
-            platform that does not use cookies and does not collect or store personally identifiable information. For
-            further details, you can review{' '}
-            <Link href='https://plausible.io/privacy'>plausible.io/privacy</Link>.
-          </LegalListItem>
-          <LegalListItem>
-            The landing page of vocdoni.app uses <strong>Google Analytics</strong> for web traffic analysis. Data
-            collected through this tool is processed in a dissociated way (without personal identification) and used
-            exclusively for internal statistical purposes. The APPLICATION may collect, store or compile certain
-            non-personal information regarding its use. Google Analytics is governed by Google's General Terms and
-            Conditions{' '}
-            <Link href='http://www.google.com/analytics/terms/us.html'>
-              google.com/analytics/terms/us.html
-            </Link>{' '}
-            and Google's Privacy Policy{' '}
-            <Link href='https://policies.google.com/privacy?hl=en&gl=en'>policies.google.com/privacy</Link>.
-          </LegalListItem>
-        </LegalList>
+
+        <LegalSubsection>
+          <Heading.H3 variant='legal'>Website (vocdoni.io):</Heading.H3>
+          <Paragraph variant='legal'>
+            The website uses Google Analytics (with cookies) and Plausible.io (cookie-free) to obtain aggregated,
+            non-identifiable statistics about visits and usage patterns.
+          </Paragraph>
+          <Paragraph variant='legal'>
+            Data is processed in an anonymized manner and used exclusively for internal analytical purposes.
+          </Paragraph>
+          <Paragraph variant='legal'>
+            These cookies are limited to analytical purposes and do not track users across websites.
+          </Paragraph>
+        </LegalSubsection>
+
+        <LegalSubsection>
+          <Heading.H3 variant='legal'>Application (app.vocdoni.io):</Heading.H3>
+          <Paragraph variant='legal'>
+            In the Vocdoni App, analytics are performed using Plausible, a privacy-first analytics platform that does
+            not use cookies or collect personal identifiers.
+          </Paragraph>
+          <Paragraph variant='legal'>
+            Additionally, certain services involve external providers acting as processors under GDPR Article 28(3):
+          </Paragraph>
+          <LegalList variant='none'>
+            <LegalListItem>Stripe Payments Europe, Ltd. – payment processing.</LegalListItem>
+            <LegalListItem>Twilio, Inc. – SMS and email delivery to users.</LegalListItem>
+          </LegalList>
+          <Paragraph variant='legal'>
+            Both providers process personal data solely for these purposes and under contractual guarantees of data
+            protection.
+          </Paragraph>
+        </LegalSubsection>
       </LegalSection>
 
       <LegalSection>
@@ -218,7 +247,7 @@ export function PrivacyPolicyEN() {
         <Paragraph variant='legal'>
           This Privacy Policy was released on September 26, 2025 and is effective as of that date. For more information
           on the guarantees of your privacy, you can contact Synergize SL at{' '}
-          <Link href='mailto:legal@vocdoni.org'>legal@vocdoni.org</Link>.
+          <Link href='mailto:dpo@vocdoni.org'>dpo@vocdoni.org</Link>.
         </Paragraph>
       </LegalSection>
 
@@ -241,10 +270,32 @@ export function PrivacyPolicyEN() {
       </LegalSection>
 
       <LegalSection>
-        <Heading.H2 variant='legal'>9. Updates to this Policy</Heading.H2>
+        <Heading.H2 variant='legal'>9. Cookies and Tracking Technologies</Heading.H2>
         <Paragraph variant='legal'>
-          This Privacy Policy is reviewed periodically and whenever there are relevant legal, technical, or
-          organizational changes affecting the processing of personal data.
+          Our website (vocdoni.io) and App (app.vocdoni.io) use a minimal number of cookies and tracking technologies:
+        </Paragraph>
+        <Paragraph variant='legal'>
+          <strong>Google Analytics</strong> – Used on vocdoni.io to collect anonymous, aggregated statistics about
+          website visits and usage. IP addresses are anonymized before storage.
+        </Paragraph>
+        <Paragraph variant='legal'>
+          <strong>Plausible.io</strong> – Used for privacy-friendly, cookie-free analytics on both the website and the
+          App.
+        </Paragraph>
+        <Paragraph variant='legal'>
+          No marketing, profiling, or advertising cookies are used.
+        </Paragraph>
+        <Paragraph variant='legal'>
+          You may disable cookies through your browser settings at any time.
+        </Paragraph>
+      </LegalSection>
+
+      <LegalSection>
+        <Heading.H2 variant='legal'>10. Updates to this Policy</Heading.H2>
+        <Paragraph variant='legal'>
+          This Privacy Policy applies jointly to the Vocdoni App (app.vocdoni.io) and the Vocdoni website (vocdoni.io).
+          It is reviewed periodically and whenever there are relevant legal, technical, or organizational changes
+          affecting the processing of personal data.
         </Paragraph>
         <Paragraph variant='legal'>
           Material updates will be communicated through the APPLICATION or by email to registered users and
@@ -254,7 +305,7 @@ export function PrivacyPolicyEN() {
           Each version of the Policy will include its <strong>revision date</strong> and <strong>effective date</strong>
           .
         </Paragraph>
-        <LegalLastUpdated>The current version was last reviewed on October 16, 2025.</LegalLastUpdated>
+        <LegalLastUpdated>The current version was last reviewed on October 24, 2025.</LegalLastUpdated>
       </LegalSection>
     </LegalPageContainer>
   )

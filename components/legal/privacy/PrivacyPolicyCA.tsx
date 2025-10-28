@@ -34,6 +34,14 @@ export function PrivacyPolicyCA() {
           Ens comprometem a complir amb les disposicions legals sobre protecció de dades i ens esforcem per observar
           sempre els principis d'evitació de dades i minimització de dades.
         </Paragraph>
+        <Paragraph variant='legal'>
+          Aquesta Política de Privacitat s'aplica tant a l'aplicació Vocdoni (<Link href='https://app.vocdoni.io'>app.vocdoni.io</Link>) com
+          al lloc web de Vocdoni (<Link href='https://vocdoni.io'>vocdoni.io</Link>).
+        </Paragraph>
+        <Paragraph variant='legal'>
+          L'aplicació inclou activitats de tractament addicionals relacionades amb usuaris registrats, administradors i
+          processos de votació, mentre que el lloc web es limita a finalitats informatives generals i d'anàlisi.
+        </Paragraph>
       </LegalSection>
 
       <LegalSection>
@@ -51,6 +59,17 @@ export function PrivacyPolicyCA() {
 
       <LegalSection>
         <Heading.H2 variant='legal'>2. Amb quina finalitat processem les teves dades personals?</Heading.H2>
+        <Paragraph variant='legal'>
+          Quan visites el nostre lloc web, només es processen les dades tècniques mínimes (p. ex., adreça IP, navegador,
+          tipus de dispositiu) necessàries per al seu correcte funcionament i per a finalitats analítiques.
+        </Paragraph>
+        <Paragraph variant='legal'>
+          Utilitzem Google Analytics (amb adreces IP anonimitzades) i Plausible.io per obtenir estadístiques agrupades i
+          no identificables.
+        </Paragraph>
+        <Paragraph variant='legal'>
+          No es recullen dades personals amb finalitats de màrqueting ni es duu a terme cap perfilat dels usuaris.
+        </Paragraph>
         <Paragraph variant='legal'>
           Processem les teves dades personals per operar la Vocdoni App (d'ara endavant, l'«APLICACIÓ»), que proporciona
           processos de votació i participació segurs, verificables i que preserven la privacitat.
@@ -125,29 +144,39 @@ export function PrivacyPolicyCA() {
             del tractament sota contractes que compleixen amb l'Article 28.3 RGPD.
           </LegalListItem>
         </LegalList>
-        <Paragraph variant='legal'>
-          <strong>Específicament:</strong>
-        </Paragraph>
-        <LegalList>
-          <LegalListItem>
-            Dins de l'APLICACIÓ, les anàlisis es realitzen utilitzant <strong>Plausible</strong>, una plataforma
-            d'anàlisi que prioritza la privacitat, que no utilitza galetes i no recopila ni emmagatzema informació
-            d'identificació personal. Per a més detalls, pots revisar{' '}
-            <Link href='https://plausible.io/privacy'>plausible.io/privacy</Link>.
-          </LegalListItem>
-          <LegalListItem>
-            La pàgina d'inici de vocdoni.app utilitza <strong>Google Analytics</strong> per a l'anàlisi del trànsit web.
-            Les dades recopilades a través d'aquesta eina es processen de manera dissociada (sense identificació
-            personal) i s'utilitzen exclusivament amb fins estadístics interns. L'APLICACIÓ pot recopilar, emmagatzemar
-            o compilar certa informació no personal sobre el seu ús. Google Analytics es regeix pels Termes i Condicions
-            Generals de Google{' '}
-            <Link href='http://www.google.com/analytics/terms/us.html'>
-              google.com/analytics/terms/us.html
-            </Link>{' '}
-            i la Política de Privacitat de Google{' '}
-            <Link href='https://policies.google.com/privacy?hl=ca&gl=es'>policies.google.com/privacy</Link>.
-          </LegalListItem>
-        </LegalList>
+
+        <LegalSubsection>
+          <Heading.H3 variant='legal'>Lloc web (vocdoni.io):</Heading.H3>
+          <Paragraph variant='legal'>
+            El lloc web utilitza Google Analytics (amb galetes) i Plausible.io (sense galetes) per obtenir
+            estadístiques agregades i no identificables sobre les visites i patrons d'ús.
+          </Paragraph>
+          <Paragraph variant='legal'>
+            Les dades es processen de manera anonimitzada i només amb finalitats analítiques internes.
+          </Paragraph>
+          <Paragraph variant='legal'>
+            Aquestes galetes estan limitades a propòsits d'anàlisi i no fan seguiment entre diferents llocs web.
+          </Paragraph>
+        </LegalSubsection>
+
+        <LegalSubsection>
+          <Heading.H3 variant='legal'>Aplicació (app.vocdoni.io):</Heading.H3>
+          <Paragraph variant='legal'>
+            L'aplicació Vocdoni utilitza Plausible, una plataforma d'analítica respectuosa amb la privacitat, sense
+            galetes ni identificadors personals.
+          </Paragraph>
+          <Paragraph variant='legal'>
+            Altres encarregats del tractament sota l'article 28(3) del RGPD:
+          </Paragraph>
+          <LegalList variant='none'>
+            <LegalListItem>Stripe Payments Europe, Ltd. – Processament de pagaments.</LegalListItem>
+            <LegalListItem>Twilio, Inc. – Enviament d'SMS i correus electrònics.</LegalListItem>
+          </LegalList>
+          <Paragraph variant='legal'>
+            Aquests proveïdors tracten les dades únicament per a les finalitats contractades i sota garanties de
+            protecció de dades adequades.
+          </Paragraph>
+        </LegalSubsection>
       </LegalSection>
 
       <LegalSection>
@@ -223,7 +252,7 @@ export function PrivacyPolicyCA() {
         <Paragraph variant='legal'>
           Aquesta Política de Privacitat va ser publicada el 26 de setembre de 2025 i és efectiva a partir d'aquesta
           data. Per a més informació sobre les garanties de la teva privacitat, pots contactar Synergize SL a{' '}
-          <Link href='mailto:legal@vocdoni.org'>legal@vocdoni.org</Link>.
+          <Link href='mailto:dpo@vocdoni.org'>dpo@vocdoni.org</Link>.
         </Paragraph>
       </LegalSection>
 
@@ -247,19 +276,42 @@ export function PrivacyPolicyCA() {
       </LegalSection>
 
       <LegalSection>
-        <Heading.H2 variant='legal'>9. Actualitzacions d'aquesta Política</Heading.H2>
+        <Heading.H2 variant='legal'>9. Galetes i tecnologies de seguiment</Heading.H2>
         <Paragraph variant='legal'>
-          Aquesta Política de Privacitat es revisa periòdicament i cada vegada que hi ha canvis legals, tècnics o
-          organitzatius rellevants que afecten el processament de dades personals.
+          El lloc web (vocdoni.io) i l'aplicació (app.vocdoni.io) utilitzen un nombre mínim de galetes i tecnologies de
+          seguiment:
+        </Paragraph>
+        <Paragraph variant='legal'>
+          <strong>Google Analytics</strong> – Utilitzat a vocdoni.io per obtenir estadístiques anònimes i agregades sobre
+          visites i ús. Les adreces IP s'anonimitzen abans de l'emmagatzematge.
+        </Paragraph>
+        <Paragraph variant='legal'>
+          <strong>Plausible.io</strong> – Utilitzat per a una analítica respectuosa amb la privacitat, sense galetes ni
+          identificadors personals, tant al lloc web com a l'aplicació.
+        </Paragraph>
+        <Paragraph variant='legal'>
+          No s'utilitzen galetes amb finalitats de màrqueting, perfilat o publicitat.
+        </Paragraph>
+        <Paragraph variant='legal'>
+          Pots desactivar les galetes en qualsevol moment mitjançant la configuració del teu navegador.
+        </Paragraph>
+      </LegalSection>
+
+      <LegalSection>
+        <Heading.H2 variant='legal'>10. Actualitzacions d'aquesta política</Heading.H2>
+        <Paragraph variant='legal'>
+          Aquesta política de privacitat s'aplica tant a l'aplicació Vocdoni App (app.vocdoni.io) com al lloc web
+          Vocdoni (vocdoni.io). Es revisa periòdicament i sempre que hi hagi canvis legals, tècnics o organitzatius
+          rellevants en el tractament de dades.
         </Paragraph>
         <Paragraph variant='legal'>
           Les actualitzacions materials es comunicaran a través de l'APLICACIÓ o per correu electrònic als usuaris
           registrats i administradors.
         </Paragraph>
         <Paragraph variant='legal'>
-          Cada versió de la Política inclourà la seva <strong>data de revisió</strong> i <strong>data efectiva</strong>.
+          Cada versió de la política inclourà la seva <strong>data de revisió</strong> i <strong>data d'entrada en vigor</strong>.
         </Paragraph>
-        <LegalLastUpdated>La versió actual va ser revisada per última vegada el 16 d'octubre de 2025.</LegalLastUpdated>
+        <LegalLastUpdated>L'última revisió d'aquesta política és del 24 d'octubre de 2025.</LegalLastUpdated>
       </LegalSection>
     </LegalPageContainer>
   )

@@ -74,28 +74,28 @@ export function TermsES() {
         <Paragraph variant='legal'>La APLICACIÓN proporciona diferentes funcionalidades según el tipo de usuario:</Paragraph>
         <LegalSubsection>
           <Heading.H3 variant='legal'>Para usuarios votantes (no registrados):</Heading.H3>
-          <LegalList variant='none'>
+          <LegalList>
             <LegalListItem>
-              ○ Acceder a un proceso de votación con credenciales o un enlace proporcionado por su organización.
+              Acceder a un proceso de votación con credenciales o un enlace proporcionado por su organización.
             </LegalListItem>
-            <LegalListItem>○ Emitir un voto de forma segura.</LegalListItem>
+            <LegalListItem>Emitir un voto de forma segura.</LegalListItem>
             <LegalListItem>
-              ○ No se crea una cuenta persistente para estos usuarios; solo se procesan los datos mínimos requeridos
+              No se crea una cuenta persistente para estos usuarios; solo se procesan los datos mínimos requeridos
               para verificar la elegibilidad para votar.
             </LegalListItem>
           </LegalList>
         </LegalSubsection>
         <LegalSubsection>
           <Heading.H3 variant='legal'>Para usuarios registrados (administradores):</Heading.H3>
-          <LegalList variant='none'>
-            <LegalListItem>○ Crear y configurar procesos de votación en nombre de su organización.</LegalListItem>
+          <LegalList>
+            <LegalListItem>Crear y configurar procesos de votación en nombre de su organización.</LegalListItem>
             <LegalListItem>
-              ○ Cargar y gestionar listas de miembros, que pueden incluir información personal de los miembros de la
+              Cargar y gestionar listas de miembros, que pueden incluir información personal de los miembros de la
               organización (que también son votantes potenciales).
             </LegalListItem>
-            <LegalListItem>○ Gestionar credenciales y distribuirlas a votantes elegibles.</LegalListItem>
+            <LegalListItem>Gestionar credenciales y distribuirlas a votantes elegibles.</LegalListItem>
             <LegalListItem>
-              ○ Acceder a funciones avanzadas para monitorear y gestionar procesos de votación.
+              Acceder a funciones avanzadas para monitorear y gestionar procesos de votación.
             </LegalListItem>
           </LegalList>
         </LegalSubsection>

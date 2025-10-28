@@ -76,27 +76,27 @@ export function TermsEN() {
         </Paragraph>
         <LegalSubsection>
           <Heading.H3 variant='legal'>For voting users (non-registered):</Heading.H3>
-          <LegalList variant='none'>
+          <LegalList>
             <LegalListItem>
-              ○ Access a voting process with credentials or a link provided by their organization.
+              Access a voting process with credentials or a link provided by their organization.
             </LegalListItem>
-            <LegalListItem>○ Cast a vote securely.</LegalListItem>
+            <LegalListItem>Cast a vote securely.</LegalListItem>
             <LegalListItem>
-              ○ A persistent account is not created for these users; only the minimum data required to verify
+              A persistent account is not created for these users; only the minimum data required to verify
               eligibility to vote are processed.
             </LegalListItem>
           </LegalList>
         </LegalSubsection>
         <LegalSubsection>
           <Heading.H3 variant='legal'>For registered users (administrators):</Heading.H3>
-          <LegalList variant='none'>
-            <LegalListItem>○ Create and configure voting processes on behalf of their organization.</LegalListItem>
+          <LegalList>
+            <LegalListItem>Create and configure voting processes on behalf of their organization.</LegalListItem>
             <LegalListItem>
-              ○ Upload and manage members lists, which may include personal information of members of the organization
+              Upload and manage members lists, which may include personal information of members of the organization
               (who are also potential voters).
             </LegalListItem>
-            <LegalListItem>○ Manage credentials and distribute them to eligible voters.</LegalListItem>
-            <LegalListItem>○ Access advanced features for monitoring and managing voting processes.</LegalListItem>
+            <LegalListItem>Manage credentials and distribute them to eligible voters.</LegalListItem>
+            <LegalListItem>Access advanced features for monitoring and managing voting processes.</LegalListItem>
           </LegalList>
         </LegalSubsection>
         <Paragraph variant='legal'>

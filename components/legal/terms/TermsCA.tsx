@@ -74,28 +74,28 @@ export function TermsCA() {
         <Paragraph variant='legal'>L'APLICACIÓ proporciona diferents funcionalitats segons el tipus d'usuari:</Paragraph>
         <LegalSubsection>
           <Heading.H3 variant='legal'>Per a usuaris votants (no registrats):</Heading.H3>
-          <LegalList variant='none'>
+          <LegalList>
             <LegalListItem>
-              ○ Accedir a un procés de votació amb credencials o un enllaç proporcionat per la seva organització.
+              Accedir a un procés de votació amb credencials o un enllaç proporcionat per la seva organització.
             </LegalListItem>
-            <LegalListItem>○ Emetre un vot de forma segura.</LegalListItem>
+            <LegalListItem>Emetre un vot de forma segura.</LegalListItem>
             <LegalListItem>
-              ○ No es crea un compte persistent per a aquests usuaris; només es processen les dades mínimes requerides
+              No es crea un compte persistent per a aquests usuaris; només es processen les dades mínimes requerides
               per verificar l'elegibilitat per votar.
             </LegalListItem>
           </LegalList>
         </LegalSubsection>
         <LegalSubsection>
           <Heading.H3 variant='legal'>Per a usuaris registrats (administradors):</Heading.H3>
-          <LegalList variant='none'>
-            <LegalListItem>○ Crear i configurar processos de votació en nom de la seva organització.</LegalListItem>
+          <LegalList>
+            <LegalListItem>Crear i configurar processos de votació en nom de la seva organització.</LegalListItem>
             <LegalListItem>
-              ○ Carregar i gestionar llistes de membres, que poden incloure informació personal dels membres de
+              Carregar i gestionar llistes de membres, que poden incloure informació personal dels membres de
               l'organització (que també són votants potencials).
             </LegalListItem>
-            <LegalListItem>○ Gestionar credencials i distribuir-les a votants elegibles.</LegalListItem>
+            <LegalListItem>Gestionar credencials i distribuir-les a votants elegibles.</LegalListItem>
             <LegalListItem>
-              ○ Accedir a funcions avançades per monitoritzar i gestionar processos de votació.
+              Accedir a funcions avançades per monitoritzar i gestionar processos de votació.
             </LegalListItem>
           </LegalList>
         </LegalSubsection>
