@@ -1,16 +1,10 @@
 // https://vike.dev/Head
 
-import { useEffect } from 'react'
-import TagManager from 'react-gtm-module'
-
 export default function HeadDefault() {
-  useEffect(() => {
-    if (GTM_ID) {
-      TagManager.initialize({ gtmId: GTM_ID })
-    }
-  }, [])
+  // GTM initialization is now handled by the CookieConsent component
+  // based on user consent. This ensures compliance with cookie regulations.
 
-  if (!PLAUSIBLE_DOMAIN && !GTM_ID) return null
+  if (!PLAUSIBLE_DOMAIN) return null
 
   return (
     <>
