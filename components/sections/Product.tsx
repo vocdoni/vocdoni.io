@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link } from '../Link'
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '../ui/accordion'
+import { Heading } from '../ui/typography'
 
 import org from '/assets/product/org.png'
 import results from '/assets/product/results.png'
@@ -53,9 +54,9 @@ export function Product() {
         <div className='flex-1 bg-background flex flex-col items-center justify-center'>
           <div className='w-full px-6 flex flex-col gap-6'>
             <div className='flex-col gap-6 hidden lg:flex'>
-              <p className='text-2xl md:text-3xl font-medium'>
+              <Heading variant='section'>
                 → {t('product.title', { defaultValue: 'How we make secure voting simple' })}
-              </p>
+              </Heading>
               <p className='text-lg sm:text-2xl md:text-3xl hidden lg:block leading-relaxed tracking-tight'>
                 {t('product.description', {
                   defaultValue:

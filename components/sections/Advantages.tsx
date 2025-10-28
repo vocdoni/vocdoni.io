@@ -3,6 +3,7 @@ import { useEffect, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '../ui/carousel'
 import { CarouselDots } from '../ui/carousel-dots'
+import { Heading } from '../ui/typography'
 
 export function Advantages() {
   const { t } = useTranslation()
@@ -112,9 +113,7 @@ export function Advantages() {
       <div className='flex flex-col'>
         <div className='flex-1 bg-background flex flex-col items-center justify-center'>
           <div className='w-full px-6 flex flex-col gap-6'>
-            <p className='text-sm sm:text-2xl md:text-3xl font-medium'>
-              → {t('advantage.title', { defaultValue: 'The Vocdoni advantage' })}
-            </p>
+            <Heading variant='section'>→ {t('advantage.title', { defaultValue: 'The Vocdoni advantage' })}</Heading>
             <p className='text-sm sm:text-2xl md:text-3xl leading-relaxed tracking-tight'>
               {t('advantage.description', {
                 defaultValue:

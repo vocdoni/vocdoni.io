@@ -1,4 +1,5 @@
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
+import { Heading } from '@/components/ui/typography'
 import { cn } from '@/lib/utils'
 import { ArrowUpRight } from 'lucide-react'
 import { useState } from 'react'
@@ -54,9 +55,7 @@ export function Technology() {
       <div className='flex flex-col mt-5 lg:mt-20 xl:mt-0'>
         <div className='flex-1 bg-background flex flex-col items-center justify-center'>
           <div className='w-full px-6 flex flex-col gap-6'>
-            <p className='text-2xl md:text-3xl font-medium'>
-              → {t('technology.headline', { defaultValue: 'Technology' })}
-            </p>
+            <Heading variant='section'>→ {t('technology.headline', { defaultValue: 'Technology' })}</Heading>
             <p className='text-lg sm:text-2xl md:text-3xl leading-relaxed tracking-tight'>
               {t('technology.vision', {
                 defaultValue:

@@ -1,5 +1,6 @@
 import { useTranslation } from 'react-i18next'
 import { Link } from '../Link'
+import { Heading } from '../ui/typography'
 
 export function Impact() {
   const { t } = useTranslation()
@@ -9,7 +10,7 @@ export function Impact() {
       <div className='flex flex-col'>
         <div className='flex-1 bg-background flex flex-col items-center justify-center'>
           <div className='w-full px-6 flex flex-col gap-6'>
-            <p className='text-2xl md:text-3xl font-medium'>→ {t('services.impact', { defaultValue: 'Impact in numbers' })}</p>
+            <Heading variant='section'>→ {t('services.impact', { defaultValue: 'Impact in numbers' })}</Heading>
             <p className='text-lg sm:text-2xl md:text-3xl hidden lg:block leading-relaxed tracking-tight'>
               {t('impact.description', {
                 defaultValue:

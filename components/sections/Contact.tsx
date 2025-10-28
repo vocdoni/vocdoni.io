@@ -10,6 +10,7 @@ import { useForm } from 'react-hook-form'
 import { Trans, useTranslation } from 'react-i18next'
 import { Link } from '../Link'
 import { Textarea } from '../ui/textarea'
+import { Heading } from '../ui/typography'
 
 interface ContactFormData {
   name: string
@@ -137,9 +138,9 @@ export function Contact() {
       {/* Contact Overview */}
       <div className='flex-1 bg-background flex flex-col items-center justify-center'>
         <div className='w-full px-6 flex flex-col gap-6'>
-          <p className='text-2xl lg:text-3xl font-medium mb-6'>
+          <Heading variant='section' className='mb-6'>
             → {t('contact.want_to_talk', { defaultValue: 'Want to talk with us?' })}
-          </p>
+          </Heading>
           <h2 className='text-2xl md:text-4xl leading-tight font-semibold'>
             {t('contact.description', { defaultValue: "Let's Build the Future of Governance" })}
           </h2>
