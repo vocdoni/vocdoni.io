@@ -20,7 +20,7 @@ export default function Page() {
 
   if (!isClient) {
     // SSR fallback: static rendering
-    return <StaticFallback activeSection={activeSection} onNavigate={navigateToSection} />
+    return <StaticFallback activeSection={activeSection} />
   }
 
   return (
