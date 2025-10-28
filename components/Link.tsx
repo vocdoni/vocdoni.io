@@ -58,17 +58,7 @@ export function Link({ href, locale, children, className, variant, size, ...prop
     : {}
 
   return (
-    <a
-      href={fullHref}
-      className={cn(
-        linkVariants({ variant, size }),
-        isActive && variant === 'nav' && 'text-gray-900 font-semibold',
-        isActive && variant === 'default' && 'text-primary font-medium',
-        className
-      )}
-      {...externalProps}
-      {...props}
-    >
+    <a href={fullHref} className={cn(linkVariants({ variant, size }), className)} {...externalProps} {...props}>
       {children}
       {isExternal && variant === 'text' && ' ↗'}
     </a>

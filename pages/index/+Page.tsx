@@ -16,22 +16,17 @@ import { useUrlSync } from '@/lib/useUrlSync'
 
 export default function Page() {
   const isClient = useIsClient()
-
-  const handleNavigation = (sectionIndex: number) => {
-    navigateToSection(sectionIndex)
-  }
-
-  const { activeSection, navigateToSection } = useUrlSync(handleNavigation)
+  const { activeSection, navigateToSection } = useUrlSync()
 
   if (!isClient) {
     // SSR fallback: static rendering
-    return <StaticFallback activeSection={activeSection} onNavigate={handleNavigation} />
+    return <StaticFallback activeSection={activeSection} onNavigate={navigateToSection} />
   }
 
   return (
     <>
-      <Navigation activeSection={activeSection} onNavigate={handleNavigation} />
-      <SectionScroller activeSection={activeSection} onSectionChange={handleNavigation}>
+      <Navigation activeSection={activeSection} />
+      <SectionScroller activeSection={activeSection} onSectionChange={navigateToSection}>
         <Landing />
         <Explore />
         <Technology />

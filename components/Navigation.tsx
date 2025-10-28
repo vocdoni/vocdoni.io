@@ -60,11 +60,22 @@ export function Navigation({ activeSection = 0, usesScroll = false }: Navigation
           {/* Center Navigation with White Background */}
           <div className='hidden lg:flex items-center justify-center'>
             <div className='bg-white rounded-sm px-6 py-2'>
-              {menuItems.map((item) => (
-                <Link key={item.label} href={item.path} variant='nav' className='px-4 py-2 text-sm'>
-                  {item.label}
-                </Link>
-              ))}
+              {menuItems.map((item) => {
+                const activeSectionPath = sections[activeSection]?.path
+                return (
+                  <Link
+                    key={item.label}
+                    href={item.path}
+                    variant='nav'
+                    className={[
+                      'px-4 py-2 text-sm',
+                      item.path === activeSectionPath ? 'text-gray-900 font-semibold' : '',
+                    ].join(' ')}
+                  >
+                    {item.label}
+                  </Link>
+                )
+              })}
             </div>
           </div>
 
@@ -99,17 +110,23 @@ export function Navigation({ activeSection = 0, usesScroll = false }: Navigation
 
             {/* Menu items - centered vertically */}
             <div className='flex-1 flex flex-col items-center justify-center space-y-6 px-4'>
-              {menuItems.map((item) => (
-                <Link
-                  key={item.label}
-                  href={item.path}
-                  variant='nav'
-                  className='text-3xl font-normal hover:opacity-70 transition-opacity'
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  {item.label}
-                </Link>
-              ))}
+              {menuItems.map((item) => {
+                const activeSectionPath = sections[activeSection]?.path
+                return (
+                  <Link
+                    key={item.label}
+                    href={item.path}
+                    variant='nav'
+                    className={[
+                      'text-3xl font-normal hover:opacity-70 transition-opacity',
+                      item.path === activeSectionPath ? 'text-gray-900 font-semibold' : '',
+                    ].join(' ')}
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    {item.label}
+                  </Link>
+                )
+              })}
             </div>
 
             {/* Bottom section with language switcher and app button */}
