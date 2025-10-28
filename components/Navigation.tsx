@@ -47,7 +47,7 @@ export function Navigation({ activeSection = 0, usesScroll = false }: Navigation
   return (
     <nav className='fixed top-0 left-0 right-0 z-50 lg:backdrop-blur-sm'>
       <div className='px-4'>
-        <div className='h-16 flex items-center lg:grid md:grid-cols-3'>
+        <div className='h-16 flex items-center lg:grid lg:grid-cols-[15%_70%_15%]'>
           {/* Logo */}
           <div className='flex items-center'>
             {(showRightMenu || isLargeScreen) && (
