@@ -35,7 +35,7 @@ export function LanguageSwitcher() {
       <DropdownMenuTrigger asChild>
         <Button
           variant='outline'
-          className='group gap-2 border-0 bg-transparent hover:bg-transparent data-[state=open]:bg-white px-2 py-1 h-auto'
+          className='group gap-2 border-0 bg-transparent hover:bg-transparent data-[state=open]:bg-white px-2 py-1 h-auto [&_svg]:size-4'
         >
           <span className='hidden sm:inline'>{currentLabel}</span>
           <span className='sm:hidden uppercase'>{current}</span>

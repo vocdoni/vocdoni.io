@@ -1,12 +1,13 @@
+import { useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
+
+import { AnimatedHamburger } from '@/components/AnimatedHamburger'
 import LanguageSwitcher from '@/components/LanguageSwitcher'
 import { Link } from '@/components/Link'
 import { VocdoniLogo } from '@/components/Logo'
 import { Button } from '@/components/ui/button'
 import { useMediaQuery } from '@/hooks/use-media-query'
 import { useSections } from '@/lib/useUrlSync'
-import { Menu, X } from 'lucide-react'
-import { useEffect, useState } from 'react'
-import { useTranslation } from 'react-i18next'
 
 interface NavigationProps {
   activeSection?: number
@@ -92,7 +93,7 @@ export function Navigation({ activeSection = 0, usesScroll = false }: Navigation
           {/* Mobile menu button */}
           <div className='ml-auto lg:hidden'>
             <Button variant='ghost' size='sm' onClick={() => setIsMenuOpen(!isMenuOpen)} className='p-2'>
-              {isMenuOpen ? <X className='w-6 h-6' /> : <Menu className='w-6 h-6' />}
+              <AnimatedHamburger isOpen={isMenuOpen} />
             </Button>
           </div>
         </div>
@@ -104,7 +105,7 @@ export function Navigation({ activeSection = 0, usesScroll = false }: Navigation
             <div className='h-16 flex items-center justify-between px-4'>
               <VocdoniLogo minimal />
               <Button variant='ghost' size='sm' onClick={() => setIsMenuOpen(false)} className='p-2'>
-                <X className='w-6 h-6' />
+                <AnimatedHamburger isOpen={isMenuOpen} />
               </Button>
             </div>
 
