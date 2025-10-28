@@ -94,17 +94,13 @@ export function Services() {
               <AccordionItem
                 key={id}
                 value={id}
-                className={cn(bg, 'border-none flex flex-col', 'data-[state=open]:flex-1')}
+                variant='section'
+                className={bg}
                 onMouseEnter={() => setOpen(id)}
               >
                 <AccordionTrigger
-                  className={cn(
-                    bg,
-                    'group border-0 px-6 md:px-10 h-20 md:h-25',
-                    'text-left text-lg md:text-4xl font-semibold',
-                    'hover:no-underline',
-                    '[&>svg]:hidden'
-                  )}
+                  variant='section'
+                  className={cn(bg, 'px-6 md:px-10 h-20 md:h-25')}
                 >
                   <div className='flex w-full items-center justify-between'>
                     <span>{title}</span>
@@ -120,9 +116,10 @@ export function Services() {
                 </AccordionTrigger>
 
                 <AccordionContent
+                  variant='section'
                   className={cn(
                     bg,
-                    'border-0 px-6 md:px-10 py-4 text-lg md:text-lg h-full',
+                    'px-6 md:px-10 h-full',
                     'overflow-auto data-[state=open]:flex-1',
                     'data-[state=open]:[&>div]:min-h-0 data-[state=open]:[&>div]:h-full',
                     'flex flex-col justify-center gap-4'

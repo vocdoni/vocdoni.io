@@ -110,17 +110,13 @@ export function Technology() {
             <AccordionItem
               key={r.key}
               value={r.key}
-              className={cn(r.bg, 'border-none flex flex-col', 'data-[state=open]:flex-1')}
+              variant='section'
+              className={r.bg}
               onMouseEnter={() => setOpen(r.key)}
             >
               <AccordionTrigger
-                className={cn(
-                  r.bg,
-                  'group border-0 px-6 md:px-10 h-20 md:h-25',
-                  'text-left text-lg md:text-4xl font-semibold',
-                  'hover:no-underline',
-                  '[&>svg]:hidden'
-                )}
+                variant='section'
+                className={cn(r.bg, 'px-6 md:px-10 h-20 md:h-25')}
               >
                 <div className='flex w-full items-center justify-between'>
                   <span>{r.label}</span>
@@ -136,7 +132,7 @@ export function Technology() {
                 </div>
               </AccordionTrigger>
 
-              <AccordionContent className={cn(r.bg, 'border-0', 'px-6 md:px-10 py-4 text-md md:text-lg')}>
+              <AccordionContent variant='section' className={cn(r.bg, 'px-6 md:px-10')}>
                 <p className='max-w-2xl'>{r.description}</p>
               </AccordionContent>
             </AccordionItem>
