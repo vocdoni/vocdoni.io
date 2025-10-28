@@ -4,6 +4,7 @@ import { VocdoniLogo } from '@/components/Logo'
 import { Button } from '@/components/ui/button'
 import { useMediaQuery } from '@/hooks/use-media-query'
 import { useSections } from '@/lib/useUrlSync'
+import { Menu, X } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
@@ -74,43 +75,52 @@ export function Navigation({ activeSection = 0, usesScroll = false }: Navigation
           {/* Mobile menu button */}
           <div className='ml-auto lg:hidden'>
             <Button variant='ghost' size='sm' onClick={() => setIsMenuOpen(!isMenuOpen)} className='p-2'>
-              <svg className='w-6 h-6' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
-                {isMenuOpen ? (
-                  <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M6 18L18 6M6 6l12 12' />
-                ) : (
-                  <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M4 6h16M4 12h16M4 18h16' />
-                )}
-              </svg>
+              {isMenuOpen ? <X className='w-6 h-6' /> : <Menu className='w-6 h-6' />}
             </Button>
           </div>
         </div>
 
-        {/* Mobile Navigation Menu */}
+        {/* Mobile Navigation Menu - Full Screen */}
         {isMenuOpen && (
-          <div className='lg:hidden border-t border-border bg-white mt-2 mx-2 shadow-lg'>
-            <div className='px-2 pt-2 pb-3 space-y-1'>
+          <div className='fixed inset-0 z-50 lg:hidden bg-stone-100 flex flex-col'>
+            {/* Header with logo and close button */}
+            <div className='h-16 flex items-center justify-between px-4'>
+              <VocdoniLogo minimal />
+              <Button variant='ghost' size='sm' onClick={() => setIsMenuOpen(false)} className='p-2'>
+                <X className='w-6 h-6' />
+              </Button>
+            </div>
+
+            {/* Menu items - centered vertically */}
+            <div className='flex-1 flex flex-col items-center justify-center space-y-6 px-4'>
               {menuItems.map((item) => (
                 <Link
                   key={item.label}
                   href={item.path}
                   variant='nav'
-                  className='block px-3 py-2 text-sm hover:bg-gray-50 rounded-md'
+                  className='text-3xl font-normal hover:opacity-70 transition-opacity'
                   onClick={() => setIsMenuOpen(false)}
                 >
                   {item.label}
                 </Link>
               ))}
-              <div className='pt-2 border-t border-gray-100'>
+            </div>
+
+            {/* Bottom section with language switcher and app button */}
+            <div className='pb-8 px-4 space-y-4'>
+              <div className='flex justify-center'>
+                <LanguageSwitcher />
+              </div>
+              <Button asChild className='w-full'>
                 <a
                   href='https://app.vocdoni.io'
                   target='_blank'
                   rel='noopener noreferrer'
-                  className='block px-3 py-2 text-sm font-medium bg-black text-white hover:bg-gray-800 rounded-md transition-colors text-center'
                   onClick={() => setIsMenuOpen(false)}
                 >
                   {t('navigation.app', { defaultValue: 'App' })}
                 </a>
-              </div>
+              </Button>
             </div>
           </div>
         )}

@@ -40,7 +40,7 @@ export function LanguageSwitcher() {
         </Button>
       </DropdownMenuTrigger>
 
-      <DropdownMenuContent align='end' className='min-w-0 w-[var(--radix-dropdown-menu-trigger-width)] p-0'>
+      <DropdownMenuContent align='end' className='min-w-max p-0'>
         {availableLocales
           .filter((l) => l.value !== current)
           .map(({ value, label }) => {
