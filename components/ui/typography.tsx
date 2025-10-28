@@ -2,24 +2,40 @@ import { cva, type VariantProps } from 'class-variance-authority'
 
 import { cn } from '@/lib/utils'
 
-interface ParagraphProps extends React.HTMLAttributes<HTMLParagraphElement> {
-  size?: 'sm' | 'md' | 'lg'
-  variant?: 'default' | 'legal'
-}
+const paragraphVariants = cva('leading-relaxed', {
+  variants: {
+    variant: {
+      default: 'text-muted-foreground',
+      legal: 'text-foreground/90 mb-4',
+      section: 'text-lg sm:text-2xl md:text-3xl tracking-tight',
+    },
+    size: {
+      sm: 'text-sm',
+      md: 'text-base',
+      lg: 'text-lg',
+    },
+  },
+  compoundVariants: [
+    // Size only applies to default and legal variants
+    { variant: 'default', size: 'sm', class: 'text-sm' },
+    { variant: 'default', size: 'md', class: 'text-base' },
+    { variant: 'default', size: 'lg', class: 'text-lg' },
+    { variant: 'legal', size: 'sm', class: 'text-sm' },
+    { variant: 'legal', size: 'md', class: 'text-base' },
+    { variant: 'legal', size: 'lg', class: 'text-lg' },
+  ],
+  defaultVariants: {
+    variant: 'default',
+    size: 'md',
+  },
+})
 
-export function Paragraph({ className, size = 'md', variant = 'default', ...props }: ParagraphProps) {
-  const sizes = {
-    sm: 'text-sm leading-relaxed',
-    md: 'text-base leading-relaxed',
-    lg: 'text-lg leading-relaxed',
-  }
+interface ParagraphProps
+  extends React.HTMLAttributes<HTMLParagraphElement>,
+    VariantProps<typeof paragraphVariants> {}
 
-  const variants = {
-    default: 'text-muted-foreground',
-    legal: 'text-foreground/90 mb-4',
-  }
-
-  return <p className={cn(variants[variant], sizes[size], className)} {...props} />
+export function Paragraph({ className, size, variant, ...props }: ParagraphProps) {
+  return <p className={cn(paragraphVariants({ variant, size, className }))} {...props} />
 }
 
 const headingVariants = cva('', {

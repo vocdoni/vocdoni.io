@@ -1,5 +1,5 @@
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
-import { Heading } from '@/components/ui/typography'
+import { Heading, Paragraph } from '@/components/ui/typography'
 import { cn } from '@/lib/utils'
 import { ArrowUpRight } from 'lucide-react'
 import { useState } from 'react'
@@ -62,12 +62,12 @@ export function Services() {
         <div className='flex-1 bg-background flex flex-col items-center justify-center'>
           <div className='w-full px-6 flex flex-col gap-6'>
             <Heading variant='section'>→ {t('services.our_services', { defaultValue: 'Our Services' })}</Heading>
-            <p className='text-lg sm:text-2xl md:text-3xl leading-relaxed tracking-tight'>
+            <Paragraph variant='section'>
               {t('services.explanation', {
                 defaultValue:
                   'Whether you need a quick self-service vote, developer integration, or a fully customised governance solution, Vocdoni has you covered.',
               })}
-            </p>
+            </Paragraph>
           </div>
         </div>
         <div className='hidden lg:block w-full px-6 py-6'>

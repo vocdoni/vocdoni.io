@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next'
 import { Link } from '../Link'
-import { Heading } from '../ui/typography'
+import { Heading, Paragraph } from '../ui/typography'
 
 import barcelona from '/assets/logos/barcelona.png'
 import bellpuig from '/assets/logos/bellpuig.png'
@@ -139,16 +139,16 @@ export function Testimonials() {
       <div className='flex flex-col'>
         <div className='flex-1 bg-background flex flex-col items-center justify-center'>
           <div className='w-full px-6 flex flex-col gap-6'>
-            <div className='flex-col gap-6'>
+            <div className='flex flex-col gap-6'>
               <Heading variant='section'>
                 → {t('testimonials.title', { defaultValue: 'Real stories, Real impact' })}
               </Heading>
-              <p className='text-lg md:text-2xl mt-6 max-w-md leading-relaxed'>
+              <Paragraph variant='section'>
                 {t('testimonials.description', {
                   defaultValue:
                     'From grassroots movements to large institutions, see how Vocdoni transforms decision-making through secure, accessible, and transparent technology.',
                 })}
-              </p>
+              </Paragraph>
             </div>
           </div>
         </div>

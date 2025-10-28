@@ -1,5 +1,5 @@
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
-import { Heading } from '@/components/ui/typography'
+import { Heading, Paragraph } from '@/components/ui/typography'
 import { cn } from '@/lib/utils'
 import { ArrowUpRight } from 'lucide-react'
 import { useState } from 'react'
@@ -56,23 +56,23 @@ export function Technology() {
         <div className='flex-1 bg-background flex flex-col items-center justify-center'>
           <div className='w-full px-6 flex flex-col gap-6'>
             <Heading variant='section'>→ {t('technology.headline', { defaultValue: 'Technology' })}</Heading>
-            <p className='text-lg sm:text-2xl md:text-3xl leading-relaxed tracking-tight'>
+            <Paragraph variant='section'>
               {t('technology.vision', {
                 defaultValue:
                   'Our vision is simple: a world where collective decision–making can happen anywhere, from any device, transparently and securely. No intermediaries, no barriers.',
               })}
-            </p>
+            </Paragraph>
 
             <div className='hidden lg:block mb-10'>
               <div className='flex flex-col gap-4'>
-                <p className='text-lg sm:text-2xl md:text-3xl leading-relaxed tracking-tight'>
+                <Paragraph variant='section'>
                   {t('technology.why', { defaultValue: 'Why?' })}
-                </p>
-                <p className='text-lg sm:text-2xl md:text-3xl leading-relaxed tracking-tight'>
+                </Paragraph>
+                <Paragraph variant='section'>
                   {t('technology.why_description', {
                     defaultValue: 'Because fair, accessible governance should be a right, not a luxury.',
                   })}
-                </p>
+                </Paragraph>
               </div>
             </div>
             <Link

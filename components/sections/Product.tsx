@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link } from '../Link'
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '../ui/accordion'
-import { Heading } from '../ui/typography'
+import { Heading, Paragraph } from '../ui/typography'
 
 import org from '/assets/product/org.png'
 import results from '/assets/product/results.png'
@@ -57,12 +57,12 @@ export function Product() {
               <Heading variant='section'>
                 → {t('product.title', { defaultValue: 'How we make secure voting simple' })}
               </Heading>
-              <p className='text-lg sm:text-2xl md:text-3xl hidden lg:block leading-relaxed tracking-tight'>
+              <Paragraph variant='section' className='hidden lg:block'>
                 {t('product.description', {
                   defaultValue:
                     'With Vocdoni APP, you can create a secure vote in just 4 steps and without previous experience.',
                 })}
-              </p>
+              </Paragraph>
             </div>
             <Accordion
               defaultValue='step1'
