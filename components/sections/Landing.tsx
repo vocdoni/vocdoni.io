@@ -21,7 +21,7 @@ export function Landing() {
         </h1>
 
         {/* Subtitle */}
-        <p className='text-xl md:text-2xl mb-12 max-w-2xl leading-relaxed font-light'>
+        <p className='text-xl md:text-2xl mb-12 leading-relaxed font-light'>
           {t('landing.subtitle', { defaultValue: 'We build technology that makes every voice count.' })}
         </p>
 
