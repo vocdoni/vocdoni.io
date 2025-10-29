@@ -22,7 +22,7 @@ export const Footer = () => {
           info@vocdoni.org
         </a>
 
-        <div className='grid justify-items-center lg:justify-items-end gap-6 mb-20 lg:mb-0'>
+        <div className='grid justify-items-center lg:justify-items-end gap-6'>
           <div className='w-fit'>
             <div className='grid grid-cols-2 gap-y-2 gap-x-30 text-sm md:text-base'>
               <Link variant='text' href='/technology'>
@@ -75,7 +75,7 @@ export const Footer = () => {
       </div>
 
       <div className='flex flex-col justify-end px-4'>
-        <div aria-hidden className='pointer-events-none select-none self-center'>
+        <div aria-hidden className='hidden lg:block pointer-events-none select-none self-center'>
           <img src={vocdoniLogo} alt='Vocdoni' className='h-18 lg:h-90 w-auto max-w-full object-contain' />
         </div>
         <div className='self-center text-center text-xs lg:text-sm text-black/70'>
