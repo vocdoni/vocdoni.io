@@ -193,10 +193,13 @@ export function Contact() {
 
           <div className='lg:col-span-2 flex flex-col gap-1'>
             <Textarea
-              {...register('message')}
+              {...register('message', {
+                required: t('contact.errors.message_required', { defaultValue: 'Message is required' }),
+              })}
               placeholder={t('contact.message_placeholder', { defaultValue: 'Message' })}
               className='min-h-40 bg-[#ECEEF2] border-0 placeholder:text-foreground/70 text-sm resize-y'
             />
+            {errors.message && <span className='text-xs text-red-600'>{errors.message.message}</span>}
           </div>
 
           <p className='lg:col-span-2 text-xs'>
