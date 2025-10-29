@@ -19,7 +19,7 @@ export function Navigation({ activeSection = 0, usesScroll = false }: Navigation
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const sections = useSections()
   const [isAtTop, setIsAtTop] = useState(true)
-  const isLargeScreen = useMediaQuery('(min-width: 1024px)')
+  const isLargeScreen = useMediaQuery('(min-width: 1024px)', { initializeWithValue: false })
   const menuItems = sections
     .filter((section) => section.appearsOnMenu)
     .map((section) => ({
