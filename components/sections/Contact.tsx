@@ -1,8 +1,10 @@
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
+import { useIsClient } from '@/lib/useIsClient'
 import { send } from '@emailjs/browser'
 import { ArrowUpRight, Loader2 } from 'lucide-react'
-import { useState } from 'react'
+import { useRef, useState } from 'react'
+import ReCAPTCHA from 'react-google-recaptcha'
 import { useForm } from 'react-hook-form'
 import { Trans, useTranslation } from 'react-i18next'
 import { Link } from '../Link'
@@ -15,11 +17,15 @@ interface ContactFormData {
   message: string
 }
 
-type SubmissionStatus = 'idle' | 'loading' | 'success' | 'error' | 'config_error'
+type SubmissionStatus = 'idle' | 'loading' | 'success' | 'error' | 'config_error' | 'captcha_error'
+
+const errorShownTimeout = 15_000 // 15 seconds
 
 export function Contact() {
   const { t } = useTranslation()
   const [status, setStatus] = useState<SubmissionStatus>('idle')
+  const recaptchaRef = useRef<ReCAPTCHA>(null)
+  const isClient = useIsClient()
 
   const {
     register,
@@ -41,13 +47,40 @@ export function Contact() {
       setStatus('config_error')
 
       // Reset error message after 15 seconds
-      setTimeout(() => setStatus('idle'), 15_000)
+      setTimeout(() => setStatus('idle'), errorShownTimeout)
+      return
+    }
+
+    // Validate reCAPTCHA configuration
+    if (!RECAPTCHA_SITE_KEY) {
+      console.warn(
+        '[Contact Form] reCAPTCHA is not configured. Please set the following environment variable:\n' +
+          '- RECAPTCHA_SITE_KEY\n\n' +
+          'See .env.example for details.'
+      )
+      setStatus('config_error')
+
+      // Reset error message after 15 seconds
+      setTimeout(() => setStatus('idle'), errorShownTimeout)
+      return
+    }
+
+    // Get reCAPTCHA token synchronously
+    const token = recaptchaRef.current?.getValue()
+
+    if (!token) {
+      console.error('[Contact Form] reCAPTCHA not completed')
+      setStatus('captcha_error')
+
+      // Reset error message after 5 seconds
+      setTimeout(() => setStatus('idle'), errorShownTimeout)
       return
     }
 
     setStatus('loading')
 
     try {
+      // Send email with reCAPTCHA token
       await send(
         EMAILJS_SERVICE_ID,
         EMAILJS_TEMPLATE_ID,
@@ -57,21 +90,24 @@ export function Contact() {
           company: data.company,
           message: data.message,
           time: new Date().toISOString(),
+          'g-recaptcha-response': token,
         },
         EMAILJS_PUBLIC_KEY
       )
 
       setStatus('success')
       reset()
+      recaptchaRef.current?.reset()
 
       // Reset success message after 5 seconds
-      setTimeout(() => setStatus('idle'), 5_000)
+      setTimeout(() => setStatus('idle'), errorShownTimeout)
     } catch (error) {
       console.error('[Contact Form] EmailJS send error:', error)
       setStatus('error')
+      recaptchaRef.current?.reset()
 
       // Reset error message after 5 seconds
-      setTimeout(() => setStatus('idle'), 5_000)
+      setTimeout(() => setStatus('idle'), errorShownTimeout)
     }
   }
 
@@ -169,6 +205,21 @@ export function Contact() {
           {status === 'error' && (
             <div className='lg:col-span-2 p-3 bg-red-100 border border-red-400 text-red-700 text-sm rounded'>
               {t('contact.error', { defaultValue: 'Failed to send message. Please try again later.' })}
+            </div>
+          )}
+
+          {status === 'captcha_error' && (
+            <div className='lg:col-span-2 p-3 bg-red-100 border border-red-400 text-red-700 text-sm rounded'>
+              {t('contact.captcha_error', {
+                defaultValue: 'reCAPTCHA verification failed. Please try again.',
+              })}
+            </div>
+          )}
+
+          {/* reCAPTCHA Checkbox */}
+          {RECAPTCHA_SITE_KEY && isClient && (
+            <div className='lg:col-span-2'>
+              <ReCAPTCHA ref={recaptchaRef} sitekey={RECAPTCHA_SITE_KEY} />
             </div>
           )}
 

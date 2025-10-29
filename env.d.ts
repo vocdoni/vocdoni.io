@@ -6,3 +6,5 @@ declare const GTM_ID: string
 declare const EMAILJS_PUBLIC_KEY: string
 declare const EMAILJS_SERVICE_ID: string
 declare const EMAILJS_TEMPLATE_ID: string
+// reCAPTCHA configuration variable defined in vite.config.ts
+declare const RECAPTCHA_SITE_KEY: string
