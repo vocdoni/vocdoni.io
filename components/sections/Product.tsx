@@ -11,36 +11,35 @@ import results from '/assets/product/results.png'
 import upload from '/assets/product/upload.png'
 import vote from '/assets/product/vote.png'
 
-const steps = [
-  {
-    id: 'step1',
-    title: 'Create your organization',
-    description: 'Sign up and create your organization.',
-    img: org,
-  },
-  {
-    id: 'step2',
-    title: 'Upload your memberbase',
-    description: 'Upload your memberbase and create a group of eligible voters.',
-    img: upload,
-  },
-  {
-    id: 'step3',
-    title: 'Run a vote',
-    description:
-      'Create a vote with the chosen census and settings, then share the link so eligible voters can participate.',
-    img: vote,
-  },
-  {
-    id: 'step4',
-    title: 'See the results',
-    description: 'Results are computed instantly, verifiable by anyone.',
-    img: results,
-  },
-]
-
 export function Product() {
   const { t } = useTranslation()
+
+  const steps = [
+    {
+      id: 'step1',
+      title: t('product.step1.title'),
+      description: t('product.step1.description'),
+      img: org,
+    },
+    {
+      id: 'step2',
+      title: t('product.step2.title'),
+      description: t('product.step2.description'),
+      img: upload,
+    },
+    {
+      id: 'step3',
+      title: t('product.step3.title'),
+      description: t('product.step3.description'),
+      img: vote,
+    },
+    {
+      id: 'step4',
+      title: t('product.step4.title'),
+      description: t('product.step4.description'),
+      img: results,
+    },
+  ]
   const [open, setOpen] = useState<string>('step1')
 
   const currentStep = steps.find((s) => s.id === open)
@@ -97,7 +96,7 @@ export function Product() {
 
                     <AccordionContent
                       className={cn(
-                        'border-0 px-6 md:px-10 py-4 text-lg md:text-lg h-full',
+                        'border-0 px-6 md:px-10 text-lg md:text-lg h-full',
                         'overflow-hidden data-[state=open]:flex-1',
                         'data-[state=open]:[&>div]:min-h-0 data-[state=open]:[&>div]:h-full',
                         'flex flex-col justify-center gap-4'
