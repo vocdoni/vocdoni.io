@@ -1,5 +1,6 @@
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
+import { initializeGTM, setCookieConsent } from '@/lib/cookieConsent'
 import { useIsClient } from '@/lib/useIsClient'
 import { send } from '@emailjs/browser'
 import { ArrowUpRight, Loader2 } from 'lucide-react'
@@ -24,6 +25,8 @@ const errorShownTimeout = 15_000 // 15 seconds
 export function Contact() {
   const { t } = useTranslation()
   const [status, setStatus] = useState<SubmissionStatus>('idle')
+  const [showRecaptcha, setShowRecaptcha] = useState(false)
+  const [formData, setFormData] = useState<ContactFormData | null>(null)
   const recaptchaRef = useRef<ReCAPTCHA>(null)
   const isClient = useIsClient()
 
@@ -33,6 +36,58 @@ export function Contact() {
     reset,
     formState: { errors },
   } = useForm<ContactFormData>()
+
+  const sendEmail = async (token: string) => {
+    const data = formData
+    if (!data) return
+
+    try {
+      // Send email with reCAPTCHA token
+      await send(
+        EMAILJS_SERVICE_ID,
+        EMAILJS_TEMPLATE_ID,
+        {
+          name: data.name,
+          email: data.email,
+          company: data.company,
+          message: data.message,
+          time: new Date().toISOString(),
+          'g-recaptcha-response': token,
+        },
+        EMAILJS_PUBLIC_KEY
+      )
+
+      setStatus('success')
+      reset()
+      setFormData(null)
+      setShowRecaptcha(false)
+      recaptchaRef.current?.reset()
+
+      // Reset success message after 5 seconds
+      setTimeout(() => setStatus('idle'), errorShownTimeout)
+    } catch (error) {
+      console.error('[Contact Form] EmailJS send error:', error)
+      setStatus('error')
+      recaptchaRef.current?.reset()
+
+      // Reset error message after 5 seconds
+      setTimeout(() => setStatus('idle'), errorShownTimeout)
+    }
+  }
+
+  const onRecaptchaChange = (token: string | null) => {
+    if (token) {
+      sendEmail(token)
+    } else {
+      console.error('[Contact Form] reCAPTCHA verification failed')
+      setStatus('captcha_error')
+      setShowRecaptcha(false)
+      recaptchaRef.current?.reset()
+
+      // Reset error message after 5 seconds
+      setTimeout(() => setStatus('idle'), errorShownTimeout)
+    }
+  }
 
   const onSubmit = async (data: ContactFormData) => {
     // Validate EmailJS configuration
@@ -65,50 +120,17 @@ export function Contact() {
       return
     }
 
-    // Get reCAPTCHA token synchronously
-    const token = recaptchaRef.current?.getValue()
+    // Accept cookies (user clicked Submit, implying acceptance of privacy policy)
+    setCookieConsent(true)
+    initializeGTM(true)
 
-    if (!token) {
-      console.error('[Contact Form] reCAPTCHA not completed')
-      setStatus('captcha_error')
-
-      // Reset error message after 5 seconds
-      setTimeout(() => setStatus('idle'), errorShownTimeout)
-      return
-    }
-
+    // Store form data and show reCAPTCHA
+    setFormData(data)
+    setShowRecaptcha(true)
     setStatus('loading')
 
-    try {
-      // Send email with reCAPTCHA token
-      await send(
-        EMAILJS_SERVICE_ID,
-        EMAILJS_TEMPLATE_ID,
-        {
-          name: data.name,
-          email: data.email,
-          company: data.company,
-          message: data.message,
-          time: new Date().toISOString(),
-          'g-recaptcha-response': token,
-        },
-        EMAILJS_PUBLIC_KEY
-      )
-
-      setStatus('success')
-      reset()
-      recaptchaRef.current?.reset()
-
-      // Reset success message after 5 seconds
-      setTimeout(() => setStatus('idle'), errorShownTimeout)
-    } catch (error) {
-      console.error('[Contact Form] EmailJS send error:', error)
-      setStatus('error')
-      recaptchaRef.current?.reset()
-
-      // Reset error message after 5 seconds
-      setTimeout(() => setStatus('idle'), errorShownTimeout)
-    }
+    // User will now complete the reCAPTCHA checkbox
+    // Email will be sent automatically via onRecaptchaChange callback
   }
 
   return (
@@ -216,10 +238,10 @@ export function Contact() {
             </div>
           )}
 
-          {/* reCAPTCHA Checkbox */}
-          {RECAPTCHA_SITE_KEY && isClient && (
+          {/* reCAPTCHA Checkbox - Only loads after Submit (GDPR compliant) */}
+          {RECAPTCHA_SITE_KEY && isClient && showRecaptcha && (
             <div className='lg:col-span-2'>
-              <ReCAPTCHA ref={recaptchaRef} sitekey={RECAPTCHA_SITE_KEY} />
+              <ReCAPTCHA ref={recaptchaRef} sitekey={RECAPTCHA_SITE_KEY} onChange={onRecaptchaChange} />
             </div>
           )}
 
