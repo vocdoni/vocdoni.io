@@ -1,6 +1,6 @@
 import { Button } from '@/components/ui/button'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
-import { useUrlSync } from '@/lib/useUrlSync'
+import { useUrlSync, SECTIONS_CONFIG } from '@/lib/useUrlSync'
 import { availableLocales, Locale, localeDefault } from '@/locales'
 import { ChevronDown } from 'lucide-react'
 import { usePageContext } from 'vike-react/usePageContext'
@@ -24,10 +24,23 @@ function buildHref(target: Locale, urlLogical?: string) {
 export function LanguageSwitcher() {
   const pageContext = usePageContext() as any
   const current: Locale = pageContext?.initialLocale ?? pageContext?.locale
-  // Use useUrlSync to get the current section path
   const { getCurrentSection } = useUrlSync()
-  const currentSectionPath = getCurrentSection()?.path || '/'
 
+  // Get the current path: use section path for landing page sections,
+  // fall back to actual URL for standalone pages like /terms
+  const getCurrentPath = () => {
+    const urlLogical = pageContext?.urlLogical || '/'
+    const currentSection = getCurrentSection()?.path || '/'
+
+    // Check if current URL is in SECTIONS_CONFIG (i.e., we're on landing page)
+    const isLandingSection = SECTIONS_CONFIG.some(section => section.path === urlLogical)
+
+    // If on landing page, use section from useUrlSync (updates with scroll)
+    // Otherwise, use actual URL path (for standalone pages)
+    return isLandingSection ? currentSection : urlLogical
+  }
+
+  const currentPath = getCurrentPath()
   const currentLabel = availableLocales.find((l) => l.value === current)?.label ?? current.toUpperCase()
 
   return (
@@ -47,7 +60,7 @@ export function LanguageSwitcher() {
         {availableLocales
           .filter((l) => l.value !== current)
           .map(({ value, label }) => {
-            const href = buildHref(value, currentSectionPath)
+            const href = buildHref(value, currentPath)
             return (
               <DropdownMenuItem key={value} asChild className='px-3 py-2'>
                 <a href={href} className='flex w-full items-center justify-between'>
