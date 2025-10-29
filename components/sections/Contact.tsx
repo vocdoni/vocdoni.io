@@ -1,6 +1,6 @@
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { initializeGTM, setCookieConsent } from '@/lib/cookieConsent'
+import { setCookieConsent } from '@/lib/cookieConsent'
 import { useIsClient } from '@/lib/useIsClient'
 import { send } from '@emailjs/browser'
 import { ArrowUpRight, Loader2 } from 'lucide-react'
@@ -122,7 +122,6 @@ export function Contact() {
 
     // Accept cookies (user clicked Submit, implying acceptance of privacy policy)
     setCookieConsent(true)
-    initializeGTM(true)
 
     // Store form data and show reCAPTCHA
     setFormData(data)

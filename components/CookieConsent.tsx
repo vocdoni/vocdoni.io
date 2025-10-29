@@ -28,6 +28,39 @@ export function CookieConsent() {
     }
   }, [])
 
+  // Listen for localStorage changes (both same-page and cross-tab)
+  useEffect(() => {
+    const handleConsentChange = () => {
+      // Check if consent is now valid
+      if (hasCookieConsent()) {
+        const consent = getCookieConsent()
+        const accepted = consent === 'accepted'
+
+        // Close banner and initialize GTM
+        setOpen(false)
+        initializeGTM(accepted)
+      }
+    }
+
+    // Listen for cross-tab storage changes
+    const handleStorageChange = (e: StorageEvent) => {
+      // Only respond to changes to the cookie consent key
+      if (e.key === 'vocdoni-cookie-consent') {
+        handleConsentChange()
+      }
+    }
+
+    // Register both event listeners
+    window.addEventListener('storage', handleStorageChange)
+    window.addEventListener('cookie-consent-changed', handleConsentChange)
+
+    // Clean up on unmount
+    return () => {
+      window.removeEventListener('storage', handleStorageChange)
+      window.removeEventListener('cookie-consent-changed', handleConsentChange)
+    }
+  }, [])
+
   const handleAccept = () => {
     setCookieConsent(true)
     initializeGTM(true)

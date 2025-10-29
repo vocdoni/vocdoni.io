@@ -14,12 +14,15 @@ export function getCookieConsent(): string | null {
 }
 
 /**
- * Set the cookie consent status in localStorage
+ * Set the cookie consent status in localStorage and dispatch a custom event
  * @param accepted - true if user accepted cookies, false if rejected
  */
 export function setCookieConsent(accepted: boolean): void {
   if (typeof window === 'undefined') return
   localStorage.setItem(CONSENT_KEY, accepted ? CONSENT_ACCEPTED : CONSENT_REJECTED)
+
+  // Dispatch custom event for same-page listeners (e.g., CookieConsent component)
+  window.dispatchEvent(new CustomEvent('cookie-consent-changed'))
 }
 
 /**
