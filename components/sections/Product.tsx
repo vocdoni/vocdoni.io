@@ -96,7 +96,7 @@ export function Product() {
 
                     <AccordionContent
                       className={cn(
-                        'border-0 px-6 md:px-10 text-lg md:text-lg h-full',
+                        'border-0 px-6 md:px-10 text-md md:text-lg h-full',
                         'overflow-hidden data-[state=open]:flex-1',
                         'data-[state=open]:[&>div]:min-h-0 data-[state=open]:[&>div]:h-full',
                         'flex flex-col justify-center gap-4'
