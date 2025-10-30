@@ -71,7 +71,9 @@ export function TermsES() {
 
       <LegalSection>
         <Heading.H2 variant='legal'>2. CARACTERÍSTICAS</Heading.H2>
-        <Paragraph variant='legal'>La APLICACIÓN proporciona diferentes funcionalidades según el tipo de usuario:</Paragraph>
+        <Paragraph variant='legal'>
+          La APLICACIÓN proporciona diferentes funcionalidades según el tipo de usuario:
+        </Paragraph>
         <LegalSubsection>
           <Heading.H3 variant='legal'>Para usuarios votantes (no registrados):</Heading.H3>
           <LegalList>
@@ -80,8 +82,8 @@ export function TermsES() {
             </LegalListItem>
             <LegalListItem>Emitir un voto de forma segura.</LegalListItem>
             <LegalListItem>
-              No se crea una cuenta persistente para estos usuarios; solo se procesan los datos mínimos requeridos
-              para verificar la elegibilidad para votar.
+              No se crea una cuenta persistente para estos usuarios; solo se procesan los datos mínimos requeridos para
+              verificar la elegibilidad para votar.
             </LegalListItem>
           </LegalList>
         </LegalSubsection>

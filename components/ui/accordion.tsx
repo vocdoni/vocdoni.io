@@ -49,55 +49,48 @@ interface AccordionItemProps
   extends React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Item>,
     VariantProps<typeof accordionItemVariants> {}
 
-const AccordionItem = React.forwardRef<
-  React.ElementRef<typeof AccordionPrimitive.Item>,
-  AccordionItemProps
->(({ className, variant, ...props }, ref) => (
-  <AccordionPrimitive.Item ref={ref} className={cn(accordionItemVariants({ variant, className }))} {...props} />
-))
+const AccordionItem = React.forwardRef<React.ElementRef<typeof AccordionPrimitive.Item>, AccordionItemProps>(
+  ({ className, variant, ...props }, ref) => (
+    <AccordionPrimitive.Item ref={ref} className={cn(accordionItemVariants({ variant, className }))} {...props} />
+  )
+)
 AccordionItem.displayName = 'AccordionItem'
 
 interface AccordionTriggerProps
   extends React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Trigger>,
     VariantProps<typeof accordionTriggerVariants> {}
 
-const AccordionTrigger = React.forwardRef<
-  React.ElementRef<typeof AccordionPrimitive.Trigger>,
-  AccordionTriggerProps
->(({ className, variant, children, ...props }, ref) => (
-  <AccordionPrimitive.Header className='flex'>
-    <AccordionPrimitive.Trigger
-      ref={ref}
-      className={cn(
-        accordionTriggerVariants({ variant }),
-        '[&[data-state=open]>svg]:rotate-180',
-        className
-      )}
-      {...props}
-    >
-      {children}
-      <ChevronDown className='h-4 w-4 shrink-0 transition-transform duration-200' />
-    </AccordionPrimitive.Trigger>
-  </AccordionPrimitive.Header>
-))
+const AccordionTrigger = React.forwardRef<React.ElementRef<typeof AccordionPrimitive.Trigger>, AccordionTriggerProps>(
+  ({ className, variant, children, ...props }, ref) => (
+    <AccordionPrimitive.Header className='flex'>
+      <AccordionPrimitive.Trigger
+        ref={ref}
+        className={cn(accordionTriggerVariants({ variant }), '[&[data-state=open]>svg]:rotate-180', className)}
+        {...props}
+      >
+        {children}
+        <ChevronDown className='h-4 w-4 shrink-0 transition-transform duration-200' />
+      </AccordionPrimitive.Trigger>
+    </AccordionPrimitive.Header>
+  )
+)
 AccordionTrigger.displayName = AccordionPrimitive.Trigger.displayName
 
 interface AccordionContentProps
   extends React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Content>,
     VariantProps<typeof accordionContentVariants> {}
 
-const AccordionContent = React.forwardRef<
-  React.ElementRef<typeof AccordionPrimitive.Content>,
-  AccordionContentProps
->(({ className, variant, children, ...props }, ref) => (
-  <AccordionPrimitive.Content
-    ref={ref}
-    className='overflow-hidden text-sm transition-all data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down'
-    {...props}
-  >
-    <div className={cn(accordionContentVariants({ variant, className }))}>{children}</div>
-  </AccordionPrimitive.Content>
-))
+const AccordionContent = React.forwardRef<React.ElementRef<typeof AccordionPrimitive.Content>, AccordionContentProps>(
+  ({ className, variant, children, ...props }, ref) => (
+    <AccordionPrimitive.Content
+      ref={ref}
+      className='overflow-hidden text-sm transition-all data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down'
+      {...props}
+    >
+      <div className={cn(accordionContentVariants({ variant, className }))}>{children}</div>
+    </AccordionPrimitive.Content>
+  )
+)
 
 AccordionContent.displayName = AccordionPrimitive.Content.displayName
 

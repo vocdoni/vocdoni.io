@@ -23,8 +23,8 @@ export function TermsCA() {
           <p>Jaume I, 65 (Local Esquerra) - 08470 Sant Celoni (Barcelona) ESPAÑA</p>
           <p>
             Synergize S.L. ha designat 4Dlegal S.L. com el seu Delegat de Protecció de Dades (DPO). Pots contactar el
-            DPO a <Link href='mailto:dpo@vocdoni.org'>dpo@vocdoni.org</Link> per a qualsevol pregunta sobre
-            protecció de dades.
+            DPO a <Link href='mailto:dpo@vocdoni.org'>dpo@vocdoni.org</Link> per a qualsevol pregunta sobre protecció de
+            dades.
           </p>
         </LegalCompanyInfo>
       </LegalHeader>
@@ -71,7 +71,9 @@ export function TermsCA() {
 
       <LegalSection>
         <Heading.H2 variant='legal'>2. CARACTERÍSTIQUES</Heading.H2>
-        <Paragraph variant='legal'>L'APLICACIÓ proporciona diferents funcionalitats segons el tipus d'usuari:</Paragraph>
+        <Paragraph variant='legal'>
+          L'APLICACIÓ proporciona diferents funcionalitats segons el tipus d'usuari:
+        </Paragraph>
         <LegalSubsection>
           <Heading.H3 variant='legal'>Per a usuaris votants (no registrats):</Heading.H3>
           <LegalList>
@@ -80,8 +82,8 @@ export function TermsCA() {
             </LegalListItem>
             <LegalListItem>Emetre un vot de forma segura.</LegalListItem>
             <LegalListItem>
-              No es crea un compte persistent per a aquests usuaris; només es processen les dades mínimes requerides
-              per verificar l'elegibilitat per votar.
+              No es crea un compte persistent per a aquests usuaris; només es processen les dades mínimes requerides per
+              verificar l'elegibilitat per votar.
             </LegalListItem>
           </LegalList>
         </LegalSubsection>

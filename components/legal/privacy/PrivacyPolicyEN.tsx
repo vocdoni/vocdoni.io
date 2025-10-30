@@ -35,8 +35,8 @@ export function PrivacyPolicyEN() {
           principles of data avoidance and data minimization.
         </Paragraph>
         <Paragraph variant='legal'>
-          This Privacy Policy applies both to the Vocdoni App (<Link href='https://app.vocdoni.io'>app.vocdoni.io</Link>) and to the Vocdoni
-          website (<Link href='https://vocdoni.io'>vocdoni.io</Link>).
+          This Privacy Policy applies both to the Vocdoni App (<Link href='https://app.vocdoni.io'>app.vocdoni.io</Link>
+          ) and to the Vocdoni website (<Link href='https://vocdoni.io'>vocdoni.io</Link>).
         </Paragraph>
         <Paragraph variant='legal'>
           The App includes additional processing activities related to registered users, administrators, and voting
@@ -198,8 +198,8 @@ export function PrivacyPolicyEN() {
           <LegalListItem>Right to revoke your consent at any time in accordance with Art. 7 (3) GDPR</LegalListItem>
           <LegalListItem>
             Right to file a complaint with the Spanish supervisory authority (
-            <Link href='https://www.aepd.es'>www.aepd.es</Link>) if you consider that the processing does not
-            comply with current legislation.
+            <Link href='https://www.aepd.es'>www.aepd.es</Link>) if you consider that the processing does not comply
+            with current legislation.
           </LegalListItem>
         </LegalList>
         <Paragraph variant='legal'>
@@ -258,9 +258,8 @@ export function PrivacyPolicyEN() {
           with Articles 37–39 of the GDPR.
         </Paragraph>
         <Paragraph variant='legal'>
-          You can contact the DPO at <Link href='mailto:dpo@vocdoni.org'>dpo@vocdoni.org</Link> regarding any
-          questions, concerns, or requests related to personal data processing or the exercise of your data protection
-          rights.
+          You can contact the DPO at <Link href='mailto:dpo@vocdoni.org'>dpo@vocdoni.org</Link> regarding any questions,
+          concerns, or requests related to personal data processing or the exercise of your data protection rights.
         </Paragraph>
         <Paragraph variant='legal'>The DPO acts independently and reports to Synergize's senior management.</Paragraph>
         <Paragraph variant='legal'>
@@ -282,12 +281,8 @@ export function PrivacyPolicyEN() {
           <strong>Plausible.io</strong> – Used for privacy-friendly, cookie-free analytics on both the website and the
           App.
         </Paragraph>
-        <Paragraph variant='legal'>
-          No marketing, profiling, or advertising cookies are used.
-        </Paragraph>
-        <Paragraph variant='legal'>
-          You may disable cookies through your browser settings at any time.
-        </Paragraph>
+        <Paragraph variant='legal'>No marketing, profiling, or advertising cookies are used.</Paragraph>
+        <Paragraph variant='legal'>You may disable cookies through your browser settings at any time.</Paragraph>
       </LegalSection>
 
       <LegalSection>

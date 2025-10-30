@@ -35,8 +35,9 @@ export function PrivacyPolicyES() {
           observar siempre los principios de evitación de datos y minimización de datos.
         </Paragraph>
         <Paragraph variant='legal'>
-          Esta Política de Privacidad se aplica tanto a la aplicación Vocdoni (<Link href='https://app.vocdoni.io'>app.vocdoni.io</Link>) como
-          al sitio web de Vocdoni (<Link href='https://vocdoni.io'>vocdoni.io</Link>).
+          Esta Política de Privacidad se aplica tanto a la aplicación Vocdoni (
+          <Link href='https://app.vocdoni.io'>app.vocdoni.io</Link>) como al sitio web de Vocdoni (
+          <Link href='https://vocdoni.io'>vocdoni.io</Link>).
         </Paragraph>
         <Paragraph variant='legal'>
           La aplicación incluye actividades de tratamiento adicionales relacionadas con usuarios registrados,
@@ -167,9 +168,7 @@ export function PrivacyPolicyES() {
             La aplicación Vocdoni utiliza Plausible, una plataforma de analítica respetuosa con la privacidad, sin
             cookies ni identificadores personales.
           </Paragraph>
-          <Paragraph variant='legal'>
-            Otros encargados del tratamiento conforme al artículo 28(3) del RGPD:
-          </Paragraph>
+          <Paragraph variant='legal'>Otros encargados del tratamiento conforme al artículo 28(3) del RGPD:</Paragraph>
           <LegalList variant='none'>
             <LegalListItem>Stripe Payments Europe, Ltd. – Procesamiento de pagos.</LegalListItem>
             <LegalListItem>Twilio, Inc. – Envío de SMS y correos electrónicos.</LegalListItem>
@@ -203,8 +202,8 @@ export function PrivacyPolicyES() {
           </LegalListItem>
           <LegalListItem>
             Derecho a presentar una queja ante la autoridad supervisora española (
-            <Link href='https://www.aepd.es'>www.aepd.es</Link>) si consideras que el procesamiento no cumple
-            con la legislación vigente.
+            <Link href='https://www.aepd.es'>www.aepd.es</Link>) si consideras que el procesamiento no cumple con la
+            legislación vigente.
           </LegalListItem>
         </LegalList>
         <Paragraph variant='legal'>
@@ -215,7 +214,9 @@ export function PrivacyPolicyES() {
           <br />
           E-mail: <Link href='mailto:dpo@vocdoni.org'>dpo@vocdoni.org</Link>
         </Paragraph>
-        <Paragraph variant='legal'>Consulta nuestra política de privacidad / Consulta nuestra política de cookies</Paragraph>
+        <Paragraph variant='legal'>
+          Consulta nuestra política de privacidad / Consulta nuestra política de cookies
+        </Paragraph>
       </LegalSection>
 
       <LegalSection>
@@ -264,9 +265,9 @@ export function PrivacyPolicyES() {
           acuerdo con los Artículos 37–39 del RGPD.
         </Paragraph>
         <Paragraph variant='legal'>
-          Puedes contactar al DPO en <Link href='mailto:dpo@vocdoni.org'>dpo@vocdoni.org</Link> respecto a
-          cualquier pregunta, preocupación o solicitud relacionada con el procesamiento de datos personales o el
-          ejercicio de tus derechos de protección de datos.
+          Puedes contactar al DPO en <Link href='mailto:dpo@vocdoni.org'>dpo@vocdoni.org</Link> respecto a cualquier
+          pregunta, preocupación o solicitud relacionada con el procesamiento de datos personales o el ejercicio de tus
+          derechos de protección de datos.
         </Paragraph>
         <Paragraph variant='legal'>
           El DPO actúa de manera independiente y reporta a la alta dirección de Synergize.
@@ -292,9 +293,7 @@ export function PrivacyPolicyES() {
           <strong>Plausible.io</strong> – Utilizado para una analítica respetuosa con la privacidad, sin cookies ni
           identificadores personales, tanto en el sitio web como en la aplicación.
         </Paragraph>
-        <Paragraph variant='legal'>
-          No se utilizan cookies con fines de marketing, perfilado o publicidad.
-        </Paragraph>
+        <Paragraph variant='legal'>No se utilizan cookies con fines de marketing, perfilado o publicidad.</Paragraph>
         <Paragraph variant='legal'>
           Puedes desactivar las cookies en cualquier momento mediante la configuración de tu navegador.
         </Paragraph>
@@ -304,15 +303,16 @@ export function PrivacyPolicyES() {
         <Heading.H2 variant='legal'>10. Actualizaciones de esta Política</Heading.H2>
         <Paragraph variant='legal'>
           Esta política de privacidad se aplica tanto a la aplicación Vocdoni App (app.vocdoni.io) como al sitio web
-          Vocdoni (vocdoni.io). Se revisa periódicamente y siempre que existan cambios legales, técnicos u
-          organizativos relevantes en el tratamiento de datos.
+          Vocdoni (vocdoni.io). Se revisa periódicamente y siempre que existan cambios legales, técnicos u organizativos
+          relevantes en el tratamiento de datos.
         </Paragraph>
         <Paragraph variant='legal'>
           Las actualizaciones sustanciales se comunicarán a través de la APLICACIÓN o por correo electrónico a los
           usuarios registrados y administradores.
         </Paragraph>
         <Paragraph variant='legal'>
-          Cada versión de la política incluirá su <strong>fecha de revisión</strong> y <strong>fecha de entrada en vigor</strong>.
+          Cada versión de la política incluirá su <strong>fecha de revisión</strong> y{' '}
+          <strong>fecha de entrada en vigor</strong>.
         </Paragraph>
         <LegalLastUpdated>La última revisión de esta política es del 24 de octubre de 2025.</LegalLastUpdated>
       </LegalSection>

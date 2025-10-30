@@ -23,8 +23,7 @@ export function TermsEN() {
           <p>Jaume I, 65 (Local Esquerra) - 08470 Sant Celoni (Barcelona) ESPAÑA</p>
           <p>
             Synergize S.L. has appointed 4Dlegal S.L. as its Data Protection Officer (DPO). You can contact the DPO at{' '}
-            <Link href='mailto:dpo@vocdoni.org'>dpo@vocdoni.org</Link> for any questions about data
-            protection.
+            <Link href='mailto:dpo@vocdoni.org'>dpo@vocdoni.org</Link> for any questions about data protection.
           </p>
         </LegalCompanyInfo>
       </LegalHeader>
@@ -82,8 +81,8 @@ export function TermsEN() {
             </LegalListItem>
             <LegalListItem>Cast a vote securely.</LegalListItem>
             <LegalListItem>
-              A persistent account is not created for these users; only the minimum data required to verify
-              eligibility to vote are processed.
+              A persistent account is not created for these users; only the minimum data required to verify eligibility
+              to vote are processed.
             </LegalListItem>
           </LegalList>
         </LegalSubsection>
@@ -126,7 +125,9 @@ export function TermsEN() {
       </LegalSection>
 
       <LegalSection>
-        <Heading.H2 variant='legal'>4. COMPULSORY OR OPTIONAL NATURE OF THE INFORMATION PROVIDED BY THE USER</Heading.H2>
+        <Heading.H2 variant='legal'>
+          4. COMPULSORY OR OPTIONAL NATURE OF THE INFORMATION PROVIDED BY THE USER
+        </Heading.H2>
         <Paragraph variant='legal'>
           The users, by marking the corresponding boxes and entering data in the fields, marked with an asterisk (*) in
           the APPLICATION's forms, accept expressly and in a free and unequivocal way that their personal data are

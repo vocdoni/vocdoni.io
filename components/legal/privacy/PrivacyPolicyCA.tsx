@@ -35,8 +35,9 @@ export function PrivacyPolicyCA() {
           sempre els principis d'evitació de dades i minimització de dades.
         </Paragraph>
         <Paragraph variant='legal'>
-          Aquesta Política de Privacitat s'aplica tant a l'aplicació Vocdoni (<Link href='https://app.vocdoni.io'>app.vocdoni.io</Link>) com
-          al lloc web de Vocdoni (<Link href='https://vocdoni.io'>vocdoni.io</Link>).
+          Aquesta Política de Privacitat s'aplica tant a l'aplicació Vocdoni (
+          <Link href='https://app.vocdoni.io'>app.vocdoni.io</Link>) com al lloc web de Vocdoni (
+          <Link href='https://vocdoni.io'>vocdoni.io</Link>).
         </Paragraph>
         <Paragraph variant='legal'>
           L'aplicació inclou activitats de tractament addicionals relacionades amb usuaris registrats, administradors i
@@ -148,8 +149,8 @@ export function PrivacyPolicyCA() {
         <LegalSubsection>
           <Heading.H3 variant='legal'>Lloc web (vocdoni.io):</Heading.H3>
           <Paragraph variant='legal'>
-            El lloc web utilitza Google Analytics (amb galetes) i Plausible.io (sense galetes) per obtenir
-            estadístiques agregades i no identificables sobre les visites i patrons d'ús.
+            El lloc web utilitza Google Analytics (amb galetes) i Plausible.io (sense galetes) per obtenir estadístiques
+            agregades i no identificables sobre les visites i patrons d'ús.
           </Paragraph>
           <Paragraph variant='legal'>
             Les dades es processen de manera anonimitzada i només amb finalitats analítiques internes.
@@ -165,9 +166,7 @@ export function PrivacyPolicyCA() {
             L'aplicació Vocdoni utilitza Plausible, una plataforma d'analítica respectuosa amb la privacitat, sense
             galetes ni identificadors personals.
           </Paragraph>
-          <Paragraph variant='legal'>
-            Altres encarregats del tractament sota l'article 28(3) del RGPD:
-          </Paragraph>
+          <Paragraph variant='legal'>Altres encarregats del tractament sota l'article 28(3) del RGPD:</Paragraph>
           <LegalList variant='none'>
             <LegalListItem>Stripe Payments Europe, Ltd. – Processament de pagaments.</LegalListItem>
             <LegalListItem>Twilio, Inc. – Enviament d'SMS i correus electrònics.</LegalListItem>
@@ -201,8 +200,8 @@ export function PrivacyPolicyCA() {
           </LegalListItem>
           <LegalListItem>
             Dret a presentar una queixa davant l'autoritat supervisora espanyola (
-            <Link href='https://www.aepd.es'>www.aepd.es</Link>) si consideres que el processament no compleix
-            amb la legislació vigent.
+            <Link href='https://www.aepd.es'>www.aepd.es</Link>) si consideres que el processament no compleix amb la
+            legislació vigent.
           </LegalListItem>
         </LegalList>
         <Paragraph variant='legal'>
@@ -263,11 +262,13 @@ export function PrivacyPolicyCA() {
           d'acord amb els Articles 37–39 del RGPD.
         </Paragraph>
         <Paragraph variant='legal'>
-          Pots contactar el DPO a <Link href='mailto:dpo@vocdoni.org'>dpo@vocdoni.org</Link> respecte a
-          qualsevol pregunta, preocupació o sol·licitud relacionada amb el processament de dades personals o l'exercici
-          dels teus drets de protecció de dades.
+          Pots contactar el DPO a <Link href='mailto:dpo@vocdoni.org'>dpo@vocdoni.org</Link> respecte a qualsevol
+          pregunta, preocupació o sol·licitud relacionada amb el processament de dades personals o l'exercici dels teus
+          drets de protecció de dades.
         </Paragraph>
-        <Paragraph variant='legal'>El DPO actua de manera independent i reporta a l'alta direcció de Synergize.</Paragraph>
+        <Paragraph variant='legal'>
+          El DPO actua de manera independent i reporta a l'alta direcció de Synergize.
+        </Paragraph>
         <Paragraph variant='legal'>
           Totes les comunicacions rebudes pel DPO es tracten de manera confidencial i es respondran en un termini d'un
           mes, prorrogable fins a dos mesos addicionals si és necessari a causa de la complexitat o el nombre de
@@ -282,8 +283,8 @@ export function PrivacyPolicyCA() {
           seguiment:
         </Paragraph>
         <Paragraph variant='legal'>
-          <strong>Google Analytics</strong> – Utilitzat a vocdoni.io per obtenir estadístiques anònimes i agregades sobre
-          visites i ús. Les adreces IP s'anonimitzen abans de l'emmagatzematge.
+          <strong>Google Analytics</strong> – Utilitzat a vocdoni.io per obtenir estadístiques anònimes i agregades
+          sobre visites i ús. Les adreces IP s'anonimitzen abans de l'emmagatzematge.
         </Paragraph>
         <Paragraph variant='legal'>
           <strong>Plausible.io</strong> – Utilitzat per a una analítica respectuosa amb la privacitat, sense galetes ni
@@ -309,7 +310,8 @@ export function PrivacyPolicyCA() {
           registrats i administradors.
         </Paragraph>
         <Paragraph variant='legal'>
-          Cada versió de la política inclourà la seva <strong>data de revisió</strong> i <strong>data d'entrada en vigor</strong>.
+          Cada versió de la política inclourà la seva <strong>data de revisió</strong> i{' '}
+          <strong>data d'entrada en vigor</strong>.
         </Paragraph>
         <LegalLastUpdated>L'última revisió d'aquesta política és del 24 d'octubre de 2025.</LegalLastUpdated>
       </LegalSection>

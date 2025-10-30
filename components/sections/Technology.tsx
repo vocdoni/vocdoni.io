@@ -65,9 +65,7 @@ export function Technology() {
 
             <div className='hidden lg:block mb-10'>
               <div className='flex flex-col gap-4'>
-                <Paragraph variant='section'>
-                  {t('technology.why', { defaultValue: 'Why?' })}
-                </Paragraph>
+                <Paragraph variant='section'>{t('technology.why', { defaultValue: 'Why?' })}</Paragraph>
                 <Paragraph variant='section'>
                   {t('technology.why_description', {
                     defaultValue: 'Because fair, accessible governance should be a right, not a luxury.',
@@ -114,10 +112,7 @@ export function Technology() {
               className={r.bg}
               onMouseEnter={() => setOpen(r.key)}
             >
-              <AccordionTrigger
-                variant='section'
-                className={cn(r.bg, 'px-6 md:px-10 h-20 md:h-25')}
-              >
+              <AccordionTrigger variant='section' className={cn(r.bg, 'px-6 md:px-10 h-20 md:h-25')}>
                 <div className='flex w-full items-center justify-between'>
                   <span>{r.label}</span>
                   <ArrowUpRight
