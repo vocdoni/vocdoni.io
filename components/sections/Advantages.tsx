@@ -1,5 +1,5 @@
 import { CheckCircle2, ChevronLeft, ChevronRight, XCircle } from 'lucide-react'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Button } from '../ui/button'
 import { Carousel, CarouselApi, CarouselContent, CarouselItem, useCarousel } from '../ui/carousel'
@@ -39,6 +39,8 @@ function CarouselNavigation() {
 export function Advantages() {
   const { t } = useTranslation()
   const [api, setApi] = useState<CarouselApi>()
+  const stickyTableRef = useRef<HTMLTableElement>(null)
+  const carouselTablesRef = useRef<HTMLTableElement[]>([])
 
   const FEATURES = [
     {
@@ -123,8 +125,8 @@ export function Advantages() {
     if (!api) return
 
     const syncHeights = () => {
-      const carouselTables = document.querySelectorAll<HTMLTableElement>('.carousel-table')
-      const stickyTable = document.querySelector<HTMLTableElement>('.sticky-table')
+      const carouselTables = carouselTablesRef.current
+      const stickyTable = stickyTableRef.current
 
       if (!carouselTables.length || !stickyTable) return
 
@@ -192,7 +194,7 @@ export function Advantages() {
       {/* ====== MOBILE: Features + Carousel */}
       <div className='xl:hidden flex-1 flex flex-col justify-end'>
         <div className='flex bg-[#F7F2EB] w-full'>
-          <table className='sticky-table w-40 shrink-0 sticky left-0 z-10 bg-[#F7F2EB]'>
+          <table ref={stickyTableRef} className='sticky-table w-40 shrink-0 sticky left-0 z-10 bg-[#F7F2EB]'>
             <thead>
               <tr>
                 <th className='px-4 pt-4 pb-3 text-lg font-semibold text-left invisible' aria-hidden='true'>
@@ -226,9 +228,16 @@ export function Advantages() {
               }}
             >
               <CarouselContent className='!ml-0'>
-                {PLANS.map((p) => (
+                {PLANS.map((p, index) => (
                   <CarouselItem key={p.key} className='!pl-0 basis-full md:basis-1/2 grow-0 shrink-0'>
-                    <table className={`carousel-table ${p.tone} w-full h-full`}>
+                    <table
+                      ref={(el) => {
+                        if (el) {
+                          carouselTablesRef.current[index] = el
+                        }
+                      }}
+                      className={`carousel-table ${p.tone} w-full h-full`}
+                    >
                       <thead>
                         <tr>
                           <th className='px-3 pt-3 pb-3 text-lg font-semibold text-left'>{p.label}</th>
