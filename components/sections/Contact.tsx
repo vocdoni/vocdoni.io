@@ -3,11 +3,11 @@ import { Input } from '@/components/ui/input'
 import { setCookieConsent } from '@/lib/cookieConsent'
 import { useIsClient } from '@/lib/useIsClient'
 import { send } from '@emailjs/browser'
-import { ArrowUpRight, Loader2 } from 'lucide-react'
 import { useRef, useState } from 'react'
 import ReCAPTCHA from 'react-google-recaptcha'
 import { useForm } from 'react-hook-form'
 import { Trans, useTranslation } from 'react-i18next'
+import { LuArrowUpRight, LuLoader } from 'react-icons/lu'
 import { Link } from '../Link'
 import { Textarea } from '../ui/textarea'
 import { Heading } from '../ui/typography'
@@ -252,13 +252,13 @@ export function Contact() {
             <Button type='submit' size='sm' disabled={status === 'loading'}>
               {status === 'loading' ? (
                 <>
-                  <Loader2 className='mr-2 h-4 w-4 animate-spin' />
+                  <LuLoader className='mr-2 h-4 w-4 animate-spin' />
                   {t('contact.sending', { defaultValue: 'Sending...' })}
                 </>
               ) : (
                 <>
                   {t('contact.submit_button', { defaultValue: 'Submit' })}
-                  <ArrowUpRight className='ml-2 h-4 w-4' />
+                  <LuArrowUpRight className='ml-2 h-4 w-4' />
                 </>
               )}
             </Button>

@@ -1,6 +1,6 @@
-import { CheckCircle2, ChevronLeft, ChevronRight, XCircle } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { LuChevronLeft, LuChevronRight, LuCircleCheck, LuCircleX } from 'react-icons/lu'
 import { Button } from '../ui/button'
 import { Carousel, CarouselApi, CarouselContent, CarouselItem, useCarousel } from '../ui/carousel'
 import { Heading, Paragraph } from '../ui/typography'
@@ -18,7 +18,7 @@ function CarouselNavigation() {
           className='absolute left-2 top-1/2 -translate-y-1/2 h-8 w-8 rounded-full z-20 bg-white/80 hover:bg-white shadow-sm'
           aria-label='Previous column'
         >
-          <ChevronLeft className='h-5 w-5' />
+          <LuChevronLeft className='h-5 w-5' />
         </Button>
       )}
       {canScrollNext && (
@@ -29,7 +29,7 @@ function CarouselNavigation() {
           className='absolute right-2 top-1/2 -translate-y-1/2 h-8 w-8 rounded-full z-20 bg-white/80 hover:bg-white shadow-sm'
           aria-label='Next column'
         >
-          <ChevronRight className='h-5 w-5' />
+          <LuChevronRight className='h-5 w-5' />
         </Button>
       )}
     </>
@@ -252,8 +252,10 @@ export function Advantages() {
                                 <div
                                   className={`flex items-center gap-2 py-3 ${i < FEATURES.length - 1 ? 'border-b-2' : ''}`}
                                 >
-                                  {cell.good === true && <CheckCircle2 className='h-4 w-4 text-emerald-600 shrink-0' />}
-                                  {cell.good === false && <XCircle className='h-4 w-4 text-rose-600 shrink-0' />}
+                                  {cell.good === true && (
+                                    <LuCircleCheck className='h-4 w-4 text-emerald-600 shrink-0' />
+                                  )}
+                                  {cell.good === false && <LuCircleX className='h-4 w-4 text-rose-600 shrink-0' />}
                                   <span className='text-sm leading-[1.35]'>{cell.text}</span>
                                 </div>
                               </td>
@@ -297,8 +299,8 @@ export function Advantages() {
                   return (
                     <td key={p.key} className={`${p.tone} px-4`}>
                       <div className='flex items-center gap-2 border-b-2 py-4'>
-                        {cell.good === true && <CheckCircle2 className='h-4 w-4 text-emerald-600 shrink-0' />}
-                        {cell.good === false && <XCircle className='h-4 w-4 text-rose-600 shrink-0' />}
+                        {cell.good === true && <LuCircleCheck className='h-4 w-4 text-emerald-600 shrink-0' />}
+                        {cell.good === false && <LuCircleX className='h-4 w-4 text-rose-600 shrink-0' />}
                         <span className='text-lg leading-[1.35]'>{cell.text}</span>
                       </div>
                     </td>

@@ -1,6 +1,6 @@
 import { Link } from '@/components/Link'
 import { cn } from '@/lib/utils'
-import { ChevronDown } from 'lucide-react'
+import { LuChevronDown } from 'react-icons/lu'
 import { useTranslation } from 'react-i18next'
 
 export function Landing() {
@@ -42,7 +42,7 @@ export function Landing() {
         className='absolute bottom-8 left-1/2 transform -translate-x-1/2 flex flex-col items-center text-white/80 hover:text-white transition-colors'
       >
         <span className='text-lg font-medium mb-2'>{t('landing.explore', { defaultValue: 'Explore Vocdoni' })}</span>
-        <ChevronDown className='w-6 h-6 animate-bounce' />
+        <LuChevronDown className='w-6 h-6 animate-bounce' />
       </Link>
     </div>
   )

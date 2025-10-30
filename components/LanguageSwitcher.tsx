@@ -3,7 +3,7 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigge
 import { setLocalePreference } from '@/lib/localeDetection'
 import { SECTIONS_CONFIG, useUrlSync } from '@/lib/useUrlSync'
 import { availableLocales, Locale, localeDefault } from '@/locales'
-import { ChevronDown } from 'lucide-react'
+import { LuChevronDown } from 'react-icons/lu'
 import { usePageContext } from 'vike-react/usePageContext'
 
 function buildHref(target: Locale, urlLogical?: string) {
@@ -53,7 +53,7 @@ export function LanguageSwitcher() {
         >
           <span className='hidden sm:inline'>{currentLabel}</span>
           <span className='sm:hidden uppercase'>{current}</span>
-          <ChevronDown className='h-4 w-4 opacity-60 transition-transform duration-200 group-data-[state=open]:rotate-180' />
+          <LuChevronDown className='h-4 w-4 opacity-60 transition-transform duration-200 group-data-[state=open]:rotate-180' />
         </Button>
       </DropdownMenuTrigger>
 

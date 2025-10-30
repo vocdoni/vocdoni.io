@@ -1,5 +1,5 @@
 import { cn } from '@/lib/utils'
-import { ArrowUpRight } from 'lucide-react'
+import { LuArrowUpRight } from 'react-icons/lu'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link } from '../Link'
@@ -139,7 +139,7 @@ export function Product() {
         </div>
 
         <Link variant='hero' className='absolute left-4 bottom-4 z-10 py-2 px-4' href='https://app.vocdoni.io'>
-          {t('product.go_to_app', { defaultValue: 'Go to APP' })} <ArrowUpRight className='ml-2 h-4 w-4' />
+          {t('product.go_to_app', { defaultValue: 'Go to APP' })} <LuArrowUpRight className='ml-2 h-4 w-4' />
         </Link>
       </div>
     </div>

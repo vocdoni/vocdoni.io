@@ -1,7 +1,7 @@
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
 import { Heading, Paragraph } from '@/components/ui/typography'
 import { cn } from '@/lib/utils'
-import { ArrowUpRight } from 'lucide-react'
+import { LuArrowUpRight } from 'react-icons/lu'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link } from '../Link'
@@ -93,7 +93,7 @@ export function Services() {
                 <AccordionTrigger variant='section' className={cn(bg, 'px-6 md:px-10 h-20 md:h-25')}>
                   <div className='flex w-full items-center justify-between'>
                     <span>{title}</span>
-                    <ArrowUpRight
+                    <LuArrowUpRight
                       className={cn(
                         'h-5 w-5 origin-center transition-transform duration-200',
                         'group-data-[state=open]:rotate-90',
