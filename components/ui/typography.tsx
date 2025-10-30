@@ -7,7 +7,7 @@ const paragraphVariants = cva('leading-relaxed', {
     variant: {
       default: 'text-muted-foreground',
       legal: 'text-foreground/90 mb-4',
-      section: 'text-lg sm:text-2xl md:text-3xl tracking-tight',
+      section: 'text-lg sm:text-2xl 2xl:text-3xl tracking-tight',
     },
     size: {
       sm: 'text-sm',
@@ -30,9 +30,7 @@ const paragraphVariants = cva('leading-relaxed', {
   },
 })
 
-interface ParagraphProps
-  extends React.HTMLAttributes<HTMLParagraphElement>,
-    VariantProps<typeof paragraphVariants> {}
+interface ParagraphProps extends React.HTMLAttributes<HTMLParagraphElement>, VariantProps<typeof paragraphVariants> {}
 
 export function Paragraph({ className, size, variant, ...props }: ParagraphProps) {
   return <p className={cn(paragraphVariants({ variant, size, className }))} {...props} />

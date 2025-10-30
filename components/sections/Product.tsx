@@ -78,13 +78,13 @@ export function Product() {
                   <AccordionItem
                     key={id}
                     value={id}
-                    className=' flex flex-col data-[state=open]:flex-1'
+                    className='flex flex-col data-[state=open]:flex-1'
                     onMouseEnter={() => setOpen(id)}
                   >
                     <AccordionTrigger
                       className={cn(
                         'group border-0 hover:no-underline [&>svg]:hidden',
-                        'text-left text-lg md:text-4xl font-semibold'
+                        'text-left text-lg 2xl:text-4xl font-semibold'
                       )}
                     >
                       <div className='flex w-full items-start gap-3'>
@@ -96,7 +96,7 @@ export function Product() {
 
                     <AccordionContent
                       className={cn(
-                        'border-0 px-6 md:px-10 text-md md:text-lg h-full',
+                        'border-0 px-6 md:px-10 text-md 2xl:text-lg h-full',
                         'overflow-hidden data-[state=open]:flex-1',
                         'data-[state=open]:[&>div]:min-h-0 data-[state=open]:[&>div]:h-full',
                         'flex flex-col justify-center gap-4'
