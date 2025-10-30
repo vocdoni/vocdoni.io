@@ -7,6 +7,7 @@ import xIcon from '@/assets/images/social/x.png'
 import vocdoniLogo from '@/assets/images/vocdoni.png'
 import { useTranslation } from 'react-i18next'
 import { Link } from '../Link'
+import { WhatsAppButton } from '../WhatsAppButton'
 
 export const Footer = () => {
   const { t } = useTranslation()
@@ -18,9 +19,12 @@ export const Footer = () => {
       '
     >
       <div className='grid grid-cols-1 lg:grid-cols-2 items-end lg:items-center px-4'>
-        <a href='mailto:info@vocdoni.org' className='hidden lg:block text-sm md:text-base hover:underline'>
-          info@vocdoni.org
-        </a>
+        <div className='hidden lg:flex items-center gap-6 text-sm md:text-base'>
+          <a href='mailto:info@vocdoni.org' className='hover:underline'>
+            info@vocdoni.org
+          </a>
+          <WhatsAppButton className='h-auto py-1.5 text-sm' />
+        </div>
 
         <div className='grid justify-items-center lg:justify-items-end gap-6'>
           <div className='w-fit'>

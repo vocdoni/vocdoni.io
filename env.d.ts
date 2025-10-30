@@ -8,3 +8,5 @@ declare const EMAILJS_SERVICE_ID: string
 declare const EMAILJS_TEMPLATE_ID: string
 // reCAPTCHA configuration variable defined in vite.config.ts
 declare const RECAPTCHA_SITE_KEY: string
+// Wasaaaapp
+declare const WHATSAPP_PHONE_NUMBER: string

@@ -1,4 +1,5 @@
 import { Link } from '@/components/Link'
+import { WhatsAppButton } from '@/components/WhatsAppButton'
 import { cn } from '@/lib/utils'
 import { LuChevronDown } from 'react-icons/lu'
 import { useTranslation } from 'react-i18next'
@@ -26,13 +27,18 @@ export function Landing() {
         </p>
 
         {/* CTA Buttons */}
-        <div className='flex flex-col sm:flex-row gap-4 mb-20'>
+        <div className='relative flex flex-col sm:flex-row gap-4 mb-20 justify-center'>
           <Link href='https://app.vocdoni.io/admin/processes/create' variant='hero' size='xl'>
             🗳️ {t('landing.start_vote', { defaultValue: 'Start your vote' })} →
           </Link>
           <Link href='/contact' variant='hero' size='xl'>
             ☎️ {t('landing.talk_with_us', { defaultValue: 'Talk with us' })} →
           </Link>
+
+          {/* WhatsApp button - absolutely positioned to the right on desktop, stacked on mobile */}
+          <div className='sm:absolute sm:left-[calc(100%+1rem)] sm:top-0 flex justify-center'>
+            <WhatsAppButton noExpand />
+          </div>
         </div>
       </div>
 

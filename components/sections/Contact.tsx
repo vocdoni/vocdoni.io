@@ -9,6 +9,7 @@ import { useForm } from 'react-hook-form'
 import { Trans, useTranslation } from 'react-i18next'
 import { LuArrowUpRight, LuLoader } from 'react-icons/lu'
 import { Link } from '../Link'
+import { WhatsAppButton } from '../WhatsAppButton'
 import { Textarea } from '../ui/textarea'
 import { Heading } from '../ui/typography'
 
@@ -144,6 +145,9 @@ export function Contact() {
           <h2 className='text-2xl md:text-4xl leading-tight font-semibold'>
             {t('contact.description', { defaultValue: "Let's Build the Future of Governance" })}
           </h2>
+          <div className='mt-4'>
+            <WhatsAppButton />
+          </div>
         </div>
       </div>
 

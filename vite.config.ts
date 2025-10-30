@@ -26,6 +26,7 @@ const viteconfig = ({ mode }: ConfigEnv) => {
       EMAILJS_SERVICE_ID: JSON.stringify(process.env.EMAILJS_SERVICE_ID || ''),
       EMAILJS_TEMPLATE_ID: JSON.stringify(process.env.EMAILJS_TEMPLATE_ID || ''),
       RECAPTCHA_SITE_KEY: JSON.stringify(process.env.RECAPTCHA_SITE_KEY || ''),
+      WHATSAPP_PHONE_NUMBER: JSON.stringify(process.env.WHATSAPP_PHONE_NUMBER || '+34 621 501 155'),
     },
   })
 }
