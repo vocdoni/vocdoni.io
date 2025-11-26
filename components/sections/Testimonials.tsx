@@ -1,4 +1,5 @@
 import { useTranslation } from 'react-i18next'
+import { LuChevronDown } from 'react-icons/lu'
 import { Link } from '../Link'
 import { Heading, Paragraph } from '../ui/typography'
 
@@ -19,20 +20,20 @@ function StatCard(testimonial: StatTestimonial) {
   return (
     <>
       <div>
-        <p className='text-6xl font-bold'>{testimonial.stat}</p>
-        <p className='text-sm text-muted-foreground mt-1'>{testimonial.text}</p>
+        <p className='text-6xl md:text-7xl font-extrabold leading-none tracking-tight'>{testimonial.stat}</p>
+        <p className='text-sm md:text-base text-muted-foreground mt-3 leading-relaxed'>{testimonial.text}</p>
       </div>
       <div className='grid grid-cols-[1fr_auto] items-end gap-3 mt-auto'>
         {testimonial.readMore && (
           <Link
             variant='default'
             href={testimonial.readMore}
-            className='text-sm font-medium decoration-current underline-offset-4 hover:underline'
+            className='text-sm font-medium text-foreground/70 hover:text-foreground underline-offset-4 hover:underline transition-colors'
           >
             {t('testimonials.read_more', { defaultValue: 'Read more' })}
           </Link>
         )}
-        <img src={testimonial.logo} alt={testimonial.org} className='h-8 justify-self-end col-start-2' />
+        <img src={testimonial.logo} alt={testimonial.org} className='h-7 md:h-8 justify-self-end col-start-2 opacity-80' />
       </div>
     </>
   )
@@ -41,12 +42,12 @@ function StatCard(testimonial: StatTestimonial) {
 function QuoteCard(testimonial: QuoteTestimonial) {
   return (
     <>
-      <p className='text-sm leading-relaxed mb-5'>“{testimonial.quote}”</p>
-      <div className='mt-auto'>
-        <p className='text-sm font-semibold'>{testimonial.name}</p>
-        <p className='text-xs text-muted-foreground'>{testimonial.role}</p>
-        <div className='flex justify-end mt-6'>
-          <img src={testimonial.logo} alt={testimonial.org} className='h-8' />
+      <p className='text-base md:text-lg leading-relaxed mb-6 text-foreground/90 italic'>"{testimonial.quote}"</p>
+      <div className='mt-auto space-y-1'>
+        <p className='text-sm md:text-base font-semibold text-foreground'>{testimonial.name}</p>
+        <p className='text-sm md:text-base text-muted-foreground'>{testimonial.role}</p>
+        <div className='flex justify-end mt-4'>
+          <img src={testimonial.logo} alt={testimonial.org} className='h-7 md:h-8 opacity-80' />
         </div>
       </div>
     </>
@@ -153,8 +154,9 @@ export function Testimonials() {
           </div>
         </div>
         <div className='hidden lg:block w-full px-6 py-6'>
-          <Link href='/product' className='block text-2xl font-semibold text-muted-foreground'>
-            {t('testimonials.how', { defaultValue: 'How we make secure voting simple' })} ↓
+          <Link href='/product' className='group inline-flex items-center gap-2 text-2xl font-semibold text-muted-foreground hover:text-foreground transition-colors'>
+            <span>{t('testimonials.how', { defaultValue: 'How we make secure voting simple' })}</span>
+            <LuChevronDown className='h-6 w-6 transition-transform group-hover:translate-y-0.5' />
           </Link>
         </div>
       </div>
@@ -166,7 +168,7 @@ export function Testimonials() {
             {testimonials.map((testimonial, i) => (
               <div
                 key={i}
-                className='bg-white p-6 rounded-xl ring-1 ring-black/5 shadow-sm flex flex-col gap-6 break-inside-avoid mb-4'
+                className='bg-white p-6 md:p-8 rounded-xl ring-1 ring-black/5 shadow-md hover:shadow-lg flex flex-col gap-6 break-inside-avoid mb-4 transition-shadow duration-200'
               >
                 {'quote' in testimonial ? <QuoteCard {...testimonial} /> : <StatCard {...testimonial} />}
               </div>

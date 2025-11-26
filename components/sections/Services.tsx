@@ -3,7 +3,7 @@ import { Heading, Paragraph } from '@/components/ui/typography'
 import { cn } from '@/lib/utils'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { LuArrowUpRight } from 'react-icons/lu'
+import { LuArrowUpRight, LuChevronDown } from 'react-icons/lu'
 import { Link } from '../Link'
 import { Button } from '../ui/button'
 
@@ -21,7 +21,6 @@ export function Services() {
         defaultValue:
           'Run secure elections in minutes with our easy-to-use app. Perfect for associations, towns, cooperatives, or organizations that need simple, secure, and accessible voting without technical complexity.',
       }),
-      buttonIcon: '🗳️',
       button: t('services.app_button', { defaultValue: 'Start your vote' }),
       href: 'https://app.vocdoni.io',
     },
@@ -34,9 +33,8 @@ export function Services() {
       }),
       description: t('services.sdk_desc', {
         defaultValue:
-          'Our Software Development Kit lets you seamlessly integrate Vocdoni’s secure voting infrastructure into your own platforms. Scalable, open-source, and flexible for advanced customization.',
+          "Our Software Development Kit lets you seamlessly integrate Vocdoni's secure voting infrastructure into your own platforms. Scalable, open-source, and flexible for advanced customization.",
       }),
-      buttonIcon: '🛠️',
       button: t('services.sdk_button', { defaultValue: 'Explore the SDK' }),
       href: 'https://developer.vocdoni.io/sdk',
     },
@@ -49,7 +47,6 @@ export function Services() {
         defaultValue:
           'For governments, enterprises, and large organizations that need tailored governance systems, we provide end-to-end solutions with expert support and dedicated infrastructure.',
       }),
-      buttonIcon: '🏛️',
       button: t('services.projects_button', { defaultValue: 'Request a Custom Solution' }),
       href: '/contact',
     },
@@ -69,8 +66,12 @@ export function Services() {
           </Paragraph>
         </div>
         <div className='hidden lg:block w-full px-6 py-6'>
-          <Link href='/impact' className='block text-2xl font-semibold text-muted-foreground'>
-            {t('services.impact', { defaultValue: 'Impact in numbers' })} ↓
+          <Link
+            href='/impact'
+            className='group inline-flex items-center gap-2 text-2xl font-semibold text-muted-foreground hover:text-foreground transition-colors'
+          >
+            <span>{t('services.impact', { defaultValue: 'Impact in numbers' })}</span>
+            <LuChevronDown className='h-6 w-6 transition-transform group-hover:translate-y-0.5' />
           </Link>
         </div>
       </div>
@@ -86,7 +87,7 @@ export function Services() {
           className='w-full min-h-0 flex flex-col'
         >
           {services.map((service) => {
-            const { id, bg, title, subtitle, description, buttonIcon, button, href } = service
+            const { id, bg, title, subtitle, description, button, href } = service
 
             return (
               <AccordionItem key={id} value={id} variant='section' className={bg} onMouseEnter={() => setOpen(id)}>
@@ -95,7 +96,7 @@ export function Services() {
                     <span>{title}</span>
                     <LuArrowUpRight
                       className={cn(
-                        'h-5 w-5 origin-center transition-transform duration-200',
+                        'h-5 w-5 origin-center transition-transform duration-300 ease-out',
                         'group-data-[state=open]:rotate-90',
                         'group-data-[state=open]:translate-x-0.5 group-data-[state=open]:-translate-y-0.5'
                       )}
@@ -117,9 +118,10 @@ export function Services() {
                   <p className='mb-2 italic'>{subtitle}</p>
                   <p className='max-w-2xl'>{description}</p>
                   <div className='flex justify-end'>
-                    <Button asChild variant='outline' className='flex gap-2'>
+                    <Button asChild variant='outline' className='group'>
                       <Link href={href}>
-                        <p>{buttonIcon}</p> <p>{button}</p> <p>→</p>
+                        {button}
+                        <LuArrowUpRight className='ml-1.5 h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5' />
                       </Link>
                     </Button>
                   </div>

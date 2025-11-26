@@ -1,7 +1,7 @@
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
 import { Heading, Paragraph } from '@/components/ui/typography'
 import { cn } from '@/lib/utils'
-import { LuArrowUpRight } from 'react-icons/lu'
+import { LuArrowUpRight, LuChevronDown } from 'react-icons/lu'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link } from '../Link'
@@ -88,8 +88,9 @@ export function Technology() {
           </div>
         </div>
         <div className='hidden lg:block w-full px-6 py-6'>
-          <Link href='/services' className='block text-2xl font-semibold text-muted-foreground'>
-            {t('services.our_services', { defaultValue: 'Our Services' })} ↓
+          <Link href='/services' className='group inline-flex items-center gap-2 text-2xl font-semibold text-muted-foreground hover:text-foreground transition-colors'>
+            <span>{t('services.our_services', { defaultValue: 'Our Services' })}</span>
+            <LuChevronDown className='h-6 w-6 transition-transform group-hover:translate-y-0.5' />
           </Link>
         </div>
       </div>
@@ -116,12 +117,11 @@ export function Technology() {
                 <div className='flex w-full items-center justify-between'>
                   <span>{r.label}</span>
                   <LuArrowUpRight
-                    className='
-            h-5 w-5 origin-center
-            transition-transform duration-200
-            group-data-[state=open]:rotate-90
-            group-data-[state=open]:translate-x-0.5 group-data-[state=open]:-translate-y-0.5
-          '
+                    className={cn(
+                      'h-5 w-5 origin-center transition-transform duration-300 ease-out',
+                      'group-data-[state=open]:rotate-90',
+                      'group-data-[state=open]:translate-x-0.5 group-data-[state=open]:-translate-y-0.5'
+                    )}
                     aria-hidden='true'
                   />
                 </div>

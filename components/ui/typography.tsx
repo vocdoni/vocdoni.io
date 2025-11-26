@@ -7,22 +7,22 @@ const paragraphVariants = cva('leading-relaxed', {
     variant: {
       default: 'text-muted-foreground',
       legal: 'text-foreground/90 mb-4',
-      section: 'text-lg sm:text-2xl 2xl:text-3xl tracking-tight',
+      section: 'text-lg sm:text-2xl 2xl:text-3xl tracking-tight leading-[1.4]',
     },
     size: {
-      sm: 'text-sm',
-      md: 'text-base',
-      lg: 'text-lg',
+      sm: 'text-sm leading-relaxed',
+      md: 'text-base leading-relaxed',
+      lg: 'text-lg leading-relaxed',
     },
   },
   compoundVariants: [
     // Size only applies to default and legal variants
-    { variant: 'default', size: 'sm', class: 'text-sm' },
-    { variant: 'default', size: 'md', class: 'text-base' },
-    { variant: 'default', size: 'lg', class: 'text-lg' },
-    { variant: 'legal', size: 'sm', class: 'text-sm' },
-    { variant: 'legal', size: 'md', class: 'text-base' },
-    { variant: 'legal', size: 'lg', class: 'text-lg' },
+    { variant: 'default', size: 'sm', class: 'text-sm leading-relaxed' },
+    { variant: 'default', size: 'md', class: 'text-base leading-relaxed' },
+    { variant: 'default', size: 'lg', class: 'text-lg leading-relaxed' },
+    { variant: 'legal', size: 'sm', class: 'text-sm leading-relaxed' },
+    { variant: 'legal', size: 'md', class: 'text-base leading-relaxed' },
+    { variant: 'legal', size: 'lg', class: 'text-lg leading-relaxed' },
   ],
   defaultVariants: {
     variant: 'default',
@@ -39,9 +39,9 @@ export function Paragraph({ className, size, variant, ...props }: ParagraphProps
 const headingVariants = cva('', {
   variants: {
     variant: {
-      default: 'font-bold tracking-tight text-foreground',
-      legal: 'text-foreground',
-      section: 'text-2xl md:text-3xl font-medium',
+      default: 'font-bold tracking-tight text-foreground leading-[1.2]',
+      legal: 'text-foreground leading-[1.3]',
+      section: 'text-2xl md:text-3xl font-semibold tracking-tight leading-[1.25]',
     },
     size: {
       h1: '',
@@ -54,12 +54,12 @@ const headingVariants = cva('', {
   },
   compoundVariants: [
     // Default variant sizes
-    { variant: 'default', size: 'h1', class: 'text-4xl sm:text-5xl' },
-    { variant: 'default', size: 'h2', class: 'text-3xl sm:text-4xl' },
-    { variant: 'default', size: 'h3', class: 'text-2xl sm:text-3xl' },
-    { variant: 'default', size: 'h4', class: 'text-xl sm:text-2xl' },
-    { variant: 'default', size: 'h5', class: 'text-lg sm:text-xl' },
-    { variant: 'default', size: 'h6', class: 'text-base sm:text-lg' },
+    { variant: 'default', size: 'h1', class: 'text-4xl sm:text-5xl font-extrabold' },
+    { variant: 'default', size: 'h2', class: 'text-3xl sm:text-4xl font-bold' },
+    { variant: 'default', size: 'h3', class: 'text-2xl sm:text-3xl font-bold' },
+    { variant: 'default', size: 'h4', class: 'text-xl sm:text-2xl font-semibold' },
+    { variant: 'default', size: 'h5', class: 'text-lg sm:text-xl font-semibold' },
+    { variant: 'default', size: 'h6', class: 'text-base sm:text-lg font-semibold' },
     // Legal variant sizes
     { variant: 'legal', size: 'h1', class: 'text-3xl md:text-4xl lg:text-5xl font-bold mb-4' },
     { variant: 'legal', size: 'h2', class: 'text-2xl md:text-3xl font-semibold mb-4 mt-8' },

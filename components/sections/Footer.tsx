@@ -5,6 +5,7 @@ import githubIcon from '@/assets/images/social/github.png'
 import paragraphIcon from '@/assets/images/social/paragraph.png'
 import xIcon from '@/assets/images/social/x.png'
 import vocdoniLogo from '@/assets/images/vocdoni.png'
+import { cn } from '@/lib/utils'
 import { useTranslation } from 'react-i18next'
 import { Link } from '../Link'
 import { WhatsAppButton } from '../WhatsAppButton'
@@ -13,10 +14,10 @@ export const Footer = () => {
   const { t } = useTranslation()
   return (
     <div
-      className='
-        h-viewport w-full flex flex-col justify-end lg:grid lg:grid-cols-1
-        bg-gradient-to-b from-[#F9F7F333] to-[#D1D1D1]
-      '
+      className={cn(
+        'h-viewport w-full flex flex-col justify-end lg:grid lg:grid-cols-1',
+        'bg-gradient-to-b from-[#F5F3F0] via-[#E8E6E3] to-[#D8D6D3]'
+      )}
     >
       <div className='grid grid-cols-1 lg:grid-cols-2 items-end lg:items-center px-4'>
         <div className='hidden lg:flex items-center gap-6 text-sm md:text-base'>

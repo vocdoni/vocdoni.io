@@ -63,7 +63,14 @@ const ImpactOverview = () => {
         </Paragraph>
       </div>
       <div className='hidden lg:block w-full px-6 py-6'>
-        <Link href='/testimonials' className='block text-2xl font-semibold text-muted-foreground'>
+        <Link
+          href='/testimonials'
+          className={cn(
+            'group inline-flex items-center gap-2',
+            'text-2xl font-semibold text-muted-foreground',
+            'hover:text-foreground transition-colors'
+          )}
+        >
           {t('impact.real_stories', { defaultValue: 'Real Stories, Real Impact' })} ↓
         </Link>
       </div>
@@ -90,7 +97,7 @@ const ImpactStatCard = ({ value, label, background, suffix, suffixClassName, con
         {value}
         {suffix ? <span className={suffixClassName}>{suffix}</span> : null}
       </div>
-      <div className='mt-1 text-xs md:text-sm text-black/70'>{label}</div>
+      <div className='mt-1 text-base lg:text-lg 2xl:text-xl text-black/70'>{label}</div>
     </div>
   </div>
 )

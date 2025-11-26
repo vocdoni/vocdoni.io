@@ -45,13 +45,11 @@ export function Explore() {
   return (
     <div className='relative min-h-viewport w-full flex flex-col bg-[#F9F7F3] text-black p-6 '>
       <div className='items-center flex flex-1'>
-        {/* Main headline with emojis */}
-        <h1 className='text-[clamp(1.8rem,6vw,4.2rem)] font-bold leading-tight'>
+        {/* Main headline */}
+        <h1 className='text-[clamp(1.8rem,6vw,4.2rem)] font-bold leading-tight tracking-tight'>
           <Trans i18nKey='explore.headline'>
-            Vocdoni provides secure <sup className='inline-block'>🔒</sup>, privacy-first{' '}
-            <sup className='inline-block'>🕶️</sup> digital voting technology <sup className='inline-block'>🗳️</sup> that
-            empowers communities, associations, and institutions to make collective decisions with full transparency,
-            privacy and trust. <sup className='inline-block'>🤝</sup>{' '}
+            Vocdoni provides secure, privacy-first digital voting technology that empowers communities, associations, and
+            institutions to make collective decisions with full transparency, privacy and trust.
           </Trans>
         </h1>
       </div>

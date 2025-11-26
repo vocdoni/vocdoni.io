@@ -15,28 +15,35 @@ export function Landing() {
       )}
     >
       {/* Main content */}
-      <div className='relative z-10 flex flex-col items-center justify-center text-center px-4 max-w-4xl mx-auto'>
+      <div className='relative z-10 flex flex-col items-center justify-center text-center px-4 max-w-5xl mx-auto'>
         {/* Main headline */}
-        <h1 className='text-5xl md:text-7xl font-bold mb-6 tracking-tight'>
+        <h1 className='text-5xl md:text-7xl lg:text-8xl font-extrabold mb-8 tracking-tighter leading-[1.1]'>
           {t('landing.headline', { defaultValue: "Let's build change" })}
         </h1>
 
         {/* Subtitle */}
-        <p className='text-xl md:text-2xl mb-12 leading-relaxed font-light'>
+        <p className='text-xl md:text-2xl lg:text-3xl mb-14 leading-relaxed font-light max-w-3xl'>
           {t('landing.subtitle', { defaultValue: 'We build technology that makes every voice count.' })}
         </p>
 
         {/* CTA Buttons */}
-        <div className='relative flex flex-col sm:flex-row gap-4 mb-20 justify-center'>
-          <Link href='https://app.vocdoni.io' variant='hero' size='xl'>
-            🗳️ {t('landing.start_vote', { defaultValue: 'Start your vote' })} →
+        <div className='relative flex flex-col sm:flex-row gap-5 mb-20 justify-center items-center'>
+          <Link
+            href='https://app.vocdoni.io'
+            variant='hero'
+            size='xl'
+            className='group shadow-lg hover:shadow-xl transition-shadow'
+          >
+            {t('landing.start_vote', { defaultValue: 'Start your vote' })}
+            <LuChevronDown className='ml-1.5 h-4 w-4 -rotate-90 transition-transform group-hover:translate-x-0.5' />
           </Link>
-          <Link href='/contact' variant='hero' size='xl'>
-            ☎️ {t('landing.talk_with_us', { defaultValue: 'Talk with us' })} →
+          <Link href='/contact' variant='hero' size='xl' className='group shadow-lg hover:shadow-xl transition-shadow'>
+            {t('landing.talk_with_us', { defaultValue: 'Talk with us' })}
+            <LuChevronDown className='ml-1.5 h-4 w-4 -rotate-90 transition-transform group-hover:translate-x-0.5' />
           </Link>
 
           {/* WhatsApp button - absolutely positioned to the right on desktop, stacked on mobile */}
-          <div className='sm:absolute sm:left-[calc(100%+1rem)] sm:top-0 flex justify-center'>
+          <div className='sm:absolute sm:left-[calc(100%+1.5rem)] sm:top-0 flex justify-center'>
             <WhatsAppButton noExpand />
           </div>
         </div>

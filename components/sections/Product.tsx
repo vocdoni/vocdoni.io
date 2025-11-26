@@ -1,5 +1,5 @@
 import { cn } from '@/lib/utils'
-import { LuArrowUpRight } from 'react-icons/lu'
+import { LuArrowUpRight, LuChevronDown } from 'react-icons/lu'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link } from '../Link'
@@ -111,8 +111,9 @@ export function Product() {
           </div>
         </div>
         <div className='hidden lg:block w-full px-6 py-6'>
-          <Link href='/advantages' className='block text-2xl font-semibold text-muted-foreground'>
-            {t('product.the_vocdoni_advantage', { defaultValue: 'The Vocdoni Advantage' })} ↓
+          <Link href='/advantages' className='group inline-flex items-center gap-2 text-2xl font-semibold text-muted-foreground hover:text-foreground transition-colors'>
+            <span>{t('product.the_vocdoni_advantage', { defaultValue: 'The Vocdoni Advantage' })}</span>
+            <LuChevronDown className='h-6 w-6 transition-transform group-hover:translate-y-0.5' />
           </Link>
         </div>
       </div>

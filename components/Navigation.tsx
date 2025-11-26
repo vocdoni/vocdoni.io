@@ -46,7 +46,7 @@ export function Navigation({ activeSection = 0, usesScroll = false }: Navigation
   const showRightMenu = usesScroll ? isAtTop : activeSection === 0
 
   return (
-    <nav className='fixed top-0 left-0 right-0 z-50 xl:backdrop-blur-sm'>
+    <nav className='fixed top-0 left-0 right-0 z-50 xl:backdrop-blur-md xl:bg-white/10'>
       <div className='px-4'>
         <div className='h-16 flex items-center xl:grid xl:grid-cols-[15%_70%_15%]'>
           {/* Logo */}
@@ -60,17 +60,20 @@ export function Navigation({ activeSection = 0, usesScroll = false }: Navigation
 
           {/* Center Navigation with White Background */}
           <div className='hidden xl:flex items-center justify-center'>
-            <div className='bg-white rounded-sm px-6 py-2'>
+            <div className='bg-white rounded-md px-6 py-2 shadow-sm ring-1 ring-black/5'>
               {menuItems.map((item) => {
                 const activeSectionPath = sections[activeSection]?.path
+                const isActive = item.path === activeSectionPath
                 return (
                   <Link
                     key={item.label}
                     href={item.path}
                     variant='nav'
                     className={[
-                      'px-4 py-2 text-sm',
-                      item.path === activeSectionPath ? 'text-gray-900 font-semibold' : '',
+                      'relative px-4 py-2 text-sm transition-colors rounded-sm',
+                      isActive
+                        ? 'text-gray-900 font-semibold bg-gray-50'
+                        : 'text-gray-700 hover:text-gray-900 hover:bg-gray-50/50',
                     ].join(' ')}
                   >
                     {item.label}
@@ -100,7 +103,7 @@ export function Navigation({ activeSection = 0, usesScroll = false }: Navigation
 
         {/* Mobile Navigation Menu - Full Screen */}
         {isMenuOpen && (
-          <div className='fixed inset-0 z-50 xl:hidden bg-stone-100 flex flex-col'>
+          <div className='fixed inset-0 z-50 xl:hidden bg-stone-100 flex flex-col animate-in fade-in duration-300'>
             {/* Header with logo and close button */}
             <div className='h-16 flex items-center justify-between px-4'>
               <VocdoniLogo minimal />
@@ -111,17 +114,20 @@ export function Navigation({ activeSection = 0, usesScroll = false }: Navigation
 
             {/* Menu items - centered vertically */}
             <div className='flex-1 flex flex-col items-center justify-center space-y-6 px-4'>
-              {menuItems.map((item) => {
+              {menuItems.map((item, index) => {
                 const activeSectionPath = sections[activeSection]?.path
+                const isActive = item.path === activeSectionPath
                 return (
                   <Link
                     key={item.label}
                     href={item.path}
                     variant='nav'
                     className={[
-                      'text-3xl font-normal hover:opacity-70 transition-opacity',
-                      item.path === activeSectionPath ? 'text-gray-900 font-semibold' : '',
+                      'text-3xl font-normal hover:opacity-70 transition-all duration-200',
+                      'animate-in slide-in-from-bottom',
+                      isActive ? 'text-gray-900 font-semibold' : 'text-gray-700',
                     ].join(' ')}
+                    style={{ animationDelay: `${index * 50}ms` }}
                     onClick={() => setIsMenuOpen(false)}
                   >
                     {item.label}
