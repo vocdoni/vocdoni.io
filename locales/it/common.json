@@ -10,7 +10,7 @@
     "disclaimer": "Cliccando sul pulsante \"Invia\", accetti l'<1>informativa sulla privacy</1>.",
     "email_placeholder": "Email",
     "error": "Impossibile inviare il messaggio. Riprova più tardi.",
-    "error_not_configured": "Il modulo di contatto non è ancora configurato. Contattaci direttamente via email o sui social.",
+    "error_not_configured": "Modulo di contatto non configurato. Scrivici via email o sui social.",
     "errors": {
       "email_invalid": "Indirizzo email non valido",
       "email_required": "Inserisci un indirizzo email",
@@ -25,7 +25,7 @@
     "want_to_talk": "Vuoi parlare con noi?"
   },
   "cookies": {
-    "accept": "Accetta",
+    "accept": "Accetta tutto",
     "aria_label": "Avviso di consenso ai cookie",
     "description": "Utilizziamo cookie e strumenti di analisi per migliorare la tua esperienza e capire come interagisci con il nostro sito web. Puoi scegliere se accettare o rifiutare i cookie.",
     "learnMore": "Maggiori informazioni",
@@ -61,9 +61,9 @@
     },
     "transparency": "Trasparenza",
     "vocdoni": {
-      "cost_efficiency": "≈10× più economico",
+      "cost_efficiency": "Circa 10 volte più economico",
       "privacy_security": "Anonimo e decentralizzato",
-      "remote_accessibility": "Da qualsiasi luogo e dispositivo",
+      "remote_accessibility": "Voto online da qualsiasi dispositivo",
       "scalability": "Milioni di voti su scala globale",
       "sustainability": "Senza carta, bassa impronta di carbonio",
       "transparency": "Verificabile e open source"
@@ -89,9 +89,9 @@
   },
   "landing": {
     "explore": "Esplora Vocdoni",
-    "headline": "Prendere decisioni in sicurezza non è mai stato così facile.",
+    "headline": "Prendere decisioni sicure non è mai stato così facile.",
     "start_vote": "Crea una votazione",
-    "subtitle": "Sviluppiamo tecnologia di voto sicuro perché ogni voce conti.",
+    "subtitle": "Sviluppiamo tecnologie di voto sicuro per far contare ogni voce.",
     "talk_with_us": "Parla con noi",
     "whatsapp": "Parla con noi!"
   },
@@ -104,7 +104,7 @@
     "vocdoni": "Vocdoni"
   },
   "product": {
-    "description": "L'applicazione Vocdoni ti permette di creare e gestire votazioni sicure e verificabili con un'interfaccia semplice, basata sulla stessa tecnologia affidabile utilizzata dalle istituzioni di tutto il mondo.",
+    "description": "Crea e gestisci votazioni sicure e verificabili con un'interfaccia semplice. La stessa tecnologia usata dalle istituzioni di tutto il mondo.",
     "go_to_app": "Vai all'applicazione",
     "step1": {
       "description": "Registrati e crea la tua organizzazione.",
@@ -123,7 +123,7 @@
       "title": "Visualizza i risultati"
     },
     "the_vocdoni_advantage": "Il vantaggio di Vocdoni",
-    "title": "Come semplifichiamo il voto sicuro"
+    "title": "Come funziona il voto elettronico sicuro"
   },
   "sections": {
     "advantages": {
@@ -132,7 +132,7 @@
       "title": "Vocdoni - Vantaggi"
     },
     "contact": {
-      "description": "Pronto a rivoluzionare il tuo processo di voto? Contatta il nostro team per discutere le tue esigenze e scoprire come Vocdoni può aiutarti.",
+      "description": "Vuoi rivoluzionare il modo in cui votate? Contatta il nostro team per discutere le tue esigenze e scoprire come Vocdoni può aiutarti.",
       "label": "Contatto",
       "title": "Vocdoni - Contattaci"
     },
@@ -178,15 +178,15 @@
   "services": {
     "app": "APPLICAZIONE",
     "app_button": "Inizia la tua votazione",
-    "app_desc": "Organizza elezioni sicure in pochi minuti con la nostra applicazione facile da usare. Ideale per associazioni, comuni, ordini professionali, cooperative o enti che hanno bisogno di votazioni sicure e accessibili senza complessità tecniche.",
+    "app_desc": "Organizza votazioni online e elezioni sicure in pochi minuti. Ideale per associazioni, comuni e cooperative.",
     "app_desc_intro": "Voto digitale rapido e semplice.",
-    "explanation": "Che tu voglia creare una votazione semplice, integrare il voto digitale sicuro nella tua piattaforma o avere una soluzione di governance su misura, Vocdoni ti offre ciò di cui hai bisogno. Organizzazioni di tutto il mondo si affidano a noi per assemblee, referendum, elezioni e bilanci partecipativi.",
+    "explanation": "Che tu voglia creare una votazione semplice, integrare il voto digitale sicuro nella tua piattaforma o avere una soluzione di governance su misura, Vocdoni ha la soluzione che fa per te. Organizzazioni di tutto il mondo si affidano a noi per assemblee dei soci, elezioni di ordini professionali, referendum e bilanci partecipativi.",
     "impact": "Impatto in cifre",
     "our_services": "I nostri servizi",
     "projects": "Progetti",
     "projects_button": "Richiedi una soluzione su misura",
-    "projects_desc": "Per governi, aziende e grandi organizzazioni che hanno bisogno di sistemi di governance personalizzati, offriamo soluzioni complete con supporto esperto e infrastruttura dedicata.",
-    "projects_desc_intro": "Soluzioni personalizzate per le istituzioni.",
+    "projects_desc": "Per governi e grandi organizzazioni: soluzioni complete con supporto esperto e infrastruttura dedicata.",
+    "projects_desc_intro": "Soluzioni su misura per le istituzioni.",
     "sdk": "SDK",
     "sdk_button": "Esplora l'SDK",
     "sdk_desc": "Il nostro kit di sviluppo software consente di integrare facilmente l'infrastruttura di voto sicura di Vocdoni nelle tue piattaforme.",
@@ -194,21 +194,21 @@
   },
   "technology": {
     "accessible": "Accessibile",
-    "accessible_desc": "Chiunque, da qualsiasi luogo e dispositivo, può partecipare. Vocdoni è progettato per l'inclusione ed elimina le barriere tecniche o geografiche affinché tutte le voci possano essere ascoltate.",
+    "accessible_desc": "Partecipazione aperta a tutti, da qualsiasi luogo e dispositivo. Vocdoni elimina le barriere tecniche e geografiche per dare voce a tutti.",
     "cta": "Maggiori informazioni",
     "efficient": "Efficiente",
-    "efficient_desc": "Da una piccola cooperativa a un'elezione nazionale, Vocdoni si adatta a tutti gli scenari. È rapido, economico e sostenibile, riducendo i costi e l'impatto ambientale rispetto ai metodi tradizionali.",
+    "efficient_desc": "Da una piccola cooperativa a un'elezione nazionale, Vocdoni si adatta a tutti gli scenari. È rapido, economico e sostenibile, abbattendo costi e impatto ambientale rispetto ai metodi tradizionali.",
     "headline": "Tecnologia",
     "secure": "Sicuro",
-    "secure_desc": "Meccanismi crittografici avanzati garantiscono il segreto di ogni voto e risultati completamente verificabili. Gli elettori restano anonimi, ma il risultato è incontestabile.",
+    "secure_desc": "Crittografia avanzata per garantire segretezza e verificabilità. Voto anonimo, risultati incontestabili.",
     "transparent": "Trasparente",
     "transparent_desc": "Ogni processo è trasparente e completamente verificabile. Dalla creazione della scheda al conteggio, chiunque può controllare l'integrità dell'elezione, eliminando la necessità di fidarsi ciecamente degli intermediari.",
-    "vision": "La nostra visione è semplice: un mondo in cui le decisioni collettive possano essere prese da qualsiasi luogo e dispositivo, con trasparenza e sicurezza. Senza intermediari né barriere.",
+    "vision": "La nostra visione: decisioni collettive ovunque, trasparenti e sicure. Senza intermediari.",
     "why": "Perché?",
     "why_description": "Perché una governance affidabile e accessibile dovrebbe essere un diritto, non un privilegio."
   },
   "testimonials": {
-    "anna_quote": "Il nostro impegno con Vocdoni è stato chiaro fin dall'inizio: da Òmnium Cultural abbiamo scelto un sistema di voto sicuro e verificabile che ci permettesse di tenere le nostre assemblee statutarie con tutte le garanzie per oltre 180.000 soci della nostra organizzazione.",
+    "anna_quote": "Il nostro impegno con Vocdoni è stato chiaro fin dall'inizio: in Òmnium Cultural abbiamo scelto un sistema di voto sicuro e verificabile che ci permettesse di tenere le nostre assemblee statutarie con tutte le garanzie per oltre 180.000 soci della nostra organizzazione.",
     "anna_role": "Direttrice esecutiva di Òmnium Cultural",
     "barcelona_stat": "rappresentanti che votano con Vocdoni al Comune di Barcellona",
     "bellpuig_stat": "partecipazione al primo referendum consultivo completamente digitale tenuto ai sensi della legislazione spagnola.",
