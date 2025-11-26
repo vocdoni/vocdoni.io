@@ -2,12 +2,23 @@ import tailwindcss from '@tailwindcss/vite'
 import react from '@vitejs/plugin-react'
 import vike from 'vike/plugin'
 import { ConfigEnv, defineConfig, loadEnv } from 'vite'
+import { locales, localeDefault } from './locales'
+import { vikeSitemapPlugin } from './plugins/vike-sitemap'
 
 const viteconfig = ({ mode }: ConfigEnv) => {
   process.env = { ...process.env, ...loadEnv(mode, process.cwd(), '') }
 
   return defineConfig({
-    plugins: [vike(), react(), tailwindcss()],
+    plugins: [
+      vike(),
+      react(),
+      tailwindcss(),
+      vikeSitemapPlugin({
+        hostname: process.env.SITE_URL || 'https://vocdoni.io',
+        locales,
+        defaultLocale: localeDefault,
+      }),
+    ],
 
     build: {
       target: 'es2022',
