@@ -2,7 +2,7 @@ import tailwindcss from '@tailwindcss/vite'
 import react from '@vitejs/plugin-react'
 import vike from 'vike/plugin'
 import { ConfigEnv, defineConfig, loadEnv } from 'vite'
-import { locales, localeDefault } from './locales'
+import { localeDefault, locales } from './locales'
 import { vikeSitemapPlugin } from './plugins/vike-sitemap'
 
 const viteconfig = ({ mode }: ConfigEnv) => {

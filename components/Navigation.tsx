@@ -46,9 +46,9 @@ export function Navigation({ activeSection = 0, usesScroll = false }: Navigation
   const showRightMenu = usesScroll ? isAtTop : activeSection === 0
 
   return (
-    <nav className='fixed top-0 left-0 right-0 z-50 lg:backdrop-blur-sm'>
+    <nav className='fixed top-0 left-0 right-0 z-50 xl:backdrop-blur-sm'>
       <div className='px-4'>
-        <div className='h-16 flex items-center lg:grid lg:grid-cols-[15%_70%_15%]'>
+        <div className='h-16 flex items-center xl:grid xl:grid-cols-[15%_70%_15%]'>
           {/* Logo */}
           <div className='flex items-center'>
             {(showRightMenu || isLargeScreen) && (
@@ -59,7 +59,7 @@ export function Navigation({ activeSection = 0, usesScroll = false }: Navigation
           </div>
 
           {/* Center Navigation with White Background */}
-          <div className='hidden lg:flex items-center justify-center'>
+          <div className='hidden xl:flex items-center justify-center'>
             <div className='bg-white rounded-sm px-6 py-2'>
               {menuItems.map((item) => {
                 const activeSectionPath = sections[activeSection]?.path
@@ -81,7 +81,7 @@ export function Navigation({ activeSection = 0, usesScroll = false }: Navigation
           </div>
 
           {/* Right side buttons */}
-          <div className='hidden lg:flex items-center justify-end gap-3'>
+          <div className='hidden xl:flex items-center justify-end gap-3'>
             <LanguageSwitcher />
             <Button asChild>
               <a href='https://app.vocdoni.io' target='_blank' rel='noopener noreferrer'>
@@ -91,7 +91,7 @@ export function Navigation({ activeSection = 0, usesScroll = false }: Navigation
           </div>
 
           {/* Mobile menu button */}
-          <div className='ml-auto lg:hidden'>
+          <div className='ml-auto xl:hidden'>
             <Button variant='ghost' size='sm' onClick={() => setIsMenuOpen(!isMenuOpen)} className='p-2'>
               <AnimatedHamburger isOpen={isMenuOpen} />
             </Button>
@@ -100,7 +100,7 @@ export function Navigation({ activeSection = 0, usesScroll = false }: Navigation
 
         {/* Mobile Navigation Menu - Full Screen */}
         {isMenuOpen && (
-          <div className='fixed inset-0 z-50 lg:hidden bg-stone-100 flex flex-col'>
+          <div className='fixed inset-0 z-50 xl:hidden bg-stone-100 flex flex-col'>
             {/* Header with logo and close button */}
             <div className='h-16 flex items-center justify-between px-4'>
               <VocdoniLogo minimal />
