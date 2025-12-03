@@ -2,12 +2,32 @@ import { Link } from '@/components/Link'
 import { Navigation } from '@/components/Navigation'
 import { Footer } from '@/components/sections/Footer'
 import { Button } from '@/components/ui/button'
+import { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { usePageContext } from 'vike-react/usePageContext'
 
+import { getLocalePreference } from '@/lib/localeDetection'
+import { Locale, localeDefault, locales } from '@/locales'
+
 export default function Page() {
   const { is404 } = usePageContext()
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
+
+  useEffect(() => {
+    // Client-only: adjust language when the static 404 page is served for any locale
+    if (typeof window === 'undefined') return
+
+    const pathLocaleCandidate = window.location.pathname.split('/')[1]
+    const pathLocale =
+      pathLocaleCandidate && locales.includes(pathLocaleCandidate as Locale) ? (pathLocaleCandidate as Locale) : null
+    const savedPreference = getLocalePreference()
+
+    const targetLocale: Locale = pathLocale ?? savedPreference ?? localeDefault
+
+    if (targetLocale !== i18n.language) {
+      i18n.changeLanguage(targetLocale)
+    }
+  }, [i18n])
 
   const title = is404
     ? t('error.404.title', { defaultValue: 'Page not found' })

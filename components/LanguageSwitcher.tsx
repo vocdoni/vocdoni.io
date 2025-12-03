@@ -4,7 +4,12 @@ import { setLocalePreference } from '@/lib/localeDetection'
 import { SECTIONS_CONFIG, useUrlSync } from '@/lib/useUrlSync'
 import { availableLocales, Locale, localeDefault } from '@/locales'
 import { LuChevronDown } from 'react-icons/lu'
+import { useTranslation } from 'react-i18next'
 import { usePageContext } from 'vike-react/usePageContext'
+
+type LanguageSwitcherPageContext = {
+  urlLogical?: string
+}
 
 function buildHref(target: Locale, urlLogical?: string) {
   const pathname = urlLogical ?? '/'
@@ -23,8 +28,9 @@ function buildHref(target: Locale, urlLogical?: string) {
 }
 
 export function LanguageSwitcher() {
-  const pageContext = usePageContext() as any
-  const current: Locale = pageContext?.initialLocale ?? pageContext?.locale
+  const { i18n } = useTranslation()
+  const pageContext = usePageContext() as LanguageSwitcherPageContext
+  const current = i18n.language.split('-')[0] as Locale
   const { getCurrentSection } = useUrlSync()
 
   // Get the current path: use section path for landing page sections,
@@ -48,8 +54,8 @@ export function LanguageSwitcher() {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button
-          variant='outline'
-          className='group gap-2 border-0 bg-transparent hover:bg-transparent data-[state=open]:bg-white px-2 py-1 h-auto [&_svg]:size-4'
+          variant='transparent'
+          className='group gap-2 data-[state=open]:bg-white px-2 py-1 h-auto [&_svg]:size-4'
         >
           <span className='hidden sm:inline'>{currentLabel}</span>
           <span className='sm:hidden uppercase'>{current}</span>
