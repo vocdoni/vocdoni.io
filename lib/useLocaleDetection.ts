@@ -4,8 +4,9 @@ import { detectBrowserLocale, getLocalePreference, setLocalePreference } from '.
 import { useIsClient } from './useIsClient'
 
 /**
- * Hook to detect browser language and redirect to appropriate locale on first visit.
- * Only runs on default locale (en) pages to avoid interfering with manual language selection.
+ * Hook to detect browser language and redirect to appropriate locale.
+ * Only runs on default locale (en) pages to avoid interfering with manual language selection,
+ * and will also redirect back to a stored preference on return visits.
  *
  * @param currentLocale - The current page locale from pageContext
  * @param urlLogical - The current URL path without locale prefix (e.g., '/product')
@@ -24,7 +25,11 @@ export function useLocaleDetection(currentLocale: string, urlLogical: string) {
     // Check if user has already set a preference (manual selection or previous auto-detection)
     const savedPreference = getLocalePreference()
     if (savedPreference) {
-      // Preference exists, don't auto-detect
+      // Redirect to stored preference when landing on default locale again
+      if (savedPreference !== localeDefault) {
+        const targetPath = `/${savedPreference}${urlLogical}`
+        window.location.replace(targetPath)
+      }
       return
     }
 
