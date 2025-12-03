@@ -14,7 +14,7 @@ export const Footer = () => {
   return (
     <div
       className='
-        min-h-screen w-full flex flex-col justify-end lg:grid lg:grid-cols-1
+        h-viewport w-full flex flex-col justify-end lg:grid lg:grid-cols-1
         bg-gradient-to-b from-[#F9F7F333] to-[#D1D1D1]
       '
     >

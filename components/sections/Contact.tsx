@@ -135,7 +135,7 @@ export function Contact() {
   }
 
   return (
-    <div className='min-h-screen w-full grid grid-cols-1 lg:grid-cols-2'>
+    <div className='min-h-viewport w-full grid grid-cols-1 lg:grid-cols-2'>
       {/* Contact Overview */}
       <div className='flex-1 bg-background flex flex-col items-center justify-center'>
         <div className='w-full px-6 flex flex-col gap-6'>

@@ -42,7 +42,7 @@ export const Impact = () => {
   ]
 
   return (
-    <div className='min-h-screen w-full grid grid-cols-1 lg:grid-cols-2'>
+    <div className='h-viewport w-full grid grid-cols-1 lg:grid-cols-2'>
       <ImpactOverview />
       <ImpactStatsGrid stats={stats} />
     </div>

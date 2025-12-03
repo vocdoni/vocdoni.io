@@ -50,7 +50,7 @@ export function Technology() {
   ]
 
   return (
-    <div className='min-h-screen w-full grid grid-cols-1 lg:grid-cols-2 content-between lg:content-stretch'>
+    <div className='min-h-viewport w-full grid grid-cols-1 lg:grid-cols-2 content-between lg:content-stretch'>
       {/* Technology Overview */}
       <div className='flex flex-col mt-5 lg:mt-20 xl:mt-0'>
         <div className='flex-1 bg-background flex flex-col items-center justify-center'>

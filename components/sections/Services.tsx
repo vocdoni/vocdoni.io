@@ -56,7 +56,7 @@ export function Services() {
   ]
 
   return (
-    <div className='min-h-screen w-full grid grid-cols-1 lg:grid-cols-2 content-between lg:content-stretch'>
+    <div className='h-viewport w-full grid grid-cols-1 lg:grid-cols-2 content-between lg:content-stretch'>
       {/* services Overview */}
       <div className='flex flex-col mt-5 lg:mt-20 xl:mt-0'>
         <div className='flex-1 bg-background flex flex-col items-start justify-center w-full px-6 gap-6'>

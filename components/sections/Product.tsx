@@ -47,7 +47,7 @@ export function Product() {
   const currentAlt = currentStep?.title
 
   return (
-    <div className='min-h-screen w-full grid grid-rows-2 lg:grid-rows-1 grid-cols-1 lg:grid-cols-2'>
+    <div className='min-h-viewport w-full grid grid-rows-2 lg:grid-rows-1 grid-cols-1 lg:grid-cols-2'>
       {/* Impact Overview */}
       <div className='flex flex-col order-2 lg:order-1'>
         <div className='flex-1 bg-background flex flex-col items-center justify-center'>

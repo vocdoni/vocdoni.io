@@ -43,7 +43,7 @@ const clients = [
 export function Explore() {
   const { t } = useTranslation()
   return (
-    <div className='relative min-h-screen w-full flex flex-col bg-[#F9F7F3] text-black p-6 '>
+    <div className='relative min-h-viewport w-full flex flex-col bg-[#F9F7F3] text-black p-6 '>
       <div className='items-center flex flex-1'>
         {/* Main headline with emojis */}
         <h1 className='text-[clamp(1.8rem,6vw,4.2rem)] font-bold leading-tight'>

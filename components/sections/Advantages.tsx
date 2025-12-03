@@ -177,7 +177,7 @@ export function Advantages() {
   }, [api])
 
   return (
-    <div className='min-h-screen w-full grid bg-[#F9F7F3]'>
+    <div className='min-h-viewport w-full grid bg-[#F9F7F3]'>
       {/* Intro */}
       <div className='flex flex-col items-center justify-center py-6 md:py-8'>
         <div className='w-full px-6 flex flex-col gap-3 md:gap-4 lg:mt-12'>

@@ -59,6 +59,25 @@ export function SectionScroller({
   const accumulatedDelta = useRef<number>(0)
   const isTransitioning = useRef<boolean>(false)
 
+  // Set actual viewport height as CSS custom property
+  useEffect(() => {
+    const setViewportHeight = () => {
+      // Use window.innerHeight which gives us the actual visible height
+      const vh = window.innerHeight
+      document.documentElement.style.setProperty('--actual-vh', `${vh}px`)
+    }
+
+    // Set initial value
+    setViewportHeight()
+
+    // Update on resize
+    window.addEventListener('resize', setViewportHeight)
+
+    return () => {
+      window.removeEventListener('resize', setViewportHeight)
+    }
+  }, [])
+
   useEffect(() => {
     if (typeof window === 'undefined') return
 
@@ -175,7 +194,7 @@ export function SectionScroller({
   return (
     <div
       ref={containerRef}
-      className={cn('h-screen w-full overflow-hidden relative', containerClassName)}
+      className={cn('h-viewport w-full overflow-hidden relative', containerClassName)}
       style={{
         touchAction: 'pan-y',
       }}
@@ -184,15 +203,15 @@ export function SectionScroller({
     >
       <div
         style={{
-          height: `${children.length * 100}vh`,
-          transform: `translateY(-${activeSection * 100}vh)`,
+          height: `calc(${children.length} * var(--actual-vh))`,
+          transform: `translateY(calc(-${activeSection} * var(--actual-vh)))`,
           transition: `transform ${msToCssTime(SCROLL_TRANSITION_DURATION)} cubic-bezier(0.77,0,0.175,1)`,
         }}
       >
         {children.map((child, i) => (
           <section
             key={i}
-            className={cn('h-screen w-full flex items-center justify-center', sectionClassName)}
+            className={cn('h-viewport w-full flex items-center justify-center', sectionClassName)}
             id={`section-${i}`}
             aria-hidden={activeSection !== i}
           >

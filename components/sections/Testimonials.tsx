@@ -134,7 +134,7 @@ export function Testimonials() {
   ]
 
   return (
-    <div className='h-svh min-h-0 w-full grid grid-rows-[1fr_1fr] lg:grid-rows-1 lg:grid-cols-2 overflow-hidden'>
+    <div className='h-viewport w-full grid grid-rows-[1fr_1fr] lg:grid-rows-1 lg:grid-cols-2 overflow-hidden'>
       {/* Testimonials intro */}
       <div className='flex flex-col'>
         <div className='flex-1 bg-background flex flex-col items-center justify-center'>

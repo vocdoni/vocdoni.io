@@ -1,8 +1,8 @@
 import { Link } from '@/components/Link'
 import { WhatsAppButton } from '@/components/WhatsAppButton'
 import { cn } from '@/lib/utils'
-import { LuChevronDown } from 'react-icons/lu'
 import { useTranslation } from 'react-i18next'
+import { LuChevronDown } from 'react-icons/lu'
 
 export function Landing() {
   const { t } = useTranslation()
@@ -10,7 +10,7 @@ export function Landing() {
     <div
       className={cn(
         'bg-[url(/assets/images/hero_background.png)] bg-cover bg-top bg-no-repeat',
-        'relative h-screen w-full flex flex-col items-center',
+        'relative h-viewport w-full flex flex-col items-center',
         'justify-center text-black'
       )}
     >
@@ -45,7 +45,7 @@ export function Landing() {
       {/* Explore Vocdoni - Bottom */}
       <Link
         href='/explore'
-        className='absolute bottom-8 left-1/2 transform -translate-x-1/2 flex flex-col items-center text-white/80 hover:text-white transition-colors'
+        className='absolute bottom-4 left-1/2 transform -translate-x-1/2 flex flex-col items-center text-white/80 hover:text-white transition-colors z-20'
       >
         <span className='text-lg font-medium mb-2'>{t('landing.explore', { defaultValue: 'Explore Vocdoni' })}</span>
         <LuChevronDown className='w-6 h-6 animate-bounce' />
