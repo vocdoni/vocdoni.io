@@ -1,9 +1,9 @@
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
 import { Heading, Paragraph } from '@/components/ui/typography'
 import { cn } from '@/lib/utils'
-import { LuArrowUpRight } from 'react-icons/lu'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { LuArrowUpRight } from 'react-icons/lu'
 import { Link } from '../Link'
 import { Button } from '../ui/button'
 
@@ -23,7 +23,7 @@ export function Services() {
       }),
       buttonIcon: '🗳️',
       button: t('services.app_button', { defaultValue: 'Start your vote' }),
-      href: 'https://app.vocdoni.io/admin/processes/create',
+      href: 'https://app.vocdoni.io',
     },
     {
       id: 'sdk',

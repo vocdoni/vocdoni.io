@@ -28,7 +28,7 @@ export function Landing() {
 
         {/* CTA Buttons */}
         <div className='relative flex flex-col sm:flex-row gap-4 mb-20 justify-center'>
-          <Link href='https://app.vocdoni.io/admin/processes/create' variant='hero' size='xl'>
+          <Link href='https://app.vocdoni.io' variant='hero' size='xl'>
             🗳️ {t('landing.start_vote', { defaultValue: 'Start your vote' })} →
           </Link>
           <Link href='/contact' variant='hero' size='xl'>
