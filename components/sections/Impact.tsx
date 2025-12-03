@@ -27,7 +27,7 @@ export const Impact = () => {
       id: 'cheaper-than-alternatives',
       value: '10',
       suffix: 'x',
-      // suffixClassName: 'text-3xl md:text-4xl',
+      suffixClassName: 'text-3xl md:text-4xl',
       label: t('impact.cheaper_than_alternatives', { defaultValue: 'Cheaper than alternatives' }),
       background: 'bg-[#D8D6E9]',
     },
