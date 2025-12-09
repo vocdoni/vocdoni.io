@@ -1,5 +1,5 @@
 module.exports = {
-  locales: ['ca', 'de', 'en', 'es', 'it', 'pt'],
+  locales: ['ca', 'de', 'en', 'es', 'it', 'pt', 'el'],
   defaultNamespace: 'common',
   namespace: 'common',
   input: ['{components,hooks,layouts,lib,pages}/**/*.{ts,tsx,js,jsx}'],
