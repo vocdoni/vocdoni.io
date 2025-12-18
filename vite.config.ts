@@ -19,11 +19,6 @@ const viteconfig = ({ mode }: ConfigEnv) => {
         defaultLocale: localeDefault,
       }),
     ],
-    server: {
-      allowedHosts: ['warm-birch-97cf.tunnl.gg'],
-      // optionally, if you're accessing via that domain:
-      host: true,
-    },
 
     build: {
       target: 'es2022',
