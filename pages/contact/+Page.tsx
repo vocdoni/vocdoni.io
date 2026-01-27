@@ -1,2 +1,5 @@
-// Re-export the main page for contact route
-export { default } from '../index/+Page.js'
+import ContactUs from "@/components/shadcn-studio/blocks/contact-us-page-02/contact-us-page-02";
+
+export default function ContactPage() {
+  return <ContactUs />;
+}

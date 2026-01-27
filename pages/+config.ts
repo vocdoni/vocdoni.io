@@ -1,17 +1,11 @@
 import vikeReact from 'vike-react/config'
 import type { Config } from 'vike/types'
 import favicon from '../assets/favicon.ico'
-import Head from '../layouts/Head'
-import Layout from '../layouts/LayoutDefault'
 
 // Default config (can be overridden by pages)
 // https://vike.dev/config
 
 export default {
-  // https://vike.dev/Layout
-  Layout,
-  Head,
-
   // https://vike.dev/head-tags
   title: 'Vocdoni - Blockchain Voting Technology',
   description:

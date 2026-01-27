@@ -1,9 +1,10 @@
-import { Button } from '@/components/ui/button'
+import { Link } from '@/components/Link'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
 import { setLocalePreference } from '@/lib/localeDetection'
+import { getLocalizedPath, stripLocaleFromPath } from '@/lib/localized-path'
 import { SECTIONS_CONFIG, useUrlSync } from '@/lib/useUrlSync'
-import { availableLocales, Locale, localeDefault } from '@/locales'
-import { LuChevronDown } from 'react-icons/lu'
+import { availableLocales, Locale } from '@/locales'
+import { Check, Globe } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import { usePageContext } from 'vike-react/usePageContext'
 
@@ -12,19 +13,9 @@ type LanguageSwitcherPageContext = {
 }
 
 function buildHref(target: Locale, urlLogical?: string) {
-  const pathname = urlLogical ?? '/'
-  let suffix = ''
-  if (typeof window !== 'undefined') {
-    suffix = `${window.location.search ?? ''}${window.location.hash ?? ''}`
-  }
-
-  // For default locale, use the path without locale prefix
-  // For other locales, prepend the locale
-  if (target === localeDefault) {
-    return `${pathname}${suffix}`
-  }
-
-  return `/${target}${pathname}${suffix}`
+  const pathname = stripLocaleFromPath(urlLogical ?? '/')
+  const suffix = typeof window !== 'undefined' ? `${window.location.search ?? ''}${window.location.hash ?? ''}` : ''
+  return `${getLocalizedPath(pathname, target)}${suffix}`
 }
 
 export function LanguageSwitcher() {
@@ -48,38 +39,40 @@ export function LanguageSwitcher() {
   }
 
   const currentPath = getCurrentPath()
-  const currentLabel = availableLocales.find((l) => l.value === current)?.label ?? current.toUpperCase()
+  const currentOption = availableLocales.find((l) => l.value === current) || availableLocales[0]
 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button
-          variant='transparent'
-          className='group gap-2 data-[state=open]:bg-white px-2 py-1 h-auto [&_svg]:size-4'
-        >
-          <span className='hidden sm:inline'>{currentLabel}</span>
-          <span className='sm:hidden uppercase'>{current}</span>
-          <LuChevronDown className='h-4 w-4 opacity-60 transition-transform duration-200 group-data-[state=open]:rotate-180' />
-        </Button>
+        <button className='inline-flex h-10 w-[72px] items-center justify-center gap-1.5 rounded-md bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none'>
+          <Globe className='h-4 w-4 flex-shrink-0' />
+          <span className='w-5 text-center uppercase'>{currentOption.value}</span>
+        </button>
       </DropdownMenuTrigger>
 
-      <DropdownMenuContent align='end' className='min-w-max p-0'>
-        {availableLocales
-          .filter((l) => l.value !== current)
-          .map(({ value, label }) => {
-            const href = buildHref(value, currentPath)
-            return (
-              <DropdownMenuItem key={value} asChild className='px-3 py-2'>
-                <a
-                  href={href}
-                  className='flex w-full items-center justify-between'
-                  onClick={() => setLocalePreference(value)}
-                >
-                  <span>{label}</span>
-                </a>
-              </DropdownMenuItem>
-            )
-          })}
+      <DropdownMenuContent align='end' className='min-w-[140px] p-1.5'>
+        {availableLocales.map((lang) => {
+          const href = buildHref(lang.value, currentPath)
+          const isActive = lang.value === current
+          return (
+            <DropdownMenuItem key={lang.value} asChild>
+              <Link
+                href={href}
+                locale={lang.value}
+                onClick={() => setLocalePreference(lang.value)}
+                variant='dropdownItem'
+                className={`${
+                  isActive
+                    ? 'bg-primary/10 text-foreground font-semibold'
+                    : 'text-muted-foreground hover:text-foreground hover:bg-muted'
+                }`}
+              >
+                <span>{lang.label}</span>
+                {isActive && <Check className='h-3.5 w-3.5 ml-2 text-primary flex-shrink-0' />}
+              </Link>
+            </DropdownMenuItem>
+          )
+        })}
       </DropdownMenuContent>
     </DropdownMenu>
   )

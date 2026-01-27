@@ -1,8 +1,6 @@
-'use client'
-
 import useEmblaCarousel, { type UseEmblaCarouselType } from 'embla-carousel-react'
-import { LuArrowLeft, LuArrowRight } from 'react-icons/lu'
-import * as React from 'react'
+import { ArrowLeft, ArrowRight } from 'lucide-react'
+import React from 'react'
 
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
@@ -30,7 +28,7 @@ type CarouselContextProps = {
 
 const CarouselContext = React.createContext<CarouselContextProps | null>(null)
 
-export function useCarousel() {
+function useCarousel() {
   const context = React.useContext(CarouselContext)
 
   if (!context) {
@@ -181,14 +179,13 @@ const CarouselPrevious = React.forwardRef<HTMLButtonElement, React.ComponentProp
           orientation === 'horizontal'
             ? '-left-12 top-1/2 -translate-y-1/2'
             : '-top-12 left-1/2 -translate-x-1/2 rotate-90',
-          'bg-transparent hover:bg-transparent border-0 shadow-none',
-          !canScrollPrev && 'invisible',
           className
         )}
+        disabled={!canScrollPrev}
         onClick={scrollPrev}
         {...props}
       >
-        <LuArrowLeft className='h-4 w-4' />
+        <ArrowLeft className='h-4 w-4' />
         <span className='sr-only'>Previous slide</span>
       </Button>
     )
@@ -210,14 +207,13 @@ const CarouselNext = React.forwardRef<HTMLButtonElement, React.ComponentProps<ty
           orientation === 'horizontal'
             ? '-right-12 top-1/2 -translate-y-1/2'
             : '-bottom-12 left-1/2 -translate-x-1/2 rotate-90',
-          'bg-transparent hover:bg-transparent border-0 shadow-none',
-          !canScrollNext && 'invisible',
           className
         )}
+        disabled={!canScrollNext}
         onClick={scrollNext}
         {...props}
       >
-        <LuArrowRight className='h-4 w-4' />
+        <ArrowRight className='h-4 w-4' />
         <span className='sr-only'>Next slide</span>
       </Button>
     )

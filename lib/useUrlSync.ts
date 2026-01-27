@@ -1,4 +1,5 @@
-import { localeDefault } from '@/locales'
+import { Locale, localeDefault } from '@/locales'
+import { getLocalizedPath, stripLocaleFromPath } from '@/lib/localized-path'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { usePageContext } from 'vike-react/usePageContext'
@@ -86,17 +87,14 @@ export function useSections(): Section[] {
  */
 export function useUrlSync(onSectionChange?: (sectionIndex: number) => void) {
   const pageContext = usePageContext()
-  const locale = (pageContext as any).locale || localeDefault
+  const locale = ((pageContext as any).locale as Locale) || localeDefault
   const urlLogical = (pageContext as any).urlLogical || '/'
   const sections = useSections()
 
   // Helper function to build full URL with locale prefix
   const buildFullPath = useCallback(
     (path: string) => {
-      if (locale === localeDefault) {
-        return path
-      }
-      return `/${locale}${path}`
+      return getLocalizedPath(path, locale)
     },
     [locale]
   )
@@ -104,14 +102,7 @@ export function useUrlSync(onSectionChange?: (sectionIndex: number) => void) {
   // Helper function to extract path without locale from any pathname
   const getPathWithoutLocale = useCallback(
     (pathname: string) => {
-      if (locale === localeDefault) {
-        return pathname
-      }
-      // Remove locale prefix if present
-      if (pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`) {
-        return pathname.substring(locale.length + 1) || '/'
-      }
-      return pathname
+      return stripLocaleFromPath(pathname)
     },
     [locale]
   )
