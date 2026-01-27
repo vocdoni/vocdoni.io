@@ -1,7 +1,7 @@
 import { localeDefault, locales } from '@/locales'
-import type { OnPrerenderStartAsync } from 'vike/types'
+import { PrerenderContext } from 'vike/types'
 
-export const onPrerenderStart: OnPrerenderStartAsync = async (prerenderContext): ReturnType<OnPrerenderStartAsync> => {
+export const onPrerenderStart = async (prerenderContext: PrerenderContext) => {
   const pageContexts: Array<{ urlOriginal: string; locale: string }> = []
 
   // For each discovered page, create a version for each locale
