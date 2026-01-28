@@ -6,6 +6,20 @@ import { LuChevronDown } from 'react-icons/lu'
 
 export function Landing() {
   const { t } = useTranslation()
+  const GTMClickTest = () => {
+    if (typeof (window as any).gtag === 'function') {
+      try {
+        console.log('its actually executing it...')
+        ;(window as any).gtag('event', 'conversion', {
+          send_to: 'AW-17230168173/eq3RCK_B8OkbEO2A_pdA',
+          value: 1.0,
+          currency: 'USD',
+        })
+      } catch (error) {
+        console.error('GTM Click Test Error:', error)
+      }
+    }
+  }
   return (
     <div
       className={cn(
@@ -33,6 +47,7 @@ export function Landing() {
             variant='hero'
             size='xl'
             className='group shadow-lg hover:shadow-xl transition-shadow h-12 px-6 min-[376px]:h-14 min-[376px]:px-8 text-base min-[376px]:text-lg md:text-lg'
+            onClick={GTMClickTest}
           >
             {t('landing.start_vote', { defaultValue: 'Start your vote' })}
             <LuChevronDown className='ml-1.5 h-4 w-4 -rotate-90 transition-transform group-hover:translate-x-0.5' />
@@ -42,6 +57,7 @@ export function Landing() {
             variant='hero'
             size='xl'
             className='group shadow-lg hover:shadow-xl transition-shadow h-12 px-6 min-[376px]:h-14 min-[376px]:px-8 text-base min-[376px]:text-lg md:text-lg'
+            onClick={GTMClickTest}
           >
             {t('landing.talk_with_us', { defaultValue: 'Talk with us' })}
             <LuChevronDown className='ml-1.5 h-4 w-4 -rotate-90 transition-transform group-hover:translate-x-0.5' />
