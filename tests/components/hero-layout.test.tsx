@@ -8,7 +8,7 @@ import AlternativeHero from '@/components/AlternativeHero'
 vi.mock('react-i18next', () => ({
   useTranslation: () => ({
     t: (key: string, options?: { returnObjects?: boolean }) => {
-      if (key === 'hero.dynamicWords' && options?.returnObjects) {
+      if (key === 'hero.dynamic_words' && options?.returnObjects) {
         return ['fast']
       }
       return key

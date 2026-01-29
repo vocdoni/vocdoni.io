@@ -58,12 +58,12 @@ const CTASection = () => {
             >
               <img
                 src='https://cdn.shadcnstudio.com/ss-assets/blocks/marketing/cta/image-6.png'
-                alt={t('cta.imageAlt')}
+                alt={t('cta.image_alt')}
                 className='max-h-173 w-full dark:hidden'
               />
               <img
                 src='https://cdn.shadcnstudio.com/ss-assets/blocks/marketing/cta/image-6-dark.png'
-                alt={t('cta.imageAlt')}
+                alt={t('cta.image_alt')}
                 className='hidden max-h-173 w-full dark:inline-block'
               />
             </MotionPreset>

@@ -10,19 +10,19 @@ export default function AppPreview() {
       <div className='space-y-2'>
         <div className='flex items-center gap-2 text-sm'>
           <CheckCircle2 className='size-4 text-primary' />
-          <span className='text-muted-foreground'>{t('previews.appPreview.optionA')}</span>
+          <span className='text-muted-foreground'>{t('previews.app_preview.option_a')}</span>
         </div>
         <div className='flex items-center gap-2 text-sm'>
           <CheckCircle2 className='size-4 text-muted-foreground' />
-          <span className='text-muted-foreground'>{t('previews.appPreview.optionB')}</span>
+          <span className='text-muted-foreground'>{t('previews.app_preview.option_b')}</span>
         </div>
         <div className='flex items-center gap-2 text-sm'>
           <CheckCircle2 className='size-4 text-muted-foreground' />
-          <span className='text-muted-foreground'>{t('previews.appPreview.optionC')}</span>
+          <span className='text-muted-foreground'>{t('previews.app_preview.option_c')}</span>
         </div>
       </div>
       <Button className='w-full h-8 text-xs' size='sm'>
-        {t('previews.appPreview.castVote')}
+        {t('previews.app_preview.cast_vote')}
       </Button>
     </Card>
   )

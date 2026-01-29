@@ -72,35 +72,35 @@ export default function Page() {
 
   const aboutStatCards = [
     {
-      title: t("aboutUs.statCards.votes.title"),
-      description: t("aboutUs.statCards.votes.description")
+      title: t("about_us.stat_cards.votes.title"),
+      description: t("about_us.stat_cards.votes.description")
     },
     {
-      title: t("aboutUs.statCards.affordable.title"),
-      description: t("aboutUs.statCards.affordable.description")
+      title: t("about_us.stat_cards.affordable.title"),
+      description: t("about_us.stat_cards.affordable.description")
     },
     {
-      title: t("aboutUs.statCards.turnout.title"),
-      description: t("aboutUs.statCards.turnout.description")
+      title: t("about_us.stat_cards.turnout.title"),
+      description: t("about_us.stat_cards.turnout.description")
     },
     {
-      title: t("aboutUs.statCards.experience.title"),
-      description: t("aboutUs.statCards.experience.description")
+      title: t("about_us.stat_cards.experience.title"),
+      description: t("about_us.stat_cards.experience.description")
     }
   ];
 
   const aboutFeatureCards = [
     {
-      title: t("aboutUs.featureCards.security.title"),
-      description: t("aboutUs.featureCards.security.description")
+      title: t("about_us.feature_cards.security.title"),
+      description: t("about_us.feature_cards.security.description")
     },
     {
-      title: t("aboutUs.featureCards.compliance.title"),
-      description: t("aboutUs.featureCards.compliance.description")
+      title: t("about_us.feature_cards.compliance.title"),
+      description: t("about_us.feature_cards.compliance.description")
     },
     {
-      title: t("aboutUs.featureCards.accessibility.title"),
-      description: t("aboutUs.featureCards.accessibility.description")
+      title: t("about_us.feature_cards.accessibility.title"),
+      description: t("about_us.feature_cards.accessibility.description")
     }
   ];
 

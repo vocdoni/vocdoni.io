@@ -28,7 +28,7 @@ const fallbackWords = ['easy', 'secure', 'simple']
 const Hero = () => {
   const { t } = useTranslation()
   const dynamicWords = useMemo(() => {
-    const arr = t('hero.dynamicWords', { returnObjects: true }) as string[] | undefined
+    const arr = t('hero.dynamic_words', { returnObjects: true }) as string[] | undefined
     return Array.isArray(arr) && arr.length > 0 ? arr : fallbackWords
   }, [t])
   const [index, setIndex] = useState(0)
@@ -61,8 +61,8 @@ const Hero = () => {
                   {t('hero.badge.label')}
                 </span>
                 <span className='text-muted-foreground font-medium pr-2 leading-tight truncate flex items-center gap-1'>
-                  <span className='hidden sm:inline'>{t('hero.badge.descriptionLong')}</span>
-                  <span className='sm:hidden'>{t('hero.badge.descriptionShort')}</span>
+                  <span className='hidden sm:inline'>{t('hero.badge.description_long')}</span>
+                  <span className='sm:hidden'>{t('hero.badge.description_short')}</span>
                   <ArrowRight className='h-3 w-3 transition-transform group-hover:translate-x-0.5 shrink-0' />
                 </span>
               </Link>
@@ -107,7 +107,7 @@ const Hero = () => {
                   asChild
                 >
                   <Link href='https://app.vocdoni.io' variant='inlineIcon'>
-                    {t('hero.ctaPrimary')}
+                    {t('hero.cta_primary')}
                     <ArrowRight className='h-5 w-5 transition-transform duration-200 group-hover:translate-x-0.5' />
                   </Link>
                 </Button>
@@ -134,14 +134,14 @@ const Hero = () => {
                         fill='#fff'
                       />
                     </svg>
-                    {t('hero.ctaSecondary')}
+                    {t('hero.cta_secondary')}
                   </Link>
                 </Button>
               </div>
             </MotionPreset>
 
             <MotionPreset fade blur slide delay={0.4} transition={{ duration: 0.5 }} className='mt-8 w-full max-w-full'>
-              <p className='text-sm text-muted-foreground mb-4 font-medium'>{t('hero.trustedBy')}</p>
+              <p className='text-sm text-muted-foreground mb-4 font-medium'>{t('hero.trusted_by')}</p>
               <div className='relative w-full max-w-full overflow-hidden mask-gradient-x'>
                 {/* Gradient masks */}
                 <div className='absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-background to-transparent z-10 pointer-events-none'></div>

@@ -92,7 +92,7 @@ export function CookieConsent() {
             <AlertDescription className='text-sm text-muted-foreground'>
               {t('cookies.description')}{' '}
               <Link href='/privacy' className='underline hover:text-foreground font-medium'>
-                {t('cookies.learnMore')}
+                {t('cookies.learn_more')}
               </Link>
             </AlertDescription>
           </div>

@@ -10,18 +10,18 @@ export default function IntegrationsPreview() {
         <Badge variant='outline' className='text-[10px] px-1.5 py-0'>
           npm
         </Badge>
-        <span className='text-muted-foreground'>{t('previews.integrationsPreview.install')}</span>
+        <span className='text-muted-foreground'>{t('previews.integrations_preview.install')}</span>
       </div>
       <div className='space-y-1 text-[10px]'>
         <div className='text-amber-600 dark:text-amber-400'>
-          <span className='text-muted-foreground'>{t('previews.integrationsPreview.import')}</span> {'{ VocdoniSDK }'}
+          <span className='text-muted-foreground'>{t('previews.integrations_preview.import')}</span> {'{ VocdoniSDK }'}
         </div>
         <div className='text-muted-foreground'>
-          <span className='text-sky-600 dark:text-sky-400'>{t('previews.integrationsPreview.const')}</span> client ={' '}
+          <span className='text-sky-600 dark:text-sky-400'>{t('previews.integrations_preview.const')}</span> client ={' '}
           <span className='text-amber-600 dark:text-amber-400'>new</span> VocdoniSDK()
         </div>
         <div className='text-muted-foreground'>
-          client.<span className='text-primary'>{t('previews.integrationsPreview.createElection')}</span>()
+          client.<span className='text-primary'>{t('previews.integrations_preview.create_election')}</span>()
         </div>
       </div>
     </Card>

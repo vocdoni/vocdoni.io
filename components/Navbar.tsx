@@ -16,90 +16,90 @@ import { useTranslation } from 'react-i18next'
 // Example data
 const buildProductFeatures = (t: (key: string) => string) => [
   {
-    title: t('navbar.productFeatures.digitalVotingPlatform.title'),
+    title: t('navbar.product_features.digital_voting_platform.title'),
     href: '/product/voting-platform',
-    description: t('navbar.productFeatures.digitalVotingPlatform.description'),
+    description: t('navbar.product_features.digital_voting_platform.description'),
   },
   {
-    title: t('navbar.productFeatures.sdk.title'),
+    title: t('navbar.product_features.sdk.title'),
     href: '/product/sdk',
-    description: t('navbar.productFeatures.sdk.description'),
+    description: t('navbar.product_features.sdk.description'),
   },
   {
-    title: t('navbar.productFeatures.customProjects.title'),
+    title: t('navbar.product_features.custom_projects.title'),
     href: '/product/custom',
-    description: t('navbar.productFeatures.customProjects.description'),
+    description: t('navbar.product_features.custom_projects.description'),
   },
 ]
 
 const buildFeaturedSolution = (t: (key: string) => string) => ({
-  title: t('navbar.featuredSolution.vocdoniApp.title'),
-  description: t('navbar.featuredSolution.vocdoniApp.description'),
+  title: t('navbar.featured_solution.vocdoni_app.title'),
+  description: t('navbar.featured_solution.vocdoni_app.description'),
   href: 'https://app.vocdoni.io',
-  cta: t('navbar.featuredSolution.vocdoniApp.cta'),
-  badge: t('navbar.featuredSolution.vocdoniApp.badge'),
+  cta: t('navbar.featured_solution.vocdoni_app.cta'),
+  badge: t('navbar.featured_solution.vocdoni_app.badge'),
 })
 
 const buildTechnologyItems = (t: (key: string) => string) => [
   {
-    title: t('navbar.technologyItems.blockchainProtocol.title'),
+    title: t('navbar.technology_items.blockchain_protocol.title'),
     href: '/technology/protocol',
-    description: t('navbar.technologyItems.blockchainProtocol.description'),
+    description: t('navbar.technology_items.blockchain_protocol.description'),
   },
   {
-    title: t('navbar.technologyItems.zkp.title'),
+    title: t('navbar.technology_items.zkp.title'),
     href: '/technology/zkp',
-    description: t('navbar.technologyItems.zkp.description'),
+    description: t('navbar.technology_items.zkp.description'),
   },
   {
-    title: t('navbar.technologyItems.openSource.title'),
+    title: t('navbar.technology_items.open_source.title'),
     href: 'https://github.com/vocdoni',
-    description: t('navbar.technologyItems.openSource.description'),
+    description: t('navbar.technology_items.open_source.description'),
   },
 ]
 
 const buildAboutItems = (t: (key: string) => string) => [
   {
-    title: t('navbar.aboutItems.mission.title'),
+    title: t('navbar.about_items.mission.title'),
     href: '/about/mission',
-    description: t('navbar.aboutItems.mission.description'),
+    description: t('navbar.about_items.mission.description'),
   },
   {
-    title: t('navbar.aboutItems.team.title'),
+    title: t('navbar.about_items.team.title'),
     href: '/about/team',
-    description: t('navbar.aboutItems.team.description'),
+    description: t('navbar.about_items.team.description'),
   },
   {
-    title: t('navbar.aboutItems.careers.title'),
+    title: t('navbar.about_items.careers.title'),
     href: '/about/careers',
-    description: t('navbar.aboutItems.careers.description'),
+    description: t('navbar.about_items.careers.description'),
   },
 ]
 
 const buildResourcesItems = (t: (key: string) => string) => [
   {
-    title: t('navbar.resourcesItems.blog.title'),
+    title: t('navbar.resources_items.blog.title'),
     href: 'https://blog.vocdoni.io',
     target: '_blank',
     rel: 'noopener noreferrer',
-    description: t('navbar.resourcesItems.blog.description'),
+    description: t('navbar.resources_items.blog.description'),
   },
   {
-    title: t('navbar.resourcesItems.successStories.title'),
+    title: t('navbar.resources_items.success_stories.title'),
     href: '/use-cases#success-stories',
-    description: t('navbar.resourcesItems.successStories.description'),
+    description: t('navbar.resources_items.success_stories.description'),
   },
   {
-    title: t('navbar.resourcesItems.guides.title'),
+    title: t('navbar.resources_items.guides.title'),
     href: '/guides',
-    description: t('navbar.resourcesItems.guides.description'),
+    description: t('navbar.resources_items.guides.description'),
   },
   {
-    title: t('navbar.resourcesItems.docs.title'),
+    title: t('navbar.resources_items.docs.title'),
     href: 'https://developer.vocdoni.io',
     target: '_blank',
     rel: 'noopener noreferrer',
-    description: t('navbar.resourcesItems.docs.description'),
+    description: t('navbar.resources_items.docs.description'),
   },
 ]
 
@@ -142,7 +142,7 @@ export function Navbar() {
                     {/* Left column: Regular solution items */}
                     <div className='space-y-2'>
                       <h4 className='mb-3 px-2 text-sm text-muted-foreground font-medium'>
-                        {t('navbar.solutionsHeader')}
+                        {t('navbar.solutions_header')}
                       </h4>
                       <ul className='space-y-0.5'>
                         {productFeatures.map((item) => (
@@ -163,7 +163,7 @@ export function Navbar() {
                     {/* Right column: Featured card with image */}
                     <div className='relative flex flex-col'>
                       <h4 className='mb-2 px-2 text-sm text-muted-foreground font-medium'>
-                        {t('navbar.featuredSolution.header')}
+                        {t('navbar.featured_solution.header')}
                       </h4>
                       <Link href={featuredSolution.href} target='_blank' rel='noopener noreferrer' variant='card'>
                         <div className='relative h-full'>
@@ -200,7 +200,7 @@ export function Navbar() {
             {/* Use Cases */}
             <NavigationMenuItem>
               <Link href='/use-cases' variant='unstyled' className={navigationMenuTriggerStyle()}>
-                {t('navbar.useCases')}
+                {t('navbar.use_cases')}
               </Link>
             </NavigationMenuItem>
 
@@ -370,7 +370,7 @@ export function Navbar() {
                   {/* Static Links */}
                   <div className='mt-4 flex flex-col space-y-4'>
                     <Link href='/use-cases' variant='navbarStatic'>
-                      {t('navbar.useCases')}
+                      {t('navbar.use_cases')}
                     </Link>
                     <Link href='/contact' variant='navbarStatic'>
                       {t('navbar.contact')}
@@ -393,7 +393,7 @@ export function Navbar() {
           {/* App Button (Visible on all screens now) */}
           <Button asChild className='rounded-full px-6'>
             <Link href='https://app.vocdoni.io' target='_blank' rel='noopener noreferrer' variant='unstyled'>
-              {t('navbar.appButton')}
+              {t('navbar.app_button')}
             </Link>
           </Button>
         </div>

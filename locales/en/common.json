@@ -1,8 +1,8 @@
 {
-  "aboutUs": {
+  "about_us": {
     "description": "Vocdoni delivers secure, privacy-first digital voting technology that empowers communities, associations, and institutions to make collective decisions with complete transparency and trust. We're building a world where democratic participation happens anywhere, from any device—no intermediaries, no barriers.",
     "eyebrow": "About Vocdoni",
-    "featureCards": {
+    "feature_cards": {
       "accessibility": {
         "description": "Fair, transparent decision-making shouldn't be a luxury—it's a fundamental right we deliver",
         "title": "Accessible Governance"
@@ -16,9 +16,9 @@
         "title": "Maximum Security"
       }
     },
-    "imageAlt": "Digital voting technology and secure democracy",
-    "readMore": "Read more",
-    "statCards": {
+    "image_alt": "Digital voting technology and secure democracy",
+    "read_more": "Read more",
+    "stat_cards": {
       "affordable": {
         "description": "Cost-effective solutions compared to traditional platforms",
         "title": "10x More Affordable"
@@ -47,14 +47,14 @@
     "accept": "cookies.accept",
     "aria_label": "Cookies consent banner",
     "description": "cookies.description",
-    "learnMore": "cookies.learnMore",
+    "learn_more": "cookies.learn_more",
     "reject": "cookies.reject",
     "title": "cookies.title"
   },
   "cta": {
     "button": "Launch Vocdoni App",
     "description": "Join organizations worldwide using Vocdoni for secure, transparent, and anonymous digital voting. Start your journey to decentralized democracy today.",
-    "imageAlt": "Website Mockups Grid",
+    "image_alt": "Website Mockups Grid",
     "title": "Ready to Transform Your Voting Process?"
   },
   "features": {
@@ -115,42 +115,42 @@
   },
   "hero": {
     "badge": {
-      "descriptionLong": "An easy-to-use platform for voting",
-      "descriptionShort": "Vote easily",
+      "description_long": "An easy-to-use platform for voting",
+      "description_short": "Vote easily",
       "label": "Vocdoni App"
     },
-    "ctaPrimary": "Get Started",
-    "ctaSecondary": "Chat with us",
-    "dynamicWords": [
+    "cta_primary": "Get Started",
+    "cta_secondary": "Chat with us",
+    "dynamic_words": [
       "easy",
       "secure",
       "simple"
     ],
     "subtitle": "Vocdoni builds secure online voting technology that makes every voice count.",
     "title": "Making decisions has never been this",
-    "trustedBy": "Trusted by innovative organizations"
+    "trusted_by": "Trusted by innovative organizations"
   },
-  "heroCards": {
+  "hero_cards": {
     "abstain": "Abstain",
-    "activeElection": "Active Election",
-    "censusCreation": "Census Creation",
-    "electionCloses": "Voting closes in 24h",
-    "electionTitle": "General Assembly 2025",
+    "active_election": "Active Election",
+    "census_creation": "Census Creation",
+    "election_closes": "Voting closes in 24h",
+    "election_title": "General Assembly 2025",
     "eligible": "Eligible",
-    "legallyValid": "Legally Valid",
-    "nameLabel": "Name",
-    "notEligible": "Not eligible",
+    "legally_valid": "Legally Valid",
+    "name_label": "Name",
+    "not_eligible": "Not eligible",
     "participation": "Participation",
-    "statusLabel": "Status",
+    "status_label": "Status",
     "step1": "Step 1",
     "step2": "Step 2",
     "step3": "Step 3",
-    "verifiedResults": "Verified Results",
-    "votedJustNow": "voted just now"
+    "verified_results": "Verified Results",
+    "voted_just_now": "voted just now"
   },
   "navbar": {
     "about": "About us",
-    "aboutItems": {
+    "about_items": {
       "careers": {
         "description": "Join us in our journey.",
         "title": "Careers"
@@ -164,23 +164,23 @@
         "title": "Team"
       }
     },
-    "appButton": "App",
+    "app_button": "App",
     "contact": "Contact",
-    "featuredSolution": {
+    "featured_solution": {
       "header": "Featured",
-      "vocdoniApp": {
+      "vocdoni_app": {
         "badge": "Popular",
         "cta": "Try now",
         "description": "Ready-to-use voting platform for immediate deployment",
         "title": "Vocdoni App"
       }
     },
-    "productFeatures": {
-      "customProjects": {
+    "product_features": {
+      "custom_projects": {
         "description": "Tailor-made governance solutions for specific needs and requirements.",
         "title": "Custom Projects"
       },
-      "digitalVotingPlatform": {
+      "digital_voting_platform": {
         "description": "Secure, transparent and verifiable digital voting system for any organization.",
         "title": "Digital Voting Platform"
       },
@@ -190,7 +190,7 @@
       }
     },
     "resources": "Resources",
-    "resourcesItems": {
+    "resources_items": {
       "blog": {
         "description": "Latest articles and updates.",
         "title": "Blog"
@@ -203,20 +203,20 @@
         "description": "How-tos and best practices.",
         "title": "Guides"
       },
-      "successStories": {
+      "success_stories": {
         "description": "Customer case studies and outcomes.",
         "title": "Success stories"
       }
     },
     "solutions": "Solutions",
-    "solutionsHeader": "All Solutions",
+    "solutions_header": "All Solutions",
     "technology": "Technology",
-    "technologyItems": {
-      "blockchainProtocol": {
+    "technology_items": {
+      "blockchain_protocol": {
         "description": "The underlying decentralized ledger ensuring immutability.",
         "title": "Blockchain Protocol"
       },
-      "openSource": {
+      "open_source": {
         "description": "Auditable and transparent code base available for everyone.",
         "title": "Open Source"
       },
@@ -225,23 +225,23 @@
         "title": "Zero Knowledge Proofs"
       }
     },
-    "useCases": "Use cases"
+    "use_cases": "Use cases"
   },
   "previews": {
-    "appPreview": {
-      "castVote": "Cast Vote",
-      "optionA": "Option A",
-      "optionB": "Option B",
-      "optionC": "Option C"
+    "app_preview": {
+      "cast_vote": "Cast Vote",
+      "option_a": "Option A",
+      "option_b": "Option B",
+      "option_c": "Option C"
     },
-    "integrationsPreview": {
+    "integrations_preview": {
       "const": "const",
-      "createElection": "createElection",
+      "create_election": "createElection",
       "import": "import",
       "install": "install @vocdoni/sdk"
     },
-    "projectsPreview": {
-      "activeVoters": "Active Voters",
+    "projects_preview": {
+      "active_voters": "Active Voters",
       "locations": "Locations",
       "turnout": "Turnout"
     }

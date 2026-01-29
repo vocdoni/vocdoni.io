@@ -10,21 +10,21 @@ export default function ProjectsPreview() {
         <div className='flex items-center justify-between text-xs'>
           <div className='flex items-center gap-2'>
             <Users className='size-3.5 text-sky-600 dark:text-sky-400' />
-            <span className='text-muted-foreground'>{t('previews.projectsPreview.activeVoters')}</span>
+            <span className='text-muted-foreground'>{t('previews.projects_preview.active_voters')}</span>
           </div>
           <span className='font-semibold text-sky-600 dark:text-sky-400'>1.2M</span>
         </div>
         <div className='flex items-center justify-between text-xs'>
           <div className='flex items-center gap-2'>
             <TrendingUp className='size-3.5 text-sky-600 dark:text-sky-400' />
-            <span className='text-muted-foreground'>{t('previews.projectsPreview.turnout')}</span>
+            <span className='text-muted-foreground'>{t('previews.projects_preview.turnout')}</span>
           </div>
           <span className='font-semibold text-sky-600 dark:text-sky-400'>87%</span>
         </div>
         <div className='flex items-center justify-between text-xs'>
           <div className='flex items-center gap-2'>
             <Globe className='size-3.5 text-sky-600 dark:text-sky-400' />
-            <span className='text-muted-foreground'>{t('previews.projectsPreview.locations')}</span>
+            <span className='text-muted-foreground'>{t('previews.projects_preview.locations')}</span>
           </div>
           <span className='font-semibold text-sky-600 dark:text-sky-400'>45</span>
         </div>

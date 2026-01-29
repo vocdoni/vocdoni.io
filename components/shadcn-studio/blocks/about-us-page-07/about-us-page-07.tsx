@@ -25,9 +25,9 @@ const AboutUs = ({ statCards, featureCards }: { statCards: StatCard; featureCard
           <div className='space-y-10'>
             <MotionPreset fade blur slide delay={0} transition={{ duration: 0.5 }} inView inViewOnce>
               <div className='space-y-4'>
-                <p className='text-primary text-sm font-medium uppercase'>{t('aboutUs.eyebrow')}</p>
-                <h2 className='text-2xl font-semibold md:text-3xl lg:text-4xl'>{t('aboutUs.title')}</h2>
-                <p className='text-muted-foreground text-xl'>{t('aboutUs.description')}</p>
+                <p className='text-primary text-sm font-medium uppercase'>{t('about_us.eyebrow')}</p>
+                <h2 className='text-2xl font-semibold md:text-3xl lg:text-4xl'>{t('about_us.title')}</h2>
+                <p className='text-muted-foreground text-xl'>{t('about_us.description')}</p>
               </div>
             </MotionPreset>
 
@@ -57,7 +57,7 @@ const AboutUs = ({ statCards, featureCards }: { statCards: StatCard; featureCard
             <MotionPreset fade blur slide delay={0.5} transition={{ duration: 0.5 }} inView inViewOnce>
               <Button asChild size='lg' className='group rounded-lg text-base has-[>svg]:px-6'>
                 <Link href='#' variant='inlineIcon'>
-                  {t('aboutUs.readMore')}
+                  {t('about_us.read_more')}
                   <ArrowRightIcon className='transition-transform duration-200 group-hover:translate-x-0.5' />
                 </Link>
               </Button>
@@ -67,7 +67,7 @@ const AboutUs = ({ statCards, featureCards }: { statCards: StatCard; featureCard
           <MotionPreset fade blur slide delay={0.6} transition={{ duration: 0.5 }} inView inViewOnce>
             <img
               src='/assets/about_vocdoni.webp'
-              alt={t('aboutUs.imageAlt')}
+              alt={t('about_us.image_alt')}
               className='h-full max-h-175 w-full rounded-md object-cover'
             />
           </MotionPreset>
