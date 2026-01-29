@@ -137,6 +137,9 @@ dist
 # Vercel
 .vercel/
 
+# Git worktrees
+.worktrees/
+
 # Sentry Vite Plugin
 .env.sentry-build-plugin
 
