@@ -1,6 +1,7 @@
 import { ArrowRightIcon, CheckCircleIcon } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 
+import aboutVocdoniImage from '@/assets/about_vocdoni.webp'
 import { Link } from '@/components/Link'
 import { Button } from '@/components/ui/button'
 import { Card, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
@@ -66,7 +67,7 @@ const AboutUs = ({ statCards, featureCards }: { statCards: StatCard; featureCard
 
           <MotionPreset fade blur slide delay={0.6} transition={{ duration: 0.5 }} inView inViewOnce>
             <img
-              src='/assets/about_vocdoni.webp'
+              src={aboutVocdoniImage}
               alt={t('about_us.image_alt')}
               className='h-full max-h-175 w-full rounded-md object-cover'
             />

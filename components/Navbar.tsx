@@ -1,3 +1,8 @@
+import { ArrowRight } from 'lucide-react'
+import * as React from 'react'
+import { useTranslation } from 'react-i18next'
+
+import appImage from '@/assets/navbar_app_highlight.webp'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import {
@@ -9,9 +14,6 @@ import {
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from '@/components/ui/navigation-menu'
-import { ArrowRight } from 'lucide-react'
-import * as React from 'react'
-import { useTranslation } from 'react-i18next'
 
 // Example data
 const buildProductFeatures = (t: (key: string) => string) => [
@@ -168,11 +170,7 @@ export function Navbar() {
                       <Link href={featuredSolution.href} target='_blank' rel='noopener noreferrer' variant='card'>
                         <div className='relative h-full'>
                           {/* App highlight image */}
-                          <img
-                            src='/assets/navbar_app_highlight.webp'
-                            alt='Vocdoni App'
-                            className='aspect-video w-full object-cover'
-                          />
+                          <img src={appImage} alt='Vocdoni App' className='aspect-video w-full object-cover' />
                           {/* Gradient overlay */}
                           <span className='absolute inset-0 bg-gradient-to-t from-black/60 to-transparent' />
                           {/* Content overlay */}
