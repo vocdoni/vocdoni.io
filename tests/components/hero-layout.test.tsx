@@ -25,9 +25,9 @@ vi.mock('framer-motion', () => ({
   motion: new Proxy(
     {},
     {
-      get: () =>
-        ({ children, ...props }: { children?: React.ReactNode }) =>
-          <div {...props}>{children}</div>,
+      get:
+        () =>
+        ({ children, ...props }: { children?: React.ReactNode }) => <div {...props}>{children}</div>,
     }
   ),
 }))

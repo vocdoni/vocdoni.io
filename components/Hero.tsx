@@ -47,12 +47,7 @@ const Hero = () => {
           {/* Left Column: Content */}
           <div className='flex flex-col items-start gap-6 relative z-10 w-full min-w-0'>
             <MotionPreset fade blur slide delay={0} transition={{ duration: 0.5 }}>
-              <Link
-                href='https://app.vocdoni.io'
-                target='_blank'
-                rel='noopener noreferrer'
-                variant='heroBadge'
-              >
+              <Link href='https://app.vocdoni.io' target='_blank' rel='noopener noreferrer' variant='heroBadge'>
                 <span className='bg-foreground text-background px-2.5 py-0.5 rounded-full font-semibold shrink-0 flex items-center gap-1.5'>
                   <span className='relative flex h-2 w-2'>
                     <span className='animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75'></span>

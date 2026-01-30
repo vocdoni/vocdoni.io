@@ -42,11 +42,11 @@ const Header = ({ navigationData, className }: HeaderProps) => {
         className
       )}
     >
-        <div className='mx-auto flex h-full max-w-7xl items-center justify-between gap-6 px-4 sm:px-6 lg:px-8'>
-          {/* Logo */}
-          <Link href='#' variant='unstyled'>
-            <Logo className='gap-3' />
-          </Link>
+      <div className='mx-auto flex h-full max-w-7xl items-center justify-between gap-6 px-4 sm:px-6 lg:px-8'>
+        {/* Logo */}
+        <Link href='#' variant='unstyled'>
+          <Logo className='gap-3' />
+        </Link>
 
         {/* Navigation */}
         <HeroNavigation02 navigationData={navigationData} className='max-lg:hidden' />

@@ -2,14 +2,6 @@ import { locales } from '@/locales'
 
 const allJson = import.meta.glob('/locales/*/*.json', { eager: true, import: 'default' }) as Record<string, any>
 
-declare global {
-  namespace Vike {
-    interface PageContext {
-      locale: string
-    }
-  }
-}
-
 const buildStore = (locale: string) => {
   const ns: Record<string, any> = {}
   for (const [p, data] of Object.entries(allJson)) {

@@ -66,7 +66,12 @@ const ContactUs = () => {
                     <div className='space-y-4'>
                       {/* WhatsApp Button */}
                       <Button variant='secondary' size='lg' className='w-full justify-start gap-4' asChild>
-                        <Link href='https://wa.me/34621501155' target='_blank' rel='noopener noreferrer' variant='unstyled'>
+                        <Link
+                          href='https://wa.me/34621501155'
+                          target='_blank'
+                          rel='noopener noreferrer'
+                          variant='unstyled'
+                        >
                           <MessageCircleIcon className='size-6 shrink-0' />
                           Chat on WhatsApp
                         </Link>
@@ -74,7 +79,12 @@ const ContactUs = () => {
 
                       {/* Cal.com Schedule Button */}
                       <Button variant='secondary' size='lg' className='w-full justify-start gap-4' asChild>
-                        <Link href='https://cal.com/vocdoni' target='_blank' rel='noopener noreferrer' variant='unstyled'>
+                        <Link
+                          href='https://cal.com/vocdoni'
+                          target='_blank'
+                          rel='noopener noreferrer'
+                          variant='unstyled'
+                        >
                           <CalendarIcon className='size-6 shrink-0' />
                           Schedule a Call
                         </Link>

@@ -34,14 +34,14 @@ function Marquee(props: MarqueeProps) {
         {
           '--marquee-duration': `${duration}s`,
           '--marquee-delay': `${delay}s`,
-          '--marquee-gap': `${gap}rem`
+          '--marquee-gap': `${gap}rem`,
         } as React.CSSProperties
       }
       className={cn(
         'group flex gap-(--marquee-gap) overflow-hidden p-3',
         {
           'flex-row': !vertical,
-          'flex-col': vertical
+          'flex-col': vertical,
         },
         className
       )}
@@ -56,7 +56,7 @@ function Marquee(props: MarqueeProps) {
               'animate-marquee-horizontal flex-row': !vertical,
               'animate-marquee-vertical flex-col': vertical,
               'group-hover:[animation-play-state:paused]': pauseOnHover,
-              '[animation-direction:reverse]': reverse
+              '[animation-direction:reverse]': reverse,
             })}
           >
             {children}

@@ -10,3 +10,14 @@ declare const EMAILJS_TEMPLATE_ID: string
 declare const RECAPTCHA_SITE_KEY: string
 // Wasaaaapp
 declare const WHATSAPP_PHONE_NUMBER: string
+// Extend Vike types
+declare namespace Vike {
+  interface PageContext {
+    locale?: string
+    initialLocale?: string
+    initialI18nStore?: Record<string, any>
+  }
+
+  interface PageContextServer extends PageContext {}
+  interface PageContextClient extends PageContext {}
+}

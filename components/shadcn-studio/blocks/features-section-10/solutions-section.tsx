@@ -87,7 +87,12 @@ const Solutions = () => {
                     size='lg'
                     asChild
                   >
-                    <Link href='https://developer.vocdoni.io/sdk' target='_blank' rel='noopener noreferrer' variant='inlineIcon'>
+                    <Link
+                      href='https://developer.vocdoni.io/sdk'
+                      target='_blank'
+                      rel='noopener noreferrer'
+                      variant='inlineIcon'
+                    >
                       {t('features.cards.integrations.cta')}
                       <ArrowRightIcon className='transition-transform duration-200 group-hover:translate-x-0.5' />
                     </Link>

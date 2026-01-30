@@ -28,7 +28,7 @@ const StatisticsCard = ({
   changePercentage,
   badgeContent,
   className,
-  iconClassName
+  iconClassName,
 }: StatisticsCardProps) => {
   return (
     <Card className={cn('gap-4', className)}>

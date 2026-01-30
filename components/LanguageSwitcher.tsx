@@ -2,7 +2,6 @@ import { Link } from '@/components/Link'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
 import { setLocalePreference } from '@/lib/localeDetection'
 import { getLocalizedPath, stripLocaleFromPath } from '@/lib/localized-path'
-import { SECTIONS_CONFIG, useUrlSync } from '@/lib/useUrlSync'
 import { availableLocales, Locale } from '@/locales'
 import { Check, Globe } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
@@ -22,23 +21,8 @@ export function LanguageSwitcher() {
   const { i18n } = useTranslation()
   const pageContext = usePageContext() as LanguageSwitcherPageContext
   const current = i18n.language.split('-')[0] as Locale
-  const { getCurrentSection } = useUrlSync()
 
-  // Get the current path: use section path for landing page sections,
-  // fall back to actual URL for standalone pages like /terms
-  const getCurrentPath = () => {
-    const urlLogical = pageContext?.urlLogical || '/'
-    const currentSection = getCurrentSection()?.path || '/'
-
-    // Check if current URL is in SECTIONS_CONFIG (i.e., we're on landing page)
-    const isLandingSection = SECTIONS_CONFIG.some((section) => section.path === urlLogical)
-
-    // If on landing page, use section from useUrlSync (updates with scroll)
-    // Otherwise, use actual URL path (for standalone pages)
-    return isLandingSection ? currentSection : urlLogical
-  }
-
-  const currentPath = getCurrentPath()
+  const currentPath = pageContext?.urlLogical || '/'
   const currentOption = availableLocales.find((l) => l.value === current) || availableLocales[0]
 
   return (
