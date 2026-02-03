@@ -108,7 +108,7 @@ const HeroNavigation02 = ({ navigationData, className }: { navigationData: Navig
 
   return (
     <div className={cn('flex items-center', className)}>
-      <NavigationMenu viewport={false}>
+      <NavigationMenu>
         <NavigationMenuList className='flex-wrap gap-0'>
           {navigationData.map((navItem) => {
             // Simple link (no dropdown)

@@ -35,7 +35,7 @@ describe('LanguageSwitcher', () => {
     mockedUrlLogical = '/es/about'
     mockedLocale = 'es'
     const html = renderToStaticMarkup(<LanguageSwitcher />)
-    expect(html).toContain('href="/about"')
+    expect(html).toContain('href="/en/about"')
     expect(html).toContain('href="/es/about"')
   })
 
@@ -43,7 +43,7 @@ describe('LanguageSwitcher', () => {
     mockedUrlLogical = '/es'
     mockedLocale = 'es'
     const html = renderToStaticMarkup(<LanguageSwitcher />)
-    expect(html).toContain('href="/"')
+    expect(html).toContain('href="/en"')
     expect(html).toContain('href="/es"')
   })
 
@@ -51,7 +51,7 @@ describe('LanguageSwitcher', () => {
     mockedUrlLogical = '/es'
     mockedLocale = 'es'
     const html = renderToStaticMarkup(<LanguageSwitcher />)
-    const classMatch = html.match(/href="\/"\s+class="([^"]+)"/)
+    const classMatch = html.match(/href="\/en"\s+class="([^"]+)"/)
     expect(classMatch).not.toBeNull()
     const classList = classMatch ? classMatch[1] : ''
     const cursorClasses = classList.match(/cursor-[^\s"]+/g) || []

@@ -23,10 +23,6 @@ export function getLocalizedPath(path: string, locale: Locale) {
 
   const normalized = normalizePath(path)
 
-  if (locale === localeDefault) {
-    return normalized
-  }
-
   if (hasLocalePrefix(normalized)) {
     return normalized
   }

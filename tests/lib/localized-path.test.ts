@@ -3,8 +3,8 @@ import { getLocalizedPath, stripLocaleFromPath } from '@/lib/localized-path'
 
 describe('getLocalizedPath', () => {
   it('returns raw path when default locale is used', () => {
-    expect(getLocalizedPath('/contact', 'en')).toBe('/contact')
-    expect(getLocalizedPath('/', 'en')).toBe('/')
+    expect(getLocalizedPath('/contact', 'en')).toBe('/en/contact')
+    expect(getLocalizedPath('/', 'en')).toBe('/en')
   })
 
   it('prefixes non-default locales', () => {
