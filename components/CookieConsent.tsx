@@ -88,20 +88,23 @@ export function CookieConsent() {
       <Alert className='bg-background shadow-xl border-2'>
         <div className='flex flex-col lg:flex-row lg:items-center gap-4'>
           <div className='flex-1 space-y-2'>
-            <AlertTitle className='text-base font-semibold'>{t('cookies.title')}</AlertTitle>
+            <AlertTitle className='text-base font-semibold'>{t('cookies.title', 'Cookie Consent')}</AlertTitle>
             <AlertDescription className='text-sm text-muted-foreground'>
-              {t('cookies.description')}{' '}
+              {t(
+                'cookies.description',
+                'We use cookies and analytics tools to improve your experience and understand how you interact with our website. You can choose to accept or reject cookies.'
+              )}
               <Link href='/privacy' className='underline hover:text-foreground font-medium'>
-                {t('cookies.learn_more')}
+                {t('cookies.learn_more', 'Learn more')}
               </Link>
             </AlertDescription>
           </div>
           <div className='flex gap-2 lg:flex-shrink-0'>
             <Button variant='outline' onClick={handleReject} className='min-w-[100px]'>
-              {t('cookies.reject')}
+              {t('cookies.reject', 'Reject')}
             </Button>
             <Button onClick={handleAccept} className='min-w-[100px]'>
-              {t('cookies.accept')}
+              {t('cookies.accept', 'Accept all')}
             </Button>
           </div>
         </div>
