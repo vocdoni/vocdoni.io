@@ -1,4 +1,3 @@
-import React from 'react'
 import { renderToStaticMarkup } from 'react-dom/server'
 import { beforeEach, describe, expect, it } from 'vitest'
 
@@ -16,8 +15,7 @@ type PartialPageContext = {
   }
 }
 
-const renderHead = (pageContext: PartialPageContext) =>
-  renderToStaticMarkup(HeadDefault(pageContext as any))
+const renderHead = (pageContext: PartialPageContext) => renderToStaticMarkup(HeadDefault(pageContext as any))
 
 describe('Head meta tags', () => {
   beforeEach(() => {

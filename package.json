@@ -4,7 +4,7 @@
     "build": "vike build",
     "preview": "vike preview",
     "shadcn": "npx shadcn@latest",
-    "lint": "prettier --check .",
+    "lint": "tsc && prettier --check ./{components,lib,layouts,pages,plugins,tests}",
     "test": "vitest run",
     "translations": "i18next-cli extract",
     "prerender": "vike prerender"

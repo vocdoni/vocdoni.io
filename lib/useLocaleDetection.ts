@@ -19,8 +19,7 @@ export function useLocaleDetection(currentLocale: string, urlLogical: string) {
     if (!isClient) return
 
     const currentPath = window.location.pathname
-    const isDefaultLocalePath =
-      currentPath === `/${localeDefault}` || currentPath.startsWith(`/${localeDefault}/`)
+    const isDefaultLocalePath = currentPath === `/${localeDefault}` || currentPath.startsWith(`/${localeDefault}/`)
 
     // Only detect/redirect from default locale pages
     // If user is on /es/ or /ca/, assume it's intentional

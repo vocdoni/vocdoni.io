@@ -1,4 +1,5 @@
-import { localeDefault, locales } from '@/locales'
+import { locales } from '@/locales'
+import { stripLocaleFromPath } from '@/lib/localized-path'
 import { PrerenderContext } from 'vike/types'
 
 export const onPrerenderStart = async (prerenderContext: PrerenderContext) => {
@@ -7,12 +8,8 @@ export const onPrerenderStart = async (prerenderContext: PrerenderContext) => {
   // For each discovered page, create a version for each locale
   prerenderContext.pageContexts.forEach((pageContext) => {
     locales.forEach((locale) => {
-      let { urlOriginal } = pageContext
-
-      // For non-default locales, prepend the locale to the URL
-      if (locale !== localeDefault) {
-        urlOriginal = `/${locale}${urlOriginal}`
-      }
+      const basePath = stripLocaleFromPath(pageContext.urlOriginal)
+      const urlOriginal = basePath === '/' ? `/${locale}` : `/${locale}${basePath}`
 
       pageContexts.push({
         ...pageContext,
