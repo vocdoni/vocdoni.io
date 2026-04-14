@@ -1,5 +1,6 @@
 import { CalendarIcon, MailIcon, MessageCircleIcon } from 'lucide-react'
 
+import { CalBookingDialog } from '@/components/CalBookingDialog'
 import { Link } from '@/components/Link'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
@@ -10,7 +11,7 @@ import ContactForm from '@/components/shadcn-studio/blocks/contact-us-page-02/co
 const ContactUs = () => {
   return (
     <div className='min-h-screen bg-gradient-to-b from-background to-muted'>
-      <section className='relative py-16 sm:py-24 lg:py-32'>
+      <section className='relative pt-6 pb-16 sm:pt-10 sm:pb-20 lg:pt-12 lg:pb-24'>
         <div className='mx-auto max-w-7xl px-4 sm:px-6 lg:px-8'>
           <div className='mx-auto max-w-4xl text-center mb-12 sm:mb-16 lg:mb-20'>
             <MotionPreset
@@ -78,17 +79,15 @@ const ContactUs = () => {
                       </Button>
 
                       {/* Cal.com Schedule Button */}
-                      <Button variant='secondary' size='lg' className='w-full justify-start gap-4' asChild>
-                        <Link
-                          href='https://cal.com/vocdoni'
-                          target='_blank'
-                          rel='noopener noreferrer'
-                          variant='unstyled'
-                        >
+                      <CalBookingDialog
+                        className='inline-flex h-11 w-full items-center justify-start gap-4 rounded-md bg-secondary px-8 text-sm font-medium text-secondary-foreground transition-colors hover:bg-secondary/80'
+                        triggerAriaLabel='Open schedule a call booking'
+                      >
+                        <>
                           <CalendarIcon className='size-6 shrink-0' />
                           Schedule a Call
-                        </Link>
-                      </Button>
+                        </>
+                      </CalBookingDialog>
                     </div>
 
                     <div className='pt-4 border-t border-primary-foreground/20'>

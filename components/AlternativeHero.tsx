@@ -7,11 +7,11 @@ import { useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 // Import logos from assets
-import logo1 from '@/assets/logo1.png'
-import logo2 from '@/assets/logo2.png'
-import logo3 from '@/assets/logo3.png'
-import logo4 from '@/assets/logo4.png'
-import logo5 from '@/assets/logo5.png'
+import logo1 from '@/assets/logos/logo_alhora_bw.png'
+import logo2 from '@/assets/logos/logo_bcn_bw.png'
+import logo3 from '@/assets/logos/logo_berga_bw.png'
+import logo4 from '@/assets/logos/logo_bisbal_bw.png'
+import logo5 from '@/assets/logos/logo_bellpuig_bw.png'
 
 const logos = [
   { name: 'Sovereign', url: logo1 },
@@ -39,8 +39,8 @@ export default function AlternativeHero() {
   }, [dynamicWords.length])
 
   return (
-    <section className='relative w-full min-h-screen flex items-center justify-center pb-12 px-4 md:px-8'>
-      <div className='container mx-auto max-w-7xl'>
+    <section className='relative w-full pt-6 pb-20 lg:pt-10 lg:pb-28 px-4 md:px-8'>
+      <div className='container mx-auto max-w-screen-2xl'>
         <div className='grid gap-12 lg:grid-cols-2 lg:gap-8 items-center w-full min-w-0'>
           {/* Left Column: Content */}
           <div className='flex flex-col items-start gap-6 relative z-10 w-full min-w-0'>
@@ -59,7 +59,7 @@ export default function AlternativeHero() {
               </span>
             </Link>
 
-            <h1 className='text-3xl font-bold tracking-tight sm:text-5xl lg:text-6xl max-w-2xl break-words'>
+            <h1 className='text-2xl font-bold tracking-tight sm:text-3xl lg:text-4xl max-w-2xl break-words text-balance'>
               {t('hero.title')}{' '}
               <span className='inline-flex min-w-[0px] xs:min-w-[120px] text-primary'>
                 <AnimatePresence mode='wait'>
@@ -144,7 +144,7 @@ export default function AlternativeHero() {
           {/* Right Column: Scroll Triggered Cards */}
           <div className='relative w-full lg:h-[600px] perspective-1000'>
             {/* Decorative background blotches */}
-            <div className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/5 rounded-full blur-[120px] -z-10' />
+            <div className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90vw] max-w-[600px] aspect-square bg-primary/5 rounded-full blur-[80px] lg:blur-[120px] -z-10' />
 
             <div className='hidden lg:block relative w-full h-full'>
               <ScrollTriggeredCards />

@@ -81,6 +81,12 @@ export default function HeadDefault(pageContext: PageContext) {
   return (
     <>
       <script type='application/ld+json'>{JSON.stringify([organizationSchema, websiteSchema])}</script>
+      <link rel='preconnect' href='https://fonts.googleapis.com' />
+      <link rel='preconnect' href='https://fonts.gstatic.com' crossOrigin='anonymous' />
+      <link
+        href='https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300..800;1,300..800&family=JetBrains+Mono:wght@400..800&family=Lora:ital,wght@0,400..700;1,400..700&display=swap'
+        rel='stylesheet'
+      />
       <link rel='canonical' href={canonicalUrl} />
       {locales.map((hrefLang) => (
         <link

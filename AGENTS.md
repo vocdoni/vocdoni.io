@@ -28,6 +28,11 @@
 - Files: Vike `+` files use Vike conventions (e.g., `pages/+config.ts`).
 - React components use PascalCase; hooks use `useX`.
 
+## Copy & Typography Content Guidelines
+
+- strictly use **sentence case** everywhere on the site (only the first word of any string/title is capitalized) unless the word is a proper noun, an acronym (e.g. GDPR, SDK), or the brand "Vocdoni". Do not use title case for component titles, menus, or features.
+- **Never use an em dash (`—`)**. Substitute with a spaced en dash (` - `) or structure the sentence differently.
+
 ## Component Reusability & Variants
 
 - Prefer reusable components with clear variants (e.g., size, tone, layout) over repeated Tailwind class blocks.

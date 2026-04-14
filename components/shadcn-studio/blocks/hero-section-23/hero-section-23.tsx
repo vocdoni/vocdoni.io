@@ -55,7 +55,7 @@ const HeroSection = ({ avatars }: { avatars: Avatar }) => {
                 <span className='text-muted-foreground'>Solution for client-facing businesses</span>
               </MotionPreset>
               <MotionPreset fade slide={{ offset: 50 }} blur transition={{ duration: 0.5 }} delay={0.3}>
-                <h1 className='inline max-w-3xl text-3xl leading-[1.29167] font-bold sm:text-4xl lg:text-5xl'>
+                <h1 className='inline max-w-3xl text-2xl leading-[1.29167] font-bold sm:text-3xl lg:text-4xl text-balance'>
                   Turn customer data into product{' '}
                   <WordRotate words={words} duration={2000} className='inline-block w-fit overflow-visible py-0' />
                 </h1>

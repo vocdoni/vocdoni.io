@@ -79,8 +79,8 @@ export function CookieConsent() {
   return (
     <div
       className={cn(
-        'fixed bottom-0 left-1/2 -translate-x-1/2 z-[60]',
-        'w-full max-w-4xl px-4 pt-4 animate-in slide-in-from-top-5'
+        'fixed bottom-4 left-1/2 -translate-x-1/2 z-[60]',
+        'w-full max-w-4xl px-4 animate-in slide-in-from-top-5'
       )}
       role='dialog'
       aria-label={t('cookies.aria_label', 'Cookies consent banner')}

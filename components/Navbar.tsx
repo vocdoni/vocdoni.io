@@ -3,8 +3,11 @@ import * as React from 'react'
 import { useTranslation } from 'react-i18next'
 
 import appImage from '@/assets/navbar_app_highlight.webp'
+import { CalBookingDialog } from '@/components/CalBookingDialog'
+import { Link } from '@/components/Link'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -14,25 +17,50 @@ import {
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from '@/components/ui/navigation-menu'
+import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
+import { Menu } from 'lucide-react'
+import LanguageSwitcher from './LanguageSwitcher'
+import VocdoniLogo from './Logo'
 
-// Example data
-const buildProductFeatures = (t: (key: string) => string) => [
-  {
-    title: t('navbar.product_features.digital_voting_platform.title'),
-    href: '/product/voting-platform',
-    description: t('navbar.product_features.digital_voting_platform.description'),
-  },
-  {
-    title: t('navbar.product_features.sdk.title'),
-    href: '/product/sdk',
-    description: t('navbar.product_features.sdk.description'),
-  },
-  {
-    title: t('navbar.product_features.custom_projects.title'),
-    href: '/product/custom',
-    description: t('navbar.product_features.custom_projects.description'),
-  },
-]
+type ProductFeature =
+  | {
+      title: string
+      description: string
+      kind: 'link'
+      href: string
+      target?: string
+      rel?: string
+    }
+  | {
+      title: string
+      description: string
+      kind: 'booking'
+      triggerAriaLabel: string
+    }
+
+const buildProductFeatures = (t: (key: string) => string) =>
+  [
+    {
+      title: t('navbar.product_features.digital_voting_platform.title'),
+      kind: 'link' as const,
+      href: '/app',
+      description: t('navbar.product_features.digital_voting_platform.description'),
+    },
+    {
+      title: t('navbar.product_features.sdk.title'),
+      kind: 'link' as const,
+      href: 'https://developer.vocdoni.io/sdk',
+      target: '_blank',
+      rel: 'noopener noreferrer',
+      description: t('navbar.product_features.sdk.description'),
+    },
+    {
+      title: t('navbar.product_features.custom_projects.title'),
+      kind: 'booking' as const,
+      triggerAriaLabel: 'Open custom project booking',
+      description: t('navbar.product_features.custom_projects.description'),
+    },
+  ] satisfies ProductFeature[]
 
 const buildFeaturedSolution = (t: (key: string) => string) => ({
   title: t('navbar.featured_solution.vocdoni_app.title'),
@@ -41,42 +69,6 @@ const buildFeaturedSolution = (t: (key: string) => string) => ({
   cta: t('navbar.featured_solution.vocdoni_app.cta'),
   badge: t('navbar.featured_solution.vocdoni_app.badge'),
 })
-
-const buildTechnologyItems = (t: (key: string) => string) => [
-  {
-    title: t('navbar.technology_items.blockchain_protocol.title'),
-    href: '/technology/protocol',
-    description: t('navbar.technology_items.blockchain_protocol.description'),
-  },
-  {
-    title: t('navbar.technology_items.zkp.title'),
-    href: '/technology/zkp',
-    description: t('navbar.technology_items.zkp.description'),
-  },
-  {
-    title: t('navbar.technology_items.open_source.title'),
-    href: 'https://github.com/vocdoni',
-    description: t('navbar.technology_items.open_source.description'),
-  },
-]
-
-const buildAboutItems = (t: (key: string) => string) => [
-  {
-    title: t('navbar.about_items.mission.title'),
-    href: '/about/mission',
-    description: t('navbar.about_items.mission.description'),
-  },
-  {
-    title: t('navbar.about_items.team.title'),
-    href: '/about/team',
-    description: t('navbar.about_items.team.description'),
-  },
-  {
-    title: t('navbar.about_items.careers.title'),
-    href: '/about/careers',
-    description: t('navbar.about_items.careers.description'),
-  },
-]
 
 const buildResourcesItems = (t: (key: string) => string) => [
   {
@@ -92,11 +84,6 @@ const buildResourcesItems = (t: (key: string) => string) => [
     description: t('navbar.resources_items.success_stories.description'),
   },
   {
-    title: t('navbar.resources_items.guides.title'),
-    href: '/guides',
-    description: t('navbar.resources_items.guides.description'),
-  },
-  {
     title: t('navbar.resources_items.docs.title'),
     href: 'https://developer.vocdoni.io',
     target: '_blank',
@@ -105,26 +92,17 @@ const buildResourcesItems = (t: (key: string) => string) => [
   },
 ]
 
-import { Link } from '@/components/Link'
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
-import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
-import { Menu } from 'lucide-react'
-import LanguageSwitcher from './LanguageSwitcher'
-import VocdoniLogo from './Logo'
-
 export function Navbar() {
   const { t } = useTranslation()
   const [isOpen, setIsOpen] = React.useState(false)
 
   const productFeatures = React.useMemo(() => buildProductFeatures(t), [t])
   const featuredSolution = React.useMemo(() => buildFeaturedSolution(t), [t])
-  const technologyItems = React.useMemo(() => buildTechnologyItems(t), [t])
-  const aboutItems = React.useMemo(() => buildAboutItems(t), [t])
   const resourcesItems = React.useMemo(() => buildResourcesItems(t), [t])
 
   return (
     <div className='fixed top-6 left-0 right-0 z-50 flex justify-center px-4 w-full cursor-none pointer-events-none'>
-      <header className='pointer-events-auto flex items-center justify-between gap-4 rounded-full border border-border/40 bg-background/80 px-4 py-2 shadow-sm backdrop-blur-md md:gap-8 min-w-fit max-w-[95vw] transition-all duration-300'>
+      <header className='cursor-default pointer-events-auto flex items-center justify-between gap-4 rounded-full border border-border/40 bg-background/80 px-4 py-2 shadow-sm backdrop-blur-md md:gap-8 min-w-fit max-w-[95vw] transition-all duration-300'>
         {/* Logo */}
         <div className='pointer-events'>
           <Link href='/' variant='unstyled'>
@@ -149,14 +127,26 @@ export function Navbar() {
                       <ul className='space-y-0.5'>
                         {productFeatures.map((item) => (
                           <li key={item.title}>
-                            <NavigationMenuLink asChild>
-                              <Link href={item.href} variant='navbarItem'>
+                            {item.kind === 'link' ? (
+                              <NavigationMenuLink asChild>
+                                <Link href={item.href} target={item.target} rel={item.rel} variant='navbarItem'>
+                                  <div className='text-sm font-medium leading-none'>{item.title}</div>
+                                  <p className='line-clamp-2 text-sm leading-snug text-muted-foreground'>
+                                    {item.description}
+                                  </p>
+                                </Link>
+                              </NavigationMenuLink>
+                            ) : (
+                              <CalBookingDialog
+                                className='block w-full select-none space-y-1 rounded-md p-3 text-left leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:bg-accent focus-visible:text-accent-foreground'
+                                triggerAriaLabel={item.triggerAriaLabel}
+                              >
                                 <div className='text-sm font-medium leading-none'>{item.title}</div>
                                 <p className='line-clamp-2 text-sm leading-snug text-muted-foreground'>
                                   {item.description}
                                 </p>
-                              </Link>
-                            </NavigationMenuLink>
+                              </CalBookingDialog>
+                            )}
                           </li>
                         ))}
                       </ul>
@@ -202,18 +192,16 @@ export function Navbar() {
               </Link>
             </NavigationMenuItem>
 
-            {/* Technology */}
             <NavigationMenuItem>
-              <NavigationMenuTrigger>{t('navbar.technology')}</NavigationMenuTrigger>
-              <NavigationMenuContent>
-                <ul className='grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]'>
-                  {technologyItems.map((item) => (
-                    <ListItem key={item.title} title={item.title} href={item.href}>
-                      {item.description}
-                    </ListItem>
-                  ))}
-                </ul>
-              </NavigationMenuContent>
+              <Link
+                href='https://davinci.vote'
+                target='_blank'
+                rel='noopener noreferrer'
+                variant='unstyled'
+                className={navigationMenuTriggerStyle()}
+              >
+                {t('navbar.technology')}
+              </Link>
             </NavigationMenuItem>
 
             {/* Resources (replaces Success stories) */}
@@ -232,16 +220,9 @@ export function Navbar() {
 
             {/* About Us */}
             <NavigationMenuItem>
-              <NavigationMenuTrigger>{t('navbar.about')}</NavigationMenuTrigger>
-              <NavigationMenuContent>
-                <ul className='grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]'>
-                  {aboutItems.map((item) => (
-                    <ListItem key={item.title} title={item.title} href={item.href}>
-                      {item.description}
-                    </ListItem>
-                  ))}
-                </ul>
-              </NavigationMenuContent>
+              <Link href='/about-us' variant='unstyled' className={navigationMenuTriggerStyle()}>
+                {t('navbar.about')}
+              </Link>
             </NavigationMenuItem>
 
             <NavigationMenuItem>
@@ -307,25 +288,27 @@ export function Navbar() {
                           </div>
 
                           {/* Regular items */}
-                          {productFeatures.map((item) => (
-                            <Link key={item.title} href={item.href} variant='navbarMobile'>
-                              {item.title}
-                            </Link>
-                          ))}
-                        </div>
-                      </AccordionContent>
-                    </AccordionItem>
-
-                    {/* Technology */}
-                    <AccordionItem value='technology'>
-                      <AccordionTrigger className='text-sm font-medium'>{t('navbar.technology')}</AccordionTrigger>
-                      <AccordionContent>
-                        <div className='flex flex-col space-y-2 pl-4'>
-                          {technologyItems.map((item) => (
-                            <Link key={item.title} href={item.href} variant='navbarMobile'>
-                              {item.title}
-                            </Link>
-                          ))}
+                          {productFeatures.map((item) =>
+                            item.kind === 'link' ? (
+                              <Link
+                                key={item.title}
+                                href={item.href}
+                                target={item.target}
+                                rel={item.rel}
+                                variant='navbarMobile'
+                              >
+                                {item.title}
+                              </Link>
+                            ) : (
+                              <CalBookingDialog
+                                key={item.title}
+                                className='block py-2 text-left text-sm text-muted-foreground transition-colors hover:text-foreground'
+                                triggerAriaLabel={item.triggerAriaLabel}
+                              >
+                                {item.title}
+                              </CalBookingDialog>
+                            )
+                          )}
                         </div>
                       </AccordionContent>
                     </AccordionItem>
@@ -349,26 +332,18 @@ export function Navbar() {
                         </div>
                       </AccordionContent>
                     </AccordionItem>
-
-                    {/* About Us */}
-                    <AccordionItem value='about'>
-                      <AccordionTrigger className='text-sm font-medium'>{t('navbar.about')}</AccordionTrigger>
-                      <AccordionContent>
-                        <div className='flex flex-col space-y-2 pl-4'>
-                          {aboutItems.map((item) => (
-                            <Link key={item.title} href={item.href} variant='navbarMobile'>
-                              {item.title}
-                            </Link>
-                          ))}
-                        </div>
-                      </AccordionContent>
-                    </AccordionItem>
                   </Accordion>
 
                   {/* Static Links */}
                   <div className='mt-4 flex flex-col space-y-4'>
                     <Link href='/use-cases' variant='navbarStatic'>
                       {t('navbar.use_cases')}
+                    </Link>
+                    <Link href='/about-us' variant='navbarStatic'>
+                      {t('navbar.about')}
+                    </Link>
+                    <Link href='https://davinci.vote' target='_blank' rel='noopener noreferrer' variant='navbarStatic'>
+                      {t('navbar.technology')}
                     </Link>
                     <Link href='/contact' variant='navbarStatic'>
                       {t('navbar.contact')}

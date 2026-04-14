@@ -8,20 +8,7 @@ import { ArrowRight } from 'lucide-react'
 import { useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-// Import logos from assets
-import logo1 from '@/assets/logo1.png'
-import logo2 from '@/assets/logo2.png'
-import logo3 from '@/assets/logo3.png'
-import logo4 from '@/assets/logo4.png'
-import logo5 from '@/assets/logo5.png'
-
-const logos = [
-  { name: 'Sovereign', url: logo1 },
-  { name: 'Trust', url: logo2 },
-  { name: 'Verifiable', url: logo3 },
-  { name: 'Secure', url: logo4 },
-  { name: 'Transparent', url: logo5 },
-]
+import TrustedBySection from '@/components/TrustedBySection'
 
 const fallbackWords = ['easy', 'secure', 'simple']
 
@@ -41,8 +28,8 @@ const Hero = () => {
   }, [dynamicWords.length])
 
   return (
-    <section className='relative w-full min-h-screen flex items-center justify-center pb-12 px-4 md:px-8'>
-      <div className='container mx-auto max-w-7xl'>
+    <section className='relative w-full pt-6 pb-20 lg:pt-10 lg:pb-28 px-4 md:px-8'>
+      <div className='container mx-auto max-w-screen-2xl'>
         <div className='grid gap-12 lg:grid-cols-2 lg:gap-8 items-center w-full min-w-0'>
           {/* Left Column: Content */}
           <div className='flex flex-col items-start gap-6 relative z-10 w-full min-w-0'>
@@ -63,17 +50,17 @@ const Hero = () => {
               </Link>
             </MotionPreset>
 
-            <MotionPreset fade blur slide delay={0.1} transition={{ duration: 0.5 }}>
-              <h1 className='text-3xl font-bold tracking-tight sm:text-5xl lg:text-6xl max-w-2xl break-words'>
+            <MotionPreset fade blur slide delay={0} transition={{ duration: 0.5 }}>
+              <h1 className='text-3xl font-black tracking-tight sm:text-4xl md:text-5xl lg:text-6xl xl:text-[4rem] leading-none max-w-3xl break-words text-foreground text-balance'>
                 {t('hero.title')}{' '}
-                <span className='inline-flex min-w-[0px] xs:min-w-[120px] text-primary'>
+                <span className='inline-flex min-w-[0px] xs:min-w-[120px] text-primary relative'>
                   <AnimatePresence mode='wait'>
                     <motion.span
                       key={index}
-                      initial={{ y: 20, opacity: 0, filter: 'blur(4px)' }}
+                      initial={{ y: 20, opacity: 0, filter: 'blur(10px)' }}
                       animate={{ y: 0, opacity: 1, filter: 'blur(0px)' }}
-                      exit={{ y: -20, opacity: 0, filter: 'blur(4px)' }}
-                      transition={{ duration: 0.5, ease: 'easeOut' }}
+                      exit={{ y: -20, opacity: 0, filter: 'blur(10px)' }}
+                      transition={{ duration: 0.6, ease: [0.25, 1, 0.5, 1] }}
                       className='block'
                     >
                       {dynamicWords[index]}
@@ -136,88 +123,79 @@ const Hero = () => {
             </MotionPreset>
 
             <MotionPreset fade blur slide delay={0.4} transition={{ duration: 0.5 }} className='mt-8 w-full max-w-full'>
-              <p className='text-sm text-muted-foreground mb-4 font-medium'>{t('hero.trusted_by')}</p>
-              <div className='relative w-full max-w-full overflow-hidden mask-gradient-x'>
-                {/* Gradient masks */}
-                <div className='absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-background to-transparent z-10 pointer-events-none'></div>
-                <div className='absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-background to-transparent z-10 pointer-events-none'></div>
-
-                <div className='flex w-max animate-marquee gap-12 items-center hover:paused'>
-                  {[...logos, ...logos, ...logos].map((logo, i) => (
-                    <img
-                      key={i}
-                      src={logo.url}
-                      alt={logo.name}
-                      className='h-10 w-auto object-contain opacity-70 grayscale transition-all duration-300 hover:grayscale-0 hover:opacity-100 dark:invert'
-                    />
-                  ))}
-                </div>
-              </div>
+              <TrustedBySection />
             </MotionPreset>
           </div>
 
           {/* Right Column: Visual Component (3 Steps) */}
-          <div className='relative w-full lg:h-[600px] perspective-1000'>
-            {/* Decorative background blotches */}
-            <div className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/5 rounded-full blur-[120px] -z-10' />
-
-            <div className='hidden lg:block relative w-full h-full'>
-              {/* Step 1: Memberbase / Census (Top Right) */}
+          <div className='hidden lg:flex relative w-full lg:h-full items-center justify-end py-6'>
+            {/* Structural Container */}
+            <div className='relative flex flex-col gap-10 w-full max-w-[420px]'>
+              {/* Vertical connector line */}
               <motion.div
-                className='absolute top-0 right-10 w-72 z-10'
-                initial={{ opacity: 0, y: -30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.2 }}
-              >
-                <CensusCard />
-              </motion.div>
+                className='absolute -left-10 top-[60px] bottom-[60px] w-px bg-gradient-to-b from-primary/0 via-primary/30 to-primary/0 z-0'
+                initial={{ scaleY: 0 }}
+                animate={{ scaleY: 1 }}
+                transition={{ duration: 1.5, ease: 'easeInOut' }}
+                style={{ originY: 0 }}
+              />
 
-              {/* Connector 1 (Census -> Voting) */}
-              <svg className='absolute inset-0 pointer-events-none z-0' width='100%' height='100%'>
-                <motion.path
-                  d='M 390 130 C 390 190, 200 150, 180 200'
-                  fill='none'
-                  stroke='oklch(var(--border))'
-                  strokeWidth='2'
-                  strokeDasharray='4 4'
-                  initial={{ pathLength: 0, opacity: 0 }}
-                  animate={{ pathLength: 1, opacity: 1 }}
-                  transition={{ duration: 1, delay: 1.0 }}
-                />
-              </svg>
-
-              {/* Step 2: Voting Process (Middle Left) */}
+              {/* Data flow particle */}
               <motion.div
-                className='absolute top-[160px] left-8 w-80 z-20'
-                initial={{ opacity: 0, x: -50 }}
+                className='absolute -left-[41px] top-[60px] w-1 h-12 bg-primary rounded-full shadow-[0_0_12px_theme(colors.primary.DEFAULT)] opacity-0'
+                animate={{ y: [0, 500], opacity: [0, 1, 0] }}
+                transition={{ duration: 3, repeat: Infinity, ease: 'linear', repeatDelay: 1.5 }}
+              />
+
+              {/* Step 1: Census */}
+              <motion.div
+                className='relative z-10 w-[95%]'
+                initial={{ opacity: 0, x: 30 }}
                 animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.6, delay: 1.5 }}
+                transition={{ duration: 0.7, delay: 0.2, type: 'spring', bounce: 0.4 }}
               >
-                <VotingCard animated={true} />
+                {/* Connector */}
+                <div className='absolute -left-10 top-12 w-8 h-px border-t border-dashed border-primary/40' />
+                <div className='absolute -left-[44px] top-[43px] w-2.5 h-2.5 rounded-full bg-background border-2 border-primary z-20 shadow-[0_0_8px_theme(colors.primary.DEFAULT)]' />
+
+                <div className='transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-primary/10 rounded-2xl bg-background/60 backdrop-blur-xl border border-primary/10 relative overflow-hidden group'>
+                  <div className='absolute inset-0 bg-gradient-to-tr from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500' />
+                  <CensusCard />
+                </div>
               </motion.div>
 
-              {/* Connector 2 (Voting -> Results) */}
-              <svg className='absolute inset-0 pointer-events-none z-0' width='100%' height='100%'>
-                <motion.path
-                  d='M 180 340 C 180 400, 360 380, 420 380'
-                  fill='none'
-                  stroke='oklch(var(--border))'
-                  strokeWidth='2'
-                  strokeDasharray='4 4'
-                  initial={{ pathLength: 0, opacity: 0 }}
-                  animate={{ pathLength: 1, opacity: 1 }}
-                  transition={{ duration: 1, delay: 2.5 }}
-                />
-              </svg>
-
-              {/* Step 3: Verified Results (Bottom Right) */}
+              {/* Step 2: Voting Process */}
               <motion.div
-                className='absolute top-[340px] right-4 w-72 z-10'
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 3.0 }}
+                className='relative z-20 w-[95%]'
+                initial={{ opacity: 0, x: 30 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.7, delay: 0.5, type: 'spring', bounce: 0.4 }}
               >
-                <ResultsCard animated={true} />
+                {/* Connector */}
+                <div className='absolute -left-10 top-[44px] w-8 h-px border-t border-dashed border-primary/40' />
+                <div className='absolute -left-[44px] top-[39px] w-2.5 h-2.5 rounded-full bg-background border-2 border-primary z-20 shadow-[0_0_8px_theme(colors.primary.DEFAULT)]' />
+
+                <div className='transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-primary/10 rounded-2xl bg-background/60 backdrop-blur-xl border border-primary/10 relative overflow-hidden group'>
+                  <div className='absolute inset-0 bg-gradient-to-tr from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500' />
+                  <VotingCard animated={true} />
+                </div>
+              </motion.div>
+
+              {/* Step 3: Verified Results */}
+              <motion.div
+                className='relative z-10 w-[95%]'
+                initial={{ opacity: 0, x: 30 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.7, delay: 0.8, type: 'spring', bounce: 0.4 }}
+              >
+                {/* Connector */}
+                <div className='absolute -left-10 top-[40px] w-8 h-px border-t border-dashed border-primary/40' />
+                <div className='absolute -left-[44px] top-[35px] w-2.5 h-2.5 rounded-full bg-background border-2 border-primary z-20 shadow-[0_0_8px_theme(colors.primary.DEFAULT)]' />
+
+                <div className='transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-primary/10 rounded-2xl bg-background/60 backdrop-blur-xl border border-primary/10 relative overflow-hidden group'>
+                  <div className='absolute inset-0 bg-gradient-to-tr from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500' />
+                  <ResultsCard animated={true} />
+                </div>
               </motion.div>
             </div>
           </div>

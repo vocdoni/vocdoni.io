@@ -8,7 +8,7 @@ import ogImageDefault from '../assets/images/vocdoni.png'
 
 export default {
   // https://vike.dev/head-tags
-  title: 'Vocdoni - Blockchain Voting Technology',
+  title: 'Vocdoni - Secure digital voting you can trust',
   description:
     'Cutting-edge blockchain technology powering the future of democratic participation with transparent, secure, and accessible voting infrastructure.',
   meta: {

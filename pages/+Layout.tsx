@@ -39,7 +39,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       <div className='min-h-screen bg-background font-sans antialiased flex flex-col'>
         <CookieConsent />
         <Navbar />
-        <main className='flex-1 pt-24'>{children}</main>
+        <main className='flex-1 pt-20'>{children}</main>
         <Footer />
       </div>
     </I18nextProvider>

@@ -7,6 +7,7 @@ yarn-error.log*
 lerna-debug.log*
 .pnpm-debug.log*
 
+
 # Diagnostic reports (https://nodejs.org/api/report.html)
 report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
 
@@ -144,3 +145,12 @@ dist
 .cdk.staging
 cdk.out
 .DS_Store
+
+# AI stuff
+.agents
+.claude
+.context
+context
+.impeccable.md
+skills-lock.json
+squirrel

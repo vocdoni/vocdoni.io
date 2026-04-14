@@ -36,8 +36,8 @@
   --sidebar-border: oklch(0.9276 0.0058 264.5313);
   --sidebar-ring: oklch(0.6397 0.172 36.4421);
   --font-sans: Inter, sans-serif;
-  --font-serif: Source Serif 4, serif;
-  --font-mono: JetBrains Mono, monospace;
+  --font-serif: Lora, serif;
+  --font-mono: 'JetBrains Mono', monospace;
   --radius: 0.75rem;
   --shadow-x: 0px;
   --shadow-y: 1px;
@@ -91,8 +91,8 @@
   --sidebar-border: oklch(0.3843 0.0301 269.7337);
   --sidebar-ring: oklch(0.6397 0.172 36.4421);
   --font-sans: Inter, sans-serif;
-  --font-serif: Source Serif 4, serif;
-  --font-mono: JetBrains Mono, monospace;
+  --font-serif: Lora, serif;
+  --font-mono: 'JetBrains Mono', monospace;
   --radius: 0.75rem;
   --shadow-x: 0px;
   --shadow-y: 1px;
@@ -164,19 +164,19 @@
   --animate-marquee-horizontal: marquee-horizontal var(--marquee-duration) infinite linear;
   --animate-marquee-vertical: marquee-vertical var(--marquee-duration) infinite linear;
   @keyframes marquee-horizontal {
-    from {
-      transform: translateX(0);
+  from {
+    transform: translateX(0);
     }
-    to {
-      transform: translateX(calc(-100% - var(--marquee-gap)));
+  to {
+    transform: translateX(calc(-100% - var(--marquee-gap)));
     }
   }
   @keyframes marquee-vertical {
-    from {
-      transform: translateY(0);
+  from {
+    transform: translateY(0);
     }
-    to {
-      transform: translateY(calc(-100% - var(--marquee-gap)));
+  to {
+    transform: translateY(calc(-100% - var(--marquee-gap)));
     }
   }
 }
@@ -187,6 +187,9 @@
   }
   body {
     @apply bg-background text-foreground;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-serif;
   }
 }
 
@@ -220,4 +223,18 @@
     mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
     -webkit-mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
   }
+}
+
+/* Clean Plyr wrapper: fills the container and themes to primary */
+.plyr-clean,
+.plyr-clean .plyr {
+  width: 100%;
+  height: 100%;
+  --plyr-color-main: var(--primary);
+}
+.plyr-clean .plyr,
+.plyr-clean .plyr__video-wrapper,
+.plyr-clean .plyr iframe {
+  width: 100% !important;
+  height: 100% !important;
 }
