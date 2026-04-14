@@ -18,9 +18,11 @@ export default function onBeforeRender(pageContext: any) {
   const locale = pageContext.locale
   return {
     pageContext: {
+      isCompatibilityRedirect: Boolean(pageContext.isCompatibilityRedirect),
       locale,
       initialLocale: locale,
       initialI18nStore: pageContext.is404 ? buildAllStores() : buildStore(locale),
+      urlLogical: pageContext.urlLogical || '/',
     },
   }
 }

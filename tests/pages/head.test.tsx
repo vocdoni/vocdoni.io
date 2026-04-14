@@ -31,7 +31,7 @@ describe('Head meta tags', () => {
     })
 
     expect(html).toContain('rel="canonical" href="https://vocdoni.io/es/privacy"')
-    expect(html).toContain('rel="alternate" hrefLang="en" href="https://vocdoni.io/privacy"')
+    expect(html).toContain('rel="alternate" hrefLang="en" href="https://vocdoni.io/en/privacy"')
     expect(html).toContain('rel="alternate" hrefLang="es" href="https://vocdoni.io/es/privacy"')
     expect(html).toContain('rel="alternate" hrefLang="x-default" href="https://vocdoni.io/privacy"')
     expect(html).toContain('meta name="language" content="es"')
@@ -47,6 +47,7 @@ describe('Head meta tags', () => {
     })
 
     expect(html).toContain('rel="canonical" href="https://vocdoni.io/es"')
+    expect(html).toContain('rel="alternate" hrefLang="x-default" href="https://vocdoni.io/"')
     expect(html).toContain('meta name="language" content="es"')
     expect(html).toContain('property="og:locale" content="es"')
   })
@@ -61,17 +62,17 @@ describe('Head meta tags', () => {
     expect(html).toContain('property="og:image" content="https://vocdoni.io/assets/static/vocdoni.png"')
   })
 
-  it('uses non-prefixed canonical URLs for the default locale', () => {
+  it('uses prefixed canonical URLs for the default locale and unprefixed x-default URLs', () => {
     const html = renderHead({
       locale: 'en',
       urlLogical: '/privacy',
       config: { title: 'Privacy Policy - Vocdoni' },
     })
 
-    expect(html).toContain('rel="canonical" href="https://vocdoni.io/privacy"')
-    expect(html).toContain('rel="alternate" hrefLang="en" href="https://vocdoni.io/privacy"')
+    expect(html).toContain('rel="canonical" href="https://vocdoni.io/en/privacy"')
+    expect(html).toContain('rel="alternate" hrefLang="en" href="https://vocdoni.io/en/privacy"')
     expect(html).toContain('rel="alternate" hrefLang="x-default" href="https://vocdoni.io/privacy"')
-    expect(html).toContain('property="og:url" content="https://vocdoni.io/privacy"')
+    expect(html).toContain('property="og:url" content="https://vocdoni.io/en/privacy"')
   })
 
   it('injects Organization and WebSite JSON-LD schema', () => {

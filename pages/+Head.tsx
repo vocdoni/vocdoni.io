@@ -1,4 +1,5 @@
 // https://vike.dev/Head
+import { getCompatibilityRedirectTarget, normalizeLogicalPath } from '@/lib/localeRedirect'
 import { localeDefault, locales } from '@/locales'
 import type { PageContext } from 'vike/types'
 
@@ -10,10 +11,36 @@ const normalizePath = (path: string) => {
 
 const withLocalePrefix = (locale: string, urlLogical: string) => {
   const normalized = normalizePath(urlLogical)
-  if (locale === localeDefault) {
-    return normalized
-  }
   return normalized === '/' ? `/${locale}` : `/${locale}${normalized}`
+}
+
+const hasLocalePrefix = (urlPathname: string) => {
+  const firstSegment = urlPathname.split('/')[1] || ''
+  return locales.includes(firstSegment as (typeof locales)[number])
+}
+
+const stripLocalePrefix = (urlPathname: string) => {
+  if (!hasLocalePrefix(urlPathname)) return normalizePath(urlPathname)
+  const segments = urlPathname.split('/')
+  return normalizePath('/' + (segments.slice(2).join('/') || ''))
+}
+
+const getLogicalPath = (pageContext: PageContext) => {
+  if (pageContext.urlLogical) return pageContext.urlLogical
+  if (pageContext.urlOriginal) return stripLocalePrefix(pageContext.urlOriginal)
+  if (!pageContext.pageId) return '/'
+
+  const pageId = pageContext.pageId.replace(/^\/pages/, '') || '/'
+  return pageId === '/index' ? '/' : pageId
+}
+
+const isCompatibilityRedirectPage = (pageContext: PageContext) => {
+  if ((pageContext as any).isCompatibilityRedirect !== undefined) {
+    return Boolean((pageContext as any).isCompatibilityRedirect)
+  }
+
+  if (!pageContext.urlOriginal) return false
+  return !hasLocalePrefix(pageContext.urlOriginal)
 }
 
 const toAbsoluteUrl = (baseUrl: string, value?: string) => {
@@ -35,13 +62,14 @@ export default function HeadDefault(pageContext: PageContext) {
   // based on user consent. This ensures compliance with cookie regulations.
 
   const is404 = Boolean(pageContext.is404)
+  const isCompatibilityRedirect = isCompatibilityRedirectPage(pageContext) && !is404
   const locale = pageContext.locale || pageContext.initialLocale || localeDefault
-  const urlLogical = pageContext.urlLogical || '/'
+  const urlLogical = getLogicalPath(pageContext)
   const siteUrl = SITE_URL.endsWith('/') ? SITE_URL.slice(0, -1) : SITE_URL
 
   const canonicalPath = withLocalePrefix(locale, urlLogical)
   const canonicalUrl = `${siteUrl}${canonicalPath}`
-  const xDefaultUrl = `${siteUrl}${withLocalePrefix(localeDefault, urlLogical)}`
+  const xDefaultUrl = `${siteUrl}${normalizeLogicalPath(urlLogical)}`
 
   const title = resolveConfigValue(pageContext.config?.title, pageContext)
   const description = resolveConfigValue(pageContext.config?.description, pageContext)
@@ -61,6 +89,15 @@ export default function HeadDefault(pageContext: PageContext) {
     '@type': 'WebSite',
     name: 'Vocdoni',
     url: siteUrl,
+  }
+
+  if (isCompatibilityRedirect) {
+    return (
+      <>
+        <meta name='robots' content='noindex,follow' />
+        <meta httpEquiv='refresh' content={`0;url=${getCompatibilityRedirectTarget(urlLogical)}`} />
+      </>
+    )
   }
 
   if (is404) {

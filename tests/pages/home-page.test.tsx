@@ -72,7 +72,7 @@ vi.mock('@/components/HomeFAQ', () => ({
 }))
 
 describe('home page', () => {
-  it('uses the original testimonials heading copy only in the remaining testimonial block and omits the CTA card', () => {
+  it('uses the original testimonials heading copy only in the remaining testimonial block and keeps the CTA card', () => {
     const html = renderToStaticMarkup(<HomePage />)
 
     expect(html).toContain('Testimonials')
@@ -81,6 +81,6 @@ describe('home page', () => {
       'From grassroots movements to large institutions, see how Vocdoni transforms decision-making through secure, accessible, and transparent technology.'
     )
     expect(html).not.toContain('Legacy testimonials section')
-    expect(html).not.toContain('CTA')
+    expect(html).toContain('CTA')
   })
 })
