@@ -176,6 +176,44 @@ export function PrivacyPolicyCA() {
             protecció de dades adequades.
           </Paragraph>
         </LegalSubsection>
+
+        <LegalSubsection>
+          <Heading.H3 variant='legal'>5.1 Servei de xat d’atenció a l’usuari (opcional)</Heading.H3>
+          <Paragraph variant='legal'>
+            Aquesta secció només serà aplicable quan el lloc web tingui habilitat el servei de xat d’atenció a l’usuari.
+          </Paragraph>
+          <Paragraph variant='legal'>
+            Aquest lloc web pot integrar un sistema de xat en temps real proporcionat per <strong>Crisp IM SARL</strong>{' '}
+            amb la finalitat d’atendre consultes o incidències dels usuaris durant el procés de votació.
+          </Paragraph>
+          <Paragraph variant='legal'>Quan l’usuari decideix utilitzar el xat, es tracten les següents dades personals:</Paragraph>
+          <LegalList>
+            <LegalListItem>Adreça IP i dades tècniques del dispositiu.</LegalListItem>
+            <LegalListItem>Identificador tècnic de sessió.</LegalListItem>
+            <LegalListItem>Contingut dels missatges.</LegalListItem>
+            <LegalListItem>Dades de contacte facilitades voluntàriament per l’usuari.</LegalListItem>
+          </LegalList>
+          <Paragraph variant='legal'>La base jurídica d’aquest tractament és:</Paragraph>
+          <LegalList>
+            <LegalListItem>
+              L’interès legítim del responsable a proporcionar assistència i suport tècnic (art. 6.1.f RGPD), i
+            </LegalListItem>
+            <LegalListItem>El consentiment de l’usuari en activar i utilitzar el servei de xat.</LegalListItem>
+          </LegalList>
+          <Paragraph variant='legal'>
+            Les dades s’utilitzen exclusivament per a la gestió de l’atenció a l’usuari i la resolució d’incidències, i
+            no s’empren amb finalitats comercials, publicitàries ni d’elaboració de perfils.
+          </Paragraph>
+          <Paragraph variant='legal'>
+            Crisp actua com a <strong>encarregat del tractament</strong>, d’acord amb l’article 28 del RGPD, i processa
+            les dades únicament seguint les instruccions de <strong>Synergize S.L.</strong> i del responsable del procés
+            de votació.
+          </Paragraph>
+          <Paragraph variant='legal'>
+            Les dades tractades a través del xat es conservaran durant el temps necessari per gestionar la consulta i,
+            posteriorment, durant els terminis legalment exigits per a l’atenció de possibles responsabilitats.
+          </Paragraph>
+        </LegalSubsection>
       </LegalSection>
 
       <LegalSection>
@@ -296,6 +334,45 @@ export function PrivacyPolicyCA() {
         <Paragraph variant='legal'>
           Pots desactivar les galetes en qualsevol moment mitjançant la configuració del teu navegador.
         </Paragraph>
+
+        <LegalSubsection>
+          <Heading.H3 variant='legal'>9.1 Cookies de tercers – Servei de xat (opcional)</Heading.H3>
+          <Paragraph variant='legal'>
+            Aquesta secció només serà aplicable quan el lloc web tingui habilitat el servei de xat d’atenció a l’usuari.
+          </Paragraph>
+          <Paragraph variant='legal'>
+            Aquest lloc web pot utilitzar cookies i tecnologies similars proporcionades per{' '}
+            <strong>Crisp Chat (Crisp IM SARL)</strong> amb la finalitat d’habilitar un servei de xat d’atenció a
+            l’usuari.
+          </Paragraph>
+          <Paragraph variant='legal'>Aquestes cookies permeten:</Paragraph>
+          <LegalList>
+            <LegalListItem>Mantenir la sessió de l’usuari durant la conversa.</LegalListItem>
+            <LegalListItem>Recordar el context de la conversa entre pàgines.</LegalListItem>
+            <LegalListItem>Assignar un identificador tècnic a l’usuari per poder gestionar el suport.</LegalListItem>
+          </LegalList>
+          <Paragraph variant='legal'>Quan l’usuari utilitza el xat, Crisp pot tractar les següents dades:</Paragraph>
+          <LegalList>
+            <LegalListItem>Adreça IP i metadades tècniques (navegador, sistema operatiu, dispositiu).</LegalListItem>
+            <LegalListItem>Un identificador tècnic assignat per la plataforma.</LegalListItem>
+            <LegalListItem>El contingut dels missatges enviats.</LegalListItem>
+            <LegalListItem>
+              Dades de contacte (com l’adreça de correu electrònic), únicament si l’usuari les facilita voluntàriament.
+            </LegalListItem>
+          </LegalList>
+          <Paragraph variant='legal'>
+            Aquestes cookies no s’utilitzen amb finalitats publicitàries ni per rastrejar l’usuari entre llocs web de
+            tercers, sinó exclusivament per permetre el funcionament del servei d’atenció a l’usuari.
+          </Paragraph>
+          <Paragraph variant='legal'>
+            Crisp actua com a <strong>encarregat del tractament</strong>, d’acord amb l’article 28 del Reglament (UE)
+            2016/679 (RGPD), tractant les dades per compte i seguint les instruccions de <strong>Synergize S.L.</strong>
+          </Paragraph>
+          <Paragraph variant='legal'>
+            L’ús d’aquestes cookies està subjecte al <strong>consentiment de l’usuari</strong>, que pot acceptar-les o
+            rebutjar-les des del banner de configuració de cookies.
+          </Paragraph>
+        </LegalSubsection>
       </LegalSection>
 
       <LegalSection>
@@ -313,7 +390,7 @@ export function PrivacyPolicyCA() {
           Cada versió de la política inclourà la seva <strong>data de revisió</strong> i{' '}
           <strong>data d'entrada en vigor</strong>.
         </Paragraph>
-        <LegalLastUpdated>L'última revisió d'aquesta política és del 24 d'octubre de 2025.</LegalLastUpdated>
+        <LegalLastUpdated>L'última revisió d'aquesta política és del 15 d'abril de 2026.</LegalLastUpdated>
       </LegalSection>
     </LegalPageContainer>
   )

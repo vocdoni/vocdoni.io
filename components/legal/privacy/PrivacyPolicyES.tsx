@@ -178,6 +178,47 @@ export function PrivacyPolicyES() {
             protección de datos.
           </Paragraph>
         </LegalSubsection>
+
+        <LegalSubsection>
+          <Heading.H3 variant='legal'>5.1 Servicio de chat de atención al usuario (opcional)</Heading.H3>
+          <Paragraph variant='legal'>
+            Esta sección solo será aplicable cuando el sitio web tenga habilitado el servicio de chat de atención al
+            usuario.
+          </Paragraph>
+          <Paragraph variant='legal'>
+            Este sitio web puede integrar un sistema de chat en tiempo real proporcionado por <strong>Crisp IM SARL</strong>{' '}
+            con la finalidad de atender consultas o incidencias de los usuarios durante el proceso de votación.
+          </Paragraph>
+          <Paragraph variant='legal'>
+            Cuando el usuario decide utilizar el chat, se tratan los siguientes datos personales:
+          </Paragraph>
+          <LegalList>
+            <LegalListItem>Dirección IP y datos técnicos del dispositivo.</LegalListItem>
+            <LegalListItem>Identificador técnico de sesión.</LegalListItem>
+            <LegalListItem>Contenido de los mensajes.</LegalListItem>
+            <LegalListItem>Datos de contacto facilitados voluntariamente por el usuario.</LegalListItem>
+          </LegalList>
+          <Paragraph variant='legal'>La base jurídica de este tratamiento es:</Paragraph>
+          <LegalList>
+            <LegalListItem>
+              El interés legítimo del responsable en proporcionar asistencia y soporte técnico (art. 6.1.f RGPD), y
+            </LegalListItem>
+            <LegalListItem>El consentimiento del usuario al activar y utilizar el servicio de chat.</LegalListItem>
+          </LegalList>
+          <Paragraph variant='legal'>
+            Los datos se utilizan exclusivamente para la gestión de la atención al usuario y la resolución de
+            incidencias, y no se emplean para fines comerciales, publicitarios ni de elaboración de perfiles.
+          </Paragraph>
+          <Paragraph variant='legal'>
+            Crisp actúa como <strong>encargado del tratamiento</strong>, conforme al artículo 28 del RGPD, y procesa los
+            datos únicamente siguiendo las instrucciones de <strong>Synergize S.L.</strong> y del responsable del
+            proceso de votación.
+          </Paragraph>
+          <Paragraph variant='legal'>
+            Los datos tratados a través del chat se conservarán durante el tiempo necesario para gestionar la consulta y,
+            posteriormente, durante los plazos legalmente exigidos para la atención de posibles responsabilidades.
+          </Paragraph>
+        </LegalSubsection>
       </LegalSection>
 
       <LegalSection>
@@ -297,6 +338,50 @@ export function PrivacyPolicyES() {
         <Paragraph variant='legal'>
           Puedes desactivar las cookies en cualquier momento mediante la configuración de tu navegador.
         </Paragraph>
+
+        <LegalSubsection>
+          <Heading.H3 variant='legal'>9.1 Cookies de terceros – Servicio de chat (opcional)</Heading.H3>
+          <Paragraph variant='legal'>
+            Esta sección solo será aplicable cuando el sitio web tenga habilitado el servicio de chat de atención al
+            usuario.
+          </Paragraph>
+          <Paragraph variant='legal'>
+            Este sitio web puede utilizar cookies y tecnologías similares proporcionadas por{' '}
+            <strong>Crisp Chat (Crisp IM SARL)</strong> con la finalidad de habilitar un servicio de chat de atención al
+            usuario.
+          </Paragraph>
+          <Paragraph variant='legal'>Estas cookies permiten:</Paragraph>
+          <LegalList>
+            <LegalListItem>Mantener la sesión del usuario durante la conversación.</LegalListItem>
+            <LegalListItem>Recordar el contexto de la conversación entre páginas.</LegalListItem>
+            <LegalListItem>Asignar un identificador técnico al usuario para poder gestionar el soporte.</LegalListItem>
+          </LegalList>
+          <Paragraph variant='legal'>Cuando el usuario utiliza el chat, Crisp puede tratar los siguientes datos:</Paragraph>
+          <LegalList>
+            <LegalListItem>
+              Dirección IP y metadatos técnicos (navegador, sistema operativo, dispositivo).
+            </LegalListItem>
+            <LegalListItem>Un identificador técnico asignado por la plataforma.</LegalListItem>
+            <LegalListItem>El contenido de los mensajes enviados.</LegalListItem>
+            <LegalListItem>
+              Datos de contacto (como la dirección de correo electrónico), únicamente si el usuario los facilita
+              voluntariamente.
+            </LegalListItem>
+          </LegalList>
+          <Paragraph variant='legal'>
+            Estas cookies no se utilizan con fines publicitarios ni para rastrear al usuario entre sitios web de
+            terceros, sino exclusivamente para permitir el funcionamiento del servicio de atención al usuario.
+          </Paragraph>
+          <Paragraph variant='legal'>
+            Crisp actúa como <strong>encargado del tratamiento</strong>, de conformidad con el artículo 28 del
+            Reglamento (UE) 2016/679 (RGPD), tratando los datos por cuenta y siguiendo las instrucciones de{' '}
+            <strong>Synergize S.L.</strong>
+          </Paragraph>
+          <Paragraph variant='legal'>
+            El uso de estas cookies está sujeto al <strong>consentimiento del usuario</strong>, que puede aceptarlas o
+            rechazarlas desde el banner de configuración de cookies.
+          </Paragraph>
+        </LegalSubsection>
       </LegalSection>
 
       <LegalSection>
@@ -314,7 +399,7 @@ export function PrivacyPolicyES() {
           Cada versión de la política incluirá su <strong>fecha de revisión</strong> y{' '}
           <strong>fecha de entrada en vigor</strong>.
         </Paragraph>
-        <LegalLastUpdated>La última revisión de esta política es del 24 de octubre de 2025.</LegalLastUpdated>
+        <LegalLastUpdated>La última revisión de esta política es del 15 de abril de 2026.</LegalLastUpdated>
       </LegalSection>
     </LegalPageContainer>
   )
