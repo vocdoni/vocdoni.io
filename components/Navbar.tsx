@@ -95,6 +95,33 @@ const buildResourcesItems = (t: (key: string) => string) => [
 export function Navbar() {
   const { t } = useTranslation()
   const [isOpen, setIsOpen] = React.useState(false)
+  const [isMobile, setIsMobile] = React.useState(false)
+  const headerRef = React.useRef<HTMLElement>(null)
+  const isMobileRef = React.useRef(false)
+  const neededWidthRef = React.useRef(0)
+
+  React.useEffect(() => {
+    const header = headerRef.current
+    if (!header) return
+
+    const observer = new ResizeObserver(() => {
+      const available = header.clientWidth
+      if (!isMobileRef.current) {
+        const needed = header.scrollWidth
+        if (needed > available + 1) {
+          neededWidthRef.current = needed
+          isMobileRef.current = true
+          setIsMobile(true)
+        }
+      } else if (neededWidthRef.current > 0 && available >= neededWidthRef.current) {
+        isMobileRef.current = false
+        setIsMobile(false)
+      }
+    })
+
+    observer.observe(header)
+    return () => observer.disconnect()
+  }, [])
 
   const productFeatures = React.useMemo(() => buildProductFeatures(t), [t])
   const featuredSolution = React.useMemo(() => buildFeaturedSolution(t), [t])
@@ -102,7 +129,7 @@ export function Navbar() {
 
   return (
     <div className='fixed top-6 left-0 right-0 z-50 flex justify-center px-4 w-full cursor-none pointer-events-none'>
-      <header className='cursor-default pointer-events-auto flex items-center justify-between gap-4 rounded-full border border-border/40 bg-background/80 px-4 py-2 shadow-sm backdrop-blur-md md:gap-8 min-w-fit max-w-[95vw] transition-all duration-300'>
+      <header ref={headerRef} className='cursor-default pointer-events-auto flex items-center justify-between gap-4 rounded-full border border-border/40 bg-background/80 px-4 py-2 shadow-sm backdrop-blur-md w-full max-w-[77.6rem] transition-all duration-300'>
         {/* Logo */}
         <div className='pointer-events'>
           <Link href='/' variant='unstyled'>
@@ -111,7 +138,7 @@ export function Navbar() {
         </div>
 
         {/* Desktop Navigation */}
-        <NavigationMenu className='hidden md:flex min-w-[600px] lg:min-w-[700px]'>
+        {!isMobile && <NavigationMenu className='flex min-w-max'>
           <NavigationMenuList>
             {/* Solutions (formerly Product) */}
             <NavigationMenuItem>
@@ -231,15 +258,15 @@ export function Navbar() {
               </Link>
             </NavigationMenuItem>
           </NavigationMenuList>
-        </NavigationMenu>
+        </NavigationMenu>}
 
         {/* Right Side: App Button, Language Switcher & Mobile Menu */}
         <div className='flex items-center gap-2'>
           <LanguageSwitcher />
           {/* Mobile Menu Trigger */}
-          <Sheet open={isOpen} onOpenChange={setIsOpen}>
+          {isMobile && <Sheet open={isOpen} onOpenChange={setIsOpen}>
             <SheetTrigger asChild>
-              <Button variant='ghost' size='icon' className='md:hidden'>
+              <Button variant='ghost' size='icon'>
                 <Menu className='h-6 w-6' />
                 <span className='sr-only'>Toggle menu</span>
               </Button>
@@ -361,7 +388,7 @@ export function Navbar() {
                 </div>
               </div>
             </SheetContent>
-          </Sheet>
+          </Sheet>}
 
           {/* App Button (Visible on all screens now) */}
           <Button asChild className='rounded-full px-6'>
