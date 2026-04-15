@@ -14,6 +14,7 @@ import { useTranslation } from 'react-i18next'
 
 // Logo imports — real assets only, no emoji
 import logoBellpuig from '@/assets/logos/logo_bellpuig_colour.png'
+import logoBcn from '@/assets/logos/logo_bcn_bw.png'
 import logoBerga from '@/assets/logos/logo_berga_bw.png'
 import logoBisbal from '@/assets/logos/logo_bisbal_round.webp'
 import logoOmnium from '@/assets/logos/logo_omnium_colour.png'
@@ -24,6 +25,8 @@ import logoErc from '@/assets/logos/erc.png'
 import logoAlhora from '@/assets/logos/logo_alhora_round.webp'
 import logoCoib from '@/assets/logos/logo_coib_round.webp'
 import logoNewBelarus from '@/assets/logos/new_belarus.png'
+import logoBloock from '@/assets/logos/logo_bloock_colour.webp'
+import logoDemocracy5 from '@/assets/logos/logo_democracy5_colour.webp'
 import logoDecidim from '@/assets/images/decidim.png'
 import logoFcb from '@/assets/images/fcb.png'
 import logoIcoes from '@/assets/logos/logo_icoes_colour.webp'
@@ -39,6 +42,7 @@ const USE_CASE_CONFIG = [
       { src: logoBellpuig, alt: 'Bellpuig' },
       { src: logoBerga, alt: 'Berga' },
       { src: logoBisbal, alt: "Bisbal de l'Empordà" },
+      { src: logoBcn, alt: 'Barcelona' },
     ] as LogoEntry[],
     caseStudy: {
       href: 'https://blog.vocdoni.io/referendum-bellpuig/',
@@ -98,7 +102,11 @@ const USE_CASE_CONFIG = [
   {
     id: 'integrators',
     icon: CodeIcon,
-    logos: [{ src: logoDecidim, alt: 'Decidim' }] as LogoEntry[],
+    logos: [
+      { src: logoDecidim, alt: 'Decidim' },
+      { src: logoBloock, alt: 'BLOOCK' },
+      { src: logoDemocracy5, alt: 'Democracy OS' },
+    ] as LogoEntry[],
     caseStudy: {
       href: 'https://developer.vocdoni.io',
       stat: 'Official partnership',

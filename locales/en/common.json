@@ -583,9 +583,9 @@
         "content": "Vocdoni powered our bisbalenc/a de l'any vote, boosting citizen participation and delivering transparency, security, and instant results on blockchain. We valued its security, scalability, universal verifiability, and flexibility. In 2023 it also enabled hybrid voting, greatly simplifying the entire process."
       },
       {
-        "handle": "President · Sports Federation",
-        "title": "Voting made simple for our clubs",
-        "content": "Our federation spans dozens of clubs and thousands of members. Vocdoni made it possible to run fair, verifiable elections without needing a single physical venue."
+        "handle": "Founder and CEO · BLOOCK",
+        "title": "Enabling meaningful citizen participation",
+        "content": "The transition to e-voting is becoming inevitable, as society is more digitally ready than ever before. Through the partnership between BLOOCK and Vocdoni, we're enabling more meaningful and ongoing citizen participation in government and institutions."
       },
       {
         "handle": "Director · NGO Foundation",
@@ -1177,6 +1177,47 @@
           "answer": "You can read the technology page, open the public vote explorer, and inspect the open source code."
         }
       ]
+    }
+  },
+  "easy_features": {
+    "eyebrow": "How it works",
+    "title": "Everything your organization needs to vote",
+    "cta": "Try it free",
+    "tabs": {
+      "members": {
+        "name": "Manage members"
+      },
+      "create": {
+        "name": "Create a vote"
+      },
+      "manage": {
+        "name": "Manage a vote"
+      },
+      "vote": {
+        "name": "Cast a vote"
+      }
+    }
+  },
+  "steps_section": {
+    "title_start": "Your first secure election, up and running in",
+    "title_highlight": "three steps",
+    "subtitle": "No technical setup, no paperwork. Upload your members, build your ballot, and share the link - that is all it takes.",
+    "label": "No setup required",
+    "panel_title": "From spreadsheet to live election in minutes",
+    "panel_description": "Vocdoni handles the security. You handle the questions.",
+    "steps": {
+      "upload": {
+        "title": "Upload your member base",
+        "description": "Import your voter list from a spreadsheet in seconds. Every member automatically receives a unique, private access link - no account or app required on their end."
+      },
+      "create": {
+        "title": "Create the voting process",
+        "description": "Choose your voting method, write your question, and set start and end dates. Your ballot is configured and ready to go in under five minutes."
+      },
+      "share": {
+        "title": "Share the link, collect votes",
+        "description": "Send the voting link by email. Members vote from any device in seconds. Results are published instantly when voting closes - anyone can verify the count is correct."
+      }
     }
   }
 }

@@ -45,6 +45,9 @@ export default function CleanYoutubePlayer({ videoId, title, coverUrl, coverAlt 
         return
       }
 
+      // Force playback — the user already triggered a gesture by clicking the cover.
+      plyr.play()
+
       const reveal = () => {
         if (cancelled) return
         setRevealed(true)
@@ -96,6 +99,7 @@ export default function CleanYoutubePlayer({ videoId, title, coverUrl, coverAlt 
               modestbranding: 1,
               iv_load_policy: 3,
               playsinline: 1,
+              autoplay: 1,
               vq: 'hd1080',
               hd: 1,
             },

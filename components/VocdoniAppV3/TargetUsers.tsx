@@ -2,6 +2,7 @@ import { useTranslation } from 'react-i18next'
 import { BuildingIcon, UsersIcon, LandmarkIcon, GraduationCapIcon } from 'lucide-react'
 import { Container } from '@/components/Container'
 import { Button } from '@/components/ui/button'
+import { Link } from '@/components/Link'
 
 export default function TargetUsersV3() {
   const { t } = useTranslation()
@@ -41,7 +42,7 @@ export default function TargetUsersV3() {
 
         <div className='mt-12 flex justify-center'>
           <Button asChild variant='outline' size='lg' className='rounded-full'>
-            <a href='/use-cases'>{t('vocdoni_app.target_users.cta')}</a>
+            <Link href='/use-cases' variant='unstyled'>{t('vocdoni_app.target_users.cta')}</Link>
           </Button>
         </div>
       </Container>

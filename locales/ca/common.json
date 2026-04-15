@@ -43,7 +43,9 @@
       }
     },
     "structure": {
+      "association_title": "Associació Vocdoni",
       "for_profit": "Una entitat amb ànim de lucre dedicada a fer que la tecnologia de vot digital segur sigui accessible i escalable per a organitzacions de qualsevol tipus d'arreu del món.",
+      "global_title": "Vocdoni Global",
       "non_profit": "L'Associació Vocdoni, una organització sense ànim de lucre amb seu a Suïssa, que actua com a garant últim del codi obert i del desenvolupament del protocol principal.",
       "title": "La nostra estructura"
     },
@@ -247,7 +249,12 @@
       "subtitle": "Des d'ajuntaments fins a clubs esportius, des de col·legis professionals fins a partits polítics, descobriu com organitzacions de tot Europa utilitzen Vocdoni per celebrar eleccions segures i verificables. Resultats que qualsevol membre pot comprovar de manera independent. Es configura en una tarda.",
       "cta_primary": "Comenceu gratis",
       "cta_secondary": "Vegeu resultats reals",
-      "risk_reversal": "No cal targeta de crèdit"
+      "risk_reversal": "No cal targeta de crèdit",
+      "stats": [
+        { "value": "200.000+", "label": "Vots processats" },
+        { "value": "500+", "label": "Organitzacions" },
+        { "value": "~30+", "label": "Participació mitjana" }
+      ]
     },
     "grid": {
       "eyebrow": "Qui utilitza Vocdoni",
@@ -595,9 +602,9 @@
         "content": "Vocdoni va impulsar la nostra votació bisbalenc/a de l'any, augmentant la participació ciutadana i aportant transparència, seguretat i resultats instantanis a la blockchain. En valorem la seguretat, l'escalabilitat, la verificabilitat universal i la flexibilitat. El 2023 també va permetre el vot híbrid, simplificant enormement tot el procés."
       },
       {
-        "handle": "President · Federació esportiva",
-        "title": "La votació simplificada per als nostres clubs",
-        "content": "La nostra federació agrupa desenes de clubs i milers de socis. Vocdoni va fer possible celebrar eleccions justes i verificables sense necessitat de cap local físic."
+        "handle": "Fundador i CEO · BLOOCK",
+        "title": "Fent possible una participació ciutadana significativa",
+        "content": "La transició al vot electrònic s'està tornant inevitable, ja que la societat està més preparada digitalment que mai. A través de la col·laboració entre BLOOCK i Vocdoni, estem fent possible una participació ciutadana més significativa i continuada en el govern i les institucions."
       },
       {
         "handle": "Directora · Fundació ONG",
@@ -728,7 +735,8 @@
         "ngos": "ONG i fundacions",
         "education": "Universitats i escoles",
         "first_nations": "Nacions originàries"
-      }
+      },
+      "cta": "Vegeu casos d'ús i casos d'èxit"
     },
     "features": {
       "title": "Tot el que necessiteu per a una votació perfecta",
@@ -755,6 +763,7 @@
       }
     },
     "faq": {
+      "eyebrow": "PMF",
       "title": "Preguntes freqüents i objeccions",
       "items": {
         "sensitive": {
@@ -923,6 +932,7 @@
     }
   },
   "faq": {
+    "eyebrow": "PMF",
     "title": "Preguntes habituals",
     "cta_title": "A punt per veure-ho amb els vostres propis ulls?",
     "cta_button": "Comenceu gratis la vostra primera votació",
@@ -958,6 +968,38 @@
       "techsavvy": {
         "question": "Què passa si alguns dels nostres membres no són gaire tecnològics?",
         "answer": "Els votants reben un enllaç. Hi fan clic, veuen la papereta, trien l'opció i l'envien. Sense compte, sense descarregar apps i sense contrasenyes. Si funciona en el navegador d'un telèfon intel·ligent, funciona per als vostres membres."
+      },
+      "voters_app": {
+        "question": "Els votants han d'instal·lar una app o crear un compte?",
+        "answer": "No. Els votants obren un enllaç al navegador i voten des de qualsevol dispositiu. No cal compte ni contrasenya."
+      },
+      "vote_types": {
+        "question": "Quins tipus de votació puc organitzar?",
+        "answer": "Des de la mateixa plataforma podeu organitzar votacions d'opció única, múltiple, ponderada, per aprovació, per puntuació i amb diverses preguntes."
+      },
+      "hybrid": {
+        "question": "També puc organitzar votacions presencials o híbrides?",
+        "answer": "Sí. Vocdoni admet votacions remotes, presencials i híbrides, de manera que podeu gestionar tota la participació des d'una única font de veritat."
+      },
+      "census": {
+        "question": "Puc utilitzar el meu cens actual o el meu CRM?",
+        "answer": "Sí. Podeu importar els membres mitjançant CSV o sincronitzar-los a través de la nostra API si ja gestioneu el cens en un altre sistema."
+      },
+      "open_source": {
+        "question": "Vocdoni és codi obert?",
+        "answer": "Sí. El nostre codi és públic i qualsevol persona el pot inspeccionar, cosa que garanteix la transparència total en la manera com el protocol de votació gestiona les vostres dades."
+      },
+      "tamper_proof": {
+        "question": "Com sé que el resultat no ha estat manipulat?",
+        "answer": "Els resultats s'emmagatzemen en un registre públic resistent a manipulacions. Qualsevol membre o auditor pot verificar el resultat de manera independent mitjançant proves matemàtiques, sense haver de fiar-se de la nostra paraula."
+      },
+      "coercion": {
+        "question": "Algú pot forçar un membre a votar d'una manera determinada?",
+        "answer": "Vocdoni admet la revisió del vot: els membres poden canviar l'opció tantes vegades com vulguin mentre la votació és oberta. Només compta l'última, cosa que ajuda a mitigar la coacció en entorns digitals."
+      },
+      "accessibility": {
+        "question": "La plataforma és accessible per a tots els membres?",
+        "answer": "Prioritzem una interfície neta i accessible que compleix el nivell AA de les WCAG i funciona en qualsevol navegador modern de telèfon intel·ligent o ordinador, garantint que cada membre pugui participar independentment de les seves capacitats tècniques."
       }
     }
   },

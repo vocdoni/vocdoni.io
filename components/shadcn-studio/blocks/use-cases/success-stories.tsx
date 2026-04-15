@@ -10,7 +10,6 @@ import logoBellpuig from '@/assets/logos/logo_bellpuig_colour.png'
 import logoNewBelarus from '@/assets/logos/new_belarus.png'
 import logoErc from '@/assets/logos/erc.png'
 import logoCoib from '@/assets/logos/logo_coib_round.webp'
-import logoAlhora from '@/assets/logos/logo_alhora_round.webp'
 
 // Success story images
 import imageBellpuig from '@/assets/images/success/bellpuig_experience.webp'
@@ -48,13 +47,6 @@ const SUCCESS_STORIES_CONFIG = [
     image: imageCoib,
     caseStudyHref:
       'https://blog.vocdoni.io/how-coib-a-professional-body-of-nurses-ran-its-2025-annual-general-meeting-vote-online-securely-and-with-instant-results/',
-    highlights: [],
-  },
-  {
-    id: 'alhora',
-    logo: logoAlhora,
-    image: 'https://images.unsplash.com/photo-1551434678-e076c223a692?w=800&q=80',
-    caseStudyHref: 'https://vocdoni.io/blog',
     highlights: [],
   },
 ]

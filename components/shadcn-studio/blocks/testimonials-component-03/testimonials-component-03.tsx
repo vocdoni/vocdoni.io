@@ -59,22 +59,22 @@ const TestimonialsComponent = ({ eyebrow, title, description, testimonials }: Te
           className='relative grid sm:grid-cols-2 lg:grid-cols-4'
         >
           <div className='from-muted absolute top-0 z-1 h-1/3 w-full bg-gradient-to-b to-transparent' />
-          <Marquee vertical pauseOnHover delay={0.9} duration={30} gap={1.5} className='h-200'>
+          <Marquee vertical pauseOnHover delay={0.9} duration={60} gap={1.5} className='h-200'>
             {testimonials.slice(0, 3).map((testimonial, index) => (
               <TestimonialCard key={index} testimonial={testimonial} />
             ))}
           </Marquee>
-          <Marquee vertical pauseOnHover delay={0.9} duration={30} gap={1.5} reverse className='h-200 max-sm:hidden'>
+          <Marquee vertical pauseOnHover delay={0.9} duration={60} gap={1.5} reverse className='h-200 max-sm:hidden'>
             {testimonials.slice(3, 6).map((testimonial, index) => (
               <TestimonialCard key={index} testimonial={testimonial} />
             ))}
           </Marquee>
-          <Marquee vertical pauseOnHover delay={0.9} duration={30} gap={1.5} className='h-200 max-lg:hidden'>
+          <Marquee vertical pauseOnHover delay={0.9} duration={60} gap={1.5} className='h-200 max-lg:hidden'>
             {testimonials.slice(6, 9).map((testimonial, index) => (
               <TestimonialCard key={index} testimonial={testimonial} />
             ))}
           </Marquee>
-          <Marquee vertical pauseOnHover delay={0.9} duration={30} gap={1.5} reverse className='h-200 max-lg:hidden'>
+          <Marquee vertical pauseOnHover delay={0.9} duration={60} gap={1.5} reverse className='h-200 max-lg:hidden'>
             {testimonials.slice(9, 12).map((testimonial, index) => (
               <TestimonialCard key={index} testimonial={testimonial} />
             ))}

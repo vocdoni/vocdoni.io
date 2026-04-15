@@ -1,9 +1,10 @@
 import AppHeroWithVideo from '@/components/VocdoniApp/AppHeroWithVideo'
+import EasyFeatures from '@/components/shadcn-studio/blocks/features-section-15/features-section-15'
+import StepsSection from '@/components/shadcn-studio/blocks/features-section-02/features-section-02'
 import ValuePropsV3 from '@/components/VocdoniAppV3/ValueProps'
 import TargetUsersV3 from '@/components/VocdoniAppV3/TargetUsers'
 import ValueProps from '@/components/VocdoniApp/ValueProps'
 import Features from '@/components/VocdoniApp/Features'
-import HowItWorks from '@/components/VocdoniApp/HowItWorks'
 import Technology from '@/components/VocdoniApp/Technology'
 import SocialProof from '@/components/VocdoniApp/SocialProof'
 import FAQ from '@/components/VocdoniApp/FAQ'
@@ -18,7 +19,8 @@ export default function Page() {
       <TargetUsersV3 />
       <ValueProps />
       <Features />
-      <HowItWorks />
+      <EasyFeatures />
+      <StepsSection />
       <Technology />
       <SocialProof />
       <FAQ />
