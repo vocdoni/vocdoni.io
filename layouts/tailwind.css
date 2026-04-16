@@ -9,8 +9,8 @@
   --card-foreground: oklch(0.3211 0 0);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.3211 0 0);
-  --primary: oklch(0.6397 0.172 36.4421);
-  --primary-foreground: oklch(1 0 0);
+  --primary: #2B3624;
+  --primary-foreground: #F6F3EC;
   --secondary: oklch(0.967 0.0029 264.5419);
   --secondary-foreground: oklch(0.4461 0.0263 256.8018);
   --muted: oklch(0.9846 0.0017 247.8389);
@@ -53,8 +53,9 @@
   --shadow-lg: 0px 1px 3px 0px hsl(0 0% 0% / 0.1), 0px 4px 6px -1px hsl(0 0% 0% / 0.1);
   --shadow-xl: 0px 1px 3px 0px hsl(0 0% 0% / 0.1), 0px 8px 10px -1px hsl(0 0% 0% / 0.1);
   --shadow-2xl: 0px 1px 3px 0px hsl(0 0% 0% / 0.25);
+  --shadow-button: 0px 2px 3px -1px rgba(0, 0, 0, 0.1), 0px 1px 0px 0px rgba(25, 28, 33, 0.02), 0px 0px 0px 1px rgba(25, 28, 33, 0.08);
   --tracking-normal: 0em;
-  --spacing: 0.25rem;
+  --spacing: 0.3125rem;
 }
 
 .dark {
@@ -64,8 +65,8 @@
   --card-foreground: oklch(0.9219 0 0);
   --popover: oklch(0.29 0.0249 268.3986);
   --popover-foreground: oklch(0.9219 0 0);
-  --primary: oklch(0.6397 0.172 36.4421);
-  --primary-foreground: oklch(1 0 0);
+  --primary: #2B3624;
+  --primary-foreground: #F6F3EC;
   --secondary: oklch(0.3095 0.0266 266.7132);
   --secondary-foreground: oklch(0.9219 0 0);
   --muted: oklch(0.3095 0.0266 266.7132);
@@ -161,6 +162,23 @@
   --shadow-lg: var(--shadow-lg);
   --shadow-xl: var(--shadow-xl);
   --shadow-2xl: var(--shadow-2xl);
+  --shadow-button: var(--shadow-button);
+
+  /* ── Spacing scale (base: 6px) ──────────────────────────────
+     Natural 6× multiples: 1=6px, 2=12px, 2.5=15px, 4=24px, 12=72px
+     Explicit overrides for non-6× values in the design scale:  */
+  --spacing-1\.5: 0.5rem;     /* 8px   avg(6px, 10px)  */
+  --spacing-3: 0.875rem;      /* 14px  avg(12px, 16px) */
+  --spacing-3\.5: 1.0625rem;  /* 17px  avg(14px, 20px) */
+  --spacing-5: 1.625rem;      /* 26px  avg(20px, 32px) */
+  --spacing-7: 2.125rem;      /* 34px  avg(28px, 40px) */
+  --spacing-11: 3.375rem;     /* 54px  avg(44px, 64px) */
+
+  /* Semantic design tokens */
+  --spacing-section: 1.75rem;   /* 28px  section padding sm  */
+  --spacing-section-lg: 3.75rem; /* 60px  section padding lg  */
+  --spacing-card: 1rem;         /* 16px  card padding sm     */
+  --spacing-card-lg: 1.75rem;   /* 28px  card padding lg     */
   --animate-marquee-horizontal: marquee-horizontal var(--marquee-duration) infinite linear;
   --animate-marquee-vertical: marquee-vertical var(--marquee-duration) infinite linear;
   @keyframes marquee-horizontal {

@@ -30,9 +30,9 @@ const Hero = () => {
   return (
     <section className='relative w-full pt-6 pb-20 lg:pt-10 lg:pb-28 px-4 md:px-8'>
       <div className='container mx-auto max-w-screen-2xl'>
-        <div className='grid gap-12 lg:grid-cols-2 lg:gap-8 items-center w-full min-w-0'>
+        <div className='flex flex-col lg:flex-row gap-12 lg:gap-8 items-center w-full min-w-0'>
           {/* Left Column: Content */}
-          <div className='flex flex-col items-start gap-6 relative z-10 w-full min-w-0'>
+          <div className='flex flex-col items-start gap-6 relative z-10 w-full min-w-0 lg:flex-1'>
             <MotionPreset fade blur slide delay={0} transition={{ duration: 0.5 }}>
               <Link href='https://app.vocdoni.io' target='_blank' rel='noopener noreferrer' variant='heroBadge'>
                 <span className='bg-foreground text-background px-2.5 py-0.5 rounded-full font-semibold shrink-0 flex items-center gap-1.5'>
@@ -128,7 +128,7 @@ const Hero = () => {
           </div>
 
           {/* Right Column: Visual Component (3 Steps) */}
-          <div className='hidden lg:flex relative w-full lg:h-full items-center justify-end py-6 pl-14'>
+          <div className='hidden lg:flex relative lg:flex-1 lg:min-w-0 lg:h-full items-center justify-end py-6 pl-14'>
             {/* Structural Container */}
             <div className='relative flex flex-col gap-10 w-full max-w-[420px]'>
               {/* Vertical connector line */}
