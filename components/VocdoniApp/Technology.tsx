@@ -36,7 +36,9 @@ export default function Technology() {
 
             <div className='mt-8 flex flex-wrap gap-3'>
               <Link
-                href='/technology'
+                href='https://davinci.vote'
+                target='_blank'
+                rel='noopener noreferrer'
                 className='inline-flex items-center gap-2 rounded-full border border-border/70 bg-background px-4 py-2 text-sm font-medium text-foreground no-underline shadow-sm'
               >
                 <VoteIcon className='size-4 text-primary' />

@@ -172,19 +172,19 @@ const UseCasesGrid = () => {
                       </p>
                       <p className='text-foreground text-sm font-semibold'>
                         {t(
-                          `use_cases_page.success_stories.items.${conf.id === 'city_councils' ? 'bellpuig' : conf.id === 'associations' ? 'new_belarus' : conf.id === 'professional_bodies' ? 'coib' : conf.id === 'political_parties' ? 'erc' : conf.id === 'integrators' ? 'alhora' : 'erc'}.org`
+                          `use_cases_page.success_stories.items.${conf.id === 'city_councils' ? 'bellpuig' : conf.id === 'associations' ? 'new_belarus' : conf.id === 'professional_bodies' ? 'coib' : conf.id === 'political_parties' ? 'erc' : conf.id === 'integrators' ? 'decidim' : 'erc'}.org`
                         )}
                       </p>
                       <p className='text-primary text-sm font-bold'>
                         {/* Map stat to i18n if possible, or keep this way for logic-heavy mappings */}
                         {t(
-                          `use_cases_page.success_stories.items.${conf.id === 'city_councils' ? 'bellpuig' : conf.id === 'associations' ? 'new_belarus' : conf.id === 'professional_bodies' ? 'coib' : conf.id === 'political_parties' ? 'erc' : conf.id === 'integrators' ? 'alhora' : 'erc'}.stats.0.value`,
+                          `use_cases_page.success_stories.items.${conf.id === 'city_councils' ? 'bellpuig' : conf.id === 'associations' ? 'new_belarus' : conf.id === 'professional_bodies' ? 'coib' : conf.id === 'political_parties' ? 'erc' : conf.id === 'integrators' ? 'decidim' : 'erc'}.stats.0.value`,
                           { defaultValue: '' }
                         )}
                       </p>
                       <p className='text-muted-foreground mt-1 text-xs'>
                         {t(
-                          `use_cases_page.success_stories.items.${conf.id === 'city_councils' ? 'bellpuig' : conf.id === 'associations' ? 'new_belarus' : conf.id === 'professional_bodies' ? 'coib' : conf.id === 'political_parties' ? 'erc' : conf.id === 'integrators' ? 'alhora' : 'erc'}.impact`
+                          `use_cases_page.success_stories.items.${conf.id === 'city_councils' ? 'bellpuig' : conf.id === 'associations' ? 'new_belarus' : conf.id === 'professional_bodies' ? 'coib' : conf.id === 'political_parties' ? 'erc' : conf.id === 'integrators' ? 'decidim' : 'erc'}.impact`
                         )}
                       </p>
                     </div>
@@ -214,7 +214,7 @@ const UseCasesGrid = () => {
                     >
                       <Link href={conf.caseStudy.href} variant='inlineIcon'>
                         {t(
-                          `use_cases_page.success_stories.items.${conf.id === 'city_councils' ? 'bellpuig' : conf.id === 'associations' ? 'new_belarus' : conf.id === 'professional_bodies' ? 'coib' : conf.id === 'political_parties' ? 'erc' : conf.id === 'integrators' ? 'alhora' : 'erc'}.cta_label`
+                          `use_cases_page.success_stories.items.${conf.id === 'city_councils' ? 'bellpuig' : conf.id === 'associations' ? 'new_belarus' : conf.id === 'professional_bodies' ? 'coib' : conf.id === 'political_parties' ? 'erc' : conf.id === 'integrators' ? 'decidim' : 'erc'}.cta_label`
                         )}
                         <ArrowRightIcon className='size-4' />
                       </Link>

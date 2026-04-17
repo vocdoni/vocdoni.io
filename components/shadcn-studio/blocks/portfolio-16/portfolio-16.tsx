@@ -5,12 +5,16 @@ import { Card, CardContent, CardTitle, CardDescription } from '@/components/ui/c
 import { Badge } from '@/components/ui/badge'
 import { MotionPreset } from '@/components/ui/motion-preset'
 import { useTranslation } from 'react-i18next'
+import { Link } from '@/components/Link'
+import { CalBookingDialog } from '@/components/CalBookingDialog'
 
 export type PortfolioItem = {
   id: number
   title: string
   description: string
   link: string
+  target?: string
+  type?: 'link' | 'booking'
   imageUrl: string
   imageAlt: string
   backgroundColor?: string
@@ -54,30 +58,57 @@ const Portfolio = ({ portfolioItems }: PortfolioProps) => {
               delay={0.6 + index * 0.2}
               transition={{ duration: 0.6 }}
             >
-              <a href={project.link} rel='noopener noreferrer' className='flex h-full'>
-                <Card
-                  className={`group relative flex h-full w-full flex-col justify-between overflow-hidden border-none pb-0 shadow-none transition-all duration-300 ${project.backgroundColor}`}
-                >
-                  <CardContent className='p-6 md:p-8 space-y-3'>
-                    <CardTitle className='text-primary line-clamp-2 text-lg font-semibold'>{project.title}</CardTitle>
-                    <CardDescription className='line-clamp-2'>{project.description}</CardDescription>
-                  </CardContent>
-                  <div className={`mt-auto flex items-end justify-center ${project.imageWrapperClassName || 'pt-4'}`}>
-                    <img
-                      src={project.imageUrl}
-                      alt={project.imageAlt}
-                      className={`w-full object-cover transition-transform duration-300 group-hover:scale-105 ${project.imageClassName || ''}`}
-                    />
-                  </div>
-                  <Button
-                    size='icon'
-                    className={`group absolute right-5 bottom-5 rounded-full text-white ${project.btnColor}`}
+              {project.type === 'booking' ? (
+                <CalBookingDialog triggerAriaLabel={`Book meeting for ${project.title}`} className='flex h-full w-full text-left'>
+                  <Card
+                    className={`group relative flex h-full w-full flex-col justify-between overflow-hidden border-none pb-0 shadow-none transition-all duration-300 ${project.backgroundColor}`}
                   >
-                    <span className='sr-only'>View project details</span>
-                    <ArrowRightIcon className='rotate-337 transition-transform duration-200 group-hover:rotate-360' />
-                  </Button>
-                </Card>
-              </a>
+                    <CardContent className='p-6 md:p-8 space-y-3'>
+                      <CardTitle className='text-primary line-clamp-2 text-lg font-semibold'>{project.title}</CardTitle>
+                      <CardDescription className='line-clamp-2'>{project.description}</CardDescription>
+                    </CardContent>
+                    <div className={`mt-auto flex items-end justify-center ${project.imageWrapperClassName || 'pt-4'}`}>
+                      <img
+                        src={project.imageUrl}
+                        alt={project.imageAlt}
+                        className={`w-full object-cover transition-transform duration-300 group-hover:scale-105 ${project.imageClassName || ''}`}
+                      />
+                    </div>
+                    <Button
+                      size='icon'
+                      className={`group absolute right-5 bottom-5 rounded-full text-white ${project.btnColor}`}
+                    >
+                      <span className='sr-only'>View project details</span>
+                      <ArrowRightIcon className='rotate-337 transition-transform duration-200 group-hover:rotate-360' />
+                    </Button>
+                  </Card>
+                </CalBookingDialog>
+              ) : (
+                <Link href={project.link} target={project.target} rel={project.target === '_blank' ? 'noopener noreferrer' : undefined} variant='unstyled' className='flex h-full w-full'>
+                  <Card
+                    className={`group relative flex h-full w-full flex-col justify-between overflow-hidden border-none pb-0 shadow-none transition-all duration-300 ${project.backgroundColor}`}
+                  >
+                    <CardContent className='p-6 md:p-8 space-y-3'>
+                      <CardTitle className='text-primary line-clamp-2 text-lg font-semibold'>{project.title}</CardTitle>
+                      <CardDescription className='line-clamp-2'>{project.description}</CardDescription>
+                    </CardContent>
+                    <div className={`mt-auto flex items-end justify-center ${project.imageWrapperClassName || 'pt-4'}`}>
+                      <img
+                        src={project.imageUrl}
+                        alt={project.imageAlt}
+                        className={`w-full object-cover transition-transform duration-300 group-hover:scale-105 ${project.imageClassName || ''}`}
+                      />
+                    </div>
+                    <Button
+                      size='icon'
+                      className={`group absolute right-5 bottom-5 rounded-full text-white ${project.btnColor}`}
+                    >
+                      <span className='sr-only'>View project details</span>
+                      <ArrowRightIcon className='rotate-337 transition-transform duration-200 group-hover:rotate-360' />
+                    </Button>
+                  </Card>
+                </Link>
+              )}
             </MotionPreset>
           ))}
         </div>

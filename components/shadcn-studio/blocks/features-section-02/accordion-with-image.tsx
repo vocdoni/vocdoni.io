@@ -15,7 +15,7 @@ const featureData = [
     descriptionKey: 'steps_section.steps.upload.description',
     descriptionDefault:
       'Import your voter list from a spreadsheet in seconds. Every member automatically receives a unique, private access link - no account or app required on their end.',
-    image: 'https://cdn.shadcnstudio.com/ss-assets/blocks/marketing/features/image-1.png',
+    image: '/assets/images/app/memberbase.webp',
     imageAlt: 'Upload member base',
   },
   {
@@ -26,7 +26,7 @@ const featureData = [
     descriptionKey: 'steps_section.steps.create.description',
     descriptionDefault:
       'Choose your voting method, write your question, and set start and end dates. Your ballot is configured and ready to go in under five minutes.',
-    image: 'https://cdn.shadcnstudio.com/ss-assets/blocks/marketing/features/image-11.png',
+    image: '/assets/images/app/create_vote.webp',
     imageAlt: 'Create voting process',
   },
   {
@@ -37,7 +37,7 @@ const featureData = [
     descriptionKey: 'steps_section.steps.share.description',
     descriptionDefault:
       'Send the voting link by email. Members vote from any device in seconds. Results are published instantly when voting closes - anyone can verify the count is correct.',
-    image: 'https://cdn.shadcnstudio.com/ss-assets/blocks/marketing/features/image-12.png',
+    image: '/assets/images/app/public_vote.webp',
     imageAlt: 'Share and vote',
   },
 ]
