@@ -3,7 +3,7 @@ import * as React from 'react'
 
 import { cn } from '@/lib/utils'
 
-const legalPageContainerVariants = cva('mx-auto px-4 pb-12 md:pb-16 lg:pb-20', {
+const legalPageContainerVariants = cva('mx-auto px-4 pt-6 pb-12 sm:pt-10 md:pb-16 lg:pt-12 lg:pb-20', {
   variants: {
     width: {
       default: 'max-w-4xl',

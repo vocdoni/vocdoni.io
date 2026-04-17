@@ -18,37 +18,32 @@ export function useLocaleDetection(currentLocale: string, urlLogical: string) {
     // Only run on client side
     if (!isClient) return
 
+    const currentPath = window.location.pathname
+    const isDefaultLocalePath = currentPath === `/${localeDefault}` || currentPath.startsWith(`/${localeDefault}/`)
+
     // Only detect/redirect from default locale pages
     // If user is on /es/ or /ca/, assume it's intentional
-    if (currentLocale !== localeDefault) return
+    if (currentLocale !== localeDefault || isDefaultLocalePath) return
 
     // Check if user has already set a preference (manual selection or previous auto-detection)
     const savedPreference = getLocalePreference()
     if (savedPreference) {
       // Redirect to stored preference when landing on default locale again
-      if (savedPreference !== localeDefault) {
-        const targetPath = `/${savedPreference}${urlLogical}`
-        window.location.replace(targetPath)
-      }
+      const targetPath = `/${savedPreference}${urlLogical === '/' ? '/' : urlLogical}`
+      window.location.replace(targetPath)
       return
     }
 
     // Detect browser's preferred locale
     const detectedLocale = detectBrowserLocale()
 
-    // If detected locale is different from default, redirect to that locale
-    if (detectedLocale !== localeDefault) {
-      // Build the full path with locale prefix
-      const targetPath = `/${detectedLocale}${urlLogical}`
+    // Build the full path with locale prefix
+    const targetPath = `/${detectedLocale}${urlLogical === '/' ? '/' : urlLogical}`
 
-      // Save preference to prevent future auto-detection
-      setLocalePreference(detectedLocale)
+    // Save preference to prevent future auto-detection
+    setLocalePreference(detectedLocale)
 
-      // Redirect to the detected locale
-      window.location.replace(targetPath)
-    } else {
-      // Browser prefers English (default locale), save preference to prevent future checks
-      setLocalePreference(detectedLocale)
-    }
+    // Redirect to the detected locale (including default locale to enforce /:lang)
+    window.location.replace(targetPath)
   }, [isClient, currentLocale, urlLogical])
 }

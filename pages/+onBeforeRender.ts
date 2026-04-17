@@ -2,14 +2,6 @@ import { locales } from '@/locales'
 
 const allJson = import.meta.glob('/locales/*/*.json', { eager: true, import: 'default' }) as Record<string, any>
 
-declare global {
-  namespace Vike {
-    interface PageContext {
-      locale: string
-    }
-  }
-}
-
 const buildStore = (locale: string) => {
   const ns: Record<string, any> = {}
   for (const [p, data] of Object.entries(allJson)) {
@@ -26,9 +18,11 @@ export default function onBeforeRender(pageContext: any) {
   const locale = pageContext.locale
   return {
     pageContext: {
+      isCompatibilityRedirect: Boolean(pageContext.isCompatibilityRedirect),
       locale,
       initialLocale: locale,
       initialI18nStore: pageContext.is404 ? buildAllStores() : buildStore(locale),
+      urlLogical: pageContext.urlLogical || '/',
     },
   }
 }

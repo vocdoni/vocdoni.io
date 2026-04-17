@@ -176,6 +176,45 @@ export function PrivacyPolicyEN() {
             protection.
           </Paragraph>
         </LegalSubsection>
+
+        <LegalSubsection>
+          <Heading.H3 variant='legal'>5.1 User Support Chat Service (Optional)</Heading.H3>
+          <Paragraph variant='legal'>
+            This section shall only apply when the website has the user support chat service enabled.
+          </Paragraph>
+          <Paragraph variant='legal'>
+            This website may integrate a real-time chat system provided by <strong>Crisp IM SARL</strong> for the purpose
+            of handling user inquiries or incidents during the voting process.
+          </Paragraph>
+          <Paragraph variant='legal'>When the user decides to use the chat, the following personal data are processed:</Paragraph>
+          <LegalList>
+            <LegalListItem>IP address and technical device data.</LegalListItem>
+            <LegalListItem>Technical session identifier.</LegalListItem>
+            <LegalListItem>Message content.</LegalListItem>
+            <LegalListItem>Contact details voluntarily provided by the user.</LegalListItem>
+          </LegalList>
+          <Paragraph variant='legal'>The legal basis for this processing is:</Paragraph>
+          <LegalList>
+            <LegalListItem>
+              The legitimate interest of the controller in providing assistance and technical support (Art. 6.1.f GDPR),
+              and
+            </LegalListItem>
+            <LegalListItem>The user’s consent when activating and using the chat service.</LegalListItem>
+          </LegalList>
+          <Paragraph variant='legal'>
+            The data are used exclusively for user support management and incident resolution and are not used for
+            commercial, advertising, or profiling purposes.
+          </Paragraph>
+          <Paragraph variant='legal'>
+            Crisp acts as a <strong>data processor</strong>, in accordance with Article 28 of the GDPR, and processes
+            the data solely following the instructions of <strong>Synergize S.L.</strong> and the controller of the
+            voting process.
+          </Paragraph>
+          <Paragraph variant='legal'>
+            Data processed through the chat will be retained for the time necessary to handle the inquiry and,
+            thereafter, for the legally required periods to address potential liabilities.
+          </Paragraph>
+        </LegalSubsection>
       </LegalSection>
 
       <LegalSection>
@@ -283,6 +322,42 @@ export function PrivacyPolicyEN() {
         </Paragraph>
         <Paragraph variant='legal'>No marketing, profiling, or advertising cookies are used.</Paragraph>
         <Paragraph variant='legal'>You may disable cookies through your browser settings at any time.</Paragraph>
+
+        <LegalSubsection>
+          <Heading.H3 variant='legal'>9.1 Third-Party Cookies – Chat Service (Optional)</Heading.H3>
+          <Paragraph variant='legal'>
+            This section shall only apply when the website has the user support chat service enabled.
+          </Paragraph>
+          <Paragraph variant='legal'>
+            This website may use cookies and similar technologies provided by <strong>Crisp Chat (Crisp IM SARL)</strong>{' '}
+            for the purpose of enabling a user support chat service.
+          </Paragraph>
+          <Paragraph variant='legal'>These cookies allow:</Paragraph>
+          <LegalList>
+            <LegalListItem>Maintaining the user session during the conversation.</LegalListItem>
+            <LegalListItem>Remembering the context of the conversation across pages.</LegalListItem>
+            <LegalListItem>Assigning a technical identifier to the user to manage support.</LegalListItem>
+          </LegalList>
+          <Paragraph variant='legal'>When the user uses the chat, Crisp may process the following data:</Paragraph>
+          <LegalList>
+            <LegalListItem>IP address and technical metadata (browser, operating system, device).</LegalListItem>
+            <LegalListItem>A technical identifier assigned by the platform.</LegalListItem>
+            <LegalListItem>The content of messages sent.</LegalListItem>
+            <LegalListItem>Contact information (such as email address), only if voluntarily provided by the user.</LegalListItem>
+          </LegalList>
+          <Paragraph variant='legal'>
+            These cookies are not used for advertising purposes or to track the user across third-party websites, but
+            exclusively to enable the functioning of the user support service.
+          </Paragraph>
+          <Paragraph variant='legal'>
+            Crisp acts as a <strong>data processor</strong>, in accordance with Article 28 of Regulation (EU) 2016/679
+            (GDPR), processing the data on behalf of and following the instructions of <strong>Synergize S.L.</strong>
+          </Paragraph>
+          <Paragraph variant='legal'>
+            The use of these cookies is subject to the <strong>user’s consent</strong>, which can be accepted or rejected
+            via the cookie settings banner.
+          </Paragraph>
+        </LegalSubsection>
       </LegalSection>
 
       <LegalSection>
@@ -300,7 +375,7 @@ export function PrivacyPolicyEN() {
           Each version of the Policy will include its <strong>revision date</strong> and <strong>effective date</strong>
           .
         </Paragraph>
-        <LegalLastUpdated>The current version was last reviewed on October 24, 2025.</LegalLastUpdated>
+        <LegalLastUpdated>The current version was last reviewed on April 15, 2026.</LegalLastUpdated>
       </LegalSection>
     </LegalPageContainer>
   )
