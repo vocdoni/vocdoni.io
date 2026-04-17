@@ -5,6 +5,11 @@ import { Container } from '@/components/Container'
 import { Link } from '@/components/Link'
 import { Card, CardContent } from '@/components/ui/card'
 import TestimonialCard from '@/components/shadcn-studio/blocks/testimonials-component-03/testimonial-card'
+import logoBellpuigColour from '@/assets/logos/logo_bellpuig_colour.png'
+import logoCecColour from '@/assets/logos/logo_cec_colour.png'
+import logoOmniumColour from '@/assets/logos/logo_omnium_colour.png'
+import logoEicColour from '@/assets/logos/logo_eic_colour.png'
+import logoPlataformaColour from '@/assets/logos/logo_plataforma_colour.webp'
 
 type Testimonial = {
   name: string
@@ -24,11 +29,11 @@ type Stat = {
 }
 
 const logos = [
-  { src: '/assets/logos/logo_bellpuig_colour.png', alt: 'Bellpuig' },
-  { src: '/assets/logos/logo_cec_colour.png', alt: 'Centre Excursionista de Catalunya' },
-  { src: '/assets/logos/logo_omnium_colour.png', alt: 'Omnium Cultural' },
-  { src: '/assets/logos/logo_eic_colour.png', alt: 'Enginyers Industrials de Catalunya' },
-  { src: '/assets/logos/logo_plataforma_colour.webp', alt: 'Plataforma per la Llengua' },
+  { src: logoBellpuigColour, alt: 'Bellpuig' },
+  { src: logoCecColour, alt: 'Centre Excursionista de Catalunya' },
+  { src: logoOmniumColour, alt: 'Omnium Cultural' },
+  { src: logoEicColour, alt: 'Enginyers Industrials de Catalunya' },
+  { src: logoPlataformaColour, alt: 'Plataforma per la Llengua' },
 ]
 
 export default function SocialProof() {

@@ -5,6 +5,9 @@ import { useTranslation } from 'react-i18next'
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
 import { Avatar, AvatarFallback } from '@/components/ui/avatar'
 import { MotionPreset } from '@/components/ui/motion-preset'
+import memberbaseImg from '@/assets/images/app/memberbase.webp'
+import createVoteImg from '@/assets/images/app/create_vote.webp'
+import publicVoteImg from '@/assets/images/app/public_vote.webp'
 
 const featureData = [
   {
@@ -15,7 +18,7 @@ const featureData = [
     descriptionKey: 'steps_section.steps.upload.description',
     descriptionDefault:
       'Import your voter list from a spreadsheet in seconds. Every member automatically receives a unique, private access link - no account or app required on their end.',
-    image: '/assets/images/app/memberbase.webp',
+    image: memberbaseImg,
     imageAlt: 'Upload member base',
   },
   {
@@ -26,7 +29,7 @@ const featureData = [
     descriptionKey: 'steps_section.steps.create.description',
     descriptionDefault:
       'Choose your voting method, write your question, and set start and end dates. Your ballot is configured and ready to go in under five minutes.',
-    image: '/assets/images/app/create_vote.webp',
+    image: createVoteImg,
     imageAlt: 'Create voting process',
   },
   {
@@ -37,7 +40,7 @@ const featureData = [
     descriptionKey: 'steps_section.steps.share.description',
     descriptionDefault:
       'Send the voting link by email. Members vote from any device in seconds. Results are published instantly when voting closes - anyone can verify the count is correct.',
-    image: '/assets/images/app/public_vote.webp',
+    image: publicVoteImg,
     imageAlt: 'Share and vote',
   },
 ]

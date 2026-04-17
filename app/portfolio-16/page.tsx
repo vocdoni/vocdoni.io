@@ -1,4 +1,5 @@
 import Portfolio, { type PortfolioItem } from '@/components/shadcn-studio/blocks/portfolio-16/portfolio-16'
+import solutionsAppImg from '@/assets/images/solutions/solutions_app.webp'
 
 const portfolioItems: PortfolioItem[] = [
   {
@@ -6,7 +7,7 @@ const portfolioItems: PortfolioItem[] = [
     title: 'Vocdoni app',
     description: 'Set up a real election in minutes. No IT team, no paper, no expertise needed - just simple, verifiable voting for any organization.',
     link: '/app',
-    imageUrl: '/assets/images/solutions/solutions_app.webp',
+    imageUrl: solutionsAppImg,
     imageAlt: 'Vocdoni app interface mockups',
     backgroundColor: 'bg-green-600/10 dark:bg-green-400/10 hover:bg-green-600/20 dark:hover:bg-green-400/20',
     btnColor:

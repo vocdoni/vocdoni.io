@@ -6,6 +6,11 @@ import TargetUsersV3 from '@/components/VocdoniAppV3/TargetUsers'
 import HomeFAQ from '@/components/HomeFAQ'
 import Portfolio from '@/components/shadcn-studio/blocks/portfolio-16/portfolio-16'
 import { useTranslation } from 'react-i18next'
+import { buildTestimonials } from '@/lib/testimonials-data'
+import solutionsAppImg from '@/assets/images/solutions/solutions_app.webp'
+import solutionsSdkImg from '@/assets/images/solutions/solutions_sdk.webp'
+import customProjectImg from '@/assets/images/app/custom project.webp'
+import vocdoniPetitionsImg from '@/assets/images/app/vocdoni_petitions.webp'
 
 export default function Page() {
   const { t } = useTranslation()
@@ -16,7 +21,7 @@ export default function Page() {
       title: t('landing.portfolio.items.1.title', 'Vocdoni app'),
       description: t('landing.portfolio.items.1.description', 'Set up a real election in minutes. No IT team, no paper, no expertise needed - just simple, verifiable voting for any organization.'),
       link: '/app',
-      imageUrl: '/assets/images/solutions/solutions_app.webp',
+      imageUrl: solutionsAppImg,
       imageAlt: 'Vocdoni app interface mockups',
       backgroundColor: 'bg-green-600/10 dark:bg-green-400/10 hover:bg-green-600/20 dark:hover:bg-green-400/20',
       btnColor:
@@ -27,7 +32,7 @@ export default function Page() {
       title: t('landing.portfolio.items.2.title', 'Vocdoni SDK'),
       description: t('landing.portfolio.items.2.description', 'Add verifiable, anonymous voting directly into your own applications with our open-source tools. Your infrastructure, our secure protocol.'),
       link: 'https://developer.vocdoni.io/sdk',
-      imageUrl: '/assets/images/solutions/solutions_sdk.webp',
+      imageUrl: solutionsSdkImg,
       imageAlt: 'Developer tools and API',
       imageWrapperClassName: 'px-4 sm:px-8 pt-12 lg:pt-14',
       imageClassName: 'translate-y-8 sm:translate-y-12',
@@ -40,7 +45,7 @@ export default function Page() {
       title: t('landing.portfolio.items.3.title', 'Custom election projects'),
       description: t('landing.portfolio.items.3.description', 'Full expert support for complex governance, from initial configuration to certified verifiable results.'),
       link: '#',
-      imageUrl: '/assets/images/app/custom project.webp',
+      imageUrl: customProjectImg,
       imageAlt: 'Data charts and project management',
       imageWrapperClassName: 'px-4 sm:px-8 pt-12 lg:pt-14',
       imageClassName: 'translate-y-8 sm:translate-y-12 rounded-t-xl lg:rounded-t-2xl',
@@ -53,7 +58,7 @@ export default function Page() {
       title: t('landing.portfolio.items.4.title', 'Vocdoni Petitions'),
       description: t('landing.portfolio.items.4.description', 'A solution to collect signatures and sign petitions that uses a privacy-first and data-minimization app called Vocdoni Passport.'),
       link: '#',
-      imageUrl: '/assets/images/app/vocdoni_petitions.webp',
+      imageUrl: vocdoniPetitionsImg,
       imageAlt: 'Vocdoni Petitions and Passport app',
       imageWrapperClassName: 'px-4 sm:px-8 pt-4 sm:pt-6 lg:pt-8',
       imageClassName: 'rounded-t-xl lg:rounded-t-2xl',
@@ -158,221 +163,7 @@ export default function Page() {
     },
   ]
 
-  const testimonials = [
-    {
-      name: 'Jordi Estiarte',
-      handle: t('testimonials_marquee.items.0.handle', 'Mayor · Bellpuig City Council'),
-      avatar: 'https://cdn.shadcnstudio.com/ss-assets/avatar/avatar-1.png',
-      rating: 5,
-      title: t('testimonials_marquee.items.0.title', 'The future of real elections'),
-      content: t(
-        'testimonials_marquee.items.0.content',
-        "We chose Vocdoni's technology because we believe it is the future of what real elections of any kind should be. Electronic voting is open to everyone and facilitates the process for the citizenry."
-      ),
-      platformName: 'Bellpuig',
-      platformImage: '/assets/logos/logo_bellpuig_colour.png',
-      logo: '/assets/logos/logo_bellpuig_round.webp',
-    },
-    {
-      name: 'Ton Barnils',
-      handle: t('testimonials_marquee.items.1.handle', 'General Director · CEC'),
-      avatar: 'https://cdn.shadcnstudio.com/ss-assets/avatar/avatar-2.png',
-      rating: 5,
-      title: t('testimonials_marquee.items.1.title', 'Safe and transparent participation'),
-      content: t(
-        'testimonials_marquee.items.1.content',
-        'We chose Vocdoni because it guarantees safe, reliable, and transparent participation for all our members at the annual general assembly.'
-      ),
-      platformName: 'CEC',
-      platformImage: '/assets/logos/logo_cec_colour.png',
-      logo: '/assets/logos/logo_cec_round.webp',
-    },
-    {
-      name: 'Anna Giralt',
-      handle: t('testimonials_marquee.items.2.handle', 'Executive Manager · Òmnium Cultural'),
-      avatar: 'https://cdn.shadcnstudio.com/ss-assets/avatar/avatar-3.png',
-      rating: 5,
-      title: t('testimonials_marquee.items.2.title', 'All guarantees for 180,000 members'),
-      content: t(
-        'testimonials_marquee.items.2.content',
-        'The commitment to Vocdoni has been clear. At Òmnium Cultural we bet on a secure and verifiable voting system that would allow us to hold our statutory assemblies with all guarantees.'
-      ),
-      platformName: 'Òmnium',
-      platformImage: '/assets/logos/logo_omnium_colour.png',
-      logo: '/assets/logos/logo_omnium_round.webp',
-    },
-    {
-      name: 'Oscar Tirivò',
-      handle: t('testimonials_marquee.items.3.handle', 'IT Director · Enginyers Industrials'),
-      avatar: 'https://cdn.shadcnstudio.com/ss-assets/avatar/avatar-4.png',
-      rating: 5,
-      title: t('testimonials_marquee.items.3.title', 'Easy, secure, and scalable voting'),
-      content: t(
-        'testimonials_marquee.items.3.content',
-        'Vocdoni provides us with an easy, secure, anonymous, and scalable voting system, completely integrated into our institutional environment. We will continue to trust it, without a doubt!'
-      ),
-      platformName: 'EIC',
-      platformImage: '/assets/logos/logo_eic_colour.png',
-      logo: '/assets/logos/logo_eic_round.webp',
-    },
-    {
-      name: 'Rut Carandell',
-      handle: t('testimonials_marquee.items.4.handle', 'Director · Plataforma per la Llengua'),
-      avatar: 'https://cdn.shadcnstudio.com/ss-assets/avatar/avatar-13.png',
-      rating: 5,
-      title: t('testimonials_marquee.items.4.title', 'Voting across Catalan-speaking territories'),
-      content: t(
-        'testimonials_marquee.items.4.content',
-        'Vocdoni lets us hold votes with members across all Catalan-speaking territories on equal terms. Instant counting simplifies our assemblies and ensures full transparency. We especially value that it is fully available in Catalan.'
-      ),
-      platformName: 'Plataforma per la Llengua',
-      platformImage: '/assets/logos/logo_plataforma_colour.webp',
-      logo: '/assets/logos/logo_plataforma_round.webp',
-    },
-    {
-      name: 'Montserrat Clavell',
-      handle: t('testimonials_marquee.items.5.handle', "Secretary · Associació d'Arxivers de Catalunya"),
-      avatar: 'https://cdn.shadcnstudio.com/ss-assets/avatar/avatar-14.png',
-      rating: 5,
-      title: t('testimonials_marquee.items.5.title', 'Secure voting that boosted participation'),
-      content: t(
-        'testimonials_marquee.items.5.content',
-        'Offering members a secure and reliable voting system is essential, especially during a pandemic. Vocdoni gave us an easy-to-use tool that simplified the voting process and boosted participation.'
-      ),
-      platformName: 'Arxivers de Catalunya',
-      platformImage: '/assets/logos/logo_arxivers_colour.webp',
-      logo: '/assets/logos/logo_.arxivers_round.webp',
-    },
-    {
-      name: 'Susanna Mendoza',
-      handle: t('testimonials_marquee.items.6.handle', 'IT Responsible · Associació de Guies Habilitats de Catalunya'),
-      avatar: 'https://cdn.shadcnstudio.com/ss-assets/avatar/avatar-15.png',
-      rating: 5,
-      title: t('testimonials_marquee.items.6.title', 'Easy to set up, great participation despite a non-tech audience'),
-      content: t(
-        'testimonials_marquee.items.6.content',
-        'Setting up the entire voting process and centralizing all the tools for the assembly was easy, intuitive, and clear. Members complimented how well organized it was and how simple it was to use. Even in a sector that is not very tech-savvy, we got strong participation — people especially valued being able to vote in advance without attending in person. When we had a small issue with the census, technical support was fast and professional.'
-      ),
-      platformName: 'AGUICAT',
-      platformImage: '/assets/logos/logo_aguicat_round.webp',
-      logo: '/assets/logos/logo_aguicat_round.webp',
-    },
-    {
-      name: 'Adrià Cortadellas',
-      handle: t(
-        'testimonials_marquee.items.7.handle',
-        "Civic Participation Officer · Ajuntament de La Bisbal de l'Empordà"
-      ),
-      avatar: 'https://cdn.shadcnstudio.com/ss-assets/avatar/avatar-16.png',
-      rating: 5,
-      title: t('testimonials_marquee.items.7.title', 'Transparent, secure, and flexible digital voting for citizens'),
-      content: t(
-        'testimonials_marquee.items.7.content',
-        "Vocdoni powered our Bisbalenc/a de l'Any vote, boosting citizen participation and delivering transparency, security, and instant results on blockchain. We valued its security, scalability, universal verifiability, and flexibility. In 2023 it also enabled hybrid voting, greatly simplifying the entire process."
-      ),
-      platformName: "La Bisbal d'Empordà",
-      platformImage: '/assets/logos/logo_bisbal_round.webp',
-      logo: '/assets/logos/logo_bisbal_round.webp',
-    },
-    {
-      name: 'Lluís Llibre',
-      handle: t('testimonials_marquee.items.8.handle', 'Founder and CEO · BLOOCK'),
-      avatar: 'https://cdn.shadcnstudio.com/ss-assets/avatar/avatar-5.png',
-      rating: 5,
-      title: t('testimonials_marquee.items.8.title', 'Enabling meaningful citizen participation'),
-      content: t(
-        'testimonials_marquee.items.8.content',
-        "The transition to e-voting is becoming inevitable, as society is more digitally ready than ever before. Through the partnership between BLOOCK and Vocdoni, we're enabling more meaningful and ongoing citizen participation in government and institutions."
-      ),
-      platformName: 'BLOOCK',
-      platformImage: '/assets/logos/logo_bloock_colour.webp',
-      logo: '/assets/logos/logo_bloock_round.webp',
-    },
-    {
-      name: 'Ton Barnils',
-      handle: t('testimonials_marquee.items.1.handle', 'General Director · CEC'),
-      avatar: 'https://cdn.shadcnstudio.com/ss-assets/avatar/avatar-2.png',
-      rating: 5,
-      title: t('testimonials_marquee.items.1.title', 'Safe and transparent participation'),
-      content: t(
-        'testimonials_marquee.items.1.content',
-        'We chose Vocdoni because it guarantees safe, reliable, and transparent participation for all our members at the annual general assembly.'
-      ),
-      platformName: 'CEC',
-      platformImage: '/assets/logos/logo_cec_colour.png',
-      logo: '/assets/logos/logo_cec_round.webp',
-    },
-    {
-      name: 'Anna Giralt',
-      handle: t('testimonials_marquee.items.2.handle', 'Executive Manager · Òmnium Cultural'),
-      avatar: 'https://cdn.shadcnstudio.com/ss-assets/avatar/avatar-3.png',
-      rating: 5,
-      title: t('testimonials_marquee.items.2.title', 'All guarantees for 180,000 members'),
-      content: t(
-        'testimonials_marquee.items.2.content',
-        'The commitment to Vocdoni has been clear. At Òmnium Cultural we bet on a secure and verifiable voting system that would allow us to hold our statutory assemblies with all guarantees.'
-      ),
-      platformName: 'Òmnium',
-      platformImage: '/assets/logos/logo_omnium_colour.png',
-      logo: '/assets/logos/logo_omnium_round.webp',
-    },
-    {
-      name: 'Oscar Tirivò',
-      handle: t('testimonials_marquee.items.3.handle', 'IT Director · Enginyers Industrials'),
-      avatar: 'https://cdn.shadcnstudio.com/ss-assets/avatar/avatar-4.png',
-      rating: 5,
-      title: t('testimonials_marquee.items.3.title', 'Easy, secure, and scalable voting'),
-      content: t(
-        'testimonials_marquee.items.3.content',
-        'Vocdoni provides us with an easy, secure, anonymous, and scalable voting system, completely integrated into our institutional environment. We will continue to trust it, without a doubt!'
-      ),
-      platformName: 'EIC',
-      platformImage: '/assets/logos/logo_eic_colour.png',
-      logo: '/assets/logos/logo_eic_round.webp',
-    },
-    {
-      name: 'Rut Carandell',
-      handle: t('testimonials_marquee.items.4.handle', 'Director · Plataforma per la Llengua'),
-      avatar: 'https://cdn.shadcnstudio.com/ss-assets/avatar/avatar-13.png',
-      rating: 5,
-      title: t('testimonials_marquee.items.4.title', 'Voting across Catalan-speaking territories'),
-      content: t(
-        'testimonials_marquee.items.4.content',
-        'Vocdoni lets us hold votes with members across all Catalan-speaking territories on equal terms. Instant counting simplifies our assemblies and ensures full transparency. We especially value that it is fully available in Catalan.'
-      ),
-      platformName: 'Plataforma per la Llengua',
-      platformImage: '/assets/logos/logo_plataforma_colour.webp',
-      logo: '/assets/logos/logo_plataforma_round.webp',
-    },
-    {
-      name: 'Montserrat Clavell',
-      handle: t('testimonials_marquee.items.5.handle', "Secretary · Associació d'Arxivers de Catalunya"),
-      avatar: 'https://cdn.shadcnstudio.com/ss-assets/avatar/avatar-14.png',
-      rating: 5,
-      title: t('testimonials_marquee.items.5.title', 'Secure voting that boosted participation'),
-      content: t(
-        'testimonials_marquee.items.5.content',
-        'Offering members a secure and reliable voting system is essential, especially during a pandemic. Vocdoni gave us an easy-to-use tool that simplified the voting process and boosted participation.'
-      ),
-      platformName: 'Arxivers de Catalunya',
-      platformImage: '/assets/logos/logo_arxivers_colour.webp',
-      logo: '/assets/logos/logo_.arxivers_round.webp',
-    },
-    {
-      name: 'Susanna Mendoza',
-      handle: t('testimonials_marquee.items.6.handle', 'IT Responsible · Associació de Guies Habilitats de Catalunya'),
-      avatar: 'https://cdn.shadcnstudio.com/ss-assets/avatar/avatar-15.png',
-      rating: 5,
-      title: t('testimonials_marquee.items.6.title', 'Easy to set up, great participation despite a non-tech audience'),
-      content: t(
-        'testimonials_marquee.items.6.content',
-        'Setting up the entire voting process and centralizing all the tools for the assembly was easy, intuitive, and clear. Members complimented how well organized it was and how simple it was to use. Even in a sector that is not very tech-savvy, we got strong participation — people especially valued being able to vote in advance without attending in person. When we had a small issue with the census, technical support was fast and professional.'
-      ),
-      platformName: 'AGUICAT',
-      platformImage: '/assets/logos/logo_aguicat_round.webp',
-      logo: '/assets/logos/logo_aguicat_round.webp',
-    },
-  ]
+  const testimonials = buildTestimonials(t)
 
   return (
     <>
