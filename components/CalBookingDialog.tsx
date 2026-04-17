@@ -15,6 +15,7 @@ type CalBookingDialogProps = {
   className?: string
   dialogTitle?: string
   triggerAriaLabel: string
+  onClick?: () => void
 }
 
 export function CalBookingDialog({
@@ -22,6 +23,7 @@ export function CalBookingDialog({
   className,
   dialogTitle = CAL_BOOKING_DIALOG_TITLE,
   triggerAriaLabel,
+  onClick,
 }: CalBookingDialogProps) {
   React.useEffect(() => {
     void (async function initCal() {
@@ -36,6 +38,7 @@ export function CalBookingDialog({
       className={cn(className)}
       aria-label={triggerAriaLabel}
       title={dialogTitle}
+      onClick={onClick}
       data-cal-namespace={CAL_BOOKING_NAMESPACE}
       data-cal-link={CAL_BOOKING_LINK}
       data-cal-config={JSON.stringify(CAL_BOOKING_TRIGGER_CONFIG)}

@@ -50,18 +50,8 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href='#' variant='footerNav'>
+                <Link href='https://developer.vocdoni.io/sdk' target='_blank' rel='noreferrer' variant='footerNav'>
                   {t('footer.product.links.1')}
-                </Link>
-              </li>
-              <li>
-                <Link href='#' variant='footerNav'>
-                  {t('footer.product.links.2')}
-                </Link>
-              </li>
-              <li>
-                <Link href='#' variant='footerNav'>
-                  {t('footer.product.links.3')}
                 </Link>
               </li>
             </ul>
@@ -71,23 +61,13 @@ export default function Footer() {
             <h4 className='font-bold text-sm mb-6 uppercase tracking-wider'>{t('footer.company.title')}</h4>
             <ul className='space-y-4'>
               <li>
-                <Link href='#' variant='footerNav'>
+                <Link href='/about-us' variant='footerNav'>
                   {t('footer.company.links.0')}
                 </Link>
               </li>
               <li>
-                <Link href='#' variant='footerNav'>
+                <Link href='/use-cases' variant='footerNav'>
                   {t('footer.company.links.1')}
-                </Link>
-              </li>
-              <li>
-                <Link href='#' variant='footerNav'>
-                  {t('footer.company.links.2')}
-                </Link>
-              </li>
-              <li>
-                <Link href='#' variant='footerNav'>
-                  {t('footer.company.links.3')}
                 </Link>
               </li>
             </ul>

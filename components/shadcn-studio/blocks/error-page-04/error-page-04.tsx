@@ -23,12 +23,7 @@ const ErrorPage = () => {
         <h1 className='text-3xl font-semibold tracking-tight sm:text-4xl'>{title}</h1>
         <p className='text-muted-foreground max-w-sm text-base'>{description}</p>
         <div className='flex gap-3 pt-2'>
-          <Button asChild>
-            <a href='/'>{t('error_page.go_home', 'Go home')}</a>
-          </Button>
-          <Button variant='outline' onClick={() => window.history.back()}>
-            {t('error_page.go_back', 'Go back')}
-          </Button>
+          <Button onClick={() => (window.location.href = '/')}>{t('error_page.go_home', 'Go home')}</Button>
         </div>
       </div>
     </div>

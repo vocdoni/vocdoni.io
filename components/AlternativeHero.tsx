@@ -144,7 +144,7 @@ export default function AlternativeHero() {
           {/* Right Column: Scroll Triggered Cards */}
           <div className='relative w-full lg:h-[600px] perspective-1000'>
             {/* Decorative background blotches */}
-            <div className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90vw] max-w-[600px] aspect-square bg-primary/5 rounded-full blur-[80px] lg:blur-[120px] -z-10' />
+            <div className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[600px] aspect-square bg-primary/5 rounded-full blur-[80px] lg:blur-[120px] -z-10' />
 
             <div className='hidden lg:block relative w-full h-full'>
               <ScrollTriggeredCards />

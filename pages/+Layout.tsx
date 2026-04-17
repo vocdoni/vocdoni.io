@@ -99,7 +99,7 @@ function LocalizedLayout({
 
   return (
     <I18nextProvider i18n={i18n}>
-      <div className='min-h-screen bg-background font-sans antialiased flex flex-col'>
+      <div className='min-h-screen bg-background font-sans antialiased flex flex-col overflow-x-hidden'>
         <CookieConsent />
         <Navbar />
         <main className='flex-1 pt-20'>{children}</main>
