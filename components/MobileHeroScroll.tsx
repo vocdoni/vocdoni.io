@@ -59,6 +59,7 @@ export default function MobileHeroScroll() {
         {Array.from({ length: CARD_COUNT }, (_, i) => (
           <button
             key={i}
+            type='button'
             aria-label={`Go to step ${i + 1}`}
             onClick={() => setActiveCard(i)}
             className={`h-1.5 rounded-full transition-all duration-300 cursor-pointer ${
