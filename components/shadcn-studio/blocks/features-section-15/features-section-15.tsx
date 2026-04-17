@@ -72,8 +72,8 @@ const EasyFeatures = () => {
             {t('easy_features.title', 'Everything your organization needs to vote')}
           </MotionPreset>
           <MotionPreset fade blur slide={{ direction: 'up', offset: 50 }} delay={0.5} transition={{ duration: 0.5 }}>
-            <Button size='lg' className='rounded-lg text-base' asChild>
-              <Link href='https://app.vocdoni.io'>{t('easy_features.cta', 'Try it free')}</Link>
+            <Button size='lg' asChild>
+              <Link href='https://app.vocdoni.io' variant='unstyled'>{t('easy_features.cta', 'Try it free')}</Link>
             </Button>
           </MotionPreset>
         </div>

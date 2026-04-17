@@ -34,13 +34,13 @@ export default function Services() {
                 )}
               </p>
               <div className='mt-8 flex flex-col gap-3 sm:flex-row sm:items-center'>
-                <Button asChild size='lg' className='rounded-full px-7 text-base'>
-                  <Link href='https://app.vocdoni.io' variant='unstyled'>
+                <Button asChild size='lg' className='has-[>svg]:px-6'>
+                  <Link href='https://app.vocdoni.io' variant='inlineIcon'>
                     {t('app_landing.cta.primary', 'Start free')}
                     <ArrowRightIcon />
                   </Link>
                 </Button>
-                <Button asChild variant='outline' size='lg' className='rounded-full px-7 text-base'>
+                <Button asChild variant='outline' size='lg'>
                   <Link href='https://app.vocdoni.io/plans' variant='unstyled'>
                     {t('app_landing.cta.secondary', 'See pricing')}
                   </Link>

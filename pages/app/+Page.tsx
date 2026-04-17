@@ -8,7 +8,6 @@ import Features from '@/components/VocdoniApp/Features'
 import Technology from '@/components/VocdoniApp/Technology'
 import SocialProof from '@/components/VocdoniApp/SocialProof'
 import FAQ from '@/components/VocdoniApp/FAQ'
-import CTASection from '@/components/shadcn-studio/blocks/cta-section-09/cta-section-09'
 import Services from '@/components/VocdoniApp/Services'
 
 export default function Page() {
@@ -24,7 +23,6 @@ export default function Page() {
       <Technology />
       <SocialProof />
       <FAQ />
-      <CTASection />
       <Services />
     </div>
   )

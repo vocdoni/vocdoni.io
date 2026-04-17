@@ -41,7 +41,7 @@ export default function TargetUsersV3() {
         </div>
 
         <div className='mt-12 flex justify-center'>
-          <Button asChild variant='outline' size='lg' className='rounded-full'>
+          <Button asChild variant='outline' size='lg'>
             <Link href='/use-cases' variant='unstyled'>{t('vocdoni_app.target_users.cta')}</Link>
           </Button>
         </div>

@@ -50,25 +50,14 @@ export default function AppHeroWithVideo() {
               transition={{ duration: 0.5 }}
               className='flex flex-col sm:flex-row gap-4 w-full sm:w-auto'
             >
-              <Button
-                size='lg'
-                className='group text-base transition-all duration-300 w-full sm:w-auto rounded-full'
-                asChild
-              >
-                <Link href='https://app.vocdoni.io' target='_blank' rel='noopener noreferrer'>
-                  <span className='flex items-center gap-2'>
-                    {t('vocdoni_app.app_hero.cta_primary', 'Start for Free')}
-                    <ArrowRight className='h-4 w-4 transition-transform duration-200 group-hover:translate-x-1' />
-                  </span>
+              <Button size='lg' className='group text-base transition-all duration-300 has-[>svg]:px-6 w-full sm:w-auto' asChild>
+                <Link href='https://app.vocdoni.io' target='_blank' rel='noopener noreferrer' variant='inlineIcon'>
+                  {t('vocdoni_app.app_hero.cta_primary', 'Start for Free')}
+                  <ArrowRight className='h-5 w-5 transition-transform duration-200 group-hover:translate-x-0.5' />
                 </Link>
               </Button>
-              <Button
-                variant='outline'
-                size='lg'
-                className='w-full sm:w-auto rounded-full gap-2 text-base'
-                onClick={() => setPlaying(true)}
-              >
-                <PlayCircleIcon className='h-5 w-5' />
+              <Button variant='outline' size='lg' className='w-full sm:w-auto' onClick={() => setPlaying(true)}>
+                <PlayCircleIcon />
                 {t('vocdoni_app.app_hero.cta_secondary', 'Watch the Demo')}
               </Button>
             </MotionPreset>
