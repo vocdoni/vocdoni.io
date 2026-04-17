@@ -1,3 +1,5 @@
+'use client'
+
 import * as React from 'react'
 
 import {
@@ -5,9 +7,9 @@ import {
   motion,
   useInView,
   type HTMLMotionProps,
-  type Transition,
   type UseInViewOptions,
-  type Variant,
+  type Transition,
+  type Variant
 } from 'motion/react'
 
 type MotionComponent = keyof typeof motion
@@ -55,7 +57,7 @@ function MotionPreset({
   slide = false,
   fade = false,
   zoom = false,
-  motionProps = {},
+  motionProps = {}
 }: MotionPresetProps) {
   const localRef = React.useRef<any>(null)
 
@@ -63,7 +65,7 @@ function MotionPreset({
 
   const inViewResult = useInView(localRef, {
     once: inViewOnce,
-    margin: inViewMargin,
+    margin: inViewMargin
   })
 
   const isInView = !inView || inViewResult
@@ -106,11 +108,11 @@ function MotionPreset({
         exit='hidden'
         variants={{
           hidden: hiddenVariant,
-          visible: visibleVariant,
+          visible: visibleVariant
         }}
         transition={{
           ...transition,
-          delay: (transition?.delay ?? 0) + delay,
+          delay: (transition?.delay ?? 0) + delay
         }}
         className={className}
         {...motionProps}

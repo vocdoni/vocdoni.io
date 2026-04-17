@@ -133,18 +133,19 @@ const Hero = () => {
             <div className='relative flex flex-col gap-10 w-full max-w-[420px]'>
               {/* Vertical connector line */}
               <motion.div
-                className='absolute -left-10 top-12 bottom-[60px] w-[2px] bg-gradient-to-b from-primary/25 via-primary/30 to-primary/0 z-0'
+                className='absolute -left-10 -top-4 bottom-[60px] w-[2px] bg-gradient-to-b from-primary/0 via-primary/30 to-primary/0 z-0'
                 initial={{ scaleY: 0 }}
                 animate={{ scaleY: 1 }}
                 transition={{ duration: 1.5, ease: 'easeInOut' }}
-                style={{ originY: 0 }}
+                style={{ originY: 0, x: '-50%' }}
               />
 
               {/* Data flow particle */}
               <motion.div
-                className='absolute -left-[41px] top-12 w-1 h-12 bg-primary rounded-full shadow-[0_0_12px_theme(colors.primary.DEFAULT)] opacity-0'
-                animate={{ y: [0, 500], opacity: [0, 1, 0] }}
+                className='absolute -left-10 -top-4 w-1 h-12 bg-primary rounded-full shadow-[0_0_12px_theme(colors.primary.DEFAULT)] opacity-0'
+                animate={{ y: [0, 650], opacity: [0, 1, 0] }}
                 transition={{ duration: 3, repeat: Infinity, ease: 'linear', repeatDelay: 1.5 }}
+                style={{ x: '-50%' }}
               />
 
               {/* Step 1: Census */}
@@ -155,8 +156,8 @@ const Hero = () => {
                 transition={{ duration: 0.7, delay: 0.2, type: 'spring', bounce: 0.4 }}
               >
                 {/* Connector */}
-                <div className='absolute -left-10 top-12 w-10 h-px border-t border-dashed border-primary/40' />
-                <div className='absolute -left-[44px] top-[43px] w-2.5 h-2.5 rounded-full bg-background border-2 border-primary z-20 shadow-[0_0_8px_theme(colors.primary.DEFAULT)]' />
+                <div className='absolute -left-10 top-[48px] w-10 h-px border-t border-dashed border-primary/40' />
+                <div className='absolute -left-10 top-[43px] w-2.5 h-2.5 -translate-x-1/2 rounded-full bg-background border-2 border-primary z-20 shadow-[0_0_8px_theme(colors.primary.DEFAULT)]' />
 
                 <div className='transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-primary/10 rounded-2xl bg-background/60 backdrop-blur-xl border border-primary/10 relative overflow-hidden group'>
                   <div className='absolute inset-0 bg-gradient-to-tr from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500' />
@@ -173,7 +174,7 @@ const Hero = () => {
               >
                 {/* Connector */}
                 <div className='absolute -left-10 top-[44px] w-10 h-px border-t border-dashed border-primary/40' />
-                <div className='absolute -left-[44px] top-[39px] w-2.5 h-2.5 rounded-full bg-background border-2 border-primary z-20 shadow-[0_0_8px_theme(colors.primary.DEFAULT)]' />
+                <div className='absolute -left-10 top-[39px] w-2.5 h-2.5 -translate-x-1/2 rounded-full bg-background border-2 border-primary z-20 shadow-[0_0_8px_theme(colors.primary.DEFAULT)]' />
 
                 <div className='transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-primary/10 rounded-2xl bg-background/60 backdrop-blur-xl border border-primary/10 relative overflow-hidden group'>
                   <div className='absolute inset-0 bg-gradient-to-tr from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500' />
@@ -190,7 +191,7 @@ const Hero = () => {
               >
                 {/* Connector */}
                 <div className='absolute -left-10 top-[40px] w-10 h-px border-t border-dashed border-primary/40' />
-                <div className='absolute -left-[44px] top-[35px] w-2.5 h-2.5 rounded-full bg-background border-2 border-primary z-20 shadow-[0_0_8px_theme(colors.primary.DEFAULT)]' />
+                <div className='absolute -left-10 top-[35px] w-2.5 h-2.5 -translate-x-1/2 rounded-full bg-background border-2 border-primary z-20 shadow-[0_0_8px_theme(colors.primary.DEFAULT)]' />
 
                 <div className='transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-primary/10 rounded-2xl bg-background/60 backdrop-blur-xl border border-primary/10 relative overflow-hidden group'>
                   <div className='absolute inset-0 bg-gradient-to-tr from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500' />

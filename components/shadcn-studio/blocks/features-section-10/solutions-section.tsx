@@ -49,7 +49,7 @@ const Solutions = () => {
                     size='lg'
                     asChild
                   >
-                    <Link href='#' variant='inlineIcon'>
+                    <Link href='/app' variant='inlineIcon'>
                       {t('features.cards.app.cta')}
                       <ArrowRightIcon className='transition-transform duration-200 group-hover:translate-x-0.5' />
                     </Link>

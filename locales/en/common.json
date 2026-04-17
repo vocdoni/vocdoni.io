@@ -2,11 +2,11 @@
   "about_us": {
     "content_description": "Since 2018, Vocdoni (Esperanto for 'to give voice') has empowered organizations to conduct elections with mathematical integrity. We provide the most auditable voting system in the world, shifting trust from vendor promises to verifiable public proof.",
     "content_title": "We make secure digital voting accessible to any organization",
-    "description": "From city councils and political parties to associations and cooperatives, Vocdoni (Esperanto for 'to give voice') was built to level the playing field. Our goal is simple: to offer the best, most secure digital voting technology to every organization, independently of their size.",
+    "description": "From city councils and political parties to associations and cooperatives, Vocdoni was built to offer the best, most secure digital voting technology to every organization, independently of their size.",
     "eyebrow": "About Vocdoni",
     "feature_cards": {
       "accessibility": {
-        "description": "Any organization in the world - from a 20-person sports club to a 200,000-member civic body - can run the same quality of election today.",
+        "description": "Any organization in the world (from a 20-person sports club to a 200,000-member professional association) can run the same quality of election with Vocdoni.",
         "title": "Accessible governance"
       },
       "compliance": {
@@ -14,7 +14,7 @@
         "title": "Legally valid by design"
       },
       "security": {
-        "description": "Any member, observer, or independent auditor can verify the full result without seeing a single individual vote. Our code is public. We have nothing to hide.",
+        "description": "Any member, observer, or independent auditor can verify the entire voting process execution and final results. Our code is public.",
         "title": "Fully open and auditable"
       }
     },
@@ -26,11 +26,11 @@
     "read_more": "Read more",
     "stat_cards": {
       "affordable": {
-        "description": "Lower cost per vote compared to paper",
+        "description": "Lower cost per vote compared to the market average",
         "title": "10x"
       },
       "experience": {
-        "description": "Years of experience in verifiable voting",
+        "description": "Years of experience offering secure digital voting",
         "title": "7+"
       },
       "turnout": {
@@ -143,9 +143,9 @@
         "title": "Projects"
       }
     },
-    "description": "From quick self-service elections to custom enterprise integrations - one platform handles every vote your organization takes. Trusted by professional colleges, associations, federations, cities, and clubs worldwide.",
+    "description": "Choose the right fit for your organization: launch in minutes with our self-service app, integrate seamlessly using our SDK, or let us build a custom project just for you.",
     "eyebrow": "Solutions",
-    "title": "Everything you need for a trustworthy vote"
+    "title": "Solutions that adapt to your organization"
   },
   "footer": {
     "certified": "Certified",
@@ -207,10 +207,14 @@
     },
     "cta_primary": "Start for free",
     "cta_secondary": "Talk to an expert",
-    "dynamic_words": ["easy", "secure", "simple"],
-    "subtitle": "Run secure, legally valid elections from any device. Any organization, any size, starting today.",
+    "dynamic_words": [
+      "easy",
+      "secure",
+      "simple"
+    ],
+    "subtitle": "Run secure, legally valid elections from any device. Available for organization, of any size, starting today.",
     "title": "Making decisions has never been this",
-    "trusted_by": "Trusted by organizations of every size"
+    "trusted_by": "Trusted by hundreds of organizations worldwide"
   },
   "meta": {
     "contact": {
@@ -233,7 +237,6 @@
       "description": "Discover real-world voting and governance use cases powered by Vocdoni's secure and transparent technology.",
       "title": "Use cases - Vocdoni"
     },
-
     "app": {
       "title": "Vocdoni app - run a vote your members can trust",
       "description": "Start free, upload your voter list, and publish results your members can verify. Built for organizations that need trust, speed, and proof."
@@ -248,9 +251,18 @@
       "cta_secondary": "See real results",
       "risk_reversal": "No credit card required",
       "stats": [
-        { "value": "200,000+", "label": "Votes processed" },
-        { "value": "500+", "label": "Organizations" },
-        { "value": "~30+", "label": "Average turnout" }
+        {
+          "value": "200,000+",
+          "label": "Votes processed"
+        },
+        {
+          "value": "500+",
+          "label": "Organizations"
+        },
+        {
+          "value": "~30+",
+          "label": "Average turnout"
+        }
       ]
     },
     "grid": {
@@ -264,22 +276,38 @@
         "city_councils": {
           "title": "City councils & municipal governance",
           "description": "Run binding referenda, participatory budgets and citizen consultations that any resident can verify. Results are published on a tamper-proof public record - no single party, including Vocdoni, can alter them.",
-          "features": ["Local referenda & binding polls", "Participatory budgeting", "Citizen consultations"]
+          "features": [
+            "Local referenda & binding polls",
+            "Participatory budgeting",
+            "Citizen consultations"
+          ]
         },
         "associations": {
           "title": "Associations & member organizations",
           "description": "Run board elections, bylaw amendments and statutory assemblies that comply with your organization's rules. Every member receives a link to verify their vote was counted - without revealing how they voted.",
-          "features": ["Board member elections", "Bylaws amendments", "Major initiative approvals"]
+          "features": [
+            "Board member elections",
+            "Bylaws amendments",
+            "Major initiative approvals"
+          ]
         },
         "sports_clubs": {
           "title": "Sports clubs & fan organizations",
           "description": "Run club elections and member decisions for thousands of fans worldwide. Any international member can vote from any device. Results are publicly auditable - one link, anyone can check.",
-          "features": ["Club official elections", "Major expenditure approvals", "Policy changes & amendments"]
+          "features": [
+            "Club official elections",
+            "Major expenditure approvals",
+            "Policy changes & amendments"
+          ]
         },
         "professional_bodies": {
           "title": "Professional associations & colleges",
           "description": "Meet your statutory election obligations and reduce the risk of a disputed result. Online voting increases participation by up to 100% compared to postal ballots - and the result is independently verifiable by any member.",
-          "features": ["Board & committee elections", "AGM votes", "Professional standards decisions"]
+          "features": [
+            "Board & committee elections",
+            "AGM votes",
+            "Professional standards decisions"
+          ]
         },
         "political_parties": {
           "title": "Political parties & civic organizations",
@@ -293,7 +321,11 @@
         "integrators": {
           "title": "Software integrators & platform providers",
           "description": "Embed independently verifiable voting into your platform via SDK or REST API. Vocdoni handles security, privacy and compliance. Your team focuses on user experience.",
-          "features": ["JavaScript SDK & REST API", "Pre-built UI components", "GDPR compliance out-of-the-box"]
+          "features": [
+            "JavaScript SDK & REST API",
+            "Pre-built UI components",
+            "GDPR compliance out-of-the-box"
+          ]
         }
       }
     },
@@ -311,9 +343,21 @@
           "author": "Jordi Estiarte",
           "author_title": "Mayor of Bellpuig",
           "stats": [
-            { "value": "2 weeks", "label": "Voting window", "description": "At residents’ convenience" },
-            { "value": "Hybrid", "label": "Format", "description": "Online + In-person support" },
-            { "value": "OECD", "label": "Highlighted", "description": "Report on civic participation" }
+            {
+              "value": "2 weeks",
+              "label": "Voting window",
+              "description": "At residents’ convenience"
+            },
+            {
+              "value": "Hybrid",
+              "label": "Format",
+              "description": "Online + In-person support"
+            },
+            {
+              "value": "OECD",
+              "label": "Highlighted",
+              "description": "Report on civic participation"
+            }
           ],
           "impact": "Hybrid consultation on a new funeral facility. The mayor committed to respect the result despite it being non-binding. Recognized by the OECD as a standard for modern citizen-first participation.",
           "highlights": [
@@ -331,9 +375,21 @@
           "author": "New Belarus Team",
           "author_title": "Democratic civil society",
           "stats": [
-            { "value": "6,723", "label": "Votes cast", "description": "From members in exile" },
-            { "value": "7", "label": "Observers", "description": "International supervision" },
-            { "value": "Censorship", "label": "Resistant", "description": "Operational necessity" }
+            {
+              "value": "6,723",
+              "label": "Votes cast",
+              "description": "From members in exile"
+            },
+            {
+              "value": "7",
+              "label": "Observers",
+              "description": "International supervision"
+            },
+            {
+              "value": "Censorship",
+              "label": "Resistant",
+              "description": "Operational necessity"
+            }
           ],
           "impact": "Elections for the Coordination Council bringing together democratic organizations that cannot safely operate inside Belarus. Censorship resistance was not a benefit but a necessity.",
           "highlights": [
@@ -351,9 +407,21 @@
           "author": "ERC Spokesperson",
           "author_title": "Esquerra Republicana",
           "stats": [
-            { "value": "77.12%", "label": "Turnout", "description": "Membership vote" },
-            { "value": "6,349", "label": "Total votes", "description": "High stakes decision" },
-            { "value": "Seconds", "label": "Tally time", "description": "Immediate results" }
+            {
+              "value": "77.12%",
+              "label": "Turnout",
+              "description": "Membership vote"
+            },
+            {
+              "value": "6,349",
+              "label": "Total votes",
+              "description": "High stakes decision"
+            },
+            {
+              "value": "Seconds",
+              "label": "Tally time",
+              "description": "Immediate results"
+            }
           ],
           "impact": "Decisive membership vote on a question with significant political consequences. Proof that secure, verifiable high-stakes voting can scale without incidents.",
           "highlights": [
@@ -371,9 +439,21 @@
           "author": "COIB Administration",
           "author_title": "Nurses professional association",
           "stats": [
-            { "value": "€50", "label": "Travel saved", "description": "Per member" },
-            { "value": "2FA", "label": "Security", "description": "SMS/Email authentication" },
-            { "value": "Hybrid", "label": "Participation", "description": "In-person + Remote" }
+            {
+              "value": "€50",
+              "label": "Travel saved",
+              "description": "Per member"
+            },
+            {
+              "value": "2FA",
+              "label": "Security",
+              "description": "SMS/Email authentication"
+            },
+            {
+              "value": "Hybrid",
+              "label": "Participation",
+              "description": "In-person + Remote"
+            }
           ],
           "impact": "Unified online voting environment for the 2025 AGM. Members accessed the platform with secure 2FA, viewing agenda, docs, and the live stream in one place.",
           "highlights": [
@@ -391,9 +471,21 @@
           "author": "Alhora Leadership",
           "author_title": "Political party members",
           "stats": [
-            { "value": "Foundations", "label": "Vote type", "description": "Defining the party basis" },
-            { "value": "Decisive", "label": "Strategic", "description": "High stakes decision" },
-            { "value": "Distributed", "label": "Access", "description": "Members abroad included" }
+            {
+              "value": "Foundations",
+              "label": "Vote type",
+              "description": "Defining the party basis"
+            },
+            {
+              "value": "Decisive",
+              "label": "Strategic",
+              "description": "High stakes decision"
+            },
+            {
+              "value": "Distributed",
+              "label": "Access",
+              "description": "Members abroad included"
+            }
           ],
           "impact": "Large participatory vote to define the foundational basis of the young political party. A strategic decision that shapes the organization's entire future governance.",
           "highlights": [
@@ -704,12 +796,12 @@
     },
     "target_users": {
       "title": "Trusted by organizations like yours",
-      "description": "We prioritize organizations with structural voting needs and guarantee requirements.",
+      "description": "Every organization deserves the highest voting standards and a flawless user experience. We tailor solutions to your exact needs.",
       "list": {
         "professional_colleges": "Professional colleges",
         "associations": "Associations & federations",
-        "political_orgs": "Political organizations & parties",
-        "chambers": "Chambers & business unions",
+        "political_orgs": "Political parties",
+        "chambers": "Chambers & trade unions",
         "sports": "Sports clubs",
         "public": "Public administration",
         "coops": "Cooperatives",
@@ -786,7 +878,6 @@
       "expected": "Expected"
     }
   },
-
   "faq": {
     "eyebrow": "FAQ",
     "title": "Common questions",
@@ -877,9 +968,18 @@
         "verify": "Voters can verify their vote was counted"
       },
       "stats": [
-        { "value": "200,000+", "label": "Votes processed" },
-        { "value": "500+", "label": "Voting processes run" },
-        { "value": "7 years", "label": "Of digital voting experience" }
+        {
+          "value": "200,000+",
+          "label": "Votes processed"
+        },
+        {
+          "value": "500+",
+          "label": "Voting processes run"
+        },
+        {
+          "value": "7 years",
+          "label": "Of digital voting experience"
+        }
       ],
       "workflow": {
         "create": "Create account",
@@ -1023,9 +1123,18 @@
       "title": "Trusted by organizations that cannot afford disputed results",
       "description": "The page should combine logos, hard proof stats, a concrete case study, and the testimonial cards already used on the main landing page.",
       "stats": [
-        { "value": "200,000+", "label": "Votes processed securely" },
-        { "value": "30%", "label": "Average turnout increase" },
-        { "value": "Up to 70%", "label": "Lower election costs" }
+        {
+          "value": "200,000+",
+          "label": "Votes processed securely"
+        },
+        {
+          "value": "30%",
+          "label": "Average turnout increase"
+        },
+        {
+          "value": "Up to 70%",
+          "label": "Lower election costs"
+        }
       ],
       "case_study": {
         "eyebrow": "Mini case study",
@@ -1202,22 +1311,30 @@
     "title_start": "Your first secure election, up and running in",
     "title_highlight": "three steps",
     "subtitle": "No technical setup, no paperwork. Upload your members, build your ballot, and share the link - that is all it takes.",
-    "label": "No setup required",
+    "label": "Setup a vote in under 10 minutes",
     "panel_title": "From spreadsheet to live election in minutes",
     "panel_description": "Vocdoni handles the security. You handle the questions.",
     "steps": {
       "upload": {
-        "title": "Upload your member base",
+        "title": "1. Upload your member base",
         "description": "Import your voter list from a spreadsheet in seconds. Every member automatically receives a unique, private access link - no account or app required on their end."
       },
       "create": {
-        "title": "Create the voting process",
+        "title": "2. Create the voting process",
         "description": "Choose your voting method, write your question, and set start and end dates. Your ballot is configured and ready to go in under five minutes."
       },
       "share": {
-        "title": "Share the link, collect votes",
+        "title": "3. Share the link, collect votes",
         "description": "Send the voting link by email. Members vote from any device in seconds. Results are published instantly when voting closes - anyone can verify the count is correct."
       }
     }
+  },
+  "error_page": {
+    "not_found_title": "Page not found",
+    "not_found_description": "The page you are looking for doesn't exist or has been moved.",
+    "error_title": "Something went wrong",
+    "error_description": "An unexpected error occurred. Please try again later.",
+    "go_home": "Go home",
+    "go_back": "Go back"
   }
 }

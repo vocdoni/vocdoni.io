@@ -1,15 +1,64 @@
 import Hero from '@/components/Hero'
 import ComparisonSection from '@/components/ComparisonSection'
-import Solutions from '@/components/shadcn-studio/blocks/features-section-10/solutions-section'
 import TestimonialsComponent from '@/components/shadcn-studio/blocks/testimonials-component-03/testimonials-component-03'
 import AboutUs from '@/components/shadcn-studio/blocks/about-us-page-07/about-us-page-07'
 import TargetUsersV3 from '@/components/VocdoniAppV3/TargetUsers'
 import CTASection from '@/components/shadcn-studio/blocks/cta-section-09/cta-section-09'
 import HomeFAQ from '@/components/HomeFAQ'
+import Portfolio from '@/components/shadcn-studio/blocks/portfolio-16/portfolio-16'
 import { useTranslation } from 'react-i18next'
 
 export default function Page() {
   const { t } = useTranslation()
+
+  const portfolioItems = [
+    {
+      id: 1,
+      title: t('landing.portfolio.items.1.title', 'Vocdoni app'),
+      description: t('landing.portfolio.items.1.description', 'Set up a real election in minutes. No IT team, no paper, no expertise needed - just simple, verifiable voting for any organization.'),
+      link: '/app',
+      imageUrl: '/assets/images/solutions/solutions_app.webp',
+      imageAlt: 'Vocdoni app interface mockups',
+      backgroundColor: 'bg-green-600/10 dark:bg-green-400/10 hover:bg-green-600/20 dark:hover:bg-green-400/20',
+      btnColor:
+        'bg-green-600 text-white hover:bg-green-600 focus-visible:ring-green-600 dark:bg-green-400 dark:hover:bg-green-400 dark:focus-visible:ring-green-400'
+    },
+    {
+      id: 2,
+      title: t('landing.portfolio.items.2.title', 'Vocdoni SDK'),
+      description: t('landing.portfolio.items.2.description', 'Add verifiable, anonymous voting directly into your own applications with our open-source tools. Your infrastructure, our secure protocol.'),
+      link: 'https://developer.vocdoni.io/sdk',
+      imageUrl: '/assets/images/solutions/solutions_sdk.webp',
+      imageAlt: 'Developer tools and API',
+      imageWrapperClassName: 'px-4 sm:px-8 pt-12 lg:pt-14',
+      imageClassName: 'translate-y-8 sm:translate-y-12',
+      backgroundColor: 'bg-sky-600/10 dark:bg-sky-400/10 hover:bg-sky-600/20 dark:hover:bg-sky-400/20',
+      btnColor:
+        'bg-sky-600 text-white hover:bg-sky-600 focus-visible:ring-sky-600 dark:bg-sky-400 dark:hover:bg-sky-400 dark:focus-visible:ring-sky-400'
+    },
+    {
+      id: 3,
+      title: t('landing.portfolio.items.3.title', 'Custom election projects'),
+      description: t('landing.portfolio.items.3.description', 'Full expert support for complex governance, from initial configuration to certified verifiable results.'),
+      link: '#',
+      imageUrl: 'https://cdn.shadcnstudio.com/ss-assets/blocks/marketing/portfolio/image-75.png',
+      imageAlt: 'Data charts and project management',
+      backgroundColor: 'bg-amber-600/10 dark:bg-amber-400/10 hover:bg-amber-600/20 dark:hover:bg-amber-400/20',
+      btnColor:
+        'bg-amber-600 text-white hover:bg-amber-600 focus-visible:ring-amber-600 dark:bg-amber-400 dark:hover:bg-amber-400 dark:focus-visible:ring-amber-400'
+    },
+    {
+      id: 4,
+      title: t('landing.portfolio.items.4.title', 'Vocdoni Petitions'),
+      description: t('landing.portfolio.items.4.description', 'A solution to collect signatures and sign petitions that uses a privacy-first and data-minimization app called Vocdoni Passport.'),
+      link: '#',
+      imageUrl: 'https://cdn.shadcnstudio.com/ss-assets/blocks/marketing/portfolio/image-74.png',
+      imageAlt: 'Vocdoni Petitions and Passport app',
+      backgroundColor: 'bg-red-600/10 dark:bg-red-400/10 hover:bg-red-600/20 dark:hover:bg-red-400/20',
+      btnColor:
+        'bg-red-600 text-white hover:bg-red-600 focus-visible:ring-red-600 dark:bg-red-400 dark:hover:bg-red-400 dark:focus-visible:ring-red-400'
+    }
+  ]
 
   const comparisonOptions = [
     {
@@ -327,7 +376,7 @@ export default function Page() {
       <Hero />
       <AboutUs hideTeam={true} statCards={aboutStatCards} featureCards={aboutFeatureCards} />
       <TargetUsersV3 />
-      <Solutions />
+      <Portfolio portfolioItems={portfolioItems} />
       <ComparisonSection options={comparisonOptions} featureKeys={featureKeys} featureLabels={featureLabels} />
       <TestimonialsComponent
         eyebrow={t('testimonials.eyebrow')}

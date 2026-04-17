@@ -11,7 +11,7 @@ const featureData = [
     id: 'upload',
     icon: UsersIcon,
     titleKey: 'steps_section.steps.upload.title',
-    titleDefault: 'Upload your member base',
+    titleDefault: '1. Upload your member base',
     descriptionKey: 'steps_section.steps.upload.description',
     descriptionDefault:
       'Import your voter list from a spreadsheet in seconds. Every member automatically receives a unique, private access link - no account or app required on their end.',
@@ -22,7 +22,7 @@ const featureData = [
     id: 'create',
     icon: ClipboardListIcon,
     titleKey: 'steps_section.steps.create.title',
-    titleDefault: 'Create the voting process',
+    titleDefault: '2. Create the voting process',
     descriptionKey: 'steps_section.steps.create.description',
     descriptionDefault:
       'Choose your voting method, write your question, and set start and end dates. Your ballot is configured and ready to go in under five minutes.',
@@ -33,7 +33,7 @@ const featureData = [
     id: 'share',
     icon: SendIcon,
     titleKey: 'steps_section.steps.share.title',
-    titleDefault: 'Share the link, collect votes',
+    titleDefault: '3. Share the link, collect votes',
     descriptionKey: 'steps_section.steps.share.description',
     descriptionDefault:
       'Send the voting link by email. Members vote from any device in seconds. Results are published instantly when voting closes - anyone can verify the count is correct.',
@@ -60,7 +60,7 @@ const AccordionWithImage = () => {
                 </AvatarFallback>
               </Avatar>
               <p className='text-sm font-medium text-muted-foreground'>
-                {t('steps_section.label', 'No setup required')}
+                {t('steps_section.label', 'Setup a vote in under 10 minutes')}
               </p>
             </div>
             <h3 className='text-2xl font-semibold'>

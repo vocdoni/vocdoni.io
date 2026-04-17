@@ -143,9 +143,9 @@
         "title": "Proyectos"
       }
     },
-    "description": "Desde elecciones rápidas de autoservicio hasta integraciones empresariales a medida: una plataforma para cada voto de tu organización. Con la confianza de colegios profesionales, asociaciones, federaciones, municipios y clubes de todo el mundo.",
+    "description": "Elige la opción adecuada para tu organización: lanza en minutos con nuestra app de autoservicio, integra fácilmente utilizando nuestro SDK, o deja que construyamos un proyecto a medida solo para ti.",
     "eyebrow": "Soluciones",
-    "title": "Todo lo que necesitas para una votación de confianza"
+    "title": "Soluciones que se adaptan a tu organización"
   },
   "footer": {
     "certified": "Certificado",
@@ -207,7 +207,11 @@
     },
     "cta_primary": "Empezar gratis",
     "cta_secondary": "Hablar con un experto",
-    "dynamic_words": ["fácil", "segura", "sencilla"],
+    "dynamic_words": [
+      "fácil",
+      "segura",
+      "sencilla"
+    ],
     "subtitle": "Celebra elecciones seguras y legalmente válidas desde cualquier dispositivo. Cualquier organización, cualquier tamaño, desde hoy mismo.",
     "title": "Tomar decisiones nunca ha sido tan",
     "trusted_by": "La confianza de organizaciones de todos los tamaños"
@@ -233,7 +237,6 @@
       "description": "Descubre casos de uso reales de votación y gobernanza impulsados por la tecnología segura y transparente de Vocdoni.",
       "title": "Casos de uso - Vocdoni"
     },
-
     "app": {
       "title": "Vocdoni app - organiza una votación en la que tus miembros puedan confiar",
       "description": "Empieza gratis, sube tu censo y publica resultados que tus miembros puedan verificar. Diseñada para organizaciones que necesitan confianza, rapidez y pruebas."
@@ -326,9 +329,21 @@
           "author": "Jordi Estiarte",
           "author_title": "Alcalde de Bellpuig",
           "stats": [
-            { "value": "2 semanas", "label": "Periodo de voto", "description": "A conveniencia de los residentes" },
-            { "value": "Híbrido", "label": "Formato", "description": "Online + Soporte presencial" },
-            { "value": "OCDE", "label": "Destacado", "description": "Informe sobre participación ciudadana" }
+            {
+              "value": "2 semanas",
+              "label": "Periodo de voto",
+              "description": "A conveniencia de los residentes"
+            },
+            {
+              "value": "Híbrido",
+              "label": "Formato",
+              "description": "Online + Soporte presencial"
+            },
+            {
+              "value": "OCDE",
+              "label": "Destacado",
+              "description": "Informe sobre participación ciudadana"
+            }
           ],
           "impact": "Consulta híbrida sobre una nueva instalación funeraria. El alcalde se comprometió a respetar el resultado a pesar de no ser vinculante. Reconocido por la OCDE como un estándar para la participación ciudadana moderna.",
           "highlights": [
@@ -346,9 +361,21 @@
           "author": "Equipo de New Belarus",
           "author_title": "Sociedad civil democrática",
           "stats": [
-            { "value": "6.723", "label": "Votos emitidos", "description": "Socios en el exilio" },
-            { "value": "7", "label": "Observadores", "description": "Supervisión internacional" },
-            { "value": "Resistente", "label": "Censura", "description": "Necesidad operativa" }
+            {
+              "value": "6.723",
+              "label": "Votos emitidos",
+              "description": "Socios en el exilio"
+            },
+            {
+              "value": "7",
+              "label": "Observadores",
+              "description": "Supervisión internacional"
+            },
+            {
+              "value": "Resistente",
+              "label": "Censura",
+              "description": "Necesidad operativa"
+            }
           ],
           "impact": "Elecciones para el Consejo de Coordinación que reúne a organizaciones democráticas que no pueden operar con seguridad dentro de Bielorrusia. La resistencia a la censura no era una ventaja, sino una necesidad.",
           "highlights": [
@@ -366,9 +393,21 @@
           "author": "Portavoz de ERC",
           "author_title": "Esquerra Republicana",
           "stats": [
-            { "value": "77,12%", "label": "Participación", "description": "Votación de la militancia" },
-            { "value": "6.349", "label": "Votos totales", "description": "Decisión de alto riesgo" },
-            { "value": "Segundos", "label": "Recuento", "description": "Resultados inmediatos" }
+            {
+              "value": "77,12%",
+              "label": "Participación",
+              "description": "Votación de la militancia"
+            },
+            {
+              "value": "6.349",
+              "label": "Votos totales",
+              "description": "Decisión de alto riesgo"
+            },
+            {
+              "value": "Segundos",
+              "label": "Recuento",
+              "description": "Resultados inmediatos"
+            }
           ],
           "impact": "Votación decisiva de la militancia sobre una cuestión con importantes consecuencias políticas. Prueba de que el voto seguro y verificable en asuntos de alto riesgo puede escalar sin incidentes.",
           "highlights": [
@@ -386,9 +425,21 @@
           "author": "Administración del COIB",
           "author_title": "Colegio profesional de enfermería",
           "stats": [
-            { "value": "50 €", "label": "Ahorro viaje", "description": "Por colegiado" },
-            { "value": "2FA", "label": "Seguridad", "description": "Autenticación SMS/Email" },
-            { "value": "Híbrido", "label": "Participación", "description": "Presencial + Remoto" }
+            {
+              "value": "50 €",
+              "label": "Ahorro viaje",
+              "description": "Por colegiado"
+            },
+            {
+              "value": "2FA",
+              "label": "Seguridad",
+              "description": "Autenticación SMS/Email"
+            },
+            {
+              "value": "Híbrido",
+              "label": "Participación",
+              "description": "Presencial + Remoto"
+            }
           ],
           "impact": "Entorno de votación en línea unificado para la AGM de 2025. Los miembros accedieron a la plataforma con un 2FA seguro, viendo el orden del día, los documentos y la transmisión en directo en un solo lugar.",
           "highlights": [
@@ -406,9 +457,21 @@
           "author": "Liderazgo de Alhora",
           "author_title": "Militancia del partido político",
           "stats": [
-            { "value": "Fundación", "label": "Tipo de voto", "description": "Definiendo las bases" },
-            { "value": "Decisivo", "label": "Estratégico", "description": "Decisión de alto riesgo" },
-            { "value": "Distribuido", "label": "Acceso", "description": "Militantes fuera incluidos" }
+            {
+              "value": "Fundación",
+              "label": "Tipo de voto",
+              "description": "Definiendo las bases"
+            },
+            {
+              "value": "Decisivo",
+              "label": "Estratégico",
+              "description": "Decisión de alto riesgo"
+            },
+            {
+              "value": "Distribuido",
+              "label": "Acceso",
+              "description": "Militantes fuera incluidos"
+            }
           ],
           "impact": "Gran votación participativa para definir las bases fundacionales del joven partido político. Una decisión estratégica que configura toda la futura gobernanza de la organización.",
           "highlights": [
@@ -800,7 +863,6 @@
       "expected": "Esperado"
     }
   },
-
   "faq": {
     "eyebrow": "FAQ",
     "title": "Preguntas comunes",
@@ -891,9 +953,18 @@
         "verify": "Los votantes pueden verificar que su voto fue contado"
       },
       "stats": [
-        { "value": "200.000+", "label": "Votos procesados" },
-        { "value": "500+", "label": "Procesos de votación realizados" },
-        { "value": "7 años", "label": "De experiencia en votación digital" }
+        {
+          "value": "200.000+",
+          "label": "Votos procesados"
+        },
+        {
+          "value": "500+",
+          "label": "Procesos de votación realizados"
+        },
+        {
+          "value": "7 años",
+          "label": "De experiencia en votación digital"
+        }
       ],
       "workflow": {
         "create": "Crear cuenta",
@@ -1037,9 +1108,18 @@
       "title": "Con la confianza de organizaciones que no pueden permitirse resultados discutidos",
       "description": "La página debe combinar logos, métricas sólidas, un caso concreto y las tarjetas de testimonios ya usadas en la landing principal.",
       "stats": [
-        { "value": "200.000+", "label": "Votos procesados con seguridad" },
-        { "value": "30%", "label": "Aumento medio de participación" },
-        { "value": "Hasta un 70%", "label": "Menor coste electoral" }
+        {
+          "value": "200.000+",
+          "label": "Votos procesados con seguridad"
+        },
+        {
+          "value": "30%",
+          "label": "Aumento medio de participación"
+        },
+        {
+          "value": "Hasta un 70%",
+          "label": "Menor coste electoral"
+        }
       ],
       "case_study": {
         "eyebrow": "Mini caso de estudio",
@@ -1192,5 +1272,13 @@
         }
       ]
     }
+  },
+  "error_page": {
+    "not_found_title": "Página no encontrada",
+    "not_found_description": "La página que buscas no existe o ha sido trasladada.",
+    "error_title": "Algo ha ido mal",
+    "error_description": "Se ha producido un error inesperado. Por favor, inténtalo de nuevo más tarde.",
+    "go_home": "Ir al inicio",
+    "go_back": "Volver"
   }
 }

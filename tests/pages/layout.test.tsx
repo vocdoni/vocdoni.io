@@ -21,7 +21,7 @@ vi.mock('@/lib/useLocaleDetection', () => ({
   useLocaleDetection: () => undefined,
 }))
 
-const mockedUsePageContext = vi.fn(() => ({
+const mockedUsePageContext = vi.fn<() => Record<string, any>>(() => ({
   initialLocale: 'en',
   initialI18nStore: { en: { common: {} } },
   locale: 'en',
