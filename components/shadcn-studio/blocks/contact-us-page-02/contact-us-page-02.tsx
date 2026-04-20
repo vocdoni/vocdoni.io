@@ -1,4 +1,5 @@
 import { CalendarIcon, MailIcon, MessageCircleIcon } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
 
 import { CalBookingDialog } from '@/components/CalBookingDialog'
 import { Link } from '@/components/Link'
@@ -9,6 +10,7 @@ import { MotionPreset } from '@/components/ui/motion-preset'
 import ContactForm from '@/components/shadcn-studio/blocks/contact-us-page-02/contact-form'
 
 const ContactUs = () => {
+  const { t } = useTranslation()
   return (
     <div className='min-h-screen bg-gradient-to-b from-background to-muted'>
       <section className='relative pt-6 pb-16 sm:pt-10 sm:pb-20 lg:pt-12 lg:pb-24'>
@@ -22,7 +24,7 @@ const ContactUs = () => {
               slide
               transition={{ duration: 0.5 }}
             >
-              Contact
+              {t('contact.page_eyebrow', 'Contact')}
             </MotionPreset>
 
             <MotionPreset
@@ -34,7 +36,7 @@ const ContactUs = () => {
               delay={0.2}
               transition={{ duration: 0.5 }}
             >
-              Let&apos;s Talk About Your Governance Needs
+              {t('contact.page_title', "Let's talk about your governance needs")}
             </MotionPreset>
 
             <MotionPreset
@@ -46,8 +48,10 @@ const ContactUs = () => {
               delay={0.4}
               transition={{ duration: 0.5 }}
             >
-              Whether you need secure voting for your organization or have questions about our platform, we&apos;re here
-              to help. Reach out and let&apos;s build the future of digital governance together.
+              {t(
+                'contact.page_subtitle',
+                "Whether you need secure voting for your organization or have questions about our platform, we're here to help. Reach out and let's build the future of digital governance together."
+              )}
             </MotionPreset>
           </div>
 
@@ -57,10 +61,12 @@ const ContactUs = () => {
                 <Card className='bg-primary py-10 px-8 shadow-none rounded-none md:col-span-2 border-0'>
                   <CardContent className='text-primary-foreground space-y-8 p-0'>
                     <div className='space-y-3'>
-                      <h2 className='text-2xl font-bold'>Get in Touch</h2>
+                      <h2 className='text-2xl font-bold'>{t('contact.get_in_touch_title', 'Get in touch')}</h2>
                       <p className='text-primary-foreground/90 leading-relaxed'>
-                        Choose the best way to connect with our team. We&apos;re here to answer your questions and
-                        discuss how Vocdoni can help your organization.
+                        {t(
+                          'contact.get_in_touch_description',
+                          "Choose the best way to connect with our team. We're here to answer your questions and discuss how Vocdoni can help your organization."
+                        )}
                       </p>
                     </div>
 
@@ -74,7 +80,7 @@ const ContactUs = () => {
                           variant='unstyled'
                         >
                           <MessageCircleIcon className='size-6 shrink-0' />
-                          Chat on WhatsApp
+                          {t('contact.whatsapp_button', 'Chat on WhatsApp')}
                         </Link>
                       </Button>
 
@@ -85,14 +91,14 @@ const ContactUs = () => {
                       >
                         <>
                           <CalendarIcon className='size-6 shrink-0' />
-                          Schedule a Call
+                          {t('contact.schedule_call_button', 'Schedule a call')}
                         </>
                       </CalBookingDialog>
                     </div>
 
                     <div className='pt-4 border-t border-primary-foreground/20'>
                       <h3 className='text-sm font-semibold uppercase tracking-wide mb-4 opacity-90'>
-                        Or email us directly
+                        {t('contact.or_email_directly', 'Or email us directly')}
                       </h3>
                       {/* Email */}
                       <div className='flex items-start gap-3'>
@@ -107,7 +113,7 @@ const ContactUs = () => {
                           >
                             contact@vocdoni.io
                           </Link>
-                          <p className='text-sm opacity-75 mt-1'>We typically respond within 24 hours</p>
+                          <p className='text-sm opacity-75 mt-1'>{t('contact.email_response_time', 'We typically respond within 24 hours')}</p>
                         </div>
                       </div>
                     </div>
