@@ -65,7 +65,7 @@ const buildProductFeatures = (t: (key: string) => string) =>
 const buildFeaturedSolution = (t: (key: string) => string) => ({
   title: t('navbar.featured_solution.vocdoni_app.title'),
   description: t('navbar.featured_solution.vocdoni_app.description'),
-  href: 'https://app.vocdoni.io',
+  href: '/app',
   cta: t('navbar.featured_solution.vocdoni_app.cta'),
   badge: t('navbar.featured_solution.vocdoni_app.badge'),
 })
@@ -184,7 +184,7 @@ export function Navbar() {
                       <h4 className='mb-2 px-2 text-sm text-muted-foreground font-medium'>
                         {t('navbar.featured_solution.header')}
                       </h4>
-                      <Link href={featuredSolution.href} target='_blank' rel='noopener noreferrer' variant='card'>
+                      <Link href={featuredSolution.href} variant='card'>
                         <div className='relative h-full'>
                           {/* App highlight image */}
                           <img src={appImage} alt='Vocdoni App' className='aspect-video w-full object-cover' />
@@ -290,8 +290,6 @@ export function Navbar() {
                           <div className='mb-2 p-3 rounded-lg bg-primary/5 border border-primary/20'>
                             <Link
                               href={featuredSolution.href}
-                              target='_blank'
-                              rel='noopener noreferrer'
                               variant='unstyled'
                               className='block'
                               onClick={() => setIsOpen(false)}

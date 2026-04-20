@@ -120,15 +120,6 @@ const UseCasesGrid = () => {
   return (
     <section id='use-cases' className='bg-muted/50 py-16 sm:py-24 lg:py-32'>
       <div className='mx-auto max-w-7xl px-4 sm:px-6 lg:px-8'>
-        {/* Section header */}
-        <div className='mb-12 space-y-4 text-center sm:mb-16 lg:mb-20'>
-          <p className='text-primary text-sm font-medium uppercase tracking-wide'>{t('use_cases_page.grid.eyebrow')}</p>
-          <h2 className='text-3xl font-bold sm:text-4xl lg:text-5xl'>{t('use_cases_page.grid.title')}</h2>
-          <p className='text-muted-foreground mx-auto max-w-3xl text-lg sm:text-xl'>
-            {t('use_cases_page.grid.subtitle')}
-          </p>
-        </div>
-
         {/* Grid */}
         <div className='grid gap-8 md:grid-cols-2 lg:grid-cols-3'>
           {USE_CASE_CONFIG.map((conf) => {
