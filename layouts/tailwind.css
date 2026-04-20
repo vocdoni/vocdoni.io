@@ -181,9 +181,10 @@
   --spacing-11: 3.375rem;     /* 54px  avg(44px, 64px) */
 
   /* Semantic design tokens */
-  --spacing-section: 1.75rem;   /* 28px  section padding sm  */
-  --spacing-section-lg: 3.75rem; /* 60px  section padding lg  */
-  --spacing-card: 1rem;         /* 16px  card padding sm     */
+  --spacing-section: 2rem;      /* 32px  section padding base (py-8)   */
+  --spacing-section-md: 4rem;   /* 64px  section padding md  (sm:py-16) */
+  --spacing-section-lg: 6rem;   /* 96px  section padding lg  (lg:py-24) */
+  --spacing-card: 1rem;         /* 16px  card padding base   */
   --spacing-card-lg: 1.75rem;   /* 28px  card padding lg     */
   --animate-marquee-horizontal: marquee-horizontal var(--marquee-duration) infinite linear;
   --animate-marquee-vertical: marquee-vertical var(--marquee-duration) infinite linear;

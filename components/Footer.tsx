@@ -42,7 +42,7 @@ export default function Footer() {
 
           {/* Links Sections */}
           <div className='lg:col-span-2'>
-            <h4 className='font-bold text-sm mb-6 uppercase tracking-wider'>{t('footer.product.title')}</h4>
+            <h3 className='font-bold text-sm mb-6 uppercase tracking-wider'>{t('footer.product.title')}</h3>
             <ul className='space-y-4'>
               <li>
                 <Link href='https://app.vocdoni.io' target='_blank' variant='footerNav'>
@@ -58,7 +58,7 @@ export default function Footer() {
           </div>
 
           <div className='lg:col-span-2'>
-            <h4 className='font-bold text-sm mb-6 uppercase tracking-wider'>{t('footer.company.title')}</h4>
+            <h3 className='font-bold text-sm mb-6 uppercase tracking-wider'>{t('footer.company.title')}</h3>
             <ul className='space-y-4'>
               <li>
                 <Link href='/about-us' variant='footerNav'>
@@ -74,7 +74,7 @@ export default function Footer() {
           </div>
 
           <div className='lg:col-span-4'>
-            <h4 className='font-bold text-sm mb-6 uppercase tracking-wider'>{t('footer.newsletter.title')}</h4>
+            <h3 className='font-bold text-sm mb-6 uppercase tracking-wider'>{t('footer.newsletter.title')}</h3>
             <div className='flex glass-effect rounded-full p-1 border border-border/50 mb-6 group focus-within:border-primary/50 transition-colors'>
               <Input
                 type='email'

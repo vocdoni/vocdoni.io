@@ -88,9 +88,9 @@ const RegularUpdatesCard = () => {
               <UsersIcon className='size-5' />
             </div>
             <div className='space-y-1'>
-              <h5 className='font-medium'>
+              <p className='font-medium'>
                 <NumberTicker value={activeIndex.stats.reach} />
-              </h5>
+              </p>
               <p className='text-muted-foreground text-xs'>Product Reach</p>
             </div>
           </div>
@@ -99,9 +99,9 @@ const RegularUpdatesCard = () => {
               <UserPlusIcon className='size-5' />
             </div>
             <div className='space-y-1'>
-              <h5 className='font-medium'>
+              <p className='font-medium'>
                 <NumberTicker value={activeIndex.stats.users} />
-              </h5>
+              </p>
               <p className='text-muted-foreground text-xs'>New users</p>
             </div>
           </div>
@@ -110,9 +110,9 @@ const RegularUpdatesCard = () => {
               <TriangleAlertIcon className='size-5' />
             </div>
             <div className='space-y-1'>
-              <h5 className='font-medium'>
+              <p className='font-medium'>
                 <NumberTicker value={activeIndex.stats.queries} />
-              </h5>
+              </p>
               <p className='text-muted-foreground text-xs'>User queries</p>
             </div>
           </div>

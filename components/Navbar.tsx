@@ -122,9 +122,9 @@ export function Navbar() {
                   <div className='grid grid-cols-2 gap-6'>
                     {/* Left column: Regular solution items */}
                     <div className='space-y-2'>
-                      <h4 className='mb-3 px-2 text-sm text-muted-foreground font-medium'>
+                      <p className='mb-3 px-2 text-sm text-muted-foreground font-medium'>
                         {t('navbar.solutions_header')}
-                      </h4>
+                      </p>
                       <ul className='space-y-0.5'>
                         {productFeatures.map((item) => (
                           <li key={item.title}>
@@ -155,9 +155,9 @@ export function Navbar() {
 
                     {/* Right column: Featured card with image */}
                     <div className='relative flex flex-col'>
-                      <h4 className='mb-2 px-2 text-sm text-muted-foreground font-medium'>
+                      <p className='mb-2 px-2 text-sm text-muted-foreground font-medium'>
                         {t('navbar.featured_solution.header')}
-                      </h4>
+                      </p>
                       <Link href={featuredSolution.href} target='_blank' rel='noopener noreferrer' variant='card'>
                         <div className='relative h-full'>
                           {/* App highlight image */}

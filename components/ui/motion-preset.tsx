@@ -38,11 +38,11 @@ interface MotionPresetProps {
         scale?: number
       }
     | boolean
-  motionProps?: Omit<HTMLMotionProps<any>, 'children' | 'className' | 'ref' | 'transition'>
-  ref?: React.Ref<any>
+  motionProps?: Omit<HTMLMotionProps<'div'>, 'children' | 'className' | 'ref'>
+  ref?: React.Ref<HTMLElement>
 }
 
-const motionComponents = motion as any
+const motionComponents = (motion as unknown) as Record<string, React.ElementType>
 
 function MotionPreset({
   ref,
@@ -61,9 +61,9 @@ function MotionPreset({
   motionProps = {}
 }: MotionPresetProps) {
   const reducedMotion = useReducedMotion()
-  const localRef = React.useRef<any>(null)
+  const localRef = React.useRef<HTMLElement>(null)
 
-  React.useImperativeHandle(ref, () => localRef.current)
+  React.useImperativeHandle(ref, () => localRef.current!)
 
   const inViewResult = useInView(localRef, {
     once: inViewOnce,

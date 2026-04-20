@@ -1,5 +1,6 @@
 import { Card, CardContent } from '@/components/ui/card'
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel'
+import { Section } from '@/components/Section'
 import { MotionPreset } from '@/components/ui/motion-preset'
 import { useTranslation } from 'react-i18next'
 
@@ -15,7 +16,7 @@ const TestimonialsSection = () => {
   const { t } = useTranslation()
   const testimonials = (t('testimonials.items', { returnObjects: true }) as TestimonialItem[]) ?? []
   return (
-    <section className='py-8 sm:py-16 lg:py-24'>
+    <Section>
       <Carousel
         className='mx-auto flex max-w-7xl gap-12 px-4 max-sm:flex-col sm:items-center sm:gap-16 sm:px-6 lg:gap-24 lg:px-8'
         opts={{
@@ -88,7 +89,7 @@ const TestimonialsSection = () => {
           </CarouselContent>
         </MotionPreset>
       </Carousel>
-    </section>
+    </Section>
   )
 }
 
