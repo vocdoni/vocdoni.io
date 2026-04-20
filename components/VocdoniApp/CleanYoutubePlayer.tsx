@@ -114,7 +114,7 @@ export default function CleanYoutubePlayer({ videoId, title, coverUrl, coverAlt 
             revealed ? 'opacity-0' : 'opacity-100'
           }`}
         >
-          <img src={coverUrl} alt={coverAlt ?? ''} className='w-full h-full object-cover' />
+          <img src={coverUrl} alt={coverAlt ?? ''} className='w-full h-full object-cover' loading='lazy' />
           <div className='absolute inset-0 flex items-center justify-center bg-black/30'>
             <div className='h-10 w-10 rounded-full border-2 border-white/40 border-t-white animate-spin' />
           </div>

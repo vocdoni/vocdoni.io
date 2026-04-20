@@ -60,10 +60,12 @@
       },
       "vision": {
         "content": "Un futur on els processos democràtics siguin transparents, inclusius i protegits contra manipulacions per defecte. Cerquem tancar la bretxa entre la complexitat tècnica i la legitimitat democràtica per garantir que cada veu sigui escoltada i cada vot compti.",
+        "content_2": "Proporcionem les eines perquè organitzacions de qualsevol mida realitzin eleccions inqüestionables per disseny.",
         "title": "Visió"
       }
     },
     "team": {
+      "label": "L'equip principal",
       "description": "Vocdoni neix del fruit del treball d'un equip compromès de criptògrafs, enginyers i experts en governança digital. La nostra missió és convertir el vot segur i verificable en un estàndard global.",
       "title": "L'equip darrere de la tecnologia"
     },
@@ -1360,5 +1362,53 @@
     "error_description": "S'ha produït un error inesperat. Si us plau, torneu-ho a intentar més tard.",
     "go_home": "Anar a l'inici",
     "go_back": "Tornar"
+  },
+  "contact": {
+    "name": "Nom",
+    "name_placeholder": "Joan Garcia",
+    "email": "Correu electrònic",
+    "email_placeholder": "joan@exemple.com",
+    "organization": "Organització",
+    "organization_placeholder": "La teva empresa o organització",
+    "subject": "Assumpte",
+    "subject_placeholder": "En què et podem ajudar?",
+    "message": "Missatge",
+    "message_placeholder": "Explica'ns les teves necessitats de votació o governança...",
+    "disclaimer": "En fer clic al botó \"Enviar\", acceptes la <plink>política de privadesa</plink>.",
+    "success": "Missatge enviat correctament! Et respondrem aviat.",
+    "error_not_configured": "El formulari de contacte no està configurat encara. Si us plau, contacta'ns directament per correu electrònic o xarxes socials.",
+    "error": "Error en enviar el missatge. Si us plau, torna-ho a intentar més tard.",
+    "captcha_error": "La verificació reCAPTCHA ha fallat. Si us plau, torna-ho a intentar.",
+    "sending": "Enviant...",
+    "submit_button": "Enviar missatge",
+    "errors": {
+      "name_required": "El nom és obligatori",
+      "email_required": "El correu electrònic és obligatori",
+      "email_invalid": "Adreça de correu electrònic no vàlida",
+      "subject_required": "L'assumpte és obligatori",
+      "message_required": "El missatge és obligatori"
+    }
+  },
+  "landing": {
+    "portfolio": {
+      "items": {
+        "1": {
+          "title": "Vocdoni app",
+          "description": "Configura una elecció real en minuts. Sense equip informàtic, sense paper, sense coneixements tècnics - només una votació senzilla i verificable per a qualsevol organització."
+        },
+        "2": {
+          "title": "Vocdoni SDK",
+          "description": "Integra votacions verificables i anònimes directament a les teves aplicacions amb les nostres eines de codi obert. La teva infraestructura, el nostre protocol segur."
+        },
+        "3": {
+          "title": "Projectes electorals a mida",
+          "description": "Suport expert complet per a la governança complexa, des de la configuració inicial fins als resultats verificables certificats."
+        },
+        "4": {
+          "title": "Vocdoni Petitions",
+          "description": "Una solució per recollir signatures i signar peticions que utilitza una aplicació amb privacitat prioritària anomenada Vocdoni Passport."
+        }
+      }
+    }
   }
 }

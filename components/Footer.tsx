@@ -11,7 +11,7 @@ import VocdoniLogo from './Logo'
 export default function Footer() {
   const { t } = useTranslation()
   return (
-    <footer className='w-full bg-background border-t border-border/50 pt-16 pb-8 px-4 md:px-8'>
+    <footer className='w-full bg-background border-t border-border/50 pt-16 pb-8 px-4 sm:px-6 lg:px-8'>
       <div className='container mx-auto max-w-7xl'>
         <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 lg:gap-8 mb-16'>
           {/* Brand & Description */}
@@ -112,7 +112,7 @@ export default function Footer() {
 
           <div className='flex flex-wrap items-center gap-6 order-1 md:order-2'>
             <div className='flex items-center gap-3 border border-border/50 rounded-lg px-3 py-1.5 bg-muted/5'>
-              <img src={isoLogo} alt='ISO 27001' className='h-6 w-auto object-contain' />
+              <img src={isoLogo} alt='ISO 27001' className='h-6 w-auto object-contain' loading='lazy' />
               <div className='flex flex-col'>
                 <span className='text-[8px] text-muted-foreground uppercase font-bold tracking-tight'>
                   {t('footer.certified')}
@@ -121,7 +121,7 @@ export default function Footer() {
             </div>
 
             <div className='flex items-center gap-3 border border-border/50 rounded-lg px-3 py-1.5 bg-muted/5'>
-              <img src={gdprLogo} alt='GDPR' className='h-6 w-auto object-contain' />
+              <img src={gdprLogo} alt='GDPR' className='h-6 w-auto object-contain' loading='lazy' />
               <div className='flex flex-col'>
                 <span className='text-[8px] text-muted-foreground uppercase font-bold tracking-tight'>
                   {t('footer.gdpr')}

@@ -1,7 +1,7 @@
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Badge } from '@/components/ui/badge'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { motion } from 'framer-motion'
+import { motion, useReducedMotion } from 'motion/react'
 import { Database, FileCheck, Hash, ShieldCheck } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 
@@ -52,7 +52,7 @@ export const CensusCard = () => {
                 <div key={i} className='flex justify-between items-center text-xs'>
                   <span className='font-medium'>{user.name}</span>
                   <span
-                    className={`text-[10px] ${user.status === t('hero_cards.eligible') ? 'text-green-600' : 'text-amber-600'}`}
+                    className={`text-[10px] ${user.status === t('hero_cards.eligible') ? 'text-success' : 'text-warning'}`}
                   >
                     {user.status}
                   </span>
@@ -68,6 +68,7 @@ export const CensusCard = () => {
 
 export const VotingCard = ({ animated = false }: { animated?: boolean }) => {
   const { t } = useTranslation()
+  const reducedMotion = useReducedMotion()
   return (
     <Card className='shadow-xl border-muted/40 backdrop-blur-sm bg-card/95 w-full'>
       <CardHeader className='pb-2 p-4'>
@@ -75,7 +76,7 @@ export const VotingCard = ({ animated = false }: { animated?: boolean }) => {
           <Badge variant='secondary' className='text-[10px] h-5'>
             {t('hero_cards.step2')}
           </Badge>
-          <Badge className='bg-green-500/10 text-green-600 hover:bg-green-500/20 border-green-200 text-[10px] pointer-events-none'>
+          <Badge className='bg-success/10 text-success hover:bg-success/20 border-success/30 text-[10px] pointer-events-none'>
             {t('hero_cards.active_election')}
           </Badge>
         </div>
@@ -88,11 +89,11 @@ export const VotingCard = ({ animated = false }: { animated?: boolean }) => {
           <div className='font-bold text-sm'>78.4%</div>
         </div>
         <div className='h-1.5 w-full bg-muted rounded-full overflow-hidden mb-3'>
-          {animated ? (
+          {animated && !reducedMotion ? (
             <motion.div
-              className='h-full bg-primary'
-              initial={{ width: 0 }}
-              animate={{ width: '78.4%' }}
+              className='h-full bg-primary w-full origin-left'
+              initial={{ scaleX: 0 }}
+              animate={{ scaleX: 0.784 }}
               transition={{ duration: 1.5, delay: 2, ease: 'easeOut' }}
             />
           ) : (
@@ -122,6 +123,7 @@ export const VotingCard = ({ animated = false }: { animated?: boolean }) => {
 
 export const ResultsCard = ({ animated = false }: { animated?: boolean }) => {
   const { t } = useTranslation()
+  const reducedMotion = useReducedMotion()
   return (
     <Card className='shadow-lg border-muted/40 backdrop-blur-sm bg-card/90 w-full'>
       <CardHeader className='pb-3 p-4'>
@@ -147,12 +149,12 @@ export const ResultsCard = ({ animated = false }: { animated?: boolean }) => {
                   <span>{opt.label}</span>
                   <span className='font-medium'>{opt.val}%</span>
                 </div>
-                <div className='h-1 w-full bg-muted rounded-full'>
-                  {animated ? (
+                <div className='h-1 w-full bg-muted rounded-full overflow-hidden'>
+                  {animated && !reducedMotion ? (
                     <motion.div
-                      className='h-full bg-purple-500/80'
-                      initial={{ width: 0 }}
-                      animate={{ width: `${opt.val}%` }}
+                      className='h-full bg-purple-500/80 w-full origin-left'
+                      initial={{ scaleX: 0 }}
+                      animate={{ scaleX: opt.val / 100 }}
                       transition={{ duration: 1, delay: 3.5 + i * 0.2 }}
                     />
                   ) : (
@@ -164,7 +166,7 @@ export const ResultsCard = ({ animated = false }: { animated?: boolean }) => {
           </div>
 
           <div className='flex items-center justify-between pt-1'>
-            <div className='flex items-center gap-1.5 text-green-600 bg-green-50 dark:bg-green-900/20 px-2 py-1 rounded-md border border-green-200 dark:border-green-900/50'>
+            <div className='flex items-center gap-1.5 text-success bg-success/10 px-2 py-1 rounded-md border border-success/30'>
               <FileCheck className='h-3 w-3' />
               <span className='text-[10px] font-medium'>{t('hero_cards.legally_valid')}</span>
             </div>

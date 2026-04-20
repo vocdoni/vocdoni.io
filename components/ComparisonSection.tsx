@@ -98,9 +98,9 @@ const ComparisonSection = ({
                             >
                               <div className='flex items-center gap-2'>
                                 {featureValue.status === 'positive' ? (
-                                  <CircleCheckIcon className='size-5 flex-shrink-0 text-green-600' />
+                                  <CircleCheckIcon className='size-5 flex-shrink-0 text-success' />
                                 ) : (
-                                  <XCircleIcon className='size-5 flex-shrink-0 text-red-600' />
+                                  <XCircleIcon className='size-5 flex-shrink-0 text-destructive' />
                                 )}
                                 <span className='text-sm font-medium'>{t(featureValue.text)}</span>
                               </div>
@@ -151,9 +151,9 @@ const ComparisonSection = ({
                           <p className='text-sm font-medium text-muted-foreground'>{t(feature)}</p>
                           <div className='flex items-center gap-2'>
                             {featureValue.status === 'positive' ? (
-                              <CircleCheckIcon className='size-5 flex-shrink-0 text-green-600' />
+                              <CircleCheckIcon className='size-5 flex-shrink-0 text-success' />
                             ) : (
-                              <XCircleIcon className='size-5 flex-shrink-0 text-red-600' />
+                              <XCircleIcon className='size-5 flex-shrink-0 text-destructive' />
                             )}
                             <span className='text-sm font-medium'>{t(featureValue.text)}</span>
                           </div>

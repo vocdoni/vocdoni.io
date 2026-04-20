@@ -95,33 +95,6 @@ const buildResourcesItems = (t: (key: string) => string) => [
 export function Navbar() {
   const { t } = useTranslation()
   const [isOpen, setIsOpen] = React.useState(false)
-  const [isMobile, setIsMobile] = React.useState(false)
-  const headerRef = React.useRef<HTMLElement>(null)
-  const isMobileRef = React.useRef(false)
-  const neededWidthRef = React.useRef(0)
-
-  React.useEffect(() => {
-    const header = headerRef.current
-    if (!header) return
-
-    const observer = new ResizeObserver(() => {
-      const available = header.clientWidth
-      if (!isMobileRef.current) {
-        const needed = header.scrollWidth
-        if (needed > available + 1) {
-          neededWidthRef.current = needed
-          isMobileRef.current = true
-          setIsMobile(true)
-        }
-      } else if (neededWidthRef.current > 0 && available >= neededWidthRef.current) {
-        isMobileRef.current = false
-        setIsMobile(false)
-      }
-    })
-
-    observer.observe(header)
-    return () => observer.disconnect()
-  }, [])
 
   const productFeatures = React.useMemo(() => buildProductFeatures(t), [t])
   const featuredSolution = React.useMemo(() => buildFeaturedSolution(t), [t])
@@ -129,16 +102,17 @@ export function Navbar() {
 
   return (
     <div className='fixed top-6 left-0 right-0 z-50 flex justify-center px-4 cursor-none pointer-events-none'>
-      <header ref={headerRef} className='cursor-default pointer-events-auto flex items-center justify-between gap-4 rounded-full border border-border/40 bg-background/80 px-4 py-2 shadow-sm backdrop-blur-md w-full transition-all duration-300'>
+      <header className='cursor-default pointer-events-auto flex items-center justify-between gap-4 rounded-full border border-border/40 bg-background/80 px-4 py-2 shadow-sm backdrop-blur-md w-full transition-all duration-300'>
         {/* Logo */}
         <div className='pointer-events'>
           <Link href='/' variant='unstyled'>
-            <VocdoniLogo minimal={isMobile} className={isMobile ? 'h-7' : 'h-8'} />
+            <VocdoniLogo minimal className='h-7 lg:hidden' />
+            <VocdoniLogo className='hidden lg:block h-8' />
           </Link>
         </div>
 
         {/* Desktop Navigation */}
-        {!isMobile && <NavigationMenu className='flex min-w-max'>
+        <NavigationMenu className='hidden lg:flex min-w-max'>
           <NavigationMenuList>
             {/* Solutions (formerly Product) */}
             <NavigationMenuItem>
@@ -187,7 +161,7 @@ export function Navbar() {
                       <Link href={featuredSolution.href} target='_blank' rel='noopener noreferrer' variant='card'>
                         <div className='relative h-full'>
                           {/* App highlight image */}
-                          <img src={appImage} alt='Vocdoni App' className='aspect-video w-full object-cover' />
+                          <img src={appImage} alt='Vocdoni App' className='aspect-video w-full object-cover' loading='lazy' />
                           {/* Gradient overlay */}
                           <span className='absolute inset-0 bg-gradient-to-t from-black/60 to-transparent' />
                           {/* Content overlay */}
@@ -258,13 +232,14 @@ export function Navbar() {
               </Link>
             </NavigationMenuItem>
           </NavigationMenuList>
-        </NavigationMenu>}
+        </NavigationMenu>
 
         {/* Right Side: App Button, Language Switcher & Mobile Menu */}
         <div className='flex items-center gap-2'>
           <LanguageSwitcher />
           {/* Mobile Menu Trigger */}
-          {isMobile && <Sheet open={isOpen} onOpenChange={setIsOpen}>
+          <div className='lg:hidden'>
+            <Sheet open={isOpen} onOpenChange={setIsOpen}>
             <SheetTrigger asChild>
               <Button variant='ghost' size='icon'>
                 <Menu className='h-6 w-6' />
@@ -392,16 +367,17 @@ export function Navbar() {
                 </div>
               </div>
             </SheetContent>
-          </Sheet>}
+            </Sheet>
+          </div>
 
           {/* App Button (hidden on mobile) */}
-          {!isMobile && (
+          <div className='hidden lg:block'>
             <Button asChild className='rounded-full px-6'>
               <Link href='https://app.vocdoni.io' target='_blank' rel='noopener noreferrer' variant='unstyled'>
                 {t('navbar.app_button')}
               </Link>
             </Button>
-          )}
+          </div>
         </div>
       </header>
     </div>

@@ -12,7 +12,7 @@ const UseCasesHero = () => {
 
   return (
     <section className='relative pt-6 pb-16 sm:pt-10 sm:pb-20 lg:pt-12 lg:pb-24'>
-      <div className='mx-auto max-w-screen-2xl px-4 sm:px-6 lg:px-8'>
+      <div className='mx-auto max-w-7xl px-4 sm:px-6 lg:px-8'>
         <div className='mx-auto max-w-4xl text-center'>
           <MotionPreset
             component='p'

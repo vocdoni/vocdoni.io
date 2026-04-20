@@ -6,6 +6,7 @@ import {
   AnimatePresence,
   motion,
   useInView,
+  useReducedMotion,
   type HTMLMotionProps,
   type UseInViewOptions,
   type Transition,
@@ -59,6 +60,7 @@ function MotionPreset({
   zoom = false,
   motionProps = {}
 }: MotionPresetProps) {
+  const reducedMotion = useReducedMotion()
   const localRef = React.useRef<any>(null)
 
   React.useImperativeHandle(ref, () => localRef.current)
@@ -99,22 +101,28 @@ function MotionPreset({
 
   const MotionComponent = motionComponents[component] || motion.div
 
+  const animationProps = reducedMotion
+    ? {}
+    : {
+        initial: 'hidden',
+        animate: isInView ? 'visible' : 'hidden',
+        exit: 'hidden',
+        variants: {
+          hidden: hiddenVariant,
+          visible: visibleVariant
+        },
+        transition: {
+          ...transition,
+          delay: (transition?.delay ?? 0) + delay
+        }
+      }
+
   return (
     <AnimatePresence>
       <MotionComponent
         ref={localRef}
-        initial='hidden'
-        animate={isInView ? 'visible' : 'hidden'}
-        exit='hidden'
-        variants={{
-          hidden: hiddenVariant,
-          visible: visibleVariant
-        }}
-        transition={{
-          ...transition,
-          delay: (transition?.delay ?? 0) + delay
-        }}
         className={className}
+        {...animationProps}
         {...motionProps}
       >
         {children}

@@ -53,6 +53,7 @@
       },
       "vision": {
         "content": "Un futuro donde los procesos democráticos sean transparentes, inclusivos y protegidos contra manipulaciones por defecto. Cerramos la brecha entre la complejidad técnica y la legitimidad democrática para que cada voz sea escuchada y cada voto cuente.",
+        "content_2": "Proporcionamos las herramientas para que organizaciones de cualquier tamaño realicen elecciones incontestables por diseño.",
         "title": "Visión"
       }
     },
@@ -64,6 +65,7 @@
       "title": "Nuestra estructura"
     },
     "team": {
+      "label": "El equipo principal",
       "description": "Vocdoni es fruto del trabajo de un equipo comprometido de criptógrafos, ingenieros y expertos en gobernanza digital. Nuestra misión es convertir el voto seguro y verificable en un estándar global.",
       "title": "El equipo detrás de la tecnología"
     },
@@ -1310,5 +1312,53 @@
     "error_description": "Se ha producido un error inesperado. Por favor, inténtalo de nuevo más tarde.",
     "go_home": "Ir al inicio",
     "go_back": "Volver"
+  },
+  "contact": {
+    "name": "Nombre",
+    "name_placeholder": "Juan García",
+    "email": "Correo electrónico",
+    "email_placeholder": "juan@ejemplo.com",
+    "organization": "Organización",
+    "organization_placeholder": "Tu empresa u organización",
+    "subject": "Asunto",
+    "subject_placeholder": "¿En qué podemos ayudarte?",
+    "message": "Mensaje",
+    "message_placeholder": "Cuéntanos sobre tus necesidades de votación o gobernanza...",
+    "disclaimer": "Al hacer clic en el botón \"Enviar\", aceptas la <plink>política de privacidad</plink>.",
+    "success": "¡Mensaje enviado con éxito! Te responderemos pronto.",
+    "error_not_configured": "El formulario de contacto no está configurado aún. Por favor, contáctanos directamente por correo electrónico o redes sociales.",
+    "error": "Error al enviar el mensaje. Por favor, inténtalo de nuevo más tarde.",
+    "captcha_error": "La verificación reCAPTCHA ha fallado. Por favor, inténtalo de nuevo.",
+    "sending": "Enviando...",
+    "submit_button": "Enviar mensaje",
+    "errors": {
+      "name_required": "El nombre es obligatorio",
+      "email_required": "El correo electrónico es obligatorio",
+      "email_invalid": "Dirección de correo electrónico no válida",
+      "subject_required": "El asunto es obligatorio",
+      "message_required": "El mensaje es obligatorio"
+    }
+  },
+  "landing": {
+    "portfolio": {
+      "items": {
+        "1": {
+          "title": "Vocdoni app",
+          "description": "Configura una elección real en minutos. Sin equipo informático, sin papel, sin conocimientos técnicos - solo una votación simple y verificable para cualquier organización."
+        },
+        "2": {
+          "title": "Vocdoni SDK",
+          "description": "Integra votaciones verificables y anónimas directamente en tus aplicaciones con nuestras herramientas de código abierto. Tu infraestructura, nuestro protocolo seguro."
+        },
+        "3": {
+          "title": "Proyectos electorales a medida",
+          "description": "Soporte experto completo para gobernanza compleja, desde la configuración inicial hasta los resultados verificables certificados."
+        },
+        "4": {
+          "title": "Vocdoni Petitions",
+          "description": "Una solución para recopilar firmas y firmar peticiones que utiliza una aplicación con privacidad como prioridad llamada Vocdoni Passport."
+        }
+      }
+    }
   }
 }

@@ -100,7 +100,7 @@ const AccordionWithImage = () => {
         {/* Image */}
         <div className='bg-primary/10 relative mt-auto overflow-hidden rounded-lg px-6 pt-14 max-lg:shrink-0'>
           <MotionPreset key={activeFeature.id} fade slide={{ direction: 'down' }} transition={{ duration: 0.7 }}>
-            <img src={activeFeature.image} alt={activeFeature.imageAlt} className='w-full rounded-t-xl object-cover' />
+            <img src={activeFeature.image} alt={activeFeature.imageAlt} className='w-full rounded-t-xl object-cover' loading='lazy' />
           </MotionPreset>
         </div>
       </div>

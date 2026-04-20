@@ -146,7 +146,7 @@ const RegularUpdatesCard = () => {
               </Badge>
             </div>
 
-            <img src={notification.productImage} alt={notification.productAlt} className='size-13' />
+            <img src={notification.productImage} alt={notification.productAlt} className='size-13' loading='lazy' />
           </motion.div>
         ))}
       </MotionPreset>

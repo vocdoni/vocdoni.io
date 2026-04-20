@@ -16,8 +16,8 @@ export default function AppHeroWithVideo() {
   const [playing, setPlaying] = useState(false)
 
   return (
-    <section className='relative w-full pt-6 pb-16 sm:pt-10 sm:pb-20 lg:pt-12 lg:pb-24 px-4 md:px-8'>
-      <Container className='max-w-screen-2xl'>
+    <section className='relative w-full pt-6 pb-16 sm:pt-10 sm:pb-20 lg:pt-12 lg:pb-24'>
+      <Container>
         <div className='grid gap-12 lg:grid-cols-[2fr_3fr] lg:gap-16 items-center w-full min-w-0'>
           {/* Left Column: copy + CTAs */}
           <div className='flex flex-col items-start gap-8 relative z-10 w-full min-w-0'>
