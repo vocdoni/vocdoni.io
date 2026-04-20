@@ -62,10 +62,14 @@ export default function MobileHeroScroll() {
             type='button'
             aria-label={`Go to step ${i + 1}`}
             onClick={() => setActiveCard(i)}
-            className={`h-1.5 rounded-full transition-all duration-300 cursor-pointer ${
-              i === activeCard ? 'w-6 bg-primary' : 'w-1.5 bg-muted-foreground/30 hover:bg-muted-foreground/60'
-            }`}
-          />
+            className='flex items-center justify-center p-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-sm'
+          >
+            <span
+              className={`h-1.5 rounded-full transition-all duration-300 ${
+                i === activeCard ? 'w-6 bg-primary' : 'w-1.5 bg-muted-foreground/30 hover:bg-muted-foreground/60'
+              }`}
+            />
+          </button>
         ))}
       </div>
     </div>

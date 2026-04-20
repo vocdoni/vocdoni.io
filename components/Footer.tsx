@@ -19,22 +19,22 @@ export default function Footer() {
             <VocdoniLogo />
             <p className='text-sm text-muted-foreground leading-relaxed max-w-xs'>{t('footer.mission')}</p>
             <div className='flex gap-4'>
-              <Link href='https://github.com/vocdoni' target='_blank' rel='noreferrer' variant='footerLegal'>
+              <Link href='https://github.com/vocdoni' target='_blank' variant='footerLegal'>
                 <Icon icon='simple-icons:github' className='h-5 w-5' />
               </Link>
-              <Link href='https://twitter.com/vocdoni' target='_blank' rel='noreferrer' variant='footerLegal'>
+              <Link href='https://twitter.com/vocdoni' target='_blank' variant='footerLegal'>
                 <Icon icon='simple-icons:x' className='h-5 w-5' />
               </Link>
-              <Link href='https://bsky.app/profile/vocdoni.io' target='_blank' rel='noreferrer' variant='footerLegal'>
+              <Link href='https://bsky.app/profile/vocdoni.io' target='_blank' variant='footerLegal'>
                 <Icon icon='simple-icons:bluesky' className='h-5 w-5' />
               </Link>
-              <Link href='https://chat.vocdoni.io' target='_blank' rel='noreferrer' variant='footerLegal'>
+              <Link href='https://chat.vocdoni.io' target='_blank' variant='footerLegal'>
                 <Icon icon='ic:baseline-discord' className='h-5 w-5' />
               </Link>
-              <Link href='https://t.me/vocdoni' target='_blank' rel='noreferrer' variant='footerLegal'>
+              <Link href='https://t.me/vocdoni' target='_blank' variant='footerLegal'>
                 <Send className='h-5 w-5' />
               </Link>
-              <Link href='https://vocdoni.io' target='_blank' rel='noreferrer' variant='footerLegal'>
+              <Link href='https://vocdoni.io' target='_blank' variant='footerLegal'>
                 <Globe className='h-5 w-5' />
               </Link>
             </div>
@@ -45,12 +45,12 @@ export default function Footer() {
             <h4 className='font-bold text-sm mb-6 uppercase tracking-wider'>{t('footer.product.title')}</h4>
             <ul className='space-y-4'>
               <li>
-                <Link href='https://app.vocdoni.io' target='_blank' rel='noreferrer' variant='footerNav'>
+                <Link href='https://app.vocdoni.io' target='_blank' variant='footerNav'>
                   {t('footer.product.links.0')}
                 </Link>
               </li>
               <li>
-                <Link href='https://developer.vocdoni.io/sdk' target='_blank' rel='noreferrer' variant='footerNav'>
+                <Link href='https://developer.vocdoni.io/sdk' target='_blank' variant='footerNav'>
                   {t('footer.product.links.1')}
                 </Link>
               </li>
