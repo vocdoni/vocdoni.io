@@ -28,7 +28,7 @@ const Hero = () => {
   }, [dynamicWords.length])
 
   return (
-    <section className='relative w-full pt-6 pb-20 lg:pt-10 lg:pb-28 px-4 md:px-8'>
+    <section className='relative w-full pt-6 pb-20 lg:pt-10 lg:pb-28 px-4 md:px-8 overflow-hidden'>
       <div className='container mx-auto max-w-screen-2xl'>
         <div className='grid gap-12 lg:grid-cols-2 lg:gap-8 items-center w-full min-w-0'>
           {/* Left Column: Content */}
@@ -77,7 +77,7 @@ const Hero = () => {
             </MotionPreset>
 
             {/* Mobile Cards - Between text and buttons */}
-            <div className='lg:hidden w-full -mx-4'>
+            <div className='lg:hidden w-full flex justify-center'>
               <MobileHeroScroll />
             </div>
 

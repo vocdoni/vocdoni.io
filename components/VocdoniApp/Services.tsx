@@ -55,17 +55,11 @@ export default function Services() {
               <div className='mt-5 space-y-4'>
                 {bullets.map((item) => (
                   <div key={item} className='flex items-start gap-3'>
-                    <CircleCheckBigIcon className='mt-0.5 size-5 text-primary' />
+                    <CircleCheckBigIcon className='mt-0.5 size-5 shrink-0 text-primary' />
                     <span className='leading-7 text-foreground'>{item}</span>
                   </div>
                 ))}
               </div>
-              <p className='mt-6 text-sm leading-6 text-muted-foreground'>
-                {t(
-                  'app_landing.cta.support_line',
-                  'If you need a managed setup later, you can still talk to the team. The landing should stay self-service first.'
-                )}
-              </p>
             </div>
           </CardContent>
         </Card>

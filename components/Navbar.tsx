@@ -128,12 +128,12 @@ export function Navbar() {
   const resourcesItems = React.useMemo(() => buildResourcesItems(t), [t])
 
   return (
-    <div className='fixed top-6 left-0 right-0 z-50 flex justify-center px-4 w-full cursor-none pointer-events-none'>
-      <header ref={headerRef} className='cursor-default pointer-events-auto flex items-center justify-between gap-4 rounded-full border border-border/40 bg-background/80 px-4 py-2 shadow-sm backdrop-blur-md w-full max-w-[77.6rem] transition-all duration-300'>
+    <div className='fixed top-6 left-0 right-0 z-50 flex justify-center px-4 cursor-none pointer-events-none'>
+      <header ref={headerRef} className='cursor-default pointer-events-auto flex items-center justify-between gap-4 rounded-full border border-border/40 bg-background/80 px-4 py-2 shadow-sm backdrop-blur-md w-full transition-all duration-300'>
         {/* Logo */}
         <div className='pointer-events'>
           <Link href='/' variant='unstyled'>
-            <VocdoniLogo />
+            <VocdoniLogo minimal={isMobile} className={isMobile ? 'h-7' : 'h-8'} />
           </Link>
         </div>
 
@@ -294,6 +294,7 @@ export function Navbar() {
                               rel='noopener noreferrer'
                               variant='unstyled'
                               className='block'
+                              onClick={() => setIsOpen(false)}
                             >
                               <div className='flex items-start justify-between gap-2'>
                                 <div className='flex-1'>
@@ -323,6 +324,7 @@ export function Navbar() {
                                 target={item.target}
                                 rel={item.rel}
                                 variant='navbarMobile'
+                                onClick={() => setIsOpen(false)}
                               >
                                 {item.title}
                               </Link>
@@ -331,6 +333,7 @@ export function Navbar() {
                                 key={item.title}
                                 className='block py-2 text-left text-sm text-muted-foreground transition-colors hover:text-foreground'
                                 triggerAriaLabel={item.triggerAriaLabel}
+                                onClick={() => setIsOpen(false)}
                               >
                                 {item.title}
                               </CalBookingDialog>
@@ -352,6 +355,7 @@ export function Navbar() {
                               target={item.target}
                               rel={item.rel}
                               variant='navbarMobile'
+                              onClick={() => setIsOpen(false)}
                             >
                               {item.title}
                             </Link>
@@ -363,25 +367,25 @@ export function Navbar() {
 
                   {/* Static Links */}
                   <div className='mt-4 flex flex-col space-y-4'>
-                    <Link href='/use-cases' variant='navbarStatic'>
+                    <Link href='/use-cases' variant='navbarStatic' onClick={() => setIsOpen(false)}>
                       {t('navbar.use_cases')}
                     </Link>
-                    <Link href='/about-us' variant='navbarStatic'>
+                    <Link href='/about-us' variant='navbarStatic' onClick={() => setIsOpen(false)}>
                       {t('navbar.about')}
                     </Link>
-                    <Link href='https://davinci.vote' target='_blank' rel='noopener noreferrer' variant='navbarStatic'>
+                    <Link href='https://davinci.vote' target='_blank' rel='noopener noreferrer' variant='navbarStatic' onClick={() => setIsOpen(false)}>
                       {t('navbar.technology')}
                     </Link>
-                    <Link href='/contact' variant='navbarStatic'>
+                    <Link href='/contact' variant='navbarStatic' onClick={() => setIsOpen(false)}>
                       {t('navbar.contact')}
                     </Link>
                   </div>
                 </div>
 
-                {/* Footer App Button - Keeping it here as well for easy access if menu is open */}
+                {/* Footer App Button */}
                 <div className='p-6 border-t mt-auto'>
                   <Button asChild className='w-full rounded-full'>
-                    <Link href='https://app.vocdoni.io' target='_blank' rel='noopener noreferrer' variant='unstyled'>
+                    <Link href='https://app.vocdoni.io' target='_blank' rel='noopener noreferrer' variant='unstyled' onClick={() => setIsOpen(false)}>
                       App
                     </Link>
                   </Button>
@@ -390,12 +394,14 @@ export function Navbar() {
             </SheetContent>
           </Sheet>}
 
-          {/* App Button (Visible on all screens now) */}
-          <Button asChild className='rounded-full px-6'>
-            <Link href='https://app.vocdoni.io' target='_blank' rel='noopener noreferrer' variant='unstyled'>
-              {t('navbar.app_button')}
-            </Link>
-          </Button>
+          {/* App Button (hidden on mobile) */}
+          {!isMobile && (
+            <Button asChild className='rounded-full px-6'>
+              <Link href='https://app.vocdoni.io' target='_blank' rel='noopener noreferrer' variant='unstyled'>
+                {t('navbar.app_button')}
+              </Link>
+            </Button>
+          )}
         </div>
       </header>
     </div>

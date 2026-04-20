@@ -1,10 +1,12 @@
 import { usePageContext } from 'vike-react/usePageContext'
 import { useTranslation } from 'react-i18next'
+import { Link } from '@/components/Link'
 import { Button } from '@/components/ui/button'
+import { getLocalizedPath } from '@/lib/localized-path'
 import notFoundImage from '@/assets/404.webp'
 
 const ErrorPage = () => {
-  const { is404 } = usePageContext()
+  const { is404, locale } = usePageContext() as { is404: boolean; locale: string }
   const { t } = useTranslation()
 
   const title = is404
@@ -24,11 +26,8 @@ const ErrorPage = () => {
         <p className='text-muted-foreground max-w-sm text-base'>{description}</p>
         <div className='flex gap-3 pt-2'>
           <Button asChild>
-            <a href='/'>{t('error_page.go_home', 'Go home')}</a>
-          </Button>
-          <Button variant='outline' onClick={() => window.history.back()}>
-            {t('error_page.go_back', 'Go back')}
-          </Button>
+              <Link href={getLocalizedPath('/', locale)}>{t('error_page.go_home', 'Go home')}</Link>
+            </Button>
         </div>
       </div>
     </div>
