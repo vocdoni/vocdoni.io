@@ -1,15 +1,32 @@
 import gdprLogo from '@/assets/gdpr.png'
-import isoLogo from '@/assets/iso-27001.png'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Link } from '@/components/Link'
 import { Icon } from '@iconify/react'
 import { ArrowRight, Globe, Send } from 'lucide-react'
+import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import VocdoniLogo from './Logo'
 
 export default function Footer() {
   const { t } = useTranslation()
+  const [email, setEmail] = useState('')
+  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
+
+  const handleSubscribe = async () => {
+    if (!email || status === 'loading' || status === 'success') return
+    setStatus('loading')
+    try {
+      const res = await fetch(`${import.meta.env.VITE_GHOST_URL}/members/api/send-magic-link/`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, emailType: 'subscribe' }),
+      })
+      setStatus(res.ok ? 'success' : 'error')
+    } catch {
+      setStatus('error')
+    }
+  }
   return (
     <footer className='w-full bg-background border-t border-border/50 pt-16 pb-8 px-4 sm:px-6 lg:px-8'>
       <div className='container mx-auto max-w-7xl'>
@@ -75,16 +92,31 @@ export default function Footer() {
 
           <div className='lg:col-span-4'>
             <h3 className='font-bold text-sm mb-6 uppercase tracking-wider'>{t('footer.newsletter.title')}</h3>
-            <div className='flex glass-effect rounded-full p-1 border border-border/50 mb-6 group focus-within:border-primary/50 transition-colors'>
+            <div className='flex bg-white rounded-full p-1 border border-border/50 mb-3 group focus-within:border-primary/50 transition-colors'>
               <Input
                 type='email'
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                onKeyDown={(e) => e.key === 'Enter' && handleSubscribe()}
                 placeholder={t('footer.newsletter.placeholder')}
                 className='border-0 bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0 text-sm h-10 px-4 flex-1'
+                disabled={status === 'loading' || status === 'success'}
               />
-              <Button size='icon' className='rounded-full h-10 w-10 shrink-0'>
+              <Button
+                size='icon'
+                className='rounded-full h-10 w-10 shrink-0'
+                onClick={handleSubscribe}
+                disabled={status === 'loading' || status === 'success'}
+              >
                 <ArrowRight className='h-4 w-4' />
               </Button>
             </div>
+            {status === 'success' && (
+              <p className='text-xs text-green-600'>{t('footer.newsletter.success', 'Check your inbox to confirm your subscription.')}</p>
+            )}
+            {status === 'error' && (
+              <p className='text-xs text-destructive'>{t('footer.newsletter.error', 'Something went wrong. Please try again.')}</p>
+            )}
           </div>
         </div>
 
@@ -111,16 +143,7 @@ export default function Footer() {
           </div>
 
           <div className='flex flex-wrap items-center gap-6 order-1 md:order-2'>
-            <div className='flex items-center gap-3 border border-border/50 rounded-lg px-3 py-1.5 bg-muted/5'>
-              <img src={isoLogo} alt='ISO 27001' className='h-6 w-auto object-contain' loading='lazy' />
-              <div className='flex flex-col'>
-                <span className='text-[8px] text-muted-foreground uppercase font-bold tracking-tight'>
-                  {t('footer.certified')}
-                </span>
-              </div>
-            </div>
-
-            <div className='flex items-center gap-3 border border-border/50 rounded-lg px-3 py-1.5 bg-muted/5'>
+<div className='flex items-center gap-3 border border-border/50 rounded-lg px-3 py-1.5 bg-muted/5'>
               <img src={gdprLogo} alt='GDPR' className='h-6 w-auto object-contain' loading='lazy' />
               <div className='flex flex-col'>
                 <span className='text-[8px] text-muted-foreground uppercase font-bold tracking-tight'>
