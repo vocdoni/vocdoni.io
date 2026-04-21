@@ -33,7 +33,7 @@ export default function Footer() {
         <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 lg:gap-8 mb-16'>
           {/* Brand & Description */}
           <div className='lg:col-span-4 flex flex-col gap-6 items-start'>
-            <VocdoniLogo />
+            <VocdoniLogo aria-hidden='true' />
             <p className='text-sm text-muted-foreground leading-relaxed max-w-xs'>{t('footer.mission')}</p>
             <div className='flex gap-4'>
               <Link href='https://github.com/vocdoni' target='_blank' variant='footerLegal' aria-label='Vocdoni on GitHub (opens in new tab)'>
