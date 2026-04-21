@@ -94,10 +94,10 @@ const SimpleNavigationItem = ({ item }: { item: NavigationItem }) => (
 // Helper component to render the image section
 const ImageSectionContent = ({ imageSection }: { imageSection: ImageSection }) => (
   <Link href={imageSection.href} variant='card' className='relative'>
-    <img src={imageSection.img} alt={imageSection.title} className='h-full w-full rounded-md object-cover' />
+    <img src={imageSection.img} alt={imageSection.title} className='h-full w-full rounded-md object-cover' loading='lazy' />
     <span className='absolute inset-0 h-full bg-gradient-to-t from-black/60 to-transparent' />
     <span className='absolute bottom-0 p-4 text-white'>
-      <h3 className='font-semibold'>{imageSection.title}</h3>
+      <p className='font-semibold'>{imageSection.title}</p>
       {imageSection.description && <p className='text-sm'>{imageSection.description}</p>}
     </span>
   </Link>

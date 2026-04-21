@@ -65,7 +65,7 @@ const Portfolio = ({ portfolioItems }: PortfolioProps) => {
                   >
                     <CardContent className='p-6 md:p-8 space-y-3'>
                       <CardTitle className='text-primary line-clamp-2 text-lg font-semibold'>{project.title}</CardTitle>
-                      <CardDescription className='line-clamp-2'>{project.description}</CardDescription>
+                      <CardDescription>{project.description}</CardDescription>
                     </CardContent>
                     <div className={`mt-auto flex items-end justify-center ${project.imageWrapperClassName || 'pt-4'}`}>
                       <img
@@ -90,7 +90,7 @@ const Portfolio = ({ portfolioItems }: PortfolioProps) => {
                   >
                     <CardContent className='p-6 md:p-8 space-y-3'>
                       <CardTitle className='text-primary line-clamp-2 text-lg font-semibold'>{project.title}</CardTitle>
-                      <CardDescription className='line-clamp-2'>{project.description}</CardDescription>
+                      <CardDescription>{project.description}</CardDescription>
                     </CardContent>
                     <div className={`mt-auto flex items-end justify-center ${project.imageWrapperClassName || 'pt-4'}`}>
                       <img

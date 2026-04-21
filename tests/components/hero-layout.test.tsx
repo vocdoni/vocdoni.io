@@ -20,18 +20,6 @@ vi.mock('@/components/ui/motion-preset', () => ({
   MotionPreset: ({ children }: { children: React.ReactNode }) => <div>{children}</div>,
 }))
 
-vi.mock('framer-motion', () => ({
-  AnimatePresence: ({ children }: { children: React.ReactNode }) => <>{children}</>,
-  motion: new Proxy(
-    {},
-    {
-      get:
-        () =>
-        ({ children, ...props }: { children?: React.ReactNode }) => <div {...props}>{children}</div>,
-    }
-  ),
-}))
-
 vi.mock('@/components/MobileHeroScroll', () => ({
   __esModule: true,
   default: () => <div />,

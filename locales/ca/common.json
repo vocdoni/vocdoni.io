@@ -60,10 +60,12 @@
       },
       "vision": {
         "content": "Un futur on els processos democràtics siguin transparents, inclusius i protegits contra manipulacions per defecte. Cerquem tancar la bretxa entre la complexitat tècnica i la legitimitat democràtica per garantir que cada veu sigui escoltada i cada vot compti.",
+        "content_2": "Proporcionem les eines perquè organitzacions de qualsevol mida realitzin eleccions inqüestionables per disseny.",
         "title": "Visió"
       }
     },
     "team": {
+      "label": "L'equip principal",
       "description": "Vocdoni neix del fruit del treball d'un equip compromès de criptògrafs, enginyers i experts en governança digital. La nostra missió és convertir el vot segur i verificable en un estàndard global.",
       "title": "L'equip darrere de la tecnologia"
     },
@@ -205,7 +207,11 @@
     },
     "cta_primary": "Comenceu gratis",
     "cta_secondary": "Parleu amb un expert",
-    "dynamic_words": ["fàcil", "segur", "senzill"],
+    "dynamic_words": [
+      "fàcil",
+      "segur",
+      "senzill"
+    ],
     "subtitle": "Organitzeu eleccions segures i legalment vàlides des de qualsevol dispositiu. Qualsevol organització, de qualsevol mida, des d'avui mateix.",
     "title": "Prendre decisions mai no havia estat tan",
     "trusted_by": "Amb la confiança d'organitzacions de totes les mides"
@@ -249,9 +255,18 @@
       "cta_secondary": "Vegeu resultats reals",
       "risk_reversal": "No cal targeta de crèdit",
       "stats": [
-        { "value": "200.000+", "label": "Vots processats" },
-        { "value": "500+", "label": "Organitzacions" },
-        { "value": "~30+", "label": "Participació mitjana" }
+        {
+          "value": "200.000+",
+          "label": "Vots processats"
+        },
+        {
+          "value": "500+",
+          "label": "Organitzacions"
+        },
+        {
+          "value": "~30+",
+          "label": "Participació mitjana"
+        }
       ]
     },
     "grid": {
@@ -274,7 +289,11 @@
         "associations": {
           "title": "Associacions i organitzacions de membres",
           "description": "Celebreu eleccions de junta, esmenes als estatuts i assemblees estatutàries d'acord amb les normes de la vostra organització. Cada membre rep un enllaç per verificar que el seu vot ha estat comptat, sense revelar què ha votat.",
-          "features": ["Eleccions de membres de junta", "Esmenes als estatuts", "Aprovació d'iniciatives importants"]
+          "features": [
+            "Eleccions de membres de junta",
+            "Esmenes als estatuts",
+            "Aprovació d'iniciatives importants"
+          ]
         },
         "sports_clubs": {
           "title": "Clubs esportius i penyes",
@@ -320,6 +339,7 @@
       "subtitle": "Cada xifra que apareix aquí prové d'una elecció real. Cada cita prové de la persona que la va organitzar. Els resultats continuen sent verificables públicament a explorer.vote.",
       "impact_label": "Impacte",
       "highlights_label": "Aspectes destacats",
+      "read_more": "Llegiu més casos d'èxit",
       "items": {
         "bellpuig": {
           "org": "Ajuntament de Bellpuig",
@@ -328,9 +348,21 @@
           "author": "Jordi Estiarte",
           "author_title": "Alcalde de Bellpuig",
           "stats": [
-            { "value": "2 setmanes", "label": "Període de vot", "description": "A conveniència dels residents" },
-            { "value": "Híbrid", "label": "Format", "description": "En línia + suport presencial" },
-            { "value": "OCDE", "label": "Destacat", "description": "Informe sobre participació ciutadana" }
+            {
+              "value": "2 setmanes",
+              "label": "Període de vot",
+              "description": "A conveniència dels residents"
+            },
+            {
+              "value": "Híbrid",
+              "label": "Format",
+              "description": "En línia + suport presencial"
+            },
+            {
+              "value": "OCDE",
+              "label": "Destacat",
+              "description": "Informe sobre participació ciutadana"
+            }
           ],
           "impact": "Consulta híbrida sobre una nova instal·lació funerària. L'alcalde es va comprometre a respectar el resultat tot i no ser vinculant. Reconeixement de l'OCDE com a estàndard per a una participació ciutadana moderna.",
           "highlights": [
@@ -348,9 +380,21 @@
           "author": "Equip de New Belarus",
           "author_title": "Societat civil democràtica",
           "stats": [
-            { "value": "6.723", "label": "Vots emesos", "description": "Membres a l'exili" },
-            { "value": "7", "label": "Observadors", "description": "Supervisió internacional" },
-            { "value": "Resistent", "label": "Censura", "description": "Necessitat operativa" }
+            {
+              "value": "6.723",
+              "label": "Vots emesos",
+              "description": "Membres a l'exili"
+            },
+            {
+              "value": "7",
+              "label": "Observadors",
+              "description": "Supervisió internacional"
+            },
+            {
+              "value": "Resistent",
+              "label": "Censura",
+              "description": "Necessitat operativa"
+            }
           ],
           "impact": "Eleccions per al Consell de Coordinació que reuneix organitzacions democràtiques que no poden operar amb seguretat dins de Bielorússia. La resistència a la censura no era un avantatge, sinó una necessitat.",
           "highlights": [
@@ -368,9 +412,21 @@
           "author": "Portaveu d'ERC",
           "author_title": "Esquerra Republicana",
           "stats": [
-            { "value": "77,12%", "label": "Participació", "description": "Votació de la militància" },
-            { "value": "6.349", "label": "Vots totals", "description": "Decisió d'alt impacte" },
-            { "value": "Segons", "label": "Recompte", "description": "Resultats immediats" }
+            {
+              "value": "77,12%",
+              "label": "Participació",
+              "description": "Votació de la militància"
+            },
+            {
+              "value": "6.349",
+              "label": "Vots totals",
+              "description": "Decisió d'alt impacte"
+            },
+            {
+              "value": "Segons",
+              "label": "Recompte",
+              "description": "Resultats immediats"
+            }
           ],
           "impact": "Votació decisiva de la militància sobre una qüestió amb conseqüències polítiques importants. Una prova que el vot segur i verificable en assumptes d'alt impacte pot escalar sense incidents.",
           "highlights": [
@@ -388,9 +444,21 @@
           "author": "Administració del COIB",
           "author_title": "Col·legi professional d'infermeria",
           "stats": [
-            { "value": "50 €", "label": "Estalvi de viatge", "description": "Per col·legiat" },
-            { "value": "2FA", "label": "Seguretat", "description": "Autenticació SMS/correu" },
-            { "value": "Híbrid", "label": "Participació", "description": "Presencial + remota" }
+            {
+              "value": "50 €",
+              "label": "Estalvi de viatge",
+              "description": "Per col·legiat"
+            },
+            {
+              "value": "2FA",
+              "label": "Seguretat",
+              "description": "Autenticació SMS/correu"
+            },
+            {
+              "value": "Híbrid",
+              "label": "Participació",
+              "description": "Presencial + remota"
+            }
           ],
           "impact": "Entorn de votació en línia unificat per a l'AGM de 2025. Els membres van accedir a la plataforma amb una autenticació 2FA segura, i van poder veure l'ordre del dia, la documentació i la retransmissió en directe en un únic espai.",
           "highlights": [
@@ -408,9 +476,21 @@
           "author": "Lideratge d'Alhora",
           "author_title": "Militància del partit polític",
           "stats": [
-            { "value": "Fundació", "label": "Tipus de vot", "description": "Definint les bases" },
-            { "value": "Decisiva", "label": "Estratègica", "description": "Decisió d'alt impacte" },
-            { "value": "Distribuït", "label": "Accés", "description": "Militància de fora inclosa" }
+            {
+              "value": "Fundació",
+              "label": "Tipus de vot",
+              "description": "Definint les bases"
+            },
+            {
+              "value": "Decisiva",
+              "label": "Estratègica",
+              "description": "Decisió d'alt impacte"
+            },
+            {
+              "value": "Distribuït",
+              "label": "Accés",
+              "description": "Militància de fora inclosa"
+            }
           ],
           "impact": "Gran votació participativa per definir les bases fundacionals del jove partit polític. Una decisió estratègica que configura tota la governança futura de l'organització.",
           "highlights": [
@@ -728,7 +808,8 @@
     },
     "video_section": {
       "title": "Vegeu com funciona",
-      "subtitle": "Descobriu com n'és de fàcil configurar una votació segura en minuts."
+      "subtitle": "Descobriu com n'és de fàcil configurar una votació segura en minuts.",
+      "play": "Reprodueix el vídeo"
     },
     "value_props": {
       "title": "Per què Vocdoni?",
@@ -842,13 +923,26 @@
       "subtitle": "L'app de Vocdoni facilita organitzar assemblees segures i legalment vàlides - en minuts i des de qualsevol dispositiu.",
       "cta_primary": "Comenceu gratis la vostra primera votació",
       "cta_secondary": "Vegeu la demo de 2 minuts",
-      "trust_badges": ["Compleix el RGPD", "Sense equip tècnic", "Evidència legal"]
+      "trust_badges": [
+        "Compleix el RGPD",
+        "Sense equip tècnic",
+        "Evidència legal"
+      ]
     },
     "social_proof": {
       "stats": [
-        { "value": "200k+", "label": "Vots processats" },
-        { "value": "30%", "label": "Augment mitjà de participació" },
-        { "value": "7+", "label": "Anys de confiança" }
+        {
+          "value": "200k+",
+          "label": "Vots processats"
+        },
+        {
+          "value": "30%",
+          "label": "Augment mitjà de participació"
+        },
+        {
+          "value": "7+",
+          "label": "Anys de confiança"
+        }
       ]
     },
     "pain_points": {
@@ -1051,9 +1145,18 @@
         "verify": "Els votants poden verificar que el seu vot ha estat comptat"
       },
       "stats": [
-        { "value": "200.000+", "label": "Vots processats" },
-        { "value": "500+", "label": "Processos de votació realitzats" },
-        { "value": "7 anys", "label": "D'experiència en votació digital" }
+        {
+          "value": "200.000+",
+          "label": "Vots processats"
+        },
+        {
+          "value": "500+",
+          "label": "Processos de votació realitzats"
+        },
+        {
+          "value": "7 anys",
+          "label": "D'experiència en votació digital"
+        }
       ],
       "workflow": {
         "create": "Creeu un compte",
@@ -1197,9 +1300,18 @@
       "title": "Amb la confiança d'organitzacions que no es poden permetre resultats discutits",
       "description": "La pàgina ha de combinar logotips, mètriques sòlides, un cas concret i les targetes de testimonis que ja s'utilitzen a la landing principal.",
       "stats": [
-        { "value": "200.000+", "label": "Vots processats amb seguretat" },
-        { "value": "30%", "label": "Augment mitjà de participació" },
-        { "value": "Fins al 70%", "label": "Menor cost electoral" }
+        {
+          "value": "200.000+",
+          "label": "Vots processats amb seguretat"
+        },
+        {
+          "value": "30%",
+          "label": "Augment mitjà de participació"
+        },
+        {
+          "value": "Fins al 70%",
+          "label": "Menor cost electoral"
+        }
       ],
       "case_study": {
         "eyebrow": "Mini cas d'estudi",
@@ -1353,12 +1465,118 @@
       ]
     }
   },
+  "easy_features": {
+    "eyebrow": "Com funciona",
+    "title": "Tot el que la vostra organització necessita per votar",
+    "cta": "Proveu-ho gratis",
+    "tabs": {
+      "members": {
+        "name": "Gestió de membres"
+      },
+      "create": {
+        "name": "Creeu una votació"
+      },
+      "manage": {
+        "name": "Gestió d'una votació"
+      },
+      "vote": {
+        "name": "Emeteu el vot"
+      }
+    }
+  },
+  "steps_section": {
+    "title_start": "La vostra primera elecció segura, en marxa en",
+    "title_highlight": "tres passos",
+    "subtitle": "Sense configuració tècnica, sense paperassa. Pugeu els membres, creeu la papereta i compartiu l'enllaç - és tot el que cal.",
+    "label": "Configureu una votació en menys de 10 minuts",
+    "panel_title": "Del full de càlcul a l'elecció en directe en minuts",
+    "panel_description": "Vocdoni gestiona la seguretat. Vosaltres gestioneu les preguntes.",
+    "steps": {
+      "upload": {
+        "title": "1. Pugeu el cens de membres",
+        "description": "Importeu la llista de votants des d'un full de càlcul en segons. Cada membre rep automàticament un enllaç d'accés únic i privat - sense compte ni app necessaris."
+      },
+      "create": {
+        "title": "2. Creeu el procés de votació",
+        "description": "Trieu el mètode de votació, redacteu la pregunta i fixeu les dates d'inici i fi. La papereta queda configurada i a punt en menys de cinc minuts."
+      },
+      "share": {
+        "title": "3. Compartiu l'enllaç, recolliu els vots",
+        "description": "Envieu l'enllaç de votació per correu electrònic. Els membres voten des de qualsevol dispositiu en segons. Els resultats es publiquen a l'instant quan es tanca la votació - qualsevol pot verificar que el recompte és correcte."
+      }
+    }
+  },
   "error_page": {
     "not_found_title": "Pàgina no trobada",
     "not_found_description": "La pàgina que busqueu no existeix o ha estat traslladada.",
     "error_title": "Quelcom ha anat malament",
     "error_description": "S'ha produït un error inesperat. Si us plau, torneu-ho a intentar més tard.",
     "go_home": "Anar a l'inici",
-    "go_back": "Tornar"
+    "go_back": "Tornar",
+    "try_again": "Tornar-ho a intentar"
+  },
+  "contact": {
+    "page_eyebrow": "Contacte",
+    "page_title": "Parlem sobre les teves necessitats de governança",
+    "page_subtitle": "Tant si necessites votació segura per a la teva organització com si tens preguntes sobre la nostra plataforma, som aquí per ajudar-te. Contacta'ns i construïm junts el futur de la governança digital.",
+    "get_in_touch_title": "Posa't en contacte",
+    "get_in_touch_description": "Tria la millor manera de connectar amb el nostre equip. Som aquí per respondre les teves preguntes i parlar de com Vocdoni pot ajudar la teva organització.",
+    "whatsapp_button": "Xateja a WhatsApp",
+    "schedule_call_button": "Programa una trucada",
+    "or_email_directly": "O escriu-nos directament",
+    "email_response_time": "Normalment responem en menys de 24 hores",
+    "name": "Nom",
+    "name_placeholder": "Joan Garcia",
+    "email": "Correu electrònic",
+    "email_placeholder": "joan@exemple.com",
+    "organization": "Organització",
+    "organization_placeholder": "La teva empresa o organització",
+    "subject": "Assumpte",
+    "subject_placeholder": "En què et podem ajudar?",
+    "message": "Missatge",
+    "message_placeholder": "Explica'ns les teves necessitats de votació o governança...",
+    "disclaimer": "En fer clic al botó \"Enviar\", acceptes la <plink>política de privadesa</plink>.",
+    "success": "Missatge enviat correctament! Et respondrem aviat.",
+    "error_not_configured": "El formulari de contacte no està configurat encara. Si us plau, contacta'ns directament per correu electrònic o xarxes socials.",
+    "error": "Error en enviar el missatge. Si us plau, torna-ho a intentar més tard.",
+    "captcha_error": "La verificació reCAPTCHA ha fallat. Si us plau, torna-ho a intentar.",
+    "sending": "Enviant...",
+    "submit_button": "Enviar missatge",
+    "errors": {
+      "name_required": "El nom és obligatori",
+      "email_required": "El correu electrònic és obligatori",
+      "email_invalid": "Adreça de correu electrònic no vàlida",
+      "subject_required": "L'assumpte és obligatori",
+      "message_required": "El missatge és obligatori"
+    }
+  },
+  "portfolio": {
+    "solutions": {
+      "badge": "Solucions",
+      "title": "Eines democràtiques que s'adapten a les vostres necessitats",
+      "description": "Trieu l'opció adequada per a la vostra organització: poseu-vos en marxa en minuts amb la nostra app d'autoservei, construïu sobre el nostre SDK segur o deixeu-nos gestionar tot el procés."
+    }
+  },
+  "landing": {
+    "portfolio": {
+      "items": {
+        "1": {
+          "title": "Vocdoni app",
+          "description": "Configura una elecció real en minuts. Sense equip informàtic, sense paper, sense coneixements tècnics - només una votació senzilla i verificable per a qualsevol organització."
+        },
+        "2": {
+          "title": "Vocdoni SDK",
+          "description": "Integra votacions verificables i anònimes directament a les teves aplicacions amb les nostres eines de codi obert. La teva infraestructura, el nostre protocol segur."
+        },
+        "3": {
+          "title": "Projectes electorals a mida",
+          "description": "Suport expert complet per a la governança complexa, des de la configuració inicial fins als resultats verificables certificats."
+        },
+        "4": {
+          "title": "Vocdoni Petitions",
+          "description": "Una solució per recollir signatures i signar peticions que utilitza una aplicació amb privacitat prioritària anomenada Vocdoni Passport."
+        }
+      }
+    }
   }
 }

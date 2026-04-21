@@ -11,6 +11,7 @@ import i18next from 'i18next'
 import React from 'react'
 import { I18nextProvider, initReactI18next } from 'react-i18next'
 import { usePageContext } from 'vike-react/usePageContext'
+import { ErrorBoundary } from '../components/ErrorBoundary'
 import Footer from '../components/Footer'
 import { Navbar } from '../components/Navbar'
 
@@ -102,7 +103,9 @@ function LocalizedLayout({
       <div className='min-h-screen bg-background font-sans antialiased flex flex-col overflow-x-hidden'>
         <CookieConsent />
         <Navbar />
-        <main className='flex-1 pt-20'>{children}</main>
+        <main className='flex-1 pt-20'>
+          <ErrorBoundary key={urlLogical}>{children}</ErrorBoundary>
+        </main>
         <Footer />
       </div>
     </I18nextProvider>

@@ -70,12 +70,12 @@ const Solutions = () => {
               <CardContent className='flex p-6'>
                 <div className='space-y-6'>
                   <Avatar className='size-10 shadow-sm'>
-                    <AvatarFallback className='bg-card text-black dark:text-white'>
+                    <AvatarFallback className='bg-card text-foreground'>
                       <CodeIcon className='size-5' />
                     </AvatarFallback>
                   </Avatar>
                   <div className='space-y-2'>
-                    <CardTitle className='line-clamp-2 text-lg font-semibold text-black dark:text-white'>
+                    <CardTitle className='line-clamp-2 text-lg font-semibold text-foreground'>
                       {t('features.cards.integrations.title')}
                     </CardTitle>
                     <CardDescription className='line-clamp-2'>

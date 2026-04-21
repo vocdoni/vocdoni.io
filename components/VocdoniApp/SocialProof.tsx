@@ -61,7 +61,7 @@ export default function SocialProof() {
 
         <div className='mt-10 flex flex-wrap items-center justify-center gap-x-10 gap-y-6'>
           {logos.map((logo) => (
-            <img key={logo.alt} src={logo.src} alt={logo.alt} className='h-9 w-auto object-contain opacity-85' />
+            <img key={logo.alt} src={logo.src} alt={logo.alt} className='h-9 w-auto object-contain opacity-85' loading='lazy' />
           ))}
         </div>
 

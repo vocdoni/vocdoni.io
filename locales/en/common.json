@@ -53,6 +53,7 @@
       },
       "vision": {
         "content": "A future where democratic processes are transparent, inclusive, and tamper-proof by default. We bridge the gap between technical complexity and democratic legitimacy to ensure every voice is heard and every vote counts.",
+        "content_2": "We provide the tools for organizations of any size to conduct elections that are unchallengeable by design.",
         "title": "Vision"
       }
     },
@@ -64,6 +65,7 @@
       "title": "Our structure"
     },
     "team": {
+      "label": "The core team",
       "description": "Vocdoni is built and maintained by a principled team of cryptographers, engineers, and digital governance experts. We are mission-driven, dedicated to making secure and verifiable voting a global standard.",
       "title": "The people behind the tech"
     },
@@ -1365,6 +1367,64 @@
     "error_title": "Something went wrong",
     "error_description": "An unexpected error occurred. Please try again later.",
     "go_home": "Go home",
-    "go_back": "Go back"
+    "go_back": "Go back",
+    "try_again": "Try again"
+  },
+  "contact": {
+    "page_eyebrow": "Contact",
+    "page_title": "Let's talk about your governance needs",
+    "page_subtitle": "Whether you need secure voting for your organization or have questions about our platform, we're here to help. Reach out and let's build the future of digital governance together.",
+    "get_in_touch_title": "Get in touch",
+    "get_in_touch_description": "Choose the best way to connect with our team. We're here to answer your questions and discuss how Vocdoni can help your organization.",
+    "whatsapp_button": "Chat on WhatsApp",
+    "schedule_call_button": "Schedule a call",
+    "or_email_directly": "Or email us directly",
+    "email_response_time": "We typically respond within 24 hours",
+    "name": "Name",
+    "name_placeholder": "John Doe",
+    "email": "Email",
+    "email_placeholder": "john@example.com",
+    "organization": "Organization",
+    "organization_placeholder": "Your company or organization",
+    "subject": "Subject",
+    "subject_placeholder": "What can we help you with?",
+    "message": "Message",
+    "message_placeholder": "Tell us about your voting or governance needs...",
+    "disclaimer": "By clicking the \"Submit\" button, you agree to the <plink>privacy policy</plink>.",
+    "success": "Message sent successfully! We'll get back to you soon.",
+    "error_not_configured": "Contact form is not configured yet. Please reach out to us directly via email or social media.",
+    "error": "Failed to send message. Please try again later.",
+    "captcha_error": "reCAPTCHA verification failed. Please try again.",
+    "sending": "Sending...",
+    "submit_button": "Send message",
+    "errors": {
+      "name_required": "Name is required",
+      "email_required": "Email is required",
+      "email_invalid": "Invalid email address",
+      "subject_required": "Subject is required",
+      "message_required": "Message is required"
+    }
+  },
+  "landing": {
+    "portfolio": {
+      "items": {
+        "1": {
+          "title": "Vocdoni app",
+          "description": "Set up a real election in minutes. No IT team, no paper, no expertise needed - just simple, verifiable voting for any organization."
+        },
+        "2": {
+          "title": "Vocdoni SDK",
+          "description": "Add verifiable, anonymous voting directly into your own applications with our open-source tools. Your infrastructure, our secure protocol."
+        },
+        "3": {
+          "title": "Custom election projects",
+          "description": "Full expert support for complex governance, from initial configuration to certified verifiable results."
+        },
+        "4": {
+          "title": "Vocdoni Petitions",
+          "description": "A solution to collect signatures and sign petitions that uses a privacy-first and data-minimization app called Vocdoni Passport."
+        }
+      }
+    }
   }
 }

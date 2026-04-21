@@ -20,8 +20,7 @@ type WithAsChild<Base extends object> =
   | (Base & { asChild?: false | undefined })
 
 interface SlotProps<T extends HTMLElement = HTMLElement> extends DOMMotionProps<T> {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  children?: any
+  children?: React.ReactNode
 }
 
 function mergeRefs<T>(...refs: (React.Ref<T> | undefined)[]): React.RefCallback<T> {
@@ -56,21 +55,23 @@ function mergeProps<T extends HTMLElement>(childProps: AnyProps, slotProps: DOMM
 }
 
 function Slot<T extends HTMLElement = HTMLElement>({ children, ref, ...props }: SlotProps<T>) {
-  const isAlreadyMotion =
-    typeof children.type === 'object' && children.type !== null && isMotionComponent(children.type)
-
-  const Base = React.useMemo(
-    () => (isAlreadyMotion ? (children.type as React.ElementType) : motion.create(children.type as React.ElementType)),
-    [isAlreadyMotion, children.type]
-  )
-
   if (!React.isValidElement(children)) return null
 
-  const { ref: childRef, ...childProps } = children.props as AnyProps
+  const element = children as React.ReactElement
+
+  const isAlreadyMotion =
+    typeof element.type === 'object' && element.type !== null && isMotionComponent(element.type)
+
+  const Base = React.useMemo(
+    () => (isAlreadyMotion ? (element.type as React.ElementType) : motion.create(element.type as React.ElementType)),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [isAlreadyMotion, element.type]
+  )
+
+  const { ref: childRef, ...childProps } = element.props as AnyProps
 
   const mergedProps = mergeProps(childProps, props)
 
-  // @ts-ignore
   return <Base {...mergedProps} ref={mergeRefs(childRef as React.Ref<T>, ref)} />
 }
 

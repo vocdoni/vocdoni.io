@@ -39,7 +39,7 @@ export default function AboutUsPage() {
               </div>
             </div>
             <div className='pt-2'>
-              <p className='text-sm font-semibold text-primary uppercase tracking-wider mb-3'>The core team</p>
+              <p className='text-sm font-semibold text-primary uppercase tracking-wider mb-3'>{t('about_us.team.label', 'The core team')}</p>
               <AvatarGroupTooltip />
             </div>
           </div>
@@ -54,7 +54,7 @@ export default function AboutUsPage() {
               {t('about_us.tabs.vision.content')}
             </p>
             <p className='text-muted-foreground text-lg leading-relaxed'>
-              We provide the tools for organizations of any size to conduct elections that are unchallengeable by design.
+              {t('about_us.tabs.vision.content_2', 'We provide the tools for organizations of any size to conduct elections that are unchallengeable by design.')}
             </p>
           </div>
         )

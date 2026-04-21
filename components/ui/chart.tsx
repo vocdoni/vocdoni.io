@@ -89,7 +89,15 @@ ${colorConfig
 
 const ChartTooltip = RechartsPrimitive.Tooltip
 
-type ChartTooltipContentProps = Partial<RechartsPrimitive.TooltipProps<any, any>> &
+type TooltipValueType = number | string | Array<number | string>
+type TooltipNameType = number | string
+type TooltipPayloadItem = NonNullable<
+  RechartsPrimitive.TooltipProps<TooltipValueType, TooltipNameType>['payload']
+>[number]
+
+type ChartTooltipContentProps = Partial<
+  RechartsPrimitive.TooltipProps<TooltipValueType, TooltipNameType>
+> &
   React.ComponentProps<'div'> & {
     hideLabel?: boolean
     hideIndicator?: boolean
@@ -160,8 +168,8 @@ const ChartTooltipContent = React.forwardRef<HTMLDivElement, ChartTooltipContent
         {!nestLabel ? tooltipLabel : null}
         <div className='grid gap-1.5'>
           {payload
-            .filter((item: any) => item.type !== 'none')
-            .map((item: any, index: number) => {
+            .filter((item: TooltipPayloadItem) => item.type !== 'none')
+            .map((item: TooltipPayloadItem, index: number) => {
               const key = `${nameKey || item.name || item.dataKey || 'value'}`
               const itemConfig = getPayloadConfigFromPayload(config, item, key)
               const indicatorColor = color || item.payload.fill || item.color

@@ -1,6 +1,7 @@
 import { CircleCheckIcon, XCircleIcon } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 
+import { Section } from '@/components/Section'
 import { MotionPreset } from '@/components/ui/motion-preset'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 
@@ -30,7 +31,7 @@ const ComparisonSection = ({
 }) => {
   const { t } = useTranslation()
   return (
-    <section className='py-8 sm:py-16 lg:py-24'>
+    <Section>
       <div className='container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8'>
         <div className='space-y-12 sm:space-y-16 lg:space-y-24'>
           {/* Header */}
@@ -98,9 +99,9 @@ const ComparisonSection = ({
                             >
                               <div className='flex items-center gap-2'>
                                 {featureValue.status === 'positive' ? (
-                                  <CircleCheckIcon className='size-5 flex-shrink-0 text-green-600' />
+                                  <CircleCheckIcon className='size-5 flex-shrink-0 text-success' />
                                 ) : (
-                                  <XCircleIcon className='size-5 flex-shrink-0 text-red-600' />
+                                  <XCircleIcon className='size-5 flex-shrink-0 text-destructive' />
                                 )}
                                 <span className='text-sm font-medium'>{t(featureValue.text)}</span>
                               </div>
@@ -151,9 +152,9 @@ const ComparisonSection = ({
                           <p className='text-sm font-medium text-muted-foreground'>{t(feature)}</p>
                           <div className='flex items-center gap-2'>
                             {featureValue.status === 'positive' ? (
-                              <CircleCheckIcon className='size-5 flex-shrink-0 text-green-600' />
+                              <CircleCheckIcon className='size-5 flex-shrink-0 text-success' />
                             ) : (
-                              <XCircleIcon className='size-5 flex-shrink-0 text-red-600' />
+                              <XCircleIcon className='size-5 flex-shrink-0 text-destructive' />
                             )}
                             <span className='text-sm font-medium'>{t(featureValue.text)}</span>
                           </div>
@@ -167,7 +168,7 @@ const ComparisonSection = ({
           </div>
         </div>
       </div>
-    </section>
+    </Section>
   )
 }
 

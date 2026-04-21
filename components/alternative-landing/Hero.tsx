@@ -3,7 +3,7 @@ import MobileHeroScroll from '@/components/MobileHeroScroll'
 import { Link } from '@/components/Link'
 import { Button } from '@/components/ui/button'
 import { MotionPreset } from '@/components/ui/motion-preset'
-import { AnimatePresence, motion } from 'framer-motion'
+import { AnimatePresence, motion } from 'motion/react'
 import { ArrowRight } from 'lucide-react'
 import { useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -28,8 +28,8 @@ const Hero = () => {
   }, [dynamicWords.length])
 
   return (
-    <section className='relative w-full pt-6 pb-20 lg:pt-10 lg:pb-28 px-4 md:px-8'>
-      <div className='container mx-auto max-w-screen-2xl'>
+    <section className='relative w-full pt-6 pb-20 lg:pt-10 lg:pb-28 px-4 sm:px-6 lg:px-8'>
+      <div className='mx-auto max-w-7xl'>
         <div className='flex flex-col lg:flex-row gap-12 lg:gap-8 items-center w-full min-w-0'>
           {/* Left Column: Content */}
           <div className='flex flex-col items-start gap-6 relative z-10 w-full min-w-0 lg:flex-1'>
