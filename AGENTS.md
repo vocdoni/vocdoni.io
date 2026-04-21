@@ -6,7 +6,7 @@
 - `components/`: shared UI building blocks (shadcn/ui components live under `components/ui/`).
 - `layouts/`: page-level layout wrappers.
 - `hooks/`, `lib/`: reusable hooks and utilities.
-- `locales/`: i18n resources (currently `en` and `es` only).
+- `locales/`: i18n resources (currently `en`, `es`, and `ca`).
 - `assets/` and `public/`: static assets; `public/` is copied as-is.
 - `tests/`: Vitest unit tests, organized by `components/`, `pages/`, and `lib/`.
 
@@ -68,7 +68,7 @@
 
 - The codebase mixes old and new layouts during the Vike redesign migration.
 - Legacy scroll navigation updates the URL per section; new pages may still reflect that behavior.
-- Only English and Spanish are active locales for now; additional languages will return later.
+- Active locales are English, Spanish, and Catalan (`en`, `es`, `ca`).
 
 ## Agent-Specific Instructions
 

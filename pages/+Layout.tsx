@@ -104,7 +104,7 @@ function LocalizedLayout({
         <CookieConsent />
         <Navbar />
         <main className='flex-1 pt-20'>
-          <ErrorBoundary>{children}</ErrorBoundary>
+          <ErrorBoundary key={urlLogical}>{children}</ErrorBoundary>
         </main>
         <Footer />
       </div>
