@@ -2,7 +2,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Badge } from '@/components/ui/badge'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { motion, useReducedMotion } from 'motion/react'
-import { Database, FileCheck, Hash, ShieldCheck } from 'lucide-react'
+import { AlertCircle, CheckCircle2, Database, FileCheck, Hash, ShieldCheck } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 
 const avatars = [
@@ -51,11 +51,21 @@ export const CensusCard = () => {
               ].map((user, i) => (
                 <div key={i} className='flex justify-between items-center text-xs'>
                   <span className='font-medium'>{user.name}</span>
-                  <span
-                    className={`text-[10px] ${user.status === t('hero_cards.eligible') ? 'text-success' : 'text-warning'}`}
-                  >
-                    {user.status}
-                  </span>
+                  {(() => {
+                    const isEligible = user.status === t('hero_cards.eligible')
+                    return (
+                      <span
+                        className={`text-[10px] flex items-center gap-0.5 ${isEligible ? 'text-success' : 'text-warning'}`}
+                      >
+                        {isEligible ? (
+                          <CheckCircle2 className='h-2.5 w-2.5 shrink-0' aria-hidden='true' />
+                        ) : (
+                          <AlertCircle className='h-2.5 w-2.5 shrink-0' aria-hidden='true' />
+                        )}
+                        {user.status}
+                      </span>
+                    )
+                  })()}
                 </div>
               ))}
             </div>

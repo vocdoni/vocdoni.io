@@ -38,16 +38,16 @@ const Hero = () => {
             <MotionPreset fade blur slide delay={0} transition={{ duration: 0.5 }}>
               <Link href='https://app.vocdoni.io' target='_blank' rel='noopener noreferrer' variant='heroBadge'>
                 <span className='bg-foreground text-background px-2.5 py-0.5 rounded-full font-semibold shrink-0 flex items-center gap-1.5'>
-                  <span className='relative flex h-2 w-2'>
-                    <span className='animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75'></span>
-                    <span className='relative inline-flex rounded-full h-2 w-2 bg-green-500'></span>
+                  <span className='relative flex h-2 w-2' role='img' aria-label={t('hero.badge.status_live', 'Live')}>
+                    <span className='animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75' aria-hidden='true'></span>
+                    <span className='relative inline-flex rounded-full h-2 w-2 bg-green-500' aria-hidden='true'></span>
                   </span>
                   {t('hero.badge.label')}
                 </span>
                 <span className='text-muted-foreground font-medium pr-2 leading-tight truncate flex items-center gap-1'>
                   <span className='hidden sm:inline'>{t('hero.badge.description_long')}</span>
                   <span className='sm:hidden'>{t('hero.badge.description_short')}</span>
-                  <ArrowRight className='h-3 w-3 transition-transform group-hover:translate-x-0.5 shrink-0' />
+                  <ArrowRight className='h-3 w-3 transition-transform group-hover:translate-x-0.5 shrink-0' aria-hidden='true' />
                 </span>
               </Link>
             </MotionPreset>
@@ -96,7 +96,7 @@ const Hero = () => {
                 >
                   <Link href='https://app.vocdoni.io' variant='inlineIcon'>
                     {t('hero.cta_primary')}
-                    <ArrowRight className='h-5 w-5 transition-transform duration-200 group-hover:translate-x-0.5' />
+                    <ArrowRight className='h-5 w-5 transition-transform duration-200 group-hover:translate-x-0.5' aria-hidden='true' />
                   </Link>
                 </Button>
                 <Button

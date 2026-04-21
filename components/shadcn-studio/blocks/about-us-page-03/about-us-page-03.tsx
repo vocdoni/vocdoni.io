@@ -1,6 +1,6 @@
-import { useState, type JSX } from 'react'
+import { type JSX } from 'react'
 import { Separator } from '@/components/ui/separator'
-import { cn } from '@/lib/utils'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { MotionPreset } from '@/components/ui/motion-preset'
 import { useTranslation } from 'react-i18next'
 import teamGathering from '@/assets/images/team/team_gathering.webp'
@@ -19,7 +19,6 @@ type AboutUsData = {
 
 const AboutUs = ({ aboutUsData }: { aboutUsData: AboutUsData }) => {
   const { t } = useTranslation()
-  const [activeTab, setActiveTab] = useState(aboutUsData.tabs[0]?.value || '')
 
   return (
     <section className='pt-6 pb-16 sm:pt-10 sm:pb-20 lg:pt-12 lg:pb-24 overflow-hidden'>
@@ -71,51 +70,33 @@ const AboutUs = ({ aboutUsData }: { aboutUsData: AboutUsData }) => {
         <div className='grid items-start gap-16 lg:grid-cols-2'>
           <MotionPreset fade blur slide delay={0.4} transition={{ duration: 0.6 }} inView inViewOnce className='space-y-8'>
             <div className='space-y-4'>
-              <h3 className='text-2xl font-bold tracking-tight'>{aboutUsData.contentTitle}</h3>
+              <h2 className='text-2xl font-bold tracking-tight'>{aboutUsData.contentTitle}</h2>
               <p className='text-muted-foreground text-lg leading-relaxed'>{aboutUsData.contentDescription}</p>
             </div>
 
             <Separator className='bg-primary/10' />
 
-            <div className='space-y-8'>
-              {/* Manual Tabs List */}
-              <div className='inline-flex bg-muted p-1 rounded-xl'>
+            <Tabs defaultValue={aboutUsData.tabs[0]?.value} className='space-y-8'>
+              <TabsList className='inline-flex bg-muted p-1 rounded-xl h-auto'>
                 {aboutUsData.tabs.map((tab) => (
-                  <button
+                  <TabsTrigger
                     key={tab.value}
-                    onClick={() => setActiveTab(tab.value)}
-                    className={cn(
-                      'px-6 py-2 rounded-lg text-sm font-semibold transition-all duration-200',
-                      activeTab === tab.value
-                        ? 'bg-background text-foreground shadow-sm'
-                        : 'text-muted-foreground hover:text-foreground'
-                    )}
+                    value={tab.value}
+                    className='px-6 py-2 rounded-lg text-sm font-semibold'
                   >
                     {tab.name}
-                  </button>
+                  </TabsTrigger>
                 ))}
-              </div>
+              </TabsList>
 
-              {/* Tabs Content */}
-              <div className='min-h-[250px]'>
-                {aboutUsData.tabs.map(
-                  (tab) =>
-                    activeTab === tab.value && (
-                      <MotionPreset
-                        key={tab.value}
-                        fade
-                        blur
-                        slide
-                        delay={0}
-                        transition={{ duration: 0.3 }}
-                        className='animate-in fade-in slide-in-from-bottom-2'
-                      >
-                        {tab.content}
-                      </MotionPreset>
-                    )
-                )}
-              </div>
-            </div>
+              {aboutUsData.tabs.map((tab) => (
+                <TabsContent key={tab.value} value={tab.value} className='min-h-[250px]'>
+                  <MotionPreset fade blur slide delay={0} transition={{ duration: 0.3 }}>
+                    {tab.content}
+                  </MotionPreset>
+                </TabsContent>
+              ))}
+            </Tabs>
           </MotionPreset>
 
           <MotionPreset
