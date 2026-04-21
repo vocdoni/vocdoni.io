@@ -48,6 +48,7 @@ jobs:
           EMAILJS_PUBLIC_KEY: ${{ secrets.EMAILJS_PUBLIC_KEY }}
           EMAILJS_SERVICE_ID: ${{ secrets.EMAILJS_SERVICE_ID }}
           EMAILJS_TEMPLATE_ID: ${{ secrets.EMAILJS_TEMPLATE_ID }}
+          VITE_GHOST_URL: ${{ secrets.VITE_GHOST_URL }}
 
       - name: Deploy to Netlify
         uses: nwtgck/actions-netlify@v3.0
