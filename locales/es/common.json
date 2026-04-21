@@ -169,7 +169,9 @@
     },
     "mission": "Vocdoni ofrece la tecnología de votación digital más segura y accesible del mundo. Nuestra misión es permitir que organizaciones de cualquier tamaño tomen decisiones colectivas con total integridad.",
     "newsletter": {
+      "error": "Algo ha ido mal. Por favor, inténtalo de nuevo.",
       "placeholder": "Tu correo electrónico...",
+      "success": "Revisa tu bandeja de entrada para confirmar la suscripción.",
       "title": "Suscríbete al boletín"
     },
     "product": {
@@ -209,8 +211,8 @@
     "cta_secondary": "Hablar con un experto",
     "dynamic_words": [
       "fácil",
-      "segura",
-      "sencilla"
+      "seguro",
+      "sencillo"
     ],
     "subtitle": "Celebra elecciones seguras y legalmente válidas desde cualquier dispositivo. Cualquier organización, cualquier tamaño, desde hoy mismo.",
     "title": "Tomar decisiones nunca ha sido tan",
@@ -1347,6 +1349,13 @@
       "email_invalid": "Dirección de correo electrónico no válida",
       "subject_required": "El asunto es obligatorio",
       "message_required": "El mensaje es obligatorio"
+    }
+  },
+  "portfolio": {
+    "solutions": {
+      "badge": "Soluciones",
+      "title": "Herramientas democráticas que se adaptan a tus necesidades",
+      "description": "Elige la opción adecuada para tu organización: lanza en minutos con nuestra app de autoservicio, construye sobre nuestro SDK seguro o deja que gestionemos todo el proceso por ti."
     }
   },
   "landing": {

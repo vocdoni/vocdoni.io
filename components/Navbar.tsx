@@ -102,7 +102,7 @@ export function Navbar() {
 
   return (
     <div className='fixed top-6 left-0 right-0 z-50 flex justify-center px-4 cursor-none pointer-events-none'>
-      <header className='cursor-default pointer-events-auto flex items-center justify-between gap-4 rounded-full border border-border/40 bg-background/80 px-4 py-2 shadow-sm backdrop-blur-md w-full transition-all duration-300'>
+      <header className='cursor-default pointer-events-auto flex items-center justify-between gap-4 rounded-full border border-border/40 bg-background/80 px-4 py-2 shadow-sm backdrop-blur-md w-full max-w-[2000px] transition-all duration-300'>
         {/* Logo */}
         <div className='pointer-events'>
           <Link href='/' variant='unstyled'>
