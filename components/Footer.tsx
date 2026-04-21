@@ -144,15 +144,6 @@ export default function Footer() {
 
           <div className='flex flex-wrap items-center gap-6 order-1 md:order-2'>
             <div className='flex items-center gap-3 border border-border/50 rounded-lg px-3 py-1.5 bg-muted/5'>
-              <img src={isoLogo} alt='ISO 27001' className='h-6 w-auto object-contain' loading='lazy' />
-              <div className='flex flex-col'>
-                <span className='text-[8px] text-muted-foreground uppercase font-bold tracking-tight'>
-                  {t('footer.certified')}
-                </span>
-              </div>
-            </div>
-
-            <div className='flex items-center gap-3 border border-border/50 rounded-lg px-3 py-1.5 bg-muted/5'>
               <img src={gdprLogo} alt='GDPR' className='h-6 w-auto object-contain' loading='lazy' />
               <div className='flex flex-col'>
                 <span className='text-[8px] text-muted-foreground uppercase font-bold tracking-tight'>
