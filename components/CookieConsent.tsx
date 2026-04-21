@@ -83,6 +83,7 @@ export function CookieConsent() {
         'max-w-4xl px-4 sm:px-6 lg:px-8 animate-in slide-in-from-top-5'
       )}
       role='dialog'
+      aria-modal='true'
       aria-label={t('cookies.aria_label', 'Cookies consent banner')}
     >
       <Alert className='bg-background shadow-xl border-2'>
