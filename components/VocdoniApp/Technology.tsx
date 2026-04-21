@@ -65,7 +65,7 @@ export default function Technology() {
             {items.map((item, index) => {
               const Icon = icons[index] ?? ShieldCheckIcon
               return (
-                <Card key={item.title} className='border-border/60 bg-background shadow-sm'>
+                <Card key={index} className='border-border/60 bg-background shadow-sm'>
                   <CardHeader className='pb-3'>
                     <div className='mb-4 flex size-12 items-center justify-center rounded-2xl bg-primary/10 text-primary'>
                       <Icon className='size-5' />

@@ -36,22 +36,22 @@ export default function Footer() {
             <VocdoniLogo aria-hidden='true' />
             <p className='text-sm text-muted-foreground leading-relaxed max-w-xs'>{t('footer.mission')}</p>
             <div className='flex gap-4'>
-              <Link href='https://github.com/vocdoni' target='_blank' variant='footerLegal' aria-label='Vocdoni on GitHub (opens in new tab)'>
+              <Link href='https://github.com/vocdoni' target='_blank' variant='footerLegal' aria-label={t('footer.social.github', 'Vocdoni on GitHub (opens in new tab)')}>
                 <Icon icon='simple-icons:github' className='h-5 w-5' aria-hidden='true' />
               </Link>
-              <Link href='https://twitter.com/vocdoni' target='_blank' variant='footerLegal' aria-label='Vocdoni on X / Twitter (opens in new tab)'>
+              <Link href='https://twitter.com/vocdoni' target='_blank' variant='footerLegal' aria-label={t('footer.social.twitter', 'Vocdoni on X / Twitter (opens in new tab)')}>
                 <Icon icon='simple-icons:x' className='h-5 w-5' aria-hidden='true' />
               </Link>
-              <Link href='https://bsky.app/profile/vocdoni.io' target='_blank' variant='footerLegal' aria-label='Vocdoni on Bluesky (opens in new tab)'>
+              <Link href='https://bsky.app/profile/vocdoni.io' target='_blank' variant='footerLegal' aria-label={t('footer.social.bluesky', 'Vocdoni on Bluesky (opens in new tab)')}>
                 <Icon icon='simple-icons:bluesky' className='h-5 w-5' aria-hidden='true' />
               </Link>
-              <Link href='https://chat.vocdoni.io' target='_blank' variant='footerLegal' aria-label='Vocdoni on Discord (opens in new tab)'>
+              <Link href='https://chat.vocdoni.io' target='_blank' variant='footerLegal' aria-label={t('footer.social.discord', 'Vocdoni on Discord (opens in new tab)')}>
                 <Icon icon='ic:baseline-discord' className='h-5 w-5' aria-hidden='true' />
               </Link>
-              <Link href='https://t.me/vocdoni' target='_blank' variant='footerLegal' aria-label='Vocdoni on Telegram (opens in new tab)'>
+              <Link href='https://t.me/vocdoni' target='_blank' variant='footerLegal' aria-label={t('footer.social.telegram', 'Vocdoni on Telegram (opens in new tab)')}>
                 <Send className='h-5 w-5' aria-hidden='true' />
               </Link>
-              <Link href='https://vocdoni.io' target='_blank' variant='footerLegal' aria-label='Vocdoni website (opens in new tab)'>
+              <Link href='https://vocdoni.io' target='_blank' variant='footerLegal' aria-label={t('footer.social.website', 'Vocdoni website (opens in new tab)')}>
                 <Globe className='h-5 w-5' aria-hidden='true' />
               </Link>
             </div>

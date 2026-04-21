@@ -6,8 +6,20 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/
 
 export default function FAQV3() {
   const { t } = useTranslation()
-
-  const faqs = ['sensitive', 'tradition', 'price']
+  const faqs = [
+    {
+      question: t('vocdoni_app.faq.items.sensitive.question'),
+      answer: t('vocdoni_app.faq.items.sensitive.answer'),
+    },
+    {
+      question: t('vocdoni_app.faq.items.tradition.question'),
+      answer: t('vocdoni_app.faq.items.tradition.answer'),
+    },
+    {
+      question: t('vocdoni_app.faq.items.price.question'),
+      answer: t('vocdoni_app.faq.items.price.answer'),
+    },
+  ]
 
   return (
     <section className='py-20 bg-background'>
@@ -17,14 +29,10 @@ export default function FAQV3() {
         </div>
 
         <Accordion type='single' collapsible className='w-full'>
-          {faqs.map((key) => (
-            <AccordionItem key={key} value={key}>
-              <AccordionTrigger className='text-left text-lg font-medium'>
-                {t(`vocdoni_app.faq.items.${key}.question`)}
-              </AccordionTrigger>
-              <AccordionContent className='text-base text-muted-foreground'>
-                {t(`vocdoni_app.faq.items.${key}.answer`)}
-              </AccordionContent>
+          {faqs.map((faq, index) => (
+            <AccordionItem key={index} value={`faq-${index}`}>
+              <AccordionTrigger className='text-left text-lg font-medium'>{faq.question}</AccordionTrigger>
+              <AccordionContent className='text-base text-muted-foreground'>{faq.answer}</AccordionContent>
             </AccordionItem>
           ))}
         </Accordion>

@@ -6,57 +6,56 @@ import FeaturesSection from '@/components/shadcn-studio/blocks/features-section-
 export default function FeaturesV3() {
   const { t } = useTranslation()
 
-  const features = [
+  const featuresList = [
     {
-      key: 'accessible',
       icon: <SmartphoneIcon className='h-10 w-10 text-primary' />,
+      title: t('vocdoni_app.features.items.accessible'),
+      description: t('vocdoni_app.features.items.accessible_desc', { defaultValue: ' ' }),
       image: '/features-placeholder.png',
     },
     {
-      key: 'setup',
       icon: <SettingsIcon className='h-10 w-10 text-primary' />,
+      title: t('vocdoni_app.features.items.setup'),
+      description: t('vocdoni_app.features.items.setup_desc', { defaultValue: ' ' }),
       image: '/features-placeholder.png',
     },
     {
-      key: 'branding',
       icon: <EyeIcon className='h-10 w-10 text-primary' />,
+      title: t('vocdoni_app.features.items.branding'),
+      description: t('vocdoni_app.features.items.branding_desc', { defaultValue: ' ' }),
       image: '/features-placeholder.png',
     },
     {
-      key: 'security',
       icon: <ShieldCheckIcon className='h-10 w-10 text-primary' />,
+      title: t('vocdoni_app.features.items.security'),
+      description: t('vocdoni_app.features.items.security_desc', { defaultValue: ' ' }),
       image: '/features-placeholder.png',
     },
     {
-      key: 'devices',
       icon: <SmartphoneIcon className='h-10 w-10 text-primary' />,
+      title: t('vocdoni_app.features.items.devices'),
+      description: t('vocdoni_app.features.items.devices_desc', { defaultValue: ' ' }),
       image: '/features-placeholder.png',
     },
     {
-      key: 'reporting',
       icon: <BarChart3Icon className='h-10 w-10 text-primary' />,
+      title: t('vocdoni_app.features.items.reporting'),
+      description: t('vocdoni_app.features.items.reporting_desc', { defaultValue: ' ' }),
       image: '/features-placeholder.png',
     },
     {
-      key: 'flexibility',
       icon: <SettingsIcon className='h-10 w-10 text-primary' />,
+      title: t('vocdoni_app.features.items.flexibility'),
+      description: t('vocdoni_app.features.items.flexibility_desc', { defaultValue: ' ' }),
       image: '/features-placeholder.png',
     },
     {
-      key: 'compliance',
       icon: <CheckCircleIcon className='h-10 w-10 text-primary' />,
+      title: t('vocdoni_app.features.items.compliance'),
+      description: t('vocdoni_app.features.items.compliance_desc', { defaultValue: ' ' }),
       image: '/features-placeholder.png',
     },
   ]
-
-  const featuresList = features.map((item) => ({
-    icon: item.icon,
-    title: t(`vocdoni_app.features.items.${item.key}`),
-    description: t(`vocdoni_app.features.items.${item.key}_desc`, {
-      defaultValue: ' ',
-    }),
-    image: item.image,
-  }))
 
   return (
     <FeaturesSection

@@ -3,6 +3,7 @@ import { cn } from '@/lib/utils'
 import { Locale } from '@/locales'
 import { cva, type VariantProps } from 'class-variance-authority'
 import * as React from 'react'
+import { useTranslation } from 'react-i18next'
 import { usePageContext } from 'vike-react/usePageContext'
 
 const linkVariants = cva('transition-colors', {
@@ -36,6 +37,7 @@ export interface LinkProps extends React.AnchorHTMLAttributes<HTMLAnchorElement>
 
 export const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
   ({ href, children, locale, className, variant, ...props }, ref) => {
+    const { t } = useTranslation()
     const pageContext = usePageContext()
     locale = locale || (pageContext.locale as Locale) || 'en'
 
@@ -67,7 +69,7 @@ export const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
         {...props}
       >
         {children}
-        {opensInNewTab && <span className='sr-only'> (opens in new tab)</span>}
+        {opensInNewTab && <span className='sr-only'> {t('link.opens_in_new_tab', '(opens in new tab)')}</span>}
       </a>
     )
   }

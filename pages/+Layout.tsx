@@ -9,7 +9,7 @@ import { localeDefault, locales } from '@/locales'
 import { useLocaleDetection } from '@/lib/useLocaleDetection'
 import i18next from 'i18next'
 import React from 'react'
-import { I18nextProvider, initReactI18next } from 'react-i18next'
+import { I18nextProvider, initReactI18next, useTranslation } from 'react-i18next'
 import { usePageContext } from 'vike-react/usePageContext'
 import { ErrorBoundary } from '../components/ErrorBoundary'
 import Footer from '../components/Footer'
@@ -80,6 +80,18 @@ function CompatibilityRedirectLayout({ urlLogical }: { urlLogical: string }) {
   )
 }
 
+function SkipToMainContent() {
+  const { t } = useTranslation()
+  return (
+    <a
+      href='#main-content'
+      className='sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:bg-background focus:text-foreground focus:rounded-md focus:ring-2 focus:ring-primary'
+    >
+      {t('layout.skip_to_main_content', 'Skip to main content')}
+    </a>
+  )
+}
+
 function LocalizedLayout({
   children,
   initialLocale,
@@ -101,12 +113,7 @@ function LocalizedLayout({
   return (
     <I18nextProvider i18n={i18n}>
       <div className='min-h-screen bg-background font-sans antialiased flex flex-col overflow-x-hidden'>
-        <a
-          href='#main-content'
-          className='sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:bg-background focus:text-foreground focus:rounded-md focus:ring-2 focus:ring-primary'
-        >
-          Skip to main content
-        </a>
+        <SkipToMainContent />
         <CookieConsent />
         <Navbar />
         <main id='main-content' tabIndex={-1} className='flex-1 pt-20'>

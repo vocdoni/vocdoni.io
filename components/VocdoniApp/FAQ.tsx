@@ -37,8 +37,8 @@ export default function FAQ() {
           collapsible
           className='mt-12 rounded-3xl border border-border/70 bg-background px-6 shadow-sm sm:px-8'
         >
-          {items.map((item) => (
-            <AccordionItem key={item.question} value={item.question}>
+          {items.map((item, index) => (
+            <AccordionItem key={index} value={`faq-${index}`}>
               <AccordionTrigger className='text-left text-base font-medium sm:text-lg'>
                 {item.question}
               </AccordionTrigger>
@@ -48,8 +48,6 @@ export default function FAQ() {
             </AccordionItem>
           ))}
         </Accordion>
-
-
       </Container>
     </section>
   )

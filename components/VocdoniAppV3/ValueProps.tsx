@@ -9,19 +9,23 @@ export default function ValuePropsV3() {
 
   const features = [
     {
-      key: 'digitalization',
+      title: t('vocdoni_app.value_props.cards.digitalization.title'),
+      description: t('vocdoni_app.value_props.cards.digitalization.description'),
       icon: <ZapIcon className='size-10 text-primary mb-4' />,
     },
     {
-      key: 'risk_reduction',
+      title: t('vocdoni_app.value_props.cards.risk_reduction.title'),
+      description: t('vocdoni_app.value_props.cards.risk_reduction.description'),
       icon: <ShieldCheckIcon className='size-10 text-primary mb-4' />,
     },
     {
-      key: 'cost_saving',
+      title: t('vocdoni_app.value_props.cards.cost_saving.title'),
+      description: t('vocdoni_app.value_props.cards.cost_saving.description'),
       icon: <ClockIcon className='size-10 text-primary mb-4' />,
     },
     {
-      key: 'expert_partner',
+      title: t('vocdoni_app.value_props.cards.expert_partner.title'),
+      description: t('vocdoni_app.value_props.cards.expert_partner.description'),
       icon: <HeartHandshakeIcon className='size-10 text-primary mb-4' />,
     },
   ]
@@ -34,17 +38,14 @@ export default function ValuePropsV3() {
         </div>
 
         <div className='grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4'>
-          {features.map((feature) => (
-            <Card
-              key={feature.key}
-              className='border-border/50 bg-background/50 transition-colors hover:bg-background/80'
-            >
+          {features.map((feature, index) => (
+            <Card key={index} className='border-border/50 bg-background/50 transition-colors hover:bg-background/80'>
               <CardHeader>
                 {feature.icon}
-                <CardTitle className='text-xl'>{t(`vocdoni_app.value_props.cards.${feature.key}.title`)}</CardTitle>
+                <CardTitle className='text-xl'>{feature.title}</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className='text-muted-foreground'>{t(`vocdoni_app.value_props.cards.${feature.key}.description`)}</p>
+                <p className='text-muted-foreground'>{feature.description}</p>
               </CardContent>
             </Card>
           ))}

@@ -59,7 +59,7 @@
 
 - We use `i18next` and `react-i18next`; do not introduce new translation systems.
 - Translation files live under `locales/<lang>/common.json`; active locales are defined in `locales/index.ts`
-- Key format is `snake_case`, often nested (e.g., `about_us.feature_cards.accessibility`).
+- Key format is `snake_case`, nested by domain to avoid ambiguity (e.g., `about_us.title`, `about_us.feature_cards.accessibility.title`).
 - Run `pnpm translations` to extract keys when adding new strings.
 - Translations are always defined with a default value e.g. `t('sections.terms.title', 'Terms and Conditions')`
 - User-facing copy in `pages/` and `components/` must go through `t(...)` with a default value. Do not add hardcoded JSX copy unless it is an explicitly documented exception.

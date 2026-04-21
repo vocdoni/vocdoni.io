@@ -104,7 +104,7 @@ export function findHardcodedJsxCopyViolations(source, filePath) {
 
 export function findEmptyTranslationLeafValues(value, currentPath = '') {
   if (typeof value === 'string') {
-    return value === '' && currentPath ? [currentPath] : []
+    return value.trim() === '' && currentPath ? [currentPath] : []
   }
 
   if (Array.isArray(value)) {

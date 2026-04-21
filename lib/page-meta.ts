@@ -1,28 +1,58 @@
 import { localeDefault } from '@/locales'
-import i18next from 'i18next'
 
-const createI18nSync = (lng: string, resources: Record<string, any>) => {
-  const i = i18next.createInstance()
-  i.init({
-    lng,
-    fallbackLng: localeDefault,
-    defaultNS: 'common',
-    ns: Object.keys(resources[lng] || { common: {} }),
-    resources,
-    interpolation: { escapeValue: false },
-    initImmediate: false,
-  })
-  return i
+const t = (_key: string, defaultValue: string) => defaultValue
+
+const metaDefaults = {
+  'meta.index.title': t('meta.index.title', 'Vocdoni - secure digital voting you can trust'),
+  'meta.index.description': t(
+    'meta.index.description',
+    'Cutting-edge blockchain technology powering the future of democratic participation with transparent, secure, and accessible voting infrastructure.'
+  ),
+  'meta.contact.title': t('meta.contact.title', 'Contact - Vocdoni'),
+  'meta.contact.description': t(
+    'meta.contact.description',
+    'Get in touch with the Vocdoni team to discuss secure, transparent digital voting for your organization.'
+  ),
+  'meta.privacy.title': t('meta.privacy.title', 'Privacy policy - Vocdoni'),
+  'meta.privacy.description': t(
+    'meta.privacy.description',
+    'Learn how Vocdoni collects, uses, and protects your personal data and privacy.'
+  ),
+  'meta.terms.title': t('meta.terms.title', 'Terms & conditions - Vocdoni'),
+  'meta.terms.description': t(
+    'meta.terms.description',
+    "Read the terms and conditions that govern the use of Vocdoni's services and platform."
+  ),
+  'meta.use_cases.title': t('meta.use_cases.title', 'Use cases - Vocdoni'),
+  'meta.use_cases.description': t(
+    'meta.use_cases.description',
+    "Discover real-world voting and governance use cases powered by Vocdoni's secure and transparent technology."
+  ),
+  'meta.app.title': t('meta.app.title', 'Vocdoni app - run a vote your members can trust'),
+  'meta.app.description': t(
+    'meta.app.description',
+    'Start free, upload your voter list, and publish results your members can verify. Built for organizations that need trust, speed, and proof.'
+  ),
+} as const
+
+const getNestedValue = (source: unknown, key: string) => {
+  return key.split('.').reduce<unknown>((value, segment) => {
+    if (value && typeof value === 'object' && segment in value) {
+      return (value as Record<string, unknown>)[segment]
+    }
+
+    return undefined
+  }, source)
 }
 
 export const getMetaByKey = (pageContext: Vike.PageContextServer, key: string) => {
   const locale = pageContext.initialLocale || pageContext.locale || localeDefault
   const resources = pageContext.initialI18nStore
+  const fallback = metaDefaults[key as keyof typeof metaDefaults] ?? key
   if (!resources || !resources[locale]) {
-    return key
+    return fallback
   }
 
-  const i18n = createI18nSync(locale, resources)
-  const value = i18n.t(key)
-  return typeof value === 'string' && value.trim() ? value : key
+  const value = getNestedValue(resources[locale]?.common, key.replace(/^common\./, ''))
+  return typeof value === 'string' && value.trim() ? value : fallback
 }

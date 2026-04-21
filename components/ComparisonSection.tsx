@@ -52,12 +52,12 @@ const ComparisonSection = ({
                 <TableHeader>
                   <TableRow>
                     <TableHead scope='col' className='w-1/4'>
-                      <span className='sr-only'>{t('comparison.featureColumnLabel', 'Feature')}</span>
+                      <span className='sr-only'>{t('comparison.feature_column_label', 'Feature')}</span>
                     </TableHead>
-                    {options.map((option) => (
+                    {options.map((option, optionIndex) => (
                       <TableHead
                         scope='col'
-                        key={option.name}
+                        key={optionIndex}
                         className={cn('text-center', {
                           'bg-primary/10': option.isHighlighted,
                         })}
@@ -68,7 +68,7 @@ const ComparisonSection = ({
                               'text-primary': option.isHighlighted,
                             })}
                           >
-                            {t(option.name)}
+                            {option.name}
                           </h3>
                         </div>
                       </TableHead>
@@ -87,15 +87,15 @@ const ComparisonSection = ({
                             'border-border border-b': index !== featureLabels.length - 1,
                           })}
                         >
-                          {t(feature)}
+                          {feature}
                         </TableHead>
-                        {options.map((option) => {
+                        {options.map((option, optionIndex) => {
                           const featureValue = option.features[featureKey as keyof typeof option.features]
                           const isLastRow = index === featureLabels.length - 1
 
                           return (
                             <TableCell
-                              key={`${option.name}-${feature}`}
+                              key={`${optionIndex}-${featureKey}`}
                               className={cn('p-4', {
                                 'border-border border-b': !isLastRow,
                                 'bg-primary/5': option.isHighlighted,
@@ -107,7 +107,7 @@ const ComparisonSection = ({
                                 ) : (
                                   <XCircleIcon className='size-5 flex-shrink-0 text-destructive' />
                                 )}
-                                <span className='text-sm font-medium'>{t(featureValue.text)}</span>
+                                <span className='text-sm font-medium'>{featureValue.text}</span>
                               </div>
                             </TableCell>
                           )
@@ -124,7 +124,7 @@ const ComparisonSection = ({
           <div className='lg:hidden space-y-6'>
             {options.map((option, index) => (
               <MotionPreset
-                key={option.name}
+                key={index}
                 fade
                 blur
                 slide
@@ -143,7 +143,7 @@ const ComparisonSection = ({
                       'text-primary': option.isHighlighted,
                     })}
                   >
-                    {t(option.name)}
+                    {option.name}
                   </h3>
 
                   <div className='space-y-3'>
@@ -152,15 +152,15 @@ const ComparisonSection = ({
                       const featureValue = option.features[featureKey as keyof typeof option.features]
 
                       return (
-                        <div key={feature} className='space-y-1'>
-                          <p className='text-sm font-medium text-muted-foreground'>{t(feature)}</p>
+                        <div key={featureKey} className='space-y-1'>
+                          <p className='text-sm font-medium text-muted-foreground'>{feature}</p>
                           <div className='flex items-center gap-2'>
                             {featureValue.status === 'positive' ? (
                               <CircleCheckIcon className='size-5 flex-shrink-0 text-success' />
                             ) : (
                               <XCircleIcon className='size-5 flex-shrink-0 text-destructive' />
                             )}
-                            <span className='text-sm font-medium'>{t(featureValue.text)}</span>
+                            <span className='text-sm font-medium'>{featureValue.text}</span>
                           </div>
                         </div>
                       )

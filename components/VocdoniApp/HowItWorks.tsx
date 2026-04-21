@@ -28,7 +28,7 @@ export default function HowItWorks() {
 
         <div className='mt-12 grid gap-5 lg:grid-cols-4'>
           {steps.map((step, index) => (
-            <div key={step.title} className='rounded-3xl border border-border/70 bg-background p-6 shadow-sm'>
+            <div key={index} className='rounded-3xl border border-border/70 bg-background p-6 shadow-sm'>
               <div className='flex size-11 items-center justify-center rounded-full bg-primary text-sm font-semibold text-primary-foreground'>
                 0{index + 1}
               </div>
