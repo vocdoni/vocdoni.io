@@ -92,7 +92,7 @@ export default function Footer() {
 
           <div className='lg:col-span-4'>
             <h3 className='font-bold text-sm mb-6 uppercase tracking-wider'>{t('footer.newsletter.title')}</h3>
-            <div className='flex bg-white rounded-full p-1 border border-border/50 mb-3 group focus-within:border-primary/50 transition-colors'>
+            <div className='flex glass-effect rounded-full p-1 border border-border/50 mb-6 group focus-within:border-primary/50 transition-colors'>
               <Input
                 type='email'
                 value={email}
@@ -143,7 +143,16 @@ export default function Footer() {
           </div>
 
           <div className='flex flex-wrap items-center gap-6 order-1 md:order-2'>
-<div className='flex items-center gap-3 border border-border/50 rounded-lg px-3 py-1.5 bg-muted/5'>
+            <div className='flex items-center gap-3 border border-border/50 rounded-lg px-3 py-1.5 bg-muted/5'>
+              <img src={isoLogo} alt='ISO 27001' className='h-6 w-auto object-contain' loading='lazy' />
+              <div className='flex flex-col'>
+                <span className='text-[8px] text-muted-foreground uppercase font-bold tracking-tight'>
+                  {t('footer.certified')}
+                </span>
+              </div>
+            </div>
+
+            <div className='flex items-center gap-3 border border-border/50 rounded-lg px-3 py-1.5 bg-muted/5'>
               <img src={gdprLogo} alt='GDPR' className='h-6 w-auto object-contain' loading='lazy' />
               <div className='flex flex-col'>
                 <span className='text-[8px] text-muted-foreground uppercase font-bold tracking-tight'>
