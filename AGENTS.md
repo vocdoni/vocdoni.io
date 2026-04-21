@@ -40,11 +40,6 @@
 - Aim for readable call sites: `Button variant="ghost" size="sm"` is preferred over inline class repetition.
 - UI building blocks come from both shadcn/ui and shadcn-studio; prioritize existing shadcn components before inventing new ones.
 - If the shadcn-studio MCP is available in your environment, use it to source sections/blocks before rolling custom layouts.
-- `components/ui/` is only for reusable UI primitives.
-- `components/shadcn-studio/` is only for imported or adapted shadcn-studio blocks.
-- Custom sections must live in stable domain folders such as `components/app/`, `components/home/`, or `components/use-cases/`.
-- Do not create new revision or migration folders such as `*V2`, `*V3`, `new-*`, or `legacy-*`. The existing `VocdoniApp` and `VocdoniAppV3` folders are temporary exceptions to be merged later.
-- Decision tree: reuse a studio block first, adapt a studio block second, and build a custom domain component only when studio blocks do not fit.
 
 ## Testing Guidelines
 
@@ -62,19 +57,17 @@
 - Key format is `snake_case`, often nested (e.g., `about_us.feature_cards.accessibility`).
 - Run `pnpm translations` to extract keys when adding new strings.
 - Translations are always defined with a default value e.g. `t('sections.terms.title', 'Terms and Conditions')`
-- User-facing copy in `pages/` and `components/` must go through `t(...)` with a default value. Do not add hardcoded JSX copy unless it is an explicitly documented exception.
-- `pnpm guardrails:translations` must pass without modifying locale files.
 
 ## Commit & Pull Request Guidelines
 
 - Commit style follows conventional-ish prefixes and scopes (e.g., `feat(i18n): ...`, `chore(ui): ...`, `refactor: ...`).
 - Keep commits small and descriptive.
 - PRs should include: a concise summary, testing notes, and screenshots for UI changes.
-- Before pushing, run `pnpm validate`.
 
 ## Migration Notes (Temporary Constraints)
 
-- The site now runs on a single Vike codebase, but some pages still mix older custom sections with newer shadcn-studio and `VocdoniAppV3` blocks.
+- The codebase mixes old and new layouts during the Vike redesign migration.
+- Legacy scroll navigation updates the URL per section; new pages may still reflect that behavior.
 - Active locales are English, Spanish, and Catalan (`en`, `es`, `ca`).
 
 ## Agent-Specific Instructions

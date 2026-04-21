@@ -61,9 +61,9 @@ function MotionPreset({
   motionProps = {}
 }: MotionPresetProps) {
   const reducedMotion = useReducedMotion()
-  const localRef = React.useRef<HTMLElement | null>(null)
+  const localRef = React.useRef<HTMLElement>(null)
 
-  React.useImperativeHandle<HTMLElement | null, HTMLElement | null>(ref, () => localRef.current)
+  React.useImperativeHandle(ref, () => localRef.current)
 
   const inViewResult = useInView(localRef, {
     once: inViewOnce,

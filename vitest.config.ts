@@ -8,7 +8,6 @@ export default defineConfig({
     },
   },
   test: {
-    exclude: ['.worktrees/**', 'dist/**', 'node_modules/**'],
     globals: true,
     environment: 'node',
   },

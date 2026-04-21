@@ -3,11 +3,10 @@ import { useTranslation } from 'react-i18next'
 import { Link } from '@/components/Link'
 import { Button } from '@/components/ui/button'
 import { getLocalizedPath } from '@/lib/localized-path'
-import type { Locale } from '@/locales'
 import notFoundImage from '@/assets/404.webp'
 
 const ErrorPage = () => {
-  const { is404, locale } = usePageContext() as { is404: boolean; locale: Locale }
+  const { is404, locale } = usePageContext() as { is404: boolean; locale: string }
   const { t } = useTranslation()
 
   const title = is404
@@ -27,8 +26,8 @@ const ErrorPage = () => {
         <p className='text-muted-foreground max-w-sm text-base'>{description}</p>
         <div className='flex gap-3 pt-2'>
           <Button asChild>
-            <Link href={getLocalizedPath('/', locale)}>{t('error_page.go_home', 'Go home')}</Link>
-          </Button>
+              <Link href={getLocalizedPath('/', locale)}>{t('error_page.go_home', 'Go home')}</Link>
+            </Button>
         </div>
       </div>
     </div>
