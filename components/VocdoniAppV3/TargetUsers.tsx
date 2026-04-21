@@ -1,44 +1,23 @@
-import { Container } from '@/components/Container'
-import { Link } from '@/components/Link'
-import { Button } from '@/components/ui/button'
-import { BuildingIcon, GraduationCapIcon, LandmarkIcon, UsersIcon } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
+import { BuildingIcon, UsersIcon, LandmarkIcon, GraduationCapIcon } from 'lucide-react'
+import { Container } from '@/components/Container'
+import { Button } from '@/components/ui/button'
+import { Link } from '@/components/Link'
 
 export default function TargetUsersV3() {
   const { t } = useTranslation()
 
   const targets = [
-    {
-      label: t('vocdoni_app.target_users.list.professional_colleges', 'Professional colleges'),
-      icon: <BuildingIcon className='size-5' />,
-    },
-    {
-      label: t('vocdoni_app.target_users.list.associations', 'Associations & federations'),
-      icon: <UsersIcon className='size-5' />,
-    },
-    {
-      label: t('vocdoni_app.target_users.list.political_orgs', 'Political parties'),
-      icon: <LandmarkIcon className='size-5' />,
-    },
-    {
-      label: t('vocdoni_app.target_users.list.chambers', 'Chambers & trade unions'),
-      icon: <BuildingIcon className='size-5' />,
-    },
-    { label: t('vocdoni_app.target_users.list.sports', 'Sports clubs'), icon: <UsersIcon className='size-5' /> },
-    {
-      label: t('vocdoni_app.target_users.list.public', 'Public administration'),
-      icon: <LandmarkIcon className='size-5' />,
-    },
-    { label: t('vocdoni_app.target_users.list.coops', 'Cooperatives'), icon: <UsersIcon className='size-5' /> },
-    { label: t('vocdoni_app.target_users.list.ngos', 'NGOs & foundations'), icon: <UsersIcon className='size-5' /> },
-    {
-      label: t('vocdoni_app.target_users.list.education', 'Universities & schools'),
-      icon: <GraduationCapIcon className='size-5' />,
-    },
-    {
-      label: t('vocdoni_app.target_users.list.first_nations', 'First nations'),
-      icon: <UsersIcon className='size-5' />,
-    },
+    { key: 'professional_colleges', icon: <BuildingIcon className='size-5' /> },
+    { key: 'associations', icon: <UsersIcon className='size-5' /> },
+    { key: 'political_orgs', icon: <LandmarkIcon className='size-5' /> },
+    { key: 'chambers', icon: <BuildingIcon className='size-5' /> },
+    { key: 'sports', icon: <UsersIcon className='size-5' /> },
+    { key: 'public', icon: <LandmarkIcon className='size-5' /> },
+    { key: 'coops', icon: <UsersIcon className='size-5' /> },
+    { key: 'ngos', icon: <UsersIcon className='size-5' /> },
+    { key: 'education', icon: <GraduationCapIcon className='size-5' /> },
+    { key: 'first_nations', icon: <UsersIcon className='size-5' /> },
   ]
 
   return (
@@ -50,22 +29,20 @@ export default function TargetUsersV3() {
         </div>
 
         <div className='mx-auto flex max-w-5xl flex-wrap justify-center gap-3'>
-          {targets.map((item, key) => (
+          {targets.map((item) => (
             <div
-              key={key}
+              key={item.key}
               className='flex items-center gap-2 rounded-full border border-primary/20 bg-background px-4 py-2 shadow-sm transition-colors hover:border-primary/50'
             >
               <span className='text-primary'>{item.icon}</span>
-              <span className='text-sm font-medium sm:text-base'>{item.label}</span>
+              <span className='text-sm font-medium sm:text-base'>{t(`vocdoni_app.target_users.list.${item.key}`)}</span>
             </div>
           ))}
         </div>
 
         <div className='mt-12 flex justify-center'>
           <Button asChild variant='outline' size='lg'>
-            <Link href='/use-cases' variant='unstyled'>
-              {t('vocdoni_app.target_users.cta')}
-            </Link>
+            <Link href='/use-cases' variant='unstyled'>{t('vocdoni_app.target_users.cta')}</Link>
           </Button>
         </div>
       </Container>
