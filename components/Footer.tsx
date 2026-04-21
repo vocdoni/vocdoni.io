@@ -92,7 +92,7 @@ export default function Footer() {
 
           <div className='lg:col-span-4'>
             <h3 className='font-bold text-sm mb-6 uppercase tracking-wider'>{t('footer.newsletter.title')}</h3>
-            <div className='flex glass-effect rounded-full p-1 border border-border/50 mb-6 group focus-within:border-primary/50 transition-colors'>
+            <div className='flex glass-effect bg-card rounded-full p-1 border border-border/50 mb-6 group focus-within:border-primary/50 transition-colors'>
               <Input
                 type='email'
                 value={email}
