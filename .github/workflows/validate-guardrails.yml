@@ -1,0 +1,70 @@
+name: Validate guardrails
+
+on:
+  push:
+    branches-ignore:
+      - gh-pages
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      - name: Get pnpm store directory
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
+
+      - name: Setup pnpm cache
+        uses: actions/cache@v4
+        with:
+          path: ${{ env.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Validate commit messages
+        shell: bash
+        run: |
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            pnpm exec commitlint --from "${{ github.event.pull_request.base.sha }}" --to "${{ github.event.pull_request.head.sha }}" --verbose
+            exit 0
+          fi
+
+          if [ "${{ github.event.before }}" != "0000000000000000000000000000000000000000" ]; then
+            if git rev-parse --verify "${{ github.event.before }}^{commit}" >/dev/null 2>&1; then
+              pnpm exec commitlint --from "${{ github.event.before }}" --to "${{ github.sha }}" --verbose
+              exit 0
+            fi
+
+            base_sha="$(git merge-base origin/main "${{ github.sha }}")"
+            pnpm exec commitlint --from "$base_sha" --to "${{ github.sha }}" --verbose
+            exit 0
+          fi
+
+          git log -1 --format=%B "${{ github.sha }}" | pnpm exec commitlint
+
+      - name: Validate repository
+        run: pnpm validate

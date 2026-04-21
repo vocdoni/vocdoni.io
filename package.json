@@ -5,8 +5,15 @@
     "preview": "vike preview",
     "shadcn": "npx shadcn@latest",
     "lint": "tsc && prettier --check ./{components,lib,layouts,pages,plugins,tests}",
-    "test": "vitest run",
+    "prepare": "husky",
+    "test": "vitest run tests",
     "translations": "i18next-cli extract",
+    "guardrails": "pnpm run guardrails:components && pnpm run guardrails:translations && pnpm run guardrails:translations:non-empty && pnpm run guardrails:i18n-copy",
+    "guardrails:components": "node scripts/guardrails/check-component-structure.mjs",
+    "guardrails:i18n-copy": "node scripts/guardrails/check-hardcoded-copy.mjs",
+    "guardrails:translations": "pnpm exec i18next-cli extract --ci",
+    "guardrails:translations:non-empty": "node scripts/guardrails/check-non-empty-translations.mjs",
+    "validate": "pnpm run test && pnpm run guardrails",
     "prerender": "vike prerender"
   },
   "dependencies": {
@@ -53,12 +60,15 @@
     "vike-react": "^0.6.21"
   },
   "devDependencies": {
+    "@commitlint/cli": "^20.1.0",
+    "@commitlint/config-conventional": "^20.0.0",
     "@tailwindcss/vite": "^4.2.2",
     "@types/node": "^24.12.2",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
     "@types/react-google-recaptcha": "^2.1.9",
     "@types/react-gtm-module": "^2.0.4",
+    "husky": "^9.1.7",
     "i18next-cli": "^0.9.20",
     "prettier": "^3.8.1",
     "tailwindcss": "^4.2.2",
