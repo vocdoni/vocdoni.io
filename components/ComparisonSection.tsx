@@ -51,9 +51,10 @@ const ComparisonSection = ({
               <Table>
                 <TableHeader>
                   <TableRow>
-                    <TableHead className='w-1/4'></TableHead>
+                    <TableHead scope='col' className='w-1/4'></TableHead>
                     {options.map((option) => (
                       <TableHead
+                        scope='col'
                         key={option.name}
                         className={cn('text-center', {
                           'bg-primary/10': option.isHighlighted,
@@ -78,13 +79,14 @@ const ComparisonSection = ({
 
                     return (
                       <TableRow key={feature}>
-                        <TableCell
-                          className={cn('p-4 text-base font-medium', {
+                        <TableHead
+                          scope='row'
+                          className={cn('p-4 text-base font-medium font-normal', {
                             'border-border border-b': index !== featureLabels.length - 1,
                           })}
                         >
                           {t(feature)}
-                        </TableCell>
+                        </TableHead>
                         {options.map((option) => {
                           const featureValue = option.features[featureKey as keyof typeof option.features]
                           const isLastRow = index === featureLabels.length - 1
