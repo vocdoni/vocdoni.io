@@ -12,3 +12,13 @@ export function findHardcodedJsxCopyViolations(
 ): HardcodedJsxCopyViolation[]
 
 export function findEmptyTranslationLeafValues(value: unknown, currentPath?: string): string[]
+
+export type DynamicTranslationKeyViolation = {
+  line: number
+  snippet: string
+}
+
+export function findDynamicTranslationKeys(
+  source: string,
+  filePath: string
+): DynamicTranslationKeyViolation[]

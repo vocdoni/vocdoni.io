@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest'
 
 import {
+  findDynamicTranslationKeys,
   findEmptyTranslationLeafValues,
   findHardcodedJsxCopyViolations,
   getInvalidComponentDirectories,
@@ -23,6 +24,36 @@ describe('getInvalidComponentDirectories', () => {
     expect(
       getInvalidComponentDirectories(['components/FooV3', 'components/new-home', 'components/legacy-home'])
     ).toEqual(['components/FooV3', 'components/legacy-home', 'components/new-home'])
+  })
+})
+
+describe('findDynamicTranslationKeys', () => {
+  it('flags variable keys, template literals with substitutions, and binary expressions', () => {
+    const source = `
+      export function C() {
+        const key = 'foo'
+        const a = t(key)
+        const b = t(\`section.\${key}.title\`)
+        const c = t('prefix.' + key)
+        return null
+      }
+    `
+    expect(findDynamicTranslationKeys(source, 'components/app/C.tsx')).toEqual([
+      { line: 4, snippet: 'key' },
+      { line: 5, snippet: '`section.${key}.title`' },
+      { line: 6, snippet: "'prefix.' + key" },
+    ])
+  })
+
+  it('allows static string literals and no-substitution template literals', () => {
+    const source = `
+      export function C() {
+        const a = t('static.key', 'Default')
+        const b = t('other.key', { returnObjects: true })
+        return null
+      }
+    `
+    expect(findDynamicTranslationKeys(source, 'components/app/C.tsx')).toEqual([])
   })
 })
 

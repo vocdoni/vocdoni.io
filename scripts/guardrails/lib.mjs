@@ -102,6 +102,34 @@ export function findHardcodedJsxCopyViolations(source, filePath) {
   return violations
 }
 
+export function findDynamicTranslationKeys(source, filePath) {
+  const sourceFile = ts.createSourceFile(filePath, source, ts.ScriptTarget.Latest, true, ts.ScriptKind.TSX)
+  const violations = []
+
+  const visit = (node) => {
+    if (
+      ts.isCallExpression(node) &&
+      ts.isIdentifier(node.expression) &&
+      node.expression.text === 't' &&
+      node.arguments.length >= 1
+    ) {
+      const firstArg = node.arguments[0]
+      const isStaticString = ts.isStringLiteral(firstArg) || ts.isNoSubstitutionTemplateLiteral(firstArg)
+
+      if (!isStaticString) {
+        const line = getLine(sourceFile, node.getStart(sourceFile))
+        const snippet = firstArg.getText(sourceFile)
+        violations.push({ line, snippet })
+      }
+    }
+
+    ts.forEachChild(node, visit)
+  }
+
+  visit(sourceFile)
+
+  return violations
+}
 export function findEmptyTranslationLeafValues(value, currentPath = '') {
   if (typeof value === 'string') {
     return value.trim() === '' && currentPath ? [currentPath] : []
