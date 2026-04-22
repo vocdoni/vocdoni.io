@@ -1,41 +1,41 @@
+import { BadgeCheckIcon, ClipboardListIcon, MailCheckIcon, RefreshCcwDotIcon, UsersIcon, VoteIcon } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
-import { CheckCheckIcon, TimerResetIcon, UsersRoundIcon, VoteIcon } from 'lucide-react'
 
 import { Container } from '@/components/Container'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 
-type Outcome = {
+type Feature = {
   title: string
   description: string
 }
 
-const icons = [TimerResetIcon, UsersRoundIcon, VoteIcon, CheckCheckIcon]
+const icons = [VoteIcon, MailCheckIcon, UsersIcon, RefreshCcwDotIcon, ClipboardListIcon, BadgeCheckIcon]
 
-export default function ValueProps() {
+export default function Features() {
   const { t } = useTranslation()
-  const outcomes = (t('app_landing.outcomes.items', { returnObjects: true }) as Outcome[]) || []
+  const items = (t('app_landing.features.items', { returnObjects: true }) as Feature[]) || []
 
   return (
     <section className='py-20 sm:py-24'>
       <Container>
         <div className='mx-auto max-w-3xl text-center'>
           <p className='text-sm font-medium uppercase tracking-[0.2em] text-primary/80'>
-            {t('app_landing.outcomes.eyebrow', 'What changes with Vocdoni')}
+            {t('app_landing.features.eyebrow', 'Feature proof')}
           </p>
           <h2 className='mt-3 text-balance text-3xl font-semibold tracking-tight sm:text-4xl'>
-            {t('app_landing.outcomes.title', 'Make voting easier for organizers and members')}
+            {t('app_landing.features.title', 'Everything you need to run a real election')}
           </h2>
           <p className='mt-4 text-lg leading-8 text-muted-foreground'>
             {t(
-              'app_landing.outcomes.description',
-              'Give your organization a voting flow that is simple to launch, simple to complete, and strong enough to stand up after the vote ends.'
+              'app_landing.features.description',
+              'Keep the feature section compact. The page should prove capability without turning into a long product dump.'
             )}
           </p>
         </div>
 
-        <div className='mt-12 grid gap-5 md:grid-cols-2 xl:grid-cols-4'>
-          {outcomes.map((item, index) => {
-            const Icon = icons[index] ?? CheckCheckIcon
+        <div className='mt-12 grid gap-5 md:grid-cols-2 xl:grid-cols-3'>
+          {items.map((item, index) => {
+            const Icon = icons[index] ?? BadgeCheckIcon
             return (
               <Card key={index} className='border-border/60 bg-background shadow-sm'>
                 <CardHeader className='pb-3'>

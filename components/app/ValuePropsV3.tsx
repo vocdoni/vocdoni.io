@@ -1,5 +1,5 @@
+import { ClockIcon, HeartHandshakeIcon, ShieldCheckIcon, ZapIcon } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
-import { ShieldCheckIcon, ClockIcon, ZapIcon, HeartHandshakeIcon } from 'lucide-react'
 
 import { Container } from '@/components/Container'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'

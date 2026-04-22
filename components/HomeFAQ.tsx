@@ -1,7 +1,7 @@
-import { useTranslation } from 'react-i18next'
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
 import { Container } from '@/components/Container'
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
 import { Button } from '@/components/ui/button'
+import { useTranslation } from 'react-i18next'
 
 export default function HomeFAQ() {
   const { t } = useTranslation()

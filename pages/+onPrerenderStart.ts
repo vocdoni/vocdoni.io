@@ -1,5 +1,5 @@
-import { localeDefault, locales } from '@/locales'
 import { stripLocaleFromPath } from '@/lib/localized-path'
+import { localeDefault, locales } from '@/locales'
 import { PrerenderContext } from 'vike/types'
 
 export const onPrerenderStart = async (prerenderContext: PrerenderContext) => {

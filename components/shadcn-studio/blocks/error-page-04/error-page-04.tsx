@@ -1,10 +1,10 @@
-import { usePageContext } from 'vike-react/usePageContext'
-import { useTranslation } from 'react-i18next'
+import notFoundImage from '@/assets/404.webp'
 import { Link } from '@/components/Link'
 import { Button } from '@/components/ui/button'
 import { getLocalizedPath } from '@/lib/localized-path'
 import type { Locale } from '@/locales'
-import notFoundImage from '@/assets/404.webp'
+import { useTranslation } from 'react-i18next'
+import { usePageContext } from 'vike-react/usePageContext'
 
 const ErrorPage = () => {
   const { is404, locale } = usePageContext() as { is404: boolean; locale: Locale }

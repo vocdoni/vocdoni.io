@@ -32,7 +32,7 @@ function NumberTicker({
 
   const springValue = useSpring(motionValue, {
     damping,
-    stiffness
+    stiffness,
   })
 
   const isInView = useInView(ref, { once: true, margin: '0px' })
@@ -49,11 +49,11 @@ function NumberTicker({
 
   React.useEffect(
     () =>
-      springValue.on('change', latest => {
+      springValue.on('change', (latest) => {
         if (ref.current) {
           ref.current.textContent = Intl.NumberFormat('en-US', {
             minimumFractionDigits: decimalPlaces,
-            maximumFractionDigits: decimalPlaces
+            maximumFractionDigits: decimalPlaces,
           }).format(Number(latest.toFixed(decimalPlaces)))
         }
       }),

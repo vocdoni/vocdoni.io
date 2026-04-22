@@ -1,12 +1,11 @@
 import { ArrowRightIcon } from 'lucide-react'
 
+import { CalBookingDialog } from '@/components/CalBookingDialog'
+import { Link } from '@/components/Link'
 import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardTitle, CardDescription } from '@/components/ui/card'
-import { Badge } from '@/components/ui/badge'
+import { Card, CardContent, CardDescription, CardTitle } from '@/components/ui/card'
 import { MotionPreset } from '@/components/ui/motion-preset'
 import { useTranslation } from 'react-i18next'
-import { Link } from '@/components/Link'
-import { CalBookingDialog } from '@/components/CalBookingDialog'
 
 export type PortfolioItem = {
   id: number
@@ -35,14 +34,15 @@ const Portfolio = ({ portfolioItems }: PortfolioProps) => {
         {/* Header */}
         <MotionPreset fade blur slide delay={0} transition={{ duration: 0.5 }} inView inViewOnce>
           <div className='mb-12 space-y-4 sm:mb-16 lg:mb-24'>
-            <p className='text-primary text-sm font-medium uppercase'>
-              {t('portfolio.solutions.badge', 'Solutions')}
-            </p>
+            <p className='text-primary text-sm font-medium uppercase'>{t('portfolio.solutions.badge', 'Solutions')}</p>
             <h2 className='text-2xl font-semibold sm:text-3xl lg:text-4xl'>
               {t('portfolio.solutions.title', 'Democratic tools that adapt to your needs')}
             </h2>
             <p className='text-muted-foreground text-xl max-w-3xl'>
-              {t('portfolio.solutions.description', 'Choose the right fit for your organization: launch in minutes with our self-service app, build on top of our secure SDK, or let us manage the entire process for you.')}
+              {t(
+                'portfolio.solutions.description',
+                'Choose the right fit for your organization: launch in minutes with our self-service app, build on top of our secure SDK, or let us manage the entire process for you.'
+              )}
             </p>
           </div>
         </MotionPreset>
@@ -59,7 +59,10 @@ const Portfolio = ({ portfolioItems }: PortfolioProps) => {
               transition={{ duration: 0.6 }}
             >
               {project.type === 'booking' ? (
-                <CalBookingDialog triggerAriaLabel={`Book meeting for ${project.title}`} className='flex h-full w-full text-left'>
+                <CalBookingDialog
+                  triggerAriaLabel={`Book meeting for ${project.title}`}
+                  className='flex h-full w-full text-left'
+                >
                   <Card
                     className={`group relative flex h-full w-full flex-col justify-between overflow-hidden border-none pb-0 shadow-none transition-all duration-300 ${project.backgroundColor}`}
                   >
@@ -84,7 +87,13 @@ const Portfolio = ({ portfolioItems }: PortfolioProps) => {
                   </Card>
                 </CalBookingDialog>
               ) : (
-                <Link href={project.link} target={project.target} rel={project.target === '_blank' ? 'noopener noreferrer' : undefined} variant='unstyled' className='flex h-full w-full'>
+                <Link
+                  href={project.link}
+                  target={project.target}
+                  rel={project.target === '_blank' ? 'noopener noreferrer' : undefined}
+                  variant='unstyled'
+                  className='flex h-full w-full'
+                >
                   <Card
                     className={`group relative flex h-full w-full flex-col justify-between overflow-hidden border-none pb-0 shadow-none transition-all duration-300 ${project.backgroundColor}`}
                   >

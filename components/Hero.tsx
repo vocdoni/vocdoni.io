@@ -1,10 +1,10 @@
 import { CensusCard, ResultsCard, VotingCard } from '@/components/HeroCards'
-import MobileHeroScroll from '@/components/MobileHeroScroll'
 import { Link } from '@/components/Link'
+import MobileHeroScroll from '@/components/MobileHeroScroll'
 import { Button } from '@/components/ui/button'
 import { MotionPreset } from '@/components/ui/motion-preset'
-import { AnimatePresence, motion, useReducedMotion } from 'motion/react'
 import { ArrowRight } from 'lucide-react'
+import { AnimatePresence, motion, useReducedMotion } from 'motion/react'
 import { useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
@@ -39,7 +39,10 @@ const Hero = () => {
               <Link href='https://app.vocdoni.io' target='_blank' rel='noopener noreferrer' variant='heroBadge'>
                 <span className='bg-foreground text-background px-2.5 py-0.5 rounded-full font-semibold shrink-0 flex items-center gap-1.5'>
                   <span className='relative flex h-2 w-2' role='img' aria-label={t('hero.badge.status_live', 'Live')}>
-                    <span className='animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75' aria-hidden='true'></span>
+                    <span
+                      className='animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75'
+                      aria-hidden='true'
+                    ></span>
                     <span className='relative inline-flex rounded-full h-2 w-2 bg-green-500' aria-hidden='true'></span>
                   </span>
                   {t('hero.badge.label')}
@@ -47,7 +50,10 @@ const Hero = () => {
                 <span className='text-muted-foreground font-medium pr-2 leading-tight truncate flex items-center gap-1'>
                   <span className='hidden sm:inline'>{t('hero.badge.description_long')}</span>
                   <span className='sm:hidden'>{t('hero.badge.description_short')}</span>
-                  <ArrowRight className='h-3 w-3 transition-transform group-hover:translate-x-0.5 shrink-0' aria-hidden='true' />
+                  <ArrowRight
+                    className='h-3 w-3 transition-transform group-hover:translate-x-0.5 shrink-0'
+                    aria-hidden='true'
+                  />
                 </span>
               </Link>
             </MotionPreset>
@@ -96,7 +102,10 @@ const Hero = () => {
                 >
                   <Link href='https://app.vocdoni.io' variant='inlineIcon'>
                     {t('hero.cta_primary')}
-                    <ArrowRight className='h-5 w-5 transition-transform duration-200 group-hover:translate-x-0.5' aria-hidden='true' />
+                    <ArrowRight
+                      className='h-5 w-5 transition-transform duration-200 group-hover:translate-x-0.5'
+                      aria-hidden='true'
+                    />
                   </Link>
                 </Button>
                 <Button
@@ -140,11 +149,13 @@ const Hero = () => {
               {/* Vertical connector line */}
               <motion.div
                 className='absolute -left-10 -top-4 bottom-[60px] w-[2px] bg-gradient-to-b from-primary/0 via-primary/30 to-primary/0 z-0'
-                {...(reducedMotion ? {} : {
-                  initial: { scaleY: 0 },
-                  animate: { scaleY: 1 },
-                  transition: { duration: 1.5, ease: 'easeInOut' }
-                })}
+                {...(reducedMotion
+                  ? {}
+                  : {
+                      initial: { scaleY: 0 },
+                      animate: { scaleY: 1 },
+                      transition: { duration: 1.5, ease: 'easeInOut' },
+                    })}
                 style={{ originY: 0, x: '-50%' }}
               />
 
@@ -161,11 +172,13 @@ const Hero = () => {
               {/* Step 1: Census */}
               <motion.div
                 className='relative z-10 w-full'
-                {...(reducedMotion ? {} : {
-                  initial: { opacity: 0, x: 30 },
-                  animate: { opacity: 1, x: 0 },
-                  transition: { duration: 0.7, delay: 0.2, type: 'spring', bounce: 0.4 }
-                })}
+                {...(reducedMotion
+                  ? {}
+                  : {
+                      initial: { opacity: 0, x: 30 },
+                      animate: { opacity: 1, x: 0 },
+                      transition: { duration: 0.7, delay: 0.2, type: 'spring', bounce: 0.4 },
+                    })}
               >
                 {/* Connector */}
                 <div className='absolute -left-10 top-[48px] w-10 h-px border-t border-dashed border-primary/40' />
@@ -180,11 +193,13 @@ const Hero = () => {
               {/* Step 2: Voting Process */}
               <motion.div
                 className='relative z-20 w-full'
-                {...(reducedMotion ? {} : {
-                  initial: { opacity: 0, x: 30 },
-                  animate: { opacity: 1, x: 0 },
-                  transition: { duration: 0.7, delay: 0.5, type: 'spring', bounce: 0.4 }
-                })}
+                {...(reducedMotion
+                  ? {}
+                  : {
+                      initial: { opacity: 0, x: 30 },
+                      animate: { opacity: 1, x: 0 },
+                      transition: { duration: 0.7, delay: 0.5, type: 'spring', bounce: 0.4 },
+                    })}
               >
                 {/* Connector */}
                 <div className='absolute -left-10 top-[44px] w-10 h-px border-t border-dashed border-primary/40' />
@@ -199,11 +214,13 @@ const Hero = () => {
               {/* Step 3: Verified Results */}
               <motion.div
                 className='relative z-10 w-full'
-                {...(reducedMotion ? {} : {
-                  initial: { opacity: 0, x: 30 },
-                  animate: { opacity: 1, x: 0 },
-                  transition: { duration: 0.7, delay: 0.8, type: 'spring', bounce: 0.4 }
-                })}
+                {...(reducedMotion
+                  ? {}
+                  : {
+                      initial: { opacity: 0, x: 30 },
+                      animate: { opacity: 1, x: 0 },
+                      transition: { duration: 0.7, delay: 0.8, type: 'spring', bounce: 0.4 },
+                    })}
               >
                 {/* Connector */}
                 <div className='absolute -left-10 top-[40px] w-10 h-px border-t border-dashed border-primary/40' />

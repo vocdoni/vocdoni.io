@@ -1,12 +1,7 @@
 import { CookieConsent } from '@/components/CookieConsent'
-import {
-  buildLocaleRedirectTarget,
-  getCompatibilityRedirectTarget,
-  LOCALE_PREFERENCE_KEY,
-  normalizeLogicalPath,
-} from '@/lib/localeRedirect'
-import { localeDefault, locales } from '@/locales'
+import { getCompatibilityRedirectTarget, LOCALE_PREFERENCE_KEY, normalizeLogicalPath } from '@/lib/localeRedirect'
 import { useLocaleDetection } from '@/lib/useLocaleDetection'
+import { localeDefault, locales } from '@/locales'
 import i18next from 'i18next'
 import React from 'react'
 import { I18nextProvider, initReactI18next, useTranslation } from 'react-i18next'

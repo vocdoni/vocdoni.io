@@ -1,9 +1,9 @@
-import { type JSX } from 'react'
+import teamGathering from '@/assets/images/team/team_gathering.webp'
+import { MotionPreset } from '@/components/ui/motion-preset'
 import { Separator } from '@/components/ui/separator'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import { MotionPreset } from '@/components/ui/motion-preset'
+import { type JSX } from 'react'
 import { useTranslation } from 'react-i18next'
-import teamGathering from '@/assets/images/team/team_gathering.webp'
 
 interface TabData {
   name: string
@@ -68,7 +68,16 @@ const AboutUs = ({ aboutUsData }: { aboutUsData: AboutUsData }) => {
         </div>
 
         <div className='grid items-start gap-16 lg:grid-cols-2'>
-          <MotionPreset fade blur slide delay={0.4} transition={{ duration: 0.6 }} inView inViewOnce className='space-y-8'>
+          <MotionPreset
+            fade
+            blur
+            slide
+            delay={0.4}
+            transition={{ duration: 0.6 }}
+            inView
+            inViewOnce
+            className='space-y-8'
+          >
             <div className='space-y-4'>
               <h2 className='text-2xl font-bold tracking-tight'>{aboutUsData.contentTitle}</h2>
               <p className='text-muted-foreground text-lg leading-relaxed'>{aboutUsData.contentDescription}</p>

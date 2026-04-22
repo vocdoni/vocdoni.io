@@ -186,7 +186,9 @@ export function PrivacyPolicyCA() {
             Aquest lloc web pot integrar un sistema de xat en temps real proporcionat per <strong>Crisp IM SARL</strong>{' '}
             amb la finalitat d’atendre consultes o incidències dels usuaris durant el procés de votació.
           </Paragraph>
-          <Paragraph variant='legal'>Quan l’usuari decideix utilitzar el xat, es tracten les següents dades personals:</Paragraph>
+          <Paragraph variant='legal'>
+            Quan l’usuari decideix utilitzar el xat, es tracten les següents dades personals:
+          </Paragraph>
           <LegalList>
             <LegalListItem>Adreça IP i dades tècniques del dispositiu.</LegalListItem>
             <LegalListItem>Identificador tècnic de sessió.</LegalListItem>

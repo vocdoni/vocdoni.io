@@ -5,9 +5,9 @@ import { useTranslation } from 'react-i18next'
 import appImage from '@/assets/navbar_app_highlight.webp'
 import { CalBookingDialog } from '@/components/CalBookingDialog'
 import { Link } from '@/components/Link'
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -161,7 +161,12 @@ export function Navbar() {
                       <Link href={featuredSolution.href} target='_blank' rel='noopener noreferrer' variant='card'>
                         <div className='relative h-full'>
                           {/* App highlight image */}
-                          <img src={appImage} alt='Vocdoni App' className='aspect-video w-full object-cover' loading='lazy' />
+                          <img
+                            src={appImage}
+                            alt='Vocdoni App'
+                            className='aspect-video w-full object-cover'
+                            loading='lazy'
+                          />
                           {/* Gradient overlay */}
                           <span className='absolute inset-0 bg-gradient-to-t from-black/60 to-transparent' />
                           {/* Content overlay */}
@@ -240,59 +245,90 @@ export function Navbar() {
           {/* Mobile Menu Trigger */}
           <div className='lg:hidden'>
             <Sheet open={isOpen} onOpenChange={setIsOpen}>
-            <SheetTrigger asChild>
-              <Button variant='ghost' size='icon'>
-                <Menu className='h-6 w-6' />
-                <span className='sr-only'>Toggle menu</span>
-              </Button>
-            </SheetTrigger>
-            <SheetContent side='left' className='w-[300px] sm:w-[400px] p-0'>
-              <div className='flex flex-col h-full bg-background'>
-                {/* Header inside Sheet */}
-                <div className='p-6 border-b'>
-                  <VocdoniLogo aria-hidden='true' />
-                </div>
+              <SheetTrigger asChild>
+                <Button variant='ghost' size='icon'>
+                  <Menu className='h-6 w-6' />
+                  <span className='sr-only'>Toggle menu</span>
+                </Button>
+              </SheetTrigger>
+              <SheetContent side='left' className='w-[300px] sm:w-[400px] p-0'>
+                <div className='flex flex-col h-full bg-background'>
+                  {/* Header inside Sheet */}
+                  <div className='p-6 border-b'>
+                    <VocdoniLogo aria-hidden='true' />
+                  </div>
 
-                {/* Menu Items */}
-                <div className='flex-1 overflow-auto py-6 px-4'>
-                  <Accordion type='single' collapsible className='w-full'>
-                    {/* Solutions (mobile) */}
-                    <AccordionItem value='product'>
-                      <AccordionTrigger className='text-sm font-medium'>{t('navbar.solutions')}</AccordionTrigger>
-                      <AccordionContent>
-                        <div className='flex flex-col space-y-2 pl-4'>
-                          {/* Featured solution - mobile version */}
-                          <div className='mb-2 p-3 rounded-lg bg-primary/5 border border-primary/20'>
-                            <Link
-                              href={featuredSolution.href}
-                              target='_blank'
-                              rel='noopener noreferrer'
-                              variant='unstyled'
-                              className='block'
-                              onClick={() => setIsOpen(false)}
-                            >
-                              <div className='flex items-start justify-between gap-2'>
-                                <div className='flex-1'>
-                                  <div className='flex items-center gap-2 mb-1'>
-                                    <span className='text-sm font-semibold'>{featuredSolution.title}</span>
-                                    {featuredSolution.badge && (
-                                      <Badge variant='secondary' className='text-xs px-1.5 py-0'>
-                                        {featuredSolution.badge}
-                                      </Badge>
-                                    )}
+                  {/* Menu Items */}
+                  <div className='flex-1 overflow-auto py-6 px-4'>
+                    <Accordion type='single' collapsible className='w-full'>
+                      {/* Solutions (mobile) */}
+                      <AccordionItem value='product'>
+                        <AccordionTrigger className='text-sm font-medium'>{t('navbar.solutions')}</AccordionTrigger>
+                        <AccordionContent>
+                          <div className='flex flex-col space-y-2 pl-4'>
+                            {/* Featured solution - mobile version */}
+                            <div className='mb-2 p-3 rounded-lg bg-primary/5 border border-primary/20'>
+                              <Link
+                                href={featuredSolution.href}
+                                target='_blank'
+                                rel='noopener noreferrer'
+                                variant='unstyled'
+                                className='block'
+                                onClick={() => setIsOpen(false)}
+                              >
+                                <div className='flex items-start justify-between gap-2'>
+                                  <div className='flex-1'>
+                                    <div className='flex items-center gap-2 mb-1'>
+                                      <span className='text-sm font-semibold'>{featuredSolution.title}</span>
+                                      {featuredSolution.badge && (
+                                        <Badge variant='secondary' className='text-xs px-1.5 py-0'>
+                                          {featuredSolution.badge}
+                                        </Badge>
+                                      )}
+                                    </div>
+                                    <span className='text-xs text-muted-foreground block'>
+                                      {featuredSolution.description}
+                                    </span>
                                   </div>
-                                  <span className='text-xs text-muted-foreground block'>
-                                    {featuredSolution.description}
-                                  </span>
+                                  <ArrowRight className='h-4 w-4 text-primary flex-shrink-0 mt-0.5' />
                                 </div>
-                                <ArrowRight className='h-4 w-4 text-primary flex-shrink-0 mt-0.5' />
-                              </div>
-                            </Link>
-                          </div>
+                              </Link>
+                            </div>
 
-                          {/* Regular items */}
-                          {productFeatures.map((item) =>
-                            item.kind === 'link' ? (
+                            {/* Regular items */}
+                            {productFeatures.map((item) =>
+                              item.kind === 'link' ? (
+                                <Link
+                                  key={item.title}
+                                  href={item.href}
+                                  target={item.target}
+                                  rel={item.rel}
+                                  variant='navbarMobile'
+                                  onClick={() => setIsOpen(false)}
+                                >
+                                  {item.title}
+                                </Link>
+                              ) : (
+                                <CalBookingDialog
+                                  key={item.title}
+                                  className='block py-2 text-left text-sm text-muted-foreground transition-colors hover:text-foreground'
+                                  triggerAriaLabel={item.triggerAriaLabel}
+                                  onClick={() => setIsOpen(false)}
+                                >
+                                  {item.title}
+                                </CalBookingDialog>
+                              )
+                            )}
+                          </div>
+                        </AccordionContent>
+                      </AccordionItem>
+
+                      {/* Resources (mobile) */}
+                      <AccordionItem value='resources'>
+                        <AccordionTrigger className='text-sm font-medium'>{t('navbar.resources')}</AccordionTrigger>
+                        <AccordionContent>
+                          <div className='flex flex-col space-y-2 pl-4'>
+                            {resourcesItems.map((item) => (
                               <Link
                                 key={item.title}
                                 href={item.href}
@@ -303,70 +339,51 @@ export function Navbar() {
                               >
                                 {item.title}
                               </Link>
-                            ) : (
-                              <CalBookingDialog
-                                key={item.title}
-                                className='block py-2 text-left text-sm text-muted-foreground transition-colors hover:text-foreground'
-                                triggerAriaLabel={item.triggerAriaLabel}
-                                onClick={() => setIsOpen(false)}
-                              >
-                                {item.title}
-                              </CalBookingDialog>
-                            )
-                          )}
-                        </div>
-                      </AccordionContent>
-                    </AccordionItem>
+                            ))}
+                          </div>
+                        </AccordionContent>
+                      </AccordionItem>
+                    </Accordion>
 
-                    {/* Resources (mobile) */}
-                    <AccordionItem value='resources'>
-                      <AccordionTrigger className='text-sm font-medium'>{t('navbar.resources')}</AccordionTrigger>
-                      <AccordionContent>
-                        <div className='flex flex-col space-y-2 pl-4'>
-                          {resourcesItems.map((item) => (
-                            <Link
-                              key={item.title}
-                              href={item.href}
-                              target={item.target}
-                              rel={item.rel}
-                              variant='navbarMobile'
-                              onClick={() => setIsOpen(false)}
-                            >
-                              {item.title}
-                            </Link>
-                          ))}
-                        </div>
-                      </AccordionContent>
-                    </AccordionItem>
-                  </Accordion>
+                    {/* Static Links */}
+                    <div className='mt-4 flex flex-col space-y-4'>
+                      <Link href='/use-cases' variant='navbarStatic' onClick={() => setIsOpen(false)}>
+                        {t('navbar.use_cases')}
+                      </Link>
+                      <Link href='/about-us' variant='navbarStatic' onClick={() => setIsOpen(false)}>
+                        {t('navbar.about')}
+                      </Link>
+                      <Link
+                        href='https://davinci.vote'
+                        target='_blank'
+                        rel='noopener noreferrer'
+                        variant='navbarStatic'
+                        onClick={() => setIsOpen(false)}
+                      >
+                        {t('navbar.technology')}
+                      </Link>
+                      <Link href='/contact' variant='navbarStatic' onClick={() => setIsOpen(false)}>
+                        {t('navbar.contact')}
+                      </Link>
+                    </div>
+                  </div>
 
-                  {/* Static Links */}
-                  <div className='mt-4 flex flex-col space-y-4'>
-                    <Link href='/use-cases' variant='navbarStatic' onClick={() => setIsOpen(false)}>
-                      {t('navbar.use_cases')}
-                    </Link>
-                    <Link href='/about-us' variant='navbarStatic' onClick={() => setIsOpen(false)}>
-                      {t('navbar.about')}
-                    </Link>
-                    <Link href='https://davinci.vote' target='_blank' rel='noopener noreferrer' variant='navbarStatic' onClick={() => setIsOpen(false)}>
-                      {t('navbar.technology')}
-                    </Link>
-                    <Link href='/contact' variant='navbarStatic' onClick={() => setIsOpen(false)}>
-                      {t('navbar.contact')}
-                    </Link>
+                  {/* Footer App Button */}
+                  <div className='p-6 border-t mt-auto'>
+                    <Button asChild className='w-full rounded-full'>
+                      <Link
+                        href='https://app.vocdoni.io'
+                        target='_blank'
+                        rel='noopener noreferrer'
+                        variant='unstyled'
+                        onClick={() => setIsOpen(false)}
+                      >
+                        App
+                      </Link>
+                    </Button>
                   </div>
                 </div>
-
-                {/* Footer App Button */}
-                <div className='p-6 border-t mt-auto'>
-                  <Button asChild className='w-full rounded-full'>
-                    <Link href='https://app.vocdoni.io' target='_blank' rel='noopener noreferrer' variant='unstyled' onClick={() => setIsOpen(false)}>
-                      App
-                    </Link>
-                  </Button>
-                </div>
-              </div>
-            </SheetContent>
+              </SheetContent>
             </Sheet>
           </div>
 

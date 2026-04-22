@@ -1,39 +1,38 @@
-import { useState } from 'react'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
-import { cn } from '@/lib/utils'
+import { useState } from 'react'
 
+import alexImg from '@/assets/images/team/alex.webp'
+import auletImg from '@/assets/images/team/aulet.webp'
+import ferranImg from '@/assets/images/team/ferran.webp'
 import manosImg from '@/assets/images/team/manos.webp'
 import oscarImg from '@/assets/images/team/oscar.webp'
-import ferranImg from '@/assets/images/team/ferran.webp'
-import auletImg from '@/assets/images/team/aulet.webp'
-import alexImg from '@/assets/images/team/alex.webp'
 
 const avatars = [
   {
     src: manosImg,
     fallback: 'MD',
-    name: 'Manos Dimogerontakis'
+    name: 'Manos Dimogerontakis',
   },
   {
     src: oscarImg,
     fallback: 'OC',
-    name: 'Òscar Casajuana'
+    name: 'Òscar Casajuana',
   },
   {
     src: ferranImg,
     fallback: 'FR',
-    name: 'Ferran Reyes'
+    name: 'Ferran Reyes',
   },
   {
     src: auletImg,
     fallback: 'JA',
-    name: 'Jordi Aulet'
+    name: 'Jordi Aulet',
   },
   {
     src: alexImg,
     fallback: 'AA',
-    name: 'Alex Arce'
-  }
+    name: 'Alex Arce',
+  },
 ]
 
 const AvatarGroupTooltipDemo = () => {
@@ -52,7 +51,7 @@ const AvatarGroupTooltipDemo = () => {
             <AvatarImage src={avatar.src} alt={avatar.name} />
             <AvatarFallback className='text-xs'>{avatar.fallback}</AvatarFallback>
           </Avatar>
-          
+
           {/* Manual Tooltip */}
           {hoveredIndex === index && (
             <div className='absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1 bg-popover text-popover-foreground text-xs rounded shadow-md border animate-in fade-in zoom-in duration-200 z-20 whitespace-nowrap'>

@@ -34,7 +34,7 @@ const TestimonialCard = ({ testimonial }: { testimonial: Testimonial }) => {
             <AvatarFallback className='text-xs'>
               {testimonial.name
                 .split(' ', 2)
-                .map(n => n[0])
+                .map((n) => n[0])
                 .join('')}
             </AvatarFallback>
           </Avatar>

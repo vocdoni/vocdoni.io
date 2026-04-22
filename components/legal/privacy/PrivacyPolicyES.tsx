@@ -186,8 +186,9 @@ export function PrivacyPolicyES() {
             usuario.
           </Paragraph>
           <Paragraph variant='legal'>
-            Este sitio web puede integrar un sistema de chat en tiempo real proporcionado por <strong>Crisp IM SARL</strong>{' '}
-            con la finalidad de atender consultas o incidencias de los usuarios durante el proceso de votación.
+            Este sitio web puede integrar un sistema de chat en tiempo real proporcionado por{' '}
+            <strong>Crisp IM SARL</strong> con la finalidad de atender consultas o incidencias de los usuarios durante
+            el proceso de votación.
           </Paragraph>
           <Paragraph variant='legal'>
             Cuando el usuario decide utilizar el chat, se tratan los siguientes datos personales:
@@ -215,8 +216,8 @@ export function PrivacyPolicyES() {
             proceso de votación.
           </Paragraph>
           <Paragraph variant='legal'>
-            Los datos tratados a través del chat se conservarán durante el tiempo necesario para gestionar la consulta y,
-            posteriormente, durante los plazos legalmente exigidos para la atención de posibles responsabilidades.
+            Los datos tratados a través del chat se conservarán durante el tiempo necesario para gestionar la consulta
+            y, posteriormente, durante los plazos legalmente exigidos para la atención de posibles responsabilidades.
           </Paragraph>
         </LegalSubsection>
       </LegalSection>
@@ -356,7 +357,9 @@ export function PrivacyPolicyES() {
             <LegalListItem>Recordar el contexto de la conversación entre páginas.</LegalListItem>
             <LegalListItem>Asignar un identificador técnico al usuario para poder gestionar el soporte.</LegalListItem>
           </LegalList>
-          <Paragraph variant='legal'>Cuando el usuario utiliza el chat, Crisp puede tratar los siguientes datos:</Paragraph>
+          <Paragraph variant='legal'>
+            Cuando el usuario utiliza el chat, Crisp puede tratar los siguientes datos:
+          </Paragraph>
           <LegalList>
             <LegalListItem>
               Dirección IP y metadatos técnicos (navegador, sistema operativo, dispositivo).

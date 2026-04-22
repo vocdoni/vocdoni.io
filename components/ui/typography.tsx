@@ -75,8 +75,7 @@ const headingVariants = cva('', {
 })
 
 interface HeadingProps
-  extends React.HTMLAttributes<HTMLHeadingElement>,
-    Omit<VariantProps<typeof headingVariants>, 'size'> {
+  extends React.HTMLAttributes<HTMLHeadingElement>, Omit<VariantProps<typeof headingVariants>, 'size'> {
   as?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
 }
 

@@ -17,8 +17,7 @@ const legalPageContainerVariants = cva('mx-auto px-4 pt-6 pb-12 sm:pt-10 md:pb-1
 })
 
 export interface LegalPageContainerProps
-  extends React.HTMLAttributes<HTMLDivElement>,
-    VariantProps<typeof legalPageContainerVariants> {}
+  extends React.HTMLAttributes<HTMLDivElement>, VariantProps<typeof legalPageContainerVariants> {}
 
 export function LegalPageContainer({ className, width, ...props }: LegalPageContainerProps) {
   return <div className={cn(legalPageContainerVariants({ width, className }))} {...props} />
@@ -60,8 +59,7 @@ const legalListVariants = cva('mb-4 space-y-2 text-foreground/90', {
 })
 
 export interface LegalListProps
-  extends React.HTMLAttributes<HTMLUListElement | HTMLOListElement>,
-    VariantProps<typeof legalListVariants> {
+  extends React.HTMLAttributes<HTMLUListElement | HTMLOListElement>, VariantProps<typeof legalListVariants> {
   ordered?: boolean
 }
 

@@ -24,8 +24,8 @@ interface SlotProps<T extends HTMLElement = HTMLElement> extends DOMMotionProps<
 }
 
 function mergeRefs<T>(...refs: (React.Ref<T> | undefined)[]): React.RefCallback<T> {
-  return node => {
-    refs.forEach(ref => {
+  return (node) => {
+    refs.forEach((ref) => {
       if (!ref) return
 
       if (typeof ref === 'function') {
@@ -47,7 +47,7 @@ function mergeProps<T extends HTMLElement>(childProps: AnyProps, slotProps: DOMM
   if (childProps.style || slotProps.style) {
     merged.style = {
       ...(childProps.style as React.CSSProperties),
-      ...(slotProps.style as React.CSSProperties)
+      ...(slotProps.style as React.CSSProperties),
     }
   }
 
@@ -59,8 +59,7 @@ function Slot<T extends HTMLElement = HTMLElement>({ children, ref, ...props }: 
 
   const element = children as React.ReactElement
 
-  const isAlreadyMotion =
-    typeof element.type === 'object' && element.type !== null && isMotionComponent(element.type)
+  const isAlreadyMotion = typeof element.type === 'object' && element.type !== null && isMotionComponent(element.type)
 
   const Base = React.useMemo(
     () => (isAlreadyMotion ? (element.type as React.ElementType) : motion.create(element.type as React.ElementType)),

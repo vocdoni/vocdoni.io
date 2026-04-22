@@ -22,7 +22,10 @@ const StepsSection = () => {
             {t('steps_section.title_start', 'Your first secure election, up and running in')}{' '}
             <span className='relative z-10'>
               {t('steps_section.title_highlight', 'three steps')}
-              <span className='bg-primary absolute bottom-0 left-0 -z-10 h-px w-full max-sm:hidden' aria-hidden='true' />
+              <span
+                className='bg-primary absolute bottom-0 left-0 -z-10 h-px w-full max-sm:hidden'
+                aria-hidden='true'
+              />
             </span>
           </MotionPreset>
           <MotionPreset

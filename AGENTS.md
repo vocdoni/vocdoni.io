@@ -74,8 +74,7 @@
 
 ## Migration Notes (Temporary Constraints)
 
-- The site now runs on a single Vike codebase, but some pages still mix older custom sections with newer shadcn-studio and `VocdoniAppV3` blocks.
-- Active locales are English, Spanish, and Catalan (`en`, `es`, `ca`).
+- The site now runs on a single Vike codebase, but some pages still mix older custom sections with newer shadcn-studio blocks.
 
 ## Agent-Specific Instructions
 

@@ -120,8 +120,6 @@ const AboutUs = ({
                 </MotionPreset>
               ))}
             </div>
-
-
           </div>
 
           <MotionPreset
@@ -168,9 +166,7 @@ const AboutUs = ({
                   </div>
                   <div className='space-y-2'>
                     <CardTitle className='text-xl font-bold'>{feature.title}</CardTitle>
-                    <CardDescription className='text-base leading-relaxed'>
-                      {feature.description}
-                    </CardDescription>
+                    <CardDescription className='text-base leading-relaxed'>{feature.description}</CardDescription>
                   </div>
                 </CardHeader>
               </Card>

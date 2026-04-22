@@ -183,10 +183,12 @@ export function PrivacyPolicyEN() {
             This section shall only apply when the website has the user support chat service enabled.
           </Paragraph>
           <Paragraph variant='legal'>
-            This website may integrate a real-time chat system provided by <strong>Crisp IM SARL</strong> for the purpose
-            of handling user inquiries or incidents during the voting process.
+            This website may integrate a real-time chat system provided by <strong>Crisp IM SARL</strong> for the
+            purpose of handling user inquiries or incidents during the voting process.
           </Paragraph>
-          <Paragraph variant='legal'>When the user decides to use the chat, the following personal data are processed:</Paragraph>
+          <Paragraph variant='legal'>
+            When the user decides to use the chat, the following personal data are processed:
+          </Paragraph>
           <LegalList>
             <LegalListItem>IP address and technical device data.</LegalListItem>
             <LegalListItem>Technical session identifier.</LegalListItem>
@@ -329,8 +331,8 @@ export function PrivacyPolicyEN() {
             This section shall only apply when the website has the user support chat service enabled.
           </Paragraph>
           <Paragraph variant='legal'>
-            This website may use cookies and similar technologies provided by <strong>Crisp Chat (Crisp IM SARL)</strong>{' '}
-            for the purpose of enabling a user support chat service.
+            This website may use cookies and similar technologies provided by{' '}
+            <strong>Crisp Chat (Crisp IM SARL)</strong> for the purpose of enabling a user support chat service.
           </Paragraph>
           <Paragraph variant='legal'>These cookies allow:</Paragraph>
           <LegalList>
@@ -343,7 +345,9 @@ export function PrivacyPolicyEN() {
             <LegalListItem>IP address and technical metadata (browser, operating system, device).</LegalListItem>
             <LegalListItem>A technical identifier assigned by the platform.</LegalListItem>
             <LegalListItem>The content of messages sent.</LegalListItem>
-            <LegalListItem>Contact information (such as email address), only if voluntarily provided by the user.</LegalListItem>
+            <LegalListItem>
+              Contact information (such as email address), only if voluntarily provided by the user.
+            </LegalListItem>
           </LegalList>
           <Paragraph variant='legal'>
             These cookies are not used for advertising purposes or to track the user across third-party websites, but
@@ -354,8 +358,8 @@ export function PrivacyPolicyEN() {
             (GDPR), processing the data on behalf of and following the instructions of <strong>Synergize S.L.</strong>
           </Paragraph>
           <Paragraph variant='legal'>
-            The use of these cookies is subject to the <strong>user’s consent</strong>, which can be accepted or rejected
-            via the cookie settings banner.
+            The use of these cookies is subject to the <strong>user’s consent</strong>, which can be accepted or
+            rejected via the cookie settings banner.
           </Paragraph>
         </LegalSubsection>
       </LegalSection>

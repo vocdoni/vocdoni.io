@@ -3,7 +3,6 @@ import { renderToStaticMarkup } from 'react-dom/server'
 import { describe, expect, it, vi } from 'vitest'
 
 import Hero from '@/components/Hero'
-import AlternativeHero from '@/components/AlternativeHero'
 
 vi.mock('react-i18next', () => ({
   useTranslation: () => ({
@@ -38,11 +37,6 @@ vi.mock('vike-react/usePageContext', () => ({
 describe('Hero layout spacing', () => {
   it('does not add extra top padding on the hero section', () => {
     const html = renderToStaticMarkup(<Hero />)
-    expect(html).not.toContain('pt-28')
-  })
-
-  it('does not add extra top padding on the alternative hero section', () => {
-    const html = renderToStaticMarkup(<AlternativeHero />)
     expect(html).not.toContain('pt-28')
   })
 })

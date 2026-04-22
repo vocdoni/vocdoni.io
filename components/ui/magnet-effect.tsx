@@ -2,7 +2,7 @@
 
 import * as React from 'react'
 
-import { motion, useMotionValue, useSpring, type SpringOptions, type HTMLMotionProps } from 'motion/react'
+import { motion, useMotionValue, useSpring, type HTMLMotionProps, type SpringOptions } from 'motion/react'
 
 import { Slot, type WithAsChild } from '@/components/ui/wrapper'
 

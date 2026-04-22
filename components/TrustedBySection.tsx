@@ -2,9 +2,9 @@ import { useTranslation } from 'react-i18next'
 
 import logo1 from '@/assets/logos/logo_alhora_bw.png'
 import logo2 from '@/assets/logos/logo_bcn_bw.png'
+import logo5 from '@/assets/logos/logo_bellpuig_bw.png'
 import logo3 from '@/assets/logos/logo_berga_bw.png'
 import logo4 from '@/assets/logos/logo_bisbal_bw.png'
-import logo5 from '@/assets/logos/logo_bellpuig_bw.png'
 
 const logos = [
   { name: 'Sovereign', url: logo1 },

@@ -1,7 +1,7 @@
 import gdprLogo from '@/assets/gdpr.png'
+import { Link } from '@/components/Link'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { Link } from '@/components/Link'
 import { Icon } from '@iconify/react'
 import { ArrowRight, Globe, Send } from 'lucide-react'
 import { useState } from 'react'
@@ -36,22 +36,52 @@ export default function Footer() {
             <VocdoniLogo aria-hidden='true' />
             <p className='text-sm text-muted-foreground leading-relaxed max-w-xs'>{t('footer.mission')}</p>
             <div className='flex gap-4'>
-              <Link href='https://github.com/vocdoni' target='_blank' variant='footerLegal' aria-label={t('footer.social.github', 'Vocdoni on GitHub (opens in new tab)')}>
+              <Link
+                href='https://github.com/vocdoni'
+                target='_blank'
+                variant='footerLegal'
+                aria-label={t('footer.social.github', 'Vocdoni on GitHub (opens in new tab)')}
+              >
                 <Icon icon='simple-icons:github' className='h-5 w-5' aria-hidden='true' />
               </Link>
-              <Link href='https://twitter.com/vocdoni' target='_blank' variant='footerLegal' aria-label={t('footer.social.twitter', 'Vocdoni on X / Twitter (opens in new tab)')}>
+              <Link
+                href='https://twitter.com/vocdoni'
+                target='_blank'
+                variant='footerLegal'
+                aria-label={t('footer.social.twitter', 'Vocdoni on X / Twitter (opens in new tab)')}
+              >
                 <Icon icon='simple-icons:x' className='h-5 w-5' aria-hidden='true' />
               </Link>
-              <Link href='https://bsky.app/profile/vocdoni.io' target='_blank' variant='footerLegal' aria-label={t('footer.social.bluesky', 'Vocdoni on Bluesky (opens in new tab)')}>
+              <Link
+                href='https://bsky.app/profile/vocdoni.io'
+                target='_blank'
+                variant='footerLegal'
+                aria-label={t('footer.social.bluesky', 'Vocdoni on Bluesky (opens in new tab)')}
+              >
                 <Icon icon='simple-icons:bluesky' className='h-5 w-5' aria-hidden='true' />
               </Link>
-              <Link href='https://chat.vocdoni.io' target='_blank' variant='footerLegal' aria-label={t('footer.social.discord', 'Vocdoni on Discord (opens in new tab)')}>
+              <Link
+                href='https://chat.vocdoni.io'
+                target='_blank'
+                variant='footerLegal'
+                aria-label={t('footer.social.discord', 'Vocdoni on Discord (opens in new tab)')}
+              >
                 <Icon icon='ic:baseline-discord' className='h-5 w-5' aria-hidden='true' />
               </Link>
-              <Link href='https://t.me/vocdoni' target='_blank' variant='footerLegal' aria-label={t('footer.social.telegram', 'Vocdoni on Telegram (opens in new tab)')}>
+              <Link
+                href='https://t.me/vocdoni'
+                target='_blank'
+                variant='footerLegal'
+                aria-label={t('footer.social.telegram', 'Vocdoni on Telegram (opens in new tab)')}
+              >
                 <Send className='h-5 w-5' aria-hidden='true' />
               </Link>
-              <Link href='https://vocdoni.io' target='_blank' variant='footerLegal' aria-label={t('footer.social.website', 'Vocdoni website (opens in new tab)')}>
+              <Link
+                href='https://vocdoni.io'
+                target='_blank'
+                variant='footerLegal'
+                aria-label={t('footer.social.website', 'Vocdoni website (opens in new tab)')}
+              >
                 <Globe className='h-5 w-5' aria-hidden='true' />
               </Link>
             </div>
@@ -118,10 +148,14 @@ export default function Footer() {
               </Button>
             </div>
             {status === 'success' && (
-              <p className='text-xs text-green-600'>{t('footer.newsletter.success', 'Check your inbox to confirm your subscription.')}</p>
+              <p className='text-xs text-green-600'>
+                {t('footer.newsletter.success', 'Check your inbox to confirm your subscription.')}
+              </p>
             )}
             {status === 'error' && (
-              <p className='text-xs text-destructive'>{t('footer.newsletter.error', 'Something went wrong. Please try again.')}</p>
+              <p className='text-xs text-destructive'>
+                {t('footer.newsletter.error', 'Something went wrong. Please try again.')}
+              </p>
             )}
           </div>
         </div>
@@ -149,7 +183,7 @@ export default function Footer() {
           </div>
 
           <div className='flex flex-wrap items-center gap-6 order-1 md:order-2'>
-<div className='flex items-center gap-3 border border-border/50 rounded-lg px-3 py-1.5 bg-muted/5'>
+            <div className='flex items-center gap-3 border border-border/50 rounded-lg px-3 py-1.5 bg-muted/5'>
               <img src={gdprLogo} alt='GDPR' className='h-6 w-auto object-contain' loading='lazy' />
               <div className='flex flex-col'>
                 <span className='text-[8px] text-muted-foreground uppercase font-bold tracking-tight'>

@@ -1,15 +1,15 @@
-import { useTranslation } from 'react-i18next'
 import { ArrowRightIcon } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
 
-import { Container } from '@/components/Container'
-import { Link } from '@/components/Link'
-import { Card, CardContent } from '@/components/ui/card'
-import TestimonialCard from '@/components/shadcn-studio/blocks/testimonials-component-03/testimonial-card'
 import logoBellpuig from '@/assets/logos/logo_bellpuig_colour.png'
 import logoCec from '@/assets/logos/logo_cec_colour.png'
-import logoOmnium from '@/assets/logos/logo_omnium_colour.png'
 import logoEic from '@/assets/logos/logo_eic_colour.png'
+import logoOmnium from '@/assets/logos/logo_omnium_colour.png'
 import logoPlataforma from '@/assets/logos/logo_plataforma_colour.webp'
+import { Container } from '@/components/Container'
+import { Link } from '@/components/Link'
+import TestimonialCard from '@/components/shadcn-studio/blocks/testimonials-component-03/testimonial-card'
+import { Card, CardContent } from '@/components/ui/card'
 
 type Testimonial = {
   name: string
@@ -61,7 +61,13 @@ export default function SocialProof() {
 
         <div className='mt-10 flex flex-wrap items-center justify-center gap-x-10 gap-y-6'>
           {logos.map((logo) => (
-            <img key={logo.alt} src={logo.src} alt={logo.alt} className='h-9 w-auto object-contain opacity-85' loading='lazy' />
+            <img
+              key={logo.alt}
+              src={logo.src}
+              alt={logo.alt}
+              className='h-9 w-auto object-contain opacity-85'
+              loading='lazy'
+            />
           ))}
         </div>
 

@@ -113,7 +113,9 @@ const ContactUs = () => {
                           >
                             contact@vocdoni.io
                           </Link>
-                          <p className='text-sm opacity-75 mt-1'>{t('contact.email_response_time', 'We typically respond within 24 hours')}</p>
+                          <p className='text-sm opacity-75 mt-1'>
+                            {t('contact.email_response_time', 'We typically respond within 24 hours')}
+                          </p>
                         </div>
                       </div>
                     </div>

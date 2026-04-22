@@ -10,7 +10,7 @@ import {
   type HTMLMotionProps,
   type UseInViewOptions,
   type Transition,
-  type Variant
+  type Variant,
 } from 'motion/react'
 
 type MotionComponent = keyof typeof motion
@@ -42,7 +42,7 @@ interface MotionPresetProps {
   ref?: React.Ref<HTMLElement | null>
 }
 
-const motionComponents = (motion as unknown) as Record<string, React.ElementType>
+const motionComponents = motion as unknown as Record<string, React.ElementType>
 
 function MotionPreset({
   ref,
@@ -58,7 +58,7 @@ function MotionPreset({
   slide = false,
   fade = false,
   zoom = false,
-  motionProps = {}
+  motionProps = {},
 }: MotionPresetProps) {
   const reducedMotion = useReducedMotion()
   const localRef = React.useRef<HTMLElement | null>(null)
@@ -67,7 +67,7 @@ function MotionPreset({
 
   const inViewResult = useInView(localRef, {
     once: inViewOnce,
-    margin: inViewMargin
+    margin: inViewMargin,
   })
 
   const isInView = !inView || inViewResult
@@ -109,22 +109,17 @@ function MotionPreset({
         exit: 'hidden',
         variants: {
           hidden: hiddenVariant,
-          visible: visibleVariant
+          visible: visibleVariant,
         },
         transition: {
           ...transition,
-          delay: (transition?.delay ?? 0) + delay
-        }
+          delay: (transition?.delay ?? 0) + delay,
+        },
       }
 
   return (
     <AnimatePresence>
-      <MotionComponent
-        ref={localRef}
-        className={className}
-        {...animationProps}
-        {...motionProps}
-      >
+      <MotionComponent ref={localRef} className={className} {...animationProps} {...motionProps}>
         {children}
       </MotionComponent>
     </AnimatePresence>

@@ -1,5 +1,5 @@
-import { useTranslation } from 'react-i18next'
 import { GithubIcon, LockKeyholeIcon, ScanSearchIcon, ShieldCheckIcon, VoteIcon } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
 
 import { Container } from '@/components/Container'
 import { Link } from '@/components/Link'

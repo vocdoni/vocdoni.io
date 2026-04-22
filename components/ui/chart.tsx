@@ -95,9 +95,7 @@ type TooltipPayloadItem = NonNullable<
   RechartsPrimitive.TooltipProps<TooltipValueType, TooltipNameType>['payload']
 >[number]
 
-type ChartTooltipContentProps = Partial<
-  RechartsPrimitive.TooltipProps<TooltipValueType, TooltipNameType>
-> &
+type ChartTooltipContentProps = Partial<RechartsPrimitive.TooltipProps<TooltipValueType, TooltipNameType>> &
   React.ComponentProps<'div'> & {
     hideLabel?: boolean
     hideIndicator?: boolean

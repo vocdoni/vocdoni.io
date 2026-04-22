@@ -19,7 +19,9 @@ if (violations.length > 0) {
     console.error(`- ${violation}`)
   }
   console.error('')
-  console.error('Do not keep extractor-created keys as empty strings. Add copy or remove the key until it is translated.')
+  console.error(
+    'Do not keep extractor-created keys as empty strings. Add copy or remove the key until it is translated.'
+  )
   process.exit(1)
 }
 

@@ -1,7 +1,4 @@
-import { Link } from '@/components/Link'
-import { Button } from '@/components/ui/button'
 import { MotionPreset } from '@/components/ui/motion-preset'
-import { ArrowRightIcon } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 
 const UseCasesHero = () => {
@@ -48,7 +45,6 @@ const UseCasesHero = () => {
           >
             {t('use_cases_page.hero.subtitle')}
           </MotionPreset>
-
         </div>
       </div>
     </section>

@@ -1,12 +1,12 @@
+import { ArrowRight, PlayCircleIcon, ScaleIcon, ShieldCheckIcon } from 'lucide-react'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { ArrowRight, PlayCircleIcon, ShieldCheckIcon, ScaleIcon } from 'lucide-react'
 
-import { Link } from '@/components/Link'
+import CleanYoutubePlayer from '@/components/app/CleanYoutubePlayer'
 import { Container } from '@/components/Container'
+import { Link } from '@/components/Link'
 import { Button } from '@/components/ui/button'
 import { MotionPreset } from '@/components/ui/motion-preset'
-import CleanYoutubePlayer from '@/components/VocdoniApp/CleanYoutubePlayer'
 
 const VIDEO_ID = 'lEPIjgeHYFs'
 const THUMBNAIL_URL = `https://img.youtube.com/vi/${VIDEO_ID}/maxresdefault.jpg`
@@ -50,7 +50,11 @@ export default function AppHeroWithVideo() {
               transition={{ duration: 0.5 }}
               className='flex flex-col sm:flex-row gap-4 w-full sm:w-auto'
             >
-              <Button size='lg' className='group text-base transition-all duration-300 has-[>svg]:px-6 w-full sm:w-auto' asChild>
+              <Button
+                size='lg'
+                className='group text-base transition-all duration-300 has-[>svg]:px-6 w-full sm:w-auto'
+                asChild
+              >
                 <Link href='https://app.vocdoni.io' target='_blank' rel='noopener noreferrer' variant='inlineIcon'>
                   {t('vocdoni_app.app_hero.cta_primary', 'Start for Free')}
                   <ArrowRight className='h-5 w-5 transition-transform duration-200 group-hover:translate-x-0.5' />

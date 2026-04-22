@@ -1,4 +1,4 @@
-import { locales, localeDefault, type Locale } from '@/locales'
+import { locales, type Locale } from '@/locales'
 
 const normalizePath = (value: string) => {
   if (!value) return '/'

@@ -1,5 +1,5 @@
-import { useTranslation } from 'react-i18next'
 import { ArrowRightIcon, CircleCheckBigIcon } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
 
 import { Container } from '@/components/Container'
 import { Link } from '@/components/Link'

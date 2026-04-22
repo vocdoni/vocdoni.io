@@ -179,74 +179,6 @@
       ],
       "title": "Tot el que necessiteu per organitzar una elecció real"
     },
-    "hero": {
-      "cta_primary": "Comenceu gratis",
-      "cta_secondary": "Vegeu la demo de 2 minuts",
-      "description": "Creeu un compte, pugeu el cens, envieu l'enllaç i obteniu resultats que qualsevol membre pugui verificar. Comenceu gratis, sense targeta i sense cap trucada comercial.",
-      "eyebrow": "Vocdoni app",
-      "panel": {
-        "admin_copy": "Sense paper, sense recompte manual i sense una altra eina per a votacions remotes, presencials o híbrides.",
-        "admin_title": "Per què els equips canvien",
-        "badge": "Autoservei",
-        "eyebrow": "Primera votació típica",
-        "title": "Del cens al resultat verificable en una tarda",
-        "trust_copy": "Cap part no pot alterar el resultat tota sola i cada votant pot verificar que el seu vot ha estat comptat.",
-        "trust_title": "Per què confien en el resultat"
-      },
-      "proof": {
-        "auditable": "Resultats auditables públicament",
-        "open_source": "Codi obert",
-        "verify": "Els votants poden verificar que el seu vot ha estat comptat"
-      },
-      "stats": [
-        {
-          "value": "200.000+",
-          "label": "Vots processats"
-        },
-        {
-          "value": "500+",
-          "label": "Processos de votació realitzats"
-        },
-        {
-          "value": "7 anys",
-          "label": "D'experiència en votació digital"
-        }
-      ],
-      "title": "Organitzeu una votació en què els vostres membres puguin confiar",
-      "trust": {
-        "free": "Votació gratuïta fins a 100 membres",
-        "gdpr": "Compleix el RGPD",
-        "hosting": "Allotjat a la UE"
-      },
-      "workflow": {
-        "create": "Creeu un compte",
-        "launch": "Publiqueu la votació",
-        "upload": "Pugeu el cens"
-      }
-    },
-    "how_it_works": {
-      "description": "Sense descarregar cap app per als votants. Sense contractar un proveïdor especialitzat.",
-      "eyebrow": "Com funciona",
-      "items": [
-        {
-          "title": "Creeu el compte",
-          "description": "Comenceu amb el pla gratuït i prepareu un espai de votació real sense targeta."
-        },
-        {
-          "title": "Pugeu el cens",
-          "description": "Importeu un CSV o sincronitzeu el vostre sistema actual per no haver de reconstruir la llista de membres."
-        },
-        {
-          "title": "Configureu la papereta i la seguretat",
-          "description": "Definiu preguntes, dates i el nivell d'autenticació segons el tipus de votació que necessiteu."
-        },
-        {
-          "title": "Envieu l'enllaç i publiqueu resultats verificables",
-          "description": "Els votants obren un enllaç al navegador, emeten el vot i la vostra organització obté un resultat que qualsevol persona pot comprovar."
-        }
-      ],
-      "title": "La vostra primera votació en quatre passos"
-    },
     "outcomes": {
       "description": "Doneu a la vostra organització un flux de votació senzill de publicar, senzill de completar i prou sòlid per aguantar després del tancament de les urnes.",
       "eyebrow": "Què canvia amb Vocdoni",
@@ -529,28 +461,6 @@
     },
     "title": "Preguntes habituals"
   },
-  "features": {
-    "cards": {
-      "app": {
-        "cta": "Comenceu gratis la vostra primera votació",
-        "description": "Configureu una elecció real en minuts. Sense equip tècnic, sense paper i sense necessitat d'especialistes, només una votació senzilla i verificable per a qualsevol organització.",
-        "title": "App"
-      },
-      "integrations": {
-        "cta": "Exploreu el nostre SDK",
-        "description": "Afegiu votació verificable i anònima a qualsevol plataforma amb el nostre SDK de codi obert. La vostra infraestructura, el nostre protocol.",
-        "title": "Integracions"
-      },
-      "projects": {
-        "cta": "Demaneu un projecte a mida",
-        "description": "Eleccions complexes? Les organitzem amb vosaltres. Suport expert complet, des de la configuració fins als resultats certificats, per a organitzacions que no es poden permetre errors.",
-        "title": "Projectes"
-      }
-    },
-    "description": "Des d'eleccions ràpides en autoservei fins a integracions empresarials a mida, una sola plataforma gestiona tots els vots de la vostra organització. Amb la confiança de col·legis professionals, associacions, federacions, municipis i clubs d'arreu del món.",
-    "eyebrow": "Solucions",
-    "title": "Tot el que necessiteu per a una votació de confiança"
-  },
   "footer": {
     "company": {
       "links": {
@@ -739,21 +649,8 @@
   },
   "previews": {
     "app_preview": {
-      "cast_vote": "Emet el vot",
       "option_a": "Opció a",
-      "option_b": "Opció b",
-      "option_c": "Opció c"
-    },
-    "integrations_preview": {
-      "const": "const",
-      "create_election": "createelection",
-      "import": "import",
-      "install": "install @vocdoni/sdk"
-    },
-    "projects_preview": {
-      "active_voters": "Votants actius",
-      "locations": "Ubicacions",
-      "turnout": "Participació"
+      "option_b": "Opció b"
     }
   },
   "steps_section": {
@@ -830,36 +727,6 @@
   "testimonials": {
     "description": "Des de moviments de base fins a grans institucions, descobriu com Vocdoni transforma la presa de decisions amb tecnologia segura, accessible i transparent.",
     "eyebrow": "Testimonis",
-    "items": [
-      {
-        "name": "Jordi Estiarte",
-        "role": "Alcalde",
-        "company": "Ajuntament de Bellpuig",
-        "content": "Vam triar la tecnologia de Vocdoni perquè creiem que és el futur de com haurien de ser les eleccions reals de qualsevol mena. El vot electrònic és obert a tothom i facilita el procés a la ciutadania.",
-        "logo": "/assets/logos/logo_bellpuig_colour.png"
-      },
-      {
-        "name": "Ton Barnils",
-        "role": "Director general",
-        "company": "Centre Excursionista de Catalunya",
-        "content": "Vam triar Vocdoni perquè garanteix una participació segura, fiable i transparent per a tots els nostres membres a l'assemblea general anual.",
-        "logo": "/assets/logos/logo_cec_colour.png"
-      },
-      {
-        "name": "Anna Giralt",
-        "role": "Directora executiva",
-        "company": "Òmnium Cultural",
-        "content": "L'aposta per Vocdoni ha estat clara, perquè a Òmnium Cultural volíem un sistema de votació segur i verificable que ens permetés celebrar les nostres assemblees estatutàries amb totes les garanties per als més de 180.000 socis de l'entitat.",
-        "logo": "/assets/logos/logo_omnium_colour.png"
-      },
-      {
-        "name": "Oscar Tirivò",
-        "role": "Director de TI",
-        "company": "Enginyers Industrials de Catalunya",
-        "content": "Vocdoni ens ofereix un sistema de votació fàcil, segur, anònim i escalable, totalment integrat en el nostre entorn institucional. Hi continuarem confiant, sens dubte.",
-        "logo": "/assets/logos/logo_eic_colour.png"
-      }
-    ],
     "title": "Històries reals, impacte real"
   },
   "use_cases_page": {
@@ -1111,58 +978,6 @@
       "trust_legal": "Evidència legal",
       "video_play": "Reprodueix el vídeo de demostració"
     },
-    "cta_bottom": {
-      "button": "Comenceu avui mateix",
-      "title": "A punt per modernitzar la vostra governança?"
-    },
-    "faq": {
-      "items": {
-        "price": {
-          "answer": "El cost real és continuar amb sistemes en paper antiquats i arriscats. Vocdoni costa cèntims per votant i elimina grans despeses operatives, temps i errors.",
-          "question": "És car?"
-        },
-        "sensitive": {
-          "answer": "Absolutament. Utilitzem tecnologia verificable d'extrem a extrem que aporta proves matemàtiques d'integritat, molt per sobre de les garanties tradicionals en paper. Oferim garanties i proves, no només confiança.",
-          "question": "És aquest procés prou segur per a votacions especialment sensibles?"
-        },
-        "tradition": {
-          "answer": "La transició és més fluida del que penseu. Hem acompanyat centenars d'organitzacions sense experiència digital. La reducció de costos operatius i la mitigació de riscos fan que el canvi compensi des del primer moment.",
-          "question": "Sempre hem votat en paper. És difícil canviar?"
-        }
-      },
-      "title": "Preguntes freqüents i objeccions"
-    },
-    "features": {
-      "items": {
-        "accessible": "Accessible i autogestionada",
-        "accessible_desc": "Gestioneu la votació sense dependre d'un equip tècnic ni d'un projecte extern.",
-        "branding": "Marca corporativa personalitzada",
-        "branding_desc": "Adapteu l'experiència de vot a la identitat visual de la vostra organització.",
-        "compliance": "Compliment legal complet",
-        "compliance_desc": "Celebreu processos de vot amb garanties jurídiques i traçabilitat completa.",
-        "devices": "Voteu des de qualsevol dispositiu",
-        "devices_desc": "Els membres poden votar des de mòbil, tauleta o ordinador sense instal lar res.",
-        "flexibility": "Configuració flexible (dates, cens, tipus)",
-        "flexibility_desc": "Definiu regles, calendari i tipus de votació segons les necessitats de cada procés.",
-        "reporting": "Resultats i informes en temps real",
-        "reporting_desc": "Consulteu la participació i accediu a informes clars durant i després de la votació.",
-        "security": "Seguretat 2FA (SMS/correu electrònic)",
-        "security_desc": "Reforceu l'autenticació dels votants amb una segona verificació senzilla.",
-        "setup": "Configuració en minuts",
-        "setup_desc": "Poseu en marxa una votació real en pocs minuts amb un flux simple i guiat."
-      },
-      "subtitle": "Tot el que necessiteu per celebrar processos de votació segurs i accessibles.",
-      "title": "Tot el que necessiteu per a una votació perfecta"
-    },
-    "stats": {
-      "digital": "Digital",
-      "expected": "Esperat",
-      "in_person": "Presencial",
-      "live_participation": "Participació en temps real",
-      "view": "Veure",
-      "votes_cast": "Vots emesos",
-      "vs_last_year": "+12% respecte de l'any passat"
-    },
     "target_users": {
       "cta": "Vegeu casos d'ús i casos d'èxit",
       "description": "Prioritzem organitzacions amb necessitats estructurals de votació i requisits elevats de garanties.",
@@ -1200,11 +1015,6 @@
         }
       },
       "title": "Per què Vocdoni?"
-    },
-    "video_section": {
-      "play": "Reprodueix el vídeo",
-      "subtitle": "Descobriu com n'és de fàcil configurar una votació segura en minuts.",
-      "title": "Vegeu com funciona"
     }
   }
 }

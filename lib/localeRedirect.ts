@@ -29,12 +29,7 @@ export function resolvePreferredLocale(
   return defaultLocaleValue
 }
 
-export function buildLocaleRedirectTarget(
-  logicalPath: string,
-  locale: string,
-  search = '',
-  hash = ''
-) {
+export function buildLocaleRedirectTarget(logicalPath: string, locale: string, search = '', hash = '') {
   const normalizedPath = normalizeLogicalPath(logicalPath)
   const pathname = normalizedPath === '/' ? `/${locale}` : `/${locale}${normalizedPath}`
   return `${pathname}${search}${hash}`

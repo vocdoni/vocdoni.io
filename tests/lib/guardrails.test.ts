@@ -15,19 +15,13 @@ describe('getInvalidComponentDirectories', () => {
         'components/app',
         'components/use-cases',
         'components/alternative-landing',
-        'components/VocdoniApp',
-        'components/VocdoniAppV3',
       ])
     ).toEqual([])
   })
 
   it('rejects new versioned, new-*, and legacy-* top-level component folders', () => {
     expect(
-      getInvalidComponentDirectories([
-        'components/FooV3',
-        'components/new-home',
-        'components/legacy-home',
-      ])
+      getInvalidComponentDirectories(['components/FooV3', 'components/new-home', 'components/legacy-home'])
     ).toEqual(['components/FooV3', 'components/legacy-home', 'components/new-home'])
   })
 })
@@ -85,9 +79,7 @@ describe('findHardcodedJsxCopyViolations', () => {
       }
     `
 
-    expect(
-      findHardcodedJsxCopyViolations(source, 'components/shadcn-studio/blocks/example/example.tsx')
-    ).toEqual([])
+    expect(findHardcodedJsxCopyViolations(source, 'components/shadcn-studio/blocks/example/example.tsx')).toEqual([])
   })
 })
 

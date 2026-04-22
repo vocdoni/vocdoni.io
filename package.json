@@ -4,7 +4,7 @@
     "build": "vike build",
     "preview": "vike preview",
     "shadcn": "npx shadcn@latest",
-    "lint": "tsc && prettier --check ./{components,lib,layouts,pages,plugins,tests}",
+    "lint": "tsc && prettier --check ./components ./lib ./layouts ./pages ./plugins ./tests",
     "prepare": "husky",
     "test": "vitest run tests",
     "translations": "i18next-cli extract",
@@ -13,7 +13,7 @@
     "guardrails:i18n-copy": "node scripts/guardrails/check-hardcoded-copy.mjs",
     "guardrails:translations": "pnpm exec i18next-cli extract --ci",
     "guardrails:translations:non-empty": "node scripts/guardrails/check-non-empty-translations.mjs",
-    "validate": "pnpm run test && pnpm run guardrails",
+    "validate": "pnpm run lint && pnpm run test && pnpm run guardrails",
     "prerender": "vike prerender"
   },
   "dependencies": {

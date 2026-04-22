@@ -1,17 +1,17 @@
-import Hero from '@/components/Hero'
+import TargetUsersV3 from '@/components/app/TargetUsers'
 import ComparisonSection from '@/components/ComparisonSection'
-import TestimonialsComponent from '@/components/shadcn-studio/blocks/testimonials-component-03/testimonials-component-03'
-import AboutUs from '@/components/shadcn-studio/blocks/about-us-page-07/about-us-page-07'
-import TargetUsersV3 from '@/components/VocdoniAppV3/TargetUsers'
+import Hero from '@/components/Hero'
 import HomeFAQ from '@/components/HomeFAQ'
+import AboutUs from '@/components/shadcn-studio/blocks/about-us-page-07/about-us-page-07'
 import Portfolio from '@/components/shadcn-studio/blocks/portfolio-16/portfolio-16'
-import { useTranslation } from 'react-i18next'
+import TestimonialsComponent from '@/components/shadcn-studio/blocks/testimonials-component-03/testimonials-component-03'
 import { getTestimonialsData } from '@/lib/testimonials-data'
+import { useTranslation } from 'react-i18next'
 
-import solutionsAppImg from '@/assets/images/solutions/solutions_app.webp'
-import solutionsSdkImg from '@/assets/images/solutions/solutions_sdk.webp'
 import customProjectImg from '@/assets/images/app/custom project.webp'
 import vocdoniPetitionsImg from '@/assets/images/app/vocdoni_petitions.webp'
+import solutionsAppImg from '@/assets/images/solutions/solutions_app.webp'
+import solutionsSdkImg from '@/assets/images/solutions/solutions_sdk.webp'
 
 export default function Page() {
   const { t } = useTranslation()

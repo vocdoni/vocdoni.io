@@ -1,8 +1,6 @@
 import { useTranslation } from 'react-i18next'
 
 import { Container } from '@/components/Container'
-import { Link } from '@/components/Link'
-import { Button } from '@/components/ui/button'
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
 
 type FaqItem = {

@@ -1,22 +1,22 @@
 import type { TFunction } from 'i18next'
 
-import logoBellpuigColour from '@/assets/logos/logo_bellpuig_colour.png'
-import logoCecColour from '@/assets/logos/logo_cec_colour.png'
-import logoOmniumColour from '@/assets/logos/logo_omnium_colour.png'
-import logoEicColour from '@/assets/logos/logo_eic_colour.png'
-import logoPlataformaColour from '@/assets/logos/logo_plataforma_colour.webp'
-import logoArxiversColour from '@/assets/logos/logo_arxivers_colour.webp'
 import logoAguicatRound from '@/assets/logos/logo_aguicat_round.webp'
+import logoArxiversColour from '@/assets/logos/logo_arxivers_colour.webp'
+import logoBellpuigColour from '@/assets/logos/logo_bellpuig_colour.png'
 import logoBisbalRound from '@/assets/logos/logo_bisbal_round.webp'
 import logoBloockColour from '@/assets/logos/logo_bloock_colour.webp'
+import logoCecColour from '@/assets/logos/logo_cec_colour.png'
+import logoEicColour from '@/assets/logos/logo_eic_colour.png'
+import logoOmniumColour from '@/assets/logos/logo_omnium_colour.png'
+import logoPlataformaColour from '@/assets/logos/logo_plataforma_colour.webp'
 
-import logoBellpuigRound from '@/assets/logos/logo_bellpuig_round.webp'
-import logoCecRound from '@/assets/logos/logo_cec_round.webp'
-import logoOmniumRound from '@/assets/logos/logo_omnium_round.webp'
-import logoEicRound from '@/assets/logos/logo_eic_round.webp'
-import logoPlataformaRound from '@/assets/logos/logo_plataforma_round.webp'
 import logoArxiversRound from '@/assets/logos/logo_.arxivers_round.webp'
+import logoBellpuigRound from '@/assets/logos/logo_bellpuig_round.webp'
 import logoBloockRound from '@/assets/logos/logo_bloock_round.webp'
+import logoCecRound from '@/assets/logos/logo_cec_round.webp'
+import logoEicRound from '@/assets/logos/logo_eic_round.webp'
+import logoOmniumRound from '@/assets/logos/logo_omnium_round.webp'
+import logoPlataformaRound from '@/assets/logos/logo_plataforma_round.webp'
 
 export type Testimonial = {
   name: string

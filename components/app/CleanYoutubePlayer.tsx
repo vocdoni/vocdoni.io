@@ -1,5 +1,5 @@
-import { lazy, Suspense, useEffect, useRef, useState } from 'react'
 import type { APITypes } from 'plyr-react'
+import { lazy, Suspense, useEffect, useRef, useState } from 'react'
 
 // plyr accesses `document` at import time, so it must only load client-side.
 const LazyPlyr = lazy(async () => {
