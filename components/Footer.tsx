@@ -179,7 +179,7 @@ export default function Footer() {
         <div className='flex flex-col md:flex-row justify-between items-center gap-8'>
           <div className='flex flex-col gap-1 items-center md:items-start order-2 md:order-1'>
             <p className='text-xs text-muted-foreground'>{t('footer.copyright', { year: new Date().getFullYear() })}</p>
-            <p className='text-[10px] text-muted-foreground/60'>{t('footer.rights')}</p>
+            <p className='text-[10px] text-muted-foreground'>{t('footer.rights')}</p>
           </div>
 
           <div className='flex flex-wrap items-center gap-6 order-1 md:order-2'>

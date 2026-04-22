@@ -180,7 +180,7 @@ export const ResultsCard = ({ animated = false }: { animated?: boolean }) => {
               <FileCheck className='h-3 w-3' />
               <span className='text-[10px] font-medium'>{t('hero_cards.legally_valid')}</span>
             </div>
-            <div className='flex items-center gap-1.5 text-[10px] text-muted-foreground/60 font-mono'>
+            <div className='flex items-center gap-1.5 text-[10px] text-muted-foreground font-mono'>
               <Hash className='h-3 w-3' />
               <span>0x7f...3a9c</span>
             </div>
