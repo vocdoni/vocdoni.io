@@ -81,7 +81,7 @@ const ComparisonSection = ({
                       <TableRow key={feature}>
                         <TableHead
                           scope='row'
-                          className={cn('p-4 text-base font-medium font-normal', {
+                          className={cn('p-4 text-base font-normal', {
                             'border-border border-b': index !== featureLabels.length - 1,
                           })}
                         >
