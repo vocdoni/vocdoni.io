@@ -51,7 +51,9 @@ const ComparisonSection = ({
               <Table>
                 <TableHeader>
                   <TableRow>
-                    <TableHead scope='col' className='w-1/4'></TableHead>
+                    <TableHead scope='col' className='w-1/4'>
+                      <span className='sr-only'>{t('comparison.featureColumnLabel', 'Feature')}</span>
+                    </TableHead>
                     {options.map((option) => (
                       <TableHead
                         scope='col'

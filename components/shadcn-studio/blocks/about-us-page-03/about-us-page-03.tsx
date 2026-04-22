@@ -76,27 +76,29 @@ const AboutUs = ({ aboutUsData }: { aboutUsData: AboutUsData }) => {
 
             <Separator className='bg-primary/10' />
 
-            <Tabs defaultValue={aboutUsData.tabs[0]?.value} className='space-y-8'>
-              <TabsList className='inline-flex bg-muted p-1 rounded-xl h-auto'>
-                {aboutUsData.tabs.map((tab) => (
-                  <TabsTrigger
-                    key={tab.value}
-                    value={tab.value}
-                    className='px-6 py-2 rounded-lg text-sm font-semibold'
-                  >
-                    {tab.name}
-                  </TabsTrigger>
-                ))}
-              </TabsList>
+            {aboutUsData.tabs.length > 0 && (
+              <Tabs defaultValue={aboutUsData.tabs[0].value} className='space-y-8'>
+                <TabsList className='inline-flex bg-muted p-1 rounded-xl h-auto'>
+                  {aboutUsData.tabs.map((tab) => (
+                    <TabsTrigger
+                      key={tab.value}
+                      value={tab.value}
+                      className='px-6 py-2 rounded-lg text-sm font-semibold'
+                    >
+                      {tab.name}
+                    </TabsTrigger>
+                  ))}
+                </TabsList>
 
-              {aboutUsData.tabs.map((tab) => (
-                <TabsContent key={tab.value} value={tab.value} className='min-h-[250px]'>
-                  <MotionPreset fade blur slide delay={0} transition={{ duration: 0.3 }}>
-                    {tab.content}
-                  </MotionPreset>
-                </TabsContent>
-              ))}
-            </Tabs>
+                {aboutUsData.tabs.map((tab) => (
+                  <TabsContent key={tab.value} value={tab.value} className='min-h-[250px]'>
+                    <MotionPreset fade blur slide delay={0} transition={{ duration: 0.3 }}>
+                      {tab.content}
+                    </MotionPreset>
+                  </TabsContent>
+                ))}
+              </Tabs>
+            )}
           </MotionPreset>
 
           <MotionPreset

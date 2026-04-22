@@ -122,6 +122,7 @@ const ContactForm = () => {
             type='text'
             id='name'
             aria-required='true'
+            aria-invalid={errors.name ? 'true' : undefined}
             aria-describedby={errors.name ? 'name-error' : undefined}
             autoComplete='name'
             className='h-12 border-2 focus-visible:ring-2 focus-visible:ring-primary/20 transition-all'
@@ -145,6 +146,7 @@ const ContactForm = () => {
             type='email'
             id='email'
             aria-required='true'
+            aria-invalid={errors.email ? 'true' : undefined}
             aria-describedby={errors.email ? 'email-error' : undefined}
             autoComplete='email'
             className='h-12 border-2 focus-visible:ring-2 focus-visible:ring-primary/20 transition-all'
@@ -187,6 +189,7 @@ const ContactForm = () => {
           type='text'
           id='subject'
           aria-required='true'
+          aria-invalid={errors.subject ? 'true' : undefined}
           aria-describedby={errors.subject ? 'subject-error' : undefined}
           autoComplete='off'
           className='h-12 border-2 focus-visible:ring-2 focus-visible:ring-primary/20 transition-all'
@@ -209,6 +212,7 @@ const ContactForm = () => {
         <Textarea
           id='message'
           aria-required='true'
+          aria-invalid={errors.message ? 'true' : undefined}
           aria-describedby={errors.message ? 'message-error' : undefined}
           autoComplete='off'
           className='min-h-[160px] resize-none border-2 focus-visible:ring-2 focus-visible:ring-primary/20 transition-all'
