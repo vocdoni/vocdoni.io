@@ -16,6 +16,21 @@ const buildAllStores = () => Object.fromEntries(locales.map((locale) => [locale,
 
 export default function onBeforeRender(pageContext: any) {
   const locale = pageContext.locale
+
+  // Compat redirect pages only serve an instant client-side redirect –
+  // no i18n store, no full page context needed.
+  if (pageContext.isCompatibilityRedirect && !pageContext.is404) {
+    return {
+      pageContext: {
+        isCompatibilityRedirect: true,
+        locale,
+        initialLocale: locale,
+        initialI18nStore: {},
+        urlLogical: pageContext.urlLogical || '/',
+      },
+    }
+  }
+
   return {
     pageContext: {
       isCompatibilityRedirect: Boolean(pageContext.isCompatibilityRedirect),
