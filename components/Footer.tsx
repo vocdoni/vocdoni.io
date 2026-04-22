@@ -33,26 +33,26 @@ export default function Footer() {
         <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 lg:gap-8 mb-16'>
           {/* Brand & Description */}
           <div className='lg:col-span-4 flex flex-col gap-6 items-start'>
-            <VocdoniLogo />
+            <VocdoniLogo aria-hidden='true' />
             <p className='text-sm text-muted-foreground leading-relaxed max-w-xs'>{t('footer.mission')}</p>
             <div className='flex gap-4'>
-              <Link href='https://github.com/vocdoni' target='_blank' variant='footerLegal'>
-                <Icon icon='simple-icons:github' className='h-5 w-5' />
+              <Link href='https://github.com/vocdoni' target='_blank' variant='footerLegal' aria-label='Vocdoni on GitHub (opens in new tab)'>
+                <Icon icon='simple-icons:github' className='h-5 w-5' aria-hidden='true' />
               </Link>
-              <Link href='https://twitter.com/vocdoni' target='_blank' variant='footerLegal'>
-                <Icon icon='simple-icons:x' className='h-5 w-5' />
+              <Link href='https://twitter.com/vocdoni' target='_blank' variant='footerLegal' aria-label='Vocdoni on X / Twitter (opens in new tab)'>
+                <Icon icon='simple-icons:x' className='h-5 w-5' aria-hidden='true' />
               </Link>
-              <Link href='https://bsky.app/profile/vocdoni.io' target='_blank' variant='footerLegal'>
-                <Icon icon='simple-icons:bluesky' className='h-5 w-5' />
+              <Link href='https://bsky.app/profile/vocdoni.io' target='_blank' variant='footerLegal' aria-label='Vocdoni on Bluesky (opens in new tab)'>
+                <Icon icon='simple-icons:bluesky' className='h-5 w-5' aria-hidden='true' />
               </Link>
-              <Link href='https://chat.vocdoni.io' target='_blank' variant='footerLegal'>
-                <Icon icon='ic:baseline-discord' className='h-5 w-5' />
+              <Link href='https://chat.vocdoni.io' target='_blank' variant='footerLegal' aria-label='Vocdoni on Discord (opens in new tab)'>
+                <Icon icon='ic:baseline-discord' className='h-5 w-5' aria-hidden='true' />
               </Link>
-              <Link href='https://t.me/vocdoni' target='_blank' variant='footerLegal'>
-                <Send className='h-5 w-5' />
+              <Link href='https://t.me/vocdoni' target='_blank' variant='footerLegal' aria-label='Vocdoni on Telegram (opens in new tab)'>
+                <Send className='h-5 w-5' aria-hidden='true' />
               </Link>
-              <Link href='https://vocdoni.io' target='_blank' variant='footerLegal'>
-                <Globe className='h-5 w-5' />
+              <Link href='https://vocdoni.io' target='_blank' variant='footerLegal' aria-label='Vocdoni website (opens in new tab)'>
+                <Globe className='h-5 w-5' aria-hidden='true' />
               </Link>
             </div>
           </div>
@@ -93,8 +93,13 @@ export default function Footer() {
           <div className='lg:col-span-4'>
             <h3 className='font-bold text-sm mb-6 uppercase tracking-wider'>{t('footer.newsletter.title')}</h3>
             <div className='flex bg-white rounded-full p-1 border border-border/50 mb-3 group focus-within:border-primary/50 transition-colors'>
+              <label htmlFor='newsletter-email' className='sr-only'>
+                {t('footer.newsletter.label', 'Email address for newsletter')}
+              </label>
               <Input
+                id='newsletter-email'
                 type='email'
+                autoComplete='email'
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 onKeyDown={(e) => e.key === 'Enter' && handleSubscribe()}
@@ -107,8 +112,9 @@ export default function Footer() {
                 className='rounded-full h-10 w-10 shrink-0'
                 onClick={handleSubscribe}
                 disabled={status === 'loading' || status === 'success'}
+                aria-label={t('footer.newsletter.submit', 'Subscribe to newsletter')}
               >
-                <ArrowRight className='h-4 w-4' />
+                <ArrowRight className='h-4 w-4' aria-hidden='true' />
               </Button>
             </div>
             {status === 'success' && (

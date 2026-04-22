@@ -105,9 +105,9 @@ export function Navbar() {
       <header className='cursor-default pointer-events-auto flex items-center justify-between gap-4 rounded-full border border-border/40 bg-background/80 px-4 py-2 shadow-sm backdrop-blur-md w-full max-w-[2000px] transition-all duration-300'>
         {/* Logo */}
         <div className='pointer-events'>
-          <Link href='/' variant='unstyled'>
-            <VocdoniLogo minimal className='h-7 lg:hidden' />
-            <VocdoniLogo className='hidden lg:block h-8' />
+          <Link href='/' variant='unstyled' aria-label={t('navbar.logo_aria_label', 'Vocdoni - go to homepage')}>
+            <VocdoniLogo minimal className='h-7 lg:hidden' aria-hidden='true' />
+            <VocdoniLogo className='hidden lg:block h-8' aria-hidden='true' />
           </Link>
         </div>
 
@@ -250,7 +250,7 @@ export function Navbar() {
               <div className='flex flex-col h-full bg-background'>
                 {/* Header inside Sheet */}
                 <div className='p-6 border-b'>
-                  <VocdoniLogo />
+                  <VocdoniLogo aria-hidden='true' />
                 </div>
 
                 {/* Menu Items */}

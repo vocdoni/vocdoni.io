@@ -121,13 +121,21 @@ const ContactForm = () => {
           <Input
             type='text'
             id='name'
+            aria-required='true'
+            aria-invalid={errors.name ? 'true' : undefined}
+            aria-describedby={errors.name ? 'name-error' : undefined}
+            autoComplete='name'
             className='h-12 border-2 focus-visible:ring-2 focus-visible:ring-primary/20 transition-all'
             placeholder={t('contact.name_placeholder', { defaultValue: 'John Doe' })}
             {...register('name', {
               required: t('contact.errors.name_required', { defaultValue: 'Name is required' }),
             })}
           />
-          {errors.name && <span className='text-xs text-red-600'>{errors.name.message}</span>}
+          {errors.name && (
+            <span id='name-error' role='alert' className='text-xs text-red-600'>
+              {errors.name.message}
+            </span>
+          )}
         </div>
 
         <div className='space-y-2'>
@@ -137,6 +145,10 @@ const ContactForm = () => {
           <Input
             type='email'
             id='email'
+            aria-required='true'
+            aria-invalid={errors.email ? 'true' : undefined}
+            aria-describedby={errors.email ? 'email-error' : undefined}
+            autoComplete='email'
             className='h-12 border-2 focus-visible:ring-2 focus-visible:ring-primary/20 transition-all'
             placeholder={t('contact.email_placeholder', { defaultValue: 'john@example.com' })}
             {...register('email', {
@@ -147,7 +159,11 @@ const ContactForm = () => {
               },
             })}
           />
-          {errors.email && <span className='text-xs text-red-600'>{errors.email.message}</span>}
+          {errors.email && (
+            <span id='email-error' role='alert' className='text-xs text-red-600'>
+              {errors.email.message}
+            </span>
+          )}
         </div>
       </div>
 
@@ -158,6 +174,7 @@ const ContactForm = () => {
         <Input
           type='text'
           id='organization'
+          autoComplete='organization'
           className='h-12 border-2 focus-visible:ring-2 focus-visible:ring-primary/20 transition-all'
           placeholder={t('contact.organization_placeholder', { defaultValue: 'Your company or organization' })}
           {...register('organization')}
@@ -171,13 +188,21 @@ const ContactForm = () => {
         <Input
           type='text'
           id='subject'
+          aria-required='true'
+          aria-invalid={errors.subject ? 'true' : undefined}
+          aria-describedby={errors.subject ? 'subject-error' : undefined}
+          autoComplete='off'
           className='h-12 border-2 focus-visible:ring-2 focus-visible:ring-primary/20 transition-all'
           placeholder={t('contact.subject_placeholder', { defaultValue: 'What can we help you with?' })}
           {...register('subject', {
             required: t('contact.errors.subject_required', { defaultValue: 'Subject is required' }),
           })}
         />
-        {errors.subject && <span className='text-xs text-red-600'>{errors.subject.message}</span>}
+        {errors.subject && (
+          <span id='subject-error' role='alert' className='text-xs text-red-600'>
+            {errors.subject.message}
+          </span>
+        )}
       </div>
 
       <div className='space-y-2'>
@@ -186,6 +211,10 @@ const ContactForm = () => {
         </Label>
         <Textarea
           id='message'
+          aria-required='true'
+          aria-invalid={errors.message ? 'true' : undefined}
+          aria-describedby={errors.message ? 'message-error' : undefined}
+          autoComplete='off'
           className='min-h-[160px] resize-none border-2 focus-visible:ring-2 focus-visible:ring-primary/20 transition-all'
           placeholder={t('contact.message_placeholder', {
             defaultValue: 'Tell us about your voting or governance needs...',
@@ -194,7 +223,11 @@ const ContactForm = () => {
             required: t('contact.errors.message_required', { defaultValue: 'Message is required' }),
           })}
         />
-        {errors.message && <span className='text-xs text-red-600'>{errors.message.message}</span>}
+        {errors.message && (
+          <span id='message-error' role='alert' className='text-xs text-red-600'>
+            {errors.message.message}
+          </span>
+        )}
       </div>
 
       <p className='text-xs text-muted-foreground'>

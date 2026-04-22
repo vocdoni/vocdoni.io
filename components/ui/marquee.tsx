@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { useReducedMotion } from 'motion/react'
 
 import { cn } from '@/lib/utils'
 
@@ -27,6 +28,7 @@ function Marquee(props: MarqueeProps) {
     vertical = false,
     ...rest
   } = props
+  const reducedMotion = useReducedMotion()
 
   return (
     <div
@@ -57,6 +59,7 @@ function Marquee(props: MarqueeProps) {
               'animate-marquee-vertical flex-col': vertical,
               'group-hover:[animation-play-state:paused]': pauseOnHover,
               '[animation-direction:reverse]': reverse,
+              '[animation-play-state:paused]': reducedMotion,
             })}
           >
             {children}

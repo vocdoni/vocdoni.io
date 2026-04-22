@@ -56,6 +56,8 @@ export const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
         }
       : {}
 
+    const opensInNewTab = (externalProps.target ?? props.target) === '_blank'
+
     return (
       <a
         ref={ref}
@@ -65,6 +67,7 @@ export const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
         {...props}
       >
         {children}
+        {opensInNewTab && <span className='sr-only'> (opens in new tab)</span>}
       </a>
     )
   }
