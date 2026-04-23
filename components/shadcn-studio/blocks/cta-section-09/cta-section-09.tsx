@@ -56,13 +56,9 @@ const CTASection = () => {
               delay={0.6}
               transition={{ duration: 0.7 }}
             >
+              <img src='/images/cta/image-6.png' alt={t('cta.image_alt')} className='max-h-173 w-full dark:hidden' />
               <img
-                src='https://cdn.shadcnstudio.com/ss-assets/blocks/marketing/cta/image-6.png'
-                alt={t('cta.image_alt')}
-                className='max-h-173 w-full dark:hidden'
-              />
-              <img
-                src='https://cdn.shadcnstudio.com/ss-assets/blocks/marketing/cta/image-6-dark.png'
+                src='/images/cta/image-6-dark.png'
                 alt={t('cta.image_alt')}
                 className='hidden max-h-173 w-full dark:inline-block'
               />

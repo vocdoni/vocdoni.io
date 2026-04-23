@@ -1,4 +1,4 @@
-import gdprLogo from '@/assets/gdpr.png'
+import gdprLogo from '@/assets/gdpr.webp'
 import { Link } from '@/components/Link'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'

@@ -6,10 +6,10 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { MotionPreset } from '@/components/ui/motion-preset'
 // Real logo imports
-import logoErc from '@/assets/logos/erc.png'
-import logoBellpuig from '@/assets/logos/logo_bellpuig_colour.png'
+import logoErc from '@/assets/logos/erc.webp'
+import logoBellpuig from '@/assets/logos/logo_bellpuig_colour.webp'
 import logoCoib from '@/assets/logos/logo_coib_round.webp'
-import logoNewBelarus from '@/assets/logos/new_belarus.png'
+import logoNewBelarus from '@/assets/logos/new_belarus.webp'
 
 // Success story images
 import imageBellpuig from '@/assets/images/success/bellpuig_experience.webp'

@@ -2,12 +2,12 @@ import type { TFunction } from 'i18next'
 
 import logoAguicatRound from '@/assets/logos/logo_aguicat_round.webp'
 import logoArxiversColour from '@/assets/logos/logo_arxivers_colour.webp'
-import logoBellpuigColour from '@/assets/logos/logo_bellpuig_colour.png'
+import logoBellpuigColour from '@/assets/logos/logo_bellpuig_colour.webp'
 import logoBisbalRound from '@/assets/logos/logo_bisbal_round.webp'
 import logoBloockColour from '@/assets/logos/logo_bloock_colour.webp'
-import logoCecColour from '@/assets/logos/logo_cec_colour.png'
-import logoEicColour from '@/assets/logos/logo_eic_colour.png'
-import logoOmniumColour from '@/assets/logos/logo_omnium_colour.png'
+import logoCecColour from '@/assets/logos/logo_cec_colour.webp'
+import logoEicColour from '@/assets/logos/logo_eic_colour.webp'
+import logoOmniumColour from '@/assets/logos/logo_omnium_colour.webp'
 import logoPlataformaColour from '@/assets/logos/logo_plataforma_colour.webp'
 
 import logoArxiversRound from '@/assets/logos/logo_.arxivers_round.webp'
@@ -35,7 +35,7 @@ export function getTestimonialsData(t: TFunction): Testimonial[] {
     {
       name: 'Jordi Estiarte',
       handle: t('testimonials_marquee.items.0.handle', 'Mayor · Bellpuig City Council'),
-      avatar: 'https://cdn.shadcnstudio.com/ss-assets/avatar/avatar-1.png',
+      avatar: '/images/avatars/avatar-1.png',
       rating: 5,
       title: t('testimonials_marquee.items.0.title', 'The future of real elections'),
       content: t(
@@ -49,7 +49,7 @@ export function getTestimonialsData(t: TFunction): Testimonial[] {
     {
       name: 'Ton Barnils',
       handle: t('testimonials_marquee.items.1.handle', 'General Director · CEC'),
-      avatar: 'https://cdn.shadcnstudio.com/ss-assets/avatar/avatar-2.png',
+      avatar: '/images/avatars/avatar-2.png',
       rating: 5,
       title: t('testimonials_marquee.items.1.title', 'Safe and transparent participation'),
       content: t(
@@ -63,7 +63,7 @@ export function getTestimonialsData(t: TFunction): Testimonial[] {
     {
       name: 'Anna Giralt',
       handle: t('testimonials_marquee.items.2.handle', 'Executive Manager · Òmnium Cultural'),
-      avatar: 'https://cdn.shadcnstudio.com/ss-assets/avatar/avatar-3.png',
+      avatar: '/images/avatars/avatar-3.png',
       rating: 5,
       title: t('testimonials_marquee.items.2.title', 'All guarantees for 180,000 members'),
       content: t(
@@ -77,7 +77,7 @@ export function getTestimonialsData(t: TFunction): Testimonial[] {
     {
       name: 'Oscar Tirivò',
       handle: t('testimonials_marquee.items.3.handle', 'IT Director · Enginyers Industrials'),
-      avatar: 'https://cdn.shadcnstudio.com/ss-assets/avatar/avatar-4.png',
+      avatar: '/images/avatars/avatar-4.png',
       rating: 5,
       title: t('testimonials_marquee.items.3.title', 'Easy, secure, and scalable voting'),
       content: t(
@@ -91,7 +91,7 @@ export function getTestimonialsData(t: TFunction): Testimonial[] {
     {
       name: 'Rut Carandell',
       handle: t('testimonials_marquee.items.4.handle', 'Director · Plataforma per la Llengua'),
-      avatar: 'https://cdn.shadcnstudio.com/ss-assets/avatar/avatar-13.png',
+      avatar: '/images/avatars/avatar-13.png',
       rating: 5,
       title: t('testimonials_marquee.items.4.title', 'Voting across Catalan-speaking territories'),
       content: t(
@@ -105,7 +105,7 @@ export function getTestimonialsData(t: TFunction): Testimonial[] {
     {
       name: 'Montserrat Clavell',
       handle: t('testimonials_marquee.items.5.handle', "Secretary · Associació d'Arxivers de Catalunya"),
-      avatar: 'https://cdn.shadcnstudio.com/ss-assets/avatar/avatar-14.png',
+      avatar: '/images/avatars/avatar-14.png',
       rating: 5,
       title: t('testimonials_marquee.items.5.title', 'Secure voting that boosted participation'),
       content: t(
@@ -119,7 +119,7 @@ export function getTestimonialsData(t: TFunction): Testimonial[] {
     {
       name: 'Susanna Mendoza',
       handle: t('testimonials_marquee.items.6.handle', 'IT Responsible · Associació de Guies Habilitats de Catalunya'),
-      avatar: 'https://cdn.shadcnstudio.com/ss-assets/avatar/avatar-15.png',
+      avatar: '/images/avatars/avatar-15.png',
       rating: 5,
       title: t('testimonials_marquee.items.6.title', 'Easy to set up, great participation despite a non-tech audience'),
       content: t(
@@ -136,7 +136,7 @@ export function getTestimonialsData(t: TFunction): Testimonial[] {
         'testimonials_marquee.items.7.handle',
         "Civic Participation Officer · Ajuntament de La Bisbal de l'Empordà"
       ),
-      avatar: 'https://cdn.shadcnstudio.com/ss-assets/avatar/avatar-16.png',
+      avatar: '/images/avatars/avatar-16.png',
       rating: 5,
       title: t('testimonials_marquee.items.7.title', 'Transparent, secure, and flexible digital voting for citizens'),
       content: t(
@@ -150,7 +150,7 @@ export function getTestimonialsData(t: TFunction): Testimonial[] {
     {
       name: 'Lluís Llibre',
       handle: t('testimonials_marquee.items.8.handle', 'Founder and CEO · BLOOCK'),
-      avatar: 'https://cdn.shadcnstudio.com/ss-assets/avatar/avatar-5.png',
+      avatar: '/images/avatars/avatar-5.png',
       rating: 5,
       title: t('testimonials_marquee.items.8.title', 'Enabling meaningful citizen participation'),
       content: t(
@@ -164,7 +164,7 @@ export function getTestimonialsData(t: TFunction): Testimonial[] {
     {
       name: 'Ton Barnils',
       handle: t('testimonials_marquee.items.1.handle', 'General Director · CEC'),
-      avatar: 'https://cdn.shadcnstudio.com/ss-assets/avatar/avatar-2.png',
+      avatar: '/images/avatars/avatar-2.png',
       rating: 5,
       title: t('testimonials_marquee.items.1.title', 'Safe and transparent participation'),
       content: t(
@@ -178,7 +178,7 @@ export function getTestimonialsData(t: TFunction): Testimonial[] {
     {
       name: 'Anna Giralt',
       handle: t('testimonials_marquee.items.2.handle', 'Executive Manager · Òmnium Cultural'),
-      avatar: 'https://cdn.shadcnstudio.com/ss-assets/avatar/avatar-3.png',
+      avatar: '/images/avatars/avatar-3.png',
       rating: 5,
       title: t('testimonials_marquee.items.2.title', 'All guarantees for 180,000 members'),
       content: t(
@@ -192,7 +192,7 @@ export function getTestimonialsData(t: TFunction): Testimonial[] {
     {
       name: 'Oscar Tirivò',
       handle: t('testimonials_marquee.items.3.handle', 'IT Director · Enginyers Industrials'),
-      avatar: 'https://cdn.shadcnstudio.com/ss-assets/avatar/avatar-4.png',
+      avatar: '/images/avatars/avatar-4.png',
       rating: 5,
       title: t('testimonials_marquee.items.3.title', 'Easy, secure, and scalable voting'),
       content: t(
@@ -206,7 +206,7 @@ export function getTestimonialsData(t: TFunction): Testimonial[] {
     {
       name: 'Rut Carandell',
       handle: t('testimonials_marquee.items.4.handle', 'Director · Plataforma per la Llengua'),
-      avatar: 'https://cdn.shadcnstudio.com/ss-assets/avatar/avatar-13.png',
+      avatar: '/images/avatars/avatar-13.png',
       rating: 5,
       title: t('testimonials_marquee.items.4.title', 'Voting across Catalan-speaking territories'),
       content: t(
@@ -220,7 +220,7 @@ export function getTestimonialsData(t: TFunction): Testimonial[] {
     {
       name: 'Montserrat Clavell',
       handle: t('testimonials_marquee.items.5.handle', "Secretary · Associació d'Arxivers de Catalunya"),
-      avatar: 'https://cdn.shadcnstudio.com/ss-assets/avatar/avatar-14.png',
+      avatar: '/images/avatars/avatar-14.png',
       rating: 5,
       title: t('testimonials_marquee.items.5.title', 'Secure voting that boosted participation'),
       content: t(
@@ -234,7 +234,7 @@ export function getTestimonialsData(t: TFunction): Testimonial[] {
     {
       name: 'Susanna Mendoza',
       handle: t('testimonials_marquee.items.6.handle', 'IT Responsible · Associació de Guies Habilitats de Catalunya'),
-      avatar: 'https://cdn.shadcnstudio.com/ss-assets/avatar/avatar-15.png',
+      avatar: '/images/avatars/avatar-15.png',
       rating: 5,
       title: t('testimonials_marquee.items.6.title', 'Easy to set up, great participation despite a non-tech audience'),
       content: t(
