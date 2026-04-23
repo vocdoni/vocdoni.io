@@ -106,13 +106,13 @@ export function Navbar() {
         {/* Logo */}
         <div className='pointer-events'>
           <Link href='/' variant='unstyled' aria-label={t('navbar.logo_aria_label', 'Vocdoni - go to homepage')}>
-            <VocdoniLogo minimal className='h-7 lg:hidden' aria-hidden='true' />
-            <VocdoniLogo className='hidden lg:block h-8' aria-hidden='true' />
+            <VocdoniLogo minimal className='h-7 xl:hidden' aria-hidden='true' />
+            <VocdoniLogo className='hidden xl:block h-8' aria-hidden='true' />
           </Link>
         </div>
 
         {/* Desktop Navigation */}
-        <NavigationMenu className='hidden lg:flex min-w-max'>
+        <NavigationMenu className='hidden xl:flex min-w-max'>
           <NavigationMenuList>
             {/* Solutions (formerly Product) */}
             <NavigationMenuItem>
@@ -243,7 +243,7 @@ export function Navbar() {
         <div className='flex items-center gap-2'>
           <LanguageSwitcher />
           {/* Mobile Menu Trigger */}
-          <div className='lg:hidden'>
+          <div className='xl:hidden'>
             <Sheet open={isOpen} onOpenChange={setIsOpen}>
               <SheetTrigger asChild>
                 <Button variant='ghost' size='icon'>
@@ -262,8 +262,10 @@ export function Navbar() {
                   <div className='flex-1 overflow-auto py-6 px-4'>
                     <Accordion type='single' collapsible className='w-full'>
                       {/* Solutions (mobile) */}
-                      <AccordionItem value='product'>
-                        <AccordionTrigger className='text-sm font-medium'>{t('navbar.solutions')}</AccordionTrigger>
+                      <AccordionItem value='product' className='border-border/40'>
+                        <AccordionTrigger className='font-sans text-sm font-medium py-3 hover:text-primary hover:no-underline transition-colors'>
+                          {t('navbar.solutions')}
+                        </AccordionTrigger>
                         <AccordionContent>
                           <div className='flex flex-col space-y-2 pl-4'>
                             {/* Featured solution - mobile version */}
@@ -324,8 +326,10 @@ export function Navbar() {
                       </AccordionItem>
 
                       {/* Resources (mobile) */}
-                      <AccordionItem value='resources'>
-                        <AccordionTrigger className='text-sm font-medium'>{t('navbar.resources')}</AccordionTrigger>
+                      <AccordionItem value='resources' className='border-border/40'>
+                        <AccordionTrigger className='font-sans text-sm font-medium py-3 hover:text-primary hover:no-underline transition-colors'>
+                          {t('navbar.resources')}
+                        </AccordionTrigger>
                         <AccordionContent>
                           <div className='flex flex-col space-y-2 pl-4'>
                             {resourcesItems.map((item) => (
@@ -346,7 +350,7 @@ export function Navbar() {
                     </Accordion>
 
                     {/* Static Links */}
-                    <div className='mt-4 flex flex-col space-y-4'>
+                    <div className='flex flex-col'>
                       <Link href='/use-cases' variant='navbarStatic' onClick={() => setIsOpen(false)}>
                         {t('navbar.use_cases')}
                       </Link>
@@ -388,7 +392,7 @@ export function Navbar() {
           </div>
 
           {/* App Button (hidden on mobile) */}
-          <div className='hidden lg:block'>
+          <div className='hidden xl:block'>
             <Button asChild className='rounded-full px-6'>
               <Link href='https://app.vocdoni.io' target='_blank' rel='noopener noreferrer' variant='unstyled'>
                 {t('navbar.app_button')}
