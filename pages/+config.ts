@@ -1,7 +1,7 @@
 import vikeReact from 'vike-react/config'
 import type { Config } from 'vike/types'
 import favicon from '../assets/favicon.ico'
-import ogImageDefault from '../assets/images/vocdoni.png'
+import ogImageDefault from '../assets/images/vocdoni.webp'
 
 // Default config (can be overridden by pages)
 // https://vike.dev/config

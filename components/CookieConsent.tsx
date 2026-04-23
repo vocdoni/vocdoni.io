@@ -93,9 +93,9 @@ export function CookieConsent() {
               {t(
                 'cookies.description',
                 'We use cookies and analytics tools to improve your experience and understand how you interact with our website. You can choose to accept or reject cookies.'
-              )}
+              )}{' '}
               <Link href='/privacy' className='underline hover:text-foreground font-medium'>
-                {t('cookies.learn_more', 'Learn more')}
+                {t('cookies.privacy_policy_link', 'Read our privacy policy')}
               </Link>
             </AlertDescription>
           </div>

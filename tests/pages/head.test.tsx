@@ -56,10 +56,10 @@ describe('Head meta tags', () => {
     const html = renderHead({
       locale: 'en',
       urlLogical: '/',
-      config: { image: '/assets/static/vocdoni.png' },
+      config: { image: '/assets/static/vocdoni.webp' },
     })
 
-    expect(html).toContain('property="og:image" content="https://vocdoni.io/assets/static/vocdoni.png"')
+    expect(html).toContain('property="og:image" content="https://vocdoni.io/assets/static/vocdoni.webp"')
   })
 
   it('uses prefixed canonical URLs for the default locale and unprefixed x-default URLs', () => {
