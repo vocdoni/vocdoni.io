@@ -11,7 +11,12 @@ const metaDefaults = {
   'meta.contact.title': t('meta.contact.title', 'Contact - Vocdoni'),
   'meta.contact.description': t(
     'meta.contact.description',
-    'Get in touch with the Vocdoni team to discuss secure, transparent digital voting for your organization.'
+    'Talk to Vocdoni about secure online voting, verifiable elections, pricing, demos, and custom digital governance projects.'
+  ),
+  'meta.about_us.title': t('meta.about_us.title', 'About Vocdoni - open source online voting infrastructure'),
+  'meta.about_us.description': t(
+    'meta.about_us.description',
+    'Meet the team building open source, verifiable digital voting infrastructure for organizations that need trustworthy decisions.'
   ),
   'meta.privacy.title': t('meta.privacy.title', 'Privacy policy - Vocdoni'),
   'meta.privacy.description': t(

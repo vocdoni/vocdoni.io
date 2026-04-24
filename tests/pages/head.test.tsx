@@ -16,6 +16,7 @@ type PartialPageContext = {
     description?: string
     image?: string
   }
+  initialI18nStore?: Record<string, { common: Record<string, unknown> }>
 }
 
 const renderHead = (pageContext: PartialPageContext) => renderToStaticMarkup(<HeadTags {...(pageContext as any)} />)
@@ -115,6 +116,65 @@ describe('Head meta tags', () => {
     expect(html).toContain('"@type":"Organization"')
     expect(html).toContain('"@type":"WebSite"')
     expect(html).toContain('"url":"https://vocdoni.io"')
+    expect(html).toContain('"sameAs":["https://github.com/vocdoni"')
+  })
+
+  it('adds page-specific JSON-LD and breadcrumbs for about and contact pages', () => {
+    const aboutHtml = renderHead({
+      locale: 'en',
+      urlLogical: '/about-us',
+      config: {
+        title: 'About Vocdoni - open source online voting infrastructure',
+        description: 'Meet the team building verifiable voting infrastructure.',
+      },
+    })
+    const contactHtml = renderHead({
+      locale: 'ca',
+      urlLogical: '/contact',
+      config: {
+        title: 'Contacte - Vocdoni',
+        description: 'Parleu amb Vocdoni sobre votació online segura.',
+      },
+    })
+
+    expect(aboutHtml).toContain('"@type":"AboutPage"')
+    expect(aboutHtml).toContain('"@type":"BreadcrumbList"')
+    expect(aboutHtml).toContain('"item":"https://vocdoni.io/en/about-us"')
+    expect(contactHtml).toContain('"@type":"ContactPage"')
+    expect(contactHtml).toContain('"item":"https://vocdoni.io/ca/contact"')
+  })
+
+  it('adds SoftwareApplication and FAQPage schema for the app page', () => {
+    const html = renderHead({
+      locale: 'es',
+      urlLogical: '/app',
+      config: {
+        title: 'App de votación online segura para organizaciones - Vocdoni',
+        description: 'Empieza gratis y publica resultados verificables.',
+      },
+      initialI18nStore: {
+        es: {
+          common: {
+            app_landing: {
+              faq: {
+                items: [
+                  {
+                    question: '¿Puedo ejecutar una votación gratis?',
+                    answer: 'Sí. Puedes ejecutar una votación gratis para hasta 100 miembros.',
+                  },
+                ],
+              },
+            },
+          },
+        },
+      },
+    })
+
+    expect(html).toContain('"@type":"SoftwareApplication"')
+    expect(html).toContain('"name":"Vocdoni app"')
+    expect(html).toContain('"@type":"FAQPage"')
+    expect(html).toContain('"name":"¿Puedo ejecutar una votación gratis?"')
+    expect(html).toContain('"text":"Sí. Puedes ejecutar una votación gratis para hasta 100 miembros."')
   })
 
   it('adds noindex for 404 pages and omits canonical/hreflang tags', () => {

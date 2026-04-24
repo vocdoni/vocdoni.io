@@ -74,6 +74,99 @@ const resolveConfigValue = <T,>(value: T | ((pageContext: PageContext) => T) | u
   return value
 }
 
+const getNestedValue = (source: unknown, key: string) => {
+  return key.split('.').reduce<unknown>((value, segment) => {
+    if (value && typeof value === 'object' && segment in value) {
+      return (value as Record<string, unknown>)[segment]
+    }
+
+    return undefined
+  }, source)
+}
+
+const getLocalizedValue = (pageContext: PageContext, locale: string, key: string) => {
+  const store = (pageContext as any).initialI18nStore
+  return getNestedValue(store?.[locale]?.common, key)
+}
+
+const getPageSchemaType = (urlLogical: string) => {
+  if (urlLogical === '/about-us') return 'AboutPage'
+  if (urlLogical === '/contact') return 'ContactPage'
+  return 'WebPage'
+}
+
+const cleanTitle = (title?: string) => {
+  if (!title) return 'Vocdoni'
+  return title.replace(/\s+-\s+Vocdoni$/i, '').trim()
+}
+
+const getBreadcrumbName = (segment: string, title?: string) => {
+  if (title) return cleanTitle(title)
+  return segment
+    .split('-')
+    .filter(Boolean)
+    .map((word) => word[0]?.toUpperCase() + word.slice(1))
+    .join(' ')
+}
+
+const buildBreadcrumbSchema = (siteUrl: string, locale: string, urlLogical: string, title?: string) => {
+  if (urlLogical === '/') return null
+
+  const segments = urlLogical.split('/').filter(Boolean)
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Vocdoni',
+        item: `${siteUrl}/${locale}`,
+      },
+      ...segments.map((segment, index) => {
+        const path = segments.slice(0, index + 1).join('/')
+        return {
+          '@type': 'ListItem',
+          position: index + 2,
+          name: index === segments.length - 1 ? getBreadcrumbName(segment, title) : getBreadcrumbName(segment),
+          item: `${siteUrl}/${locale}/${path}`,
+        }
+      }),
+    ],
+  }
+}
+
+const buildFaqSchema = (pageContext: PageContext, locale: string) => {
+  const items = getLocalizedValue(pageContext, locale, 'app_landing.faq.items')
+  if (!Array.isArray(items)) return null
+
+  const mainEntity = items
+    .map((item) => {
+      if (!item || typeof item !== 'object') return null
+      const question = (item as Record<string, unknown>).question
+      const answer = (item as Record<string, unknown>).answer
+      if (typeof question !== 'string' || typeof answer !== 'string') return null
+
+      return {
+        '@type': 'Question',
+        name: question,
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: answer,
+        },
+      }
+    })
+    .filter(Boolean)
+
+  if (mainEntity.length === 0) return null
+
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity,
+  }
+}
+
 export function HeadTags(pageContext: PageContext) {
   const is404 = Boolean(pageContext.is404)
   const isCompatibilityRedirect = isCompatibilityRedirectPage(pageContext) && !is404
@@ -96,6 +189,13 @@ export function HeadTags(pageContext: PageContext) {
     name: 'Vocdoni',
     url: siteUrl,
     ...(ogImageUrl ? { logo: ogImageUrl } : {}),
+    sameAs: [
+      'https://github.com/vocdoni',
+      'https://x.com/vocdoni',
+      'https://www.linkedin.com/company/vocdoni',
+      'https://blog.vocdoni.io',
+      'https://developer.vocdoni.io',
+    ],
   }
 
   const websiteSchema = {
@@ -104,6 +204,54 @@ export function HeadTags(pageContext: PageContext) {
     name: 'Vocdoni',
     url: siteUrl,
   }
+
+  const pageSchema = {
+    '@context': 'https://schema.org',
+    '@type': getPageSchemaType(urlLogical),
+    name: cleanTitle(title ?? undefined),
+    url: canonicalUrl,
+    inLanguage: locale,
+    isPartOf: {
+      '@type': 'WebSite',
+      name: 'Vocdoni',
+      url: siteUrl,
+    },
+    ...(description ? { description } : {}),
+    ...(ogImageUrl ? { image: ogImageUrl } : {}),
+  }
+
+  const appSchema =
+    urlLogical === '/app'
+      ? {
+          '@context': 'https://schema.org',
+          '@type': 'SoftwareApplication',
+          name: 'Vocdoni app',
+          applicationCategory: 'BusinessApplication',
+          operatingSystem: 'Web',
+          url: canonicalUrl,
+          inLanguage: locale,
+          publisher: {
+            '@type': 'Organization',
+            name: 'Vocdoni',
+            url: siteUrl,
+          },
+          offers: {
+            '@type': 'Offer',
+            price: '0',
+            priceCurrency: 'EUR',
+          },
+          ...(description ? { description } : {}),
+        }
+      : null
+
+  const schema = [
+    organizationSchema,
+    websiteSchema,
+    pageSchema,
+    buildBreadcrumbSchema(siteUrl, locale, urlLogical, title ?? undefined),
+    appSchema,
+    urlLogical === '/app' ? buildFaqSchema(pageContext, locale) : null,
+  ].filter(Boolean)
 
   if (isCompatibilityRedirect) {
     return (
@@ -131,7 +279,7 @@ export function HeadTags(pageContext: PageContext) {
 
   return (
     <>
-      <script type='application/ld+json'>{JSON.stringify([organizationSchema, websiteSchema])}</script>
+      <script type='application/ld+json'>{JSON.stringify(schema)}</script>
       <link rel='preconnect' href='https://fonts.googleapis.com' />
       <link rel='preconnect' href='https://fonts.gstatic.com' crossOrigin='anonymous' />
       <link
