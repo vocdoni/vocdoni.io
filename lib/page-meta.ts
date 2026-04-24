@@ -23,12 +23,12 @@ const metaDefaults = {
     'meta.terms.description',
     "Read the terms and conditions that govern the use of Vocdoni's services and platform."
   ),
-  'meta.use_cases.title': t('meta.use_cases.title', 'Use cases - Vocdoni'),
+  'meta.use_cases.title': t('meta.use_cases.title', 'Online voting use cases for organizations - Vocdoni'),
   'meta.use_cases.description': t(
     'meta.use_cases.description',
     "Discover real-world voting and governance use cases powered by Vocdoni's secure and transparent technology."
   ),
-  'meta.app.title': t('meta.app.title', 'Vocdoni app - run a vote your members can trust'),
+  'meta.app.title': t('meta.app.title', 'Secure online voting app for organizations - Vocdoni'),
   'meta.app.description': t(
     'meta.app.description',
     'Start free, upload your voter list, and publish results your members can verify. Built for organizations that need trust, speed, and proof.'

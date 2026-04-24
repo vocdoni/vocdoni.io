@@ -1,13 +1,16 @@
 import { renderToStaticMarkup } from 'react-dom/server'
 import { beforeEach, describe, expect, it } from 'vitest'
 
-import HeadDefault from '@/pages/+Head'
+import { HeadTags } from '@/lib/seo-head'
 
 type PartialPageContext = {
   locale?: string
   initialLocale?: string
   urlLogical?: string
+  urlPathname?: string
+  urlOriginal?: string
   is404?: boolean
+  isCompatibilityRedirect?: boolean
   config?: {
     title?: string
     description?: string
@@ -15,7 +18,7 @@ type PartialPageContext = {
   }
 }
 
-const renderHead = (pageContext: PartialPageContext) => renderToStaticMarkup(HeadDefault(pageContext as any))
+const renderHead = (pageContext: PartialPageContext) => renderToStaticMarkup(<HeadTags {...(pageContext as any)} />)
 
 describe('Head meta tags', () => {
   beforeEach(() => {
@@ -33,7 +36,7 @@ describe('Head meta tags', () => {
     expect(html).toContain('rel="canonical" href="https://vocdoni.io/es/privacy"')
     expect(html).toContain('rel="alternate" hrefLang="en" href="https://vocdoni.io/en/privacy"')
     expect(html).toContain('rel="alternate" hrefLang="es" href="https://vocdoni.io/es/privacy"')
-    expect(html).toContain('rel="alternate" hrefLang="x-default" href="https://vocdoni.io/privacy"')
+    expect(html).toContain('rel="alternate" hrefLang="x-default" href="https://vocdoni.io/en/privacy"')
     expect(html).toContain('meta name="language" content="es"')
     expect(html).toContain('property="og:locale" content="es"')
     expect(html).toContain('property="og:url" content="https://vocdoni.io/es/privacy"')
@@ -47,7 +50,7 @@ describe('Head meta tags', () => {
     })
 
     expect(html).toContain('rel="canonical" href="https://vocdoni.io/es"')
-    expect(html).toContain('rel="alternate" hrefLang="x-default" href="https://vocdoni.io/"')
+    expect(html).toContain('rel="alternate" hrefLang="x-default" href="https://vocdoni.io/en"')
     expect(html).toContain('meta name="language" content="es"')
     expect(html).toContain('property="og:locale" content="es"')
   })
@@ -62,7 +65,7 @@ describe('Head meta tags', () => {
     expect(html).toContain('property="og:image" content="https://vocdoni.io/assets/static/vocdoni.webp"')
   })
 
-  it('uses prefixed canonical URLs for the default locale and unprefixed x-default URLs', () => {
+  it('uses prefixed canonical and x-default URLs for the default locale', () => {
     const html = renderHead({
       locale: 'en',
       urlLogical: '/privacy',
@@ -71,8 +74,34 @@ describe('Head meta tags', () => {
 
     expect(html).toContain('rel="canonical" href="https://vocdoni.io/en/privacy"')
     expect(html).toContain('rel="alternate" hrefLang="en" href="https://vocdoni.io/en/privacy"')
-    expect(html).toContain('rel="alternate" hrefLang="x-default" href="https://vocdoni.io/privacy"')
+    expect(html).toContain('rel="alternate" hrefLang="x-default" href="https://vocdoni.io/en/privacy"')
     expect(html).toContain('property="og:url" content="https://vocdoni.io/en/privacy"')
+  })
+
+  it('derives locale and logical path from the rendered URL when custom context is missing', () => {
+    const html = renderHead({
+      urlPathname: '/ca/use-cases',
+      config: { title: "Casos d'ús - Vocdoni" },
+    })
+
+    expect(html).toContain('rel="canonical" href="https://vocdoni.io/ca/use-cases"')
+    expect(html).toContain('rel="alternate" hrefLang="en" href="https://vocdoni.io/en/use-cases"')
+    expect(html).toContain('rel="alternate" hrefLang="ca" href="https://vocdoni.io/ca/use-cases"')
+    expect(html).toContain('rel="alternate" hrefLang="x-default" href="https://vocdoni.io/en/use-cases"')
+    expect(html).toContain('meta name="language" content="ca"')
+    expect(html).toContain('property="og:locale" content="ca"')
+    expect(html).toContain('property="og:url" content="https://vocdoni.io/ca/use-cases"')
+  })
+
+  it('adds noindex and a refresh target for unprefixed compatibility URLs', () => {
+    const html = renderHead({
+      urlPathname: '/app',
+      config: { title: 'Vocdoni app' },
+    })
+
+    expect(html).toContain('meta name="robots" content="noindex,follow"')
+    expect(html).toContain('http-equiv="refresh" content="0;url=/en/app"')
+    expect(html).not.toContain('rel="canonical"')
   })
 
   it('injects Organization and WebSite JSON-LD schema', () => {

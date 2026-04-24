@@ -35,13 +35,11 @@ async function discoverBaseRoutes(pagesDir: string) {
   return routes
 }
 
-function withLocales(baseRoutes: Set<string>, locales: string[], defaultLocale: string) {
+function withLocales(baseRoutes: Set<string>, locales: string[]) {
   const routes = new Set<string>()
 
   for (const route of baseRoutes) {
-    routes.add(route)
     for (const locale of locales) {
-      if (locale === defaultLocale) continue
       const localized = route === '/' ? `/${locale}` : `/${locale}${route}`
       routes.add(localized)
     }
@@ -52,15 +50,39 @@ function withLocales(baseRoutes: Set<string>, locales: string[], defaultLocale: 
     .sort()
 }
 
-function buildSitemapXml(hostname: string, routes: string[]) {
+function stripLocalePrefix(route: string, locales: string[]) {
+  const [firstSegment, ...rest] = route.replace(/^\/+/, '').split('/')
+  if (!locales.includes(firstSegment)) return route
+  return rest.length ? `/${rest.join('/')}` : '/'
+}
+
+function withLocalePrefix(locale: string, route: string) {
+  return route === '/' ? `/${locale}` : `/${locale}${route}`
+}
+
+export function buildSitemapXml(hostname: string, routes: string[], locales: string[], defaultLocale: string) {
   const host = hostname.replace(/\/+$/, '')
   const lastmod = new Date().toISOString()
   const lines = [
     '<?xml version="1.0" encoding="UTF-8"?>',
-    '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
-    ...routes.map((route) =>
-      ['  <url>', `    <loc>${host}${route}</loc>`, `    <lastmod>${lastmod}</lastmod>`, '  </url>'].join('\n')
-    ),
+    '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">',
+    ...routes.map((route) => {
+      const baseRoute = stripLocalePrefix(route, locales)
+      const alternates = [
+        ...locales.map(
+          (locale) =>
+            `    <xhtml:link rel="alternate" hreflang="${locale}" href="${host}${withLocalePrefix(locale, baseRoute)}" />`
+        ),
+        `    <xhtml:link rel="alternate" hreflang="x-default" href="${host}${withLocalePrefix(defaultLocale, baseRoute)}" />`,
+      ]
+      return [
+        '  <url>',
+        `    <loc>${host}${route}</loc>`,
+        ...alternates,
+        `    <lastmod>${lastmod}</lastmod>`,
+        '  </url>',
+      ].join('\n')
+    }),
     '</urlset>',
     '',
   ]
@@ -72,10 +94,10 @@ function buildRobotsTxt(hostname: string) {
   return `User-agent: *\nAllow: /\n\nSitemap: ${host}/sitemap.xml\n`
 }
 
-async function resolveRoutes(resolvedRoot: string, locales: string[], defaultLocale: string) {
+async function resolveRoutes(resolvedRoot: string, locales: string[]) {
   const pagesDir = path.join(resolvedRoot, 'pages')
   const baseRoutes = await discoverBaseRoutes(pagesDir)
-  return withLocales(baseRoutes, locales, defaultLocale)
+  return withLocales(baseRoutes, locales)
 }
 
 export function vikeSitemapPlugin(options: Options): Plugin {
@@ -99,10 +121,10 @@ export function vikeSitemapPlugin(options: Options): Plugin {
         const url = req.url.split('?')[0]
         if (url !== '/sitemap.xml' && url !== '/robots.txt') return next()
 
-        const routes = await resolveRoutes(resolvedRoot, options.locales, options.defaultLocale)
+        const routes = await resolveRoutes(resolvedRoot, options.locales)
         if (url === '/sitemap.xml') {
           res.setHeader('Content-Type', 'application/xml')
-          res.end(buildSitemapXml(options.hostname, routes))
+          res.end(buildSitemapXml(options.hostname, routes, options.locales, options.defaultLocale))
           return
         }
         res.setHeader('Content-Type', 'text/plain')
@@ -114,11 +136,11 @@ export function vikeSitemapPlugin(options: Options): Plugin {
       if (ran) return
       ran = true
 
-      const routes = await resolveRoutes(resolvedRoot, options.locales, options.defaultLocale)
+      const routes = await resolveRoutes(resolvedRoot, options.locales)
 
       await fs.mkdir(clientOutDir, { recursive: true })
 
-      const sitemap = buildSitemapXml(options.hostname, routes)
+      const sitemap = buildSitemapXml(options.hostname, routes, options.locales, options.defaultLocale)
       const robots = options.includeRobots === false ? null : buildRobotsTxt(options.hostname)
 
       await Promise.all([
