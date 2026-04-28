@@ -20,7 +20,7 @@
     },
     "hero": {
       "subtitle": "Operem amb integritat, innovació i un compromís implacable amb la legitimitat democràtica.",
-      "title": "Missió, Visió i Valors"
+      "title": "Missió, visió i valors"
     },
     "image_alt": "Tecnologia de votació digital i democràcia segura",
     "stat_cards": {
@@ -54,7 +54,7 @@
       },
       "values": {
         "content": "Ens guiem per tres principis bàsics: Confiança Provable (matemàtiques davant de promeses), Simplicitat Radical (tecnologia sofisticada, interfície humana) i Obert per Defecte (codi obert i preus públics).",
-        "title": "El nostre Valor"
+        "title": "Els nostres valors"
       },
       "vision": {
         "content": "Un futur on els processos democràtics siguin transparents, inclusius i protegits contra manipulacions per defecte. Cerquem tancar la bretxa entre la complexitat tècnica i la legitimitat democràtica per garantir que cada veu sigui escoltada i cada vot compti.",
@@ -67,7 +67,30 @@
       "label": "L'equip principal",
       "title": "L'equip darrere de la tecnologia"
     },
-    "title": "La confiança no és una promesa. És una propietat estructural."
+    "title": "La confiança no és una promesa. És una propietat estructural.",
+    "trust_section": {
+      "cards": {
+        "experience": {
+          "description": "Des del 2018, l'equip ha acompanyat projectes de governança digital per a ajuntaments, associacions, cooperatives, partits i comunitats amb membres.",
+          "title": "Experiència operativa"
+        },
+        "open_source": {
+          "description": "Vocdoni es basa en codi públic i treball de protocol obert, perquè les organitzacions i revisors independents puguin inspeccionar com es creen, s'emeten, es compten i es verifiquen les eleccions.",
+          "title": "Codi obert per defecte"
+        },
+        "privacy": {
+          "description": "La plataforma està dissenyada per a organitzacions sensibles a la privacitat que necessiten processos alineats amb el GDPR, rastres d'auditoria clars i documentació electoral comprensible.",
+          "title": "Privacitat i preparació legal"
+        },
+        "verifiability": {
+          "description": "Cada elecció pot produir evidència pública auditable, verificació per a votants i resultats que no depenen de promeses privades del proveïdor.",
+          "title": "Registres electorals verificables"
+        }
+      },
+      "description": "Vocdoni combina infraestructura de codi obert, verificació criptogràfica, processos conscients de la privacitat i experiència electoral pràctica perquè les organitzacions puguin celebrar votacions més fàcils de confiar i explicar.",
+      "eyebrow": "Com es construeix la confiança",
+      "title": "Infraestructura de votació transparent per a decisions importants"
+    }
   },
   "app_landing": {
     "cta": {
@@ -567,12 +590,16 @@
     "opens_in_new_tab": "(s'obre en una nova pestanya)"
   },
   "meta": {
+    "about_us": {
+      "description": "Coneixeu l'equip que construeix infraestructura de votació digital verificable i de codi obert per a organitzacions que necessiten decisions fiables.",
+      "title": "Sobre Vocdoni - infraestructura de votació online de codi obert"
+    },
     "app": {
       "description": "Comenceu gratis, pugeu el cens i publiqueu resultats que els vostres membres puguin verificar. Dissenyada per a organitzacions que necessiten confiança, rapidesa i proves.",
-      "title": "Vocdoni app - organitzeu una votació en què els vostres membres puguin confiar"
+      "title": "App de votació online segura per a organitzacions - Vocdoni"
     },
     "contact": {
-      "description": "Poseu-vos en contacte amb l'equip de Vocdoni per parlar sobre votació digital segura i transparent per a la vostra organització.",
+      "description": "Parleu amb Vocdoni sobre votació online segura, eleccions verificables, preus, demostracions i projectes personalitzats de governança digital.",
       "title": "Contacte - Vocdoni"
     },
     "index": {
@@ -589,7 +616,7 @@
     },
     "use_cases": {
       "description": "Descobriu casos d'ús reals de votació i governança impulsats per la tecnologia segura i transparent de Vocdoni.",
-      "title": "Casos d'ús - Vocdoni"
+      "title": "Casos d'ús de votació online per a organitzacions - Vocdoni"
     }
   },
   "navbar": {

@@ -252,6 +252,14 @@
       transform: translateX(100%);
     }
   }
+  @keyframes testimonial-marquee-vertical {
+    from {
+      transform: translateY(0);
+    }
+    to {
+      transform: translateY(-50%);
+    }
+  }
   .animate-marquee {
     animation: marquee 30s linear infinite;
   }

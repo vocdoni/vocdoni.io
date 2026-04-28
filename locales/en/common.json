@@ -20,7 +20,7 @@
     },
     "hero": {
       "subtitle": "We operate with integrity, innovation, and a relentless commitment to democratic legitimacy.",
-      "title": "Mission, Vision & Principles"
+      "title": "Mission, vision & principles"
     },
     "image_alt": "Digital voting technology and secure democracy",
     "stat_cards": {
@@ -67,7 +67,30 @@
       "label": "The core team",
       "title": "The people behind the tech"
     },
-    "title": "We make secure digital voting accessible to any organization"
+    "title": "We make secure digital voting accessible to any organization",
+    "trust_section": {
+      "cards": {
+        "experience": {
+          "description": "Since 2018, the team has supported digital governance projects for councils, associations, cooperatives, parties, and member-led communities.",
+          "title": "Operational experience"
+        },
+        "open_source": {
+          "description": "Vocdoni is built on public code and open protocol work, so organizations and independent reviewers can inspect how elections are created, cast, counted, and verified.",
+          "title": "Open source by default"
+        },
+        "privacy": {
+          "description": "The platform is designed for privacy-aware organizations that need GDPR-aligned processes, clear audit trails, and election documentation their stakeholders can understand.",
+          "title": "Privacy and legal readiness"
+        },
+        "verifiability": {
+          "description": "Each election can produce auditable public evidence, voter-side verification, and results that do not depend on private vendor assurances.",
+          "title": "Verifiable election records"
+        }
+      },
+      "description": "Vocdoni combines open source infrastructure, cryptographic verification, privacy-conscious processes, and hands-on election experience so organizations can run votes that are easier to trust and easier to explain.",
+      "eyebrow": "How trust is built",
+      "title": "Transparent voting infrastructure for serious decisions"
+    }
   },
   "app_landing": {
     "cta": {
@@ -567,12 +590,16 @@
     "opens_in_new_tab": "(opens in new tab)"
   },
   "meta": {
+    "about_us": {
+      "description": "Meet the team building open source, verifiable digital voting infrastructure for organizations that need trustworthy decisions.",
+      "title": "About Vocdoni - open source online voting infrastructure"
+    },
     "app": {
       "description": "Start free, upload your voter list, and publish results your members can verify. Built for organizations that need trust, speed, and proof.",
-      "title": "Vocdoni app - run a vote your members can trust"
+      "title": "Secure online voting app for organizations - Vocdoni"
     },
     "contact": {
-      "description": "Get in touch with the Vocdoni team to discuss secure, transparent digital voting for your organization.",
+      "description": "Talk to Vocdoni about secure online voting, verifiable elections, pricing, demos, and custom digital governance projects.",
       "title": "Contact - Vocdoni"
     },
     "index": {
@@ -589,7 +616,7 @@
     },
     "use_cases": {
       "description": "Discover real-world voting and governance use cases powered by Vocdoni's secure and transparent technology.",
-      "title": "Use cases - Vocdoni"
+      "title": "Online voting use cases for organizations - Vocdoni"
     }
   },
   "navbar": {

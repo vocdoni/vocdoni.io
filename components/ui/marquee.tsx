@@ -54,6 +54,7 @@ function Marquee(props: MarqueeProps) {
         .map((_, i) => (
           <div
             key={i}
+            aria-hidden={i > 0 ? 'true' : undefined}
             className={cn('flex shrink-0 justify-around gap-(--marquee-gap) [animation-delay:var(--marquee-delay)]', {
               'animate-marquee-horizontal flex-row': !vertical,
               'animate-marquee-vertical flex-col': vertical,
