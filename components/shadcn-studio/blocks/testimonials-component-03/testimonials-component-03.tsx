@@ -98,7 +98,7 @@ const TestimonialMarqueeColumn = ({ testimonials, className, duration, reverse }
         } as CSSProperties
       }
       className={cn(
-        'group relative h-[42rem] overflow-hidden p-3 [mask-image:linear-gradient(to_bottom,transparent,black_12%,black_88%,transparent)]',
+        'group relative h-[58rem] overflow-hidden p-3 [mask-image:linear-gradient(to_bottom,transparent,black_12%,black_88%,transparent)]',
         className
       )}
     >
@@ -155,7 +155,7 @@ const TestimonialsComponent = ({ eyebrow, title, description, testimonials }: Te
               <TestimonialMarqueeColumn
                 key={index}
                 testimonials={column}
-                duration={index === 1 ? 78 : 88}
+                duration={150}
                 reverse={index % 2 === 1}
                 className={cn(index === 1 && 'max-sm:hidden', index === 2 && 'max-lg:hidden')}
               />

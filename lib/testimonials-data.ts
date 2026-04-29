@@ -7,6 +7,7 @@ import logoBisbalRound from '@/assets/logos/logo_bisbal_round.webp'
 import logoBloockColour from '@/assets/logos/logo_bloock_colour.webp'
 import logoCecColour from '@/assets/logos/logo_cec_colour.webp'
 import logoEicColour from '@/assets/logos/logo_eic_colour.webp'
+import logoIcoesColour from '@/assets/logos/logo_icoes_colour.webp'
 import logoOmniumColour from '@/assets/logos/logo_omnium_colour.webp'
 import logoPlataformaColour from '@/assets/logos/logo_plataforma_colour.webp'
 
@@ -15,6 +16,7 @@ import logoBellpuigRound from '@/assets/logos/logo_bellpuig_round.webp'
 import logoBloockRound from '@/assets/logos/logo_bloock_round.webp'
 import logoCecRound from '@/assets/logos/logo_cec_round.webp'
 import logoEicRound from '@/assets/logos/logo_eic_round.webp'
+import logoIcoesRound from '@/assets/logos/logo_icoes_round.webp'
 import logoOmniumRound from '@/assets/logos/logo_omnium_round.webp'
 import logoPlataformaRound from '@/assets/logos/logo_plataforma_round.webp'
 
@@ -162,88 +164,18 @@ export function getTestimonialsData(t: TFunction): Testimonial[] {
       logo: logoBloockRound,
     },
     {
-      name: 'Ton Barnils',
-      handle: t('testimonials_marquee.items.1.handle', 'General Director · CEC'),
-      avatar: '/images/avatars/avatar-2.png',
+      name: 'Víctor Bohórquez',
+      handle: t('testimonials_marquee.items.9.handle', 'President · Official College of Nursing of Seville'),
+      avatar: '/images/avatars/avatar-6.png',
       rating: 5,
-      title: t('testimonials_marquee.items.1.title', 'Safe and transparent participation'),
+      title: t('testimonials_marquee.items.9.title', 'More efficient and accessible voting'),
       content: t(
-        'testimonials_marquee.items.1.content',
-        'We chose Vocdoni because it guarantees safe, reliable, and transparent participation for all our members at the annual general assembly.'
+        'testimonials_marquee.items.9.content',
+        'Digitizing our voting with Vocdoni has made the entire electoral process more efficient. We have made participation much easier, especially for members who could not travel, while maintaining an agile and reliable system.'
       ),
-      platformName: 'CEC',
-      platformImage: logoCecColour,
-      logo: logoCecRound,
-    },
-    {
-      name: 'Anna Giralt',
-      handle: t('testimonials_marquee.items.2.handle', 'Executive Manager · Òmnium Cultural'),
-      avatar: '/images/avatars/avatar-3.png',
-      rating: 5,
-      title: t('testimonials_marquee.items.2.title', 'All guarantees for 180,000 members'),
-      content: t(
-        'testimonials_marquee.items.2.content',
-        'The commitment to Vocdoni has been clear. At Òmnium Cultural we bet on a secure and verifiable voting system that would allow us to hold our statutory assemblies with all guarantees.'
-      ),
-      platformName: 'Òmnium',
-      platformImage: logoOmniumColour,
-      logo: logoOmniumRound,
-    },
-    {
-      name: 'Oscar Tirivò',
-      handle: t('testimonials_marquee.items.3.handle', 'IT Director · Enginyers Industrials'),
-      avatar: '/images/avatars/avatar-4.png',
-      rating: 5,
-      title: t('testimonials_marquee.items.3.title', 'Easy, secure, and scalable voting'),
-      content: t(
-        'testimonials_marquee.items.3.content',
-        'Vocdoni provides us with an easy, secure, anonymous, and scalable voting system, completely integrated into our institutional environment. We will continue to trust it, without a doubt!'
-      ),
-      platformName: 'EIC',
-      platformImage: logoEicColour,
-      logo: logoEicRound,
-    },
-    {
-      name: 'Rut Carandell',
-      handle: t('testimonials_marquee.items.4.handle', 'Director · Plataforma per la Llengua'),
-      avatar: '/images/avatars/avatar-13.png',
-      rating: 5,
-      title: t('testimonials_marquee.items.4.title', 'Voting across Catalan-speaking territories'),
-      content: t(
-        'testimonials_marquee.items.4.content',
-        'Vocdoni lets us hold votes with members across all Catalan-speaking territories on equal terms. Instant counting simplifies our assemblies and ensures full transparency. We especially value that it is fully available in Catalan.'
-      ),
-      platformName: 'Plataforma per la Llengua',
-      platformImage: logoPlataformaColour,
-      logo: logoPlataformaRound,
-    },
-    {
-      name: 'Montserrat Clavell',
-      handle: t('testimonials_marquee.items.5.handle', "Secretary · Associació d'Arxivers de Catalunya"),
-      avatar: '/images/avatars/avatar-14.png',
-      rating: 5,
-      title: t('testimonials_marquee.items.5.title', 'Secure voting that boosted participation'),
-      content: t(
-        'testimonials_marquee.items.5.content',
-        'Offering members a secure and reliable voting system is essential, especially during a pandemic. Vocdoni gave us an easy-to-use tool that simplified the voting process and boosted participation.'
-      ),
-      platformName: 'Arxivers de Catalunya',
-      platformImage: logoArxiversColour,
-      logo: logoArxiversRound,
-    },
-    {
-      name: 'Susanna Mendoza',
-      handle: t('testimonials_marquee.items.6.handle', 'IT Responsible · Associació de Guies Habilitats de Catalunya'),
-      avatar: '/images/avatars/avatar-15.png',
-      rating: 5,
-      title: t('testimonials_marquee.items.6.title', 'Easy to set up, great participation despite a non-tech audience'),
-      content: t(
-        'testimonials_marquee.items.6.content',
-        'Setting up the entire voting process and centralizing all the tools for the assembly was easy, intuitive, and clear. Members complimented how well organized it was and how simple it was to use. Even in a sector that is not very tech-savvy, we got strong participation — people especially valued being able to vote in advance without attending in person. When we had a small issue with the census, technical support was fast and professional.'
-      ),
-      platformName: 'AGUICAT',
-      platformImage: logoAguicatRound,
-      logo: logoAguicatRound,
+      platformName: 'ICOES',
+      platformImage: logoIcoesColour,
+      logo: logoIcoesRound,
     },
   ]
 }
