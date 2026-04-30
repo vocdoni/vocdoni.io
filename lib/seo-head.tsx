@@ -340,6 +340,15 @@ export function HeadTags(pageContext: PageContext) {
       <script type='application/ld+json'>{JSON.stringify(schema)}</script>
       <link rel='preconnect' href='https://fonts.googleapis.com' />
       <link rel='preconnect' href='https://fonts.gstatic.com' crossOrigin='anonymous' />
+      <link rel='dns-prefetch' href='https://www.googletagmanager.com' />
+      <link rel='dns-prefetch' href='https://plausible.io' />
+      {urlLogical.startsWith('/app') && (
+        <>
+          <link rel='preconnect' href='https://www.youtube-nocookie.com' />
+          <link rel='preconnect' href='https://www.youtube.com' />
+          <link rel='preconnect' href='https://i.ytimg.com' />
+        </>
+      )}
       <link
         href='https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300..800;1,300..800&family=JetBrains+Mono:wght@400..800&family=Lora:ital,wght@0,400..700;1,400..700&display=swap'
         rel='stylesheet'
@@ -371,7 +380,7 @@ export function HeadTags(pageContext: PageContext) {
       {description && <meta name='twitter:description' content={description} />}
       {ogImageUrl && <meta name='twitter:image' content={ogImageUrl} />}
       {PLAUSIBLE_DOMAIN && (
-        <script defer data-domain={PLAUSIBLE_DOMAIN} src='https://plausible.io/js/script.js'></script>
+        <script async data-domain={PLAUSIBLE_DOMAIN} src='https://plausible.io/js/script.js'></script>
       )}
     </>
   )
