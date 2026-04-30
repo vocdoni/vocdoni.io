@@ -37,6 +37,8 @@ const SuccessStories = () => {
         description: string
       }[],
       highlights: t('use_cases_page.success_stories.items.bellpuig.highlights', { returnObjects: true }) as string[],
+      imageWidth: 1000,
+      imageHeight: 1157,
     },
     {
       key: 'new_belarus',
@@ -56,6 +58,8 @@ const SuccessStories = () => {
         description: string
       }[],
       highlights: t('use_cases_page.success_stories.items.new_belarus.highlights', { returnObjects: true }) as string[],
+      imageWidth: 1200,
+      imageHeight: 1388,
     },
     {
       key: 'erc',
@@ -76,6 +80,8 @@ const SuccessStories = () => {
         description: string
       }[],
       highlights: t('use_cases_page.success_stories.items.erc.highlights', { returnObjects: true }) as string[],
+      imageWidth: 1200,
+      imageHeight: 1388,
     },
     {
       key: 'coib',
@@ -96,6 +102,8 @@ const SuccessStories = () => {
         description: string
       }[],
       highlights: t('use_cases_page.success_stories.items.coib.highlights', { returnObjects: true }) as string[],
+      imageWidth: 1200,
+      imageHeight: 1388,
     },
   ]
 
@@ -150,7 +158,15 @@ const SuccessStories = () => {
                     {/* Image column */}
                     <div className='relative overflow-hidden lg:order-2'>
                       <div className='absolute inset-0 bg-gradient-to-br from-black/40 to-black/10' />
-                      <img src={story.image} alt={story.org} className='h-full w-full object-cover lg:min-h-[500px]' />
+                      <img
+                        src={story.image}
+                        alt={story.org}
+                        className='h-full w-full object-cover lg:min-h-[500px]'
+                        width={story.imageWidth}
+                        height={story.imageHeight}
+                        loading='lazy'
+                        decoding='async'
+                      />
                       {/* Org label on image */}
                       <div className='absolute bottom-6 left-6 right-6'>
                         <div className='flex items-center gap-3 text-white'>
@@ -158,6 +174,10 @@ const SuccessStories = () => {
                             src={story.logo}
                             alt={story.org}
                             className='size-[60px] rounded-full bg-white object-contain p-1'
+                            width={60}
+                            height={60}
+                            loading='lazy'
+                            decoding='async'
                           />
                           <div>
                             <p className='text-lg font-bold leading-tight'>{story.org}</p>

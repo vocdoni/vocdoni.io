@@ -22,6 +22,8 @@ const AccordionWithImage = () => {
       ),
       image: memberbaseImg,
       imageAlt: 'Upload member base',
+      imageWidth: 1400,
+      imageHeight: 924,
     },
     {
       id: 'create',
@@ -33,6 +35,8 @@ const AccordionWithImage = () => {
       ),
       image: createVoteImg,
       imageAlt: 'Create voting process',
+      imageWidth: 1400,
+      imageHeight: 893,
     },
     {
       id: 'share',
@@ -44,6 +48,8 @@ const AccordionWithImage = () => {
       ),
       image: publicVoteImg,
       imageAlt: 'Share and vote',
+      imageWidth: 1400,
+      imageHeight: 862,
     },
   ]
   const [activeAccordion, setActiveAccordion] = useState('upload')
@@ -102,6 +108,9 @@ const AccordionWithImage = () => {
               alt={activeFeature.imageAlt}
               className='w-full rounded-t-xl object-cover'
               loading='lazy'
+              decoding='async'
+              width={activeFeature.imageWidth}
+              height={activeFeature.imageHeight}
             />
           </MotionPreset>
         </div>

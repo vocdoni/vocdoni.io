@@ -128,6 +128,10 @@ const AboutUs = ({ aboutUsData }: { aboutUsData: AboutUsData }) => {
                 src={teamGathering}
                 alt='The Vocdoni team'
                 className='w-full h-full object-cover object-center transition-transform duration-1000 hover:scale-105'
+                width={1400}
+                height={1205}
+                loading='lazy'
+                decoding='async'
               />
               {/* Subtle gradient to fade into the page */}
               <div className='absolute inset-0 bg-gradient-to-t from-background/30 via-transparent to-transparent pointer-events-none' />

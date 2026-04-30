@@ -139,6 +139,10 @@ const AboutUs = ({
                 src={aboutVocdoniImage}
                 alt={t('about_us.image_alt')}
                 className='h-full w-full object-cover transition-transform duration-1000 ease-out group-hover:scale-110'
+                width={684}
+                height={696}
+                loading='lazy'
+                decoding='async'
               />
               <div className='absolute inset-0 bg-gradient-to-t from-background/40 to-transparent' />
             </div>

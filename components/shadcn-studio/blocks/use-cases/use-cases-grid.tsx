@@ -210,6 +210,10 @@ const UseCasesGrid = () => {
                               src={logo.src}
                               alt={logo.alt}
                               className='h-6 w-auto max-w-[80px] object-contain opacity-70 grayscale transition-all duration-200 group-hover:opacity-100 group-hover:grayscale-0'
+                              width={80}
+                              height={24}
+                              loading='lazy'
+                              decoding='async'
                             />
                           ))}
                         </div>

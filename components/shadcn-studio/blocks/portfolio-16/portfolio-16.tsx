@@ -20,6 +20,8 @@ export type PortfolioItem = {
   btnColor?: string
   imageClassName?: string
   imageWrapperClassName?: string
+  imageWidth?: number
+  imageHeight?: number
 }
 
 type PortfolioProps = {
@@ -75,6 +77,11 @@ const Portfolio = ({ portfolioItems }: PortfolioProps) => {
                         src={project.imageUrl}
                         alt={project.imageAlt}
                         className={`w-full object-cover transition-transform duration-300 group-hover:scale-105 ${project.imageClassName || ''}`}
+                        {...(project.imageWidth != null && project.imageHeight != null
+                          ? { width: project.imageWidth, height: project.imageHeight }
+                          : {})}
+                        loading='lazy'
+                        decoding='async'
                       />
                     </div>
                     <Button
@@ -106,6 +113,11 @@ const Portfolio = ({ portfolioItems }: PortfolioProps) => {
                         src={project.imageUrl}
                         alt={project.imageAlt}
                         className={`w-full object-cover transition-transform duration-300 group-hover:scale-105 ${project.imageClassName || ''}`}
+                        {...(project.imageWidth != null && project.imageHeight != null
+                          ? { width: project.imageWidth, height: project.imageHeight }
+                          : {})}
+                        loading='lazy'
+                        decoding='async'
                       />
                     </div>
                     <Button
