@@ -1,5 +1,4 @@
 import { ArrowRight, PlayCircleIcon, ScaleIcon, ShieldCheckIcon } from 'lucide-react'
-import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import CleanYoutubePlayer from '@/components/app/CleanYoutubePlayer'
@@ -13,7 +12,6 @@ const THUMBNAIL_URL = `https://img.youtube.com/vi/${VIDEO_ID}/maxresdefault.jpg`
 
 export default function AppHeroWithVideo() {
   const { t } = useTranslation()
-  const [playing, setPlaying] = useState(false)
 
   return (
     <section className='relative w-full pt-6 pb-16 sm:pt-10 sm:pb-20 lg:pt-12 lg:pb-24'>
@@ -73,15 +71,11 @@ export default function AppHeroWithVideo() {
                   <ArrowRight className='h-5 w-5 transition-transform duration-200 group-hover:translate-x-0.5' />
                 </Link>
               </Button>
-              <Button
-                variant='outline'
-                size='lg'
-                className='w-full sm:w-auto'
-                onClick={() => setPlaying(true)}
-                aria-label={t('vocdoni_app.app_hero.cta_secondary_aria_label', 'Watch the demo video')}
-              >
-                <PlayCircleIcon />
-                {t('vocdoni_app.app_hero.cta_secondary', 'Watch the demo')}
+              <Button variant='outline' size='lg' className='w-full sm:w-auto' asChild>
+                <a href='#app-demo-video'>
+                  <PlayCircleIcon />
+                  {t('vocdoni_app.app_hero.cta_secondary', 'Watch the Demo')}
+                </a>
               </Button>
             </MotionPreset>
 
@@ -119,37 +113,15 @@ export default function AppHeroWithVideo() {
             transition={{ duration: 0.6 }}
             className='relative w-full mt-6 lg:mt-0'
           >
-            <div className='aspect-video w-full sm:w-11/12 lg:w-full mx-auto rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500 border border-border/50 relative group bg-muted'>
-              {playing ? (
-                <div className='absolute inset-0 w-full h-full plyr-clean'>
-                  <CleanYoutubePlayer
-                    videoId={VIDEO_ID}
-                    title={t('vocdoni_app.app_hero.cta_secondary', 'Watch the demo')}
-                    coverUrl={THUMBNAIL_URL}
-                    coverAlt={t('vocdoni_app.app_hero.cta_secondary', 'Watch the demo')}
-                  />
-                </div>
-              ) : (
-                <button
-                  onClick={() => setPlaying(true)}
-                  className='absolute inset-0 w-full h-full focus:outline-none focus-visible:ring-2 focus-visible:ring-primary'
-                  aria-label={t('vocdoni_app.app_hero.video_play', 'Play demo video')}
-                >
-                  <img
-                    src={THUMBNAIL_URL}
-                    alt={t('vocdoni_app.app_hero.cta_secondary', 'Watch the demo')}
-                    className='w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out'
-                  />
-                  <div className='absolute inset-0 bg-black/10 group-hover:bg-black/20 transition-colors duration-300' />
-                  <span className='absolute inset-0 flex items-center justify-center'>
-                    <span className='w-20 h-20 rounded-full bg-background/90 text-foreground flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300'>
-                      <svg className='w-8 h-8 ml-1' fill='currentColor' viewBox='0 0 24 24'>
-                        <path d='M8 5v14l11-7z' />
-                      </svg>
-                    </span>
-                  </span>
-                </button>
-              )}
+            <div
+              id='app-demo-video'
+              className='aspect-video w-full sm:w-11/12 lg:w-full mx-auto rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500 border border-border/50 relative bg-muted'
+            >
+              <CleanYoutubePlayer
+                videoId={VIDEO_ID}
+                title={t('vocdoni_app.app_hero.cta_secondary', 'Watch the Demo')}
+                coverUrl={THUMBNAIL_URL}
+              />
             </div>
           </MotionPreset>
         </div>
