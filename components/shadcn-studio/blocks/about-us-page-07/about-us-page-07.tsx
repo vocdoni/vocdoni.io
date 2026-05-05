@@ -53,7 +53,7 @@ const AboutUs = ({
               </div>
             </MotionPreset>
 
-            {/* Mission/Vision/Values Tabs — only shown when tabs are provided */}
+            {/* Mission/Vision/Values Tabs - only shown when tabs are provided */}
             {tabs.length > 0 && (
               <MotionPreset fade blur slide delay={0.2} transition={{ duration: 0.5 }} inView inViewOnce>
                 <div className='space-y-8 py-6 border-y border-primary/5'>

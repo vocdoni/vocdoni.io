@@ -222,7 +222,7 @@ export function TermsCA() {
         </Paragraph>
         <Paragraph variant='legal'>He llegit i acceptat els termes d'ús de l'APLICACIÓ.</Paragraph>
         <LegalLastUpdated>
-          Versió: Octubre 2025 — Última actualització per incloure el compliment del RGPD i informació sobre el delegat
+          Versió: Octubre 2025 - Última actualització per incloure el compliment del RGPD i informació sobre el delegat
           de protecció de dades.
         </LegalLastUpdated>
       </LegalSection>

@@ -43,6 +43,23 @@ interface MotionPresetProps {
 }
 
 const motionComponents = motion as unknown as Record<string, React.ElementType>
+const DEFAULT_IN_VIEW_MARGIN = '0px 0px 240px 0px'
+const IN_VIEW_DURATION_FACTOR = 0.55
+const IN_VIEW_DELAY_FACTOR = 0.35
+const MAX_IN_VIEW_DELAY = 0.18
+
+function getInViewTransition(transition: Transition, delay: number): Transition {
+  const nextTransition = { ...transition }
+
+  if (typeof nextTransition.duration === 'number') {
+    nextTransition.duration = nextTransition.duration * IN_VIEW_DURATION_FACTOR
+  }
+
+  const totalDelay = (transition?.delay ?? 0) + delay
+  nextTransition.delay = Math.min(totalDelay * IN_VIEW_DELAY_FACTOR, MAX_IN_VIEW_DELAY)
+
+  return nextTransition
+}
 
 function MotionPreset({
   ref,
@@ -52,7 +69,7 @@ function MotionPreset({
   transition = { type: 'spring', stiffness: 200, damping: 20 },
   delay = 0,
   inView = true,
-  inViewMargin = '0px',
+  inViewMargin = DEFAULT_IN_VIEW_MARGIN,
   inViewOnce = true,
   blur = false,
   slide = false,
@@ -111,10 +128,9 @@ function MotionPreset({
           hidden: hiddenVariant,
           visible: visibleVariant,
         },
-        transition: {
-          ...transition,
-          delay: (transition?.delay ?? 0) + delay,
-        },
+        transition: inView
+          ? getInViewTransition(transition, delay)
+          : { ...transition, delay: (transition?.delay ?? 0) + delay },
       }
 
   return (

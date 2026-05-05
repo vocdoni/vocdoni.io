@@ -45,7 +45,7 @@ export default function CleanYoutubePlayer({ videoId, title, coverUrl, coverAlt 
         return
       }
 
-      // Force playback — the user already triggered a gesture by clicking the cover.
+      // Force playback - the user already triggered a gesture by clicking the cover.
       plyr.play()
 
       const reveal = () => {

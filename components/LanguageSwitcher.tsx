@@ -4,6 +4,7 @@ import { setLocalePreference } from '@/lib/localeDetection'
 import { getLocalizedPath, stripLocaleFromPath } from '@/lib/localized-path'
 import { availableLocales, Locale } from '@/locales'
 import { Check, Globe } from 'lucide-react'
+import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { usePageContext } from 'vike-react/usePageContext'
 
@@ -17,6 +18,10 @@ function buildHref(target: Locale, urlLogical?: string) {
   return `${getLocalizedPath(pathname, target)}${suffix}`
 }
 
+function isPlainLeftClick(event: React.MouseEvent<HTMLAnchorElement>) {
+  return event.button === 0 && !event.metaKey && !event.altKey && !event.ctrlKey && !event.shiftKey
+}
+
 export function LanguageSwitcher() {
   const { i18n } = useTranslation()
   const pageContext = usePageContext() as LanguageSwitcherPageContext
@@ -26,7 +31,7 @@ export function LanguageSwitcher() {
   const currentOption = availableLocales.find((l) => l.value === current) || availableLocales[0]
 
   return (
-    <DropdownMenu>
+    <DropdownMenu modal={false}>
       <DropdownMenuTrigger asChild>
         <button className='inline-flex h-10 w-[72px] items-center justify-center gap-1.5 rounded-md bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:bg-accent focus-visible:text-accent-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2'>
           <Globe className='h-4 w-4 flex-shrink-0' />
@@ -38,12 +43,23 @@ export function LanguageSwitcher() {
         {availableLocales.map((lang) => {
           const href = buildHref(lang.value, currentPath)
           const isActive = lang.value === current
+          const handleClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
+            setLocalePreference(lang.value)
+
+            if (isActive && !event.defaultPrevented && isPlainLeftClick(event)) {
+              event.preventDefault()
+              event.stopPropagation()
+              return
+            }
+          }
+
           return (
             <DropdownMenuItem key={lang.value} asChild>
               <Link
                 href={href}
                 locale={lang.value}
-                onClick={() => setLocalePreference(lang.value)}
+                keep-scroll-position='true'
+                onClick={handleClick}
                 variant='dropdownItem'
                 className={`${
                   isActive

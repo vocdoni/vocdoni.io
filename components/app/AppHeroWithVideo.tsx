@@ -35,7 +35,7 @@ export default function AppHeroWithVideo() {
                 <p className='text-base sm:text-lg lg:text-xl text-muted-foreground/90 max-w-2xl leading-relaxed break-words font-medium'>
                   {t(
                     'vocdoni_app.app_hero.subtitle',
-                    'Set up, send, and collect votes in minutes — from any device, with full legal validity and audit trail.'
+                    'Set up, send, and collect votes in minutes, from any device, with full legal validity and audit trail.'
                   )}
                 </p>
               </MotionPreset>

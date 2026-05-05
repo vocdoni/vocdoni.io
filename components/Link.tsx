@@ -33,6 +33,7 @@ const linkVariants = cva('transition-colors', {
 export interface LinkProps extends React.AnchorHTMLAttributes<HTMLAnchorElement>, VariantProps<typeof linkVariants> {
   href: string
   locale?: Locale
+  'keep-scroll-position'?: 'true' | 'false'
 }
 
 export const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
