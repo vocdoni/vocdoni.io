@@ -224,7 +224,7 @@ export function TermsES() {
         </Paragraph>
         <Paragraph variant='legal'>He leído y aceptado los términos de uso de la APLICACIÓN.</Paragraph>
         <LegalLastUpdated>
-          Versión: Octubre 2025 — Última actualización para incluir el cumplimiento del RGPD e información sobre el
+          Versión: Octubre 2025 - Última actualización para incluir el cumplimiento del RGPD e información sobre el
           delegado de protección de datos.
         </LegalLastUpdated>
       </LegalSection>

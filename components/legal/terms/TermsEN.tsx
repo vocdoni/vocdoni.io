@@ -217,7 +217,7 @@ export function TermsEN() {
         </Paragraph>
         <Paragraph variant='legal'>I have read and accepted the APPLICATION's terms of use.</Paragraph>
         <LegalLastUpdated>
-          Version: October 2025 — Last updated to include GDPR compliance and data protection officer information.
+          Version: October 2025 - Last updated to include GDPR compliance and data protection officer information.
         </LegalLastUpdated>
       </LegalSection>
     </LegalPageContainer>

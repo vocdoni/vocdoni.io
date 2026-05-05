@@ -51,7 +51,7 @@ export function getTestimonialsData(t: TFunction): Testimonial[] {
     },
     {
       name: 'Ton Barnils',
-      handle: t('testimonials_marquee.items.1.handle', 'General Director · CEC'),
+      handle: t('testimonials_marquee.items.1.handle', 'General Director · Centre Excursionista de Catalunya'),
       avatar: '/images/avatars/avatar-2.png',
       rating: 5,
       title: t('testimonials_marquee.items.1.title', 'Safe and transparent participation'),
@@ -59,7 +59,7 @@ export function getTestimonialsData(t: TFunction): Testimonial[] {
         'testimonials_marquee.items.1.content',
         'We chose Vocdoni because it guarantees safe, reliable, and transparent participation for all our members at the annual general assembly.'
       ),
-      platformName: 'CEC',
+      platformName: 'Centre Excursionista de Catalunya',
       platformImage: logoCecColour,
       logo: logoCecRound,
     },
@@ -79,7 +79,7 @@ export function getTestimonialsData(t: TFunction): Testimonial[] {
     },
     {
       name: 'Oscar Tirivò',
-      handle: t('testimonials_marquee.items.3.handle', 'IT Director · Enginyers Industrials'),
+      handle: t('testimonials_marquee.items.3.handle', 'IT Director · College of Industrial Engineers of Catalonia'),
       avatar: '/images/avatars/avatar-4.png',
       rating: 5,
       title: t('testimonials_marquee.items.3.title', 'Easy, secure, and scalable voting'),
@@ -87,7 +87,7 @@ export function getTestimonialsData(t: TFunction): Testimonial[] {
         'testimonials_marquee.items.3.content',
         'Vocdoni provides us with an easy, secure, anonymous, and scalable voting system, completely integrated into our institutional environment. We will continue to trust it, without a doubt!'
       ),
-      platformName: 'EIC',
+      platformName: t('testimonials_marquee.items.3.platform_name', 'College of Industrial Engineers of Catalonia'),
       platformImage: logoEicColour,
       logo: logoEicRound,
     },
@@ -127,7 +127,7 @@ export function getTestimonialsData(t: TFunction): Testimonial[] {
       title: t('testimonials_marquee.items.6.title', 'Easy to set up, great participation despite a non-tech audience'),
       content: t(
         'testimonials_marquee.items.6.content',
-        'Setting up the entire voting process and centralizing all the tools for the assembly was easy, intuitive, and clear. Members complimented how well organized it was and how simple it was to use. Even in a sector that is not very tech-savvy, we got strong participation — people especially valued being able to vote in advance without attending in person. When we had a small issue with the census, technical support was fast and professional.'
+        'Setting up the entire voting process and centralizing all the tools for the assembly was easy, intuitive, and clear. Members complimented how well organized it was and how simple it was to use. Even in a sector that is not very tech-savvy, we got strong participation - people especially valued being able to vote in advance without attending in person. When we had a small issue with the census, technical support was fast and professional.'
       ),
       platformName: 'AGUICAT',
       platformImage: logoAguicatRound,
@@ -137,7 +137,7 @@ export function getTestimonialsData(t: TFunction): Testimonial[] {
       name: 'Adrià Cortadellas',
       handle: t(
         'testimonials_marquee.items.7.handle',
-        "Civic Participation Officer · Ajuntament de La Bisbal de l'Empordà"
+        "Civic Participation Officer · La Bisbal d'Empordà City Council"
       ),
       avatar: '/images/avatars/avatar-16.png',
       rating: 5,

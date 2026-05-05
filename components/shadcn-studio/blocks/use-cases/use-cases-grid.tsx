@@ -12,7 +12,7 @@ import { useTranslation } from 'react-i18next'
 import { Link } from '@/components/Link'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardTitle } from '@/components/ui/card'
-// Logo imports — real assets only, no emoji
+// Logo imports - real assets only, no emoji
 import logoDecidim from '@/assets/images/decidim.webp'
 import logoFcb from '@/assets/images/fcb.webp'
 import logoErc from '@/assets/logos/erc.webp'
@@ -186,7 +186,7 @@ const UseCasesGrid = () => {
                     </ul>
                   </div>
 
-                  {/* Case study result — pushes to bottom */}
+                  {/* Case study result - pushes to bottom */}
                   <div className='mt-auto'>
                     <div className='bg-muted/60 mb-4 rounded-lg border p-3'>
                       <p className='text-muted-foreground mb-0.5 text-xs font-medium uppercase tracking-wide'>
@@ -232,7 +232,7 @@ const UseCasesGrid = () => {
           })}
         </div>
 
-        {/* Mid-page CTA — post-grid conversion moment */}
+        {/* Mid-page CTA - post-grid conversion moment */}
         <div className='mt-16 text-center'>
           <p className='text-muted-foreground mb-4 text-base'>
             {t('cta.description', { defaultValue: 'Organizations worldwide trust Vocdoni' })}

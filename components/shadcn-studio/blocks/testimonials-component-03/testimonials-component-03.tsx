@@ -35,6 +35,12 @@ type TestimonialsComponentProps = {
 const getTestimonialKey = (testimonial: TestimonialItem) =>
   `${testimonial.name}-${testimonial.title}-${testimonial.content}`.toLowerCase()
 
+const getMarqueeDuration = (columnCount: number) => {
+  if (columnCount === 1) return 420
+  if (columnCount === 2) return 300
+  return 210
+}
+
 const getUniqueTestimonials = (testimonials: TestimonialItem[]) => {
   const seen = new Set<string>()
 
@@ -52,6 +58,34 @@ const chunkTestimonials = (testimonials: TestimonialItem[], columnCount: number)
   return Array.from({ length: columnCount }, (_, index) =>
     testimonials.slice(index * chunkSize, index * chunkSize + chunkSize)
   )
+}
+
+const getColumnCount = () => {
+  if (typeof window === 'undefined') return 1
+  if (window.matchMedia('(min-width: 1024px)').matches) return 3
+  if (window.matchMedia('(min-width: 640px)').matches) return 2
+  return 1
+}
+
+const useResponsiveColumnCount = () => {
+  const [columnCount, setColumnCount] = useState(getColumnCount)
+
+  useEffect(() => {
+    const desktopQuery = window.matchMedia('(min-width: 1024px)')
+    const tabletQuery = window.matchMedia('(min-width: 640px)')
+    const updateColumnCount = () => setColumnCount(getColumnCount())
+
+    updateColumnCount()
+    desktopQuery.addEventListener('change', updateColumnCount)
+    tabletQuery.addEventListener('change', updateColumnCount)
+
+    return () => {
+      desktopQuery.removeEventListener('change', updateColumnCount)
+      tabletQuery.removeEventListener('change', updateColumnCount)
+    }
+  }, [])
+
+  return columnCount
 }
 
 type TestimonialMarqueeColumnProps = {
@@ -118,7 +152,18 @@ const TestimonialMarqueeColumn = ({ testimonials, className, duration, reverse }
 }
 
 const TestimonialsComponent = ({ eyebrow, title, description, testimonials }: TestimonialsComponentProps) => {
-  const testimonialColumns = chunkTestimonials(getUniqueTestimonials(testimonials), 3)
+  const uniqueTestimonials = getUniqueTestimonials(testimonials)
+  const columnCount = useResponsiveColumnCount()
+  const testimonialColumns = chunkTestimonials(uniqueTestimonials, columnCount)
+
+  const renderTestimonialColumns = (columns: TestimonialItem[], index: number) => (
+    <TestimonialMarqueeColumn
+      key={`${columns.length}-${index}`}
+      testimonials={columns}
+      duration={getMarqueeDuration(columnCount)}
+      reverse={index % 2 === 1}
+    />
+  )
 
   return (
     <section className='bg-muted pt-8 sm:pt-16 lg:pt-24'>
@@ -150,16 +195,8 @@ const TestimonialsComponent = ({ eyebrow, title, description, testimonials }: Te
         >
           <div className='from-muted pointer-events-none absolute inset-x-0 top-0 z-1 h-1/4 bg-gradient-to-b to-transparent' />
           <div className='from-muted pointer-events-none absolute inset-x-0 bottom-0 z-1 h-1/4 bg-gradient-to-t to-transparent' />
-          <div className='grid sm:grid-cols-2 lg:grid-cols-3'>
-            {testimonialColumns.map((column, index) => (
-              <TestimonialMarqueeColumn
-                key={index}
-                testimonials={column}
-                duration={150}
-                reverse={index % 2 === 1}
-                className={cn(index === 1 && 'max-sm:hidden', index === 2 && 'max-lg:hidden')}
-              />
-            ))}
+          <div className={cn('grid', columnCount === 2 && 'grid-cols-2', columnCount === 3 && 'grid-cols-3')}>
+            {testimonialColumns.map(renderTestimonialColumns)}
           </div>
         </MotionPreset>
       </div>
