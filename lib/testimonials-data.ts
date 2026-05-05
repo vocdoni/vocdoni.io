@@ -6,6 +6,7 @@ import logoBellpuigColour from '@/assets/logos/logo_bellpuig_colour.webp'
 import logoBisbalRound from '@/assets/logos/logo_bisbal_round.webp'
 import logoBloockColour from '@/assets/logos/logo_bloock_colour.webp'
 import logoCecColour from '@/assets/logos/logo_cec_colour.webp'
+import logoCoibRound from '@/assets/logos/logo_coib_round.webp'
 import logoEicColour from '@/assets/logos/logo_eic_colour.webp'
 import logoIcoesColour from '@/assets/logos/logo_icoes_colour.webp'
 import logoOmniumColour from '@/assets/logos/logo_omnium_colour.webp'
@@ -176,6 +177,20 @@ export function getTestimonialsData(t: TFunction): Testimonial[] {
       platformName: 'ICOES',
       platformImage: logoIcoesColour,
       logo: logoIcoesRound,
+    },
+    {
+      name: 'Lluis Serrat i Andreu',
+      handle: t('testimonials_marquee.items.10.handle', 'Head of projects · Official College of Nurses of Barcelona'),
+      avatar: '/images/avatars/avatar-7.png',
+      rating: 5,
+      title: t('testimonials_marquee.items.10.title', 'Fast, simple, and reliable participation'),
+      content: t(
+        'testimonials_marquee.items.10.content',
+        'At the Official College of Nurses of Barcelona, we trust Vocdoni for all our participatory processes, ensuring members can exercise their rights from anywhere. We especially value the immediate vote count, the simplicity of the system, and the fast, effective response and guidance from its technical support, which makes the entire process agile, transparent, and reliable.'
+      ),
+      platformName: 'COIB',
+      platformImage: logoCoibRound,
+      logo: logoCoibRound,
     },
   ]
 }
