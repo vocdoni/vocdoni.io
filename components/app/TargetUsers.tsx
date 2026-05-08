@@ -17,7 +17,7 @@ export default function TargetUsersV3() {
       icon: <UsersIcon className='size-5' />,
     },
     {
-      label: t('vocdoni_app.target_users.list.political_orgs', 'Political parties'),
+      label: t('vocdoni_app.target_users.list.political_orgs', 'Political organizations and parties'),
       icon: <LandmarkIcon className='size-5' />,
     },
     {

@@ -88,7 +88,7 @@ export function CookieConsent() {
       <Alert className='bg-background shadow-xl border-2'>
         <div className='flex flex-col lg:flex-row lg:items-center gap-4'>
           <div className='flex-1 space-y-2'>
-            <AlertTitle className='text-base font-semibold'>{t('cookies.title', 'Cookie Consent')}</AlertTitle>
+            <AlertTitle className='text-base font-semibold'>{t('cookies.title', 'Cookie consent')}</AlertTitle>
             <AlertDescription className='text-sm text-muted-foreground'>
               {t(
                 'cookies.description',
