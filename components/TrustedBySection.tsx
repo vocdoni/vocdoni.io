@@ -19,7 +19,9 @@ export default function TrustedBySection() {
 
   return (
     <div className='w-full max-w-full'>
-      <p className='text-sm text-muted-foreground mb-4 font-medium'>{t('hero.trusted_by', 'Trusted by')}</p>
+      <p className='text-sm text-muted-foreground mb-4 font-medium'>
+        {t('hero.trusted_by', 'Trusted by organizations of all sizes')}
+      </p>
       <div className='relative w-full max-w-full overflow-hidden mask-gradient-x'>
         <div className='absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-background to-transparent z-10 pointer-events-none' />
         <div className='absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-background to-transparent z-10 pointer-events-none' />

@@ -26,7 +26,7 @@ export default function AppHeroWithVideo() {
                 <h1 className='text-4xl font-black tracking-tight sm:text-5xl lg:text-6xl xl:text-6xl max-w-2xl break-words leading-none text-foreground text-balance'>
                   {t('vocdoni_app.app_hero.title', 'Run your vote online,')}{' '}
                   <span className='text-primary lg:block lg:mt-1'>
-                    {t('vocdoni_app.app_hero.title_highlight', 'with confidence.')}
+                    {t('vocdoni_app.app_hero.title_highlight', 'with confidence')}
                   </span>
                 </h1>
               </MotionPreset>
@@ -35,7 +35,7 @@ export default function AppHeroWithVideo() {
                 <p className='text-base sm:text-lg lg:text-xl text-muted-foreground/90 max-w-2xl leading-relaxed break-words font-medium'>
                   {t(
                     'vocdoni_app.app_hero.subtitle',
-                    'Set up, send, and collect votes in minutes, from any device, with full legal validity and audit trail.'
+                    'Set up, send, and collect votes in minutes - from any device, with full legal validity and audit trail.'
                   )}
                 </p>
               </MotionPreset>
@@ -56,13 +56,13 @@ export default function AppHeroWithVideo() {
                 asChild
               >
                 <Link href='https://app.vocdoni.io' target='_blank' rel='noopener noreferrer' variant='inlineIcon'>
-                  {t('vocdoni_app.app_hero.cta_primary', 'Start for Free')}
+                  {t('vocdoni_app.app_hero.cta_primary', 'Start for free')}
                   <ArrowRight className='h-5 w-5 transition-transform duration-200 group-hover:translate-x-0.5' />
                 </Link>
               </Button>
               <Button variant='outline' size='lg' className='w-full sm:w-auto' onClick={() => setPlaying(true)}>
                 <PlayCircleIcon />
-                {t('vocdoni_app.app_hero.cta_secondary', 'Watch the Demo')}
+                {t('vocdoni_app.app_hero.cta_secondary', 'Watch the demo')}
               </Button>
             </MotionPreset>
 
@@ -78,14 +78,14 @@ export default function AppHeroWithVideo() {
               <div className='flex items-center gap-2'>
                 <ShieldCheckIcon className='size-5' />
                 <span className='text-xs font-semibold tracking-wide uppercase'>
-                  {t('vocdoni_app.app_hero.trust_gdpr', 'GDPR Compliant')}
+                  {t('vocdoni_app.app_hero.trust_gdpr', 'GDPR compliant')}
                 </span>
               </div>
               <div className='hidden sm:block w-1 h-1 rounded-full bg-border' />
               <div className='flex items-center gap-2'>
                 <ScaleIcon className='size-5' />
                 <span className='text-xs font-semibold tracking-wide uppercase'>
-                  {t('vocdoni_app.app_hero.trust_legal', 'Legal Evidence')}
+                  {t('vocdoni_app.app_hero.trust_legal', 'Legal evidence')}
                 </span>
               </div>
             </MotionPreset>
@@ -105,9 +105,9 @@ export default function AppHeroWithVideo() {
                 <div className='absolute inset-0 w-full h-full plyr-clean'>
                   <CleanYoutubePlayer
                     videoId={VIDEO_ID}
-                    title={t('vocdoni_app.app_hero.cta_secondary', 'Watch the Demo')}
+                    title={t('vocdoni_app.app_hero.cta_secondary', 'Watch the demo')}
                     coverUrl={THUMBNAIL_URL}
-                    coverAlt={t('vocdoni_app.app_hero.cta_secondary', 'Watch the Demo')}
+                    coverAlt={t('vocdoni_app.app_hero.cta_secondary', 'Watch the demo')}
                   />
                 </div>
               ) : (
@@ -118,7 +118,7 @@ export default function AppHeroWithVideo() {
                 >
                   <img
                     src={THUMBNAIL_URL}
-                    alt={t('vocdoni_app.app_hero.cta_secondary', 'Watch the Demo')}
+                    alt={t('vocdoni_app.app_hero.cta_secondary', 'Watch the demo')}
                     className='w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out'
                   />
                   <div className='absolute inset-0 bg-black/10 group-hover:bg-black/20 transition-colors duration-300' />

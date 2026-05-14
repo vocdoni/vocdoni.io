@@ -58,7 +58,7 @@ export default function HomeFAQ() {
           <h3 className='text-2xl font-bold mb-4'>{t('faq.cta_title', 'Ready to see it for yourself?')}</h3>
           <Button asChild size='lg' className='rounded-full px-8 h-12 text-base'>
             <a href='https://app.vocdoni.io' target='_blank' rel='noreferrer'>
-              {t('faq.cta_button', 'Start your first vote free')}
+              {t('faq.cta_button', 'Start for free')}
             </a>
           </Button>
         </div>

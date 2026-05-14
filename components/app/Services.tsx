@@ -36,7 +36,7 @@ export default function Services() {
               <div className='mt-8 flex flex-col gap-3 sm:flex-row sm:items-center'>
                 <Button asChild size='lg' className='has-[>svg]:px-6'>
                   <Link href='https://app.vocdoni.io' variant='inlineIcon'>
-                    {t('app_landing.cta.primary', 'Start free')}
+                    {t('app_landing.cta.primary', 'Start for free')}
                     <ArrowRightIcon />
                   </Link>
                 </Button>

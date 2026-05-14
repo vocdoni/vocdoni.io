@@ -3,10 +3,10 @@ import { localeDefault } from '@/locales'
 const t = (_key: string, defaultValue: string) => defaultValue
 
 const metaDefaults = {
-  'meta.index.title': t('meta.index.title', 'Vocdoni - secure digital voting you can trust'),
+  'meta.index.title': t('meta.index.title', 'Vocdoni - Secure, verifiable online voting'),
   'meta.index.description': t(
     'meta.index.description',
-    'Cutting-edge blockchain technology powering the future of democratic participation with transparent, secure, and accessible voting infrastructure.'
+    'Run secure, legally valid elections for your organization with the most verifiable voting technology. Start free, set up in minutes, no credit card needed.'
   ),
   'meta.contact.title': t('meta.contact.title', 'Contact - Vocdoni'),
   'meta.contact.description': t(
