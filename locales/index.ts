@@ -9,7 +9,7 @@ const availableLocales: { value: Locale; label: string }[] = [
   { value: 'es', label: 'Español' },
   // { value: 'eu', label: 'Euskara' },
   // { value: 'fr', label: 'Français' },
-  // { value: 'it', label: 'Italiano' },
+  { value: 'it', label: 'Italiano' },
   // { value: 'pt', label: 'Português' },
 ]
 
