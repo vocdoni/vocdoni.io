@@ -108,10 +108,10 @@ const ContactUs = () => {
                         <div>
                           <Link
                             className='text-lg font-bold hover:underline decoration-2 underline-offset-2 transition-all'
-                            href='mailto:contact@vocdoni.io'
+                            href='mailto:contact@vocdoni.org'
                             variant='unstyled'
                           >
-                            contact@vocdoni.io
+                            contact@vocdoni.org
                           </Link>
                           <p className='text-sm opacity-75 mt-1'>
                             {t('contact.email_response_time', 'We typically respond within 24 hours')}

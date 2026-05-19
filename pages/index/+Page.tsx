@@ -54,7 +54,7 @@ export default function Page() {
         'landing.portfolio.items.3.description',
         'Full expert support for complex governance, from initial configuration to certified verifiable results.'
       ),
-      link: '#',
+      link: '/contact',
       imageUrl: customProjectImg,
       imageAlt: 'Data charts and project management',
       imageWrapperClassName: 'px-4 sm:px-8 pt-12 lg:pt-14',
@@ -70,7 +70,7 @@ export default function Page() {
         'landing.portfolio.items.4.description',
         'A solution to collect signatures and sign petitions that uses a privacy-first and data-minimization app called Vocdoni Passport.'
       ),
-      link: '#',
+      link: '/contact',
       imageUrl: vocdoniPetitionsImg,
       imageAlt: 'Vocdoni Petitions and Passport app',
       imageWrapperClassName: 'px-4 sm:px-8 pt-4 sm:pt-6 lg:pt-8',
