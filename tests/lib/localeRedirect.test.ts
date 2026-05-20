@@ -26,6 +26,23 @@ describe('resolvePreferredLocale', () => {
   it('falls back to the default locale when no match exists', () => {
     expect(resolvePreferredLocale(null, ['fr-FR'], ['ca', 'en', 'es'], 'en')).toBe('en')
   })
+
+  it('prefers an exact region-specific locale over the base language', () => {
+    expect(resolvePreferredLocale(null, ['pt-BR'], ['en', 'pt-pt', 'pt-br'], 'en')).toBe('pt-br')
+    expect(resolvePreferredLocale(null, ['pt-PT'], ['en', 'pt-pt', 'pt-br'], 'en')).toBe('pt-pt')
+  })
+
+  it('still matches the base language when no region-specific locale exists', () => {
+    expect(resolvePreferredLocale(null, ['es-ES'], ['ca', 'en', 'es'], 'en')).toBe('es')
+  })
+
+  it('maps a generic browser language to its aliased region-specific locale', () => {
+    expect(resolvePreferredLocale(null, ['pt'], ['en', 'pt-br'], 'en', { pt: 'pt-br' })).toBe('pt-br')
+  })
+
+  it('resolves a legacy saved locale through aliases', () => {
+    expect(resolvePreferredLocale('pt', [], ['en', 'pt-br'], 'en', { pt: 'pt-br' })).toBe('pt-br')
+  })
 })
 
 describe('buildLocaleRedirectTarget', () => {

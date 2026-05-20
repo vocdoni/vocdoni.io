@@ -1,14 +1,15 @@
-import { Locale, locales } from '@/locales'
+import { Locale, localeAliases, locales } from '@/locales'
 
 const LOCALE_PREFERENCE_KEY = 'vocdoni-locale-preference'
 
 /**
  * Detects the browser's preferred locale from navigator.languages.
- * Uses two-level fallback:
- * 1. Try matching first part of locale code (e.g., 'ca' from 'ca-ES')
- * 2. If no match, try second part (e.g., 'es' from 'ca-ES')
- * 3. Continue through all browser languages
- * 4. Fallback to 'en' if no matches found
+ * Uses a multi-level fallback:
+ * 1. Try the exact region-specific code (e.g., 'pt-br' from 'pt-BR')
+ * 2. Try matching first part of locale code (e.g., 'ca' from 'ca-ES')
+ * 3. If no match, try second part (e.g., 'es' from 'ca-ES')
+ * 4. Continue through all browser languages
+ * 5. Fallback to 'en' if no matches found
  */
 export function detectBrowserLocale(): Locale {
   if (typeof window === 'undefined' || !window.navigator) {
@@ -23,9 +24,22 @@ export function detectBrowserLocale(): Locale {
     // Split on '-' or '_' (e.g., 'ca-ES', 'ca_ES' → ['ca', 'ES'])
     const parts = lang.split(/[-_]/).map((part) => part.toLowerCase())
 
+    // Try the exact region-specific code first (e.g., 'pt-br' from 'pt-BR')
+    const full = parts.join('-')
+    if (locales.includes(full as Locale)) {
+      return full as Locale
+    }
+
     // Try matching first part
     if (locales.includes(parts[0] as Locale)) {
       return parts[0] as Locale
+    }
+
+    // Map a generic base language to a supported region-specific variant
+    // (e.g. browser `pt` → `pt-br`).
+    const aliased = localeAliases[parts[0]]
+    if (aliased && locales.includes(aliased)) {
+      return aliased
     }
 
     // Try matching second part if it exists
@@ -51,6 +65,9 @@ export function getLocalePreference(): Locale | null {
     const saved = window.localStorage.getItem(LOCALE_PREFERENCE_KEY)
     if (saved && locales.includes(saved as Locale)) {
       return saved as Locale
+    }
+    if (saved && localeAliases[saved] && locales.includes(localeAliases[saved])) {
+      return localeAliases[saved]
     }
   } catch (error) {
     // localStorage might not be available (private browsing, etc.)

@@ -16,5 +16,11 @@ export default {
     enable: true,
     keepDistServer: false,
   },
+  // Backward-compat: the locale prefix used to be `pt`; it's now `pt-br`.
+  // Vike serves a 302 in dev and emits redirecting HTML at prerender time.
+  redirects: {
+    '/pt': '/pt-br',
+    '/pt/*': '/pt-br/*',
+  },
   favicon,
 } satisfies Config

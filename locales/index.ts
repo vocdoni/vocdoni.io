@@ -1,5 +1,5 @@
-type Locale = 'ca' | 'de' | 'el' | 'en' | 'es' | 'eu' | 'fr' | 'it' | 'pt'
-const locales: Locale[] = ['ca', 'de', 'el', 'en', 'es', 'eu', 'fr', 'it', 'pt']
+type Locale = 'ca' | 'de' | 'el' | 'en' | 'es' | 'eu' | 'fr' | 'it' | 'pt' | 'pt-br'
+const locales: Locale[] = ['ca', 'de', 'el', 'en', 'es', 'eu', 'fr', 'it', 'pt', 'pt-br']
 const localeDefault: Locale = 'en'
 const availableLocales: { value: Locale; label: string }[] = [
   { value: 'ca', label: 'Català' },
@@ -10,7 +10,15 @@ const availableLocales: { value: Locale; label: string }[] = [
   { value: 'eu', label: 'Euskara' },
   { value: 'fr', label: 'Français' },
   { value: 'it', label: 'Italiano' },
-  { value: 'pt', label: 'Português' },
+  { value: 'pt-pt', label: 'Português (Portugal)' },
+  { value: 'pt-br', label: 'Português (Brasil)' },
 ]
 
-export { availableLocales, localeDefault, locales, type Locale }
+// Legacy/base-language aliases mapped to a supported Locale. Used to preserve
+// backward-compat for previously shipped URLs (e.g. `/pt/...`) and to resolve
+// generic browser languages (e.g. `pt`) to a supported region-specific variant.
+const localeAliases: Record<string, Locale> = {
+  pt: 'pt-br',
+}
+
+export { availableLocales, Locale, localeAliases, localeDefault, locales }
