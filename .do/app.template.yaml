@@ -1,0 +1,62 @@
+# DigitalOcean App Platform spec TEMPLATE for vocdoni.io (production).
+#
+# This is not applied directly. The deploy workflow (.github/workflows/deploy-digitalocean.yml):
+#   1. runs `pnpm gen:do-appspec`, which replaces the __LEGACY_REDIRECT_RULES__ marker below with the
+#      301 redirect rules generated from lib/legacyRedirects.ts (the single source of truth), and
+#   2. passes the result to digitalocean/app_action, which substitutes the ${VAR} env placeholders
+#      from the workflow environment (GitHub secrets/variables) so no values are committed here.
+#
+# To change redirects, edit lib/legacyRedirects.ts only. To change other app config, edit this file.
+alerts:
+- rule: DEPLOYMENT_FAILED
+- rule: DOMAIN_FAILED
+domains:
+- domain: vocdoni.io
+  type: PRIMARY
+- domain: www.vocdoni.io
+  type: ALIAS
+features:
+- buildpack-stack=ubuntu-22
+ingress:
+  rules:
+  # __LEGACY_REDIRECT_RULES__
+  - component:
+      name: vocdoni-io
+    match:
+      authority:
+        exact: ""
+      path:
+        prefix: /
+name: vocdoni-io
+region: fra
+static_sites:
+- environment_slug: node-js
+  envs:
+  - key: EMAILJS_PUBLIC_KEY
+    scope: BUILD_TIME
+    value: ${EMAILJS_PUBLIC_KEY}
+  - key: EMAILJS_SERVICE_ID
+    scope: BUILD_TIME
+    value: ${EMAILJS_SERVICE_ID}
+  - key: EMAILJS_TEMPLATE_ID
+    scope: BUILD_TIME
+    value: ${EMAILJS_TEMPLATE_ID}
+  - key: GTM_ID
+    scope: BUILD_TIME
+    value: ${GTM_ID}
+  - key: PLAUSIBLE_DOMAIN
+    scope: BUILD_TIME
+    value: ${PLAUSIBLE_DOMAIN}
+  - key: RECAPTCHA_SITE_KEY
+    scope: BUILD_TIME
+    value: ${RECAPTCHA_SITE_KEY}
+  - key: SITE_URL
+    scope: BUILD_TIME
+    value: ${SITE_URL}
+  github:
+    branch: main
+    deploy_on_push: false
+    repo: vocdoni/vocdoni.io
+  name: vocdoni-io
+  output_dir: dist/client
+  source_dir: /

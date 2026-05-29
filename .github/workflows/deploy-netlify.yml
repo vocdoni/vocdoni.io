@@ -12,6 +12,10 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
 
+    # Netlify is the non-production target (PR previews and main-branch dev deploys); it always uses
+    # the 'pull request' environment. Production lives on DigitalOcean (see deploy-digitalocean.yml).
+    environment: 'pull request'
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
