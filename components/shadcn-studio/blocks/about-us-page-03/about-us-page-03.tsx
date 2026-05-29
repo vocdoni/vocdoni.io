@@ -87,7 +87,10 @@ const AboutUs = ({ aboutUsData }: { aboutUsData: AboutUsData }) => {
 
             {aboutUsData.tabs.length > 0 && (
               <Tabs defaultValue={aboutUsData.tabs[0].value} className='space-y-8'>
-                <TabsList className='inline-flex bg-muted p-1 rounded-xl h-auto'>
+                <TabsList
+                  className='inline-flex bg-muted p-1 rounded-xl h-auto'
+                  aria-label={t('about_us.tabs.aria_label', 'About Vocdoni sections')}
+                >
                   {aboutUsData.tabs.map((tab) => (
                     <TabsTrigger
                       key={tab.value}

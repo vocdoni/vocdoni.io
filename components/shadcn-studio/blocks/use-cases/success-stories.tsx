@@ -209,7 +209,9 @@ const SuccessStories = () => {
                         <ul className='grid gap-2 sm:grid-cols-2'>
                           {story.highlights.map((highlight, idx) => (
                             <li key={idx} className='text-muted-foreground flex items-start text-sm'>
-                              <span className='text-primary mr-2 mt-0.5'>✓</span>
+                              <span className='text-primary mr-2 mt-0.5' aria-hidden='true'>
+                                ✓
+                              </span>
                               {highlight}
                             </li>
                           ))}

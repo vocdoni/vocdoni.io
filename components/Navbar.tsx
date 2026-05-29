@@ -248,7 +248,7 @@ export function Navbar() {
               <SheetTrigger asChild>
                 <Button variant='ghost' size='icon'>
                   <Menu className='h-6 w-6' />
-                  <span className='sr-only'>Toggle menu</span>
+                  <span className='sr-only'>{t('navbar.toggle_menu', 'Toggle menu')}</span>
                 </Button>
               </SheetTrigger>
               <SheetContent side='left' className='w-[300px] sm:w-[400px] p-0'>
@@ -391,7 +391,7 @@ export function Navbar() {
             </Sheet>
           </div>
 
-          {/* App Button (hidden on mobile) */}
+          {/* Sign in button (hidden on mobile) */}
           <div className='hidden xl:block'>
             <Button asChild className='rounded-full px-6'>
               <Link href='https://app.vocdoni.io' target='_blank' rel='noopener noreferrer' variant='unstyled'>

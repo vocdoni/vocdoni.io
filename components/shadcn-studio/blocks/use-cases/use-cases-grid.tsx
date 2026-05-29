@@ -78,14 +78,12 @@ const UseCasesGrid = () => {
         { src: logoFcb, alt: 'FC Barcelona' },
         { src: logoCec, alt: 'Centre Excursionista de Catalunya' },
       ] as LogoEntry[],
-      caseStudy: { href: '#success-stories' },
       title: t('use_cases_page.grid.items.sports_clubs.title'),
       description: t('use_cases_page.grid.items.sports_clubs.description'),
       features: t('use_cases_page.grid.items.sports_clubs.features', { returnObjects: true }) as string[],
       storyOrg: t('use_cases_page.success_stories.items.erc.org'),
       storyStat: t('use_cases_page.success_stories.items.erc.stats.0.value', { defaultValue: '' }),
       storyImpact: t('use_cases_page.success_stories.items.erc.impact'),
-      storyCtaLabel: t('use_cases_page.success_stories.items.erc.cta_label'),
     },
     {
       key: 'professional_bodies',
@@ -179,7 +177,9 @@ const UseCasesGrid = () => {
                     <ul className='space-y-1.5'>
                       {useCase.features.map((feature, idx) => (
                         <li key={idx} className='text-muted-foreground flex items-start text-sm'>
-                          <span className='text-primary mr-2 mt-0.5'>✓</span>
+                          <span className='text-primary mr-2 mt-0.5' aria-hidden='true'>
+                            ✓
+                          </span>
                           {feature}
                         </li>
                       ))}
@@ -214,17 +214,18 @@ const UseCasesGrid = () => {
                       </div>
                     )}
 
-                    {/* CTA */}
-                    <Button
-                      variant='ghost'
-                      className='text-primary hover:text-primary w-full justify-center hover:bg-transparent'
-                      asChild
-                    >
-                      <Link href={useCase.caseStudy.href} variant='inlineIcon'>
-                        {useCase.storyCtaLabel}
-                        <ArrowRightIcon className='size-4' />
-                      </Link>
-                    </Button>
+                    {useCase.caseStudy && useCase.storyCtaLabel && (
+                      <Button
+                        variant='ghost'
+                        className='text-primary hover:text-primary w-full justify-center hover:bg-transparent'
+                        asChild
+                      >
+                        <Link href={useCase.caseStudy.href} variant='inlineIcon'>
+                          {useCase.storyCtaLabel}
+                          <ArrowRightIcon className='size-4' />
+                        </Link>
+                      </Button>
+                    )}
                   </div>
                 </CardContent>
               </Card>
