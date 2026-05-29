@@ -2,6 +2,8 @@ import type { TFunction } from 'i18next'
 
 import logoAguicatRound from '@/assets/logos/logo_aguicat_round.webp'
 import logoArxiversColour from '@/assets/logos/logo_arxivers_colour.webp'
+import logoAtiColour from '@/assets/logos/logo_ati_colour.webp'
+import logoAtiRound from '@/assets/logos/logo_ati_round.webp'
 import logoBellpuigColour from '@/assets/logos/logo_bellpuig_colour.webp'
 import logoBisbalRound from '@/assets/logos/logo_bisbal_round.webp'
 import logoBloockColour from '@/assets/logos/logo_bloock_colour.webp'
@@ -191,6 +193,20 @@ export function getTestimonialsData(t: TFunction): Testimonial[] {
       platformName: 'COIB',
       platformImage: logoCoibRound,
       logo: logoCoibRound,
+    },
+    {
+      name: 'Carlo Pestelli',
+      handle: t('testimonials_marquee.items.11.handle', 'President · ATI Friuli Venezia Giulia'),
+      avatar: '/images/avatars/avatar-8.png',
+      rating: 5,
+      title: t('testimonials_marquee.items.11.title', 'Digital governance that makes participation easier'),
+      content: t(
+        'testimonials_marquee.items.11.content',
+        'As Associazione Termotecnica Italiana, Friuli Venezia Giulia section, we chose to digitize our governance to make it easier for professionals to participate. Vocdoni stood out as the ideal solution for its simplicity, costs, and guarantees.'
+      ),
+      platformName: t('testimonials_marquee.items.11.platform_name', 'Associazione Termotecnica Italiana'),
+      platformImage: logoAtiColour,
+      logo: logoAtiRound,
     },
   ]
 }
