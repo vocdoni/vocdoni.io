@@ -60,6 +60,7 @@ export const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
       : {}
 
     const opensInNewTab = (externalProps.target ?? props.target) === '_blank'
+    const hasAccessibleLabel = Boolean(props['aria-label'])
 
     return (
       <a
@@ -70,7 +71,9 @@ export const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
         {...props}
       >
         {children}
-        {opensInNewTab && <span className='sr-only'> {t('link.opens_in_new_tab', '(opens in new tab)')}</span>}
+        {opensInNewTab && !hasAccessibleLabel && (
+          <span className='sr-only'> {t('link.opens_in_new_tab', '(opens in new tab)')}</span>
+        )}
       </a>
     )
   }

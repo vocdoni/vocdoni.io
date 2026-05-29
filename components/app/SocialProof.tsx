@@ -54,7 +54,7 @@ export default function SocialProof() {
           <p className='mt-4 text-lg leading-8 text-muted-foreground'>
             {t(
               'app_landing.social_proof.description',
-              'The page should combine logos, hard proof stats, a concrete case study, and the testimonial cards already used on the main landing page.'
+              'Organizations worldwide use Vocdoni to run simple, secure votes with results members can verify.'
             )}
           </p>
         </div>

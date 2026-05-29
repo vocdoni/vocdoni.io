@@ -1,5 +1,5 @@
 ---
-applyTo: "**"
+applyTo: '**'
 ---
 
 # Instructions for Using the shadcn/studio MCP SERVER

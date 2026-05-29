@@ -112,10 +112,10 @@ export const VotingCard = ({ animated = false }: { animated?: boolean }) => {
         </div>
 
         {/* Avatar Group */}
-        <div className='flex -space-x-2 items-center'>
+        <div className='flex -space-x-2 items-center' aria-hidden='true'>
           {avatars.map((avatar, index) => (
             <Avatar key={index} className='ring-background ring-2 h-7 w-7'>
-              <AvatarImage src={avatar.src} alt={avatar.name} />
+              <AvatarImage src={avatar.src} alt='' />
               <AvatarFallback className='text-[9px]'>{avatar.fallback}</AvatarFallback>
             </Avatar>
           ))}

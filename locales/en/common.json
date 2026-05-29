@@ -1,8 +1,8 @@
 {
   "about_us": {
-    "content_description": "Since 2018, Vocdoni (Esperanto for 'to give voice') has empowered organizations to run elections with mathematical integrity. We provide the most auditable voting system in the world, shifting trust from vendor promises to verifiable public proof.",
+    "content_description": "Since 2018, Vocdoni (Esperanto for 'to give voice') has empowered organizations to run elections with mathematical integrity. We provide open, independently verifiable voting infrastructure, shifting trust from vendor promises to public proof.",
     "content_title": "Trust is not a promise. It is a structural property.",
-    "description": "From city councils and political parties to associations and cooperatives, Vocdoni (Esperanto for 'to give voice') was built to level the playing field. Our goal is simple: deliver the best and most secure digital voting technology to any organization, regardless of its size.",
+    "description": "From city councils and political parties to associations and cooperatives, Vocdoni (Esperanto for 'to give voice') was built to level the playing field. Our goal is simple: deliver secure, verifiable digital voting technology to any organization, regardless of its size.",
     "eyebrow": "About Vocdoni",
     "feature_cards": {
       "accessibility": {
@@ -11,7 +11,7 @@
       },
       "compliance": {
         "description": "Every election includes a full audit trail, certified results document, and a public proof your legal team can rely on.",
-        "title": "Legally valid by design"
+        "title": "Legal evidence and audit trail"
       },
       "security": {
         "description": "Any member, observer, or independent auditor can verify the full result without seeing a single individual vote. Our code is public. We have nothing to hide.",
@@ -25,7 +25,7 @@
     "image_alt": "Digital voting technology and secure democracy",
     "stat_cards": {
       "affordable": {
-        "description": "Lower cost per vote compared to paper",
+        "description": "10x lower cost per vote compared to paper-based voting",
         "title": "10x"
       },
       "experience": {
@@ -48,8 +48,9 @@
       "non_profit": "The Vocdoni Association, a non-profit based in Switzerland, which acts as the ultimate guarantor of the open-source code and core protocol development."
     },
     "tabs": {
+      "aria_label": "About Vocdoni sections",
       "mission": {
-        "content": "To empower every community with secure, verifiable digital voting technology as a fundamental right, not a luxury. We provide tools for organizations of any size to run elections that are unchallengeable by design.",
+        "content": "To empower every community with secure, verifiable digital voting technology as a fundamental right, not a luxury. We provide tools for organizations of any size to run elections designed to reduce disputes with verifiable public proof.",
         "title": "Mission"
       },
       "values": {
@@ -58,7 +59,7 @@
       },
       "vision": {
         "content": "A future where democratic processes are transparent, inclusive, and tamper-proof by default. We bridge the gap between technical complexity and democratic legitimacy to ensure every voice is heard and every vote counts.",
-        "content_2": "We provide the tools for organizations of any size to conduct elections that are unchallengeable by design.",
+        "content_2": "We provide the tools for organizations of any size to conduct elections designed to reduce disputes with verifiable public proof.",
         "title": "Vision"
       }
     },
@@ -172,7 +173,7 @@
       "title": "Questions buyers ask before they start"
     },
     "features": {
-      "description": "Keep the feature section compact. The page should prove capability without turning into a long product dump.",
+      "description": "Create the right voting experience for your members, from simple ballots to verified results, without making the process harder than it needs to be.",
       "eyebrow": "Feature proof",
       "items": [
         {
@@ -232,7 +233,7 @@
         "link": "Read the case study",
         "title": "How COIB ran its AGM online with instant, verifiable results"
       },
-      "description": "The page should combine logos, hard proof stats, a concrete case study, and the testimonial cards already used on the main landing page.",
+      "description": "Organizations worldwide use Vocdoni to run simple, secure votes with results members can verify.",
       "eyebrow": "Social proof",
       "stats": [
         {
@@ -344,7 +345,7 @@
         "transparency": "Manual counting & opaque process"
       },
       "vocdoni": {
-        "cost": "Up to 10x more affordable",
+        "cost": "10x lower cost per vote",
         "name": "Vocdoni",
         "privacySecurity": "Anonymous & decentralized integrity",
         "remoteAccessibility": "Vote from anywhere, any device",
@@ -499,7 +500,7 @@
       "privacy": "Privacy policy",
       "terms": "Terms & conditions"
     },
-    "mission": "Vocdoni provides the world's most secure and accessible digital voting technology. Our mission is to enable organizations of any size to make collective decisions with full integrity.",
+    "mission": "Vocdoni provides secure, accessible, and verifiable digital voting technology. Our mission is to enable organizations of any size to make collective decisions with full integrity.",
     "newsletter": {
       "error": "Something went wrong. Please try again.",
       "label": "Email address for newsletter",
@@ -552,12 +553,8 @@
     },
     "cta_primary": "Start for free",
     "cta_secondary": "Talk to an expert",
-    "dynamic_words": [
-      "easy",
-      "secure",
-      "simple"
-    ],
-    "subtitle": "Run secure, legally valid elections from any device. Any organization, any size, starting today.",
+    "dynamic_words": ["easy", "secure", "simple"],
+    "subtitle": "Run secure, verifiable elections from any device, with legal evidence and audit trails. Any organization, any size, starting today.",
     "title": "Making decisions has never been this",
     "trusted_by": "Trusted by organizations of all sizes"
   },
@@ -603,7 +600,7 @@
       "title": "Contact - Vocdoni"
     },
     "index": {
-      "description": "Run secure, legally valid elections for your organization with the most verifiable voting technology. Start free, set up in minutes, no credit card needed.",
+      "description": "Run secure, verifiable elections for your organization with legal evidence and audit trails. Start free, set up in minutes, no credit card needed.",
       "title": "Vocdoni - Secure, verifiable online voting"
     },
     "privacy": {
@@ -621,7 +618,7 @@
   },
   "navbar": {
     "about": "About us",
-    "app_button": "App",
+    "app_button": "Sign in",
     "contact": "Contact",
     "featured_solution": {
       "header": "Featured",
@@ -665,6 +662,7 @@
     "solutions": "Solutions",
     "solutions_header": "All solutions",
     "technology": "Technology",
+    "toggle_menu": "Toggle menu",
     "use_cases": "Use cases"
   },
   "portfolio": {
@@ -779,29 +777,17 @@
       "items": {
         "associations": {
           "description": "Run board elections, bylaw amendments and statutory assemblies that comply with your organization's rules. Every member receives a link to verify their vote was counted - without revealing how they voted.",
-          "features": [
-            "Board member elections",
-            "Bylaws amendments",
-            "Major initiative approvals"
-          ],
+          "features": ["Board member elections", "Bylaws amendments", "Major initiative approvals"],
           "title": "Associations & member organizations"
         },
         "city_councils": {
           "description": "Run binding referenda, participatory budgets and citizen consultations that any resident can verify. Results are published on a tamper-proof public record - no single party, including Vocdoni, can alter them.",
-          "features": [
-            "Local referenda & binding polls",
-            "Participatory budgeting",
-            "Citizen consultations"
-          ],
+          "features": ["Local referenda & binding polls", "Participatory budgeting", "Citizen consultations"],
           "title": "City councils & municipal governance"
         },
         "integrators": {
           "description": "Embed independently verifiable voting into your platform via SDK or REST API. Vocdoni handles security, privacy and compliance. Your team focuses on user experience.",
-          "features": [
-            "JavaScript SDK & REST API",
-            "Pre-built UI components",
-            "GDPR compliance out-of-the-box"
-          ],
+          "features": ["JavaScript SDK & REST API", "Pre-built UI components", "GDPR compliance out-of-the-box"],
           "title": "Software integrators & platform providers"
         },
         "political_parties": {
@@ -815,20 +801,12 @@
         },
         "professional_bodies": {
           "description": "Meet your statutory election obligations and reduce the risk of a disputed result. Online voting increases participation by up to 100% compared to postal ballots - and the result is independently verifiable by any member.",
-          "features": [
-            "Board & committee elections",
-            "AGM votes",
-            "Professional standards decisions"
-          ],
+          "features": ["Board & committee elections", "AGM votes", "Professional standards decisions"],
           "title": "Professional associations & colleges"
         },
         "sports_clubs": {
           "description": "Run club elections and member decisions for thousands of fans worldwide. Any international member can vote from any device. Results are publicly auditable - one link, anyone can check.",
-          "features": [
-            "Club official elections",
-            "Major expenditure approvals",
-            "Policy changes & amendments"
-          ],
+          "features": ["Club official elections", "Major expenditure approvals", "Policy changes & amendments"],
           "title": "Sports clubs & fan organizations"
         }
       },
@@ -1007,9 +985,12 @@
   },
   "vocdoni_app": {
     "app_hero": {
+      "cta_group_label": "App actions",
       "cta_primary": "Start for free",
+      "cta_primary_aria_label": "Start for free in the Vocdoni app (opens in new tab)",
       "cta_secondary": "Watch the demo",
-      "subtitle": "Set up, send, and collect votes in minutes - from any device, with full legal validity and audit trail.",
+      "cta_secondary_aria_label": "Watch the demo video",
+      "subtitle": "Set up, send, and collect votes in minutes - from any device, with legal evidence and audit trail.",
       "title": "Run your vote online,",
       "title_highlight": "with confidence",
       "trust_gdpr": "GDPR compliant",
@@ -1036,7 +1017,7 @@
     "value_props": {
       "cards": {
         "cost_saving": {
-          "description": "Reduce operational overheads by up to 90% compared to traditional voting.",
+          "description": "Reduce election costs by up to 70% compared to traditional voting.",
           "title": "Save time & cost"
         },
         "digitalization": {
@@ -1048,8 +1029,8 @@
           "title": "Expert partner"
         },
         "risk_reduction": {
-          "description": "Eliminate errors, disputes, and security breaches with verifiable technology.",
-          "title": "Zero risk"
+          "description": "Reduce errors, disputes, and security risks with verifiable technology.",
+          "title": "Reduce election risk"
         }
       },
       "title": "Why Vocdoni?"
