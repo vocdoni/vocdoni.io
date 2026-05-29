@@ -3,6 +3,7 @@ import react from '@vitejs/plugin-react'
 import vike from 'vike/plugin'
 import { ConfigEnv, defineConfig, loadEnv } from 'vite'
 import { localeDefault, locales } from './locales'
+import { legacyRedirectsPlugin } from './plugins/legacy-redirects'
 import { vikeSitemapPlugin } from './plugins/vike-sitemap'
 
 const viteconfig = ({ mode }: ConfigEnv) => {
@@ -13,6 +14,7 @@ const viteconfig = ({ mode }: ConfigEnv) => {
       vike(),
       react(),
       tailwindcss(),
+      legacyRedirectsPlugin(),
       vikeSitemapPlugin({
         hostname: process.env.SITE_URL || 'https://vocdoni.io',
         locales,
