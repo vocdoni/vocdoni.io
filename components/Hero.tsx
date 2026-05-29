@@ -143,7 +143,10 @@ const Hero = () => {
           </div>
 
           {/* Right Column: Visual Component (3 Steps) */}
-          <div className='hidden lg:flex relative w-full lg:h-full items-center justify-end py-6 pl-14' aria-hidden='true'>
+          <div
+            className='hidden lg:flex relative w-full lg:h-full items-center justify-end py-6 pl-14'
+            aria-hidden='true'
+          >
             {/* Structural Container */}
             <div className='relative flex flex-col gap-10 w-full max-w-[420px]'>
               {/* Vertical connector line */}
