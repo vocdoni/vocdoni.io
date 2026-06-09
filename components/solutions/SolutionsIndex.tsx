@@ -16,7 +16,6 @@ import { useTranslation } from 'react-i18next'
 
 import { Container } from '@/components/Container'
 import { Link } from '@/components/Link'
-import CTASection from '@/components/shadcn-studio/blocks/cta-section-09/cta-section-09'
 import { Card, CardContent } from '@/components/ui/card'
 import { MotionPreset } from '@/components/ui/motion-preset'
 
@@ -118,8 +117,6 @@ export function SolutionsIndex() {
           </div>
         </Container>
       </section>
-
-      <CTASection />
     </>
   )
 }

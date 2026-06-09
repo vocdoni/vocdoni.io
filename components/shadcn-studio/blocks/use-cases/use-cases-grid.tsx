@@ -236,7 +236,7 @@ const UseCasesGrid = () => {
         {/* Mid-page CTA - post-grid conversion moment */}
         <div className='mt-16 text-center'>
           <p className='text-muted-foreground mb-4 text-base'>
-            {t('cta.description', { defaultValue: 'Organizations worldwide trust Vocdoni' })}
+            {t('use_cases_page.grid_cta.trust_line', 'Organizations worldwide trust Vocdoni')}
           </p>
           <div className='flex flex-wrap justify-center gap-4'>
             <Button size='lg' className='has-[>svg]:px-6' asChild>
