@@ -1,13 +1,29 @@
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { useState } from 'react'
 
-import alexImg from '@/assets/images/team/alex.webp'
 import auletImg from '@/assets/images/team/aulet.webp'
 import ferranImg from '@/assets/images/team/ferran.webp'
+import jordiPinyanaImg from '@/assets/images/team/jordi_pinyana.webp'
 import manosImg from '@/assets/images/team/manos.webp'
 import oscarImg from '@/assets/images/team/oscar.webp'
+import pauEscrichImg from '@/assets/images/team/pau_escrich.webp'
 
 const avatars = [
+  {
+    src: pauEscrichImg,
+    fallback: 'PE',
+    name: 'Pau Escrich',
+  },
+  {
+    src: jordiPinyanaImg,
+    fallback: 'JP',
+    name: 'Jordi Pinyana',
+  },
+  {
+    src: ferranImg,
+    fallback: 'FR',
+    name: 'Ferran Reyes',
+  },
   {
     src: manosImg,
     fallback: 'MD',
@@ -19,19 +35,9 @@ const avatars = [
     name: 'Òscar Casajuana',
   },
   {
-    src: ferranImg,
-    fallback: 'FR',
-    name: 'Ferran Reyes',
-  },
-  {
     src: auletImg,
     fallback: 'JA',
     name: 'Jordi Aulet',
-  },
-  {
-    src: alexImg,
-    fallback: 'AA',
-    name: 'Alex Arce',
   },
 ]
 

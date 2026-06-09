@@ -13,5 +13,4 @@ const availableLocales: { value: Locale; label: string }[] = [
   // { value: 'pt', label: 'Português' },
 ]
 
-export { availableLocales, Locale, localeDefault, locales };
-
+export { availableLocales, Locale, localeDefault, locales }

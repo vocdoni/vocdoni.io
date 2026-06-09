@@ -81,7 +81,7 @@ export default function AboutUsPage() {
             <p className='text-muted-foreground text-lg leading-relaxed'>
               {t(
                 'about_us.tabs.vision.content_2',
-                'We provide the tools for organizations of any size to conduct elections that are unchallengeable by design.'
+                'We provide the tools for organizations of any size to conduct elections designed to reduce disputes with verifiable public proof.'
               )}
             </p>
           </div>

@@ -31,7 +31,7 @@
 ## Copy & Typography Content Guidelines
 
 - strictly use **sentence case** everywhere on the site (only the first word of any string/title is capitalized) unless the word is a proper noun, an acronym (e.g. GDPR, SDK), or the brand "Vocdoni". Do not use title case for component titles, menus, or features.
-- **Never use an em dash character**. Substitute with a normal spaced dash (` - `) or structure the sentence differently.
+- **Never use an em dash character**. Substitute with a normal spaced dash (`-`) or structure the sentence differently.
 
 ## Component Reusability & Variants
 

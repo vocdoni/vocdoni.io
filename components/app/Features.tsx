@@ -28,7 +28,7 @@ export default function Features() {
           <p className='mt-4 text-lg leading-8 text-muted-foreground'>
             {t(
               'app_landing.features.description',
-              'Keep the feature section compact. The page should prove capability without turning into a long product dump.'
+              'Create the right voting experience for your members, from simple ballots to verified results, without making the process harder than it needs to be.'
             )}
           </p>
         </div>

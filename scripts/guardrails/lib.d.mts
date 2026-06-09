@@ -6,10 +6,7 @@ export type HardcodedJsxCopyViolation = {
 
 export function getInvalidComponentDirectories(directoryPaths: string[]): string[]
 
-export function findHardcodedJsxCopyViolations(
-  source: string,
-  filePath: string
-): HardcodedJsxCopyViolation[]
+export function findHardcodedJsxCopyViolations(source: string, filePath: string): HardcodedJsxCopyViolation[]
 
 export function findEmptyTranslationLeafValues(value: unknown, currentPath?: string): string[]
 
@@ -18,7 +15,4 @@ export type DynamicTranslationKeyViolation = {
   snippet: string
 }
 
-export function findDynamicTranslationKeys(
-  source: string,
-  filePath: string
-): DynamicTranslationKeyViolation[]
+export function findDynamicTranslationKeys(source: string, filePath: string): DynamicTranslationKeyViolation[]

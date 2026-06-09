@@ -57,11 +57,8 @@ export default function MobileHeroScroll() {
       {/* Card indicators */}
       <div className='flex gap-2'>
         {Array.from({ length: CARD_COUNT }, (_, i) => (
-          <button
+          <span
             key={i}
-            type='button'
-            aria-label={`Go to step ${i + 1}`}
-            aria-pressed={i === activeCard}
             onClick={() => setActiveCard(i)}
             className='flex items-center justify-center min-h-[44px] min-w-[44px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-sm'
           >
@@ -70,7 +67,7 @@ export default function MobileHeroScroll() {
                 i === activeCard ? 'w-6 bg-primary' : 'w-1.5 bg-muted-foreground/30 hover:bg-muted-foreground/60'
               }`}
             />
-          </button>
+          </span>
         ))}
       </div>
     </div>

@@ -35,7 +35,7 @@ export default function AppHeroWithVideo() {
                 <p className='text-base sm:text-lg lg:text-xl text-muted-foreground/90 max-w-2xl leading-relaxed break-words font-medium'>
                   {t(
                     'vocdoni_app.app_hero.subtitle',
-                    'Set up, send, and collect votes in minutes - from any device, with full legal validity and audit trail.'
+                    'Set up, send, and collect votes in minutes - from any device, with legal evidence and audit trail.'
                   )}
                 </p>
               </MotionPreset>
@@ -49,18 +49,37 @@ export default function AppHeroWithVideo() {
               delay={0.2}
               transition={{ duration: 0.5 }}
               className='flex flex-col sm:flex-row gap-4 w-full sm:w-auto'
+              motionProps={{
+                role: 'group',
+                'aria-label': t('vocdoni_app.app_hero.cta_group_label', 'App actions'),
+              }}
             >
               <Button
                 size='lg'
                 className='group text-base transition-all duration-300 has-[>svg]:px-6 w-full sm:w-auto'
                 asChild
               >
-                <Link href='https://app.vocdoni.io' target='_blank' rel='noopener noreferrer' variant='inlineIcon'>
+                <Link
+                  href='https://app.vocdoni.io'
+                  target='_blank'
+                  rel='noopener noreferrer'
+                  variant='inlineIcon'
+                  aria-label={t(
+                    'vocdoni_app.app_hero.cta_primary_aria_label',
+                    'Start for free in the Vocdoni app (opens in new tab)'
+                  )}
+                >
                   {t('vocdoni_app.app_hero.cta_primary', 'Start for free')}
                   <ArrowRight className='h-5 w-5 transition-transform duration-200 group-hover:translate-x-0.5' />
                 </Link>
               </Button>
-              <Button variant='outline' size='lg' className='w-full sm:w-auto' onClick={() => setPlaying(true)}>
+              <Button
+                variant='outline'
+                size='lg'
+                className='w-full sm:w-auto'
+                onClick={() => setPlaying(true)}
+                aria-label={t('vocdoni_app.app_hero.cta_secondary_aria_label', 'Watch the demo video')}
+              >
                 <PlayCircleIcon />
                 {t('vocdoni_app.app_hero.cta_secondary', 'Watch the demo')}
               </Button>
