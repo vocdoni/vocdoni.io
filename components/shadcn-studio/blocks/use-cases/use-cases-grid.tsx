@@ -18,6 +18,7 @@ import logoFcb from '@/assets/images/fcb.webp'
 import logoErc from '@/assets/logos/erc.webp'
 import logoAlhora from '@/assets/logos/logo_alhora_round.webp'
 import logoArxivers from '@/assets/logos/logo_arxivers_colour.webp'
+import logoAti from '@/assets/logos/logo_ati_colour.webp'
 import logoBcn from '@/assets/logos/logo_bcn_bw.webp'
 import logoBellpuig from '@/assets/logos/logo_bellpuig_colour.webp'
 import logoBerga from '@/assets/logos/logo_berga_bw.webp'
@@ -92,6 +93,7 @@ const UseCasesGrid = () => {
         { src: logoCoib, alt: 'COIB' },
         { src: logoEic, alt: 'Enginyers Industrials' },
         { src: logoIcoes, alt: 'ICOES' },
+        { src: logoAti, alt: 'Associazione Termotecnica Italiana' },
       ] as LogoEntry[],
       caseStudy: {
         href: 'https://blog.vocdoni.io/how-coib-a-professional-body-of-nurses-ran-its-2025-annual-general-meeting-vote-online-securely-and-with-instant-results/',
