@@ -1,3 +1,4 @@
+import type { TFunction } from 'i18next'
 import { ArrowRight } from 'lucide-react'
 import * as React from 'react'
 import { useTranslation } from 'react-i18next'
@@ -70,18 +71,23 @@ const buildFeaturedSolution = (t: (key: string) => string) => ({
   badge: t('navbar.featured_solution.vocdoni_app.badge'),
 })
 
-const buildResourcesItems = (t: (key: string) => string) => [
+const buildResourcesItems = (t: TFunction) => [
+  {
+    title: t('navbar.resources_items.learn.title', 'Learn'),
+    href: '/learn',
+    description: t('navbar.resources_items.learn.description', 'Guides to secure and verifiable online voting.'),
+  },
+  {
+    title: t('navbar.resources_items.case_studies.title', 'Case studies'),
+    href: '/case-studies',
+    description: t('navbar.resources_items.case_studies.description', 'Real elections run with Vocdoni.'),
+  },
   {
     title: t('navbar.resources_items.blog.title'),
     href: 'https://blog.vocdoni.io',
     target: '_blank',
     rel: 'noopener noreferrer',
     description: t('navbar.resources_items.blog.description'),
-  },
-  {
-    title: t('navbar.resources_items.success_stories.title'),
-    href: '/use-cases#success-stories',
-    description: t('navbar.resources_items.success_stories.description'),
   },
   {
     title: t('navbar.resources_items.docs.title'),
@@ -92,6 +98,18 @@ const buildResourcesItems = (t: (key: string) => string) => [
   },
 ]
 
+const buildSolutionVerticals = (t: TFunction) => [
+  { title: t('navbar.solution_links.associations', 'Associations & federations'), href: '/solutions/associations' },
+  { title: t('navbar.solution_links.cooperatives', 'Cooperatives'), href: '/solutions/cooperatives' },
+  {
+    title: t('navbar.solution_links.professional_colleges', 'Professional colleges'),
+    href: '/solutions/professional-colleges',
+  },
+  { title: t('navbar.solution_links.political_parties', 'Political parties'), href: '/solutions/political-parties' },
+  { title: t('navbar.solution_links.municipalities', 'Municipalities'), href: '/solutions/municipalities' },
+  { title: t('navbar.solution_links.companies_agm', 'Companies & AGMs'), href: '/solutions/companies-agm' },
+]
+
 export function Navbar() {
   const { t } = useTranslation()
   const [isOpen, setIsOpen] = React.useState(false)
@@ -99,6 +117,7 @@ export function Navbar() {
   const productFeatures = React.useMemo(() => buildProductFeatures(t), [t])
   const featuredSolution = React.useMemo(() => buildFeaturedSolution(t), [t])
   const resourcesItems = React.useMemo(() => buildResourcesItems(t), [t])
+  const solutionVerticals = React.useMemo(() => buildSolutionVerticals(t), [t])
 
   return (
     <div className='fixed top-6 left-0 right-0 z-50 flex justify-center px-4 cursor-none pointer-events-none'>
@@ -118,9 +137,9 @@ export function Navbar() {
             <NavigationMenuItem>
               <NavigationMenuTrigger>{t('navbar.solutions')}</NavigationMenuTrigger>
               <NavigationMenuContent>
-                <div className='w-[650px] p-6'>
-                  <div className='grid grid-cols-2 gap-6'>
-                    {/* Left column: Regular solution items */}
+                <div className='w-[820px] p-6'>
+                  <div className='grid grid-cols-3 gap-6'>
+                    {/* Column 1: Products */}
                     <div className='space-y-2'>
                       <p className='mb-3 px-2 text-sm text-muted-foreground font-medium'>
                         {t('navbar.solutions_header')}
@@ -153,7 +172,35 @@ export function Navbar() {
                       </ul>
                     </div>
 
-                    {/* Right column: Featured card with image */}
+                    {/* Column 2: By organization type */}
+                    <div className='space-y-2'>
+                      <p className='mb-3 px-2 text-sm text-muted-foreground font-medium'>
+                        {t('navbar.solutions_by_type_header', 'By organization type')}
+                      </p>
+                      <ul className='space-y-0.5'>
+                        {solutionVerticals.map((item) => (
+                          <li key={item.href}>
+                            <NavigationMenuLink asChild>
+                              <Link href={item.href} variant='navbarItem'>
+                                <div className='text-sm font-medium leading-none'>{item.title}</div>
+                              </Link>
+                            </NavigationMenuLink>
+                          </li>
+                        ))}
+                        <li>
+                          <NavigationMenuLink asChild>
+                            <Link href='/solutions' variant='navbarItem'>
+                              <div className='text-primary inline-flex items-center gap-1 text-sm font-medium leading-none'>
+                                {t('navbar.view_all_solutions', 'View all solutions')}
+                                <ArrowRight className='size-3.5' />
+                              </div>
+                            </Link>
+                          </NavigationMenuLink>
+                        </li>
+                      </ul>
+                    </div>
+
+                    {/* Column 3: Featured card with image */}
                     <div className='relative flex flex-col'>
                       <p className='mb-2 px-2 text-sm text-muted-foreground font-medium'>
                         {t('navbar.featured_solution.header')}
@@ -321,6 +368,29 @@ export function Navbar() {
                                 </CalBookingDialog>
                               )
                             )}
+
+                            {/* By organization type */}
+                            <p className='mt-3 pt-3 border-t border-border/40 text-xs font-medium uppercase tracking-wide text-muted-foreground'>
+                              {t('navbar.solutions_by_type_header', 'By organization type')}
+                            </p>
+                            {solutionVerticals.map((item) => (
+                              <Link
+                                key={item.href}
+                                href={item.href}
+                                variant='navbarMobile'
+                                onClick={() => setIsOpen(false)}
+                              >
+                                {item.title}
+                              </Link>
+                            ))}
+                            <Link
+                              href='/solutions'
+                              variant='navbarMobile'
+                              className='text-primary font-medium'
+                              onClick={() => setIsOpen(false)}
+                            >
+                              {t('navbar.view_all_solutions', 'View all solutions')}
+                            </Link>
                           </div>
                         </AccordionContent>
                       </AccordionItem>

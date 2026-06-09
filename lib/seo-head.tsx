@@ -136,8 +136,25 @@ const buildBreadcrumbSchema = (siteUrl: string, locale: string, urlLogical: stri
   }
 }
 
-const buildFaqSchema = (pageContext: PageContext, locale: string) => {
-  const items = getLocalizedValue(pageContext, locale, 'app_landing.faq.items')
+// Resolve which locale key holds the FAQ items for the current page, if any.
+// Route slugs are kebab-case; i18n keys are snake_case.
+const getFaqItemsKey = (urlLogical: string) => {
+  if (urlLogical === '/app') return 'app_landing.faq.items'
+  const toKey = (slug: string) => slug.replace(/-/g, '_')
+  if (urlLogical.startsWith('/solutions/')) {
+    const slug = urlLogical.split('/')[2]
+    if (slug) return `solutions.${toKey(slug)}.faq.items`
+  }
+  if (urlLogical.startsWith('/learn/')) {
+    const slug = urlLogical.split('/')[2]
+    // Learn articles store FAQ items as a direct array under `faq`.
+    if (slug) return `learn.${toKey(slug)}.faq`
+  }
+  return null
+}
+
+const buildFaqSchema = (pageContext: PageContext, locale: string, itemsKey: string) => {
+  const items = getLocalizedValue(pageContext, locale, itemsKey)
   if (!Array.isArray(items)) return null
 
   const mainEntity = items
@@ -164,6 +181,36 @@ const buildFaqSchema = (pageContext: PageContext, locale: string) => {
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
     mainEntity,
+  }
+}
+
+const buildArticleSchema = (
+  urlLogical: string,
+  siteUrl: string,
+  canonicalUrl: string,
+  locale: string,
+  title?: string,
+  description?: string,
+  image?: string
+) => {
+  if (!urlLogical.startsWith('/learn/') || urlLogical === '/learn') return null
+
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: cleanTitle(title ?? undefined),
+    inLanguage: locale,
+    mainEntityOfPage: canonicalUrl,
+    url: canonicalUrl,
+    ...(description ? { description } : {}),
+    ...(image ? { image } : {}),
+    author: { '@type': 'Organization', name: 'Vocdoni', url: siteUrl },
+    publisher: {
+      '@type': 'Organization',
+      name: 'Vocdoni',
+      url: siteUrl,
+      ...(image ? { logo: { '@type': 'ImageObject', url: image } } : {}),
+    },
   }
 }
 
@@ -244,13 +291,24 @@ export function HeadTags(pageContext: PageContext) {
         }
       : null
 
+  const faqItemsKey = getFaqItemsKey(urlLogical)
+
   const schema = [
     organizationSchema,
     websiteSchema,
     pageSchema,
     buildBreadcrumbSchema(siteUrl, locale, urlLogical, title ?? undefined),
     appSchema,
-    urlLogical === '/app' ? buildFaqSchema(pageContext, locale) : null,
+    faqItemsKey ? buildFaqSchema(pageContext, locale, faqItemsKey) : null,
+    buildArticleSchema(
+      urlLogical,
+      siteUrl,
+      canonicalUrl,
+      locale,
+      title ?? undefined,
+      description ?? undefined,
+      ogImageUrl
+    ),
   ].filter(Boolean)
 
   if (isCompatibilityRedirect) {
