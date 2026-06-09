@@ -83,6 +83,11 @@ const buildResourcesItems = (t: TFunction) => [
     description: t('navbar.resources_items.case_studies.description', 'Real elections run with Vocdoni.'),
   },
   {
+    title: t('navbar.resources_items.changelog.title', 'App changelog'),
+    href: '/app/changelog',
+    description: t('navbar.resources_items.changelog.description', 'All Vocdoni App releases and updates.'),
+  },
+  {
     title: t('navbar.resources_items.blog.title'),
     href: 'https://blog.vocdoni.io',
     target: '_blank',

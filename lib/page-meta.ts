@@ -38,6 +38,11 @@ const metaDefaults = {
     'meta.app.description',
     'Start free, upload your voter list, and publish results your members can verify. Built for organizations that need trust, speed, and proof.'
   ),
+  'meta.app_changelog.title': t('meta.app_changelog.title', "Vocdoni App changelog - what's new | Vocdoni"),
+  'meta.app_changelog.description': t(
+    'meta.app_changelog.description',
+    'Follow every Vocdoni App release: new features, improvements, and fixes across all versions.'
+  ),
   'meta.solutions_index.title': t(
     'meta.solutions_index.title',
     'Online voting solutions by organization type | Vocdoni'
