@@ -10,7 +10,6 @@ import {
 
 import { Container } from '@/components/Container'
 import { Link } from '@/components/Link'
-import CTASection from '@/components/shadcn-studio/blocks/cta-section-09/cta-section-09'
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
@@ -288,8 +287,6 @@ export function SolutionPage({ icon: Icon, content, logos, caseStudyHref }: Solu
           </Accordion>
         </Container>
       </section>
-
-      <CTASection />
     </>
   )
 }
