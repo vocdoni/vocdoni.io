@@ -22,6 +22,9 @@ import logoEicRound from '@/assets/logos/logo_eic_round.webp'
 import logoIcoesRound from '@/assets/logos/logo_icoes_round.webp'
 import logoOmniumRound from '@/assets/logos/logo_omnium_round.webp'
 import logoPlataformaRound from '@/assets/logos/logo_plataforma_round.webp'
+import logoErc from '@/assets/logos/erc.webp'
+import logoErcRound from '@/assets/logos/logo_erc_round.webp'
+import logoGranollersRound from '@/assets/logos/logo_primaries_granollers_round.webp'
 
 export type Testimonial = {
   name: string
@@ -207,6 +210,37 @@ export function getTestimonialsData(t: TFunction): Testimonial[] {
       platformName: t('testimonials_marquee.items.11.platform_name', 'Associazione Termotecnica Italiana'),
       platformImage: logoAtiColour,
       logo: logoAtiRound,
+    },
+    {
+      name: 'Kènia Domènech i Àlvarez',
+      handle: t(
+        'testimonials_marquee.items.12.handle',
+        'National Secretary of Membership, Anti-repressive Struggle and Emotional Well-being · Esquerra Republicana'
+      ),
+      avatar: '/images/avatars/avatar-17.png',
+      rating: 5,
+      title: t('testimonials_marquee.items.12.title', 'Internal democracy with full guarantees'),
+      content: t(
+        'testimonials_marquee.items.12.content',
+        'At Esquerra Republicana we have a firm commitment to internal democracy and membership participation. For this reason, we consider it essential to have tools that guarantee the highest integrity, transparency and privacy in all voting processes.\n\nWe have been trusting Vocdoni for years because it offers us a secure, auditable and easy-to-use system that allows us to organise digital votes with all guarantees and adapted to the needs of our organisation.'
+      ),
+      platformName: 'Esquerra Republicana',
+      platformImage: logoErc,
+      logo: logoErcRound,
+    },
+    {
+      name: 'Arnau Bellavista',
+      handle: t('testimonials_marquee.items.13.handle', 'Communications officer · Granollers Primàries'),
+      avatar: '/images/avatars/avatar-18.png',
+      rating: 5,
+      title: t('testimonials_marquee.items.13.title', 'Digital participation for transparent primaries'),
+      content: t(
+        'testimonials_marquee.items.13.content',
+        'At «Granollers Primàries» we understand digital participation as a key tool to expand and facilitate citizen participation. That is why we were looking for a platform that guaranteed neutrality, transparency and the highest security in voting processes. Vocdoni offers all of this, and that is why we chose it for our primaries and plan to continue using it in future consultations.'
+      ),
+      platformName: 'Granollers Primàries',
+      platformImage: logoGranollersRound,
+      logo: logoGranollersRound,
     },
   ]
 }
