@@ -43,6 +43,10 @@ export function ArticlePage({ content, ctaHref = '/solutions' }: ArticlePageProp
       {/* Hero */}
       <section className='pt-6 pb-10 sm:pt-10 lg:pt-12'>
         <Container className='max-w-3xl'>
+          <Link href='/learn' variant='inlineIcon' className='text-muted-foreground hover:text-foreground mb-6 text-sm'>
+            <ArrowLeftIcon className='size-4' />
+            {t('learn_index.back_to_hub', 'Back to all guides')}
+          </Link>
           <MotionPreset
             component='p'
             className='text-primary mb-4 text-sm font-medium uppercase tracking-wide'

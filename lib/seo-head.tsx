@@ -136,10 +136,27 @@ const buildBreadcrumbSchema = (siteUrl: string, locale: string, urlLogical: stri
   }
 }
 
-// Resolve which locale key holds the FAQ items for the current page, if any.
+const collectFaqEntries = (value: unknown): { question: string; answer: string }[] => {
+  if (!value || typeof value !== 'object') return []
+  const list = Array.isArray(value) ? value : Object.values(value as Record<string, unknown>)
+  const entries: { question: string; answer: string }[] = []
+  for (const item of list) {
+    if (!item || typeof item !== 'object') continue
+    const question = (item as Record<string, unknown>).question
+    const answer = (item as Record<string, unknown>).answer
+    if (typeof question === 'string' && typeof answer === 'string' && question.trim() && answer.trim()) {
+      entries.push({ question, answer })
+    }
+  }
+  return entries
+}
+
+// Maps a logical page to the i18n key that holds its FAQ entries.
 // Route slugs are kebab-case; i18n keys are snake_case.
-const getFaqItemsKey = (urlLogical: string) => {
+const getFaqStoreKey = (urlLogical: string) => {
   if (urlLogical === '/app') return 'app_landing.faq.items'
+  if (urlLogical === '/') return 'faq.items'
+  if (urlLogical === '/pricing') return 'pricing_page.faq'
   const toKey = (slug: string) => slug.replace(/-/g, '_')
   if (urlLogical.startsWith('/solutions/')) {
     const slug = urlLogical.split('/')[2]
@@ -153,34 +170,75 @@ const getFaqItemsKey = (urlLogical: string) => {
   return null
 }
 
-const buildFaqSchema = (pageContext: PageContext, locale: string, itemsKey: string) => {
-  const items = getLocalizedValue(pageContext, locale, itemsKey)
-  if (!Array.isArray(items)) return null
+const buildFaqSchema = (pageContext: PageContext, locale: string, urlLogical: string) => {
+  const storeKey = getFaqStoreKey(urlLogical)
+  if (!storeKey) return null
 
-  const mainEntity = items
-    .map((item) => {
-      if (!item || typeof item !== 'object') return null
-      const question = (item as Record<string, unknown>).question
-      const answer = (item as Record<string, unknown>).answer
-      if (typeof question !== 'string' || typeof answer !== 'string') return null
-
-      return {
-        '@type': 'Question',
-        name: question,
-        acceptedAnswer: {
-          '@type': 'Answer',
-          text: answer,
-        },
-      }
-    })
-    .filter(Boolean)
-
-  if (mainEntity.length === 0) return null
+  const entries = collectFaqEntries(getLocalizedValue(pageContext, locale, storeKey))
+  if (entries.length === 0) return null
 
   return {
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
-    mainEntity,
+    mainEntity: entries.map((entry) => ({
+      '@type': 'Question',
+      name: entry.question,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: entry.answer,
+      },
+    })),
+  }
+}
+
+// Named, real customers behind the homepage testimonials, used for Review / AggregateRating schema.
+const TESTIMONIAL_AUTHORS = [
+  { index: 0, name: 'Jordi Estiarte', org: 'Bellpuig City Council' },
+  { index: 1, name: 'Ton Barnils', org: 'Centre Excursionista de Catalunya' },
+  { index: 2, name: 'Anna Giralt', org: 'Òmnium Cultural' },
+  { index: 3, name: 'Oscar Tirivò', org: 'College of Industrial Engineers of Catalonia' },
+  { index: 4, name: 'Rut Carandell', org: 'Plataforma per la Llengua' },
+  { index: 5, name: 'Montserrat Clavell', org: "Associació d'Arxivers de Catalunya" },
+  { index: 6, name: 'Susanna Mendoza', org: 'AGUICAT' },
+  { index: 7, name: 'Adrià Cortadellas', org: "La Bisbal d'Empordà City Council" },
+  { index: 8, name: 'Lluís Llibre', org: 'BLOOCK' },
+  { index: 9, name: 'Víctor Bohórquez', org: 'Official College of Nursing of Seville' },
+  { index: 10, name: 'Lluis Serrat i Andreu', org: 'Official College of Nurses of Barcelona' },
+]
+
+const buildHomeRatingSchema = (
+  pageContext: PageContext,
+  locale: string,
+  siteUrl: string,
+  description?: string,
+  image?: string
+) => {
+  const reviews = TESTIMONIAL_AUTHORS.map((author) => {
+    const body = getLocalizedValue(pageContext, locale, `testimonials_marquee.items.${author.index}.content`)
+    return {
+      '@type': 'Review',
+      reviewRating: { '@type': 'Rating', ratingValue: '5', bestRating: '5' },
+      author: { '@type': 'Person', name: author.name },
+      ...(author.org ? { publisher: { '@type': 'Organization', name: author.org } } : {}),
+      ...(typeof body === 'string' && body.trim() ? { reviewBody: body } : {}),
+    }
+  })
+
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Product',
+    name: 'Vocdoni online voting platform',
+    url: siteUrl,
+    brand: { '@type': 'Brand', name: 'Vocdoni' },
+    ...(description ? { description } : {}),
+    ...(image ? { image } : {}),
+    aggregateRating: {
+      '@type': 'AggregateRating',
+      ratingValue: '5',
+      bestRating: '5',
+      reviewCount: TESTIMONIAL_AUTHORS.length,
+    },
+    review: reviews,
   }
 }
 
@@ -213,6 +271,22 @@ const buildArticleSchema = (
     },
   }
 }
+
+const buildPricingOfferSchema = (canonicalUrl: string, description?: string) => ({
+  '@context': 'https://schema.org',
+  '@type': 'Product',
+  name: 'Vocdoni online voting',
+  ...(description ? { description } : {}),
+  brand: { '@type': 'Brand', name: 'Vocdoni' },
+  offers: {
+    '@type': 'AggregateOffer',
+    priceCurrency: 'EUR',
+    lowPrice: '0',
+    highPrice: '3210',
+    offerCount: 4,
+    url: canonicalUrl,
+  },
+})
 
 export function HeadTags(pageContext: PageContext) {
   const is404 = Boolean(pageContext.is404)
@@ -291,15 +365,13 @@ export function HeadTags(pageContext: PageContext) {
         }
       : null
 
-  const faqItemsKey = getFaqItemsKey(urlLogical)
-
   const schema = [
     organizationSchema,
     websiteSchema,
     pageSchema,
     buildBreadcrumbSchema(siteUrl, locale, urlLogical, title ?? undefined),
     appSchema,
-    faqItemsKey ? buildFaqSchema(pageContext, locale, faqItemsKey) : null,
+    buildFaqSchema(pageContext, locale, urlLogical),
     buildArticleSchema(
       urlLogical,
       siteUrl,
@@ -309,6 +381,10 @@ export function HeadTags(pageContext: PageContext) {
       description ?? undefined,
       ogImageUrl
     ),
+    urlLogical === '/'
+      ? buildHomeRatingSchema(pageContext, locale, siteUrl, description ?? undefined, ogImageUrl)
+      : null,
+    urlLogical === '/pricing' ? buildPricingOfferSchema(canonicalUrl, description ?? undefined) : null,
   ].filter(Boolean)
 
   if (isCompatibilityRedirect) {

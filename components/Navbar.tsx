@@ -39,13 +39,51 @@ type ProductFeature =
       triggerAriaLabel: string
     }
 
-const buildProductFeatures = (t: (key: string) => string) =>
+type TranslateFn = TFunction
+
+const buildProductFeatures = (t: TranslateFn) =>
   [
     {
       title: t('navbar.product_features.digital_voting_platform.title'),
       kind: 'link' as const,
       href: '/app',
       description: t('navbar.product_features.digital_voting_platform.description'),
+    },
+    {
+      title: t('navbar.product_features.all_solutions.title', 'Solutions by sector'),
+      kind: 'link' as const,
+      href: '/solutions',
+      description: t(
+        'navbar.product_features.all_solutions.description',
+        'Online voting tailored to colleges, unions, parties, cooperatives and councils.'
+      ),
+    },
+    {
+      title: t('navbar.product_features.pricing.title', 'Pricing'),
+      kind: 'link' as const,
+      href: '/pricing',
+      description: t(
+        'navbar.product_features.pricing.description',
+        'Free plan, fixed annual tiers and tailored quotes.'
+      ),
+    },
+    {
+      title: t('navbar.product_features.security.title', 'Security and trust'),
+      kind: 'link' as const,
+      href: '/security',
+      description: t(
+        'navbar.product_features.security.description',
+        'Anonymous, end-to-end verifiable, open source and EU-hosted.'
+      ),
+    },
+    {
+      title: t('navbar.product_features.compare.title', 'Compare alternatives'),
+      kind: 'link' as const,
+      href: '/compare',
+      description: t(
+        'navbar.product_features.compare.description',
+        'See how Vocdoni stacks up against other platforms.'
+      ),
     },
     {
       title: t('navbar.product_features.sdk.title'),
@@ -63,7 +101,7 @@ const buildProductFeatures = (t: (key: string) => string) =>
     },
   ] satisfies ProductFeature[]
 
-const buildFeaturedSolution = (t: (key: string) => string) => ({
+const buildFeaturedSolution = (t: TranslateFn) => ({
   title: t('navbar.featured_solution.vocdoni_app.title'),
   description: t('navbar.featured_solution.vocdoni_app.description'),
   href: 'https://app.vocdoni.io',
@@ -71,16 +109,27 @@ const buildFeaturedSolution = (t: (key: string) => string) => ({
   badge: t('navbar.featured_solution.vocdoni_app.badge'),
 })
 
-const buildResourcesItems = (t: TFunction) => [
+const buildResourcesItems = (t: TranslateFn) => [
+  {
+    title: t('navbar.resources_items.resources.title', 'Resources and guides'),
+    href: '/resources',
+    description: t(
+      'navbar.resources_items.resources.description',
+      'Guides, checklists, templates and a voting glossary.'
+    ),
+  },
   {
     title: t('navbar.resources_items.learn.title', 'Learn'),
     href: '/learn',
-    description: t('navbar.resources_items.learn.description', 'Guides to secure and verifiable online voting.'),
+    description: t('navbar.resources_items.learn.description', 'How online voting, security and cryptography work.'),
   },
   {
     title: t('navbar.resources_items.case_studies.title', 'Case studies'),
     href: '/case-studies',
-    description: t('navbar.resources_items.case_studies.description', 'Real elections run with Vocdoni.'),
+    description: t(
+      'navbar.resources_items.case_studies.description',
+      'Real projects from colleges, councils and more.'
+    ),
   },
   {
     title: t('navbar.resources_items.blog.title'),
@@ -242,6 +291,13 @@ export function Navbar() {
             <NavigationMenuItem>
               <Link href='/use-cases' variant='unstyled' className={navigationMenuTriggerStyle()}>
                 {t('navbar.use_cases')}
+              </Link>
+            </NavigationMenuItem>
+
+            {/* Pricing */}
+            <NavigationMenuItem>
+              <Link href='/pricing' variant='unstyled' className={navigationMenuTriggerStyle()}>
+                {t('navbar.pricing', 'Pricing')}
               </Link>
             </NavigationMenuItem>
 
@@ -423,6 +479,9 @@ export function Navbar() {
                     <div className='flex flex-col'>
                       <Link href='/use-cases' variant='navbarStatic' onClick={() => setIsOpen(false)}>
                         {t('navbar.use_cases')}
+                      </Link>
+                      <Link href='/pricing' variant='navbarStatic' onClick={() => setIsOpen(false)}>
+                        {t('navbar.pricing', 'Pricing')}
                       </Link>
                       <Link href='/about-us' variant='navbarStatic' onClick={() => setIsOpen(false)}>
                         {t('navbar.about')}

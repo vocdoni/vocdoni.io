@@ -1,7 +1,6 @@
 import { localeDefault } from '@/locales'
 
 const t = (_key: string, defaultValue: string) => defaultValue
-
 const metaDefaults = {
   'meta.index.title': t('meta.index.title', 'Secure online voting platform for organizations | Vocdoni'),
   'meta.index.description': t(
@@ -228,6 +227,386 @@ const metaDefaults = {
   'meta.case_studies.omnium_cultural.description': t(
     'meta.case_studies.omnium_cultural.description',
     'How Òmnium Cultural runs secure, verifiable statutory assemblies online, giving a large membership organization decisions with full guarantees.'
+  ),
+  'meta.pricing.title': t('meta.pricing.title', 'Pricing - online voting plans and project quotes - Vocdoni'),
+  'meta.pricing.description': t(
+    'meta.pricing.description',
+    'Transparent pricing for secure online voting: a free plan, fixed annual tiers, and tailored quotes for large elections. Start free, no credit card needed.'
+  ),
+  'meta.solutions.title': t('meta.solutions.title', 'Online voting solutions by sector - Vocdoni'),
+  'meta.solutions.description': t(
+    'meta.solutions.description',
+    'Explore secure online voting solutions for colleges, unions, parties, cooperatives and councils. Verifiable, GDPR compliant. Start free today.'
+  ),
+  'meta.solutions_professional_colleges.title': t(
+    'meta.solutions_professional_colleges.title',
+    'Online voting for professional colleges - Vocdoni'
+  ),
+  'meta.solutions_professional_colleges.description': t(
+    'meta.solutions_professional_colleges.description',
+    'Run statutory college elections and juntas generales with total legal cover and zero disputes. Trusted by ICOES and COIB. Start free today.'
+  ),
+  'meta.solutions_associations_federations.title': t(
+    'meta.solutions_associations_federations.title',
+    'Online voting for associations and federations - Vocdoni'
+  ),
+  'meta.solutions_associations_federations.description': t(
+    'meta.solutions_associations_federations.description',
+    'Reach quorum without the chase: members of associations and federations vote from any device. Used by Òmnium Cultural. Start free today.'
+  ),
+  'meta.solutions_political_parties.title': t(
+    'meta.solutions_political_parties.title',
+    'Online voting for political parties and primaries - Vocdoni'
+  ),
+  'meta.solutions_political_parties.description': t(
+    'meta.solutions_political_parties.description',
+    'Run party primaries and delegate elections without disputes, with anonymous, verifiable ballots every faction trusts. Start free today.'
+  ),
+  'meta.solutions_trade_unions.title': t(
+    'meta.solutions_trade_unions.title',
+    'Online voting for trade unions - Vocdoni'
+  ),
+  'meta.solutions_trade_unions.description': t(
+    'meta.solutions_trade_unions.description',
+    'Run mass delegate elections with a full audit trail and cut election-day cost by 80%. Secret, verifiable voto sindical. Start free today.'
+  ),
+  'meta.solutions_chambers_of_commerce.title': t(
+    'meta.solutions_chambers_of_commerce.title',
+    'Online voting for chambers of commerce - Vocdoni'
+  ),
+  'meta.solutions_chambers_of_commerce.description': t(
+    'meta.solutions_chambers_of_commerce.description',
+    'Run chamber elections with weighted voting, an institutional image and eIDAS-grade evidence for every ballot. Start free today.'
+  ),
+  'meta.solutions_cooperatives.title': t(
+    'meta.solutions_cooperatives.title',
+    'Online voting for cooperatives - Vocdoni'
+  ),
+  'meta.solutions_cooperatives.description': t(
+    'meta.solutions_cooperatives.description',
+    'Run a hybrid asamblea general with vot ponderat and full legal validity under cooperative law. Decisions you can defend. Start free today.'
+  ),
+  'meta.solutions_ngos_foundations.title': t(
+    'meta.solutions_ngos_foundations.title',
+    'Online voting for NGOs and foundations - Vocdoni'
+  ),
+  'meta.solutions_ngos_foundations.description': t(
+    'meta.solutions_ngos_foundations.description',
+    'Transparent, affordable governance that matches your mission. Board elections and assemblies that are easy to run and trust. Start free.'
+  ),
+  'meta.solutions_universities.title': t(
+    'meta.solutions_universities.title',
+    'Online voting for universities - Vocdoni'
+  ),
+  'meta.solutions_universities.description': t(
+    'meta.solutions_universities.description',
+    'Run student, faculty senate and rectorate elections on one platform, with weighted colleges and verifiable results. Start free today.'
+  ),
+  'meta.solutions_public_administration.title': t(
+    'meta.solutions_public_administration.title',
+    'Online voting for public administration - Vocdoni'
+  ),
+  'meta.solutions_public_administration.description': t(
+    'meta.solutions_public_administration.description',
+    'Run participatory budgeting and citizen consultations with cryptographic proof. Trusted by city councils. Start free today.'
+  ),
+  'meta.solutions_sports_clubs.title': t(
+    'meta.solutions_sports_clubs.title',
+    'Online voting for sports clubs - Vocdoni'
+  ),
+  'meta.solutions_sports_clubs.description': t(
+    'meta.solutions_sports_clubs.description',
+    'Run board and presidential club elections the press cannot pull apart, with anonymous, verifiable ballots. Start free today.'
+  ),
+  'meta.compare.title': t('meta.compare.title', 'Compare online voting platforms - Vocdoni'),
+  'meta.compare.description': t(
+    'meta.compare.description',
+    'Compare Vocdoni with Kuorum, Polyas, Sequent, Assembly Voting and Eligo on verifiability, privacy, openness and price. Find your best fit.'
+  ),
+  'meta.compare_kuorum.title': t('meta.compare_kuorum.title', 'Vocdoni vs Kuorum online voting - Vocdoni'),
+  'meta.compare_kuorum.description': t(
+    'meta.compare_kuorum.description',
+    'An honest Vocdoni vs Kuorum comparison on verifiability, anonymity, open source and price, so you can pick the right online voting platform.'
+  ),
+  'meta.compare_polyas.title': t('meta.compare_polyas.title', 'Vocdoni vs Polyas online voting - Vocdoni'),
+  'meta.compare_polyas.description': t(
+    'meta.compare_polyas.description',
+    'Compare Vocdoni and Polyas on verifiability, open source, free tier and transparent pricing. See which online voting platform fits your vote.'
+  ),
+  'meta.compare_sequent.title': t('meta.compare_sequent.title', 'Vocdoni vs Sequent online voting - Vocdoni'),
+  'meta.compare_sequent.description': t(
+    'meta.compare_sequent.description',
+    'Compare Vocdoni and Sequent on anonymity, verifiability, hosting and support. Two open approaches to verifiable online voting, side by side.'
+  ),
+  'meta.compare_assembly_voting.title': t('meta.compare_assembly_voting.title', 'Vocdoni vs Assembly Voting - Vocdoni'),
+  'meta.compare_assembly_voting.description': t(
+    'meta.compare_assembly_voting.description',
+    'Compare Vocdoni and Assembly Voting on end-to-end verifiability, anonymity, open source and price. Choose the right platform for your election.'
+  ),
+  'meta.compare_eligo.title': t('meta.compare_eligo.title', 'Vocdoni vs Eligo online voting - Vocdoni'),
+  'meta.compare_eligo.description': t(
+    'meta.compare_eligo.description',
+    'Compare Vocdoni and Eligo on verifiability, open source and transparent pricing. See which online voting platform best fits your organization.'
+  ),
+  'meta.alternatives.title': t('meta.alternatives.title', 'Online voting platform alternatives - Vocdoni'),
+  'meta.alternatives.description': t(
+    'meta.alternatives.description',
+    'Looking for a Kuorum, Polyas, Sequent or Eligo alternative? Compare verifiable, anonymous, open source online voting platforms and start free.'
+  ),
+  'meta.security.title': t('meta.security.title', 'Security - verifiable, anonymous online voting - Vocdoni'),
+  'meta.security.description': t(
+    'meta.security.description',
+    'See how Vocdoni keeps every vote anonymous, verifiable, open source and EU-hosted. Explore the security pillars and start a verifiable vote for free.'
+  ),
+  'meta.security_verifiability.title': t(
+    'meta.security_verifiability.title',
+    'End-to-end verifiable voting explained - Vocdoni'
+  ),
+  'meta.security_verifiability.description': t(
+    'meta.security_verifiability.description',
+    'Learn how end-to-end verifiable voting proves your ballot is cast, recorded and counted correctly. Follow a worked example and run a verifiable vote.'
+  ),
+  'meta.security_zero_knowledge.title': t(
+    'meta.security_zero_knowledge.title',
+    'Zero-knowledge voting: secret even from us - Vocdoni'
+  ),
+  'meta.security_zero_knowledge.description': t(
+    'meta.security_zero_knowledge.description',
+    'Discover how zero-knowledge voting and zk-SNARKs keep your ballot secret, receipt-free and coercion-resistant. Try anonymous, verifiable voting for free.'
+  ),
+  'meta.security_blockchain_voting.title': t(
+    'meta.security_blockchain_voting.title',
+    'Blockchain voting platform, explained honestly - Vocdoni'
+  ),
+  'meta.security_blockchain_voting.description': t(
+    'meta.security_blockchain_voting.description',
+    'Understand what the blockchain does in a voting platform, a tamper-evident public bulletin board, and what it does not. See verifiable voting in action.'
+  ),
+  'meta.security_audit.title': t('meta.security_audit.title', 'Audits and certifications for online voting - Vocdoni'),
+  'meta.security_audit.description': t(
+    'meta.security_audit.description',
+    'Review the audits behind Vocdoni, including our ICOES technical certification on file, plus our roadmap toward SOC2 and pentests. Talk to our team today.'
+  ),
+  'meta.security_open_source.title': t(
+    'meta.security_open_source.title',
+    'Open source online voting you can inspect - Vocdoni'
+  ),
+  'meta.security_open_source.description': t(
+    'meta.security_open_source.description',
+    'Find out why elections should run on open source code anyone can read, reproduce and review. Explore the Vocdoni protocol and clients on GitHub now.'
+  ),
+  'meta.compliance.title': t('meta.compliance.title', 'Compliance: GDPR, eIDAS, ENS and LSSI - Vocdoni'),
+  'meta.compliance.description': t(
+    'meta.compliance.description',
+    'See how Vocdoni meets GDPR, eIDAS, ENS and LSSI with EU hosting and a DPA available on request. Request a data processing addendum for your organization.'
+  ),
+  'meta.case_studies.title': t('meta.case_studies.title', 'Online voting case studies - Vocdoni'),
+  'meta.case_studies.description': t(
+    'meta.case_studies.description',
+    'See how professional colleges, city councils and citizen initiatives run secure, verifiable online voting with Vocdoni. Real projects, real results.'
+  ),
+  'meta.case_studies_icoes.title': t('meta.case_studies_icoes.title', 'ICOES college elections case study - Vocdoni'),
+  'meta.case_studies_icoes.description': t(
+    'meta.case_studies_icoes.description',
+    'How the Official College of Nursing of Seville digitized its electoral process with Vocdoni, with an audited technical certification and full legal cover.'
+  ),
+  'meta.case_studies_coib.title': t('meta.case_studies_coib.title', 'COIB online assembly case study - Vocdoni'),
+  'meta.case_studies_coib.description': t(
+    'meta.case_studies_coib.description',
+    'How the Official College of Nurses of Barcelona ran its assembly online for around 180,000 members, with instant and verifiable results.'
+  ),
+  'meta.case_studies_ccv_supernodes.title': t(
+    'meta.case_studies_ccv_supernodes.title',
+    'CCV SuperNodes channel partnership case study - Vocdoni'
+  ),
+  'meta.case_studies_ccv_supernodes.description': t(
+    'meta.case_studies_ccv_supernodes.description',
+    'How the CCV SuperNodes partner programme brings verifiable online voting to more organizations through trusted distribution partners.'
+  ),
+  'meta.case_studies_ilp.title': t('meta.case_studies_ilp.title', 'ILP digital platform case study - Vocdoni'),
+  'meta.case_studies_ilp.description': t(
+    'meta.case_studies_ilp.description',
+    'How the Plataforma Digital Vocdoni supports citizen initiatives with digital signature collection and a verifiable process for public administration.'
+  ),
+  'meta.case_studies_municipal_pilot.title': t(
+    'meta.case_studies_municipal_pilot.title',
+    'Municipal digital voting pilot case study - Vocdoni'
+  ),
+  'meta.case_studies_municipal_pilot.description': t(
+    'meta.case_studies_municipal_pilot.description',
+    'How city councils piloted municipal digital voting with guarantees, giving residents secure, verifiable and hybrid participation with Vocdoni.'
+  ),
+  'meta.use_cases_agm_voting.title': t('meta.use_cases_agm_voting.title', 'How to run an online AGM - Vocdoni'),
+  'meta.use_cases_agm_voting.description': t(
+    'meta.use_cases_agm_voting.description',
+    'Run your annual general meeting online with verifiable results and quorum tracking. A step-by-step guide to online AGM voting. Start free.'
+  ),
+  'meta.use_cases_board_elections.title': t(
+    'meta.use_cases_board_elections.title',
+    'Run board elections online - Vocdoni'
+  ),
+  'meta.use_cases_board_elections.description': t(
+    'meta.use_cases_board_elections.description',
+    'Hold secret, verifiable board and committee elections online from any device. A step-by-step guide to running board elections. Start free.'
+  ),
+  'meta.use_cases_primaries.title': t('meta.use_cases_primaries.title', 'Run party primaries online - Vocdoni'),
+  'meta.use_cases_primaries.description': t(
+    'meta.use_cases_primaries.description',
+    'Run online primaries with anonymous, verifiable ballots and no disputes. A step-by-step guide to digital primary elections. Start free.'
+  ),
+  'meta.use_cases_delegate_elections.title': t(
+    'meta.use_cases_delegate_elections.title',
+    'Run delegate elections online - Vocdoni'
+  ),
+  'meta.use_cases_delegate_elections.description': t(
+    'meta.use_cases_delegate_elections.description',
+    'Run large-scale delegate elections online with a full audit trail and instant results. A step-by-step guide for unions and parties. Start free.'
+  ),
+  'meta.use_cases_bylaws_amendments.title': t(
+    'meta.use_cases_bylaws_amendments.title',
+    'Vote on bylaws amendments online - Vocdoni'
+  ),
+  'meta.use_cases_bylaws_amendments.description': t(
+    'meta.use_cases_bylaws_amendments.description',
+    'Approve statute and bylaws amendments online with verifiable, legally valid results. A step-by-step guide to amendment votes. Start free.'
+  ),
+  'meta.use_cases_participatory_budgeting.title': t(
+    'meta.use_cases_participatory_budgeting.title',
+    'Run participatory budgeting online - Vocdoni'
+  ),
+  'meta.use_cases_participatory_budgeting.description': t(
+    'meta.use_cases_participatory_budgeting.description',
+    'Run participatory budgeting with cryptographic proof and instant results. A step-by-step guide for councils and institutions. Start free.'
+  ),
+  'meta.use_cases_weighted_voting.title': t(
+    'meta.use_cases_weighted_voting.title',
+    'Run weighted voting online - Vocdoni'
+  ),
+  'meta.use_cases_weighted_voting.description': t(
+    'meta.use_cases_weighted_voting.description',
+    'Run online votes with weighted shares or seats and verifiable tallies. A step-by-step guide to weighted voting (vot ponderat). Start free.'
+  ),
+  'meta.use_cases_citizen_consultations.title': t(
+    'meta.use_cases_citizen_consultations.title',
+    'Run citizen consultations online - Vocdoni'
+  ),
+  'meta.use_cases_citizen_consultations.description': t(
+    'meta.use_cases_citizen_consultations.description',
+    'Run secure citizen consultations and surveys with verifiable results. A step-by-step guide for public participation. Start free.'
+  ),
+  'meta.use_cases_hybrid_voting.title': t(
+    'meta.use_cases_hybrid_voting.title',
+    'Run hybrid in-person and remote voting - Vocdoni'
+  ),
+  'meta.use_cases_hybrid_voting.description': t(
+    'meta.use_cases_hybrid_voting.description',
+    'Combine in-person and remote ballots in one verifiable count. A step-by-step guide to hybrid voting for assemblies. Start free.'
+  ),
+  'meta.use_cases_referenda.title': t('meta.use_cases_referenda.title', 'Run an online referendum - Vocdoni'),
+  'meta.use_cases_referenda.description': t(
+    'meta.use_cases_referenda.description',
+    'Run yes/no referenda and consultations online with anonymous, verifiable ballots. A step-by-step guide to digital referenda. Start free.'
+  ),
+  'meta.learn.title': t('meta.learn.title', 'Learn about online voting - Vocdoni'),
+  'meta.learn.description': t(
+    'meta.learn.description',
+    'Plain-language guides to how online voting works, election security and cryptographic voting. Build the background to choose a platform with confidence.'
+  ),
+  'meta.learn_how_online_voting_works.title': t(
+    'meta.learn_how_online_voting_works.title',
+    'How online voting works - Vocdoni'
+  ),
+  'meta.learn_how_online_voting_works.description': t(
+    'meta.learn_how_online_voting_works.description',
+    'From census to verified result: a clear, step-by-step explanation of how secure online voting works. Learn the basics and try it for free.'
+  ),
+  'meta.learn_election_security.title': t(
+    'meta.learn_election_security.title',
+    'Election security explained - Vocdoni'
+  ),
+  'meta.learn_election_security.description': t(
+    'meta.learn_election_security.description',
+    'What threatens elections and how anonymity, verifiability and tamper-evidence protect them. A plain-language guide to election security.'
+  ),
+  'meta.learn_cryptographic_voting.title': t(
+    'meta.learn_cryptographic_voting.title',
+    'Cryptographic voting explained - Vocdoni'
+  ),
+  'meta.learn_cryptographic_voting.description': t(
+    'meta.learn_cryptographic_voting.description',
+    'zk-SNARKs, mixnets, threshold cryptography and end-to-end verifiability, explained for non-cryptographers. Learn how cryptographic voting works.'
+  ),
+  'meta.resources.title': t('meta.resources.title', 'Online voting resources and guides - Vocdoni'),
+  'meta.resources.description': t(
+    'meta.resources.description',
+    'Free guides, checklists, templates and a glossary for running secure online votes. Everything you need to plan your next election. Start free.'
+  ),
+  'meta.resources_online_voting_guide.title': t(
+    'meta.resources_online_voting_guide.title',
+    'The complete guide to online voting - Vocdoni'
+  ),
+  'meta.resources_online_voting_guide.description': t(
+    'meta.resources_online_voting_guide.description',
+    'A complete guide to online voting for organizations: why, how, choosing a platform, legal validity and running your first vote. Read the guide.'
+  ),
+  'meta.resources_agm_checklist.title': t('meta.resources_agm_checklist.title', 'Online AGM checklist - Vocdoni'),
+  'meta.resources_agm_checklist.description': t(
+    'meta.resources_agm_checklist.description',
+    'A practical checklist for running your annual general meeting online, from census to verified results. Plan a smooth, valid AGM. Start free.'
+  ),
+  'meta.resources_election_rules_template.title': t(
+    'meta.resources_election_rules_template.title',
+    'Election rules template - Vocdoni'
+  ),
+  'meta.resources_election_rules_template.description': t(
+    'meta.resources_election_rules_template.description',
+    'A ready-made election and voting rules template you can adapt for your statutes. Set clear, fair rules for your next vote. Get the template.'
+  ),
+  'meta.resources_glossary.title': t('meta.resources_glossary.title', 'Online voting glossary - Vocdoni'),
+  'meta.resources_glossary.description': t(
+    'meta.resources_glossary.description',
+    'Clear definitions of online voting terms: end-to-end verifiability, zk-SNARK, mixnet, quorum, weighted voting and more. Learn the vocabulary.'
+  ),
+  'meta.resources_whitepapers.title': t(
+    'meta.resources_whitepapers.title',
+    'Voting whitepapers and certifications - Vocdoni'
+  ),
+  'meta.resources_whitepapers.description': t(
+    'meta.resources_whitepapers.description',
+    'Technical and legal whitepapers behind Vocdoni, including our ICOES technical certificate. Dive into the protocol and the proofs. Read more.'
+  ),
+  'meta.product.title': t('meta.product.title', 'The Vocdoni online voting platform - Vocdoni'),
+  'meta.product.description': t(
+    'meta.product.description',
+    'An overview of the Vocdoni platform: anonymous, end-to-end verifiable online voting with weighted and hybrid ballots. Explore the product. Start free.'
+  ),
+  'meta.product_features.title': t('meta.product_features.title', 'Online voting features - Vocdoni'),
+  'meta.product_features.description': t(
+    'meta.product_features.description',
+    'Voting methods, 2FA, white-label portals, multi-language and accessibility, hybrid voting and instant results. Explore every Vocdoni feature.'
+  ),
+  'meta.product_integrations.title': t(
+    'meta.product_integrations.title',
+    'Online voting integrations and API - Vocdoni'
+  ),
+  'meta.product_integrations.description': t(
+    'meta.product_integrations.description',
+    'Connect Vocdoni with SSO, your CRM and member databases, or build with the API and SDK. See how Vocdoni fits your stack. Start free.'
+  ),
+  'meta.partners.title': t('meta.partners.title', 'Partner programme for online voting - Vocdoni'),
+  'meta.partners.description': t(
+    'meta.partners.description',
+    'Join the Vocdoni partner programme: resellers, integrators and public-sector channels bringing verifiable online voting to more organizations.'
+  ),
+  'meta.customers.title': t('meta.customers.title', 'Customers and success stories - Vocdoni'),
+  'meta.customers.description': t(
+    'meta.customers.description',
+    'Colleges, unions, associations and city councils trust Vocdoni for secure, verifiable online voting. See who votes with Vocdoni and why.'
+  ),
+  'meta.changelog.title': t('meta.changelog.title', 'Product changelog - Vocdoni'),
+  'meta.changelog.description': t(
+    'meta.changelog.description',
+    'Recent improvements to the Vocdoni online voting platform: verifiability, performance, languages and accessibility. See what is new.'
   ),
 } as const
 

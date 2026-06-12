@@ -18,6 +18,7 @@ function createI18nSync(lng: string, resources: any) {
   i.use(initReactI18next).init({
     lng,
     fallbackLng: 'en',
+    returnEmptyString: false,
     defaultNS: 'common',
     ns: Object.keys(resources[lng] || { common: {} }),
     resources,

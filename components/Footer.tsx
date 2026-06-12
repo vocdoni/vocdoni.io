@@ -32,7 +32,7 @@ export default function Footer() {
       <div className='container mx-auto max-w-7xl'>
         <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 lg:gap-8 mb-16'>
           {/* Brand & Description */}
-          <div className='lg:col-span-4 flex flex-col gap-6 items-start'>
+          <div className='lg:col-span-3 flex flex-col gap-6 items-start'>
             <VocdoniLogo aria-hidden='true' />
             <p className='text-sm text-muted-foreground leading-relaxed max-w-xs'>{t('footer.mission')}</p>
             <div className='flex gap-4'>
@@ -88,39 +88,137 @@ export default function Footer() {
           </div>
 
           {/* Links Sections */}
-          <div className='lg:col-span-2'>
-            <h3 className='font-bold text-sm mb-6 uppercase tracking-wider'>{t('footer.product.title')}</h3>
-            <ul className='space-y-4'>
-              <li>
-                <Link href='https://app.vocdoni.io' target='_blank' variant='footerNav'>
-                  {t('footer.product.links.0')}
-                </Link>
-              </li>
-              <li>
-                <Link href='https://developer.vocdoni.io/sdk' target='_blank' variant='footerNav'>
-                  {t('footer.product.links.1')}
-                </Link>
-              </li>
-            </ul>
+          <div className='lg:col-span-6 grid grid-cols-2 md:grid-cols-4 gap-8'>
+            <div>
+              <h3 className='font-bold text-sm mb-6 uppercase tracking-wider'>{t('footer.product.title')}</h3>
+              <ul className='space-y-4'>
+                <li>
+                  <Link href='https://app.vocdoni.io' target='_blank' variant='footerNav'>
+                    {t('footer.product.links.0')}
+                  </Link>
+                </li>
+                <li>
+                  <Link href='/pricing' variant='footerNav'>
+                    {t('footer.product.pricing', 'Pricing')}
+                  </Link>
+                </li>
+                <li>
+                  <Link href='/security' variant='footerNav'>
+                    {t('footer.product.security', 'Security')}
+                  </Link>
+                </li>
+                <li>
+                  <Link href='/compliance' variant='footerNav'>
+                    {t('footer.product.compliance', 'Compliance')}
+                  </Link>
+                </li>
+                <li>
+                  <Link href='https://developer.vocdoni.io/sdk' target='_blank' variant='footerNav'>
+                    {t('footer.product.links.1')}
+                  </Link>
+                </li>
+              </ul>
+            </div>
+
+            <div>
+              <h3 className='font-bold text-sm mb-6 uppercase tracking-wider'>
+                {t('footer.solutions.title', 'Solutions')}
+              </h3>
+              <ul className='space-y-4'>
+                <li>
+                  <Link href='/solutions' variant='footerNav'>
+                    {t('footer.solutions.all', 'All solutions')}
+                  </Link>
+                </li>
+                <li>
+                  <Link href='/solutions/professional-colleges' variant='footerNav'>
+                    {t('footer.solutions.colleges', 'Professional colleges')}
+                  </Link>
+                </li>
+                <li>
+                  <Link href='/solutions/associations-federations' variant='footerNav'>
+                    {t('footer.solutions.associations', 'Associations')}
+                  </Link>
+                </li>
+                <li>
+                  <Link href='/solutions/political-parties' variant='footerNav'>
+                    {t('footer.solutions.parties', 'Political parties')}
+                  </Link>
+                </li>
+                <li>
+                  <Link href='/solutions/cooperatives' variant='footerNav'>
+                    {t('footer.solutions.cooperatives', 'Cooperatives')}
+                  </Link>
+                </li>
+              </ul>
+            </div>
+
+            <div>
+              <h3 className='font-bold text-sm mb-6 uppercase tracking-wider'>
+                {t('footer.resources.title', 'Resources')}
+              </h3>
+              <ul className='space-y-4'>
+                <li>
+                  <Link href='/resources' variant='footerNav'>
+                    {t('footer.resources.hub', 'Guides and resources')}
+                  </Link>
+                </li>
+                <li>
+                  <Link href='/learn' variant='footerNav'>
+                    {t('footer.resources.learn', 'Learn')}
+                  </Link>
+                </li>
+                <li>
+                  <Link href='/case-studies' variant='footerNav'>
+                    {t('footer.resources.cases', 'Case studies')}
+                  </Link>
+                </li>
+                <li>
+                  <Link href='/compare' variant='footerNav'>
+                    {t('footer.resources.compare', 'Compare platforms')}
+                  </Link>
+                </li>
+                <li>
+                  <Link href='https://blog.vocdoni.io' target='_blank' variant='footerNav'>
+                    {t('footer.resources.blog', 'Blog')}
+                  </Link>
+                </li>
+              </ul>
+            </div>
+
+            <div>
+              <h3 className='font-bold text-sm mb-6 uppercase tracking-wider'>{t('footer.company.title')}</h3>
+              <ul className='space-y-4'>
+                <li>
+                  <Link href='/about-us' variant='footerNav'>
+                    {t('footer.company.links.0')}
+                  </Link>
+                </li>
+                <li>
+                  <Link href='/use-cases' variant='footerNav'>
+                    {t('footer.company.links.1')}
+                  </Link>
+                </li>
+                <li>
+                  <Link href='/customers' variant='footerNav'>
+                    {t('footer.company.customers', 'Customers')}
+                  </Link>
+                </li>
+                <li>
+                  <Link href='/partners' variant='footerNav'>
+                    {t('footer.company.partners', 'Partners')}
+                  </Link>
+                </li>
+                <li>
+                  <Link href='/contact' variant='footerNav'>
+                    {t('footer.company.contact', 'Contact')}
+                  </Link>
+                </li>
+              </ul>
+            </div>
           </div>
 
-          <div className='lg:col-span-2'>
-            <h3 className='font-bold text-sm mb-6 uppercase tracking-wider'>{t('footer.company.title')}</h3>
-            <ul className='space-y-4'>
-              <li>
-                <Link href='/about-us' variant='footerNav'>
-                  {t('footer.company.links.0')}
-                </Link>
-              </li>
-              <li>
-                <Link href='/use-cases' variant='footerNav'>
-                  {t('footer.company.links.1')}
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          <div className='lg:col-span-4'>
+          <div className='lg:col-span-3'>
             <h3 className='font-bold text-sm mb-6 uppercase tracking-wider'>{t('footer.newsletter.title')}</h3>
             <div className='flex bg-white rounded-full p-1 border border-border/50 mb-3 group focus-within:border-primary/50 transition-colors'>
               <label htmlFor='newsletter-email' className='sr-only'>
