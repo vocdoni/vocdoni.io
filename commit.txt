@@ -1,0 +1,46 @@
+What was applied
+
+  58 new indexable page routes (8 → 66 logical pages, ×8 locales = 520 URLs in the sitemap, auto-added via the existing sitemap/hreflang plumbing):
+
+  ┌───────────────────────────────────────────┬────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+  │                  Cluster                  │                                                                           Pages                                                                            │
+  ├───────────────────────────────────────────┼────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+  │ Pricing                                   │ /pricing (4-tier table €0/€590/€1,890/from €3,210 + ROI section)                                                                                           │
+  ├───────────────────────────────────────────┼────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+  │ Solutions (the report's "single           │ /solutions hub + 10 verticals: professional-colleges, associations-federations, political-parties, trade-unions, chambers-of-commerce, cooperatives,       │
+  │ highest-leverage move")                   │ ngos-foundations, universities, public-administration, sports-clubs                                                                                        │
+  ├───────────────────────────────────────────┼────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+  │ Compare                                   │ /compare hub + vs-kuorum/polyas/sequent/assembly-voting/eligo + /alternatives                                                                              │
+  ├───────────────────────────────────────────┼────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+  │ Security & trust                          │ /security hub + verifiability, zero-knowledge, blockchain-voting, audit, open-source + /compliance                                                         │
+  ├───────────────────────────────────────────┼────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+  │ Case studies                              │ /case-studies hub + icoes, coib, ccv-supernodes, ilp-digital-platform, municipal-pilot                                                                     │
+  ├───────────────────────────────────────────┼────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+  │ Use-case procedures                       │ agm-voting, board-elections, primaries, delegate-elections, bylaws-amendments, participatory-budgeting, weighted-voting, citizen-consultations,            │
+  │                                           │ hybrid-voting, referenda                                                                                                                                   │
+  ├───────────────────────────────────────────┼────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+  │ Learn / Resources                         │ /learn +3 articles; /resources + online-voting-guide, agm-checklist, election-rules-template, glossary, whitepapers                                        │
+  ├───────────────────────────────────────────┼────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+  │ Company                                   │ /product (+features, +integrations), /partners, /customers, /changelog                                                                                     │
+  └───────────────────────────────────────────┴────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+  Technical SEO & schema (lib/seo-head.tsx): FAQPage schema now also emits on the home and pricing pages; Review + AggregateRating schema from the 11 named testimonials on the home; AggregateOffer schema on
+  pricing. (/app already had an H1 from the earlier audit fix.)
+
+  Internal linking / nav: every page ends with contextual RelatedLinks; Navbar gained a top-level Pricing link plus Solutions/Security/Compare and Resources/Learn/Case-studies dropdown entries; Footer
+  expanded to 4 link columns surfacing the new hubs.
+
+  Reusable, guardrail-safe toolkit: a prop-driven components/marketing/ set (Hero, FeatureGrid, StepList, StatStrip, FaqAccordion, CtaBanner, RelatedLinks, ProseSection, FeatureComparisonTable, PricingTiers)
+  so pages reuse components rather than duplicating Tailwind, with all copy through literal-key t() per AGENTS.md.
+
+  Translations: real content in all 8 active locales (en/es/ca authored + de/el/fr/it/pt), ~3,760 leaves each. Set returnEmptyString: false so any future untranslated key falls back to English rather than
+  rendering blank.
+
+  Deliberately excluded / deferred
+
+  - Redirect work — excluded per your instruction (root noindex+meta-refresh → server 302). The redirect machinery is untouched.
+  - Home hero headline rewrite (report Sprint 1 #3): left the existing brand line "Making decisions has never been this…". This is an outward-facing brand-voice change to the homepage across 8 locales, so
+  I'd want your sign-off before overriding it — the keyword-rich <title>/meta already echo "online voting".
+  - Font self-hosting (T-04) and per-page OG images (T-06): perf/polish items needing font binaries / image generation. The OG infra already supports per-page config.image; new pages use the default card.
+  - Infra/ops items (not codebase): sitemap-index split (current single sitemap is fine at 520 URLs), reverse-proxying blog.vocdoni.io, backlink outreach, GSC/KPI tracking.
+
