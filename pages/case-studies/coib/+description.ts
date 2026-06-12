@@ -1,5 +1,5 @@
 import { getMetaByKey } from '@/lib/page-meta'
 
 export default function description(pageContext: Vike.PageContextServer) {
-  return getMetaByKey(pageContext, 'meta.case_studies_coib.description')
+  return getMetaByKey(pageContext, 'meta.case_studies.coib.description')
 }

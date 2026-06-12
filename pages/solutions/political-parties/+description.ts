@@ -1,5 +1,5 @@
 import { getMetaByKey } from '@/lib/page-meta'
 
 export default function description(pageContext: Vike.PageContextServer) {
-  return getMetaByKey(pageContext, 'meta.solutions_political_parties.description')
+  return getMetaByKey(pageContext, 'meta.solutions.political_parties.description')
 }
