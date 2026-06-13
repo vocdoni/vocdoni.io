@@ -21,7 +21,7 @@ export default function ComparePolyasPage() {
         title={t('compare.polyas.hero.title', 'Vocdoni vs Polyas: which online voting platform fits you?')}
         subtitle={t(
           'compare.polyas.hero.subtitle',
-          'Polyas is a long-established, certified voting provider. This honest comparison shows where each tool is strongest so you can choose with confidence.'
+          'Polyas is a German voting provider with formal certifications. This honest comparison shows where each tool is strongest so you can choose with confidence.'
         )}
         primaryCta={{
           label: t('compare.polyas.hero.cta_primary', 'Start for free'),
@@ -33,19 +33,19 @@ export default function ComparePolyasPage() {
 
       <ProseSection
         eyebrow={t('compare.polyas.intro.eyebrow', 'Who each tool is for')}
-        title={t('compare.polyas.intro.title', 'Certified heritage or open, self-serve verifiability')}
+        title={t('compare.polyas.intro.title', 'Certified vendor or open, self-serve verifiability')}
         blocks={[
           {
-            heading: t('compare.polyas.intro.polyas.heading', 'Where Polyas shines'),
+            heading: t('compare.polyas.intro.polyas.heading', 'What Polyas offers'),
             paragraphs: [
               t(
                 'compare.polyas.intro.polyas.p1',
-                'Polyas is a German voting provider with a long history and formal certifications, often chosen for regulated elections that need an established, certified vendor. If certification heritage and a traditional sales-led rollout are your priority, Polyas is a credible option.'
+                'Polyas is a German voting provider with formal certifications, often used for regulated elections that require a certified vendor. It is aimed at organizations whose priority is certification and a traditional sales-led rollout.'
               ),
             ],
           },
           {
-            heading: t('compare.polyas.intro.vocdoni.heading', 'Where Vocdoni shines'),
+            heading: t('compare.polyas.intro.vocdoni.heading', 'What Vocdoni offers'),
             paragraphs: [
               t(
                 'compare.polyas.intro.vocdoni.p1',
@@ -61,7 +61,7 @@ export default function ComparePolyasPage() {
         title={t('compare.polyas.table.title', 'Vocdoni and Polyas side by side')}
         description={t(
           'compare.polyas.table.description',
-          'A fair, feature-by-feature look. Polyas has real strengths and we mark them honestly.'
+          'A fair, feature-by-feature look. Where Polyas does something well, we say so.'
         )}
         featureColumnLabel={t('compare.polyas.table.feature_label', 'Feature')}
         columns={[{ name: t('compare.polyas.table.col_vocdoni', 'Vocdoni'), highlighted: true }, { name: 'Polyas' }]}
@@ -126,7 +126,7 @@ export default function ComparePolyasPage() {
             feature: t('compare.polyas.table.row_support', 'Expert support'),
             cells: [
               { status: 'positive', text: t('compare.polyas.table.support_v', 'Election specialists') },
-              { status: 'positive', text: t('compare.polyas.table.support_c', 'Established support team') },
+              { status: 'positive', text: t('compare.polyas.table.support_c', 'Support team') },
             ],
           },
           {
@@ -179,7 +179,7 @@ export default function ComparePolyasPage() {
             question: t('compare.polyas.faq.q1.question', 'Is Vocdoni a good Polyas alternative?'),
             answer: t(
               'compare.polyas.faq.q1.answer',
-              'Yes, especially if you want open source code, transparent pricing, and end-to-end verifiability. Polyas is a solid certified vendor, while Vocdoni lets you prove correctness openly and start for free.'
+              'Yes, especially if you want open source code, transparent pricing, and end-to-end verifiability. Polyas is a certified vendor focused on regulated elections, while Vocdoni lets you prove correctness openly and start for free.'
             ),
           },
           {

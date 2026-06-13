@@ -141,7 +141,7 @@ export default function UseCasesWeightedVotingPage() {
             title: t('use_case_procedures.weighted_voting.features.secret.title', 'Secret ballots'),
             description: t(
               'use_case_procedures.weighted_voting.features.secret.description',
-              'Votes stay anonymous even though weights differ between members.'
+              'Votes stay private even though weights differ between members.'
             ),
           },
           {

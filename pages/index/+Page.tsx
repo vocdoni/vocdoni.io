@@ -36,7 +36,7 @@ export default function Page() {
       title: t('landing.portfolio.items.2.title', 'Vocdoni SDK'),
       description: t(
         'landing.portfolio.items.2.description',
-        'Add verifiable, anonymous voting directly into your own applications with our open-source tools. Your infrastructure, our secure protocol.'
+        'Add verifiable, private voting directly into your own applications with our open-source tools. Your infrastructure, our secure protocol.'
       ),
       link: 'https://developer.vocdoni.io/sdk',
       imageUrl: solutionsSdkImg,

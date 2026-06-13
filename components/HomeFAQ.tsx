@@ -7,7 +7,7 @@ export default function HomeFAQ() {
   const { t } = useTranslation()
   const faqs = [
     { question: t('faq.items.legal.question'), answer: t('faq.items.legal.answer') },
-    { question: t('faq.items.anonymity.question'), answer: t('faq.items.anonymity.answer') },
+    { question: t('faq.items.privacy.question'), answer: t('faq.items.privacy.answer') },
     { question: t('faq.items.setup.question'), answer: t('faq.items.setup.answer') },
     { question: t('faq.items.free.question'), answer: t('faq.items.free.answer') },
     { question: t('faq.items.switch.question'), answer: t('faq.items.switch.answer') },

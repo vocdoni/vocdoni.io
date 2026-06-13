@@ -36,16 +36,16 @@ export default function CompareSequentPage() {
         title={t('compare.sequent.intro.title', 'Two open source, verifiable voting projects')}
         blocks={[
           {
-            heading: t('compare.sequent.intro.sequent.heading', 'Where Sequent shines'),
+            heading: t('compare.sequent.intro.sequent.heading', 'What Sequent offers'),
             paragraphs: [
               t(
                 'compare.sequent.intro.sequent.p1',
-                'Sequent, previously known as nVotes, is an open source, verifiable voting platform with a strong cryptographic heritage. If you value open source and want a verifiable tally, Sequent is a respected, capable project that shares many of our principles.'
+                'Sequent, previously known as nVotes, is an open source, verifiable voting platform with a cryptographic background. It shares many of the same open source and verifiability principles as Vocdoni.'
               ),
             ],
           },
           {
-            heading: t('compare.sequent.intro.vocdoni.heading', 'Where Vocdoni shines'),
+            heading: t('compare.sequent.intro.vocdoni.heading', 'What Vocdoni offers'),
             paragraphs: [
               t(
                 'compare.sequent.intro.vocdoni.p1',

@@ -67,7 +67,7 @@ export default function ProductFeaturesPage() {
             title: t('product.features.grid.twofa.title', 'Two-factor authentication'),
             description: t(
               'product.features.grid.twofa.description',
-              'Add 2FA so only the right person can cast each ballot, without breaking anonymity.'
+              'Add 2FA so only the right person can cast each ballot, without breaking privacy.'
             ),
           },
           {

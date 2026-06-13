@@ -77,15 +77,6 @@ const buildProductFeatures = (t: TranslateFn) =>
       ),
     },
     {
-      title: t('navbar.product_features.compare.title', 'Compare alternatives'),
-      kind: 'link' as const,
-      href: '/compare',
-      description: t(
-        'navbar.product_features.compare.description',
-        'See how Vocdoni stacks up against other platforms.'
-      ),
-    },
-    {
       title: t('navbar.product_features.sdk.title'),
       kind: 'link' as const,
       href: 'https://developer.vocdoni.io/sdk',
@@ -130,6 +121,11 @@ const buildResourcesItems = (t: TranslateFn) => [
       'navbar.resources_items.case_studies.description',
       'Real projects from colleges, councils and more.'
     ),
+  },
+  {
+    title: t('navbar.product_features.compare.title', 'Compare alternatives'),
+    href: '/compare',
+    description: t('navbar.product_features.compare.description', 'See how Vocdoni stacks up against other platforms.'),
   },
   {
     title: t('navbar.resources_items.blog.title'),
@@ -254,31 +250,35 @@ export function Navbar() {
                       <p className='mb-2 px-2 text-sm text-muted-foreground font-medium'>
                         {t('navbar.featured_solution.header')}
                       </p>
-                      <Link href={featuredSolution.href} target='_blank' rel='noopener noreferrer' variant='card'>
-                        <div className='relative h-full'>
-                          {/* App highlight image */}
-                          <img
-                            src={appImage}
-                            alt='Vocdoni App'
-                            className='aspect-video w-full object-cover'
-                            loading='lazy'
-                          />
-                          {/* Gradient overlay */}
-                          <span className='absolute inset-0 bg-gradient-to-t from-black/60 to-transparent' />
-                          {/* Content overlay */}
-                          <span className='absolute bottom-0 p-4 text-white'>
-                            <div className='flex items-center gap-2 mb-1'>
-                              <h3 className='font-semibold text-sm'>{featuredSolution.title}</h3>
-                              {featuredSolution.badge && (
-                                <Badge variant='secondary' className='text-xs px-2 py-0'>
-                                  {featuredSolution.badge}
-                                </Badge>
-                              )}
-                            </div>
-                            {featuredSolution.description && (
-                              <p className='text-xs text-white/90'>{featuredSolution.description}</p>
+                      <Link
+                        href={featuredSolution.href}
+                        target='_blank'
+                        rel='noopener noreferrer'
+                        variant='card'
+                        className='bg-card h-auto self-start border'
+                      >
+                        {/* App highlight image */}
+                        <img
+                          src={appImage}
+                          alt='Vocdoni App'
+                          className='aspect-video w-full object-cover'
+                          loading='lazy'
+                        />
+                        {/* Text below the image */}
+                        <div className='space-y-2 p-4'>
+                          <div className='flex items-center gap-2'>
+                            <h3 className='text-sm font-semibold'>{featuredSolution.title}</h3>
+                            {featuredSolution.badge && (
+                              <Badge variant='secondary' className='px-2 py-0 text-xs'>
+                                {featuredSolution.badge}
+                              </Badge>
                             )}
-                          </span>
+                          </div>
+                          {featuredSolution.description && (
+                            <p className='text-muted-foreground text-xs leading-relaxed'>
+                              {featuredSolution.description}
+                            </p>
+                          )}
                         </div>
                       </Link>
                     </div>

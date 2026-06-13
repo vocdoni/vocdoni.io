@@ -16,7 +16,7 @@ export default function ElectionSecurityPage() {
         )}
         subtitle={t(
           'learn.election_security.hero.subtitle',
-          'Elections face pressure from coercion, ballot stuffing, tampering, and disputes over the count. Modern online voting meets each of these with anonymity, verifiability, and tamper-evidence built into the process.'
+          'Elections face pressure from coercion, ballot stuffing, tampering, and disputes over the count. Modern online voting meets each of these with privacy, verifiability, and tamper-evidence built into the process.'
         )}
         secondaryCta={{ label: t('learn.election_security.hero.cta', 'Back to Learn'), href: '/learn' }}
       />
@@ -79,9 +79,9 @@ export default function ElectionSecurityPage() {
         features={[
           {
             icon: EyeOff,
-            title: t('learn.election_security.defenses.anonymity.title', 'Anonymity'),
+            title: t('learn.election_security.defenses.privacy.title', 'Privacy'),
             description: t(
-              'learn.election_security.defenses.anonymity.description',
+              'learn.election_security.defenses.privacy.description',
               'Ballots are unlinkable from voters, so no one can be coerced, bought, or punished for how they voted.'
             ),
           },

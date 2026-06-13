@@ -12,7 +12,7 @@ export default function ResourcesHubPage() {
         title={t('resources.hub.hero.title', 'Practical guides and templates for running online votes')}
         subtitle={t(
           'resources.hub.hero.subtitle',
-          'Everything you need to plan and run a secure election: a complete online voting guide, an AGM checklist, a ready-made election rules template, a glossary, and our technical whitepapers.'
+          'Everything you need to plan and run a secure election: a complete online voting guide, an AGM checklist, a ready-made election rules template, and a glossary.'
         )}
         primaryCta={{
           label: t('resources.hub.hero.cta_primary', 'Start for free'),
@@ -46,14 +46,6 @@ export default function ResourcesHubPage() {
             description: t('resources.hub.related.glossary.desc', 'Plain definitions for the terms that matter.'),
           },
           {
-            label: t('resources.hub.related.whitepapers.label', 'Whitepapers'),
-            href: '/resources/whitepapers',
-            description: t(
-              'resources.hub.related.whitepapers.desc',
-              'Technical and legal documents behind the protocol.'
-            ),
-          },
-          {
             label: t('resources.hub.related.learn.label', 'Learn the fundamentals'),
             href: '/learn',
             description: t(
@@ -68,7 +60,7 @@ export default function ResourcesHubPage() {
         title={t('resources.hub.cta.title', 'Turn the guide into a real vote')}
         description={t(
           'resources.hub.cta.description',
-          'Start a free, anonymous, end-to-end verifiable election, or book a call and we will help you plan it.'
+          'Start a free, private, end-to-end verifiable election, or book a call and we will help you plan it.'
         )}
         primaryCta={{
           label: t('resources.hub.cta.primary', 'Start for free'),

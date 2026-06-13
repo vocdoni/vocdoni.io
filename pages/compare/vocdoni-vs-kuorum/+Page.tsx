@@ -33,19 +33,19 @@ export default function CompareKuorumPage() {
 
       <ProseSection
         eyebrow={t('compare.kuorum.intro.eyebrow', 'Who each tool is for')}
-        title={t('compare.kuorum.intro.title', 'Two solid tools, built for different priorities')}
+        title={t('compare.kuorum.intro.title', 'Two tools built for different priorities')}
         blocks={[
           {
-            heading: t('compare.kuorum.intro.kuorum.heading', 'Where Kuorum shines'),
+            heading: t('compare.kuorum.intro.kuorum.heading', 'What Kuorum offers'),
             paragraphs: [
               t(
                 'compare.kuorum.intro.kuorum.p1',
-                'Kuorum is a Spanish govtech and participation platform with a strong track record in public participation, citizen engagement, and institutional decision making. If your priority is broad participation campaigns and engagement workflows, Kuorum is a capable, well established choice.'
+                'Kuorum is a Spanish govtech and participation platform used for public participation, citizen engagement, and institutional decision making. It is aimed at organizations whose priority is broad participation campaigns and engagement workflows.'
               ),
             ],
           },
           {
-            heading: t('compare.kuorum.intro.vocdoni.heading', 'Where Vocdoni shines'),
+            heading: t('compare.kuorum.intro.vocdoni.heading', 'What Vocdoni offers'),
             paragraphs: [
               t(
                 'compare.kuorum.intro.vocdoni.p1',
@@ -179,7 +179,7 @@ export default function CompareKuorumPage() {
             question: t('compare.kuorum.faq.q1.question', 'Is Vocdoni a good Kuorum alternative?'),
             answer: t(
               'compare.kuorum.faq.q1.answer',
-              'If you need end-to-end verifiability, anonymous ballots, and open source code, yes. Kuorum is strong for public participation campaigns, while Vocdoni is built for votes that must be provably correct.'
+              'If you need end-to-end verifiability, private ballots, and open source code, yes. Kuorum focuses on public participation campaigns, while Vocdoni is built for votes that must be provably correct.'
             ),
           },
           {

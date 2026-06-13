@@ -34,7 +34,7 @@ export default function HowOnlineVotingWorksPage() {
               ),
               t(
                 'learn.how_online_voting_works.intro.census.p2',
-                'Voters prove they belong to the census without revealing which entry is theirs. This is what lets the system check eligibility while keeping individual ballots anonymous.'
+                'Voters prove they belong to the census without revealing which entry is theirs. This is what lets the system check eligibility while keeping individual ballots private.'
               ),
             ],
           },

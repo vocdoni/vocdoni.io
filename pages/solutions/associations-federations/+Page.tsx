@@ -38,7 +38,7 @@ export default function SolutionsAssociationsFederationsPage() {
         bullets={[
           t('solutions.associations_federations.hero.bullet_1', 'Reach quorum without the chase'),
           t('solutions.associations_federations.hero.bullet_2', 'Members vote in minutes from any device'),
-          t('solutions.associations_federations.hero.bullet_3', 'Anonymous and end-to-end verifiable'),
+          t('solutions.associations_federations.hero.bullet_3', 'Private and end-to-end verifiable'),
         ]}
       />
 
@@ -73,7 +73,7 @@ export default function SolutionsAssociationsFederationsPage() {
           },
           {
             icon: BadgeCheck,
-            title: t('solutions.associations_federations.benefits.trust.title', 'Verifiable and anonymous'),
+            title: t('solutions.associations_federations.benefits.trust.title', 'Verifiable and private'),
             description: t(
               'solutions.associations_federations.benefits.trust.description',
               'Every member can check the result while their own vote stays secret.'
@@ -198,7 +198,7 @@ export default function SolutionsAssociationsFederationsPage() {
             ),
           },
           {
-            question: t('solutions.associations_federations.faq.q4.question', 'Is the vote really anonymous?'),
+            question: t('solutions.associations_federations.faq.q4.question', 'Is the vote really private?'),
             answer: t(
               'solutions.associations_federations.faq.q4.answer',
               'Yes. Zero-knowledge cryptography keeps every ballot secret, even from us, while still letting anyone verify the final result.'

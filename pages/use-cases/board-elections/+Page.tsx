@@ -131,7 +131,7 @@ export default function UseCasesBoardElectionsPage() {
             title: t('use_case_procedures.board_elections.features.secret.title', 'Secret ballots'),
             description: t(
               'use_case_procedures.board_elections.features.secret.description',
-              'Anonymous voting keeps each choice private, even from the organizers.'
+              'Private voting keeps each choice private, even from the organizers.'
             ),
           },
           {

@@ -27,7 +27,7 @@ export default function AlternativesPage() {
         title={t('alternatives.intro.title', 'The best alternative depends on what you value')}
         intro={t(
           'alternatives.intro.intro',
-          'Most voting tools ask you to trust their results. Vocdoni lets you prove them. If verifiability, anonymity, open source, and transparent pricing matter to you, the comparisons below show exactly how we stack up.'
+          'Most voting tools ask you to trust their results. Vocdoni lets you prove them. If verifiability, privacy, open source, and transparent pricing matter to you, the comparisons below show exactly how we stack up.'
         )}
         blocks={[
           {
@@ -96,7 +96,7 @@ export default function AlternativesPage() {
         title={t('alternatives.cta.title', 'Find the right voting platform')}
         description={t(
           'alternatives.cta.description',
-          'Run a free, anonymous, verifiable vote today, or talk to us about your election.'
+          'Run a free, private, verifiable vote today, or talk to us about your election.'
         )}
         primaryCta={{
           label: t('alternatives.cta.primary', 'Start for free'),

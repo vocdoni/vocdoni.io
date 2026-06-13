@@ -89,10 +89,10 @@ export default function CaseStudyIcoesPage() {
           },
           {
             icon: ShieldCheck,
-            title: t('case_studies.icoes.features.anonymity.title', 'Secret ballot'),
+            title: t('case_studies.icoes.features.privacy.title', 'Secret ballot'),
             description: t(
-              'case_studies.icoes.features.anonymity.description',
-              'Votes stay anonymous by design, even from the platform.'
+              'case_studies.icoes.features.privacy.description',
+              'Votes stay private by design, even from the platform.'
             ),
           },
           {

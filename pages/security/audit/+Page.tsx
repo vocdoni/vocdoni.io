@@ -29,19 +29,19 @@ export default function AuditPage() {
         title={t('security.audit.current.title', 'Certified telematic voting process')}
         intro={t(
           'security.audit.current.intro',
-          'Vocdoni holds a technical certification of its telematic voting process, issued in the context of a real election.'
+          'Vocdoni issues a technical certification of the telematic voting process: a document that gathers the cryptography used, the configuration, the results, and how to verify them end to end.'
         )}
         blocks={[
           {
-            heading: t('security.audit.current.icoes.heading', 'ICOES technical certification'),
+            heading: t('security.audit.current.certification.heading', 'A document that proves the vote is correct'),
             paragraphs: [
               t(
-                'security.audit.current.icoes.p1',
-                'We hold a "Certificación técnica del proceso de votación telemática" issued for the Official College of Nursing of Seville (ICOES). It attests to the technical soundness of the telematic voting process used for their election.'
+                'security.audit.current.certification.p1',
+                'For each election, Vocdoni can issue a technical certification of the telematic voting process - a PDF document that brings together the full record of the vote: the cryptography used, the process configuration, the results, and step-by-step instructions to verify them end to end.'
               ),
               t(
-                'security.audit.current.icoes.p2',
-                'This certificate is on file and available to organizations evaluating Vocdoni for high-stakes votes. Reach out and we will share it as part of your due diligence.'
+                'security.audit.current.certification.p2',
+                'It is issued by Vocdoni so that clients and their auditors can independently confirm that everything is correct. Professional colleges and other organizations attach it to the minutes of their general assembly as formal evidence of the process.'
               ),
             ],
           },

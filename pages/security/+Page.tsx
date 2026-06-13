@@ -107,10 +107,10 @@ export default function SecurityPage() {
             ),
           },
           {
-            title: t('security.hub.flow.step_2.title', 'A ballot is cast anonymously'),
+            title: t('security.hub.flow.step_2.title', 'A ballot is cast securely'),
             description: t(
               'security.hub.flow.step_2.description',
-              'The vote is encrypted on the voter device and submitted with a zero-knowledge proof of eligibility.'
+              'The vote is encrypted on the voter device and written to the blockchain, where it stays private, immutable, and verifiable: no one can link it to a voter, it cannot be altered or removed, and anyone can confirm it was recorded as cast.'
             ),
           },
           {

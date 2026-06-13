@@ -73,7 +73,7 @@ export default function SolutionsNgosFoundationsPage() {
           },
           {
             icon: BadgeCheck,
-            title: t('solutions.ngos_foundations.benefits.trust.title', 'Verifiable and anonymous'),
+            title: t('solutions.ngos_foundations.benefits.trust.title', 'Verifiable and private'),
             description: t(
               'solutions.ngos_foundations.benefits.trust.description',
               'Members trust the result because anyone can verify it, in secret.'

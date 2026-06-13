@@ -41,7 +41,7 @@ export default function PricingPage() {
         title={t('pricing_page.tiers.title', 'Pick the plan that fits your organization')}
         description={t(
           'pricing_page.tiers.description',
-          'Every plan includes anonymous voting, universally verifiable results, and an audit trail. Prices are per year, excluding VAT.'
+          'Every plan includes private voting, universally verifiable results, and an audit trail. Prices are per year, excluding VAT.'
         )}
         tiers={[
           {
@@ -51,7 +51,7 @@ export default function PricingPage() {
             description: t('pricing_page.tiers.free.description', 'Try a real, verifiable vote with a small group.'),
             features: [
               t('pricing_page.tiers.free.feature_1', 'Up to 50 voters'),
-              t('pricing_page.tiers.free.feature_2', 'Anonymous, verifiable ballots'),
+              t('pricing_page.tiers.free.feature_2', 'Private, verifiable ballots'),
               t('pricing_page.tiers.free.feature_3', 'Instant, public results'),
               t('pricing_page.tiers.free.feature_4', 'Email support'),
             ],
@@ -126,7 +126,7 @@ export default function PricingPage() {
         features={[
           {
             icon: ShieldCheck,
-            title: t('pricing_page.included.privacy.title', 'Anonymous by design'),
+            title: t('pricing_page.included.privacy.title', 'Private by design'),
             description: t(
               'pricing_page.included.privacy.description',
               'Zero-knowledge ballots keep every vote secret, even from us.'

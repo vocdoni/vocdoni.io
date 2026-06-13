@@ -13,7 +13,7 @@ export default function PartnersPage() {
         title={t('partners.hero.title', 'Grow with the most verifiable voting technology')}
         subtitle={t(
           'partners.hero.subtitle',
-          'Through the SuperNodes channel programme and our integrator partnerships, partners bring anonymous, verifiable voting to their own clients and markets.'
+          'Through the SuperNodes channel programme and our integrator partnerships, partners bring private, verifiable voting to their own clients and markets.'
         )}
         primaryCta={{ label: t('partners.hero.cta_primary', 'Become a partner'), href: '/contact' }}
         secondaryCta={{

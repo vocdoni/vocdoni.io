@@ -174,7 +174,7 @@ export default function ElectionRulesTemplatePage() {
         title={t('resources.election_rules_template.cta.title', 'Put your rules into practice')}
         description={t(
           'resources.election_rules_template.cta.description',
-          'Once your rules are set, run the vote itself for free with an anonymous, verifiable process.'
+          'Once your rules are set, run the vote itself for free with an private, verifiable process.'
         )}
         primaryCta={{
           label: t('resources.election_rules_template.cta.primary', 'Start for free'),

@@ -34,7 +34,7 @@ export default function UseCasesAgmVotingPage() {
         }}
         bullets={[
           t('use_case_procedures.agm_voting.hero.bullet_1', 'Live quorum and attendance tracking'),
-          t('use_case_procedures.agm_voting.hero.bullet_2', 'Anonymous, end-to-end verifiable ballots'),
+          t('use_case_procedures.agm_voting.hero.bullet_2', 'Private, end-to-end verifiable ballots'),
           t('use_case_procedures.agm_voting.hero.bullet_3', 'Instant results your members can audit'),
         ]}
       />
@@ -187,7 +187,7 @@ export default function UseCasesAgmVotingPage() {
             question: t('use_case_procedures.agm_voting.faq.q3.question', 'Are the results legally defensible?'),
             answer: t(
               'use_case_procedures.agm_voting.faq.q3.answer',
-              'Every ballot is anonymous and every result is end-to-end verifiable, giving you an auditable record to attach to your minutes.'
+              'Every ballot is private and every result is end-to-end verifiable, giving you an auditable record to attach to your minutes.'
             ),
           },
         ]}

@@ -94,7 +94,7 @@ export default function AgmChecklistPage() {
         title={t('resources.agm_checklist.cta.title', 'Run your AGM vote for free')}
         description={t(
           'resources.agm_checklist.cta.description',
-          'Set up an anonymous, verifiable vote for your assembly in minutes. No credit card needed to start.'
+          'Set up an private, verifiable vote for your assembly in minutes. No credit card needed to start.'
         )}
         primaryCta={{
           label: t('resources.agm_checklist.cta.primary', 'Start for free'),

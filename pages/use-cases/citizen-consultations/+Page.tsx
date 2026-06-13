@@ -24,7 +24,7 @@ export default function UseCasesCitizenConsultationsPage() {
         )}
         subtitle={t(
           'use_case_procedures.citizen_consultations.hero.subtitle',
-          'Ask residents what they think on any issue online, keep responses anonymous, and publish results the whole community can verify.'
+          'Ask residents what they think on any issue online, keep responses private, and publish results the whole community can verify.'
         )}
         primaryCta={{
           label: t('use_case_procedures.citizen_consultations.hero.cta_primary', 'Start for free'),
@@ -37,7 +37,7 @@ export default function UseCasesCitizenConsultationsPage() {
         }}
         bullets={[
           t('use_case_procedures.citizen_consultations.hero.bullet_1', 'Open to every eligible resident'),
-          t('use_case_procedures.citizen_consultations.hero.bullet_2', 'Anonymous, accessible responses'),
+          t('use_case_procedures.citizen_consultations.hero.bullet_2', 'Private, accessible responses'),
           t('use_case_procedures.citizen_consultations.hero.bullet_3', 'Transparent, verifiable outcomes'),
         ]}
       />
@@ -47,7 +47,7 @@ export default function UseCasesCitizenConsultationsPage() {
         title={t('use_case_procedures.citizen_consultations.intro.title', 'Running citizen consultations online')}
         intro={t(
           'use_case_procedures.citizen_consultations.intro.intro',
-          'A citizen consultation gathers the views of residents before a decision is made. Running it online reaches far more people than a public meeting, keeps responses anonymous, and produces results no one can quietly edit.'
+          'A citizen consultation gathers the views of residents before a decision is made. Running it online reaches far more people than a public meeting, keeps responses private, and produces results no one can quietly edit.'
         )}
         blocks={[
           {
@@ -55,7 +55,7 @@ export default function UseCasesCitizenConsultationsPage() {
             paragraphs: [
               t(
                 'use_case_procedures.citizen_consultations.intro.block_1.p1',
-                'Online consultations remove the time and travel barriers of in-person sessions, so a more representative group responds. Results are anonymous, transparent, and ready instantly.'
+                'Online consultations remove the time and travel barriers of in-person sessions, so a more representative group responds. Results are private, transparent, and ready instantly.'
               ),
             ],
           },
@@ -101,7 +101,7 @@ export default function UseCasesCitizenConsultationsPage() {
             title: t('use_case_procedures.citizen_consultations.steps.step_3.title', 'Open the consultation'),
             description: t(
               'use_case_procedures.citizen_consultations.steps.step_3.description',
-              'Residents respond anonymously from any device during the window you set.'
+              'Residents respond privately from any device during the window you set.'
             ),
           },
           {
@@ -136,9 +136,9 @@ export default function UseCasesCitizenConsultationsPage() {
           },
           {
             icon: ShieldCheck,
-            title: t('use_case_procedures.citizen_consultations.features.anonymous.title', 'Anonymous responses'),
+            title: t('use_case_procedures.citizen_consultations.features.private.title', 'Private responses'),
             description: t(
-              'use_case_procedures.citizen_consultations.features.anonymous.description',
+              'use_case_procedures.citizen_consultations.features.private.description',
               'Residents answer honestly, knowing their response stays private.'
             ),
           },
@@ -194,7 +194,7 @@ export default function UseCasesCitizenConsultationsPage() {
           {
             question: t(
               'use_case_procedures.citizen_consultations.faq.q2.question',
-              'How do you keep responses anonymous?'
+              'How do you keep responses private?'
             ),
             answer: t(
               'use_case_procedures.citizen_consultations.faq.q2.answer',

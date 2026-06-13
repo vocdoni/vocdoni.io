@@ -125,7 +125,7 @@ const metaDefaults = {
   'meta.learn_index.title': t('meta.learn_index.title', 'Learn: guides to secure online voting | Vocdoni'),
   'meta.learn_index.description': t(
     'meta.learn_index.description',
-    'Clear, practical guides to secure and verifiable online voting: how it works, anonymity, blockchain, GDPR, legally valid AGMs and preventing election fraud.'
+    'Clear, practical guides to secure and verifiable online voting: how it works, privacy, blockchain, GDPR, legally valid AGMs and preventing election fraud.'
   ),
   'meta.learn.how_secure_online_voting_works.title': t(
     'meta.learn.how_secure_online_voting_works.title',
@@ -260,7 +260,7 @@ const metaDefaults = {
   ),
   'meta.solutions_political_parties.description': t(
     'meta.solutions_political_parties.description',
-    'Run party primaries and delegate elections without disputes, with anonymous, verifiable ballots every faction trusts. Start free today.'
+    'Run party primaries and delegate elections without disputes, with private, verifiable ballots every faction trusts. Start free today.'
   ),
   'meta.solutions_trade_unions.title': t(
     'meta.solutions_trade_unions.title',
@@ -316,7 +316,7 @@ const metaDefaults = {
   ),
   'meta.solutions_sports_clubs.description': t(
     'meta.solutions_sports_clubs.description',
-    'Run board and presidential club elections the press cannot pull apart, with anonymous, verifiable ballots. Start free today.'
+    'Run board and presidential club elections the press cannot pull apart, with private, verifiable ballots. Start free today.'
   ),
   'meta.compare.title': t('meta.compare.title', 'Compare online voting platforms - Vocdoni'),
   'meta.compare.description': t(
@@ -326,7 +326,7 @@ const metaDefaults = {
   'meta.compare_kuorum.title': t('meta.compare_kuorum.title', 'Vocdoni vs Kuorum online voting - Vocdoni'),
   'meta.compare_kuorum.description': t(
     'meta.compare_kuorum.description',
-    'An honest Vocdoni vs Kuorum comparison on verifiability, anonymity, open source and price, so you can pick the right online voting platform.'
+    'An honest Vocdoni vs Kuorum comparison on verifiability, privacy, open source and price, so you can pick the right online voting platform.'
   ),
   'meta.compare_polyas.title': t('meta.compare_polyas.title', 'Vocdoni vs Polyas online voting - Vocdoni'),
   'meta.compare_polyas.description': t(
@@ -336,12 +336,12 @@ const metaDefaults = {
   'meta.compare_sequent.title': t('meta.compare_sequent.title', 'Vocdoni vs Sequent online voting - Vocdoni'),
   'meta.compare_sequent.description': t(
     'meta.compare_sequent.description',
-    'Compare Vocdoni and Sequent on anonymity, verifiability, hosting and support. Two open approaches to verifiable online voting, side by side.'
+    'Compare Vocdoni and Sequent on privacy, verifiability, hosting and support. Two open approaches to verifiable online voting, side by side.'
   ),
   'meta.compare_assembly_voting.title': t('meta.compare_assembly_voting.title', 'Vocdoni vs Assembly Voting - Vocdoni'),
   'meta.compare_assembly_voting.description': t(
     'meta.compare_assembly_voting.description',
-    'Compare Vocdoni and Assembly Voting on end-to-end verifiability, anonymity, open source and price. Choose the right platform for your election.'
+    'Compare Vocdoni and Assembly Voting on end-to-end verifiability, privacy, open source and price. Choose the right platform for your election.'
   ),
   'meta.compare_eligo.title': t('meta.compare_eligo.title', 'Vocdoni vs Eligo online voting - Vocdoni'),
   'meta.compare_eligo.description': t(
@@ -351,12 +351,12 @@ const metaDefaults = {
   'meta.alternatives.title': t('meta.alternatives.title', 'Online voting platform alternatives - Vocdoni'),
   'meta.alternatives.description': t(
     'meta.alternatives.description',
-    'Looking for a Kuorum, Polyas, Sequent or Eligo alternative? Compare verifiable, anonymous, open source online voting platforms and start free.'
+    'Looking for a Kuorum, Polyas, Sequent or Eligo alternative? Compare verifiable, private, open source online voting platforms and start free.'
   ),
-  'meta.security.title': t('meta.security.title', 'Security - verifiable, anonymous online voting - Vocdoni'),
+  'meta.security.title': t('meta.security.title', 'Security - verifiable, private online voting - Vocdoni'),
   'meta.security.description': t(
     'meta.security.description',
-    'See how Vocdoni keeps every vote anonymous, verifiable, open source and EU-hosted. Explore the security pillars and start a verifiable vote for free.'
+    'See how Vocdoni keeps every vote private, verifiable, open source and EU-hosted. Explore the security pillars and start a verifiable vote for free.'
   ),
   'meta.security_verifiability.title': t(
     'meta.security_verifiability.title',
@@ -385,7 +385,7 @@ const metaDefaults = {
   'meta.security_audit.title': t('meta.security_audit.title', 'Audits and certifications for online voting - Vocdoni'),
   'meta.security_audit.description': t(
     'meta.security_audit.description',
-    'Review the audits behind Vocdoni, including our ICOES technical certification on file, plus our roadmap toward SOC2 and pentests. Talk to our team today.'
+    'Review the audits behind Vocdoni and the technical certification we issue for telematic votes, plus our roadmap toward SOC2 and penetration tests. Talk to our team today.'
   ),
   'meta.security_open_source.title': t(
     'meta.security_open_source.title',
@@ -452,7 +452,7 @@ const metaDefaults = {
   'meta.use_cases_primaries.title': t('meta.use_cases_primaries.title', 'Run party primaries online - Vocdoni'),
   'meta.use_cases_primaries.description': t(
     'meta.use_cases_primaries.description',
-    'Run online primaries with anonymous, verifiable ballots and no disputes. A step-by-step guide to digital primary elections. Start free.'
+    'Run online primaries with private, verifiable ballots and no disputes. A step-by-step guide to digital primary elections. Start free.'
   ),
   'meta.use_cases_delegate_elections.title': t(
     'meta.use_cases_delegate_elections.title',
@@ -505,7 +505,7 @@ const metaDefaults = {
   'meta.use_cases_referenda.title': t('meta.use_cases_referenda.title', 'Run an online referendum - Vocdoni'),
   'meta.use_cases_referenda.description': t(
     'meta.use_cases_referenda.description',
-    'Run yes/no referenda and consultations online with anonymous, verifiable ballots. A step-by-step guide to digital referenda. Start free.'
+    'Run yes/no referenda and consultations online with private, verifiable ballots. A step-by-step guide to digital referenda. Start free.'
   ),
   'meta.learn.title': t('meta.learn.title', 'Learn about online voting - Vocdoni'),
   'meta.learn.description': t(
@@ -526,7 +526,7 @@ const metaDefaults = {
   ),
   'meta.learn_election_security.description': t(
     'meta.learn_election_security.description',
-    'What threatens elections and how anonymity, verifiability and tamper-evidence protect them. A plain-language guide to election security.'
+    'What threatens elections and how privacy, verifiability and tamper-evidence protect them. A plain-language guide to election security.'
   ),
   'meta.learn_cryptographic_voting.title': t(
     'meta.learn_cryptographic_voting.title',
@@ -567,18 +567,10 @@ const metaDefaults = {
     'meta.resources_glossary.description',
     'Clear definitions of online voting terms: end-to-end verifiability, zk-SNARK, mixnet, quorum, weighted voting and more. Learn the vocabulary.'
   ),
-  'meta.resources_whitepapers.title': t(
-    'meta.resources_whitepapers.title',
-    'Voting whitepapers and certifications - Vocdoni'
-  ),
-  'meta.resources_whitepapers.description': t(
-    'meta.resources_whitepapers.description',
-    'Technical and legal whitepapers behind Vocdoni, including our ICOES technical certificate. Dive into the protocol and the proofs. Read more.'
-  ),
   'meta.product.title': t('meta.product.title', 'The Vocdoni online voting platform - Vocdoni'),
   'meta.product.description': t(
     'meta.product.description',
-    'An overview of the Vocdoni platform: anonymous, end-to-end verifiable online voting with weighted and hybrid ballots. Explore the product. Start free.'
+    'An overview of the Vocdoni platform: private, end-to-end verifiable online voting with weighted and hybrid ballots. Explore the product. Start free.'
   ),
   'meta.product_features.title': t('meta.product_features.title', 'Online voting features - Vocdoni'),
   'meta.product_features.description': t(

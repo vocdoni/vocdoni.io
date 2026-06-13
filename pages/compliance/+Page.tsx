@@ -136,7 +136,7 @@ export default function CompliancePage() {
             question: t('compliance.faq.q1.question', 'Is Vocdoni GDPR compliant?'),
             answer: t(
               'compliance.faq.q1.answer',
-              'Yes. We process personal data lawfully and minimize what we collect. Because ballots are anonymous, there is no stored link between a voter and their vote, which strengthens data protection.'
+              'Yes. We process personal data lawfully and minimize what we collect. Because ballots are private, there is no stored link between a voter and their vote, which strengthens data protection.'
             ),
           },
           {

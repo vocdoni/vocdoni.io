@@ -39,16 +39,16 @@ export default function CompareAssemblyVotingPage() {
         title={t('compare.assembly_voting.intro.title', 'Two verifiability-focused voting tools')}
         blocks={[
           {
-            heading: t('compare.assembly_voting.intro.competitor.heading', 'Where Assembly Voting shines'),
+            heading: t('compare.assembly_voting.intro.competitor.heading', 'What Assembly Voting offers'),
             paragraphs: [
               t(
                 'compare.assembly_voting.intro.competitor.p1',
-                'Assembly Voting is a Danish provider with a clear focus on elections and AGM voting, and a genuine emphasis on end-to-end verifiability. If you run formal assemblies and want a vendor centered on that use case, Assembly Voting is a strong, credible option.'
+                'Assembly Voting is a Danish provider focused on elections and AGM voting, with end-to-end verifiability. It is aimed at organizations that run formal assemblies and want a vendor centered on that use case.'
               ),
             ],
           },
           {
-            heading: t('compare.assembly_voting.intro.vocdoni.heading', 'Where Vocdoni shines'),
+            heading: t('compare.assembly_voting.intro.vocdoni.heading', 'What Vocdoni offers'),
             paragraphs: [
               t(
                 'compare.assembly_voting.intro.vocdoni.p1',

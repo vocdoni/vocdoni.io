@@ -64,7 +64,7 @@ export default function CaseStudyMunicipalPilotPage() {
             paragraphs: [
               t(
                 'case_studies.municipal_pilot.story.solution.paragraph_1',
-                'In a pilot of municipal digital voting with guarantees, city councils used Vocdoni to give residents a secure way to vote, with anonymous ballots, instant results, and the option of hybrid in-person and remote participation.'
+                'In a pilot of municipal digital voting with guarantees, city councils used Vocdoni to give residents a secure way to vote, with private ballots, instant results, and the option of hybrid in-person and remote participation.'
               ),
             ],
           },
@@ -99,10 +99,10 @@ export default function CaseStudyMunicipalPilotPage() {
           },
           {
             icon: ShieldCheck,
-            title: t('case_studies.municipal_pilot.features.anonymity.title', 'Secret ballot'),
+            title: t('case_studies.municipal_pilot.features.privacy.title', 'Secret ballot'),
             description: t(
-              'case_studies.municipal_pilot.features.anonymity.description',
-              "Anonymous voting that keeps each resident's choice private."
+              'case_studies.municipal_pilot.features.privacy.description',
+              "Private voting that keeps each resident's choice private."
             ),
           },
           {

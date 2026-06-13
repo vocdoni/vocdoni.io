@@ -133,14 +133,6 @@ export default function CryptographicVotingPage() {
               'End-to-end verification in a Vocdoni election.'
             ),
           },
-          {
-            label: t('learn.cryptographic_voting.related.whitepapers.label', 'Whitepapers and specs'),
-            href: '/resources/whitepapers',
-            description: t(
-              'learn.cryptographic_voting.related.whitepapers.desc',
-              'The technical and legal documents behind the protocol.'
-            ),
-          },
         ]}
       />
     </>

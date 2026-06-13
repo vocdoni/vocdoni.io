@@ -103,11 +103,11 @@ export default function GlossaryPage() {
             ],
           },
           {
-            heading: t('resources.glossary.terms.anonymity.heading', 'Anonymity set'),
+            heading: t('resources.glossary.terms.privacy.heading', 'Privacy set'),
             paragraphs: [
               t(
-                'resources.glossary.terms.anonymity.body',
-                'The group of voters among whom any individual ballot could plausibly belong. The larger the anonymity set, the harder it is to link a ballot to a person. A strong system keeps this set as large as the full census.'
+                'resources.glossary.terms.privacy.body',
+                'The group of voters among whom any individual ballot could plausibly belong. The larger the privacy set, the harder it is to link a ballot to a person. A strong system keeps this set as large as the full census.'
               ),
             ],
           },
@@ -126,14 +126,6 @@ export default function GlossaryPage() {
             label: t('resources.glossary.related.security.label', 'Election security'),
             href: '/learn/election-security',
             description: t('resources.glossary.related.security.desc', 'How these properties defend a vote.'),
-          },
-          {
-            label: t('resources.glossary.related.whitepapers.label', 'Whitepapers'),
-            href: '/resources/whitepapers',
-            description: t(
-              'resources.glossary.related.whitepapers.desc',
-              'The formal specifications behind the terms.'
-            ),
           },
         ]}
       />

@@ -13,7 +13,7 @@ export default function ProductPage() {
         title={t('product.hub.hero.title', 'The voting platform built for trust')}
         subtitle={t(
           'product.hub.hero.subtitle',
-          'Vocdoni runs anonymous, end-to-end verifiable elections for your organization, with instant results and a portal your members will actually use.'
+          'Vocdoni runs private, end-to-end verifiable elections for your organization, with instant results and a portal your members will actually use.'
         )}
         primaryCta={{
           label: t('product.hub.hero.cta_primary', 'Open the app'),
@@ -22,7 +22,7 @@ export default function ProductPage() {
         }}
         secondaryCta={{ label: t('product.hub.hero.cta_secondary', 'Talk to our team'), href: '/contact' }}
         bullets={[
-          t('product.hub.hero.bullet_1', 'Anonymous ballots, secret even from us'),
+          t('product.hub.hero.bullet_1', 'Private ballots, secret even from us'),
           t('product.hub.hero.bullet_2', 'Results anyone can verify, in seconds'),
           t('product.hub.hero.bullet_3', 'GDPR compliant and hosted in the EU'),
         ]}
@@ -35,7 +35,7 @@ export default function ProductPage() {
         features={[
           {
             icon: ShieldCheck,
-            title: t('product.hub.capabilities.privacy.title', 'Anonymous by design'),
+            title: t('product.hub.capabilities.privacy.title', 'Private by design'),
             description: t(
               'product.hub.capabilities.privacy.description',
               'Zero-knowledge ballots keep every vote secret, even from Vocdoni.'

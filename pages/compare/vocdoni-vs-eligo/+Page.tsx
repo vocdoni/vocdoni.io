@@ -21,7 +21,7 @@ export default function CompareEligoPage() {
         title={t('compare.eligo.hero.title', 'Vocdoni vs Eligo: which online voting platform fits you?')}
         subtitle={t(
           'compare.eligo.hero.subtitle',
-          'Eligo is an established Italian online voting provider. This honest comparison shows where each tool is strongest so you can choose with confidence.'
+          'Eligo is an Italian online voting provider. This honest comparison shows where each tool is strongest so you can choose with confidence.'
         )}
         primaryCta={{
           label: t('compare.eligo.hero.cta_primary', 'Start for free'),
@@ -33,19 +33,19 @@ export default function CompareEligoPage() {
 
       <ProseSection
         eyebrow={t('compare.eligo.intro.eyebrow', 'Who each tool is for')}
-        title={t('compare.eligo.intro.title', 'Italian market heritage or open verifiability')}
+        title={t('compare.eligo.intro.title', 'Local Italian provider or open verifiability')}
         blocks={[
           {
-            heading: t('compare.eligo.intro.eligo.heading', 'Where Eligo shines'),
+            heading: t('compare.eligo.intro.eligo.heading', 'What Eligo offers'),
             paragraphs: [
               t(
                 'compare.eligo.intro.eligo.p1',
-                'Eligo is a well known Italian online voting provider with a solid presence in the Italian market and experience across associations, professional bodies, and companies. If you want a local provider with deep familiarity of Italian requirements, Eligo is a credible choice.'
+                'Eligo is an Italian online voting provider used by associations, professional bodies, and companies, with experience in the Italian market. It is aimed at organizations that want a local provider familiar with Italian requirements.'
               ),
             ],
           },
           {
-            heading: t('compare.eligo.intro.vocdoni.heading', 'Where Vocdoni shines'),
+            heading: t('compare.eligo.intro.vocdoni.heading', 'What Vocdoni offers'),
             paragraphs: [
               t(
                 'compare.eligo.intro.vocdoni.p1',
@@ -179,7 +179,7 @@ export default function CompareEligoPage() {
             question: t('compare.eligo.faq.q1.question', 'Is Vocdoni a good Eligo alternative?'),
             answer: t(
               'compare.eligo.faq.q1.answer',
-              'Yes, especially if you want open source code, end-to-end verifiability, and transparent pricing. Eligo is a solid Italian provider, while Vocdoni lets any member prove the result is correct and start for free.'
+              'Yes, especially if you want open source code, end-to-end verifiability, and transparent pricing. Eligo is an Italian provider focused on the local market, while Vocdoni lets any member prove the result is correct and start for free.'
             ),
           },
           {

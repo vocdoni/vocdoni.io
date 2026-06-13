@@ -122,7 +122,7 @@ export default function UseCasesPrimariesPage() {
             title: t('use_case_procedures.primaries.features.secret.title', 'Secret ballots'),
             description: t(
               'use_case_procedures.primaries.features.secret.description',
-              'Anonymous voting protects members and keeps the contest fair.'
+              'Private voting protects members and keeps the contest fair.'
             ),
           },
           {
@@ -183,7 +183,7 @@ export default function UseCasesPrimariesPage() {
             question: t('use_case_procedures.primaries.faq.q2.question', 'How do we stop people voting twice?'),
             answer: t(
               'use_case_procedures.primaries.faq.q2.answer',
-              'Each member on your census gets a single-use credential, so the system enforces one vote per person while keeping the vote anonymous.'
+              'Each member on your census gets a single-use credential, so the system enforces one vote per person while keeping the vote private.'
             ),
           },
           {
