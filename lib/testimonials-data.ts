@@ -217,7 +217,7 @@ export function getTestimonialsData(t: TFunction): Testimonial[] {
         'testimonials_marquee.items.12.handle',
         'National Secretary of Membership, Anti-repressive Struggle and Emotional Well-being · Esquerra Republicana'
       ),
-      avatar: '/images/avatars/avatar-17.png',
+      avatar: '/images/avatars/avatar-1.png',
       rating: 5,
       title: t('testimonials_marquee.items.12.title', 'Internal democracy with full guarantees'),
       content: t(
