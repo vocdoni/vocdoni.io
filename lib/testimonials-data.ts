@@ -231,7 +231,7 @@ export function getTestimonialsData(t: TFunction): Testimonial[] {
     {
       name: 'Arnau Bellavista',
       handle: t('testimonials_marquee.items.13.handle', 'Communications officer · Granollers Primàries'),
-      avatar: '/images/avatars/avatar-18.png',
+      avatar: '/images/avatars/avatar-2.png',
       rating: 5,
       title: t('testimonials_marquee.items.13.title', 'Digital participation for transparent primaries'),
       content: t(
