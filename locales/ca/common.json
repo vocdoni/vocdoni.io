@@ -445,8 +445,8 @@
           "title": "Cobertura legal"
         },
         "privacy": {
-          "description": "",
-          "title": ""
+          "description": "Els vots són privats per disseny, fins i tot per a la plataforma.",
+          "title": "Vot secret"
         },
         "support": {
           "description": "Un equip que ajuda a configurar i dur a terme la votació d'extrem a extrem.",
@@ -581,8 +581,8 @@
           "title": "Votació híbrida"
         },
         "privacy": {
-          "description": "",
-          "title": ""
+          "description": "Votació privada que manté en secret l'elecció de cada resident.",
+          "title": "Vot secret"
         },
         "support": {
           "description": "Un equip que ajuda a dur a terme el pilot des de la configuració fins als resultats.",
@@ -1122,8 +1122,8 @@
         },
         "eyebrow": "Les defenses",
         "privacy": {
-          "description": "",
-          "title": ""
+          "description": "Els vots no es poden vincular amb els votants, de manera que ningú pot ser coaccionat, comprat ni castigat per com va votar.",
+          "title": "Privadesa"
         },
         "secrecy": {
           "description": "Els vots es xifren d'extrem a extrem, de manera que ni tan sols els operadors poden llegir els vots individuals.",
@@ -4808,8 +4808,8 @@
         "question": "Vocdoni és codi obert?"
       },
       "privacy": {
-        "answer": "",
-        "question": ""
+        "answer": "No. Els vots individuals es xifren d'extrem a extrem, de manera que ningú pot vincular un membre amb la seva elecció, ni l'organització ni Vocdoni. Només es revela el resultat agregat.",
+        "question": "Algú pot veure com ha votat un membre?"
       },
       "setup": {
         "answer": "Una sola persona pot configurar una elecció completa - llista de votants, papereta, calendari i ajustos de seguretat - en menys de 30 minuts. No cal equip tècnic, ni projecte d'implantació, ni especialistes externs. Els vostres membres reben un enllaç, hi fan clic, voten i ja està.",
@@ -6013,8 +6013,8 @@
           "heading": "Mixnet"
         },
         "privacy": {
-          "body": "",
-          "heading": ""
+          "body": "El grup de votants entre els quals qualsevol vot individual podria pertànyer de manera plausible. Com més gran és el conjunt de privadesa, més difícil resulta vincular un vot amb una persona. Un sistema robust manté aquest conjunt tan gran com el cens complet.",
+          "heading": "Conjunt de privadesa"
         },
         "quorum": {
           "body": "La participació mínima requerida perquè una votació sigui vàlida. Si la participació cau per sota del quòrum establert a les vostres normes, la decisió no s'aprova, independentment de com es reparteixin els vots.",
@@ -7097,8 +7097,8 @@
         },
         "eyebrow": "Pensat per a la consulta pública",
         "private": {
-          "description": "",
-          "title": ""
+          "description": "Els residents responen amb sinceritat, sabent que la seva resposta és privada.",
+          "title": "Respostes privades"
         },
         "questions": {
           "description": "Feu preguntes d'opció única o múltiple en una sola consulta.",

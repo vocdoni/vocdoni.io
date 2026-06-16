@@ -7,7 +7,13 @@ export default function HomeFAQ() {
   const { t } = useTranslation()
   const faqs = [
     { question: t('faq.items.legal.question'), answer: t('faq.items.legal.answer') },
-    { question: t('faq.items.privacy.question'), answer: t('faq.items.privacy.answer') },
+    {
+      question: t('faq.items.privacy.question', 'Can anyone see how a member voted?'),
+      answer: t(
+        'faq.items.privacy.answer',
+        'No. Individual votes are encrypted end to end, so no one can link a member to their choice - not the organizer, not Vocdoni. Only the aggregate result is ever revealed.'
+      ),
+    },
     { question: t('faq.items.setup.question'), answer: t('faq.items.setup.answer') },
     { question: t('faq.items.free.question'), answer: t('faq.items.free.answer') },
     { question: t('faq.items.switch.question'), answer: t('faq.items.switch.answer') },

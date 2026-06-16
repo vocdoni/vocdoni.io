@@ -445,8 +445,8 @@
           "title": "Cobertura legal"
         },
         "privacy": {
-          "description": "",
-          "title": ""
+          "description": "Los votos son privados por diseño, incluso para la plataforma.",
+          "title": "Voto secreto"
         },
         "support": {
           "description": "Un equipo que ayuda a configurar y gestionar la votación de principio a fin.",
@@ -581,8 +581,8 @@
           "title": "Votación híbrida"
         },
         "privacy": {
-          "description": "",
-          "title": ""
+          "description": "Votación privada que mantiene en secreto la elección de cada residente.",
+          "title": "Voto secreto"
         },
         "support": {
           "description": "Un equipo que ayuda a gestionar el piloto desde la configuración hasta los resultados.",
@@ -1122,8 +1122,8 @@
         },
         "eyebrow": "Las defensas",
         "privacy": {
-          "description": "",
-          "title": ""
+          "description": "Los votos no pueden vincularse con los votantes, de modo que nadie puede ser coaccionado, comprado ni castigado por cómo votó.",
+          "title": "Privacidad"
         },
         "secrecy": {
           "description": "Los votos se cifran de extremo a extremo, de modo que ni siquiera los operadores pueden leer los votos individuales.",
@@ -4808,8 +4808,8 @@
         "question": "¿Es Vocdoni código abierto?"
       },
       "privacy": {
-        "answer": "",
-        "question": ""
+        "answer": "No. Los votos individuales se cifran de extremo a extremo, de modo que nadie puede vincular a un miembro con su elección, ni la organización ni Vocdoni. Solo se revela el resultado agregado.",
+        "question": "¿Alguien puede ver cómo ha votado un miembro?"
       },
       "setup": {
         "answer": "Una sola persona puede configurar una elección completa - lista de votantes, papeleta, calendario y ajustes de seguridad - en menos de 30 minutos. Sin equipo técnico, sin proyecto de implantación, sin especialistas externos. Tus miembros reciben un enlace, hacen clic, votan y listo.",
@@ -6013,8 +6013,8 @@
           "heading": "Mixnet"
         },
         "privacy": {
-          "body": "",
-          "heading": ""
+          "body": "El grupo de votantes entre los que cualquier voto individual podría pertenecer de forma plausible. Cuanto mayor es el conjunto de privacidad, más difícil resulta vincular un voto con una persona. Un sistema robusto mantiene este conjunto tan grande como el censo completo.",
+          "heading": "Conjunto de privacidad"
         },
         "quorum": {
           "body": "La participación mínima necesaria para que una votación sea válida. Si la participación cae por debajo del quórum establecido en tus reglas, la decisión no prospera, independientemente de cómo se repartan los votos.",
@@ -7097,8 +7097,8 @@
         },
         "eyebrow": "Diseñado para la consulta pública",
         "private": {
-          "description": "",
-          "title": ""
+          "description": "Los residentes responden con sinceridad, sabiendo que su respuesta es privada.",
+          "title": "Respuestas privadas"
         },
         "questions": {
           "description": "Plantea preguntas de respuesta única o múltiple en una sola consulta.",
