@@ -47,7 +47,9 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Generate app spec (inject redirect rules from lib/legacyRedirects.ts)
-        run: pnpm gen:do-appspec > .do/app.generated.yaml
+        # --silent keeps pnpm's lifecycle banner off stdout; without it the `> @ gen:do-appspec ...`
+        # banner lands in the file and DigitalOcean's YAML parser fails on the leading `>` (line 2).
+        run: pnpm --silent gen:do-appspec > .do/app.generated.yaml
 
       - name: Deploy to DigitalOcean App Platform
         uses: digitalocean/app_action/deploy@v2
