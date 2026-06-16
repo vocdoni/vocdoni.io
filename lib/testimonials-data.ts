@@ -186,7 +186,7 @@ export function getTestimonialsData(t: TFunction): Testimonial[] {
     {
       name: 'Lluis Serrat i Andreu',
       handle: t('testimonials_marquee.items.10.handle', 'Head of projects · Official College of Nurses of Barcelona'),
-      avatar: '/images/avatars/avatar-7.png',
+      avatar: '/images/avatars/avatar-3.png',
       rating: 5,
       title: t('testimonials_marquee.items.10.title', 'Fast, simple, and reliable participation'),
       content: t(
@@ -200,7 +200,7 @@ export function getTestimonialsData(t: TFunction): Testimonial[] {
     {
       name: 'Carlo Pestelli',
       handle: t('testimonials_marquee.items.11.handle', 'President · ATI Friuli Venezia Giulia'),
-      avatar: '/images/avatars/avatar-8.png',
+      avatar: '/images/avatars/avatar-13.png',
       rating: 5,
       title: t('testimonials_marquee.items.11.title', 'Digital governance that makes participation easier'),
       content: t(
@@ -217,7 +217,7 @@ export function getTestimonialsData(t: TFunction): Testimonial[] {
         'testimonials_marquee.items.12.handle',
         'National Secretary of Membership, Anti-repressive Struggle and Emotional Well-being · Esquerra Republicana'
       ),
-      avatar: '/images/avatars/avatar-1.png',
+      avatar: '/images/avatars/avatar-15.png',
       rating: 5,
       title: t('testimonials_marquee.items.12.title', 'Internal democracy with full guarantees'),
       content: t(
@@ -231,7 +231,7 @@ export function getTestimonialsData(t: TFunction): Testimonial[] {
     {
       name: 'Arnau Bellavista',
       handle: t('testimonials_marquee.items.13.handle', 'Communications officer · Granollers Primàries'),
-      avatar: '/images/avatars/avatar-2.png',
+      avatar: '/images/avatars/avatar-5.png',
       rating: 5,
       title: t('testimonials_marquee.items.13.title', 'Digital participation for transparent primaries'),
       content: t(
