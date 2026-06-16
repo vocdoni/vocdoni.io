@@ -29,7 +29,6 @@ import logoGranollersRound from '@/assets/logos/logo_primaries_granollers_round.
 export type Testimonial = {
   name: string
   handle: string
-  avatar: string
   rating: number
   title: string
   content: string
@@ -43,7 +42,6 @@ export function getTestimonialsData(t: TFunction): Testimonial[] {
     {
       name: 'Jordi Estiarte',
       handle: t('testimonials_marquee.items.0.handle', 'Mayor · Bellpuig City Council'),
-      avatar: '/images/avatars/avatar-1.png',
       rating: 5,
       title: t('testimonials_marquee.items.0.title', 'The future of real elections'),
       content: t(
@@ -57,7 +55,6 @@ export function getTestimonialsData(t: TFunction): Testimonial[] {
     {
       name: 'Ton Barnils',
       handle: t('testimonials_marquee.items.1.handle', 'General Director · Centre Excursionista de Catalunya'),
-      avatar: '/images/avatars/avatar-2.png',
       rating: 5,
       title: t('testimonials_marquee.items.1.title', 'Safe and transparent participation'),
       content: t(
@@ -71,7 +68,6 @@ export function getTestimonialsData(t: TFunction): Testimonial[] {
     {
       name: 'Anna Giralt',
       handle: t('testimonials_marquee.items.2.handle', 'Executive Manager · Òmnium Cultural'),
-      avatar: '/images/avatars/avatar-3.png',
       rating: 5,
       title: t('testimonials_marquee.items.2.title', 'All guarantees for 180,000 members'),
       content: t(
@@ -85,7 +81,6 @@ export function getTestimonialsData(t: TFunction): Testimonial[] {
     {
       name: 'Oscar Tirivò',
       handle: t('testimonials_marquee.items.3.handle', 'IT Director · College of Industrial Engineers of Catalonia'),
-      avatar: '/images/avatars/avatar-4.png',
       rating: 5,
       title: t('testimonials_marquee.items.3.title', 'Easy, secure, and scalable voting'),
       content: t(
@@ -99,7 +94,6 @@ export function getTestimonialsData(t: TFunction): Testimonial[] {
     {
       name: 'Rut Carandell',
       handle: t('testimonials_marquee.items.4.handle', 'Director · Plataforma per la Llengua'),
-      avatar: '/images/avatars/avatar-13.png',
       rating: 5,
       title: t('testimonials_marquee.items.4.title', 'Voting across Catalan-speaking territories'),
       content: t(
@@ -113,7 +107,6 @@ export function getTestimonialsData(t: TFunction): Testimonial[] {
     {
       name: 'Montserrat Clavell',
       handle: t('testimonials_marquee.items.5.handle', "Secretary · Associació d'Arxivers de Catalunya"),
-      avatar: '/images/avatars/avatar-14.png',
       rating: 5,
       title: t('testimonials_marquee.items.5.title', 'Secure voting that boosted participation'),
       content: t(
@@ -127,7 +120,6 @@ export function getTestimonialsData(t: TFunction): Testimonial[] {
     {
       name: 'Susanna Mendoza',
       handle: t('testimonials_marquee.items.6.handle', 'IT Responsible · Associació de Guies Habilitats de Catalunya'),
-      avatar: '/images/avatars/avatar-15.png',
       rating: 5,
       title: t('testimonials_marquee.items.6.title', 'Easy to set up, great participation despite a non-tech audience'),
       content: t(
@@ -144,7 +136,6 @@ export function getTestimonialsData(t: TFunction): Testimonial[] {
         'testimonials_marquee.items.7.handle',
         "Civic Participation Officer · La Bisbal d'Empordà City Council"
       ),
-      avatar: '/images/avatars/avatar-16.png',
       rating: 5,
       title: t('testimonials_marquee.items.7.title', 'Transparent, secure, and flexible digital voting for citizens'),
       content: t(
@@ -158,7 +149,6 @@ export function getTestimonialsData(t: TFunction): Testimonial[] {
     {
       name: 'Lluís Llibre',
       handle: t('testimonials_marquee.items.8.handle', 'Founder and CEO · BLOOCK'),
-      avatar: '/images/avatars/avatar-5.png',
       rating: 5,
       title: t('testimonials_marquee.items.8.title', 'Enabling meaningful citizen participation'),
       content: t(
@@ -172,7 +162,6 @@ export function getTestimonialsData(t: TFunction): Testimonial[] {
     {
       name: 'Víctor Bohórquez',
       handle: t('testimonials_marquee.items.9.handle', 'President · Official College of Nursing of Seville'),
-      avatar: '/images/avatars/avatar-6.png',
       rating: 5,
       title: t('testimonials_marquee.items.9.title', 'More efficient and accessible voting'),
       content: t(
@@ -186,7 +175,6 @@ export function getTestimonialsData(t: TFunction): Testimonial[] {
     {
       name: 'Lluis Serrat i Andreu',
       handle: t('testimonials_marquee.items.10.handle', 'Head of projects · Official College of Nurses of Barcelona'),
-      avatar: '/images/avatars/avatar-3.png',
       rating: 5,
       title: t('testimonials_marquee.items.10.title', 'Fast, simple, and reliable participation'),
       content: t(
@@ -200,7 +188,6 @@ export function getTestimonialsData(t: TFunction): Testimonial[] {
     {
       name: 'Carlo Pestelli',
       handle: t('testimonials_marquee.items.11.handle', 'President · ATI Friuli Venezia Giulia'),
-      avatar: '/images/avatars/avatar-13.png',
       rating: 5,
       title: t('testimonials_marquee.items.11.title', 'Digital governance that makes participation easier'),
       content: t(
@@ -217,7 +204,6 @@ export function getTestimonialsData(t: TFunction): Testimonial[] {
         'testimonials_marquee.items.12.handle',
         'National Secretary of Membership, Anti-repressive Struggle and Emotional Well-being · Esquerra Republicana'
       ),
-      avatar: '/images/avatars/avatar-15.png',
       rating: 5,
       title: t('testimonials_marquee.items.12.title', 'Internal democracy with full guarantees'),
       content: t(
@@ -231,7 +217,6 @@ export function getTestimonialsData(t: TFunction): Testimonial[] {
     {
       name: 'Arnau Bellavista',
       handle: t('testimonials_marquee.items.13.handle', 'Communications officer · Granollers Primàries'),
-      avatar: '/images/avatars/avatar-5.png',
       rating: 5,
       title: t('testimonials_marquee.items.13.title', 'Digital participation for transparent primaries'),
       content: t(

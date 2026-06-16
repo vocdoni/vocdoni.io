@@ -16,12 +16,12 @@ export type HeroSlideItem = {
 export type TestimonialItem = {
   name: string
   handle: string
-  avatar: string
   rating: number
   title: string
   content: string
   platformName: string
   platformImage: string
+  logo: string
 }
 
 type TestimonialsComponentProps = {

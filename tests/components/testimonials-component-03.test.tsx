@@ -15,7 +15,7 @@ describe('TestimonialsComponent', () => {
       {
         name: 'Jordi Estiarte',
         handle: 'Mayor · Bellpuig City Council',
-        avatar: '/avatar.png',
+        logo: '/logo-round.png',
         rating: 5,
         title: 'The future of real elections',
         content: 'Vocdoni made elections easier.',
@@ -56,7 +56,7 @@ describe('TestimonialsComponent', () => {
       {
         name: 'Jordi Estiarte',
         handle: 'Mayor · Bellpuig City Council',
-        avatar: '/avatar.png',
+        logo: '/logo-round.png',
         rating: 5,
         title: 'The future of real elections',
         content: 'Vocdoni made elections easier.',
@@ -66,7 +66,7 @@ describe('TestimonialsComponent', () => {
       {
         name: 'Anna Garcia',
         handle: 'Association director',
-        avatar: '/avatar-2.png',
+        logo: '/logo-round-2.png',
         rating: 5,
         title: 'Members trusted the result',
         content: 'The audit trail made the process easy to explain.',
@@ -86,7 +86,7 @@ describe('TestimonialsComponent', () => {
     const duplicate = {
       name: 'Jordi Estiarte',
       handle: 'Mayor · Bellpuig City Council',
-      avatar: '/avatar.png',
+      logo: '/logo-round.png',
       rating: 5,
       title: 'The future of real elections',
       content: 'Vocdoni made elections easier.',

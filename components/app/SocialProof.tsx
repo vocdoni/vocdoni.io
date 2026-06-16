@@ -14,13 +14,12 @@ import { Card, CardContent } from '@/components/ui/card'
 type Testimonial = {
   name: string
   handle: string
-  avatar: string
   rating: number
   title: string
   content: string
   platformName: string
   platformImage: string
-  logo?: string
+  logo: string
 }
 
 type Stat = {
