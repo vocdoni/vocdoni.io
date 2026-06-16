@@ -8,7 +8,8 @@ import { localeDefault, locales } from '../locales'
  * Old URLs from the previous (multilingual) website now 404. We recover them with real HTTP 301s,
  * never JavaScript or <meta refresh> (bad for SEO). Because the site is statically prerendered, the
  * 301 must be issued by the host/edge: this module feeds two emitters from one list:
- *   - `buildNetlifyRedirects`  -> `public`/`_redirects` for the Netlify dev + PR-preview deploys
+ *   - `buildNetlifyRedirects`  -> `_redirects` in the client build output (emitted by `plugins/legacy-redirects.ts`,
+ *     never committed) for the Netlify dev + PR-preview deploys
  *   - `buildDigitalOceanIngressRules` -> `ingress.rules` fragment for the DigitalOcean production app
  *
  * `to` is always a final, locale-prefixed URL (e.g. `/en/app`) so the redirect lands in a single hop

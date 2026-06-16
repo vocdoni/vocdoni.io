@@ -1,3 +1,6 @@
+import { readdirSync } from 'node:fs'
+import { dirname, join, relative, sep } from 'node:path'
+import { fileURLToPath } from 'node:url'
 import { describe, expect, it } from 'vitest'
 
 import {
@@ -9,10 +12,30 @@ import {
 } from '@/lib/legacyRedirects'
 import { localeDefault, locales } from '@/locales'
 
-// Real routes discovered under pages/ (unprefixed). Update if pages are added/removed.
-const REAL_BASE_ROUTES = ['/', '/app', '/about-us', '/contact', '/use-cases', '/privacy', '/terms']
-// Every URL actually served: each base route, locale-prefixed (home -> /<locale>).
-const REAL_URLS = new Set(REAL_BASE_ROUTES.flatMap((r) => locales.map((l) => (r === '/' ? `/${l}` : `/${l}${r}`))))
+const PAGES_DIR = join(dirname(fileURLToPath(import.meta.url)), '../../pages')
+
+/** Every directory under `pages/` that holds a `+Page.*` file (Vike filesystem routing). */
+const collectPageDirs = (dir: string): string[] => {
+  const dirs: string[] = []
+  for (const entry of readdirSync(dir, { withFileTypes: true })) {
+    if (entry.isDirectory()) dirs.push(...collectPageDirs(join(dir, entry.name)))
+    else if (/^\+Page\.[jt]sx?$/.test(entry.name)) dirs.push(dir)
+  }
+  return dirs
+}
+
+// Real routes, derived from pages/ so they can never drift out of sync with the filesystem.
+// `pages/index` -> `/`; Vike control routes (`_error`, etc.) are excluded.
+const REAL_BASE_ROUTES = collectPageDirs(PAGES_DIR)
+  .map((d) => `/${relative(PAGES_DIR, d).split(sep).join('/')}`)
+  .filter((route) => !route.split('/').some((seg) => seg.startsWith('_')))
+  .map((route) => (route === '/index' ? '/' : route))
+  .sort()
+// Every URL actually served: each base route both bare (compatibility redirect) and locale-prefixed
+// (home -> /<locale>). A legacy `from` must not equal or prefix any of these.
+const REAL_URLS = new Set(
+  REAL_BASE_ROUTES.flatMap((r) => [r, ...locales.map((l) => (r === '/' ? `/${l}` : `/${l}${r}`))])
+)
 
 const stripLocale = (url: string) => {
   const match = url.match(/^\/([a-z]{2})(\/.*|$)/)
