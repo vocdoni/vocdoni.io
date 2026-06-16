@@ -9,6 +9,8 @@ declare const EMAILJS_SERVICE_ID: string
 declare const EMAILJS_TEMPLATE_ID: string
 // reCAPTCHA configuration variable defined in vite.config.ts
 declare const RECAPTCHA_SITE_KEY: string
+// Ghost blog URL (newsletter subscription) defined in vite.config.ts
+declare const GHOST_URL: string
 // Wasaaaapp
 declare const WHATSAPP_PHONE_NUMBER: string
 // Extend Vike types

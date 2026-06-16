@@ -17,7 +17,7 @@ export default function Footer() {
     if (!email || status === 'loading' || status === 'success') return
     setStatus('loading')
     try {
-      const res = await fetch(`${import.meta.env.VITE_GHOST_URL}/members/api/send-magic-link/`, {
+      const res = await fetch(`${GHOST_URL}/members/api/send-magic-link/`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, emailType: 'subscribe' }),

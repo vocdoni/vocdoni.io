@@ -5,9 +5,10 @@ name: Deploy to DigitalOcean
 # ${VAR} env placeholders in .do/app.template.yaml from the environment defined below.
 #
 # Required GitHub repository secrets:
-#   DIGITALOCEAN_ACCESS_TOKEN, EMAILJS_PUBLIC_KEY, EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID
+#   DIGITALOCEAN_ACCESS_TOKEN
 # Required GitHub repository variables (public, build-time values):
-#   GTM_ID, PLAUSIBLE_DOMAIN, RECAPTCHA_SITE_KEY, SITE_URL
+#   EMAILJS_PUBLIC_KEY, EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID,
+#   GTM_ID, PLAUSIBLE_DOMAIN, RECAPTCHA_SITE_KEY, SITE_URL, GHOST_URL
 #
 # `deploy_on_push` is set to false in the spec template so this action is the only thing that
 # deploys the app (no double deploys).
@@ -51,13 +52,14 @@ jobs:
       - name: Deploy to DigitalOcean App Platform
         uses: digitalocean/app_action/deploy@v2
         env:
-          EMAILJS_PUBLIC_KEY: ${{ secrets.EMAILJS_PUBLIC_KEY }}
-          EMAILJS_SERVICE_ID: ${{ secrets.EMAILJS_SERVICE_ID }}
-          EMAILJS_TEMPLATE_ID: ${{ secrets.EMAILJS_TEMPLATE_ID }}
+          EMAILJS_PUBLIC_KEY: ${{ vars.EMAILJS_PUBLIC_KEY }}
+          EMAILJS_SERVICE_ID: ${{ vars.EMAILJS_SERVICE_ID }}
+          EMAILJS_TEMPLATE_ID: ${{ vars.EMAILJS_TEMPLATE_ID }}
           GTM_ID: ${{ vars.GTM_ID }}
           PLAUSIBLE_DOMAIN: ${{ vars.PLAUSIBLE_DOMAIN }}
           RECAPTCHA_SITE_KEY: ${{ vars.RECAPTCHA_SITE_KEY }}
           SITE_URL: ${{ vars.SITE_URL }}
+          GHOST_URL: ${{ vars.GHOST_URL }}
         with:
           token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
           app_spec_location: .do/app.generated.yaml
