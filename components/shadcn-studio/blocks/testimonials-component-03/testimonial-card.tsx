@@ -4,13 +4,12 @@ import { Card, CardContent } from '@/components/ui/card'
 type Testimonial = {
   name: string
   handle: string
-  avatar: string
   rating: number
   title: string
   content: string
   platformName: string
   platformImage: string
-  logo?: string
+  logo: string
 }
 
 const TestimonialCard = ({ testimonial }: { testimonial: Testimonial }) => {
@@ -26,11 +25,7 @@ const TestimonialCard = ({ testimonial }: { testimonial: Testimonial }) => {
         {/* User Details */}
         <div className='flex items-center gap-3'>
           <Avatar className='size-10'>
-            <AvatarImage
-              src={testimonial.logo ?? testimonial.avatar}
-              alt={testimonial.logo ? testimonial.platformName : testimonial.name}
-              className={testimonial.logo ? 'object-cover' : ''}
-            />
+            <AvatarImage src={testimonial.logo} alt={testimonial.platformName} className='object-cover' />
             <AvatarFallback className='text-xs'>
               {testimonial.name
                 .split(' ', 2)
