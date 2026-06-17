@@ -1,5 +1,6 @@
 import tailwindcss from '@tailwindcss/vite'
 import react from '@vitejs/plugin-react'
+import { execSync } from 'node:child_process'
 import vike from 'vike/plugin'
 import { ConfigEnv, defineConfig, loadEnv } from 'vite'
 import { localeDefault, locales } from './locales'
@@ -8,6 +9,11 @@ import { vikeSitemapPlugin } from './plugins/vike-sitemap'
 
 const viteconfig = ({ mode }: ConfigEnv) => {
   process.env = { ...process.env, ...loadEnv(mode, process.cwd(), '') }
+
+  let commitSha = 'unknown'
+  try {
+    commitSha = execSync('git rev-parse --short HEAD').toString().trim()
+  } catch {}
 
   return defineConfig({
     plugins: [
@@ -42,6 +48,7 @@ const viteconfig = ({ mode }: ConfigEnv) => {
       GHOST_URL: JSON.stringify(process.env.GHOST_URL || ''),
       RECAPTCHA_SITE_KEY: JSON.stringify(process.env.RECAPTCHA_SITE_KEY || ''),
       WHATSAPP_PHONE_NUMBER: JSON.stringify(process.env.WHATSAPP_PHONE_NUMBER || '+34 621 501 155'),
+      __COMMIT_SHA__: JSON.stringify(commitSha),
     },
   })
 }

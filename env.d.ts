@@ -13,6 +13,8 @@ declare const RECAPTCHA_SITE_KEY: string
 declare const GHOST_URL: string
 // Wasaaaapp
 declare const WHATSAPP_PHONE_NUMBER: string
+// Commit SHA defined in vite.config.ts
+declare const __COMMIT_SHA__: string
 // Extend Vike types
 declare namespace Vike {
   interface Config {
