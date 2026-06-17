@@ -66,6 +66,9 @@ export default function SocialProof() {
               alt={logo.alt}
               className='h-9 w-auto object-contain opacity-85'
               loading='lazy'
+              decoding='async'
+              width={144}
+              height={36}
             />
           ))}
         </div>

@@ -213,6 +213,9 @@ export function Navbar() {
                             alt='Vocdoni App'
                             className='aspect-video w-full object-cover'
                             loading='lazy'
+                            decoding='async'
+                            width={640}
+                            height={360}
                           />
                           {/* Gradient overlay */}
                           <span className='absolute inset-0 bg-gradient-to-t from-black/60 to-transparent' />
