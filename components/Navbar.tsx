@@ -41,7 +41,7 @@ type ProductFeature =
 
 type TranslateFn = TFunction
 
-const buildProductFeatures = (t: TranslateFn) =>
+const buildProductFeatures = (t: TranslateFn): ProductFeature[] =>
   [
     {
       title: t('navbar.product_features.digital_voting_platform.title'),
@@ -59,15 +59,6 @@ const buildProductFeatures = (t: TranslateFn) =>
       ),
     },
     {
-      title: t('navbar.product_features.pricing.title', 'Pricing'),
-      kind: 'link' as const,
-      href: '/pricing',
-      description: t(
-        'navbar.product_features.pricing.description',
-        'Free plan, fixed annual tiers and tailored quotes.'
-      ),
-    },
-    {
       title: t('navbar.product_features.security.title', 'Security and trust'),
       kind: 'link' as const,
       href: '/security',
@@ -79,9 +70,7 @@ const buildProductFeatures = (t: TranslateFn) =>
     {
       title: t('navbar.product_features.sdk.title'),
       kind: 'link' as const,
-      href: 'https://developer.vocdoni.io/sdk',
-      target: '_blank',
-      rel: 'noopener noreferrer',
+      href: '/api-sdk',
       description: t('navbar.product_features.sdk.description'),
     },
     {
@@ -121,11 +110,6 @@ const buildResourcesItems = (t: TranslateFn) => [
       'navbar.resources_items.case_studies.description',
       'Real projects from colleges, councils and more.'
     ),
-  },
-  {
-    title: t('navbar.product_features.compare.title', 'Compare alternatives'),
-    href: '/compare',
-    description: t('navbar.product_features.compare.description', 'See how Vocdoni stacks up against other platforms.'),
   },
   {
     title: t('navbar.resources_items.blog.title'),

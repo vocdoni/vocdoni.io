@@ -585,6 +585,11 @@ const metaDefaults = {
     'meta.product_integrations.description',
     'Connect Vocdoni with SSO, your CRM and member databases, or build with the API and SDK. See how Vocdoni fits your stack. Start free.'
   ),
+  'meta.api_sdk.title': t('meta.api_sdk.title', 'Voting API and SDK for developers - Vocdoni'),
+  'meta.api_sdk.description': t(
+    'meta.api_sdk.description',
+    'Build verifiable voting into your product with the Vocdoni SDK and API. Real code to create a census, launch an election, cast votes and read results, plus a ready-made voter frontend.'
+  ),
   'meta.partners.title': t('meta.partners.title', 'Partner programme for online voting - Vocdoni'),
   'meta.partners.description': t(
     'meta.partners.description',

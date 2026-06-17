@@ -5,6 +5,7 @@ import {
   CtaBanner,
   FaqAccordion,
   FeatureGrid,
+  ManagedProjectSection,
   MarketingHero,
   PricingTiers,
   ProseSection,
@@ -21,7 +22,7 @@ export default function PricingPage() {
         title={t('pricing_page.hero.title', 'Transparent pricing for online voting you can trust')}
         subtitle={t(
           'pricing_page.hero.subtitle',
-          'Start free and upgrade when you need more. Fixed annual plans for recurring votes, and tailored quotes for large or high-stakes elections.'
+          'Two ways to vote with Vocdoni: run it yourself with our self-service plans, or let our team manage the whole election for you. Start free and pay only for the voters you need.'
         )}
         primaryCta={{
           label: t('pricing_page.hero.cta_primary', 'Start for free'),
@@ -37,12 +38,14 @@ export default function PricingPage() {
       />
 
       <PricingTiers
-        eyebrow={t('pricing_page.tiers.eyebrow', 'Plans')}
-        title={t('pricing_page.tiers.title', 'Pick the plan that fits your organization')}
+        eyebrow={t('pricing_page.tiers.eyebrow', 'Self-service · SaaS')}
+        title={t('pricing_page.tiers.title', 'Run your own vote, your way')}
         description={t(
           'pricing_page.tiers.description',
-          'Every plan includes private voting, universally verifiable results, and an audit trail. Prices are per year, excluding VAT.'
+          'Sign up, upload your census and launch in minutes. Self-service plans include the full voting platform with basic branding and configuration. Prices are per year, excluding VAT.'
         )}
+        moreLabel={t('pricing_page.tiers.more_label', 'See all features')}
+        lessLabel={t('pricing_page.tiers.less_label', 'Show fewer')}
         tiers={[
           {
             name: t('pricing_page.tiers.free.name', 'Free'),
@@ -53,7 +56,7 @@ export default function PricingPage() {
               t('pricing_page.tiers.free.feature_1', 'Up to 50 voters'),
               t('pricing_page.tiers.free.feature_2', 'Private, verifiable ballots'),
               t('pricing_page.tiers.free.feature_3', 'Instant, public results'),
-              t('pricing_page.tiers.free.feature_4', 'Email support'),
+              t('pricing_page.tiers.free.feature_4', 'Set up a vote in minutes'),
             ],
             cta: {
               label: t('pricing_page.tiers.free.cta', 'Start free'),
@@ -62,18 +65,29 @@ export default function PricingPage() {
             },
           },
           {
-            name: t('pricing_page.tiers.basic.name', 'Basic'),
-            price: t('pricing_page.tiers.basic.price', '€590'),
-            priceNote: t('pricing_page.tiers.basic.note', '/ year'),
-            description: t('pricing_page.tiers.basic.description', 'For associations and clubs running regular votes.'),
+            name: t('pricing_page.tiers.essential.name', 'Essential'),
+            price: t('pricing_page.tiers.essential.price', '€590'),
+            priceNote: t('pricing_page.tiers.essential.note', '/ year'),
+            priceSubnote: t('pricing_page.tiers.essential.subnote', '+€50 per extra 500 voters'),
+            description: t(
+              'pricing_page.tiers.essential.description',
+              'For associations and clubs running regular votes.'
+            ),
             features: [
-              t('pricing_page.tiers.basic.feature_1', 'Up to 500 voters'),
-              t('pricing_page.tiers.basic.feature_2', 'Unlimited voting processes'),
-              t('pricing_page.tiers.basic.feature_3', 'Custom census and reminders'),
-              t('pricing_page.tiers.basic.feature_4', 'Weighted and multi-question voting'),
+              t('pricing_page.tiers.essential.feature_1', 'Up to 1,000 voters'),
+              t('pricing_page.tiers.essential.feature_2', 'Unlimited voting processes'),
+              t('pricing_page.tiers.essential.feature_3', 'Upload your own census (CSV or Excel)'),
+              t('pricing_page.tiers.essential.feature_4', 'Email invitations and reminders'),
+            ],
+            moreFeatures: [
+              t('pricing_page.tiers.essential.more_1', 'Multiple voting types: single, multiple choice and weighted'),
+              t('pricing_page.tiers.essential.more_2', 'Multi-question ballots'),
+              t('pricing_page.tiers.essential.more_3', 'Downloadable PDF results report'),
+              t('pricing_page.tiers.essential.more_4', 'Real-time participation tracking'),
+              t('pricing_page.tiers.essential.more_5', 'Email support'),
             ],
             cta: {
-              label: t('pricing_page.tiers.basic.cta', 'Start free'),
+              label: t('pricing_page.tiers.essential.cta', 'Start free'),
               href: 'https://app.vocdoni.io',
               external: true,
             },
@@ -82,15 +96,24 @@ export default function PricingPage() {
             name: t('pricing_page.tiers.premium.name', 'Premium'),
             price: t('pricing_page.tiers.premium.price', '€1,890'),
             priceNote: t('pricing_page.tiers.premium.note', '/ year'),
+            priceSubnote: t('pricing_page.tiers.premium.subnote', '+€50 per extra 500 voters'),
             description: t(
               'pricing_page.tiers.premium.description',
               'For colleges and federations with large memberships.'
             ),
             features: [
-              t('pricing_page.tiers.premium.feature_1', 'Up to 10,000 voters'),
-              t('pricing_page.tiers.premium.feature_2', 'Hybrid in-person and remote voting'),
+              t('pricing_page.tiers.premium.feature_1', 'Up to 5,000 voters'),
+              t('pricing_page.tiers.premium.feature_2', 'Everything in Essential'),
               t('pricing_page.tiers.premium.feature_3', 'Branded voting portal'),
-              t('pricing_page.tiers.premium.feature_4', 'Priority support and onboarding'),
+              t('pricing_page.tiers.premium.feature_4', 'Hybrid in-person and remote voting'),
+            ],
+            moreFeatures: [
+              t('pricing_page.tiers.premium.more_1', 'Custom census fields and voter segments'),
+              t('pricing_page.tiers.premium.more_2', 'Weighted and delegated voting'),
+              t('pricing_page.tiers.premium.more_3', 'Advanced results PDF with audit trail'),
+              t('pricing_page.tiers.premium.more_4', 'Scheduled and recurring votes'),
+              t('pricing_page.tiers.premium.more_5', 'Multiple administrators'),
+              t('pricing_page.tiers.premium.more_6', 'Priority support and onboarding'),
             ],
             cta: {
               label: t('pricing_page.tiers.premium.cta', 'Start free'),
@@ -100,22 +123,52 @@ export default function PricingPage() {
             highlighted: true,
             badge: t('pricing_page.tiers.premium.badge', 'Most popular'),
           },
-          {
-            name: t('pricing_page.tiers.custom.name', 'Custom'),
-            price: t('pricing_page.tiers.custom.price', 'from €3,210'),
-            description: t('pricing_page.tiers.custom.description', 'For high-stakes elections and tailored projects.'),
-            features: [
-              t('pricing_page.tiers.custom.feature_1', 'Unlimited voters'),
-              t('pricing_page.tiers.custom.feature_2', 'eIDAS-grade identity and SSO'),
-              t('pricing_page.tiers.custom.feature_3', 'Expert support before, during and after the vote'),
-              t('pricing_page.tiers.custom.feature_4', 'Custom integrations and SLAs'),
-            ],
-            cta: { label: t('pricing_page.tiers.custom.cta', 'Request a quote'), href: '/contact' },
-          },
         ]}
         footnote={t(
           'pricing_page.tiers.footnote',
-          'Need something in between? Plans scale with your census size - talk to us for the exact figure.'
+          'Essential and Premium scale with your census: +€50 per additional 500 voters. Voting with more than 5,000 voters? We recommend talking to us for a tailored quote.'
+        )}
+      />
+
+      <ManagedProjectSection
+        eyebrow={t('pricing_page.managed.eyebrow', 'Fully managed · Custom project')}
+        badge={t('pricing_page.managed.badge', '5,000+ voters')}
+        title={t('pricing_page.managed.title', 'We design, run and deliver your election')}
+        description={t(
+          'pricing_page.managed.description',
+          'For high-stakes or complex votes. Our team handles everything end to end - you only approve the setup and announce the results.'
+        )}
+        priceLabel={t('pricing_page.managed.price_label', 'Tailored quote')}
+        priceNote={t(
+          'pricing_page.managed.price_note',
+          'Recommended for elections above 5,000 voters or bespoke processes.'
+        )}
+        groups={[
+          {
+            heading: t('pricing_page.managed.group_1.heading', 'Expert accompaniment'),
+            items: [
+              t('pricing_page.managed.group_1.item_1', 'Dedicated project manager'),
+              t('pricing_page.managed.group_1.item_2', 'Periodic planning meetings'),
+              t('pricing_page.managed.group_1.item_3', 'A full rehearsal vote before election day'),
+              t('pricing_page.managed.group_1.item_4', 'Expert support before, during and after the vote'),
+            ],
+          },
+          {
+            heading: t('pricing_page.managed.group_2.heading', 'Total management'),
+            items: [
+              t('pricing_page.managed.group_2.item_1', 'Custom voting page and branding'),
+              t('pricing_page.managed.group_2.item_2', 'Custom flows and integrations (SSO, eIDAS)'),
+              t('pricing_page.managed.group_2.item_3', 'We build and validate your census'),
+              t('pricing_page.managed.group_2.item_4', 'Configuration, setup and fine-tuning'),
+              t('pricing_page.managed.group_2.item_5', 'Results report and certification'),
+            ],
+          },
+        ]}
+        primaryCta={{ label: t('pricing_page.managed.cta_primary', 'Request a quote'), href: '/contact' }}
+        secondaryCta={{ label: t('pricing_page.managed.cta_secondary', 'Explore solutions'), href: '/solutions' }}
+        footnote={t(
+          'pricing_page.managed.footnote',
+          'Every custom project includes the same privacy and verifiability guarantees as our self-service plans.'
         )}
       />
 
@@ -199,23 +252,33 @@ export default function PricingPage() {
             ),
           },
           {
-            question: t('pricing_page.faq.q2.question', 'How is the price calculated?'),
+            question: t(
+              'pricing_page.faq.q2.question',
+              "What's the difference between self-service and a custom project?"
+            ),
             answer: t(
               'pricing_page.faq.q2.answer',
-              'Plans scale with the size of your census - the number of eligible voters. Larger or more sensitive elections move to a tailored quote that includes expert support.'
+              'With self-service (SaaS) plans you run the vote yourself: sign up, upload your census, configure your ballot and launch, with basic branding and configuration. With a custom project our team manages everything for you - a tailored voting page, custom flows, census preparation, rehearsals and expert support throughout.'
             ),
           },
           {
-            question: t('pricing_page.faq.q3.question', 'What does a custom project include?'),
+            question: t('pricing_page.faq.q3.question', 'How does pricing scale with my census?'),
             answer: t(
               'pricing_page.faq.q3.answer',
-              'Custom projects add eIDAS-grade identity, single sign-on, custom integrations, branded portals, and a dedicated team that rehearses, runs and reports on your election.'
+              'Self-service plans are priced by census size: Essential covers up to 1,000 voters and Premium up to 5,000. Beyond your plan limit, extra voters cost €50 per additional 500. For elections with more than 5,000 voters we recommend a tailored quote.'
             ),
           },
           {
-            question: t('pricing_page.faq.q4.question', 'Can I change or cancel my plan?'),
+            question: t('pricing_page.faq.q4.question', 'What does a custom project include?'),
             answer: t(
               'pricing_page.faq.q4.answer',
+              'A dedicated project manager, custom voting page and flows, census preparation, configuration and fine-tuning, periodic meetings, a full rehearsal vote before election day, and expert support before, during and after the election.'
+            ),
+          },
+          {
+            question: t('pricing_page.faq.q5.question', 'Can I change or cancel my plan?'),
+            answer: t(
+              'pricing_page.faq.q5.answer',
               'Yes. You can upgrade, downgrade or cancel at any time. We will help you migrate your census and history if you move between plans.'
             ),
           },
@@ -248,11 +311,6 @@ export default function PricingPage() {
             label: t('pricing_page.related.solutions', 'Solutions for your organization'),
             href: '/solutions',
             description: t('pricing_page.related.solutions_desc', 'Tailored answers by sector.'),
-          },
-          {
-            label: t('pricing_page.related.compare', 'Compare Vocdoni'),
-            href: '/compare',
-            description: t('pricing_page.related.compare_desc', 'See how we stack up against alternatives.'),
           },
         ]}
       />

@@ -113,7 +113,7 @@ export default function Footer() {
                   </Link>
                 </li>
                 <li>
-                  <Link href='https://developer.vocdoni.io/sdk' target='_blank' variant='footerNav'>
+                  <Link href='/api-sdk' variant='footerNav'>
                     {t('footer.product.links.1')}
                   </Link>
                 </li>
@@ -171,11 +171,6 @@ export default function Footer() {
                 <li>
                   <Link href='/case-studies' variant='footerNav'>
                     {t('footer.resources.cases', 'Case studies')}
-                  </Link>
-                </li>
-                <li>
-                  <Link href='/compare' variant='footerNav'>
-                    {t('footer.resources.compare', 'Compare platforms')}
                   </Link>
                 </li>
                 <li>

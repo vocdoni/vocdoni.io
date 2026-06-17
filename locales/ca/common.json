@@ -3672,6 +3672,168 @@
       }
     }
   },
+  "api_sdk": {
+    "code": {
+      "census": {
+        "description": "Converteix en votants els usuaris que ja tens a la teva base de dades.",
+        "label": "Cens"
+      },
+      "client": {
+        "description": "Crea el client amb una identitat derivada del teu propi secret, sense necessitat de moneder cripto.",
+        "label": "Client i compte"
+      },
+      "description": "Aquests fragments repliquen els exemples oficials del SDK. Executa'ls a l'entorn dev o staging per llançar una elecció funcional de principi a fi.",
+      "election": {
+        "description": "Configura les regles, afegeix preguntes i publica l'elecció.",
+        "label": "Elecció"
+      },
+      "eyebrow": "Inici ràpid",
+      "install": {
+        "description": "Afegeix el SDK amb el gestor de paquets que prefereixis.",
+        "label": "Instal·lació"
+      },
+      "results": {
+        "description": "Llegeix els resultats en directe i gestiona el cicle de vida de l'elecció.",
+        "label": "Resultats"
+      },
+      "title": "Codi real, copia i enganxa per començar",
+      "vote": {
+        "description": "Torna a derivar el votant després del teu login habitual i emet el vot.",
+        "label": "Vot"
+      }
+    },
+    "cta": {
+      "description": "Llegeix la documentació, clona els exemples i llança la teva primera elecció verificable de franc. Encallat amb una integració? El nostre equip estarà encantat d'ajudar-te.",
+      "primary": "Obre la documentació per a desenvolupadors",
+      "secondary": "Parla amb el nostre equip",
+      "title": "Comença a construir avui"
+    },
+    "frontend": {
+      "block_1": {
+        "heading": "Fes servir l'app allotjada",
+        "paragraph_1": "Cada elecció que crees es pot votar a l'instant a app.vocdoni.io/processes/<electionId>. Comparteix l'enllaç i ja està, sense feina de frontend."
+      },
+      "block_2": {
+        "bullet_1": "Clona el repositori vocdoni-app i executa'l amb pnpm start",
+        "bullet_2": "Canvia d'entorn amb la variable VOCDONI_ENVIRONMENT (dev o prod)",
+        "bullet_3": "Associa un domini propi a la teva organització amb CUSTOM_ORGANIZATION_DOMAINS",
+        "heading": "Fes-ne un fork i personalitza'l"
+      },
+      "block_3": {
+        "heading": "Integra un portal de cens compartit",
+        "paragraph_1": "La pàgina de cens compartit mostra diverses eleccions alhora. Defineix PROCESS_IDS amb les eleccions que vulguis mostrar, afegeix un text d'introducció per idioma i, opcionalment, incrusta una emissió en directe amb STREAM_URL."
+      },
+      "eyebrow": "Frontend per a votants",
+      "intro": "La Vocdoni App és el mateix frontend de codi obert en React que impulsa app.vocdoni.io. Apunta'l a un identificador d'elecció i els teus votants tindran una pàgina de vot provada i accessible. Fes-ne un fork per adaptar-la a la teva marca.",
+      "title": "Posa en marxa una pàgina de vot sense construir la interfície"
+    },
+    "hero": {
+      "bullet_1": "SDK de codi obert publicat com a @vocdoni/sdk a npm",
+      "bullet_2": "Tipus de TypeScript per a clients, censos, eleccions i vots",
+      "bullet_3": "Gratis per provar, sense moneders cripto, tokens per comprar ni pagaments per començar",
+      "cta_primary": "Llegeix la documentació per a desenvolupadors",
+      "cta_secondary": "Vés a l'inici ràpid",
+      "eyebrow": "Desenvolupadors",
+      "subtitle": "El SDK i l'API de Vocdoni et permeten crear un cens, llançar una elecció i recollir vots anònims i verificables de principi a fi amb unes poques línies de codi. Codi obert, centrat en TypeScript i gratuït per provar.",
+      "title": "Integra el vot verificable al teu propi producte"
+    },
+    "related": {
+      "app": "Vocdoni App a GitHub",
+      "app_desc": "El frontend de vot de codi obert que pots adaptar a la teva marca.",
+      "docs": "Documentació per a desenvolupadors",
+      "docs_desc": "Referència de l'API, guies del SDK i tutorials.",
+      "integrations": "Integracions",
+      "integrations_desc": "SSO, connectors de CRM i opcions d'importació de cens.",
+      "sdk": "Vocdoni SDK a GitHub",
+      "sdk_desc": "Codi, exemples i notes de versió de @vocdoni/sdk.",
+      "title": "Recursos per a qui construeix"
+    },
+    "showcase": {
+      "anonymous": {
+        "description": "Activa les proves de coneixement zero perquè els vots siguin secrets sense perdre la verificabilitat dels resultats.",
+        "title": "Vot anònim"
+      },
+      "custom_domain": {
+        "description": "Serveix l'experiència de vot des del teu propi domini, amb el perfil de la teva organització com a pàgina d'inici.",
+        "title": "Pàgina d'organització amb domini propi"
+      },
+      "eyebrow": "Pàgines de vot a punt per publicar",
+      "hybrid": {
+        "description": "Mostra diverses eleccions actives en una sola pàgina amb la teva marca, ideal per a assemblees i esdeveniments amb múltiples votacions.",
+        "title": "Portal de cens compartit"
+      },
+      "single": {
+        "description": "Una pregunta, tries una opció. La clàssica votació de sí/no o de candidats, a punt en minuts.",
+        "title": "Papereta d'elecció única"
+      },
+      "survey": {
+        "description": "Encadena diverses preguntes en una sola papereta per a votacions estatutàries o consultes als socis.",
+        "title": "Enquesta de diverses preguntes"
+      },
+      "title": "Configura la papereta que encaixa amb la teva votació",
+      "weighted": {
+        "description": "Assigna pesos diferents als votants, o restringeix qui pot participar per nivell de soci, rol o participacions.",
+        "title": "Vot ponderat o restringit"
+      }
+    },
+    "steps": {
+      "description": "El mateix flux impulsa la nostra pròpia app. Cada pas és una crida del SDK, així que pots integrar-lo al teu backend o executar-lo directament des del navegador.",
+      "eyebrow": "Flux d'integració",
+      "step_1": {
+        "description": "Afegeix @vocdoni/sdk al teu projecte amb npm, yarn o pnpm.",
+        "title": "Instal·la el SDK"
+      },
+      "step_2": {
+        "description": "Inicialitza el client amb un entorn i un signant, i registra un compte finançat pel faucet.",
+        "title": "Crea un client i un compte"
+      },
+      "step_3": {
+        "description": "Decideix qui pot votar: afegeix adreces a mà, sincronitza des del teu sistema o restringeix per saldo d'un token.",
+        "title": "Construeix el cens"
+      },
+      "step_4": {
+        "description": "Defineix el títol, les dates i les regles, afegeix les teves preguntes i opcions, i publica l'elecció a la cadena.",
+        "title": "Crea l'elecció"
+      },
+      "step_5": {
+        "description": "Comprova que un votant és elegible, envia les seves opcions i retorna un rebut verificable.",
+        "title": "Recull els vots"
+      },
+      "step_6": {
+        "description": "Consulta els recomptes en directe, gestiona el cicle de vida de l'elecció i deixa que qualsevol n'auditi el resultat.",
+        "title": "Llegeix i verifica els resultats"
+      },
+      "title": "De zero a una elecció en directe en sis passos"
+    },
+    "why": {
+      "anonymous": {
+        "description": "Activa una sola opció per fer una elecció anònima amb proves de coneixement zero, sense infraestructura addicional.",
+        "title": "Paperetes anònimes"
+      },
+      "api": {
+        "description": "Prefereixes HTTP directe? Cada crida del SDK correspon a un endpoint documentat de l'API que pots fer servir des de qualsevol llenguatge.",
+        "title": "API REST oberta"
+      },
+      "census": {
+        "description": "Crea llistes de votants directament des dels usuaris que ja tens a la teva base de dades, o deixa que Vocdoni els verifiqui per correu o SMS.",
+        "title": "Censos flexibles"
+      },
+      "eyebrow": "Per què construir sobre Vocdoni",
+      "frontend": {
+        "description": "Reutilitza la Vocdoni App de codi obert per donar als teus votants una pàgina de vot acurada sense construir interfície.",
+        "title": "Frontend a punt per usar"
+      },
+      "sdk": {
+        "description": "Un client tipat que funciona al navegador i a Node, amb un mètode per cada acció de vot.",
+        "title": "SDK de TypeScript"
+      },
+      "title": "Tot el que necessites per llançar una votació fiable",
+      "verifiable": {
+        "description": "Cada vot genera un rebut i qualsevol pot verificar el recompte respecte als vots emesos.",
+        "title": "Resultats verificables"
+      }
+    }
+  },
   "app_landing": {
     "cta": {
       "checklist_title": "Què obteniu des del primer dia",
@@ -3927,6 +4089,10 @@
       "product_desc": "Vegeu la plataforma completa i les seves capacitats principals.",
       "title": "Estigueu al dia de Vocdoni"
     }
+  },
+  "code_block": {
+    "copied": "Copiat",
+    "copy": "Copia el codi"
   },
   "compare": {
     "assembly_voting": {
@@ -4875,7 +5041,6 @@
     "resources": {
       "blog": "Blog",
       "cases": "Casos d'èxit",
-      "compare": "Compareu plataformes",
       "hub": "Guies i recursos",
       "learn": "Aprèn",
       "title": "Recursos"
@@ -4970,6 +5135,10 @@
     "alternatives": {
       "description": "Les millors alternatives a plataformes de votació en línia, comparades. Ressenyes honestes de Kuorum, Polyas, Sequent, Assembly Voting i Eligo. Comenceu gratis avui.",
       "title": "Alternatives a plataformes de votació en línia - Vocdoni"
+    },
+    "api_sdk": {
+      "description": "Integra el vot verificable al teu producte amb el SDK i l'API de Vocdoni. Codi real per crear un cens, llançar una elecció, emetre vots i llegir resultats, a més d'un frontend de vot a punt per usar.",
+      "title": "API i SDK de vot per a desenvolupadors - Vocdoni"
     },
     "app": {
       "description": "Comenceu gratis, pugeu el cens i publiqueu resultats que els vostres membres puguin verificar. Dissenyada per a organitzacions que necessiten confiança, rapidesa i proves.",
@@ -5340,10 +5509,6 @@
         "description": "Votació en línia a mida per a col·legis, sindicats, partits, cooperatives i ajuntaments.",
         "title": "Solucions per sector"
       },
-      "compare": {
-        "description": "Vegeu com es compara Vocdoni amb altres plataformes.",
-        "title": "Compareu alternatives"
-      },
       "custom_projects": {
         "description": "Solucions de governança personalitzades per a necessitats específiques.",
         "title": "Projectes a mida"
@@ -5351,10 +5516,6 @@
       "digital_voting_platform": {
         "description": "Sistema de votació digital segur, transparent i verificable per a qualsevol organització.",
         "title": "Plataforma de votació digital"
-      },
-      "pricing": {
-        "description": "Pla gratuït, plans anuals fixos i pressupostos a mida.",
-        "title": "Preus"
       },
       "sdk": {
         "description": "Integreu fàcilment una capa de vot segur a les vostres aplicacions existents.",
@@ -5509,6 +5670,10 @@
         "answer": "Sí. Podeu millorar, reduir o cancel·lar el pla en qualsevol moment. Us ajudarem a migrar el vostre cens i historial si canvieu de pla.",
         "question": "Puc canviar o cancel·lar el meu pla?"
       },
+      "q5": {
+        "answer": "",
+        "question": ""
+      },
       "title": "Preguntes sobre plans i pressupostos"
     },
     "hero": {
@@ -5541,9 +5706,33 @@
         "title": "Verificable d'extrem a extrem"
       }
     },
+    "managed": {
+      "badge": "",
+      "cta_primary": "",
+      "cta_secondary": "",
+      "description": "",
+      "eyebrow": "",
+      "footnote": "",
+      "group_1": {
+        "heading": "",
+        "item_1": "",
+        "item_2": "",
+        "item_3": "",
+        "item_4": ""
+      },
+      "group_2": {
+        "heading": "",
+        "item_1": "",
+        "item_2": "",
+        "item_3": "",
+        "item_4": "",
+        "item_5": ""
+      },
+      "price_label": "",
+      "price_note": "",
+      "title": ""
+    },
     "related": {
-      "compare": "Compareu Vocdoni",
-      "compare_desc": "Vegeu com ens comparem amb les alternatives.",
       "security": "Com mantenim segurs els vots",
       "security_desc": "Arquitectura, auditories i verificabilitat.",
       "solutions": "Solucions per a la vostra organització",
@@ -5568,28 +5757,24 @@
       "title": "La majoria d'organitzacions redueixen els costos de votació un 80-90%"
     },
     "tiers": {
-      "basic": {
-        "cta": "Comenceu gratis",
-        "description": "Per a associacions i clubs que duen a terme votacions periòdiques.",
-        "feature_1": "Fins a 500 votants",
-        "feature_2": "Processos de votació il·limitats",
-        "feature_3": "Cens i recordatoris personalitzats",
-        "feature_4": "Votació ponderada i de múltiples preguntes",
-        "name": "Bàsic",
-        "note": "/ any",
-        "price": "590 €"
-      },
-      "custom": {
-        "cta": "Sol·liciteu un pressupost",
-        "description": "Per a eleccions d'alt risc i projectes a mida.",
-        "feature_1": "Votants il·limitats",
-        "feature_2": "Identitat de grau eIDAS i SSO",
-        "feature_3": "Suport expert abans, durant i després de la votació",
-        "feature_4": "Integracions personalitzades i SLA",
-        "name": "A mida",
-        "price": "des de 3.210 €"
-      },
       "description": "Tots els plans inclouen votació privada, resultats universalment verificables i un registre d'auditoria. Els preus són anuals, sense IVA.",
+      "essential": {
+        "cta": "",
+        "description": "",
+        "feature_1": "",
+        "feature_2": "",
+        "feature_3": "",
+        "feature_4": "",
+        "more_1": "",
+        "more_2": "",
+        "more_3": "",
+        "more_4": "",
+        "more_5": "",
+        "name": "",
+        "note": "",
+        "price": "",
+        "subnote": ""
+      },
       "eyebrow": "Plans",
       "footnote": "Necessiteu alguna cosa intermèdia? Els plans escalen amb la mida del vostre cens; parleu amb nosaltres per a la xifra exacta.",
       "free": {
@@ -5603,6 +5788,8 @@
         "note": "per sempre",
         "price": "0 €"
       },
+      "less_label": "",
+      "more_label": "",
       "premium": {
         "badge": "El més popular",
         "cta": "Comenceu gratis",
@@ -5611,9 +5798,16 @@
         "feature_2": "Votació híbrida presencial i remota",
         "feature_3": "Portal de votació amb la vostra marca",
         "feature_4": "Suport prioritari i incorporació",
+        "more_1": "",
+        "more_2": "",
+        "more_3": "",
+        "more_4": "",
+        "more_5": "",
+        "more_6": "",
         "name": "Premium",
         "note": "/ any",
-        "price": "1.890 €"
+        "price": "1.890 €",
+        "subnote": ""
       },
       "title": "Trieu el pla que s'ajusta a la vostra organització"
     }

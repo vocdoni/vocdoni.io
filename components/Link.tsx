@@ -62,11 +62,15 @@ export const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
     const opensInNewTab = (externalProps.target ?? props.target) === '_blank'
     const hasAccessibleLabel = Boolean(props['aria-label'])
 
+    // Mega-dropdown entries (navbarItem) keep a uniform weight; the active-page
+    // bold would otherwise single out the current section inside the dropdown.
+    const showActiveWeight = isActive && variant !== 'navbarItem'
+
     return (
       <a
         ref={ref}
         href={fullHref}
-        className={cn(linkVariants({ variant }), className, isActive ? 'font-semibold' : '')}
+        className={cn(linkVariants({ variant }), className, showActiveWeight ? 'font-semibold' : '')}
         {...externalProps}
         {...props}
       >

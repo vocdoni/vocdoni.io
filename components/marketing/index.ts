@@ -32,3 +32,12 @@ export type {
 
 export { default as PricingTiers } from './PricingTiers'
 export type { PricingTiersProps, PricingTier } from './PricingTiers'
+
+export { default as ManagedProjectSection } from './ManagedProjectSection'
+export type { ManagedProjectSectionProps, ManagedProjectGroup } from './ManagedProjectSection'
+
+export { default as CodeBlock } from './CodeBlock'
+export type { CodeBlockProps } from './CodeBlock'
+
+export { default as CodeShowcase } from './CodeShowcase'
+export type { CodeShowcaseProps, CodeShowcaseTab } from './CodeShowcase'

@@ -3672,6 +3672,168 @@
       }
     }
   },
+  "api_sdk": {
+    "code": {
+      "census": {
+        "description": "",
+        "label": ""
+      },
+      "client": {
+        "description": "",
+        "label": ""
+      },
+      "description": "",
+      "election": {
+        "description": "",
+        "label": ""
+      },
+      "eyebrow": "",
+      "install": {
+        "description": "",
+        "label": ""
+      },
+      "results": {
+        "description": "",
+        "label": ""
+      },
+      "title": "",
+      "vote": {
+        "description": "",
+        "label": ""
+      }
+    },
+    "cta": {
+      "description": "",
+      "primary": "",
+      "secondary": "",
+      "title": ""
+    },
+    "frontend": {
+      "block_1": {
+        "heading": "",
+        "paragraph_1": ""
+      },
+      "block_2": {
+        "bullet_1": "",
+        "bullet_2": "",
+        "bullet_3": "",
+        "heading": ""
+      },
+      "block_3": {
+        "heading": "",
+        "paragraph_1": ""
+      },
+      "eyebrow": "",
+      "intro": "",
+      "title": ""
+    },
+    "hero": {
+      "bullet_1": "",
+      "bullet_2": "",
+      "bullet_3": "",
+      "cta_primary": "",
+      "cta_secondary": "",
+      "eyebrow": "",
+      "subtitle": "",
+      "title": ""
+    },
+    "related": {
+      "app": "",
+      "app_desc": "",
+      "docs": "",
+      "docs_desc": "",
+      "integrations": "",
+      "integrations_desc": "",
+      "sdk": "",
+      "sdk_desc": "",
+      "title": ""
+    },
+    "showcase": {
+      "anonymous": {
+        "description": "",
+        "title": ""
+      },
+      "custom_domain": {
+        "description": "",
+        "title": ""
+      },
+      "eyebrow": "",
+      "hybrid": {
+        "description": "",
+        "title": ""
+      },
+      "single": {
+        "description": "",
+        "title": ""
+      },
+      "survey": {
+        "description": "",
+        "title": ""
+      },
+      "title": "",
+      "weighted": {
+        "description": "",
+        "title": ""
+      }
+    },
+    "steps": {
+      "description": "",
+      "eyebrow": "",
+      "step_1": {
+        "description": "",
+        "title": ""
+      },
+      "step_2": {
+        "description": "",
+        "title": ""
+      },
+      "step_3": {
+        "description": "",
+        "title": ""
+      },
+      "step_4": {
+        "description": "",
+        "title": ""
+      },
+      "step_5": {
+        "description": "",
+        "title": ""
+      },
+      "step_6": {
+        "description": "",
+        "title": ""
+      },
+      "title": ""
+    },
+    "why": {
+      "anonymous": {
+        "description": "",
+        "title": ""
+      },
+      "api": {
+        "description": "",
+        "title": ""
+      },
+      "census": {
+        "description": "",
+        "title": ""
+      },
+      "eyebrow": "",
+      "frontend": {
+        "description": "",
+        "title": ""
+      },
+      "sdk": {
+        "description": "",
+        "title": ""
+      },
+      "title": "",
+      "verifiable": {
+        "description": "",
+        "title": ""
+      }
+    }
+  },
   "app_landing": {
     "cta": {
       "checklist_title": "Ce que vous obtenez dès le premier jour",
@@ -3927,6 +4089,10 @@
       "product_desc": "Découvrez toute la plateforme et ses capacités principales.",
       "title": "Suivez Vocdoni"
     }
+  },
+  "code_block": {
+    "copied": "",
+    "copy": ""
   },
   "compare": {
     "assembly_voting": {
@@ -4875,7 +5041,6 @@
     "resources": {
       "blog": "Blog",
       "cases": "Études de cas",
-      "compare": "Comparer les plateformes",
       "hub": "Guides et ressources",
       "learn": "Apprendre",
       "title": "Ressources"
@@ -4970,6 +5135,10 @@
     "alternatives": {
       "description": "Les meilleures alternatives de plateformes de vote en ligne comparées. Des avis honnêtes sur Kuorum, Polyas, Sequent, Assembly Voting et Eligo. Démarrez gratuitement dès aujourd'hui.",
       "title": "Alternatives aux plateformes de vote en ligne - Vocdoni"
+    },
+    "api_sdk": {
+      "description": "",
+      "title": ""
     },
     "app": {
       "description": "Démarrez gratuitement, importez votre liste électorale et publiez des résultats que vos membres peuvent vérifier. Conçue pour les organisations qui ont besoin de confiance, de rapidité et de preuves.",
@@ -5340,10 +5509,6 @@
         "description": "Un vote en ligne adapté aux collèges, syndicats, partis, coopératives et mairies.",
         "title": "Solutions par secteur"
       },
-      "compare": {
-        "description": "Voyez comment Vocdoni se compare aux autres plateformes.",
-        "title": "Comparer les alternatives"
-      },
       "custom_projects": {
         "description": "Solutions de gouvernance sur mesure pour des besoins spécifiques.",
         "title": "Projets sur mesure"
@@ -5351,10 +5516,6 @@
       "digital_voting_platform": {
         "description": "Système de vote numérique sûr, transparent et vérifiable pour toute organisation.",
         "title": "Plateforme de vote numérique"
-      },
-      "pricing": {
-        "description": "Plan gratuit, paliers annuels fixes et devis sur mesure.",
-        "title": "Tarifs"
       },
       "sdk": {
         "description": "Intégrez facilement une couche de vote sécurisée à vos applications existantes.",
@@ -5509,6 +5670,10 @@
         "answer": "Oui. Vous pouvez monter en gamme, descendre en gamme ou annuler à tout moment. Nous vous aiderons à migrer votre liste électorale et votre historique si vous changez de plan.",
         "question": "Puis-je changer ou annuler mon plan ?"
       },
+      "q5": {
+        "answer": "",
+        "question": ""
+      },
       "title": "Questions sur les plans et les devis"
     },
     "hero": {
@@ -5541,9 +5706,33 @@
         "title": "Vérifiable de bout en bout"
       }
     },
+    "managed": {
+      "badge": "",
+      "cta_primary": "",
+      "cta_secondary": "",
+      "description": "",
+      "eyebrow": "",
+      "footnote": "",
+      "group_1": {
+        "heading": "",
+        "item_1": "",
+        "item_2": "",
+        "item_3": "",
+        "item_4": ""
+      },
+      "group_2": {
+        "heading": "",
+        "item_1": "",
+        "item_2": "",
+        "item_3": "",
+        "item_4": "",
+        "item_5": ""
+      },
+      "price_label": "",
+      "price_note": "",
+      "title": ""
+    },
     "related": {
-      "compare": "Comparer Vocdoni",
-      "compare_desc": "Voyez comment nous nous comparons aux alternatives.",
       "security": "Comment nous sécurisons les votes",
       "security_desc": "Architecture, audits et vérifiabilité.",
       "solutions": "Des solutions pour votre organisation",
@@ -5568,28 +5757,24 @@
       "title": "La plupart des organisations réduisent les coûts de vote de 80 à 90 %"
     },
     "tiers": {
-      "basic": {
-        "cta": "Démarrer gratuitement",
-        "description": "Pour les associations et clubs qui organisent des votes réguliers.",
-        "feature_1": "Jusqu'à 500 électeurs",
-        "feature_2": "Processus de vote illimités",
-        "feature_3": "Liste électorale personnalisée et rappels",
-        "feature_4": "Vote pondéré et à questions multiples",
-        "name": "Basic",
-        "note": "/ an",
-        "price": "590 €"
-      },
-      "custom": {
-        "cta": "Demander un devis",
-        "description": "Pour les élections à fort enjeu et les projets sur mesure.",
-        "feature_1": "Électeurs illimités",
-        "feature_2": "Identité de niveau eIDAS et SSO",
-        "feature_3": "Un support expert avant, pendant et après le vote",
-        "feature_4": "Intégrations personnalisées et SLA",
-        "name": "Sur mesure",
-        "price": "à partir de 3 210 €"
-      },
       "description": "Chaque plan inclut un vote privé, des résultats universellement vérifiables et une piste d'audit. Les prix sont annuels, hors TVA.",
+      "essential": {
+        "cta": "",
+        "description": "",
+        "feature_1": "",
+        "feature_2": "",
+        "feature_3": "",
+        "feature_4": "",
+        "more_1": "",
+        "more_2": "",
+        "more_3": "",
+        "more_4": "",
+        "more_5": "",
+        "name": "",
+        "note": "",
+        "price": "",
+        "subnote": ""
+      },
       "eyebrow": "Plans",
       "footnote": "Besoin de quelque chose d'intermédiaire ? Les plans s'adaptent à la taille de votre liste électorale - parlez-nous pour le chiffre exact.",
       "free": {
@@ -5603,6 +5788,8 @@
         "note": "pour toujours",
         "price": "0 €"
       },
+      "less_label": "",
+      "more_label": "",
       "premium": {
         "badge": "Le plus populaire",
         "cta": "Démarrer gratuitement",
@@ -5611,9 +5798,16 @@
         "feature_2": "Vote hybride, en présentiel et à distance",
         "feature_3": "Portail de vote personnalisé",
         "feature_4": "Support et intégration prioritaires",
+        "more_1": "",
+        "more_2": "",
+        "more_3": "",
+        "more_4": "",
+        "more_5": "",
+        "more_6": "",
         "name": "Premium",
         "note": "/ an",
-        "price": "1 890 €"
+        "price": "1 890 €",
+        "subnote": ""
       },
       "title": "Choisissez le plan adapté à votre organisation"
     }

@@ -3672,6 +3672,168 @@
       }
     }
   },
+  "api_sdk": {
+    "code": {
+      "census": {
+        "description": "Turn the users already in your database into eligible voters.",
+        "label": "Census"
+      },
+      "client": {
+        "description": "Create the client with an identity derived from your own secret, no crypto wallet required.",
+        "label": "Client & account"
+      },
+      "description": "These snippets mirror the official SDK examples. Run them against the dev or staging environment to launch a working election end to end.",
+      "election": {
+        "description": "Configure the rules, add questions, and publish the election.",
+        "label": "Election"
+      },
+      "eyebrow": "Quickstart",
+      "install": {
+        "description": "Add the SDK with your package manager of choice.",
+        "label": "Install"
+      },
+      "results": {
+        "description": "Read live results and manage the election lifecycle.",
+        "label": "Results"
+      },
+      "title": "Real code, copy and paste to get going",
+      "vote": {
+        "description": "Re-derive the voter after your normal login, then cast the ballot.",
+        "label": "Vote"
+      }
+    },
+    "cta": {
+      "description": "Read the docs, clone the examples, and launch your first verifiable election for free. Stuck on an integration? Our team is happy to help.",
+      "primary": "Open the developer docs",
+      "secondary": "Talk to our team",
+      "title": "Start building today"
+    },
+    "frontend": {
+      "block_1": {
+        "heading": "Use the hosted app",
+        "paragraph_1": "Every election you create is instantly votable at app.vocdoni.io/processes/<electionId>. Share the link and you are done, no frontend work required."
+      },
+      "block_2": {
+        "bullet_1": "Clone the vocdoni-app repository and run it with pnpm start",
+        "bullet_2": "Switch between environments with the VOCDONI_ENVIRONMENT variable (dev or prod)",
+        "bullet_3": "Map a custom domain to your organization with CUSTOM_ORGANIZATION_DOMAINS",
+        "heading": "Fork and brand it"
+      },
+      "block_3": {
+        "heading": "Embed a shared-census portal",
+        "paragraph_1": "The shared-census page lists several elections at once. Set PROCESS_IDS to the elections you want to show, add custom intro text per language, and optionally embed a live stream with STREAM_URL."
+      },
+      "eyebrow": "Voter frontend",
+      "intro": "The Vocdoni App is the same open source React frontend that powers app.vocdoni.io. Point it at an election id and your voters get a tested, accessible voting page. Fork it to match your brand.",
+      "title": "Spin up a voting page without building the UI"
+    },
+    "hero": {
+      "bullet_1": "Open source SDK published as @vocdoni/sdk on npm",
+      "bullet_2": "TypeScript types for clients, censuses, elections and votes",
+      "bullet_3": "Free to test, with no crypto wallets, tokens to buy or payment to start",
+      "cta_primary": "Read the developer docs",
+      "cta_secondary": "Jump to the quickstart",
+      "eyebrow": "Developers",
+      "subtitle": "The Vocdoni SDK and API let you create a census, launch an election and collect anonymous, end-to-end verifiable votes in a few lines of code. Open source, TypeScript-first, and free to try.",
+      "title": "Build verifiable voting into your own product"
+    },
+    "related": {
+      "app": "Vocdoni App on GitHub",
+      "app_desc": "The open source voter frontend you can fork and brand.",
+      "docs": "Developer documentation",
+      "docs_desc": "API reference, SDK guides and tutorials.",
+      "integrations": "Integrations",
+      "integrations_desc": "SSO, CRM connectors and census import options.",
+      "sdk": "Vocdoni SDK on GitHub",
+      "sdk_desc": "Source, examples and release notes for @vocdoni/sdk.",
+      "title": "Resources for builders"
+    },
+    "showcase": {
+      "anonymous": {
+        "description": "Turn on zero-knowledge proofs so ballots stay secret while results remain verifiable.",
+        "title": "Anonymous vote"
+      },
+      "custom_domain": {
+        "description": "Serve the voter experience from your own domain, with your organization profile as the homepage.",
+        "title": "Custom-domain org page"
+      },
+      "eyebrow": "Voting pages you can ship",
+      "hybrid": {
+        "description": "Show several active elections on one branded page for assemblies and multi-vote events.",
+        "title": "Shared-census portal"
+      },
+      "single": {
+        "description": "One question, pick one option. The classic yes/no or candidate election, ready in minutes.",
+        "title": "Single-choice ballot"
+      },
+      "survey": {
+        "description": "Chain several questions in a single ballot for statutory votes or member consultations.",
+        "title": "Multi-question survey"
+      },
+      "title": "Configure the ballot that fits your vote",
+      "weighted": {
+        "description": "Give voters different weights, or restrict who can take part by member tier, role or shares held.",
+        "title": "Weighted or restricted vote"
+      }
+    },
+    "steps": {
+      "description": "The same flow powers our own app. Each step is one SDK call, so you can wire it into your backend or run it straight from the browser.",
+      "eyebrow": "Integration flow",
+      "step_1": {
+        "description": "Add @vocdoni/sdk to your project with npm, yarn or pnpm.",
+        "title": "Install the SDK"
+      },
+      "step_2": {
+        "description": "Initialize the client with an environment and a signer, then register an account funded by the faucet.",
+        "title": "Create a client and account"
+      },
+      "step_3": {
+        "description": "Decide who can vote: add addresses by hand, sync from your system, or gate by a token balance.",
+        "title": "Build the census"
+      },
+      "step_4": {
+        "description": "Set the title, dates and rules, add your questions and choices, and publish the election on chain.",
+        "title": "Create the election"
+      },
+      "step_5": {
+        "description": "Check that a voter is eligible, then submit their choices and hand back a verifiable receipt.",
+        "title": "Collect votes"
+      },
+      "step_6": {
+        "description": "Fetch live tallies, manage the election lifecycle, and let anyone audit the outcome.",
+        "title": "Read and verify results"
+      },
+      "title": "From zero to a live election in six steps"
+    },
+    "why": {
+      "anonymous": {
+        "description": "Flip one flag to make an election anonymous with zero-knowledge proofs, no extra infrastructure.",
+        "title": "Anonymous ballots"
+      },
+      "api": {
+        "description": "Prefer raw HTTP? Every SDK call maps to a documented API endpoint you can hit from any language.",
+        "title": "Open REST API"
+      },
+      "census": {
+        "description": "Build voter lists straight from the users already in your database, or let Vocdoni verify voters by email or SMS.",
+        "title": "Flexible censuses"
+      },
+      "eyebrow": "Why build on Vocdoni",
+      "frontend": {
+        "description": "Reuse the open source Vocdoni App to give voters a polished voting page without building UI.",
+        "title": "Ready-made frontend"
+      },
+      "sdk": {
+        "description": "A typed client that works in the browser and in Node, with one method per voting action.",
+        "title": "TypeScript SDK"
+      },
+      "title": "Everything you need to ship a trustworthy vote",
+      "verifiable": {
+        "description": "Every vote produces a receipt and anyone can verify the tally against the votes cast.",
+        "title": "Verifiable results"
+      }
+    }
+  },
   "app_landing": {
     "cta": {
       "checklist_title": "What you get from day one",
@@ -3927,6 +4089,10 @@
       "product_desc": "See the full platform and its core capabilities.",
       "title": "Keep up with Vocdoni"
     }
+  },
+  "code_block": {
+    "copied": "Copied",
+    "copy": "Copy code"
   },
   "compare": {
     "assembly_voting": {
@@ -4875,7 +5041,6 @@
     "resources": {
       "blog": "Blog",
       "cases": "Case studies",
-      "compare": "Compare platforms",
       "hub": "Guides and resources",
       "learn": "Learn",
       "title": "Resources"
@@ -4970,6 +5135,10 @@
     "alternatives": {
       "description": "The best online voting platform alternatives compared. Honest reviews of Kuorum, Polyas, Sequent, Assembly Voting, and Eligo. Start free today.",
       "title": "Online voting platform alternatives - Vocdoni"
+    },
+    "api_sdk": {
+      "description": "Build verifiable voting into your product with the Vocdoni SDK and API. Real code to create a census, launch an election, cast votes and read results, plus a ready-made voter frontend.",
+      "title": "Voting API and SDK for developers - Vocdoni"
     },
     "app": {
       "description": "Start free, upload your voter list, and publish results your members can verify. Built for organizations that need trust, speed, and proof.",
@@ -5340,10 +5509,6 @@
         "description": "Online voting tailored to colleges, unions, parties, cooperatives and councils.",
         "title": "Solutions by sector"
       },
-      "compare": {
-        "description": "See how Vocdoni stacks up against other platforms.",
-        "title": "Compare alternatives"
-      },
       "custom_projects": {
         "description": "Tailor-made governance solutions for specific needs and requirements.",
         "title": "Custom projects"
@@ -5351,10 +5516,6 @@
       "digital_voting_platform": {
         "description": "Secure, transparent and verifiable digital voting system for any organization.",
         "title": "Digital voting platform"
-      },
-      "pricing": {
-        "description": "Free plan, fixed annual tiers and tailored quotes.",
-        "title": "Pricing"
       },
       "sdk": {
         "description": "Integrate a secure voting layer into your existing applications easily.",
@@ -5509,6 +5670,10 @@
         "answer": "Yes. You can upgrade, downgrade or cancel at any time. We will help you migrate your census and history if you move between plans.",
         "question": "Can I change or cancel my plan?"
       },
+      "q5": {
+        "answer": "Yes. You can upgrade, downgrade or cancel at any time. We will help you migrate your census and history if you move between plans.",
+        "question": "Can I change or cancel my plan?"
+      },
       "title": "Questions about plans and quotes"
     },
     "hero": {
@@ -5541,9 +5706,33 @@
         "title": "End-to-end verifiable"
       }
     },
+    "managed": {
+      "badge": "5,000+ voters",
+      "cta_primary": "Request a quote",
+      "cta_secondary": "Explore solutions",
+      "description": "For high-stakes or complex votes. Our team handles everything end to end - you only approve the setup and announce the results.",
+      "eyebrow": "Fully managed · Custom project",
+      "footnote": "Every custom project includes the same privacy and verifiability guarantees as our self-service plans.",
+      "group_1": {
+        "heading": "Expert accompaniment",
+        "item_1": "Dedicated project manager",
+        "item_2": "Periodic planning meetings",
+        "item_3": "A full rehearsal vote before election day",
+        "item_4": "Expert support before, during and after the vote"
+      },
+      "group_2": {
+        "heading": "Total management",
+        "item_1": "Custom voting page and branding",
+        "item_2": "Custom flows and integrations (SSO, eIDAS)",
+        "item_3": "We build and validate your census",
+        "item_4": "Configuration, setup and fine-tuning",
+        "item_5": "Results report and certification"
+      },
+      "price_label": "Tailored quote",
+      "price_note": "Recommended for elections above 5,000 voters or bespoke processes.",
+      "title": "We design, run and deliver your election"
+    },
     "related": {
-      "compare": "Compare Vocdoni",
-      "compare_desc": "See how we stack up against alternatives.",
       "security": "How we keep votes secure",
       "security_desc": "Architecture, audits and verifiability.",
       "solutions": "Solutions for your organization",
@@ -5568,28 +5757,24 @@
       "title": "Most organizations cut voting costs by 80-90%"
     },
     "tiers": {
-      "basic": {
+      "description": "Every plan includes private voting, universally verifiable results, and an audit trail. Prices are per year, excluding VAT.",
+      "essential": {
         "cta": "Start free",
         "description": "For associations and clubs running regular votes.",
-        "feature_1": "Up to 500 voters",
+        "feature_1": "Up to 1,000 voters",
         "feature_2": "Unlimited voting processes",
-        "feature_3": "Custom census and reminders",
-        "feature_4": "Weighted and multi-question voting",
-        "name": "Basic",
+        "feature_3": "Upload your own census (CSV or Excel)",
+        "feature_4": "Email invitations and reminders",
+        "more_1": "Multiple voting types: single, multiple choice and weighted",
+        "more_2": "Multi-question ballots",
+        "more_3": "Downloadable PDF results report",
+        "more_4": "Real-time participation tracking",
+        "more_5": "Email support",
+        "name": "Essential",
         "note": "/ year",
-        "price": "€590"
+        "price": "€590",
+        "subnote": "+€50 per extra 500 voters"
       },
-      "custom": {
-        "cta": "Request a quote",
-        "description": "For high-stakes elections and tailored projects.",
-        "feature_1": "Unlimited voters",
-        "feature_2": "eIDAS-grade identity and SSO",
-        "feature_3": "Expert support before, during and after the vote",
-        "feature_4": "Custom integrations and SLAs",
-        "name": "Custom",
-        "price": "from €3,210"
-      },
-      "description": "Every plan includes private voting, universally verifiable results, and an audit trail. Prices are per year, excluding VAT.",
       "eyebrow": "Plans",
       "footnote": "Need something in between? Plans scale with your census size - talk to us for the exact figure.",
       "free": {
@@ -5603,6 +5788,8 @@
         "note": "forever",
         "price": "€0"
       },
+      "less_label": "Show fewer",
+      "more_label": "See all features",
       "premium": {
         "badge": "Most popular",
         "cta": "Start free",
@@ -5611,9 +5798,16 @@
         "feature_2": "Hybrid in-person and remote voting",
         "feature_3": "Branded voting portal",
         "feature_4": "Priority support and onboarding",
+        "more_1": "Custom census fields and voter segments",
+        "more_2": "Weighted and delegated voting",
+        "more_3": "Advanced results PDF with audit trail",
+        "more_4": "Scheduled and recurring votes",
+        "more_5": "Multiple administrators",
+        "more_6": "Priority support and onboarding",
         "name": "Premium",
         "note": "/ year",
-        "price": "€1,890"
+        "price": "€1,890",
+        "subnote": "+€50 per extra 500 voters"
       },
       "title": "Pick the plan that fits your organization"
     }
