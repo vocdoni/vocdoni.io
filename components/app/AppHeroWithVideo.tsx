@@ -74,7 +74,7 @@ export default function AppHeroWithVideo() {
               <Button variant='outline' size='lg' className='w-full sm:w-auto' asChild>
                 <a href='#app-demo-video'>
                   <PlayCircleIcon />
-                  {t('vocdoni_app.app_hero.cta_secondary', 'Watch the Demo')}
+                  {t('vocdoni_app.app_hero.cta_secondary', 'Watch the demo')}
                 </a>
               </Button>
             </MotionPreset>
@@ -119,7 +119,7 @@ export default function AppHeroWithVideo() {
             >
               <CleanYoutubePlayer
                 videoId={VIDEO_ID}
-                title={t('vocdoni_app.app_hero.cta_secondary', 'Watch the Demo')}
+                title={t('vocdoni_app.app_hero.cta_secondary', 'Watch the demo')}
                 coverUrl={THUMBNAIL_URL}
               />
             </div>

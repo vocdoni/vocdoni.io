@@ -33,9 +33,9 @@ const viteconfig = ({ mode }: ConfigEnv) => {
       rollupOptions: {
         output: {
           manualChunks(id) {
-            // Split framer-motion into its own chunk — large animation library, not on critical path
+            // Split framer-motion into its own chunk - large animation library, not on critical path
             if (id.includes('framer-motion') || id.includes('motion/react')) return 'vendor-framer-motion'
-            // Split lucide-react icons into one chunk — large icon set
+            // Split lucide-react icons into one chunk - large icon set
             if (id.includes('lucide-react')) return 'vendor-lucide'
           },
         },

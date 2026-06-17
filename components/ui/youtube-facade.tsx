@@ -58,8 +58,9 @@ export function YoutubeFacade({ videoId, posterUrl, title, className = '', autop
           />
           <div className='absolute inset-0 bg-black/20 transition-colors group-hover:bg-black/10' />
           <button
+            type='button'
             className='absolute inset-0 flex items-center justify-center'
-            aria-label={t('play', 'Play video: {{title}}', { title })}
+            aria-label={t('play', { defaultValue: 'Play video: {{title}}', title })}
             onClick={(e) => {
               e.stopPropagation()
               activate()

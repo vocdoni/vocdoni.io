@@ -5,7 +5,7 @@ type Props = {
   title?: string
   /** Optional poster image URL. Falls back to the YouTube maxresdefault thumbnail. */
   coverUrl?: string
-  /** Unused — kept for backward-compat; the facade derives its own alt from title */
+  /** Unused - kept for backward compatibility; the facade derives its own alt from title */
   coverAlt?: string
 }
 
