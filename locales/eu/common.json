@@ -151,7 +151,7 @@
         },
         {
           "question": "Erabili dezaket nire egungo hautesle-zerrenda edo nire CRMa?",
-          "answer": "Bai. CSV batekin hasi zaitezke edo APIaren bidez sinkronizatu zaitezke kideak beste sistema batean kudeatzen badituzu."
+          "answer": "Bai. Zure kideak CSV bidez edo beste kalkulu-orri formatu baten bidez inporta ditzakezu. Konfigurazio aurreratuagoa behar baduzu, integrazio pertsonalizatu baten bidez konektatzen lagundu diezazukegu."
         },
         {
           "question": "Zer-nolako bozketak egin ditzaket?",
@@ -344,7 +344,7 @@
       "vocdoni": {
         "cost": "10 aldiz merkeagoa arte",
         "name": "Vocdoni",
-        "privacySecurity": "Anonimoa eta osotasun deszentralizatua",
+        "privacySecurity": "Boto anonimoa eta prozesu osoaren osotasuna",
         "remoteAccessibility": "Bozkatu edonondik, edozein gailutatik",
         "scalability": "Eskala mugagabea, irismen globala",
         "sustainability": "Paperarik gabea eta ingurumenarekin atsegina",
@@ -418,11 +418,11 @@
         "question": "Norbaitek ikus dezake zer bozkatu duten kideek?"
       },
       "census": {
-        "answer": "Bai. Zure kideak CSV bidez inporta ditzakezu edo gure APIaren bidez sinkronizatu ditzakezu erroldatua beste sistema batean kudeatzen baduzu.",
+        "answer": "Bai. Zure kideak CSV bidez edo beste kalkulu-orri formatu baten bidez inporta ditzakezu. Konfigurazio aurreratuagoa behar baduzu, integrazio pertsonalizatu baten bidez konektatzen lagundu diezazukegu.",
         "question": "Erabili dezaket nire egungo hautesle-zerrenda edo nire CRMa?"
       },
       "coercion": {
-        "answer": "Vocdonik bozkaren berrikuspena onartzen du: kideek nahi adina aldiz alda dezakete beren aukera bozketa irekita dagoen bitartean. Azken bozkak bakarrik balio du, eta horrek ingurune digitalean derrigortzea arintzen laguntzen du.",
+        "answer": "Vocdonik botoa gainidaztea onartzen du: gaituta badago, kideek nahi adina aldiz alda dezakete beren aukera bozketa irekita dagoen bitartean. Azken botoak bakarrik balio du, eta horrek ingurune digitaletan derrigortzea arintzen laguntzen du.",
         "question": "Norbaitek behartu dezake kide bat modu jakin batean bozkatzera?"
       },
       "dispute": {

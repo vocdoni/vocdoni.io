@@ -2108,7 +2108,7 @@
           "question": "Vocdoni è open source?"
         },
         {
-          "answer": "Sì. Puoi iniziare con un CSV o sincronizzarti tramite l'API se gestisci già i membri altrove.",
+          "answer": "Sì. Puoi importare i tuoi membri tramite CSV o un altro formato di foglio di calcolo. Se hai bisogno di una configurazione più avanzata, possiamo aiutarti a collegarla tramite un'integrazione personalizzata.",
           "question": "Posso usare l'elenco elettori o il CRM esistente?"
         },
         {
@@ -2302,7 +2302,7 @@
       "vocdoni": {
         "cost": "Fino a 10 volte più economica",
         "name": "Vocdoni",
-        "privacySecurity": "Anonima e con integrità decentralizzata",
+        "privacySecurity": "Voto anonimo e integrità dell'intero processo",
         "remoteAccessibility": "Vota da qualunque luogo, con qualunque dispositivo",
         "scalability": "Scalabilità illimitata, portata globale",
         "sustainability": "Senza carta e a basso impatto",
@@ -2376,11 +2376,11 @@
         "question": "Qualcuno può vedere come hanno votato i membri?"
       },
       "census": {
-        "answer": "Sì. Puoi importare i tuoi membri tramite CSV o sincronizzarli con la nostra API se gestisci già il tuo elenco in un altro sistema.",
+        "answer": "Sì. Puoi importare i tuoi membri tramite CSV o un altro formato di foglio di calcolo. Se hai bisogno di una configurazione più avanzata, possiamo aiutarti a collegarla tramite un'integrazione personalizzata.",
         "question": "Posso usare l'elenco elettori o il CRM esistente?"
       },
       "coercion": {
-        "answer": "Vocdoni permette di modificare il voto: i membri possono cambiare scelta tutte le volte che vogliono mentre la votazione è aperta. Conta solo l'ultima scelta, il che aiuta a mitigare la coercizione negli ambienti digitali.",
+        "answer": "Vocdoni supporta la sovrascrittura del voto: se attivata, i membri possono cambiare scelta tutte le volte che vogliono mentre la votazione è aperta. Conta solo l'ultima scelta, il che aiuta a mitigare la coercizione negli ambienti digitali.",
         "question": "Qualcuno può costringere un membro a votare in un certo modo?"
       },
       "dispute": {

@@ -2108,7 +2108,7 @@
           "question": "Vocdoni és codi obert?"
         },
         {
-          "answer": "Sí. Podeu començar amb un CSV o sincronitzar-vos mitjançant l'API si ja gestioneu els membres en un altre sistema.",
+          "answer": "Sí. Podeu importar els membres mitjançant CSV o un altre format de full de càlcul. Si necessiteu una configuració més avançada, podem ajudar-vos a connectar-la mitjançant una integració personalitzada.",
           "question": "Puc utilitzar el meu cens actual o el meu CRM?"
         },
         {
@@ -2302,7 +2302,7 @@
       "vocdoni": {
         "cost": "Fins a 10 vegades més econòmic",
         "name": "Vocdoni",
-        "privacySecurity": "Anonimat i integritat descentralitzada",
+        "privacySecurity": "Vot anònim i integritat de tot el procés",
         "remoteAccessibility": "Voteu des de qualsevol lloc i dispositiu",
         "scalability": "Escalabilitat il·limitada i abast global",
         "sustainability": "Sense paper i respectuós amb el medi",
@@ -2376,11 +2376,11 @@
         "question": "Algú pot veure què han votat els membres?"
       },
       "census": {
-        "answer": "Sí. Podeu importar els membres mitjançant CSV o sincronitzar-los a través de la nostra API si ja gestioneu el cens en un altre sistema.",
+        "answer": "Sí. Podeu importar els membres mitjançant CSV o un altre format de full de càlcul. Si necessiteu una configuració més avançada, podem ajudar-vos a connectar-la mitjançant una integració personalitzada.",
         "question": "Puc utilitzar el meu cens actual o el meu CRM?"
       },
       "coercion": {
-        "answer": "Vocdoni admet la revisió del vot: els membres poden canviar l'opció tantes vegades com vulguin mentre la votació és oberta. Només compta l'última, cosa que ajuda a mitigar la coacció en entorns digitals.",
+        "answer": "Vocdoni admet la sobreescriptura del vot: si està activada, els membres poden canviar l'opció tantes vegades com vulguin mentre la votació és oberta. Només compta l'última, cosa que ajuda a mitigar la coacció en entorns digitals.",
         "question": "Algú pot forçar un membre a votar d'una manera determinada?"
       },
       "dispute": {

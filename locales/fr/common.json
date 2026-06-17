@@ -2108,7 +2108,7 @@
           "question": "Vocdoni est-il open source ?"
         },
         {
-          "answer": "Oui. Vous pouvez démarrer avec un CSV ou synchroniser via l'API si vous gérez déjà vos membres ailleurs.",
+          "answer": "Oui. Vous pouvez importer vos membres via CSV ou un autre format de feuille de calcul. Si vous avez besoin d'une configuration plus avancée, nous pouvons vous aider à la connecter grâce à une intégration personnalisée.",
           "question": "Puis-je utiliser ma liste électorale ou mon CRM existant ?"
         },
         {
@@ -2302,7 +2302,7 @@
       "vocdoni": {
         "cost": "Jusqu'à 10 fois plus économique",
         "name": "Vocdoni",
-        "privacySecurity": "Anonyme et avec intégrité décentralisée",
+        "privacySecurity": "Vote anonyme et intégrité de tout le processus",
         "remoteAccessibility": "Votez de n'importe où, depuis n'importe quel appareil",
         "scalability": "Échelle illimitée, portée mondiale",
         "sustainability": "Sans papier et respectueux de l'environnement",
@@ -2376,11 +2376,11 @@
         "question": "Peut-on voir comment les membres ont voté ?"
       },
       "census": {
-        "answer": "Oui. Vous pouvez importer vos membres via un fichier CSV ou les synchroniser via notre API si vous gérez déjà votre liste dans un autre système.",
+        "answer": "Oui. Vous pouvez importer vos membres via CSV ou un autre format de feuille de calcul. Si vous avez besoin d'une configuration plus avancée, nous pouvons vous aider à la connecter grâce à une intégration personnalisée.",
         "question": "Puis-je utiliser ma liste électorale ou mon CRM existant ?"
       },
       "coercion": {
-        "answer": "Vocdoni prend en charge la révision du vote : les membres peuvent changer leur choix autant de fois qu'ils le souhaitent tant que le vote est ouvert. Seul le dernier vote compte, ce qui aide à atténuer la coercition dans les environnements numériques.",
+        "answer": "Vocdoni prend en charge le remplacement du vote : s'il est activé, les membres peuvent changer leur choix autant de fois qu'ils le souhaitent tant que le vote est ouvert. Seul le dernier vote compte, ce qui aide à atténuer la coercition dans les environnements numériques.",
         "question": "Peut-on forcer un membre à voter d'une certaine façon ?"
       },
       "dispute": {
