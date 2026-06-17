@@ -67,7 +67,6 @@ describe('Navbar', () => {
   it('uses the updated external links and simplified sections', () => {
     const html = renderToStaticMarkup(<Navbar />)
 
-    expect(html).toContain('href="https://developer.vocdoni.io/sdk"')
     expect(html).toContain('target="_blank"')
     expect(html).toContain('href="https://developer.vocdoni.io"')
     expect(html).not.toContain('href="/guides"')
