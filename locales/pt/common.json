@@ -2108,7 +2108,7 @@
           "question": "A Vocdoni é de código aberto?"
         },
         {
-          "answer": "Sim. Pode começar com um CSV ou sincronizar através da API se já gere os membros noutro sistema.",
+          "answer": "Sim. Pode importar os seus membros através de CSV ou de outro formato de folha de cálculo. Se precisar de uma configuração mais avançada, podemos ajudar a ligá-la através de uma integração personalizada.",
           "question": "Posso usar a minha lista de eleitores ou o meu CRM?"
         },
         {
@@ -2302,7 +2302,7 @@
       "vocdoni": {
         "cost": "Custo por voto 10x inferior",
         "name": "Vocdoni",
-        "privacySecurity": "Anónima e com integridade descentralizada",
+        "privacySecurity": "Voto anónimo e integridade de todo o processo",
         "remoteAccessibility": "Vote de qualquer lugar, em qualquer dispositivo",
         "scalability": "Escala ilimitada, alcance global",
         "sustainability": "Sem papel e amiga do ambiente",
@@ -2376,11 +2376,11 @@
         "question": "Alguém pode ver o que os membros votaram?"
       },
       "census": {
-        "answer": "Sim. Pode importar os seus membros através de CSV ou sincronizá-los pela nossa API se já gere a sua lista noutro sistema.",
+        "answer": "Sim. Pode importar os seus membros através de CSV ou de outro formato de folha de cálculo. Se precisar de uma configuração mais avançada, podemos ajudar a ligá-la através de uma integração personalizada.",
         "question": "Posso usar a minha lista de eleitores ou o meu CRM?"
       },
       "coercion": {
-        "answer": "A Vocdoni suporta a revisão do voto: os membros podem mudar a sua escolha as vezes que quiserem enquanto a votação está aberta. Apenas conta o último voto, o que ajuda a mitigar a coação em ambientes digitais.",
+        "answer": "A Vocdoni suporta a substituição do voto: se estiver ativada, os membros podem mudar a sua escolha as vezes que quiserem enquanto a votação está aberta. Apenas conta o último voto, o que ajuda a mitigar a coação em ambientes digitais.",
         "question": "Pode alguém forçar um membro a votar de uma determinada forma?"
       },
       "dispute": {

@@ -2108,7 +2108,7 @@
           "question": "Is Vocdoni open source?"
         },
         {
-          "answer": "Yes. You can start with a CSV or sync through the API if you already manage members elsewhere.",
+          "answer": "Yes. You can import your members via CSV or another spreadsheet format. If you need a more advanced setup, we can help you connect it through a custom integration.",
           "question": "Can I use my existing voter list or CRM?"
         },
         {
@@ -2302,7 +2302,7 @@
       "vocdoni": {
         "cost": "10x lower cost per vote",
         "name": "Vocdoni",
-        "privacySecurity": "Anonymous & decentralized integrity",
+        "privacySecurity": "Anonymous voting & full process integrity",
         "remoteAccessibility": "Vote from anywhere, any device",
         "scalability": "Unlimited scale, global reach",
         "sustainability": "Paperless & eco-friendly",
@@ -2376,11 +2376,11 @@
         "question": "Can anyone see how members voted?"
       },
       "census": {
-        "answer": "Yes. You can import your members via CSV or sync them through our API if you already manage your census in another system.",
+        "answer": "Yes. You can import your members via CSV or another spreadsheet format. If you need a more advanced setup, we can help you connect it through a custom integration.",
         "question": "Can I use my existing voter list or CRM?"
       },
       "coercion": {
-        "answer": "Vocdoni supports vote revision: members can change their choice as many times as they want while the vote is open. Only the last one counts, which helps mitigate coercion in digital environments.",
+        "answer": "Vocdoni supports vote overwrite: if enabled, members can change their choice as many times as they want while the vote is open. Only the last one counts, which helps mitigate coercion in digital environments.",
         "question": "Can anyone force a member to vote a certain way?"
       },
       "dispute": {

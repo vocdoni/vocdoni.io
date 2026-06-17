@@ -2108,7 +2108,7 @@
           "question": "Ist Vocdoni Open Source?"
         },
         {
-          "answer": "Ja. Du kannst mit einer CSV beginnen oder über die API synchronisieren, wenn du deine Mitglieder bereits anderswo verwaltest.",
+          "answer": "Ja. Du kannst deine Mitglieder per CSV oder in einem anderen Tabellenformat importieren. Wenn du eine erweiterte Einrichtung benötigst, helfen wir dir, sie über eine individuelle Integration anzubinden.",
           "question": "Kann ich meine bestehende Wählerliste oder mein CRM verwenden?"
         },
         {
@@ -2302,7 +2302,7 @@
       "vocdoni": {
         "cost": "10x geringere Kosten pro Stimme",
         "name": "Vocdoni",
-        "privacySecurity": "Anonyme und dezentrale Integrität",
+        "privacySecurity": "Anonyme Abstimmung und Integrität des gesamten Prozesses",
         "remoteAccessibility": "Von überall wählen, mit jedem Gerät",
         "scalability": "Unbegrenzte Skalierung, globale Reichweite",
         "sustainability": "Papierlos und umweltfreundlich",
@@ -2376,11 +2376,11 @@
         "question": "Kann jemand sehen, wie Mitglieder abgestimmt haben?"
       },
       "census": {
-        "answer": "Ja. Du kannst Mitglieder per CSV importieren oder über unsere API synchronisieren, wenn du sie bereits in einem anderen System verwaltest.",
+        "answer": "Ja. Du kannst deine Mitglieder per CSV oder in einem anderen Tabellenformat importieren. Wenn du eine erweiterte Einrichtung benötigst, helfen wir dir, sie über eine individuelle Integration anzubinden.",
         "question": "Kann ich meine bestehende Wählerliste oder mein CRM verwenden?"
       },
       "coercion": {
-        "answer": "Vocdoni unterstützt das Überschreiben von Stimmen: Mitglieder können ihre Wahl beliebig oft ändern, solange die Abstimmung läuft. Es zählt nur die letzte Stimme, was Zwang in digitalen Umgebungen entgegenwirkt.",
+        "answer": "Vocdoni unterstützt das Überschreiben von Stimmen: wenn es aktiviert ist, können Mitglieder ihre Wahl beliebig oft ändern, solange die Abstimmung läuft. Es zählt nur die letzte Stimme, was Zwang in digitalen Umgebungen entgegenwirkt.",
         "question": "Kann jemand ein Mitglied zwingen, in einer bestimmten Weise abzustimmen?"
       },
       "dispute": {

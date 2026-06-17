@@ -2108,7 +2108,7 @@
           "question": "¿Vocdoni es código abierto?"
         },
         {
-          "answer": "Sí. Puedes empezar con un CSV o sincronizar mediante la API si ya gestionas a tus miembros en otro sistema.",
+          "answer": "Sí. Puedes importar a tus miembros mediante CSV u otro formato de hoja de cálculo. Si necesitas una configuración más avanzada, podemos ayudarte a conectarla mediante una integración personalizada.",
           "question": "¿Puedo usar mi censo actual o mi CRM?"
         },
         {
@@ -2302,7 +2302,7 @@
       "vocdoni": {
         "cost": "Coste por voto 10x menor",
         "name": "Vocdoni",
-        "privacySecurity": "Anónimo e integridad descentralizada",
+        "privacySecurity": "Voto anónimo e integridad de todo el proceso",
         "remoteAccessibility": "Vota desde cualquier lugar y dispositivo",
         "scalability": "Escalabilidad ilimitada, alcance global",
         "sustainability": "Sin papel y ecológico",
@@ -2376,11 +2376,11 @@
         "question": "¿Puede alguien ver qué han votado los miembros?"
       },
       "census": {
-        "answer": "Sí. Puedes importar a tus miembros mediante un archivo CSV o sincronizarlos a través de nuestra API si ya gestionas tu censo en otro sistema.",
+        "answer": "Sí. Puedes importar a tus miembros mediante CSV u otro formato de hoja de cálculo. Si necesitas una configuración más avanzada, podemos ayudarte a conectarla mediante una integración personalizada.",
         "question": "¿Puedo usar mi censo actual o mi CRM?"
       },
       "coercion": {
-        "answer": "Vocdoni admite la revisión del voto: los miembros pueden cambiar su elección tantas veces como quieran mientras la votación esté abierta. Solo cuenta el último voto, lo que ayuda a mitigar la coacción en entornos digitales.",
+        "answer": "Vocdoni admite la sobrescritura del voto: si está activada, los miembros pueden cambiar su elección tantas veces como quieran mientras la votación esté abierta. Solo cuenta el último voto, lo que ayuda a mitigar la coacción en entornos digitales.",
         "question": "¿Puede alguien obligar a un miembro a votar de una forma específica?"
       },
       "dispute": {
