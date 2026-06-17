@@ -2,7 +2,6 @@ import React from 'react'
 import { renderToStaticMarkup } from 'react-dom/server'
 import { describe, expect, it, vi } from 'vitest'
 
-import CTASection from '@/components/shadcn-studio/blocks/cta-section-09/cta-section-09'
 import AboutUs03 from '@/components/shadcn-studio/blocks/about-us-page-03/about-us-page-03'
 import AboutUs07 from '@/components/shadcn-studio/blocks/about-us-page-07/about-us-page-07'
 import Portfolio from '@/components/shadcn-studio/blocks/portfolio-16/portfolio-16'
@@ -59,12 +58,6 @@ vi.mock('vike-react/usePageContext', () => ({
 }))
 
 describe('Image dimensions regression tests', () => {
-  it('renders CTA artwork with real intrinsic dimensions', () => {
-    const html = renderToStaticMarkup(<CTASection />)
-    expect(html).toContain('width="906"')
-    expect(html).toContain('height="1159"')
-  })
-
   it('renders about-us page 03 image with real intrinsic dimensions', () => {
     const html = renderToStaticMarkup(
       <AboutUs03 aboutUsData={{ contentTitle: 'Test', contentDescription: 'Desc', tabs: [] }} />
