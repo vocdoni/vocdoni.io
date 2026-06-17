@@ -11,15 +11,10 @@ describe('HeadTags resource hints', () => {
     ;(globalThis as any).PLAUSIBLE_DOMAIN = ''
   })
 
-  it('includes preconnect for fonts.googleapis.com', () => {
+  it('does not load fonts from Google (self-hosted)', () => {
     const html = renderHead({ locale: 'en', urlLogical: '/' })
-    expect(html).toContain('fonts.googleapis.com')
-    expect(html).toContain('preconnect')
-  })
-
-  it('includes preconnect for fonts.gstatic.com', () => {
-    const html = renderHead({ locale: 'en', urlLogical: '/' })
-    expect(html).toContain('fonts.gstatic.com')
+    expect(html).not.toContain('fonts.googleapis.com')
+    expect(html).not.toContain('fonts.gstatic.com')
   })
 
   it('includes dns-prefetch for www.googletagmanager.com', () => {
