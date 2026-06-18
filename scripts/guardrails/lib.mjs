@@ -130,6 +130,29 @@ export function findDynamicTranslationKeys(source, filePath) {
 
   return violations
 }
+export function getConfiguredLocales(source) {
+  const sourceFile = ts.createSourceFile('index.ts', source, ts.ScriptTarget.Latest, true, ts.ScriptKind.TS)
+  let locales = null
+
+  const visit = (node) => {
+    if (
+      ts.isVariableDeclaration(node) &&
+      ts.isIdentifier(node.name) &&
+      node.name.text === 'locales' &&
+      node.initializer &&
+      ts.isArrayLiteralExpression(node.initializer)
+    ) {
+      locales = node.initializer.elements.filter((element) => ts.isStringLiteral(element)).map((element) => element.text)
+    }
+
+    ts.forEachChild(node, visit)
+  }
+
+  visit(sourceFile)
+
+  return locales
+}
+
 export function findEmptyTranslationLeafValues(value, currentPath = '') {
   if (typeof value === 'string') {
     return value.trim() === '' && currentPath ? [currentPath] : []
@@ -147,4 +170,44 @@ export function findEmptyTranslationLeafValues(value, currentPath = '') {
     const nextPath = currentPath ? `${currentPath}.${key}` : key
     return findEmptyTranslationLeafValues(child, nextPath)
   })
+}
+
+export function flattenTranslationLeaves(value, currentPath = '') {
+  if (typeof value === 'string') {
+    return currentPath ? [[currentPath, value]] : []
+  }
+
+  if (Array.isArray(value)) {
+    return value.flatMap((item, index) => flattenTranslationLeaves(item, `${currentPath}.${index}`))
+  }
+
+  if (!value || typeof value !== 'object') {
+    return []
+  }
+
+  return Object.entries(value).flatMap(([key, child]) =>
+    flattenTranslationLeaves(child, currentPath ? `${currentPath}.${key}` : key)
+  )
+}
+
+export function findUntranslatedLeafValues(localeData, sourceData, referenceDataList) {
+  const sourceLeaves = new Map(flattenTranslationLeaves(sourceData))
+  const referenceLeaves = referenceDataList.map((data) => new Map(flattenTranslationLeaves(data)))
+
+  // A key is translatable when at least one reference locale provides a non-empty value that differs
+  // from the English source. Proper nouns, brands and acronyms stay identical across every reference
+  // locale, so they never qualify and are not reported as untranslated copy.
+  const isTranslatable = (keyPath, sourceValue) =>
+    referenceLeaves.some((leaves) => {
+      const value = leaves.get(keyPath)
+      return typeof value === 'string' && value !== '' && value !== sourceValue
+    })
+
+  return flattenTranslationLeaves(localeData)
+    .filter(([keyPath, value]) => {
+      if (value === '') return false
+      const sourceValue = sourceLeaves.get(keyPath)
+      return typeof sourceValue === 'string' && value === sourceValue && isTranslatable(keyPath, sourceValue)
+    })
+    .map(([keyPath]) => keyPath)
 }
