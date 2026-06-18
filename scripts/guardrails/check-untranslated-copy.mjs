@@ -9,7 +9,7 @@ const SOURCE_LOCALE = 'en'
 // acronyms (identical across every reference) from being reported as untranslated copy.
 const REFERENCE_LOCALES = ['es', 'ca']
 // In-progress locales that must never ship copy pasted verbatim from the English source.
-const TARGET_LOCALES = ['de', 'el', 'fr', 'it', 'pt']
+const TARGET_LOCALES = ['de', 'el', 'eu', 'fr', 'it', 'pt']
 
 const localeRelativePath = (locale) => `locales/${locale}/common.json`
 const readLocale = (locale) => JSON.parse(fs.readFileSync(path.resolve(localeRelativePath(locale)), 'utf8'))

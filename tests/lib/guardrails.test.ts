@@ -206,7 +206,8 @@ describe('findUntranslatedLeafValues', () => {
     }
 
     // badges.0 ('Accessible') only Spanish translates ('Accesible'); stats.0.label ('Format') only
-    // Spanish translates ('Formato'). badges.1/brand/stats.0.value stay identical in every reference.
+    // Spanish translates ('Formato'); stats.0.value ('OECD') both references translate ('OCDE').
+    // badges.1 ('GDPR') and brand ('Vocdoni') stay identical in every reference so are not flagged.
     expect(findUntranslatedLeafValues(locale, source, references)).toEqual([
       'hero.title',
       'badges.0',
