@@ -5655,7 +5655,7 @@
     "faq": {
       "eyebrow": "Preguntes freqüents sobre preus",
       "q1": {
-        "answer": "Sí. Podeu dur a terme una votació real i verificable amb fins a 50 votants sense targeta de crèdit. És la millor manera de veure com funciona Vocdoni abans de comprometre-us.",
+        "answer": "Sí. Podeu dur a terme una votació real i verificable amb fins a 100 votants sense targeta de crèdit. És la millor manera de veure com funciona Vocdoni abans de comprometre-us.",
         "question": "El pla gratuït és realment gratuït?"
       },
       "q2": {
@@ -5671,8 +5671,8 @@
         "question": "Puc canviar o cancel·lar el meu pla?"
       },
       "q5": {
-        "answer": "",
-        "question": ""
+        "answer": "Sí. Podeu millorar, reduir o cancel·lar el pla en qualsevol moment. Us ajudarem a migrar el vostre cens i historial si canvieu de pla.",
+        "question": "Puc canviar o cancel·lar el meu pla?"
       },
       "title": "Preguntes sobre plans i pressupostos"
     },
@@ -5707,30 +5707,30 @@
       }
     },
     "managed": {
-      "badge": "",
-      "cta_primary": "",
-      "cta_secondary": "",
-      "description": "",
-      "eyebrow": "",
-      "footnote": "",
+      "badge": "5.000+ votants",
+      "cta_primary": "Demaneu un pressupost",
+      "cta_secondary": "Exploreu les solucions",
+      "description": "Per a votacions complexes o d'alt risc. El nostre equip s'encarrega de tot de principi a fi - només heu d'aprovar la configuració i anunciar els resultats.",
+      "eyebrow": "Totalment gestionat · Projecte a mida",
+      "footnote": "Tots els projectes a mida inclouen les mateixes garanties de privadesa i verificabilitat que els nostres plans d'autoservei.",
       "group_1": {
-        "heading": "",
-        "item_1": "",
-        "item_2": "",
-        "item_3": "",
-        "item_4": ""
+        "heading": "Acompanyament expert",
+        "item_1": "Gestor de projecte dedicat",
+        "item_2": "Reunions de planificació periòdiques",
+        "item_3": "Una votació d'assaig completa abans del dia de l'elecció",
+        "item_4": "Suport expert abans, durant i després de la votació"
       },
       "group_2": {
-        "heading": "",
-        "item_1": "",
-        "item_2": "",
-        "item_3": "",
-        "item_4": "",
-        "item_5": ""
+        "heading": "Gestió total",
+        "item_1": "Pàgina de votació i marca personalitzades",
+        "item_2": "Fluxos i integracions a mida (SSO, eIDAS)",
+        "item_3": "Creem i validem el vostre cens",
+        "item_4": "Configuració, posada en marxa i ajust fi",
+        "item_5": "Informe de resultats i certificació"
       },
-      "price_label": "",
-      "price_note": "",
-      "title": ""
+      "price_label": "Pressupost a mida",
+      "price_note": "Recomanat per a eleccions de més de 5.000 votants o processos a mida.",
+      "title": "Dissenyem, dirigim i lliurem la vostra elecció"
     },
     "related": {
       "security": "Com mantenim segurs els vots",
@@ -5759,28 +5759,28 @@
     "tiers": {
       "description": "Tots els plans inclouen votació privada, resultats universalment verificables i un registre d'auditoria. Els preus són anuals, sense IVA.",
       "essential": {
-        "cta": "",
-        "description": "",
-        "feature_1": "",
-        "feature_2": "",
-        "feature_3": "",
-        "feature_4": "",
-        "more_1": "",
-        "more_2": "",
-        "more_3": "",
-        "more_4": "",
-        "more_5": "",
-        "name": "",
-        "note": "",
-        "price": "",
-        "subnote": ""
+        "cta": "Comenceu gratis",
+        "description": "Per a associacions i clubs que fan votacions amb regularitat.",
+        "feature_1": "Fins a 1.000 votants",
+        "feature_2": "Processos de votació il·limitats",
+        "feature_3": "Pugeu el vostre propi cens (CSV o Excel)",
+        "feature_4": "Invitacions i recordatoris per correu electrònic",
+        "more_1": "Múltiples tipus de votació: única, opció múltiple i ponderada",
+        "more_2": "Paperetes amb diverses preguntes",
+        "more_3": "Informe de resultats en PDF descarregable",
+        "more_4": "Seguiment de la participació en temps real",
+        "more_5": "Suport per correu electrònic",
+        "name": "Essencial",
+        "note": "/ any",
+        "price": "590 €",
+        "subnote": "+50 € per cada 500 votants addicionals"
       },
       "eyebrow": "Plans",
       "footnote": "Necessiteu alguna cosa intermèdia? Els plans escalen amb la mida del vostre cens; parleu amb nosaltres per a la xifra exacta.",
       "free": {
         "cta": "Comenceu gratis",
         "description": "Proveu una votació real i verificable amb un grup reduït.",
-        "feature_1": "Fins a 50 votants",
+        "feature_1": "Fins a 100 votants",
         "feature_2": "Vots privats i verificables",
         "feature_3": "Resultats públics i instantanis",
         "feature_4": "Suport per correu electrònic",
@@ -5788,26 +5788,26 @@
         "note": "per sempre",
         "price": "0 €"
       },
-      "less_label": "",
-      "more_label": "",
+      "less_label": "Mostra'n menys",
+      "more_label": "Veure totes les funcions",
       "premium": {
         "badge": "El més popular",
         "cta": "Comenceu gratis",
         "description": "Per a col·legis i federacions amb una gran base de membres.",
-        "feature_1": "Fins a 10.000 votants",
+        "feature_1": "Fins a 5.000 votants",
         "feature_2": "Votació híbrida presencial i remota",
         "feature_3": "Portal de votació amb la vostra marca",
         "feature_4": "Suport prioritari i incorporació",
-        "more_1": "",
-        "more_2": "",
-        "more_3": "",
-        "more_4": "",
-        "more_5": "",
-        "more_6": "",
+        "more_1": "Camps de cens personalitzats i segments de votants",
+        "more_2": "Votació ponderada i delegada",
+        "more_3": "PDF de resultats avançat amb registre d'auditoria",
+        "more_4": "Votacions programades i recurrents",
+        "more_5": "Múltiples administradors",
+        "more_6": "Suport i incorporació prioritaris",
         "name": "Premium",
         "note": "/ any",
         "price": "1.890 €",
-        "subnote": ""
+        "subnote": "+50 € per cada 500 votants addicionals"
       },
       "title": "Trieu el pla que s'ajusta a la vostra organització"
     }

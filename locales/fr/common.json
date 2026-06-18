@@ -445,8 +445,8 @@
           "title": "Couverture juridique"
         },
         "privacy": {
-          "description": "",
-          "title": ""
+          "description": "Les votes restent privés par conception, même vis-à-vis de la plateforme.",
+          "title": "Bulletin secret"
         },
         "support": {
           "description": "Une équipe qui aide à configurer et à organiser le vote de bout en bout.",
@@ -581,8 +581,8 @@
           "title": "Vote hybride"
         },
         "privacy": {
-          "description": "",
-          "title": ""
+          "description": "Un vote privé qui garde le choix de chaque habitant confidentiel.",
+          "title": "Bulletin secret"
         },
         "support": {
           "description": "Une équipe qui aide à mener le projet pilote, de la configuration aux résultats.",
@@ -1122,8 +1122,8 @@
         },
         "eyebrow": "Les défenses",
         "privacy": {
-          "description": "",
-          "title": ""
+          "description": "Les bulletins ne peuvent pas être reliés aux électeurs, de sorte que personne ne peut être contraint, acheté ou puni pour la façon dont il a voté.",
+          "title": "Confidentialité"
         },
         "secrecy": {
           "description": "Les bulletins sont chiffrés de bout en bout, donc même les opérateurs ne peuvent pas lire les votes individuels.",
@@ -3675,162 +3675,162 @@
   "api_sdk": {
     "code": {
       "census": {
-        "description": "",
-        "label": ""
+        "description": "Transformez les utilisateurs déjà présents dans votre base de données en électeurs éligibles.",
+        "label": "Liste électorale"
       },
       "client": {
-        "description": "",
-        "label": ""
+        "description": "Créez le client avec une identité dérivée de votre propre secret, sans portefeuille crypto requis.",
+        "label": "Client et compte"
       },
-      "description": "",
+      "description": "Ces extraits reproduisent les exemples officiels du SDK. Exécutez-les sur l'environnement de développement ou de préproduction pour lancer une élection complète de bout en bout.",
       "election": {
-        "description": "",
-        "label": ""
+        "description": "Configurez les règles, ajoutez des questions et publiez l'élection.",
+        "label": "Élection"
       },
-      "eyebrow": "",
+      "eyebrow": "Démarrage rapide",
       "install": {
-        "description": "",
-        "label": ""
+        "description": "Ajoutez le SDK avec le gestionnaire de paquets de votre choix.",
+        "label": "Installation"
       },
       "results": {
-        "description": "",
-        "label": ""
+        "description": "Lisez les résultats en direct et gérez le cycle de vie de l'élection.",
+        "label": "Résultats"
       },
-      "title": "",
+      "title": "Du vrai code, à copier-coller pour démarrer",
       "vote": {
-        "description": "",
-        "label": ""
+        "description": "Re-dérivez l'électeur après votre connexion habituelle, puis exprimez le bulletin.",
+        "label": "Vote"
       }
     },
     "cta": {
-      "description": "",
-      "primary": "",
-      "secondary": "",
-      "title": ""
+      "description": "Lisez la documentation, clonez les exemples et lancez gratuitement votre première élection vérifiable. Bloqué sur une intégration ? Notre équipe se fera un plaisir de vous aider.",
+      "primary": "Ouvrir la documentation développeur",
+      "secondary": "Parler à notre équipe",
+      "title": "Commencez à construire dès aujourd'hui"
     },
     "frontend": {
       "block_1": {
-        "heading": "",
-        "paragraph_1": ""
+        "heading": "Utilisez l'application hébergée",
+        "paragraph_1": "Chaque élection que vous créez est immédiatement votable sur app.vocdoni.io/processes/<electionId>. Partagez le lien et c'est terminé, aucun travail de frontend requis."
       },
       "block_2": {
-        "bullet_1": "",
-        "bullet_2": "",
-        "bullet_3": "",
-        "heading": ""
+        "bullet_1": "Clonez le dépôt vocdoni-app et exécutez-le avec pnpm start",
+        "bullet_2": "Basculez entre les environnements avec la variable VOCDONI_ENVIRONMENT (dev ou prod)",
+        "bullet_3": "Associez un domaine personnalisé à votre organisation avec CUSTOM_ORGANIZATION_DOMAINS",
+        "heading": "Forkez et personnalisez à votre marque"
       },
       "block_3": {
-        "heading": "",
-        "paragraph_1": ""
+        "heading": "Intégrez un portail à liste électorale partagée",
+        "paragraph_1": "La page à liste électorale partagée affiche plusieurs élections à la fois. Définissez PROCESS_IDS sur les élections que vous souhaitez afficher, ajoutez un texte d'introduction personnalisé par langue et, en option, intégrez un flux en direct avec STREAM_URL."
       },
-      "eyebrow": "",
-      "intro": "",
-      "title": ""
+      "eyebrow": "Frontend électeur",
+      "intro": "L'application Vocdoni est le même frontend React open source qui alimente app.vocdoni.io. Pointez-la vers un identifiant d'élection et vos électeurs obtiennent une page de vote testée et accessible. Forkez-la pour qu'elle corresponde à votre marque.",
+      "title": "Lancez une page de vote sans construire l'interface"
     },
     "hero": {
-      "bullet_1": "",
-      "bullet_2": "",
-      "bullet_3": "",
-      "cta_primary": "",
-      "cta_secondary": "",
-      "eyebrow": "",
-      "subtitle": "",
-      "title": ""
+      "bullet_1": "SDK open source publié sous le nom @vocdoni/sdk sur npm",
+      "bullet_2": "Types TypeScript pour les clients, les listes électorales, les élections et les votes",
+      "bullet_3": "Gratuit à tester, sans portefeuille crypto, sans jeton à acheter ni paiement pour démarrer",
+      "cta_primary": "Lire la documentation développeur",
+      "cta_secondary": "Aller au démarrage rapide",
+      "eyebrow": "Développeurs",
+      "subtitle": "Le SDK et l'API Vocdoni vous permettent de créer une liste électorale, de lancer une élection et de collecter des votes anonymes et vérifiables de bout en bout en quelques lignes de code. Open source, axé sur TypeScript et gratuit à essayer.",
+      "title": "Intégrez un vote vérifiable dans votre propre produit"
     },
     "related": {
-      "app": "",
-      "app_desc": "",
-      "docs": "",
-      "docs_desc": "",
-      "integrations": "",
-      "integrations_desc": "",
-      "sdk": "",
-      "sdk_desc": "",
-      "title": ""
+      "app": "Application Vocdoni sur GitHub",
+      "app_desc": "Le frontend électeur open source que vous pouvez forker et personnaliser à votre marque.",
+      "docs": "Documentation développeur",
+      "docs_desc": "Référence de l'API, guides du SDK et tutoriels.",
+      "integrations": "Intégrations",
+      "integrations_desc": "SSO, connecteurs CRM et options d'import de liste électorale.",
+      "sdk": "SDK Vocdoni sur GitHub",
+      "sdk_desc": "Code source, exemples et notes de version pour @vocdoni/sdk.",
+      "title": "Ressources pour les développeurs"
     },
     "showcase": {
       "anonymous": {
-        "description": "",
-        "title": ""
+        "description": "Activez les preuves à divulgation nulle de connaissance pour que les bulletins restent secrets tout en gardant des résultats vérifiables.",
+        "title": "Vote anonyme"
       },
       "custom_domain": {
-        "description": "",
-        "title": ""
+        "description": "Proposez l'expérience de vote depuis votre propre domaine, avec le profil de votre organisation comme page d'accueil.",
+        "title": "Page d'organisation à domaine personnalisé"
       },
-      "eyebrow": "",
+      "eyebrow": "Des pages de vote prêtes à déployer",
       "hybrid": {
-        "description": "",
-        "title": ""
+        "description": "Affichez plusieurs élections actives sur une page à votre marque, pour les assemblées et les événements à votes multiples.",
+        "title": "Portail à liste électorale partagée"
       },
       "single": {
-        "description": "",
-        "title": ""
+        "description": "Une question, un seul choix. L'élection classique par oui ou non ou par candidat, prête en quelques minutes.",
+        "title": "Bulletin à choix unique"
       },
       "survey": {
-        "description": "",
-        "title": ""
+        "description": "Enchaînez plusieurs questions dans un seul bulletin pour les votes statutaires ou les consultations des membres.",
+        "title": "Enquête à questions multiples"
       },
-      "title": "",
+      "title": "Configurez le bulletin adapté à votre vote",
       "weighted": {
-        "description": "",
-        "title": ""
+        "description": "Attribuez aux électeurs des poids différents, ou limitez qui peut participer selon le niveau d'adhésion, le rôle ou les parts détenues.",
+        "title": "Vote pondéré ou restreint"
       }
     },
     "steps": {
-      "description": "",
-      "eyebrow": "",
+      "description": "Le même flux alimente notre propre application. Chaque étape correspond à un appel du SDK, vous pouvez donc l'intégrer à votre backend ou l'exécuter directement depuis le navigateur.",
+      "eyebrow": "Flux d'intégration",
       "step_1": {
-        "description": "",
-        "title": ""
+        "description": "Ajoutez @vocdoni/sdk à votre projet avec npm, yarn ou pnpm.",
+        "title": "Installez le SDK"
       },
       "step_2": {
-        "description": "",
-        "title": ""
+        "description": "Initialisez le client avec un environnement et un signataire, puis enregistrez un compte alimenté par le faucet.",
+        "title": "Créez un client et un compte"
       },
       "step_3": {
-        "description": "",
-        "title": ""
+        "description": "Décidez qui peut voter : ajoutez des adresses à la main, synchronisez depuis votre système ou conditionnez l'accès à un solde de jetons.",
+        "title": "Construisez la liste électorale"
       },
       "step_4": {
-        "description": "",
-        "title": ""
+        "description": "Définissez le titre, les dates et les règles, ajoutez vos questions et vos choix, puis publiez l'élection sur la chaîne.",
+        "title": "Créez l'élection"
       },
       "step_5": {
-        "description": "",
-        "title": ""
+        "description": "Vérifiez qu'un électeur est éligible, puis soumettez ses choix et renvoyez un reçu vérifiable.",
+        "title": "Collectez les votes"
       },
       "step_6": {
-        "description": "",
-        "title": ""
+        "description": "Récupérez les dépouillements en direct, gérez le cycle de vie de l'élection et permettez à chacun d'auditer le résultat.",
+        "title": "Lisez et vérifiez les résultats"
       },
-      "title": ""
+      "title": "De zéro à une élection en direct en six étapes"
     },
     "why": {
       "anonymous": {
-        "description": "",
-        "title": ""
+        "description": "Activez un seul indicateur pour rendre une élection anonyme grâce aux preuves à divulgation nulle de connaissance, sans infrastructure supplémentaire.",
+        "title": "Bulletins anonymes"
       },
       "api": {
-        "description": "",
-        "title": ""
+        "description": "Vous préférez le HTTP brut ? Chaque appel du SDK correspond à un point de terminaison d'API documenté que vous pouvez appeler depuis n'importe quel langage.",
+        "title": "API REST ouverte"
       },
       "census": {
-        "description": "",
-        "title": ""
+        "description": "Construisez des listes d'électeurs directement à partir des utilisateurs déjà présents dans votre base de données, ou laissez Vocdoni vérifier les électeurs par e-mail ou SMS.",
+        "title": "Des listes électorales flexibles"
       },
-      "eyebrow": "",
+      "eyebrow": "Pourquoi construire sur Vocdoni",
       "frontend": {
-        "description": "",
-        "title": ""
+        "description": "Réutilisez l'application Vocdoni open source pour offrir aux électeurs une page de vote soignée sans construire d'interface.",
+        "title": "Frontend prêt à l'emploi"
       },
       "sdk": {
-        "description": "",
-        "title": ""
+        "description": "Un client typé qui fonctionne dans le navigateur et dans Node, avec une méthode par action de vote.",
+        "title": "SDK TypeScript"
       },
-      "title": "",
+      "title": "Tout ce qu'il faut pour déployer un vote digne de confiance",
       "verifiable": {
-        "description": "",
-        "title": ""
+        "description": "Chaque vote produit un reçu et chacun peut vérifier le dépouillement par rapport aux votes exprimés.",
+        "title": "Résultats vérifiables"
       }
     }
   },
@@ -4091,8 +4091,8 @@
     }
   },
   "code_block": {
-    "copied": "",
-    "copy": ""
+    "copied": "Copié",
+    "copy": "Copier le code"
   },
   "compare": {
     "assembly_voting": {
@@ -4971,8 +4971,8 @@
         "question": "Vocdoni est-il open source ?"
       },
       "privacy": {
-        "answer": "",
-        "question": ""
+        "answer": "Non. Les votes individuels sont chiffrés de bout en bout, de sorte que personne ne peut relier un membre à son choix - ni l'organisateur, ni Vocdoni. Seul le résultat agrégé est jamais révélé.",
+        "question": "Quelqu'un peut-il voir comment un membre a voté ?"
       },
       "setup": {
         "answer": "Une seule personne peut configurer une élection complète - liste électorale, bulletin, calendrier et paramètres de sécurité - en moins de 30 minutes. Pas d'équipe technique, pas de projet d'implémentation, pas de spécialistes externes. Vos membres reçoivent un lien, cliquent, votent et c'est tout.",
@@ -5137,8 +5137,8 @@
       "title": "Alternatives aux plateformes de vote en ligne - Vocdoni"
     },
     "api_sdk": {
-      "description": "",
-      "title": ""
+      "description": "Intégrez un vote vérifiable dans votre produit grâce au SDK et à l'API Vocdoni. Du vrai code pour créer une liste électorale, lancer une élection, exprimer des votes et lire les résultats, ainsi qu'un frontend électeur prêt à l'emploi.",
+      "title": "API et SDK de vote pour développeurs - Vocdoni"
     },
     "app": {
       "description": "Démarrez gratuitement, importez votre liste électorale et publiez des résultats que vos membres peuvent vérifier. Conçue pour les organisations qui ont besoin de confiance, de rapidité et de preuves.",
@@ -5655,7 +5655,7 @@
     "faq": {
       "eyebrow": "FAQ sur les tarifs",
       "q1": {
-        "answer": "Oui. Vous pouvez organiser un vrai vote vérifiable jusqu'à 50 électeurs sans carte bancaire. C'est le meilleur moyen de voir comment fonctionne Vocdoni avant de vous engager.",
+        "answer": "Oui. Vous pouvez organiser un vrai vote vérifiable jusqu'à 100 électeurs sans carte bancaire. C'est le meilleur moyen de voir comment fonctionne Vocdoni avant de vous engager.",
         "question": "Le plan gratuit est-il vraiment gratuit ?"
       },
       "q2": {
@@ -5671,8 +5671,8 @@
         "question": "Puis-je changer ou annuler mon plan ?"
       },
       "q5": {
-        "answer": "",
-        "question": ""
+        "answer": "Oui. Vous pouvez monter en gamme, descendre en gamme ou annuler à tout moment. Nous vous aiderons à migrer votre liste électorale et votre historique si vous changez de plan.",
+        "question": "Puis-je changer ou annuler mon plan ?"
       },
       "title": "Questions sur les plans et les devis"
     },
@@ -5707,30 +5707,30 @@
       }
     },
     "managed": {
-      "badge": "",
-      "cta_primary": "",
-      "cta_secondary": "",
-      "description": "",
-      "eyebrow": "",
-      "footnote": "",
+      "badge": "Plus de 5 000 électeurs",
+      "cta_primary": "Demander un devis",
+      "cta_secondary": "Explorer les solutions",
+      "description": "Pour les votes à fort enjeu ou complexes. Notre équipe gère tout de bout en bout - vous n'avez qu'à approuver la configuration et annoncer les résultats.",
+      "eyebrow": "Entièrement géré · Projet sur mesure",
+      "footnote": "Chaque projet sur mesure inclut les mêmes garanties de confidentialité et de vérifiabilité que nos plans en libre-service.",
       "group_1": {
-        "heading": "",
-        "item_1": "",
-        "item_2": "",
-        "item_3": "",
-        "item_4": ""
+        "heading": "Accompagnement par des experts",
+        "item_1": "Chef de projet dédié",
+        "item_2": "Réunions de planification périodiques",
+        "item_3": "Un vote de répétition complet avant le jour de l'élection",
+        "item_4": "Un support expert avant, pendant et après le vote"
       },
       "group_2": {
-        "heading": "",
-        "item_1": "",
-        "item_2": "",
-        "item_3": "",
-        "item_4": "",
-        "item_5": ""
+        "heading": "Gestion totale",
+        "item_1": "Page de vote et image de marque personnalisées",
+        "item_2": "Flux et intégrations personnalisés (SSO, eIDAS)",
+        "item_3": "Nous construisons et validons votre liste électorale",
+        "item_4": "Configuration, mise en place et réglages fins",
+        "item_5": "Rapport de résultats et certification"
       },
-      "price_label": "",
-      "price_note": "",
-      "title": ""
+      "price_label": "Devis sur mesure",
+      "price_note": "Recommandé pour les élections de plus de 5 000 électeurs ou les processus sur mesure.",
+      "title": "Nous concevons, organisons et livrons votre élection"
     },
     "related": {
       "security": "Comment nous sécurisons les votes",
@@ -5759,28 +5759,28 @@
     "tiers": {
       "description": "Chaque plan inclut un vote privé, des résultats universellement vérifiables et une piste d'audit. Les prix sont annuels, hors TVA.",
       "essential": {
-        "cta": "",
-        "description": "",
-        "feature_1": "",
-        "feature_2": "",
-        "feature_3": "",
-        "feature_4": "",
-        "more_1": "",
-        "more_2": "",
-        "more_3": "",
-        "more_4": "",
-        "more_5": "",
-        "name": "",
-        "note": "",
-        "price": "",
-        "subnote": ""
+        "cta": "Démarrer gratuitement",
+        "description": "Pour les associations et les clubs qui organisent des votes réguliers.",
+        "feature_1": "Jusqu'à 1 000 électeurs",
+        "feature_2": "Processus de vote illimités",
+        "feature_3": "Importez votre propre liste électorale (CSV ou Excel)",
+        "feature_4": "Invitations et rappels par e-mail",
+        "more_1": "Plusieurs types de vote : choix unique, choix multiple et pondéré",
+        "more_2": "Bulletins à questions multiples",
+        "more_3": "Rapport de résultats PDF téléchargeable",
+        "more_4": "Suivi de la participation en temps réel",
+        "more_5": "Support par e-mail",
+        "name": "Essential",
+        "note": "/ an",
+        "price": "590 €",
+        "subnote": "+50 € par tranche de 500 électeurs supplémentaires"
       },
       "eyebrow": "Plans",
       "footnote": "Besoin de quelque chose d'intermédiaire ? Les plans s'adaptent à la taille de votre liste électorale - parlez-nous pour le chiffre exact.",
       "free": {
         "cta": "Démarrer gratuitement",
         "description": "Essayez un vrai vote vérifiable avec un petit groupe.",
-        "feature_1": "Jusqu'à 50 électeurs",
+        "feature_1": "Jusqu'à 100 électeurs",
         "feature_2": "Des bulletins privés et vérifiables",
         "feature_3": "Des résultats instantanés et publics",
         "feature_4": "Support par e-mail",
@@ -5788,26 +5788,26 @@
         "note": "pour toujours",
         "price": "0 €"
       },
-      "less_label": "",
-      "more_label": "",
+      "less_label": "Afficher moins",
+      "more_label": "Voir toutes les fonctionnalités",
       "premium": {
         "badge": "Le plus populaire",
         "cta": "Démarrer gratuitement",
         "description": "Pour les collèges et fédérations comptant de nombreux membres.",
-        "feature_1": "Jusqu'à 10 000 électeurs",
+        "feature_1": "Jusqu'à 5 000 électeurs",
         "feature_2": "Vote hybride, en présentiel et à distance",
         "feature_3": "Portail de vote personnalisé",
         "feature_4": "Support et intégration prioritaires",
-        "more_1": "",
-        "more_2": "",
-        "more_3": "",
-        "more_4": "",
-        "more_5": "",
-        "more_6": "",
+        "more_1": "Champs de liste électorale personnalisés et segments d'électeurs",
+        "more_2": "Vote pondéré et délégué",
+        "more_3": "PDF de résultats avancé avec piste d'audit",
+        "more_4": "Votes planifiés et récurrents",
+        "more_5": "Plusieurs administrateurs",
+        "more_6": "Support et intégration prioritaires",
         "name": "Premium",
         "note": "/ an",
         "price": "1 890 €",
-        "subnote": ""
+        "subnote": "+50 € par tranche de 500 électeurs supplémentaires"
       },
       "title": "Choisissez le plan adapté à votre organisation"
     }
@@ -6204,8 +6204,8 @@
           "heading": "Mixnet"
         },
         "privacy": {
-          "body": "",
-          "heading": ""
+          "body": "Le groupe d'électeurs parmi lesquels un bulletin individuel donné pourrait plausiblement se trouver. Plus l'ensemble de confidentialité est grand, plus il est difficile de relier un bulletin à une personne. Un système solide garde cet ensemble aussi grand que la liste électorale complète.",
+          "heading": "Ensemble de confidentialité"
         },
         "quorum": {
           "body": "La participation minimale requise pour qu'un vote soit valide. Si la participation tombe sous le quorum fixé dans vos règles, la décision n'est pas adoptée, quelle que soit la répartition des votes.",
@@ -7298,8 +7298,8 @@
         },
         "eyebrow": "Conçu pour la consultation publique",
         "private": {
-          "description": "",
-          "title": ""
+          "description": "Les habitants répondent honnêtement, sachant que leur réponse reste confidentielle.",
+          "title": "Réponses privées"
         },
         "questions": {
           "description": "Posez des questions à choix unique ou multiple dans une seule consultation.",

@@ -445,8 +445,8 @@
           "title": "Copertura legale"
         },
         "privacy": {
-          "description": "",
-          "title": ""
+          "description": "I voti restano privati per progettazione, anche per la piattaforma.",
+          "title": "Voto segreto"
         },
         "support": {
           "description": "Un team che aiuta a configurare e gestire il voto dall'inizio alla fine.",
@@ -581,8 +581,8 @@
           "title": "Voto ibrido"
         },
         "privacy": {
-          "description": "",
-          "title": ""
+          "description": "Voto privato che mantiene riservata la scelta di ogni residente.",
+          "title": "Voto segreto"
         },
         "support": {
           "description": "Un team che aiuta a gestire il progetto pilota dalla configurazione ai risultati.",
@@ -1122,8 +1122,8 @@
         },
         "eyebrow": "Le difese",
         "privacy": {
-          "description": "",
-          "title": ""
+          "description": "Le schede non sono collegabili ai votanti, così nessuno può essere costretto, corrotto o punito per come ha votato.",
+          "title": "Privacy"
         },
         "secrecy": {
           "description": "Le schede sono cifrate end-to-end, così nemmeno gli operatori possono leggere i singoli voti.",
@@ -3675,162 +3675,162 @@
   "api_sdk": {
     "code": {
       "census": {
-        "description": "",
-        "label": ""
+        "description": "Trasforma gli utenti già presenti nel tuo database in votanti idonei.",
+        "label": "Censimento"
       },
       "client": {
-        "description": "",
-        "label": ""
+        "description": "Crea il client con un'identità derivata dal tuo segreto, senza alcun wallet crypto.",
+        "label": "Client e account"
       },
-      "description": "",
+      "description": "Questi snippet rispecchiano gli esempi ufficiali dell'SDK. Eseguili nell'ambiente di sviluppo o di staging per avviare un'elezione funzionante dall'inizio alla fine.",
       "election": {
-        "description": "",
-        "label": ""
+        "description": "Configura le regole, aggiungi le domande e pubblica l'elezione.",
+        "label": "Elezione"
       },
-      "eyebrow": "",
+      "eyebrow": "Guida rapida",
       "install": {
-        "description": "",
-        "label": ""
+        "description": "Aggiungi l'SDK con il gestore di pacchetti che preferisci.",
+        "label": "Installazione"
       },
       "results": {
-        "description": "",
-        "label": ""
+        "description": "Leggi i risultati in tempo reale e gestisci il ciclo di vita dell'elezione.",
+        "label": "Risultati"
       },
-      "title": "",
+      "title": "Codice reale, copia e incolla per iniziare",
       "vote": {
-        "description": "",
-        "label": ""
+        "description": "Ri-deriva il votante dopo il tuo normale login, poi invia la scheda.",
+        "label": "Voto"
       }
     },
     "cta": {
-      "description": "",
-      "primary": "",
-      "secondary": "",
-      "title": ""
+      "description": "Leggi la documentazione, clona gli esempi e avvia gratis la tua prima elezione verificabile. Bloccato su un'integrazione? Il nostro team è felice di aiutarti.",
+      "primary": "Apri la documentazione per sviluppatori",
+      "secondary": "Parla con il nostro team",
+      "title": "Inizia a costruire oggi"
     },
     "frontend": {
       "block_1": {
-        "heading": "",
-        "paragraph_1": ""
+        "heading": "Usa l'app ospitata",
+        "paragraph_1": "Ogni elezione che crei è votabile all'istante su app.vocdoni.io/processes/<electionId>. Condividi il link e hai finito, senza alcun lavoro di frontend."
       },
       "block_2": {
-        "bullet_1": "",
-        "bullet_2": "",
-        "bullet_3": "",
-        "heading": ""
+        "bullet_1": "Clona il repository vocdoni-app ed eseguilo con pnpm start",
+        "bullet_2": "Passa da un ambiente all'altro con la variabile VOCDONI_ENVIRONMENT (dev o prod)",
+        "bullet_3": "Associa un dominio personalizzato alla tua organizzazione con CUSTOM_ORGANIZATION_DOMAINS",
+        "heading": "Fai il fork e personalizza il brand"
       },
       "block_3": {
-        "heading": "",
-        "paragraph_1": ""
+        "heading": "Incorpora un portale a censimento condiviso",
+        "paragraph_1": "La pagina a censimento condiviso elenca più elezioni contemporaneamente. Imposta PROCESS_IDS sulle elezioni che vuoi mostrare, aggiungi un testo introduttivo personalizzato per lingua e, se vuoi, incorpora una diretta con STREAM_URL."
       },
-      "eyebrow": "",
-      "intro": "",
-      "title": ""
+      "eyebrow": "Frontend per i votanti",
+      "intro": "Vocdoni App è lo stesso frontend React open source che alimenta app.vocdoni.io. Indicagli un id di elezione e i tuoi votanti ottengono una pagina di voto testata e accessibile. Fai il fork per adattarla al tuo brand.",
+      "title": "Avvia una pagina di voto senza costruire l'interfaccia"
     },
     "hero": {
-      "bullet_1": "",
-      "bullet_2": "",
-      "bullet_3": "",
-      "cta_primary": "",
-      "cta_secondary": "",
-      "eyebrow": "",
-      "subtitle": "",
-      "title": ""
+      "bullet_1": "SDK open source pubblicato come @vocdoni/sdk su npm",
+      "bullet_2": "Tipi TypeScript per client, censimenti, elezioni e voti",
+      "bullet_3": "Gratuito da provare, senza wallet crypto, token da acquistare o pagamenti per iniziare",
+      "cta_primary": "Leggi la documentazione per sviluppatori",
+      "cta_secondary": "Vai alla guida rapida",
+      "eyebrow": "Sviluppatori",
+      "subtitle": "L'SDK e l'API di Vocdoni ti permettono di creare un censimento, avviare un'elezione e raccogliere voti anonimi e verificabili end-to-end in poche righe di codice. Open source, TypeScript-first e gratis da provare.",
+      "title": "Integra il voto verificabile nel tuo prodotto"
     },
     "related": {
-      "app": "",
-      "app_desc": "",
-      "docs": "",
-      "docs_desc": "",
-      "integrations": "",
-      "integrations_desc": "",
-      "sdk": "",
-      "sdk_desc": "",
-      "title": ""
+      "app": "Vocdoni App su GitHub",
+      "app_desc": "Il frontend open source per i votanti di cui puoi fare il fork e personalizzare il brand.",
+      "docs": "Documentazione per sviluppatori",
+      "docs_desc": "Riferimento API, guide SDK e tutorial.",
+      "integrations": "Integrazioni",
+      "integrations_desc": "SSO, connettori CRM e opzioni di importazione del censimento.",
+      "sdk": "Vocdoni SDK su GitHub",
+      "sdk_desc": "Sorgente, esempi e note di rilascio per @vocdoni/sdk.",
+      "title": "Risorse per chi sviluppa"
     },
     "showcase": {
       "anonymous": {
-        "description": "",
-        "title": ""
+        "description": "Attiva le prove a conoscenza zero così le schede restano segrete mentre i risultati rimangono verificabili.",
+        "title": "Voto anonimo"
       },
       "custom_domain": {
-        "description": "",
-        "title": ""
+        "description": "Eroga l'esperienza di voto dal tuo dominio, con il profilo della tua organizzazione come homepage.",
+        "title": "Pagina org su dominio personalizzato"
       },
-      "eyebrow": "",
+      "eyebrow": "Pagine di voto pronte da pubblicare",
       "hybrid": {
-        "description": "",
-        "title": ""
+        "description": "Mostra più elezioni attive su un'unica pagina personalizzata per assemblee ed eventi con più votazioni.",
+        "title": "Portale a censimento condiviso"
       },
       "single": {
-        "description": "",
-        "title": ""
+        "description": "Una domanda, scegli un'opzione. La classica elezione sì/no o a candidato, pronta in pochi minuti.",
+        "title": "Scheda a scelta singola"
       },
       "survey": {
-        "description": "",
-        "title": ""
+        "description": "Concatena più domande in un'unica scheda per voti statutari o consultazioni dei membri.",
+        "title": "Sondaggio a più domande"
       },
-      "title": "",
+      "title": "Configura la scheda adatta alla tua votazione",
       "weighted": {
-        "description": "",
-        "title": ""
+        "description": "Assegna ai votanti pesi diversi, oppure limita chi può partecipare per livello di membership, ruolo o quote possedute.",
+        "title": "Voto ponderato o ristretto"
       }
     },
     "steps": {
-      "description": "",
-      "eyebrow": "",
+      "description": "Lo stesso flusso alimenta la nostra app. Ogni passo è una singola chiamata SDK, così puoi integrarlo nel tuo backend o eseguirlo direttamente dal browser.",
+      "eyebrow": "Flusso di integrazione",
       "step_1": {
-        "description": "",
-        "title": ""
+        "description": "Aggiungi @vocdoni/sdk al tuo progetto con npm, yarn o pnpm.",
+        "title": "Installa l'SDK"
       },
       "step_2": {
-        "description": "",
-        "title": ""
+        "description": "Inizializza il client con un ambiente e un signer, poi registra un account finanziato dal faucet.",
+        "title": "Crea un client e un account"
       },
       "step_3": {
-        "description": "",
-        "title": ""
+        "description": "Decidi chi può votare: aggiungi indirizzi a mano, sincronizza dal tuo sistema o limita in base al saldo di un token.",
+        "title": "Costruisci il censimento"
       },
       "step_4": {
-        "description": "",
-        "title": ""
+        "description": "Imposta titolo, date e regole, aggiungi le domande e le scelte e pubblica l'elezione su blockchain.",
+        "title": "Crea l'elezione"
       },
       "step_5": {
-        "description": "",
-        "title": ""
+        "description": "Verifica che un votante sia idoneo, poi invia le sue scelte e restituisci una ricevuta verificabile.",
+        "title": "Raccogli i voti"
       },
       "step_6": {
-        "description": "",
-        "title": ""
+        "description": "Recupera i conteggi in tempo reale, gestisci il ciclo di vita dell'elezione e consenti a chiunque di verificare l'esito.",
+        "title": "Leggi e verifica i risultati"
       },
-      "title": ""
+      "title": "Da zero a un'elezione attiva in sei passi"
     },
     "why": {
       "anonymous": {
-        "description": "",
-        "title": ""
+        "description": "Attiva un solo flag per rendere un'elezione anonima con prove a conoscenza zero, senza infrastruttura aggiuntiva.",
+        "title": "Schede anonime"
       },
       "api": {
-        "description": "",
-        "title": ""
+        "description": "Preferisci l'HTTP puro? Ogni chiamata SDK corrisponde a un endpoint API documentato che puoi richiamare da qualsiasi linguaggio.",
+        "title": "API REST aperta"
       },
       "census": {
-        "description": "",
-        "title": ""
+        "description": "Costruisci gli elenchi dei votanti direttamente dagli utenti già presenti nel tuo database, oppure lascia che Vocdoni verifichi i votanti via email o SMS.",
+        "title": "Censimenti flessibili"
       },
-      "eyebrow": "",
+      "eyebrow": "Perché costruire su Vocdoni",
       "frontend": {
-        "description": "",
-        "title": ""
+        "description": "Riutilizza Vocdoni App open source per offrire ai votanti una pagina di voto curata senza costruire l'interfaccia.",
+        "title": "Frontend già pronto"
       },
       "sdk": {
-        "description": "",
-        "title": ""
+        "description": "Un client tipizzato che funziona nel browser e in Node, con un metodo per ogni azione di voto.",
+        "title": "SDK TypeScript"
       },
-      "title": "",
+      "title": "Tutto ciò che serve per pubblicare un voto affidabile",
       "verifiable": {
-        "description": "",
-        "title": ""
+        "description": "Ogni voto produce una ricevuta e chiunque può verificare il conteggio rispetto ai voti espressi.",
+        "title": "Risultati verificabili"
       }
     }
   },
@@ -4091,8 +4091,8 @@
     }
   },
   "code_block": {
-    "copied": "",
-    "copy": ""
+    "copied": "Copiato",
+    "copy": "Copia codice"
   },
   "compare": {
     "assembly_voting": {
@@ -4971,8 +4971,8 @@
         "question": "Vocdoni è open source?"
       },
       "privacy": {
-        "answer": "",
-        "question": ""
+        "answer": "No. I singoli voti sono cifrati end-to-end, così nessuno può collegare un membro alla sua scelta - né l'organizzatore, né Vocdoni. Viene rivelato solo il risultato aggregato.",
+        "question": "Qualcuno può vedere come ha votato un membro?"
       },
       "setup": {
         "answer": "Una sola persona può configurare un'elezione completa - elenco elettori, scheda, calendario e impostazioni di sicurezza - in meno di 30 minuti. Nessun team tecnico, nessun progetto di implementazione, nessun specialista esterno. I tuoi membri ricevono un link, fanno clic, votano e basta.",
@@ -5137,8 +5137,8 @@
       "title": "Alternative alle piattaforme di voto online - Vocdoni"
     },
     "api_sdk": {
-      "description": "",
-      "title": ""
+      "description": "Integra il voto verificabile nel tuo prodotto con l'SDK e l'API di Vocdoni. Codice reale per creare un censimento, avviare un'elezione, esprimere voti e leggere i risultati, più un frontend per i votanti già pronto.",
+      "title": "API e SDK di voto per sviluppatori - Vocdoni"
     },
     "app": {
       "description": "Inizia gratis, carica l'elenco elettori e pubblica risultati che i tuoi membri possono verificare. Pensata per organizzazioni che hanno bisogno di fiducia, velocità e prove.",
@@ -5655,7 +5655,7 @@
     "faq": {
       "eyebrow": "FAQ sui prezzi",
       "q1": {
-        "answer": "Sì. Puoi gestire una votazione reale e verificabile con un massimo di 50 votanti senza carta di credito. È il modo migliore per vedere come funziona Vocdoni prima di impegnarti.",
+        "answer": "Sì. Puoi gestire una votazione reale e verificabile con un massimo di 100 votanti senza carta di credito. È il modo migliore per vedere come funziona Vocdoni prima di impegnarti.",
         "question": "Il piano gratuito è davvero gratuito?"
       },
       "q2": {
@@ -5671,8 +5671,8 @@
         "question": "Posso modificare o annullare il mio piano?"
       },
       "q5": {
-        "answer": "",
-        "question": ""
+        "answer": "Sì. Puoi passare a un piano superiore o inferiore o annullare in qualsiasi momento. Ti aiuteremo a migrare il tuo censimento e lo storico se cambi piano.",
+        "question": "Posso modificare o annullare il mio piano?"
       },
       "title": "Domande su piani e preventivi"
     },
@@ -5707,30 +5707,30 @@
       }
     },
     "managed": {
-      "badge": "",
-      "cta_primary": "",
-      "cta_secondary": "",
-      "description": "",
-      "eyebrow": "",
-      "footnote": "",
+      "badge": "Oltre 5.000 votanti",
+      "cta_primary": "Richiedi un preventivo",
+      "cta_secondary": "Esplora le soluzioni",
+      "description": "Per voti delicati o complessi. Il nostro team si occupa di tutto dall'inizio alla fine - tu approvi solo la configurazione e annunci i risultati.",
+      "eyebrow": "Completamente gestito · Progetto su misura",
+      "footnote": "Ogni progetto su misura include le stesse garanzie di privacy e verificabilità dei nostri piani self-service.",
       "group_1": {
-        "heading": "",
-        "item_1": "",
-        "item_2": "",
-        "item_3": "",
-        "item_4": ""
+        "heading": "Accompagnamento esperto",
+        "item_1": "Project manager dedicato",
+        "item_2": "Riunioni di pianificazione periodiche",
+        "item_3": "Una votazione di prova completa prima del giorno delle elezioni",
+        "item_4": "Supporto esperto prima, durante e dopo il voto"
       },
       "group_2": {
-        "heading": "",
-        "item_1": "",
-        "item_2": "",
-        "item_3": "",
-        "item_4": "",
-        "item_5": ""
+        "heading": "Gestione totale",
+        "item_1": "Pagina di voto e branding personalizzati",
+        "item_2": "Flussi e integrazioni su misura (SSO, eIDAS)",
+        "item_3": "Costruiamo e validiamo il tuo censimento",
+        "item_4": "Configurazione, setup e messa a punto",
+        "item_5": "Verbale dei risultati e certificazione"
       },
-      "price_label": "",
-      "price_note": "",
-      "title": ""
+      "price_label": "Preventivo su misura",
+      "price_note": "Consigliato per elezioni oltre i 5.000 votanti o processi su misura.",
+      "title": "Progettiamo, gestiamo e consegniamo la tua elezione"
     },
     "related": {
       "security": "Come manteniamo i voti sicuri",
@@ -5759,28 +5759,28 @@
     "tiers": {
       "description": "Ogni piano include voto privato, risultati universalmente verificabili e una traccia di audit. I prezzi sono annuali, IVA esclusa.",
       "essential": {
-        "cta": "",
-        "description": "",
-        "feature_1": "",
-        "feature_2": "",
-        "feature_3": "",
-        "feature_4": "",
-        "more_1": "",
-        "more_2": "",
-        "more_3": "",
-        "more_4": "",
-        "more_5": "",
-        "name": "",
-        "note": "",
-        "price": "",
-        "subnote": ""
+        "cta": "Inizia gratis",
+        "description": "Per associazioni e club che gestiscono votazioni regolari.",
+        "feature_1": "Fino a 1.000 votanti",
+        "feature_2": "Processi di voto illimitati",
+        "feature_3": "Carica il tuo censimento (CSV o Excel)",
+        "feature_4": "Inviti e promemoria via email",
+        "more_1": "Più tipi di voto: singolo, a scelta multipla e ponderato",
+        "more_2": "Schede a più domande",
+        "more_3": "Verbale dei risultati scaricabile in PDF",
+        "more_4": "Monitoraggio della partecipazione in tempo reale",
+        "more_5": "Supporto via email",
+        "name": "Essential",
+        "note": "/ anno",
+        "price": "€590",
+        "subnote": "+€50 ogni 500 votanti aggiuntivi"
       },
       "eyebrow": "Piani",
       "footnote": "Hai bisogno di qualcosa nel mezzo? I piani scalano in base alla dimensione del tuo censimento, contattaci per la cifra esatta.",
       "free": {
         "cta": "Inizia gratis",
         "description": "Prova una votazione reale e verificabile con un piccolo gruppo.",
-        "feature_1": "Fino a 50 votanti",
+        "feature_1": "Fino a 100 votanti",
         "feature_2": "Schede private e verificabili",
         "feature_3": "Risultati immediati e pubblici",
         "feature_4": "Supporto via email",
@@ -5788,26 +5788,26 @@
         "note": "per sempre",
         "price": "€0"
       },
-      "less_label": "",
-      "more_label": "",
+      "less_label": "Mostra meno",
+      "more_label": "Vedi tutte le funzionalità",
       "premium": {
         "badge": "Più popolare",
         "cta": "Inizia gratis",
         "description": "Per collegi e federazioni con un gran numero di membri.",
-        "feature_1": "Fino a 10.000 votanti",
+        "feature_1": "Fino a 5.000 votanti",
         "feature_2": "Voto ibrido in presenza e da remoto",
         "feature_3": "Portale di voto personalizzato",
         "feature_4": "Supporto e onboarding prioritari",
-        "more_1": "",
-        "more_2": "",
-        "more_3": "",
-        "more_4": "",
-        "more_5": "",
-        "more_6": "",
+        "more_1": "Campi del censimento personalizzati e segmenti di votanti",
+        "more_2": "Voto ponderato e delegato",
+        "more_3": "PDF dei risultati avanzato con traccia di audit",
+        "more_4": "Votazioni programmate e ricorrenti",
+        "more_5": "Più amministratori",
+        "more_6": "Supporto e onboarding prioritari",
         "name": "Premium",
         "note": "/ anno",
         "price": "€1.890",
-        "subnote": ""
+        "subnote": "+€50 ogni 500 votanti aggiuntivi"
       },
       "title": "Scegli il piano adatto alla tua organizzazione"
     }
@@ -6204,8 +6204,8 @@
           "heading": "Mixnet"
         },
         "privacy": {
-          "body": "",
-          "heading": ""
+          "body": "Il gruppo di votanti a cui una singola scheda potrebbe plausibilmente appartenere. Più grande è l'insieme di privacy, più difficile è collegare una scheda a una persona. Un sistema robusto mantiene questo insieme grande quanto l'intero censimento.",
+          "heading": "Insieme di privacy"
         },
         "quorum": {
           "body": "La partecipazione minima richiesta affinché un voto sia valido. Se l'affluenza scende sotto il quorum fissato nelle tue regole, la decisione non viene approvata, indipendentemente da come si dividono i voti.",
@@ -7298,8 +7298,8 @@
         },
         "eyebrow": "Creato per la consultazione pubblica",
         "private": {
-          "description": "",
-          "title": ""
+          "description": "I residenti rispondono onestamente, sapendo che la loro risposta resta privata.",
+          "title": "Risposte private"
         },
         "questions": {
           "description": "Poni domande a scelta singola o multipla in un'unica consultazione.",

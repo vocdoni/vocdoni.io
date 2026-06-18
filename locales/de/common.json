@@ -445,8 +445,8 @@
           "title": "Rechtliche Absicherung"
         },
         "privacy": {
-          "description": "",
-          "title": ""
+          "description": "Stimmen bleiben von Grund auf privat, selbst gegenüber der Plattform.",
+          "title": "Geheime Stimmabgabe"
         },
         "support": {
           "description": "Ein Team, das hilft, die Abstimmung von Anfang bis Ende einzurichten und durchzuführen.",
@@ -581,8 +581,8 @@
           "title": "Hybride Abstimmung"
         },
         "privacy": {
-          "description": "",
-          "title": ""
+          "description": "Privates Abstimmen, das die Wahl jeder Bürgerin und jedes Bürgers privat hält.",
+          "title": "Geheime Stimmabgabe"
         },
         "support": {
           "description": "Ein Team, das hilft, das Pilotprojekt von der Einrichtung bis zu den Ergebnissen durchzuführen.",
@@ -1122,8 +1122,8 @@
         },
         "eyebrow": "Die Schutzmechanismen",
         "privacy": {
-          "description": "",
-          "title": ""
+          "description": "Stimmzettel lassen sich nicht mit Wählern verknüpfen, sodass niemand für seine Stimme genötigt, gekauft oder bestraft werden kann.",
+          "title": "Privatsphäre"
         },
         "secrecy": {
           "description": "Stimmzettel sind Ende zu Ende verschlüsselt, sodass selbst Betreiber einzelne Stimmen nicht lesen können.",
@@ -3675,162 +3675,162 @@
   "api_sdk": {
     "code": {
       "census": {
-        "description": "",
-        "label": ""
+        "description": "Verwandle die Nutzer, die bereits in deiner Datenbank sind, in stimmberechtigte Wähler.",
+        "label": "Wählerverzeichnis"
       },
       "client": {
-        "description": "",
-        "label": ""
+        "description": "Erstelle den Client mit einer Identität, die aus deinem eigenen Geheimnis abgeleitet wird, ganz ohne Krypto-Wallet.",
+        "label": "Client & Konto"
       },
-      "description": "",
+      "description": "Diese Snippets spiegeln die offiziellen SDK-Beispiele. Führe sie gegen die Dev- oder Staging-Umgebung aus, um eine funktionierende Wahl von Anfang bis Ende zu starten.",
       "election": {
-        "description": "",
-        "label": ""
+        "description": "Konfiguriere die Regeln, füge Fragen hinzu und veröffentliche die Wahl.",
+        "label": "Wahl"
       },
-      "eyebrow": "",
+      "eyebrow": "Schnellstart",
       "install": {
-        "description": "",
-        "label": ""
+        "description": "Füge das SDK mit deinem bevorzugten Paketmanager hinzu.",
+        "label": "Installation"
       },
       "results": {
-        "description": "",
-        "label": ""
+        "description": "Lies Live-Ergebnisse und verwalte den Lebenszyklus der Wahl.",
+        "label": "Ergebnisse"
       },
-      "title": "",
+      "title": "Echter Code, kopieren und einfügen, um loszulegen",
       "vote": {
-        "description": "",
-        "label": ""
+        "description": "Leite den Wähler nach deinem normalen Login erneut ab und gib dann den Stimmzettel ab.",
+        "label": "Stimme"
       }
     },
     "cta": {
-      "description": "",
-      "primary": "",
-      "secondary": "",
-      "title": ""
+      "description": "Lies die Doku, klone die Beispiele und starte deine erste verifizierbare Wahl kostenlos. Bei einer Integration nicht weiter? Unser Team hilft dir gern.",
+      "primary": "Entwicklerdoku öffnen",
+      "secondary": "Sprich mit unserem Team",
+      "title": "Beginne heute mit dem Entwickeln"
     },
     "frontend": {
       "block_1": {
-        "heading": "",
-        "paragraph_1": ""
+        "heading": "Die gehostete App nutzen",
+        "paragraph_1": "Jede Wahl, die du erstellst, ist sofort unter app.vocdoni.io/processes/<electionId> abstimmbar. Teile den Link und du bist fertig, ganz ohne Frontend-Arbeit."
       },
       "block_2": {
-        "bullet_1": "",
-        "bullet_2": "",
-        "bullet_3": "",
-        "heading": ""
+        "bullet_1": "Klone das vocdoni-app Repository und führe es mit pnpm start aus",
+        "bullet_2": "Wechsle zwischen Umgebungen mit der Variable VOCDONI_ENVIRONMENT (dev oder prod)",
+        "bullet_3": "Ordne deiner Organisation mit CUSTOM_ORGANIZATION_DOMAINS eine eigene Domain zu",
+        "heading": "Forke es und versieh es mit deiner Marke"
       },
       "block_3": {
-        "heading": "",
-        "paragraph_1": ""
+        "heading": "Ein Portal mit gemeinsamem Wählerverzeichnis einbetten",
+        "paragraph_1": "Die Seite mit gemeinsamem Wählerverzeichnis listet mehrere Wahlen auf einmal auf. Setze PROCESS_IDS auf die Wahlen, die du zeigen möchtest, füge pro Sprache einen eigenen Einleitungstext hinzu und bette optional mit STREAM_URL einen Livestream ein."
       },
-      "eyebrow": "",
-      "intro": "",
-      "title": ""
+      "eyebrow": "Wähler-Frontend",
+      "intro": "Die Vocdoni App ist dasselbe quelloffene React-Frontend, das app.vocdoni.io antreibt. Richte es auf eine Wahl-ID aus und deine Wähler erhalten eine getestete, barrierefreie Abstimmungsseite. Forke es, um es an deine Marke anzupassen.",
+      "title": "Eine Abstimmungsseite starten, ohne die UI zu bauen"
     },
     "hero": {
-      "bullet_1": "",
-      "bullet_2": "",
-      "bullet_3": "",
-      "cta_primary": "",
-      "cta_secondary": "",
-      "eyebrow": "",
-      "subtitle": "",
-      "title": ""
+      "bullet_1": "Quelloffenes SDK, veröffentlicht als @vocdoni/sdk auf npm",
+      "bullet_2": "TypeScript-Typen für Clients, Wählerverzeichnisse, Wahlen und Stimmen",
+      "bullet_3": "Kostenlos testbar, ohne Krypto-Wallets, ohne Tokens zum Kaufen und ohne Zahlung zum Start",
+      "cta_primary": "Entwicklerdoku lesen",
+      "cta_secondary": "Zum Schnellstart springen",
+      "eyebrow": "Entwickler",
+      "subtitle": "Mit dem Vocdoni SDK und der API erstellst du ein Wählerverzeichnis, startest eine Wahl und sammelst anonyme, durchgängig verifizierbare Stimmen mit wenigen Zeilen Code. Quelloffen, TypeScript-first und kostenlos zum Ausprobieren.",
+      "title": "Verifizierbares Abstimmen in dein eigenes Produkt integrieren"
     },
     "related": {
-      "app": "",
-      "app_desc": "",
-      "docs": "",
-      "docs_desc": "",
-      "integrations": "",
-      "integrations_desc": "",
-      "sdk": "",
-      "sdk_desc": "",
-      "title": ""
+      "app": "Vocdoni App auf GitHub",
+      "app_desc": "Das quelloffene Wähler-Frontend, das du forken und mit deiner Marke versehen kannst.",
+      "docs": "Entwicklerdokumentation",
+      "docs_desc": "API-Referenz, SDK-Anleitungen und Tutorials.",
+      "integrations": "Integrationen",
+      "integrations_desc": "SSO, CRM-Konnektoren und Importoptionen für das Wählerverzeichnis.",
+      "sdk": "Vocdoni SDK auf GitHub",
+      "sdk_desc": "Quellcode, Beispiele und Release Notes für @vocdoni/sdk.",
+      "title": "Ressourcen für Entwickler"
     },
     "showcase": {
       "anonymous": {
-        "description": "",
-        "title": ""
+        "description": "Aktiviere Zero-Knowledge-Beweise, damit Stimmzettel geheim bleiben und die Ergebnisse zugleich verifizierbar sind.",
+        "title": "Anonyme Stimme"
       },
       "custom_domain": {
-        "description": "",
-        "title": ""
+        "description": "Liefere das Wählererlebnis von deiner eigenen Domain aus, mit deinem Organisationsprofil als Startseite.",
+        "title": "Organisationsseite mit eigener Domain"
       },
-      "eyebrow": "",
+      "eyebrow": "Abstimmungsseiten, die du ausliefern kannst",
       "hybrid": {
-        "description": "",
-        "title": ""
+        "description": "Zeige mehrere aktive Wahlen auf einer Seite mit deiner Marke, für Versammlungen und Events mit mehreren Abstimmungen.",
+        "title": "Portal mit gemeinsamem Wählerverzeichnis"
       },
       "single": {
-        "description": "",
-        "title": ""
+        "description": "Eine Frage, eine Option wählen. Die klassische Ja/Nein- oder Kandidatenwahl, in Minuten startklar.",
+        "title": "Stimmzettel mit Einzelauswahl"
       },
       "survey": {
-        "description": "",
-        "title": ""
+        "description": "Verkette mehrere Fragen auf einem Stimmzettel für Satzungsabstimmungen oder Mitgliederbefragungen.",
+        "title": "Umfrage mit mehreren Fragen"
       },
-      "title": "",
+      "title": "Konfiguriere den Stimmzettel, der zu deiner Abstimmung passt",
       "weighted": {
-        "description": "",
-        "title": ""
+        "description": "Gib Wählern unterschiedliche Gewichte oder schränke die Teilnahme nach Mitgliedsstufe, Rolle oder gehaltenen Anteilen ein.",
+        "title": "Gewichtete oder eingeschränkte Stimme"
       }
     },
     "steps": {
-      "description": "",
-      "eyebrow": "",
+      "description": "Derselbe Ablauf treibt unsere eigene App an. Jeder Schritt ist ein einziger SDK-Aufruf, sodass du ihn in dein Backend einbinden oder direkt aus dem Browser ausführen kannst.",
+      "eyebrow": "Integrationsablauf",
       "step_1": {
-        "description": "",
-        "title": ""
+        "description": "Füge @vocdoni/sdk mit npm, yarn oder pnpm zu deinem Projekt hinzu.",
+        "title": "Das SDK installieren"
       },
       "step_2": {
-        "description": "",
-        "title": ""
+        "description": "Initialisiere den Client mit einer Umgebung und einem Signer und registriere dann ein vom Faucet finanziertes Konto.",
+        "title": "Einen Client und ein Konto erstellen"
       },
       "step_3": {
-        "description": "",
-        "title": ""
+        "description": "Lege fest, wer abstimmen darf: füge Adressen von Hand hinzu, synchronisiere aus deinem System oder gewähre Zugang über ein Token-Guthaben.",
+        "title": "Das Wählerverzeichnis aufbauen"
       },
       "step_4": {
-        "description": "",
-        "title": ""
+        "description": "Lege Titel, Daten und Regeln fest, füge deine Fragen und Optionen hinzu und veröffentliche die Wahl auf der Chain.",
+        "title": "Die Wahl erstellen"
       },
       "step_5": {
-        "description": "",
-        "title": ""
+        "description": "Prüfe, ob ein Wähler stimmberechtigt ist, reiche dann seine Auswahl ein und gib einen verifizierbaren Beleg zurück.",
+        "title": "Stimmen sammeln"
       },
       "step_6": {
-        "description": "",
-        "title": ""
+        "description": "Rufe Live-Auszählungen ab, verwalte den Lebenszyklus der Wahl und lass jeden das Ergebnis prüfen.",
+        "title": "Ergebnisse lesen und verifizieren"
       },
-      "title": ""
+      "title": "Von null zur Live-Wahl in sechs Schritten"
     },
     "why": {
       "anonymous": {
-        "description": "",
-        "title": ""
+        "description": "Setze ein einziges Flag, um eine Wahl mit Zero-Knowledge-Beweisen anonym zu machen, ganz ohne zusätzliche Infrastruktur.",
+        "title": "Anonyme Stimmzettel"
       },
       "api": {
-        "description": "",
-        "title": ""
+        "description": "Lieber rohes HTTP? Jeder SDK-Aufruf entspricht einem dokumentierten API-Endpunkt, den du aus jeder Sprache ansprechen kannst.",
+        "title": "Offene REST API"
       },
       "census": {
-        "description": "",
-        "title": ""
+        "description": "Baue Wählerlisten direkt aus den Nutzern auf, die bereits in deiner Datenbank sind, oder lass Vocdoni Wähler per E-Mail oder SMS verifizieren.",
+        "title": "Flexible Wählerverzeichnisse"
       },
-      "eyebrow": "",
+      "eyebrow": "Warum auf Vocdoni bauen",
       "frontend": {
-        "description": "",
-        "title": ""
+        "description": "Verwende die quelloffene Vocdoni App wieder, um Wählern eine ausgefeilte Abstimmungsseite zu bieten, ohne UI zu bauen.",
+        "title": "Fertiges Frontend"
       },
       "sdk": {
-        "description": "",
-        "title": ""
+        "description": "Ein typisierter Client, der im Browser und in Node funktioniert, mit einer Methode pro Abstimmungsaktion.",
+        "title": "TypeScript SDK"
       },
-      "title": "",
+      "title": "Alles, was du brauchst, um eine vertrauenswürdige Abstimmung auszuliefern",
       "verifiable": {
-        "description": "",
-        "title": ""
+        "description": "Jede Stimme erzeugt einen Beleg und jeder kann die Auszählung gegen die abgegebenen Stimmen prüfen.",
+        "title": "Verifizierbare Ergebnisse"
       }
     }
   },
@@ -4091,8 +4091,8 @@
     }
   },
   "code_block": {
-    "copied": "",
-    "copy": ""
+    "copied": "Kopiert",
+    "copy": "Code kopieren"
   },
   "compare": {
     "assembly_voting": {
@@ -4971,8 +4971,8 @@
         "question": "Ist Vocdoni Open Source?"
       },
       "privacy": {
-        "answer": "",
-        "question": ""
+        "answer": "Nein. Einzelne Stimmen sind durchgängig verschlüsselt, sodass niemand ein Mitglied mit seiner Wahl verknüpfen kann - weder der Organisator noch Vocdoni. Nur das aggregierte Ergebnis wird je offengelegt.",
+        "question": "Kann jemand sehen, wie ein Mitglied abgestimmt hat?"
       },
       "setup": {
         "answer": "Eine einzelne Person kann eine vollständige Wahl - Wählerliste, Stimmzettel, Zeitplan und Sicherheitseinstellungen - in unter 30 Minuten einrichten. Kein Technikteam, kein Einführungsprojekt, keine externen Spezialisten. Deine Mitglieder erhalten einen Link, klicken, stimmen ab, fertig.",
@@ -5137,8 +5137,8 @@
       "title": "Alternativen zu Online-Wahlplattformen - Vocdoni"
     },
     "api_sdk": {
-      "description": "",
-      "title": ""
+      "description": "Integriere verifizierbares Abstimmen mit dem Vocdoni SDK und der API in dein Produkt. Echter Code, um ein Wählerverzeichnis zu erstellen, eine Wahl zu starten, Stimmen abzugeben und Ergebnisse zu lesen, plus ein fertiges Wähler-Frontend.",
+      "title": "Abstimmungs-API und SDK für Entwickler - Vocdoni"
     },
     "app": {
       "description": "Kostenlos starten, Wählerliste hochladen und Ergebnisse veröffentlichen, die deine Mitglieder prüfen können. Gebaut für Organisationen, die Vertrauen, Tempo und Nachweise brauchen.",
@@ -5655,7 +5655,7 @@
     "faq": {
       "eyebrow": "Preis-FAQ",
       "q1": {
-        "answer": "Ja. Du kannst eine echte, verifizierbare Abstimmung mit bis zu 50 Wählern ohne Kreditkarte durchführen. Es ist die beste Art zu sehen, wie Vocdoni funktioniert, bevor du dich festlegst.",
+        "answer": "Ja. Du kannst eine echte, verifizierbare Abstimmung mit bis zu 100 Wählern ohne Kreditkarte durchführen. Es ist die beste Art zu sehen, wie Vocdoni funktioniert, bevor du dich festlegst.",
         "question": "Ist der kostenlose Tarif wirklich kostenlos?"
       },
       "q2": {
@@ -5671,8 +5671,8 @@
         "question": "Kann ich meinen Tarif ändern oder kündigen?"
       },
       "q5": {
-        "answer": "",
-        "question": ""
+        "answer": "Ja. Du kannst jederzeit upgraden, downgraden oder kündigen. Wir helfen dir, dein Wählerverzeichnis und deinen Verlauf zu migrieren, wenn du den Tarif wechselst.",
+        "question": "Kann ich meinen Tarif ändern oder kündigen?"
       },
       "title": "Fragen zu Tarifen und Angeboten"
     },
@@ -5707,30 +5707,30 @@
       }
     },
     "managed": {
-      "badge": "",
-      "cta_primary": "",
-      "cta_secondary": "",
-      "description": "",
-      "eyebrow": "",
-      "footnote": "",
+      "badge": "5.000+ Wähler",
+      "cta_primary": "Angebot anfordern",
+      "cta_secondary": "Lösungen erkunden",
+      "description": "Für besonders wichtige oder komplexe Abstimmungen. Unser Team kümmert sich von Anfang bis Ende um alles - du genehmigst nur das Setup und verkündest die Ergebnisse.",
+      "eyebrow": "Vollständig betreut · Individuelles Projekt",
+      "footnote": "Jedes individuelle Projekt umfasst dieselben Garantien für Privatsphäre und Verifizierbarkeit wie unsere Self-Service-Tarife.",
       "group_1": {
-        "heading": "",
-        "item_1": "",
-        "item_2": "",
-        "item_3": "",
-        "item_4": ""
+        "heading": "Begleitung durch Experten",
+        "item_1": "Dedizierter Projektmanager",
+        "item_2": "Regelmäßige Planungsbesprechungen",
+        "item_3": "Eine vollständige Probeabstimmung vor dem Wahltag",
+        "item_4": "Fachkundige Unterstützung vor, während und nach der Abstimmung"
       },
       "group_2": {
-        "heading": "",
-        "item_1": "",
-        "item_2": "",
-        "item_3": "",
-        "item_4": "",
-        "item_5": ""
+        "heading": "Vollständige Verwaltung",
+        "item_1": "Individuelle Abstimmungsseite und Branding",
+        "item_2": "Individuelle Abläufe und Integrationen (SSO, eIDAS)",
+        "item_3": "Wir erstellen und validieren dein Wählerverzeichnis",
+        "item_4": "Konfiguration, Einrichtung und Feinabstimmung",
+        "item_5": "Ergebnisbericht und Zertifizierung"
       },
-      "price_label": "",
-      "price_note": "",
-      "title": ""
+      "price_label": "Maßgeschneidertes Angebot",
+      "price_note": "Empfohlen für Wahlen mit mehr als 5.000 Wählern oder maßgeschneiderte Prozesse.",
+      "title": "Wir gestalten, führen durch und liefern deine Wahl"
     },
     "related": {
       "security": "Wie wir Stimmen sicher halten",
@@ -5759,28 +5759,28 @@
     "tiers": {
       "description": "Jeder Tarif beinhaltet private Abstimmung, universell verifizierbare Ergebnisse und einen Prüfpfad. Die Preise verstehen sich pro Jahr, zuzüglich MwSt.",
       "essential": {
-        "cta": "",
-        "description": "",
-        "feature_1": "",
-        "feature_2": "",
-        "feature_3": "",
-        "feature_4": "",
-        "more_1": "",
-        "more_2": "",
-        "more_3": "",
-        "more_4": "",
-        "more_5": "",
-        "name": "",
-        "note": "",
-        "price": "",
-        "subnote": ""
+        "cta": "Kostenlos starten",
+        "description": "Für Vereine und Clubs mit regelmäßigen Abstimmungen.",
+        "feature_1": "Bis zu 1.000 Wähler",
+        "feature_2": "Unbegrenzte Abstimmungsprozesse",
+        "feature_3": "Lade dein eigenes Wählerverzeichnis hoch (CSV oder Excel)",
+        "feature_4": "E-Mail-Einladungen und Erinnerungen",
+        "more_1": "Mehrere Abstimmungsarten: Einzel-, Mehrfachauswahl und gewichtet",
+        "more_2": "Stimmzettel mit mehreren Fragen",
+        "more_3": "Herunterladbarer Ergebnisbericht als PDF",
+        "more_4": "Beteiligungsverfolgung in Echtzeit",
+        "more_5": "E-Mail-Support",
+        "name": "Essential",
+        "note": "/ Jahr",
+        "price": "590 €",
+        "subnote": "+50 € pro weitere 500 Wähler"
       },
       "eyebrow": "Tarife",
       "footnote": "Brauchst du etwas dazwischen? Die Tarife skalieren mit der Größe deines Wählerverzeichnisses - sprich mit uns für die genaue Zahl.",
       "free": {
         "cta": "Kostenlos starten",
         "description": "Teste eine echte, verifizierbare Abstimmung mit einer kleinen Gruppe.",
-        "feature_1": "Bis zu 50 Wähler",
+        "feature_1": "Bis zu 100 Wähler",
         "feature_2": "Private, verifizierbare Stimmzettel",
         "feature_3": "Sofortige, öffentliche Ergebnisse",
         "feature_4": "E-Mail-Support",
@@ -5788,26 +5788,26 @@
         "note": "für immer",
         "price": "0 €"
       },
-      "less_label": "",
-      "more_label": "",
+      "less_label": "Weniger anzeigen",
+      "more_label": "Alle Funktionen ansehen",
       "premium": {
         "badge": "Am beliebtesten",
         "cta": "Kostenlos starten",
         "description": "Für Kammern und Verbände mit großen Mitgliederzahlen.",
-        "feature_1": "Bis zu 10.000 Wähler",
+        "feature_1": "Bis zu 5.000 Wähler",
         "feature_2": "Hybride Präsenz- und Fernabstimmung",
         "feature_3": "Gebrandetes Wahlportal",
         "feature_4": "Priorisierter Support und Onboarding",
-        "more_1": "",
-        "more_2": "",
-        "more_3": "",
-        "more_4": "",
-        "more_5": "",
-        "more_6": "",
+        "more_1": "Individuelle Felder im Wählerverzeichnis und Wählersegmente",
+        "more_2": "Gewichtetes und delegiertes Abstimmen",
+        "more_3": "Erweiterter Ergebnis-PDF mit Prüfpfad",
+        "more_4": "Geplante und wiederkehrende Abstimmungen",
+        "more_5": "Mehrere Administratoren",
+        "more_6": "Priorisierter Support und Onboarding",
         "name": "Premium",
         "note": "/ Jahr",
         "price": "1.890 €",
-        "subnote": ""
+        "subnote": "+50 € pro weitere 500 Wähler"
       },
       "title": "Wähle den Tarif, der zu deiner Organisation passt"
     }
@@ -6204,8 +6204,8 @@
           "heading": "Mixnet"
         },
         "privacy": {
-          "body": "",
-          "heading": ""
+          "body": "Die Gruppe von Wählern, zu der ein einzelner Stimmzettel plausibel gehören könnte. Je größer die Anonymitätsgruppe, desto schwerer lässt sich ein Stimmzettel mit einer Person verknüpfen. Ein starkes System hält diese Gruppe so groß wie das gesamte Wählerverzeichnis.",
+          "heading": "Anonymitätsgruppe"
         },
         "quorum": {
           "body": "Die für die Gültigkeit einer Abstimmung erforderliche Mindestbeteiligung. Fällt die Beteiligung unter das in deinen Regeln festgelegte Quorum, kommt die Entscheidung nicht zustande, unabhängig davon, wie sich die Stimmen verteilen.",
@@ -7298,8 +7298,8 @@
         },
         "eyebrow": "Entwickelt für öffentliche Befragungen",
         "private": {
-          "description": "",
-          "title": ""
+          "description": "Bürger antworten ehrlich, weil sie wissen, dass ihre Antwort privat bleibt.",
+          "title": "Private Antworten"
         },
         "questions": {
           "description": "Stelle Einzel- oder Mehrfachauswahlfragen in einer Befragung.",
