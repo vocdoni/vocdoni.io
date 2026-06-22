@@ -51,7 +51,7 @@ export function CaseStudyPage({ content, logo, image, blogHref, solutionHref }: 
             <img
               src={logo}
               alt={content.org}
-              className='size-14 rounded-full bg-white object-contain p-1 shadow-sm ring-1 ring-black/10'
+              className='size-14 rounded-full bg-white object-contain p-1 shadow-sm image-outline'
             />
             <div>
               <p className='text-primary text-sm font-medium uppercase tracking-wide'>{content.eyebrow}</p>
