@@ -31,7 +31,7 @@ export default function TrustedBySection() {
               key={i}
               src={logo.url}
               alt={logo.name}
-              className='h-10 w-auto object-contain opacity-70 grayscale transition-all duration-300 hover:grayscale-0 hover:opacity-100 dark:invert'
+              className='h-10 w-auto object-contain opacity-70 grayscale transition-[opacity,filter] duration-300 hover:grayscale-0 hover:opacity-100 dark:invert'
               width={160}
               height={40}
               decoding='async'

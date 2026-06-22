@@ -161,7 +161,7 @@ const SuccessStories = () => {
                       <img
                         src={story.image}
                         alt={story.org}
-                        className='h-full w-full object-cover lg:min-h-[500px]'
+                        className='h-full w-full object-cover lg:min-h-[500px] image-outline'
                         width={story.imageWidth}
                         height={story.imageHeight}
                         loading='lazy'
@@ -173,7 +173,7 @@ const SuccessStories = () => {
                           <img
                             src={story.logo}
                             alt={story.org}
-                            className='size-[60px] rounded-full bg-white object-contain p-1'
+                            className='size-[60px] rounded-full bg-white object-contain p-1 image-outline'
                             width={60}
                             height={60}
                             loading='lazy'
@@ -203,7 +203,7 @@ const SuccessStories = () => {
                         <div className='mb-6 grid grid-cols-3 gap-4 border-y py-6'>
                           {story.stats.map((stat, idx) => (
                             <div key={idx}>
-                              <p className='text-primary mb-1 text-2xl font-bold'>{stat.value}</p>
+                              <p className='text-primary mb-1 text-2xl font-bold tabular-nums'>{stat.value}</p>
                               <p className='mb-1 text-xs font-semibold'>{stat.label}</p>
                               <p className='text-muted-foreground text-xs'>{stat.description}</p>
                             </div>

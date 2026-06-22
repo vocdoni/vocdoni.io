@@ -107,7 +107,7 @@ const ContactUs = () => {
                         </div>
                         <div>
                           <Link
-                            className='text-lg font-bold hover:underline decoration-2 underline-offset-2 transition-all'
+                            className='text-lg font-bold hover:underline decoration-2 underline-offset-2 transition-colors'
                             href='mailto:contact@vocdoni.org'
                             variant='unstyled'
                           >

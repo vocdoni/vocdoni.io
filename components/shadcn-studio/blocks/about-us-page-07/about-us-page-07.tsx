@@ -63,7 +63,7 @@ const AboutUs = ({
                         key={tab.id}
                         onClick={() => setActiveTab(tab.id)}
                         className={cn(
-                          'px-6 py-2 rounded-lg text-sm font-semibold transition-all duration-200',
+                          'px-6 py-2 rounded-lg text-sm font-semibold transition-colors duration-200',
                           activeTab === tab.id
                             ? 'bg-background text-foreground shadow-sm'
                             : 'text-muted-foreground hover:text-foreground'
@@ -109,7 +109,7 @@ const AboutUs = ({
                   inViewOnce
                   className='h-full'
                 >
-                  <Card className='h-full border border-primary/10 hover:border-primary/30 rounded-2xl shadow-none transition-all duration-300 hover:bg-primary/[0.02]'>
+                  <Card className='h-full border border-primary/10 hover:border-primary/30 rounded-2xl shadow-none transition-colors duration-300 hover:bg-primary/[0.02]'>
                     <CardHeader className='p-6'>
                       <CardTitle className='text-2xl font-bold text-primary'>{stat.title}</CardTitle>
                       <CardDescription className='text-base font-medium text-foreground/80'>

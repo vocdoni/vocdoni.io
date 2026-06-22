@@ -17,10 +17,10 @@ const linkVariants = cva('transition-colors', {
       footerNav: 'text-sm text-muted-foreground hover:text-foreground transition-colors',
       footerLegal: 'text-muted-foreground hover:text-foreground transition-colors',
       heroBadge:
-        'inline-flex items-center gap-2 sm:gap-3 p-1 rounded-3xl border border-border/40 bg-muted/20 text-xs transition-all hover:bg-muted/30 group cursor-pointer max-w-full shadow-sm',
+        'inline-flex items-center gap-2 sm:gap-3 p-1 rounded-3xl border border-border/40 bg-muted/20 text-xs transition-colors hover:bg-muted/30 group cursor-pointer max-w-full shadow-sm',
       inlineIcon: 'inline-flex items-center gap-2',
       dropdownItem:
-        'relative flex w-full items-center justify-between px-3 py-2 rounded-md transition-all cursor-pointer',
+        'relative flex w-full items-center justify-between px-3 py-2 rounded-md transition-colors cursor-pointer',
       card: 'block h-full overflow-hidden rounded-md',
       unstyled: '',
     },

@@ -52,11 +52,7 @@ export default function AppHeroWithVideo() {
                 'aria-label': t('vocdoni_app.app_hero.cta_group_label', 'App actions'),
               }}
             >
-              <Button
-                size='lg'
-                className='group text-base transition-all duration-300 has-[>svg]:px-6 w-full sm:w-auto'
-                asChild
-              >
+              <Button size='lg' className='group text-base has-[>svg]:px-6 w-full sm:w-auto' asChild>
                 <Link
                   href='https://app.vocdoni.io'
                   target='_blank'
@@ -115,7 +111,7 @@ export default function AppHeroWithVideo() {
           >
             <div
               id='app-demo-video'
-              className='aspect-video w-full sm:w-11/12 lg:w-full mx-auto rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500 border border-border/50 relative bg-muted'
+              className='aspect-video w-full sm:w-11/12 lg:w-full mx-auto rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-shadow duration-500 border border-border/50 relative bg-muted'
             >
               <CleanYoutubePlayer
                 videoId={VIDEO_ID}

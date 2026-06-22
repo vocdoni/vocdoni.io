@@ -95,11 +95,7 @@ const Hero = () => {
 
             <MotionPreset fade slide delay={0.3} transition={{ duration: 0.5 }}>
               <div className='flex flex-col sm:flex-row gap-4 w-full sm:w-auto'>
-                <Button
-                  size='lg'
-                  className='group text-base transition-all duration-300 has-[>svg]:px-6 w-full sm:w-auto'
-                  asChild
-                >
+                <Button size='lg' className='group text-base has-[>svg]:px-6 w-full sm:w-auto' asChild>
                   <Link href='https://app.vocdoni.io' variant='inlineIcon'>
                     {t('hero.cta_primary')}
                     <ArrowRight
@@ -187,7 +183,7 @@ const Hero = () => {
                 <div className='absolute -left-10 top-[48px] w-10 h-px border-t border-dashed border-primary/40' />
                 <div className='absolute -left-10 top-[43px] w-2.5 h-2.5 -translate-x-1/2 rounded-full bg-background border-2 border-primary z-20 shadow-[0_0_8px_theme(colors.primary.DEFAULT)]' />
 
-                <div className='transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-primary/10 rounded-2xl bg-background/60 backdrop-blur-xl border border-primary/10 relative overflow-hidden group'>
+                <div className='card-hover hover:shadow-primary/10 rounded-2xl bg-background/60 backdrop-blur-xl border border-primary/10 relative overflow-hidden group'>
                   <div className='absolute inset-0 bg-gradient-to-tr from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500' />
                   <CensusCard />
                 </div>
@@ -208,7 +204,7 @@ const Hero = () => {
                 <div className='absolute -left-10 top-[44px] w-10 h-px border-t border-dashed border-primary/40' />
                 <div className='absolute -left-10 top-[39px] w-2.5 h-2.5 -translate-x-1/2 rounded-full bg-background border-2 border-primary z-20 shadow-[0_0_8px_theme(colors.primary.DEFAULT)]' />
 
-                <div className='transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-primary/10 rounded-2xl bg-background/60 backdrop-blur-xl border border-primary/10 relative overflow-hidden group'>
+                <div className='card-hover hover:shadow-primary/10 rounded-2xl bg-background/60 backdrop-blur-xl border border-primary/10 relative overflow-hidden group'>
                   <div className='absolute inset-0 bg-gradient-to-tr from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500' />
                   <VotingCard animated={true} />
                 </div>
@@ -229,7 +225,7 @@ const Hero = () => {
                 <div className='absolute -left-10 top-[40px] w-10 h-px border-t border-dashed border-primary/40' />
                 <div className='absolute -left-10 top-[35px] w-2.5 h-2.5 -translate-x-1/2 rounded-full bg-background border-2 border-primary z-20 shadow-[0_0_8px_theme(colors.primary.DEFAULT)]' />
 
-                <div className='transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-primary/10 rounded-2xl bg-background/60 backdrop-blur-xl border border-primary/10 relative overflow-hidden group'>
+                <div className='card-hover hover:shadow-primary/10 rounded-2xl bg-background/60 backdrop-blur-xl border border-primary/10 relative overflow-hidden group'>
                   <div className='absolute inset-0 bg-gradient-to-tr from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500' />
                   <ResultsCard animated={true} />
                 </div>

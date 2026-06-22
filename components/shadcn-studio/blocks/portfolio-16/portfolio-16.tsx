@@ -66,7 +66,7 @@ const Portfolio = ({ portfolioItems }: PortfolioProps) => {
                   className='flex h-full w-full text-left'
                 >
                   <Card
-                    className={`group relative flex h-full w-full flex-col justify-between overflow-hidden border-none pb-0 shadow-none transition-all duration-300 ${project.backgroundColor}`}
+                    className={`group relative flex h-full w-full flex-col justify-between overflow-hidden border-none pb-0 shadow-none transition-colors duration-300 ${project.backgroundColor}`}
                   >
                     <CardContent className='p-6 md:p-8 space-y-3'>
                       <CardTitle className='text-primary line-clamp-2 text-lg font-semibold'>{project.title}</CardTitle>
@@ -102,7 +102,7 @@ const Portfolio = ({ portfolioItems }: PortfolioProps) => {
                   className='flex h-full w-full'
                 >
                   <Card
-                    className={`group relative flex h-full w-full flex-col justify-between overflow-hidden border-none pb-0 shadow-none transition-all duration-300 ${project.backgroundColor}`}
+                    className={`group relative flex h-full w-full flex-col justify-between overflow-hidden border-none pb-0 shadow-none transition-colors duration-300 ${project.backgroundColor}`}
                   >
                     <CardContent className='p-6 md:p-8 space-y-3'>
                       <CardTitle className='text-primary line-clamp-2 text-lg font-semibold'>{project.title}</CardTitle>
