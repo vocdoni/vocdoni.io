@@ -289,7 +289,7 @@
 }
 
 @layer components {
-  /* Tactile press feedback — scoped transition (never `all`). */
+  /* Tactile press feedback - scoped transition (never `all`). */
   .press-scale {
     transition: scale 150ms cubic-bezier(0.2, 0, 0, 1);
   }
