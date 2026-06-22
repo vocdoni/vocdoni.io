@@ -89,7 +89,7 @@ export function CaseStudyPage({ content, logo, image, blogHref, solutionHref }: 
             <img
               src={image}
               alt={content.org}
-              className='aspect-video w-full rounded-2xl object-cover shadow-sm ring-1 ring-black/10'
+              className='aspect-video w-full rounded-2xl object-cover shadow-sm image-outline'
             />
           </Container>
         </section>
