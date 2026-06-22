@@ -76,7 +76,7 @@ export default function SocialProof() {
         <div className='mt-10 grid gap-4 rounded-3xl border border-border/70 bg-background p-6 shadow-sm sm:grid-cols-3'>
           {stats.map((stat) => (
             <div key={stat.label} className='text-center'>
-              <div className='text-3xl font-semibold text-primary'>{stat.value}</div>
+              <div className='text-3xl font-semibold text-primary tabular-nums'>{stat.value}</div>
               <p className='mt-1 text-sm text-muted-foreground'>{stat.label}</p>
             </div>
           ))}

@@ -96,7 +96,7 @@ export const VotingCard = ({ animated = false }: { animated?: boolean }) => {
       <CardContent className='p-4 pt-0'>
         <div className='flex items-center justify-between mb-3'>
           <div className='text-xs text-muted-foreground'>{t('hero_cards.participation')}</div>
-          <div className='font-bold text-sm'>78.4%</div>
+          <div className='font-bold text-sm tabular-nums'>78.4%</div>
         </div>
         <div className='h-1.5 w-full bg-muted rounded-full overflow-hidden mb-3'>
           {animated && !reducedMotion ? (
@@ -157,7 +157,7 @@ export const ResultsCard = ({ animated = false }: { animated?: boolean }) => {
               <div key={i} className='flex flex-col gap-1'>
                 <div className='flex justify-between text-[10px]'>
                   <span>{opt.label}</span>
-                  <span className='font-medium'>{opt.val}%</span>
+                  <span className='font-medium tabular-nums'>{opt.val}%</span>
                 </div>
                 <div className='h-1 w-full bg-muted rounded-full overflow-hidden'>
                   {animated && !reducedMotion ? (

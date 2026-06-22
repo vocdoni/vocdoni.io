@@ -53,7 +53,7 @@ const AvatarGroupTooltipDemo = () => {
           onMouseEnter={() => setHoveredIndex(index)}
           onMouseLeave={() => setHoveredIndex(null)}
         >
-          <Avatar className='ring-background ring-2 transition-all duration-300 ease-in-out hover:z-10 hover:-translate-y-1 hover:shadow-md'>
+          <Avatar className='ring-background ring-2 transition-[transform,box-shadow] duration-300 ease-in-out hover:z-10 hover:-translate-y-1 hover:shadow-md'>
             <AvatarImage src={avatar.src} alt={avatar.name} />
             <AvatarFallback className='text-xs'>{avatar.fallback}</AvatarFallback>
           </Avatar>

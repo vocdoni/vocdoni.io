@@ -51,7 +51,7 @@ export function YoutubeFacade({ videoId, posterUrl, title, className = '', autop
           <img
             src={posterUrl}
             alt={title}
-            className='absolute inset-0 w-full h-full object-cover'
+            className='absolute inset-0 w-full h-full object-cover image-outline'
             decoding='async'
             width={1280}
             height={720}

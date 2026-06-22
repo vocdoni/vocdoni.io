@@ -244,7 +244,7 @@ export function SolutionPage({ icon: Icon, content, logos, caseStudyHref }: Solu
                         key={logo.alt}
                         src={logo.src}
                         alt={logo.alt}
-                        className='h-8 w-auto max-w-[110px] object-contain opacity-80 grayscale transition-all duration-200 hover:opacity-100 hover:grayscale-0'
+                        className='h-8 w-auto max-w-[110px] object-contain opacity-80 grayscale transition-[opacity,filter] duration-200 hover:opacity-100 hover:grayscale-0'
                       />
                     ))}
                   </div>

@@ -48,7 +48,11 @@ export function CaseStudyPage({ content, logo, image, blogHref, solutionHref }: 
       <section className='pt-6 pb-10 sm:pt-10 lg:pt-12'>
         <Container className='max-w-4xl'>
           <div className='mb-6 flex items-center gap-4'>
-            <img src={logo} alt={content.org} className='size-14 rounded-full bg-white object-contain p-1 shadow-sm' />
+            <img
+              src={logo}
+              alt={content.org}
+              className='size-14 rounded-full bg-white object-contain p-1 shadow-sm ring-1 ring-black/10'
+            />
             <div>
               <p className='text-primary text-sm font-medium uppercase tracking-wide'>{content.eyebrow}</p>
               <p className='text-lg font-semibold'>{content.org}</p>
@@ -82,7 +86,11 @@ export function CaseStudyPage({ content, logo, image, blogHref, solutionHref }: 
       {image && (
         <section className='pb-10'>
           <Container className='max-w-4xl'>
-            <img src={image} alt={content.org} className='aspect-video w-full rounded-2xl object-cover shadow-sm' />
+            <img
+              src={image}
+              alt={content.org}
+              className='aspect-video w-full rounded-2xl object-cover shadow-sm ring-1 ring-black/10'
+            />
           </Container>
         </section>
       )}
@@ -94,7 +102,7 @@ export function CaseStudyPage({ content, logo, image, blogHref, solutionHref }: 
             <div className='grid grid-cols-1 gap-4 rounded-2xl border bg-muted/40 p-6 sm:grid-cols-3 sm:p-8'>
               {stats.map((stat, index) => (
                 <div key={index} className='text-center sm:text-left'>
-                  <p className='text-primary text-3xl font-bold'>{stat.value}</p>
+                  <p className='text-primary text-3xl font-bold tabular-nums'>{stat.value}</p>
                   <p className='mt-1 text-sm font-semibold'>{stat.label}</p>
                   <p className='text-muted-foreground text-xs'>{stat.description}</p>
                 </div>

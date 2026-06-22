@@ -160,7 +160,7 @@ const UseCasesGrid = () => {
           {useCases.map((useCase) => {
             const Icon = useCase.icon
             return (
-              <Card key={useCase.key} className='group flex flex-col transition-all duration-300 hover:shadow-lg'>
+              <Card key={useCase.key} className='group flex flex-col transition-shadow duration-300 hover:shadow-lg'>
                 <CardContent className='flex flex-grow flex-col p-6'>
                   {/* Icon & title */}
                   <div className='mb-6 space-y-4'>
@@ -209,7 +209,7 @@ const UseCasesGrid = () => {
                               key={logo.alt}
                               src={logo.src}
                               alt={logo.alt}
-                              className='h-6 w-auto max-w-[80px] object-contain opacity-70 grayscale transition-all duration-200 group-hover:opacity-100 group-hover:grayscale-0'
+                              className='h-6 w-auto max-w-[80px] object-contain opacity-70 grayscale transition-[opacity,filter] duration-200 group-hover:opacity-100 group-hover:grayscale-0'
                               width={80}
                               height={24}
                               loading='lazy'

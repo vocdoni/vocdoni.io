@@ -95,7 +95,7 @@ export function SolutionsIndex() {
               const card = cards[slug]
               if (!card) return null
               return (
-                <Card key={slug} className='group h-full transition-all duration-300 hover:shadow-lg'>
+                <Card key={slug} className='group h-full transition-shadow duration-300 hover:shadow-lg'>
                   <Link href={href} variant='unstyled' className='block h-full'>
                     <CardContent className='flex h-full flex-col gap-4 p-6'>
                       <div className='bg-primary/10 text-primary inline-flex size-12 items-center justify-center rounded-lg'>
