@@ -306,7 +306,7 @@
   }
   .card-hover:hover {
     transform: translateY(-0.25rem);
-    box-shadow: var(--shadow-xl);
+    @apply shadow-xl;
   }
 }
 
