@@ -281,10 +281,15 @@
   /* Subtle 1px media edge - inset box-shadow follows border-radius and is never clipped
      by overflow-hidden parents. Pure black (light) / pure white (dark) for future-readiness. */
   .image-outline {
-    box-shadow: inset 0 0 0 1px rgb(0 0 0 / 0.1);
+    --tw-image-outline-shadow: inset 0 0 0 1px rgb(0 0 0 / 0.1);
+    box-shadow:
+      var(--tw-ring-offset-shadow, 0 0 #0000),
+      var(--tw-ring-shadow, 0 0 #0000),
+      var(--tw-shadow, 0 0 #0000),
+      var(--tw-image-outline-shadow);
   }
   .dark .image-outline {
-    box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.1);
+    --tw-image-outline-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.1);
   }
 }
 
