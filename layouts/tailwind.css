@@ -301,6 +301,14 @@
   .press-scale:active {
     scale: 0.96;
   }
+  @supports not (scale: 1) {
+    .press-scale {
+      transition: transform 150ms cubic-bezier(0.2, 0, 0, 1);
+    }
+    .press-scale:active {
+      transform: scale(0.96);
+    }
+  }
 
   /* Centralizes the repeated `transition-all duration-300 hover:-translate-y-1 hover:shadow-xl`
      card pattern into one scoped, reusable class. */
