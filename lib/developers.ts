@@ -6,7 +6,7 @@ export const DEVELOPERS_BASE = '/developers'
 export const DEVELOPERS_DOCS_BASE = '/developers/docs'
 
 // Integrator login (API Dashboard). Not live yet - safe to update here later.
-export const DEVELOPERS_DASHBOARD_URL = 'https://developers.vocdoni.io/login'
+export const DEVELOPERS_DASHBOARD_URL = 'https://developer.vocdoni.io/login'
 
 // Production SaaS API base URL surfaced in the reference. Confirm before launch.
 export const DEVELOPERS_API_BASE_URL = 'https://api-saas.vocdoni.io'
