@@ -44,10 +44,10 @@ export function DocCard({ href, title, description, icon: Icon, eyebrow, externa
           </span>
         ) : null}
         {eyebrow ? <span className='text-xs font-medium uppercase tracking-wide text-primary'>{eyebrow}</span> : null}
-        <h3 className='flex items-center gap-1.5 text-base font-semibold text-foreground'>
+        <div className='flex items-center gap-1.5 text-base font-semibold text-foreground'>
           {title}
           <ArrowRight className='size-4 text-muted-foreground transition-transform group-hover:translate-x-0.5 group-hover:text-primary' />
-        </h3>
+        </div>
         {description ? <p className='text-sm leading-relaxed text-muted-foreground'>{description}</p> : null}
       </Link>
     </Card>
