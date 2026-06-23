@@ -18,8 +18,8 @@ body {
   overflow-x: clip;
 }
 html {
-  /* Offset in-page anchor jumps so targets land below the fixed navbar. */
-  scroll-padding-top: 6rem;
+  /* Offset in-page anchor jumps so targets land clearly below the fixed navbar. */
+  scroll-padding-top: 7.5rem;
 }
 @media (prefers-reduced-motion: no-preference) {
   html {

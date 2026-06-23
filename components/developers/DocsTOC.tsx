@@ -41,7 +41,7 @@ export function DocsTOC() {
     // Active = the last heading whose top has scrolled above the navbar line.
     // A scroll-driven check is more reliable than IntersectionObserver for tall
     // sections and pins the final heading once the page is scrolled to the end.
-    const NAV_OFFSET = 104
+    const NAV_OFFSET = 120
     let frame = 0
 
     const update = () => {
