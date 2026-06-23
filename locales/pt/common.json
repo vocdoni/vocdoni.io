@@ -2354,6 +2354,458 @@
     "reject": "Rejeitar",
     "title": "Consentimento de cookies"
   },
+  "developers": {
+    "docs": {
+      "api_keys": {
+        "create_body": "Create a key with a descriptive label and the scopes it needs. The full secret is returned only in this response - store it immediately in your secret manager.",
+        "create_title": "Creating a key",
+        "f_expires": "Optional expiry timestamp; omit for a non-expiring key.",
+        "f_label": "A human-readable name to recognise the key later.",
+        "f_scopes": "The permissions the key grants. Request only what you need.",
+        "lead": "API keys let your backend authenticate without a password. Each key belongs to an organization, carries a set of scopes and an optional expiry, and can be revoked at any time.",
+        "manage_body": "List the keys for an organization to review their scopes and last use, and revoke any key immediately when it is no longer needed or may be compromised.",
+        "manage_title": "Listing and revoking",
+        "scopes_body": "Scopes restrict what a key can do. Grant the minimum a workload needs, use separate keys per environment, and rotate them periodically. The scopes available to you are shown in the API Dashboard when you create a key.",
+        "scopes_title": "About scopes",
+        "secret_body": "The secret cannot be retrieved after creation. If you lose it, revoke the key and create a new one. Only the key metadata - id, prefix, scopes and timestamps - is available afterwards.",
+        "secret_title": "Store the secret now",
+        "title": "API keys",
+        "use_body": "Send the key as a bearer token, exactly like a login token. The prefix is safe to log for identification; the full secret is not.",
+        "use_title": "Using a key"
+      },
+      "api_reference": {
+        "base_body": "All endpoints share one base URL. Authenticated endpoints expect an Authorization header with a bearer token in JWT format, obtained by logging in or from an API key.",
+        "base_note_body": "Use the production host shown in your API Dashboard. The examples in these docs use a representative base URL.",
+        "base_note_title": "Confirm your base URL",
+        "base_title": "Base URL and authentication",
+        "endpoints_title": "Endpoints by resource",
+        "errors_body": "Errors return a consistent shape with an application code, the HTTP status and a message. Use httpstatus for control flow and code for precise handling.",
+        "errors_title": "Errors",
+        "group_auth": "Authentication",
+        "group_census": "Census",
+        "group_jobs": "Jobs and integrator",
+        "group_members": "Members and groups",
+        "group_orgs": "Organizations",
+        "group_processes": "Processes and results",
+        "lead": "A map of the SaaS API: base URL, authentication, the conventions shared across endpoints, and every endpoint grouped by resource. For machine-readable detail, use the OpenAPI specification.",
+        "openapi_link": "OpenAPI specification",
+        "openapi_post": ".",
+        "openapi_pre": "For the complete, machine-readable contract, see the ",
+        "p_current": "The page you requested.",
+        "p_last": "The final page available.",
+        "p_next": "The next page, when there is one.",
+        "p_total": "Total items across all pages.",
+        "pagination_body": "List endpoints accept page and limit query parameters and wrap results with a pagination object. Some lists also accept a search term or a type filter.",
+        "pagination_title": "Pagination",
+        "title": "API reference"
+      },
+      "authentication": {
+        "apikeys_body": "For automated, server-to-server integrations, issue a scoped API key instead of logging in with a password. Keys are created per organization, carry a set of scopes and an optional expiry, and can be revoked at any time.",
+        "apikeys_link": "API keys",
+        "apikeys_more": "See ",
+        "apikeys_more_end": " for the full lifecycle and best practices.",
+        "apikeys_title": "API keys",
+        "field_email": "The account email address.",
+        "field_password": "The account password.",
+        "intro": "All authenticated endpoints expect an Authorization header. The security scheme is a standard HTTP bearer token in JWT format.",
+        "lead": "The Vocdoni API authenticates requests with a bearer token. You obtain a token by logging in with email and password or OAuth, or you issue a long-lived API key for server-to-server use.",
+        "login_body": "Exchange credentials for a token. The response contains the token and its expiry time.",
+        "login_title": "Logging in",
+        "oauth_body": "Users can also authenticate through Google, GitHub or Facebook. The login call returns a registered flag indicating whether a new account was created. You can link or unlink providers on an existing account.",
+        "oauth_title": "OAuth",
+        "refresh_body": "Before a token expires, call refresh with the current token to receive a new one without asking the user to log in again.",
+        "refresh_title": "Refreshing a token",
+        "secret_body": "The full API key secret is returned only when you create it. Store it securely - it cannot be retrieved again, only revoked and replaced.",
+        "secret_title": "The secret is shown once",
+        "title": "Authentication",
+        "use_body": "Send the token as a bearer token on every request. Tokens are short lived, so treat them as session credentials rather than long-term secrets.",
+        "use_title": "Using the token"
+      },
+      "census": {
+        "create_body": "Create a census for an organization, declaring the authentication and two-factor fields it will use. The response returns the census id.",
+        "create_title": "Creating a census",
+        "f_authfields": "Fields the voter must provide to authenticate.",
+        "f_orgaddress": "The organization the census belongs to.",
+        "f_twofafields": "Channels for the second factor: email or phone.",
+        "fields_body": "Auth fields can include memberNumber, name, surname, nationalId and birthDate. Two-factor fields can be email or phone. The type is derived from the two-factor fields you choose.",
+        "group_body": "You can publish a census directly from a member group, optionally weighting votes by the member weight field. This is the quickest way to turn a saved group into an eligible voter list.",
+        "group_title": "Publishing from a group",
+        "lead": "A census is the list of who can vote in an election and how they prove who they are. Publishing a census produces a cryptographic root that binds the eligible voters to a process.",
+        "populate_body": "Add existing organization members to the census, then publish it. Members already present are skipped. Publishing returns the census root, its URI and final size - after this the census is locked for voting.",
+        "populate_title": "Adding voters and publishing",
+        "title": "Census",
+        "type_auth": " - voters authenticate with known fields only.",
+        "type_mail": " - a code is sent by email as a second factor.",
+        "type_sms": " - a code is sent by SMS as a second factor.",
+        "type_sms_or_mail": " - the voter can choose SMS or email for the second factor.",
+        "types_body": "A census has a type that determines how voters authenticate. You can require fields the voter must know (auth fields) and a second factor delivered to them (two-factor fields).",
+        "types_title": "Authentication types",
+        "weight_body": "When a census is weighted, each voter carries the weight set on their member record. Use it for shareholder meetings or any vote where members do not count equally.",
+        "weight_title": "Weighted voting"
+      },
+      "common": {
+        "breadcrumb": "Breadcrumb",
+        "copied": "Copied",
+        "copy": "Copy",
+        "next": "Next",
+        "on_this_page": "On this page",
+        "previous": "Previous",
+        "table": {
+          "description": "Description",
+          "field": "Field",
+          "required": "Required",
+          "type": "Type"
+        }
+      },
+      "jobs": {
+        "expiry_body": "Member import jobs are cleared shortly after they complete. Read the final state promptly rather than relying on the job being available indefinitely.",
+        "expiry_title": "Jobs expire",
+        "f_error": "On failure, a human-readable reason.",
+        "f_jobid": "Identifier returned when the work was enqueued.",
+        "f_result": "On success, details such as an address or vote id.",
+        "f_status": "pending, completed or failed.",
+        "f_type": "What kind of work the job performs.",
+        "lead": "Some operations take longer than a single request should wait - bulk imports, census publishing, process publishing and status changes. These return a job id you poll until the work finishes.",
+        "list_body": "You can list an organization's jobs with pagination and an optional type filter to monitor recent imports and batch operations.",
+        "list_title": "Listing jobs",
+        "pattern_body": "When an endpoint runs asynchronously it responds immediately with a job id. Poll the job until its status is completed or failed, then read the result. Keep polling intervals reasonable - a few seconds is usually enough.",
+        "pattern_title": "The async pattern",
+        "title": "Jobs and async operations",
+        "type_census": " - adding participants to a census.",
+        "type_members": " - bulk member import.",
+        "type_publish": " - publishing a voting process.",
+        "type_relay": " - relaying a vote to the protocol.",
+        "type_status": " - changing a process status.",
+        "types_title": "Job types"
+      },
+      "managed_organizations": {
+        "create_body": "Create a managed organization under your integrator address. Provide the owner email and the same descriptive fields as a normal organization. The response is the new organization, including the address you use to run its elections.",
+        "create_title": "Creating a managed organization",
+        "enable_body": "Integrator features are enabled per account. If the enabled flag is false, contact us through the API Dashboard to turn on managed organizations for your plan.",
+        "enable_title": "Enabling integrator access",
+        "f_country": "Country code.",
+        "f_owneremail": "Email of the customer who owns the managed organization.",
+        "f_size": "Approximate membership size band.",
+        "f_type": "Organization category.",
+        "l_census": "Maximum census size per managed organization.",
+        "l_orgs": "Maximum managed organizations you can create.",
+        "l_processes": "Maximum processes across managed organizations.",
+        "lead": "As an integrator you can provision sub-organizations on behalf of your own customers, each isolated with its own address, members and elections, all under your integrator account.",
+        "model_body": "Your integrator organization is the parent. Each managed organization you create is a separate tenant whose data never mixes with another. You drive everything through your own credentials, so your customers do not need Vocdoni accounts.",
+        "model_title": "The multi-tenant model",
+        "quota_body": "Check whether your integrator features are enabled and how much of your quota you have used. Limits cover the number of managed organizations, processes and census size.",
+        "quota_title": "Quota and usage",
+        "title": "Managed organizations"
+      },
+      "members_and_groups": {
+        "add_body": "Add members in bulk. Small batches run synchronously and return the count and any per-member errors. For large imports, pass async=true to get a job id you poll until it completes.",
+        "add_title": "Adding members",
+        "async_body": "With async=true the request returns immediately with a jobId. Poll the members job endpoint for progress as a percentage. Jobs are cleared shortly after they finish, so read the final state promptly.",
+        "async_title": "Large lists run asynchronously",
+        "f_birthdate": "Date of birth in YYYY-MM-DD format.",
+        "f_email": "Email, used for email-based authentication and reminders.",
+        "f_membernumber": "Your identifier for the member, unique within the organization.",
+        "f_name": "Given name.",
+        "f_nationalid": "National identity document, when used to authenticate.",
+        "f_other": "Custom key-value fields specific to your organization.",
+        "f_phone": "Phone number, used for SMS authentication.",
+        "f_surname": "Family name.",
+        "f_weight": "Vote weight for weighted censuses. Defaults to 1.",
+        "groups_body": "Groups are reusable subsets of members - for example everyone eligible for a particular election. You can create a census directly from a group, and validate that members carry the fields a census will require.",
+        "groups_title": "Groups",
+        "lead": "Members are the people in your organization. Import them once, organize them into groups, and reuse them to build censuses for many elections.",
+        "manage_body": "List members with pagination and an optional search term, update a single member, or delete specific members or all of them.",
+        "manage_title": "Listing, updating and deleting",
+        "member_body": "A member carries identity and contact fields plus an optional census weight and arbitrary custom fields. Provide whatever your authentication strategy needs; you do not have to fill every field.",
+        "member_title": "The member object",
+        "title": "Members and groups"
+      },
+      "nav": {
+        "aria_label": "Documentation",
+        "browse": "Browse docs",
+        "groups": {
+          "api_reference": "API reference",
+          "core_concepts": "Core concepts",
+          "get_started": "Get started",
+          "integrator_platform": "Integrator platform"
+        },
+        "items": {
+          "api_keys": "API keys",
+          "api_reference": "API reference",
+          "authentication": "Authentication",
+          "census": "Census",
+          "jobs": "Jobs",
+          "managed_organizations": "Managed organizations",
+          "members_and_groups": "Members and groups",
+          "organizations": "Organizations",
+          "overview": "Overview",
+          "quickstart": "Quickstart",
+          "quotas_and_subscriptions": "Quotas and subscriptions",
+          "results": "Results",
+          "sdks_and_tools": "SDKs and tools",
+          "voting_processes": "Voting processes"
+        },
+        "title": "Documentation"
+      },
+      "organizations": {
+        "create_body": "Create an organization with a few descriptive fields. The response returns the full organization, including the address you use to scope later requests.",
+        "create_title": "Creating an organization",
+        "field_country": "Country code for the organization.",
+        "field_size": "Approximate membership size band.",
+        "field_timezone": "Default timezone used for election scheduling.",
+        "field_type": "Organization category, for example association or company.",
+        "field_website": "Public website URL.",
+        "lead": "An organization is the account that owns members, censuses, processes and API keys. Almost every endpoint is scoped to an organization address.",
+        "managed_body": "Integrators can create sub-organizations on behalf of their own customers. See Managed organizations for the multi-tenant model.",
+        "managed_title": "Building for many customers?",
+        "read_body": "Fetch or update an organization by its address. Updates accept the same fields as creation.",
+        "read_title": "Reading and updating",
+        "role_admin": " - full control, including billing, users and API keys.",
+        "role_manager": " - can create and run elections, but not manage the account.",
+        "role_viewer": " - read-only access to organization data and results.",
+        "title": "Organizations",
+        "users_body": "Organizations can have multiple users, each with a role. Invite teammates by email and assign the access level they need.",
+        "users_title": "Users and roles"
+      },
+      "overview": {
+        "audience_body": "These docs are written for integrators: developers who want to run elections from their own software. You bring the product and the voters; Vocdoni provides the voting infrastructure, cryptography and verifiable results.",
+        "audience_title": "Who this is for",
+        "integrate_body": "Most teams use the REST API documented here, which handles organizations, members, censuses, processes and results for you. If you need lower-level control over the protocol, the TypeScript SDK is also available - see SDKs and tools.",
+        "integrate_title": "Two ways to integrate",
+        "jobs_callout_body": "Bulk imports, census publishing and process publishing can take time, so they return a job id you poll until completion. See the jobs page for the pattern.",
+        "jobs_callout_title": "Heavy work runs asynchronously",
+        "lead": "The Vocdoni API lets you add secure, anonymous and end-to-end verifiable voting to your own product. This section explains how the pieces fit together and where to go next.",
+        "model_body": "Most integrations follow the same path. Each step maps to a small group of endpoints you will find in this documentation.",
+        "model_census": "Census",
+        "model_census_desc": " - the list of who can vote in a given election, with how they authenticate. Publishing a census produces a cryptographic root.",
+        "model_members": "Members",
+        "model_members_desc": " - the people in your organization. Import them once, then reuse them across many elections.",
+        "model_org": "Organization",
+        "model_org_desc": " - the account that owns elections, members and API keys. Everything is scoped to an organization address.",
+        "model_process": "Process",
+        "model_process_desc": " - a voting process (an election) with its questions, vote type and timing, run against a published census.",
+        "model_results": "Results",
+        "model_results_desc": " - live or final tallies that anyone can verify against the protocol.",
+        "model_title": "How the API fits together",
+        "next_auth": "Authentication",
+        "next_auth_desc": "Log in and create scoped API keys.",
+        "next_census": "Census",
+        "next_census_desc": "Decide who can vote and how.",
+        "next_orgs": "Organizations",
+        "next_orgs_desc": "Create the account that owns elections.",
+        "next_processes": "Voting processes",
+        "next_processes_desc": "Configure ballots and run elections.",
+        "next_quickstart": "Quickstart",
+        "next_quickstart_desc": "Run a full election in a few API calls.",
+        "next_results": "Results",
+        "next_results_desc": "Read verifiable tallies.",
+        "next_title": "Where to go next",
+        "title": "Overview"
+      },
+      "quickstart": {
+        "intro": "You will need an integrator account and an organization. Every request below is authenticated with a bearer token obtained in step one. Replace the placeholders ($ORG, $CENSUS_ID, $PROCESS) with the values returned along the way.",
+        "lead": "Run a full election end to end - authenticate, build a census, create a voting process and read the results. The examples use cURL; any HTTP client works the same way.",
+        "next_body": "Read Authentication to issue API keys, Census to fine-tune voter authentication, and Voting processes to configure vote types such as multiple choice or weighted voting.",
+        "next_title": "Next steps",
+        "prereq_body": "Create an account in the API Dashboard and note your organization address. You can also authenticate with an API key instead of email and password for server-to-server use.",
+        "prereq_title": "Before you start",
+        "step_auth": "Authenticate",
+        "step_auth_body": "Exchange your email and password for a JWT. Send it as a bearer token on every following request.",
+        "step_census": "Build and publish a census",
+        "step_census_body": "A census defines who can vote and how they authenticate. Publishing produces a cryptographic root that the election is bound to.",
+        "step_members": "Add members",
+        "step_members_body": "Import the people in your organization. For large lists, pass ?async=true and poll the returned job id.",
+        "step_org": "Create an organization",
+        "step_org_body": "Skip this if you already have one. The response includes the organization address used in later calls.",
+        "step_process": "Create a voting process",
+        "step_process_body": "Define the questions, choices and timing, and bind the process to the published census. The process is your election.",
+        "step_results": "Read the results",
+        "step_results_body": "Poll the results endpoint at any time. Results are verifiable against the protocol and marked final once the process ends.",
+        "title": "Quickstart"
+      },
+      "quotas_and_subscriptions": {
+        "d_active": "Whether the subscription is currently active.",
+        "d_maxcensus": "Largest census the plan permits.",
+        "d_planid": "The plan the organization is on.",
+        "d_renewal": "When the subscription next renews.",
+        "details_body": "The details object reports whether the subscription is active, the plan id, the maximum census size and key dates such as start and renewal.",
+        "details_title": "Subscription details",
+        "f_2faemail": "Quota of email second-factor messages.",
+        "f_2fasms": "Quota of SMS second-factor messages.",
+        "f_anonymous": "Anonymous voting with zero-knowledge proofs.",
+        "f_live": "Live results while a process is running.",
+        "f_overwrite": "Allow voters to change their vote.",
+        "f_whitelabel": "White-label branding for the voting experience.",
+        "features_body": "Features describe what a plan unlocks. Check them before offering an option in your UI - for example, only show anonymous voting if the plan allows it.",
+        "features_title": "Plan features",
+        "lead": "Each organization has a subscription that sets which features are available and how much it can use. Read it to adapt your integration and to show plan limits to your users.",
+        "read_body": "Fetch the subscription for an organization to get its plan, the current details, and usage counters such as processes run and members imported.",
+        "read_title": "Reading the subscription",
+        "title": "Quotas and subscriptions"
+      },
+      "results": {
+        "f_enddate": "When voting closed.",
+        "f_final": "True once the process has ended and results are final.",
+        "f_results": "Tallies per question, one entry per choice.",
+        "f_startdate": "When voting opened.",
+        "f_status": "Process state, for example READY, PAUSED or ENDED.",
+        "f_votecount": "Total number of votes cast so far.",
+        "lead": "Read the tally for a voting process at any time. Results are computed from the protocol and can be independently verified, so you can show live counts and a trustworthy final outcome.",
+        "live_body": "While a process is running, results reflect votes counted so far unless the election was configured to keep results secret until the end. Once the process ends, finalResults becomes true and the tally no longer changes.",
+        "live_title": "Live versus final results",
+        "read_body": "Fetch results by organization and process id. The results field is an array per question, with one tally per choice in the order the choices were defined.",
+        "read_title": "Reading results",
+        "title": "Results"
+      },
+      "sdks_and_tools": {
+        "lead": "There are two ways to integrate Vocdoni: the REST API documented here, and the lower-level TypeScript SDK. Pick the one that matches how much control you need.",
+        "ref_api": "API reference",
+        "ref_api_desc": "Every endpoint, schema and field of the SaaS API.",
+        "ref_github": "GitHub",
+        "ref_github_desc": "Open-source repositories, issues and examples.",
+        "ref_openapi": "OpenAPI specification",
+        "ref_openapi_desc": "The raw swagger spec to generate clients.",
+        "ref_sdk": "TypeScript SDK",
+        "ref_sdk_desc": "Install the SDK and follow its guides.",
+        "refs_title": "References and repositories",
+        "rest_body": "The SaaS REST API is the fastest path for most teams. It manages organizations, members, censuses, processes and results for you, handles the cryptography behind the scenes, and works from any language with an HTTP client. Use it when you want managed elections without operating protocol internals.",
+        "rest_title": "When to use the REST API",
+        "sdk_body": "The TypeScript SDK talks to the voting protocol more directly and is a good fit when you need fine-grained control over census and voting operations, or when you are building a custom voting client. It can be combined with the API where it makes sense.",
+        "sdk_title": "When to use the SDK",
+        "title": "SDKs and tools"
+      },
+      "voting_processes": {
+        "bundles_body": "A bundle groups several processes under one census so a voter can complete them together - useful when an assembly votes on multiple motions in a single session.",
+        "bundles_title": "Process bundles",
+        "create_body": "Bind a process to a published census and describe it with election parameters. Titles and descriptions are multilingual objects keyed by language, with a default value.",
+        "create_title": "Creating a process",
+        "electiontype_title": "Election type flags",
+        "et_anonymous": " - hide who voted using zero-knowledge proofs.",
+        "et_autostart": " - open voting automatically at the start date.",
+        "et_dynamic": " - allow the census to change after the process starts.",
+        "et_interruptible": " - allow pausing or ending the process early.",
+        "et_secret": " - keep results hidden until voting closes.",
+        "f_description": "Longer description of the election.",
+        "f_electiontype": "Behaviour flags such as anonymous and autostart.",
+        "f_enddate": "When voting closes (ISO 8601).",
+        "f_questions": "One or more questions, each with a list of choices.",
+        "f_startdate": "When voting opens (ISO 8601).",
+        "f_streamuri": "Optional live stream URL shown with the election.",
+        "f_title": "Election title, keyed by language with a default.",
+        "f_votetype": "Ballot rules such as how many choices a voter may select.",
+        "lead": "A process is an election: a set of questions run against a published census, with rules for how votes are cast and when voting opens and closes.",
+        "params_title": "Election parameters",
+        "results_body": "Once a process is running you can read live or final tallies. See Results for the response shape and how finality works.",
+        "results_title": "Reading results",
+        "status_body": "Move a process between states - ready, paused, ended or canceled. Status changes run asynchronously and return a job id to poll.",
+        "status_title": "Changing status",
+        "title": "Voting processes",
+        "votetype_body": "The vote type shapes the ballot. Combine these fields to express single choice, multiple choice, ranked or weighted voting.",
+        "votetype_title": "Vote type",
+        "vt_cost": "Cost curve for quadratic-style voting.",
+        "vt_costweight": "Derive vote credits from the voter weight.",
+        "vt_maxcount": "How many choices a voter may select.",
+        "vt_maxvalue": "Maximum value allowed per choice.",
+        "vt_overwrite": "How many times a voter may change their vote.",
+        "vt_unique": "Require every selected choice to be distinct."
+      }
+    },
+    "landing": {
+      "build": {
+        "authentication": {
+          "description": "Log in, refresh tokens and issue scoped API keys.",
+          "title": "Authentication"
+        },
+        "census": {
+          "description": "Import members and publish a census ready to vote.",
+          "title": "Members and census"
+        },
+        "managed": {
+          "description": "Provision sub-organizations for your own customers.",
+          "title": "Managed organizations"
+        },
+        "organizations": {
+          "description": "Create organizations and manage users and roles.",
+          "title": "Organizations"
+        },
+        "processes": {
+          "description": "Configure ballots, vote types and election timing.",
+          "title": "Voting processes"
+        },
+        "results": {
+          "description": "Read live and final tallies for any process.",
+          "title": "Results"
+        },
+        "subtitle": "Jump straight to the part of the API you need.",
+        "title": "Start building"
+      },
+      "capabilities": {
+        "anonymous": {
+          "description": "Zero-knowledge cryptography keeps ballots secret while results stay provable.",
+          "title": "Anonymous by design"
+        },
+        "census": {
+          "description": "Authenticate voters by email, SMS or custom fields, with optional weighting.",
+          "title": "Flexible census"
+        },
+        "title": "Built on guarantees you can prove",
+        "verifiable": {
+          "description": "Voters and observers can independently verify that every vote was counted.",
+          "title": "End-to-end verifiable"
+        },
+        "whitelabel": {
+          "description": "Run elections for many customers from a single integrator account.",
+          "title": "Multi-tenant ready"
+        }
+      },
+      "hero": {
+        "code_caption": "Authenticate, then create your first election",
+        "cta_dashboard": "API Dashboard",
+        "cta_primary": "Get started",
+        "cta_secondary": "API reference",
+        "eyebrow": "Vocdoni for developers",
+        "subtitle": "Add secure, anonymous and end-to-end verifiable elections to your software with one REST API. Create organizations, build censuses, run processes and read results - without becoming a cryptography expert.",
+        "title": "Build verifiable voting into your product"
+      },
+      "pillars": {
+        "api": {
+          "cta": "Explore the API",
+          "description": "A REST API to run managed elections: organizations, members, censuses, processes, results and async jobs.",
+          "title": "SaaS API"
+        },
+        "protocol": {
+          "cta": "How the protocol works",
+          "description": "Every vote is anonymous and end-to-end verifiable, anchored on a public, censorship-resistant voting protocol.",
+          "title": "Protocol"
+        },
+        "sdk": {
+          "cta": "Read the SDK docs",
+          "description": "Prefer to talk to the protocol directly? The TypeScript SDK gives you lower-level control over voting and census operations.",
+          "title": "SDK"
+        }
+      },
+      "resources": {
+        "cta": "Browse the docs",
+        "github": {
+          "description": "Open-source code and issues.",
+          "title": "GitHub"
+        },
+        "reference": {
+          "description": "Every endpoint, schema and field.",
+          "title": "API reference"
+        },
+        "sdk": {
+          "description": "Lower-level libraries and guides.",
+          "title": "SDK documentation"
+        },
+        "support": {
+          "description": "Service status and ways to reach us.",
+          "title": "Status and support"
+        },
+        "title": "Resources"
+      }
+    }
+  },
   "error_page": {
     "error_description": "Ocorreu um erro inesperado. Tente novamente mais tarde.",
     "error_title": "Algo correu mal",
@@ -2578,6 +3030,68 @@
       "description": "Fale com a Vocdoni sobre votação online segura, eleições verificáveis, preços, demonstrações e projetos personalizados de governança digital.",
       "title": "Contacto - Vocdoni"
     },
+    "developers_index": {
+      "description": "Build secure, anonymous and end-to-end verifiable elections into your software with the Vocdoni API. Quickstart, guides and full API reference for integrators.",
+      "title": "Vocdoni for developers: integrate verifiable voting | Vocdoni"
+    },
+    "developers": {
+      "api_keys": {
+        "description": "Create, list and revoke scoped API keys for the Vocdoni API, and follow best practices for storing and rotating secrets.",
+        "title": "API keys | Vocdoni"
+      },
+      "api_reference": {
+        "description": "Reference for the Vocdoni SaaS API: base URL, authentication, pagination, errors and every endpoint grouped by resource.",
+        "title": "API reference | Vocdoni"
+      },
+      "authentication": {
+        "description": "Authenticate against the Vocdoni API with JWT login, refresh tokens and OAuth, and issue scoped API keys for server-to-server integrations.",
+        "title": "Authentication and API keys | Vocdoni"
+      },
+      "census": {
+        "description": "Create, populate and publish a census with the Vocdoni API, choosing authentication and two-factor fields and optional vote weighting.",
+        "title": "Census | Vocdoni"
+      },
+      "jobs": {
+        "description": "Handle long-running Vocdoni operations with the async job model: enqueue work, poll job status and react to completion or failure.",
+        "title": "Jobs and async operations | Vocdoni"
+      },
+      "managed_organizations": {
+        "description": "Provision and manage sub-organizations for your own customers as a Vocdoni integrator, and track your quota and usage.",
+        "title": "Managed organizations | Vocdoni"
+      },
+      "members_and_groups": {
+        "description": "Import organization members in bulk, track async jobs, and organize members into groups you can turn into censuses.",
+        "title": "Members and groups | Vocdoni"
+      },
+      "organizations": {
+        "description": "Create and manage organizations with the Vocdoni API, including users, roles and organization settings.",
+        "title": "Organizations | Vocdoni"
+      },
+      "overview": {
+        "description": "Understand how the Vocdoni API fits together: organizations, censuses, voting processes, results and jobs, and how to integrate verifiable voting.",
+        "title": "Developer docs overview | Vocdoni"
+      },
+      "quickstart": {
+        "description": "Run your first election end to end with the Vocdoni API: authenticate, create an organization, build and publish a census, create a process and read results.",
+        "title": "API quickstart | Vocdoni"
+      },
+      "quotas_and_subscriptions": {
+        "description": "Understand Vocdoni subscription plans, features and limits, and read your current usage counters through the API.",
+        "title": "Quotas and subscriptions | Vocdoni"
+      },
+      "results": {
+        "description": "Read live and final results for a Vocdoni voting process, including vote counts, per-question tallies and result finality.",
+        "title": "Results | Vocdoni"
+      },
+      "sdks_and_tools": {
+        "description": "Choose between the Vocdoni REST API and the TypeScript SDK, and find the tools, references and repositories you need to integrate.",
+        "title": "SDKs and tools | Vocdoni"
+      },
+      "voting_processes": {
+        "description": "Configure and publish voting processes with the Vocdoni API: election parameters, vote types, questions, bundles and status changes.",
+        "title": "Voting processes | Vocdoni"
+      }
+    },
     "index": {
       "description": "Realize eleições seguras e verificáveis para a sua organização, com evidência legal e registo de auditoria. Comece grátis, configure em minutos, sem cartão de crédito.",
       "title": "Vocdoni - Votação online segura e verificável"
@@ -2679,6 +3193,7 @@
     "about": "Sobre nós",
     "app_button": "Entrar",
     "contact": "Contacto",
+    "dashboard_button": "API Dashboard",
     "featured_solution": {
       "header": "Em destaque",
       "vocdoni_app": {
