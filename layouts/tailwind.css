@@ -283,9 +283,7 @@
   .image-outline {
     --tw-image-outline-shadow: inset 0 0 0 1px rgb(0 0 0 / 0.1);
     box-shadow:
-      var(--tw-ring-offset-shadow, 0 0 #0000),
-      var(--tw-ring-shadow, 0 0 #0000),
-      var(--tw-shadow, 0 0 #0000),
+      var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow, 0 0 #0000),
       var(--tw-image-outline-shadow);
   }
   .dark .image-outline {

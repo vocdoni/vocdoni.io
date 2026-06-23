@@ -142,7 +142,9 @@ export function getConfiguredLocales(source) {
       node.initializer &&
       ts.isArrayLiteralExpression(node.initializer)
     ) {
-      locales = node.initializer.elements.filter((element) => ts.isStringLiteral(element)).map((element) => element.text)
+      locales = node.initializer.elements
+        .filter((element) => ts.isStringLiteral(element))
+        .map((element) => element.text)
     }
 
     ts.forEachChild(node, visit)
