@@ -98,11 +98,6 @@ function Hero() {
                 </Link>
               </Button>
               <Button asChild size='lg' variant='outline' className='rounded-full'>
-                <Link href='/developers/docs/api-reference' variant='unstyled'>
-                  {t('developers.landing.hero.cta_secondary', 'API reference')}
-                </Link>
-              </Button>
-              <Button asChild size='lg' variant='ghost' className='rounded-full'>
                 <Link href={DEVELOPERS_DASHBOARD_URL} variant='unstyled'>
                   {t('developers.landing.hero.cta_dashboard', 'API Dashboard')}
                   <ArrowRight className='size-4' />
