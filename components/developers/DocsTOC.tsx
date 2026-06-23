@@ -26,29 +26,51 @@ export function DocsTOC() {
     const article = document.getElementById('docs-article')
     if (!article) return
 
-    const nodes = Array.from(article.querySelectorAll('h2, h3')) as HTMLElement[]
-    const collected: Heading[] = nodes
-      .filter((node) => (node.textContent ?? '').trim().length > 0)
-      .map((node) => {
-        const text = (node.textContent ?? '').trim()
-        if (!node.id) node.id = slugify(text)
-        return { id: node.id, text, level: node.tagName === 'H3' ? 3 : 2 }
-      })
+    const nodes = (Array.from(article.querySelectorAll('h2, h3')) as HTMLElement[]).filter(
+      (node) => (node.textContent ?? '').trim().length > 0
+    )
+    const collected: Heading[] = nodes.map((node) => {
+      const text = (node.textContent ?? '').trim()
+      if (!node.id) node.id = slugify(text)
+      return { id: node.id, text, level: node.tagName === 'H3' ? 3 : 2 }
+    })
     setHeadings(collected)
 
     if (collected.length === 0) return
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visible = entries
-          .filter((entry) => entry.isIntersecting)
-          .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top)
-        if (visible[0]) setActiveId(visible[0].target.id)
-      },
-      { rootMargin: '-96px 0px -70% 0px', threshold: 0 }
-    )
-    nodes.forEach((node) => observer.observe(node))
-    return () => observer.disconnect()
+    // Active = the last heading whose top has scrolled above the navbar line.
+    // A scroll-driven check is more reliable than IntersectionObserver for tall
+    // sections and pins the final heading once the page is scrolled to the end.
+    const NAV_OFFSET = 104
+    let frame = 0
+
+    const update = () => {
+      frame = 0
+      const scrolledToBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2
+      if (scrolledToBottom) {
+        setActiveId(collected[collected.length - 1].id)
+        return
+      }
+      let current = collected[0].id
+      for (const node of nodes) {
+        if (node.getBoundingClientRect().top <= NAV_OFFSET) current = node.id
+        else break
+      }
+      setActiveId(current)
+    }
+
+    const onScroll = () => {
+      if (!frame) frame = window.requestAnimationFrame(update)
+    }
+
+    update()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    window.addEventListener('resize', onScroll)
+    return () => {
+      window.removeEventListener('scroll', onScroll)
+      window.removeEventListener('resize', onScroll)
+      if (frame) window.cancelAnimationFrame(frame)
+    }
   }, [urlLogical])
 
   if (headings.length < 2) return <div className='hidden xl:block' />
@@ -64,6 +86,7 @@ export function DocsTOC() {
             <li key={heading.id}>
               <a
                 href={`#${heading.id}`}
+                onClick={() => setActiveId(heading.id)}
                 className={cn(
                   '-ml-px block border-l-2 py-0.5 text-sm transition-colors',
                   heading.level === 3 ? 'pl-6' : 'pl-4',
