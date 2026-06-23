@@ -90,17 +90,23 @@ function Hero() {
                 'Add secure, anonymous and end-to-end verifiable elections to your software with one REST API. Create organizations, build censuses, run processes and read results - without becoming a cryptography expert.'
               )}
             </p>
-            <div className='mt-8 flex flex-wrap items-center gap-3'>
-              <Button asChild size='lg' className='rounded-full'>
-                <Link href='/developers/docs/quickstart' variant='unstyled'>
+            <div className='mt-8 flex w-full flex-col gap-4 sm:w-auto sm:flex-row'>
+              <Button asChild size='lg' className='group w-full text-base sm:w-auto'>
+                <Link href='/developers/docs/quickstart' variant='inlineIcon'>
                   {t('developers.landing.hero.cta_primary', 'Get started')}
-                  <ArrowRight className='size-4' />
+                  <ArrowRight
+                    className='size-5 transition-transform duration-200 group-hover:translate-x-0.5'
+                    aria-hidden='true'
+                  />
                 </Link>
               </Button>
-              <Button asChild size='lg' variant='outline' className='rounded-full'>
-                <Link href={DEVELOPERS_DASHBOARD_URL} variant='unstyled'>
+              <Button asChild size='lg' variant='outline' className='group w-full text-base sm:w-auto'>
+                <Link href={DEVELOPERS_DASHBOARD_URL} variant='inlineIcon'>
                   {t('developers.landing.hero.cta_dashboard', 'API Dashboard')}
-                  <ArrowRight className='size-4' />
+                  <ArrowRight
+                    className='size-5 transition-transform duration-200 group-hover:translate-x-0.5'
+                    aria-hidden='true'
+                  />
                 </Link>
               </Button>
             </div>
@@ -368,8 +374,8 @@ function Resources() {
           <h2 className='text-2xl font-bold tracking-tight sm:text-3xl'>
             {t('developers.landing.resources.title', 'Resources')}
           </h2>
-          <Button asChild variant='outline' className='rounded-full'>
-            <Link href='/developers/docs' variant='unstyled'>
+          <Button asChild variant='outline'>
+            <Link href='/developers/docs' variant='inlineIcon'>
               {t('developers.landing.resources.cta', 'Browse the docs')}
               <ArrowRight className='size-4' />
             </Link>

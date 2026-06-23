@@ -42,29 +42,26 @@ type ProductFeature =
       triggerAriaLabel: string
     }
 
-const buildProductFeatures = (t: (key: string) => string) =>
-  [
-    {
-      title: t('navbar.product_features.digital_voting_platform.title'),
-      kind: 'link' as const,
-      href: '/app',
-      description: t('navbar.product_features.digital_voting_platform.description'),
-    },
-    {
-      title: t('navbar.product_features.sdk.title'),
-      kind: 'link' as const,
-      href: 'https://developer.vocdoni.io/sdk',
-      target: '_blank',
-      rel: 'noopener noreferrer',
-      description: t('navbar.product_features.sdk.description'),
-    },
-    {
-      title: t('navbar.product_features.custom_projects.title'),
-      kind: 'booking' as const,
-      triggerAriaLabel: 'Open custom project booking',
-      description: t('navbar.product_features.custom_projects.description'),
-    },
-  ] satisfies ProductFeature[]
+const buildProductFeatures = (t: (key: string) => string): ProductFeature[] => [
+  {
+    title: t('navbar.product_features.digital_voting_platform.title'),
+    kind: 'link',
+    href: '/app',
+    description: t('navbar.product_features.digital_voting_platform.description'),
+  },
+  {
+    title: t('navbar.product_features.sdk.title'),
+    kind: 'link',
+    href: '/developers',
+    description: t('navbar.product_features.sdk.description'),
+  },
+  {
+    title: t('navbar.product_features.custom_projects.title'),
+    kind: 'booking',
+    triggerAriaLabel: 'Open custom project booking',
+    description: t('navbar.product_features.custom_projects.description'),
+  },
+]
 
 const buildFeaturedSolution = (t: (key: string) => string) => ({
   title: t('navbar.featured_solution.vocdoni_app.title'),
@@ -163,7 +160,7 @@ export function Navbar() {
                               <NavigationMenuLink asChild>
                                 <Link href={item.href} target={item.target} rel={item.rel} variant='navbarItem'>
                                   <div className='text-sm font-medium leading-none'>{item.title}</div>
-                                  <p className='line-clamp-2 text-sm leading-snug text-muted-foreground'>
+                                  <p className='line-clamp-2 text-sm font-normal leading-snug text-muted-foreground'>
                                     {item.description}
                                   </p>
                                 </Link>
@@ -522,7 +519,7 @@ const ListItem = React.forwardRef<React.ElementRef<'a'>, React.ComponentPropsWit
         <NavigationMenuLink asChild>
           <Link ref={ref} variant='navbarItem' className={className} {...props}>
             <div className='text-sm font-medium leading-none'>{title}</div>
-            <p className='line-clamp-2 text-sm leading-snug text-muted-foreground'>{children}</p>
+            <p className='line-clamp-2 text-sm font-normal leading-snug text-muted-foreground'>{children}</p>
           </Link>
         </NavigationMenuLink>
       </li>
