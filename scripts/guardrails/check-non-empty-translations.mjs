@@ -1,9 +1,18 @@
 import fs from 'node:fs'
 import path from 'node:path'
 
-import { findEmptyTranslationLeafValues } from './lib.mjs'
+import { findEmptyTranslationLeafValues, getConfiguredLocales } from './lib.mjs'
 
-const localeFiles = ['locales/en/common.json', 'locales/es/common.json', 'locales/ca/common.json']
+// Check every enabled locale, sourced from locales/index.ts so this never drifts as languages are added.
+const localesIndexSource = fs.readFileSync(path.resolve('locales/index.ts'), 'utf8')
+const locales = getConfiguredLocales(localesIndexSource)
+
+if (!locales || locales.length === 0) {
+  console.error('Could not read the enabled locales from locales/index.ts.')
+  process.exit(1)
+}
+
+const localeFiles = locales.map((locale) => `locales/${locale}/common.json`)
 
 const violations = localeFiles.flatMap((relativePath) => {
   const absolutePath = path.resolve(relativePath)

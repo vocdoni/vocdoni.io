@@ -63,7 +63,7 @@ const AboutUs = ({
                         key={tab.id}
                         onClick={() => setActiveTab(tab.id)}
                         className={cn(
-                          'px-6 py-2 rounded-lg text-sm font-semibold transition-all duration-200',
+                          'px-6 py-2 rounded-lg text-sm font-semibold transition-colors duration-200',
                           activeTab === tab.id
                             ? 'bg-background text-foreground shadow-sm'
                             : 'text-muted-foreground hover:text-foreground'
@@ -109,7 +109,7 @@ const AboutUs = ({
                   inViewOnce
                   className='h-full'
                 >
-                  <Card className='h-full border border-primary/10 hover:border-primary/30 rounded-2xl shadow-none transition-all duration-300 hover:bg-primary/[0.02]'>
+                  <Card className='h-full border border-primary/10 hover:border-primary/30 rounded-2xl shadow-none transition-colors duration-300 hover:bg-primary/[0.02]'>
                     <CardHeader className='p-6'>
                       <CardTitle className='text-2xl font-bold text-primary'>{stat.title}</CardTitle>
                       <CardDescription className='text-base font-medium text-foreground/80'>
@@ -139,6 +139,10 @@ const AboutUs = ({
                 src={aboutVocdoniImage}
                 alt={t('about_us.image_alt')}
                 className='h-full w-full object-cover transition-transform duration-1000 ease-out group-hover:scale-110'
+                width={684}
+                height={696}
+                loading='lazy'
+                decoding='async'
               />
               <div className='absolute inset-0 bg-gradient-to-t from-background/40 to-transparent' />
             </div>

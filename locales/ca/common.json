@@ -3573,10 +3573,10 @@
       }
     },
     "structure": {
-      "association_title": "Associació Vocdoni",
+      "association_title": "Vocdoni Association",
       "for_profit": "Una entitat amb ànim de lucre dedicada a fer que la tecnologia de vot digital segur sigui accessible i escalable per a organitzacions de qualsevol tipus d'arreu del món.",
       "global_title": "Vocdoni Global",
-      "non_profit": "L'Associació Vocdoni, una organització sense ànim de lucre amb seu a Suïssa, que actua com a garant últim del codi obert i del desenvolupament del protocol principal."
+      "non_profit": "La Vocdoni Association, una organització sense ànim de lucre amb seu a Suïssa, que actua com a garant últim del codi obert i del desenvolupament del protocol principal."
     },
     "tabs": {
       "aria_label": "Seccions sobre Vocdoni",
@@ -3891,7 +3891,7 @@
           "question": "Vocdoni és codi obert?"
         },
         {
-          "answer": "Sí. Podeu començar amb un CSV o sincronitzar-vos mitjançant l'API si ja gestioneu els membres en un altre sistema.",
+          "answer": "Sí. Podeu importar els membres mitjançant CSV o un altre format de full de càlcul. Si necessiteu una configuració més avançada, podem ajudar-vos a connectar-la mitjançant una integració personalitzada.",
           "question": "Puc utilitzar el meu cens actual o el meu CRM?"
         },
         {
@@ -4017,7 +4017,7 @@
           "logo": "/assets/logos/logo_omnium_round.webp",
           "name": "Anna Giralt",
           "platformImage": "/assets/logos/logo_omnium_colour.webp",
-          "platformName": "Òmnium",
+          "platformName": "Òmnium Cultural",
           "rating": 5,
           "title": "Totes les garanties per a 180.000 membres"
         }
@@ -4939,11 +4939,11 @@
         "question": "La plataforma és accessible per a tots els membres?"
       },
       "census": {
-        "answer": "Sí. Podeu importar els membres mitjançant CSV o sincronitzar-los a través de la nostra API si ja gestioneu el cens en un altre sistema.",
+        "answer": "Sí. Podeu importar els membres mitjançant CSV o un altre format de full de càlcul. Si necessiteu una configuració més avançada, podem ajudar-vos a connectar-la mitjançant una integració personalitzada.",
         "question": "Puc utilitzar el meu cens actual o el meu CRM?"
       },
       "coercion": {
-        "answer": "Vocdoni admet la revisió del vot: els membres poden canviar l'opció tantes vegades com vulguin mentre la votació és oberta. Només compta l'última, cosa que ajuda a mitigar la coacció en entorns digitals.",
+        "answer": "Vocdoni admet la sobreescriptura del vot: si està activada, els membres poden canviar l'opció tantes vegades com vulguin mentre la votació és oberta. Només compta l'última, cosa que ajuda a mitigar la coacció en entorns digitals.",
         "question": "Algú pot forçar un membre a votar d'una manera determinada?"
       },
       "dispute": {
@@ -8292,13 +8292,11 @@
       "cta_primary": "Comenceu gratis",
       "cta_primary_aria_label": "Comenceu gratis a l'app de Vocdoni (s'obre en una pestanya nova)",
       "cta_secondary": "Vegeu la demo",
-      "cta_secondary_aria_label": "Vegeu el vídeo de demostració",
       "subtitle": "Configureu, envieu i recolliu vots en minuts - des de qualsevol dispositiu, amb evidència legal i traçabilitat.",
       "title": "Organitzeu la vostra votació en línia,",
       "title_highlight": "amb total confiança",
       "trust_gdpr": "Compleix el RGPD",
-      "trust_legal": "Evidència legal",
-      "video_play": "Reprodueix el vídeo de demostració"
+      "trust_legal": "Evidència legal"
     },
     "target_users": {
       "cta": "Vegeu casos d'ús i casos d'èxit",
@@ -8338,5 +8336,6 @@
       },
       "title": "Per què Vocdoni?"
     }
-  }
+  },
+  "play": "Reprodueix el vídeo: {{title}}"
 }

@@ -64,6 +64,7 @@
 - Translations are always defined with a default value e.g. `t('sections.terms.title', 'Terms and Conditions')`
 - User-facing copy in `pages/` and `components/` must go through `t(...)` with a default value. Do not add hardcoded JSX copy unless it is an explicitly documented exception.
 - `pnpm guardrails:translations` must pass without modifying locale files.
+- Non-English locales must not contain copy pasted verbatim from English. `pnpm guardrails:translations:no-copy` diffs every in-progress locale (`de`, `el`, `eu`, `fr`, `it`, `pt`) against `en` and fails on any value identical to the English source. The complete reference locales (`es`, `ca`) tell real copy apart from proper nouns/brands/acronyms: a key is only flagged when at least one reference renders it differently from English. Leave a value as an empty string (`""`) until it is translated rather than copying the English text. Values that are intentionally identical to English (brand/product names, proper nouns not shared across the references, and genuine cross-language cognates) are listed in `scripts/guardrails/untranslated-copy-allowlist.json`.
 
 ## Commit & Pull Request Guidelines
 

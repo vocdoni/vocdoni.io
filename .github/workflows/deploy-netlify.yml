@@ -12,6 +12,10 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
 
+    # Netlify is the non-production target (PR previews and main-branch dev deploys); it always uses
+    # the 'pull request' environment. Production lives on DigitalOcean (see deploy-digitalocean.yml).
+    environment: 'pull request'
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -19,7 +23,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '22.x.x'
+          node-version: '22.22.3'
 
       - name: Install pnpm
         uses: pnpm/action-setup@v4
@@ -45,10 +49,10 @@ jobs:
       - name: Build project
         run: pnpm build
         env:
-          EMAILJS_PUBLIC_KEY: ${{ secrets.EMAILJS_PUBLIC_KEY }}
-          EMAILJS_SERVICE_ID: ${{ secrets.EMAILJS_SERVICE_ID }}
-          EMAILJS_TEMPLATE_ID: ${{ secrets.EMAILJS_TEMPLATE_ID }}
-          VITE_GHOST_URL: ${{ secrets.VITE_GHOST_URL }}
+          EMAILJS_PUBLIC_KEY: ${{ vars.EMAILJS_PUBLIC_KEY }}
+          EMAILJS_SERVICE_ID: ${{ vars.EMAILJS_SERVICE_ID }}
+          EMAILJS_TEMPLATE_ID: ${{ vars.EMAILJS_TEMPLATE_ID }}
+          GHOST_URL: ${{ vars.GHOST_URL }}
 
       - name: Deploy to Netlify
         uses: nwtgck/actions-netlify@v3.0

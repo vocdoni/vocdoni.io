@@ -35,7 +35,7 @@ const Hero = () => {
         <div className='grid gap-12 lg:grid-cols-2 lg:gap-8 items-center w-full min-w-0'>
           {/* Left Column: Content */}
           <div className='flex flex-col items-start gap-6 relative z-10 w-full min-w-0'>
-            <MotionPreset fade blur slide delay={0} transition={{ duration: 0.5 }}>
+            <MotionPreset fade slide delay={0} transition={{ duration: 0.5 }}>
               <Link href='https://app.vocdoni.io' target='_blank' rel='noopener noreferrer' variant='heroBadge'>
                 <span className='bg-foreground text-background px-2.5 py-0.5 rounded-full font-semibold shrink-0 flex items-center gap-1.5'>
                   <span className='relative flex h-2 w-2' role='img' aria-label={t('hero.badge.status_live', 'Live')}>
@@ -58,7 +58,7 @@ const Hero = () => {
               </Link>
             </MotionPreset>
 
-            <MotionPreset fade blur slide delay={0} transition={{ duration: 0.5 }}>
+            <MotionPreset fade slide delay={0} transition={{ duration: 0.5 }}>
               <h1 className='text-3xl font-black tracking-tight sm:text-4xl md:text-5xl lg:text-6xl xl:text-[4rem] leading-none max-w-3xl break-words text-foreground text-balance'>
                 {t('hero.title')}{' '}
                 <span className='inline-flex min-w-[0px] xs:min-w-[120px] text-primary relative'>
@@ -68,9 +68,9 @@ const Hero = () => {
                     <AnimatePresence mode='wait'>
                       <motion.span
                         key={index}
-                        initial={{ y: 20, opacity: 0, filter: 'blur(10px)' }}
-                        animate={{ y: 0, opacity: 1, filter: 'blur(0px)' }}
-                        exit={{ y: -20, opacity: 0, filter: 'blur(10px)' }}
+                        initial={{ y: 20, opacity: 0 }}
+                        animate={{ y: 0, opacity: 1 }}
+                        exit={{ y: -20, opacity: 0 }}
                         transition={{ duration: 0.6, ease: [0.25, 1, 0.5, 1] }}
                         className='block'
                       >
@@ -82,7 +82,7 @@ const Hero = () => {
               </h1>
             </MotionPreset>
 
-            <MotionPreset fade blur slide delay={0.2} transition={{ duration: 0.5 }}>
+            <MotionPreset fade slide delay={0.2} transition={{ duration: 0.5 }}>
               <p className='text-base sm:text-lg text-muted-foreground max-w-[600px] leading-relaxed break-words'>
                 {t('hero.subtitle')}
               </p>
@@ -93,13 +93,9 @@ const Hero = () => {
               <MobileHeroScroll />
             </div>
 
-            <MotionPreset fade blur slide delay={0.3} transition={{ duration: 0.5 }}>
+            <MotionPreset fade slide delay={0.3} transition={{ duration: 0.5 }}>
               <div className='flex flex-col sm:flex-row gap-4 w-full sm:w-auto'>
-                <Button
-                  size='lg'
-                  className='group text-base transition-all duration-300 has-[>svg]:px-6 w-full sm:w-auto'
-                  asChild
-                >
+                <Button size='lg' className='group text-base has-[>svg]:px-6 w-full sm:w-auto' asChild>
                   <Link href='https://app.vocdoni.io' variant='inlineIcon'>
                     {t('hero.cta_primary')}
                     <ArrowRight
@@ -137,7 +133,7 @@ const Hero = () => {
               </div>
             </MotionPreset>
 
-            <MotionPreset fade blur slide delay={0.4} transition={{ duration: 0.5 }} className='mt-8 w-full max-w-full'>
+            <MotionPreset fade slide delay={0.4} transition={{ duration: 0.5 }} className='mt-8 w-full max-w-full'>
               <TrustedBySection />
             </MotionPreset>
           </div>
@@ -187,7 +183,7 @@ const Hero = () => {
                 <div className='absolute -left-10 top-[48px] w-10 h-px border-t border-dashed border-primary/40' />
                 <div className='absolute -left-10 top-[43px] w-2.5 h-2.5 -translate-x-1/2 rounded-full bg-background border-2 border-primary z-20 shadow-[0_0_8px_theme(colors.primary.DEFAULT)]' />
 
-                <div className='transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-primary/10 rounded-2xl bg-background/60 backdrop-blur-xl border border-primary/10 relative overflow-hidden group'>
+                <div className='card-hover hover:shadow-primary/10 rounded-2xl bg-background/60 backdrop-blur-xl border border-primary/10 relative overflow-hidden group'>
                   <div className='absolute inset-0 bg-gradient-to-tr from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500' />
                   <CensusCard />
                 </div>
@@ -208,7 +204,7 @@ const Hero = () => {
                 <div className='absolute -left-10 top-[44px] w-10 h-px border-t border-dashed border-primary/40' />
                 <div className='absolute -left-10 top-[39px] w-2.5 h-2.5 -translate-x-1/2 rounded-full bg-background border-2 border-primary z-20 shadow-[0_0_8px_theme(colors.primary.DEFAULT)]' />
 
-                <div className='transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-primary/10 rounded-2xl bg-background/60 backdrop-blur-xl border border-primary/10 relative overflow-hidden group'>
+                <div className='card-hover hover:shadow-primary/10 rounded-2xl bg-background/60 backdrop-blur-xl border border-primary/10 relative overflow-hidden group'>
                   <div className='absolute inset-0 bg-gradient-to-tr from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500' />
                   <VotingCard animated={true} />
                 </div>
@@ -229,7 +225,7 @@ const Hero = () => {
                 <div className='absolute -left-10 top-[40px] w-10 h-px border-t border-dashed border-primary/40' />
                 <div className='absolute -left-10 top-[35px] w-2.5 h-2.5 -translate-x-1/2 rounded-full bg-background border-2 border-primary z-20 shadow-[0_0_8px_theme(colors.primary.DEFAULT)]' />
 
-                <div className='transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-primary/10 rounded-2xl bg-background/60 backdrop-blur-xl border border-primary/10 relative overflow-hidden group'>
+                <div className='card-hover hover:shadow-primary/10 rounded-2xl bg-background/60 backdrop-blur-xl border border-primary/10 relative overflow-hidden group'>
                   <div className='absolute inset-0 bg-gradient-to-tr from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500' />
                   <ResultsCard animated={true} />
                 </div>

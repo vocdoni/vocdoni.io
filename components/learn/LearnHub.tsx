@@ -78,7 +78,7 @@ export function LearnHub() {
               const card = cards[slug]
               if (!card) return null
               return (
-                <Card key={slug} className='group h-full transition-all duration-300 hover:shadow-lg'>
+                <Card key={slug} className='group h-full transition-shadow duration-300 hover:shadow-lg'>
                   <Link href={href} variant='unstyled' className='block h-full'>
                     <CardContent className='flex h-full flex-col gap-3 p-6'>
                       <span className='text-primary text-xs font-medium uppercase tracking-wide'>{card.category}</span>

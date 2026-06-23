@@ -19,7 +19,8 @@ import {
   navigationMenuTriggerStyle,
 } from '@/components/ui/navigation-menu'
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
-import { Menu } from 'lucide-react'
+import { Menu, X } from 'lucide-react'
+import { motion, useReducedMotion } from 'motion/react'
 import LanguageSwitcher from './LanguageSwitcher'
 import VocdoniLogo from './Logo'
 
@@ -142,6 +143,7 @@ const buildSolutionVerticals = (t: TFunction) => [
 export function Navbar() {
   const { t } = useTranslation()
   const [isOpen, setIsOpen] = React.useState(false)
+  const reducedMotion = useReducedMotion()
 
   const productFeatures = React.useMemo(() => buildProductFeatures(t), [t])
   const featuredSolution = React.useMemo(() => buildFeaturedSolution(t), [t])
@@ -150,7 +152,7 @@ export function Navbar() {
 
   return (
     <div className='fixed top-6 left-0 right-0 z-50 flex justify-center px-4 cursor-none pointer-events-none'>
-      <header className='cursor-default pointer-events-auto flex items-center justify-between gap-4 rounded-full border border-border/40 bg-background/80 px-4 py-2 shadow-sm backdrop-blur-md w-full max-w-[2000px] transition-all duration-300'>
+      <header className='cursor-default pointer-events-auto flex items-center justify-between gap-4 rounded-full border border-border/40 bg-background/80 px-4 py-2 shadow-sm backdrop-blur-md w-full max-w-[2000px] transition-[background-color,box-shadow,backdrop-filter] duration-300'>
         {/* Logo */}
         <div className='pointer-events'>
           <Link href='/' variant='unstyled' aria-label={t('navbar.logo_aria_label', 'Vocdoni - go to homepage')}>
@@ -247,6 +249,9 @@ export function Navbar() {
                           alt='Vocdoni App'
                           className='aspect-video w-full object-cover'
                           loading='lazy'
+                          decoding='async'
+                          width={640}
+                          height={360}
                         />
                         {/* Text below the image */}
                         <div className='space-y-2 p-4'>
@@ -333,8 +338,33 @@ export function Navbar() {
           <div className='xl:hidden'>
             <Sheet open={isOpen} onOpenChange={setIsOpen}>
               <SheetTrigger asChild>
-                <Button variant='ghost' size='icon'>
-                  <Menu className='h-6 w-6' />
+                <Button variant='ghost' size='icon' aria-expanded={isOpen}>
+                  <span className='relative flex h-6 w-6 items-center justify-center'>
+                    {(['menu', 'close'] as const).map((key) => {
+                      const isClose = key === 'close'
+                      const active = isClose === isOpen
+                      return (
+                        <motion.span
+                          key={key}
+                          className='absolute inset-0 flex items-center justify-center'
+                          initial={false}
+                          animate={
+                            reducedMotion
+                              ? { opacity: active ? 1 : 0 }
+                              : {
+                                  opacity: active ? 1 : 0,
+                                  scale: active ? 1 : 0.25,
+                                  filter: active ? 'blur(0px)' : 'blur(4px)',
+                                }
+                          }
+                          transition={reducedMotion ? { duration: 0 } : { type: 'spring', duration: 0.3, bounce: 0 }}
+                          aria-hidden='true'
+                        >
+                          {isClose ? <X className='h-6 w-6' /> : <Menu className='h-6 w-6' />}
+                        </motion.span>
+                      )
+                    })}
+                  </span>
                   <span className='sr-only'>{t('navbar.toggle_menu', 'Toggle menu')}</span>
                 </Button>
               </SheetTrigger>

@@ -3891,7 +3891,7 @@
           "question": "Is Vocdoni open source?"
         },
         {
-          "answer": "Yes. You can start with a CSV or sync through the API if you already manage members elsewhere.",
+          "answer": "Yes. You can import your members via CSV or another spreadsheet format. If you need a more advanced setup, we can help you connect it through a custom integration.",
           "question": "Can I use my existing voter list or CRM?"
         },
         {
@@ -4939,11 +4939,11 @@
         "question": "Is the platform accessible for all members?"
       },
       "census": {
-        "answer": "Yes. You can import your members via CSV or sync them through our API if you already manage your census in another system.",
+        "answer": "Yes. You can import your members via CSV or another spreadsheet format. If you need a more advanced setup, we can help you connect it through a custom integration.",
         "question": "Can I use my existing voter list or CRM?"
       },
       "coercion": {
-        "answer": "Vocdoni supports vote revision: members can change their choice as many times as they want while the vote is open. Only the last one counts, which helps mitigate coercion in digital environments.",
+        "answer": "Vocdoni supports vote overwrite: if enabled, members can change their choice as many times as they want while the vote is open. Only the last one counts, which helps mitigate coercion in digital environments.",
         "question": "Can anyone force a member to vote a certain way?"
       },
       "dispute": {
@@ -8292,13 +8292,11 @@
       "cta_primary": "Start for free",
       "cta_primary_aria_label": "Start for free in the Vocdoni app (opens in new tab)",
       "cta_secondary": "Watch the demo",
-      "cta_secondary_aria_label": "Watch the demo video",
       "subtitle": "Set up, send, and collect votes in minutes - from any device, with legal evidence and audit trail.",
       "title": "Run your vote online,",
       "title_highlight": "with confidence",
       "trust_gdpr": "GDPR compliant",
-      "trust_legal": "Legal evidence",
-      "video_play": "Play demo video"
+      "trust_legal": "Legal evidence"
     },
     "target_users": {
       "cta": "See use cases and success stories",
@@ -8338,5 +8336,6 @@
       },
       "title": "Why Vocdoni?"
     }
-  }
+  },
+  "play": "Play video: {{title}}"
 }

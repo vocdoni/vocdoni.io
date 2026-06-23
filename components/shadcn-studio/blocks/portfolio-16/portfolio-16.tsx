@@ -20,6 +20,8 @@ export type PortfolioItem = {
   btnColor?: string
   imageClassName?: string
   imageWrapperClassName?: string
+  imageWidth?: number
+  imageHeight?: number
 }
 
 type PortfolioProps = {
@@ -64,7 +66,7 @@ const Portfolio = ({ portfolioItems }: PortfolioProps) => {
                   className='flex h-full w-full text-left'
                 >
                   <Card
-                    className={`group relative flex h-full w-full flex-col justify-between overflow-hidden border-none pb-0 shadow-none transition-all duration-300 ${project.backgroundColor}`}
+                    className={`group relative flex h-full w-full flex-col justify-between overflow-hidden border-none pb-0 shadow-none transition-colors duration-300 ${project.backgroundColor}`}
                   >
                     <CardContent className='p-6 md:p-8 space-y-3'>
                       <CardTitle className='text-primary line-clamp-2 text-lg font-semibold'>{project.title}</CardTitle>
@@ -75,6 +77,11 @@ const Portfolio = ({ portfolioItems }: PortfolioProps) => {
                         src={project.imageUrl}
                         alt={project.imageAlt}
                         className={`w-full object-cover transition-transform duration-300 group-hover:scale-105 ${project.imageClassName || ''}`}
+                        {...(project.imageWidth != null && project.imageHeight != null
+                          ? { width: project.imageWidth, height: project.imageHeight }
+                          : {})}
+                        loading='lazy'
+                        decoding='async'
                       />
                     </div>
                     <Button
@@ -95,7 +102,7 @@ const Portfolio = ({ portfolioItems }: PortfolioProps) => {
                   className='flex h-full w-full'
                 >
                   <Card
-                    className={`group relative flex h-full w-full flex-col justify-between overflow-hidden border-none pb-0 shadow-none transition-all duration-300 ${project.backgroundColor}`}
+                    className={`group relative flex h-full w-full flex-col justify-between overflow-hidden border-none pb-0 shadow-none transition-colors duration-300 ${project.backgroundColor}`}
                   >
                     <CardContent className='p-6 md:p-8 space-y-3'>
                       <CardTitle className='text-primary line-clamp-2 text-lg font-semibold'>{project.title}</CardTitle>
@@ -106,6 +113,11 @@ const Portfolio = ({ portfolioItems }: PortfolioProps) => {
                         src={project.imageUrl}
                         alt={project.imageAlt}
                         className={`w-full object-cover transition-transform duration-300 group-hover:scale-105 ${project.imageClassName || ''}`}
+                        {...(project.imageWidth != null && project.imageHeight != null
+                          ? { width: project.imageWidth, height: project.imageHeight }
+                          : {})}
+                        loading='lazy'
+                        decoding='async'
                       />
                     </div>
                     <Button

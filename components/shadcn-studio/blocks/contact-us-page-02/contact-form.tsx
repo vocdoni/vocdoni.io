@@ -125,7 +125,7 @@ const ContactForm = () => {
             aria-invalid={errors.name ? 'true' : undefined}
             aria-describedby={errors.name ? 'name-error' : undefined}
             autoComplete='name'
-            className='h-12 border-2 focus-visible:ring-2 focus-visible:ring-primary/20 transition-all'
+            className='h-12 border-2 focus-visible:ring-2 focus-visible:ring-primary/20 transition-[color,border-color,box-shadow]'
             placeholder={t('contact.name_placeholder', { defaultValue: 'John Doe' })}
             {...register('name', {
               required: t('contact.errors.name_required', { defaultValue: 'Name is required' }),
@@ -149,7 +149,7 @@ const ContactForm = () => {
             aria-invalid={errors.email ? 'true' : undefined}
             aria-describedby={errors.email ? 'email-error' : undefined}
             autoComplete='email'
-            className='h-12 border-2 focus-visible:ring-2 focus-visible:ring-primary/20 transition-all'
+            className='h-12 border-2 focus-visible:ring-2 focus-visible:ring-primary/20 transition-[color,border-color,box-shadow]'
             placeholder={t('contact.email_placeholder', { defaultValue: 'john@example.com' })}
             {...register('email', {
               required: t('contact.errors.email_required', { defaultValue: 'Email is required' }),
@@ -215,7 +215,7 @@ const ContactForm = () => {
           aria-invalid={errors.message ? 'true' : undefined}
           aria-describedby={errors.message ? 'message-error' : undefined}
           autoComplete='off'
-          className='min-h-[160px] resize-none border-2 focus-visible:ring-2 focus-visible:ring-primary/20 transition-all'
+          className='min-h-[160px] resize-none border-2 focus-visible:ring-2 focus-visible:ring-primary/20 transition-[color,border-color,box-shadow]'
           placeholder={t('contact.message_placeholder', {
             defaultValue: 'Tell us about your voting or governance needs...',
           })}

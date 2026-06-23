@@ -4,6 +4,8 @@ import {
   findDynamicTranslationKeys,
   findEmptyTranslationLeafValues,
   findHardcodedJsxCopyViolations,
+  findUntranslatedLeafValues,
+  getConfiguredLocales,
   getInvalidComponentDirectories,
 } from '../../scripts/guardrails/lib.mjs'
 
@@ -149,5 +151,84 @@ describe('findEmptyTranslationLeafValues', () => {
         },
       })
     ).toEqual([])
+  })
+})
+
+describe('getConfiguredLocales', () => {
+  it('extracts the locales array from the locales/index.ts source', () => {
+    const source = `
+      type Locale = 'ca' | 'en' | 'es'
+      const locales: Locale[] = ['ca', 'en', 'es']
+      const localeDefault: Locale = 'en'
+      const availableLocales: { value: Locale; label: string }[] = [
+        { value: 'ca', label: 'Català' },
+        { value: 'en', label: 'English' },
+        { value: 'es', label: 'Español' },
+      ]
+      export { availableLocales, localeDefault, locales, type Locale }
+    `
+    expect(getConfiguredLocales(source)).toEqual(['ca', 'en', 'es'])
+  })
+
+  it('returns null when no locales array is present', () => {
+    expect(getConfiguredLocales('export const localeDefault = "en"')).toBeNull()
+  })
+})
+
+describe('findUntranslatedLeafValues', () => {
+  const source = {
+    hero: { title: 'Secure online voting', cta: 'Get started' },
+    badges: ['Accessible', 'GDPR'],
+    brand: 'Vocdoni',
+    stats: [{ value: 'OECD', label: 'Format' }],
+  }
+  const references = [
+    {
+      hero: { title: 'Votación segura en línea', cta: 'Empezar' },
+      badges: ['Accesible', 'GDPR'],
+      brand: 'Vocdoni',
+      stats: [{ value: 'OCDE', label: 'Formato' }],
+    },
+    {
+      hero: { title: 'Votació segura en línia', cta: 'Comença' },
+      badges: ['Accessible', 'GDPR'],
+      brand: 'Vocdoni',
+      stats: [{ value: 'OCDE', label: 'Format' }],
+    },
+  ]
+
+  it('flags object and array leaves copied verbatim from English when a reference translates them', () => {
+    const locale = {
+      hero: { title: 'Secure online voting', cta: 'Loslegen' },
+      badges: ['Accessible', 'GDPR'],
+      brand: 'Vocdoni',
+      stats: [{ value: 'OECD', label: 'Format' }],
+    }
+
+    // badges.0 ('Accessible') only Spanish translates ('Accesible'); stats.0.label ('Format') only
+    // Spanish translates ('Formato'); stats.0.value ('OECD') both references translate ('OCDE').
+    // badges.1 ('GDPR') and brand ('Vocdoni') stay identical in every reference so are not flagged.
+    expect(findUntranslatedLeafValues(locale, source, references)).toEqual([
+      'hero.title',
+      'badges.0',
+      'stats.0.value',
+      'stats.0.label',
+    ])
+  })
+
+  it('ignores empty strings, proper nouns/acronyms, and already translated values', () => {
+    const locale = {
+      hero: { title: '', cta: 'Loslegen' },
+      badges: ['Accessible', 'GDPR'],
+      brand: 'Vocdoni',
+      stats: [{ value: 'OECD', label: 'Format' }],
+    }
+
+    // hero.title is empty (pending); brand/GDPR never qualify; the rest stay flagged.
+    expect(findUntranslatedLeafValues(locale, source, references)).toEqual([
+      'badges.0',
+      'stats.0.value',
+      'stats.0.label',
+    ])
   })
 })
