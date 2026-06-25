@@ -21,8 +21,9 @@ export function Prose({ className, ...props }: ProseProps) {
         // Strong and links
         '[&_strong]:font-semibold [&_strong]:text-foreground',
         '[&_a]:font-medium [&_a]:text-primary [&_a]:underline-offset-4 hover:[&_a]:underline',
-        // Inline code
-        '[&_code]:rounded-md [&_code]:border [&_code]:border-border/60 [&_code]:bg-muted/60 [&_code]:px-1.5 [&_code]:py-0.5 [&_code]:font-mono [&_code]:text-[0.85em] [&_code]:text-foreground',
+        // Inline code only. Excludes code inside <pre> (code blocks) and table
+        // cells (the property table styles its own field/type tokens).
+        '[&_:not(pre):not(td):not(th)>code]:rounded-md [&_:not(pre):not(td):not(th)>code]:border [&_:not(pre):not(td):not(th)>code]:border-border/60 [&_:not(pre):not(td):not(th)>code]:bg-muted/60 [&_:not(pre):not(td):not(th)>code]:px-1.5 [&_:not(pre):not(td):not(th)>code]:py-0.5 [&_:not(pre):not(td):not(th)>code]:font-mono [&_:not(pre):not(td):not(th)>code]:text-[0.85em] [&_:not(pre):not(td):not(th)>code]:text-foreground',
         // Horizontal rule
         '[&_hr]:my-10 [&_hr]:border-border/60',
         className

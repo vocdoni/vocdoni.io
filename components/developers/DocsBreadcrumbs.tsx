@@ -1,8 +1,10 @@
 import { Link } from '@/components/Link'
+import type { DocsPageData } from '@/lib/docs/nav'
 import { ChevronRight } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
+import { useData } from 'vike-react/useData'
 
-import { DOCS_NAV, navLabels } from './docs-nav'
+import { navGroupLabels } from './docs-nav'
 
 interface DocsBreadcrumbsProps {
   slug: string
@@ -11,8 +13,10 @@ interface DocsBreadcrumbsProps {
 // Documentation > {group} > {page}. The overview page only shows the root crumb.
 export function DocsBreadcrumbs({ slug }: DocsBreadcrumbsProps) {
   const { t } = useTranslation()
-  const labels = navLabels(t)
-  const group = DOCS_NAV.find((candidate) => candidate.items.some((item) => item.slug === slug))
+  const { nav } = useData<DocsPageData>()
+  const groupLabels = navGroupLabels(t)
+  const group = nav.find((candidate) => candidate.items.some((item) => item.slug === slug))
+  const item = group?.items.find((candidate) => candidate.slug === slug)
   const isOverview = slug === 'overview'
 
   return (
@@ -26,9 +30,9 @@ export function DocsBreadcrumbs({ slug }: DocsBreadcrumbsProps) {
         {!isOverview && group ? (
           <>
             <ChevronRight className='size-3.5 shrink-0' aria-hidden='true' />
-            <li>{labels?.groups?.[group.id]}</li>
+            <li>{groupLabels[group.id] ?? group.id}</li>
             <ChevronRight className='size-3.5 shrink-0' aria-hidden='true' />
-            <li className='font-medium text-foreground'>{labels?.items?.[slug]}</li>
+            <li className='font-medium text-foreground'>{item?.label}</li>
           </>
         ) : null}
       </ol>

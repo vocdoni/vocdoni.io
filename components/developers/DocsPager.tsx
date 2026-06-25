@@ -1,9 +1,11 @@
 import { Link } from '@/components/Link'
+import type { DocsPageData } from '@/lib/docs/nav'
 import { cn } from '@/lib/utils'
 import { ArrowLeft, ArrowRight } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
+import { useData } from 'vike-react/useData'
 
-import { DOCS_NAV_FLAT, navLabels } from './docs-nav'
+import { flattenDocsNav } from './docs-nav'
 
 interface DocsPagerProps {
   slug: string
@@ -12,12 +14,13 @@ interface DocsPagerProps {
 // Previous / next navigation derived from the flattened reading order.
 export function DocsPager({ slug }: DocsPagerProps) {
   const { t } = useTranslation()
-  const items = navLabels(t).items
-  const index = DOCS_NAV_FLAT.findIndex((item) => item.slug === slug)
+  const { nav } = useData<DocsPageData>()
+  const flat = flattenDocsNav(nav)
+  const index = flat.findIndex((item) => item.slug === slug)
   if (index === -1) return null
 
-  const previous = index > 0 ? DOCS_NAV_FLAT[index - 1] : null
-  const next = index < DOCS_NAV_FLAT.length - 1 ? DOCS_NAV_FLAT[index + 1] : null
+  const previous = index > 0 ? flat[index - 1] : null
+  const next = index < flat.length - 1 ? flat[index + 1] : null
 
   return (
     <div className='mt-14 grid gap-4 border-t border-border/60 pt-6 sm:grid-cols-2'>
@@ -31,7 +34,7 @@ export function DocsPager({ slug }: DocsPagerProps) {
             <ArrowLeft className='size-3.5' />
             {t('developers.docs.common.previous', 'Previous')}
           </span>
-          <span className='font-medium text-foreground group-hover:text-primary'>{items[previous.slug]}</span>
+          <span className='font-medium text-foreground group-hover:text-primary'>{previous.label}</span>
         </Link>
       ) : (
         <span />
@@ -49,7 +52,7 @@ export function DocsPager({ slug }: DocsPagerProps) {
             {t('developers.docs.common.next', 'Next')}
             <ArrowRight className='size-3.5' />
           </span>
-          <span className='font-medium text-foreground group-hover:text-primary'>{items[next.slug]}</span>
+          <span className='font-medium text-foreground group-hover:text-primary'>{next.label}</span>
         </Link>
       ) : null}
     </div>

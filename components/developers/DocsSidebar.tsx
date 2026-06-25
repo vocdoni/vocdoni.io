@@ -1,13 +1,15 @@
 import { Link } from '@/components/Link'
 import { Button } from '@/components/ui/button'
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
+import type { DocsPageData } from '@/lib/docs/nav'
 import { cn } from '@/lib/utils'
 import { Menu, PanelLeft } from 'lucide-react'
 import * as React from 'react'
 import { useTranslation } from 'react-i18next'
+import { useData } from 'vike-react/useData'
 import { usePageContext } from 'vike-react/usePageContext'
 
-import { DOCS_NAV, navLabels } from './docs-nav'
+import { navGroupLabels } from './docs-nav'
 
 const normalize = (value: string) => {
   if (value.length > 1 && value.endsWith('/')) return value.slice(0, -1)
@@ -16,18 +18,17 @@ const normalize = (value: string) => {
 
 function NavTree({ onNavigate }: { onNavigate?: () => void }) {
   const { t } = useTranslation()
+  const { nav } = useData<DocsPageData>()
   const pageContext = usePageContext() as any
   const current = normalize((pageContext.urlLogical as string) || '/')
-  const labels = navLabels(t)
-  const groups = labels.groups
-  const items = labels.items
+  const groups = navGroupLabels(t)
 
   return (
     <nav className='space-y-7' aria-label={t('developers.docs.nav.aria_label', 'Documentation')}>
-      {DOCS_NAV.map((group) => (
+      {nav.map((group) => (
         <div key={group.id}>
           <p className='mb-2 px-3 text-xs font-semibold uppercase tracking-wide text-muted-foreground/80'>
-            {groups[group.id]}
+            {groups[group.id] ?? group.id}
           </p>
           <ul className='space-y-0.5'>
             {group.items.map((item) => {
@@ -46,7 +47,7 @@ function NavTree({ onNavigate }: { onNavigate?: () => void }) {
                         : 'text-muted-foreground hover:bg-accent hover:text-foreground'
                     )}
                   >
-                    {items[item.slug]}
+                    {item.label}
                   </Link>
                 </li>
               )
