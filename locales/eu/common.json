@@ -890,12 +890,7 @@
         "intro": "Pribatutasuna, auditagarritasuna eta legez defendagarria izatea ez dira gehigarriak. Vocdonirekin egiten duzun bozketa bakoitzaren oinarria dira.",
         "title": "Emaitzek azterketa zorrotza jasan dezaten eraikia"
       },
-      "trust_badges": [
-        "DBEOrekin bat dator",
-        "Muturretik muturrera egiaztagarria",
-        "Boto sekretua",
-        "Kode irekikoa"
-      ],
+      "trust_badges": ["DBEOrekin bat dator", "Muturretik muturrera egiaztagarria", "Boto sekretua", "Kode irekikoa"],
       "trust_points": [
         {
           "description": "Botogile bakoitzak bere botoa zenbatu dela egiazta dezake, eta edonork azken zenbaketa egiazta dezake; ez dago plataformaz fidatu beharrik.",
@@ -1108,12 +1103,7 @@
         "intro": "Pribatutasuna, ikuskarigarritasuna eta legez defendagarritasuna ez dira gehigarriak. Vocdonirekin egiten duzun boto-emate ororen oinarria dira.",
         "title": "Zure kideek onartuko dituzten erabakiak"
       },
-      "trust_badges": [
-        "GDPR betetzen du",
-        "Amaieratik amaierara egiaztagarria",
-        "Kide bat, boto bat",
-        "Kode irekikoa"
-      ],
+      "trust_badges": ["GDPR betetzen du", "Amaieratik amaierara egiaztagarria", "Kide bat, boto bat", "Kode irekikoa"],
       "trust_points": [
         {
           "description": "Botogile bakoitzak egiaztatu dezake bere botoa kontatu dela, eta edonork egiazta dezake azken zenbaketa. Konfiantza frogetatik dator, ez gure hitzetatik.",
@@ -1332,12 +1322,7 @@
         "intro": "Pribatutasuna, ikuskaritzagarritasuna eta lege-babesa ez dira gehigarriak. Vocdonirekin egiten duzun bozketa bakoitzaren oinarria dira.",
         "title": "Zure komunitateak fidatuko dituen erabakiak"
       },
-      "trust_badges": [
-        "Amaieratik amaierara egiaztagarria",
-        "Boto sekretua",
-        "GDPR betetzen du",
-        "Kode irekikoa"
-      ],
+      "trust_badges": ["Amaieratik amaierara egiaztagarria", "Boto sekretua", "GDPR betetzen du", "Kode irekikoa"],
       "trust_points": [
         {
           "description": "Botogile bakoitzak bere botoa zenbatu dela egiazta dezake, eta edonork azken zenbaketa egiazta dezake. Konfiantza frogetatik dator, ez gure hitzetik.",
@@ -2502,11 +2487,7 @@
     },
     "cta_primary": "Hasi doan",
     "cta_secondary": "Hitz egin aditu batekin",
-    "dynamic_words": [
-      "erraza",
-      "segurua",
-      "sinplea"
-    ],
+    "dynamic_words": ["erraza", "segurua", "sinplea"],
     "subtitle": "Egin hauteskunde seguru eta egiaztagarriak edozein gailutatik, ebidentzia juridikoekin eta ikuskaritza-aztarnekin. Edozein erakunde, edozein tamaina, gaur bertatik aurrera.",
     "title": "Erabakiak hartzea inoiz ez da izan",
     "trusted_by": "Tamaina guztietako erakundeek fidatzen dute"
@@ -2847,6 +2828,11 @@
         "content": "«Granollers Primàries»n, parte-hartze digitala herritarren parte-hartzea zabaltzeko eta errazteko funtsezko tresnatzat ulertzen dugu. Horregatik, boto-emate prozesuetan neutraltasuna, gardentasuna eta segurtasunik handiena bermatzen zituen plataforma baten bila ginen. Vocdoni-k hori guztia eskaintzen du, eta horregatik hautatu genuen gure primarioetarako, eta etorkizuneko kontsultetan erabiltzen jarraitzea aurreikusten dugu.",
         "handle": "Komunikazio arduraduna · Granollers Primàries",
         "title": "Primario gardenetarako parte-hartze digitala"
+      },
+      "14": {
+        "content": "La Intersindical-en uste dugu irakasle kolektibo osoa ukitzen duten erabakiak irakasleak beraiek hartu behar dituztela. Horregatik, prozesu garden, neutral eta egiaztagarri bat bermatuko zuen tresna bat behar genuen. Vocdoni-rekin erabaki hau ia 100.000 profesionaletara helarazi ahal izan genuen, prozedura zein emaitza erabat fidagarriak izango zirela ziurtasunarekin.",
+        "handle": "Hezkuntza sektoriaren bozeramailea · La Intersindical",
+        "title": "Erabaki garden eta egiaztagarriak 100.000 irakaslerentzat"
       }
     }
   },
@@ -2870,11 +2856,7 @@
       "items": {
         "associations": {
           "description": "Zuzendaritza-batzordeko hauteskundeak, estatutu-aldaketak eta zure erakundearen arauak betetzen dituzten batzar estatutarioak antolatu. Kide bakoitzak esteka bat jasotzen du bere botoa zenbatu dela egiaztatzeko - nola bozkatu duen agerian jarri gabe.",
-          "features": [
-            "Zuzendaritza-batzordeko hauteskundeak",
-            "Estatutuen aldaketak",
-            "Ekimen handien onarpenak"
-          ],
+          "features": ["Zuzendaritza-batzordeko hauteskundeak", "Estatutuen aldaketak", "Ekimen handien onarpenak"],
           "title": "Elkarteak eta kide-erakundeak"
         },
         "city_councils": {
@@ -2888,11 +2870,7 @@
         },
         "integrators": {
           "description": "Txertatu zure plataforman modu independentean egiaztagarria den botazioa SDK edo REST API bidez. Vocdoni arduratzen da segurtasunaz, pribatutasunaz eta araudia betetzeaz. Zure taldeak erabiltzaile-esperientzian jartzen du arreta.",
-          "features": [
-            "JavaScript SDK eta REST API",
-            "Aurrez eraikitako UI osagaiak",
-            "GDPR betetzea lehen unetik"
-          ],
+          "features": ["JavaScript SDK eta REST API", "Aurrez eraikitako UI osagaiak", "GDPR betetzea lehen unetik"],
           "title": "Software integratzaileak eta plataforma-hornitzaileak"
         },
         "political_parties": {
