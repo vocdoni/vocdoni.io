@@ -25,6 +25,7 @@ import logoPlataformaRound from '@/assets/logos/logo_plataforma_round.webp'
 import logoErc from '@/assets/logos/erc.webp'
 import logoErcRound from '@/assets/logos/logo_erc_round.webp'
 import logoGranollersRound from '@/assets/logos/logo_primaries_granollers_round.webp'
+import logoIntersindicalRound from '@/assets/logos/logo_intersindical_round.webp'
 
 export type Testimonial = {
   name: string
@@ -226,6 +227,19 @@ export function getTestimonialsData(t: TFunction): Testimonial[] {
       platformName: 'Granollers Primàries',
       platformImage: logoGranollersRound,
       logo: logoGranollersRound,
+    },
+    {
+      name: 'Marc Martorell',
+      handle: t('testimonials_marquee.items.14.handle', 'Spokesperson for the education sector · La Intersindical'),
+      rating: 5,
+      title: t('testimonials_marquee.items.14.title', 'Transparent and verifiable decisions for 100,000 teachers'),
+      content: t(
+        'testimonials_marquee.items.14.content',
+        'At La Intersindical we believe that decisions affecting the entire teaching collective must be made by teachers themselves. That is why we needed a tool that guaranteed a transparent, neutral, and verifiable process. With Vocdoni we were able to bring this decision to nearly 100,000 professionals with the assurance that both the procedure and the result would be fully reliable.'
+      ),
+      platformName: 'La Intersindical',
+      platformImage: logoIntersindicalRound,
+      logo: logoIntersindicalRound,
     },
   ]
 }
