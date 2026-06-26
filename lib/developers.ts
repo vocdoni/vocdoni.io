@@ -12,7 +12,7 @@ export const DEVELOPERS_DASHBOARD_URL = 'https://developer.vocdoni.io/login'
 export const DEVELOPERS_API_BASE_URL = 'https://api-saas.vocdoni.io'
 
 // External developer resources.
-export const DEVELOPERS_SDK_URL = 'https://developer.vocdoni.io/sdk'
+export const DEVELOPERS_SDK_URL = 'https://github.com/vocdoni/integrator-sdk'
 export const DEVELOPERS_SDK_DOCS_URL = 'https://developer.vocdoni.io'
 export const DEVELOPERS_GITHUB_URL = 'https://github.com/vocdoni'
 export const DEVELOPERS_PROTOCOL_URL = 'https://davinci.vote'
