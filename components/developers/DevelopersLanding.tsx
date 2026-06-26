@@ -136,7 +136,7 @@ function Pillars() {
         'developers.landing.pillars.api.description',
         'A REST API to run managed elections: organizations, members, censuses, processes, results and async jobs.'
       ),
-      href: '/developers/docs/overview',
+      href: '/developers/docs',
       cta: t('developers.landing.pillars.api.cta', 'Explore the API'),
       external: false,
     },
