@@ -28,13 +28,36 @@ reference:
       external: true
 ---
 
+There are two ways to integrate with Vocdoni: the documented **REST API**, and a lower-level
+**TypeScript SDK** for the voter's browser. Choose based on how much control you need - and combine
+them where it makes sense.
+
 ## When to use the REST API
 
-The SaaS REST API is the fastest path for most teams. It manages organizations, members, censuses, processes and results for you, handles the cryptography behind the scenes, and works from any language with an HTTP client. Use it when you want managed elections without operating protocol internals.
+The SaaS REST API is the quickest path for most teams. It manages organizations, members, censuses,
+processes, and results, handles the protocol cryptography internally, and works from any language with
+an HTTP client. Use it when you want **managed elections without operating protocol internals** - it's
+what every page in this documentation targets, and it covers the entire server-side lifecycle from
+provisioning a tenant to reading a tally.
 
 ## When to use the SDK
 
-The TypeScript SDK talks to the voting protocol more directly and is a good fit when you need fine-grained control over census and voting operations, or when you are building a custom voting client. It can be combined with the API where it makes sense.
+Casting a ballot is voter-facing cryptography: encoding the ballot, authenticating to the Credential
+Service Provider (CSP), and signing the vote transaction. That part runs **client-side**, in the
+voter's browser, via the TypeScript SDK. The SDK talks **only to this REST API** - it never reaches
+the chain directly - and is the other half of the casting flow described in
+[Casting votes](/developers/docs/casting-votes).
+
+Reach for it when you build a custom voting client, or need fine-grained control over the
+authentication, ballot encoding, and vote-submission steps. The current SDK ships as small,
+tree-shakeable packages - `@vocdoni/api-client` (typed HTTP client) and `@vocdoni/api-voting` (CSP
+auth, ballot encoding, vote signing) - replacing the older monolithic `@vocdoni/sdk`.
+
+> [!NOTE] One SDK for the whole integrator API
+> Beyond client-side casting, the TypeScript SDK is growing to cover **all the API relevant to
+> integrators** - organization provisioning, members and groups, censuses, processes, results and
+> quota - so you can drive the entire integration from typed TypeScript instead of raw HTTP.
+> `@vocdoni/api-client` already wraps these endpoints; higher-level helpers are landing incrementally.
 
 ## AI agent skills
 

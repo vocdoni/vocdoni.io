@@ -38,21 +38,32 @@ reference:
 
 ## Who this is for
 
-These docs are written for integrators: developers who want to run elections from their own software. You bring the product and the voters; Vocdoni provides the voting infrastructure, cryptography and verifiable results.
+These docs are written for **integrators**: developers who add voting to their own software. The
+SaaS API is shaped for a multi-tenant model - you provision one **managed organization per customer**
+and run everything inside it with your integrator key, so your customers never need a Vocdoni account.
+Every example is shown in **bash + curl**, with **.NET (C#)** and **Python** variants.
 
 ## How the API fits together
 
-Most integrations follow the same path. Each step maps to a small group of endpoints you will find in this documentation.
+Most integrations follow the same path. Each step maps to a small group of endpoints documented here.
 
-- **Organization** - the account that owns elections, members and API keys. Everything is scoped to an organization address.
-- **Members** - the people in your organization. Import them once, then reuse them across many elections.
-- **Census** - the list of who can vote in a given election, with how they authenticate. Publishing a census produces a cryptographic root.
-- **Process** - a voting process (an election) with its questions, vote type and timing, run against a published census.
+- **Organization** - the tenant that owns members, censuses, elections and API keys. Everything is
+  scoped to an organization address; as an integrator you create one managed org per customer.
+- **Members and groups** - the people in an organization, and named subsets of them. Import them once,
+  then reuse them across many elections.
+- **Census** - the eligible-voter list for a given election, plus *how* voters authenticate.
+  Publishing a census produces a cryptographic root.
+- **Process** - a voting process (an election) with its questions, vote type and timing, run against a
+  published census.
 - **Results** - live or final tallies that anyone can verify against the protocol.
 
 > [!TIP] Heavy work runs asynchronously
-> Bulk imports, census publishing and process publishing can take time, so they return a job id you poll until completion. See the jobs page for the pattern.
+> Bulk member imports, census publishing, process publishing and status changes can take time, so they
+> return a job id you poll until completion. See [Jobs](/developers/docs/jobs) for the pattern.
 
 ## Two ways to integrate
 
-Most teams use the REST API documented here, which handles organizations, members, censuses, processes and results for you. If you need lower-level control over the protocol, the TypeScript SDK is also available - see [SDKs and tools](/developers/docs/sdks-and-tools).
+Most teams use the REST API documented here, which handles organizations, members, censuses, processes
+and results for you. Casting a ballot is voter-facing cryptography that runs client-side in the
+voter's browser via the TypeScript SDK. See [SDKs and tools](/developers/docs/sdks-and-tools) for when
+to use each.

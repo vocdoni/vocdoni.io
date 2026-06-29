@@ -1,42 +1,83 @@
 ---
-title: Quotas and subscriptions
-lead: Each organization has a subscription that sets which features are available and how much it can use. Read it to adapt your integration and to show plan limits to your users.
+title: Integrator quota
+lead: As an integrator you have provisioning limits - how many managed organizations you can create, processes you can publish, votes you can relay and OTP messages you can send. Read them to stay ahead of your usage and know when to upgrade.
 group: integrator_platform
 order: 30
 ---
 
-## Reading the subscription
+Your **integrator account** has provisioning limits that cap how much you can provision across all of
+your managed organizations. They are separate from any single organization's plan: this page is about
+*your* limits as an integrator, not an end customer's subscription. Read them to gate your own UI and
+to avoid hitting a wall mid-flow.
 
-Fetch the subscription for an organization to get its plan, the current details, and usage counters such as processes run and members imported.
+> [!NOTE] Staging ignores quotas
+> Limits apply in **production** only. On [staging](/developers/docs/api-conventions#environments) no
+> integrator quota is enforced, so you can provision organizations, processes, votes and OTPs freely
+> while building and testing.
 
-- **GET** `/organizations/{address}/subscription`
+## Reading your quota
+
+- **GET** `/integrator`
 
 ```bash
-curl "{{API_BASE_URL}}/organizations/$ORG/subscription" \
-  -H "Authorization: Bearer $TOKEN"
-# -> { "plan": { ... }, "subscriptionDetails": { ... }, "usage": { ... } }
+curl "${auth[@]}" "$B/integrator"
 ```
 
-## Plan features
+```jsonc
+{ "enabled": true,
+  "limits": { "maxManagedOrgs": 1, "maxManagedProcesses": 10, "maxVotes": 1000,
+              "maxEmails": 500, "maxSMS": 200 },
+  "usage":  { "managedOrgs": 1, "managedProcesses": 2, "sentVotes": 134,
+              "sentEmails": 87, "sentSMS": 12 } }
+```
 
-Features describe what a plan unlocks. Check them before offering an option in your UI - for example, only show anonymous voting if the plan allows it.
+<details><summary><b>C#</b> / <b>Python</b> · read your quota</summary>
 
-| Field | Type | Description |
+```csharp
+var q = await Get("/integrator");
+var limits = q.GetProperty("limits");
+int orgsLeft = limits.GetProperty("maxManagedOrgs").GetInt32()
+             - q.GetProperty("usage").GetProperty("managedOrgs").GetInt32();
+```
+```python
+q = get("/integrator").json()
+orgs_left = q["limits"]["maxManagedOrgs"] - q["usage"]["managedOrgs"]
+```
+</details>
+
+## Limits and usage
+
+Every limit has a matching counter under `usage`. Compare the two to see how much headroom you have
+before you provision more.
+
+| Limit | Usage counter | Caps |
 | --- | --- | --- |
-| `anonymous` | boolean | Anonymous voting with zero-knowledge proofs. |
-| `liveResults` | boolean | Live results while a process is running. |
-| `whiteLabel` | boolean | White-label branding for the voting experience. |
-| `overwrite` | boolean | Allow voters to change their vote. |
-| `2FAemail` | integer | Quota of email second-factor messages. |
-| `2FAsms` | integer | Quota of SMS second-factor messages. |
+| `maxManagedOrgs` | `managedOrgs` | Managed organizations you can provision. |
+| `maxManagedProcesses` | `managedProcesses` | Published voting processes across your managed orgs. |
+| `maxVotes` | `sentVotes` | Votes relayed to the protocol. |
+| `maxEmails` | `sentEmails` | Email OTP (second-factor) messages sent. |
+| `maxSMS` | `sentSMS` | SMS OTP (second-factor) messages sent. |
 
-## Subscription details
+> [!NOTE] Reading the limits
+> A `0` limit means **unlimited**. `enabled: false` means integrator features aren't turned on for your
+> plan - enable integrator access or upgrade from the [API Dashboard](https://platform.vocdoni.io).
 
-The details object reports whether the subscription is active, the plan id, the maximum census size and key dates such as start and renewal.
+## Tiers
 
-| Field | Type | Description |
-| --- | --- | --- |
-| `active` | boolean | Whether the subscription is currently active. |
-| `planId` | integer | The plan the organization is on. |
-| `maxCensusSize` | integer | Largest census the plan permits. |
-| `renewalDate` | string | When the subscription next renews. |
+**Free tier.** Allows **one managed organization** with modest limits on processes, votes and OTP
+messages - enough to build and test a full integration. Deleting the managed org frees the slot, and
+the cascade also rolls back your usage counters. See
+[Managed organizations](/developers/docs/managed-organizations) to provision and delete them.
+
+**Custom tier.** Beyond the free tier, integrator limits are set on a **custom plan agreed directly
+with Vocdoni**. After the agreement, your negotiated allowances - how many managed organizations and
+published processes you can run, how many votes you can relay, and your email/SMS OTP budget - are
+provisioned on your integrator account and surface in `GET /integrator`. There is no self-serve
+upgrade for integrator quotas: to raise a limit, talk to the Vocdoni team through the
+[API Dashboard](https://platform.vocdoni.io) or your account contact, and the new values take effect
+once your plan is updated.
+
+> [!TIP] Check headroom before you provision
+> Read `GET /integrator` and compare each limit with its `usage` counter before creating an org,
+> publishing a process, or sending OTPs - so a customer-facing action never fails on a quota you could
+> have seen coming. On a custom plan a `0` limit means that allowance is unlimited.

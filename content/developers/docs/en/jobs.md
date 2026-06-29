@@ -5,11 +5,31 @@ group: core_concepts
 order: 60
 ---
 
-## The async pattern
+Anything that touches the chain - publishing a process, changing its status, relaying a vote - and
+bulk member imports run **asynchronously**. The write returns a **`jobId`**, and you poll one endpoint
+to learn the outcome. This is the async spine of the API.
 
-When an endpoint runs asynchronously it responds immediately with a job id. Poll the job until its status is completed or failed, then read the result. Keep polling intervals reasonable - a few seconds is usually enough.
+## Polling a job
+
+The generic job endpoint is **public** - the job id is the capability. Poll it until `status` is
+`completed` or `failed`, then read the result.
 
 - **GET** `/jobs/{jobId}`
+
+```bash
+curl -s "$B/jobs/$JOBID"     # public - the job id is the capability
+```
+
+```jsonc
+{ "jobId": "a1b2c3...",
+  "type": "publish_process",          // org_members | census_participants | publish_process |
+                                      //   set_process_status | relay_vote
+  "status": "completed",              // pending | completed | failed
+  "result": { "address": "0x9f2c...", // on publish: the on-chain election id
+              "status": "READY",      // on status change: the new status
+              "voteID": "" },         // on relay_vote: the vote nullifier
+  "error": "" }                       // populated only when status == failed
+```
 
 | Field | Type | Description |
 | --- | --- | --- |
@@ -19,20 +39,29 @@ When an endpoint runs asynchronously it responds immediately with a job id. Poll
 | `result` | object | On success, details such as an address or vote id. |
 | `error` | string | On failure, a human-readable reason. |
 
-```bash
-curl "{{API_BASE_URL}}/jobs/$JOB_ID" \
-  -H "Authorization: Bearer $TOKEN"
+Rules of thumb:
 
-# Pending
-# { "jobId": "a1b2c3", "type": "publish_process", "status": "pending" }
+- The call always returns `200`, even for failures - branch on the **`status`** field.
+- `completed`: read `result`. `failed`: read `error` and **fail fast** (don't keep polling). Anything
+  else: keep polling (every ~2s is plenty).
 
-# Completed
-# { "jobId": "a1b2c3", "type": "publish_process", "status": "completed",
-#   "result": { "address": "0xprocess...", "status": "READY" } }
+<details><summary><b>C#</b> / <b>Python</b> · poll to completion</summary>
 
-# Failed
-# { "jobId": "a1b2c3", "type": "publish_process", "status": "failed", "error": "..." }
+```csharp
+JsonElement job;
+do { await Task.Delay(2000); job = await Get($"/jobs/{jobId}"); }
+while (job.GetProperty("status").GetString() == "pending");
+if (job.GetProperty("status").GetString() == "failed")
+    throw new Exception(job.GetProperty("error").GetString());
 ```
+```python
+while True:
+    job = get(f"/jobs/{jobId}").json()
+    if job["status"] == "completed": break
+    if job["status"] == "failed": raise RuntimeError(job["error"])
+    time.sleep(2)
+```
+</details>
 
 ## Job types
 
@@ -42,11 +71,29 @@ curl "{{API_BASE_URL}}/jobs/$JOB_ID" \
 - `set_process_status` - changing a process status.
 - `relay_vote` - relaying a vote to the protocol.
 
+## The members-job
+
+Bulk member adds report a richer, progress-based shape instead of the generic job above. Poll it on a
+dedicated path:
+
+```bash
+curl -s "${auth[@]}" "$B/organizations/$ORG/members/job/$JOBID"
+```
+
+```jsonc
+{ "added": 120, "total": 200, "progress": 60, "errors": [] }   // progress == 100 -> done
+```
+
+Wait for `progress: 100` (and an empty `errors`) before building a census from the members. See
+[Members and groups](/developers/docs/members-and-groups#adding-members).
+
 ## Listing jobs
 
-You can list an organization's jobs with pagination and an optional type filter to monitor recent imports and batch operations.
+You can list an organization's jobs with [pagination](/developers/docs/api-conventions#pagination) and
+an optional type filter to monitor recent imports and batch operations.
 
 - **GET** `/organizations/{address}/jobs`
 
 > [!WARNING] Jobs expire
-> Member import jobs are cleared shortly after they complete. Read the final state promptly rather than relying on the job being available indefinitely.
+> Member import jobs are cleared shortly after they complete. Read the final state promptly rather than
+> relying on the job being available indefinitely.

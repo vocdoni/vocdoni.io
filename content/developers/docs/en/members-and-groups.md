@@ -5,9 +5,14 @@ group: core_concepts
 order: 20
 ---
 
+**Members** are an organization's people - your customer's voters. **Groups** are named subsets of
+members, and a group is also the **bridge that lets you publish an auth-only census** (see
+[Census](/developers/docs/census)).
+
 ## The member object
 
-A member carries identity and contact fields plus an optional census weight and arbitrary custom fields. Provide whatever your authentication strategy needs; you do not have to fill every field.
+A member carries identity and contact fields plus an optional census weight and arbitrary custom
+fields. Provide whatever your authentication strategy needs; you do not have to fill every field.
 
 | Field | Type | Description |
 | --- | --- | --- |
@@ -18,52 +23,104 @@ A member carries identity and contact fields plus an optional census weight and 
 | `phone` | string | Phone number, used for SMS authentication. |
 | `nationalId` | string | National identity document, when used to authenticate. |
 | `birthDate` | string | Date of birth in YYYY-MM-DD format. |
-| `weight` | string | Vote weight for weighted censuses. Defaults to 1. |
+| `weight` | string | Vote weight for weighted censuses. A string, e.g. `"1"`. Defaults to 1. |
 | `other` | object | Custom key-value fields specific to your organization. |
 
 ## Adding members
 
-Add members in bulk. Small batches run synchronously and return the count and any per-member errors. For large imports, pass async=true to get a job id you poll until it completes.
+Member imports are **bulk and asynchronous**: the call returns a `jobId`, and you poll a members-job
+until it reports `progress: 100`.
 
 - **POST** `/organizations/{address}/members`
 
 ```bash
-# Synchronous: returns the count immediately
-curl -X POST "{{API_BASE_URL}}/organizations/$ORG/members" \
-  -H "Authorization: Bearer $TOKEN" \
-  -H "Content-Type: application/json" \
-  -d '{ "members": [ { "memberNumber": "0001", "name": "Ada", "surname": "Lovelace", "email": "ada@example.org", "weight": "1" } ] }'
-# -> { "added": 1, "errors": [] }
+JOB=$(curl -s "${auth[@]}" -X POST "$B/organizations/$ORG/members" -d '{
+  "members": [
+    { "name": "Alice", "surname": "Doe", "email": "alice@example.org",
+      "memberNumber": "A-101", "weight": "1" }
+  ]
+}' | jq -r .jobId)
+
+# poll the members-job until done
+until [ "$(curl -s "${auth[@]}" "$B/organizations/$ORG/members/job/$JOB" | jq -r .progress)" = "100" ]; do sleep 1; done
 ```
 
-> [!TIP] Large lists run asynchronously
-> With async=true the request returns immediately with a jobId. Poll the members job endpoint for progress as a percentage. Jobs are cleared shortly after they finish, so read the final state promptly.
+```jsonc
+// GET /organizations/{addr}/members/job/{jobId}
+{ "added": 1, "total": 1, "progress": 100, "errors": [] }   // progress == 100 -> done
+```
+
+<details><summary><b>C#</b> · add members (async)</summary>
+
+```csharp
+var job = (await Post($"/organizations/{org}/members",
+    new { members = new[] { new { name = "Alice", memberNumber = "A-101", weight = "1" } } }))
+    .GetProperty("jobId").GetString();
+while ((await Get($"/organizations/{org}/members/job/{job}")).GetProperty("progress").GetInt32() < 100)
+    await Task.Delay(1000);
+```
+</details>
+
+<details><summary><b>Python</b> · add members (async)</summary>
+
+```python
+job = post(f"/organizations/{org}/members",
+           {"members": [{"name": "Alice", "memberNumber": "A-101", "weight": "1"}]}).json()["jobId"]
+while get(f"/organizations/{org}/members/job/{job}").json()["progress"] < 100:
+    time.sleep(1)
+```
+</details>
+
+> [!WARNING] Wait for the import job
+> Don't build the census until the members-job reaches `progress: 100` - the participants won't be
+> there yet. See [Jobs](/developers/docs/jobs) for the full job model.
+
+## Listing members
+
+The list is **paginated** (default `limit` is small) - see
+[Pagination](/developers/docs/api-conventions#pagination). Walk every page so large memberbases aren't
+silently truncated.
 
 ```bash
-# Asynchronous: returns a job id to poll
-curl -X POST "{{API_BASE_URL}}/organizations/$ORG/members?async=true" \
-  -H "Authorization: Bearer $TOKEN" \
-  -H "Content-Type: application/json" \
-  -d '{ "members": [ /* thousands of members */ ] }'
-# -> { "added": 0, "errors": [], "jobId": "deadbeef" }
-
-# Poll progress
-curl "{{API_BASE_URL}}/organizations/$ORG/members/job/deadbeef" \
-  -H "Authorization: Bearer $TOKEN"
-# -> { "added": 5400, "total": 9000, "errors": [], "progress": 60 }
+curl "${auth[@]}" "$B/organizations/$ORG/members?page=1&limit=100"
 ```
 
-## Listing, updating and deleting
+```jsonc
+{ "members": [ { "id": "...", "memberNumber": "A-101", "name": "Alice" } ],
+  "pagination": { "currentPage": 1, "lastPage": 1, "totalItems": 1 } }
+```
 
-List members with pagination and an optional search term, update a single member, or delete specific members or all of them.
+<details><summary><b>Python</b> · walk every page</summary>
 
-- **GET** `/organizations/{address}/members`
+```python
+members, page = [], 1
+while True:
+    r = get(f"/organizations/{org}/members?page={page}&limit=100").json()
+    members += r["members"]
+    p = r.get("pagination")
+    if not r["members"] or not p or p["currentPage"] >= p["lastPage"]:
+        break
+    page += 1
+```
+</details>
+
+## Updating and deleting members
+
+Update a single member, or delete members by id. Note the delete path is **plural** with a body of
+`ids`; the singular `/member` returns 404 on the deployed backend.
+
 - **PUT** `/organizations/{address}/members`
-- **DELETE** `/organizations/{address}/member`
+- **DELETE** `/organizations/{address}/members`
+
+```bash
+curl "${auth[@]}" -X DELETE "$B/organizations/$ORG/members" -d '{"ids":["<memberId>"]}'
+```
 
 ## Groups
 
-Groups are reusable subsets of members - for example everyone eligible for a particular election. You can create a census directly from a group, and validate that members carry the fields a census will require.
+A group is a named subset of members. The common case is an **all-members group**, which is what you
+publish an auth-only census through. You can also build a group from explicit member ids, and validate
+that its members carry the fields a census will require.
 
 - **GET** `/organizations/{address}/groups`
 - **POST** `/organizations/{address}/groups`
@@ -71,8 +128,30 @@ Groups are reusable subsets of members - for example everyone eligible for a par
 - **POST** `/organizations/{address}/groups/{groupID}/validate`
 
 ```bash
-curl -X POST "{{API_BASE_URL}}/organizations/$ORG/groups" \
-  -H "Authorization: Bearer $TOKEN" \
-  -H "Content-Type: application/json" \
-  -d '{ "title": "Board 2026", "description": "Eligible board voters", "memberIds": ["<id1>", "<id2>"] }'
+GROUP=$(curl -s "${auth[@]}" -X POST "$B/organizations/$ORG/groups" \
+  -d '{"title":"All voters","includeAllMembers":true}' | jq -r .id)
 ```
+
+```jsonc
+{ "id": "665f..." }   // carry forward: group id
+```
+
+<details><summary><b>C#</b> / <b>Python</b> · create an all-members group</summary>
+
+```csharp
+var group = (await Post($"/organizations/{org}/groups",
+    new { title = "All voters", includeAllMembers = true })).GetProperty("id").GetString();
+```
+```python
+group = post(f"/organizations/{org}/groups",
+             {"title": "All voters", "includeAllMembers": True}).json()["id"]
+```
+</details>
+
+## Gotchas
+
+- Adding members is a **job** - wait for `progress: 100` before building a census.
+- Listing is **paginated** - walk the pages.
+- Delete is `DELETE /organizations/{addr}/members` (**plural**), with `{ "ids": [...] }`.
+- For an **auth-only** census, each `memberNumber` must be **unique** - it becomes the voting
+  credential (see [Census](/developers/docs/census)).

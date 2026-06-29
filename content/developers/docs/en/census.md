@@ -5,20 +5,25 @@ group: core_concepts
 order: 30
 ---
 
-## Authentication types
+A **census** is the eligible-voter list for an election, anchored to a cryptographic **root** that the
+election binds to. When you create a census you also choose **how voters prove who they are**.
 
-A census has a type that determines how voters authenticate. You can require fields the voter must know (auth fields) and a second factor delivered to them (two-factor fields).
+## Authentication fields
 
-- `auth` - voters authenticate with known fields only.
-- `mail` - a code is sent by email as a second factor.
-- `sms` - a code is sent by SMS as a second factor.
-- `sms_or_mail` - the voter can choose SMS or email for the second factor.
+- `authFields` - the fields a voter must present to authenticate (e.g. `memberNumber`). With only
+  `authFields` set, the census is **auth-only**: no second factor.
+- `twoFaFields` - fields used for a one-time-code second factor: `email` or `phone`.
 
-Auth fields can include memberNumber, name, surname, nationalId and birthDate. Two-factor fields can be email or phone. The type is derived from the two-factor fields you choose.
+These combine into four census types: **`auth`** (auth-only), **`mail`**, **`sms`**, and
+**`sms_or_mail`**. The type is derived from the two-factor fields you choose.
+
+`authFields` options: `name`, `surname`, `memberNumber`, `nationalId`, `birthDate`.
+`twoFaFields` options: `email`, `phone`.
 
 ## Creating a census
 
-Create a census for an organization, declaring the authentication and two-factor fields it will use. The response returns the census id.
+Create a census for an organization, declaring the authentication and two-factor fields it will use.
+The response returns the census id.
 
 - **POST** `/census`
 
@@ -29,49 +34,103 @@ Create a census for an organization, declaring the authentication and two-factor
 | `twoFaFields` | string[] | Channels for the second factor: email or phone. |
 
 ```bash
-curl -X POST {{API_BASE_URL}}/census \
-  -H "Authorization: Bearer $TOKEN" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "orgAddress": "$ORG",
-    "authFields": ["memberNumber", "birthDate"],
-    "twoFaFields": ["email"]
-  }'
-# -> { "id": "$CENSUS_ID" }
+CENSUS=$(curl -s "${auth[@]}" -X POST "$B/census" \
+  -d "{\"orgAddress\":\"$ORG\",\"authFields\":[\"memberNumber\"]}" | jq -r .id)
 ```
 
-## Adding voters and publishing
+```jsonc
+{ "id": "6a1f..." }   // carry forward: census id
+```
 
-Add existing organization members to the census, then publish it. Members already present are skipped. Publishing returns the census root, its URI and final size - after this the census is locked for voting.
+Add `"twoFaFields":["email"]` for an email-OTP census.
+
+<details><summary><b>C#</b> / <b>Python</b> · create a census</summary>
+
+```csharp
+var census = (await Post("/census",
+    new { orgAddress = org, authFields = new[] { "memberNumber" } })).GetProperty("id").GetString();
+```
+```python
+census = post("/census", {"orgAddress": org, "authFields": ["memberNumber"]}).json()["id"]
+```
+</details>
+
+## Adding participants
+
+For a **2FA** census, add organization members by id before publishing. **Auth-only** censuses are
+populated from their group at publish time, so they skip this step. Members already present are
+skipped.
 
 - **POST** `/census/{id}`
-- **GET** `/census/{id}/participants`
-- **POST** `/census/{id}/publish`
 
 ```bash
-# Add organization members, then publish
-curl -X POST "{{API_BASE_URL}}/census/$CENSUS_ID" \
-  -H "Authorization: Bearer $TOKEN" \
-  -H "Content-Type: application/json" \
+curl "${auth[@]}" -X POST "$B/census/$CENSUS" \
   -d '{ "memberIds": ["<id1>", "<id2>"] }'
-
-curl -X POST "{{API_BASE_URL}}/census/$CENSUS_ID/publish" \
-  -H "Authorization: Bearer $TOKEN"
-# -> { "uri": "...", "root": "deadbeef...", "size": 2 }
 ```
 
-## Publishing from a group
+## Publishing a census
 
-You can publish a census directly from a member group, optionally weighting votes by the member weight field. This is the quickest way to turn a saved group into an eligible voter list.
+Publishing locks the participant list and produces the root the election binds to. **How you publish
+depends on the census type** - this is the single most common stumble.
 
-- **POST** `/census/{id}/group/{groupid}/publish`
+- **POST** `/census/{id}/publish`
+- **POST** `/census/{id}/group/{groupID}/publish`
+
+**2FA types** (`mail` / `sms` / `sms_or_mail`) publish directly:
 
 ```bash
-curl -X POST "{{API_BASE_URL}}/census/$CENSUS_ID/group/$GROUP_ID/publish" \
-  -H "Authorization: Bearer $TOKEN" \
-  -H "Content-Type: application/json" \
-  -d '{ "weighted": true, "authFields": ["memberNumber"], "twoFaFields": ["email"] }'
+curl "${auth[@]}" -X POST "$B/census/$CENSUS/publish"
 ```
+
+**Auth-only** censuses are **rejected** by the plain publish (`census type not found`). Publish them
+**through a group** instead - this both supports auth-only and populates participants from the group:
+
+```bash
+curl "${auth[@]}" -X POST "$B/census/$CENSUS/group/$GROUP/publish" \
+  -d '{"authFields":["memberNumber"],"weighted":false}'
+```
+
+Either way you get the published census:
+
+```jsonc
+{ "root": "deadbeef...", "size": 1, "uri": "https://..." }
+```
+
+The `size` is the eligible-voter count - useful later for turnout (see [Results](/developers/docs/results)). Set
+`"weighted": true` to make each member's `weight` count as vote weight.
+
+<details><summary><b>C#</b> / <b>Python</b> · auth-only via group</summary>
+
+```csharp
+await Post($"/census/{census}/group/{group}/publish",
+           new { authFields = new[] { "memberNumber" }, weighted = false });
+```
+```python
+post(f"/census/{census}/group/{group}/publish",
+     {"authFields": ["memberNumber"], "weighted": False})
+```
+</details>
 
 > [!NOTE] Weighted voting
-> When a census is weighted, each voter carries the weight set on their member record. Use it for shareholder meetings or any vote where members do not count equally.
+> Set `"weighted": true` when publishing to make each member's `weight` field count as their vote
+> weight - use it for shareholder meetings or any vote where members do not count equally.
+
+## Inspecting participants
+
+- **GET** `/census/{id}/participants`
+
+```bash
+curl "${auth[@]}" "$B/census/$CENSUS/participants"
+```
+
+```jsonc
+{ "censusId": "6a1f...", "memberIds": ["..."] }
+```
+
+## Gotchas
+
+- **Auth-only must be published via a group** (`/census/{id}/group/{groupId}/publish`). The plain
+  `/publish` rejects it.
+- The auth-only credential is derived from the auth field, so **`memberNumber` must be unique** across
+  the census - duplicates fail at publish.
+- One published census can back **multiple** processes - reuse it across votes.

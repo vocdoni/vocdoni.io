@@ -66,7 +66,7 @@ const ADMONITION_VARIANTS: Record<string, CalloutVariant> = {
   ERROR: 'danger',
 }
 
-const CALLOUT_BASE = 'my-6 flex gap-3 rounded-xl border p-4 text-sm leading-6'
+const CALLOUT_BASE = 'my-6 flex gap-3 rounded-xl border p-3.5 text-[13px] leading-5 [&_p]:text-[13px] [&_p]:leading-5'
 const CALLOUT_VARIANT_CLASS: Record<CalloutVariant, string> = {
   note: 'border-border/70 bg-muted/40 text-foreground',
   tip: 'border-primary/25 bg-primary/5 text-foreground',
@@ -240,7 +240,7 @@ function rehypeAdmonitions() {
         'div',
         { className: `${CALLOUT_BASE} ${CALLOUT_VARIANT_CLASS[variant]} [&_p]:my-0!`, role: 'note' },
         [
-          raw(svgIcon(CALLOUT_ICON[variant], `mt-0.5 size-5 shrink-0 ${CALLOUT_ICON_COLOR[variant]}`)),
+          raw(svgIcon(CALLOUT_ICON[variant], `mt-0.5 size-4 shrink-0 ${CALLOUT_ICON_COLOR[variant]}`)),
           h('div', { className: 'min-w-0 space-y-1' }, innerChildren),
         ]
       )

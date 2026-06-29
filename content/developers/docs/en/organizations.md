@@ -5,9 +5,30 @@ group: core_concepts
 order: 10
 ---
 
+> [!NOTE] Managing organizations for customers?
+> If you're an integrator provisioning organizations on behalf of your customers, also see
+> [Managed organizations](/developers/docs/managed-organizations) for creating, listing and deleting
+> them with your integrator key. Everything on this page applies to those organizations too.
+
+An **organization** is the tenant that owns members, censuses, and elections. As an integrator you
+don't operate one shared org - you create one **managed organization per customer** and run everything
+inside it with your integrator key. This page covers what an organization is and how to read and
+update it; creating and deleting managed organizations is covered in
+[Managed organizations](/developers/docs/managed-organizations).
+
+## Anatomy
+
+| Field | Type | Description |
+| --- | --- | --- |
+| `address` | hex string | The organization's on-chain account. It identifies the org in every path and is the value you carry forward after creation. See [Identifiers](/developers/docs/api-conventions#identifiers). |
+| `type` | string | A free-form classification, for example `association`, `company` or `cooperative`. |
+| `meta` | object | A free-form metadata map - at minimum a `name`. Display values are [multilanguage strings](/developers/docs/api-conventions#multilanguage-strings). |
+
 ## Creating an organization
 
-Create an organization with a few descriptive fields. The response returns the full organization, including the address you use to scope later requests.
+Create an organization with a few descriptive fields. The response returns the full organization,
+including the `address` you use to scope later requests. To provision an organization on behalf of a
+customer, use the integrator flow in [Managed organizations](/developers/docs/managed-organizations).
 
 - **POST** `/organizations`
 
@@ -20,9 +41,7 @@ Create an organization with a few descriptive fields. The response returns the f
 | `website` | string | Public website URL. |
 
 ```bash
-curl -X POST {{API_BASE_URL}}/organizations \
-  -H "Authorization: Bearer $TOKEN" \
-  -H "Content-Type: application/json" \
+curl "${auth[@]}" -X POST "$B/organizations" \
   -d '{
     "type": "association",
     "size": "500",
@@ -32,30 +51,49 @@ curl -X POST {{API_BASE_URL}}/organizations \
   }'
 ```
 
-## Reading and updating
-
-Fetch or update an organization by its address. Updates accept the same fields as creation.
-
-- **GET** `/organizations/{address}`
-- **PUT** `/organizations/{address}`
-
-## Users and roles
-
-Organizations can have multiple users, each with a role. Invite teammates by email and assign the access level they need.
-
-- `admin` - full control, including billing, users and API keys.
-- `manager` - can create and run elections, but not manage the account.
-- `viewer` - read-only access to organization data and results.
-
-- **GET** `/organizations/{address}/users`
-- **POST** `/organizations/{address}/users`
+## Reading an organization
 
 ```bash
-curl -X POST "{{API_BASE_URL}}/organizations/$ORG/users" \
-  -H "Authorization: Bearer $TOKEN" \
-  -H "Content-Type: application/json" \
-  -d '{ "email": "teammate@example.org", "role": "manager" }'
+curl "${auth[@]}" "$B/organizations/$ORG"
 ```
 
-> [!NOTE] Building for many customers?
-> Integrators can create sub-organizations on behalf of their own customers. See [Managed organizations](/developers/docs/managed-organizations) for the multi-tenant model.
+```jsonc
+{ "address": "0x4a3b...", "type": "association", "meta": { "name": "Maple Street HOA" } }
+```
+
+<details><summary><b>C#</b> · read an organization</summary>
+
+```csharp
+var org = await Get($"/organizations/{address}");
+var name = org.GetProperty("meta").GetProperty("name").GetString();
+```
+</details>
+
+<details><summary><b>Python</b> · read an organization</summary>
+
+```python
+org = get(f"/organizations/{address}").json()
+name = org["meta"]["name"]
+```
+</details>
+
+## Updating organization info
+
+Update the descriptive metadata (name, type, and other `meta` fields). The on-chain identity - the
+`address` - never changes.
+
+```bash
+curl "${auth[@]}" -X PUT "$B/organizations/$ORG" \
+  -d '{"type":"association","meta":{"name":"Maple Street HOA","city":"Springfield"}}'
+```
+
+## The integrator relationship
+
+Your **integrator organization** is the parent account; each managed organization is an isolated
+tenant beneath it, with its own address, members, censuses, and elections. Customers never need a
+Vocdoni account - your integrator key acts as the admin of every org it creates.
+
+- To **provision** a managed org, see [Managed organizations](/developers/docs/managed-organizations).
+- To add people to it, see [Members and groups](/developers/docs/members-and-groups).
+- To check how many orgs/processes/seats you've used against your limits, see
+  [Quotas and subscriptions](/developers/docs/quotas-and-subscriptions).
