@@ -1,13 +1,18 @@
 ---
 title: Voting types
 lead: How to shape a ballot - single choice, multiple questions, rating, approval, ranked, and weighted or quadratic voting - through the electionParams vote type. Each type is the same create-process call with different voteType fields; this page maps each one to its ballot shape and how its results read.
-group: api_reference
-order: 20
+group: core_concepts
+order: 42
 ---
+
+> [!NOTE] Coming soon
+> Reading results per voting type - mapping the raw histogram to a tally, as described below - will be abstracted away in a future version of the API and the [SDK]({{SDK_URL}}): results will come back already aggregated according to the voting type, so you will not have to collapse the histogram yourself. The raw matrix stays available for clients that need it.
+>
+> Until then, the [vocdoni-ballot-protocol agent skill](/developers/docs/sdks-and-tools#ai-agent-skills) walks through exactly how a ballot encodes and how the matrix aggregates per type.
 
 ## How a ballot is shaped
 
-A ballot is an array of natural numbers, one entry per **field**. A field is either a question (you pick one option per question) or an option of a single question (you give each option a value). The `voteType` block inside `electionParams` decides how many fields a ballot has and what values each may take, so the same [create-process call](/developers/docs/api-reference) produces every voting type below just by changing those fields.
+A ballot is an array of natural numbers, one entry per **field**. A field is either a question (you pick one option per question) or an option of a single question (you give each option a value). The `voteType` block inside `electionParams` decides how many fields a ballot has and what values each may take, so the same [create-process call](/developers/docs/voting-processes) produces every voting type below just by changing those fields.
 
 Results are returned as a histogram matrix, not a per-option tally: `results[field][value]` is the number of voters who put `value` in that field. See [Results](/developers/docs/results) for the response shape, and the [ballot protocol post](https://blog.vocdoni.io/vocdoni-ballot-protocol/) for the full data model.
 
@@ -29,7 +34,7 @@ These are the fields the SaaS reads from `electionParams.voteType` and writes st
 
 ## Voting types
 
-Every snippet below is the `electionParams` body of `POST {{API_BASE_URL}}/process` (see the [end-to-end walkthrough](/developers/docs/api-reference) for the full request). The `type` field is an optional metadata hint that tells result readers how to display the tally.
+Every snippet below is the `electionParams` body of `POST {{API_BASE_URL}}/process` (see the [Quickstart](/developers/docs/quickstart) for the full request). The `type` field is an optional metadata hint that tells result readers how to display the tally.
 
 ### Single choice
 
@@ -148,9 +153,6 @@ Whatever the type, results come back as `results[field][value]`. Two ways to col
 - **Discrete counting** - read each cell as a standalone count. Use only for the multi-question, one-choice-per-question case.
 
 The `type.name` hint you set at creation travels in the election metadata so UIs and indexers know which interpretation to apply. See [Results](/developers/docs/results) for fetching live and final tallies.
-
-> [!NOTE] Coming soon
-> This interpretation step will be abstracted away in a future version of the API and the [SDK]({{SDK_URL}}): results will be returned already aggregated according to the voting type, so you will not have to collapse the histogram yourself. The raw matrix stays available for clients that need it.
 
 ## Behaviour and plan-gated flags
 

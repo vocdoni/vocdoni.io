@@ -1,5 +1,4 @@
 import matter from 'gray-matter'
-import rehypeAutolinkHeadings from 'rehype-autolink-headings'
 import rehypeSlug from 'rehype-slug'
 import rehypeStringify from 'rehype-stringify'
 import remarkDirective from 'remark-directive'
@@ -249,6 +248,37 @@ function rehypeAdmonitions() {
   }
 }
 
+// --- rehype: ¶ permalink on main sections (h2 only) -------------------------
+
+// rehype-slug gives every heading an id (so deep links to any subsection work);
+// this only prepends the visible ¶ permalink to top-level sections, not h3+.
+const SECTION_ANCHOR = [
+  'heading-anchor',
+  'mr-2',
+  'text-[0.8em]',
+  'font-normal',
+  'text-muted-foreground/50',
+  'no-underline',
+  'hover:text-primary',
+]
+
+// Pilcrow kept in a const so the i18next extractor does not mistake this local
+// `t()` text-node helper for a react-i18next translation call.
+const PILCROW = '¶'
+
+function rehypeMainSectionAnchors() {
+  return (tree: HastNode) => {
+    visit(tree, 'element', (node: HastNode) => {
+      if (node.tagName !== 'h2') return
+      const id = node.properties?.id
+      if (!id) return
+      node.children.unshift(
+        h('a', { href: `#${id}`, className: SECTION_ANCHOR, ariaLabel: 'Permalink to this section' }, [t(PILCROW)])
+      )
+    })
+  }
+}
+
 // --- rehype: :::steps -> numbered steps -------------------------------------
 
 function rehypeSteps() {
@@ -433,10 +463,7 @@ export function compile(markdown: string, options: CompileOptions = {}): string 
     .use(remarkDocDirectives)
     .use(remarkRehype, { allowDangerousHtml: true })
     .use(rehypeSlug)
-    .use(rehypeAutolinkHeadings, {
-      behavior: 'append',
-      properties: { className: ['heading-anchor'], ariaHidden: 'true', tabIndex: -1 },
-    })
+    .use(rehypeMainSectionAnchors)
     .use(rehypeAdmonitions)
     .use(rehypeSteps)
     .use(rehypeEndpoints)

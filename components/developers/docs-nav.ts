@@ -19,7 +19,7 @@ export interface DocsNavGroup {
 export type DocsNav = DocsNavGroup[]
 
 // Stable group order + ids. New docs slot into a group via frontmatter `group`.
-export const DOCS_GROUP_ORDER = ['get_started', 'core_concepts', 'integrator_platform', 'api_reference'] as const
+export const DOCS_GROUP_ORDER = ['get_started', 'core_concepts', 'integrator_platform'] as const
 
 // Group titles, resolved with static t() calls so the i18next extractor always
 // sees them (dynamic keys would be pruned).
@@ -27,8 +27,7 @@ export function navGroupLabels(t: TFunction): Record<string, string> {
   return {
     get_started: t('developers.docs.nav.groups.get_started', 'Get started'),
     core_concepts: t('developers.docs.nav.groups.core_concepts', 'Core concepts'),
-    integrator_platform: t('developers.docs.nav.groups.integrator_platform', 'Integrator platform'),
-    api_reference: t('developers.docs.nav.groups.api_reference', 'API reference'),
+    integrator_platform: t('developers.docs.nav.groups.integrator_platform', 'Account & platform'),
   }
 }
 

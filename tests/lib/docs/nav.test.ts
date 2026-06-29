@@ -7,13 +7,13 @@ const metas: DocMeta[] = [
   { slug: 'quickstart', group: 'get_started', order: 10, titles: { en: 'Quickstart' } },
   { slug: 'overview', group: 'get_started', order: 0, titles: { en: 'Overview', es: 'Resumen' } },
   { slug: 'census', group: 'core_concepts', order: 5, titles: { en: 'Census' } },
-  { slug: 'api-reference', group: 'api_reference', order: 1, titles: { en: 'API reference' } },
+  { slug: 'api-keys', group: 'integrator_platform', order: 1, titles: { en: 'API keys' } },
 ]
 
 describe('buildDocsNav', () => {
   it('groups in taxonomy order and omits empty groups', () => {
     const nav = buildDocsNav('en', metas)
-    expect(nav.map((g) => g.id)).toEqual(['get_started', 'core_concepts', 'api_reference'])
+    expect(nav.map((g) => g.id)).toEqual(['get_started', 'core_concepts', 'integrator_platform'])
   })
 
   it('sorts items within a group by order', () => {

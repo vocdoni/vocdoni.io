@@ -2,7 +2,7 @@
 title: Managed organizations
 lead: As an integrator you can provision sub-organizations on behalf of your own customers, each isolated with its own address, members and elections, all under your integrator account.
 group: integrator_platform
-order: 10
+order: 40
 ---
 
 ## The multi-tenant model

@@ -7,7 +7,7 @@ order: 40
 
 ## Creating a process
 
-Bind a process to a published census and describe it with election parameters. Titles and descriptions are multilingual objects keyed by language, with a default value.
+Bind a process to a published census and describe it with election parameters. Titles and descriptions are [multilanguage strings](/developers/docs/api-conventions#multilanguage-strings) - objects keyed by language with a `default` value.
 
 - **POST** `/organizations/{address}/processes`
 

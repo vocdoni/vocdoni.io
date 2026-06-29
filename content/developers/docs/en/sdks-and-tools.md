@@ -7,9 +7,9 @@ reference:
   title: References and repositories
   columns: 2
   items:
-    - title: API reference
-      description: Every endpoint, schema and field of the SaaS API.
-      href: /developers/docs/api-reference
+    - title: API conventions
+      description: Base URL, identifiers, pagination, errors and multilanguage text.
+      href: /developers/docs/api-conventions
       icon: book-open
     - title: TypeScript SDK
       description: Install the SDK and follow its guides.

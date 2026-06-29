@@ -8,6 +8,7 @@ import {
   DEVELOPERS_PROTOCOL_URL,
   DEVELOPERS_SDK_URL,
   DEVELOPERS_STATUS_URL,
+  DEVELOPERS_SWAGGER_URL,
 } from '@/lib/developers'
 import {
   ArrowRight,
@@ -31,11 +32,8 @@ import { useTranslation } from 'react-i18next'
 import { CardGrid, DocCard } from './CardGrid'
 import { CodeBlock } from './CodeBlock'
 
-const quickstartCurl = `# 1. Authenticate and keep the JWT
-curl -X POST ${DEVELOPERS_API_BASE_URL}/auth/login \\
-  -H "Content-Type: application/json" \\
-  -d '{"email":"you@example.org","password":"••••••••"}'
-# -> { "token": "eyJhbGci...", "expirity": "2026-06-24T10:00:00Z" }
+const quickstartCurl = `# 1. Your scoped API key from platform.vocdoni.io (no login step)
+export TOKEN=vsk_your_api_key
 
 # 2. Create a voting process for your organization
 curl -X POST ${DEVELOPERS_API_BASE_URL}/organizations/$ORG/processes \\
@@ -49,12 +47,8 @@ curl -X POST ${DEVELOPERS_API_BASE_URL}/organizations/$ORG/processes \\
     }
   }'`
 
-const quickstartJs = `// 1. Authenticate and keep the JWT
-const { token } = await fetch("${DEVELOPERS_API_BASE_URL}/auth/login", {
-  method: "POST",
-  headers: { "Content-Type": "application/json" },
-  body: JSON.stringify({ email: "you@example.org", password: process.env.VOCDONI_PASSWORD }),
-}).then((res) => res.json())
+const quickstartJs = `// 1. Your scoped API key from platform.vocdoni.io (no login step)
+const token = process.env.VOCDONI_API_KEY // "vsk_..."
 
 // 2. Create a voting process for your organization
 await fetch(\`${DEVELOPERS_API_BASE_URL}/organizations/\${org}/processes\`, {
@@ -92,7 +86,7 @@ function Hero() {
             </p>
             <div className='mt-8 flex w-full flex-col gap-4 sm:w-auto sm:flex-row'>
               <Button asChild size='lg' className='group w-full text-base sm:w-auto'>
-                <Link href='/developers/docs/quickstart' variant='inlineIcon'>
+                <Link href='/developers/docs' variant='inlineIcon'>
                   {t('developers.landing.hero.cta_primary', 'Get started')}
                   <ArrowRight
                     className='size-5 transition-transform duration-200 group-hover:translate-x-0.5'
@@ -197,12 +191,12 @@ function StartBuilding() {
   const cards = [
     {
       icon: KeyRound,
-      title: t('developers.landing.build.authentication.title', 'Authentication'),
+      title: t('developers.landing.build.authentication.title', 'API keys'),
       description: t(
         'developers.landing.build.authentication.description',
-        'Log in, refresh tokens and issue scoped API keys.'
+        'Authenticate with a scoped API key for server-to-server access.'
       ),
-      href: '/developers/docs/authentication',
+      href: '/developers/docs/api-keys',
     },
     {
       icon: Boxes,
@@ -341,8 +335,8 @@ function Resources() {
       icon: BookOpen,
       title: t('developers.landing.resources.reference.title', 'API reference'),
       description: t('developers.landing.resources.reference.description', 'Every endpoint, schema and field.'),
-      href: '/developers/docs/api-reference',
-      external: false,
+      href: DEVELOPERS_SWAGGER_URL,
+      external: true,
     },
     {
       icon: ScrollText,

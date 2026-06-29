@@ -2369,7 +2369,6 @@
         "aria_label": "Documentation",
         "browse": "Browse docs",
         "groups": {
-          "api_reference": "API reference",
           "core_concepts": "Core concepts",
           "get_started": "Get started",
           "integrator_platform": "Integrator platform"
@@ -2704,14 +2703,6 @@
       "api_keys": {
         "description": "Create, list and revoke scoped API keys for the Vocdoni API, and follow best practices for storing and rotating secrets.",
         "title": "API keys | Vocdoni"
-      },
-      "api_reference": {
-        "description": "Reference for the Vocdoni SaaS API: base URL, authentication, pagination, errors and every endpoint grouped by resource.",
-        "title": "API reference | Vocdoni"
-      },
-      "authentication": {
-        "description": "Authenticate against the Vocdoni API with JWT login, refresh tokens and OAuth, and issue scoped API keys for server-to-server integrations.",
-        "title": "Authentication and API keys | Vocdoni"
       },
       "census": {
         "description": "Create, populate and publish a census with the Vocdoni API, choosing authentication and two-factor fields and optional vote weighting.",

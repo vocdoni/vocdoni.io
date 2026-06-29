@@ -5,35 +5,20 @@ group: get_started
 order: 10
 ---
 
-You will need an integrator account and an organization. Every request below is authenticated with a bearer token obtained in step one. Replace the placeholders ($ORG, $CENSUS_ID, $PROCESS) with the values returned along the way.
+You will need a scoped API key and your organization address. Every request below sends the key as a bearer token. Replace the placeholders ($ORG, $CENSUS_ID, $PROCESS) with your values.
 
 > [!NOTE] Before you start
-> Create an account in the API Dashboard and note your organization address. You can also authenticate with an API key instead of email and password for server-to-server use.
+> Create an account in the [API Dashboard](https://platform.vocdoni.io), generate a scoped API key, and copy your organization address. The key is shown only once - store it safely. See [API keys](/developers/docs/api-keys) for the available scopes and handling.
 
 :::steps
 
-## Authenticate
+## Set your API key
 
-Exchange your email and password for a JWT. Send it as a bearer token on every following request.
-
-```bash
-curl -X POST {{API_BASE_URL}}/auth/login \
-  -H "Content-Type: application/json" \
-  -d '{ "email": "you@example.org", "password": "••••••••" }'
-
-# Response
-# { "token": "eyJhbGciOi...", "expirity": "2026-06-24T10:00:00Z" }
-```
-
-## Create an organization
-
-Skip this if you already have one. The response includes the organization address used in later calls.
+Every request authenticates with your scoped API key from the Dashboard, sent as a bearer token - there is no login step. This walkthrough needs a key with the `members:write` and `voting:write` scopes.
 
 ```bash
-curl -X POST {{API_BASE_URL}}/organizations \
-  -H "Authorization: Bearer $TOKEN" \
-  -H "Content-Type: application/json" \
-  -d '{ "type": "association", "size": "100", "country": "ES" }'
+export TOKEN=vsk_your_api_key     # from platform.vocdoni.io
+export ORG=0xyour_org_address     # your organization address
 ```
 
 ## Add members
@@ -115,4 +100,4 @@ curl "{{API_BASE_URL}}/organizations/$ORG/processes/$PROCESS/results" \
 :::
 
 > [!TIP] Next steps
-> Read [Authentication](/developers/docs/authentication) to issue API keys, [Census](/developers/docs/census) to fine-tune voter authentication, and [Voting processes](/developers/docs/voting-processes) to configure vote types such as multiple choice or weighted voting.
+> Read [API keys](/developers/docs/api-keys) for scopes and key handling, [Census](/developers/docs/census) to fine-tune voter authentication, and [Voting processes](/developers/docs/voting-processes) to configure vote types such as multiple choice or weighted voting.

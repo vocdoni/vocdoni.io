@@ -11,9 +11,9 @@ reference:
       description: Run a full election in a few API calls.
       href: /developers/docs/quickstart
       icon: rocket
-    - title: Authentication
-      description: Log in and create scoped API keys.
-      href: /developers/docs/authentication
+    - title: API keys
+      description: Authenticate with a scoped API key.
+      href: /developers/docs/api-keys
       icon: key
     - title: Organizations
       description: Create the account that owns elections.
@@ -32,6 +32,9 @@ reference:
       href: /developers/docs/results
       icon: list-checks
 ---
+
+> [!WARNING] Alpha
+> The Vocdoni API is in **alpha**. Endpoints, fields and responses may still change between versions. Build against it for evaluation and early integration, and check the [OpenAPI specification]({{SWAGGER_URL}}) for the current contract.
 
 ## Who this is for
 

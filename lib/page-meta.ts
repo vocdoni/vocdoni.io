@@ -247,14 +247,6 @@ const metaDefaults = {
     'meta.developers.quickstart.description',
     'Run your first election end to end with the Vocdoni API: authenticate, create an organization, build and publish a census, create a process and read results.'
   ),
-  'meta.developers.authentication.title': t(
-    'meta.developers.authentication.title',
-    'Authentication and API keys | Vocdoni'
-  ),
-  'meta.developers.authentication.description': t(
-    'meta.developers.authentication.description',
-    'Authenticate against the Vocdoni API with JWT login, refresh tokens and OAuth, and issue scoped API keys for server-to-server integrations.'
-  ),
   'meta.developers.sdks_and_tools.title': t('meta.developers.sdks_and_tools.title', 'SDKs and tools | Vocdoni'),
   'meta.developers.sdks_and_tools.description': t(
     'meta.developers.sdks_and_tools.description',
@@ -313,11 +305,6 @@ const metaDefaults = {
   'meta.developers.quotas_and_subscriptions.description': t(
     'meta.developers.quotas_and_subscriptions.description',
     'Understand Vocdoni subscription plans, features and limits, and read your current usage counters through the API.'
-  ),
-  'meta.developers.api_reference.title': t('meta.developers.api_reference.title', 'API reference | Vocdoni'),
-  'meta.developers.api_reference.description': t(
-    'meta.developers.api_reference.description',
-    'Reference for the Vocdoni SaaS API: base URL, authentication, pagination, errors and every endpoint grouped by resource.'
   ),
 } as const
 
