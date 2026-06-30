@@ -92,6 +92,55 @@ The response includes the org address.
   })
 })
 
+describe('compile - :::code-tabs', () => {
+  const md = `:::code-tabs[create a process]
+\`\`\`bash
+curl {{API_BASE_URL}}/processes
+\`\`\`
+\`\`\`csharp
+Post("/processes", body);
+\`\`\`
+\`\`\`python
+post("/processes", body)
+\`\`\`
+:::`
+
+  it('groups the fences into a single tablist with one tabpanel per language', () => {
+    const html = compile(md)
+    expect((html.match(/role="tablist"/g) ?? []).length).toBe(1)
+    expect((html.match(/role="tabpanel"/g) ?? []).length).toBe(3)
+    expect((html.match(/role="tab"/g) ?? []).length).toBe(3)
+  })
+
+  it('maps language classes to human tab labels', () => {
+    const html = compile(md)
+    expect(html).toContain('>cURL<') // bash
+    expect(html).toContain('>C#<') // csharp
+    expect(html).toContain('>Python<') // python
+  })
+
+  it('renders the optional directive label as a caption', () => {
+    expect(compile(md)).toContain('create a process')
+  })
+
+  it('keeps a copy button per panel and resolves tokens inside them', () => {
+    const html = compile(md)
+    expect((html.match(/data-copy/g) ?? []).length).toBe(3)
+    expect(html).toContain(`${DEVELOPERS_API_BASE_URL}/processes`)
+  })
+
+  it('starts the tab bar hidden so the no-JS fallback shows stacked panels', () => {
+    const html = compile(md)
+    expect(html).toMatch(/role="tablist"[^>]*hidden/)
+  })
+
+  it('leaves a single-language code-tabs block as a plain code block (no tabs)', () => {
+    const html = compile(':::code-tabs\n```bash\ncurl x\n```\n:::')
+    expect(html).not.toContain('role="tablist"')
+    expect(html).toContain('data-copy') // still a normal code surface
+  })
+})
+
 describe('compile - endpoints', () => {
   it('renders endpoint lists as method pills with per-method colours', () => {
     const html = compile('- **GET** `/x`\n- **POST** `/y`\n- **PUT** `/p`\n- **DELETE** `/z`')

@@ -107,6 +107,17 @@ const CODE_PRE = 'overflow-x-auto p-4 font-mono text-[13px] leading-6 text-zinc-
 const CODE_COPY_BTN =
   'press-scale absolute right-3 top-3 inline-flex size-8 items-center justify-center rounded-md border border-white/10 bg-white/5 text-white/70 transition-colors hover:bg-white/10 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40'
 
+// --- Tabbed code-group: shares the dark surface tokens above. The outer
+// wrapper owns the border/bg; the tab bar sits on its top edge; each panel's
+// inner surface is borderless (CODE_TAB_SURFACE) to avoid a double box.
+const CODE_TABS_WRAPPER = CODE_WRAPPER
+const CODE_TABS_CAPTION =
+  'border-b border-white/10 px-4 py-1.5 font-mono text-[11px] uppercase tracking-wide text-white/40'
+const CODE_TABS_LIST = 'flex flex-wrap items-stretch gap-1 border-b border-white/10 bg-white/5 px-2 pt-1.5'
+const CODE_TAB_BTN =
+  'press-scale rounded-t-md px-3 py-1.5 font-mono text-xs text-white/60 transition-colors hover:text-white aria-selected:bg-zinc-950 aria-selected:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-white/40'
+const CODE_TAB_SURFACE = 'relative'
+
 // --- Endpoint pill, mirrored from the old Endpoint.tsx (per-method colours) --
 
 const HTTP_METHODS = ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'] as const
@@ -194,16 +205,32 @@ const findDescendant = (node: HastNode, tagName: string): HastNode | undefined =
   return undefined
 }
 
-// --- remark: map the :::steps directive to a placeholder div ----------------
+// --- remark: map the :::steps / :::code-tabs directives to placeholder divs --
 
 function remarkDocDirectives() {
   return (tree: HastNode) => {
     visit(tree, (node: HastNode) => {
       if (node.type !== 'containerDirective' && node.type !== 'leafDirective') return
-      if (node.name !== 'steps') return
-      const data = node.data || (node.data = {})
-      data.hName = 'div'
-      data.hProperties = { className: ['steps-root'] }
+      if (node.name === 'steps') {
+        const data = node.data || (node.data = {})
+        data.hName = 'div'
+        data.hProperties = { className: ['steps-root'] }
+        return
+      }
+      if (node.name === 'code-tabs') {
+        // Optional title via the directive label: `:::code-tabs[create a process]`.
+        // remark-directive emits it as a child paragraph flagged `directiveLabel`.
+        let label = ''
+        const labelNode = node.children?.find((c: HastNode) => c.data?.directiveLabel)
+        if (labelNode) {
+          label = hastText(labelNode).trim()
+          node.children = node.children.filter((c: HastNode) => c !== labelNode)
+        }
+        const data = node.data || (node.data = {})
+        data.hName = 'div'
+        data.hProperties = { className: ['code-tabs-root'], ...(label ? { 'data-tabs-label': label } : {}) }
+        return
+      }
     })
   }
 }
@@ -413,6 +440,110 @@ function rehypeTables(requiredLabel: string) {
   }
 }
 
+// --- rehype: :::code-tabs -> WAI-ARIA tabbed code group ---------------------
+
+// Language class (`language-xxx`) -> human tab label. Labels are technical
+// proper nouns, so they stay out of i18n (like the code identifiers themselves).
+const TAB_LABELS: Record<string, string> = {
+  bash: 'cURL',
+  sh: 'cURL',
+  shell: 'cURL',
+  curl: 'cURL',
+  csharp: 'C#',
+  cs: 'C#',
+  python: 'Python',
+  py: 'Python',
+  json: 'JSON',
+  jsonc: 'JSON',
+  ts: 'TypeScript',
+  typescript: 'TypeScript',
+  js: 'JavaScript',
+  javascript: 'JavaScript',
+}
+
+const preLanguage = (pre: HastNode): string => {
+  const code = pre.children?.find((c: HastNode) => c.type === 'element' && c.tagName === 'code')
+  const cls = code?.properties?.className
+  const arr = Array.isArray(cls) ? cls : typeof cls === 'string' ? cls.split(/\s+/) : []
+  const lang = arr.find((c: string) => typeof c === 'string' && c.startsWith('language-'))
+  return lang ? lang.slice('language-'.length) : ''
+}
+
+function rehypeCodeTabs() {
+  return (tree: HastNode) => {
+    let group = 0 // per-compile counter -> stable ids, no Date/random
+    visit(tree, 'element', (node: HastNode) => {
+      if (!hasClass(node, 'code-tabs-root')) return
+      const label = typeof node.properties?.['data-tabs-label'] === 'string' ? node.properties['data-tabs-label'] : ''
+      const panes: HastNode[] = node.children.filter((c: HastNode) => c.type === 'element' && c.tagName === 'pre')
+
+      // Fewer than two languages: not a tab group. Unwrap so rehypeCodeSurface
+      // renders the bare code block(s) normally.
+      if (panes.length < 2) {
+        node.tagName = 'div'
+        node.properties = {}
+        node.children = panes
+        return
+      }
+
+      const gid = group++
+      const tabs: HastNode[] = []
+      const panels: HastNode[] = []
+      panes.forEach((pre: HastNode, i: number) => {
+        const lang = preLanguage(pre)
+        const key = lang.toLowerCase()
+        const tabLabel = TAB_LABELS[key] || lang || `Tab ${i + 1}`
+        const tabId = `tab-${gid}-${i}`
+        const panelId = `panel-${gid}-${i}`
+        const active = i === 0
+
+        tabs.push(
+          h(
+            'button',
+            {
+              type: 'button',
+              role: 'tab',
+              id: tabId,
+              className: CODE_TAB_BTN,
+              'aria-selected': active ? 'true' : 'false',
+              'aria-controls': panelId,
+              'data-code-tab': key,
+              tabIndex: active ? 0 : -1,
+            },
+            [t(tabLabel)]
+          )
+        )
+
+        // Mark the inner surface `code-surface-inner` so rehypeCodeSurface skips
+        // it; replicate its copy button so each panel keeps copy-to-clipboard.
+        pre.properties = pre.properties || {}
+        pre.properties.className = CODE_PRE
+        const copyBtn = h(
+          'button',
+          { type: 'button', className: CODE_COPY_BTN, 'data-copy': '', 'aria-label': 'Copy' },
+          [raw(svgIcon(ICON_PATHS.copy, 'size-4'))]
+        )
+        panels.push(
+          h('div', { role: 'tabpanel', id: panelId, 'aria-labelledby': tabId, tabIndex: 0 }, [
+            h('div', { className: `code-surface-inner ${CODE_TAB_SURFACE}` }, [copyBtn, pre]),
+          ])
+        )
+      })
+
+      const children: HastNode[] = []
+      if (label) children.push(h('div', { className: CODE_TABS_CAPTION }, [t(label)]))
+      // Tab bar starts hidden: with JS off, users see the stacked panels below
+      // and never a dead, non-functional tab bar.
+      children.push(h('div', { role: 'tablist', className: CODE_TABS_LIST, hidden: true }, tabs))
+      children.push(...panels)
+
+      node.tagName = 'div'
+      node.properties = { className: ['code-tabs', ...CODE_TABS_WRAPPER.split(' ')] }
+      node.children = children
+    })
+  }
+}
+
 // --- rehype: dark code surface + copy button --------------------------------
 
 function rehypeCodeSurface() {
@@ -468,6 +599,7 @@ export function compile(markdown: string, options: CompileOptions = {}): string 
     .use(rehypeSteps)
     .use(rehypeEndpoints)
     .use(rehypeTables, requiredLabel)
+    .use(rehypeCodeTabs)
     .use(rehypeCodeSurface)
     .use(rehypeLocalizeLinks, locale)
     .use(rehypeStringify, { allowDangerousHtml: true })

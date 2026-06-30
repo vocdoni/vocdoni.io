@@ -50,7 +50,7 @@ until [ "$(curl -s "${auth[@]}" "$B/organizations/$ORG/members/job/$JOB" | jq -r
 { "added": 1, "total": 1, "progress": 100, "errors": [] }   // progress == 100 -> done
 ```
 
-<details><summary><b>C#</b> · add members (async)</summary>
+:::code-tabs[add members (async)]
 
 ```csharp
 var job = (await Post($"/organizations/{org}/members",
@@ -59,17 +59,13 @@ var job = (await Post($"/organizations/{org}/members",
 while ((await Get($"/organizations/{org}/members/job/{job}")).GetProperty("progress").GetInt32() < 100)
     await Task.Delay(1000);
 ```
-</details>
-
-<details><summary><b>Python</b> · add members (async)</summary>
-
 ```python
 job = post(f"/organizations/{org}/members",
            {"members": [{"name": "Alice", "memberNumber": "A-101", "weight": "1"}]}).json()["jobId"]
 while get(f"/organizations/{org}/members/job/{job}").json()["progress"] < 100:
     time.sleep(1)
 ```
-</details>
+:::
 
 > [!WARNING] Wait for the import job
 > Don't build the census until the members-job reaches `progress: 100` - the participants won't be
@@ -90,7 +86,7 @@ curl "${auth[@]}" "$B/organizations/$ORG/members?page=1&limit=100"
   "pagination": { "currentPage": 1, "lastPage": 1, "totalItems": 1 } }
 ```
 
-<details><summary><b>Python</b> · walk every page</summary>
+**Python · walk every page**
 
 ```python
 members, page = [], 1
@@ -102,7 +98,6 @@ while True:
         break
     page += 1
 ```
-</details>
 
 ## Updating and deleting members
 
@@ -136,7 +131,7 @@ GROUP=$(curl -s "${auth[@]}" -X POST "$B/organizations/$ORG/groups" \
 { "id": "665f..." }   // carry forward: group id
 ```
 
-<details><summary><b>C#</b> / <b>Python</b> · create an all-members group</summary>
+:::code-tabs[create an all-members group]
 
 ```csharp
 var group = (await Post($"/organizations/{org}/groups",
@@ -146,7 +141,7 @@ var group = (await Post($"/organizations/{org}/groups",
 group = post(f"/organizations/{org}/groups",
              {"title": "All voters", "includeAllMembers": True}).json()["id"]
 ```
-</details>
+:::
 
 ## Gotchas
 

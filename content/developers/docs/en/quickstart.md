@@ -140,7 +140,7 @@ curl -s "$B/process/$PROCESS/results" | jq
 The bash steps above translate directly. The client setup defines the `Post`/`Get` helpers the flow
 reuses.
 
-<details><summary><b>C# · client setup</b> - the <code>Post</code> / <code>Get</code> helpers the flow reuses (.NET, <code>System.Net.Http</code>)</summary>
+:::code-tabs[client setup - the Post / Get helpers the flow reuses]
 
 ```csharp
 using System.Net.Http.Json;
@@ -154,10 +154,6 @@ async Task<JsonElement> Post(string path, object? body) =>
     await (await http.PostAsJsonAsync(path, body)).Content.ReadFromJsonAsync<JsonElement>();
 async Task<JsonElement> Get(string path) => await http.GetFromJsonAsync<JsonElement>(path);
 ```
-</details>
-
-<details><summary><b>Python · client setup</b> - the <code>post</code> / <code>get</code> helpers the flow reuses (<code>pip install requests</code>)</summary>
-
 ```python
 import os, time, requests
 
@@ -169,9 +165,9 @@ s.headers.update({"Authorization": f"Bearer {os.environ['VOCDONI_API_TOKEN']}",
 def post(path, body=None): r = s.post(B + path, json=body); r.raise_for_status(); return r
 def get(path):             r = s.get(B + path);             r.raise_for_status(); return r
 ```
-</details>
+:::
 
-<details><summary><b>C# · full election flow</b> - all eight steps, end to end</summary>
+:::code-tabs[full election flow - all eight steps, end to end]
 
 ```csharp
 // 1. managed org
@@ -216,10 +212,6 @@ while (j.GetProperty("status").GetString() != "completed");
 // 8. results - addressed by the ProcessID
 Console.WriteLine(await Get($"/process/{process}/results"));
 ```
-</details>
-
-<details><summary><b>Python · full election flow</b> - all eight steps, end to end</summary>
-
 ```python
 # 1. managed org
 org = post("/integrator/organizations",
@@ -262,4 +254,4 @@ while get(f"/jobs/{pjob}").json()["status"] != "completed":
 # 8. results - addressed by the ProcessID
 print(get(f"/process/{process}/results").json())
 ```
-</details>
+:::

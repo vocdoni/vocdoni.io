@@ -45,7 +45,7 @@ curl -s "$B/process/$PROCESS/results"
 - `finalResults: false` - the process is still open; the tally is provisional.
 - `finalResults: true` - voting has ended; results are final.
 
-<details><summary><b>C#</b> / <b>Python</b> · read results</summary>
+:::code-tabs[read results]
 
 ```csharp
 var r = await Get($"/process/{process}/results");
@@ -55,7 +55,7 @@ int votes = r.GetProperty("voteCount").GetInt32();
 r = get(f"/process/{process}/results").json()
 votes = r["voteCount"]
 ```
-</details>
+:::
 
 > [!NOTE] Live versus final results
 > While a process is running, results reflect votes counted so far unless the election was configured

@@ -61,21 +61,17 @@ curl "${auth[@]}" "$B/organizations/$ORG"
 { "address": "0x4a3b...", "type": "association", "meta": { "name": "Maple Street HOA" } }
 ```
 
-<details><summary><b>C#</b> · read an organization</summary>
+:::code-tabs[read an organization]
 
 ```csharp
 var org = await Get($"/organizations/{address}");
 var name = org.GetProperty("meta").GetProperty("name").GetString();
 ```
-</details>
-
-<details><summary><b>Python</b> · read an organization</summary>
-
 ```python
 org = get(f"/organizations/{address}").json()
 name = org["meta"]["name"]
 ```
-</details>
+:::
 
 ## Updating organization info
 

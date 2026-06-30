@@ -68,7 +68,7 @@ multi-question. Each shape is a specific combination of `maxCount`, `maxValue`, 
 cost fields. See **[Voting types](/developers/docs/voting-types)** for the per-field reference and the
 ballot shape of each.
 
-<details><summary><b>C#</b> / <b>Python</b> · create a process</summary>
+:::code-tabs[create a process]
 
 ```csharp
 var process = (await Post("/process", new {
@@ -100,7 +100,7 @@ process = post("/process", {
         "maxCensusSize": 1000,
     }}).json()
 ```
-</details>
+:::
 
 ## Publishing on-chain
 

@@ -45,7 +45,7 @@ Rules of thumb:
 - `completed`: read `result`. `failed`: read `error` and **fail fast** (don't keep polling). Anything
   else: keep polling (every ~2s is plenty).
 
-<details><summary><b>C#</b> / <b>Python</b> · poll to completion</summary>
+:::code-tabs[poll to completion]
 
 ```csharp
 JsonElement job;
@@ -61,7 +61,7 @@ while True:
     if job["status"] == "failed": raise RuntimeError(job["error"])
     time.sleep(2)
 ```
-</details>
+:::
 
 ## Job types
 

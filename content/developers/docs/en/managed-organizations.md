@@ -42,7 +42,7 @@ ORG=$(curl -s "${auth[@]}" -X POST "$B/integrator/organizations" \
 { "address": "0x4a3b...", "type": "association", "meta": { "name": "Maple Street HOA" } }
 ```
 
-<details><summary><b>C#</b> / <b>Python</b> · create a managed org</summary>
+:::code-tabs[create a managed org]
 
 ```csharp
 var org = (await Post("/integrator/organizations",
@@ -52,7 +52,7 @@ var org = (await Post("/integrator/organizations",
 org = post("/integrator/organizations",
            {"type": "association", "meta": {"name": "Maple Street HOA"}}).json()["address"]
 ```
-</details>
+:::
 
 ## Listing managed organizations
 

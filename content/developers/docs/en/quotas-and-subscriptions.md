@@ -31,7 +31,7 @@ curl "${auth[@]}" "$B/integrator"
               "sentEmails": 87, "sentSMS": 12 } }
 ```
 
-<details><summary><b>C#</b> / <b>Python</b> · read your quota</summary>
+:::code-tabs[read your quota]
 
 ```csharp
 var q = await Get("/integrator");
@@ -43,7 +43,7 @@ int orgsLeft = limits.GetProperty("maxManagedOrgs").GetInt32()
 q = get("/integrator").json()
 orgs_left = q["limits"]["maxManagedOrgs"] - q["usage"]["managedOrgs"]
 ```
-</details>
+:::
 
 ## Limits and usage
 

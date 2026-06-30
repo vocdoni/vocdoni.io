@@ -44,7 +44,7 @@ CENSUS=$(curl -s "${auth[@]}" -X POST "$B/census" \
 
 Add `"twoFaFields":["email"]` for an email-OTP census.
 
-<details><summary><b>C#</b> / <b>Python</b> · create a census</summary>
+:::code-tabs[create a census]
 
 ```csharp
 var census = (await Post("/census",
@@ -53,7 +53,7 @@ var census = (await Post("/census",
 ```python
 census = post("/census", {"orgAddress": org, "authFields": ["memberNumber"]}).json()["id"]
 ```
-</details>
+:::
 
 ## Adding participants
 
@@ -99,7 +99,7 @@ Either way you get the published census:
 The `size` is the eligible-voter count - useful later for turnout (see [Results](/developers/docs/results)). Set
 `"weighted": true` to make each member's `weight` count as vote weight.
 
-<details><summary><b>C#</b> / <b>Python</b> · auth-only via group</summary>
+:::code-tabs[auth-only via group]
 
 ```csharp
 await Post($"/census/{census}/group/{group}/publish",
@@ -109,7 +109,7 @@ await Post($"/census/{census}/group/{group}/publish",
 post(f"/census/{census}/group/{group}/publish",
      {"authFields": ["memberNumber"], "weighted": False})
 ```
-</details>
+:::
 
 > [!NOTE] Weighted voting
 > Set `"weighted": true` when publishing to make each member's `weight` field count as their vote
