@@ -40,7 +40,7 @@ export default function Page() {
         'landing.portfolio.items.2.description',
         'Add verifiable, anonymous voting directly into your own applications with our open-source tools. Your infrastructure, our secure protocol.'
       ),
-      link: 'https://developer.vocdoni.io/sdk',
+      link: '/developers',
       imageUrl: solutionsSdkImg,
       imageAlt: 'Developer tools and API',
       imageWidth: 1200,
