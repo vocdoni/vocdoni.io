@@ -4,6 +4,7 @@ import { execSync } from 'node:child_process'
 import vike from 'vike/plugin'
 import { ConfigEnv, defineConfig, loadEnv } from 'vite'
 import { localeDefault, locales } from './locales'
+import { docsMarkdownPlugin } from './plugins/docs-markdown'
 import { legacyRedirectsPlugin } from './plugins/legacy-redirects'
 import { vikeSitemapPlugin } from './plugins/vike-sitemap'
 
@@ -20,6 +21,7 @@ const viteconfig = ({ mode }: ConfigEnv) => {
       vike(),
       react(),
       tailwindcss(),
+      docsMarkdownPlugin(),
       legacyRedirectsPlugin(),
       vikeSitemapPlugin({
         hostname: process.env.SITE_URL || 'https://vocdoni.io',
