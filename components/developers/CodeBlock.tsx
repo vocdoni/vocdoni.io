@@ -8,8 +8,12 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 export type CodeSample = {
   // Tab label, e.g. "cURL", "JavaScript". Shown only when more than one sample.
   label: string
-  // Raw code. Rendered inside <pre>, so it is exempt from copy translation rules.
+  // Raw code. Used for the copy button, and rendered as-is when `html` is absent.
   code: string
+  // Optional pre-highlighted inner HTML for a `<code class="hljs">` (built at
+  // prerender via lib/docs/highlight-code.ts). When present it is rendered
+  // instead of the raw code; copy still uses `code`.
+  html?: string
 }
 
 interface CodeBlockProps {
@@ -45,10 +49,14 @@ function CopyButton({ value }: { value: string }) {
   )
 }
 
-function Pre({ code }: { code: string }) {
+function Pre({ sample }: { sample: CodeSample }) {
   return (
     <pre className='min-w-0 max-w-full overflow-x-auto p-4 font-mono text-[13px] leading-6 text-zinc-100'>
-      <code>{code}</code>
+      {sample.html ? (
+        <code className='hljs' dangerouslySetInnerHTML={{ __html: sample.html }} />
+      ) : (
+        <code>{sample.code}</code>
+      )}
     </pre>
   )
 }
@@ -82,14 +90,14 @@ export function CodeBlock({ samples, className, caption }: CodeBlockProps) {
             {samples.map((sample) => (
               <TabsContent key={sample.label} value={sample.label} className='relative mt-0 min-w-0'>
                 <CopyButton value={sample.code} />
-                <Pre code={sample.code} />
+                <Pre sample={sample} />
               </TabsContent>
             ))}
           </Tabs>
         ) : (
           <div className='relative min-w-0'>
             <CopyButton value={samples[0].code} />
-            <Pre code={samples[0].code} />
+            <Pre sample={samples[0]} />
           </div>
         )}
       </div>

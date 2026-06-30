@@ -42,61 +42,62 @@ body.page-transition #page-content {
   opacity: 0;
 }
 
-/* Syntax highlighting for the developer-docs code surfaces.
-   rehype-highlight (lib/docs/markdown.ts) emits class-based hljs spans at build
-   time; this is a compact dark token theme scoped to the docs article so it
-   only paints the zinc-950 code blocks. Base text stays the pre's zinc-100. */
-#docs-article .hljs-comment,
-#docs-article .hljs-quote {
+/* Syntax highlighting for the developer code surfaces (docs + landing hero).
+   The hljs token classes are emitted at build time - rehype-highlight in
+   lib/docs/markdown.ts for the docs, lib/docs/highlight-code.ts for the landing
+   <CodeBlock>. This compact dark token theme paints those spans; the classes
+   only ever appear inside the zinc-950 code blocks. Base text stays zinc-100. */
+.hljs-comment,
+.hljs-quote {
   color: #6b7280; /* zinc-500 */
   font-style: italic;
 }
-#docs-article .hljs-keyword,
-#docs-article .hljs-selector-tag,
-#docs-article .hljs-literal,
-#docs-article .hljs-doctag {
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-literal,
+.hljs-doctag {
   color: #c084fc; /* purple-400 */
 }
-#docs-article .hljs-built_in,
-#docs-article .hljs-name,
-#docs-article .hljs-tag {
+.hljs-built_in,
+.hljs-name,
+.hljs-tag {
   color: #22d3ee; /* cyan-400 */
 }
-#docs-article .hljs-type,
-#docs-article .hljs-class .hljs-title,
-#docs-article .hljs-title.class_ {
+.hljs-type,
+.hljs-class .hljs-title,
+.hljs-title.class_ {
   color: #fbbf24; /* amber-400 */
 }
-#docs-article .hljs-string,
-#docs-article .hljs-regexp,
-#docs-article .hljs-addition {
+.hljs-string,
+.hljs-regexp,
+.hljs-addition {
   color: #34d399; /* emerald-400 */
 }
-#docs-article .hljs-number,
-#docs-article .hljs-symbol,
-#docs-article .hljs-bullet {
+.hljs-number,
+.hljs-symbol,
+.hljs-bullet {
   color: #fb923c; /* orange-400 */
 }
-#docs-article .hljs-title,
-#docs-article .hljs-title.function_,
-#docs-article .hljs-section {
+.hljs-title,
+.hljs-title.function_,
+.hljs-section {
   color: #60a5fa; /* blue-400 */
 }
-#docs-article .hljs-attr,
-#docs-article .hljs-attribute,
-#docs-article .hljs-property,
-#docs-article .hljs-variable.language_ {
+.hljs-attr,
+.hljs-attribute,
+.hljs-property,
+.hljs-variable.language_ {
   color: #38bdf8; /* sky-400 */
 }
-#docs-article .hljs-meta {
+.hljs-meta {
   color: #94a3b8; /* slate-400 */
 }
-#docs-article .hljs-deletion {
+.hljs-deletion {
   color: #f87171; /* red-400 */
 }
-#docs-article .hljs-emphasis {
+.hljs-emphasis {
   font-style: italic;
 }
-#docs-article .hljs-strong {
+.hljs-strong {
   font-weight: 600;
 }

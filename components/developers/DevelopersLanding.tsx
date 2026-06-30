@@ -2,7 +2,6 @@ import { Container } from '@/components/Container'
 import { Link } from '@/components/Link'
 import { Button } from '@/components/ui/button'
 import {
-  DEVELOPERS_API_BASE_URL,
   DEVELOPERS_DASHBOARD_URL,
   DEVELOPERS_GITHUB_URL,
   DEVELOPERS_PROTOCOL_URL,
@@ -28,40 +27,15 @@ import {
   Vote,
 } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
+import { useData } from 'vike-react/useData'
 
+import type { DevelopersData } from '@/pages/developers/+data'
 import { CardGrid, DocCard } from './CardGrid'
 import { CodeBlock } from './CodeBlock'
 
-const quickstartCurl = `# 1. Your scoped API key from platform.vocdoni.io (no login step)
-export TOKEN=vsk_your_api_key
-
-# 2. Create a voting process for your organization
-curl -X POST ${DEVELOPERS_API_BASE_URL}/organizations/$ORG/processes \\
-  -H "Authorization: Bearer $TOKEN" \\
-  -H "Content-Type: application/json" \\
-  -d '{
-    "censusId": "$CENSUS_ID",
-    "electionParams": {
-      "title": { "default": "Board election 2026" },
-      "questions": [{ "title": { "default": "Who should chair the board?" } }]
-    }
-  }'`
-
-const quickstartJs = `// 1. Your scoped API key from platform.vocdoni.io (no login step)
-const token = process.env.VOCDONI_API_KEY // "vsk_..."
-
-// 2. Create a voting process for your organization
-await fetch(\`${DEVELOPERS_API_BASE_URL}/organizations/\${org}/processes\`, {
-  method: "POST",
-  headers: { Authorization: \`Bearer \${token}\`, "Content-Type": "application/json" },
-  body: JSON.stringify({
-    censusId,
-    electionParams: { title: { default: "Board election 2026" } },
-  }),
-})`
-
 function Hero() {
   const { t } = useTranslation()
+  const { heroSamples } = useData<DevelopersData>()
   return (
     <section className='relative overflow-hidden'>
       <div
@@ -108,10 +82,7 @@ function Hero() {
           <div className='min-w-0 lg:pl-4'>
             <CodeBlock
               caption={t('developers.landing.hero.code_caption', 'Authenticate, then create your first election')}
-              samples={[
-                { label: 'cURL', code: quickstartCurl },
-                { label: 'JavaScript', code: quickstartJs },
-              ]}
+              samples={heroSamples}
             />
           </div>
         </div>
