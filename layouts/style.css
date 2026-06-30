@@ -41,3 +41,62 @@ body {
 body.page-transition #page-content {
   opacity: 0;
 }
+
+/* Syntax highlighting for the developer-docs code surfaces.
+   rehype-highlight (lib/docs/markdown.ts) emits class-based hljs spans at build
+   time; this is a compact dark token theme scoped to the docs article so it
+   only paints the zinc-950 code blocks. Base text stays the pre's zinc-100. */
+#docs-article .hljs-comment,
+#docs-article .hljs-quote {
+  color: #6b7280; /* zinc-500 */
+  font-style: italic;
+}
+#docs-article .hljs-keyword,
+#docs-article .hljs-selector-tag,
+#docs-article .hljs-literal,
+#docs-article .hljs-doctag {
+  color: #c084fc; /* purple-400 */
+}
+#docs-article .hljs-built_in,
+#docs-article .hljs-name,
+#docs-article .hljs-tag {
+  color: #22d3ee; /* cyan-400 */
+}
+#docs-article .hljs-type,
+#docs-article .hljs-class .hljs-title,
+#docs-article .hljs-title.class_ {
+  color: #fbbf24; /* amber-400 */
+}
+#docs-article .hljs-string,
+#docs-article .hljs-regexp,
+#docs-article .hljs-addition {
+  color: #34d399; /* emerald-400 */
+}
+#docs-article .hljs-number,
+#docs-article .hljs-symbol,
+#docs-article .hljs-bullet {
+  color: #fb923c; /* orange-400 */
+}
+#docs-article .hljs-title,
+#docs-article .hljs-title.function_,
+#docs-article .hljs-section {
+  color: #60a5fa; /* blue-400 */
+}
+#docs-article .hljs-attr,
+#docs-article .hljs-attribute,
+#docs-article .hljs-property,
+#docs-article .hljs-variable.language_ {
+  color: #38bdf8; /* sky-400 */
+}
+#docs-article .hljs-meta {
+  color: #94a3b8; /* slate-400 */
+}
+#docs-article .hljs-deletion {
+  color: #f87171; /* red-400 */
+}
+#docs-article .hljs-emphasis {
+  font-style: italic;
+}
+#docs-article .hljs-strong {
+  font-weight: 600;
+}

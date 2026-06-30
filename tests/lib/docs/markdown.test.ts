@@ -192,6 +192,17 @@ describe('compile - tables, slugs, code, links', () => {
     expect(html).toContain('data-copy')
   })
 
+  it('applies build-time syntax highlighting (hljs token spans)', () => {
+    const html = compile('```python\nimport os\ndef post(p):\n    return p\n```')
+    expect(html).toContain('hljs') // highlighted code element
+    expect(html).toContain('hljs-keyword') // `import` / `def` tokenised
+  })
+
+  it('highlights jsonc fences via the json alias', () => {
+    const html = compile('```jsonc\n{ "id": "abc" }\n```')
+    expect(html).toContain('hljs-attr') // the "id" key tokenised as json
+  })
+
   it('localizes internal links and leaves external/anchor links alone', () => {
     const html = compile('[a](/developers/docs/census) [b](https://x.dev) [c](#frag)', { locale: 'es' })
     expect(html).toContain('href="/es/developers/docs/census"')

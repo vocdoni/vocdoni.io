@@ -1,4 +1,5 @@
 import matter from 'gray-matter'
+import rehypeHighlight from 'rehype-highlight'
 import rehypeSlug from 'rehype-slug'
 import rehypeStringify from 'rehype-stringify'
 import remarkDirective from 'remark-directive'
@@ -112,10 +113,10 @@ const CODE_COPY_BTN =
 // inner surface is borderless (CODE_TAB_SURFACE) to avoid a double box.
 const CODE_TABS_WRAPPER = CODE_WRAPPER
 const CODE_TABS_CAPTION =
-  'border-b border-white/10 px-4 py-1.5 font-mono text-[11px] uppercase tracking-wide text-white/40'
+  'border-b border-white/10 px-4 py-1.5 font-mono text-[11px] uppercase tracking-wide text-white/70'
 const CODE_TABS_LIST = 'flex flex-wrap items-stretch gap-1 border-b border-white/10 bg-white/5 px-2 pt-1.5'
 const CODE_TAB_BTN =
-  'press-scale rounded-t-md px-3 py-1.5 font-mono text-xs text-white/60 transition-colors hover:text-white aria-selected:bg-zinc-950 aria-selected:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-white/40'
+  'press-scale -mb-px rounded-t-md border-b-2 border-transparent px-3 py-1.5 font-mono text-xs text-white/45 transition-colors hover:text-white/80 aria-selected:border-primary aria-selected:bg-zinc-950 aria-selected:font-semibold aria-selected:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-white/40'
 const CODE_TAB_SURFACE = 'relative'
 
 // --- Endpoint pill, mirrored from the old Endpoint.tsx (per-method colours) --
@@ -599,6 +600,11 @@ export function compile(markdown: string, options: CompileOptions = {}): string 
     .use(rehypeSteps)
     .use(rehypeEndpoints)
     .use(rehypeTables, requiredLabel)
+    // Build-time syntax highlighting: tokenises fenced code into hljs spans
+    // (styled in layouts/style.css). Sync, so the .processSync() chain stays
+    // sync. Must run while `<pre><code class="language-x">` is intact, i.e.
+    // before the code blocks are restructured into tabs/surfaces below.
+    .use(rehypeHighlight, { detect: false, ignoreMissing: true, aliases: { json: ['jsonc'] } })
     .use(rehypeCodeTabs)
     .use(rehypeCodeSurface)
     .use(rehypeLocalizeLinks, locale)
