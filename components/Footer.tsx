@@ -97,7 +97,7 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href='https://developer.vocdoni.io/sdk' target='_blank' variant='footerNav'>
+                <Link href='/developers/docs/sdks-and-tools' target='_blank' variant='footerNav'>
                   {t('footer.product.links.1')}
                 </Link>
               </li>

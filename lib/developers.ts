@@ -6,7 +6,7 @@ export const DEVELOPERS_BASE = '/developers'
 export const DEVELOPERS_DOCS_BASE = '/developers/docs'
 
 // Integrator login (API Dashboard). Not live yet - safe to update here later.
-export const DEVELOPERS_DASHBOARD_URL = 'https://developer.vocdoni.io/login'
+export const DEVELOPERS_DASHBOARD_URL = 'https://platform.vocdoni.io'
 
 // SaaS API base URL surfaced in the docs/examples. Points at staging while the
 // API is in alpha; switch to https://saas-api-prod.vocdoni.net for production.
@@ -14,7 +14,7 @@ export const DEVELOPERS_API_BASE_URL = 'https://saas-api-stg.vocdoni.net'
 
 // External developer resources.
 export const DEVELOPERS_SDK_URL = 'https://github.com/vocdoni/integrator-sdk'
-export const DEVELOPERS_SDK_DOCS_URL = 'https://developer.vocdoni.io'
+export const DEVELOPERS_SDK_DOCS_URL = 'https://vocdoni.io/developers'
 export const DEVELOPERS_GITHUB_URL = 'https://github.com/vocdoni'
 export const DEVELOPERS_PROTOCOL_URL = 'https://davinci.vote'
 export const DEVELOPERS_SWAGGER_URL = 'https://vocdoni.github.io/saas-backend/swagger.yaml'
