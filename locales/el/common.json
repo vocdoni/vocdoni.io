@@ -2357,117 +2357,117 @@
   "developers": {
     "docs": {
       "common": {
-        "breadcrumb": "Breadcrumb",
-        "copied": "Copied",
-        "copy": "Copy",
-        "next": "Next",
-        "on_this_page": "On this page",
-        "previous": "Previous",
-        "view_markdown": "Προβολή ως markdown"
+        "breadcrumb": "Ψίχουλες πλοήγησης",
+        "copied": "Αντιγράφηκε",
+        "copy": "Αντιγραφή",
+        "next": "Επόμενο",
+        "on_this_page": "Σε αυτή τη σελίδα",
+        "previous": "Προηγούμενο",
+        "view_markdown": "Προβολή ως Markdown"
       },
       "nav": {
-        "aria_label": "Documentation",
-        "browse": "Browse docs",
+        "aria_label": "Τεκμηρίωση",
+        "browse": "Περιηγηθείτε στην τεκμηρίωση",
         "groups": {
-          "core_concepts": "Core concepts",
-          "get_started": "Get started",
-          "integrator_platform": "Integrator platform"
+          "core_concepts": "Βασικές έννοιες",
+          "get_started": "Ξεκινήστε",
+          "integrator_platform": "Λογαριασμός και πλατφόρμα"
         },
-        "title": "Documentation"
+        "title": "Τεκμηρίωση"
       }
     },
     "landing": {
       "build": {
         "authentication": {
-          "description": "Log in, refresh tokens and issue scoped API keys.",
-          "title": "Authentication"
+          "description": "Συνδεθείτε, ανανεώστε τα tokens και εκδώστε κλειδιά API με περιορισμένα δικαιώματα.",
+          "title": "Ταυτοποίηση"
         },
         "census": {
-          "description": "Import members and publish a census ready to vote.",
-          "title": "Members and census"
+          "description": "Εισαγάγετε μέλη και δημοσιεύστε ένα μητρώο μελών έτοιμο για ψηφοφορία.",
+          "title": "Μέλη και μητρώο"
         },
         "managed": {
-          "description": "Provision sub-organizations for your own customers.",
-          "title": "Managed organizations"
+          "description": "Παρέχετε υποοργανισμούς για τους δικούς σας πελάτες.",
+          "title": "Οργανισμοί υπό διαχείριση"
         },
         "organizations": {
-          "description": "Create organizations and manage users and roles.",
-          "title": "Organizations"
+          "description": "Δημιουργήστε οργανισμούς και διαχειριστείτε χρήστες και ρόλους.",
+          "title": "Οργανισμοί"
         },
         "processes": {
-          "description": "Configure ballots, vote types and election timing.",
-          "title": "Voting processes"
+          "description": "Ρυθμίστε ψηφοδέλτια, τύπους ψήφου και τον χρόνο της εκλογής.",
+          "title": "Διαδικασίες ψηφοφορίας"
         },
         "results": {
-          "description": "Read live and final tallies for any process.",
-          "title": "Results"
+          "description": "Δείτε τις ζωντανές και τις τελικές καταμετρήσεις για κάθε διαδικασία.",
+          "title": "Αποτελέσματα"
         },
-        "subtitle": "Jump straight to the part of the API you need.",
-        "title": "Start building"
+        "subtitle": "Πηγαίνετε κατευθείαν στο τμήμα του API που χρειάζεστε.",
+        "title": "Ξεκινήστε να δημιουργείτε"
       },
       "capabilities": {
         "anonymous": {
-          "description": "Zero-knowledge cryptography keeps ballots secret while results stay provable.",
-          "title": "Anonymous by design"
+          "description": "Η κρυπτογραφία μηδενικής γνώσης κρατά τις ψήφους μυστικές, ενώ τα αποτελέσματα παραμένουν ελέγξιμα.",
+          "title": "Ανώνυμη από τον σχεδιασμό"
         },
         "census": {
-          "description": "Authenticate voters by email, SMS or custom fields, with optional weighting.",
-          "title": "Flexible census"
+          "description": "Ταυτοποιείτε τους ψηφοφόρους με email, SMS ή προσαρμοσμένα πεδία, με προαιρετική στάθμιση.",
+          "title": "Ευέλικτο μητρώο"
         },
-        "title": "Built on guarantees you can prove",
+        "title": "Χτισμένο πάνω σε εγγυήσεις που μπορείτε να επαληθεύετε",
         "verifiable": {
-          "description": "Voters and observers can independently verify that every vote was counted.",
-          "title": "End-to-end verifiable"
+          "description": "Οι ψηφοφόροι και οι παρατηρητές μπορούν να ελέγχουν ανεξάρτητα ότι κάθε ψήφος μετρήθηκε.",
+          "title": "Επαληθεύσιμη από άκρο σε άκρο"
         },
         "whitelabel": {
-          "description": "Run elections for many customers from a single integrator account.",
-          "title": "Multi-tenant ready"
+          "description": "Διεξάγετε εκλογές για πολλούς πελάτες από έναν μόνο λογαριασμό ενοποίησης.",
+          "title": "Έτοιμο για multi-tenant"
         }
       },
       "hero": {
-        "code_caption": "Authenticate, then create your first election",
-        "cta_dashboard": "API Dashboard",
-        "cta_primary": "Get started",
-        "eyebrow": "Vocdoni for developers",
-        "subtitle": "Add secure, anonymous and end-to-end verifiable elections to your software with one REST API. Create organizations, build censuses, run processes and read results - without becoming a cryptography expert.",
-        "title": "Build verifiable voting into your product"
+        "code_caption": "Ταυτοποιηθείτε και, στη συνέχεια, δημιουργήστε την πρώτη σας εκλογή",
+        "cta_dashboard": "Πίνακας ελέγχου API",
+        "cta_primary": "Ξεκινήστε",
+        "eyebrow": "Vocdoni για προγραμματιστές",
+        "subtitle": "Προσθέστε ασφαλείς, ανώνυμες και επαληθεύσιμες από άκρο σε άκρο εκλογές στο λογισμικό σας με ένα μόνο REST API. Δημιουργήστε οργανισμούς, φτιάξτε μητρώα, εκτελέστε διαδικασίες και δείτε τα αποτελέσματα - χωρίς να γίνετε ειδικοί στην κρυπτογραφία.",
+        "title": "Ενσωματώστε επαληθεύσιμη ψηφοφορία στο προϊόν σας"
       },
       "pillars": {
         "api": {
-          "cta": "Explore the API",
-          "description": "A REST API to run managed elections: organizations, members, censuses, processes, results and async jobs.",
-          "title": "SaaS API"
+          "cta": "Εξερευνήστε το API",
+          "description": "Ένα REST API για τη διεξαγωγή διαχειριζόμενων εκλογών: οργανισμούς, μέλη, μητρώα, διαδικασίες, αποτελέσματα και ασύγχρονες εργασίες.",
+          "title": "API SaaS"
         },
         "protocol": {
-          "cta": "How the protocol works",
-          "description": "Every vote is anonymous and end-to-end verifiable, anchored on a public, censorship-resistant voting protocol.",
-          "title": "Protocol"
+          "cta": "Πώς λειτουργεί το πρωτόκολλο",
+          "description": "Κάθε ψήφος είναι ανώνυμη και επαληθεύσιμη από άκρο σε άκρο, βασίζεται σε ένα δημόσιο, ανθεκτικό στη λογοκρισία πρωτόκολλο ψηφοφορίας.",
+          "title": "Πρωτόκολλο"
         },
         "sdk": {
-          "cta": "Read the SDK docs",
-          "description": "Prefer to talk to the protocol directly? The TypeScript SDK gives you lower-level control over voting and census operations.",
+          "cta": "Διαβάστε την τεκμηρίωση του SDK",
+          "description": "Θέλετε να μιλήσετε κατευθείαν στο πρωτόκολλο; Το TypeScript SDK σας δίνει έλεγχο πιο χαμηλού επιπέδου πάνω σε λειτουργίες ψηφοφορίας και μητρώων.",
           "title": "SDK"
         }
       },
       "resources": {
-        "cta": "Browse the docs",
+        "cta": "Περιηγηθείτε στην τεκμηρίωση",
         "github": {
-          "description": "Open-source code and issues.",
+          "description": "Κώδικας ανοιχτού κώδικα και αναφορές προβλημάτων.",
           "title": "GitHub"
         },
         "reference": {
-          "description": "Every endpoint, schema and field.",
-          "title": "API reference"
+          "description": "Κάθε endpoint, σχήμα και πεδίο.",
+          "title": "Αναφορά API"
         },
         "sdk": {
-          "description": "Lower-level libraries and guides.",
-          "title": "SDK documentation"
+          "description": "Βιβλιοθήκες χαμηλότερου επιπέδου και οδηγοί.",
+          "title": "Τεκμηρίωση SDK"
         },
         "support": {
-          "description": "Service status and ways to reach us.",
-          "title": "Status and support"
+          "description": "Κατάσταση υπηρεσίας και τρόποι επικοινωνίας μαζί μας.",
+          "title": "Κατάσταση και υποστήριξη"
         },
-        "title": "Resources"
+        "title": "Πόροι"
       }
     }
   },
@@ -2619,7 +2619,11 @@
     },
     "cta_primary": "Ξεκινήστε δωρεάν",
     "cta_secondary": "Μιλήστε με ειδικό",
-    "dynamic_words": ["εύκολη", "ασφαλής", "απλή"],
+    "dynamic_words": [
+      "εύκολη",
+      "ασφαλής",
+      "απλή"
+    ],
     "subtitle": "Διεξάγετε ασφαλείς, νομικά έγκυρες εκλογές από οποιαδήποτε συσκευή. Για κάθε οργανισμό, κάθε μεγέθους, ξεκινώντας σήμερα.",
     "title": "Η λήψη αποφάσεων δεν ήταν ποτέ τόσο",
     "trusted_by": "Με την εμπιστοσύνη οργανισμών κάθε μεγέθους"
@@ -2692,57 +2696,57 @@
       "title": "Επικοινωνία - Vocdoni"
     },
     "developers_index": {
-      "description": "Build secure, anonymous and end-to-end verifiable elections into your software with the Vocdoni API. Quickstart, guides and full API reference for integrators.",
-      "title": "Vocdoni for developers: integrate verifiable voting | Vocdoni"
+      "description": "Δημιουργήστε ασφαλείς, ανώνυμες και επαληθεύσιμες από άκρο σε άκρο εκλογές στο λογισμικό σας με το Vocdoni API. Οδηγός γρήγορης εκκίνησης, οδηγοί και πλήρης αναφορά API για ενσωματωτές.",
+      "title": "Vocdoni για προγραμματιστές: ενσωματώστε επαληθεύσιμη ψηφοφορία | Vocdoni"
     },
     "developers": {
       "api_keys": {
-        "description": "Create, list and revoke scoped API keys for the Vocdoni API, and follow best practices for storing and rotating secrets.",
-        "title": "API keys | Vocdoni"
+        "description": "Δημιουργήστε, εμφανίστε και ανακαλέστε API κλειδιά με περιορισμένο πεδίο για το Vocdoni API και ακολουθήστε βέλτιστες πρακτικές για την αποθήκευση και την περιοδική εναλλαγή των μυστικών.",
+        "title": "Κλειδιά API | Vocdoni"
       },
       "census": {
-        "description": "Create, populate and publish a census with the Vocdoni API, choosing authentication and two-factor fields and optional vote weighting.",
-        "title": "Census | Vocdoni"
+        "description": "Δημιουργήστε, συμπληρώστε και δημοσιεύστε ένα μητρώο μελών με το Vocdoni API, επιλέγοντας πεδία ταυτοποίησης και δύο παραγόντων και προαιρετική στάθμιση ψήφων.",
+        "title": "Μητρώο μελών | Vocdoni"
       },
       "jobs": {
-        "description": "Handle long-running Vocdoni operations with the async job model: enqueue work, poll job status and react to completion or failure.",
-        "title": "Jobs and async operations | Vocdoni"
+        "description": "Διαχειριστείτε λειτουργίες του Vocdoni μεγάλης διάρκειας με το ασύγχρονο μοντέλο εργασιών: βάλτε εργασίες σε ουρά, παρακολουθήστε την κατάσταση της εργασίας και αντιδράστε στην ολοκλήρωση ή στην αποτυχία.",
+        "title": "Εργασίες και ασύγχρονες λειτουργίες | Vocdoni"
       },
       "managed_organizations": {
-        "description": "Provision and manage sub-organizations for your own customers as a Vocdoni integrator, and track your quota and usage.",
-        "title": "Managed organizations | Vocdoni"
+        "description": "Δημιουργήστε και διαχειριστείτε υποοργανισμούς για τους πελάτες σας ως ενσωματωτής της Vocdoni και παρακολουθήστε το όριό σας και τη χρήση σας.",
+        "title": "Διαχειριζόμενοι οργανισμοί | Vocdoni"
       },
       "members_and_groups": {
-        "description": "Import organization members in bulk, track async jobs, and organize members into groups you can turn into censuses.",
-        "title": "Members and groups | Vocdoni"
+        "description": "Εισάγετε μέλη οργανισμού μαζικά, παρακολουθήστε ασύγχρονες εργασίες και οργανώστε τα μέλη σε ομάδες που μπορείτε να μετατρέψετε σε μητρώα μελών.",
+        "title": "Μέλη και ομάδες | Vocdoni"
       },
       "organizations": {
-        "description": "Create and manage organizations with the Vocdoni API, including users, roles and organization settings.",
-        "title": "Organizations | Vocdoni"
+        "description": "Δημιουργήστε και διαχειριστείτε οργανισμούς με το Vocdoni API, συμπεριλαμβανομένων χρηστών, ρόλων και ρυθμίσεων οργανισμού.",
+        "title": "Οργανισμοί | Vocdoni"
       },
       "overview": {
-        "description": "Understand how the Vocdoni API fits together: organizations, censuses, voting processes, results and jobs, and how to integrate verifiable voting.",
-        "title": "Developer docs overview | Vocdoni"
+        "description": "Κατανοήστε πώς συνδέονται μεταξύ τους το Vocdoni API: οργανισμοί, μητρώα, διαδικασίες ψηφοφορίας, αποτελέσματα και εργασίες, και πώς να ενσωματώσετε επαληθεύσιμη ψηφοφορία.",
+        "title": "Επισκόπηση για προγραμματιστές | Vocdoni"
       },
       "quickstart": {
-        "description": "Run your first election end to end with the Vocdoni API: authenticate, create an organization, build and publish a census, create a process and read results.",
-        "title": "API quickstart | Vocdoni"
+        "description": "Διεξάγετε την πρώτη σας εκλογή από άκρο σε άκρο με το Vocdoni API: κάνετε ταυτοποίηση, δημιουργείτε έναν οργανισμό, φτιάχνετε και δημοσιεύετε ένα μητρώο, δημιουργείτε μια διαδικασία και διαβάζετε τα αποτελέσματα.",
+        "title": "Γρήγορη εκκίνηση API | Vocdoni"
       },
       "quotas_and_subscriptions": {
-        "description": "Understand Vocdoni subscription plans, features and limits, and read your current usage counters through the API.",
-        "title": "Quotas and subscriptions | Vocdoni"
+        "description": "Κατανοήστε τα προγράμματα συνδρομής του Vocdoni, τις δυνατότητες και τα όρια, και διαβάστε τους τρέχοντες μετρητές χρήσης σας μέσω του API.",
+        "title": "Αποθέματα και συνδρομές | Vocdoni"
       },
       "results": {
-        "description": "Read live and final results for a Vocdoni voting process, including vote counts, per-question tallies and result finality.",
-        "title": "Results | Vocdoni"
+        "description": "Διαβάστε ζωντανά και τελικά αποτελέσματα για μια διαδικασία ψηφοφορίας στο Vocdoni, συμπεριλαμβανομένων των μετρήσεων ψήφων, των αθροιστικών ανά ερώτηση και της τελικής οριστικοποίησης αποτελεσμάτων.",
+        "title": "Αποτελέσματα | Vocdoni"
       },
       "sdks_and_tools": {
-        "description": "Choose between the Vocdoni REST API and the TypeScript SDK, and find the tools, references and repositories you need to integrate.",
-        "title": "SDKs and tools | Vocdoni"
+        "description": "Επιλέξτε ανάμεσα στο Vocdoni REST API και στο TypeScript SDK, και βρείτε τα εργαλεία, τις αναφορές και τα αποθετήρια που χρειάζεστε για να ενσωματώσετε τη λύση.",
+        "title": "SDKs και εργαλεία | Vocdoni"
       },
       "voting_processes": {
-        "description": "Configure and publish voting processes with the Vocdoni API: election parameters, vote types, questions, bundles and status changes.",
-        "title": "Voting processes | Vocdoni"
+        "description": "Διαμορφώστε και δημοσιεύστε διαδικασίες ψηφοφορίας με το Vocdoni API: παραμέτρους εκλογής, τύπους ψήφων, ερωτήσεις, πακέτα και αλλαγές κατάστασης.",
+        "title": "Διαδικασίες ψηφοφορίας | Vocdoni"
       }
     },
     "index": {

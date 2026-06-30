@@ -890,7 +890,12 @@
         "intro": "La privacidad, la auditabilidad y la defensa legal no son complementos. Son la base de cada votación que organizas con Vocdoni.",
         "title": "Pensado para que el resultado resista el escrutinio"
       },
-      "trust_badges": ["Conforme con el RGPD", "Verificable de extremo a extremo", "Voto secreto", "Código abierto"],
+      "trust_badges": [
+        "Conforme con el RGPD",
+        "Verificable de extremo a extremo",
+        "Voto secreto",
+        "Código abierto"
+      ],
       "trust_points": [
         {
           "description": "Cada votante puede comprobar que su voto se contó, y cualquiera puede verificar el recuento final. La confianza nace de la prueba, no de nuestra palabra.",
@@ -1327,7 +1332,12 @@
         "intro": "La privacidad, la auditabilidad y la defensa legal no son complementos. Son la base de cada votación que organizas con Vocdoni.",
         "title": "Decisiones en las que confiará tu comunidad"
       },
-      "trust_badges": ["Verificable de extremo a extremo", "Voto secreto", "Conforme con el RGPD", "Código abierto"],
+      "trust_badges": [
+        "Verificable de extremo a extremo",
+        "Voto secreto",
+        "Conforme con el RGPD",
+        "Código abierto"
+      ],
       "trust_points": [
         {
           "description": "Cada votante puede comprobar que su voto se contó, y cualquiera puede verificar el recuento final. La confianza nace de la prueba, no de nuestra palabra.",
@@ -1873,7 +1883,12 @@
         "intro": "La privacidad, la auditabilidad y la defensa legal no son complementos. Son la base de cada votación que organizas con Vocdoni.",
         "title": "Una limpieza que los estudiantes pueden verificar"
       },
-      "trust_badges": ["Verificable de extremo a extremo", "Voto secreto", "Accesible (WCAG)", "Conforme con el RGPD"],
+      "trust_badges": [
+        "Verificable de extremo a extremo",
+        "Voto secreto",
+        "Accesible (WCAG)",
+        "Conforme con el RGPD"
+      ],
       "trust_points": [
         {
           "description": "Cada votante puede comprobar que su voto se contó, y cualquiera puede verificar el recuento final. La confianza nace de la prueba, no de nuestra palabra.",
@@ -2342,117 +2357,117 @@
   "developers": {
     "docs": {
       "common": {
-        "breadcrumb": "Breadcrumb",
-        "copied": "Copied",
-        "copy": "Copy",
-        "next": "Next",
-        "on_this_page": "On this page",
-        "previous": "Previous",
-        "view_markdown": "Ver como markdown"
+        "breadcrumb": "Migas de pan",
+        "copied": "Copiado",
+        "copy": "Copiar",
+        "next": "Siguiente",
+        "on_this_page": "En esta página",
+        "previous": "Anterior",
+        "view_markdown": "Ver como Markdown"
       },
       "nav": {
-        "aria_label": "Documentation",
-        "browse": "Browse docs",
+        "aria_label": "Documentación",
+        "browse": "Explorar documentación",
         "groups": {
-          "core_concepts": "Core concepts",
-          "get_started": "Get started",
-          "integrator_platform": "Integrator platform"
+          "core_concepts": "Conceptos clave",
+          "get_started": "Empezar",
+          "integrator_platform": "Cuenta y plataforma"
         },
-        "title": "Documentation"
+        "title": "Documentación"
       }
     },
     "landing": {
       "build": {
         "authentication": {
-          "description": "Log in, refresh tokens and issue scoped API keys.",
-          "title": "Authentication"
+          "description": "Inicia sesión, renueva tokens y emite claves de API con alcance.",
+          "title": "Autenticación"
         },
         "census": {
-          "description": "Import members and publish a census ready to vote.",
-          "title": "Members and census"
+          "description": "Importa miembros y publica un censo listo para votar.",
+          "title": "Miembros y censo"
         },
         "managed": {
-          "description": "Provision sub-organizations for your own customers.",
-          "title": "Managed organizations"
+          "description": "Crea suborganizaciones para tus propios clientes.",
+          "title": "Organizaciones gestionadas"
         },
         "organizations": {
-          "description": "Create organizations and manage users and roles.",
-          "title": "Organizations"
+          "description": "Crea organizaciones y administra usuarios y roles.",
+          "title": "Organizaciones"
         },
         "processes": {
-          "description": "Configure ballots, vote types and election timing.",
-          "title": "Voting processes"
+          "description": "Configura papeletas, tipos de voto y el calendario de la elección.",
+          "title": "Procesos de votación"
         },
         "results": {
-          "description": "Read live and final tallies for any process.",
-          "title": "Results"
+          "description": "Consulta los recuentos en tiempo real y definitivos de cualquier proceso.",
+          "title": "Resultados"
         },
-        "subtitle": "Jump straight to the part of the API you need.",
-        "title": "Start building"
+        "subtitle": "Ve directo a la parte de la API que necesitas.",
+        "title": "Empieza a crear"
       },
       "capabilities": {
         "anonymous": {
-          "description": "Zero-knowledge cryptography keeps ballots secret while results stay provable.",
-          "title": "Anonymous by design"
+          "description": "La criptografía de conocimiento cero mantiene las papeletas en secreto mientras los resultados siguen siendo comprobables.",
+          "title": "Anónimo por diseño"
         },
         "census": {
-          "description": "Authenticate voters by email, SMS or custom fields, with optional weighting.",
-          "title": "Flexible census"
+          "description": "Autentica a los votantes por email, SMS o campos personalizados, con ponderación opcional.",
+          "title": "Censo flexible"
         },
-        "title": "Built on guarantees you can prove",
+        "title": "Construido sobre garantías que puedes demostrar",
         "verifiable": {
-          "description": "Voters and observers can independently verify that every vote was counted.",
-          "title": "End-to-end verifiable"
+          "description": "Votantes y observadores pueden verificar de forma independiente que cada voto se contó.",
+          "title": "Verificable de punta a punta"
         },
         "whitelabel": {
-          "description": "Run elections for many customers from a single integrator account.",
-          "title": "Multi-tenant ready"
+          "description": "Ejecuta elecciones para muchos clientes desde una única cuenta de integrador.",
+          "title": "Listo para multi-tenant"
         }
       },
       "hero": {
-        "code_caption": "Authenticate, then create your first election",
-        "cta_dashboard": "API Dashboard",
-        "cta_primary": "Get started",
-        "eyebrow": "Vocdoni for developers",
-        "subtitle": "Add secure, anonymous and end-to-end verifiable elections to your software with one REST API. Create organizations, build censuses, run processes and read results - without becoming a cryptography expert.",
-        "title": "Build verifiable voting into your product"
+        "code_caption": "Autentica y crea tu primera elección",
+        "cta_dashboard": "Panel de la API",
+        "cta_primary": "Empieza",
+        "eyebrow": "Vocdoni para desarrolladores",
+        "subtitle": "Añade elecciones seguras, anónimas y verificables de punta a punta a tu software con una sola API REST. Crea organizaciones, construye censos, ejecuta procesos de votación y consulta resultados sin convertirte en un experto en criptografía.",
+        "title": "Incorpora votación verificable en tu producto"
       },
       "pillars": {
         "api": {
-          "cta": "Explore the API",
-          "description": "A REST API to run managed elections: organizations, members, censuses, processes, results and async jobs.",
-          "title": "SaaS API"
+          "cta": "Explora la API",
+          "description": "Una API REST para gestionar elecciones: organizaciones, miembros, censos, procesos de votación, resultados y tareas asíncronas.",
+          "title": "API SaaS"
         },
         "protocol": {
-          "cta": "How the protocol works",
-          "description": "Every vote is anonymous and end-to-end verifiable, anchored on a public, censorship-resistant voting protocol.",
-          "title": "Protocol"
+          "cta": "Así funciona el protocolo",
+          "description": "Cada voto es anónimo y verificable de punta a punta, y se apoya en un protocolo de votación público y resistente a la censura.",
+          "title": "Protocolo"
         },
         "sdk": {
-          "cta": "Read the SDK docs",
-          "description": "Prefer to talk to the protocol directly? The TypeScript SDK gives you lower-level control over voting and census operations.",
+          "cta": "Lee la documentación del SDK",
+          "description": "¿Prefieres hablar directamente con el protocolo? El SDK de TypeScript te da un control más fino sobre las operaciones de votación y de censo.",
           "title": "SDK"
         }
       },
       "resources": {
-        "cta": "Browse the docs",
+        "cta": "Consulta la documentación",
         "github": {
-          "description": "Open-source code and issues.",
+          "description": "Código y incidencias de código abierto.",
           "title": "GitHub"
         },
         "reference": {
-          "description": "Every endpoint, schema and field.",
-          "title": "API reference"
+          "description": "Cada endpoint, esquema y campo.",
+          "title": "Referencia de la API"
         },
         "sdk": {
-          "description": "Lower-level libraries and guides.",
-          "title": "SDK documentation"
+          "description": "Librerías de bajo nivel y guías.",
+          "title": "Documentación del SDK"
         },
         "support": {
-          "description": "Service status and ways to reach us.",
-          "title": "Status and support"
+          "description": "Estado del servicio y cómo contactarnos.",
+          "title": "Estado y soporte"
         },
-        "title": "Resources"
+        "title": "Recursos"
       }
     }
   },
@@ -2604,7 +2619,11 @@
     },
     "cta_primary": "Empieza gratis",
     "cta_secondary": "Habla con un experto",
-    "dynamic_words": ["fácil", "seguro", "sencillo"],
+    "dynamic_words": [
+      "fácil",
+      "seguro",
+      "sencillo"
+    ],
     "subtitle": "Celebra elecciones seguras y verificables desde cualquier dispositivo, con evidencia legal y trazabilidad. Cualquier organización, cualquier tamaño, desde hoy mismo.",
     "title": "Tomar decisiones nunca ha sido tan",
     "trusted_by": "Con la confianza de organizaciones de todos los tamaños"
@@ -2677,57 +2696,57 @@
       "title": "Contacto - Vocdoni"
     },
     "developers_index": {
-      "description": "Build secure, anonymous and end-to-end verifiable elections into your software with the Vocdoni API. Quickstart, guides and full API reference for integrators.",
-      "title": "Vocdoni for developers: integrate verifiable voting | Vocdoni"
+      "description": "Integra en tu software elecciones seguras, anónimas y verificables de extremo a extremo con la API de Vocdoni. Inicio rápido, guías y la referencia completa de la API para integradores.",
+      "title": "Vocdoni para desarrolladores: integra votaciones verificables | Vocdoni"
     },
     "developers": {
       "api_keys": {
-        "description": "Create, list and revoke scoped API keys for the Vocdoni API, and follow best practices for storing and rotating secrets.",
-        "title": "API keys | Vocdoni"
+        "description": "Crea, lista y revoca claves de API con alcance para la API de Vocdoni, y sigue las buenas prácticas para guardar y rotar secretos.",
+        "title": "Claves de API | Vocdoni"
       },
       "census": {
-        "description": "Create, populate and publish a census with the Vocdoni API, choosing authentication and two-factor fields and optional vote weighting.",
-        "title": "Census | Vocdoni"
+        "description": "Crea, rellena y publica un censo con la API de Vocdoni, eligiendo los campos de autenticación y de dos factores, y la ponderación opcional del voto.",
+        "title": "Censo | Vocdoni"
       },
       "jobs": {
-        "description": "Handle long-running Vocdoni operations with the async job model: enqueue work, poll job status and react to completion or failure.",
-        "title": "Jobs and async operations | Vocdoni"
+        "description": "Gestiona operaciones de Vocdoni de larga duración con el modelo de trabajos asíncronos: pon tareas en cola, consulta el estado del trabajo y actúa ante la finalización o el fallo.",
+        "title": "Trabajos y operaciones asíncronas | Vocdoni"
       },
       "managed_organizations": {
-        "description": "Provision and manage sub-organizations for your own customers as a Vocdoni integrator, and track your quota and usage.",
-        "title": "Managed organizations | Vocdoni"
+        "description": "Crea y gestiona suborganizaciones para tus propios clientes como integrador de Vocdoni, y controla tu cuota y uso.",
+        "title": "Organizaciones gestionadas | Vocdoni"
       },
       "members_and_groups": {
-        "description": "Import organization members in bulk, track async jobs, and organize members into groups you can turn into censuses.",
-        "title": "Members and groups | Vocdoni"
+        "description": "Importa miembros de la organización en lote, sigue los trabajos asíncronos y organiza a los miembros en grupos que puedas convertir en censos.",
+        "title": "Miembros y grupos | Vocdoni"
       },
       "organizations": {
-        "description": "Create and manage organizations with the Vocdoni API, including users, roles and organization settings.",
-        "title": "Organizations | Vocdoni"
+        "description": "Crea y gestiona organizaciones con la API de Vocdoni, incluyendo usuarios, roles y ajustes de la organización.",
+        "title": "Organizaciones | Vocdoni"
       },
       "overview": {
-        "description": "Understand how the Vocdoni API fits together: organizations, censuses, voting processes, results and jobs, and how to integrate verifiable voting.",
-        "title": "Developer docs overview | Vocdoni"
+        "description": "Descubre cómo encaja la API de Vocdoni: organizaciones, censos, procesos de votación, resultados y jobs, y cómo integrarla para unas votaciones verificables.",
+        "title": "Resumen de la documentación para desarrolladores | Vocdoni"
       },
       "quickstart": {
-        "description": "Run your first election end to end with the Vocdoni API: authenticate, create an organization, build and publish a census, create a process and read results.",
-        "title": "API quickstart | Vocdoni"
+        "description": "Realiza tu primera elección de principio a fin con la API de Vocdoni: autentícate, crea una organización, construye y publica un censo, crea un proceso y consulta los resultados.",
+        "title": "Inicio rápido de la API | Vocdoni"
       },
       "quotas_and_subscriptions": {
-        "description": "Understand Vocdoni subscription plans, features and limits, and read your current usage counters through the API.",
-        "title": "Quotas and subscriptions | Vocdoni"
+        "description": "Entiende los planes de suscripción de Vocdoni, sus funciones y límites, y consulta a través de la API tus contadores de uso actuales.",
+        "title": "Cuotas y suscripciones | Vocdoni"
       },
       "results": {
-        "description": "Read live and final results for a Vocdoni voting process, including vote counts, per-question tallies and result finality.",
-        "title": "Results | Vocdoni"
+        "description": "Consulta los resultados en tiempo real y los finales de un proceso de votación de Vocdoni: recuentos de votos, totales por pregunta y la confirmación final del resultado.",
+        "title": "Resultados | Vocdoni"
       },
       "sdks_and_tools": {
-        "description": "Choose between the Vocdoni REST API and the TypeScript SDK, and find the tools, references and repositories you need to integrate.",
-        "title": "SDKs and tools | Vocdoni"
+        "description": "Elige entre la API REST de Vocdoni y el SDK de TypeScript, y encuentra las herramientas, referencias y repositorios que necesitas para integrarte.",
+        "title": "SDKs y herramientas | Vocdoni"
       },
       "voting_processes": {
-        "description": "Configure and publish voting processes with the Vocdoni API: election parameters, vote types, questions, bundles and status changes.",
-        "title": "Voting processes | Vocdoni"
+        "description": "Configura y publica procesos de votación con la API de Vocdoni: parámetros de la elección, tipos de voto, preguntas, bundles y cambios de estado.",
+        "title": "Procesos de votación | Vocdoni"
       }
     },
     "index": {
