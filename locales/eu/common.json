@@ -890,7 +890,12 @@
         "intro": "Pribatutasuna, auditagarritasuna eta legez defendagarria izatea ez dira gehigarriak. Vocdonirekin egiten duzun bozketa bakoitzaren oinarria dira.",
         "title": "Emaitzek azterketa zorrotza jasan dezaten eraikia"
       },
-      "trust_badges": ["DBEOrekin bat dator", "Muturretik muturrera egiaztagarria", "Boto sekretua", "Kode irekikoa"],
+      "trust_badges": [
+        "DBEOrekin bat dator",
+        "Muturretik muturrera egiaztagarria",
+        "Boto sekretua",
+        "Kode irekikoa"
+      ],
       "trust_points": [
         {
           "description": "Botogile bakoitzak bere botoa zenbatu dela egiazta dezake, eta edonork azken zenbaketa egiazta dezake; ez dago plataformaz fidatu beharrik.",
@@ -1103,7 +1108,12 @@
         "intro": "Pribatutasuna, ikuskarigarritasuna eta legez defendagarritasuna ez dira gehigarriak. Vocdonirekin egiten duzun boto-emate ororen oinarria dira.",
         "title": "Zure kideek onartuko dituzten erabakiak"
       },
-      "trust_badges": ["GDPR betetzen du", "Amaieratik amaierara egiaztagarria", "Kide bat, boto bat", "Kode irekikoa"],
+      "trust_badges": [
+        "GDPR betetzen du",
+        "Amaieratik amaierara egiaztagarria",
+        "Kide bat, boto bat",
+        "Kode irekikoa"
+      ],
       "trust_points": [
         {
           "description": "Botogile bakoitzak egiaztatu dezake bere botoa kontatu dela, eta edonork egiazta dezake azken zenbaketa. Konfiantza frogetatik dator, ez gure hitzetatik.",
@@ -1322,7 +1332,12 @@
         "intro": "Pribatutasuna, ikuskaritzagarritasuna eta lege-babesa ez dira gehigarriak. Vocdonirekin egiten duzun bozketa bakoitzaren oinarria dira.",
         "title": "Zure komunitateak fidatuko dituen erabakiak"
       },
-      "trust_badges": ["Amaieratik amaierara egiaztagarria", "Boto sekretua", "GDPR betetzen du", "Kode irekikoa"],
+      "trust_badges": [
+        "Amaieratik amaierara egiaztagarria",
+        "Boto sekretua",
+        "GDPR betetzen du",
+        "Kode irekikoa"
+      ],
       "trust_points": [
         {
           "description": "Botogile bakoitzak bere botoa zenbatu dela egiazta dezake, eta edonork azken zenbaketa egiazta dezake. Konfiantza frogetatik dator, ez gure hitzetik.",
@@ -2342,117 +2357,117 @@
   "developers": {
     "docs": {
       "common": {
-        "breadcrumb": "Breadcrumb",
-        "copied": "Copied",
-        "copy": "Copy",
-        "next": "Next",
-        "on_this_page": "On this page",
-        "previous": "Previous",
-        "view_markdown": "Ikusi markdown gisa"
+        "breadcrumb": "Ogibidea",
+        "copied": "Kopiatuta",
+        "copy": "Kopiatu",
+        "next": "Hurrengoa",
+        "on_this_page": "Orrialde honetan",
+        "previous": "Aurrekoa",
+        "view_markdown": "Ikusi Markdown gisa"
       },
       "nav": {
-        "aria_label": "Documentation",
-        "browse": "Browse docs",
+        "aria_label": "Dokumentazioa",
+        "browse": "Arakatu dokumentazioa",
         "groups": {
-          "core_concepts": "Core concepts",
-          "get_started": "Get started",
-          "integrator_platform": "Integrator platform"
+          "core_concepts": "Oinarrizko kontzeptuak",
+          "get_started": "Hasi",
+          "integrator_platform": "Kontua eta plataforma"
         },
-        "title": "Documentation"
+        "title": "Dokumentazioa"
       }
     },
     "landing": {
       "build": {
         "authentication": {
-          "description": "Log in, refresh tokens and issue scoped API keys.",
-          "title": "Authentication"
+          "description": "Sartu kontura, berritu tokenak eta eman esparru jakineko API gakoak.",
+          "title": "Autentifikazioa"
         },
         "census": {
-          "description": "Import members and publish a census ready to vote.",
-          "title": "Members and census"
+          "description": "Inportatu kideak eta argitaratu boto-ematerako prest dagoen erroldea.",
+          "title": "Kideak eta erroldea"
         },
         "managed": {
-          "description": "Provision sub-organizations for your own customers.",
-          "title": "Managed organizations"
+          "description": "Eman azpi-erakundeak zure bezeroentzat.",
+          "title": "Kudeatutako erakundeak"
         },
         "organizations": {
-          "description": "Create organizations and manage users and roles.",
-          "title": "Organizations"
+          "description": "Sortu erakundeak eta kudeatu erabiltzaileak eta rolak.",
+          "title": "Erakundeak"
         },
         "processes": {
-          "description": "Configure ballots, vote types and election timing.",
-          "title": "Voting processes"
+          "description": "Konfiguratu bozketa-paperak, boto motak eta hauteskundeen ordutegia.",
+          "title": "Boto-ematearen prozesuak"
         },
         "results": {
-          "description": "Read live and final tallies for any process.",
-          "title": "Results"
+          "description": "Irakurri edozein prozesuren uneko eta azken zenbaketak.",
+          "title": "Emaitzak"
         },
-        "subtitle": "Jump straight to the part of the API you need.",
-        "title": "Start building"
+        "subtitle": "Joan zuzenean behar duzun APIaren atalera.",
+        "title": "Hasi eraikitzen"
       },
       "capabilities": {
         "anonymous": {
-          "description": "Zero-knowledge cryptography keeps ballots secret while results stay provable.",
-          "title": "Anonymous by design"
+          "description": "Ezagutza zeroeko kriptografiari esker botoak sekretuak dira, baina emaitzak frogagarriak izaten dira.",
+          "title": "Diseinuz anonimoa"
         },
         "census": {
-          "description": "Authenticate voters by email, SMS or custom fields, with optional weighting.",
-          "title": "Flexible census"
+          "description": "Autentifikatu botogileak emailaren, SMSaren edo pertsonalizatutako eremuen bidez, pisu aukerarekin.",
+          "title": "Errolda malgua"
         },
-        "title": "Built on guarantees you can prove",
+        "title": "Froga ditzakezun bermeetan eraikia",
         "verifiable": {
-          "description": "Voters and observers can independently verify that every vote was counted.",
-          "title": "End-to-end verifiable"
+          "description": "Botogileek eta behatzaileek modu independentean egiaztatu dezakete boto bakoitza zenbatu dela.",
+          "title": "End-to-end frogagarria"
         },
         "whitelabel": {
-          "description": "Run elections for many customers from a single integrator account.",
-          "title": "Multi-tenant ready"
+          "description": "Exekutatu hauteskundeak bezero askorentzat integratzailearen kontu bakar batetik.",
+          "title": "Multi-tenanterako prest"
         }
       },
       "hero": {
-        "code_caption": "Authenticate, then create your first election",
+        "code_caption": "Autentifikatu, eta sortu zure lehen hauteskundea",
         "cta_dashboard": "API Dashboard",
-        "cta_primary": "Get started",
-        "eyebrow": "Vocdoni for developers",
-        "subtitle": "Add secure, anonymous and end-to-end verifiable elections to your software with one REST API. Create organizations, build censuses, run processes and read results - without becoming a cryptography expert.",
-        "title": "Build verifiable voting into your product"
+        "cta_primary": "Hasi",
+        "eyebrow": "Garatzaileentzako Vocdoni",
+        "subtitle": "Erantsi zure softwareari seguruak, anonimoak eta end-to-end frogagarriak diren hauteskundeak REST API bakar batekin. Sortu erakundeak, eraiki erroldak, exekutatu prozesuak eta irakurri emaitzak - zibernetika-kriptoaren aditu bihurtu gabe.",
+        "title": "Integratu frogagarri den bozketa zure produktuan"
       },
       "pillars": {
         "api": {
-          "cta": "Explore the API",
-          "description": "A REST API to run managed elections: organizations, members, censuses, processes, results and async jobs.",
+          "cta": "Arakatu APIa",
+          "description": "Kudeatutako hauteskundeak exekutatzeko REST API bat: erakundeak, kideak, erroldak, prozesuak, emaitzak eta asinkronoko lanak.",
           "title": "SaaS API"
         },
         "protocol": {
-          "cta": "How the protocol works",
-          "description": "Every vote is anonymous and end-to-end verifiable, anchored on a public, censorship-resistant voting protocol.",
-          "title": "Protocol"
+          "cta": "Nola funtzionatzen du protokoloak",
+          "description": "Boto bakoitza anonimoa da eta end-to-end frogagarria, protokolo publiko, zentsurari erresistente batean oinarrituta.",
+          "title": "Protokoloa"
         },
         "sdk": {
-          "cta": "Read the SDK docs",
-          "description": "Prefer to talk to the protocol directly? The TypeScript SDK gives you lower-level control over voting and census operations.",
+          "cta": "Irakurri SDKren dokumentuak",
+          "description": "Protokoloarekin zuzenean hitz egin nahiago duzu? TypeScript SDKak botoaren eta erroldaren eragiketetan behe-mailako kontrola ematen dizu.",
           "title": "SDK"
         }
       },
       "resources": {
-        "cta": "Browse the docs",
+        "cta": "Arakatu dokumentuak",
         "github": {
-          "description": "Open-source code and issues.",
+          "description": "Kode irekia eta arazoak.",
           "title": "GitHub"
         },
         "reference": {
-          "description": "Every endpoint, schema and field.",
-          "title": "API reference"
+          "description": "Endpoint, eskema eta eremu bakoitza.",
+          "title": "APIaren erreferentzia"
         },
         "sdk": {
-          "description": "Lower-level libraries and guides.",
-          "title": "SDK documentation"
+          "description": "Maila baxuagoko liburutegiak eta gidak.",
+          "title": "SDK dokumentazioa"
         },
         "support": {
-          "description": "Service status and ways to reach us.",
-          "title": "Status and support"
+          "description": "Zerbitzuaren egoera eta gurekin harremanetan jartzeko moduak.",
+          "title": "Egoera eta laguntza"
         },
-        "title": "Resources"
+        "title": "Baliabideak"
       }
     }
   },
@@ -2604,7 +2619,11 @@
     },
     "cta_primary": "Hasi doan",
     "cta_secondary": "Hitz egin aditu batekin",
-    "dynamic_words": ["erraza", "segurua", "sinplea"],
+    "dynamic_words": [
+      "erraza",
+      "segurua",
+      "sinplea"
+    ],
     "subtitle": "Egin hauteskunde seguru eta egiaztagarriak edozein gailutatik, ebidentzia juridikoekin eta ikuskaritza-aztarnekin. Edozein erakunde, edozein tamaina, gaur bertatik aurrera.",
     "title": "Erabakiak hartzea inoiz ez da izan",
     "trusted_by": "Tamaina guztietako erakundeek fidatzen dute"
@@ -2677,57 +2696,57 @@
       "title": "Kontaktua - Vocdoni"
     },
     "developers_index": {
-      "description": "Build secure, anonymous and end-to-end verifiable elections into your software with the Vocdoni API. Quickstart, guides and full API reference for integrators.",
-      "title": "Vocdoni for developers: integrate verifiable voting | Vocdoni"
+      "description": "Integrazioetarako zure softwarean Vocdoni APIa erabiliz hauteskunde seguruak, anonimoak eta end-to-end egiaztagarriak integratu. Hasierako gida, gidak eta APIaren erreferentzia osoa integratzaileentzat.",
+      "title": "Vocdoni garatzaileentzat: integratu egiaztagarriak diren boto-emateak | Vocdoni"
     },
     "developers": {
       "api_keys": {
-        "description": "Create, list and revoke scoped API keys for the Vocdoni API, and follow best practices for storing and rotating secrets.",
-        "title": "API keys | Vocdoni"
+        "description": "Sortu, zerrendatu eta baliogabetu esparruko API-gakoak Vocdoni APIarentzat, eta jarraitu sekretuak gordetzeko eta biratzeko jardunbide egokiei.",
+        "title": "API-gakoak | Vocdoni"
       },
       "census": {
-        "description": "Create, populate and publish a census with the Vocdoni API, choosing authentication and two-factor fields and optional vote weighting.",
-        "title": "Census | Vocdoni"
+        "description": "Sortu, bete eta argitaratu errolda bat Vocdoni APIarekin, autentifikazioak eta bi faktoreko eremuak aukeratuz, baita hautuaren pisu aukerakoa ere.",
+        "title": "Errolda | Vocdoni"
       },
       "jobs": {
-        "description": "Handle long-running Vocdoni operations with the async job model: enqueue work, poll job status and react to completion or failure.",
-        "title": "Jobs and async operations | Vocdoni"
+        "description": "Kudeatu iraupen luzeko Vocdoni operazioak lan-eginkizunaren (async) eredua erabiliz: ilaran jarri lana, egiaztatu lanaren egoera eta erreakzionatu amaierara edo porrotara.",
+        "title": "Lan-eginkizunak eta eragiketa asinkronoak | Vocdoni"
       },
       "managed_organizations": {
-        "description": "Provision and manage sub-organizations for your own customers as a Vocdoni integrator, and track your quota and usage.",
-        "title": "Managed organizations | Vocdoni"
+        "description": "Hornitu eta kudeatu azpierakundeak zure bezeroentzat Vocdoni integratzaile gisa, eta kontrolatu zure kuota eta erabilera.",
+        "title": "Kudeatutako erakundeak | Vocdoni"
       },
       "members_and_groups": {
-        "description": "Import organization members in bulk, track async jobs, and organize members into groups you can turn into censuses.",
-        "title": "Members and groups | Vocdoni"
+        "description": "Inportatu erakundeko kideak masaka, jarraitu lan-eginkizun asinkronoei, eta antolatu kideak taldeetan, gero errolda bihur ditzakezun.",
+        "title": "Kideak eta taldeak | Vocdoni"
       },
       "organizations": {
-        "description": "Create and manage organizations with the Vocdoni API, including users, roles and organization settings.",
-        "title": "Organizations | Vocdoni"
+        "description": "Sortu eta kudeatu erakundeak Vocdoni APIarekin, erabiltzaileak, rola eta erakundearen ezarpenak barne.",
+        "title": "Erakundeak | Vocdoni"
       },
       "overview": {
-        "description": "Understand how the Vocdoni API fits together: organizations, censuses, voting processes, results and jobs, and how to integrate verifiable voting.",
-        "title": "Developer docs overview | Vocdoni"
+        "description": "Uler ezazu nola lotzen den Vocdoni APIa: erakundeak, erroldak, boto-ematearen prozesuak, emaitzak eta lanak, eta nola integratu egiaztagarriak diren boto-emateak.",
+        "title": "Garatzeko dokumentazioaren ikuspegi orokorra | Vocdoni"
       },
       "quickstart": {
-        "description": "Run your first election end to end with the Vocdoni API: authenticate, create an organization, build and publish a census, create a process and read results.",
-        "title": "API quickstart | Vocdoni"
+        "description": "Egin zure lehen hauteskundea end-to-end Vocdoni APIarekin: autentifikatu, erakunde bat sortu, errolda bat eraiki eta argitaratu, prozesu bat sortu eta emaitzak irakurri.",
+        "title": "APIaren abiapuntu azkarra | Vocdoni"
       },
       "quotas_and_subscriptions": {
-        "description": "Understand Vocdoni subscription plans, features and limits, and read your current usage counters through the API.",
-        "title": "Quotas and subscriptions | Vocdoni"
+        "description": "Ezagutu Vocdoni harpidetza-planak, ezaugarriak eta mugak, eta irakurri APIaren bidez zure uneko erabilera-kontagailuak.",
+        "title": "Kuotak eta harpidetzak | Vocdoni"
       },
       "results": {
-        "description": "Read live and final results for a Vocdoni voting process, including vote counts, per-question tallies and result finality.",
-        "title": "Results | Vocdoni"
+        "description": "Irakurri boto-ematearen prozesu baterako unean uneko eta azken emaitzak Vocdonin, boto-kontaketak, galdeko metaketak eta emaitzen behin betiko izaera barne.",
+        "title": "Emaitzak | Vocdoni"
       },
       "sdks_and_tools": {
-        "description": "Choose between the Vocdoni REST API and the TypeScript SDK, and find the tools, references and repositories you need to integrate.",
-        "title": "SDKs and tools | Vocdoni"
+        "description": "Aukeratu Vocdoni REST APIa edo TypeScript SDKa, eta integratzeko behar dituzun tresnak, erreferentziak eta biltegiak aurkitu.",
+        "title": "SDKak eta tresnak | Vocdoni"
       },
       "voting_processes": {
-        "description": "Configure and publish voting processes with the Vocdoni API: election parameters, vote types, questions, bundles and status changes.",
-        "title": "Voting processes | Vocdoni"
+        "description": "Konfiguratu eta argitaratu boto-ematearen prozesuak Vocdoni APIarekin: hauteskundearen parametroak, boto-motak, galderak, bundle-ak eta egoera-aldaketak.",
+        "title": "Boto-ematearen prozesuak | Vocdoni"
       }
     },
     "index": {
@@ -3028,7 +3047,11 @@
       "items": {
         "associations": {
           "description": "Zuzendaritza-batzordeko hauteskundeak, estatutu-aldaketak eta zure erakundearen arauak betetzen dituzten batzar estatutarioak antolatu. Kide bakoitzak esteka bat jasotzen du bere botoa zenbatu dela egiaztatzeko - nola bozkatu duen agerian jarri gabe.",
-          "features": ["Zuzendaritza-batzordeko hauteskundeak", "Estatutuen aldaketak", "Ekimen handien onarpenak"],
+          "features": [
+            "Zuzendaritza-batzordeko hauteskundeak",
+            "Estatutuen aldaketak",
+            "Ekimen handien onarpenak"
+          ],
           "title": "Elkarteak eta kide-erakundeak"
         },
         "city_councils": {
@@ -3042,7 +3065,11 @@
         },
         "integrators": {
           "description": "Txertatu zure plataforman modu independentean egiaztagarria den botazioa SDK edo REST API bidez. Vocdoni arduratzen da segurtasunaz, pribatutasunaz eta araudia betetzeaz. Zure taldeak erabiltzaile-esperientzian jartzen du arreta.",
-          "features": ["JavaScript SDK eta REST API", "Aurrez eraikitako UI osagaiak", "GDPR betetzea lehen unetik"],
+          "features": [
+            "JavaScript SDK eta REST API",
+            "Aurrez eraikitako UI osagaiak",
+            "GDPR betetzea lehen unetik"
+          ],
           "title": "Software integratzaileak eta plataforma-hornitzaileak"
         },
         "political_parties": {
