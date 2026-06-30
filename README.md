@@ -99,14 +99,14 @@ Create a `.env.local` file to override any variable locally. All of the followin
 
 The site uses two deployment targets, both triggered by GitHub Actions:
 
-- **Netlify** — PR previews and every push to `main`. Used for quick iteration and review. Redirects are written as a `_redirects` file into `dist/client` at build time.
-- **DigitalOcean App Platform** — production at `vocdoni.io`. Triggered only on push to `main`. The workflow runs `pnpm gen:do-appspec` to generate `.do/app.generated.yaml` (the DO app spec with redirect ingress rules injected), which is then passed to DigitalOcean's deploy action.
+- **Netlify**: PR previews and every push to `main`. Used for quick iteration and review. Redirects are written as a `_redirects` file into `dist/client` at build time.
+- **DigitalOcean App Platform**: production at `vocdoni.io`. Triggered only on push to `main`. The workflow runs `pnpm gen:do-appspec` to generate `.do/app.generated.yaml` (the DO app spec with redirect ingress rules injected), which is then passed to DigitalOcean's deploy action.
 
 The split exists because Netlify and DigitalOcean handle redirects differently, and we need a single source of truth for the rules regardless of target.
 
 ## Redirects
 
-All legacy URL redirects (301s) are defined in **`lib/legacyRedirects.ts`** — the single source of truth. Two emitters read from it at build/deploy time:
+All legacy URL redirects (301s) are defined in **`lib/legacyRedirects.ts`** (the single source of truth). Two emitters read from it at build/deploy time:
 
 - `buildNetlifyRedirects` → `_redirects` file (emitted by `plugins/legacy-redirects.ts`, never committed)
 - `buildDigitalOceanIngressRules` → ingress rules fragment injected into the DO app spec by `pnpm gen:do-appspec`
