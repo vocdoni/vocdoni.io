@@ -1,8 +1,8 @@
 <p align="center" width="100%">
     <picture>
-      <source media="(prefers-color-scheme: dark)" srcset="https://developer.vocdoni.io/img/vocdoni_logotype_full_blank.svg" />
-      <source media="(prefers-color-scheme: light)" srcset="https://developer.vocdoni.io/img/vocdoni_logotype_full_white.svg" />
-      <img alt="Vocdoni" src="https://developer.vocdoni.io/img/vocdoni_logotype_full_white.svg" />
+      <source media="(prefers-color-scheme: dark)" srcset="https://vocdoni.io/images/vocdoni_logotype_full_blank.svg" />
+      <source media="(prefers-color-scheme: light)" srcset="https://vocdoni.io/images/vocdoni_logotype_full_white.svg" />
+      <img alt="Vocdoni" src="https://vocdoni.io/images/vocdoni_logotype_full_white.svg" />
     </picture>
 </p>
 
