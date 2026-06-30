@@ -8,8 +8,12 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 export type CodeSample = {
   // Tab label, e.g. "cURL", "JavaScript". Shown only when more than one sample.
   label: string
-  // Raw code. Rendered inside <pre>, so it is exempt from copy translation rules.
+  // Raw code. Used for the copy button, and rendered as-is when `html` is absent.
   code: string
+  // Optional pre-highlighted inner HTML for a `<code class="hljs">` (built at
+  // prerender via lib/docs/highlight-code.ts). When present it is rendered
+  // instead of the raw code; copy still uses `code`.
+  html?: string
 }
 
 interface CodeBlockProps {
@@ -45,10 +49,14 @@ function CopyButton({ value }: { value: string }) {
   )
 }
 
-function Pre({ code }: { code: string }) {
+function Pre({ sample }: { sample: CodeSample }) {
   return (
-    <pre className='overflow-x-auto p-4 font-mono text-[13px] leading-6 text-zinc-100'>
-      <code>{code}</code>
+    <pre className='min-w-0 max-w-full overflow-x-auto p-4 font-mono text-[13px] leading-6 text-zinc-100'>
+      {sample.html ? (
+        <code className='hljs' dangerouslySetInnerHTML={{ __html: sample.html }} />
+      ) : (
+        <code>{sample.code}</code>
+      )}
     </pre>
   )
 }
@@ -61,9 +69,9 @@ export function CodeBlock({ samples, className, caption }: CodeBlockProps) {
   const multiple = samples.length > 1
 
   return (
-    <div className={cn('my-6', className)}>
+    <div className={cn('my-6 min-w-0', className)}>
       {caption ? <div className='mb-2 text-xs font-medium text-muted-foreground'>{caption}</div> : null}
-      <div className='relative overflow-hidden rounded-xl border border-border/60 bg-zinc-950 shadow-sm'>
+      <div className='relative min-w-0 max-w-full overflow-hidden rounded-xl border border-border/60 bg-zinc-950 shadow-sm'>
         {multiple ? (
           <Tabs defaultValue={samples[0].label}>
             <div className='flex items-center justify-between border-b border-white/10 bg-zinc-900/60 px-2'>
@@ -80,16 +88,16 @@ export function CodeBlock({ samples, className, caption }: CodeBlockProps) {
               </TabsList>
             </div>
             {samples.map((sample) => (
-              <TabsContent key={sample.label} value={sample.label} className='relative mt-0'>
+              <TabsContent key={sample.label} value={sample.label} className='relative mt-0 min-w-0'>
                 <CopyButton value={sample.code} />
-                <Pre code={sample.code} />
+                <Pre sample={sample} />
               </TabsContent>
             ))}
           </Tabs>
         ) : (
-          <div className='relative'>
+          <div className='relative min-w-0'>
             <CopyButton value={samples[0].code} />
-            <Pre code={samples[0].code} />
+            <Pre sample={samples[0]} />
           </div>
         )}
       </div>
