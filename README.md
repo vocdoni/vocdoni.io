@@ -117,8 +117,8 @@ To add, change, or remove a redirect, edit `lib/legacyRedirects.ts` only.
 
 Please review our [development guidelines](https://developer.vocdoni.io/development-guidelines) and the [AGENTS.md](./AGENTS.md) contributor guide before opening a pull request.
 
-## License [![License: BSL 1.1](https://img.shields.io/badge/license-BSL%201.1-blue.svg)](https://mariadb.com/bsl11/)
+## License [![License: GPL v3](https://img.shields.io/badge/license-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
-This repository is licensed under the [Business Source License 1.1](./LICENSE).
+This repository is licensed under the [GNU General Public License v3.0](./LICENSE).
 
 Copyright © 2025 Vocdoni.
