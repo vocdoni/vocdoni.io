@@ -105,7 +105,7 @@ function Hero() {
               </Button>
             </div>
           </div>
-          <div className='lg:pl-4'>
+          <div className='min-w-0 lg:pl-4'>
             <CodeBlock
               caption={t('developers.landing.hero.code_caption', 'Authenticate, then create your first election')}
               samples={[

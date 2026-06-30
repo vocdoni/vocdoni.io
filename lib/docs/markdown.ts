@@ -103,8 +103,12 @@ const STEP_CONTENT = 'min-w-0 flex-1 pb-2'
 // descendant selectors). Mirrors the old <Step> title.
 const STEP_HEADING = 'mt-0! mb-2! text-base! font-semibold! tracking-normal!'
 
-const CODE_WRAPPER = 'relative my-6 overflow-hidden rounded-xl border border-border/60 bg-zinc-950 shadow-sm'
-const CODE_PRE = 'overflow-x-auto p-4 font-mono text-[13px] leading-6 text-zinc-100'
+const CODE_WRAPPER =
+  'relative my-6 min-w-0 max-w-full overflow-hidden rounded-xl border border-border/60 bg-zinc-950 shadow-sm'
+// overflow-x-auto makes the <pre> itself the sole horizontal scroller; min-w-0 +
+// max-w-full keep it from pushing the page wider than the content column (so on
+// mobile a long line scrolls inside the box, never the whole page).
+const CODE_PRE = 'min-w-0 max-w-full overflow-x-auto p-4 font-mono text-[13px] leading-6 text-zinc-100'
 const CODE_COPY_BTN =
   'press-scale absolute right-3 top-3 inline-flex size-8 items-center justify-center rounded-md border border-white/10 bg-white/5 text-white/70 transition-colors hover:bg-white/10 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40'
 
@@ -117,7 +121,7 @@ const CODE_TABS_CAPTION =
 const CODE_TABS_LIST = 'flex flex-wrap items-stretch gap-1 border-b border-white/10 bg-white/5 px-2 pt-1.5'
 const CODE_TAB_BTN =
   'press-scale -mb-px rounded-t-md border-b-2 border-transparent px-3 py-1.5 font-mono text-xs text-white/45 transition-colors hover:text-white/80 aria-selected:border-primary aria-selected:bg-zinc-950 aria-selected:font-semibold aria-selected:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-white/40'
-const CODE_TAB_SURFACE = 'relative'
+const CODE_TAB_SURFACE = 'relative min-w-0 max-w-full'
 
 // --- Endpoint pill, mirrored from the old Endpoint.tsx (per-method colours) --
 
@@ -525,7 +529,7 @@ function rehypeCodeTabs() {
           [raw(svgIcon(ICON_PATHS.copy, 'size-4'))]
         )
         panels.push(
-          h('div', { role: 'tabpanel', id: panelId, 'aria-labelledby': tabId, tabIndex: 0 }, [
+          h('div', { role: 'tabpanel', id: panelId, 'aria-labelledby': tabId, tabIndex: 0, className: 'min-w-0' }, [
             h('div', { className: `code-surface-inner ${CODE_TAB_SURFACE}` }, [copyBtn, pre]),
           ])
         )
