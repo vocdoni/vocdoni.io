@@ -4891,6 +4891,123 @@
       }
     }
   },
+  "developers": {
+    "docs": {
+      "common": {
+        "breadcrumb": "Fil d'Ariadna",
+        "copied": "Copiat",
+        "copy": "Copia",
+        "next": "Següent",
+        "on_this_page": "En aquesta pàgina",
+        "previous": "Anterior",
+        "view_markdown": "Veure en Markdown"
+      },
+      "nav": {
+        "aria_label": "Documentació",
+        "browse": "Navega per la documentació",
+        "groups": {
+          "core_concepts": "Conceptes bàsics",
+          "get_started": "Comença",
+          "integrator_platform": "Compte i plataforma"
+        },
+        "title": "Documentació"
+      }
+    },
+    "landing": {
+      "build": {
+        "authentication": {
+          "description": "Inicia sessió, actualitza els tokens i emet claus d'API amb abast limitat.",
+          "title": "Autenticació"
+        },
+        "census": {
+          "description": "Importa membres i publica un cens llest per votar.",
+          "title": "Membres i cens"
+        },
+        "managed": {
+          "description": "Crea suborganitzacions per als teus clients.",
+          "title": "Organitzacions gestionades"
+        },
+        "organizations": {
+          "description": "Crea organitzacions i gestiona usuaris i rols.",
+          "title": "Organitzacions"
+        },
+        "processes": {
+          "description": "Configura butlletes, tipus de vot i el calendari de l'elecció.",
+          "title": "Processos de votació"
+        },
+        "results": {
+          "description": "Consulta els recomptes en directe i els finals per a qualsevol procés.",
+          "title": "Resultats"
+        },
+        "subtitle": "Ves directe a la part de l'API que necessites.",
+        "title": "Comença a construir"
+      },
+      "capabilities": {
+        "anonymous": {
+          "description": "La criptografia de coneixement zero manté els vots en secret mentre els resultats segueixen sent demostrables.",
+          "title": "Anònim per disseny"
+        },
+        "census": {
+          "description": "Autentica els votants per correu electrònic, SMS o camps personalitzats, amb ponderació opcional.",
+          "title": "Cens flexible"
+        },
+        "title": "Basat en garanties que pots comprovar",
+        "verifiable": {
+          "description": "Els votants i els observadors poden verificar per si mateixos que cada vot s'ha comptat.",
+          "title": "Verificable de punta a punta"
+        },
+        "whitelabel": {
+          "description": "Fes eleccions per a molts clients des d'un únic compte d'integrador.",
+          "title": "Preparat per a multi-tenant"
+        }
+      },
+      "hero": {
+        "code_caption": "Autentica't i crea la teva primera elecció",
+        "cta_dashboard": "Tauler de l'API",
+        "cta_primary": "Comença",
+        "eyebrow": "Vocdoni per a desenvolupadors",
+        "subtitle": "Afegeix eleccions segures, anònimes i verificables de punta a punta al teu programari amb una sola API REST. Crea organitzacions, construeix censos, executa processos i consulta els resultats sense convertir-te en un expert en criptografia.",
+        "title": "Incorpora votacions verificables al teu producte"
+      },
+      "pillars": {
+        "api": {
+          "cta": "Explora l'API",
+          "description": "Una API REST per gestionar eleccions: organitzacions, membres, censos, processos, resultats i feines asíncrones.",
+          "title": "API SaaS"
+        },
+        "protocol": {
+          "cta": "Com funciona el protocol",
+          "description": "Cada vot és anònim i verificable de punta a punta, ancorat en un protocol de vot públic i resistent a la censura.",
+          "title": "Protocol"
+        },
+        "sdk": {
+          "cta": "Llegeix la documentació de l'SDK",
+          "description": "Prefereixes parlar directament amb el protocol? L'SDK de TypeScript et dona control a un nivell més baix sobre les operacions de votació i de cens.",
+          "title": "SDK"
+        }
+      },
+      "resources": {
+        "cta": "Consulta la documentació",
+        "github": {
+          "description": "Projecte de codi obert i incidències.",
+          "title": "GitHub"
+        },
+        "reference": {
+          "description": "Cada endpoint, esquema i camp.",
+          "title": "Referència de l'API"
+        },
+        "sdk": {
+          "description": "Libreries i guies de nivell inferior.",
+          "title": "Documentació de l'SDK"
+        },
+        "support": {
+          "description": "Estat del servei i maneres de contactar-nos.",
+          "title": "Estat i suport"
+        },
+        "title": "Recursos"
+      }
+    }
+  },
   "error_page": {
     "error_description": "S'ha produït un error inesperat. Si us plau, torneu-ho a intentar més tard.",
     "error_title": "Quelcom ha anat malament",
@@ -5198,6 +5315,60 @@
       "description": "Col·legis, sindicats, associacions i ajuntaments confien en Vocdoni per a una votació electrònica segura i verificable. Descobreix qui vota amb Vocdoni i per què.",
       "title": "Clients: organitzacions que voten amb Vocdoni - Vocdoni"
     },
+    "developers_index": {
+      "description": "Integra eleccions segures, anònimes i verificables de punta a punta dins el teu programari amb la Vocdoni API. Inici ràpid, guies i la referència completa de l'API per a integradors.",
+      "title": "Vocdoni per a desenvolupadors: integra la votació verificable | Vocdoni"
+    },
+    "developers": {
+      "api_keys": {
+        "description": "Crea, llista i revoca claus d'API amb abast per a la Vocdoni API, i segueix les bones pràctiques per emmagatzemar i rotar secrets.",
+        "title": "Claus d'API | Vocdoni"
+      },
+      "census": {
+        "description": "Crea, emplena i publica un cens amb la Vocdoni API, escollint camps d'autenticació i de dos factors, i un pes del vot opcional.",
+        "title": "Cens | Vocdoni"
+      },
+      "jobs": {
+        "description": "Gestiona operacions de Vocdoni de llarga durada amb el model de treballs asíncrons: posa la feina en cua, consulta l'estat del treball i reacciona quan s'acabi o falli.",
+        "title": "Treballs i operacions asíncrones | Vocdoni"
+      },
+      "managed_organizations": {
+        "description": "Crea i gestiona suborganitzacions per als teus clients com a integrador de Vocdoni, i fes seguiment de la teva quota i l'ús.",
+        "title": "Organitzacions gestionades | Vocdoni"
+      },
+      "members_and_groups": {
+        "description": "Importa els membres de l'organització en massa, fes el seguiment dels treballs asíncrons i organitza els membres en grups que pots convertir en censos.",
+        "title": "Membres i grups | Vocdoni"
+      },
+      "organizations": {
+        "description": "Crea i gestiona organitzacions amb la Vocdoni API, incloent usuaris, rols i la configuració de l'organització.",
+        "title": "Organitzacions | Vocdoni"
+      },
+      "overview": {
+        "description": "Descobreix com encaixa la Vocdoni API: organitzacions, censos, processos de votació, resultats i feines, i com integrar una votació verificable.",
+        "title": "Panoràmica de la documentació per a desenvolupadors | Vocdoni"
+      },
+      "quickstart": {
+        "description": "Fes la teva primera elecció de punta a punta amb la Vocdoni API: autentica't, crea una organització, construeix i publica un cens, crea un procés i consulta els resultats.",
+        "title": "Guia ràpida de l'API | Vocdoni"
+      },
+      "quotas_and_subscriptions": {
+        "description": "Coneix els plans de subscripció de Vocdoni, les funcions i els límits, i consulta els comptadors d'ús actuals a través de l'API.",
+        "title": "Quotes i subscripcions | Vocdoni"
+      },
+      "results": {
+        "description": "Consulta els resultats en directe i els finals d'un procés de votació de Vocdoni, incloent el recompte de vots, el resum per pregunta i la fermesa final dels resultats.",
+        "title": "Resultats | Vocdoni"
+      },
+      "sdks_and_tools": {
+        "description": "Tria entre la Vocdoni REST API i el SDK de TypeScript, i troba les eines, les referències i els repositoris que necessites per integrar-s'hi.",
+        "title": "SDKs i eines | Vocdoni"
+      },
+      "voting_processes": {
+        "description": "Configura i publica processos de votació amb la Vocdoni API: paràmetres de l'elecció, tipus de vot, preguntes, paquets i canvis d'estat.",
+        "title": "Processos de votació | Vocdoni"
+      }
+    },
     "index": {
       "description": "Realitza eleccions segures i verificables per a la teva organització amb evidència legal i traçabilitat. Comença gratis, configura en minuts, sense targeta de crèdit.",
       "title": "Plataforma de vot en línia segur per a organitzacions | Vocdoni"
@@ -5459,6 +5630,7 @@
     "about": "Sobre nosaltres",
     "app_button": "Inicia sessió",
     "contact": "Contacte",
+    "dashboard_button": "API Dashboard",
     "featured_solution": {
       "header": "Destacat",
       "vocdoni_app": {
@@ -5598,6 +5770,7 @@
       "title": "Un programa construït per a tota mena de partners"
     }
   },
+  "play": "Reprodueix el vídeo: {{title}}",
   "portfolio": {
     "solutions": {
       "badge": "Solucions",
@@ -6889,6 +7062,11 @@
         "content": "Des de «Granollers Primàries» entenem la participació digital com una eina clau per ampliar i facilitar la participació ciutadana. Per això buscàvem una plataforma que garantís neutralitat, transparència i la màxima seguretat en els processos de votació. Vocdoni ofereix tot això i és per aquest motiu que l'hem escollit per a les nostres primàries i comptem continuar utilitzant-la en futures consultes.",
         "handle": "Responsable de comunicació · Granollers Primàries",
         "title": "Participació digital per a unes primàries transparents"
+      },
+      "14": {
+        "content": "A La Intersindical entenem que les decisions que afecten tot el col·lectiu docent han de ser preses pels mateixos docents. Per això necessitàvem una eina que garantís un procés transparent, neutral i verificable. Amb Vocdoni vam poder fer arribar aquesta decisió a prop de 100.000 professionals amb la seguretat que tant el procediment com el resultat serien plenament fiables.",
+        "handle": "Portaveu de la sectorial d'educació · La Intersindical",
+        "title": "Decisions transparents i verificables per a 100.000 docents"
       }
     }
   },
@@ -8298,6 +8476,5 @@
       },
       "title": "Per què Vocdoni?"
     }
-  },
-  "play": "Reprodueix el vídeo: {{title}}"
+  }
 }

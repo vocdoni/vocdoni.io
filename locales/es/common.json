@@ -4906,6 +4906,123 @@
       }
     }
   },
+  "developers": {
+    "docs": {
+      "common": {
+        "breadcrumb": "Migas de pan",
+        "copied": "Copiado",
+        "copy": "Copiar",
+        "next": "Siguiente",
+        "on_this_page": "En esta página",
+        "previous": "Anterior",
+        "view_markdown": "Ver como Markdown"
+      },
+      "nav": {
+        "aria_label": "Documentación",
+        "browse": "Explorar documentación",
+        "groups": {
+          "core_concepts": "Conceptos clave",
+          "get_started": "Empezar",
+          "integrator_platform": "Cuenta y plataforma"
+        },
+        "title": "Documentación"
+      }
+    },
+    "landing": {
+      "build": {
+        "authentication": {
+          "description": "Inicia sesión, renueva tokens y emite claves de API con alcance.",
+          "title": "Autenticación"
+        },
+        "census": {
+          "description": "Importa miembros y publica un censo listo para votar.",
+          "title": "Miembros y censo"
+        },
+        "managed": {
+          "description": "Crea suborganizaciones para tus propios clientes.",
+          "title": "Organizaciones gestionadas"
+        },
+        "organizations": {
+          "description": "Crea organizaciones y administra usuarios y roles.",
+          "title": "Organizaciones"
+        },
+        "processes": {
+          "description": "Configura papeletas, tipos de voto y el calendario de la elección.",
+          "title": "Procesos de votación"
+        },
+        "results": {
+          "description": "Consulta los recuentos en tiempo real y definitivos de cualquier proceso.",
+          "title": "Resultados"
+        },
+        "subtitle": "Ve directo a la parte de la API que necesitas.",
+        "title": "Empieza a crear"
+      },
+      "capabilities": {
+        "anonymous": {
+          "description": "La criptografía de conocimiento cero mantiene las papeletas en secreto mientras los resultados siguen siendo comprobables.",
+          "title": "Anónimo por diseño"
+        },
+        "census": {
+          "description": "Autentica a los votantes por email, SMS o campos personalizados, con ponderación opcional.",
+          "title": "Censo flexible"
+        },
+        "title": "Construido sobre garantías que puedes demostrar",
+        "verifiable": {
+          "description": "Votantes y observadores pueden verificar de forma independiente que cada voto se contó.",
+          "title": "Verificable de punta a punta"
+        },
+        "whitelabel": {
+          "description": "Ejecuta elecciones para muchos clientes desde una única cuenta de integrador.",
+          "title": "Listo para multi-tenant"
+        }
+      },
+      "hero": {
+        "code_caption": "Autentica y crea tu primera elección",
+        "cta_dashboard": "Panel de la API",
+        "cta_primary": "Empieza",
+        "eyebrow": "Vocdoni para desarrolladores",
+        "subtitle": "Añade elecciones seguras, anónimas y verificables de punta a punta a tu software con una sola API REST. Crea organizaciones, construye censos, ejecuta procesos de votación y consulta resultados sin convertirte en un experto en criptografía.",
+        "title": "Incorpora votación verificable en tu producto"
+      },
+      "pillars": {
+        "api": {
+          "cta": "Explora la API",
+          "description": "Una API REST para gestionar elecciones: organizaciones, miembros, censos, procesos de votación, resultados y tareas asíncronas.",
+          "title": "API SaaS"
+        },
+        "protocol": {
+          "cta": "Así funciona el protocolo",
+          "description": "Cada voto es anónimo y verificable de punta a punta, y se apoya en un protocolo de votación público y resistente a la censura.",
+          "title": "Protocolo"
+        },
+        "sdk": {
+          "cta": "Lee la documentación del SDK",
+          "description": "¿Prefieres hablar directamente con el protocolo? El SDK de TypeScript te da un control más fino sobre las operaciones de votación y de censo.",
+          "title": "SDK"
+        }
+      },
+      "resources": {
+        "cta": "Consulta la documentación",
+        "github": {
+          "description": "Código y incidencias de código abierto.",
+          "title": "GitHub"
+        },
+        "reference": {
+          "description": "Cada endpoint, esquema y campo.",
+          "title": "Referencia de la API"
+        },
+        "sdk": {
+          "description": "Librerías de bajo nivel y guías.",
+          "title": "Documentación del SDK"
+        },
+        "support": {
+          "description": "Estado del servicio y cómo contactarnos.",
+          "title": "Estado y soporte"
+        },
+        "title": "Recursos"
+      }
+    }
+  },
   "error_page": {
     "error_description": "Se ha producido un error inesperado. Por favor, inténtalo de nuevo más tarde.",
     "error_title": "Algo ha ido mal",
@@ -5213,6 +5330,60 @@
       "description": "Colegios, sindicatos, asociaciones y ayuntamientos confían en Vocdoni para una votación electrónica segura y verificable. Descubre quién vota con Vocdoni y por qué.",
       "title": "Clientes: organizaciones que votan con Vocdoni - Vocdoni"
     },
+    "developers_index": {
+      "description": "Integra en tu software elecciones seguras, anónimas y verificables de extremo a extremo con la API de Vocdoni. Inicio rápido, guías y la referencia completa de la API para integradores.",
+      "title": "Vocdoni para desarrolladores: integra votaciones verificables | Vocdoni"
+    },
+    "developers": {
+      "api_keys": {
+        "description": "Crea, lista y revoca claves de API con alcance para la API de Vocdoni, y sigue las buenas prácticas para guardar y rotar secretos.",
+        "title": "Claves de API | Vocdoni"
+      },
+      "census": {
+        "description": "Crea, rellena y publica un censo con la API de Vocdoni, eligiendo los campos de autenticación y de dos factores, y la ponderación opcional del voto.",
+        "title": "Censo | Vocdoni"
+      },
+      "jobs": {
+        "description": "Gestiona operaciones de Vocdoni de larga duración con el modelo de trabajos asíncronos: pon tareas en cola, consulta el estado del trabajo y actúa ante la finalización o el fallo.",
+        "title": "Trabajos y operaciones asíncronas | Vocdoni"
+      },
+      "managed_organizations": {
+        "description": "Crea y gestiona suborganizaciones para tus propios clientes como integrador de Vocdoni, y controla tu cuota y uso.",
+        "title": "Organizaciones gestionadas | Vocdoni"
+      },
+      "members_and_groups": {
+        "description": "Importa miembros de la organización en lote, sigue los trabajos asíncronos y organiza a los miembros en grupos que puedas convertir en censos.",
+        "title": "Miembros y grupos | Vocdoni"
+      },
+      "organizations": {
+        "description": "Crea y gestiona organizaciones con la API de Vocdoni, incluyendo usuarios, roles y ajustes de la organización.",
+        "title": "Organizaciones | Vocdoni"
+      },
+      "overview": {
+        "description": "Descubre cómo encaja la API de Vocdoni: organizaciones, censos, procesos de votación, resultados y jobs, y cómo integrarla para unas votaciones verificables.",
+        "title": "Resumen de la documentación para desarrolladores | Vocdoni"
+      },
+      "quickstart": {
+        "description": "Realiza tu primera elección de principio a fin con la API de Vocdoni: autentícate, crea una organización, construye y publica un censo, crea un proceso y consulta los resultados.",
+        "title": "Inicio rápido de la API | Vocdoni"
+      },
+      "quotas_and_subscriptions": {
+        "description": "Entiende los planes de suscripción de Vocdoni, sus funciones y límites, y consulta a través de la API tus contadores de uso actuales.",
+        "title": "Cuotas y suscripciones | Vocdoni"
+      },
+      "results": {
+        "description": "Consulta los resultados en tiempo real y los finales de un proceso de votación de Vocdoni: recuentos de votos, totales por pregunta y la confirmación final del resultado.",
+        "title": "Resultados | Vocdoni"
+      },
+      "sdks_and_tools": {
+        "description": "Elige entre la API REST de Vocdoni y el SDK de TypeScript, y encuentra las herramientas, referencias y repositorios que necesitas para integrarte.",
+        "title": "SDKs y herramientas | Vocdoni"
+      },
+      "voting_processes": {
+        "description": "Configura y publica procesos de votación con la API de Vocdoni: parámetros de la elección, tipos de voto, preguntas, bundles y cambios de estado.",
+        "title": "Procesos de votación | Vocdoni"
+      }
+    },
     "index": {
       "description": "Realiza elecciones seguras y verificables para tu organización con evidencia legal y trazabilidad. Empieza gratis, configura en minutos, sin tarjeta de crédito.",
       "title": "Plataforma de voto en línea seguro para organizaciones | Vocdoni"
@@ -5474,6 +5645,7 @@
     "about": "Sobre nosotros",
     "app_button": "Inicia sesión",
     "contact": "Contacto",
+    "dashboard_button": "API Dashboard",
     "featured_solution": {
       "header": "Destacado",
       "vocdoni_app": {
@@ -5613,6 +5785,7 @@
       "title": "Un programa diseñado para cada tipo de partner"
     }
   },
+  "play": "Reproducir vídeo: {{title}}",
   "portfolio": {
     "solutions": {
       "badge": "Soluciones",
@@ -6904,6 +7077,11 @@
         "content": "Desde «Granollers Primàries» entendemos la participación digital como una herramienta clave para ampliar y facilitar la participación ciudadana. Por eso buscábamos una plataforma que garantizara neutralidad, transparencia y la máxima seguridad en los procesos de votación. Vocdoni ofrece todo esto y es por este motivo que la hemos elegido para nuestras primarias y contamos con seguir utilizándola en futuras consultas.",
         "handle": "Responsable de comunicación · Granollers Primàries",
         "title": "Participación digital para unas primarias transparentes"
+      },
+      "14": {
+        "content": "En La Intersindical entendemos que las decisiones que afectan a todo el colectivo docente deben ser tomadas por los propios docentes. Por eso necesitábamos una herramienta que garantizara un proceso transparente, neutral y verificable. Con Vocdoni pudimos hacer llegar esta decisión a cerca de 100.000 profesionales con la seguridad de que tanto el procedimiento como el resultado serían plenamente fiables.",
+        "handle": "Portavoz del sector de educación · La Intersindical",
+        "title": "Decisiones transparentes y verificables para 100.000 docentes"
       }
     }
   },
@@ -8317,6 +8495,5 @@
       },
       "title": "¿Por qué Vocdoni?"
     }
-  },
-  "play": "Reproducir vídeo: {{title}}"
+  }
 }

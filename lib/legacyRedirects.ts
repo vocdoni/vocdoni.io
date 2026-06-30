@@ -33,10 +33,11 @@ const targetLang = (lang: string) => ((locales as readonly string[]).includes(la
 
 /**
  * Renamed legacy marketing paths and their CURRENT logical destination (unprefixed).
- * Everything collapses to the landing page except `/product`, which maps to `/app`.
+ * Everything collapses to the landing page. (`/product` is intentionally absent: it is now a real
+ * page with `/product/features` and `/product/integrations` sub-routes, which a `/product` prefix
+ * redirect would shadow under DigitalOcean's prefix matching.)
  */
 const LEGACY_PATHS: Record<string, string> = {
-  product: '/app',
   advantages: '/',
   services: '/',
   testimonials: '/',
@@ -60,8 +61,8 @@ function buildRedirects(): LegacyRedirect[] {
   }
 
   // One-offs observed in Google Search Console. Internal-only: never redirect to an external site.
+  // (No `/api` rule: `/api-sdk` is now a real page, and DO prefix matching would let `/api` shadow it.)
   redirects.push(
-    { from: '/api', to: `/${localeDefault}` }, // API base used to live here; send users home to re-find it
     { from: '/politica-priv-14fruites', to: `/${localeDefault}/privacy` } // old client-specific privacy page
   )
 

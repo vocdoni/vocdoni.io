@@ -68,7 +68,9 @@ describe('Navbar', () => {
     const html = renderToStaticMarkup(<Navbar />)
 
     expect(html).toContain('target="_blank"')
-    expect(html).toContain('href="https://developer.vocdoni.io"')
+    // Resources -> Documentation and Solutions -> SDK & API both route to the
+    // internal developers section.
+    expect(html).toContain('href="/en/developers"')
     expect(html).not.toContain('href="/guides"')
     expect(html).toContain('href="/en/about-us"')
     expect(html).not.toContain('href="/en/about/mission"')

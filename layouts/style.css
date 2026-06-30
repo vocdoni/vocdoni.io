@@ -13,7 +13,18 @@ a {
 /* Reset */
 html,
 body {
-  overflow-x: hidden;
+  /* clip (not hidden) prevents horizontal overflow without turning the root
+     into a scroll container, which would disable position: sticky. */
+  overflow-x: clip;
+}
+html {
+  /* Offset in-page anchor jumps so targets land clearly below the fixed navbar. */
+  scroll-padding-top: 7.5rem;
+}
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
 }
 body {
   margin: 0;
@@ -29,4 +40,64 @@ body {
 }
 body.page-transition #page-content {
   opacity: 0;
+}
+
+/* Syntax highlighting for the developer code surfaces (docs + landing hero).
+   The hljs token classes are emitted at build time - rehype-highlight in
+   lib/docs/markdown.ts for the docs, lib/docs/highlight-code.ts for the landing
+   <CodeBlock>. This compact dark token theme paints those spans; the classes
+   only ever appear inside the zinc-950 code blocks. Base text stays zinc-100. */
+.hljs-comment,
+.hljs-quote {
+  color: #6b7280; /* zinc-500 */
+  font-style: italic;
+}
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-literal,
+.hljs-doctag {
+  color: #c084fc; /* purple-400 */
+}
+.hljs-built_in,
+.hljs-name,
+.hljs-tag {
+  color: #22d3ee; /* cyan-400 */
+}
+.hljs-type,
+.hljs-class .hljs-title,
+.hljs-title.class_ {
+  color: #fbbf24; /* amber-400 */
+}
+.hljs-string,
+.hljs-regexp,
+.hljs-addition {
+  color: #34d399; /* emerald-400 */
+}
+.hljs-number,
+.hljs-symbol,
+.hljs-bullet {
+  color: #fb923c; /* orange-400 */
+}
+.hljs-title,
+.hljs-title.function_,
+.hljs-section {
+  color: #60a5fa; /* blue-400 */
+}
+.hljs-attr,
+.hljs-attribute,
+.hljs-property,
+.hljs-variable.language_ {
+  color: #38bdf8; /* sky-400 */
+}
+.hljs-meta {
+  color: #94a3b8; /* slate-400 */
+}
+.hljs-deletion {
+  color: #f87171; /* red-400 */
+}
+.hljs-emphasis {
+  font-style: italic;
+}
+.hljs-strong {
+  font-weight: 600;
 }

@@ -1,78 +1,124 @@
-Generated with [vike.dev/new](https://vike.dev/new) ([version 475](https://www.npmjs.com/package/create-vike/v/0.0.475)) using this command:
+<p align="center" width="100%">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="https://vocdoni.io/images/vocdoni_logotype_full_blank.svg" />
+      <source media="(prefers-color-scheme: light)" srcset="https://vocdoni.io/images/vocdoni_logotype_full_white.svg" />
+      <img alt="Vocdoni" src="https://vocdoni.io/images/vocdoni_logotype_full_white.svg" />
+    </picture>
+</p>
+
+<p align="center" width="100%">
+    <a href="https://github.com/vocdoni/vocdoni.io/commits/main/"><img src="https://img.shields.io/github/commit-activity/m/vocdoni/vocdoni.io" /></a>
+    <a href="https://github.com/vocdoni/vocdoni.io/issues"><img src="https://img.shields.io/github/issues/vocdoni/vocdoni.io" /></a>
+    <a href="https://chat.vocdoni.io"><img src="https://img.shields.io/badge/discord-join%20chat-blue.svg" /></a>
+    <a href="https://twitter.com/vocdoni"><img src="https://img.shields.io/twitter/follow/vocdoni.svg?style=social&label=Follow" /></a>
+</p>
+
+<div align="center">
+  Vocdoni is the first universally verifiable, censorship-resistant, anonymous, and self-sovereign governance protocol.<br />
+  Our main aim is a trustless voting system where anyone can speak their voice and where everything is auditable.<br />
+  We are engineering building blocks for a permissionless, private and censorship resistant democracy.
+  <br /><br />
+  <a href="https://developer.vocdoni.io/"><strong>Explore the developer portal »</strong></a>
+  <br /><br />
+  <a href="https://vocdoni.io">Vocdoni Website</a>
+  |
+  <a href="https://vocdoni.app">Web Application</a>
+  |
+  <a href="https://explorer.vote/">Blockchain Explorer</a>
+  |
+  <a href="https://chat.vocdoni.io">Contact Us</a>
+</div>
+
+# vocdoni.io
+
+The marketing website for [Vocdoni](https://vocdoni.io), built with [Vike](https://vike.dev/) and [React](https://react.dev/). It is a statically prerendered site served at `vocdoni.io`.
+
+### Table of Contents
+
+- [Getting Started](#getting-started)
+- [Project Structure](#project-structure)
+- [Environment Variables](#environment-variables)
+- [Deployment](#deployment)
+- [Redirects](#redirects)
+- [Contributing](#contributing)
+- [License](#license)
+
+## Getting Started
 
 ```sh
-pnpm create vike@latest --react --tailwindcss --shadcn-ui --plausible.io --prettier
+pnpm install
+pnpm dev
 ```
 
-## Contents
+Open [http://localhost:5173](http://localhost:5173) to view the site. Other useful commands:
 
-- [React](#react)
-  - [`/pages/+config.ts`](#pagesconfigts)
-  - [Routing](#routing)
-  - [`/pages/_error/+Page.jsx`](#pages_errorpagejsx)
-  - [`/pages/+onPageTransitionStart.ts` and `/pages/+onPageTransitionEnd.ts`](#pagesonpagetransitionstartts-and-pagesonpagetransitionendts)
-  - [SSR](#ssr)
-  - [HTML Streaming](#html-streaming)
+| Command | Description |
+|---|---|
+| `pnpm build` | Production build (outputs to `dist/client`) |
+| `pnpm preview` | Serve the production build locally |
+| `pnpm test` | Run Vitest in CI mode |
+| `pnpm lint` | Check formatting with Prettier |
+| `pnpm validate` | Run all lint, test, and guardrail checks |
+| `pnpm translations` | Extract i18n keys with i18next-cli |
+| `pnpm shadcn add <component>` | Add a shadcn/ui component |
 
-- [shadcn/ui](#shadcnui)
-  - [Configuration](#configuration)
-  - [Add Components to Your Project](#add-components-to-your-project)
+## Project Structure
 
-## React
+```
+pages/          Vike routes and page entry points (+Page.tsx, +config.ts, …)
+components/     Shared UI building blocks (shadcn/ui lives under components/ui/)
+layouts/        Page-level layout wrappers
+hooks/          Reusable React hooks
+lib/            Utility modules (including redirect rules)
+locales/        i18n resources (en, es, ca + in-progress locales)
+assets/         Static assets bundled by Vite
+public/         Files copied as-is to the build output
+tests/          Vitest unit tests
+scripts/        Build-time and guardrail scripts
+plugins/        Vite plugins (e.g. redirect file emitter)
+.do/            DigitalOcean App Platform configuration
+.github/        CI/CD workflows
+```
 
-This app is ready to start. It's powered by [Vike](https://vike.dev) and [React](https://react.dev/learn).
+## Environment Variables
 
-### `/pages/+config.ts`
+Create a `.env.local` file to override any variable locally. All of the following are build-time only:
 
-Such `+` files are [the interface](https://vike.dev/config) between Vike and your code. It defines:
+| Variable | Description |
+|---|---|
+| `EMAILJS_PUBLIC_KEY` | EmailJS public key (contact form) |
+| `EMAILJS_SERVICE_ID` | EmailJS service ID |
+| `EMAILJS_TEMPLATE_ID` | EmailJS template ID |
+| `GTM_ID` | Google Tag Manager container ID |
+| `PLAUSIBLE_DOMAIN` | Plausible Analytics domain |
+| `RECAPTCHA_SITE_KEY` | reCAPTCHA v3 site key |
+| `SITE_URL` | Public base URL (used for canonical tags and sitemaps) |
+| `GHOST_URL` | Ghost CMS API URL (blog content) |
 
-- A default [`<Layout>` component](https://vike.dev/Layout) (that wraps your [`<Page>` components](https://vike.dev/Page)).
-- A default [`title`](https://vike.dev/title).
-- Global [`<head>` tags](https://vike.dev/head-tags).
+## Deployment
 
-### Routing
+The site uses two deployment targets, both triggered by GitHub Actions:
 
-[Vike's built-in router](https://vike.dev/routing) lets you choose between:
+- **Netlify**: PR previews and every push to `main`. Used for quick iteration and review. Redirects are written as a `_redirects` file into `dist/client` at build time.
+- **DigitalOcean App Platform**: production at `vocdoni.io`. Triggered only on push to `main`. The workflow runs `pnpm gen:do-appspec` to generate `.do/app.generated.yaml` (the DO app spec with redirect ingress rules injected), which is then passed to DigitalOcean's deploy action.
 
-- [Filesystem Routing](https://vike.dev/filesystem-routing) (the URL of a page is determined based on where its `+Page.jsx` file is located on the filesystem)
-- [Route Strings](https://vike.dev/route-string)
-- [Route Functions](https://vike.dev/route-function)
+The split exists because Netlify and DigitalOcean handle redirects differently, and we need a single source of truth for the rules regardless of target.
 
-### `/pages/_error/+Page.jsx`
+## Redirects
 
-The [error page](https://vike.dev/error-page) which is rendered when errors occur.
+All legacy URL redirects (301s) are defined in **`lib/legacyRedirects.ts`** (the single source of truth). Two emitters read from it at build/deploy time:
 
-### `/pages/+onPageTransitionStart.ts` and `/pages/+onPageTransitionEnd.ts`
+- `buildNetlifyRedirects` → `_redirects` file (emitted by `plugins/legacy-redirects.ts`, never committed)
+- `buildDigitalOceanIngressRules` → ingress rules fragment injected into the DO app spec by `pnpm gen:do-appspec`
 
-The [`onPageTransitionStart()` hook](https://vike.dev/onPageTransitionStart), together with [`onPageTransitionEnd()`](https://vike.dev/onPageTransitionEnd), enables you to implement page transition animations.
+To add, change, or remove a redirect, edit `lib/legacyRedirects.ts` only.
 
-### SSR
+## Contributing
 
-SSR is enabled by default. You can [disable it](https://vike.dev/ssr) for all your pages or only for some pages.
+Please review our [development guidelines](https://developer.vocdoni.io/development-guidelines) and the [AGENTS.md](./AGENTS.md) contributor guide before opening a pull request.
 
-### HTML Streaming
+## License [![License: BSL 1.1](https://img.shields.io/badge/license-BSL%201.1-blue.svg)](https://mariadb.com/bsl11/)
 
-You can enable/disable [HTML streaming](https://vike.dev/stream) for all your pages, or only for some pages while still using it for others.
+This repository is licensed under the [Business Source License 1.1](./LICENSE).
 
-## shadcn/ui
-
-Beautifully designed components that you can copy and paste into your apps. Accessible. Customizable. Open Source.
-
-### Configuration
-
-see [shadcn/ui theming](https://ui.shadcn.com/docs/theming)
-
-Base Configuration can be found in `components.json` file.
-
-> \[!NOTE]
-> changes to the `components.json` file **will not** be reflected in existing components. Only new components will be affected.
-
-### Add Components to Your Project
-
-**Example:** add a component to your project.
-`pnpm shadcn add button`
-
-use the `<Button />` component in your project:
-`import { Button } from "@/components/ui/button";`
-
-more [shadcn/ui components](https://ui.shadcn.com/docs/components/accordion)
+Copyright © 2025 Vocdoni.

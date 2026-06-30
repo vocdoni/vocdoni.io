@@ -77,6 +77,15 @@
 
 - The site now runs on a single Vike codebase, but some pages still mix older custom sections with newer shadcn-studio blocks.
 
+## Deployment
+
+This repo uses two deployment targets triggered by different GitHub events:
+
+- **Netlify** — PR previews and main-branch deploys. Runs on every PR and every push to `main`. Redirect rules are emitted as a `_redirects` file inside `dist/client` at build time by `plugins/legacy-redirects.ts` (never committed).
+- **DigitalOcean App Platform** — production at `vocdoni.io`. Runs only on push to `main`. The workflow runs `pnpm gen:do-appspec`, which injects the redirect ingress rules into `.do/app.template.yaml` and writes `.do/app.generated.yaml`; that generated file is what DigitalOcean receives.
+
+Both emitters share a single source of truth: **`lib/legacyRedirects.ts`**. To add, change, or remove a redirect, edit that file only — the correct format for each host is generated automatically at build/deploy time.
+
 ## Agent-Specific Instructions
 
 - This repo expects an `AGENTS.md` contributor guide; keep it updated as workflows change.

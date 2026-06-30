@@ -67,14 +67,13 @@ describe('LEGACY_REDIRECTS source of truth', () => {
     }
   })
 
-  it('maps /product to /app and everything else to home', () => {
+  it('maps legacy marketing paths to home and keeps the one-off privacy redirect', () => {
     const map = Object.fromEntries(LEGACY_REDIRECTS.map((r) => [r.from, r.to]))
-    expect(map['/product']).toBe('/en/app') // unprefixed -> default locale
-    expect(map['/es/product']).toBe('/es/app')
-    expect(map['/advantages']).toBe('/en')
+    expect(map['/advantages']).toBe('/en') // unprefixed -> default locale
     expect(map['/es/advantages']).toBe('/es')
-    expect(map['/api']).toBe('/en') // internal only - never an external site
     expect(map['/politica-priv-14fruites']).toBe('/en/privacy')
+    // `/product` is a real page now, not a redirect (would otherwise shadow /product/* sub-routes).
+    expect(map['/product']).toBeUndefined()
   })
 
   it('keeps the language for active locales and collapses inactive ones to the default', () => {

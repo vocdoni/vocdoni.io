@@ -6,6 +6,8 @@ import { useTranslation } from 'react-i18next'
 import appImage from '@/assets/navbar_app_highlight.webp'
 import { CalBookingDialog } from '@/components/CalBookingDialog'
 import { Link } from '@/components/Link'
+import { DEVELOPERS_DASHBOARD_URL, isDevelopersPath } from '@/lib/developers'
+import { usePageContext } from 'vike-react/usePageContext'
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
@@ -71,7 +73,7 @@ const buildProductFeatures = (t: TranslateFn): ProductFeature[] =>
     {
       title: t('navbar.product_features.sdk.title'),
       kind: 'link' as const,
-      href: '/api-sdk',
+      href: '/developers',
       description: t('navbar.product_features.sdk.description'),
     },
     {
@@ -120,11 +122,12 @@ const buildResourcesItems = (t: TranslateFn) => [
     description: t('navbar.resources_items.blog.description'),
   },
   {
-    title: t('navbar.resources_items.docs.title'),
-    href: 'https://developer.vocdoni.io',
-    target: '_blank',
-    rel: 'noopener noreferrer',
-    description: t('navbar.resources_items.docs.description'),
+    title: t('navbar.resources_items.docs.title', 'Documentation'),
+    href: '/developers',
+    description: t(
+      'navbar.resources_items.docs.description',
+      'API reference and guides to integrate Vocdoni into your software.'
+    ),
   },
 ]
 
@@ -144,6 +147,13 @@ export function Navbar() {
   const { t } = useTranslation()
   const [isOpen, setIsOpen] = React.useState(false)
   const reducedMotion = useReducedMotion()
+
+  // Inside the developers section the primary CTA points integrators to the API
+  // Dashboard instead of the voting app.
+  const pageContext = usePageContext() as any
+  const inDevelopers = isDevelopersPath(pageContext.urlLogical)
+  const ctaHref = inDevelopers ? DEVELOPERS_DASHBOARD_URL : 'https://app.vocdoni.io'
+  const ctaLabel = inDevelopers ? t('navbar.dashboard_button', 'API Dashboard') : t('navbar.app_button')
 
   const productFeatures = React.useMemo(() => buildProductFeatures(t), [t])
   const featuredSolution = React.useMemo(() => buildFeaturedSolution(t), [t])
@@ -182,7 +192,7 @@ export function Navbar() {
                               <NavigationMenuLink asChild>
                                 <Link href={item.href} target={item.target} rel={item.rel} variant='navbarItem'>
                                   <div className='text-sm font-medium leading-none'>{item.title}</div>
-                                  <p className='line-clamp-2 text-sm leading-snug text-muted-foreground'>
+                                  <p className='line-clamp-2 text-sm font-normal leading-snug text-muted-foreground'>
                                     {item.description}
                                   </p>
                                 </Link>
@@ -519,13 +529,13 @@ export function Navbar() {
                   <div className='p-6 border-t mt-auto'>
                     <Button asChild className='w-full rounded-full'>
                       <Link
-                        href='https://app.vocdoni.io'
+                        href={ctaHref}
                         target='_blank'
                         rel='noopener noreferrer'
                         variant='unstyled'
                         onClick={() => setIsOpen(false)}
                       >
-                        App
+                        {ctaLabel}
                       </Link>
                     </Button>
                   </div>
@@ -537,8 +547,8 @@ export function Navbar() {
           {/* Sign in button (hidden on mobile) */}
           <div className='hidden xl:block'>
             <Button asChild className='rounded-full px-6'>
-              <Link href='https://app.vocdoni.io' target='_blank' rel='noopener noreferrer' variant='unstyled'>
-                {t('navbar.app_button')}
+              <Link href={ctaHref} target='_blank' rel='noopener noreferrer' variant='unstyled'>
+                {ctaLabel}
               </Link>
             </Button>
           </div>
@@ -555,7 +565,7 @@ const ListItem = React.forwardRef<React.ElementRef<'a'>, React.ComponentPropsWit
         <NavigationMenuLink asChild>
           <Link ref={ref} variant='navbarItem' className={className} {...props}>
             <div className='text-sm font-medium leading-none'>{title}</div>
-            <p className='line-clamp-2 text-sm leading-snug text-muted-foreground'>{children}</p>
+            <p className='line-clamp-2 text-sm font-normal leading-snug text-muted-foreground'>{children}</p>
           </Link>
         </NavigationMenuLink>
       </li>

@@ -605,6 +605,83 @@ const metaDefaults = {
     'meta.changelog.description',
     'Recent improvements to the Vocdoni online voting platform: verifiability, performance, languages and accessibility. See what is new.'
   ),
+  'meta.developers_index.title': t(
+    'meta.developers_index.title',
+    'Vocdoni for developers: integrate verifiable voting | Vocdoni'
+  ),
+  'meta.developers_index.description': t(
+    'meta.developers_index.description',
+    'Build secure, anonymous and end-to-end verifiable elections into your software with the Vocdoni API. Quickstart, guides and full API reference for integrators.'
+  ),
+  'meta.developers.overview.title': t('meta.developers.overview.title', 'Developer docs overview | Vocdoni'),
+  'meta.developers.overview.description': t(
+    'meta.developers.overview.description',
+    'Understand how the Vocdoni API fits together: organizations, censuses, voting processes, results and jobs, and how to integrate verifiable voting.'
+  ),
+  'meta.developers.quickstart.title': t('meta.developers.quickstart.title', 'API quickstart | Vocdoni'),
+  'meta.developers.quickstart.description': t(
+    'meta.developers.quickstart.description',
+    'Run your first election end to end with the Vocdoni API: authenticate, create an organization, build and publish a census, create a process and read results.'
+  ),
+  'meta.developers.sdks_and_tools.title': t('meta.developers.sdks_and_tools.title', 'SDKs and tools | Vocdoni'),
+  'meta.developers.sdks_and_tools.description': t(
+    'meta.developers.sdks_and_tools.description',
+    'Choose between the Vocdoni REST API and the TypeScript SDK, and find the tools, references and repositories you need to integrate.'
+  ),
+  'meta.developers.organizations.title': t('meta.developers.organizations.title', 'Organizations | Vocdoni'),
+  'meta.developers.organizations.description': t(
+    'meta.developers.organizations.description',
+    'Create and manage organizations with the Vocdoni API, including users, roles and organization settings.'
+  ),
+  'meta.developers.members_and_groups.title': t(
+    'meta.developers.members_and_groups.title',
+    'Members and groups | Vocdoni'
+  ),
+  'meta.developers.members_and_groups.description': t(
+    'meta.developers.members_and_groups.description',
+    'Import organization members in bulk, track async jobs, and organize members into groups you can turn into censuses.'
+  ),
+  'meta.developers.census.title': t('meta.developers.census.title', 'Census | Vocdoni'),
+  'meta.developers.census.description': t(
+    'meta.developers.census.description',
+    'Create, populate and publish a census with the Vocdoni API, choosing authentication and two-factor fields and optional vote weighting.'
+  ),
+  'meta.developers.voting_processes.title': t('meta.developers.voting_processes.title', 'Voting processes | Vocdoni'),
+  'meta.developers.voting_processes.description': t(
+    'meta.developers.voting_processes.description',
+    'Configure and publish voting processes with the Vocdoni API: election parameters, vote types, questions, bundles and status changes.'
+  ),
+  'meta.developers.results.title': t('meta.developers.results.title', 'Results | Vocdoni'),
+  'meta.developers.results.description': t(
+    'meta.developers.results.description',
+    'Read live and final results for a Vocdoni voting process, including vote counts, per-question tallies and result finality.'
+  ),
+  'meta.developers.jobs.title': t('meta.developers.jobs.title', 'Jobs and async operations | Vocdoni'),
+  'meta.developers.jobs.description': t(
+    'meta.developers.jobs.description',
+    'Handle long-running Vocdoni operations with the async job model: enqueue work, poll job status and react to completion or failure.'
+  ),
+  'meta.developers.managed_organizations.title': t(
+    'meta.developers.managed_organizations.title',
+    'Managed organizations | Vocdoni'
+  ),
+  'meta.developers.managed_organizations.description': t(
+    'meta.developers.managed_organizations.description',
+    'Provision and manage sub-organizations for your own customers as a Vocdoni integrator, and track your quota and usage.'
+  ),
+  'meta.developers.api_keys.title': t('meta.developers.api_keys.title', 'API keys | Vocdoni'),
+  'meta.developers.api_keys.description': t(
+    'meta.developers.api_keys.description',
+    'Create, list and revoke scoped API keys for the Vocdoni API, and follow best practices for storing and rotating secrets.'
+  ),
+  'meta.developers.quotas_and_subscriptions.title': t(
+    'meta.developers.quotas_and_subscriptions.title',
+    'Quotas and subscriptions | Vocdoni'
+  ),
+  'meta.developers.quotas_and_subscriptions.description': t(
+    'meta.developers.quotas_and_subscriptions.description',
+    'Understand Vocdoni subscription plans, features and limits, and read your current usage counters through the API.'
+  ),
 } as const
 
 const getNestedValue = (source: unknown, key: string) => {

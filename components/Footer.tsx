@@ -113,7 +113,7 @@ export default function Footer() {
                   </Link>
                 </li>
                 <li>
-                  <Link href='/api-sdk' variant='footerNav'>
+                  <Link href='/developers/docs/sdks-and-tools' variant='footerNav'>
                     {t('footer.product.links.1')}
                   </Link>
                 </li>
