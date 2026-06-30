@@ -31,6 +31,7 @@ name: vocdoni-io
 region: fra
 static_sites:
 - environment_slug: node-js
+  build_command: pnpm install --frozen-lockfile && pnpm build
   envs:
   - key: EMAILJS_PUBLIC_KEY
     scope: BUILD_TIME
