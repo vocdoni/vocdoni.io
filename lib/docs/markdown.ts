@@ -9,6 +9,7 @@ import remarkRehype from 'remark-rehype'
 import { unified } from 'unified'
 import { SKIP, visit } from 'unist-util-visit'
 
+import { HEADING_ANCHOR_CLASS, HEADING_ANCHOR_LABEL, HEADING_GROUP_CLASS, PILCROW } from '@/lib/docs/heading-anchor'
 import { resolveTokens } from '@/lib/docs/tokens'
 import { getLocalizedPath } from '@/lib/localized-path'
 import { localeDefault, type Locale } from '@/locales'
@@ -280,32 +281,24 @@ function rehypeAdmonitions() {
   }
 }
 
-// --- rehype: ¶ permalink on main sections (h2 only) -------------------------
+// --- rehype: hover-reveal ¶ permalink on section headings -------------------
 
 // rehype-slug gives every heading an id (so deep links to any subsection work);
-// this only prepends the visible ¶ permalink to top-level sections, not h3+.
-const SECTION_ANCHOR = [
-  'heading-anchor',
-  'mr-2',
-  'text-[0.8em]',
-  'font-normal',
-  'text-muted-foreground/50',
-  'no-underline',
-  'hover:text-primary',
-]
-
-// Pilcrow kept in a const so the i18next extractor does not mistake this local
-// `t()` text-node helper for a react-i18next translation call.
-const PILCROW = '¶'
-
+// this appends a ¶ permalink to h2/h3 that stays hidden until the heading is
+// hovered or the link is focused. Runs after rehypeSteps so numbered step
+// titles (STEP_HEADING) are skipped - they are not standalone sections.
 function rehypeMainSectionAnchors() {
   return (tree: HastNode) => {
     visit(tree, 'element', (node: HastNode) => {
-      if (node.tagName !== 'h2') return
+      if (node.tagName !== 'h2' && node.tagName !== 'h3') return
+      if (node.properties?.className === STEP_HEADING) return
       const id = node.properties?.id
       if (!id) return
-      node.children.unshift(
-        h('a', { href: `#${id}`, className: SECTION_ANCHOR, ariaLabel: 'Permalink to this section' }, [t(PILCROW)])
+      node.properties.className = [node.properties.className, HEADING_GROUP_CLASS].filter(Boolean).join(' ')
+      node.children.push(
+        h('a', { href: `#${id}`, className: HEADING_ANCHOR_CLASS, ariaLabel: HEADING_ANCHOR_LABEL }, [
+          h('span', { ariaHidden: 'true' }, [t(PILCROW)]),
+        ])
       )
     })
   }
@@ -599,9 +592,9 @@ export function compile(markdown: string, options: CompileOptions = {}): string 
     .use(remarkDocDirectives)
     .use(remarkRehype, { allowDangerousHtml: true })
     .use(rehypeSlug)
-    .use(rehypeMainSectionAnchors)
     .use(rehypeAdmonitions)
     .use(rehypeSteps)
+    .use(rehypeMainSectionAnchors)
     .use(rehypeEndpoints)
     .use(rehypeTables, requiredLabel)
     // Build-time syntax highlighting: tokenises fenced code into hljs spans

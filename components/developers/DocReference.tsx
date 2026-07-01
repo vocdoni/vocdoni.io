@@ -1,3 +1,4 @@
+import { HEADING_ANCHOR_CLASS, HEADING_ANCHOR_LABEL, HEADING_GROUP_CLASS, PILCROW } from '@/lib/docs/heading-anchor'
 import type { DocReference as DocReferenceData } from '@/lib/docs/markdown'
 import {
   BookOpen,
@@ -29,13 +30,29 @@ const ICONS: Record<string, LucideIcon> = {
   github: Github,
 }
 
+// Matches the id rehype-slug assigns to markdown headings, so this
+// frontmatter-driven heading deep-links and appears in the TOC the same way.
+const slugify = (text: string) =>
+  text
+    .toLowerCase()
+    .trim()
+    .replace(/[^\w\s-]/g, '')
+    .replace(/\s+/g, '-')
+    .slice(0, 60)
+
 // Renders the frontmatter `reference` section ("where to go next" / "references
 // and repositories") as a titled card grid. Lives in frontmatter so it stays
 // out of the LLM-facing markdown and can carry per-card icons.
 export function DocReference({ reference }: { reference: DocReferenceData }) {
+  const id = slugify(reference.title)
   return (
     <section className='mt-12'>
-      <h2 className='mb-4 text-2xl font-semibold tracking-tight text-foreground'>{reference.title}</h2>
+      <h2 id={id} className={`${HEADING_GROUP_CLASS} mb-4 text-2xl font-semibold tracking-tight text-foreground`}>
+        {reference.title}
+        <a href={`#${id}`} className={HEADING_ANCHOR_CLASS} aria-label={HEADING_ANCHOR_LABEL}>
+          <span aria-hidden='true'>{PILCROW}</span>
+        </a>
+      </h2>
       <CardGrid columns={reference.columns}>
         {reference.items.map((item) => (
           <DocCard

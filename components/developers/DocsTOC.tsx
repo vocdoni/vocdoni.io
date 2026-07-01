@@ -26,11 +26,19 @@ export function DocsTOC() {
     const article = document.getElementById('docs-article')
     if (!article) return
 
+    // Heading text minus the trailing ¶ permalink anchor, which lives inside the
+    // heading (for `group-hover`) but must not leak into the rail label.
+    const headingText = (node: HTMLElement) => {
+      const clone = node.cloneNode(true) as HTMLElement
+      clone.querySelector('.heading-anchor')?.remove()
+      return (clone.textContent ?? '').trim()
+    }
+
     const nodes = (Array.from(article.querySelectorAll('h2, h3')) as HTMLElement[]).filter(
-      (node) => (node.textContent ?? '').trim().length > 0
+      (node) => headingText(node).length > 0
     )
     const collected: Heading[] = nodes.map((node) => {
-      const text = (node.textContent ?? '').trim()
+      const text = headingText(node)
       if (!node.id) node.id = slugify(text)
       return { id: node.id, text, level: node.tagName === 'H3' ? 3 : 2 }
     })

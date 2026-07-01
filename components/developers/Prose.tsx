@@ -18,9 +18,11 @@ export function Prose({ className, ...props }: ProseProps) {
         '[&_p]:my-4',
         '[&_ul]:my-4 [&_ul]:list-disc [&_ul]:pl-5 [&_ul>li]:my-1.5 [&_ul>li]:pl-1',
         '[&_ol]:my-4 [&_ol]:list-decimal [&_ol]:pl-5 [&_ol>li]:my-1.5 [&_ol>li]:pl-1',
-        // Strong and links
+        // Strong and links. The `:not(.heading-anchor)` guard keeps content-link
+        // styling off the ¶ section permalinks, which carry their own styles and
+        // must render identically here and outside Prose (see heading-anchor.ts).
         '[&_strong]:font-semibold [&_strong]:text-foreground',
-        '[&_a]:font-medium [&_a]:text-primary [&_a]:underline-offset-4 hover:[&_a]:underline',
+        '[&_a:not(.heading-anchor)]:font-medium [&_a:not(.heading-anchor)]:text-primary [&_a:not(.heading-anchor)]:underline-offset-4 hover:[&_a:not(.heading-anchor)]:underline',
         // Inline code only. Excludes code inside <pre> (code blocks) and table
         // cells (the property table styles its own field/type tokens).
         '[&_:not(pre):not(td):not(th)>code]:rounded-md [&_:not(pre):not(td):not(th)>code]:border [&_:not(pre):not(td):not(th)>code]:border-border/60 [&_:not(pre):not(td):not(th)>code]:bg-muted/60 [&_:not(pre):not(td):not(th)>code]:px-1.5 [&_:not(pre):not(td):not(th)>code]:py-0.5 [&_:not(pre):not(td):not(th)>code]:font-mono [&_:not(pre):not(td):not(th)>code]:text-[0.85em] [&_:not(pre):not(td):not(th)>code]:text-foreground',

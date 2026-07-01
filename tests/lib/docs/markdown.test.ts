@@ -180,10 +180,18 @@ describe('compile - tables, slugs, code, links', () => {
     expect(es).toContain('>Obligatorio<')
   })
 
-  it('adds heading ids and an append anchor', () => {
-    const html = compile('## Hello world')
+  it('adds heading ids and a hover-reveal permalink anchor to h2/h3', () => {
+    const html = compile('## Hello world\n\n### Nested bit')
     expect(html).toContain('id="hello-world"')
+    expect(html).toContain('id="nested-bit"')
+    // both section levels get the ¶ permalink...
+    expect(html).toContain('href="#hello-world"')
+    expect(html).toContain('href="#nested-bit"')
     expect(html).toContain('heading-anchor')
+    expect(html).toContain('¶')
+    // ...hidden until the heading is hovered (opacity, group)
+    expect(html).toContain('group')
+    expect(html).toContain('opacity-0')
   })
 
   it('wraps code blocks in the dark surface with a copy button', () => {
