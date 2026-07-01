@@ -4,6 +4,7 @@ import { useState } from 'react'
 import auletImg from '@/assets/images/team/aulet.webp'
 import ferranImg from '@/assets/images/team/ferran.webp'
 import jordiPinyanaImg from '@/assets/images/team/jordi_pinyana.webp'
+import lucasImg from '@/assets/images/team/lucas.webp'
 import manosImg from '@/assets/images/team/manos.webp'
 import oscarImg from '@/assets/images/team/oscar.webp'
 import pauEscrichImg from '@/assets/images/team/pau_escrich.webp'
@@ -38,6 +39,11 @@ const avatars = [
     src: auletImg,
     fallback: 'JA',
     name: 'Jordi Aulet',
+  },
+  {
+    src: lucasImg,
+    fallback: 'LM',
+    name: 'Lucas Menéndez',
   },
 ]
 
