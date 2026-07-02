@@ -44,6 +44,11 @@ ORG=$(curl -s "${auth[@]}" -X POST "$B/integrator/organizations" \
 
 :::code-tabs[create a managed org]
 
+```ts
+const { address: org } = await client.organizations.createManaged({
+  type: 'association',
+})
+```
 ```csharp
 var org = (await Post("/integrator/organizations",
     new { type = "association", meta = new { name = "Maple Street HOA" } })).GetProperty("address").GetString();

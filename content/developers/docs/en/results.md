@@ -47,6 +47,9 @@ curl -s "$B/process/$PROCESS/results"
 
 :::code-tabs[read results]
 
+```ts
+const { voteCount: votes } = await client.elections.getResults(process)
+```
 ```csharp
 var r = await Get($"/process/{process}/results");
 int votes = r.GetProperty("voteCount").GetInt32();

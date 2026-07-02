@@ -6,6 +6,21 @@ import type { CodeSample } from '@/components/developers/CodeBlock'
 // syntax-highlighted here (server-side) so lowlight never ships to the client;
 // the page renders the pre-highlighted HTML. Exposed via useData().
 
+const quickstartSdk = `import { VocdoniApiClient } from "@vocdoni/api-client"
+
+// 1. Your scoped API key from platform.vocdoni.io (no login step)
+const client = new VocdoniApiClient({ apiUrl: "${DEVELOPERS_API_BASE_URL}", authToken: "vsk_your_api_key" })
+
+// 2. Create a voting process for your organization
+await client.elections.create({
+  orgAddress,
+  censusId,
+  electionParams: {
+    title: { default: "Board election 2026" },
+    questions: [{ title: { default: "Who should chair the board?" } }],
+  },
+})`
+
 const quickstartCurl = `# 1. Your scoped API key from platform.vocdoni.io (no login step)
 export TOKEN=vsk_your_api_key
 
@@ -41,6 +56,7 @@ export interface DevelopersData {
 export default function data(): DevelopersData {
   return {
     heroSamples: [
+      { label: 'SDK', code: quickstartSdk, html: highlightCode(quickstartSdk, 'typescript') },
       { label: 'cURL', code: quickstartCurl, html: highlightCode(quickstartCurl, 'bash') },
       { label: 'JavaScript', code: quickstartJs, html: highlightCode(quickstartJs, 'javascript') },
     ],
