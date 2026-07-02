@@ -23,6 +23,20 @@ const extractLocale = (urlPathname: string) => {
 
 const onBeforeRoute = (pageContext: PageContext) => {
   const { urlOriginal } = pageContext
+
+  // The Keystatic admin (/keystatic) lives outside the localized site: no locale
+  // prefix, no compatibility redirect. Route it verbatim.
+  const pathname = urlOriginal.split('?')[0]
+  if (pathname === '/keystatic' || pathname.startsWith('/keystatic/')) {
+    return {
+      pageContext: {
+        isCompatibilityRedirect: false,
+        locale: localeDefault,
+        urlLogical: pathname,
+      },
+    }
+  }
+
   const { urlPathnameWithoutLocale, locale, hasLocalePrefix } = extractLocale(urlOriginal)
 
   // Create urlLogical without the locale prefix for routing

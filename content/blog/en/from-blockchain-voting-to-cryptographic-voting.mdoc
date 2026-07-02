@@ -1,0 +1,97 @@
+---
+title: From blockchain voting to cryptographic voting
+publishedDate: '2026-01-28'
+excerpt: 'For the past years, Vocdoni has run voting on Vochain, our purpose-specific voting L1 blockchain. Like any blockchain, it gave us something powerful:…'
+coverImage: /blog/images/2026/01/Gemini_Generated_Image_6dzwdk6dzwdk6dzw-1.webp
+coverAlt: From blockchain voting to cryptographic voting
+authors:
+  - pau
+categories:
+  - davinci
+  - technology
+featured: false
+draft: false
+seo:
+  metaDescription: |-
+    Privacy and security can't be "features" in Web3
+    governance. Without privacy, voting is not democratic.
+    DAVINCI is our attempt to fix that by making correctness
+    and privacy non-negotiable.
+  ogImage: /blog/images/2026/01/socialmedia_card-1.webp
+---
+
+For the past years, [Vocdoni](https://vocdoni.io/) has run voting on **Vochain,** our purpose-specific voting L1 blockchain. Like any blockchain, it gave us something powerful: **everything is transparent, reproducible, and verifiable**. Anyone can audit. If something is tampered with, it can be spotted. Consensus is reached by a majority of honest nodes, who ensure the network keeps going.
+
+That model works, and it has [powered real elections](__GHOST_URL__/referendum-bellpuig/). But if the end goal is _autonomous decision-making_ (where outcomes can safely trigger actions), “auditable” still isn’t the same as “impossible to fake”.
+
+Because blockchains are ultimately social machines with economic security. If the incentive to cheat becomes large enough, game theory starts knocking.
+
+So we asked: **what if tallying wasn’t something you _trust the network_ to do, but something the network is cryptographically forced to do correctly?**
+
+That’s the shift from _blockchain voting_ to **cryptographic voting**.
+
+---
+
+### How does it work?
+
+Zero-knowledge is often marketed as “privacy tech”. And yes, privacy matters. But the truly disruptive property is **verified computation**: you can prove you followed a set of rules without asking anyone to trust your execution. [DAVINCI](https://davinci.vote/) is built around that idea: proofs aren’t a nice-to-have. They’re the gatekeepers.
+
+In practical terms: if you can’t produce the proof, you can’t update the tally.
+
+DAVINCI is a **voting-focused zkRollup on** [**Ethereum**](https://ethereum.org/), where a decentralized network of Sequencers batches votes and updates the election state, and Ethereum accepts those updates **only if a zkSNARK proof proves they were done correctly**.
+
+No proof → no state update → no fake result.
+
+**Ethereum is the “coordination layer”**
+
+> A voting process starts as an onchain configuration: rules, timing, and the voter registry commitment (census). Ethereum is also where the latest valid election state root lives, the source of truth.
+
+**Sequencers do the work — but they don’t get to “decide”**
+
+> Sequencers are operators that receive votes, verify them, batch them, compute the new state and submit a proof to Ethereum. They don’t use a consensus mechanism to agree on the tally. They do cryptographic proofs for vote batches and update the encrypted tally onchain.
+
+**Voting is gasless for users**
+
+> Instead of each voter paying a transaction fee, costs are amortized: votes are bundled and settled in batches. That’s how you get gasless voting without sacrificing Ethereum security.
+
+**Privacy comes from encryption + threshold decryption**
+
+> Ballots are encrypted using threshold homomorphic encryption (ElGamal): votes can be aggregated while still encrypted, and no single party can decrypt them. Only when the poll closes, and enough independent key shares are revealed, can anyone decrypt the final tally.
+
+**Receipt-freeness is part of the mechanics**
+
+> DAVINCI is built to make coercion and vote-buying harder or impossible:\
+> \- ballots get **re-encrypted** by sequencers (so you can’t “prove” your vote by showing the random hiding factor).\
+> \- and voters can **silently overwrite** their vote (your last vote counts).
+
+**Data availability**
+
+> DAVINCI commits the data needed for state transitions using **Ethereum blobs (EIP-4844)** and links it to the onchain verification step. It’s how other sequencers can independently verify and continue from the same shared state.
+
+---
+
+### What makes it “cryptographic voting”?
+
+**It’s not just auditable, it’s enforceable**
+
+> Traditional “blockchain voting” gives you transparency. DAVINCI goes one step further: it makes correct tallying a **cryptographic requirement**.
+
+**No honest-majority assumptions for vote counting**
+
+> You don’t need to assume “most nodes are honest” to trust the result. The result is accepted only if the proof checks out on Ethereum.
+
+**Participation can be distributed, by design**
+
+> Sequencers can take the latest verified state, build the next one, and continue the chain. That makes the system harder to censor, and easier to keep alive even if some operators disappear.
+
+---
+
+### **The takeaway**
+
+Privacy and security can’t be “features” in Web3 governance; they’re the baseline. **Without privacy, voting stops being democratic**: if a participant can prove how they voted, they can be coerced or bribed, and governance turns into a market for pressure.
+
+[**DAVINCI**](https://davinci.vote/) is our attempt to fix that by **making _correctness_ non-negotiable**: no optimistic tallying, no “trust the operator”, no honest-majority assumption for counting, just cryptography and Ethereum enforcing the rules.
+
+It’s designed to remove the usual participation taxes: gasless voting for users, Ethereum-grade security for settlement, and a sequencer role that targets commodity hardware (CPU-based machines, not GPU clusters), **genuinely open**.
+
+Most importantly: **DAVINCI** isn’t “Vocdoni’s product”. We’re the catalysts, but this only becomes a universal voting standard if the communities that need it help define it, defend it, and demand it. **If you believe governance should be private by default, verifiable by anyone, and impossible to fake**, add your name to the [Manifesto.](https://manifesto.davinci.vote)

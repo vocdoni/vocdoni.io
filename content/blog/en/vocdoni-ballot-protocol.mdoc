@@ -1,0 +1,218 @@
+---
+title: Introducing the Vocdoni Ballot Protocol
+publishedDate: '2021-04-16'
+updatedDate: '2026-01-14'
+excerpt: 'Vocdoni Ballot Protocol The core innovation of the Vocdoni core protocol is in implementing the first ever decentralized, censorship-resistant, and…'
+coverImage: /blog/images/2025/12/ballot_protocol_post.webp
+coverAlt: Introducing the Vocdoni Ballot Protocol
+authors:
+  - ferran
+categories:
+  - technology
+featured: false
+draft: false
+---
+
+# **Vocdoni Ballot Protocol**
+
+The core innovation of the Vocdoni core protocol is in implementing the first ever decentralized, censorship-resistant, and anonymous online voting protocol. But on top of these technical aspirations, the Protocol enables compatibility with a wide range of democratic processes. Vocdoni achieves this partly with our versatile specification for vote ballots.
+
+The **Vocdoni Ballot Protocol** aims to be a simple yet powerful specification for the representation of ballots and results for a voting process.
+
+# **First, some definitions:**
+
+A **_voting process_** is made from one or more **_fields_**, each of which represents a single question or an option for a question, depending on the **_type of process_**. When voting, eligible voters choose from a set of predefined **_answers_** for each field. The allowed number of answers, type of answer, etc. also depend on the specific type of process. An eligible voter expresses their choices by casting a **_ballot_**.
+
+A ballot is represented as an array (or list) of natural numbers. Each position of the array contains an answer to one of the process' fields.
+
+Results are accumulated in a two-dimension array of natural numbers (a matrix). Each row of this matrix corresponds to a ballot field, and each column corresponds to one of the possible values for that field. Any number in the result's matrix is simply a count of the votes for the value represented at that index.
+
+Before we get into the weeds of how a process might be configured, let's run through a generic example. Say we have a process with three fields, `A`, `B`, and `C`, each of which enables `0`, `1`, and `2` as possible values. We don't know what these values or fields represent, but that doesn't matter for now.
+
+![](https://storage.googleapis.com/papyrus_images/47fc7647a24d815d609ad569c4456e39.png)
+
+In this example, two votes have been cast. The first voter chose the value `2` for field `A`, `0` for field `B`, and `1` for field `C`. The second ballot has the values `0`, `0`, and `2`. You can see in the diagram above how the ballots relate to the results matrix. The _index_ of a value of a ballot determines the _field_ that value belongs to- i.e. the first index of ballot 1 has the value `2`, so ballot 1 is assigning the value `2` to field A. Within each field of the results matrix, the value of the vote is represented by its index. We place a `1` at index `2` of `field A` to represent the one vote for the value `2`.
+
+This might not be intuitive at first. Try following a couple more values from one of the ballots to the results matrix to make sure you have a solid grasp of how results are represented here.
+
+---
+
+# **The Protocol Itself**
+
+The ballot protocol is composed of a set of numeric and boolean (true/false) variables that restrict the format of a valid ballot.
+
+![](https://storage.googleapis.com/papyrus_images/b8d920f2d64cf347ff2f47f7e34a3340.png)
+
+How might the example we presented above be represented with this protocol?
+
+To start, we know we have three fields, so
+
+- `maxCount` = 3
+
+We have 0, 1, and 2 as our valid values, so we can set
+
+- `minValue` = 0
+- `maxValue` = 2
+
+The second ballot contains the value `0` for multiple fields. So in order for this ballot to be valid, we must set
+
+- `uniqueValues` = 0 (0 here represents 'false' and 1 represents 'true')
+
+There's no one obvious set of assignments for the next three variables, so let's add a little more context to our example process. For example, say this process is a single question asking voters to delegate gold coins to different organizations. Each field represents a single organization, and the value assigned to that field is the number of gold coins that voter wants to allocate to that organization.
+
+Based on the `minValue` and `maxValue` variables we've already set, we know that each user can allocate between 0 and 2 coins to any one organization. But a plausible rule we could add is that voters can only allocate 3 coins in total. And let's also imagine voters _have_ to allocate at least 1 coin.
+
+This adds meaning to the process diagram above; the first ballot allocates 3 total coins (maybe they support organizations A and C, but they like A a little more). The second ballot only allocates 2 of its 3 possible coins (they only support organization C and would rather waste their third coin than give it to A or B). So we can safely set
+
+- `minTotalCost` = 1
+- `maxTotalCost` = 3
+
+and both ballots will be valid.
+
+The final variable we need to set is `costExponent`, which pertains to [quadratic voting](https://www.wikiwand.com/en/Quadratic_voting). We won't dive into this type of voting for now, so let's just set the default
+
+- `costExponent` = 1
+
+Again, take a moment to reflect on each of these variables, and see if you can understand how changing any one of them might affect our example voting process.
+
+# **Results parsing**
+
+The variables above represent the entirety of the Vocdoni Ballot Protocol, which covers ballot validation and results tabulation as handled by the core infrastructure. But there's obviously still a lot of missing information when it comes to the human experience. Integrators of the protocol need to decide how to communicate the actual content of a process to voters, as well as how to parse and represent the results matrix. Results parsing is outside the scope of the Ballot Protocol but is relevant to understanding how the Protocol might be used.
+
+In its current iteration, Vocdoni defines two results parsing formats: **_Index-weighted_** and **_Discrete values_**.
+
+### **Index-weighted**
+
+We would use the Index-weighted results interpretation formula for our example process. This schema is suited for single-question processes such as ranked-choice, multiple choice, or participatory budgeting. Each index in a field of the results matrix represents a weighted value, where in this case the weight represents the number of coins allocated to an organization. The sum of the votes, multiplied by their index-weighted values, is the total value for that field.
+
+![](https://storage.googleapis.com/papyrus_images/345a07aee1ddf6a6aad51db7e58fd399.png)
+
+This interpretation aggregates our example process. Organization A receives 2 coins, organization C receives 3.
+
+### **Discrete Values**
+
+Discrete values interpretation is used for processes in which each field is its own question. Here each value represents a single discrete option (i.e. 'Candidate 2'), rather than a multiplier (i.e. '2 points to this option'). As such, this method interprets results by simply reporting which value, if any, received the most votes for each field.
+
+`0` is reserved for a tie between options.
+
+![](https://storage.googleapis.com/papyrus_images/97e8bca257a9b118b86ee3dd31165107.png)
+
+These two formats are not intended to be exhaustive. As stated above, the Ballot Protocol itself is agnostic to how results are aggregated, and anyone building their own application layer on top of the protocol can define their own results interpretation.
+
+---
+
+# **Examples**
+
+Let's run through a couple real-world examples to give you an idea of how versatile the Ballot Protocol is.
+
+### **Ranked Choice**
+
+I run a candy company. We're about to release a new flavor of lollipop and we want to do some market testing to determine which flavor customers will like the most. We've shipped some of our most loyal customers a box containing `asparagus`, `beans`, `carrot`, and `dill` flavored lollipops (we're not a very successful candy company ☹). We're asking them to signify their preferences by ranking the lollipops on a Vocdoni voting process...
+
+This situation is perfect for a [ranked choice](https://www.wikiwand.com/en/Ranked_voting) process. Here's how we'll create the process for our testers:
+
+We have four different flavors of candy that we want to rank. Users should assign a value to each candy, so we need a separate field for each type of candy.
+
+- `maxCount` = 4
+
+We will instruct users to rank the candies from best to worst, with `3` being the best and `0` being the worst.
+
+- `minValue` = 0
+- `maxValue` = 3
+
+It's not helpful if our testers think some candies are equally good- we want a clear ranking from best to worse.
+
+- `uniqueValues` = 1
+
+Because users are constrained by having to assign four unique values, we know the total cost must be 0+1+2+3=6.
+
+- `minTotalCost` = 6
+- `maxTotalCost` = 6
+
+Again, we have no use for costExponent here.
+
+- `costExponent` = 1
+
+![](https://storage.googleapis.com/papyrus_images/d06d57a97367e2f40ed75228f02392a7.png)
+
+Let's handle our first ballot. This product tester loves carrots, so they rank carrot as their first choice. Then comes asparagus and then dill, with beans coming up last. Here's how this ballot gets recorded in the results matrix:
+
+![](https://storage.googleapis.com/papyrus_images/e63207ba97dca5657af93969f5424cb3.png)
+
+Ballots continue to flow in, and we get a total of 30 responses! With a full results matrix, we then aggregate our results according to the index-weighted method...
+
+![](https://storage.googleapis.com/papyrus_images/49480940bd6ea3db2320d77b587455ae.png)
+
+Dill is the winner! 🎉 Due to this extensive market research, you will soon be able to find dill flavored lollipops at your local grocery store.
+
+### **Quadratic Voting**
+
+Our worker-run shoe manufacturing cooperative is having its annual assembly this week, during which we will elect a new head of marketing. It's a very tense race, and there's been a proposal to use quadratic voting to even out the playing field.
+
+Quadratic voting is a method to allow voters to allocate multiple votes to one candidate, at an increasing cost. In this case there are four candidates running, and each member has up to 9 'points' to spend on voting. The catch is, the cost of assigning a certain value `v` to a field is `v` to the power of `costExponent`. So considering a `costExponent` of 2, if I assign 1 vote to Candidate A, that costs me one point, but if I assign 2 votes it costs me 4 points, and 3 votes for one candidate costs me all 9 points. Let's dive in and explain this more.
+
+We have four different candidates, and users can vote for multiple of them. So each must have its own field.
+
+- `maxCount` = 4
+
+Let's put a reasonable cap on the value a voter can assign to one candidate.
+
+- `minValue` = 0
+- `maxValue` = 3
+
+It's fine for members to repeat values.
+
+- `uniqueValues` = 0
+
+As we stated above, members can spend up to 9 points.
+
+- `minTotalCost` = 0
+- `maxTotalCost` = 9
+
+Finally this variable has a time to shine. Let's set it to 2, meaning the cost for any value is the square of that value.
+
+- `costExponent` = 2
+
+![](https://storage.googleapis.com/papyrus_images/a645cc0a4a064387d26dafb4972d053a.png)
+
+Let's imagine a couple of ballot configurations to give you an idea of how quadratic voting works.
+
+**Ballot 1**
+
+Our first voter would be fine with any of the candidates, but slightly prefers Candidate B. They also want to use as much voting power as possible.
+
+![](https://storage.googleapis.com/papyrus_images/d9e9d195ba9159cc90da7228e4764cfc.png)
+
+Each of the values of `1` that this voter casts only adds `1` to their total cost. But a value of `2` adds `2^2`, or `4`, to their total cost. By distributing votes amongst all the candidates, this voter is able to allocate a total value of 5, while only reaching a cost of 7. They can't reach the maximum total cost of 9, because bumping up any of their `1` values to `2` would increase the cost above 9.
+
+**Ballot 2**
+
+The second voter has very strong opinions. They only support Candidate C. Therefore, it makes sense for them to assign the maximum value to Candidate 3. Even though they only used a total value of `3`, their total cost is at the maximum `3^3` = `9`.
+
+![](https://storage.googleapis.com/papyrus_images/99d22c797167c3a9f1a5be94957e158c.png)
+
+You might imagine how, in a larger process with more candidates and voters, quadratic voting could be a very powerful way to gauge strength of preference in addition to preference itself. For now we'll leave the interpretation of these results as an exercise to the reader.
+
+---
+
+# **Open & Flexible Protocol**
+
+Hopefully you have a good sense of a few possible use-cases for the Vocdoni Ballot Protocol. The most important feature of the Protocol, however, is its flexibility. In addition to the configurations presented above, there are countless other variants and interpretation mechanisms. These 8 variables encompass a wide range of scenarios representing nearly all of the voting types we're aware of, plus others that haven't even been invented yet. And this is just an early iteration- the Protocol could expand if needed to enable even more possibilities.
+
+The technical flexibility and openness of this Protocol is reflected in its real-world uses. The ease of use with which an organization can arrange a process of any type dramatically lowers the barrier to all types of decision-making, whether that's traditional voting or something more direct, fluid, and experimental. Members of civil society now have the tools to empower themselves and enact democratic processes that _best represent them,_ whatever that may look like.
+
+---
+
+# **NB: Code Examples**
+
+For those of you techies who have made it this far, the Protocol might mean nothing without some down-to-earth code examples. Here's how you might use [dvote-js](https://github.com/vocdoni/dvote-js), the typescript/javascript implementation of the Protocol, to create a process.
+
+First, let's get set up. Import the necessary packages, connect to the Vocdoni gateways, and generate a census of fake voters. We'll also fetch the current block height so we can correctly set the start time for the process.
+
+_See the&#xA0;_[_documentation_](https://docs.vocdoni.io/#/integration/overview)_&#xA0;for more in-depth guides for getting set up, connecting to gateways, generating a census, etc._
+
+Now we can create our process metadata. Let's create a process for the candy flavors example we discussed above. The metadata is information which helps clients to properly display the voting process and contains the human-readable information, without configuring the process at a protocol level. Here we define one question per candy flavor, including each of the pre-defined choice values from `0` to `3`. We also declare the aggregation and display types, which tell clients how to parse results and display the process to users.
+
+Finally, we can create the process itself. The Ballot Protocol variables are simply set according the those we defined above for this example process, with the `uniqueValues` variable set as the `envelopeType`. In addition to these variables, the `processParams` describes where the census and metadata for this process are stored, whether the process is encrypted and/or anonymous, which infrastructure this process should use, when the process starts and stops, and other auxiliary information.
+
+After publishing this process we can read it back, verify that the parameters are set correctly, instruct web or application clients to display this type of process, and begin voting!

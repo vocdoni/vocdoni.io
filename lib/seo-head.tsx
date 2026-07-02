@@ -214,6 +214,58 @@ const buildArticleSchema = (
   }
 }
 
+interface BlogPostSeo {
+  frontmatter: {
+    title: string
+    excerpt?: string
+    coverImage?: string
+    publishedDate: string
+    updatedDate?: string
+    seo?: { ogImage?: string }
+  }
+  authors: { name: string; website?: string }[]
+  usedLocale: string
+  availableLocales: string[]
+}
+
+const toIsoDate = (value?: string) => {
+  if (!value) return undefined
+  const date = new Date(value)
+  return Number.isNaN(date.getTime()) ? undefined : date.toISOString()
+}
+
+const buildBlogPostingSchema = (post: BlogPostSeo, siteUrl: string, canonicalUrl: string, image?: string) => {
+  const published = toIsoDate(post.frontmatter.publishedDate)
+  const modified = toIsoDate(post.frontmatter.updatedDate) ?? published
+  const authors = post.authors.length
+    ? post.authors.map((author) => ({
+        '@type': 'Person',
+        name: author.name,
+        ...(author.website ? { url: author.website } : {}),
+      }))
+    : [{ '@type': 'Organization', name: 'Vocdoni', url: siteUrl }]
+
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    headline: cleanTitle(post.frontmatter.title),
+    ...(post.frontmatter.excerpt ? { description: post.frontmatter.excerpt } : {}),
+    ...(image ? { image: [image] } : {}),
+    ...(published ? { datePublished: published } : {}),
+    ...(modified ? { dateModified: modified } : {}),
+    inLanguage: post.usedLocale,
+    mainEntityOfPage: canonicalUrl,
+    url: canonicalUrl,
+    author: authors,
+    publisher: {
+      '@type': 'Organization',
+      name: 'Vocdoni',
+      url: siteUrl,
+      ...(image ? { logo: { '@type': 'ImageObject', url: image } } : {}),
+    },
+  }
+}
+
 export function HeadTags(pageContext: PageContext) {
   const is404 = Boolean(pageContext.is404)
   const isCompatibilityRedirect = isCompatibilityRedirectPage(pageContext) && !is404
@@ -227,8 +279,26 @@ export function HeadTags(pageContext: PageContext) {
 
   const title = resolveConfigValue(pageContext.config?.title, pageContext)
   const description = resolveConfigValue(pageContext.config?.description, pageContext)
-  const image = resolveConfigValue(pageContext.config?.image, pageContext) || ogImageDefault
+
+  // Blog post pages carry rich metadata from the data loader (dates, authors,
+  // cover image, available translations) for Article SEO + accurate hreflang.
+  const blogPost = (pageContext as any).data?.post as BlogPostSeo | undefined
+  const isBlogPost = Boolean(blogPost) && urlLogical.startsWith('/blog/') && !urlLogical.startsWith('/blog/category/')
+  const isBlogSection = urlLogical === '/blog' || urlLogical.startsWith('/blog/')
+
+  const configImage = resolveConfigValue(pageContext.config?.image, pageContext)
+  const image =
+    (isBlogPost && (blogPost!.frontmatter.seo?.ogImage || blogPost!.frontmatter.coverImage)) ||
+    configImage ||
+    ogImageDefault
   const ogImageUrl = toAbsoluteUrl(siteUrl, image) || undefined
+  const ogType = isBlogPost ? 'article' : 'website'
+
+  // hreflang / og:locale alternates: for a post, advertise only the locales it
+  // actually has (English fallback covers the rest); every other page lists all.
+  const alternateLocales = (
+    isBlogPost && blogPost!.availableLocales?.length ? blogPost!.availableLocales : locales
+  ) as readonly string[]
 
   const organizationSchema = {
     '@context': 'https://schema.org',
@@ -309,6 +379,7 @@ export function HeadTags(pageContext: PageContext) {
       description ?? undefined,
       ogImageUrl
     ),
+    isBlogPost ? buildBlogPostingSchema(blogPost!, siteUrl, canonicalUrl, ogImageUrl) : null,
   ].filter(Boolean)
 
   if (isCompatibilityRedirect) {
@@ -358,7 +429,10 @@ export function HeadTags(pageContext: PageContext) {
         </>
       )}
       <link rel='canonical' href={canonicalUrl} />
-      {locales.map((hrefLang) => (
+      {isBlogSection && (
+        <link rel='alternate' type='application/rss+xml' title='Vocdoni blog' href={`${siteUrl}/blog/rss.xml`} />
+      )}
+      {alternateLocales.map((hrefLang) => (
         <link
           key={hrefLang}
           rel='alternate'
@@ -369,12 +443,23 @@ export function HeadTags(pageContext: PageContext) {
       <link rel='alternate' hrefLang='x-default' href={xDefaultUrl} />
       <meta name='language' content={locale} />
       <meta property='og:locale' content={locale} />
-      {locales
+      {alternateLocales
         .filter((hrefLang) => hrefLang !== locale)
         .map((hrefLang) => (
           <meta key={hrefLang} property='og:locale:alternate' content={hrefLang} />
         ))}
-      <meta property='og:type' content='website' />
+      <meta property='og:type' content={ogType} />
+      {isBlogPost && toIsoDate(blogPost!.frontmatter.publishedDate) && (
+        <meta property='article:published_time' content={toIsoDate(blogPost!.frontmatter.publishedDate)} />
+      )}
+      {isBlogPost && toIsoDate(blogPost!.frontmatter.updatedDate ?? blogPost!.frontmatter.publishedDate) && (
+        <meta
+          property='article:modified_time'
+          content={toIsoDate(blogPost!.frontmatter.updatedDate ?? blogPost!.frontmatter.publishedDate)}
+        />
+      )}
+      {isBlogPost &&
+        blogPost!.authors.map((author) => <meta key={author.name} property='article:author' content={author.name} />)}
       {title && <meta property='og:title' content={title} />}
       {description && <meta property='og:description' content={description} />}
       <meta property='og:url' content={canonicalUrl} />

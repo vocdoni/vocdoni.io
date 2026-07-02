@@ -130,6 +130,12 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   const pageContext = usePageContext() as any
   const { initialLocale, initialI18nStore, locale, urlLogical, isCompatibilityRedirect, is404 } = pageContext
 
+  // The Keystatic admin renders full-screen, without the site chrome or i18n.
+  const urlPathname: string = pageContext.urlPathname || urlLogical || ''
+  if (urlPathname === '/keystatic' || urlPathname.startsWith('/keystatic/')) {
+    return <div className='min-h-screen bg-background'>{children}</div>
+  }
+
   if (isCompatibilityRedirect && !is404) {
     return <CompatibilityRedirectLayout urlLogical={urlLogical} />
   }

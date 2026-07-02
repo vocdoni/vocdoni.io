@@ -117,6 +117,11 @@ export default function Footer() {
                   {t('footer.company.links.1')}
                 </Link>
               </li>
+              <li>
+                <Link href='/blog' variant='footerNav'>
+                  {t('blog.title', 'Blog')}
+                </Link>
+              </li>
             </ul>
           </div>
 

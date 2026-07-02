@@ -71,7 +71,9 @@ const buildFeaturedSolution = (t: (key: string) => string) => ({
   badge: t('navbar.featured_solution.vocdoni_app.badge'),
 })
 
-const buildResourcesItems = (t: TFunction) => [
+type ResourceItem = { title: string; href: string; description: string; target?: string; rel?: string }
+
+const buildResourcesItems = (t: TFunction): ResourceItem[] => [
   {
     title: t('navbar.resources_items.learn.title', 'Learn'),
     href: '/learn',
@@ -84,9 +86,7 @@ const buildResourcesItems = (t: TFunction) => [
   },
   {
     title: t('navbar.resources_items.blog.title'),
-    href: 'https://blog.vocdoni.io',
-    target: '_blank',
-    rel: 'noopener noreferrer',
+    href: '/blog',
     description: t('navbar.resources_items.blog.description'),
   },
   {

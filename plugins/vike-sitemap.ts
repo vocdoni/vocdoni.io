@@ -1,3 +1,4 @@
+import matter from 'gray-matter'
 import { promises as fs } from 'node:fs'
 import path from 'node:path'
 import type { Plugin } from 'vite'
@@ -10,7 +11,10 @@ type Options = {
 }
 
 const isPageComponent = (name: string) => name.startsWith('+Page.')
-const isSkippedDir = (name: string) => name.startsWith('_') || name.startsWith('+')
+// Skip Vike internals (`_`, `+`), dynamic-param dirs (`@slug`, enumerated
+// separately), and the client-only Keystatic admin.
+const isSkippedDir = (name: string) =>
+  name.startsWith('_') || name.startsWith('+') || name.startsWith('@') || name === 'keystatic'
 
 async function discoverBaseRoutes(pagesDir: string) {
   const routes = new Set<string>()
@@ -91,12 +95,37 @@ export function buildSitemapXml(hostname: string, routes: string[], locales: str
 
 function buildRobotsTxt(hostname: string) {
   const host = hostname.replace(/\/+$/, '')
-  return `User-agent: *\nAllow: /\n\nSitemap: ${host}/sitemap.xml\n`
+  return `User-agent: *\nAllow: /\nDisallow: /keystatic\n\nSitemap: ${host}/sitemap.xml\n`
+}
+
+// Enumerate concrete blog post + category archive routes from the content files
+// (the dynamic @slug pages are skipped by the filesystem walk above). Drafts are
+// excluded; slugs are de-duplicated across locales.
+async function discoverBlogRoutes(resolvedRoot: string): Promise<string[]> {
+  const blogDir = path.join(resolvedRoot, 'content', 'blog')
+  const routes = new Set<string>()
+  const categories = new Set<string>()
+
+  const localeDirs = await fs.readdir(blogDir, { withFileTypes: true }).catch(() => [])
+  for (const dir of localeDirs) {
+    if (!dir.isDirectory() || dir.name === 'authors' || dir.name === 'categories') continue
+    const files = await fs.readdir(path.join(blogDir, dir.name)).catch(() => [])
+    for (const file of files) {
+      if (!file.endsWith('.mdoc')) continue
+      const { data } = matter(await fs.readFile(path.join(blogDir, dir.name, file), 'utf8'))
+      if (data.draft === true) continue
+      routes.add(`/blog/${file.replace(/\.mdoc$/, '')}`)
+      if (Array.isArray(data.categories)) for (const category of data.categories) categories.add(String(category))
+    }
+  }
+  for (const category of categories) routes.add(`/blog/category/${category}`)
+  return [...routes]
 }
 
 async function resolveRoutes(resolvedRoot: string, locales: string[]) {
   const pagesDir = path.join(resolvedRoot, 'pages')
   const baseRoutes = await discoverBaseRoutes(pagesDir)
+  for (const route of await discoverBlogRoutes(resolvedRoot)) baseRoutes.add(route)
   return withLocales(baseRoutes, locales)
 }
 

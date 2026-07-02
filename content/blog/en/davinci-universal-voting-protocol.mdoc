@@ -1,0 +1,80 @@
+---
+title: 'DAVINCI: the voting protocol that meets the criteria for universal adoption'
+publishedDate: '2025-04-24'
+updatedDate: '2026-03-06'
+excerpt: 'We successfully raised $1 million pre-seed round from angel investors to develop DAVINCI. DAVINCI overcomes the limitations of existing voting systems, offering a censorship-resistant, gasless, anti-bribery, scalable, and anonymous solution for digital governance.'
+coverImage: /blog/images/2026/01/blogpost_davinci_announcement.webp
+coverAlt: 'DAVINCI: the voting protocol that meets the criteria for universal adoption'
+authors:
+  - pau
+categories:
+  - davinci
+  - technology
+featured: true
+draft: false
+---
+
+Back in 2018, we started **Vocdoni** after identifying some flaws in the way people vote. **Traditional paper ballots** can be slow to count, hard to audit, and vulnerable to tampering. **Onchain voting** solves some of those issues but adds new ones, such as high fees, poor privacy, vote buying, “follow-the-crowd” pressure, and limits on how many voters it can handle.
+
+Inspired by how Bitcoin and Ethereum opened finance to anyone with an internet connection, we wondered: **_why not do the same for democracy?_** Our first answer was a blockchain designed for voting. Since then, it has powered hundreds of elections for city councils, sports clubs, DAOs, political parties, and more.
+
+But technology never stands still. New cryptographic tools now let us protect privacy and scale to millions of voters at once. So we decided to begin again, designing a voting protocol from scratch that could become **the global gold standard for secure, private, and affordable voting**.
+
+## Meet DAVINCI: the universal standard for secure voting
+
+[DAVINCI](https://davinci.vote/) voting protocol \[Decentralized Autonomous Vote Integrity Network with Cryptographic Inference], swaps slow paper counts and pricey blockchain fees for a system that is **permissionless, tamper-proof, private, and cheap enough for anyone to use**. In short: _Decentralized Autonomous_ keeps the network open, _Vote Integrity Network_ proves every step, and _Cryptographic Inference_ shields each ballot and the final tally.
+
+### **Decentralized Autonomous**
+
+- **Open to all, owned by none.** [DAVINCI](https://davinci.vote/) runs on public Ethereum contracts and a decentralized network of Sequencers, so no government or company can pause or censor an election.
+- **Gasless for voters.** Fees are pooled and paid once per batch, letting citizens cast a ballot without spending a cent.
+- **Unstoppable network.** Any operator can step in as a Sequencer (the actor that verifies and aggregate ballots) simply by staking tokens as collateral, keeping the system live even if some nodes disappear. On correct behavior, Sequencers are rewarded.
+
+### **Vote Integrity Network**
+
+- **End-to-end auditability.** Every ballot, tally, and rule lives in an Ethereum smart contract; anyone can replay the proofs to confirm the result.
+- **Zero-knowledge rollups for scale.** Millions of votes are bundled off-chain, then a tiny zk-proof is posted on-chain, cutting costs while keeping the same security.
+- **Fits any voting style.** Ranked-choice, quadratic, single-transferable or any other voting method are possible. [DAVINCI](https://davinci.vote/)’s ballot format is schema-free, so organisers pick the rules that suit them.
+
+### **Cryptographic Inference**
+
+- **Threshold homomorphic encryption.** Every vote is sealed with a key that has been split among several independent tellers, so no single party can view or change a ballot. When the poll closes, only a preset minimum of Sequencers joining their key fragments can unlock the final, aggregated tally—never the individual choices.
+- **Receipt-free and anti-coercion.** Ballots are re-encrypted, voters can silently overwrite their own vote, and private “nullifiers” stop proof-of-vote screenshots—making bribery or intimidation pointless.
+- **Anonymity without bias.**  Every ballot is encrypted and unlinkable to its author, so no one can trace a choice back to a person - protecting privacy and shielding voters from pressure or retaliation.
+
+## The four circuits that power DAVINCI
+
+[DAVINCI](https://davinci.vote/) is a **zk-SNARK–based state machine** run by a decentralized network of offchain Sequencers. At its core are **four chained circuits**: each one verifies the proof produced by the previous step, then appends its own. Because zk-SNARKs are recursive and succinct, every ballot, rule, and tally ultimately collapses into a single, tiny proof that Ethereum can verify in milliseconds.
+
+1. **Ballot Circuit — rule-compliant encryption** The voter encrypts their choices with threshold El Gamal and proves, in zero knowledge, that the ballot follows the election rules (e.g., “pick up to two of five”).
+2. **Eligibility Circuit — signature + Merkle proof** A Sequencer proves the voter is authorized by checking an ECDSA signature and a Merkle proof against the published voter list.
+3. **Aggregation Circuit — many votes, one proof** Up to _N_ ballots, are compressed into a single zk-SNARK. Proof size stays almost constant, so millions of votes can ride to Ethereum for the price of one.
+4. **Tally Circuit — state update** The aggregated ciphertexts are homomorphically added to the encrypted tally, and a new state root is proven correct, while embedding the earlier aggregation proof to keep the chain intact.
+
+When the fourth circuit finishes, **the final recursive proof (just a few hundred bytes) is sent to an Ethereum smart contract**. If the verifier accepts it, the whole election batch becomes immutable; if not, it is rejected. The next Sequencer will start its batch processing starting from the one settled on Ethereum.
+
+![](/blog/images/2026/01/davinci-1.webp)
+
+## A sustainable and unstoppable protocol
+
+Vocdoni is kickstarting the design and development of [**DAVINCI**](https://davinci.vote/) **as a permissionless and unstoppable protocol powered by a native token**. Organizers use the token to launch elections, while sequencers stake it as collateral and earn rewards for processing votes. **Casting a vote is always free**, ensuring that participation remains open and accessible to all.
+
+The protocol is designed to split execution from verification: elections are defined on Ethereum while votes are cast and aggregated offchain by the decentralized network of sequencers, and only verified cryptographic proofs are committed onchain. The result is a system that’s transparent, secure, and scalable by design.
+
+## Backed by leading Web3 individuals
+
+Vocdoni’s **$1 million funding round attracted support from key figures in the blockchain ecosystem**, including **Jordi Baylina** and members from organizations like Ethereum Foundation, Polygon, OpenZeppelin, Giveth and Privado ID.\
+\
+Their involvement isn't just financial, it signals a need for a better governance technology and their trust in us to lead it.
+
+## What’s Next\*
+
+- **June 2025**: Public testnet launch with a simple UI + start of token presales
+- **July 2026**: Expected mainnet launch and TGE
+- **Q4 2026:** Starts the migration of organizations using Vocdoni Protocol to [DAVINCI](https://davinci.vote/)
+
+### Join the future of voting
+
+📝 **Join the waitlist** [**_here_**](https://davinci.deform.cc/waitlist/) to stay informed about the upcoming public testnet in June. **Early participants** will be able to **try the protocol,** run a sequencer, and **may receive exclusive perks for their engagement**.\
+\
+\* _In order to offer a complete and proven protocol implementation the roadmap may be modified._

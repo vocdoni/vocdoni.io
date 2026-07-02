@@ -1,0 +1,106 @@
+---
+title: Road to Anonymous Binding Voting for Ethereum
+publishedDate: '2023-06-23'
+updatedDate: '2026-01-14'
+excerpt: 'At Vocdoni, our main objective is to build technology that enables frictionless and secure voting processes on Ethereum.'
+coverImage: /blog/images/2026/01/blogpost_road_to_anonymous_ethereum.webp
+coverAlt: Road to Anonymous Binding Voting for Ethereum
+authors:
+  - ferran
+categories:
+  - technology
+featured: false
+draft: false
+---
+
+Anonymity protects voter privacy and ensures the free expression of opinions, mitigating the risk of coercion or retaliation. Censorship resistance, on the other hand, guarantees that no single entity can manipulate or deny voting rights, further enforcing a decentralized, fair, and open democratic process.
+
+At [Vocdoni](https://vocdoni.io), our main objective is to bring the technology stack for allowing frictionless and secure voting processes within the Ethereum blockchain, particularly for the Decentralized Autonomous Organization (DAO) ecosystem. We intend to create a novel system for off-chain, gasless, anonymous voting with binding execution.
+
+This document outlines our approach to tackling this ambitious mission, organized into the following core areas:
+
+- Building and verifying a comprehensive census
+- Addressing the nullifier determinism problem inherent in ECDSA signatures
+- The mechanism for casting votes off-chain
+- The Role and Functions of the vote aggregator
+- The process of uploading voting results to Ethereum
+
+### **1. The verified census**
+
+As the core component of any voting system, the census is responsible for enumerating eligible voters and attributing voting weights. However, generating a census based on Ethereum blockchain data presents its unique complexities. These include:
+
+- **Data Structure:** The Ethereum blockchain data is not structured in a format conducive to generating a census. For instance, for an ERC20 token, there isn’t a distinct data structure that maintains a complete list of token holders.
+- **Cryptography Compatibility:** Ethereum’s cryptography is not fundamentally compatible with zkSnarks, making creating and verifying zero-knowledge proofs more challenging.
+
+The overarching challenge then lies in creating a zkSnark-compatible, token-based census in a trustless way, enabling off-chain voting. It is also crucial to consider that ERC20 transactions can occur at any time, implying that the census can vary significantly from one block to another.
+
+To navigate these challenges, we propose the following approach:
+
+- **Off-Chain Census:** Build a zkSnark-friendly off-chain census.
+- **Proof Generation:** Generate a zkSnark proof to verify the correctness of the census.
+- **On-Chain Validation:** Validate the census creation proof on-chain using a smart contract.
+- **Facilitate voting:** Upon validation, the census can be utilized for voting purposes.
+
+Census validation on Ethereum can be carried out in two ways:
+
+- **Balance Check:** The smart contract verifies the validity of all (or a subset of) holders by invoking the balanceOfAt() function. This approach, however, could incur high transaction costs for the sender.
+- **Storage Proof:** The census zkProof is created using storage proofs, and the contract checks its correctness in relation to a previous Ethereum State Root. While this method may be computationally expensive for the census builder, it offers a robust solution.
+
+We believe the Balance Check approach better suits small DAOs (100-200 members). While the Storage Proof would better work for big organizations that can cover the costs of a larger computational infrastructure.
+
+### **2. The Issue of Nullifier Determinism**
+
+When working with cryptographic systems, determinism is critical - the same input must always produce the same output. However, a hiccup emerges with Ethereum signatures.
+
+ECDSA signatures include an arbitrary nonce - a number used once or very infrequently. The signer can alter this nonce to generate different signatures from the same payload. The result? Non-determinism - different outputs from the same input.
+
+This non-determinism becomes a hurdle when calculating a nullifier, an essential tool in preventing double voting. A nullifier is a unique identifier for each vote. When a vote is cast, the nullifier is logged in a public list on the blockchain.
+
+Generating a deterministic nullifier requires a deterministic signature scheme. And because ECDSA signatures are non-deterministic, they don’t play nice with nullifier generation. So, we hit a roadblock when trying to stop double votes in an anonymous binding voting system on Ethereum.
+
+We introduce the concept of a Global Registry of Commitment Keys. A Smart Contract manages this registry and serves as a mapping tool linking an Ethereum address to a commitment key. Here’s the basic structure: Ethereum Address => hash(secret).
+
+The commitment key, generated from a user’s secret, helps tie an Ethereum address to a deterministic output, thereby ensuring determinism, which is critical for our use case.
+
+This key-address mapping information is stored on the Ethereum blockchain as a Snark-Friendly Merkle tree. Merkle trees are particularly suited for this purpose because they allow us to create a tamper-proof and efficient system for storing and verifying large amounts of data, an essential requirement in our case.
+
+When casting a vote, a user has to provide a zkSNARK proof. This proof demonstrates that the user knows the secret of the commitment key, which forms part of the Commitment-Key Merkle Tree stored on Ethereum. This allows us to create a secure, anonymous, and double-vote-resistant voting system without the need for determinism in ECDSA signatures.
+
+### **3. Casting Off-Chain Votes**
+
+With a verified voting census and the Merkle root of the Global Registry in place, the process of casting ballots can commence.
+
+To cast a vote, a user needs to prove two things:
+
+- **Census Inclusion:** The user’s address and balance are part of the voting census.
+- **Secret Key Knowledge:** The user knows the secret key of the commitment assigned to his address in the Global Registry.
+
+The user then builds zkSnark proofs, effectively anonymising their identity and generating a nullifier. This nullifier is deterministically calculated by hashing the secret key with a unique proposal identifier.
+
+Note that with this mechanism, since the global registry is a zkSnark-friendly Merkle tree, we don’t need to use Ethereum cryptography (secp256k1) inside the circuit, resulting in a more efficient and browser-friendly ballot generation.
+
+The ballot and the proof are bundled into a packet and distributed to a peer-to-peer (p2p) network of aggregators. A decentralized p2p network is fundamental to achieving censorship resistance, ensuring no single entity can control or manipulate the voting process.
+
+### **4. The Vote Aggregation Process**
+
+Once the votes are cast, they need to be aggregated into a comprehensive zkSnark proof. This aggregation can be done all at once or in batches. The proof constructed during this process verifies the following:
+
+- A specific voting census root hash
+- A unique global registry root hash
+- A list of valid vote nullifiers
+- The correctness of the voting results
+
+Given that the original votes are zkSnark proofs themselves, the aggregation process necessitates one level of recursion, implying a zkSnark proving the accuracy of another zkSnark.
+
+However, given the current state of the art and the limited compatibility of Ethereum with elliptic curves, executing this recursive proof generation process is a significant challenge. The complexities involved mean we may need to wait for advancements in zkSnark frameworks and Ethereum to offer better support for zkSnark cryptography.
+
+### **5. Uploading results to Ethereum**
+
+Once the vote aggregation is completed, any user can submit the final proof to an Ethereum smart contract. The smart contract’s responsibility is to verify the following:
+
+- **Results Proof:** The proof of results is correct.
+- **Voting Census Root:** The voting census root matches the one previously verified.
+- **Global Registry Root:** The global registry root is accurate.
+- **Voting Time Frame:** The voting period aligns with the predefined time frame.
+
+Upon successful verification of these elements, the smart contract can execute the predetermined actions associated with the voting process on Ethereum. This process ensures the validity and integrity of the votes and facilitates the implementation

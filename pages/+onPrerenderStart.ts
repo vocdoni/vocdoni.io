@@ -15,6 +15,19 @@ export const onPrerenderStart = async (prerenderContext: PrerenderContext) => {
   prerenderContext.pageContexts.forEach((pageContext) => {
     const basePath = stripLocaleFromPath(pageContext.urlOriginal)
 
+    // The Keystatic admin lives outside the localized site: emit a single
+    // unprefixed shell, no per-locale variants and no compatibility redirect.
+    if (basePath === '/keystatic' || basePath.startsWith('/keystatic/')) {
+      pageContexts.push({
+        ...pageContext,
+        isCompatibilityRedirect: false,
+        locale: localeDefault,
+        urlLogical: basePath,
+        urlOriginal: basePath,
+      })
+      return
+    }
+
     pageContexts.push({
       ...pageContext,
       isCompatibilityRedirect: true,

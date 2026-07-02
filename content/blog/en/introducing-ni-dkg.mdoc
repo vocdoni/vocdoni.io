@@ -1,0 +1,115 @@
+---
+title: 'Introducing NI-DKG: A Non-Interactive, zkSNARK based Distributed Key Generation Protocol'
+publishedDate: '2026-03-03'
+updatedDate: '2026-03-24'
+excerpt: 'Vocdoni has developed a new DKG protocol that is non-interactive by design, operationally async in practice, and built from standard cryptographic primitives.'
+coverImage: /blog/images/2026/03/dkg.webp
+coverAlt: 'Introducing NI-DKG: A Non-Interactive, zkSNARK based Distributed Key Generation Protocol'
+authors:
+  - jordi-pinyana
+categories:
+  - technology
+  - davinci
+  - announcements
+featured: false
+draft: false
+seo:
+  metaTitle: Introducing NI-DKG
+  metaDescription: 'A Non-Interactive, zkSNARK based Distributed Key Generation Protocol'
+---
+
+Threshold homomorphic encryption is a key building block for the [DAVINCI](https://davinci.vote) voting protocol. It ensures that no single party can decrypt the results of the vote on their own: the decryption key is split among multiple independent nodes, and only when enough of them cooperate can the results be decrypted.
+
+Before any decryption can happen, however, those nodes must first jointly create the key. That process is called **Distributed Key Generation (DKG)**. We are building a version of DKG specifically designed for blockchain environments, where every participant must prove their contribution is correct before it is accepted on-chain.
+
+**DAVINCI ensures** the **privacy** of the voting process through the use of a **threshold homomorphic encryption** scheme. Specifically, a [threshold ElGamal cryptosystem](https://github.com/tompetersen/threshold-crypto) over elliptic curves is used. Encrypted messages can be combined to produce an encryption of the sum of the original plaintexts without decrypting them. This scheme enables decryption of a specific ciphertext without ever revealing the threshold secret key, so the final tally can be decrypted while individual ballots remain confidential.
+
+### **Protocol overview**
+
+NI-DKG is a blockchain-native protocol that is designed to be completely **non-interactive** by enforcing correctness at submission time using ZK proofs.
+
+Instead of complaint phases and dispute rounds, **every participant must prove that their contribution is correct at the moment they submit it**. The smart contract checks the proof immediately: valid submissions are accepted, invalid ones are rejected on the spot. There is no back-and-forth and no reactive challenges. Because the entire transcript is recorded on-chain, we also obtain **public verifiability**.
+
+Apart from being non-interactive by design, the NI-DKG protocol is also **operationally asynchronous in practice**. Its phases are defined by block numbers rather than fragile response deadlines.
+
+### **Why this matters**
+
+Today's blockchain-assisted DKG protocols rely on dispute phases: if a node receives bad data, it files a complaint on-chain, and the accused must respond before a deadline. This adds rounds, gas costs, and attack surface: honest nodes can be excluded if their response is late, and malicious actors can file frivolous complaints to grief the process. Recent academic work on fully asynchronous DKG has produced impressive theoretical results, but these protocols are highly complex.
+
+Most importantly, NI-DKG is built entirely from well-understood, **standard cryptographic primitives**. We introduce no new assumptions; instead, we apply established techniques in a more practical way. The protocol occupies a **pragmatic and practical middle ground**: simpler than fully asynchronous constructions, yet more robust than naïve synchronous schemes. It inherits the timing model of the underlying blockchain natural for on-chain applications, and combines it with proactive zero-knowledge proofs to eliminate interactive complaint procedures, a common weak point in existing designs. The result is a safer protocol that is well suited for real-world deployments.
+
+### **Phases of the NI-DKG Protocol**
+
+**_Generation_**
+
+1. **Initiation:** organizer posts parameters `(n, t)`.
+2. **Show of hands:** eligible nodes signal readiness (optionally with stake).
+3. **Node selection**: select `n` nodes using chain randomness; abort if policy not met.
+4. **Main DKG process:** every node posts polynomial commitments and encrypted shares, together with a ZK proof of correctness.
+5. **Finalization:** the organizer computes the public key `PK` and commitments to private shares, and posts these to the blockchain together with a ZK proof of correctness.
+
+![](/blog/images/2026/03/dkg-process.webp)
+
+**_Decryption_**
+
+1. **Publication of ciphertext:** a ciphertext `(C1, C2)` is published together with the round identifier. The nodes know when such ciphertexts are published.
+2. **Publication of partial decryptions:** nodes publish a partial decryption of `C1`, together with a proof of discrete logarithm equality.
+3. **Decryption:** once `t` or more partial decryptions have been published, the smart contract can be called to recover the message.
+
+![](/blog/images/2026/03/dkg-decryption.webp)
+
+**_Optional key disclosure_**
+
+Please note that the key disclosure is not part of the DAVINCI protocol, usually this part is not required given that it is possible to prove the decryption phase without the need of publishing the secret key.
+
+1. **Initiation**: the request to disclose the secret key can be sent by the organizer or triggered automatically, assuming this is allowed by the policy parameters.
+2. **Publish shares of secret key:** every participating node publishes their share of the secret.
+3. **Compute secret key:** once `t` or more values have been submitted, anyone can compute the secret ke&#x79;**.**
+
+![](/blog/images/2026/03/dkg-sk-disclosure.webp)
+
+### **Under the hood**
+
+The protocol covers the full lifecycle: key generation, threshold decryption, and optional key disclosure. At each stage, the smart contract acts as a coordination and verification layer, while zero-knowledge proofs move all heavy cryptographic checks off-chain. There is a clean separation of responsibilities: the blockchain handles ordering and public record-keeping; the proof system guarantees correctness.
+
+The cryptographic building blocks are the following:
+
+- **Shamir + Feldman VSS**: polynomials with public coefficient commitments.
+- **Hashed ElGamal** for encrypting shares.
+- **Chaum-Pedersen DLOG** equality proof, used for partial decryptions.
+- **zk-SNARKs** (Groth16 , FFLONK, …) for on-chain verification.
+
+**Circuits:**
+
+<!--kg-card-begin: html-->
+
+| Phase                                                        | Purpose                                    | Output / What it Proves                                                                   |
+| ------------------------------------------------------------ | ------------------------------------------ | ----------------------------------------------------------------------------------------- |
+| GenerationPhase 4: Main DKG                                  | Per-participant contribution proof         | Each participant’s DKG contribution is valid.                                             |
+| GenerationPhase 5: Compute secret shares and public key      | Finalization                               | Final public key and share commitments are correctly derived.                             |
+| DecryptionPhase 2: Publication of partial decryptions        | Partial decryption + DLEQ proof (per node) | Each node’s partial decryption is correct and accompanied by a DLEQ proof of correctness. |
+| DecryptionPhase 3: Decryption                                | Combine partial decryptions → plaintext    | Combining valid partial decryptions yields the correct plaintext.                         |
+| Optional Key DisclosurePhase 2: Publish shares of secret key | Share vs. commitment check (per node)      | Each node proves its revealed share matches the previously published commitment.          |
+| Optional Key DisclosurePhase 3: Compute secret key           | Reconstruct secret key from _t_ shares     | The secret key reconstruction from threshold (_t_) shares is correct.                     |
+
+<!--kg-card-end: html-->
+
+### **Limitations**
+
+Because phases are tied to block numbers, the protocol inherits the partial synchrony of its host chain. On-chain verification also imposes scaling constraints, though with input reduction strategies described in the paper we can realistically **support committees of 40–50 participants**. This is well within the range needed for most practical deployments.
+
+Although the proposed DKG is flexible and could be adapted to other encryption schemes, using Groth16 over BN254 implies that the most efficient choice is an encryption scheme defined over the BN254 scalar field, i.e., using the BabyJubJub curve.
+
+### **Where we are**
+
+The **protocol design is complete**. A draft research paper describes the full construction, gives detailed circuit specifications, and analyzes strategies for reducing on-chain costs. **Implementation and benchmarking** on target EVM chains **are next**.\
+\
+[Here](https://github.com/vocdoni/davinci-node/tree/main/crypto/elgamal/dkg) is a Golang PoC to validate the basic schema.
+
+Full paper available [here](https://eprint.iacr.org/2026/552).
+
+This is open source. If you’d like to contribute, through development, ideas, resources, or funding, reach out to us.
+
+[Contact](https://chat.vocdoni.io)
+
+---

@@ -1,0 +1,241 @@
+---
+title: 'Canada''s online voting standard: what CAN/DGSI 111 requires and why it matters'
+publishedDate: '2026-03-12'
+excerpt: 'In the weeks before Ontario''s 2022 municipal elections, voter information letters with unique login credentials were being discarded, unopened, in recycling…'
+coverAlt: 'Canada''s online voting standard: what CAN/DGSI 111 requires and why it matters'
+authors:
+  - ferran
+categories: []
+featured: false
+draft: true
+---
+
+In the weeks before Ontario's 2022 municipal elections, voter information letters with unique login credentials were being discarded, unopened, in recycling bins at rural post offices. Anyone who picked them up could have cast ballots on behalf of real voters.
+
+That was the low-tech vulnerability. The high-tech one was worse. Researchers found that one-third of Ontario's online voting systems lacked protections against screen overlay attacks, where a hidden layer over the voting interface could redirect a voter's click to a different candidate without them knowing. On election night, up to one million ballots were potentially at risk.
+
+These failures happened in a province that has been running online elections since 2003. A province where more than half of all municipalities now offer digital voting. A province that, until CAN/DGSI 111 was published in December 2024, had no national standard governing how any of it worked.
+
+That standard, **CAN/DGSI 111-1:2024**, now exists. It is Canada's first national framework for online electoral voting, developed over years of academic research and built in direct response to documented failures. Every municipality planning an online election in 2026 should understand what it requires, what it still leaves open, and what systems are genuinely built to meet it.
+
+---
+
+## Two decades of digital elections with no common rules
+
+Canada is one of the world's heaviest users of online voting at the municipal level. Ontario alone had **222 of its 444 municipalities** offering online voting in the 2022 elections, an increase from 180 municipalities in 2018. An estimated one million voters cast their ballots online in Ontario's 2018 elections alone. The 2026 cycle is expected to set a new record.
+
+For most of that history, this happened with zero national standards. No federal or provincial requirements. No certification process. No shared security baseline. Each municipality procured independently from a market of competing vendors, with local clerks, not cryptographers, as the final accountability layer.
+
+Prof. Nicole Goodman of Brock University, who co-developed the new national standard, summarized the situation plainly: "For a time, Canada was the only country in the world to use election technologies without regulations, even though Canada has one of the highest rates of use."
+
+The fragmentation ran deep. Ontario's municipalities used six different vendors. Contracts were sometimes structured below competitive procurement thresholds, one municipality contracted voting services for under $10,000, bypassing competitive bidding entirely. Vendors were not subject to access-to-information law. No penetration test report had ever been publicly disclosed by any Ontario municipality in five years of academic research on the topic.
+
+First Nations communities in Canada have faced their own parallel story. More than 50 First Nations have deployed online voting for band council elections and governance processes, served primarily through Indigenous technology companies like [OneFeather](https://www.onefeather.ca/), which now manages over 370,000 memberships across more than 289 nations. Research has found that 54% of Indigenous non-voters in the 2011 federal election said they would have voted if online voting had been available. Digital participation tools matter enormously in communities spread across vast distances. Yet the Indian Act and the First Nations Elections Act have historically required communities to have their own election code or self-government agreement before they can use any alternative voting method at all, a legal barrier that policy researchers have been calling on the federal government to remove.
+
+---
+
+## What researchers found: measuring Canada's online voting security
+
+Before CAN/DGSI 111 was published, the same academics who would go on to co-develop it spent years auditing what was actually happening in Ontario. The findings, published in a 2023 peer-reviewed study by Essex, Goodman and colleagues (["Online Voting in Ontario Municipalities: A Standards-Based Review"](https://link.springer.com/chapter/10.1007/978-3-031-43756-4_4), _Electronic Voting_, Springer), are the most rigorous public audit of real-world online voting deployments available.
+
+The benchmark was the Council of Europe's Standards for E-Voting, 141 requirements and guidelines that represent the most widely referenced international framework for digital election security.
+
+**Ontario met 14% of applicable directives. That is 18 of 126.**
+
+This is not a close call. The failures were systematic and documented across every major category.
+
+**No city offered universal verifiability.** Not one municipality allowed any third party to independently verify that votes were counted correctly. The vendor tallied the votes and issued a result. There was no public proof, only the vendor's word.
+
+**Ballot secrecy claims were false.** Simply Voting told municipalities that it was "impossible" for anyone to see how their members voted. A subsequent technical analysis found no application-layer cryptographic separation between a voter's choice and their authentication data. More than 50% of Ontario voters could be uniquely re-identified from their city and date of birth combined. Municipalities passed the vendor's secrecy claims on to the public unchanged.
+
+**Scytl's "verifiability" feature violated ballot secrecy.** The system Scytl built to let voters verify their ballot showed them which candidate they had selected. That created a receipt. Any third party with a voter's credentials and a QR code could use that receipt to prove how someone voted, enabling precisely the vote-buying and coercion the feature was supposed to prevent.
+
+**No coercion resistance existed anywhere.** None of Ontario's vendors provided technical protection against vote-buying or voter pressure in unsupervised remote environments.
+
+**Transparency was essentially absent.** Not a single penetration test was ever made public. Vendor source code was proprietary. Audit logs were managed by the vendor, not the municipality. Two-thirds of the Council of Europe's transparency directives were unmet.
+
+**Operational failures were common and undisclosed.** Thunder Bay voters received ballots for the wrong ward. Cambridge presented a ballot missing candidates. Dominion's systems caused service disruptions in more than 50 municipalities in 2018, requiring extended voting hours across the province.
+
+Then came 2022. The [CBC investigation](https://www.cbc.ca/news/canada/ontario-municipal-elections-online-voting-study-1.7644536) documented what the academic findings predicted: 70% of Ontario races were assessed at "high or extreme risk" of compromise. The PIN-in-the-recycling-bin vulnerability was real and documented. Scytl was patched mid-election after researchers alerted them. Neuvote went unpatched when polls closed.
+
+This is the problem CAN/DGSI 111 was built to address.
+
+---
+
+## What CAN/DGSI 111-1:2024 actually requires
+
+CAN/DGSI 111-1:2024, formally titled "Online Electoral Voting – Part 1: Implementation of Online Voting in Canadian Municipal Elections", was published as a National Standard of Canada by the Digital Governance Standards Institute (DGSI) in December 2024, and is [registered with the Standards Council of Canada](https://scc-ccn.ca/standardsdb/standards/4033474).
+
+It was co-developed by Prof. Nicole Goodman (Brock University) and Prof. Aleksander Essex (Western University), with input from a technical committee of more than 100 experts across cybersecurity, political science, public policy and election administration.
+
+**On voluntary vs. mandatory:** the standard is currently voluntary. No law requires municipalities to comply. There is no enforcement mechanism, no certification body and no provincial mandate. What the standard does provide is a procurement framework: designed to help municipal election administrators evaluate vendors, inform requests for proposals, and hold providers accountable to documented requirements. One jurisdiction has gone further. The Northwest Territories adapted CAN/DGSI 111 as the basis for their own territorial regulation and used it as the framework for the 2023 general election. The result: 96.4% of voters expressed high or moderate satisfaction. That is the pathway from voluntary to binding.
+
+It is also worth noting that the original 2024 standard is currently being revised. A D1 draft was posted in December 2025 for public comment, with a March 2026 deadline. The 2026 Ontario municipal elections will run under the 2024 version while the updated standard is finalized. The standard is active and evolving at the same time.
+
+### The core requirements
+
+The standard specifies requirements across nine main areas:
+
+**Vote secrecy and receipt-freeness.** No one, including system operators and election officials, can trace vote choices back to individual voters. The standard goes further: voters shall not be able to prove to anyone else how they voted. That second requirement is receipt-freeness — the property that prevents vote-buying and coercion structurally, not just procedurally — and it is a hard mandate in the standard, not a recommendation. The standard requires that privileged access to information be defined and that technical privacy guarantees be documented. "We say it's secret" is not a sufficient answer.
+
+**Verifiable results.** The standard requires "independently verifiable evidence supporting the outcome of the election." More on what this means in practice below, there is significant variation in how "verifiable" can be interpreted.
+
+**Voter authentication.** Documentation and processes for voter identity verification, addressing credential-based vulnerabilities like the 2022 PIN failures. Multi-factor approaches are implied by the requirement to protect authentication data.
+
+**Data security and cryptographic standards.** Security thresholds for data in transit and storage across all devices and entities involved in the election. Two specific cryptographic mandates stand out: where votes are encrypted at the application layer on the client side, the standard requires threshold encryption for generating decryption keys, meaning no single party can decrypt results alone. The cryptographic module used must either undergo independent testing or be publicly auditable through open-source publication. Both are hard requirements that go well beyond what current Canadian vendors provide.
+
+**Logic and accuracy testing.** Pre-election and post-election testing processes to verify system integrity before and after voting.
+
+**Ballot design and accessibility.** Requirements for ballot clarity, usability and accessibility to ensure all voters can participate.
+
+**Transparency and disclosure.** Information about how the system functions must be publicly available. Vendors cannot operate as black boxes.
+
+**Procurement guidance.** Requirements for competitive and transparent procurement processes, directly targeting the below-threshold contracting documented in the academic audit.
+
+**Accountability of the electoral management body.** The municipality must have meaningful control over the process, not just nominal oversight.
+
+### The verifiability spectrum
+
+The standard's verifiability requirement is its most important, and currently its most open, because "independently verifiable" can mean very different things in practice:
+
+1. **Vendor-issued audit report**: A PDF from the vendor saying the results are correct. This is what most current Canadian vendors provide. It requires trusting the vendor.
+2. **Administrative audit trail**: Logs and records that a third-party auditor can inspect under restricted access. Better, but still requires trusting the auditor.
+3. **Cryptographic end-to-end verifiability**: Any voter can confirm their individual ballot was included in the count; any third party can verify the full result without trusting anyone. The proof is public and mathematically checkable.
+
+The standard's top-level obligation here is a "should" — a strong recommendation, not a hard mandate. But the standard makes clear that if verifiable evidence is provided, the sub-requirements are binding: the evidence must be verifiable by a qualified independent observer, sufficient to convince observers of a correct result or detect an incorrect one, and accurate. The gap the standard leaves is in specifying _how_ verifiable. A vendor-issued PDF technically satisfies the letter; a cryptographic proof satisfies the intent.
+
+The academic co-developers are explicit about what the evidence demands. Recommendation 5 in the 2023 paper calls directly for "cryptographic end-to-end verification" as the approach that would address the most unmet directives from the Council of Europe audit. That recommendation was written by the same researchers who co-authored the standard — it is the direction they are pointing, and future revisions are expected to make it a harder requirement.
+
+On **coercion resistance**: the standard recommends (should) that systems support vote updating — the ability for a voter to silently change their choice before polls close — particularly for uncontrolled environments like voting from home. Where vote updating is not supported, providers must document alternative safeguards and residual risks. This is a recommendation, not a mandate. But paired with the hard receipt-freeness requirement, the intent is clear: the standard treats protection from vote-buying and coercion as a genuine design obligation, not an afterthought.
+
+---
+
+## Why this standard matters for election administrators
+
+The standard is not primarily a security document. It is a governance tool that protects election administrators.
+
+Before CAN/DGSI 111, a municipal clerk managing an online election had no common framework. Vendors made claims, "impossible to compromise," "bank-grade encryption," "fully auditable", and clerks had no tool to evaluate whether those claims were true. The research showed they often were not.
+
+The standard changes this. It gives election administrators:
+
+- A checklist of verifiable requirements to put to vendors in an RFP
+- A common language that allows genuine comparison across vendors
+- A documented basis for rejecting providers who cannot demonstrate compliance
+- Legal and reputational protection when something goes wrong
+
+The last point matters. An election administrator who can demonstrate they followed the national standard when procuring a voting system is in a far stronger position than one who relied on a vendor's marketing materials. The standard does not eliminate risk. It transfers accountability to where it belongs: the vendor's documented technical specifications, not the clerk's trust in a sales pitch.
+
+Municipal clerks should not have to be cryptographers. The standard exists precisely so they do not have to be.
+
+---
+
+## How current vendors measure against the standard
+
+No vendor has been formally certified against CAN/DGSI 111 — the certification infrastructure does not yet exist. What we can do is compare the standard's stated requirements against what the 2023 academic audit documented about the systems serving Canadian municipal elections at the time. The findings, from the Essex/Goodman peer-reviewed paper, cover the full Ontario market.
+
+<!--kg-card-begin: html-->
+
+| Requirement                                                                                        | Current Ontario vendors (Essex/Goodman 2023 audit)                                                    | DAVINCI / Vocdoni                                                 |
+| -------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------- |
+| **Universal verifiability** (any 3rd party can verify the full result)                             | Not provided by any vendor audited                                                                    | Full cryptographic E2E-V                                          |
+| **Individual verifiability** (voter can confirm their ballot was counted)                          | Not provided; one vendor's attempt created a receipt that broke ballot secrecy                        | Full, without creating a receipt                                  |
+| **Receipt-freeness** (SHALL: voter cannot prove their choice to a 3rd party)                       | Not provided by any vendor audited                                                                    | Yes, by design                                                    |
+| **Ballot secrecy (technical)** (vote content structurally inaccessible to server)                  | Most vendors relied on transport-layer encryption only; server-side access to vote choices documented | Full — votes tallied without anyone decrypting individual ballots |
+| **Threshold encryption** (SHALL where client-side encryption used: no single party decrypts alone) | Not implemented by vendors audited                                                                    | Yes, distributed key generation                                   |
+| **No premature result access**                                                                     | Real-time server access to running tallies documented for at least one vendor                         | Full — votes stay encrypted until election close                  |
+| **MITM / overlay attack protection**                                                               | Absent or incomplete in most systems audited; one-third of systems lacked overlay attack protection   | Yes                                                               |
+| **Open-source cryptographic module** (SHALL: publicly auditable crypto code)                       | All vendors audited: proprietary, closed source                                                       | Yes, full codebase public                                         |
+| **Penetration testing disclosed**                                                                  | No municipality publicly disclosed a penetration test in five years of research                       | Open source enables independent audit by anyone at any time       |
+| **Coercion resistance / vote updating** (SHOULD: voter can silently change their vote)             | Not provided by any vendor audited                                                                    | Yes, vote overwriting by design                                   |
+| **Transparency of procedures**                                                                     | Not provided; vendor source code and audit logs proprietary                                           | Yes, public code and public audit trail                           |
+
+<!--kg-card-end: html-->
+
+_Vendor assessments are based on the_ [_Essex/Goodman 2023 peer-reviewed audit_](https://link.springer.com/chapter/10.1007/978-3-031-43756-4_4) _of Ontario's online voting market. Individual vendors may have updated their systems since 2022. DAVINCI assessments are based on the published protocol documentation._
+
+The gap is not a matter of vendors performing poorly on the same architecture. It is a structural difference. Current Canadian vendors were built on administrative security models: control who can access the system, encrypt data in transit, produce audit logs. DAVINCI is built on cryptographic security: the guarantee does not depend on trusting anyone, because the proof is public and mathematically verifiable.
+
+Those are different designs, not different performance levels on the same design. Meeting the standard's receipt-freeness mandate, threshold encryption requirement, open-source cryptographic module requirement, and recommended verifiability levels would require a fundamental architectural rebuild, not a configuration update.
+
+---
+
+## What genuinely secure, auditable online voting looks like
+
+The standard's verifiability requirement opens the door to a concept the academic community has been working on for years: **end-to-end verifiable voting**.
+
+In most current online voting systems, you cast your vote, the server records it, and the vendor produces a result you are expected to accept. You have no way to confirm your vote was counted. You have no way to confirm no votes were added or removed. You trust the vendor.
+
+End-to-end verifiability changes this. In a properly designed system:
+
+- Every voter receives a way to confirm their individual ballot was included in the count, without revealing what they voted for
+- Any independent observer can verify the full result and confirm it is mathematically correct
+- The verification does not require trusting anyone, because the proof is public and checkable
+
+This is not a theoretical concept. It is technically implemented in systems today. [The Bellpuig referendum](__GHOST_URL__/referendum-bellpuig/), the first fully digital referendum conducted under Spanish law, used it. The result was certified and independently verifiable by any participant.
+
+The research co-authors of CAN/DGSI 111 made end-to-end verifiable voting their explicit Recommendation 5: "Make election results evidence-based... independent verification such as cryptographic end-to-end verification would address many unmet directives."
+
+The standard points in this direction. The architecture that supports it needs to be in place before the mandate arrives.
+
+---
+
+## How Vocdoni and DAVINCI meet the standard's requirements
+
+Vocdoni has been deploying digital voting since 2018. In seven years, the company has run elections for political parties, professional bodies, cooperatives, municipalities and national organizations with hundreds of thousands of members. The DAVINCI voting protocol is Vocdoni's next-generation cryptographic engine that powers the platform, [the architecture that makes results independently verifiable](__GHOST_URL__/davinci-universal-voting-protocol/) in a way that no current Canadian vendor provides. The platform's [academic validation](__GHOST_URL__/vocdoni-upc-partnership), developed in collaboration with researchers at the Universitat Politècnica de Catalunya, is directly relevant to an audience that has seen what happens when electoral technology lacks rigorous independent scrutiny.
+
+Here is how DAVINCI maps to each CAN/DGSI 111 requirement area.
+
+<!--kg-card-begin: html-->
+
+| CAN/DGSI 111 requirement area                   | How DAVINCI meets it                                                                                                                                                                                                                                                                                                         | Status                                                   |
+| ----------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------- |
+| **Vote secrecy**                                | Votes are encrypted at the moment they are cast. Tallying happens without anyone ever decrypting individual ballots, not the municipality, not Vocdoni. Voter identity is structurally decoupled from vote content by design.                                                                                                | Full (SHALL)                                             |
+| **Threshold encryption**                        | No single party holds the decryption key. Multiple independent keyholders must cooperate to tally votes — the standard's explicit cryptographic mandate.                                                                                                                                                                     | Full (SHALL)                                             |
+| **No premature result disclosure**              | Votes stay encrypted until after the election closes. Even Vocdoni cannot see a running tally. The result is published automatically when the election ends.                                                                                                                                                                 | Full (SHALL)                                             |
+| **Independent verifiability**                   | Public cryptographic proof: any voter, any observer, any independent expert can verify the full result without involving Vocdoni. [The public election record at explorer.vote](https://explorer.vote) shows this in practice.                                                                                               | Full, exceeds standard's SHOULD with cryptographic E2E-V |
+| **No duplicate voting**                         | Cryptographic nullifiers: a unique hash derived from voter credentials prevents the same voter from submitting more than one final vote, provably and without exposing voter identity.                                                                                                                                       | Full                                                     |
+| **Voter authentication**                        | Flexible census system, supports any identity provider (email, SMS, government ID systems, SSO). Eligibility verified cryptographically against a voter list.                                                                                                                                                                | Full                                                     |
+| **MITM and client-side attack protection**      | Standard HTTPS plus a cryptographic proof chain: any tampering with the ballot in transit produces an invalid proof that is automatically rejected.                                                                                                                                                                          | Full                                                     |
+| **Ballot secrecy / receipt-freeness**           | Voters cannot produce a receipt showing their vote. Even if they wanted to prove how they voted to a third party, the re-encryption mechanism makes this structurally impossible.                                                                                                                                            | Full (SHALL)                                             |
+| **Coercion resistance / vote updating**         | Voters can silently overwrite their vote at any time before the election closes. Even if coerced, the coercer cannot verify the final vote. The standard recommends (SHOULD) vote updating for uncontrolled environments; DAVINCI provides it as a hard architectural guarantee.                                             | Full, exceeds standard's SHOULD                          |
+| **Logic and accuracy testing**                  | Open source code means any municipality or independent party can inspect the full codebase, run test elections, and verify results before going live.                                                                                                                                                                        | Full                                                     |
+| **Open-source cryptographic module**            | The standard requires the cryptographic module to be either independently tested or publicly auditable via open-source publication. DAVINCI's full cryptographic codebase is public.                                                                                                                                         | Full (SHALL)                                             |
+| **Transparency and disclosure**                 | Code is public (GitHub). Election records are public (explorer.vote). Any party can inspect how the system works before, during and after an election.                                                                                                                                                                       | Full, exceeds standard                                   |
+| **Ballot design and accessibility**             | Configurable ballot formats: single choice, multiple choice, ranked, weighted, quadratic. Device-agnostic: any browser, no app download required for voters.                                                                                                                                                                 | Full (SHALL)                                             |
+| **Procurement transparency**                    | Public pricing at app.vocdoni.io/plans. Self-service. No sales call required for standard configurations.                                                                                                                                                                                                                    | Full                                                     |
+| **Accountability of electoral management body** | Municipality or election administrator controls all election parameters, voter list, ballot, timing. Vocdoni cannot alter these after setup.                                                                                                                                                                                 | Full (SHALL)                                             |
+| **Data localization**                           | The standard requires election data on Canadian servers. For decentralized systems, the requirement is satisfied where data outside Canada cannot reconstruct voter identity or alter results. DAVINCI's architecture satisfies this condition by design; Canadian-hosted nodes can be configured for municipal deployments. | Full via decentralized exception                         |
+
+<!--kg-card-end: html-->
+
+One requirement worth addressing directly: the standard mandates that all election data be stored on servers physically located in Canada. Vocdoni's infrastructure is EU-based. The standard includes an explicit provision for decentralized systems: the requirement is satisfied where election-critical components run on Canadian infrastructure, or where data stored outside Canada cannot be used to reconstruct voter identity or alter election results. DAVINCI's cryptographic design — where vote content is encrypted and individual votes are unlinkable to voters at the infrastructure level — satisfies the second condition. For Canadian municipal elections, Vocdoni would also configure election-critical nodes on Canadian-hosted infrastructure. This is an operational configuration, not an architectural barrier.
+
+The current Canadian vendors do not fail CAN/DGSI 111 because of poor implementation. They fail because they were built for a different security model. Providing verifiable results and receipt-freeness requires architectural redesign, not a software update.
+
+See [Vocdoni's voting architecture](https://vocdoni.io/technology) for a full technical explanation, or see [the difference between administrative and cryptographic security in practice](__GHOST_URL__/from-blockchain-voting-to-cryptographic-voting/).
+
+---
+
+## Where the standard goes from here
+
+CAN/DGSI 111 is titled "Part 1" for a reason. It covers municipal elections. The path to provincial and federal coverage is being actively discussed by its co-developers.
+
+The Northwest Territories built a regulatory framework for online voting informed by early drafts of CAN/DGSI 111 and applied it in the 2023 territorial election. The standard is the technical foundation; the law provides the enforcement. As the 2026 Ontario municipal elections run, the first major electoral cycle with the standard in place, the question of whether municipalities actually use it in RFPs will determine whether the voluntary framework has any practical effect.
+
+Canada's experience here is genuinely unusual. Two decades of real-world online voting at scale, followed by systematic academic documentation of failures, followed by a standard developed by the researchers who found those failures. Few other jurisdictions have this combination. The Policy Options journal noted in 2022 that "as governments around the world seek to close gaps in regulatory frameworks... they may be looking to Canada." The Council of Europe's existing Recommendation CM/Rec(2017)5 predates many of the cryptographic advances in E2E-V and receipt-freeness; Canada's standard was built on more current research. Countries with emerging online voting adoption, across the Commonwealth, Latin America and Asia-Pacific, are watching what Canada does next.
+
+The First Nations legal barrier is also moving. The call to amend the Indian Act and the First Nations Elections Act to allow communities genuine choice in their voting methods is gaining momentum. If those amendments come, the demand for digital voting infrastructure that meets or exceeds CAN/DGSI 111 requirements will grow sharply.
+
+The standard is not a destination. It is the beginning of a conversation Canada should have had years ago.
+
+---
+
+## What this means for your next election
+
+Whether you are a municipal clerk preparing for 2026, a governance officer for a professional association, or an election official evaluating vendors for the first time, CAN/DGSI 111 gives you something that did not exist before: a documented baseline for what secure digital elections require.
+
+Use it as a procurement tool. Ask vendors to demonstrate compliance with each requirement, not claim it, demonstrate it. Ask specifically about independent result verification: can any third party check the result without trusting the vendor? Ask about ballot secrecy: is the protection technical and structural, or is it a vendor promise? Ask about receipt-freeness: can a voter prove to anyone how they voted? Ask to see the source code.
+
+The standard raises the floor. The technology to exceed that floor already exists.
+
+Vocdoni has been building it for seven years. If you are evaluating online voting software for an upcoming election, the difference between systems that meet the standard and systems that claim to is now clearly documented. [See how DAVINCI works](https://vocdoni.io/technology), or [run your first election free at app.vocdoni.io](https://vocdoni.io/app). No sales call required.

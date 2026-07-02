@@ -13,6 +13,11 @@ const metaDefaults = {
     'meta.contact.description',
     'Talk to Vocdoni about secure online voting, verifiable elections, pricing, demos, and custom digital governance projects.'
   ),
+  'meta.blog_index.title': t('meta.blog_index.title', 'Vocdoni blog - insights on secure digital voting'),
+  'meta.blog_index.description': t(
+    'meta.blog_index.description',
+    'Product updates, technical deep-dives and success stories from organizations running secure, verifiable online voting with Vocdoni.'
+  ),
   'meta.about_us.title': t('meta.about_us.title', 'About Vocdoni - open source online voting infrastructure'),
   'meta.about_us.description': t(
     'meta.about_us.description',
