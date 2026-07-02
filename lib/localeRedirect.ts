@@ -22,6 +22,9 @@ export function resolvePreferredLocale(
   for (const language of browserLanguages) {
     if (!language) continue
     const parts = language.split(/[-_]/).map((part) => part.toLowerCase())
+    // Prefer an exact region-specific match (e.g. 'pt-br') before the base language.
+    const full = parts.join('-')
+    if (supportedLocales.includes(full)) return full
     if (supportedLocales.includes(parts[0])) return parts[0]
     if (parts[1] && supportedLocales.includes(parts[1])) return parts[1]
   }

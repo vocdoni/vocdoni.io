@@ -1,5 +1,5 @@
-type Locale = 'ca' | 'de' | 'el' | 'en' | 'es' | 'eu' | 'fr' | 'it' | 'pt'
-const locales: Locale[] = ['ca', 'de', 'el', 'en', 'es', 'eu', 'fr', 'it', 'pt']
+type Locale = 'ca' | 'de' | 'el' | 'en' | 'es' | 'eu' | 'fr' | 'it' | 'pt' | 'pt-br'
+const locales: Locale[] = ['ca', 'de', 'el', 'en', 'es', 'eu', 'fr', 'it', 'pt', 'pt-br']
 const localeDefault: Locale = 'en'
 const availableLocales: { value: Locale; label: string }[] = [
   { value: 'ca', label: 'Català' },
@@ -10,7 +10,8 @@ const availableLocales: { value: Locale; label: string }[] = [
   { value: 'eu', label: 'Euskara' },
   { value: 'fr', label: 'Français' },
   { value: 'it', label: 'Italiano' },
-  { value: 'pt', label: 'Português' },
+  { value: 'pt', label: 'Português (Portugal)' },
+  { value: 'pt-br', label: 'Português (Brasil)' },
 ]
 
-export { availableLocales, localeDefault, locales, type Locale }
+export { availableLocales, Locale, localeDefault, locales }

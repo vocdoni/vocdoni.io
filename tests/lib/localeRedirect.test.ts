@@ -26,6 +26,22 @@ describe('resolvePreferredLocale', () => {
   it('falls back to the default locale when no match exists', () => {
     expect(resolvePreferredLocale(null, ['fr-FR'], ['ca', 'en', 'es'], 'en')).toBe('en')
   })
+
+  it('prefers an exact region-specific locale over the base language', () => {
+    expect(resolvePreferredLocale(null, ['pt-BR'], ['en', 'pt', 'pt-br'], 'en')).toBe('pt-br')
+  })
+
+  it('falls back to the base language for a region variant without an exact locale', () => {
+    expect(resolvePreferredLocale(null, ['pt-PT'], ['en', 'pt', 'pt-br'], 'en')).toBe('pt')
+  })
+
+  it('still matches the base language when no region-specific locale exists', () => {
+    expect(resolvePreferredLocale(null, ['es-ES'], ['ca', 'en', 'es'], 'en')).toBe('es')
+  })
+
+  it('resolves a generic browser language to the base locale', () => {
+    expect(resolvePreferredLocale(null, ['pt'], ['en', 'pt', 'pt-br'], 'en')).toBe('pt')
+  })
 })
 
 describe('buildLocaleRedirectTarget', () => {

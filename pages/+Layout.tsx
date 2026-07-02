@@ -21,6 +21,10 @@ function createI18nSync(lng: string, resources: any) {
     defaultNS: 'common',
     ns: Object.keys(resources[lng] || { common: {} }),
     resources,
+    // Keep region-specific codes lowercase (e.g. `pt-br`) so they match the
+    // locale keys used in URLs and resource bundles. Without this i18next
+    // normalizes `pt-br` to `pt-BR` and fails to resolve the bundle.
+    lowerCaseLng: true,
     interpolation: { escapeValue: false },
     react: { useSuspense: false },
     initImmediate: false,
@@ -45,6 +49,8 @@ function CompatibilityRedirectLayout({ urlLogical }: { urlLogical: string }) {
         for (const language of browserLanguages) {
           if (!language) continue;
           const parts = language.split(/[-_]/).map((part) => part.toLowerCase());
+          const full = parts.join('-');
+          if (supportedLocales.includes(full)) return full;
           if (supportedLocales.includes(parts[0])) return parts[0];
           if (parts[1] && supportedLocales.includes(parts[1])) return parts[1];
         }

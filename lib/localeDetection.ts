@@ -4,11 +4,12 @@ const LOCALE_PREFERENCE_KEY = 'vocdoni-locale-preference'
 
 /**
  * Detects the browser's preferred locale from navigator.languages.
- * Uses two-level fallback:
- * 1. Try matching first part of locale code (e.g., 'ca' from 'ca-ES')
- * 2. If no match, try second part (e.g., 'es' from 'ca-ES')
- * 3. Continue through all browser languages
- * 4. Fallback to 'en' if no matches found
+ * Uses a multi-level fallback:
+ * 1. Try the exact region-specific code (e.g., 'pt-br' from 'pt-BR')
+ * 2. Try matching first part of locale code (e.g., 'ca' from 'ca-ES')
+ * 3. If no match, try second part (e.g., 'es' from 'ca-ES')
+ * 4. Continue through all browser languages
+ * 5. Fallback to 'en' if no matches found
  */
 export function detectBrowserLocale(): Locale {
   if (typeof window === 'undefined' || !window.navigator) {
@@ -23,7 +24,13 @@ export function detectBrowserLocale(): Locale {
     // Split on '-' or '_' (e.g., 'ca-ES', 'ca_ES' → ['ca', 'ES'])
     const parts = lang.split(/[-_]/).map((part) => part.toLowerCase())
 
-    // Try matching first part
+    // Try the exact region-specific code first (e.g., 'pt-br' from 'pt-BR')
+    const full = parts.join('-')
+    if (locales.includes(full as Locale)) {
+      return full as Locale
+    }
+
+    // Try matching first part (e.g. `pt` from `pt-PT`)
     if (locales.includes(parts[0] as Locale)) {
       return parts[0] as Locale
     }
