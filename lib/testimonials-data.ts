@@ -26,6 +26,7 @@ import logoErc from '@/assets/logos/erc.webp'
 import logoErcRound from '@/assets/logos/logo_erc_round.webp'
 import logoGranollersRound from '@/assets/logos/logo_primaries_granollers_round.webp'
 import logoIntersindicalRound from '@/assets/logos/logo_intersindical_round.webp'
+import logoUstecRound from '@/assets/logos/logo_ustec_round.webp'
 
 export type Testimonial = {
   name: string
@@ -240,6 +241,19 @@ export function getTestimonialsData(t: TFunction): Testimonial[] {
       platformName: 'La Intersindical',
       platformImage: logoIntersindicalRound,
       logo: logoIntersindicalRound,
+    },
+    {
+      name: 'Alba Ferran Bagur',
+      handle: t('testimonials_marquee.items.15.handle', 'Member of the national secretariat · USTEC·STEs (IAC)'),
+      rating: 5,
+      title: t('testimonials_marquee.items.15.title', 'A neutral and verifiable process for 100,000 teachers'),
+      content: t(
+        'testimonials_marquee.items.15.content',
+        'When USTEC·STEs (IAC), together with other unions, decided to consult the nearly 100,000 teachers in Catalonia, we were clear that trust and transparency in the process were essential. With Vocdoni we found a very good solution, being a neutral and verifiable infrastructure that guaranteed both the integrity of the count and the privacy of voters. This allowed every teacher to vote only once, securely and anonymously. From the very first moment, Vocdoni has given us every facility, and if we need to run new consultations, we will most likely trust them again.'
+      ),
+      platformName: 'USTEC·STEs (IAC)',
+      platformImage: logoUstecRound,
+      logo: logoUstecRound,
     },
   ]
 }
