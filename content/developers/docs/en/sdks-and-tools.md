@@ -11,11 +11,10 @@ reference:
       description: Base URL, identifiers, pagination, errors and multilanguage text.
       href: /developers/docs/api-conventions
       icon: book-open
-    - title: TypeScript SDK
-      description: Install the SDK and follow its guides.
-      href: '{{SDK_URL}}'
+    - title: SDK quickstart
+      description: Install the SDK, initialize the client and cast a vote.
+      href: /developers/docs/sdk-quickstart
       icon: terminal
-      external: true
     - title: OpenAPI specification
       description: The raw swagger spec to generate clients.
       href: '{{SWAGGER_URL}}'
@@ -49,9 +48,9 @@ the chain directly - and is the other half of the casting flow described in
 [Casting votes](/developers/docs/casting-votes).
 
 Reach for it when you build a custom voting client, or need fine-grained control over the
-authentication, ballot encoding, and vote-submission steps. The current SDK ships as small,
-tree-shakeable packages - `@vocdoni/api-client` (typed HTTP client) and `@vocdoni/api-voting` (CSP
-auth, ballot encoding, vote signing) - replacing the older monolithic `@vocdoni/sdk`.
+authentication, ballot encoding, and vote-submission steps. The
+[SDK quickstart](/developers/docs/sdk-quickstart) covers installing the packages, initializing the
+client and casting a first vote.
 
 > [!NOTE] One SDK for the whole integrator API
 > Beyond client-side casting, the TypeScript SDK is growing to cover **all the API relevant to
@@ -59,20 +58,5 @@ auth, ballot encoding, vote signing) - replacing the older monolithic `@vocdoni/
 > quota - so you can drive the entire integration from typed TypeScript instead of raw HTTP.
 > `@vocdoni/api-client` already wraps these endpoints; higher-level helpers are landing incrementally.
 
-## AI agent skills
-
-If you build with an AI coding agent, Vocdoni publishes [Agent Skills](https://github.com/vocdoni/skills) - focused guides the agent loads on demand so it writes correct Vocdoni code without guessing the API shapes. The ones most relevant here:
-
-- **integrator-sdk** - the SaaS-first flow: API client, CSP auth, vote relay, job polling and React providers. Currently in the [integrator SDK repo]({{SDK_URL}}/tree/main/skills/integrator-sdk), soon in the marketplace.
-- **vocdoni-ballot-protocol** - how a ballot encodes and how the results matrix aggregates per [voting type](/developers/docs/voting-types).
-
-They are packaged as a Claude Code plugin marketplace, and installable via `npx` for any client that reads a skills directory (Cursor, Cline, Zed and similar):
-
-```sh
-# Claude Code: add the marketplace, then install integrator-sdk once it lands
-claude plugin marketplace add vocdoni/skills
-claude plugin install integrator-sdk@vocdoni
-
-# Any skills-directory client
-npx @vocdoni/skills install
-```
+Building with an AI coding agent? The [SDK quickstart](/developers/docs/sdk-quickstart) lists the
+Vocdoni agent skills that teach assistants to write correct SDK code.

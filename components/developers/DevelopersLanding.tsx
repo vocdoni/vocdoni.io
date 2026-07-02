@@ -4,8 +4,6 @@ import { Button } from '@/components/ui/button'
 import {
   DEVELOPERS_DASHBOARD_URL,
   DEVELOPERS_GITHUB_URL,
-  DEVELOPERS_PROTOCOL_URL,
-  DEVELOPERS_SDK_URL,
   DEVELOPERS_STATUS_URL,
   DEVELOPERS_SWAGGER_URL,
 } from '@/lib/developers'
@@ -20,6 +18,7 @@ import {
   LifeBuoy,
   ListChecks,
   Network,
+  Rocket,
   ScrollText,
   ShieldCheck,
   Terminal,
@@ -95,6 +94,17 @@ function Pillars() {
   const { t } = useTranslation()
   const pillars = [
     {
+      icon: Rocket,
+      title: t('developers.landing.pillars.quickstart.title', 'Quickstart'),
+      description: t(
+        'developers.landing.pillars.quickstart.description',
+        'Run a full election end to end - create an org, build a census, open a process and read the tally - in a few API calls.'
+      ),
+      href: '/developers/docs/quickstart',
+      cta: t('developers.landing.pillars.quickstart.cta', 'Run the quickstart'),
+      external: false,
+    },
+    {
       icon: Network,
       title: t('developers.landing.pillars.api.title', 'SaaS API'),
       description: t(
@@ -110,22 +120,11 @@ function Pillars() {
       title: t('developers.landing.pillars.sdk.title', 'SDK'),
       description: t(
         'developers.landing.pillars.sdk.description',
-        'Prefer to talk to the protocol directly? The TypeScript SDK gives you lower-level control over voting and census operations.'
+        'The TypeScript SDK adds client-side voting to your app - CSP auth, ballot encoding and vote signing - all through the SaaS API.'
       ),
-      href: DEVELOPERS_SDK_URL,
-      cta: t('developers.landing.pillars.sdk.cta', 'Read the SDK docs'),
-      external: true,
-    },
-    {
-      icon: ShieldCheck,
-      title: t('developers.landing.pillars.protocol.title', 'Protocol'),
-      description: t(
-        'developers.landing.pillars.protocol.description',
-        'Every vote is anonymous and end-to-end verifiable, anchored on a public, censorship-resistant voting protocol.'
-      ),
-      href: DEVELOPERS_PROTOCOL_URL,
-      cta: t('developers.landing.pillars.protocol.cta', 'How the protocol works'),
-      external: true,
+      href: '/developers/docs/sdk-quickstart',
+      cta: t('developers.landing.pillars.sdk.cta', 'SDK quickstart'),
+      external: false,
     },
   ]
 
@@ -312,9 +311,9 @@ function Resources() {
     {
       icon: ScrollText,
       title: t('developers.landing.resources.sdk.title', 'SDK documentation'),
-      description: t('developers.landing.resources.sdk.description', 'Lower-level libraries and guides.'),
-      href: DEVELOPERS_SDK_URL,
-      external: true,
+      description: t('developers.landing.resources.sdk.description', 'Install the SDK and cast votes from your app.'),
+      href: '/developers/docs/sdk-quickstart',
+      external: false,
     },
     {
       icon: Github,

@@ -2438,14 +2438,14 @@
           "description": "Eine REST API, um verwaltete Abstimmungen durchzuführen: Organisationen, Mitglieder, Teilnehmerlisten, Prozesse, Ergebnisse und asynchrone Jobs.",
           "title": "SaaS API"
         },
-        "protocol": {
-          "cta": "So funktioniert das Protokoll",
-          "description": "Jede Stimme ist anonym und end-to-end nachweisbar und basiert auf einem öffentlichen, zensurresistenten Abstimmungsprotokoll.",
-          "title": "Protokoll"
+        "quickstart": {
+          "cta": "Zum Schnellstart",
+          "description": "Führe eine komplette Abstimmung von Anfang bis Ende durch - erstelle eine Organisation, baue eine Teilnehmerliste, öffne einen Prozess und lies das Ergebnis - mit wenigen API-Aufrufen.",
+          "title": "Schnellstart"
         },
         "sdk": {
-          "cta": "Lies die SDK-Dokumentation",
-          "description": "Lieber direkt mit dem Protokoll sprechen? Das TypeScript SDK gibt dir eine feinere Kontrolle über Abstimmungs- und Teilnehmerlisten-Operationen.",
+          "cta": "SDK-Schnellstart",
+          "description": "Das TypeScript SDK bringt clientseitiges Abstimmen in deine App - CSP-Authentifizierung, Stimmzettel-Kodierung und Signatur der Stimme - alles über die SaaS API.",
           "title": "SDK"
         }
       },
@@ -2460,7 +2460,7 @@
           "title": "API-Referenz"
         },
         "sdk": {
-          "description": "Bibliotheken auf niedrigerer Ebene und Anleitungen.",
+          "description": "Installiere das SDK und gib Stimmen aus deiner App ab.",
           "title": "SDK-Dokumentation"
         },
         "support": {

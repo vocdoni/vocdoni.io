@@ -2438,14 +2438,14 @@
           "description": "Uma API REST para executar eleições gerenciadas: organizações, membros, listas de participantes, processos, resultados e tarefas assíncronas.",
           "title": "API SaaS"
         },
-        "protocol": {
-          "cta": "Como o protocolo funciona",
-          "description": "Cada voto é anônimo e verificável de ponta a ponta, ancorado em um protocolo público de votação resistente à censura.",
-          "title": "Protocolo"
+        "quickstart": {
+          "cta": "Iniciar o guia rápido",
+          "description": "Execute uma eleição completa do início ao fim - crie uma organização, construa uma lista de votantes, abra um processo e leia a apuração - com poucas chamadas à API.",
+          "title": "Início rápido"
         },
         "sdk": {
-          "cta": "Leia a documentação do SDK",
-          "description": "Prefere falar com o protocolo diretamente? O SDK TypeScript oferece a você controle de nível mais baixo sobre operações de votação e de listas de participantes.",
+          "cta": "Início rápido do SDK",
+          "description": "O SDK de TypeScript adiciona votação no lado do cliente ao seu app - autenticação CSP, codificação da cédula e assinatura do voto - tudo através da API SaaS.",
           "title": "SDK"
         }
       },
@@ -2460,7 +2460,7 @@
           "title": "Referência da API"
         },
         "sdk": {
-          "description": "Bibliotecas e guias de nível mais baixo.",
+          "description": "Instale o SDK e registre votos a partir do seu app.",
           "title": "Documentação do SDK"
         },
         "support": {

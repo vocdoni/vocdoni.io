@@ -8,7 +8,7 @@ order: 50
 > [!NOTE] Coming soon
 > Today the `results` matrix is a raw histogram you interpret according to the voting type (see [Voting types](/developers/docs/voting-types) for how to read it per type, or the [Interpretation](#interpretation) section below). A future version of the API will return results already aggregated per voting type, so you will not have to map the matrix yourself. The raw matrix will stay available for clients that need it.
 >
-> Until then, the [vocdoni-ballot-protocol agent skill](/developers/docs/sdks-and-tools#ai-agent-skills) walks through exactly how the matrix encodes and aggregates per type.
+> Until then, the [vocdoni-ballot-protocol agent skill](/developers/docs/sdk-quickstart#ai-agent-skills) walks through exactly how the matrix encodes and aggregates per type.
 
 Results are **public** (no auth) and available both while a process runs (a live tally) and after it
 ends (final). You address them by **ProcessID**.
