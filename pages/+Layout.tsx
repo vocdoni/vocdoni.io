@@ -1,7 +1,7 @@
 import { CookieConsent } from '@/components/CookieConsent'
 import { getCompatibilityRedirectTarget, LOCALE_PREFERENCE_KEY, normalizeLogicalPath } from '@/lib/localeRedirect'
 import { useLocaleDetection } from '@/lib/useLocaleDetection'
-import { localeAliases, localeDefault, locales } from '@/locales'
+import { localeDefault, locales } from '@/locales'
 import i18next from 'i18next'
 import React from 'react'
 import { I18nextProvider, initReactI18next, useTranslation } from 'react-i18next'
@@ -38,23 +38,20 @@ function CompatibilityRedirectLayout({ urlLogical }: { urlLogical: string }) {
   const redirectConfig = JSON.stringify({
     defaultLocale: localeDefault,
     locales,
-    aliases: localeAliases,
     logicalPath: normalizedPath,
     localStorageKey: LOCALE_PREFERENCE_KEY,
   })
   const redirectScript = `
     (() => {
       const config = ${redirectConfig};
-      const resolvePreferredLocale = (savedLocale, browserLanguages, supportedLocales, defaultLocaleValue, aliases) => {
+      const resolvePreferredLocale = (savedLocale, browserLanguages, supportedLocales, defaultLocaleValue) => {
         if (savedLocale && supportedLocales.includes(savedLocale)) return savedLocale;
-        if (savedLocale && aliases[savedLocale] && supportedLocales.includes(aliases[savedLocale])) return aliases[savedLocale];
         for (const language of browserLanguages) {
           if (!language) continue;
           const parts = language.split(/[-_]/).map((part) => part.toLowerCase());
           const full = parts.join('-');
           if (supportedLocales.includes(full)) return full;
           if (supportedLocales.includes(parts[0])) return parts[0];
-          if (aliases[parts[0]] && supportedLocales.includes(aliases[parts[0]])) return aliases[parts[0]];
           if (parts[1] && supportedLocales.includes(parts[1])) return parts[1];
         }
         return defaultLocaleValue;
@@ -64,7 +61,7 @@ function CompatibilityRedirectLayout({ urlLogical }: { urlLogical: string }) {
         savedLocale = window.localStorage.getItem(config.localStorageKey);
       } catch {}
       const browserLanguages = window.navigator.languages || [window.navigator.language].filter(Boolean);
-      const targetLocale = resolvePreferredLocale(savedLocale, browserLanguages, config.locales, config.defaultLocale, config.aliases);
+      const targetLocale = resolvePreferredLocale(savedLocale, browserLanguages, config.locales, config.defaultLocale);
       const buildRedirectTarget = (logicalPath, locale, search = '', hash = '') => {
         const pathname = logicalPath === '/' ? '/' + locale : '/' + locale + logicalPath;
         return pathname + search + hash;

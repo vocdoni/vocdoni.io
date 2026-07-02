@@ -10,15 +10,8 @@ const availableLocales: { value: Locale; label: string }[] = [
   { value: 'eu', label: 'Euskara' },
   { value: 'fr', label: 'Français' },
   { value: 'it', label: 'Italiano' },
-  { value: 'pt-pt', label: 'Português (Portugal)' },
+  { value: 'pt', label: 'Português (Portugal)' },
   { value: 'pt-br', label: 'Português (Brasil)' },
 ]
 
-// Legacy/base-language aliases mapped to a supported Locale. Used to preserve
-// backward-compat for previously shipped URLs (e.g. `/pt/...`) and to resolve
-// generic browser languages (e.g. `pt`) to a supported region-specific variant.
-const localeAliases: Record<string, Locale> = {
-  pt: 'pt-br',
-}
-
-export { availableLocales, Locale, localeAliases, localeDefault, locales }
+export { availableLocales, Locale, localeDefault, locales }

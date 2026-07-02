@@ -2,7 +2,7 @@ import { Link } from '@/components/Link'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
 import { setLocalePreference } from '@/lib/localeDetection'
 import { getLocalizedPath, stripLocaleFromPath } from '@/lib/localized-path'
-import { availableLocales, Locale, localeAliases, localeDefault, locales } from '@/locales'
+import { availableLocales, Locale, localeDefault, locales } from '@/locales'
 import { Check, Globe } from 'lucide-react'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
@@ -23,13 +23,12 @@ function isPlainLeftClick(event: React.MouseEvent<HTMLAnchorElement>) {
 }
 
 // Resolves the active locale from i18n's language tag, accounting for
-// region-specific codes (e.g. `pt-br`) and legacy aliases (e.g. `pt`).
+// region-specific codes (e.g. `pt-br`) by falling back to the base language.
 function resolveCurrentLocale(language: string): Locale {
   const lower = (language || '').toLowerCase()
   if (locales.includes(lower as Locale)) return lower as Locale
   const base = lower.split('-')[0]
   if (locales.includes(base as Locale)) return base as Locale
-  if (localeAliases[base]) return localeAliases[base]
   return localeDefault
 }
 
@@ -44,9 +43,9 @@ export function LanguageSwitcher() {
   return (
     <DropdownMenu modal={false}>
       <DropdownMenuTrigger asChild>
-        <button className='press-scale inline-flex h-10 w-[72px] items-center justify-center gap-1.5 rounded-md bg-background px-4 py-2 text-sm font-medium transition-[color,background-color,scale] hover:bg-accent hover:text-accent-foreground focus-visible:bg-accent focus-visible:text-accent-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2'>
+        <button className='press-scale inline-flex h-10 min-w-[72px] items-center justify-center gap-1.5 rounded-md bg-background px-4 py-2 text-sm font-medium transition-[color,background-color,scale] hover:bg-accent hover:text-accent-foreground focus-visible:bg-accent focus-visible:text-accent-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2'>
           <Globe className='h-4 w-4 flex-shrink-0' />
-          <span className='w-5 text-center uppercase'>{currentOption.value.split('-')[0]}</span>
+          <span className='text-center uppercase whitespace-nowrap'>{currentOption.value}</span>
         </button>
       </DropdownMenuTrigger>
 

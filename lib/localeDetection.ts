@@ -1,4 +1,4 @@
-import { Locale, localeAliases, locales } from '@/locales'
+import { Locale, locales } from '@/locales'
 
 const LOCALE_PREFERENCE_KEY = 'vocdoni-locale-preference'
 
@@ -30,16 +30,9 @@ export function detectBrowserLocale(): Locale {
       return full as Locale
     }
 
-    // Try matching first part
+    // Try matching first part (e.g. `pt` from `pt-PT`)
     if (locales.includes(parts[0] as Locale)) {
       return parts[0] as Locale
-    }
-
-    // Map a generic base language to a supported region-specific variant
-    // (e.g. browser `pt` → `pt-br`).
-    const aliased = localeAliases[parts[0]]
-    if (aliased && locales.includes(aliased)) {
-      return aliased
     }
 
     // Try matching second part if it exists
@@ -65,9 +58,6 @@ export function getLocalePreference(): Locale | null {
     const saved = window.localStorage.getItem(LOCALE_PREFERENCE_KEY)
     if (saved && locales.includes(saved as Locale)) {
       return saved as Locale
-    }
-    if (saved && localeAliases[saved] && locales.includes(localeAliases[saved])) {
-      return localeAliases[saved]
     }
   } catch (error) {
     // localStorage might not be available (private browsing, etc.)

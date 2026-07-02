@@ -28,20 +28,19 @@ describe('resolvePreferredLocale', () => {
   })
 
   it('prefers an exact region-specific locale over the base language', () => {
-    expect(resolvePreferredLocale(null, ['pt-BR'], ['en', 'pt-pt', 'pt-br'], 'en')).toBe('pt-br')
-    expect(resolvePreferredLocale(null, ['pt-PT'], ['en', 'pt-pt', 'pt-br'], 'en')).toBe('pt-pt')
+    expect(resolvePreferredLocale(null, ['pt-BR'], ['en', 'pt', 'pt-br'], 'en')).toBe('pt-br')
+  })
+
+  it('falls back to the base language for a region variant without an exact locale', () => {
+    expect(resolvePreferredLocale(null, ['pt-PT'], ['en', 'pt', 'pt-br'], 'en')).toBe('pt')
   })
 
   it('still matches the base language when no region-specific locale exists', () => {
     expect(resolvePreferredLocale(null, ['es-ES'], ['ca', 'en', 'es'], 'en')).toBe('es')
   })
 
-  it('maps a generic browser language to its aliased region-specific locale', () => {
-    expect(resolvePreferredLocale(null, ['pt'], ['en', 'pt-br'], 'en', { pt: 'pt-br' })).toBe('pt-br')
-  })
-
-  it('resolves a legacy saved locale through aliases', () => {
-    expect(resolvePreferredLocale('pt', [], ['en', 'pt-br'], 'en', { pt: 'pt-br' })).toBe('pt-br')
+  it('resolves a generic browser language to the base locale', () => {
+    expect(resolvePreferredLocale(null, ['pt'], ['en', 'pt', 'pt-br'], 'en')).toBe('pt')
   })
 })
 
