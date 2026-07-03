@@ -245,10 +245,10 @@ function Capabilities() {
   const items = [
     {
       icon: Fingerprint,
-      title: t('developers.landing.capabilities.anonymous.title', 'Anonymous by design'),
+      title: t('developers.landing.capabilities.anonymous.title', 'Configurable privacy'),
       description: t(
         'developers.landing.capabilities.anonymous.description',
-        'Zero-knowledge cryptography keeps ballots secret while results stay provable.'
+        'Privacy is configurable to match your governance requirements. Support anonymous voting with zkSNARKs, blind signatures, or other cryptographic approaches, while preserving end-to-end verifiability.'
       ),
     },
     {
