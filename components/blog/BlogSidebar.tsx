@@ -38,7 +38,7 @@ export function BlogSidebar({ posts, locale }: BlogSidebarProps) {
                 )}
               </div>
               <div className='min-w-0'>
-                <h3 className='line-clamp-2 text-sm font-semibold leading-snug text-foreground transition-colors group-hover:text-primary'>
+                <h3 className='line-clamp-3 text-sm font-semibold leading-snug text-foreground transition-colors group-hover:text-primary'>
                   {post.frontmatter.title}
                 </h3>
                 <time dateTime={post.frontmatter.publishedDate} className='mt-1 block text-xs text-muted-foreground'>

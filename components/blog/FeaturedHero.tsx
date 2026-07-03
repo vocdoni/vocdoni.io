@@ -34,12 +34,14 @@ export function FeaturedHero({ post, locale }: FeaturedHeroProps) {
               <Newspaper className='size-16' aria-hidden='true' />
             </div>
           )}
-          <div className='absolute left-4 top-4 flex gap-2'>
-            <Badge className='rounded-full'>{t('blog.featured', 'Featured')}</Badge>
+          <div className='absolute left-4 top-4 flex items-center gap-2'>
+            <Badge className='h-6 rounded-full border-transparent px-3 text-xs font-semibold leading-none'>
+              {t('blog.featured', 'Featured')}
+            </Badge>
             {category ? (
               <Badge
                 variant='secondary'
-                className='rounded-full border border-border/40 bg-background/85 font-medium text-foreground backdrop-blur-sm'
+                className='h-6 rounded-full border-transparent bg-background/90 px-3 text-xs font-semibold leading-none text-foreground shadow-sm backdrop-blur-sm'
               >
                 {category.name}
               </Badge>
