@@ -22,7 +22,7 @@ seo:
 
 For the past years, [Vocdoni](https://vocdoni.io/) has run voting on **Vochain,** our purpose-specific voting L1 blockchain. Like any blockchain, it gave us something powerful: **everything is transparent, reproducible, and verifiable**. Anyone can audit. If something is tampered with, it can be spotted. Consensus is reached by a majority of honest nodes, who ensure the network keeps going.
 
-That model works, and it has [powered real elections](__GHOST_URL__/referendum-bellpuig/). But if the end goal is _autonomous decision-making_ (where outcomes can safely trigger actions), “auditable” still isn’t the same as “impossible to fake”.
+That model works, and it has [powered real elections](/blog/referendum-bellpuig). But if the end goal is _autonomous decision-making_ (where outcomes can safely trigger actions), “auditable” still isn’t the same as “impossible to fake”.
 
 Because blockchains are ultimately social machines with economic security. If the incentive to cheat becomes large enough, game theory starts knocking.
 
@@ -46,7 +46,7 @@ No proof → no state update → no fake result.
 
 > A voting process starts as an onchain configuration: rules, timing, and the voter registry commitment (census). Ethereum is also where the latest valid election state root lives, the source of truth.
 
-**Sequencers do the work — but they don’t get to “decide”**
+**Sequencers do the work - but they don’t get to “decide”**
 
 > Sequencers are operators that receive votes, verify them, batch them, compute the new state and submit a proof to Ethereum. They don’t use a consensus mechanism to agree on the tally. They do cryptographic proofs for vote batches and update the encrypted tally onchain.
 

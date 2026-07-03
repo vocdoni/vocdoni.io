@@ -296,7 +296,9 @@ export const loadPost = (slug: string, locale: Locale): LoadedBlogPost | null =>
   const meta = buildMeta(slug, locale, resolved)
   if (!INCLUDE_DRAFTS && meta.frontmatter.draft) return null
   const { content } = matter(resolved.source)
-  return { ...meta, html: compile(content, { locale: meta.usedLocale }) }
+  // Compile with the requested locale (not usedLocale) so internal /blog links are
+  // localized to the language the reader selected, even on English-fallback posts.
+  return { ...meta, html: compile(content, { locale }) }
 }
 
 export interface CategoryWithCount extends BlogCategory {

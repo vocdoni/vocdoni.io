@@ -273,18 +273,24 @@ export function HeadTags(pageContext: PageContext) {
   const urlLogical = getLogicalPath(pageContext)
   const siteUrl = SITE_URL.endsWith('/') ? SITE_URL.slice(0, -1) : SITE_URL
 
-  const canonicalPath = withLocalePrefix(locale, urlLogical)
-  const canonicalUrl = `${siteUrl}${canonicalPath}`
-  const xDefaultUrl = `${siteUrl}${withLocalePrefix(localeDefault, urlLogical)}`
-
-  const title = resolveConfigValue(pageContext.config?.title, pageContext)
-  const description = resolveConfigValue(pageContext.config?.description, pageContext)
-
   // Blog post pages carry rich metadata from the data loader (dates, authors,
   // cover image, available translations) for Article SEO + accurate hreflang.
   const blogPost = (pageContext as any).data?.post as BlogPostSeo | undefined
   const isBlogPost = Boolean(blogPost) && urlLogical.startsWith('/blog/') && !urlLogical.startsWith('/blog/category/')
   const isBlogSection = urlLogical === '/blog' || urlLogical.startsWith('/blog/')
+
+  // When a post is served via fallback (e.g. /es for an English-only post), the
+  // real content locale is usedLocale. Canonicalize + advertise that locale so
+  // fallback URLs consolidate to the page that actually holds the content and the
+  // canonical always has a matching hreflang self-reference.
+  const effectiveLocale = isBlogPost && blogPost!.usedLocale ? blogPost!.usedLocale : locale
+
+  const canonicalPath = withLocalePrefix(effectiveLocale, urlLogical)
+  const canonicalUrl = `${siteUrl}${canonicalPath}`
+  const xDefaultUrl = `${siteUrl}${withLocalePrefix(localeDefault, urlLogical)}`
+
+  const title = resolveConfigValue(pageContext.config?.title, pageContext)
+  const description = resolveConfigValue(pageContext.config?.description, pageContext)
 
   const configImage = resolveConfigValue(pageContext.config?.image, pageContext)
   const image =
@@ -327,7 +333,7 @@ export function HeadTags(pageContext: PageContext) {
     '@type': getPageSchemaType(urlLogical),
     name: cleanTitle(title ?? undefined),
     url: canonicalUrl,
-    inLanguage: locale,
+    inLanguage: effectiveLocale,
     isPartOf: {
       '@type': 'WebSite',
       name: 'Vocdoni',
@@ -441,10 +447,10 @@ export function HeadTags(pageContext: PageContext) {
         />
       ))}
       <link rel='alternate' hrefLang='x-default' href={xDefaultUrl} />
-      <meta name='language' content={locale} />
-      <meta property='og:locale' content={locale} />
+      <meta name='language' content={effectiveLocale} />
+      <meta property='og:locale' content={effectiveLocale} />
       {alternateLocales
-        .filter((hrefLang) => hrefLang !== locale)
+        .filter((hrefLang) => hrefLang !== effectiveLocale)
         .map((hrefLang) => (
           <meta key={hrefLang} property='og:locale:alternate' content={hrefLang} />
         ))}

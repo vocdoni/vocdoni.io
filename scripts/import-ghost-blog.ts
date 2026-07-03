@@ -212,6 +212,27 @@ const htmlToMarkdown = (html: string): string => {
   return String(file).trim() + '\n'
 }
 
+// Normalise a converted markdown body: rewrite Ghost internal post links to
+// root-relative /blog/<slug> (the render pipeline localizes them to the current
+// language), and remove em dashes (AGENTS.md) without creating markdown lists -
+// attribution lines that sit after a "\" hard break get an escaped hyphen.
+const normalizeBody = (body: string): string => {
+  body = body.replace(/__GHOST_URL__\/([a-z0-9][a-z0-9-]*)\/?/g, '/blog/$1')
+
+  const lines = body.split('\n')
+  const out: string[] = []
+  for (let i = 0; i < lines.length; i++) {
+    const afterHardbreak = i > 0 && /\\\s*$/.test(lines[i - 1])
+    const m = lines[i].match(/^(\s*(?:> )*)([-—])\s+(.*)$/)
+    if (afterHardbreak && m) {
+      out.push(`${m[1]}\\- ${m[3]}`)
+      continue
+    }
+    out.push(lines[i].replace(/^(\s*(?:> )*)—\s+/, '$1\\- '))
+  }
+  return out.join('\n').replaceAll(' — ', ' - ').replaceAll('—', ' - ')
+}
+
 // --- yaml frontmatter --------------------------------------------------------
 
 const stringify = (data: Record<string, unknown>, body: string): string =>
@@ -278,7 +299,7 @@ async function main() {
     const postAuthors = authorsByPost.get(post.id) ?? []
     postAuthors.forEach((a) => usedAuthors.add(a))
 
-    const bodyMd = await rewriteImages(htmlToMarkdown(post.html ?? ''), index, copied, missing)
+    const bodyMd = normalizeBody(await rewriteImages(htmlToMarkdown(post.html ?? ''), index, copied, missing))
 
     const coverImage = post.feature_image ? await rewriteImages(post.feature_image, index, copied, missing) : undefined
     const ogImage = meta?.og_image ? await rewriteImages(meta.og_image, index, copied, missing) : undefined

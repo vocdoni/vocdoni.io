@@ -95,7 +95,7 @@ export function buildSitemapXml(hostname: string, routes: string[], locales: str
 
 function buildRobotsTxt(hostname: string) {
   const host = hostname.replace(/\/+$/, '')
-  return `User-agent: *\nAllow: /\nDisallow: /keystatic\n\nSitemap: ${host}/sitemap.xml\n`
+  return `User-agent: *\nAllow: /\nDisallow: /keystatic\nDisallow: /api/keystatic\n\nSitemap: ${host}/sitemap.xml\n`
 }
 
 // Enumerate concrete blog post + category archive routes from the content files

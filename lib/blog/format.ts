@@ -3,7 +3,9 @@
 export const formatDate = (date: string, locale: string): string => {
   const d = new Date(date)
   if (Number.isNaN(d.getTime())) return date
-  return new Intl.DateTimeFormat(locale, { year: 'numeric', month: 'long', day: 'numeric' }).format(d)
+  // Blog dates are date-only (YYYY-MM-DD = UTC midnight); pin to UTC so the day
+  // never shifts in negative-offset timezones.
+  return new Intl.DateTimeFormat(locale, { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' }).format(d)
 }
 
 export const authorInitials = (name: string): string =>

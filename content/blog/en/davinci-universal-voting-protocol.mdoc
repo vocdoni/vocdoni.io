@@ -38,18 +38,18 @@ But technology never stands still. New cryptographic tools now let us protect pr
 
 ### **Cryptographic Inference**
 
-- **Threshold homomorphic encryption.** Every vote is sealed with a key that has been split among several independent tellers, so no single party can view or change a ballot. When the poll closes, only a preset minimum of Sequencers joining their key fragments can unlock the final, aggregated tally—never the individual choices.
-- **Receipt-free and anti-coercion.** Ballots are re-encrypted, voters can silently overwrite their own vote, and private “nullifiers” stop proof-of-vote screenshots—making bribery or intimidation pointless.
+- **Threshold homomorphic encryption.** Every vote is sealed with a key that has been split among several independent tellers, so no single party can view or change a ballot. When the poll closes, only a preset minimum of Sequencers joining their key fragments can unlock the final, aggregated tally - never the individual choices.
+- **Receipt-free and anti-coercion.** Ballots are re-encrypted, voters can silently overwrite their own vote, and private “nullifiers” stop proof-of-vote screenshots - making bribery or intimidation pointless.
 - **Anonymity without bias.**  Every ballot is encrypted and unlinkable to its author, so no one can trace a choice back to a person - protecting privacy and shielding voters from pressure or retaliation.
 
 ## The four circuits that power DAVINCI
 
 [DAVINCI](https://davinci.vote/) is a **zk-SNARK–based state machine** run by a decentralized network of offchain Sequencers. At its core are **four chained circuits**: each one verifies the proof produced by the previous step, then appends its own. Because zk-SNARKs are recursive and succinct, every ballot, rule, and tally ultimately collapses into a single, tiny proof that Ethereum can verify in milliseconds.
 
-1. **Ballot Circuit — rule-compliant encryption** The voter encrypts their choices with threshold El Gamal and proves, in zero knowledge, that the ballot follows the election rules (e.g., “pick up to two of five”).
-2. **Eligibility Circuit — signature + Merkle proof** A Sequencer proves the voter is authorized by checking an ECDSA signature and a Merkle proof against the published voter list.
-3. **Aggregation Circuit — many votes, one proof** Up to _N_ ballots, are compressed into a single zk-SNARK. Proof size stays almost constant, so millions of votes can ride to Ethereum for the price of one.
-4. **Tally Circuit — state update** The aggregated ciphertexts are homomorphically added to the encrypted tally, and a new state root is proven correct, while embedding the earlier aggregation proof to keep the chain intact.
+1. **Ballot Circuit - rule-compliant encryption** The voter encrypts their choices with threshold El Gamal and proves, in zero knowledge, that the ballot follows the election rules (e.g., “pick up to two of five”).
+2. **Eligibility Circuit - signature + Merkle proof** A Sequencer proves the voter is authorized by checking an ECDSA signature and a Merkle proof against the published voter list.
+3. **Aggregation Circuit - many votes, one proof** Up to _N_ ballots, are compressed into a single zk-SNARK. Proof size stays almost constant, so millions of votes can ride to Ethereum for the price of one.
+4. **Tally Circuit - state update** The aggregated ciphertexts are homomorphically added to the encrypted tally, and a new state root is proven correct, while embedding the earlier aggregation proof to keep the chain intact.
 
 When the fourth circuit finishes, **the final recursive proof (just a few hundred bytes) is sent to an Ethereum smart contract**. If the verifier accepts it, the whole election batch becomes immutable; if not, it is rejected. The next Sequencer will start its batch processing starting from the one settled on Ethereum.
 
