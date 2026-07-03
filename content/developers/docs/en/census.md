@@ -46,6 +46,12 @@ Add `"twoFaFields":["email"]` for an email-OTP census.
 
 :::code-tabs[create a census]
 
+```ts
+const { id: census } = await client.census.create({
+  orgAddress: org,
+  authFields: ['memberNumber'],
+})
+```
 ```csharp
 var census = (await Post("/census",
     new { orgAddress = org, authFields = new[] { "memberNumber" } })).GetProperty("id").GetString();
@@ -101,6 +107,12 @@ The `size` is the eligible-voter count - useful later for turnout (see [Results]
 
 :::code-tabs[auth-only via group]
 
+```ts
+await client.census.publishGroup(census, group, {
+  authFields: ['memberNumber'],
+  weighted: false,
+})
+```
 ```csharp
 await Post($"/census/{census}/group/{group}/publish",
            new { authFields = new[] { "memberNumber" }, weighted = false });

@@ -47,6 +47,10 @@ Rules of thumb:
 
 :::code-tabs[poll to completion]
 
+```ts
+// Polls until the job is done; throws JobFailedError on failure.
+const job = await client.jobs.waitFor(jobId)
+```
 ```csharp
 JsonElement job;
 do { await Task.Delay(2000); job = await Get($"/jobs/{jobId}"); }

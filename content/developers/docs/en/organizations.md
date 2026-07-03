@@ -63,6 +63,10 @@ curl "${auth[@]}" "$B/organizations/$ORG"
 
 :::code-tabs[read an organization]
 
+```ts
+const org = await client.organizations.get(address)
+const name = org.meta.name
+```
 ```csharp
 var org = await Get($"/organizations/{address}");
 var name = org.GetProperty("meta").GetProperty("name").GetString();

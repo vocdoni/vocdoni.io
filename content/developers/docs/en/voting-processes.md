@@ -70,6 +70,28 @@ ballot shape of each.
 
 :::code-tabs[create a process]
 
+```ts
+const process = await client.elections.create({
+  orgAddress: org,
+  censusId: census,
+  metadata: { title: 'Board election 2026' },
+  electionParams: {
+    title: { default: 'Board election 2026' },
+    questions: [{
+      title: { default: 'Who should chair the board?' },
+      choices: [
+        { title: { default: 'Ada Lovelace' }, value: 0 },
+        { title: { default: 'Alan Turing' }, value: 1 },
+      ],
+    }],
+    voteType: { maxCount: 1, maxValue: 1 },
+    electionType: { autostart: true, interruptible: true },
+    startDate: '2026-07-01T09:00:00Z',
+    endDate: '2026-07-03T18:00:00Z',
+    maxCensusSize: 1000,
+  },
+})
+```
 ```csharp
 var process = (await Post("/process", new {
     orgAddress = org, censusId = census,

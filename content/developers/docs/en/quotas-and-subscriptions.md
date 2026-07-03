@@ -33,6 +33,10 @@ curl "${auth[@]}" "$B/integrator"
 
 :::code-tabs[read your quota]
 
+```ts
+const { limits, usage } = await client.organizations.getIntegratorInfo()
+const orgsLeft = limits.maxManagedOrgs - usage.managedOrgs
+```
 ```csharp
 var q = await Get("/integrator");
 var limits = q.GetProperty("limits");

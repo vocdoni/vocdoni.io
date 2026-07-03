@@ -52,6 +52,12 @@ until [ "$(curl -s "${auth[@]}" "$B/organizations/$ORG/members/job/$JOB" | jq -r
 
 :::code-tabs[add members (async)]
 
+```ts
+const { jobId } = await client.organizations.addMembers(org, [
+  { name: 'Alice', memberNumber: 'A-101', weight: 1 },
+])
+if (jobId) await client.organizations.waitForMembersJob(org, jobId)
+```
 ```csharp
 var job = (await Post($"/organizations/{org}/members",
     new { members = new[] { new { name = "Alice", memberNumber = "A-101", weight = "1" } } }))
@@ -133,6 +139,12 @@ GROUP=$(curl -s "${auth[@]}" -X POST "$B/organizations/$ORG/groups" \
 
 :::code-tabs[create an all-members group]
 
+```ts
+const { id: group } = await client.organizations.createGroup(org, {
+  title: 'All voters',
+  includeAllMembers: true,
+})
+```
 ```csharp
 var group = (await Post($"/organizations/{org}/groups",
     new { title = "All voters", includeAllMembers = true })).GetProperty("id").GetString();

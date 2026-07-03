@@ -135,13 +135,21 @@ curl -s "$B/process/$PROCESS/results" | jq
 > flow, and [Voting types](/developers/docs/voting-types) for single choice, approval, ranked and
 > quadratic ballots.
 
-## The same flow in C# and Python
+## The same flow with the SDK, C# and Python
 
-The bash steps above translate directly. The client setup defines the `Post`/`Get` helpers the flow
-reuses.
+The bash steps above translate directly. The [SDK]({{SDK_URL}}) collapses the whole flow into typed
+client calls; the C# and Python variants define the `Post`/`Get` helpers they reuse.
 
 :::code-tabs[client setup - the Post / Get helpers the flow reuses]
 
+```ts
+import { VocdoniApiClient } from '@vocdoni/api-client'
+
+const client = new VocdoniApiClient({
+  apiUrl: '{{API_BASE_URL}}',
+  authToken: () => process.env.VOCDONI_API_TOKEN, // "vsk_..."
+})
+```
 ```csharp
 using System.Net.Http.Json;
 using System.Text.Json;
@@ -169,6 +177,45 @@ def get(path):             r = s.get(B + path);             r.raise_for_status()
 
 :::code-tabs[full election flow - all eight steps, end to end]
 
+```ts
+// 1. managed org
+const { address: org } = await client.organizations.createManaged({ type: 'association' })
+
+// 2. member (async) -> wait for the members job
+const { jobId: memberJob } = await client.organizations.addMembers(org, [
+  { name: 'Alice', memberNumber: 'A-101', email: 'alice@example.org', weight: 1 },
+])
+if (memberJob) await client.organizations.waitForMembersJob(org, memberJob)
+
+// 3. group   4. census (auth-only)   5. group-publish
+const { id: group } = await client.organizations.createGroup(org, { title: 'All voters', includeAllMembers: true })
+const { id: census } = await client.census.create({ orgAddress: org, authFields: ['memberNumber'] })
+await client.census.publishGroup(census, group, { authFields: ['memberNumber'], weighted: false })
+
+// 6. create the process draft
+const process = await client.elections.create({
+  orgAddress: org,
+  censusId: census,
+  electionParams: {
+    title: { default: 'Repaint the fence?' },
+    description: { default: 'Annual maintenance vote' },
+    questions: [{ title: { default: 'Repaint the fence?' }, choices: [
+      { title: { default: 'Yes' }, value: 0 },
+      { title: { default: 'No' }, value: 1 },
+    ] }],
+    voteType: { maxCount: 1, maxValue: 1 },
+    electionType: { autostart: true, interruptible: true },
+    startDate: '2026-07-01T09:00:00Z', endDate: '2026-07-08T09:00:00Z',
+    maxCensusSize: 1000,
+  },
+})
+
+// 7. publish on-chain (async) -> waits for the job
+await client.elections.publishAndWait(process)
+
+// 8. results - addressed by the ProcessID
+console.log(await client.elections.getResults(process))
+```
 ```csharp
 // 1. managed org
 var org = (await Post("/integrator/organizations",
