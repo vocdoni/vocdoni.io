@@ -2438,14 +2438,14 @@
           "description": "Una API REST per gestionar eleccions: organitzacions, membres, censos, processos, resultats i feines asíncrones.",
           "title": "API SaaS"
         },
-        "protocol": {
-          "cta": "Com funciona el protocol",
-          "description": "Cada vot és anònim i verificable de punta a punta, ancorat en un protocol de vot públic i resistent a la censura.",
-          "title": "Protocol"
+        "quickstart": {
+          "cta": "Executa l'inici ràpid",
+          "description": "Executa una elecció completa de principi a fi - crea una organització, construeix un cens, obre un procés i llegeix l'escrutini - en unes poques crides a l'API.",
+          "title": "Inici ràpid"
         },
         "sdk": {
-          "cta": "Llegeix la documentació de l'SDK",
-          "description": "Prefereixes parlar directament amb el protocol? L'SDK de TypeScript et dona control a un nivell més baix sobre les operacions de votació i de cens.",
+          "cta": "Inici ràpid de l'SDK",
+          "description": "L'SDK de TypeScript afegeix la votació del costat del client a la teva aplicació - autenticació CSP, codificació de la papereta i signatura del vot - tot a través de l'API SaaS.",
           "title": "SDK"
         }
       },
@@ -2460,7 +2460,7 @@
           "title": "Referència de l'API"
         },
         "sdk": {
-          "description": "Libreries i guies de nivell inferior.",
+          "description": "Instal·la l'SDK i emet vots des de la teva aplicació.",
           "title": "Documentació de l'SDK"
         },
         "support": {

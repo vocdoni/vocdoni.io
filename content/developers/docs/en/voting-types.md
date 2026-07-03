@@ -8,7 +8,7 @@ order: 42
 > [!NOTE] Coming soon
 > Reading results per voting type - mapping the raw histogram to a tally, as described below - will be abstracted away in a future version of the API and the [SDK]({{SDK_URL}}): results will come back already aggregated according to the voting type, so you will not have to collapse the histogram yourself. The raw matrix stays available for clients that need it.
 >
-> Until then, the [vocdoni-ballot-protocol agent skill](/developers/docs/sdks-and-tools#ai-agent-skills) walks through exactly how a ballot encodes and how the matrix aggregates per type.
+> Until then, the [vocdoni-ballot-protocol agent skill](/developers/docs/sdk-quickstart#ai-agent-skills) walks through exactly how a ballot encodes and how the matrix aggregates per type.
 
 ## How a ballot is shaped
 

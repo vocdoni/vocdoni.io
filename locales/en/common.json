@@ -2438,14 +2438,14 @@
           "description": "A REST API to run managed elections: organizations, members, censuses, processes, results and async jobs.",
           "title": "SaaS API"
         },
-        "protocol": {
-          "cta": "How the protocol works",
-          "description": "Every vote is anonymous and end-to-end verifiable, anchored on a public, censorship-resistant voting protocol.",
-          "title": "Protocol"
+        "quickstart": {
+          "cta": "Run the quickstart",
+          "description": "Run a full election end to end - create an org, build a census, open a process and read the tally - in a few API calls.",
+          "title": "Quickstart"
         },
         "sdk": {
-          "cta": "Read the SDK docs",
-          "description": "Prefer to talk to the protocol directly? The TypeScript SDK gives you lower-level control over voting and census operations.",
+          "cta": "SDK quickstart",
+          "description": "The TypeScript SDK adds client-side voting to your app - CSP auth, ballot encoding and vote signing - all through the SaaS API.",
           "title": "SDK"
         }
       },
@@ -2460,7 +2460,7 @@
           "title": "API reference"
         },
         "sdk": {
-          "description": "Lower-level libraries and guides.",
+          "description": "Install the SDK and cast votes from your app.",
           "title": "SDK documentation"
         },
         "support": {
