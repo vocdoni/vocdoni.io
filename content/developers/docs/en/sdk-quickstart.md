@@ -45,13 +45,13 @@ Add the two packages with your package manager of choice.
 
 :::code-tabs
 
-```bash
+```npm
 npm install @vocdoni/api-client @vocdoni/api-voting
 ```
-```bash
+```pnpm
 pnpm add @vocdoni/api-client @vocdoni/api-voting
 ```
-```bash
+```yarn
 yarn add @vocdoni/api-client @vocdoni/api-voting
 ```
 :::
