@@ -447,6 +447,13 @@ const TAB_LABELS: Record<string, string> = {
   sh: 'cURL',
   shell: 'cURL',
   curl: 'cURL',
+  // Package-manager pseudo-languages: highlighted as bash (see rehypeHighlight
+  // aliases below) but kept as distinct `language-*` classes so tabs sharing the
+  // shell syntax don't collide on `data-code-tab`.
+  npm: 'npm',
+  pnpm: 'pnpm',
+  yarn: 'Yarn',
+  bun: 'Bun',
   csharp: 'C#',
   cs: 'C#',
   python: 'Python',
@@ -601,7 +608,11 @@ export function compile(markdown: string, options: CompileOptions = {}): string 
     // (styled in layouts/style.css). Sync, so the .processSync() chain stays
     // sync. Must run while `<pre><code class="language-x">` is intact, i.e.
     // before the code blocks are restructured into tabs/surfaces below.
-    .use(rehypeHighlight, { detect: false, ignoreMissing: true, aliases: { json: ['jsonc'] } })
+    .use(rehypeHighlight, {
+      detect: false,
+      ignoreMissing: true,
+      aliases: { json: ['jsonc'], bash: ['npm', 'pnpm', 'yarn', 'bun'] },
+    })
     .use(rehypeCodeTabs)
     .use(rehypeCodeSurface)
     .use(rehypeLocalizeLinks, locale)
