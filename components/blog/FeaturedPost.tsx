@@ -22,14 +22,14 @@ export function FeaturedPost({ post, locale }: FeaturedPostProps) {
       <Link
         href={href}
         variant='card'
-        className='grid overflow-hidden rounded-3xl border border-border/60 bg-card shadow-sm transition-shadow duration-300 hover:shadow-lg lg:grid-cols-2'
+        className='block overflow-hidden rounded-3xl border border-border/60 bg-card shadow-sm transition-shadow duration-300 hover:shadow-lg'
       >
-        <div className='relative aspect-[16/10] overflow-hidden bg-muted lg:aspect-auto lg:h-full'>
+        <div className='relative aspect-video overflow-hidden bg-muted'>
           {frontmatter.coverImage ? (
             <img
               src={frontmatter.coverImage}
               alt={frontmatter.coverAlt || frontmatter.title}
-              className='image-outline size-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.03]'
+              className='image-outline size-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.02]'
             />
           ) : (
             <div className='flex size-full items-center justify-center bg-gradient-to-br from-primary/10 to-accent/20 text-primary/40'>
@@ -38,7 +38,7 @@ export function FeaturedPost({ post, locale }: FeaturedPostProps) {
           )}
         </div>
 
-        <div className='flex flex-col justify-center gap-4 p-6 sm:p-8 lg:p-10'>
+        <div className='flex flex-col gap-4 p-6 sm:p-8'>
           <div className='flex items-center gap-2 text-xs text-muted-foreground'>
             <Badge className='rounded-full'>{t('blog.featured', 'Featured')}</Badge>
             {category ? (
@@ -49,7 +49,7 @@ export function FeaturedPost({ post, locale }: FeaturedPostProps) {
             <time dateTime={frontmatter.publishedDate}>{formatDate(frontmatter.publishedDate, locale)}</time>
           </div>
 
-          <h2 className='text-2xl font-bold leading-tight tracking-tight text-foreground transition-colors group-hover:text-primary sm:text-3xl'>
+          <h2 className='text-2xl font-bold leading-tight tracking-tight text-foreground transition-colors group-hover:text-primary sm:text-3xl lg:text-4xl'>
             {frontmatter.title}
           </h2>
 
