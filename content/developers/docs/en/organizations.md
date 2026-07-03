@@ -65,7 +65,7 @@ curl "${auth[@]}" "$B/organizations/$ORG"
 
 ```ts
 const org = await client.organizations.get(address)
-const name = org.name
+const name = org.meta.name
 ```
 ```csharp
 var org = await Get($"/organizations/{address}");
