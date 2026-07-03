@@ -61,7 +61,10 @@ function buildRss(host: string, defaultLocale: string, posts: FeedItem[]): strin
   const items = posts
     .slice(0, 50)
     .map((post) => {
-      const url = `${site}/${defaultLocale}/blog/${post.slug}`
+      // Link to the post's actual content locale (its canonical URL), not the
+      // default locale, so posts that only exist in another language aren't
+      // pointed at a fallback URL.
+      const url = `${site}/${post.locale}/blog/${post.slug}`
       const date = new Date(post.publishedDate)
       const pubDate = Number.isNaN(date.getTime()) ? '' : date.toUTCString()
       return [
@@ -112,7 +115,7 @@ export function blogRssPlugin(options: Options): Plugin {
       server.middlewares.use(async (req, res, next) => {
         if (!req.url || req.url.split('?')[0] !== '/blog/rss.xml') return next()
         const posts = await collectPosts(root, options.locales, options.defaultLocale)
-        res.setHeader('Content-Type', 'application/xml')
+        res.setHeader('Content-Type', 'application/rss+xml; charset=utf-8')
         res.end(buildRss(options.hostname, options.defaultLocale, posts))
       })
     },
