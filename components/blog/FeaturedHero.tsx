@@ -40,8 +40,8 @@ export function FeaturedHero({ post, locale }: FeaturedHeroProps) {
             </Badge>
             {category ? (
               <Badge
-                variant='secondary'
-                className='h-6 rounded-full border-transparent bg-background/90 px-3 text-xs font-semibold leading-none text-foreground shadow-sm backdrop-blur-sm'
+                variant='outline'
+                className='h-6 rounded-full border-transparent bg-background px-3 text-xs font-semibold leading-none text-foreground'
               >
                 {category.name}
               </Badge>
