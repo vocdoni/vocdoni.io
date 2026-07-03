@@ -7,15 +7,17 @@ interface DocArticleProps {
   slug: string
   title: React.ReactNode
   lead?: React.ReactNode
+  notice?: React.ReactNode
   children: React.ReactNode
 }
 
 // Standard shell for a knowledge-base page: breadcrumbs, title + lead, the body
 // (scanned by the on-this-page rail via #docs-article) and the prev/next pager.
-export function DocArticle({ slug, title, lead, children }: DocArticleProps) {
+export function DocArticle({ slug, title, lead, notice, children }: DocArticleProps) {
   return (
     <article className='min-w-0'>
       <DocsBreadcrumbs slug={slug} />
+      {notice}
       <header className='mb-2'>
         <h1 className='text-3xl font-bold tracking-tight text-balance sm:text-4xl'>{title}</h1>
         {lead ? <p className='mt-3 text-lg leading-8 text-muted-foreground'>{lead}</p> : null}

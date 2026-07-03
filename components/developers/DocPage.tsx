@@ -4,6 +4,7 @@ import { useData } from 'vike-react/useData'
 import { DocArticle } from './DocArticle'
 import { DocLLMButton } from './DocLLMButton'
 import { DocReference } from './DocReference'
+import { DocsLanguageNotice } from './DocsLanguageNotice'
 import { Prose } from './Prose'
 
 // Renders a markdown-sourced doc inside the standard knowledge-base shell.
@@ -13,7 +14,12 @@ export function DocPage() {
   const { doc } = useData<DocsPageData>()
 
   return (
-    <DocArticle slug={doc.slug} title={doc.frontmatter.title} lead={doc.frontmatter.lead}>
+    <DocArticle
+      slug={doc.slug}
+      title={doc.frontmatter.title}
+      lead={doc.frontmatter.lead}
+      notice={<DocsLanguageNotice />}
+    >
       <div className='mb-6 flex justify-end'>
         <DocLLMButton href={doc.rawHref} />
       </div>
