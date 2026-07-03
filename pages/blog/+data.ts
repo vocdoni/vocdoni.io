@@ -13,7 +13,8 @@ export interface BlogIndexData {
 export default function data(pageContext: Vike.PageContextServer): BlogIndexData {
   const locale = ((pageContext as { locale?: string }).locale || 'en') as Locale
   const all = listPosts(locale)
-  const featured = all.find((post) => post.frontmatter.featured) ?? null
+  // Lead story: the pinned post if any, otherwise the newest, so there is always a hero.
+  const featured = all.find((post) => post.frontmatter.featured) ?? all[0] ?? null
   const posts = featured ? all.filter((post) => post.slug !== featured.slug) : all
   return { featured, posts, categories: listCategories(locale) }
 }

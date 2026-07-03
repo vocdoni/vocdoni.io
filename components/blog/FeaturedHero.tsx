@@ -3,28 +3,26 @@ import { AuthorByline } from '@/components/blog/AuthorByline'
 import { Badge } from '@/components/ui/badge'
 import type { BlogPostMeta } from '@/lib/blog/content'
 import { formatDate } from '@/lib/blog/format'
-import { useTranslation } from 'react-i18next'
 import { ArrowRight, Newspaper } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
 
-interface FeaturedPostProps {
+interface FeaturedHeroProps {
   post: BlogPostMeta
   locale: string
 }
 
-// Large lead card for the newest featured post: image beside long-form summary.
-export function FeaturedPost({ post, locale }: FeaturedPostProps) {
+// Lead story: a large, borderless editorial card (image + text) that anchors the
+// blog index next to the "latest posts" sidebar. The cover uses a wide 16:10 slot
+// with object-cover so banners and photos display without side cropping.
+export function FeaturedHero({ post, locale }: FeaturedHeroProps) {
   const { t } = useTranslation()
   const { frontmatter, href } = post
   const category = post.categories[0]
 
   return (
-    <article className='group relative'>
-      <Link
-        href={href}
-        variant='card'
-        className='block overflow-hidden rounded-3xl border border-border/60 bg-card shadow-sm transition-shadow duration-300 hover:shadow-lg'
-      >
-        <div className='relative aspect-video overflow-hidden bg-muted'>
+    <article className='group'>
+      <Link href={href} variant='card' className='block rounded-3xl'>
+        <div className='relative aspect-[16/10] overflow-hidden rounded-3xl bg-muted'>
           {frontmatter.coverImage ? (
             <img
               src={frontmatter.coverImage}
@@ -36,28 +34,30 @@ export function FeaturedPost({ post, locale }: FeaturedPostProps) {
               <Newspaper className='size-16' aria-hidden='true' />
             </div>
           )}
-        </div>
-
-        <div className='flex flex-col gap-4 p-6 sm:p-8'>
-          <div className='flex items-center gap-2 text-xs text-muted-foreground'>
+          <div className='absolute left-4 top-4 flex gap-2'>
             <Badge className='rounded-full'>{t('blog.featured', 'Featured')}</Badge>
             {category ? (
-              <Badge variant='secondary' className='rounded-full font-medium'>
+              <Badge
+                variant='secondary'
+                className='rounded-full border border-border/40 bg-background/85 font-medium text-foreground backdrop-blur-sm'
+              >
                 {category.name}
               </Badge>
             ) : null}
-            <time dateTime={frontmatter.publishedDate}>{formatDate(frontmatter.publishedDate, locale)}</time>
           </div>
+        </div>
 
-          <h2 className='text-2xl font-bold leading-tight tracking-tight text-foreground transition-colors group-hover:text-primary sm:text-3xl lg:text-4xl'>
+        <div className='mt-6'>
+          <time dateTime={frontmatter.publishedDate} className='text-xs uppercase tracking-wide text-muted-foreground'>
+            {formatDate(frontmatter.publishedDate, locale)}
+          </time>
+          <h2 className='mt-2 text-2xl font-bold leading-tight tracking-tight text-foreground transition-colors group-hover:text-primary sm:text-3xl'>
             {frontmatter.title}
           </h2>
-
           {frontmatter.excerpt ? (
-            <p className='line-clamp-3 text-base leading-relaxed text-muted-foreground'>{frontmatter.excerpt}</p>
+            <p className='mt-3 line-clamp-3 text-base leading-relaxed text-muted-foreground'>{frontmatter.excerpt}</p>
           ) : null}
-
-          <div className='mt-2 flex flex-wrap items-center justify-between gap-4'>
+          <div className='mt-5 flex flex-wrap items-center justify-between gap-4'>
             <AuthorByline
               authors={post.authors}
               meta={t('blog.reading_time', '{{minutes}} min read', { minutes: post.readingMinutes })}

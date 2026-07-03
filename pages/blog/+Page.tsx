@@ -1,7 +1,8 @@
 import { BlogCard } from '@/components/blog/BlogCard'
 import { BlogHero } from '@/components/blog/BlogHero'
+import { BlogSidebar } from '@/components/blog/BlogSidebar'
 import { CategoryFilter } from '@/components/blog/CategoryFilter'
-import { FeaturedPost } from '@/components/blog/FeaturedPost'
+import { FeaturedHero } from '@/components/blog/FeaturedHero'
 import { Container } from '@/components/Container'
 import { MotionPreset } from '@/components/ui/motion-preset'
 import { useTranslation } from 'react-i18next'
@@ -13,6 +14,10 @@ export default function BlogIndexPage() {
   const { featured, posts, categories } = useData<BlogIndexData>()
   const { locale } = usePageContext() as { locale: string }
   const { t } = useTranslation()
+
+  // Lead story + "latest posts" rail on top, the rest in the grid below.
+  const sidebarPosts = posts.slice(0, 4)
+  const gridPosts = posts.slice(4)
 
   return (
     <div className='pb-24'>
@@ -29,22 +34,33 @@ export default function BlogIndexPage() {
         <CategoryFilter categories={categories} />
 
         {featured ? (
-          <MotionPreset fade slide={{ direction: 'up', offset: 24 }} className='mt-10'>
-            <FeaturedPost post={featured} locale={locale} />
-          </MotionPreset>
+          <div className='mt-10 grid items-start gap-8 lg:grid-cols-3 lg:gap-10'>
+            <MotionPreset fade slide={{ direction: 'up', offset: 24 }} className='lg:col-span-2'>
+              <FeaturedHero post={featured} locale={locale} />
+            </MotionPreset>
+            {sidebarPosts.length ? (
+              <MotionPreset fade slide={{ direction: 'up', offset: 24 }} delay={0.05}>
+                <BlogSidebar posts={sidebarPosts} locale={locale} />
+              </MotionPreset>
+            ) : null}
+          </div>
         ) : null}
 
-        {posts.length ? (
-          <div className='mt-14 grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3'>
-            {posts.map((post, index) => (
-              <MotionPreset key={post.slug} fade slide={{ direction: 'up', offset: 24 }} delay={index * 0.03}>
-                <BlogCard post={post} locale={locale} />
-              </MotionPreset>
-            ))}
+        {gridPosts.length ? (
+          <div className='mt-16 border-t border-border/60 pt-12'>
+            <div className='grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3'>
+              {gridPosts.map((post, index) => (
+                <MotionPreset key={post.slug} fade slide={{ direction: 'up', offset: 24 }} delay={index * 0.03}>
+                  <BlogCard post={post} locale={locale} />
+                </MotionPreset>
+              ))}
+            </div>
           </div>
-        ) : (
+        ) : null}
+
+        {!featured && !gridPosts.length ? (
           <p className='mt-16 text-center text-muted-foreground'>{t('blog.empty', 'No posts yet. Check back soon.')}</p>
-        )}
+        ) : null}
       </Container>
     </div>
   )
