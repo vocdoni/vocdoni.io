@@ -32,6 +32,15 @@ const IMAGES_SRC = path.join(ROOT, 'images_for_blog')
 const CONTENT_DIR = path.join(ROOT, 'content', 'blog')
 const PUBLIC_IMAGES = path.join(ROOT, 'public', 'blog', 'images')
 const PUBLIC_AVATARS = path.join(ROOT, 'public', 'blog', 'authors')
+const TEAM_DIR = path.join(ROOT, 'assets', 'images', 'team')
+
+// Prefer the About Us team photos for author avatars over Ghost's profile images.
+const TEAM_AVATARS: Record<string, string> = {
+  ferran: 'ferran.webp',
+  pau: 'pau_escrich.webp',
+  'jordi-pinyana': 'jordi_pinyana.webp',
+  lucas: 'lucas.webp',
+}
 
 // Locales that have real source content in the export. Everything else falls back
 // to English at render time, so we only ever write en/ca here.
@@ -262,11 +271,7 @@ async function main() {
     const meta = metaByPost.get(post.id)
 
     const categories = [
-      ...new Set(
-        rawTags
-          .filter((s) => tagBySlug.get(s)?.visibility !== 'internal')
-          .map((s) => CATEGORY_ALIAS[s] ?? s)
-      ),
+      ...new Set(rawTags.filter((s) => tagBySlug.get(s)?.visibility !== 'internal').map((s) => CATEGORY_ALIAS[s] ?? s)),
     ]
     categories.forEach((c) => usedCategories.add(c))
 
@@ -275,9 +280,7 @@ async function main() {
 
     const bodyMd = await rewriteImages(htmlToMarkdown(post.html ?? ''), index, copied, missing)
 
-    const coverImage = post.feature_image
-      ? await rewriteImages(post.feature_image, index, copied, missing)
-      : undefined
+    const coverImage = post.feature_image ? await rewriteImages(post.feature_image, index, copied, missing) : undefined
     const ogImage = meta?.og_image ? await rewriteImages(meta.og_image, index, copied, missing) : undefined
 
     const publishedDate = dateOnly(post.published_at) ?? dateOnly(post.created_at) ?? '1970-01-01'
@@ -316,7 +319,17 @@ async function main() {
     if (!user) continue
 
     let avatar: string | undefined
-    if (user.profile_image && !/gravatar\.com/.test(user.profile_image)) {
+    const teamFile = TEAM_AVATARS[slug]
+    if (teamFile) {
+      await fs.mkdir(PUBLIC_AVATARS, { recursive: true })
+      try {
+        await fs.copyFile(path.join(TEAM_DIR, teamFile), path.join(PUBLIC_AVATARS, `${slug}.webp`))
+        avatar = `/blog/authors/${slug}.webp`
+      } catch {
+        /* ignore */
+      }
+    }
+    if (!avatar && user.profile_image && !/gravatar\.com/.test(user.profile_image)) {
       const resolved = await rewriteImages(user.profile_image, index, copied, missing)
       if (resolved.startsWith('/blog/')) {
         // Move the copied file into public/blog/authors/<slug>.<ext> for a tidy path.
