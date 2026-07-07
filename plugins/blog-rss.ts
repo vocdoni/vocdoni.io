@@ -64,7 +64,7 @@ function buildRss(host: string, defaultLocale: string, posts: FeedItem[]): strin
       // Link to the post's actual content locale (its canonical URL), not the
       // default locale, so posts that only exist in another language aren't
       // pointed at a fallback URL.
-      const url = `${site}/${post.locale}/blog/${post.slug}`
+      const url = escapeXml(`${site}/${post.locale}/blog/${post.slug}`)
       const date = new Date(post.publishedDate)
       const pubDate = Number.isNaN(date.getTime()) ? '' : date.toUTCString()
       return [
