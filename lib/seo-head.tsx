@@ -323,7 +323,6 @@ export function HeadTags(pageContext: PageContext) {
       'https://github.com/vocdoni',
       'https://x.com/vocdoni',
       'https://www.linkedin.com/company/vocdoni',
-      'https://blog.vocdoni.io',
       'https://developer.vocdoni.io',
     ],
   }
