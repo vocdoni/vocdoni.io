@@ -16,13 +16,19 @@ describe('blog content loader', () => {
     expect(slugs).not.toContain('canadas-online-voting-standard-what-can-dgsi-111-requires-and-why-it-matters')
   })
 
-  it('falls back to the original language when a translation is missing', () => {
-    // This post exists only in Catalan; requesting English must serve the ca source.
+  it('serves each locale its own translation when available', () => {
+    // Originally a Catalan-only post used to exercise the fallback path; the blog
+    // is now fully translated, so every locale must resolve to its own source.
     const post = loadPost('consulta-docents-sindicats-2026', 'en')
     expect(post).not.toBeNull()
-    expect(post!.usedLocale).toBe('ca')
-    expect(post!.availableLocales).toEqual(['ca'])
+    expect(post!.usedLocale).toBe('en')
+    expect(post!.availableLocales).toContain('ca')
+    expect(post!.availableLocales).toContain('en')
+    expect(post!.availableLocales.length).toBeGreaterThanOrEqual(10)
     expect(post!.html.length).toBeGreaterThan(0)
+
+    const caPost = loadPost('consulta-docents-sindicats-2026', 'ca')
+    expect(caPost!.usedLocale).toBe('ca')
   })
 
   it('compiles English posts with a resolved cover image', () => {
