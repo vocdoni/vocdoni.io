@@ -20,6 +20,7 @@ export default function BlogCategoryPage() {
       <Container className='mt-10 max-w-6xl'>
         <CategoryFilter categories={categories} activeCategory={category.slug} />
 
+        <h2 className='sr-only'>{t('blog.all_posts', 'All posts')}</h2>
         <div className='mt-14 grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3'>
           {posts.map((post, index) => (
             <MotionPreset key={post.slug} fade slide={{ direction: 'up', offset: 24 }} delay={index * 0.03}>
