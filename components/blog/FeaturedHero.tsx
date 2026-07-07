@@ -17,7 +17,6 @@ interface FeaturedHeroProps {
 export function FeaturedHero({ post, locale }: FeaturedHeroProps) {
   const { t } = useTranslation()
   const { frontmatter, href } = post
-  const category = post.categories[0]
 
   return (
     <article className='group'>
@@ -35,17 +34,12 @@ export function FeaturedHero({ post, locale }: FeaturedHeroProps) {
             </div>
           )}
           <div className='absolute left-4 top-4 flex items-center gap-2'>
-            <Badge className='h-6 rounded-full border-transparent px-3 text-xs font-semibold leading-none'>
+            <Badge
+              variant='outline'
+              className='h-6 rounded-full border-transparent bg-background px-3 text-xs font-semibold leading-none text-primary'
+            >
               {t('blog.featured', 'Featured')}
             </Badge>
-            {category ? (
-              <Badge
-                variant='outline'
-                className='h-6 rounded-full border-transparent bg-background px-3 text-xs font-semibold leading-none text-foreground'
-              >
-                {category.name}
-              </Badge>
-            ) : null}
           </div>
         </div>
 
