@@ -13,6 +13,7 @@ const metaDefaults = {
     'meta.contact.description',
     'Talk to Vocdoni about secure online voting, verifiable elections, pricing, demos, and custom digital governance projects.'
   ),
+  'blog.eyebrow': t('blog.eyebrow', 'Vocdoni blog'),
   'meta.blog_index.title': t('meta.blog_index.title', 'Vocdoni blog - insights on secure digital voting'),
   'meta.blog_index.description': t(
     'meta.blog_index.description',
