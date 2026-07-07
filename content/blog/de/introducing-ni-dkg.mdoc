@@ -1,0 +1,115 @@
+---
+title: 'Einführung von NI-DKG: Ein nicht-interaktives, zkSNARK-basiertes Protokoll zur verteilten Schlüsselerzeugung'
+publishedDate: '2026-03-03'
+updatedDate: '2026-03-24'
+excerpt: 'Vocdoni hat ein neues DKG-Protokoll entwickelt, das per Design nicht-interaktiv ist, im Betrieb asynchron arbeitet und auf kryptografischen Standardprimitiven aufbaut.'
+coverImage: /blog/images/2026/03/dkg.webp
+coverAlt: 'Einführung von NI-DKG: Ein nicht-interaktives, zkSNARK-basiertes Protokoll zur verteilten Schlüsselerzeugung'
+authors:
+  - jordi-pinyana
+categories:
+  - technology
+  - davinci
+  - announcements
+featured: false
+draft: false
+seo:
+  metaTitle: Einführung von NI-DKG
+  metaDescription: 'Ein nicht-interaktives, zkSNARK-basiertes Protokoll zur verteilten Schlüsselerzeugung'
+---
+
+Threshold-homomorphe Verschlüsselung ist ein zentraler Baustein des [DAVINCI](https://davinci.vote)-Abstimmungsprotokolls. Sie stellt sicher, dass keine einzelne Partei die Abstimmungsergebnisse allein entschlüsseln kann: Der Entschlüsselungsschlüssel ist auf mehrere unabhängige Knoten aufgeteilt, und nur wenn genügend von ihnen kooperieren, lassen sich die Ergebnisse entschlüsseln.
+
+Bevor jedoch irgendetwas entschlüsselt werden kann, müssen diese Knoten den Schlüssel zunächst gemeinsam erzeugen. Dieser Vorgang heißt **Distributed Key Generation (DKG)** – verteilte Schlüsselerzeugung. Wir entwickeln eine DKG-Variante speziell für Blockchain-Umgebungen, in denen jeder Teilnehmer die Korrektheit seines Beitrags beweisen muss, bevor dieser on-chain akzeptiert wird.
+
+**DAVINCI gewährleistet** die **Privatsphäre** des Abstimmungsprozesses durch ein **threshold-homomorphes Verschlüsselungsverfahren**. Konkret kommt ein [Threshold-ElGamal-Kryptosystem](https://github.com/tompetersen/threshold-crypto) über elliptischen Kurven zum Einsatz. Verschlüsselte Nachrichten lassen sich so kombinieren, dass eine Verschlüsselung der Summe der ursprünglichen Klartexte entsteht – ohne sie zu entschlüsseln. Das Verfahren erlaubt es, einen bestimmten Ciphertext zu entschlüsseln, ohne den geheimen Threshold-Schlüssel jemals offenzulegen: Die Endauszählung kann entschlüsselt werden, während die einzelnen Stimmzettel vertraulich bleiben.
+
+### **Das Protokoll im Überblick**
+
+NI-DKG ist ein Blockchain-natives Protokoll, das vollständig **nicht-interaktiv** ausgelegt ist: Die Korrektheit wird bereits bei der Einreichung per ZK-Beweis erzwungen.
+
+Statt Beschwerdephasen und Streitrunden gilt: **Jeder Teilnehmer muss die Korrektheit seines Beitrags in dem Moment beweisen, in dem er ihn einreicht.** Der Smart Contract prüft den Beweis sofort: Gültige Einreichungen werden akzeptiert, ungültige auf der Stelle abgelehnt. Es gibt kein Hin und Her und keine reaktiven Anfechtungen. Da das gesamte Transkript on-chain aufgezeichnet wird, erhalten wir zudem **öffentliche Verifizierbarkeit**.
+
+NI-DKG ist nicht nur per Design nicht-interaktiv, sondern auch **im praktischen Betrieb asynchron**: Seine Phasen sind über Blocknummern definiert statt über fragile Antwortfristen.
+
+### **Warum das wichtig ist**
+
+Heutige Blockchain-gestützte DKG-Protokolle setzen auf Streitphasen: Erhält ein Knoten fehlerhafte Daten, reicht er on-chain eine Beschwerde ein, und der Beschuldigte muss vor Ablauf einer Frist antworten. Das kostet zusätzliche Runden und Gas und vergrößert die Angriffsfläche: Ehrliche Knoten können ausgeschlossen werden, wenn ihre Antwort zu spät kommt, und böswillige Akteure können den Prozess mit haltlosen Beschwerden sabotieren. Jüngere akademische Arbeiten zu vollständig asynchronem DKG haben beeindruckende theoretische Ergebnisse hervorgebracht – diese Protokolle sind jedoch hochkomplex.
+
+Vor allem aber baut NI-DKG vollständig auf gut verstandenen, **kryptografischen Standardprimitiven** auf. Wir führen keine neuen Annahmen ein, sondern wenden etablierte Techniken praxistauglicher an. Das Protokoll besetzt einen **pragmatischen und praktikablen Mittelweg**: einfacher als vollständig asynchrone Konstruktionen, aber robuster als naive synchrone Verfahren. Es erbt das Zeitmodell der zugrunde liegenden Blockchain – natürlich für On-Chain-Anwendungen – und kombiniert es mit proaktiven Zero-Knowledge-Beweisen, die interaktive Beschwerdeverfahren überflüssig machen, eine typische Schwachstelle bestehender Designs. Das Ergebnis ist ein sichereres Protokoll, das sich gut für reale Deployments eignet.
+
+### **Die Phasen des NI-DKG-Protokolls**
+
+**_Erzeugung_**
+
+1. **Initiierung:** Der Organisator veröffentlicht die Parameter `(n, t)`.
+2. **Handzeichen:** Berechtigte Knoten signalisieren ihre Bereitschaft (optional mit Stake).
+3. **Knotenauswahl:** `n` Knoten werden über die Zufälligkeit der Chain ausgewählt; Abbruch, wenn die Policy nicht erfüllt ist.
+4. **Eigentlicher DKG-Prozess:** Jeder Knoten veröffentlicht Polynom-Commitments und verschlüsselte Shares, zusammen mit einem ZK-Korrektheitsbeweis.
+5. **Finalisierung:** Der Organisator berechnet den öffentlichen Schlüssel `PK` sowie Commitments zu den privaten Shares und veröffentlicht beides auf der Blockchain, zusammen mit einem ZK-Korrektheitsbeweis.
+
+![](/blog/images/2026/03/dkg-process.webp)
+
+**_Entschlüsselung_**
+
+1. **Veröffentlichung des Ciphertexts:** Ein Ciphertext `(C1, C2)` wird zusammen mit der Runden-Kennung veröffentlicht. Die Knoten wissen, wann solche Ciphertexte publiziert werden.
+2. **Veröffentlichung partieller Entschlüsselungen:** Die Knoten veröffentlichen eine partielle Entschlüsselung von `C1`, zusammen mit einem Beweis der Gleichheit diskreter Logarithmen.
+3. **Entschlüsselung:** Sobald `t` oder mehr partielle Entschlüsselungen veröffentlicht wurden, kann der Smart Contract aufgerufen werden, um die Nachricht wiederherzustellen.
+
+![](/blog/images/2026/03/dkg-decryption.webp)
+
+**_Optionale Schlüsseloffenlegung_**
+
+Beachten Sie, dass die Schlüsseloffenlegung nicht Teil des DAVINCI-Protokolls ist. In der Regel wird dieser Schritt nicht benötigt, da sich die Entschlüsselungsphase beweisen lässt, ohne den geheimen Schlüssel zu veröffentlichen.
+
+1. **Initiierung:** Die Anforderung, den geheimen Schlüssel offenzulegen, kann vom Organisator gesendet oder automatisch ausgelöst werden, sofern die Policy-Parameter dies zulassen.
+2. **Veröffentlichung der Shares des geheimen Schlüssels:** Jeder teilnehmende Knoten veröffentlicht seinen Share des Geheimnisses.
+3. **Berechnung des geheimen Schlüssels:** Sobald `t` oder mehr Werte eingereicht wurden, kann jeder den geheimen Schlüssel berechnen.
+
+![](/blog/images/2026/03/dkg-sk-disclosure.webp)
+
+### **Ein Blick unter die Haube**
+
+Das Protokoll deckt den gesamten Lebenszyklus ab: Schlüsselerzeugung, Threshold-Entschlüsselung und optionale Schlüsseloffenlegung. In jeder Phase fungiert der Smart Contract als Koordinations- und Verifikationsschicht, während Zero-Knowledge-Beweise alle aufwendigen kryptografischen Prüfungen off-chain verlagern. Die Verantwortlichkeiten sind sauber getrennt: Die Blockchain übernimmt die Reihenfolge und die öffentliche Buchführung; das Beweissystem garantiert die Korrektheit.
+
+Die kryptografischen Bausteine sind:
+
+- **Shamir + Feldman-VSS:** Polynome mit öffentlichen Koeffizienten-Commitments.
+- **Hashed ElGamal** zur Verschlüsselung der Shares.
+- **Chaum-Pedersen-DLOG**-Gleichheitsbeweis, verwendet für partielle Entschlüsselungen.
+- **zk-SNARKs** (Groth16, FFLONK, …) für die On-Chain-Verifikation.
+
+**Circuits:**
+
+<!--kg-card-begin: html-->
+
+| Phase                                                                       | Zweck                                            | Ausgabe / Was bewiesen wird                                                                       |
+| --------------------------------------------------------------------------- | ------------------------------------------------ | ------------------------------------------------------------------------------------------------- |
+| Erzeugung, Phase 4: Eigentlicher DKG-Prozess                                | Beitragsbeweis pro Teilnehmer                    | Der DKG-Beitrag jedes Teilnehmers ist gültig.                                                     |
+| Erzeugung, Phase 5: Berechnung der geheimen Shares und des öffentlichen Schlüssels | Finalisierung                              | Der finale öffentliche Schlüssel und die Share-Commitments sind korrekt abgeleitet.               |
+| Entschlüsselung, Phase 2: Veröffentlichung partieller Entschlüsselungen     | Partielle Entschlüsselung + DLEQ-Beweis (pro Knoten) | Die partielle Entschlüsselung jedes Knotens ist korrekt und von einem DLEQ-Korrektheitsbeweis begleitet. |
+| Entschlüsselung, Phase 3: Entschlüsselung                                   | Kombination partieller Entschlüsselungen → Klartext | Die Kombination gültiger partieller Entschlüsselungen ergibt den korrekten Klartext.              |
+| Optionale Schlüsseloffenlegung, Phase 2: Veröffentlichung der Shares des geheimen Schlüssels | Abgleich Share vs. Commitment (pro Knoten) | Jeder Knoten beweist, dass sein offengelegter Share zum zuvor veröffentlichten Commitment passt.  |
+| Optionale Schlüsseloffenlegung, Phase 3: Berechnung des geheimen Schlüssels | Rekonstruktion des geheimen Schlüssels aus _t_ Shares | Die Rekonstruktion des geheimen Schlüssels aus (_t_) Threshold-Shares ist korrekt.                |
+
+<!--kg-card-end: html-->
+
+### **Grenzen**
+
+Da die Phasen an Blocknummern gekoppelt sind, erbt das Protokoll die partielle Synchronität seiner Host-Chain. Die On-Chain-Verifikation setzt zudem Grenzen bei der Skalierung; mit den im Paper beschriebenen Strategien zur Eingabereduktion lassen sich aber realistisch **Komitees mit 40–50 Teilnehmern unterstützen**. Das liegt klar in dem Bereich, den die meisten praktischen Deployments benötigen.
+
+Das vorgeschlagene DKG ist zwar flexibel und ließe sich an andere Verschlüsselungsverfahren anpassen. Die Verwendung von Groth16 über BN254 bedeutet jedoch, dass die effizienteste Wahl ein Verschlüsselungsverfahren über dem BN254-Skalarkörper ist, also die BabyJubJub-Kurve.
+
+### **Wo wir stehen**
+
+Das **Protokolldesign ist abgeschlossen**. Ein Entwurf des Forschungspapiers beschreibt die vollständige Konstruktion, liefert detaillierte Circuit-Spezifikationen und analysiert Strategien zur Senkung der On-Chain-Kosten. Als Nächstes folgen **Implementierung und Benchmarking** auf den anvisierten EVM-Chains.\
+\
+[Hier](https://github.com/vocdoni/davinci-node/tree/main/crypto/elgamal/dkg) finden Sie einen Golang-PoC zur Validierung des Grundschemas.
+
+Das vollständige Paper ist [hier](https://eprint.iacr.org/2026/552) verfügbar.
+
+Das Projekt ist Open Source. Wenn Sie beitragen möchten – mit Entwicklung, Ideen, Ressourcen oder Finanzierung –, melden Sie sich bei uns.
+
+[Kontakt](https://chat.vocdoni.io)
+
+---

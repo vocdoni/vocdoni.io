@@ -1,0 +1,218 @@
+---
+title: Einführung in das Vocdoni Ballot Protocol
+publishedDate: '2021-04-16'
+updatedDate: '2026-01-14'
+excerpt: 'Vocdoni Ballot Protocol Die zentrale Innovation des Vocdoni-Kernprotokolls ist die Implementierung des ersten dezentralen, zensurresistenten und…'
+coverImage: /blog/images/2025/12/ballot_protocol_post.webp
+coverAlt: Einführung in das Vocdoni Ballot Protocol
+authors:
+  - ferran
+categories:
+  - technology
+featured: false
+draft: false
+---
+
+# **Vocdoni Ballot Protocol**
+
+Die zentrale Innovation des Vocdoni-Kernprotokolls: Es implementiert das erste dezentrale, zensurresistente und anonyme Protokoll für Online-Abstimmungen überhaupt. Über diese technischen Ambitionen hinaus ist das Protokoll aber auch mit einer breiten Palette demokratischer Prozesse kompatibel. Das gelingt Vocdoni unter anderem durch unsere vielseitige Spezifikation für Stimmzettel.
+
+Das **Vocdoni Ballot Protocol** will eine einfache und zugleich leistungsfähige Spezifikation für die Darstellung von Stimmzetteln und Ergebnissen eines Abstimmungsprozesses sein.
+
+# **Zunächst einige Definitionen**
+
+Ein **_Abstimmungsprozess_** besteht aus einem oder mehreren **_Feldern_**. Je nach **_Prozesstyp_** steht ein Feld für eine einzelne Frage oder für eine Antwortoption einer Frage. Bei der Stimmabgabe wählen die Stimmberechtigten für jedes Feld aus einer Menge vordefinierter **_Antworten_**. Auch die zulässige Anzahl der Antworten, der Antworttyp usw. hängen vom jeweiligen Prozesstyp ab. Stimmberechtigte drücken ihre Auswahl aus, indem sie einen **_Stimmzettel_** abgeben.
+
+Ein Stimmzettel wird als Array (Liste) natürlicher Zahlen dargestellt. Jede Position des Arrays enthält eine Antwort auf eines der Felder des Prozesses.
+
+Die Ergebnisse werden in einem zweidimensionalen Array natürlicher Zahlen (einer Matrix) akkumuliert. Jede Zeile dieser Matrix entspricht einem Feld des Stimmzettels, jede Spalte einem der möglichen Werte für dieses Feld. Jede Zahl in der Ergebnismatrix ist schlicht die Anzahl der Stimmen für den Wert am jeweiligen Index.
+
+Bevor wir uns im Detail ansehen, wie ein Prozess konfiguriert werden kann, gehen wir ein generisches Beispiel durch. Angenommen, ein Prozess hat drei Felder `A`, `B` und `C`, die jeweils `0`, `1` und `2` als mögliche Werte zulassen. Was diese Werte oder Felder bedeuten, wissen wir nicht – das spielt vorerst keine Rolle.
+
+![](https://storage.googleapis.com/papyrus_images/47fc7647a24d815d609ad569c4456e39.png)
+
+In diesem Beispiel wurden zwei Stimmen abgegeben. Der erste Wähler hat für Feld `A` den Wert `2` gewählt, für Feld `B` den Wert `0` und für Feld `C` den Wert `1`. Der zweite Stimmzettel enthält die Werte `0`, `0` und `2`. Im Diagramm oben sehen Sie, wie sich die Stimmzettel zur Ergebnismatrix verhalten. Der _Index_ eines Werts auf dem Stimmzettel bestimmt das _Feld_, zu dem dieser Wert gehört: Der erste Index von Stimmzettel 1 enthält den Wert `2`, also weist Stimmzettel 1 dem Feld A den Wert `2` zu. Innerhalb jedes Felds der Ergebnismatrix wird der Wert der Stimme durch seinen Index repräsentiert. Wir tragen eine `1` an Index `2` von `Feld A` ein – sie steht für die eine Stimme für den Wert `2`.
+
+Das wirkt auf den ersten Blick vielleicht nicht intuitiv. Verfolgen Sie am besten noch ein paar Werte von einem der Stimmzettel bis in die Ergebnismatrix, um sicherzugehen, dass Sie die Darstellung der Ergebnisse verstanden haben.
+
+---
+
+# **Das Protokoll selbst**
+
+Das Ballot-Protokoll besteht aus einer Reihe numerischer und boolescher (wahr/falsch) Variablen, die das Format eines gültigen Stimmzettels einschränken.
+
+![](https://storage.googleapis.com/papyrus_images/b8d920f2d64cf347ff2f47f7e34a3340.png)
+
+Wie ließe sich unser obiges Beispiel mit diesem Protokoll abbilden?
+
+Zunächst wissen wir, dass es drei Felder gibt, also
+
+- `maxCount` = 3
+
+Unsere gültigen Werte sind 0, 1 und 2, also setzen wir
+
+- `minValue` = 0
+- `maxValue` = 2
+
+Der zweite Stimmzettel enthält den Wert `0` für mehrere Felder. Damit dieser Stimmzettel gültig ist, müssen wir also setzen:
+
+- `uniqueValues` = 0 (0 steht hier für „falsch“, 1 für „wahr“)
+
+Für die nächsten drei Variablen gibt es keine offensichtliche Belegung; geben wir unserem Beispielprozess also etwas mehr Kontext. Nehmen wir an, der Prozess besteht aus einer einzigen Frage, bei der die Abstimmenden Goldmünzen an verschiedene Organisationen vergeben. Jedes Feld steht für eine Organisation, und der dem Feld zugewiesene Wert ist die Anzahl der Goldmünzen, die diese Person der Organisation zuteilen möchte.
+
+Aus den bereits gesetzten Variablen `minValue` und `maxValue` wissen wir, dass jede Person einer einzelnen Organisation zwischen 0 und 2 Münzen zuteilen kann. Eine plausible zusätzliche Regel wäre, dass insgesamt nur 3 Münzen vergeben werden dürfen. Und nehmen wir außerdem an, dass mindestens 1 Münze vergeben werden _muss_.
+
+Das gibt dem Prozessdiagramm oben eine Bedeutung: Der erste Stimmzettel vergibt insgesamt 3 Münzen (vielleicht unterstützt die Person die Organisationen A und C, mag A aber etwas lieber). Der zweite Stimmzettel vergibt nur 2 seiner 3 möglichen Münzen (die Person unterstützt nur Organisation C und lässt die dritte Münze lieber verfallen, als sie A oder B zu geben). Wir können also bedenkenlos setzen:
+
+- `minTotalCost` = 1
+- `maxTotalCost` = 3
+
+und beide Stimmzettel sind gültig.
+
+Bleibt noch `costExponent`, eine Variable, die mit [Quadratic Voting](https://www.wikiwand.com/en/Quadratic_voting) zusammenhängt. Auf diese Abstimmungsform gehen wir hier noch nicht ein und setzen einfach den Standardwert:
+
+- `costExponent` = 1
+
+Nehmen Sie sich auch hier einen Moment Zeit für die einzelnen Variablen und überlegen Sie, wie sich eine Änderung jeder einzelnen auf unseren Beispielprozess auswirken würde.
+
+# **Auswertung der Ergebnisse**
+
+Die obigen Variablen sind bereits das gesamte Vocdoni Ballot Protocol. Es deckt die Validierung der Stimmzettel und die Auszählung der Ergebnisse ab, wie sie die Kerninfrastruktur übernimmt. Für die menschliche Seite fehlt aber offensichtlich noch einiges: Wer das Protokoll integriert, muss entscheiden, wie der eigentliche Inhalt eines Prozesses den Abstimmenden vermittelt wird und wie die Ergebnismatrix ausgewertet und dargestellt wird. Die Auswertung der Ergebnisse liegt außerhalb des Geltungsbereichs des Ballot-Protokolls, hilft aber zu verstehen, wie sich das Protokoll einsetzen lässt.
+
+In der aktuellen Fassung definiert Vocdoni zwei Formate für die Ergebnisauswertung: **_Index-gewichtet_** und **_Diskrete Werte_**.
+
+### **Index-gewichtet**
+
+Für unseren Beispielprozess würden wir die index-gewichtete Interpretationsformel verwenden. Dieses Schema eignet sich für Prozesse mit einer einzelnen Frage, etwa Rangfolge-Abstimmungen (Ranked Choice), Mehrfachauswahl oder Bürgerhaushalte. Jeder Index in einem Feld der Ergebnismatrix steht für einen gewichteten Wert; in unserem Fall entspricht das Gewicht der Anzahl der Münzen, die einer Organisation zugeteilt wurden. Die Summe der Stimmen, multipliziert mit ihren index-gewichteten Werten, ergibt den Gesamtwert für dieses Feld.
+
+![](https://storage.googleapis.com/papyrus_images/345a07aee1ddf6a6aad51db7e58fd399.png)
+
+Diese Interpretation aggregiert unseren Beispielprozess: Organisation A erhält 2 Münzen, Organisation C erhält 3.
+
+### **Diskrete Werte**
+
+Die Interpretation mit diskreten Werten wird für Prozesse verwendet, in denen jedes Feld eine eigene Frage ist. Hier steht jeder Wert für eine einzelne diskrete Option (z. B. „Kandidat 2“) und nicht für einen Multiplikator (z. B. „2 Punkte für diese Option“). Diese Methode interpretiert die Ergebnisse daher, indem sie für jedes Feld schlicht ausweist, welcher Wert – falls überhaupt einer – die meisten Stimmen erhalten hat.
+
+`0` ist für ein Unentschieden zwischen Optionen reserviert.
+
+![](https://storage.googleapis.com/papyrus_images/97e8bca257a9b118b86ee3dd31165107.png)
+
+Diese beiden Formate erheben keinen Anspruch auf Vollständigkeit. Wie gesagt: Das Ballot-Protokoll selbst gibt nicht vor, wie Ergebnisse aggregiert werden. Wer eine eigene Anwendungsschicht auf dem Protokoll aufbaut, kann eine eigene Ergebnisinterpretation definieren.
+
+---
+
+# **Beispiele**
+
+Gehen wir ein paar praxisnahe Beispiele durch, damit Sie einen Eindruck davon bekommen, wie vielseitig das Ballot-Protokoll ist.
+
+### **Rangfolge-Abstimmung (Ranked Choice)**
+
+Ich betreibe eine Süßwarenfirma. Wir stehen kurz davor, einen Lutscher mit neuer Geschmacksrichtung auf den Markt zu bringen, und wollen mit einem Markttest herausfinden, welche Sorte am besten ankommt. Wir haben einigen unserer treuesten Kundinnen und Kunden eine Schachtel mit Lutschern in den Sorten `Spargel`, `Bohnen`, `Karotte` und `Dill` geschickt (eine sonderlich erfolgreiche Süßwarenfirma sind wir nicht ☹). Nun bitten wir sie, ihre Vorlieben anzugeben, indem sie die Lutscher in einem Vocdoni-Abstimmungsprozess in eine Rangfolge bringen …
+
+Diese Situation ist wie geschaffen für einen [Ranked-Choice-Prozess](https://www.wikiwand.com/en/Ranked_voting). So legen wir den Prozess für unsere Testerinnen und Tester an:
+
+Wir haben vier Geschmacksrichtungen, die in eine Rangfolge gebracht werden sollen. Die Teilnehmenden sollen jeder Sorte einen Wert zuweisen, also brauchen wir für jede Sorte ein eigenes Feld.
+
+- `maxCount` = 4
+
+Wir bitten die Teilnehmenden, die Sorten von der besten zur schlechtesten zu ordnen: `3` ist die beste, `0` die schlechteste.
+
+- `minValue` = 0
+- `maxValue` = 3
+
+Es hilft uns nicht weiter, wenn Tester mehrere Sorten gleich gut finden – wir wollen eine eindeutige Rangfolge von der besten zur schlechtesten.
+
+- `uniqueValues` = 1
+
+Da die Teilnehmenden vier eindeutige Werte vergeben müssen, wissen wir, dass die Gesamtkosten 0+1+2+3=6 betragen müssen.
+
+- `minTotalCost` = 6
+- `maxTotalCost` = 6
+
+Auch hier haben wir keine Verwendung für `costExponent`.
+
+- `costExponent` = 1
+
+![](https://storage.googleapis.com/papyrus_images/d06d57a97367e2f40ed75228f02392a7.png)
+
+Nehmen wir uns den ersten Stimmzettel vor. Diese Produkttesterin liebt Karotten und setzt Karotte auf Platz eins. Dann folgen Spargel und Dill, Bohnen landen auf dem letzten Platz. So wird dieser Stimmzettel in der Ergebnismatrix erfasst:
+
+![](https://storage.googleapis.com/papyrus_images/e63207ba97dca5657af93969f5424cb3.png)
+
+Die Stimmzettel treffen weiter ein, und am Ende haben wir 30 Antworten! Mit der vollständigen Ergebnismatrix aggregieren wir die Ergebnisse nach der index-gewichteten Methode …
+
+![](https://storage.googleapis.com/papyrus_images/49480940bd6ea3db2320d77b587455ae.png)
+
+Dill gewinnt! 🎉 Dank dieser umfassenden Marktforschung finden Sie Lutscher mit Dillgeschmack demnächst in Ihrem Supermarkt.
+
+### **Quadratic Voting**
+
+Unsere selbstverwaltete Schuhmanufaktur-Genossenschaft hält diese Woche ihre Jahresversammlung ab, auf der wir eine neue Marketingleitung wählen. Das Rennen ist denkbar knapp, und es gibt den Vorschlag, per Quadratic Voting für gleiche Bedingungen zu sorgen.
+
+Quadratic Voting ist eine Methode, bei der Wählende einem Kandidaten mehrere Stimmen geben können – zu steigenden Kosten. In unserem Fall treten vier Kandidaten an, und jedes Mitglied kann bis zu 9 „Punkte“ für die Stimmabgabe ausgeben. Der Haken: Einem Feld einen bestimmten Wert `v` zuzuweisen kostet `v` hoch `costExponent`. Bei einem `costExponent` von 2 gilt also: Gebe ich Kandidat A 1 Stimme, kostet mich das einen Punkt; 2 Stimmen kosten mich 4 Punkte, und 3 Stimmen für einen Kandidaten kosten alle 9 Punkte. Schauen wir uns das genauer an.
+
+Wir haben vier Kandidaten, und die Mitglieder können für mehrere von ihnen stimmen. Also braucht jeder Kandidat ein eigenes Feld.
+
+- `maxCount` = 4
+
+Setzen wir eine vernünftige Obergrenze für den Wert, den ein Mitglied einem einzelnen Kandidaten zuweisen kann.
+
+- `minValue` = 0
+- `maxValue` = 3
+
+Mitglieder dürfen Werte mehrfach vergeben.
+
+- `uniqueValues` = 0
+
+Wie gesagt können Mitglieder bis zu 9 Punkte ausgeben.
+
+- `minTotalCost` = 0
+- `maxTotalCost` = 9
+
+Und endlich hat diese Variable ihren großen Auftritt. Wir setzen sie auf 2 – die Kosten eines Werts entsprechen damit dem Quadrat dieses Werts.
+
+- `costExponent` = 2
+
+![](https://storage.googleapis.com/papyrus_images/a645cc0a4a064387d26dafb4972d053a.png)
+
+Stellen wir uns zwei Stimmzettel-Konfigurationen vor, um zu zeigen, wie Quadratic Voting funktioniert.
+
+**Stimmzettel 1**
+
+Unserem ersten Wähler wäre jeder Kandidat recht, er bevorzugt aber leicht Kandidat B. Außerdem will er möglichst viel Stimmkraft einsetzen.
+
+![](https://storage.googleapis.com/papyrus_images/d9e9d195ba9159cc90da7228e4764cfc.png)
+
+Jeder Wert `1`, den dieser Wähler vergibt, erhöht seine Gesamtkosten nur um `1`. Ein Wert von `2` schlägt dagegen mit `2^2`, also `4`, zu Buche. Indem er seine Stimmen auf alle Kandidaten verteilt, kann dieser Wähler einen Gesamtwert von 5 vergeben und kommt dabei nur auf Kosten von 7. Die maximalen Gesamtkosten von 9 kann er nicht erreichen: Würde er einen seiner `1`-Werte auf `2` erhöhen, stiegen die Kosten über 9.
+
+**Stimmzettel 2**
+
+Die zweite Wählerin hat eine sehr klare Meinung: Sie unterstützt ausschließlich Kandidat C. Es liegt also nahe, dass sie Kandidat C den Maximalwert zuweist. Obwohl sie nur einen Gesamtwert von `3` vergeben hat, liegen ihre Gesamtkosten beim Maximum von `3^2` = `9`.
+
+![](https://storage.googleapis.com/papyrus_images/99d22c797167c3a9f1a5be94957e158c.png)
+
+Sie können sich vorstellen, wie Quadratic Voting in einem größeren Prozess mit mehr Kandidaten und Wählenden nicht nur Präferenzen, sondern auch deren Intensität sichtbar machen kann. Die Interpretation dieser Ergebnisse überlassen wir vorerst Ihnen als Übung.
+
+---
+
+# **Ein offenes und flexibles Protokoll**
+
+Hoffentlich haben Sie jetzt ein gutes Gespür für einige mögliche Anwendungsfälle des Vocdoni Ballot Protocol. Die wichtigste Eigenschaft des Protokolls ist jedoch seine Flexibilität. Neben den oben vorgestellten Konfigurationen gibt es unzählige weitere Varianten und Interpretationsmechanismen. Diese 8 Variablen decken ein breites Spektrum an Szenarien ab – nahezu alle uns bekannten Abstimmungstypen und darüber hinaus solche, die noch gar nicht erfunden wurden. Und das ist erst eine frühe Iteration: Bei Bedarf ließe sich das Protokoll erweitern, um noch mehr Möglichkeiten zu eröffnen.
+
+Die technische Flexibilität und Offenheit des Protokolls zeigt sich in seinen realen Einsätzen. Weil Organisationen Prozesse jeder Art einfach aufsetzen können, sinkt die Hürde für alle Formen der Entscheidungsfindung drastisch – ob klassische Wahl oder etwas Direkteres, Fließenderes, Experimentelleres. Die Zivilgesellschaft hat damit Werkzeuge in der Hand, um demokratische Prozesse umzusetzen, die _sie am besten repräsentieren_ – wie auch immer diese aussehen mögen.
+
+---
+
+# **Hinweis: Codebeispiele**
+
+Für alle Technikbegeisterten, die bis hierher durchgehalten haben: Ohne handfeste Codebeispiele bleibt das Protokoll womöglich abstrakt. So könnten Sie mit [dvote-js](https://github.com/vocdoni/dvote-js), der TypeScript-/JavaScript-Implementierung des Protokolls, einen Prozess erstellen.
+
+Zuerst die Vorbereitung: Wir importieren die nötigen Pakete, verbinden uns mit den Vocdoni-Gateways und generieren einen Zensus aus fiktiven Wählern. Außerdem rufen wir die aktuelle Blockhöhe ab, um die Startzeit des Prozesses korrekt zu setzen.
+
+_Ausführlichere Anleitungen zur Einrichtung, zur Verbindung mit Gateways, zur Erstellung eines Zensus usw. finden Sie in der&#xA0;_[_Dokumentation_](https://docs.vocdoni.io/#/integration/overview)_._
+
+Jetzt können wir die Prozess-Metadaten anlegen. Erstellen wir einen Prozess für das oben besprochene Lutscher-Beispiel. Die Metadaten helfen Clients, den Abstimmungsprozess korrekt anzuzeigen; sie enthalten die menschenlesbaren Informationen, ohne den Prozess auf Protokollebene zu konfigurieren. Wir definieren hier eine Frage pro Geschmacksrichtung, jeweils mit den vordefinierten Auswahlwerten von `0` bis `3`. Außerdem geben wir Aggregations- und Anzeigetyp an; sie sagen den Clients, wie Ergebnisse auszuwerten sind und wie der Prozess den Nutzern angezeigt werden soll.
+
+Schließlich erstellen wir den Prozess selbst. Die Variablen des Ballot-Protokolls werden einfach so gesetzt, wie wir sie oben für diesen Beispielprozess definiert haben; die Variable `uniqueValues` wird als `envelopeType` gesetzt. Darüber hinaus beschreibt `processParams`, wo Zensus und Metadaten des Prozesses gespeichert sind, ob der Prozess verschlüsselt und/oder anonym ist, welche Infrastruktur er nutzen soll, wann er beginnt und endet, sowie weitere Zusatzinformationen.
+
+Nach der Veröffentlichung können wir den Prozess wieder auslesen, verifizieren, dass die Parameter korrekt gesetzt sind, Web- oder App-Clients anweisen, diesen Prozesstyp anzuzeigen – und die Abstimmung kann beginnen!

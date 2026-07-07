@@ -1,0 +1,106 @@
+---
+title: Der Weg zu anonymen, verbindlichen Abstimmungen auf Ethereum
+publishedDate: '2023-06-23'
+updatedDate: '2026-01-14'
+excerpt: 'Das Hauptziel von Vocdoni ist es, Technologie zu entwickeln, die reibungslose und sichere Abstimmungsprozesse auf Ethereum ermöglicht.'
+coverImage: /blog/images/2026/01/blogpost_road_to_anonymous_ethereum.webp
+coverAlt: Der Weg zu anonymen, verbindlichen Abstimmungen auf Ethereum
+authors:
+  - ferran
+categories:
+  - technology
+featured: false
+draft: false
+---
+
+Anonymität schützt die Privatsphäre der Wählenden und sichert die freie Meinungsäußerung, weil sie das Risiko von Nötigung oder Vergeltung mindert. Zensurresistenz wiederum garantiert, dass keine einzelne Instanz Stimmrechte manipulieren oder verweigern kann, und stärkt so einen dezentralen, fairen und offenen demokratischen Prozess.
+
+Das Hauptziel von [Vocdoni](https://vocdoni.io/de) ist es, den Technologie-Stack bereitzustellen, der reibungslose und sichere Abstimmungsprozesse auf der Ethereum-Blockchain ermöglicht – insbesondere für das Ökosystem der Decentralized Autonomous Organizations (DAOs). Wir wollen ein neuartiges System für gaslose, anonyme Off-Chain-Abstimmungen mit verbindlicher Ausführung schaffen.
+
+Dieses Dokument skizziert unseren Ansatz für diese ambitionierte Mission, gegliedert in folgende Kernbereiche:
+
+- Aufbau und Verifikation eines vollständigen Zensus
+- Das Problem des Nullifier-Determinismus bei ECDSA-Signaturen
+- Der Mechanismus der Off-Chain-Stimmabgabe
+- Rolle und Funktionen des Stimmen-Aggregators
+- Das Hochladen der Abstimmungsergebnisse auf Ethereum
+
+### **1. Der verifizierte Zensus**
+
+Der Zensus ist die Kernkomponente jedes Abstimmungssystems: Er erfasst die stimmberechtigten Wählenden und ordnet ihnen Stimmgewichte zu. Einen Zensus aus Daten der Ethereum-Blockchain zu erzeugen, bringt jedoch eigene Schwierigkeiten mit sich. Dazu zählen:
+
+- **Datenstruktur:** Die Daten der Ethereum-Blockchain liegen nicht in einem Format vor, das sich für die Erzeugung eines Zensus eignet. Für einen ERC20-Token existiert beispielsweise keine eigene Datenstruktur, die eine vollständige Liste der Token-Inhaber führt.
+- **Kryptografie-Kompatibilität:** Die Kryptografie von Ethereum ist auf grundlegender Ebene nicht mit zkSnarks kompatibel, was das Erstellen und Verifizieren von Zero-Knowledge-Beweisen erschwert.
+
+Die übergreifende Herausforderung besteht also darin, auf vertrauenslose Weise einen zkSnark-kompatiblen, tokenbasierten Zensus zu erstellen, der Off-Chain-Abstimmungen ermöglicht. Zu bedenken ist außerdem, dass ERC20-Transaktionen jederzeit stattfinden können – der Zensus kann sich also von Block zu Block erheblich ändern.
+
+Um diese Herausforderungen zu bewältigen, schlagen wir folgendes Vorgehen vor:
+
+- **Off-Chain-Zensus:** Einen zkSnark-freundlichen Off-Chain-Zensus aufbauen.
+- **Beweiserzeugung:** Einen zkSnark-Beweis erzeugen, der die Korrektheit des Zensus verifiziert.
+- **On-Chain-Validierung:** Den Beweis der Zensus-Erstellung on-chain per Smart Contract validieren.
+- **Abstimmung ermöglichen:** Nach der Validierung kann der Zensus für Abstimmungen genutzt werden.
+
+Die Zensus-Validierung auf Ethereum kann auf zwei Wegen erfolgen:
+
+- **Guthabenprüfung (Balance Check):** Der Smart Contract prüft die Gültigkeit aller Inhaber (oder einer Teilmenge) über den Aufruf der Funktion balanceOfAt(). Dieser Ansatz kann für den Absender allerdings hohe Transaktionskosten verursachen.
+- **Storage Proof:** Der Zensus-zkProof wird mit Storage Proofs erstellt, und der Contract prüft seine Korrektheit gegen eine frühere Ethereum State Root. Diese Methode ist für den Ersteller des Zensus rechnerisch aufwendig, bietet aber eine robuste Lösung.
+
+Die Guthabenprüfung eignet sich unserer Einschätzung nach besser für kleine DAOs (100–200 Mitglieder), der Storage Proof dagegen für große Organisationen, die die Kosten einer größeren Recheninfrastruktur tragen können.
+
+### **2. Das Problem des Nullifier-Determinismus**
+
+In kryptografischen Systemen ist Determinismus entscheidend: Dieselbe Eingabe muss immer dieselbe Ausgabe erzeugen. Bei Ethereum-Signaturen gibt es hier jedoch einen Haken.
+
+ECDSA-Signaturen enthalten eine beliebige Nonce – eine Zahl, die nur einmal oder sehr selten verwendet wird. Der Signierende kann diese Nonce ändern und so aus derselben Nachricht unterschiedliche Signaturen erzeugen. Das Ergebnis: Nicht-Determinismus – unterschiedliche Ausgaben bei gleicher Eingabe.
+
+Dieser Nicht-Determinismus wird zum Hindernis, wenn ein Nullifier berechnet werden soll – ein wesentliches Werkzeug gegen doppelte Stimmabgabe. Ein Nullifier ist eine eindeutige Kennung für jede Stimme. Bei der Stimmabgabe wird der Nullifier in einer öffentlichen Liste auf der Blockchain vermerkt.
+
+Ein deterministischer Nullifier erfordert ein deterministisches Signaturverfahren. Da ECDSA-Signaturen nicht deterministisch sind, vertragen sie sich nicht mit der Nullifier-Erzeugung. Beim Versuch, doppelte Stimmen in einem anonymen, verbindlichen Abstimmungssystem auf Ethereum zu verhindern, stoßen wir also auf ein Hindernis.
+
+Wir führen daher das Konzept eines globalen Registers von Commitment-Schlüsseln (Global Registry of Commitment Keys) ein. Ein Smart Contract verwaltet dieses Register und bildet Ethereum-Adressen auf Commitment-Schlüssel ab. Die Grundstruktur: Ethereum-Adresse => hash(secret).
+
+Der Commitment-Schlüssel, erzeugt aus einem Geheimnis des Nutzers, verknüpft eine Ethereum-Adresse mit einer deterministischen Ausgabe – und stellt damit den Determinismus sicher, der für unseren Anwendungsfall entscheidend ist.
+
+Diese Zuordnung von Schlüsseln zu Adressen wird als Snark-freundlicher Merkle-Baum auf der Ethereum-Blockchain gespeichert. Merkle-Bäume eignen sich dafür besonders gut, weil sie ein manipulationssicheres und effizientes System zum Speichern und Verifizieren großer Datenmengen ermöglichen – eine wesentliche Anforderung in unserem Fall.
+
+Bei der Stimmabgabe muss der Nutzer einen zkSNARK-Beweis vorlegen. Dieser Beweis zeigt, dass der Nutzer das Geheimnis des Commitment-Schlüssels kennt, der Teil des auf Ethereum gespeicherten Commitment-Key-Merkle-Baums ist. So entsteht ein sicheres, anonymes und gegen doppelte Stimmabgabe geschütztes Abstimmungssystem – ohne dass ECDSA-Signaturen deterministisch sein müssten.
+
+### **3. Off-Chain-Stimmabgabe**
+
+Mit einem verifizierten Abstimmungszensus und der Merkle-Wurzel des globalen Registers kann die Stimmabgabe beginnen.
+
+Um eine Stimme abzugeben, muss ein Nutzer zwei Dinge nachweisen:
+
+- **Zensus-Zugehörigkeit:** Adresse und Guthaben des Nutzers sind Teil des Abstimmungszensus.
+- **Kenntnis des geheimen Schlüssels:** Der Nutzer kennt den geheimen Schlüssel des Commitments, das seiner Adresse im globalen Register zugeordnet ist.
+
+Der Nutzer erstellt daraufhin zkSnark-Beweise, anonymisiert damit seine Identität und erzeugt einen Nullifier. Dieser Nullifier wird deterministisch berechnet, indem der geheime Schlüssel zusammen mit einer eindeutigen Vorschlagskennung gehasht wird.
+
+Da das globale Register ein zkSnark-freundlicher Merkle-Baum ist, kommt dieser Mechanismus im Circuit ohne die Ethereum-Kryptografie (secp256k1) aus – die Erstellung des Stimmzettels wird dadurch effizienter und browserfreundlicher.
+
+Stimmzettel und Beweis werden zu einem Paket gebündelt und an ein Peer-to-Peer-Netzwerk (P2P) von Aggregatoren verteilt. Ein dezentrales P2P-Netzwerk ist grundlegend für die Zensurresistenz: Keine einzelne Instanz kann den Abstimmungsprozess kontrollieren oder manipulieren.
+
+### **4. Die Stimmenaggregation**
+
+Nach der Stimmabgabe müssen die Stimmen zu einem umfassenden zkSnark-Beweis aggregiert werden. Das kann auf einmal oder in Batches geschehen. Der dabei erstellte Beweis verifiziert Folgendes:
+
+- einen bestimmten Root-Hash des Abstimmungszensus
+- einen eindeutigen Root-Hash des globalen Registers
+- eine Liste gültiger Stimm-Nullifier
+- die Korrektheit der Abstimmungsergebnisse
+
+Da die ursprünglichen Stimmen selbst zkSnark-Beweise sind, erfordert die Aggregation eine Rekursionsebene – also einen zkSnark, der die Korrektheit eines anderen zkSnarks beweist.
+
+Angesichts des aktuellen Stands der Technik und der begrenzten Kompatibilität von Ethereum mit elliptischen Kurven ist die Erzeugung dieses rekursiven Beweises jedoch eine erhebliche Herausforderung. Möglicherweise müssen wir auf Fortschritte bei den zkSnark-Frameworks warten – und darauf, dass Ethereum zkSnark-Kryptografie besser unterstützt.
+
+### **5. Hochladen der Ergebnisse auf Ethereum**
+
+Nach Abschluss der Stimmenaggregation kann jeder Nutzer den finalen Beweis bei einem Ethereum-Smart-Contract einreichen. Der Smart Contract verifiziert Folgendes:
+
+- **Ergebnisbeweis:** Der Beweis der Ergebnisse ist korrekt.
+- **Zensus-Wurzel:** Die Wurzel des Abstimmungszensus stimmt mit der zuvor verifizierten überein.
+- **Wurzel des globalen Registers:** Die Wurzel des globalen Registers ist korrekt.
+- **Abstimmungszeitraum:** Der Abstimmungszeitraum entspricht dem vorab definierten Zeitfenster.
+
+Nach erfolgreicher Verifikation dieser Elemente kann der Smart Contract die vorab festgelegten Aktionen ausführen, die mit dem Abstimmungsprozess auf Ethereum verknüpft sind. Dieser Prozess gewährleistet die Gültigkeit und Integrität der Stimmen und ermöglicht ihre Umsetzung.

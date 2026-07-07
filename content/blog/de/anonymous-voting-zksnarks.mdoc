@@ -1,0 +1,189 @@
+---
+title: 'Technischer Deep-Dive: Anonyme Stimmabgabe mit zk-SNARKs'
+publishedDate: '2022-10-19'
+updatedDate: '2026-01-14'
+excerpt: Lernen Sie die technischen Spezifikationen der anonymen Stimmabgabe bei Vocdoni kennen und erfahren Sie, wie wir zu diesem Design gekommen sind.
+coverImage: /blog/images/2026/01/blogpost_anonymous_zksnarks.webp
+coverAlt: 'Technischer Deep-Dive: Anonyme Stimmabgabe mit zk-SNARKs'
+authors:
+  - ferran
+categories:
+  - technology
+featured: false
+draft: false
+---
+
+# **Was wir unter anonymer Stimmabgabe verstehen**
+
+Bevor wir in die technischen Details eintauchen, lohnt sich ein Blick darauf, wie wir anonyme Stimmabgabe definieren und warum wir zu diesem Design gekommen sind. Im Artikel zur Produktankündigung stellen wir zwei Arten von Anonymität vor: die Verschleierung der Stimmzettel (_ballot obfuscation_) und die Wähler-Anonymität (_voter anonymity_).
+
+Bei der Verschleierung der Stimmzettel entsteht Anonymität dadurch, dass der Inhalt jeder einzelnen Stimme verborgen bleibt. Die Wähler-Anonymität kappt dagegen die Verbindung zwischen Wähler und Stimme, ohne die Stimmen selbst zu verbergen. Unsere Implementierung der anonymen Stimmabgabe setzt auf Wähler-Anonymität. Warum?
+
+Erstens bringt die Verschleierung der Stimmzettel erhebliche Kompromisse mit sich. Damit ein Abstimmungsprozess Ende-zu-Ende-verifizierbar ist, müssen Wähler den Inhalt ihrer abgegebenen Stimmzettel nachverfolgen und prüfen können. Sichern wir die Anonymität über die Verschleierung der Stimmzettel, verlieren wir die Verifizierbarkeit: Ist der Inhalt jeder Stimme verborgen, lässt sich weder verifizieren, dass Ihre Stimme gezählt wurde, noch die Integrität der Abstimmung auditieren.
+
+Ein weiterer Nachteil der Stimmzettel-Verschleierung ist, dass sie sich in einem digitalen Abstimmungssystem nur schwer umsetzen lässt. Eine Technik dafür ist die homomorphe Verschlüsselung, die [vorgeschlagen](https://www.itm-conferences.org/articles/itmconf/pdf/2020/02/itmconf_icacc2020_03023.pdf) wurde, um klassische Wahlsysteme kryptografisch zu anonymisieren. Homomorphe Verschlüsselung erlaubt Berechnungen auf verschlüsselten Werten: Die Stimmen lassen sich auszählen, ohne den Inhalt eines einzigen Stimmzettels einzusehen. In der Theorie solide, bringt homomorphe Verschlüsselung jedoch viele Nachteile mit sich, die sie als Rückgrat einer Abstimmungstechnologie weniger attraktiv machen.
+
+Am gravierendsten: Diese Methode erlaubt nur einfache Berechnungen auf den verschlüsselten Stimmzetteln, was Verfahren wie [quadratisches](https://en.wikipedia.org/wiki/Quadratic_voting?oldformat=true) oder [präferenzielles](https://en.wikipedia.org/wiki/Instant-runoff_voting?oldformat=true) [Abstimmen](https://www.wikiwand.com/en/Instant-runoff_voting) schwieriger [umsetzbar](https://blog.aragon.org/vocdoni-ballot-protocol/) macht. Außerdem garantiert homomorphe Verschlüsselung zwar die Berechnung der Ergebnisse, nicht aber die Ende-zu-Ende-Verifikation des einzelnen Stimmzettels. Das Verfahren liefert keinen kryptografischen Beweis dafür, dass der Stimmzettel eines Wählers im Ergebnis enthalten und korrekt repräsentiert ist. Wir schätzen zudem, dass die Validierung des homomorphen Beweises eines Abstimmungsprozesses erhebliche Rechenressourcen beanspruchen würde, und der Aufwand wächst mit der Größe des Prozesses. Das könnte die Vorteile eines universell verifizierbaren Systems zunichtemachen, weil die Verifikation nur auf leistungsstarken, teuren Maschinen und über einen unverhältnismäßig langen Zeitraum möglich wäre.
+
+Die Wähler-Anonymität hat gegenüber der homomorphen Verschlüsselung mehrere Vorteile. Erstens ist ein deutlich höheres Maß an Ende-zu-Ende-Verifizierbarkeit möglich. Die Verbindung zwischen Wähler und Stimmzettel muss zwar für _dritte_ Beobachter undurchsichtig bleiben, die Wähler selbst können ihren Stimmzettel aber weiterhin identifizieren. Weil die Stimmzettel sichtbar sind, kann jeder Nutzer seine Stimme von der Abgabe bis zur Aufnahme in die Ergebnisse nachverfolgen. Darüber hinaus können Dritte erkennen, dass jeder Stimmzettel zu einem gültigen Wähler gehört und dass sein Inhalt korrekt gezählt wurde.
+
+Die Wähler-Anonymität ermöglicht zudem in der Regel deutlich recheneffizientere Designs. Systeme mit Wähler-Anonymität verschleiern den Stimmzettel-Beweis jedes Wählers genau einmal, statt bei jeder neu abgegebenen Stimme die gesamte Ergebnismenge neu zu verarbeiten. Es ist kein aufwendiger Rechenschritt nötig, um Ergebnisse breit verfügbar zu machen. Wahlergebnisse können sogar _während_ eines laufenden Abstimmungsprozesses veröffentlicht werden, ohne die Anonymität zu gefährden (sofern Timing-Korrelationsangriffe abgewehrt sind).
+
+Deshalb haben wir uns entschieden, die Wähler-Anonymität direkt in unseren Zensus-Beweis-Mechanismus einzubauen.
+
+# **Zensus-Merkle-Baum**
+
+Ausgangspunkt des Zensus-Mechanismus ist ein [_Zensus-Merkle-Baum_](https://docs.vocdoni.io/architecture/census/off-chain-tree.html). Das ist eine Struktur aus gehashten öffentlichen Schlüsseln, von denen jeder einen stimmberechtigten Wähler im Zensus repräsentiert. Der Merkle-Baum erlaubt es jedem gültigen Wähler zu beweisen, dass er einen `censusKey` besitzt, der zum Zensus gehört, ohne die Schlüssel anderer Wähler zu kennen. Diesen Beweis reicht der Wähler als Teil seines Stimmzettels ein. An diesen _Stimmumschlag_ (_vote envelope_) ist außerdem ein `nullifier` angehängt: ein Datenwert, der aus dem `censusKey` des Nutzers und der `electionID` abgeleitet wird und eindeutig dessen Stimme entspricht.
+
+Mit diesem Beweis allein könnte der Organisator eines Prozesses jeden Stimmumschlag über dessen `nullifier` mit dem `censusKey` eines Wählers korrelieren und die Abstimmung so de-anonymisieren. Um das zu verhindern, setzt Vocdoni _zk-SNARKs_ ein und stellt damit die Anonymität der Stimmabgabe sicher.
+
+### **zk-SNARKs für anonyme Stimmabgabe**
+
+[zk-SNARK](https://en.wikipedia.org/wiki/Non-interactive_zero-knowledge_proof?oldformat=true) steht für _zero-knowledge Succinct Non-interactive ARgument of Knowledge_. Ein zk-SNARK erlaubt es einem Nutzer, gegenüber einem Dritten zu beweisen, dass er eine bestimmte Information besitzt, ohne die Information selbst offenzulegen.
+
+In unserem Fall können Wähler mit zk-SNARKs beweisen, dass sie zum Zensus gehören, ohne ihren `secretKey` preiszugeben. Konkret geschieht das mit einem zk-Circuit, einem Software-Schaltkreis, der einen Zero-Knowledge-Beweis (ZKP) erzeugt.
+
+### **zk-Circuit**
+
+Wir haben einen Circuit entworfen, mit dem Nutzer einen ZKP ihrer Zensus-Mitgliedschaft erzeugen können, ohne ihren `secretKey` offenzulegen. Der Circuit erhält private und öffentliche Eingaben; Daten, die die Identität des Wählers verraten könnten, bleiben privat. Die öffentlichen Eingaben werden im Stimmumschlag mitgeschickt, damit Validatoren sie gegen den Beweis prüfen und sicherstellen können, dass der Nutzer nicht zweimal abgestimmt hat.
+
+Der Circuit lässt sich für jeden Prozess mit einem Zensus ähnlicher Größe verwenden und muss nur einmal pro Größe erzeugt werden. Genauer: Ein Circuit kann einmal erzeugt und dann für jeden Zensus-Merkle-Baum mit derselben Baumhöhe wiederverwendet werden. Da wir einen Binärbaum verwenden, wird ein Circuit für jeden Wert `n` benötigt, bei dem die angestrebte Zensusgröße im Bereich von `2^n` liegt (z. B. 128, 256, ..., 8192, 16384 usw.).
+
+Die Circuit-Erzeugung stützt sich auf eine [Trusted-Setup-Zeremonie](https://medium.com/qed-it/diving-into-the-snarks-setup-phase-b7660242a0d7). Dabei werden die Prover- und Verifier-Schlüssel für den Circuit erzeugt. „Trusted“ heißt das Verfahren, weil eine Partei, die die gesamte Erzeugung dieser Schlüssel kontrolliert, falsche Beweise erzeugen könnte. Deshalb braucht es eine dezentrale „Zeremonie“, um die Zuverlässigkeit des Circuits sicherzustellen. Bei einer solchen Zeremonie führen mehrere Parteien mit gegensätzlichen Interessen und an unterschiedlichen Orten jeweils einen Schritt der Schlüsselerzeugung aus. Bleibt auch nur eine dieser Parteien integer, ist es unmöglich, einen falschen Beweis zu erzeugen.
+
+Der `franchise proof` wird durch Ausführen des zk-SNARK-Circuits erzeugt.
+
+- **Private Eingaben:** `index`, `secretKey`, `census Merkle-proof`
+- **Öffentliche Eingaben:** `census Merkle-root`, `nullifier`, `election ID`, `vote`
+- **Ausgabe:** `franchise proof`
+
+![](/blog/images/2026/01/zksnarks_anonymous_1.webp)
+
+# **Was wir unter anonymer Stimmabgabe verstehen**
+
+Bevor wir in die technischen Details eintauchen, lohnt sich ein Blick darauf, wie wir anonyme Stimmabgabe definieren und warum wir zu diesem Design gekommen sind. Im Artikel zur Produktankündigung stellen wir zwei Arten von Anonymität vor: die Verschleierung der Stimmzettel (_ballot obfuscation_) und die Wähler-Anonymität (_voter anonymity_).
+
+Bei der Verschleierung der Stimmzettel entsteht Anonymität dadurch, dass der Inhalt jeder einzelnen Stimme verborgen bleibt. Die Wähler-Anonymität kappt dagegen die Verbindung zwischen Wähler und Stimme, ohne die Stimmen selbst zu verbergen. Unsere Implementierung der anonymen Stimmabgabe setzt auf Wähler-Anonymität. Warum?
+
+Erstens bringt die Verschleierung der Stimmzettel erhebliche Kompromisse mit sich. Damit ein Abstimmungsprozess Ende-zu-Ende-verifizierbar ist, müssen Wähler den Inhalt ihrer abgegebenen Stimmzettel nachverfolgen und prüfen können. Sichern wir die Anonymität über die Verschleierung der Stimmzettel, verlieren wir die Verifizierbarkeit: Ist der Inhalt jeder Stimme verborgen, lässt sich weder verifizieren, dass Ihre Stimme gezählt wurde, noch die Integrität der Abstimmung auditieren.
+
+Ein weiterer Nachteil der Stimmzettel-Verschleierung ist, dass sie sich in einem digitalen Abstimmungssystem nur schwer umsetzen lässt. Eine Technik dafür ist die homomorphe Verschlüsselung, die [vorgeschlagen](https://www.itm-conferences.org/articles/itmconf/pdf/2020/02/itmconf_icacc2020_03023.pdf) wurde, um klassische Wahlsysteme kryptografisch zu anonymisieren. Homomorphe Verschlüsselung erlaubt Berechnungen auf verschlüsselten Werten: Die Stimmen lassen sich auszählen, ohne den Inhalt eines einzigen Stimmzettels einzusehen. In der Theorie solide, bringt homomorphe Verschlüsselung jedoch viele Nachteile mit sich, die sie als Rückgrat einer Abstimmungstechnologie weniger attraktiv machen.
+
+Am gravierendsten: Diese Methode erlaubt nur einfache Berechnungen auf den verschlüsselten Stimmzetteln, was Verfahren wie [quadratisches](https://en.wikipedia.org/wiki/Quadratic_voting?oldformat=true) oder [präferenzielles](https://en.wikipedia.org/wiki/Instant-runoff_voting?oldformat=true) [Abstimmen](https://www.wikiwand.com/en/Instant-runoff_voting) schwieriger [umsetzbar](https://blog.aragon.org/vocdoni-ballot-protocol/) macht. Außerdem garantiert homomorphe Verschlüsselung zwar die Berechnung der Ergebnisse, nicht aber die Ende-zu-Ende-Verifikation des einzelnen Stimmzettels. Das Verfahren liefert keinen kryptografischen Beweis dafür, dass der Stimmzettel eines Wählers im Ergebnis enthalten und korrekt repräsentiert ist. Wir schätzen zudem, dass die Validierung des homomorphen Beweises eines Abstimmungsprozesses erhebliche Rechenressourcen beanspruchen würde, und der Aufwand wächst mit der Größe des Prozesses. Das könnte die Vorteile eines universell verifizierbaren Systems zunichtemachen, weil die Verifikation nur auf leistungsstarken, teuren Maschinen und über einen unverhältnismäßig langen Zeitraum möglich wäre.
+
+Die Wähler-Anonymität hat gegenüber der homomorphen Verschlüsselung mehrere Vorteile. Erstens ist ein deutlich höheres Maß an Ende-zu-Ende-Verifizierbarkeit möglich. Die Verbindung zwischen Wähler und Stimmzettel muss zwar für _dritte_ Beobachter undurchsichtig bleiben, die Wähler selbst können ihren Stimmzettel aber weiterhin identifizieren. Weil die Stimmzettel sichtbar sind, kann jeder Nutzer seine Stimme von der Abgabe bis zur Aufnahme in die Ergebnisse nachverfolgen. Darüber hinaus können Dritte erkennen, dass jeder Stimmzettel zu einem gültigen Wähler gehört und dass sein Inhalt korrekt gezählt wurde.
+
+Die Wähler-Anonymität ermöglicht zudem in der Regel deutlich recheneffizientere Designs. Systeme mit Wähler-Anonymität verschleiern den Stimmzettel-Beweis jedes Wählers genau einmal, statt bei jeder neu abgegebenen Stimme die gesamte Ergebnismenge neu zu verarbeiten. Es ist kein aufwendiger Rechenschritt nötig, um Ergebnisse breit verfügbar zu machen. Wahlergebnisse können sogar _während_ eines laufenden Abstimmungsprozesses veröffentlicht werden, ohne die Anonymität zu gefährden (sofern Timing-Korrelationsangriffe abgewehrt sind).
+
+Deshalb haben wir uns entschieden, die Wähler-Anonymität direkt in unseren Zensus-Beweis-Mechanismus einzubauen.
+
+# **Zensus-Merkle-Baum**
+
+Ausgangspunkt des Zensus-Mechanismus ist ein [_Zensus-Merkle-Baum_](https://docs.vocdoni.io/architecture/census/off-chain-tree.html). Das ist eine Struktur aus gehashten öffentlichen Schlüsseln, von denen jeder einen stimmberechtigten Wähler im Zensus repräsentiert. Der Merkle-Baum erlaubt es jedem gültigen Wähler zu beweisen, dass er einen `censusKey` besitzt, der zum Zensus gehört, ohne die Schlüssel anderer Wähler zu kennen. Diesen Beweis reicht der Wähler als Teil seines Stimmzettels ein. An diesen _Stimmumschlag_ (_vote envelope_) ist außerdem ein `nullifier` angehängt: ein Datenwert, der aus dem `censusKey` des Nutzers und der `electionID` abgeleitet wird und eindeutig dessen Stimme entspricht.
+
+Mit diesem Beweis allein könnte der Organisator eines Prozesses jeden Stimmumschlag über dessen `nullifier` mit dem `censusKey` eines Wählers korrelieren und die Abstimmung so de-anonymisieren. Um das zu verhindern, setzt Vocdoni _zk-SNARKs_ ein und stellt damit die Anonymität der Stimmabgabe sicher.
+
+### **zk-SNARKs für anonyme Stimmabgabe**
+
+[zk-SNARK](https://en.wikipedia.org/wiki/Non-interactive_zero-knowledge_proof?oldformat=true) steht für _zero-knowledge Succinct Non-interactive ARgument of Knowledge_. Ein zk-SNARK erlaubt es einem Nutzer, gegenüber einem Dritten zu beweisen, dass er eine bestimmte Information besitzt, ohne die Information selbst offenzulegen.
+
+In unserem Fall können Wähler mit zk-SNARKs beweisen, dass sie zum Zensus gehören, ohne ihren `secretKey` preiszugeben. Konkret geschieht das mit einem zk-Circuit, einem Software-Schaltkreis, der einen Zero-Knowledge-Beweis (ZKP) erzeugt.
+
+### **zk-Circuit**
+
+Wir haben einen Circuit entworfen, mit dem Nutzer einen ZKP ihrer Zensus-Mitgliedschaft erzeugen können, ohne ihren `secretKey` offenzulegen. Der Circuit erhält private und öffentliche Eingaben; Daten, die die Identität des Wählers verraten könnten, bleiben privat. Die öffentlichen Eingaben werden im Stimmumschlag mitgeschickt, damit Validatoren sie gegen den Beweis prüfen und sicherstellen können, dass der Nutzer nicht zweimal abgestimmt hat.
+
+Der Circuit lässt sich für jeden Prozess mit einem Zensus ähnlicher Größe verwenden und muss nur einmal pro Größe erzeugt werden. Genauer: Ein Circuit kann einmal erzeugt und dann für jeden Zensus-Merkle-Baum mit derselben Baumhöhe wiederverwendet werden. Da wir einen Binärbaum verwenden, wird ein Circuit für jeden Wert `n` benötigt, bei dem die angestrebte Zensusgröße im Bereich von `2^n` liegt (z. B. 128, 256, ..., 8192, 16384 usw.).
+
+Die Circuit-Erzeugung stützt sich auf eine [Trusted-Setup-Zeremonie](https://medium.com/qed-it/diving-into-the-snarks-setup-phase-b7660242a0d7). Dabei werden die Prover- und Verifier-Schlüssel für den Circuit erzeugt. „Trusted“ heißt das Verfahren, weil eine Partei, die die gesamte Erzeugung dieser Schlüssel kontrolliert, falsche Beweise erzeugen könnte. Deshalb braucht es eine dezentrale „Zeremonie“, um die Zuverlässigkeit des Circuits sicherzustellen. Bei einer solchen Zeremonie führen mehrere Parteien mit gegensätzlichen Interessen und an unterschiedlichen Orten jeweils einen Schritt der Schlüsselerzeugung aus. Bleibt auch nur eine dieser Parteien integer, ist es unmöglich, einen falschen Beweis zu erzeugen.
+
+Der `franchise proof` wird durch Ausführen des zk-SNARK-Circuits erzeugt.
+
+- **Private Eingaben:** `index`, `secretKey`, `census Merkle-proof`
+- **Öffentliche Eingaben:** `census Merkle-root`, `nullifier`, `election ID`, `vote`
+- **Ausgabe:** `franchise proof`
+
+![](https://storage.googleapis.com/papyrus_images/6b32fa7a072e4433398cb3ebd67ea70e.png)
+
+Ohne den `secretKey` oder den _Zensus-Merkle-Beweis_ offenzulegen, kann dieser Circuit nachweisen:
+
+1. Der Wähler besitzt den `secretKey`, der zu einem bestimmten `zkCensusKey` gehört.
+2. Der `zkCensusKey` des Wählers ist im Zensus-Merkle-Baum enthalten.
+3. Der vom Wähler gelieferte `nullifier` entspricht eindeutig seinem `secretKey` und der `election ID` eines bestimmten Abstimmungsprozesses.
+
+Obwohl die Berechnung CPU- und speicherintensiv ist, lassen sich ZKPs im Client des Nutzers auf bescheidener Hardware erzeugen. Im [Vocdoni](http://vocdoni.app/)-Protokoll wird der Beweis von den [Vochain](https://docs.vocdoni.io/architecture/services/vochain.html)-Knoten, den Minern und jedem Dritten validiert, der den Prozess beobachtet.
+
+Der Circuit ist auf seine Mindestanforderungen reduziert und optimiert, damit er auf jeder Art von Client-Hardware zugänglich bleibt. Aus diesem Grund verwenden wir keine Signaturprüfung, sondern einen Ansatz mit secretKey.
+
+### **Merkle- und Zensus-Bäume**
+
+Der Merkle-Baum, aus dem der _anonyme Zensus_ aufgebaut wird, muss eine zk-SNARK-freundliche Implementierung sein. Da wir derzeit den [Circom](https://github.com/iden3/circom)-Compiler für die zk-SNARK-Circuits verwenden, brauchen wir einen Baum, der mit der Merkle-Baum-Implementierung von [circomlib](https://github.com/iden3/circomlib/tree/master/circuits/smt) kompatibel ist. Eine Spezifikation eines solchen Merkle-Baums [finden Sie hier](https://docs.iden3.io/publications/pdfs/Merkle-Tree.pdf).
+
+[Vochain](https://docs.vocdoni.io/architecture/services/vochain.html) verwendet den [arbo](https://github.com/vocdoni/arbo)-Merkle-Baum, eine Go-Implementierung, die mit dem Circom-Design kompatibel ist. Der Merkle-Baum nutzt den Poseidon-Hash, eine „SNARK-freundliche“ Hash-Funktion, die sich später innerhalb eines Circuits beweisen lässt, ohne zu viele Constraints zu erfordern. Das folgende Diagramm zeigt die Datenstruktur der Blätter des Merkle-Baums, der im Schema des zk-census-proof verwendet wird.
+
+![](/blog/images/2026/01/zksnarks_anonymous_2.webp)
+
+Den `index`-Wert legt der Ersteller des _Zensus-Baums_ fest, der für jeden Zensus-Baum einen eigenen `index`-Wert führt. Dieser Wert wird mit jedem neuen _Blatt_ hochgezählt. Die _Blätter_ sind so strukturiert, um die Merkle-Bäume effizienter zu nutzen: Es passen mehr Nutzerschlüssel in einen kleineren Baum, was die Größe des zk-Circuits reduziert. Der Grund: Der Wert (`value`) des Schlüssels (`key`) eines Blattes bestimmt dessen Position im Baum.
+
+Würde der Schlüssel eines Blattes durch den `zkCensusKey` statt durch einen inkrementellen `index` bestimmt, hätte jedes neue Blatt eine erhebliche Kollisionswahrscheinlichkeit, bevor alle verfügbaren Blattplätze einer gegebenen Höhe gefüllt sind. Die Bäume wären dadurch weniger ausgeglichen und würden wegen der ineffizienten Nutzung des Baumraums größere Circuits für dieselbe Zensusgröße erfordern. Mit dem inkrementellen Index lassen sich dagegen alle Blattplätze ohne eine einzige Kollision füllen. Das ergibt deutlich kleinere Circuits für dieselbe Nutzerzahl.
+
+### **Erzeugung der zk-Inputs**
+
+```json
+{
+	"censusRoot": "51642541620950251760298704744678482162425252475654827255045491135352807540162",
+	"censusSiblings": ["0","0","0","0"],
+	"index": "30",
+	"secretKey": "6190793965647866647574058687473278714480561351424348391693421151024369116465",
+	"voteValue": ["100964581237483263846637432502620436451", "278307331411790712608582894981321409946"],
+	"electionId": "10",
+	"nullifier": "1938187656076799017313903315498318464349291455761501098436114043715056719301",
+}
+```
+
+Herkunft der einzelnen zk-Input-Parameter:
+
+Alle Parameter sind `string` oder `[]string` und repräsentieren `bigInt` bzw. `[]bigInt`.
+
+- `censusRoot`: wird von der _Zensus-Autorität_ aus dem _Zensus-Baum_ berechnet.
+- `censusSiblings`: wird von der Zensus-Autorität berechnet; das ist der Merkle-Beweis.
+- Der Nutzer ruft die _Siblings_ über das Gateway von der Vochain ab.
+- Die Länge von `censusSiblings` hängt vom zk-Circuit ab:
+- Das Design des in circomlib verwendeten Merkle-Baums führt dazu, dass beim Erzeugen eines Merkle-Beweises Siblings unterschiedlicher Länge zurückgegeben werden.
+- Die Tiefe des Baums, definiert von der Wurzel bis zu den Blättern, hängt vom jeweiligen Blatt und seinen Nachbarn ab.
+- Weitere Details finden Sie in der [Merkle-Baum-Spezifikation](https://docs.iden3.io/publications/pdfs/Merkle-Tree.pdf).
+- Damit diese Siblings in den Circuit eingespeist werden können, ist der Wert `nLevels` des Circuits fest vorgegeben; daher muss auch `siblings.length` fest sein.
+- `siblings.length` hängt vom verwendeten zk-Circuit ab, konkret vom Parameter `nLevels` des Circuits.
+- Die auf Nutzerseite nötige Logik finden Sie [hier (Go), Zeilen 67-70](https://github.com/vocdoni/zk-franchise-proof-circuit/blob/feature/go-code-inputs-generation/test/go-inputs-generator/census_test.go#L67) und [hier (JS), Zeile 23](https://github.com/vocdoni/zk-franchise-proof-circuit/blob/feature/go-code-inputs-generation/src/franchise.js#L33): `while (siblings.length < this.levels) siblings.push(BigInt(0));`
+- `index`: wird von der Vochain festgelegt, wenn der `zkCensusKey` des Nutzers in den Zensus-Baum aufgenommen wird.
+- `secretKey`: wird vom Nutzer erzeugt.
+- `voteValue`: gehashter Wert der Nutzerstimme, bestehend aus zwei großen Ganzzahlen.
+- Die rohe Nutzerstimme ist ein Array variabler Länge, dessen Werte im Circuit nicht geprüft werden müssen. Die Werte können außerdem verschlüsselt sein.
+- Da die codierten Stimmwerte unter Umständen nicht in eine konstante Anzahl von Circuit-Eingaben passen, berechnen wir eine Zusammenfassung der rohen Nutzerstimme mit einer EVM-freundlichen Hash-Funktion: `sha256(vote_bytes)`. Die Ausgabe des `sha256`-Hashes ist etwas größer als das in SNARKs verwendete Feld; deshalb teilen wir die Hash-Ausgabe (32 Bytes) in zwei 16-Byte-Arrays, interpretieren sie als Ganzzahlen (Little-Endian) und verwenden sie als Circuit-Eingaben.
+- Wir verwenden den `sha256`-Hash, weil er sich bei Bedarf künftig [innerhalb des Circuits verifizieren](https://github.com/iden3/circomlib/blob/master/circuits/sha256/sha256.circom) lässt. Dabei sind zwei Eigenschaften zu beachten: `sha256` ist in der EVM in Bezug auf Gas doppelt so teuer wie `keccak256`, ist aber in Circom implementiert und kann daher innerhalb eines Circuits geprüft werden; die Prüfung von `sha256` in einem Circom-Circuit ist allerdings teuer, gemessen an der Zahl der Constraints (in der aktuellen Version dieser Spezifikation wird das nicht im Circuit geprüft).
+
+```go
+h := sha256.Sum256(voteBytes) // voteBytes can be the votes array converted to bytes, or the encrypted votes
+b1 := new(big.Int).SetBytes(swapEndianness(h[:16])) // swap endianness, as golang big int package works in big-endian, and we use little-endian
+b2 := new(big.Int).SetBytes(swapEndianness(h[16:]))
+```
+
+Die JSON-Eingabe des `voteValue` für den Circuit wäre dann: `"voteValue": [b1, b2]`
+
+- `electionID`: die ID der Wahl oder Abstimmung, an der der _Nutzer_ teilnimmt.
+- `nullifier`: wird vom _Nutzer_ berechnet: `nullifier = poseidon.Hash(sk, electionID)`
+
+# **Anonyme Stimmabgabe für DAOs**
+
+Um die Frage zu beantworten, wie sich diese Technologie für DAO-Abstimmungen auf Ethereum nutzen lässt, braucht es etwas Kontext:
+
+- Derzeit sind die interne Kryptografie, die Datenstrukturen und der Merkle-Baum von Ethereum nicht zk-SNARK-freundlich; die Optionen sind daher (vorerst) begrenzt.
+- Vocdoni unterstützt derzeit [Abstimmungen per Ethereum Storage Proof](https://www.notion.so/Introducing-Vocdoni-Bridge-voice-cf7e73d38c4a45788358e9a1497cdf19?pvs=21), aktuell der sicherste Weg ohne Vertrauensannahmen, gaslose Offchain-Abstimmungen durchzuführen (implementiert im Frontend [https://voice.aragon.org](https://blog.aragon.org/introducing-vocdoni-anonymous-voting/)).
+- Vocdoni bietet zwar noch keine vollständig verbindliche Offchain-Ausführung (Abstimmungen innerhalb von Ethereum erfordern einen optimistischen Ansatz), wir haben aber bereits [Proof-of-Concept-Arbeiten in diesem Bereich](https://blog.aragon.org/binding-execution-on-ethereum-with-zk-rollups/) durchgeführt und forschen weiter daran, alle Eigenschaften zu erreichen (neue Designs und Proof-of-Concepts folgen in Kürze).
+
+So kann Vocdoni derzeit anonyme Abstimmungen in DAOs unterstützen:
+
+1. In der Vocdoni-Blockchain wird eine neue Wahl erstellt, deren censusRoot dem Ethereum-State-Root und der Adresse des ERC20-Vertrags entspricht.
+2. Nutzer beziehen über Web3 einen Ethereum Storage Proof, der nachweist, dass sie Token für einen Vertrag und einen State-Root halten.
+3. Nutzer erzeugen einen neuen temporären `secretKey` und senden eine Transaktion an die Vocdoni-Blockchain, mit der sie (über den Storage Proof) nachweisen, dass sie stimmberechtigt sind. Diese Transaktion enthält den gehashten `secretKey`, der einem `rolling Census` hinzugefügt wird, den die Logik der Vocdoni-Blockchain intern berechnet. Dieser Schritt heißt **Key-Pre-Register**.
+4. Sobald das Pre-Register abgeschlossen ist, können Nutzer mit ihrem `secretKey` anonym abstimmen.

@@ -1,0 +1,80 @@
+---
+title: Ask the World - Eine DAVINCI-Miniapp auf Basis von Self Protocol
+publishedDate: '2026-03-19'
+excerpt: 'Die meisten digitalen Abstimmungssysteme scheitern noch immer an der Identitätsebene. Man kann Stimmzettel verifizierbar und zensurresistent machen – doch wer…'
+coverImage: /blog/images/2026/03/01_hero_banner.webp
+coverAlt: Ask the World - Eine DAVINCI-Miniapp auf Basis von Self Protocol
+authors:
+  - rica
+categories: []
+featured: false
+draft: false
+---
+
+Die meisten digitalen Abstimmungssysteme scheitern noch immer an der Identitätsebene. Man kann Stimmzettel verifizierbar und zensurresistent machen – doch wer Wahlberechtigung und Einmaligkeit nicht durchsetzen kann, ohne das System in eine Überwachungsmaschine zu verwandeln, hat das Abstimmungsproblem nicht gelöst, sondern nur die Vertrauensgrenze verschoben.
+
+Das war der Ausgangspunkt für Ask the World. **Wir wollten, dass wahlberechtigte Teilnehmende nur die Eigenschaften nachweisen, die für eine bestimmte Abstimmung relevant sind – ohne ihre Identität preiszugeben.**
+
+[_Ask the World_](https://asktheworld.davinci.ninja) ist eine experimentelle Miniapp, die zeigt, was möglich wird, wenn ein Full-Stack-Abstimmungsprotokoll auf Zero-Knowledge-Identität trifft – umgesetzt mit unserem Partner [Self Protocol](https://self.xyz/).
+
+## Warum wir das gebaut haben
+
+[DAVINCI](https://davinci.vote) ist ein verifizierbares, gasloses On-Chain-Abstimmungsprotokoll. Keine bloße Infrastruktur, die Stimmen speichert, sondern ein eigens dafür entwickeltes Protokoll, das die schwierigsten Probleme digitaler Abstimmungen löst:
+
+- **Resistenz gegen Nötigung (_coercion resistance_):** Niemand kann Wählende zwingen, zu beweisen, wie sie abgestimmt haben.
+- **Quittungsfreiheit (_receipt-freeness_):** Wählende können keinen Beleg über ihre Wahl erzeugen – das unterbindet Stimmenkauf.
+- **Kollusionsresistenz:** Koordinierte Manipulation zwischen Wählenden oder zwischen Wählenden und Organisatoren wird kryptografisch verhindert.
+- **Threshold-Verschlüsselung:** Stimmen werden mit einem verteilten Schlüsselschema verschlüsselt, sodass keine einzelne Partei einzelne Stimmzettel vor Ende des Prozesses entschlüsseln kann.
+
+Genau diese Eigenschaften unterscheiden ein echtes Abstimmungsprotokoll von „Stimmen auf einer Blockchain“. Unter der Haube setzt [DAVINCI](https://davinci.vote) auf **zk-SNARKs** für die Beweisverifikation und **homomorphe Threshold-Verschlüsselung** für das Stimmgeheimnis: kryptografische Primitiven, die diesen Garantien mathematische Substanz verleihen.
+
+Mit [_Ask the World_](https://asktheworld.davinci.ninja/) wollten wir noch einen Schritt weiter gehen: eine Abstimmung für alle wahlberechtigten Bürgerinnen und Bürger eines Landes öffnen – verifiziert über ein amtliches Ausweisdokument, bei vollständiger Anonymität der Wählenden.
+
+## So funktioniert es
+
+### Eine Abstimmung erstellen
+
+Wer eine Abstimmung erstellt, legt die Frage, die Antwortoptionen, eine zugelassene Nationalität und ein Mindestalter fest. DAVINCI deployt einen dedizierten Zensus-Contract für genau diese Abstimmung und registriert den Prozess on-chain. Die erstellende Person erhält einen öffentlichen Link – teilnehmen kann jede Person, die die Kriterien erfüllt.
+
+### Eine Stimme abgeben
+
+Aus Sicht der Wählenden fühlt sich das Ganze an wie eine gewöhnliche Web-App:
+
+![](/blog/images/2026/03/02_voting_process-1.webp)
+
+1. **Link öffnen.** Im Hintergrund wird eine ephemere Wallet erzeugt: keine Krypto-Wallet, keine Gas-Gebühren, keine Einrichtung.
+2. **QR-Code scannen.** Die Wählenden erzeugen mit der [Self-App](https://self.xyz) einen Zero-Knowledge-Beweis direkt auf ihrem eigenen Gerät. Dieser Beweis bestätigt, dass ihr Dokument gültig ist, sie die richtige Nationalität besitzen und das Mindestalter erfüllen – ohne Namen, Dokumentennummer oder irgendwelche persönlichen Daten offenzulegen. Zusätzlich wird ein eindeutiger Nullifier erzeugt, der eine doppelte Registrierung verhindert.
+3. **In den Zensus aufgenommen werden.** Der On-Chain-Zensus-Contract verifiziert den Beweis kryptografisch. Ist er gültig, wird die ephemere Wallet der Wählenden in den Zensus aufgenommen.
+4. **Abstimmen.** Die Wählenden treffen ihre Wahl. Ihr Stimmzettel wird per Threshold-Verschlüsselung verschlüsselt und on-chain aufgezeichnet: für alle verifizierbar, für niemanden lesbar, bis der Prozess endet.
+
+Ein Scan. Eine Stimme. Kein Blockchain-Wissen nötig.
+
+### Was darunter passiert
+
+Ask the World ist kein einzelnes Werkzeug, sondern vier Schichten, die zusammenspielen – jede löst ein eigenes Teil des Puzzles.
+
+![](/blog/images/2026/03/03_architecture_stack.webp)
+
+Ganz oben sitzt [DAVINCI](https://davinci.vote), das Abstimmungsprotokoll selbst. Es steuert den gesamten Lebenszyklus einer Abstimmung: Es erstellt den Prozess, verschlüsselt jeden Stimmzettel mit homomorpher Threshold-Verschlüsselung, berechnet das Ergebnis und garantiert Ende-zu-Ende-Verifizierbarkeit. Resistenz gegen Nötigung, Quittungsfreiheit und Kollusionsresistenz sind keine Zusätze – sie stecken im kryptografischen Design.
+
+Darunter wird für jede Abstimmung ein dedizierter Zensus-Smart-Contract deployt. Legt eine Person ihren Zero-Knowledge-Beweis vor, verifiziert dieser Contract ihn on-chain und fügt die ephemere Wallet der Person einem Merkle-Baum hinzu. Weil jeder Prozess seinen eigenen Zensus bekommt, können verschiedene Abstimmungen völlig unterschiedliche Berechtigungskriterien definieren, ohne sich in die Quere zu kommen.
+
+Die Identitätsebene übernimmt [Self Protocol](https://self.xyz). Es erzeugt Zero-Knowledge-Beweise direkt auf dem Gerät der Wählenden: Es bestätigt, dass ein Dokument gültig ist und die Person die Anforderungen an Nationalität und Alter erfüllt, und erzeugt einen eindeutigen Nullifier gegen doppelte Registrierung. Name, Dokumentennummer oder andere persönliche Daten verlassen das Gerät zu keinem Zeitpunkt.
+
+Ephemere Wallets schließlich abstrahieren die gesamte Blockchain-Interaktion. Wählende brauchen keine Krypto-Wallet, zahlen keine Gas-Gebühren und merken nicht einmal, dass sie mit einer Blockchain interagieren. Das Ganze fühlt sich an wie eine ganz normale Web-App.
+
+## Das größere Bild
+
+Der Ablauf ist geradlinig: Eine reale Identität wird zu einem privaten Beweis, dieser Beweis wird verifiziert und in einen Zensus überführt, und der Zensus ermöglicht eine verschlüsselte On-Chain-Abstimmung. Vier Schritte, ohne dass an irgendeiner Stelle persönliche Daten offengelegt werden.
+
+![](/blog/images/2026/03/04_bigger_picture.webp)
+
+Bedeutsam ist aber nicht der Ablauf selbst, sondern was jeder Übergang beseitigt. Der Schritt von der realen Identität zum privaten Beweis löst den Zielkonflikt zwischen Verifikation und Anonymität auf. Der Schritt vom Beweis zum Zensus verhindert doppelte Stimmabgaben, ohne Einzelpersonen zu verfolgen. Und der Schritt vom Zensus zum verschlüsselten Stimmzettel stellt sicher, dass niemand – nicht einmal der Organisator – vor Ende des Prozesses sehen kann, wie jemand abgestimmt hat.
+
+Durch die Kombination der Zero-Knowledge-Identitätsverifikation von [Self](https://self.xyz/) mit dem nötigungsresistenten Abstimmungsprotokoll von DAVINCI erreicht _Ask the World_ etwas, das die meisten digitalen Abstimmungssysteme für unvereinbar halten: eine Teilnahme, die zugleich sicherer und privater ist als alles bisher Verfügbare – und für die Wählenden so einfach wie das Scannen eines QR-Codes.
+
+[_Ask the World_](https://asktheworld.davinci.ninja/) ist ein Experiment – das Protokoll darunter ist keines. [Das SDK von DAVINCI](https://github.com/vocdoni/davinci-sdk/) steht bereit für alle Entwicklerinnen und Entwickler, die eigene Abstimmungsanwendungen bauen wollen: für Governance, Community-Entscheidungen, Stimmungsbilder oder Anwendungsfälle, an die wir noch gar nicht gedacht haben.
+
+---
+
+**Bereit loszulegen?** Erkunden Sie das [DAVINCI SDK](https://github.com/vocdoni/davinci-sdk/) und bauen Sie noch heute verifizierbare und private Entscheidungsprozesse.

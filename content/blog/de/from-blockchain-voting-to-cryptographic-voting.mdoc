@@ -1,0 +1,97 @@
+---
+title: Von der Blockchain-Abstimmung zur kryptografischen Abstimmung
+publishedDate: '2026-01-28'
+excerpt: 'In den vergangenen Jahren liefen Abstimmungen bei Vocdoni auf Vochain, unserer eigens für Abstimmungen entwickelten L1-Blockchain. Wie jede Blockchain gab sie uns etwas Mächtiges:…'
+coverImage: /blog/images/2026/01/Gemini_Generated_Image_6dzwdk6dzwdk6dzw-1.webp
+coverAlt: Von der Blockchain-Abstimmung zur kryptografischen Abstimmung
+authors:
+  - pau
+categories:
+  - davinci
+  - technology
+featured: false
+draft: false
+seo:
+  metaDescription: |-
+    Privatsphäre und Sicherheit dürfen in der Web3-Governance
+    keine „Features“ sein. Ohne Privatsphäre ist eine Abstimmung
+    nicht demokratisch. DAVINCI ist unser Versuch, das zu ändern:
+    Korrektheit und Privatsphäre sind nicht verhandelbar.
+  ogImage: /blog/images/2026/01/socialmedia_card-1.webp
+---
+
+In den vergangenen Jahren hat [Vocdoni](https://vocdoni.io/de) Abstimmungen auf **Vochain** betrieben, unserer eigens für Abstimmungen entwickelten L1-Blockchain. Wie jede Blockchain gab sie uns etwas Mächtiges: **Alles ist transparent, reproduzierbar und verifizierbar.** Jeder kann auditieren. Wird etwas manipuliert, lässt es sich erkennen. Den Konsens stellt eine Mehrheit ehrlicher Knoten her, die das Netzwerk am Laufen halten.
+
+Dieses Modell funktioniert und hat [reale Wahlen ermöglicht](/blog/referendum-bellpuig). Wenn das Ziel jedoch _autonome Entscheidungsfindung_ ist (bei der Ergebnisse gefahrlos Aktionen auslösen können), ist „auditierbar“ noch nicht dasselbe wie „unmöglich zu fälschen“.
+
+Denn Blockchains sind letztlich soziale Maschinen mit ökonomischer Sicherheit. Wird der Anreiz zu betrügen groß genug, klopft die Spieltheorie an die Tür.
+
+Also haben wir uns gefragt: **Was, wenn die Auszählung nichts wäre, das man _dem Netzwerk anvertraut_, sondern etwas, das das Netzwerk kryptografisch gezwungen ist, korrekt auszuführen?**
+
+Das ist der Schritt von der _Blockchain-Abstimmung_ zur **kryptografischen Abstimmung**.
+
+---
+
+### Wie funktioniert das?
+
+Zero-Knowledge wird oft als „Privatsphäre-Technologie“ vermarktet. Und ja, Privatsphäre ist wichtig. Die wirklich disruptive Eigenschaft ist jedoch **verifizierte Berechnung**: Man kann beweisen, dass man einem Regelwerk gefolgt ist, ohne dass irgendjemand der Ausführung vertrauen muss. [DAVINCI](https://davinci.vote/) ist um diese Idee herum gebaut: Beweise sind kein Nice-to-have. Sie sind die Torwächter.
+
+Konkret heißt das: Wer den Beweis nicht liefern kann, kann die Auszählung nicht aktualisieren.
+
+DAVINCI ist ein **auf Abstimmungen spezialisierter zkRollup auf** [**Ethereum**](https://ethereum.org/): Ein dezentrales Netzwerk von Sequencern bündelt Stimmen und aktualisiert den Wahlzustand, und Ethereum akzeptiert diese Aktualisierungen **nur, wenn ein zkSNARK-Beweis ihre Korrektheit belegt**.
+
+Kein Beweis → keine Zustandsänderung → kein gefälschtes Ergebnis.
+
+**Ethereum ist die „Koordinationsschicht“**
+
+> Ein Abstimmungsprozess beginnt als Onchain-Konfiguration: Regeln, Zeitplan und das Commitment auf das Wählerverzeichnis (Zensus). Auf Ethereum liegt auch die jeweils letzte gültige Zustandswurzel der Wahl, die Quelle der Wahrheit.
+
+**Sequencer erledigen die Arbeit, aber sie „entscheiden“ nichts**
+
+> Sequencer sind Betreiber, die Stimmen entgegennehmen, verifizieren, bündeln, den neuen Zustand berechnen und einen Beweis an Ethereum übermitteln. Sie einigen sich nicht über einen Konsensmechanismus auf das Ergebnis. Sie erstellen kryptografische Beweise für Stimm-Batches und aktualisieren die verschlüsselte Auszählung onchain.
+
+**Abstimmen ist für die Nutzer gasfrei**
+
+> Statt dass jeder Wählende eine Transaktionsgebühr zahlt, werden die Kosten umgelegt: Stimmen werden gebündelt und in Batches abgewickelt. So entsteht gasfreies Abstimmen, ohne die Sicherheit von Ethereum zu opfern.
+
+**Privatsphäre entsteht durch Verschlüsselung + Schwellwert-Entschlüsselung**
+
+> Stimmzettel werden mit homomorpher Schwellwertverschlüsselung (ElGamal) verschlüsselt: Stimmen lassen sich im verschlüsselten Zustand aggregieren, und keine einzelne Partei kann sie entschlüsseln. Erst wenn die Abstimmung endet und genügend unabhängige Schlüsselanteile offengelegt werden, lässt sich die finale Auszählung entschlüsseln.
+
+**Quittungsfreiheit (_receipt-freeness_) ist Teil der Mechanik**
+
+> DAVINCI ist so gebaut, dass Nötigung und Stimmenkauf erschwert oder unmöglich werden:\
+> \- Stimmzettel werden von den Sequencern **umverschlüsselt** (man kann die eigene Stimme also nicht „beweisen“, indem man den zufälligen Verschleierungsfaktor vorzeigt).\
+> \- Und Wählende können ihre Stimme **stillschweigend überschreiben** (die letzte Stimme zählt).
+
+**Datenverfügbarkeit**
+
+> DAVINCI legt die für Zustandsübergänge nötigen Daten über **Ethereum-Blobs (EIP-4844)** ab und verknüpft sie mit dem Onchain-Verifikationsschritt. So können andere Sequencer unabhängig verifizieren und vom selben gemeinsamen Zustand aus weitermachen.
+
+---
+
+### Was macht es zur „kryptografischen Abstimmung“?
+
+**Nicht nur auditierbar, sondern erzwingbar**
+
+> Klassische „Blockchain-Abstimmungen“ liefern Transparenz. DAVINCI geht einen Schritt weiter: Es macht die korrekte Auszählung zur **kryptografischen Voraussetzung**.
+
+**Keine Ehrliche-Mehrheit-Annahme für die Stimmauszählung**
+
+> Sie müssen nicht annehmen, dass „die meisten Knoten ehrlich sind“, um dem Ergebnis zu vertrauen. Das Ergebnis wird nur akzeptiert, wenn der Beweis auf Ethereum standhält.
+
+**Teilnahme ist per Design verteilbar**
+
+> Sequencer können den letzten verifizierten Zustand nehmen, den nächsten bauen und die Kette fortsetzen. Das macht das System schwerer zu zensieren und hält es am Leben, selbst wenn einzelne Betreiber verschwinden.
+
+---
+
+### **Das Fazit**
+
+Privatsphäre und Sicherheit dürfen in der Web3-Governance keine „Features“ sein; sie sind die Grundlage. **Ohne Privatsphäre hört Abstimmen auf, demokratisch zu sein**: Wer beweisen kann, wie er gestimmt hat, kann genötigt oder bestochen werden, und Governance wird zu einem Markt für Druck.
+
+[**DAVINCI**](https://davinci.vote/) ist unser Versuch, das zu beheben, indem wir **_Korrektheit_ nicht verhandelbar machen**: keine optimistische Auszählung, kein „Vertrauen Sie dem Betreiber“, keine Ehrliche-Mehrheit-Annahme beim Zählen, nur Kryptografie und Ethereum, die die Regeln durchsetzen.
+
+Das Design räumt die üblichen Teilnahmehürden aus: gasfreies Abstimmen für die Nutzer, Sicherheit auf Ethereum-Niveau für das Settlement und eine Sequencer-Rolle, die auf handelsübliche Hardware zielt (CPU-Maschinen statt GPU-Cluster), **wirklich offen**.
+
+Und am wichtigsten: **DAVINCI** ist nicht „das Produkt von Vocdoni“. Wir sind die Katalysatoren, aber zum universellen Abstimmungsstandard wird es nur, wenn die Communities, die es brauchen, es mitgestalten, verteidigen und einfordern. **Wenn Sie glauben, dass Governance standardmäßig privat, für alle verifizierbar und unmöglich zu fälschen sein sollte**, setzen Sie Ihren Namen unter das [Manifest.](https://manifesto.davinci.vote)

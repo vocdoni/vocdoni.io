@@ -1,0 +1,241 @@
+---
+title: 'Kanadas Standard für Online-Wahlen: Was CAN/DGSI 111 verlangt und warum das wichtig ist'
+publishedDate: '2026-03-12'
+excerpt: 'In den Wochen vor den Kommunalwahlen 2022 in Ontario landeten Wahlbenachrichtigungen mit persönlichen Zugangsdaten ungeöffnet in Recyclingtonnen…'
+coverAlt: 'Kanadas Standard für Online-Wahlen: Was CAN/DGSI 111 verlangt und warum das wichtig ist'
+authors:
+  - ferran
+categories: []
+featured: false
+draft: true
+---
+
+In den Wochen vor den Kommunalwahlen 2022 in Ontario landeten Wahlbenachrichtigungen mit persönlichen Zugangsdaten ungeöffnet in den Recyclingtonnen ländlicher Postämter. Wer sie herausfischte, hätte im Namen echter Wählender Stimmen abgeben können.
+
+Das war die Low-Tech-Schwachstelle. Die High-Tech-Schwachstelle war schlimmer. Forschende stellten fest, dass ein Drittel der Online-Wahlsysteme in Ontario keinen Schutz gegen Screen-Overlay-Angriffe bot – Angriffe, bei denen eine unsichtbare Ebene über der Wahloberfläche den Klick der Wählenden unbemerkt auf einen anderen Kandidaten umleiten kann. Am Wahlabend waren potenziell bis zu eine Million Stimmzettel gefährdet.
+
+Diese Versäumnisse passierten in einer Provinz, die seit 2003 Online-Wahlen durchführt. Einer Provinz, in der inzwischen mehr als die Hälfte aller Gemeinden digitale Stimmabgabe anbietet. Einer Provinz, in der es bis zur Veröffentlichung von CAN/DGSI 111 im Dezember 2024 keinen nationalen Standard gab, der irgendetwas davon regelte.
+
+Diesen Standard, **CAN/DGSI 111-1:2024**, gibt es jetzt. Er ist Kanadas erstes nationales Rahmenwerk für Online-Wahlen, entstanden aus jahrelanger akademischer Forschung und als direkte Antwort auf dokumentierte Fehlschläge. Jede Gemeinde, die 2026 eine Online-Wahl plant, sollte verstehen, was er verlangt, was er noch offenlässt und welche Systeme tatsächlich dafür gebaut sind, ihn zu erfüllen.
+
+---
+
+## Zwei Jahrzehnte digitale Wahlen ohne gemeinsame Regeln
+
+Kanada gehört weltweit zu den intensivsten Nutzern von Online-Wahlen auf kommunaler Ebene. Allein in Ontario boten bei den Wahlen 2022 **222 von 444 Gemeinden** Online-Stimmabgabe an – ein Anstieg gegenüber 180 Gemeinden im Jahr 2018. Schätzungsweise eine Million Wählende gaben allein bei den Wahlen 2018 in Ontario ihre Stimme online ab. Für den Wahlzyklus 2026 wird ein neuer Rekord erwartet.
+
+Den größten Teil dieser Geschichte über gab es dafür null nationale Standards. Keine bundesstaatlichen oder provinziellen Vorgaben. Kein Zertifizierungsverfahren. Keine gemeinsame Sicherheitsbasis. Jede Gemeinde beschaffte eigenständig auf einem Markt konkurrierender Anbieter – mit kommunalen Wahlleitern, nicht Kryptografen, als letzter Instanz der Verantwortung.
+
+Prof. Nicole Goodman von der Brock University, Mitentwicklerin des neuen nationalen Standards, brachte die Lage klar auf den Punkt: „Eine Zeit lang war Kanada das einzige Land der Welt, das Wahltechnologien ohne Regulierung einsetzte – obwohl Kanada eine der höchsten Nutzungsraten hat."
+
+Die Fragmentierung reichte tief. Die Gemeinden Ontarios nutzten sechs verschiedene Anbieter. Verträge wurden mitunter so gestaltet, dass sie unter den Schwellenwerten für wettbewerbliche Vergabe blieben – eine Gemeinde beschaffte Wahldienstleistungen für unter 10.000 Dollar und umging damit die Ausschreibungspflicht vollständig. Die Anbieter unterlagen nicht dem Informationsfreiheitsrecht. In fünf Jahren akademischer Forschung zu diesem Thema hatte keine einzige Gemeinde in Ontario je einen Penetrationstest-Bericht öffentlich gemacht.
+
+Die First-Nations-Gemeinschaften in Kanada erleben eine eigene, parallele Geschichte. Mehr als 50 First Nations haben Online-Abstimmungen für die Wahlen ihrer Band Councils (Stammesräte) und für Governance-Prozesse eingesetzt, überwiegend über indigene Technologieunternehmen wie [OneFeather](https://www.onefeather.ca/), das inzwischen über 370.000 Mitgliedschaften in mehr als 289 Nationen verwaltet. Untersuchungen zeigen: 54 % der indigenen Nichtwählenden bei der Bundeswahl 2011 gaben an, sie hätten gewählt, wenn Online-Stimmabgabe verfügbar gewesen wäre. In Gemeinschaften, die über riesige Distanzen verstreut leben, sind digitale Beteiligungswerkzeuge enorm wichtig. Doch der Indian Act und der First Nations Elections Act verlangten historisch, dass Gemeinschaften erst einen eigenen Wahlkodex oder ein Selbstverwaltungsabkommen haben müssen, bevor sie überhaupt eine alternative Abstimmungsmethode nutzen dürfen – eine rechtliche Hürde, deren Abschaffung Politikforschende von der Bundesregierung seit Langem fordern.
+
+---
+
+## Was die Forschung ergab: Kanadas Online-Wahlsicherheit vermessen
+
+Bevor CAN/DGSI 111 veröffentlicht wurde, verbrachten dieselben Wissenschaftler, die ihn später mitentwickeln sollten, Jahre damit zu prüfen, was in Ontario tatsächlich geschah. Die Ergebnisse, 2023 in einer begutachteten Studie von Essex, Goodman und Kollegen veröffentlicht (["Online Voting in Ontario Municipalities: A Standards-Based Review"](https://link.springer.com/chapter/10.1007/978-3-031-43756-4_4), _Electronic Voting_, Springer), sind die rigoroseste öffentlich zugängliche Prüfung real eingesetzter Online-Wahlsysteme.
+
+Als Maßstab dienten die E-Voting-Standards des Europarats – 141 Anforderungen und Leitlinien, die das international meistzitierte Rahmenwerk für die Sicherheit digitaler Wahlen darstellen.
+
+**Ontario erfüllte 14 % der anwendbaren Vorgaben. Das sind 18 von 126.**
+
+Das ist keine knappe Sache. Die Mängel waren systematisch und in jeder wesentlichen Kategorie dokumentiert.
+
+**Keine Stadt bot universelle Verifizierbarkeit.** Nicht eine Gemeinde erlaubte es Dritten, unabhängig zu verifizieren, dass die Stimmen korrekt ausgezählt wurden. Der Anbieter zählte aus und verkündete ein Ergebnis. Es gab keinen öffentlichen Beweis, nur das Wort des Anbieters.
+
+**Die Behauptungen zum Stimmgeheimnis waren falsch.** Simply Voting erklärte den Gemeinden, es sei „unmöglich", dass jemand sehen könne, wie ihre Mitglieder abgestimmt hätten. Eine spätere technische Analyse fand auf Anwendungsebene keinerlei kryptografische Trennung zwischen der Stimmentscheidung und den Authentifizierungsdaten der Wählenden. Mehr als 50 % der Wählenden in Ontario ließen sich allein aus der Kombination von Wohnort und Geburtsdatum eindeutig re-identifizieren. Die Gemeinden reichten die Geheimhaltungsversprechen der Anbieter unverändert an die Öffentlichkeit weiter.
+
+**Scytls „Verifizierbarkeits"-Funktion verletzte das Stimmgeheimnis.** Das System, das Scytl gebaut hatte, damit Wählende ihren Stimmzettel überprüfen können, zeigte ihnen an, welchen Kandidaten sie gewählt hatten. Das erzeugte eine Quittung. Jeder Dritte mit den Zugangsdaten eines Wählenden und einem QR-Code konnte diese Quittung nutzen, um zu beweisen, wie jemand abgestimmt hatte – und ermöglichte damit genau den Stimmenkauf und die Nötigung, die die Funktion verhindern sollte.
+
+**Resistenz gegen Nötigung (*coercion-resistance*) existierte nirgends.** Keiner der Anbieter in Ontario bot technischen Schutz gegen Stimmenkauf oder Druck auf Wählende in unbeaufsichtigten Remote-Umgebungen.
+
+**Transparenz fehlte praktisch vollständig.** Kein einziger Penetrationstest wurde je veröffentlicht. Der Quellcode der Anbieter war proprietär. Die Audit-Logs verwaltete der Anbieter, nicht die Gemeinde. Zwei Drittel der Transparenzvorgaben des Europarats blieben unerfüllt.
+
+**Betriebsfehler waren häufig und wurden nicht offengelegt.** In Thunder Bay erhielten Wählende Stimmzettel für den falschen Wahlbezirk. In Cambridge fehlten Kandidaten auf dem Stimmzettel. Die Systeme von Dominion verursachten 2018 in mehr als 50 Gemeinden Serviceausfälle, sodass die Öffnungszeiten der Wahl provinzweit verlängert werden mussten.
+
+Dann kam 2022. Die [CBC-Recherche](https://www.cbc.ca/news/canada/ontario-municipal-elections-online-voting-study-1.7644536) dokumentierte, was die akademischen Befunde vorhergesagt hatten: 70 % der Wahlen in Ontario wurden als „hoch oder extrem gefährdet" für Kompromittierung eingestuft. Die PIN-in-der-Recyclingtonne-Schwachstelle war real und dokumentiert. Scytl wurde mitten in der Wahl gepatcht, nachdem Forschende Alarm geschlagen hatten. Neuvote blieb bis Schließung der Wahllokale ungepatcht.
+
+Genau dieses Problem sollte CAN/DGSI 111 lösen.
+
+---
+
+## Was CAN/DGSI 111-1:2024 tatsächlich verlangt
+
+CAN/DGSI 111-1:2024, mit vollem Titel "Online Electoral Voting – Part 1: Implementation of Online Voting in Canadian Municipal Elections", wurde im Dezember 2024 vom Digital Governance Standards Institute (DGSI) als National Standard of Canada veröffentlicht und ist [beim Standards Council of Canada registriert](https://scc-ccn.ca/standardsdb/standards/4033474).
+
+Mitentwickelt wurde er von Prof. Nicole Goodman (Brock University) und Prof. Aleksander Essex (Western University), mit Beiträgen eines technischen Komitees von mehr als 100 Fachleuten aus Cybersicherheit, Politikwissenschaft, öffentlicher Verwaltung und Wahlorganisation.
+
+**Zur Frage freiwillig oder verpflichtend:** Der Standard ist derzeit freiwillig. Kein Gesetz verpflichtet Gemeinden zur Einhaltung. Es gibt keinen Durchsetzungsmechanismus, keine Zertifizierungsstelle und kein provinzielles Mandat. Was der Standard liefert, ist ein Beschaffungsrahmen: Er soll kommunalen Wahlverantwortlichen helfen, Anbieter zu bewerten, Ausschreibungen zu fundieren und Dienstleister an dokumentierten Anforderungen zu messen. Eine Jurisdiktion ist weiter gegangen. Die Nordwest-Territorien haben CAN/DGSI 111 als Grundlage ihrer eigenen territorialen Regulierung übernommen und als Rahmen für die Parlamentswahl 2023 genutzt. Das Ergebnis: 96,4 % der Wählenden äußerten hohe oder mittlere Zufriedenheit. Das ist der Weg von freiwillig zu verbindlich.
+
+Erwähnenswert ist auch: Der ursprüngliche Standard von 2024 wird derzeit überarbeitet. Im Dezember 2025 wurde ein D1-Entwurf zur öffentlichen Kommentierung veröffentlicht, mit Frist März 2026. Die Kommunalwahlen 2026 in Ontario laufen unter der Version von 2024, während der aktualisierte Standard finalisiert wird. Der Standard ist also gleichzeitig in Kraft und in Bewegung.
+
+### Die Kernanforderungen
+
+Der Standard formuliert Anforderungen in neun Hauptbereichen:
+
+**Stimmgeheimnis und Quittungsfreiheit.** Niemand – auch nicht Systembetreiber oder Wahlverantwortliche – darf Stimmentscheidungen auf einzelne Wählende zurückführen können. Der Standard geht weiter: Wählende dürfen niemandem beweisen können, wie sie abgestimmt haben. Diese zweite Anforderung ist die Quittungsfreiheit (*receipt-freeness*) – die Eigenschaft, die Stimmenkauf und Nötigung strukturell verhindert, nicht nur prozedural – und sie ist im Standard ein hartes Muss, keine Empfehlung. Der Standard verlangt, dass privilegierte Informationszugriffe definiert und die technischen Privatsphäre-Garantien dokumentiert werden. „Wir sagen, es ist geheim" reicht als Antwort nicht aus.
+
+**Verifizierbare Ergebnisse.** Der Standard verlangt „unabhängig verifizierbare Belege, die das Wahlergebnis stützen". Was das in der Praxis bedeutet, folgt weiter unten – die Bandbreite dessen, was als „verifizierbar" gelten kann, ist erheblich.
+
+**Wählerauthentifizierung.** Dokumentation und Prozesse zur Identitätsprüfung der Wählenden, gerichtet gegen zugangsdatenbasierte Schwachstellen wie die PIN-Pannen von 2022. Die Pflicht zum Schutz der Authentifizierungsdaten legt Multi-Faktor-Ansätze nahe.
+
+**Datensicherheit und kryptografische Standards.** Sicherheitsschwellen für Daten bei Übertragung und Speicherung über alle beteiligten Geräte und Stellen hinweg. Zwei konkrete kryptografische Vorgaben stechen heraus: Werden Stimmen clientseitig auf Anwendungsebene verschlüsselt, verlangt der Standard Schwellwertverschlüsselung für die Erzeugung der Entschlüsselungsschlüssel – keine einzelne Partei kann die Ergebnisse allein entschlüsseln. Und das eingesetzte Kryptografiemodul muss entweder unabhängig getestet oder durch Open-Source-Veröffentlichung öffentlich prüfbar sein. Beides sind harte Anforderungen, die weit über das hinausgehen, was aktuelle kanadische Anbieter liefern.
+
+**Logik- und Genauigkeitstests.** Testverfahren vor und nach der Wahl, um die Systemintegrität vor und nach der Stimmabgabe zu verifizieren.
+
+**Stimmzettelgestaltung und Barrierefreiheit.** Anforderungen an Klarheit, Benutzbarkeit und Barrierefreiheit der Stimmzettel, damit alle Wählenden teilnehmen können.
+
+**Transparenz und Offenlegung.** Informationen über die Funktionsweise des Systems müssen öffentlich verfügbar sein. Anbieter dürfen nicht als Blackbox agieren.
+
+**Beschaffungsleitlinien.** Anforderungen an wettbewerbliche und transparente Vergabeverfahren – direkt gerichtet gegen die im akademischen Audit dokumentierten Verträge unterhalb der Ausschreibungsschwellen.
+
+**Verantwortlichkeit der wahldurchführenden Stelle.** Die Gemeinde muss echte Kontrolle über den Prozess haben, nicht nur nominelle Aufsicht.
+
+### Das Spektrum der Verifizierbarkeit
+
+Die Verifizierbarkeitsanforderung ist die wichtigste des Standards – und derzeit seine offenste, denn „unabhängig verifizierbar" kann in der Praxis sehr Unterschiedliches bedeuten:
+
+1. **Vom Anbieter ausgestellter Prüfbericht**: Ein PDF des Anbieters, das die Korrektheit der Ergebnisse bescheinigt. Das liefern die meisten aktuellen kanadischen Anbieter. Man muss dem Anbieter vertrauen.
+2. **Administrative Prüfspur**: Logs und Aufzeichnungen, die ein externer Prüfer unter beschränktem Zugang einsehen kann. Besser, aber man muss immer noch dem Prüfer vertrauen.
+3. **Kryptografische Ende-zu-Ende-Verifizierbarkeit**: Jeder Wählende kann bestätigen, dass sein eigener Stimmzettel in die Auszählung eingegangen ist; jeder Dritte kann das Gesamtergebnis verifizieren, ohne irgendjemandem vertrauen zu müssen. Der Beweis ist öffentlich und mathematisch überprüfbar.
+
+Die oberste Verpflichtung des Standards ist hier ein „should" – eine starke Empfehlung, kein hartes Muss. Der Standard stellt aber klar: Werden verifizierbare Belege bereitgestellt, sind die Unteranforderungen verbindlich. Die Belege müssen von einem qualifizierten unabhängigen Beobachter verifizierbar sein, ausreichen, um Beobachter von einem korrekten Ergebnis zu überzeugen oder ein fehlerhaftes zu erkennen, und sie müssen akkurat sein. Die Lücke, die der Standard lässt, liegt im _Wie_ der Verifizierbarkeit. Ein Anbieter-PDF erfüllt technisch den Buchstaben; ein kryptografischer Beweis erfüllt die Absicht.
+
+Die akademischen Mitentwickler sind eindeutig, was die Beweislage verlangt. Empfehlung 5 des Papers von 2023 fordert direkt „kryptografische Ende-zu-Ende-Verifikation" als den Ansatz, der die meisten unerfüllten Vorgaben aus dem Europarat-Audit adressieren würde. Diese Empfehlung stammt von denselben Forschenden, die den Standard mitverfasst haben – sie zeigt die Richtung, in die sie weisen, und künftige Revisionen dürften daraus eine härtere Anforderung machen.
+
+Zur **Resistenz gegen Nötigung**: Der Standard empfiehlt (should), dass Systeme das Aktualisieren der Stimme unterstützen – die Möglichkeit, die eigene Wahl vor Schließung der Urnen unbemerkt zu ändern – insbesondere für unkontrollierte Umgebungen wie die Stimmabgabe von zu Hause. Wo keine Stimmaktualisierung unterstützt wird, müssen Anbieter alternative Schutzmaßnahmen und Restrisiken dokumentieren. Das ist eine Empfehlung, kein Muss. Zusammen mit der harten Quittungsfreiheits-Anforderung ist die Absicht aber klar: Der Standard behandelt den Schutz vor Stimmenkauf und Nötigung als echte Designverpflichtung, nicht als Nachgedanken.
+
+---
+
+## Warum dieser Standard für Wahlverantwortliche wichtig ist
+
+Der Standard ist nicht primär ein Sicherheitsdokument. Er ist ein Governance-Werkzeug, das Wahlverantwortliche schützt.
+
+Vor CAN/DGSI 111 hatte ein kommunaler Wahlleiter, der eine Online-Wahl verantwortete, kein gemeinsames Rahmenwerk. Anbieter stellten Behauptungen auf – „unmöglich zu kompromittieren", „Verschlüsselung auf Bankniveau", „vollständig auditierbar" – und Wahlleiter hatten kein Werkzeug, um zu prüfen, ob diese Behauptungen stimmten. Die Forschung zeigte: Oft stimmten sie nicht.
+
+Der Standard ändert das. Er gibt Wahlverantwortlichen:
+
+- eine Checkliste verifizierbarer Anforderungen, die sie Anbietern in einer Ausschreibung vorlegen können
+- eine gemeinsame Sprache, die einen echten Vergleich zwischen Anbietern ermöglicht
+- eine dokumentierte Grundlage, um Anbieter abzulehnen, die keine Konformität nachweisen können
+- rechtlichen und reputativen Schutz, wenn etwas schiefgeht
+
+Der letzte Punkt zählt. Wer als Wahlverantwortlicher nachweisen kann, bei der Beschaffung eines Wahlsystems dem nationalen Standard gefolgt zu sein, steht deutlich besser da als jemand, der sich auf die Marketingunterlagen eines Anbieters verlassen hat. Der Standard beseitigt das Risiko nicht. Er verlagert die Verantwortung dorthin, wo sie hingehört: in die dokumentierten technischen Spezifikationen des Anbieters – nicht in das Vertrauen des Wahlleiters in ein Verkaufsgespräch.
+
+Kommunale Wahlleiter sollten keine Kryptografen sein müssen. Genau dafür gibt es den Standard.
+
+---
+
+## Wie aktuelle Anbieter am Standard gemessen abschneiden
+
+Kein Anbieter wurde bislang formell nach CAN/DGSI 111 zertifiziert – die Zertifizierungsinfrastruktur existiert noch nicht. Was sich tun lässt: die erklärten Anforderungen des Standards mit dem vergleichen, was das akademische Audit von 2023 über die damals in kanadischen Kommunalwahlen eingesetzten Systeme dokumentierte. Die Befunde aus dem begutachteten Paper von Essex/Goodman decken den gesamten Markt Ontarios ab.
+
+<!--kg-card-begin: html-->
+
+| Anforderung                                                                                                   | Aktuelle Anbieter in Ontario (Essex/Goodman-Audit 2023)                                                                          | DAVINCI / Vocdoni                                                                  |
+| ------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
+| **Universelle Verifizierbarkeit** (jeder Dritte kann das Gesamtergebnis verifizieren)                          | Von keinem geprüften Anbieter bereitgestellt                                                                                       | Vollständige kryptografische E2E-Verifizierbarkeit                                   |
+| **Individuelle Verifizierbarkeit** (Wählende können bestätigen, dass ihr Stimmzettel gezählt wurde)            | Nicht bereitgestellt; der Versuch eines Anbieters erzeugte eine Quittung, die das Stimmgeheimnis brach                             | Vollständig, ohne eine Quittung zu erzeugen                                          |
+| **Quittungsfreiheit** (SHALL: Wählende können ihre Wahl Dritten nicht beweisen)                                | Von keinem geprüften Anbieter bereitgestellt                                                                                       | Ja, per Design                                                                       |
+| **Stimmgeheimnis (technisch)** (Stimmeninhalt für den Server strukturell unzugänglich)                         | Die meisten Anbieter setzten nur auf Transportverschlüsselung; serverseitiger Zugriff auf Stimmentscheidungen dokumentiert         | Vollständig – Auszählung, ohne dass je einzelne Stimmzettel entschlüsselt werden     |
+| **Schwellwertverschlüsselung** (SHALL bei clientseitiger Verschlüsselung: keine Partei entschlüsselt allein)   | Von den geprüften Anbietern nicht implementiert                                                                                    | Ja, verteilte Schlüsselerzeugung                                                     |
+| **Kein vorzeitiger Ergebniszugriff**                                                                            | Serverseitiger Echtzeitzugriff auf laufende Zwischenstände bei mindestens einem Anbieter dokumentiert                              | Vollständig – Stimmen bleiben bis zum Wahlende verschlüsselt                         |
+| **Schutz vor MITM-/Overlay-Angriffen**                                                                          | In den meisten geprüften Systemen fehlend oder unvollständig; ein Drittel der Systeme ohne Overlay-Angriffsschutz                  | Ja                                                                                   |
+| **Open-Source-Kryptografiemodul** (SHALL: öffentlich prüfbarer Krypto-Code)                                    | Alle geprüften Anbieter: proprietär, Closed Source                                                                                 | Ja, gesamte Codebasis öffentlich                                                     |
+| **Offengelegte Penetrationstests**                                                                              | In fünf Jahren Forschung legte keine Gemeinde je einen Penetrationstest offen                                                      | Open Source ermöglicht jederzeit unabhängige Prüfung durch jedermann                 |
+| **Nötigungsresistenz / Stimmaktualisierung** (SHOULD: Wählende können ihre Stimme unbemerkt ändern)            | Von keinem geprüften Anbieter bereitgestellt                                                                                       | Ja, Überschreiben der Stimme per Design                                              |
+| **Transparenz der Verfahren**                                                                                   | Nicht gegeben; Quellcode und Audit-Logs der Anbieter proprietär                                                                    | Ja, öffentlicher Code und öffentliche Prüfspur                                       |
+
+<!--kg-card-end: html-->
+
+_Die Anbieterbewertungen basieren auf dem_ [_begutachteten Essex/Goodman-Audit von 2023_](https://link.springer.com/chapter/10.1007/978-3-031-43756-4_4) _des Online-Wahlmarkts in Ontario. Einzelne Anbieter können ihre Systeme seit 2022 aktualisiert haben. Die DAVINCI-Bewertungen basieren auf der veröffentlichten Protokolldokumentation._
+
+Die Lücke entsteht nicht dadurch, dass Anbieter auf derselben Architektur schlecht abschneiden. Es ist ein struktureller Unterschied. Die aktuellen kanadischen Anbieter wurden auf administrativen Sicherheitsmodellen aufgebaut: Zugriffe kontrollieren, Daten bei der Übertragung verschlüsseln, Audit-Logs erzeugen. DAVINCI baut auf kryptografischer Sicherheit auf: Die Garantie hängt nicht davon ab, irgendjemandem zu vertrauen, denn der Beweis ist öffentlich und mathematisch verifizierbar.
+
+Das sind unterschiedliche Designs, nicht unterschiedliche Leistungsniveaus auf demselben Design. Um das Quittungsfreiheits-Muss des Standards, die Pflicht zur Schwellwertverschlüsselung, die Open-Source-Anforderung an das Kryptografiemodul und die empfohlenen Verifizierbarkeitsstufen zu erfüllen, wäre ein grundlegender Umbau der Architektur nötig – kein Konfigurationsupdate.
+
+---
+
+## Wie wirklich sichere, prüfbare Online-Abstimmungen aussehen
+
+Die Verifizierbarkeitsanforderung des Standards öffnet die Tür zu einem Konzept, an dem die Forschung seit Jahren arbeitet: **Ende-zu-Ende-verifizierbare Abstimmungen**.
+
+In den meisten heutigen Online-Wahlsystemen geben Sie Ihre Stimme ab, der Server zeichnet sie auf, und der Anbieter präsentiert ein Ergebnis, das Sie akzeptieren sollen. Sie können nicht überprüfen, ob Ihre Stimme gezählt wurde. Sie können nicht überprüfen, ob Stimmen hinzugefügt oder entfernt wurden. Sie vertrauen dem Anbieter.
+
+Ende-zu-Ende-Verifizierbarkeit ändert das. In einem sauber entworfenen System gilt:
+
+- Jeder Wählende erhält eine Möglichkeit zu bestätigen, dass sein eigener Stimmzettel in die Auszählung eingegangen ist – ohne offenzulegen, wofür er gestimmt hat
+- Jeder unabhängige Beobachter kann das Gesamtergebnis verifizieren und seine mathematische Korrektheit bestätigen
+- Die Verifikation erfordert kein Vertrauen in irgendjemanden, denn der Beweis ist öffentlich und überprüfbar
+
+Das ist kein theoretisches Konzept. Es ist heute in produktiven Systemen technisch umgesetzt. [Das Referendum von Bellpuig](/blog/referendum-bellpuig), das erste vollständig digitale Referendum nach spanischem Recht, hat es genutzt. Das Ergebnis war zertifiziert und für jeden Teilnehmenden unabhängig verifizierbar.
+
+Die forschenden Mitautoren von CAN/DGSI 111 machten Ende-zu-Ende-verifizierbare Abstimmungen zu ihrer expliziten Empfehlung 5: „Machen Sie Wahlergebnisse evidenzbasiert … eine unabhängige Verifikation wie die kryptografische Ende-zu-Ende-Verifikation würde viele unerfüllte Vorgaben adressieren."
+
+Der Standard weist in diese Richtung. Die Architektur, die das trägt, muss stehen, bevor das Mandat kommt.
+
+---
+
+## Wie Vocdoni und DAVINCI die Anforderungen des Standards erfüllen
+
+Vocdoni führt seit 2018 digitale Abstimmungen durch. In sieben Jahren hat das Unternehmen Wahlen und Abstimmungen für politische Parteien, Berufsverbände, Genossenschaften, Gemeinden und nationale Organisationen mit Hunderttausenden Mitgliedern durchgeführt. Das DAVINCI-Abstimmungsprotokoll ist Vocdonis kryptografische Engine der nächsten Generation, die die Plattform antreibt – [die Architektur, die Ergebnisse unabhängig verifizierbar macht](/blog/davinci-universal-voting-protocol), wie es kein aktueller kanadischer Anbieter bietet. Die [akademische Validierung](/blog/vocdoni-upc-partnership) der Plattform, entwickelt in Zusammenarbeit mit Forschenden der Universitat Politècnica de Catalunya, ist für ein Publikum, das erlebt hat, was passiert, wenn Wahltechnologie ohne rigorose unabhängige Prüfung auskommt, unmittelbar relevant.
+
+So bildet DAVINCI die einzelnen Anforderungsbereiche von CAN/DGSI 111 ab.
+
+<!--kg-card-begin: html-->
+
+| CAN/DGSI 111-Anforderungsbereich                    | Wie DAVINCI sie erfüllt                                                                                                                                                                                                                                                                                       | Status                                                                    |
+| ---------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
+| **Stimmgeheimnis**                                   | Stimmen werden im Moment der Abgabe verschlüsselt. Die Auszählung erfolgt, ohne dass je jemand einzelne Stimmzettel entschlüsselt – weder die Gemeinde noch Vocdoni. Die Identität der Wählenden ist per Design strukturell vom Stimmeninhalt entkoppelt.                                                     | Vollständig (SHALL)                                                        |
+| **Schwellwertverschlüsselung**                       | Keine einzelne Partei hält den Entschlüsselungsschlüssel. Mehrere unabhängige Schlüsselinhaber müssen zur Auszählung zusammenwirken – die explizite kryptografische Vorgabe des Standards.                                                                                                                    | Vollständig (SHALL)                                                        |
+| **Keine vorzeitige Ergebnisveröffentlichung**        | Stimmen bleiben bis nach Wahlende verschlüsselt. Selbst Vocdoni kann keinen laufenden Zwischenstand einsehen. Das Ergebnis wird bei Wahlende automatisch veröffentlicht.                                                                                                                                      | Vollständig (SHALL)                                                        |
+| **Unabhängige Verifizierbarkeit**                    | Öffentlicher kryptografischer Beweis: Jeder Wählende, jeder Beobachter, jeder unabhängige Experte kann das Gesamtergebnis ohne Mitwirkung von Vocdoni verifizieren. [Das öffentliche Wahlregister auf explorer.vote](https://explorer.vote) zeigt das in der Praxis.                                          | Vollständig, übertrifft das SHOULD des Standards mit kryptografischer E2E-V |
+| **Keine doppelte Stimmabgabe**                       | Kryptografische Nullifier: Ein eindeutiger, aus den Zugangsdaten der Wählenden abgeleiteter Hash verhindert beweisbar, dass dieselbe Person mehr als eine endgültige Stimme abgibt – ohne die Identität offenzulegen.                                                                                          | Vollständig                                                                |
+| **Wählerauthentifizierung**                          | Flexibles Zensus-System, unterstützt jeden Identitätsanbieter (E-Mail, SMS, staatliche ID-Systeme, SSO). Die Wahlberechtigung wird kryptografisch gegen ein Wählerverzeichnis verifiziert.                                                                                                                     | Vollständig                                                                |
+| **Schutz vor MITM- und clientseitigen Angriffen**    | Standard-HTTPS plus eine kryptografische Beweiskette: Jede Manipulation des Stimmzettels auf dem Übertragungsweg erzeugt einen ungültigen Beweis, der automatisch abgelehnt wird.                                                                                                                              | Vollständig                                                                |
+| **Stimmgeheimnis / Quittungsfreiheit**               | Wählende können keine Quittung erzeugen, die ihre Wahl zeigt. Selbst wenn sie Dritten beweisen wollten, wie sie abgestimmt haben – der Re-Encryption-Mechanismus macht das strukturell unmöglich.                                                                                                              | Vollständig (SHALL)                                                        |
+| **Nötigungsresistenz / Stimmaktualisierung**         | Wählende können ihre Stimme jederzeit vor Wahlende unbemerkt überschreiben. Selbst unter Nötigung kann der Nötigende die endgültige Stimme nicht verifizieren. Der Standard empfiehlt (SHOULD) Stimmaktualisierung für unkontrollierte Umgebungen; DAVINCI liefert sie als harte architektonische Garantie.   | Vollständig, übertrifft das SHOULD des Standards                            |
+| **Logik- und Genauigkeitstests**                     | Open-Source-Code bedeutet: Jede Gemeinde und jede unabhängige Partei kann die gesamte Codebasis inspizieren, Testwahlen durchführen und Ergebnisse verifizieren, bevor es live geht.                                                                                                                          | Vollständig                                                                |
+| **Open-Source-Kryptografiemodul**                    | Der Standard verlangt, dass das Kryptografiemodul entweder unabhängig getestet oder durch Open-Source-Veröffentlichung öffentlich prüfbar ist. DAVINCIs gesamte kryptografische Codebasis ist öffentlich.                                                                                                     | Vollständig (SHALL)                                                        |
+| **Transparenz und Offenlegung**                      | Der Code ist öffentlich (GitHub). Die Wahlaufzeichnungen sind öffentlich (explorer.vote). Jede Partei kann vor, während und nach einer Wahl prüfen, wie das System funktioniert.                                                                                                                              | Vollständig, übertrifft den Standard                                        |
+| **Stimmzettelgestaltung und Barrierefreiheit**       | Konfigurierbare Stimmzettelformate: Einzelauswahl, Mehrfachauswahl, Ranglisten, gewichtet, quadratisch. Geräteunabhängig: jeder Browser, kein App-Download für Wählende erforderlich.                                                                                                                          | Vollständig (SHALL)                                                        |
+| **Beschaffungstransparenz**                          | Öffentliche Preise unter app.vocdoni.io/plans. Self-Service. Für Standardkonfigurationen ist kein Verkaufsgespräch nötig.                                                                                                                                                                                     | Vollständig                                                                |
+| **Verantwortlichkeit der wahldurchführenden Stelle** | Die Gemeinde bzw. die Wahlverantwortlichen kontrollieren alle Wahlparameter: Wählerverzeichnis, Stimmzettel, Zeitplan. Vocdoni kann diese nach der Einrichtung nicht mehr ändern.                                                                                                                              | Vollständig (SHALL)                                                        |
+| **Datenlokalisierung**                               | Der Standard verlangt Wahldaten auf kanadischen Servern. Für dezentrale Systeme gilt die Anforderung als erfüllt, wenn Daten außerhalb Kanadas weder die Identität von Wählenden rekonstruieren noch Ergebnisse verändern können. DAVINCIs Architektur erfüllt diese Bedingung per Design; für kommunale Einsätze lassen sich in Kanada gehostete Knoten konfigurieren. | Vollständig über die Ausnahme für dezentrale Systeme                        |
+
+<!--kg-card-end: html-->
+
+Eine Anforderung verdient eine direkte Antwort: Der Standard schreibt vor, dass alle Wahldaten auf physisch in Kanada befindlichen Servern gespeichert werden. Vocdonis Infrastruktur steht in der EU. Der Standard enthält eine explizite Regelung für dezentrale Systeme: Die Anforderung gilt als erfüllt, wenn wahlkritische Komponenten auf kanadischer Infrastruktur laufen – oder wenn außerhalb Kanadas gespeicherte Daten weder zur Rekonstruktion von Wähleridentitäten noch zur Veränderung von Wahlergebnissen taugen. DAVINCIs kryptografisches Design – bei dem Stimmeninhalte verschlüsselt sind und einzelne Stimmen auf Infrastrukturebene nicht mit Wählenden verknüpfbar sind – erfüllt die zweite Bedingung. Für kanadische Kommunalwahlen würde Vocdoni zusätzlich wahlkritische Knoten auf in Kanada gehosteter Infrastruktur konfigurieren. Das ist eine Frage der Betriebskonfiguration, keine architektonische Hürde.
+
+Die aktuellen kanadischen Anbieter scheitern an CAN/DGSI 111 nicht wegen schlechter Umsetzung. Sie scheitern, weil sie für ein anderes Sicherheitsmodell gebaut wurden. Verifizierbare Ergebnisse und Quittungsfreiheit erfordern ein architektonisches Redesign, kein Software-Update.
+
+Eine vollständige technische Erklärung finden Sie unter [Vocdonis Abstimmungsarchitektur](https://vocdoni.io/de/technology), oder lesen Sie, [worin sich administrative und kryptografische Sicherheit in der Praxis unterscheiden](/blog/from-blockchain-voting-to-cryptographic-voting).
+
+---
+
+## Wohin sich der Standard entwickelt
+
+CAN/DGSI 111 trägt den Titel "Part 1" aus gutem Grund. Er deckt Kommunalwahlen ab. Den Weg zu provinzieller und bundesweiter Abdeckung diskutieren seine Mitentwickler bereits aktiv.
+
+Die Nordwest-Territorien haben, gestützt auf frühe Entwürfe von CAN/DGSI 111, einen Regulierungsrahmen für Online-Wahlen gebaut und ihn bei der Territorialwahl 2023 angewandt. Der Standard ist das technische Fundament; das Gesetz liefert die Durchsetzung. Wenn die Kommunalwahlen 2026 in Ontario laufen – der erste große Wahlzyklus mit dem Standard – wird sich an der Frage, ob die Gemeinden ihn tatsächlich in Ausschreibungen einsetzen, entscheiden, ob das freiwillige Rahmenwerk praktische Wirkung entfaltet.
+
+Kanadas Erfahrung ist hier wirklich ungewöhnlich. Zwei Jahrzehnte reale Online-Wahlen im großen Maßstab, gefolgt von systematischer akademischer Dokumentation der Fehlschläge, gefolgt von einem Standard, den die Forschenden entwickelt haben, die diese Fehlschläge gefunden hatten. Nur wenige andere Jurisdiktionen haben diese Kombination. Die Zeitschrift Policy Options bemerkte 2022: „Wenn Regierungen weltweit Lücken in ihren Regulierungsrahmen schließen wollen … könnten sie nach Kanada blicken." Die bestehende Empfehlung CM/Rec(2017)5 des Europarats stammt aus einer Zeit vor vielen kryptografischen Fortschritten bei E2E-Verifizierbarkeit und Quittungsfreiheit; Kanadas Standard baut auf aktuellerer Forschung auf. Länder mit wachsender Online-Wahl-Nutzung – im Commonwealth, in Lateinamerika und im asiatisch-pazifischen Raum – beobachten, was Kanada als Nächstes tut.
+
+Auch die rechtliche Hürde für First Nations kommt in Bewegung. Die Forderung, den Indian Act und den First Nations Elections Act so zu ändern, dass Gemeinschaften echte Wahlfreiheit bei ihren Abstimmungsmethoden erhalten, gewinnt an Schwung. Kommen diese Änderungen, wird die Nachfrage nach digitaler Wahlinfrastruktur, die die Anforderungen von CAN/DGSI 111 erfüllt oder übertrifft, stark wachsen.
+
+Der Standard ist kein Ziel. Er ist der Anfang eines Gesprächs, das Kanada schon vor Jahren hätte führen sollen.
+
+---
+
+## Was das für Ihre nächste Wahl bedeutet
+
+Ob Sie als kommunaler Wahlleiter das Jahr 2026 vorbereiten, als Governance-Verantwortlicher eines Berufsverbands arbeiten oder zum ersten Mal als Wahlverantwortlicher Anbieter bewerten: CAN/DGSI 111 gibt Ihnen etwas, das es vorher nicht gab – eine dokumentierte Basis dafür, was sichere digitale Wahlen erfordern.
+
+Nutzen Sie ihn als Beschaffungswerkzeug. Verlangen Sie von Anbietern, die Erfüllung jeder Anforderung zu demonstrieren – nicht zu behaupten, sondern zu demonstrieren. Fragen Sie gezielt nach der unabhängigen Ergebnisverifikation: Kann ein Dritter das Ergebnis prüfen, ohne dem Anbieter vertrauen zu müssen? Fragen Sie nach dem Stimmgeheimnis: Ist der Schutz technisch und strukturell, oder ist er ein Anbieterversprechen? Fragen Sie nach der Quittungsfreiheit: Kann ein Wählender irgendjemandem beweisen, wie er abgestimmt hat? Verlangen Sie Einsicht in den Quellcode.
+
+Der Standard hebt das Fundament an. Die Technologie, die darüber hinausgeht, existiert bereits.
+
+Vocdoni baut sie seit sieben Jahren. Wenn Sie Online-Abstimmungssoftware für eine anstehende Wahl bewerten, ist der Unterschied zwischen Systemen, die den Standard erfüllen, und Systemen, die das nur behaupten, jetzt klar dokumentiert. [Sehen Sie, wie DAVINCI funktioniert](https://vocdoni.io/de/technology), oder [führen Sie Ihre erste Wahl kostenlos auf app.vocdoni.io durch](https://vocdoni.io/de/app). Ganz ohne Verkaufsgespräch.
