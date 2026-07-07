@@ -29,9 +29,17 @@ export function keystaticApiPlugin(): Plugin {
     name: 'keystatic-local-api',
     apply: 'serve',
     async configureServer(server) {
+      // Load keystatic.config through Vite's runtime module loader rather than a
+      // static `import('../keystatic.config')`. A relative dynamic import is
+      // statically analyzable, so Vite's esbuild config bundler inlines the config
+      // file and hoists its `import '@keystatic/core'` to eager evaluation at
+      // config-load time - before Vite sets NODE_ENV=production. That pins React to
+      // its development build while react-dom later loads production, breaking the
+      // prerender pass with "dispatcher.getOwner is not a function". ssrLoadModule
+      // keeps keystatic (and React) out of the config graph entirely.
       const [{ makeGenericAPIRouteHandler }, keystaticConfig] = await Promise.all([
         import('@keystatic/core/api/generic'),
-        import('../keystatic.config').then((m) => m.default),
+        server.ssrLoadModule('/keystatic.config.ts').then((m) => m.default),
       ])
       const handler = makeGenericAPIRouteHandler({ config: keystaticConfig })
 
