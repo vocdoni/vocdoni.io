@@ -1,0 +1,218 @@
+---
+title: Vocdoni Ballot Protocol aurkezten dugu
+publishedDate: '2021-04-16'
+updatedDate: '2026-01-14'
+excerpt: 'Vocdoni Ballot Protocol: Vocdoni protokoloaren berrikuntza nagusia da inoiz egin den lehen onlineko bozketa-protokolo deszentralizatua, zentsurarekiko erresistentea eta…'
+coverImage: /blog/images/2025/12/ballot_protocol_post.webp
+coverAlt: Vocdoni Ballot Protocol aurkezten dugu
+authors:
+  - ferran
+categories:
+  - technology
+featured: false
+draft: false
+---
+
+# **Vocdoni Ballot Protocol**
+
+Vocdoni protokoloaren berrikuntza nagusia hau da: inoiz egin den lehen onlineko bozketa-protokolo deszentralizatua, zentsurarekiko erresistentea eta anonimoa inplementatzea. Baina asmo tekniko horiez harago, protokoloak prozesu demokratiko sorta zabal batekin bateragarria izatea lortzen du. Hori, neurri batean, boto-txartelen gure espezifikazio moldakorrari esker lortzen du Vocdonik.
+
+**Vocdoni Ballot Protocol** delakoak espezifikazio sinple baina indartsua izan nahi du, bozketa-prozesu bateko boto-txartelak eta emaitzak adierazteko.
+
+# **Lehenik, definizio batzuk:**
+
+**_Bozketa-prozesu_** bat **_eremu_** batek edo gehiagok osatzen dute; eremu bakoitzak galdera bakar bat edo galdera baten aukera bat adierazten du, **_prozesu motaren_** arabera. Botoa ematean, hautesleek aurrez definitutako **_erantzun_** multzo batetik aukeratzen dute eremu bakoitzerako. Onartutako erantzun kopurua, erantzun mota eta abar ere prozesu motaren araberakoak dira. Botoa emateko eskubidea duen hautesleak **_boto-txartel_** bat emanez adierazten ditu bere aukerak.
+
+Boto-txartela zenbaki arrunten array (edo zerrenda) gisa adierazten da. Array-ko posizio bakoitzak prozesuaren eremuetako baterako erantzun bat dauka.
+
+Emaitzak zenbaki arrunten bi dimentsioko array batean (matrize batean) metatzen dira. Matrize horren errenkada bakoitza boto-txartelaren eremu bati dagokio, eta zutabe bakoitza eremu horrek har ditzakeen balioetako bati. Emaitzen matrizeko edozein zenbaki, besterik gabe, indize horretan adierazitako balioak jasotako botoen zenbaketa da.
+
+Prozesu bat nola konfigura daitekeen xehetasunez aztertu aurretik, ikus dezagun adibide generiko bat. Demagun hiru eremuko prozesu bat dugula, `A`, `B` eta `C`, eta eremu bakoitzak `0`, `1` eta `2` balioak onartzen dituela. Ez dakigu balio edo eremu horiek zer adierazten duten, baina oraingoz ez du axola.
+
+![](https://storage.googleapis.com/papyrus_images/47fc7647a24d815d609ad569c4456e39.png)
+
+Adibide honetan, bi boto eman dira. Lehen hautesleak `2` balioa aukeratu du `A` eremurako, `0` balioa `B` eremurako eta `1` balioa `C` eremurako. Bigarren boto-txartelak `0`, `0` eta `2` balioak ditu. Goiko diagraman ikus dezakezu boto-txartelak nola lotzen diren emaitzen matrizearekin. Boto-txartel bateko balio baten _indizeak_ zehazten du balio hori zein _eremuri_ dagokion; adibidez, 1. boto-txartelaren lehen indizeak `2` balioa du, eta, beraz, 1. boto-txartelak `2` balioa esleitzen dio A eremuari. Emaitzen matrizearen eremu bakoitzaren barruan, botoaren balioa indizearen bidez adierazten da: `A eremuko` `2` indizean `1` jartzen dugu, `2` balioak jaso duen boto bakarra adierazteko.
+
+Baliteke hasieran intuitiboa ez izatea. Saiatu boto-txarteletako beste balio pare bat emaitzen matrizeraino jarraitzen, emaitzak hemen nola adierazten diren ondo ulertu duzula ziurtatzeko.
+
+---
+
+# **Protokoloa bera**
+
+Boto-txartelen protokoloa zenbakizko aldagai eta aldagai boolear (egia/gezurra) multzo batek osatzen du, eta aldagai horiek boto-txartel baliodun baten formatua mugatzen dute.
+
+![](https://storage.googleapis.com/papyrus_images/b8d920f2d64cf347ff2f47f7e34a3340.png)
+
+Nola adieraz liteke goian aurkeztutako adibidea protokolo honekin?
+
+Hasteko, badakigu hiru eremu ditugula; beraz,
+
+- `maxCount` = 3
+
+Balio baliodunak 0, 1 eta 2 dira; beraz, honela ezar dezakegu:
+
+- `minValue` = 0
+- `maxValue` = 2
+
+Bigarren boto-txartelak `0` balioa dauka eremu batean baino gehiagotan. Beraz, boto-txartel hori balioduna izan dadin, hau ezarri behar dugu:
+
+- `uniqueValues` = 0 (hemen 0k «gezurra» adierazten du, eta 1ek «egia»)
+
+Hurrengo hiru aldagaietarako ez dago esleipen multzo nabarmen bakar bat; beraz, eman diezaiogun testuinguru pixka bat gehiago gure adibideko prozesuari. Demagun, esaterako, prozesua galdera bakarrekoa dela, eta hautesleei urrezko txanponak erakundeen artean banatzeko eskatzen zaiela. Eremu bakoitzak erakunde bana adierazten du, eta eremu horri esleitutako balioa da hautesleak erakunde horri eman nahi dion urrezko txanpon kopurua.
+
+Dagoeneko ezarri ditugun `minValue` eta `maxValue` aldagaien arabera, badakigu erabiltzaile bakoitzak 0 eta 2 txanpon artean eman diezazkiokeela erakunde bakoitzari. Baina arau sinesgarri bat gehi genezake: hautesleek 3 txanpon banatu ahal izatea gehienez, guztira. Eta imajina dezagun, gainera, gutxienez txanpon 1 banatu _behar_ dutela.
+
+Horrek esanahia ematen dio goiko prozesuaren diagramari: lehen boto-txartelak 3 txanpon banatzen ditu guztira (agian A eta C erakundeak babesten ditu, baina A apur bat gehiago gustatzen zaio). Bigarren boto-txartelak bere 3 txanpon posibleetatik 2 baino ez ditu banatzen (C erakundea baino ez du babesten, eta nahiago du hirugarren txanpona alferrik galdu, A edo B erakundeei eman baino). Beraz, lasai ezar ditzakegu
+
+- `minTotalCost` = 1
+- `maxTotalCost` = 3
+
+eta bi boto-txartelak baliodunak izango dira.
+
+Ezarri beharreko azken aldagaia `costExponent` da, [bozketa koadratikoari](https://www.wikiwand.com/en/Quadratic_voting) dagokiona. Oraingoz ez gara bozketa mota horretan sakonduko; beraz, ezar dezagun balio lehenetsia:
+
+- `costExponent` = 1
+
+Berriro ere, hartu une bat aldagai hauetako bakoitzari buruz hausnartzeko, eta saiatu ulertzen horietako edozein aldatzeak nola eragingo liokeen gure adibideko bozketa-prozesuari.
+
+# **Emaitzen interpretazioa**
+
+Goiko aldagaiek Vocdoni Ballot Protocol osoa osatzen dute, eta horrek azpiegitura nagusiak kudeatzen dituen boto-txartelen balidazioa eta emaitzen taulaketa hartzen ditu barnean. Baina, jakina, giza esperientziari dagokionez informazio asko falta da oraindik. Protokoloaren integratzaileek erabaki behar dute nola komunikatu prozesu baten benetako edukia hautesleei, eta nola interpretatu eta aurkeztu emaitzen matrizea. Emaitzen interpretazioa Ballot Protocol-en esparrutik kanpo dago, baina garrantzitsua da protokoloa nola erabil daitekeen ulertzeko.
+
+Egungo bertsioan, Vocdonik emaitzak interpretatzeko bi formatu definitzen ditu: **_indize-haztatua_** eta **_balio diskretuak_**.
+
+### **Indize-haztatua**
+
+Gure adibideko prozesurako, indize-haztatuaren interpretazio-formula erabiliko genuke. Eskema hori galdera bakarreko prozesuetarako egokia da: sailkapen bidezko bozketa, aukera anitzeko bozketa edo aurrekontu parte-hartzaileak, esaterako. Emaitzen matrizearen eremu bateko indize bakoitzak balio haztatu bat adierazten du; kasu honetan, haztapena erakunde bati esleitutako txanpon kopurua da. Botoen batura, indizearen araberako balio haztatuekin biderkatuta, eremu horren balio osoa da.
+
+![](https://storage.googleapis.com/papyrus_images/345a07aee1ddf6a6aad51db7e58fd399.png)
+
+Interpretazio horrek gure adibideko prozesua laburbiltzen du: A erakundeak 2 txanpon jaso ditu, eta C erakundeak 3.
+
+### **Balio diskretuak**
+
+Balio diskretuen interpretazioa eremu bakoitza bere kabuz galdera bat den prozesuetan erabiltzen da. Hemen balio bakoitzak aukera diskretu bakar bat adierazten du (adibidez, «2. hautagaia»), eta ez biderkatzaile bat (adibidez, «2 puntu aukera honi»). Hortaz, metodo honek, emaitzak interpretatzeko, besterik gabe jakinarazten du eremu bakoitzean zein baliok jaso dituen boto gehien, halakorik badago.
+
+`0` balioa aukeren arteko berdinketarako gordeta dago.
+
+![](https://storage.googleapis.com/papyrus_images/97e8bca257a9b118b86ee3dd31165107.png)
+
+Bi formatu horiek ez dira zerrenda itxi bat izateko pentsatu. Esan bezala, Ballot Protocol bera agnostikoa da emaitzak nola batzen diren erabakitzeko orduan, eta protokoloaren gainean bere aplikazio-geruza eraikitzen duen edonork bere emaitza-interpretazioa defini dezake.
+
+---
+
+# **Adibideak**
+
+Errepasa ditzagun mundu errealeko adibide pare bat, Ballot Protocol zein moldakorra den ikus dezazun.
+
+### **Sailkapen bidezko bozketa**
+
+Gozoki-enpresa bat dut. Piruleta-zapore berri bat merkaturatzear gaude, eta merkatu-proba batzuk egin nahi ditugu, bezeroei zein zapore gustatuko zaien gehien jakiteko. Gure bezerorik leialenetako batzuei kaxa bana bidali diegu, `zainzuri`, `babarrun`, `azenario` eta `aneta` zaporeko piruletekin (ez gara gozoki-enpresa oso arrakastatsua ☹). Piruletak Vocdoni bozketa-prozesu batean sailkatzeko eskatu diegu, beren lehentasunak adieraz ditzaten...
+
+Egoera hau ezin hobea da [sailkapen bidezko bozketa](https://www.wikiwand.com/en/Ranked_voting) prozesu baterako. Honela sortuko dugu prozesua gure probatzaileentzat:
+
+Lau gozoki-zapore ditugu sailkatzeko. Erabiltzaileek balio bana esleitu behar diote gozoki bakoitzari; beraz, eremu bana behar dugu gozoki mota bakoitzeko.
+
+- `maxCount` = 4
+
+Erabiltzaileei gozokiak onenetik txarrenera sailkatzeko eskatuko diegu: `3` onena, eta `0` txarrena.
+
+- `minValue` = 0
+- `maxValue` = 3
+
+Ez zaigu baliagarria probatzaileek gozoki batzuk berdin onak direla pentsatzea: sailkapen argia nahi dugu, onenetik txarrenera.
+
+- `uniqueValues` = 1
+
+Erabiltzaileek nahitaez lau balio esberdin esleitu behar dituztenez, badakigu kostu osoak 0+1+2+3=6 izan behar duela.
+
+- `minTotalCost` = 6
+- `maxTotalCost` = 6
+
+Berriro ere, hemen ez dugu costExponent-en beharrik.
+
+- `costExponent` = 1
+
+![](https://storage.googleapis.com/papyrus_images/d06d57a97367e2f40ed75228f02392a7.png)
+
+Har dezagun lehen boto-txartela. Produktu-probatzaile honi azenarioak izugarri gustatzen zaizkio; beraz, azenarioa jarri du lehen aukera gisa. Gero zainzuria, gero aneta, eta babarrunak azkenak. Honela jasotzen da boto-txartel hori emaitzen matrizean:
+
+![](https://storage.googleapis.com/papyrus_images/e63207ba97dca5657af93969f5424cb3.png)
+
+Boto-txartelak etengabe iristen dira, eta 30 erantzun jaso ditugu guztira! Emaitzen matrizea beteta dagoela, indize-haztatuaren metodoaren arabera batzen ditugu emaitzak...
+
+![](https://storage.googleapis.com/papyrus_images/49480940bd6ea3db2320d77b587455ae.png)
+
+Aneta da irabazlea! 🎉 Merkatu-azterketa sakon honi esker, laster aurkituko dituzu aneta zaporeko piruletak zure auzoko dendan.
+
+### **Bozketa koadratikoa**
+
+Langileek kudeatutako gure oinetako-kooperatibak aste honetan du urteko batzarra, eta bertan marketin-buru berria hautatuko dugu. Lehia oso estua da, eta bozketa koadratikoa erabiltzeko proposamena egin da, aukerak orekatzeko.
+
+Bozketa koadratikoa metodo bat da, hautesleei hautagai bakar bati boto bat baino gehiago esleitzeko aukera ematen diena, gero eta kostu handiagoarekin. Kasu honetan lau hautagai aurkeztu dira, eta kide bakoitzak gehienez 9 «puntu» ditu botoetan gastatzeko. Kontua da eremu bati `v` balio jakin bat esleitzearen kostua `v` ber `costExponent` dela. Beraz, `costExponent` 2 izanik, A hautagaiari boto 1 esleitzen badiot, puntu bat kostatzen zait; baina 2 boto esleitzen badizkiot, 4 puntu kostatzen zaizkit, eta hautagai bati 3 boto emateak nire 9 puntu guztiak kostatzen dizkit. Azter dezagun hau xehekiago.
+
+Lau hautagai ditugu, eta erabiltzaileek horietako bati baino gehiagori eman diezaiokete botoa. Beraz, bakoitzak bere eremua behar du.
+
+- `maxCount` = 4
+
+Jar diezaiogun arrazoizko muga bat hautesle batek hautagai bakar bati eslei diezaiokeen balioari.
+
+- `minValue` = 0
+- `maxValue` = 3
+
+Kideek balioak errepika ditzakete, arazorik gabe.
+
+- `uniqueValues` = 0
+
+Esan bezala, kideek gehienez 9 puntu gasta ditzakete.
+
+- `minTotalCost` = 0
+- `maxTotalCost` = 9
+
+Azkenean iritsi da aldagai honen unea. Ezar dezagun 2an: horrek esan nahi du edozein balioren kostua balio horren karratua dela.
+
+- `costExponent` = 2
+
+![](https://storage.googleapis.com/papyrus_images/a645cc0a4a064387d26dafb4972d053a.png)
+
+Imajina ditzagun boto-txartelen konfigurazio pare bat, bozketa koadratikoak nola funtzionatzen duen ikusteko.
+
+**1. boto-txartela**
+
+Gure lehen hauteslearentzat edozein hautagai litzateke onargarria, baina B hautagaia du gustukoen, alde txikiarekin. Gainera, ahalik eta boto-botere handiena erabili nahi du.
+
+![](https://storage.googleapis.com/papyrus_images/d9e9d195ba9159cc90da7228e4764cfc.png)
+
+Hautesle honek ematen duen `1` balio bakoitzak `1` baino ez dio gehitzen kostu osoari. Baina `2` balio batek `2^2`, hau da, `4`, gehitzen dio. Botoak hautagai guztien artean banatuta, hauteslea 5eko balio osoa esleitzera iristen da, kostua 7koa baino ez dela. Ezin da 9ko gehienezko kostura iritsi: bere `1` balioetako edozein `2`ra igotzeak kostua 9tik gora eramango luke.
+
+**2. boto-txartela**
+
+Bigarren hauteslearen iritziak oso sendoak dira: C hautagaia baino ez du babesten. Beraz, zentzuzkoa da harentzat balio maximoa 3. hautagaiari esleitzea. Guztira `3`ko balioa baino erabili ez badu ere, kostu osoa gehienezkoa da: `3^2` = `9`.
+
+![](https://storage.googleapis.com/papyrus_images/99d22c797167c3a9f1a5be94957e158c.png)
+
+Pentsa dezakezu nola, hautagai eta hautesle gehiagoko prozesu handiago batean, bozketa koadratikoa oso tresna indartsua izan litekeen, lehentasuna bera ez ezik lehentasunaren indarra ere neurtzeko. Oraingoz, emaitza hauen interpretazioa irakurlearen esku utziko dugu, ariketa gisa.
+
+---
+
+# **Protokolo irekia eta malgua**
+
+Espero dugu honezkero argi izatea Vocdoni Ballot Protocol-en zenbait erabilera posible. Protokoloaren ezaugarririk garrantzitsuena, hala ere, malgutasuna da. Goian aurkeztutako konfigurazioez gain, beste aldaera eta interpretazio-mekanismo ugari daude. 8 aldagai hauek eszenatoki sorta zabala hartzen dute barnean: guk ezagutzen ditugun ia bozketa mota guztiak, baita oraindik asmatu ez direnak ere. Eta hau hasierako bertsio bat baino ez da: protokoloa heda liteke, behar izanez gero, aukera gehiago ere gaitzeko.
+
+Protokolo honen malgutasun teknikoa eta irekitasuna mundu errealeko erabileretan islatzen dira. Erakunde batek edozein motatako prozesuak erraz antolatu ahal izateak nabarmen jaisten du erabakiak hartzeko modu guztietarako langa, dela bozketa tradizionala, dela zerbait zuzenagoa, arinagoa eta esperimentalagoa. Gizarte zibileko kideek badituzte orain tresnak beren burua ahalduntzeko eta _ondoen ordezkatzen dituzten_ prozesu demokratikoak gauzatzeko, prozesu horiek edozein itxura dutela ere.
+
+---
+
+# **Oharra: kode-adibideak**
+
+Honaino iritsi zareten teknikariontzat, protokoloak agian ez du ezer esan nahi lurrera jaitsitako kode-adibiderik gabe. Hona hemen nola erabil zenezakeen [dvote-js](https://github.com/vocdoni/dvote-js), protokoloaren typescript/javascript inplementazioa, prozesu bat sortzeko.
+
+Lehenik, presta dezagun ingurunea: inportatu beharrezko paketeak, konektatu Vocdoniren atebideetara (*gateways*) eta sortu hautesle faltsuen errolda bat. Uneko blokearen altuera ere eskuratuko dugu, prozesuaren hasiera-unea zuzen ezarri ahal izateko.
+
+_Ikus&#xA0;_[_dokumentazioa_](https://docs.vocdoni.io/#/integration/overview)_,&#xA0;gida sakonagoak aurkitzeko: ingurunea prestatzea, atebideetara konektatzea, errolda sortzea eta abar._
+
+Orain gure prozesuaren metadatuak sor ditzakegu. Sor dezagun prozesu bat goian aztertu dugun gozoki-zaporeen adibiderako. Metadatuak bezeroei bozketa-prozesua behar bezala erakusten laguntzen dien informazioa dira: gizakiek irakurtzeko moduko informazioa daukate, prozesua protokolo mailan konfiguratu gabe. Hemen galdera bana definitzen dugu gozoki-zapore bakoitzeko, aurrez definitutako aukera-balioak barne, `0`tik `3`ra. Batze eta bistaratze motak ere adierazten ditugu; horiek bezeroei esaten diete nola interpretatu emaitzak eta nola erakutsi prozesua erabiltzaileei.
+
+Azkenik, prozesua bera sor dezakegu. Ballot Protocol-en aldagaiak, besterik gabe, adibide honetarako goian definitu ditugunen arabera ezartzen dira, eta `uniqueValues` aldagaia `envelopeType` gisa ezartzen da. Aldagai horiez gain, `processParams`-ek hau guztia deskribatzen du: non gordetzen diren prozesuaren errolda eta metadatuak, prozesua zifratua eta/edo anonimoa den, prozesuak zein azpiegitura erabili behar duen, noiz hasi eta noiz amaitzen den, eta bestelako informazio osagarria.
+
+Prozesua argitaratu ondoren, berriro irakur dezakegu, parametroak zuzen ezarrita daudela egiaztatu, web- edo aplikazio-bezeroei prozesu mota hau erakusteko agindu, eta bozkatzen hasi!

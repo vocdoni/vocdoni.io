@@ -1,0 +1,52 @@
+---
+title: L2 gobernantza-ereduak
+publishedDate: '2021-12-08'
+updatedDate: '2026-01-29'
+excerpt: Ethereum gaineko hiru Layer 2 gobernantza- eta bozketa-ereduren azterketa teknikoa.
+coverImage: /blog/images/2026/01/blogpost_l2_governance_models.webp
+coverAlt: L2 gobernantza-ereduak
+authors:
+  - ferran
+categories:
+  - technology
+featured: false
+draft: false
+---
+
+Finantza deszentralizatuen (DeFi) arrakastek blockchain-gobernantzaren lehen egunak gogorarazten dizkigute, eta gauza bera egiten dute haren erronkek. Ethereumeko kuota altuak DeFi erabiltzaileak Layer 2 (L2) soluzioetara bultzatzen ari dira, eta antzeko eragina dute gobernantza deszentralizatuan (dGov): kate barruan (on-chain) bozkatzea izugarri garestia bihurtu da. Horren ordez, hainbat saiakera egiten ari dira transakzioak edo botoak kate kanpoko kontratu adimendunetan (*smart contracts*) «biltzeko» (roll up), gero exekuzio bakar batean kate nagusiarekin bateratzeko, edo albo-kateak zubi seguruekin erabiltzeko, edukiera gehigarria lortze aldera. Gainera, kostuak jaisteko L2rako aldaketa horrekin batera, dGov eredu berri eta zirraragarriak esploratzeko aukera dator.
+
+### **Kate kanpoko gobernantza optimista**
+
+Gobernantza optimista da sartzeko oztopo txikiena duen L2 eredua. Kontrapartida: eredu honek konfiantza gehien eskatzen du. Prozesua kate kanpoan gauzatzen da, konfiantzazko ingurune batean edo gehiagotan.
+
+Oinarrizko adibideak: muturreko kasuan, kalkulu-orri partekatu batean egiten den bozketa-prozesu bat; edo, ohikoago, botoak IPFSn erregistratzen dituen aplikazio zentralizatu bat. Boto bat baliozkoa den zehazteko metodoaren segurtasuna kalkulu-orriaren jabearen edo sistema zentralizatuaren mende dago. Ez dago adostasun-mekanismo automatikorik tartean.
+
+Blockchain-gobernantzari aplikatuta, kate kanpoko gobernantza optimistak zerbitzu zentralizatu bat izan lezake, sinkronizatutako Ethereum nodo bat exekutatzen duena, hauteslearen boto-eskubidea balioztatzeko: `balanceOf(holderAddr)` funtzioari deituz, gobernantza-tokena baduela egiaztatzen da (ERC20 token baten kasuan). Hala ere, parte-hartzaile guztiek konfiatu beharko lukete balioztapen hori egiten duen nodoaren osotasunean eta portaera onean.
+
+Horrelako gobernantza-prozesu bat amaitutakoan, emaitzak Ethereumera itzul daitezke, optimistic-rollup itxurako kontratu adimendun batean (ERC3000 kasu). Emaitzak epe jakin batean auzitan jartzen ez badira, baliozkotzat hartzen dira. Auzitan jartzen badira, konfiantzazko alderdi batek edo gehiagok kudeatutako prozesu bereizi batek erabaki lezake emaitzen baliozkotasuna.
+
+Ikuspegi honek hainbat kezka sortzen ditu; nabarmenenak, zentsura- edo manipulazio-arriskua, ikuspegi zentralizatua dela-eta, eta erreproduzigarritasunik eza: ez dago egiaren iturri bakarrik, eta datuak aldatu, galdu edo hondatu litezke.
+
+### **Kate kanpoko gobernantza determinista**
+
+Kate kanpoko gobernantza determinista eredu batek guztiz baimenik gabeko (permissionless) eta konfiantzarik gabeko (trustless) bozketa ahalbidetzen du. Bozketa-prozesu determinista batek bozketa-errolda sortzen du eta botoak zenbatzen ditu, edozein hirugarren behatzailek egiaztatu eta erreproduzitu ahal izateko moduan.
+
+Eskema honek egoera partekatuko albo-kate determinista bat erabil lezake, edozein alderdik bozketa-prozesu batean parte hartu eta hura balioztatu ahal izateko. Egoera partekatuko kate horretan, balioztatzaile guztiek erroldaren eta bozketa-datuen kopia osoa mantenduko lukete, eta adostasunera iritsiko lirateke boto bakoitzaren baliozkotasunaz eta, beraz, bozketaren azken emaitzaz.
+
+Eredu hau adostasun-mekanismoaren segundoko transakzio kopuruaren proportzioan eskalatzen da, transakzio bakoitzak boto bakarra izan baitezake. Zentsura-erasoekiko erresistentzia hemendik dator: munduko edonork gehi ditzake bere nodoak parekoen arteko sarera, adostasun banatua indarrean jarriz. Gobernantza deterministak erreproduzigarritasuna ere ahalbidetzen du: egoera modu deterministan berreraiki daiteke, p2p sarean publikoki eskuragarri dagoen transakzio multzoa berriro exekutatuz.
+
+Eredu honetan, kate kanpoko froga egiaztagarriak behar dira hautesle bakoitzaren boto-eskubidea frogatzeko. Horretarako, sistema batek [Merkle frogak kalkula litzake Ethereumen biltegiratze-trieen gainean](https://docs.vocdoni.io/architecture/smart-contracts/storage-proofs.html), Ethereumeko datu jakin batzuen jabetza L2 bozketa-blockchainari frogatzeko. Hala, hautesleek froga dezakete ERC20 kontratu jakin batean tokenak dituztela, eta, ondorioz, kate kanpoko bozketa haztaturako errolda bat lor daiteke, kate barruko token-frogek konfiantzarik gabe zehaztua.
+
+L2 egoerak osotasun-berme handia badu ere, oraindik ez dago modurik emaitzen exekuzio loteslea Ethereumen bermatzeko, eragileren batean (edo batzuetan) konfiatu gabe. Kate arteko elkarreragingarritasun horretarako, orakulu-sare bat behar da emaitzak balioztatu eta argitaratzeko.
+
+### **Kate barruko gobernantza egiaztatua eta loteslea**
+
+Hirugarren eredua, aurreratuena, aurreko ereduaren (adostasunean oinarritutako kate kanpoko gobernantza deterministaren) luzapen gisa inplementa daiteke - deszentralizazioari laguntzeko - edo zerbitzu zentralizatu gisa, zentsura saihesteko mekanismo egokiekin. Berrikuntza nagusia hau da: kate kanpoko exekuzio egiaztatua/determinista matematikoki froga dezake kontratu adimendun batek.
+
+Kate barruko gobernantzaren hurrengo belaunaldirako, zk-SNARK zirkuitu espezializatu bat (Zero-Knowledge Succinct Non-interactive Argument of Knowledge) erabil liteke gobernantza-eredu hau kate kanpoko gobernantza deterministako protokolo batean txertatzeko. Zirkuitu horrek ezagutza zeroko froga (ZKP) bat kalkula lezake baliozko boto-transakzioen sorten edo bozketa-prozesuen gainean, bozketa amaitu ondoren. [Erroldaren Merkle erroa](https://docs.vocdoni.io/architecture/census-overview.html) (erroldaren hash bidezko laburpena), boto-eskubidea duten hautesleen kopurua eta bozketaren zenbakizko emaitzak dituen ZKP bat Ethereumeko kontratu adimendun batek baliozta dezake. Hortik aurrera, edozein ekintza lotesle exekuta daiteke kate barruan.
+
+L2 gobernantzaren giltzarri, eredu hau punta-puntakoa da. Kate kanpoko gobernantza egiaztatuak, kate barruko emaitza lotesleekin, eskala handiko bozketa eskaintzen du: determinista, baimenik gabekoa, unibertsalki egiaztagarria eta konfiantzarik gabekoa, kate barruko bozketaren funtzionaltasunik batere galdu gabe. Eta, garrantzitsuena: eredu hau hautesleentzat guztiz doakoa den moduan inplementa daiteke.
+
+# **Aurrera begira**
+
+[Vocdoni](https://vocdoni.io/eu) xede argiko erakundea da: gure ikuspegia, ez gutxiago, kate barruko gobernantza egiaztatua eta loteslea da. Vocdoni taldea eredu horren kontzeptu-froga batean ari da lanean, zkRollup teknologia erabiliz, eta datozen asteetan horri buruz gehiago azaltzea espero dugu. Bitartean, statu quo-a hobetzen duen eta helburu horretara hurbiltzen gaituen iterazio oro argitaratzen jarraituko dugu. Vocdoniren egungo bertsioetan, kate kanpoko gobernantza deterministaren ereduaren % 90 inplementatuta dago, konfiantzazko balioztatzaileekin (proof of authority), baina dagoeneko lanean ari gara gure boto-zenbaketako blockchaina epe ertainean proof of stake bihurtzeko.

@@ -1,0 +1,182 @@
+---
+title: Exekuzio loteslea Ethereumen zk-rollupen bidez
+publishedDate: '2022-10-12'
+updatedDate: '2026-01-14'
+excerpt: 'Vocdoniren azken ikerketa, kate kanpoko bozketa-prozesu seguruei buruz.'
+coverImage: /blog/images/2026/01/blogpost_binding_execution.webp
+coverAlt: Exekuzio loteslea Ethereumen zk-rollupen bidez
+authors:
+  - ferran
+categories:
+  - technology
+featured: false
+draft: false
+---
+
+Artikulu honek kontzeptu-froga bat proposatzen du, zk-SNARKak baliatuz gobernantzaren hurrengo muga lortzeko: **gasik gabeko** **kate barruko gobernantza egiaztatua eta loteslea**.
+
+_Proposamen honen eduki teknikoa_ [_Ethresear.ch_](http://Ethresear.ch) _foroan ere argitaratu dugu&#xA0;_[_hemen_](https://ethresear.ch/t/experiment-in-gassless-voting-using-snarks/10927)_&#xA0;, komunitateak eztabaida dezan._
+
+# **Testuingurua**
+
+Gobernantza digitaleko proiektu aitzindaria den aldetik, Vocdonik inbertsio handia egiten du gobernantza-ereduak ikertzen eta berritzen. Layer-2 mailako hainbat gobernantza-soluzio identifikatu ditugu; potentziala erakusten dute, baina hainbat galdera tekniko irekita uzten dituzte. Gasik gabeko bozketa-prozesuak lortu ditugu gure [bozketarako blockchain](https://docs.vocdoni.io/architecture/components.html#vochain) espezializatuan (Vochain), eta [Ethereumeko biltegiratze-frogak](https://docs.vocdoni.io/architecture/census/on-chain.html) (*storage proofs*) erabiltzeko metodo bat diseinatu eta inplementatu dugu, ERC20 tokenetan oinarritutako erroldak Ethereumetik Vochainera ekartzeko. Orain arte, ordea, emaitzak _Ethereumera itzultzeko_ aukera ikerketa-galdera ireki bat izan da.
+
+Horretarako, Vocdoni diseinu berri batekin esperimentatzen aritu da: kate kanpoko bozketa-prozesu baten emaitzak Ethereumera eramatea ahalbidetuko luke, orakulu subjektiborik edo konfiantzazko beste osagairik erabili gabe.
+
+Proposamen honen atzeko berrikuntza nagusia argia da: guk ezagutzen dugun sistema bakar bat ere ez da gai bozketa-prozesu bat kate kanpoan antolatzeko eta, haren emaitzetan oinarrituta, Ethereumen ekintzak konfiantzarik gabe exekutatzeko. Proposamen honen erabilera-kasuen artean, emaitzen arabera ekintza lotesleak exekutatzen dituzten gobernantza-prozesu _guztiak_ egon litezke; besteak beste, aktiboen esleipenari edo kontratu adimendunen (*smart contract*) aldaketei buruz bozkatzen duten DAOak. Gaur egun, gobernantza-prozesu horiek Ethereumeko sare nagusian (mainnet) egin behar dira, eta gas-kostu handiak eragiten dizkiote boto-emaile bakoitzari. Bestela, bozketa kate kanpoan egin liteke, baina kanpoko osagai batean konfiantza jarri beharko litzateke, emaitzak Ethereumera zehatz eta zintzo itzul ditzan.
+
+Gure proposamenak aukera emango luke erabat kate kanpoan egiten diren bozketa-prozesuek emaitzak Ethereumen exekuta ditzaten, kate barruko gobernantzaren osotasun berarekin eta kostuaren zati txiki batean.
+
+# **Bozketa-protokoloaren kontzeptu-frogaren baldintzak**
+
+Soluzio teknikoa diseinatu aurretik, gure ikerketa-proposamenaren parametroak zehaztu genituen:
+
+Bozketa-protokoloak **baldintza** hauek bete behar zituen:
+
+1. Baimenik gabekoa izatea.
+2. Zentsurarekiko erresistentea izatea.
+3. Emaitzak Ethereumen lotesle bihurtzeko gai izatea.
+4. Boto-emaileentzat gasik gabea izatea.
+5. Token-zubirik behar ez izatea.
+6. Ahalik eta sinpleena izatea (alboko katerik gabe).
+7. ERC20 / ERC777 tokenekin eta NFTekin bozkatzeko erabilgarria izatea.
+
+Kontzeptu-froga baten diseinua denez, honako **muga** hauek onartu genituen proposamenean:
+
+1. Erabiltzaileen anonimotasunik ez: botoak Ethereumeko helbide batekin lot daitezke.
+2. Ordezkagiririk eza (*receipt-freeness*) bermatu gabe: boto-erosketa posible izan liteke.
+3. Ez dago nazio mailako hauteskundeetarako diseinatuta: DAOetarako edo ERC20/NFT edukitzaileentzat baino ez. Beraz, erroldaren gehienezko tamaina bat ezarri behar da (errendimenduaren eta kostuen arabera).
+4. Relayer-entzako pizgarri-eredurik ez dago zehaztuta.
+
+# **Proposamen ideala**
+
+Proposamen honen diseinuaren arabera, bozketa-prozesu berri bat sortzean, antolatzaileek transakzio bat bidaltzen dute Ethereumera, errolda gisa erabiliko den ERC20 tokenaren kontratu-helbidea zehaztuz. Helbide horren Storage Root Hash-a, zehaztutako bloke-altuera batean, prozesu horren errolda-erro bihurtzen da. Token hori duen edonork bere hautagarritasuna froga dezake, tokenaren saldoaren Merkle froga bat aurkeztuz ([EIP1186](https://github.com/ethereum/EIPs/issues/1186) bidez). Ondoren, botoa eman dezake froga (siblings) eta sinadura bat [zk-SNARK](https://en.wikipedia.org/wiki/Non-interactive_zero-knowledge_proof) rollup relayer bati bidaliz; relayer horrek azken emaitzen froga kalkulatuko du.
+
+Arazo posible bat: emaitzen zk-SNARK froga kalkulatzen duen eragileak (koordinatzaileak), teorian, emaitza zentsura lezake, boto batzuk kanpoan uztea erabakiz. Arazo horri aurre egiteko, edonork (ez koordinatzaileak bakarrik) boto berriak bidal ditzake: edozein erabiltzailek bere botoa daukan rollup bat sortu eta bidal dezake, koordinatzaile batek botoa sartu ez duela antzemanez gero.
+
+Gure proposamenak honetarako erabiltzen ditu zk-SNARKak:
+
+- Helbide batek aurrez bozkatu ez duela egiaztatzeko, Merkle zuhaitzeko metagailuaren bidez.
+- Erabiltzaileak tokenak dituela egiaztatzeko, biltegiratze-frogen bidez.
+- Boto sorta baten emaitza partzialak kalkulatzeko.
+- Botoaren sinadura egiaztatzeko.
+
+![](/blog/images/2026/01/vocdoni_zk_scheme.webp)
+
+Exekuzio loteslea Ethereumen zk-SNARKekin: proposamen idealizatua.
+
+Goiko eskeman, bi arazo nagusi identifika ditzakegu:
+
+### **1. arazoa: ERC20 biltegiratze-frogen egiaztapena ez da SNARKetarako egokia**
+
+ERC20 biltegiratze-frogak oso konplexuak dira SNARK baten barruan egiaztatzeko. Neurri batean, Recursive Length Prefix (RLP) analisia eta [Keccak-256](https://en.wikipedia.org/wiki/SHA-3) hash-egiaztapen ugari erabiltzen dituztelako gertatzen da hori; biak ez dira batere eraginkorrak kalkulatzeko gaur egungo SNARK rollup teknologiarik aurreratuenean. Arazo hori saihesteko bide errazik ez dagoenez, oraingoz balidazio optimistaren bidez konpontzen dugu.
+
+### **2. arazoa: ECDSA / Secp256k1 sinaduren egiaztapena ez da SNARKetarako egokia**
+
+Erabiltzaileen sinadurak egiaztatzeko erabil genezakeen egungo estandar kriptografiko bat hau da: ECDSA, Ethereumeko sinadura batetik eratorritako [BabyJubJub](https://eips.ethereum.org/EIPS/eip-2494) gako batekin, sinadura bera gako pribatu gordin gisa erabiliz; horrek helbidea berreskuratzeko aukera ematen dio erabiltzaileari. Metodo hori erabiltzailearen sinadura batean oinarritzen denez, eragile maltzurrek erabiltzaileak engaina ditzakete, beren Web3 zorroan iruzurrezko transakzioak sina ditzaten. Ahultasun hori nabigatzaileko zorro bat transakzio bat sinatzeko erabiltzen den leku guztietan dago. Konponbide posible bat litzateke gako pribatua web-helbidea deribazio-bide gisa erabiliz eratortzea.
+
+Beste erronka bat da frogatzea token-jabe bakoitzaren Ethereumeko helbideak BabyJubJub gakoa bozkatzeko onartzen duela, bozketa-prozesua sortzeko blokearen altueran. Hori lortzeko, «singleton» kontratu adimendun bat erabiltzen dugu, Ethereumeko helbideak BabyJubJub gako publikoekin mapatzen dituena; erabiltzaileak bere gakoa kontratu adimendunean gehitu behar du transakzio estandar baten bidez. Helbide baten eta gako baten arteko mapaketa auzitan jar daiteke biltegiratze-iruzurraren froga optimista baten bidez (dagoeneko ireki baitugu biltegiratze-frogen balidazio optimistarako atea). Konponbide horrek datuen erabilgarritasunaren arazoa ere konpontzen du, diseinu berrerabilgarri batekin: espero baita baimendutako gako horiek hainbat aldiz erabiliko direla bozketa-prozesu desberdinetan.
+
+Laburbilduz, egiaztapen gehienak SNARK baten barruan egin ditzakegu, baina ez guztiak:
+
+- Helbide batek aurrez bozkatu ez duela egiaztatzea, Merkle zuhaitzeko metagailuaren bidez → SNARK
+- Erabiltzaileak tokenak dituela egiaztatzea, biltegiratze-frogen bidez → Optimista
+- Bozketaren emaitza partzialak kalkulatzea → SNARK
+- Botoaren sinadura egiaztatzea → SNARK
+
+# **Proposamena**
+
+![](/blog/images/2026/01/vocdoni_zk_scheme_2.webp)
+
+Exekuzio loteslea Ethereumen zk-SNARKekin: proposamena
+
+### **Erabiltzailea**
+
+- BabyJubJub gako bat sortzen du, Ethereumeko sinadura batetik eratorria, eta hautesleen erregistroko (Voter Registry) kontratu adimendunean erregistratzen du.
+- Bozketaren informazioa eta bere konturako biltegiratze-froga eskuratzen ditu, boto-paketearen gaineko sinadura bat sortzen du, eta relayer bati edo relayer multzo bati bidaltzen dio.
+
+### **Bozketa-kontratu adimenduna**
+
+- Bozketa-prozesua erregistratzen du, honako hauek barne: ERC20 kontratu adimendunaren helbidea, ERC20aren helbidea→saldoa mapaketaren slot-indizea, bozketa-prozesuaren hasierako blokearen egoera-erroaren hash-a, eta botoen zenbaketa kalkulatzeko prozesu-parametroak (ikus Vocdoniren [Ballot Protocol](https://developer.vocdoni.io/protocol)).
+- Boto berrien erregistroa entzuten du zk-rollup bidez; SNARK horrek honako hauek frogatzen ditu:
+- Emaitzen kalkulua.
+- Botoaren sinadura BabyJubJub gako batek egin duela.
+- Bozketa-metagailuak eguneratuta mantentzen ditu.
+- Boto-emaileen zerrenda eguneratuta mantentzen du.
+- Edonori aukera ematen dio azken botoen erregistroa iruzur-frogen bidez auzitan jartzeko. Auzitan jartzeko, honako hauetako bat aurkeztu behar da:
+- Boto-emaile baten Ethereumeko helbideak tokenik ez duela frogatzen duen biltegiratze-froga bat.
+- Boto-emaile baten Ethereumeko helbidea BabyJubJub gako batekin lotuta ez dagoela frogatzen duen biltegiratze-froga bat.
+- BabyJubJub gakoak bozkatu duela frogatzen duen froga bat (gakoa «dagoeneko bozkatu du» zuhaitzean dago).
+
+### **Relayer-a**
+
+- **0. fasea:** Bozketa-prozesua Ethereumen sortzen da, eta relayer bat hautatzen da erabilgarri dauden relayer-en zerrendatik. Bozketaren antolatzaileak bozketaren kostuak ordaindu behar ditu (koordinatzaileari sari gisa emango zaizkio). Antolatzaileak, gainera, bozketaren ondoren DAOaren kontratu adimendun(et)an exekutatu beharreko EVM bytecode-a ematen du, emaitzen arabera.
+- **1. fasea:** Bozketa hasten da. Edonork bidal diezazkioke boto-paketeak hautatutako koordinatzaileari (HTTPS edo libp2p garraioak erabil daitezke). Koordinatzaileak hautatutako emaitzak sortaka biltzen ditu (rollup), zk-SNARK froga bat eraikitzen du, froga hori eta emaitzak Ethereumera igotzen ditu, erabiltzaileek emandako botoak jasotzen ditu, egiaztatu egiten ditu, eta gainerako relayer-ei helarazten dizkie.
+- **2. fasea:** Gehitu gabeko boto bat antzematen duten koordinatzaileek beren botoak rollup batean bil ditzakete, eta zk-SNARK baliozkotasun-froga bat bidali bozketa-kontratu adimendunera. Gainera, boto bat oker gehitu dela antzemanez gero, iruzur-froga bat bidal dezakete, aurrez gehitutako emaitza baliogabea dela frogatzeko, eta emaitza hori sortu zuen koordinatzailea zigortu egingo da.
+- **3. fasea:** Bozketaren epemuga iristen denean:
+- Igotako emaitzen batura (koordinatzaileak eta edozein hirugarrenek igotakoena) baliozkotzat jotzen da, eta saria koordinatzailearen eta boto gehiago gehitu dituzten eragileen artean banatzen da (halakorik badago).
+- Edonork (normalean koordinatzaileak) exekutatu beharreko EVM bytecode-ari deitzen dio, azken emaitzak sarrera gisa erabiliz.
+
+### **Zirkuitua eta kontratua**
+
+zk-SNARK batek emandako botoen zerrenda bat agregatuko du. zk-SNARK froga baliozkoa da boto-zerrenda jakin baten, errolda-erro baten, bozketa-identifikatzaile baten (electionId) eta emaitza agregatu baten arabera.
+
+![](/blog/images/2026/01/vocdoni_zk_scheme_3.webp)
+
+Zirkuitua eta kontratua
+
+**zk-SNARKaren SARRERAK**
+
+- Sarreren hash-a (publikoa) (horrela, SNARKaren egiaztapenaren gas-kostua murrizten da).
+- ElectionId (pribatua).
+- Sorta honen bozketa-emaitzen kalkulua (pribatua).
+- Uneko nullifier-en erroa (pribatua).
+- Nullifier-en erro eguneratua (pribatua).
+- Sortako botoen kopurua (pribatua).
+- Botoen balioak eta dagozkien BabyJubJub sinadurak \[1..BATCHSIZE] (pribatuak).
+
+Koordinatzailearen emaitzak igotzeko kontratu adimendunaren funtzio-deiaren sarrerak hauek dira:
+
+- electionId.
+- Sorta honetako boto-emaileen gako publikoen zerrenda.
+- Nullifier-en erro eguneratua.
+- Sorta honen bozketa-emaitzen kalkulua.
+- SNARK froga.
+
+# **Kontzeptu-frogaren inplementazioa**
+
+Soluzioaren kostuak eta bideragarritasuna egiaztatzeko, gutxieneko kontratu adimendun eta zirkuitu bideragarriak inplementatu ditugu [hemen](https://github.com/vocdoni/voterollup). Kontzeptu-froga honek erabiltzaileen erregistroa, botoen agregazioa eta iruzur-frogen egiaztapena baino ez ditu barne hartzen.
+
+Gure probek gas-kostu hauek izan zituzten:
+
+```toml
+user key registry
+  deployment           258,536
+  registration         68,956
+
+voting
+  deployment           6,673,159
+  new voting           25,989
+  aggregate rollup     291,801
+  fraud proof-1        574,574 (babyjubjub key not registered)
+  fraud proof-2        908,822 (account ERC20 balance is zero)
+```
+
+Agrega daitekeen boto kopuru bideragarria kalkulatzeko neurketetan, 32 GB RAM eta 8 CPUko zerbitzari estandar bat erabilita, ikusi genuen gehienez 300 boto agrega daitezkeela (64 mailako Merkle zuhaitz metagailu batekin eta \~3,8 milioi murriztapenekin); frogaren sorrerak 450 segundo behar izan zituen, eta 30 GB RAM kontsumitu zituen. Frogetarako, Groth16 erabili genuen Circom-ekin, lekukoaren sorrera C++-n, eta rapidSNARK.
+
+Alde onean, iruzur-froga bat sortzeko kalkulatu beharreko froga nahikoa txikia da (50k) nabigatzaile batean sortzeko. Horri esker, erabiltzaileek boto sorta bat auzitan jar dezakete, software espezializaturik deskargatu gabe.
+
+# **Etorkizuneko ikerketa**
+
+Ikerketa honetan oinarrituta, ideia hauek sakonago aztertu nahiko genituzke:
+
+- Keccak / ECDSA / Secp256k1 sinadura estandarrak SNARKen bidez egiaztatzea. Uste dugu laster [PLOOKUP](https://eprint.iacr.org/2020/315.pdf) gai izango dela eskema horiek egiaztatzeko, eta horrek bi aukera irekiko ditu:
+- BabyJubJub gakoa Secp256k1 gako batetik eratorri dela frogatzea (behin bakarrik egin behar da).
+- Botoaren sinadura bera egiaztatzea.
+- Biltegiratze-frogak SNARK baten barruan egiaztatzea. Uste dugu horrelako zirkuitu konplexuak erraz integra litezkeela zkVM baten bidez, kostua handia izan badaiteke ere. Kezkatzen gaitu Ethereumeko bezeroak artxibo-nodoak baztertzen aritzeak, gas-muga handiagoei lehentasuna emateko; beraz, beste ikerketa-ildo bat da biltegiratze-frogetarako EIP1186 ez den beste metodoren bat erabiltzen saiatzea.
+- Zenbaketa kalkulatzeko, zkVM baten barruan exekutatuko diren opcode moduko batzuk txertatzea, bozketa-zirkuitu programagarri generikoak ahalbidetzeko.
+- Bozketa-froga nabigatzailean sortzea, sortakatze bidez nahastea, eta emaitzak errekurtsiboki agregatzea, [zk.money](http://Ethresear.ch) protokoloaren antzera. Horrek bozketa-prozesuaren pribatutasuna handituko luke.
+- SNARKak nabigatzaile mailan modu banatuan kalkulatzeko aukera ematea, konputazionalki garestiak izan arren. Horrela, ez dago ikusgarritasun handiko zerbitzarien mende egon beharrik, eta, erabat P2P izanik, botere guztia boto-emaileen esku geratzen da.
+- Pribatutasuna eta nahasketa bozketa-protokoloan sare mailan txertatzea.
+- Kriptoekonomia-eredu arrazional bat aurkitzea, Ethereum 2.0rekin erabat interoperagarria dena.
+- Erraz egiazta daitekeen froga bakar bat sortzea. Horrek aukera irekitzen du edozein L1 eta L2 programagarrik (EVM izan zein ez) Ethereumeko edozein bozketa-emaitzari erantzuteko. Epe luzeko helburua da edozein katetan bozkatu ahal izatea eta emaitzak beste edozein katetan egiaztatu ahal izatea. Hori urrezko estandar moduko bat bihur liteke rollup edo kate arteko biltegiratze-frogak SNARKen bidez egiaztatzeko.

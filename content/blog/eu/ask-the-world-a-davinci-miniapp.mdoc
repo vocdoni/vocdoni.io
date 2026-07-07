@@ -1,0 +1,80 @@
+---
+title: Ask the World - Self Protocol-ek bultzatutako DAVINCI miniapp bat
+publishedDate: '2026-03-19'
+excerpt: 'Bozketa-sistema digital gehienek nortasunaren geruzan huts egiten dute oraindik. Boto-txartelak egiaztagarri eta zentsurarekiko erresistente egin ditzakezu, baina…'
+coverImage: /blog/images/2026/03/01_hero_banner.webp
+coverAlt: Ask the World - Self Protocol-ek bultzatutako DAVINCI miniapp bat
+authors:
+  - rica
+categories: []
+featured: false
+draft: false
+---
+
+Bozketa-sistema digital gehienek nortasunaren geruzan huts egiten dute oraindik. Boto-txartelak egiaztagarri eta zentsurarekiko erresistente egin ditzakezu, baina, sistema zaintza-tresna bihurtu gabe hautagarritasuna eta bakartasuna bermatzerik ez baduzu, ez duzu bozketaren arazoa konpondu: konfiantza-muga lekuz aldatu duzu, besterik ez.
+
+Horixe izan zen Ask the World-en abiapuntua. **Parte-hartzaile hautagarriek bozketa jakin baterako garrantzitsuak diren propietateak soilik frogatu ahal izatea nahi genuen, beren nortasuna agerian utzi gabe.**
+
+[_Ask the World_](https://asktheworld.davinci.ninja) miniapp esperimental bat da, eta erakusten du zer den posible bozketa-protokolo oso bat ezagutza zeroko nortasunarekin elkartzen denean, [Self Protocol](https://self.xyz/) gure bazkidearen bidez.
+
+## Zergatik eraiki dugun
+
+[DAVINCI](https://davinci.vote) bozketa-protokolo egiaztagarria, kate barrukoa (on-chain) eta gasik gabekoa da. Ez da botoak gordetzen dituen azpiegitura hutsa: berariaz eraikitako protokolo bat da, bozketa digitalaren arazorik zailenak konpontzeko diseinatua:
+
+- **Hertsapenarekiko erresistentzia:** inork ezin du hautesle bat behartu nola bozkatu duen frogatzera.
+- **Ordezkagiririk eza (*receipt-freeness*):** hautesleek ezin dute beren aukeraren ordezkagiririk sortu, eta horrek boto-erosketa ezabatzen du.
+- **Kolusioarekiko erresistentzia:** hautesleen arteko edo hautesleen eta antolatzaileen arteko manipulazio koordinatua kriptografikoki eragotzita dago.
+- **Atalaseko zifratzea:** botoak gako-eskema banatu batekin zifratzen dira, prozesua amaitu aurretik alderdi bakar batek ere boto-txartel indibidualik deszifratu ezin dezan.
+
+Propietate horiek bereizten dute benetako bozketa-protokolo bat «blockchain bateko botoetatik». Barrutik, [DAVINCI](https://davinci.vote)k **zk-SNARKs** erabiltzen ditu frogak egiaztatzeko, eta **atalaseko zifratze homomorfikoa** botoaren sekretua bermatzeko: primitiba kriptografiko horiek ematen diete berme horiei indar matematikoa.
+
+[_Ask the World_](https://asktheworld.davinci.ninja/)-ekin, urrats bat harago joan nahi izan dugu: bozketa bat herrialde bateko herritar hautagarri guztiei irekitzea, nortasun-agiri ofizial baten bidez egiaztatuta, hauteslea betiere anonimo mantenduz.
+
+## Nola dabilen
+
+### Bozketa bat sortzea
+
+Bozketaren sortzaileak galdera, aukerak, onartutako nazionalitatea eta gutxieneko adina zehazten ditu. DAVINCIk errolda-kontratu berezi bat hedatzen du bozketa horrentzat, eta prozesua katean erregistratzen du. Sortzaileak esteka publiko bat jasotzen du, irizpideak betetzen dituen edonork parte har dezan.
+
+### Botoa ematea
+
+Hauteslearen ikuspegitik, esperientzia edozein web-aplikaziorena bezalakoa da:
+
+![](/blog/images/2026/03/02_voting_process-1.webp)
+
+1. **Ireki esteka.** Zorro iragankor bat sortzen da atzealdean: ez kripto-zorrorik, ez gas-kuotarik, ez konfiguraziorik.
+2. **Eskaneatu QR kode bat.** Hautesleak [Self aplikazioa](https://self.xyz) erabiltzen du ezagutza zeroko froga bat sortzeko, zuzenean bere gailuan. Froga horrek baieztatzen du agiria baliozkoa dela, nazionalitate egokia duela eta gutxieneko adina betetzen duela; hori guztia, izena, agiri-zenbakia edo beste inolako datu pertsonalik agerian utzi gabe. Baliogabetzaile (*nullifier*) bakar bat ere sortzen da, erregistro bikoitza eragozteko.
+3. **Erroldan gehitzea.** Kateko errolda-kontratuak froga kriptografikoki egiaztatzen du. Egiaztapena gainditzen badu, hauteslearen zorro iragankorra erroldan gehitzen da.
+4. **Bozkatu.** Hautesleak bere aukera egiten du. Boto-txartela atalaseko zifratzez zifratzen da eta katean erregistratzen: edonork egiazta dezake, baina inork ezin du irakurri prozesua itxi arte.
+
+Eskaneatze bat. Boto bat. Blockchain-ezagutzarik ez da behar.
+
+### Zer gertatzen den azpian
+
+Ask the World ez da tresna bakar bat: elkarrekin lan egiten duten lau geruza dira, bakoitzak puzzlearen zati bat kudeatzen duela.
+
+![](/blog/images/2026/03/03_architecture_stack.webp)
+
+Goian [DAVINCI](https://davinci.vote) dago, bozketa-protokoloa bera. Bozketa baten bizi-ziklo osoa kudeatzen du: prozesua sortu, boto-txartel bakoitza atalaseko zifratze homomorfikoz zifratu, emaitza kalkulatu eta muturretik muturrerako egiaztagarritasuna bermatu. Hertsapenarekiko erresistentzia, ordezkagiririk eza eta kolusioarekiko erresistentzia ez dira gehigarriak: diseinu kriptografikoan bertan txertatuta daude.
+
+Horren azpian, errolda-kontratu adimendun (*smart contract*) berezi bat hedatzen da bozketa bakoitzeko. Hautesle batek bere ezagutza zeroko froga aurkezten duenean, kontratu horrek katean egiaztatzen du, eta hauteslearen zorro iragankorra Merkle zuhaitz batean gehitzen du. Prozesu bakoitzak bere errolda duenez, bozketa desberdinek hautagarritasun-irizpide guztiz desberdinak defini ditzakete, elkarren artean talkarik gabe.
+
+Nortasun-geruzaz [Self Protocol](https://self.xyz) arduratzen da. Ezagutza zeroko frogak sortzen ditu zuzenean hauteslearen gailuan: agiria baliozkoa dela eta jabeak nazionalitate- eta adin-eskakizunak betetzen dituela baieztatzen du, eta baliogabetzaile bakar bat sortzen du, erregistro bikoitza eragozteko. Une bakar batean ere ez dira gailutik ateratzen hauteslearen izena, agiri-zenbakia edo beste inolako datu pertsonalik.
+
+Azkenik, zorro iragankorrek blockchainarekiko interakzio guztia ezkutatzen dute. Hautesleek ez dute kripto-zorrorik behar, ez dute gas-kuotarik ordaintzen, eta ez dira konturatu ere egiten blockchain batekin ari direla. Esperientzia osoa web-aplikazio arrunt batena bezalakoa da.
+
+## Ikuspegi zabala
+
+Fluxua sinplea da: benetako nortasun bat froga pribatu bihurtzen da, froga hori errolda batean egiaztatzen da, eta erroldak kateko bozketa zifratu bat ahalbidetzen du. Lau urrats, eta datu pertsonalik ez da inon agerian geratzen.
+
+![](/blog/images/2026/03/04_bigger_picture.webp)
+
+Baina honen benetako balioa ez dago fluxuan bertan, trantsizio bakoitzak ezabatzen duenean baizik. Benetako nortasunetik froga pribaturako jauziak egiaztapenaren eta anonimotasunaren arteko dilema ezabatzen du. Frogatik erroldarako jauziak boto bikoitza ezabatzen du, inor jarraitu gabe. Eta erroldatik boto-txartel zifraturako jauziak bermatzen du inork ezin duela ikusi — ezta antolatzaileak ere — nork nola bozkatu duen, prozesua itxi aurretik.
+
+[Self](https://self.xyz/)-en ezagutza zeroko nortasun-egiaztapena eta DAVINCIren hertsapenarekiko erresistentea den bozketa-protokoloa konbinatuta, _Ask the World_-ek bozketa-sistema digital gehienek bateraezintzat jotzen dutena lortzen du: gaur egun eskuragarri dagoen ezer baino seguruagoa eta pribatuagoa den parte-hartzea, hauteslearen esperientzia QR kode bat eskaneatzea bezain sinplea izanik.
+
+[_Ask the World_](https://asktheworld.davinci.ninja/) esperimentu bat da, baina azpiko protokoloa ez. [DAVINCIren SDKa](https://github.com/vocdoni/davinci-sdk/) prest dago beren bozketa-aplikazioak eraiki nahi dituzten garatzaileentzat: gobernantzarako, komunitate-erabakietarako, iritzi-neurketetarako edo oraindik imajinatu ez ditugun erabilera-kasuetarako.
+
+---
+
+**Eraikitzeko prest?** Arakatu [DAVINCI SDKa](https://github.com/vocdoni/davinci-sdk/) eta hasi gaur bertan erabaki-esperientzia egiaztagarri eta pribatuak sortzen.

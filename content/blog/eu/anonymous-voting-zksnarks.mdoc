@@ -1,0 +1,189 @@
+---
+title: 'Azterketa tekniko sakona: boto anonimoa zk-SNARKekin'
+publishedDate: '2022-10-19'
+updatedDate: '2026-01-14'
+excerpt: Ezagutu Vocdoniren boto anonimoaren zehaztapen teknikoak, eta jakin nola iritsi ginen diseinu honetara.
+coverImage: /blog/images/2026/01/blogpost_anonymous_zksnarks.webp
+coverAlt: 'Azterketa tekniko sakona: boto anonimoa zk-SNARKekin'
+authors:
+  - ferran
+categories:
+  - technology
+featured: false
+draft: false
+---
+
+# **Boto anonimoa definitzea**
+
+Zehaztapen teknikoetan murgildu aurretik, komeni da azaltzea nola definitzen dugun boto anonimoa, eta zergatik iritsi ginen diseinu honetara. Produktua iragartzeko artikuluan bi anonimotasun mota aurkeztu genituen: boto-txartelen lausotzea eta hauteslearen anonimotasuna.
+
+Boto-txartelen lausotzea boto bakoitzaren edukia ezkutatzetik eratorritako anonimotasuna da; hauteslearen anonimotasunak, berriz, hautesle bakoitzaren eta haren botoaren arteko lotura eteten du, botoak berak ezkutatu gabe. Gure boto anonimoaren inplementazioak hauteslearen anonimotasuna erabiltzen du. Zergatik?
+
+Lehenik eta behin, boto-txartelen lausotzeak kostu nabarmenak dakartza berekin. Bozketa-prozesu bat muturretik muturrera egiaztagarria izan dadin, hautesleek emandako boto-txartelen edukia jarraitu eta aztertu ahal izan behar dute. Anonimotasuna boto-txartelen lausotzearen bidez bermatzen badugu, egiaztagarritasuna galtzen dugu: ezinezkoa da zure botoa zenbatu dela egiaztatzea eta bozketaren osotasuna auditatzea, boto guztien edukia ezkutuan badago.
+
+Boto-txartelen lausotzearen beste eragozpen bat da zaila dela bozketa-sistema digital batean inplementatzea. Lausotze-teknika horietako bat zifratze homomorfikoa da, ohiko bozketa-sistemei anonimotasun kriptografikoa emateko [proposatu](https://www.itm-conferences.org/articles/itmconf/pdf/2020/02/itmconf_icacc2020_03023.pdf) izan dena. Zifratze homomorfikoak balio zifratuekin kalkuluak egitea ahalbidetzen du; hau da, botoen zenbaketa egin daiteke boto-txartel bakar baten edukia ere aztertu gabe. Teorian sendoa bada ere, zifratze homomorfikoak eragozpen asko ditu, eta horiek erakargarritasuna kentzen diote bozketa-teknologiaren oinarri gisa.
+
+Nabarmenena: metodo honek boto-txartel zifratuen oinarrizko kalkuluak baino ez ditu ahalbidetzen, eta, horren ondorioz, zailagoa da [bozketa koadratikoa](https://en.wikipedia.org/wiki/Quadratic_voting?oldformat=true) edo [hurrenkerazko](https://en.wikipedia.org/wiki/Instant-runoff_voting?oldformat=true) [bozketa](https://www.wikiwand.com/en/Instant-runoff_voting) bezalako eskemak [inplementatzea](https://blog.aragon.org/vocdoni-ballot-protocol/). Gainera, zifratze homomorfikoarekin emaitzen kalkulua bermatuta badago ere, hauteslearen boto-txartelaren muturretik muturrerako egiaztapena ez dago bermatuta. Eskema honek ez du froga kriptografikorik ematen hauteslearen boto-txartela emaitzen multzoan sartu dela eta zuzen islatu dela bermatzeko. Horrez gain, gure kalkuluen arabera, bozketa-prozesu baten froga homomorfikoa balidatzeak baliabide konputazional handiak eskatuko lituzke, eta eskakizun hori areagotu egiten da bozketa handiagoetan. Horrek unibertsalki egiaztagarria den sistema baten onurak ezerezean utz litzake, egiaztapena makina ahaltsu eta garestietan soilik kalkulatu ahal izango bailitzateke, gehiegizko epe luze batean.
+
+Hauteslearen anonimotasunak hainbat abantaila ditu zifratze homomorfikoaren aldean. Lehenik, muturretik muturrerako egiaztagarritasun-maila askoz handiagoa lor daiteke. Hauteslearen eta haren boto-txartelaren arteko loturak opakua izan behar du kanpoko edozein _hirugarrenentzat_, baina hautesleek beraiek beren boto-txartela identifika dezakete. Boto-txartelak ikusgai daudenez, beraz, edozein erabiltzailek bere botoaren jarraipena egin dezake, eman zuen unetik emaitzetan sartu arte. Gainera, hirugarrenek egiazta dezakete boto-txartel bakoitza hautesle baliodun batena dela eta txartel horren edukia zuzen zenbatu dela.
+
+Hauteslearen anonimotasunak, gainera, diseinu konputazionalki askoz eraginkorragoak ahalbidetu ohi ditu. Anonimotasun horretan oinarritutako sistemek behin bakarrik lausotzen dute hautesle bakoitzaren boto-froga, boto berri bat eman ahala emaitza multzo osoa lausotu beharrean. Ez da urrats konputazional handirik behar emaitzak denen eskura jartzeko. Bozketaren emaitzak bozketa-prozesuan _zehar_ ere argitara daitezke, anonimotasuna arriskuan jarri gabe (betiere denbora-korrelazioko erasoak arinduta badaude).
+
+Horregatik erabaki dugu hauteslearen anonimotasuna gure errolda-frogaren mekanismoan txertatzea.
+
+# **Erroldaren Merkle zuhaitza**
+
+Hautesle-erroldaren mekanismoaren abiapuntua [_erroldaren Merkle zuhaitza_](https://docs.vocdoni.io/architecture/census/off-chain-tree.html) da: gako publiko hashatuen egitura bat, non gako bakoitzak erroldako hautesle baliodun bat ordezkatzen duen. Merkle zuhaitzari esker, edozein hautesle baliodunek froga dezake erroldako `censusKey` bat duela, gainerako hautesleen gakoak ezagutu gabe. Ondoren, hautesleak froga hori bere boto-txartelaren barruan bidaltzen du. _Boto-gutunazal_ horri `nullifier` bat ere eransten zaio: erabiltzailearen `censusKey`-tik eta `electionID`-tik eratorritako datu bat, haren botoari modu bakarrean dagokiona.
+
+Froga hori bakarrik erabiliko balitz, prozesuaren antolatzaileak boto-gutunazal bakoitza hautesle baten `censusKey`-arekin lotu ahal izango luke, `nullifier`-aren bidez, eta bozketa desanonimizatu. Hori eragozteko, Vocdonik _zk-SNARKak_ erabiltzen ditu bozketaren anonimotasuna bermatzeko.
+
+### **zk-SNARKak boto anonimorako**
+
+[zk-SNARK](https://en.wikipedia.org/wiki/Non-interactive_zero-knowledge_proof?oldformat=true) siglak _Zero-knowledge Succinct Non-interactive ARgument of Knowledge_ esan nahi du (ezagutza zeroko argumentu trinko eta ez-interaktiboa). zk-SNARK batek aukera ematen dio erabiltzaile bati hirugarren bati frogatzeko informazio jakin bat baduela, informazioa bera agerian utzi gabe.
+
+Gure kasuan, zk-SNARKei esker, hautesleek froga dezakete erroldakoak direla, beren `secretKey` agerian utzi gabe. Zehazki, zk-Circuit baten bidez egiten da hori: ezagutza zeroko froga bat (ZKP, _Zero-Knowledge Proof_) sortzeko diseinatutako software-zirkuitu bat da.
+
+### **zk-Circuit**
+
+Zirkuitu bat diseinatu dugu, erabiltzaileek erroldako kide direla frogatzen duen ZKP bat sor dezaten, beren `secretKey` agerian utzi gabe. Zirkuituak sarrera pribatuak eta publikoak jasotzen ditu, eta hauteslearen identitatea ager lezaketen datuak pribatu mantentzen dira. Sarrera publikoak boto-gutunazalaren barruan bidaltzen dira, balidatzaileek frogaren aurka egiazta ditzaten eta erabiltzaileak bi aldiz bozkatu ez duela ziurta dezaten.
+
+Zirkuitua antzeko tamainako errolda duen edozein prozesutan erabil daiteke, eta tamaina bakoitzeko behin bakarrik sortu behar da. Zehatzago esanda, zirkuitu bat sortu eta berrerabil daiteke zuhaitz-altuera bera duen erroldaren Merkle zuhaitz ororentzat. Zuhaitz bitarra erabiltzen dugunez, horrek esan nahi du zirkuitu bat behar dela `n` balio bakoitzeko, non xede-erroldaren tamaina `2^n`-ren barrutian dagoen (adib. 128, 256, ..., 8192, 16384, etab.).
+
+Zirkuituaren sorkuntza [konfiantzazko ezarpen-zeremonia](https://medium.com/qed-it/diving-into-the-snarks-setup-phase-b7660242a0d7) batean oinarritzen da. Prozesu horretan zirkuituaren frogatzaile- eta egiaztatzaile-gakoak sortzen dira, eta «konfiantzazkoa» da, zeren, alderdi bakar batek gako horien sorkuntza osoa kontrolatuko balu, froga faltsuak sortu ahal izango bailituzke. Horregatik, «zeremonia» deszentralizatu bat behar da zirkuituaren fidagarritasuna bermatzeko. Zeremonia horretan, interes kontrajarriak dituzten eta toki desberdinetan dauden hainbat alderdik gako-sorkuntzaren urrats bana egiten dute. Alderdi horietako batek bakarrak ere osotasunari eusten badio, ezinezkoa izango da froga faltsurik sortzea.
+
+`franchise proof` delakoa zk-SNARK zirkuitua exekutatuz sortzen da.
+
+- **Sarrera pribatuak:** `index`, `secretKey`, `census Merkle-proof`
+- **Sarrera publikoak:** `census Merkle-root`, `nullifier`, `election ID`, `vote`
+- **Irteera:** `franchise proof`
+
+![](/blog/images/2026/01/zksnarks_anonymous_1.webp)
+
+# **Boto anonimoa definitzea**
+
+Zehaztapen teknikoetan murgildu aurretik, komeni da azaltzea nola definitzen dugun boto anonimoa, eta zergatik iritsi ginen diseinu honetara. Produktua iragartzeko artikuluan bi anonimotasun mota aurkeztu genituen: boto-txartelen lausotzea eta hauteslearen anonimotasuna.
+
+Boto-txartelen lausotzea boto bakoitzaren edukia ezkutatzetik eratorritako anonimotasuna da; hauteslearen anonimotasunak, berriz, hautesle bakoitzaren eta haren botoaren arteko lotura eteten du, botoak berak ezkutatu gabe. Gure boto anonimoaren inplementazioak hauteslearen anonimotasuna erabiltzen du. Zergatik?
+
+Lehenik eta behin, boto-txartelen lausotzeak kostu nabarmenak dakartza berekin. Bozketa-prozesu bat muturretik muturrera egiaztagarria izan dadin, hautesleek emandako boto-txartelen edukia jarraitu eta aztertu ahal izan behar dute. Anonimotasuna boto-txartelen lausotzearen bidez bermatzen badugu, egiaztagarritasuna galtzen dugu: ezinezkoa da zure botoa zenbatu dela egiaztatzea eta bozketaren osotasuna auditatzea, boto guztien edukia ezkutuan badago.
+
+Boto-txartelen lausotzearen beste eragozpen bat da zaila dela bozketa-sistema digital batean inplementatzea. Lausotze-teknika horietako bat zifratze homomorfikoa da, ohiko bozketa-sistemei anonimotasun kriptografikoa emateko [proposatu](https://www.itm-conferences.org/articles/itmconf/pdf/2020/02/itmconf_icacc2020_03023.pdf) izan dena. Zifratze homomorfikoak balio zifratuekin kalkuluak egitea ahalbidetzen du; hau da, botoen zenbaketa egin daiteke boto-txartel bakar baten edukia ere aztertu gabe. Teorian sendoa bada ere, zifratze homomorfikoak eragozpen asko ditu, eta horiek erakargarritasuna kentzen diote bozketa-teknologiaren oinarri gisa.
+
+Nabarmenena: metodo honek boto-txartel zifratuen oinarrizko kalkuluak baino ez ditu ahalbidetzen, eta, horren ondorioz, zailagoa da [bozketa koadratikoa](https://en.wikipedia.org/wiki/Quadratic_voting?oldformat=true) edo [hurrenkerazko](https://en.wikipedia.org/wiki/Instant-runoff_voting?oldformat=true) [bozketa](https://www.wikiwand.com/en/Instant-runoff_voting) bezalako eskemak [inplementatzea](https://blog.aragon.org/vocdoni-ballot-protocol/). Gainera, zifratze homomorfikoarekin emaitzen kalkulua bermatuta badago ere, hauteslearen boto-txartelaren muturretik muturrerako egiaztapena ez dago bermatuta. Eskema honek ez du froga kriptografikorik ematen hauteslearen boto-txartela emaitzen multzoan sartu dela eta zuzen islatu dela bermatzeko. Horrez gain, gure kalkuluen arabera, bozketa-prozesu baten froga homomorfikoa balidatzeak baliabide konputazional handiak eskatuko lituzke, eta eskakizun hori areagotu egiten da bozketa handiagoetan. Horrek unibertsalki egiaztagarria den sistema baten onurak ezerezean utz litzake, egiaztapena makina ahaltsu eta garestietan soilik kalkulatu ahal izango bailitzateke, gehiegizko epe luze batean.
+
+Hauteslearen anonimotasunak hainbat abantaila ditu zifratze homomorfikoaren aldean. Lehenik, muturretik muturrerako egiaztagarritasun-maila askoz handiagoa lor daiteke. Hauteslearen eta haren boto-txartelaren arteko loturak opakua izan behar du kanpoko edozein _hirugarrenentzat_, baina hautesleek beraiek beren boto-txartela identifika dezakete. Boto-txartelak ikusgai daudenez, beraz, edozein erabiltzailek bere botoaren jarraipena egin dezake, eman zuen unetik emaitzetan sartu arte. Gainera, hirugarrenek egiazta dezakete boto-txartel bakoitza hautesle baliodun batena dela eta txartel horren edukia zuzen zenbatu dela.
+
+Hauteslearen anonimotasunak, gainera, diseinu konputazionalki askoz eraginkorragoak ahalbidetu ohi ditu. Anonimotasun horretan oinarritutako sistemek behin bakarrik lausotzen dute hautesle bakoitzaren boto-froga, boto berri bat eman ahala emaitza multzo osoa lausotu beharrean. Ez da urrats konputazional handirik behar emaitzak denen eskura jartzeko. Bozketaren emaitzak bozketa-prozesuan _zehar_ ere argitara daitezke, anonimotasuna arriskuan jarri gabe (betiere denbora-korrelazioko erasoak arinduta badaude).
+
+Horregatik erabaki dugu hauteslearen anonimotasuna gure errolda-frogaren mekanismoan txertatzea.
+
+# **Erroldaren Merkle zuhaitza**
+
+Hautesle-erroldaren mekanismoaren abiapuntua [_erroldaren Merkle zuhaitza_](https://docs.vocdoni.io/architecture/census/off-chain-tree.html) da: gako publiko hashatuen egitura bat, non gako bakoitzak erroldako hautesle baliodun bat ordezkatzen duen. Merkle zuhaitzari esker, edozein hautesle baliodunek froga dezake erroldako `censusKey` bat duela, gainerako hautesleen gakoak ezagutu gabe. Ondoren, hautesleak froga hori bere boto-txartelaren barruan bidaltzen du. _Boto-gutunazal_ horri `nullifier` bat ere eransten zaio: erabiltzailearen `censusKey`-tik eta `electionID`-tik eratorritako datu bat, haren botoari modu bakarrean dagokiona.
+
+Froga hori bakarrik erabiliko balitz, prozesuaren antolatzaileak boto-gutunazal bakoitza hautesle baten `censusKey`-arekin lotu ahal izango luke, `nullifier`-aren bidez, eta bozketa desanonimizatu. Hori eragozteko, Vocdonik _zk-SNARKak_ erabiltzen ditu bozketaren anonimotasuna bermatzeko.
+
+### **zk-SNARKak boto anonimorako**
+
+[zk-SNARK](https://en.wikipedia.org/wiki/Non-interactive_zero-knowledge_proof?oldformat=true) siglak _Zero-knowledge Succinct Non-interactive ARgument of Knowledge_ esan nahi du (ezagutza zeroko argumentu trinko eta ez-interaktiboa). zk-SNARK batek aukera ematen dio erabiltzaile bati hirugarren bati frogatzeko informazio jakin bat baduela, informazioa bera agerian utzi gabe.
+
+Gure kasuan, zk-SNARKei esker, hautesleek froga dezakete erroldakoak direla, beren `secretKey` agerian utzi gabe. Zehazki, zk-Circuit baten bidez egiten da hori: ezagutza zeroko froga bat (ZKP, _Zero-Knowledge Proof_) sortzeko diseinatutako software-zirkuitu bat da.
+
+### **zk-Circuit**
+
+Zirkuitu bat diseinatu dugu, erabiltzaileek erroldako kide direla frogatzen duen ZKP bat sor dezaten, beren `secretKey` agerian utzi gabe. Zirkuituak sarrera pribatuak eta publikoak jasotzen ditu, eta hauteslearen identitatea ager lezaketen datuak pribatu mantentzen dira. Sarrera publikoak boto-gutunazalaren barruan bidaltzen dira, balidatzaileek frogaren aurka egiazta ditzaten eta erabiltzaileak bi aldiz bozkatu ez duela ziurta dezaten.
+
+Zirkuitua antzeko tamainako errolda duen edozein prozesutan erabil daiteke, eta tamaina bakoitzeko behin bakarrik sortu behar da. Zehatzago esanda, zirkuitu bat sortu eta berrerabil daiteke zuhaitz-altuera bera duen erroldaren Merkle zuhaitz ororentzat. Zuhaitz bitarra erabiltzen dugunez, horrek esan nahi du zirkuitu bat behar dela `n` balio bakoitzeko, non xede-erroldaren tamaina `2^n`-ren barrutian dagoen (adib. 128, 256, ..., 8192, 16384, etab.).
+
+Zirkuituaren sorkuntza [konfiantzazko ezarpen-zeremonia](https://medium.com/qed-it/diving-into-the-snarks-setup-phase-b7660242a0d7) batean oinarritzen da. Prozesu horretan zirkuituaren frogatzaile- eta egiaztatzaile-gakoak sortzen dira, eta «konfiantzazkoa» da, zeren, alderdi bakar batek gako horien sorkuntza osoa kontrolatuko balu, froga faltsuak sortu ahal izango bailituzke. Horregatik, «zeremonia» deszentralizatu bat behar da zirkuituaren fidagarritasuna bermatzeko. Zeremonia horretan, interes kontrajarriak dituzten eta toki desberdinetan dauden hainbat alderdik gako-sorkuntzaren urrats bana egiten dute. Alderdi horietako batek bakarrak ere osotasunari eusten badio, ezinezkoa izango da froga faltsurik sortzea.
+
+`franchise proof` delakoa zk-SNARK zirkuitua exekutatuz sortzen da.
+
+- **Sarrera pribatuak:** `index`, `secretKey`, `census Merkle-proof`
+- **Sarrera publikoak:** `census Merkle-root`, `nullifier`, `election ID`, `vote`
+- **Irteera:** `franchise proof`
+
+![](https://storage.googleapis.com/papyrus_images/6b32fa7a072e4433398cb3ebd67ea70e.png)
+
+`secretKey` edo _erroldaren Merkle froga_ agerian utzi gabe, zirkuitu hau gai da honako hau frogatzeko:
+
+1. Hauteslea `zkCensusKey` jakin bati dagokion `secretKey`-aren jabea dela.
+2. Hauteslearen `zkCensusKey`-a erroldaren Merkle zuhaitzean sartuta dagoela.
+3. Hauteslearen `nullifier`-a modu bakarrean dagokiela haren `secretKey`-ari eta bozketa-prozesu jakin baten `election ID`-ari.
+
+Kalkulua PUZ eta memoria aldetik intentsiboa bada ere, ZKPak erabiltzailearen bezeroan sor daitezke, hardware apalean exekutatuta. [Vocdoni](http://vocdoni.app/) protokoloan, froga [Vochain](https://docs.vocdoni.io/architecture/services/vochain.html) nodoek, meatzariek eta prozesua behatzen duen edozein hirugarrenek balidatzen dute.
+
+Zirkuitua bere gutxieneko eskakizunetaraino minimizatu eta optimizatu da, edozein bezero-hardwarerentzat eskuragarri izan dadin. Horregatik ez da sinadura-egiaztapenik erabiltzen, secretKey bidezko planteamendua baizik.
+
+### **Merkle zuhaitzak eta errolda-zuhaitzak**
+
+_Errolda anonimoa_ eraikitzeko erabiltzen den Merkle zuhaitzak zk-SNARKekin bateragarria den inplementazio bat izan behar du. Gaur egun [Circom](https://github.com/iden3/circom) konpilatzailea erabiltzen dugunez zk-SNARK zirkuituetarako, [circomlib](https://github.com/iden3/circomlib/tree/master/circuits/smt)-en Merkle zuhaitzaren inplementazioarekin bateragarria den zuhaitz bat behar dugu. Merkle zuhaitz horren zehaztapena [hemen aurki daiteke](https://docs.iden3.io/publications/pdfs/Merkle-Tree.pdf).
+
+[Vochain](https://docs.vocdoni.io/architecture/services/vochain.html)-ek [arbo](https://github.com/vocdoni/arbo) Merkle zuhaitza erabiltzen du, Circom diseinuarekin bateragarria den Go inplementazio bat. Merkle zuhaitzak Poseidon hash-a erabiltzen du: «SNARK-lagunkoa» den hash-funtzio bat, gero zirkuitu baten barruan froga daitekeena murrizketa gehiegi behar izan gabe. Hurrengo diagramak zk-census-proof eskeman erabiltzen den Merkle zuhaitzeko hostoen datu-egitura irudikatzen du.
+
+![](/blog/images/2026/01/zksnarks_anonymous_2.webp)
+
+`index` balioa _errolda-zuhaitzaren_ eraikitzaileak zehazten du, eta errolda-zuhaitz bakoitzak bere `index` balioa du. Balio hori handitu egiten da _hosto_ berri bakoitza gehitzean. _Hostoak_ horrela egituratuta daude Merkle zuhaitzak modu eraginkorragoan erabiltzeko: erabiltzaile gehiagoren gakoak sartzen dira zuhaitz txikiago batean, eta, horrela, zk-Circuit-aren tamaina murrizten da. Izan ere, hosto bakoitzaren `key`-aren balioak (`value`) zehazten du hosto horrek zuhaitzean duen posizioa.
+
+Hostoaren gakoa `zkCensusKey`-ak zehaztuko balu, `index` inkremental batek beharrean, hosto berri bakoitzak talka-probabilitate nabarmena izango luke, altuera jakin baterako hosto-toki guztiak bete baino lehen. Zuhaitzak, beraz, desorekatuagoak lirateke, eta zirkuitu handiagoak beharko lituzkete errolda-tamaina bererako, zuhaitz-espazioa modu ez-eraginkorrean erabiltzeagatik. Indize inkrementalaren planteamenduarekin, aldiz, hosto-toki guztiak bete daitezke talka bakar bat ere gabe. Horrek zirkuitu askoz txikiagoak dakartza erabiltzaile kopuru bererako.
+
+### **zk-Inputs sortzea**
+
+```json
+{
+	"censusRoot": "51642541620950251760298704744678482162425252475654827255045491135352807540162",
+	"censusSiblings": ["0","0","0","0"],
+	"index": "30",
+	"secretKey": "6190793965647866647574058687473278714480561351424348391693421151024369116465",
+	"voteValue": ["100964581237483263846637432502620436451", "278307331411790712608582894981321409946"],
+	"electionId": "10",
+	"nullifier": "1938187656076799017313903315498318464349291455761501098436114043715056719301",
+}
+```
+
+zk-Input parametro bakoitzaren jatorria:
+
+Parametro guztiak `string` edo `[]string` dira, eta `bigInt` edo `[]bigInt` adierazten dute.
+
+- `censusRoot`: _errolda-agintaritzak_ kalkulatzen du, _errolda-zuhaitzetik_.
+- `censusSiblings`: errolda-agintaritzak kalkulatzen du; Merkle froga da
+- erabiltzaileak _siblings_ direlakoak Vochain-etik eskuratzen ditu, atebidearen bidez.
+- `censusSiblings`-en luzera zk-Circuit-aren araberakoa izango da:
+- circomlib-en erabilitako Merkle zuhaitzaren diseinuaren ondorioz, luzera desberdineko sibling-ak itzultzen dira Merkle froga bat sortzean.
+- Zuhaitzaren sakonera, errotik hostoetara definituta, hosto bakoitzaren eta haren auzokoen araberakoa izango da.
+- Xehetasun gehiago [Merkle zuhaitzaren zehaztapenean](https://docs.iden3.io/publications/pdfs/Merkle-Tree.pdf) aurki daitezke.
+- Sibling horiek zirkuituan sartzeko, zirkuituaren `nLevels` finkoa da; beraz, `siblings.length` ere finkoa izan behar da.
+- `siblings.length` erabilitako zk-Circuit-aren araberakoa izango da, zehazki zirkuituaren `nLevels` parametroaren araberakoa
+- Erabiltzailearen aldean inplementatu beharreko logika [hemen (go), 67-70 lerroak](https://github.com/vocdoni/zk-franchise-proof-circuit/blob/feature/go-code-inputs-generation/test/go-inputs-generator/census_test.go#L67) eta [hemen (js), 23. lerroa](https://github.com/vocdoni/zk-franchise-proof-circuit/blob/feature/go-code-inputs-generation/src/franchise.js#L33) aurki daiteke: `while (siblings.length < this.levels) siblings.push(BigInt(0));`
+- `index`: Vochain-ek zehazten du, erabiltzailearen `zkCensusKey`-a errolda-zuhaitzean gehitzean
+- `secretKey`: erabiltzaileak sortzen du
+- `voteValue`: erabiltzailearen botoaren hash balioa, bi osoko handiz osatua.
+- Erabiltzailearen boto gordina luzera aldakorreko balio-array bat da, eta haren balioak ez dira zirkuituan egiaztatu behar. Gainera, balioak zifratuta egon daitezke.
+- Kodetutako boto-balioak zirkuituko sarrera kopuru konstante batean sartuko direla ziurtatu ezin denez, erabiltzailearen boto gordinaren laburpen bat kalkulatzen dugu EVMrekin bateragarria den hash-funtzio batekin: `sha256(vote_bytes)`. `sha256` hash-aren irteera SNARKetan erabiltzen den eremua baino apur bat handiagoa da; beraz, hash-irteera (32 byte) 16 byteko 2 arraytan zatitzen dugu, osoko gisa hartzen ditugu (little-endian ordenan), eta zirkuituko sarrera gisa erabiltzen ditugu.
+- `sha256` hash-a erabiltzen da, etorkizunean beharrezkoa balitz zirkuituaren [barruan egiaztatu](https://github.com/iden3/circomlib/blob/master/circuits/sha256/sha256.circom) ahal izateko. Erabilera horrek kontuan hartu beharreko bi ezaugarri ditu: `sha256` `keccak256` baino bi aldiz garestiagoa da EVMko gasari dagokionez, baina circom-en inplementatuta dago eta, beraz, zirkuitu baten barruan egiazta daiteke; `sha256` circom zirkuitu batean egiaztatzea garestia da murrizketa kopuruari dagokionez (zehaztapen honen egungo bertsioan, ez da zirkuituaren barruan egiaztatzen).
+
+```go
+h := sha256.Sum256(voteBytes) // voteBytes can be the votes array converted to bytes, or the encrypted votes
+b1 := new(big.Int).SetBytes(swapEndianness(h[:16])) // swap endianness, as golang big int package works in big-endian, and we use little-endian
+b2 := new(big.Int).SetBytes(swapEndianness(h[16:]))
+```
+
+Eta zirkuiturako `voteValue`-ren json sarrera hau litzateke: `"voteValue": [b1, b2]`
+
+- `electionID`: _erabiltzailea_ parte hartzen ari den bozketaren IDa
+- `nullifier`: _erabiltzaileak_ kalkulatzen du: `nullifier = poseidon.Hash(sk, electionID)`
+
+# **Boto anonimoa DAOetarako**
+
+«Nola erabil daiteke teknologia hau Ethereumeko DAOen bozketetarako?» galderari erantzuteko, testuinguru pixka bat gehitu behar dugu:
+
+- Gaur egun, Ethereumen barne-kriptografia, datu-egiturak eta merkle zuhaitza ez dira zk-SNARKekin bateragarriak; beraz, aukerak mugatuak dira (oraingoz).
+- Vocdonik gaur egun [Ethereumeko biltegiratze-froga bidezko bozketa](https://www.notion.so/Introducing-Vocdoni-Bridge-voice-cf7e73d38c4a45788358e9a1497cdf19?pvs=21) onartzen du; hori da, gaur-gaurkoz, kateaz kanpoko gasik gabeko bozketak exekutatzeko modurik seguru eta konfiantza-beharrik gabekoena ([https://voice.aragon.org](https://blog.aragon.org/introducing-vocdoni-anonymous-voting/) frontend-ean inplementatua)
+- Vocdonik oraindik ez du eskaintzen kateaz kanpoko exekuzio lotesle osoa (Ethereumen barruan bozkatzeak planteamendu optimista bat eskatzen du), baina [kontzeptu-proba batzuk egin ditugu esparru honetan](https://blog.aragon.org/binding-execution-on-ethereum-with-zk-rollups/), eta ikertzen jarraitzen dugu propietate osoak lortzeko (diseinu eta kontzeptu-proba berriak iritsiko dira laster).
+
+Vocdonik gaur egun urrats hauen bidez onar dezake DAOetan modu anonimoan bozkatzea:
+
+1. Bozketa berri bat sortzen da Vocdoni blockchainean, censusRoot gisa Ethereumen egoera-erroa eta ERC20 kontratuaren helbidea dituela.
+2. Erabiltzaileek Ethereumeko biltegiratze-froga bat eskuratzen dute Web3tik, kontratu baterako eta egoera-erro baterako tokenak dituztela frogatzen duena.
+3. Erabiltzaileek aldi baterako `secretKey` berri bat sortzen dute eta transakzio bat bidaltzen dute Vocdoni blockchainera, hautesle baliodunak direla frogatuz (biltegiratze-froga erabiliz). Transakzio horrek `secretKey` hashatua barne hartzen du, eta hori `rolling Census` bati gehitzen zaio; errolda hori Vocdoni blockchainaren logikak kalkulatzen du barnean. Urrats horri **gakoen aurre-erregistroa** deitzen zaio.
+4. Aurre-erregistroa amaitutakoan, erabiltzaileek anonimoki bozka dezakete beren `secretKey` erabiliz

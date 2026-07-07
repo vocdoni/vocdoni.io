@@ -1,0 +1,106 @@
+---
+title: Ethereumerako boto anonimo eta loteslerako bidea
+publishedDate: '2023-06-23'
+updatedDate: '2026-01-14'
+excerpt: 'Vocdonin, gure helburu nagusia da Ethereumen trabarik gabeko bozketa-prozesu seguruak ahalbidetuko dituen teknologia eraikitzea.'
+coverImage: /blog/images/2026/01/blogpost_road_to_anonymous_ethereum.webp
+coverAlt: Ethereumerako boto anonimo eta loteslerako bidea
+authors:
+  - ferran
+categories:
+  - technology
+featured: false
+draft: false
+---
+
+Anonimotasunak boto-emailearen pribatutasuna babesten du eta iritziak libreki adieraztea bermatzen du, hertsapen- edo errepresalia-arriskua arinduz. Zentsurarekiko erresistentziak, berriz, bermatzen du entitate bakar batek ezin duela boto-eskubidea manipulatu edo ukatu, eta, horrela, prozesu demokratiko deszentralizatu, bidezko eta irekia indartzen du.
+
+[Vocdoni](https://vocdoni.io/eu)n, gure helburu nagusia da Ethereumeko blockchainaren barruan trabarik gabeko bozketa-prozesu seguruak ahalbidetuko dituen teknologia-pila eskaintzea, bereziki erakunde autonomo deszentralizatuen (DAO) ekosistemarako. Sistema berritzaile bat sortu nahi dugu: kate kanpoko bozketa anonimoa, gasik gabea eta exekuzio lotesleduna.
+
+Dokumentu honek misio handinahi horri heltzeko gure planteamendua azaltzen du, funtsezko arlo hauetan antolatuta:
+
+- Errolda oso bat eraikitzea eta egiaztatzea
+- ECDSA sinadurek berez dakarten nullifier-determinismoaren arazoari heltzea
+- Botoak kate kanpoan emateko mekanismoa
+- Boto-agregatzailearen rola eta funtzioak
+- Bozketaren emaitzak Ethereumera igotzeko prozesua
+
+### **1. Errolda egiaztatua**
+
+Edozein bozketa-sistemaren funtsezko osagaia den aldetik, erroldaren egitekoa da bozkatzeko eskubidea duten hautesleak zerrendatzea eta boto-pisuak esleitzea. Hala ere, Ethereumeko blockchainaren datuetan oinarritutako errolda bat sortzeak berezko zailtasunak ditu. Besteak beste:
+
+- **Datu-egitura:** Ethereumeko blockchainaren datuak ez daude errolda bat sortzeko formatu egoki batean egituratuta. Adibidez, ERC20 token baterako, ez dago token-edukitzaileen zerrenda osoa gordetzen duen datu-egitura berezirik.
+- **Kriptografia-bateragarritasuna:** Ethereumen kriptografia ez da funtsean zk-SNARKekin bateragarria, eta horrek zailagoa egiten du ezagutza zeroko frogak sortzea eta egiaztatzea.
+
+Erronka nagusia, beraz, hau da: zk-SNARKekin bateragarria den eta tokenetan oinarritzen den errolda bat sortzea, konfiantzarik behar ez duen moduan, kate kanpoko bozketa ahalbidetzeko. Funtsezkoa da kontuan hartzea, halaber, ERC20 transakzioak edozein unetan gerta daitezkeela; beraz, errolda nabarmen alda daiteke bloke batetik bestera.
+
+Erronka horiei aurre egiteko, planteamendu hau proposatzen dugu:
+
+- **Kate kanpoko errolda:** zk-SNARKetarako egokia den kate kanpoko errolda bat eraikitzea.
+- **Frogaren sorrera:** zk-SNARK froga bat sortzea, erroldaren zuzentasuna egiaztatzeko.
+- **Kate barruko balidazioa:** erroldaren sorrera-froga kate barruan balidatzea, kontratu adimendun (*smart contract*) baten bidez.
+- **Bozketa ahalbidetzea:** balidatu ondoren, errolda bozketarako erabil daiteke.
+
+Erroldaren balidazioa bi modutan egin daiteke Ethereumen:
+
+- **Saldo-egiaztapena:** kontratu adimendunak edukitzaile guztien (edo azpimultzo baten) baliozkotasuna egiaztatzen du, balanceOfAt() funtzioari deituz. Planteamendu horrek, ordea, transakzio-kostu handiak eragin diezazkioke bidaltzaileari.
+- **Biltegiratze-froga:** erroldaren zk-froga biltegiratze-frogak (*storage proofs*) erabiliz sortzen da, eta kontratuak haren zuzentasuna egiaztatzen du, Ethereumeko aurreko egoera-erro (State Root) baten aldean. Metodo hori konputazionalki garestia izan daiteke errolda eraikitzen duenarentzat, baina soluzio sendoa eskaintzen du.
+
+Gure ustez, saldo-egiaztapenaren bidea egokiagoa da DAO txikietarako (100-200 kide). Biltegiratze-froga, berriz, hobeto egokitzen zaie azpiegitura konputazional handiago baten kostuak ordain ditzaketen erakunde handiei.
+
+### **2. Nullifier-determinismoaren arazoa**
+
+Sistema kriptografikoekin lan egitean, determinismoa funtsezkoa da: sarrera berak beti irteera bera eman behar du. Ethereumeko sinadurekin, ordea, oztopo bat agertzen da.
+
+ECDSA sinadurek nonce arbitrario bat dute: behin edo oso gutxitan erabiltzen den zenbaki bat. Sinatzaileak nonce hori alda dezake, payload beretik sinadura desberdinak sortzeko. Emaitza? Ez-determinismoa: irteera desberdinak sarrera beretik.
+
+Ez-determinismo hori oztopo bihurtzen da nullifier bat kalkulatzean; nullifier-a funtsezko tresna da botoa bi aldiz ematea eragozteko. Nullifier-a boto bakoitzaren identifikatzaile bakarra da. Boto bat ematean, nullifier-a zerrenda publiko batean erregistratzen da, blockchainean.
+
+Nullifier determinista bat sortzeko, sinadura-eskema determinista bat behar da. Eta, ECDSA sinadurak ez-deterministak direnez, ez dira ondo moldatzen nullifier-en sorrerarekin. Beraz, oztopo batekin egiten dugu topo, Ethereumen bozketa anonimo eta lotesle batean boto bikoitzak eragotzi nahi ditugunean.
+
+Konpromiso-gakoen erregistro globalaren (Global Registry of Commitment Keys) kontzeptua aurkezten dugu. Kontratu adimendun batek kudeatzen du erregistro hori, eta mapaketa-tresna gisa balio du, Ethereumeko helbide bat konpromiso-gako batekin lotzeko. Hona oinarrizko egitura: Ethereumeko helbidea => hash(sekretua).
+
+Konpromiso-gakoak, erabiltzailearen sekretu batetik sortuak, Ethereumeko helbide bat irteera determinista batekin lotzen laguntzen du; horrela, determinismoa bermatzen da, eta hori funtsezkoa da gure erabilera-kasurako.
+
+Gakoen eta helbideen arteko mapaketa-informazio hori Ethereumeko blockchainean gordetzen da, SNARKetarako egokia den Merkle zuhaitz gisa. Merkle zuhaitzak bereziki aproposak dira horretarako: datu kopuru handiak gordetzeko eta egiaztatzeko sistema eraginkor eta manipulaezin bat sortzeko aukera ematen digute, eta hori funtsezko baldintza da gure kasuan.
+
+Botoa ematean, erabiltzaileak zk-SNARK froga bat aurkeztu behar du. Froga horrek erakusten du erabiltzaileak konpromiso-gakoaren sekretua ezagutzen duela; gako hori Ethereumen gordetako konpromiso-gakoen Merkle zuhaitzaren parte da. Horri esker, bozketa-sistema seguru, anonimo eta boto bikoitzekiko erresistente bat sor dezakegu, ECDSA sinaduretan determinismorik behar izan gabe.
+
+### **3. Botoak kate kanpoan ematea**
+
+Bozketa-errolda egiaztatua eta erregistro globalaren Merkle erroa prest daudenean, botoak emateko prozesua has daiteke.
+
+Botoa emateko, erabiltzaileak bi gauza frogatu behar ditu:
+
+- **Erroldan egotea:** erabiltzailearen helbidea eta saldoa bozketa-erroldaren parte direla.
+- **Gako sekretua ezagutzea:** erregistro globalean bere helbideari esleitutako konpromisoaren gako sekretua ezagutzen duela.
+
+Ondoren, erabiltzaileak zk-SNARK frogak eraikitzen ditu; horrela, bere nortasuna anonimizatu eta nullifier bat sortzen du. Nullifier hori era deterministan kalkulatzen da, gako sekretua proposamen-identifikatzaile bakar batekin hasheatuz.
+
+Kontuan izan, mekanismo honekin, erregistro globala zk-SNARKetarako egokia den Merkle zuhaitza denez, ez dugula Ethereumen kriptografia (secp256k1) zirkuituaren barruan erabili beharrik; ondorioz, boto-txartelen sorrera eraginkorragoa da eta nabigatzailerako egokiagoa.
+
+Boto-txartela eta froga pakete batean biltzen dira, eta agregatzaileen parez pareko (P2P) sare batera banatzen dira. P2P sare deszentralizatua funtsezkoa da zentsurarekiko erresistentzia lortzeko: horrek bermatzen du entitate bakar batek ezin duela bozketa-prozesua kontrolatu edo manipulatu.
+
+### **4. Botoak agregatzeko prozesua**
+
+Botoak eman ondoren, zk-SNARK froga oso batean agregatu behar dira. Agregazio hori kolpe batean edo sortaka egin daiteke. Prozesu horretan eraikitako frogak honako hauek egiaztatzen ditu:
+
+- Bozketa-erroldaren erro-hash jakin bat
+- Erregistro globalaren erro-hash bakar bat
+- Baliozko boto-nullifier-en zerrenda bat
+- Bozketa-emaitzen zuzentasuna
+
+Jatorrizko botoak berak zk-SNARK frogak direnez, agregazio-prozesuak errekurtsio maila bat behar du; hau da, zk-SNARK batek beste zk-SNARK baten zuzentasuna frogatzen du.
+
+Hala ere, gaur egungo teknologiaren egoera eta Ethereumek kurba eliptikoekin duen bateragarritasun mugatua kontuan hartuta, froga errekurtsiboak sortzeko prozesu hori exekutatzea erronka handia da. Konplexutasun horiek direla eta, baliteke itxaron behar izatea zk-SNARK esparruek aurrera egin arte eta Ethereumek zk-SNARK kriptografiari euskarri hobea eskaini arte.
+
+### **5. Emaitzak Ethereumera igotzea**
+
+Botoen agregazioa amaitutakoan, edozein erabiltzailek bidal dezake azken froga Ethereumeko kontratu adimendun batera. Kontratu adimendunaren ardura da honako hauek egiaztatzea:
+
+- **Emaitzen froga:** emaitzen froga zuzena dela.
+- **Bozketa-erroldaren erroa:** bozketa-erroldaren erroa bat datorrela aurrez egiaztatutakoarekin.
+- **Erregistro globalaren erroa:** erregistro globalaren erroa zuzena dela.
+- **Bozketaren epea:** bozketa-aldia bat datorrela aurrez zehaztutako epearekin.
+
+Elementu horiek behar bezala egiaztatu ondoren, kontratu adimendunak bozketa-prozesuari lotutako ekintza aurrez zehaztuak exekuta ditzake Ethereumen. Prozesu horrek botoen baliozkotasuna eta osotasuna bermatzen ditu, eta inplementazioa errazten du.

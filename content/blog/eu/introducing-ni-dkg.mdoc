@@ -1,0 +1,115 @@
+---
+title: 'NI-DKG aurkezten dugu: zkSNARK bidezko gako-sorkuntza banatuko protokolo ez-interaktiboa'
+publishedDate: '2026-03-03'
+updatedDate: '2026-03-24'
+excerpt: 'Vocdonik DKG protokolo berri bat garatu du: diseinuz ez-interaktiboa, praktikan asinkronoa eragiketetan, eta primitiba kriptografiko estandarrez eraikia.'
+coverImage: /blog/images/2026/03/dkg.webp
+coverAlt: 'NI-DKG aurkezten dugu: zkSNARK bidezko gako-sorkuntza banatuko protokolo ez-interaktiboa'
+authors:
+  - jordi-pinyana
+categories:
+  - technology
+  - davinci
+  - announcements
+featured: false
+draft: false
+seo:
+  metaTitle: NI-DKG aurkezten dugu
+  metaDescription: zkSNARK bidezko gako-sorkuntza banatuko protokolo ez-interaktiboa
+---
+
+Atalaseko zifratze homomorfikoa funtsezko osagaia da [DAVINCI](https://davinci.vote) bozketa-protokoloan. Hari esker, alderdi bakar batek ere ezin ditu bozketaren emaitzak bere kabuz deszifratu: deszifratze-gakoa hainbat nodo independenteren artean banatuta dago, eta emaitzak deszifratzeko, nahikoa nodok elkarrekin jardun behar dute nahitaez.
+
+Deszifratzerik gertatu baino lehen, ordea, nodo horiek gakoa elkarrekin sortu behar dute. Prozesu horri **gako-sorkuntza banatua (DKG, Distributed Key Generation)** deritzo. Blockchain-inguruneetarako berariaz diseinatutako DKG bertsio bat eraikitzen ari gara; ingurune horietan, parte-hartzaile bakoitzak bere ekarpena zuzena dela frogatu behar du, katean onartua izan aurretik.
+
+**DAVINCIk** bozketa-prozesuaren **pribatutasuna** bermatzen du, **atalaseko zifratze homomorfikoko** eskema baten bidez. Zehazki, kurba eliptikoen gaineko [atalaseko ElGamal kriptosistema](https://github.com/tompetersen/threshold-crypto) bat erabiltzen da. Zifratutako mezuak konbina daitezke jatorrizko testu arrunten baturaren zifratze bat lortzeko, mezuok deszifratu gabe. Eskema horrek zifratutako testu jakin bat deszifratzea ahalbidetzen du, atalaseko gako sekretua inoiz agerian utzi gabe; hala, azken zenbaketa deszifra daiteke, boto-txartel indibidualak isilpean geratzen diren bitartean.
+
+### **Protokoloaren ikuspegi orokorra**
+
+NI-DKG blockchainerako berezko protokoloa da, eta erabat **ez-interaktiboa** izateko diseinatu da: zuzentasuna bidalketa-unean bertan betearazten du, ZK frogen bidez.
+
+Kexa-faseen eta gatazka-txanden ordez, **parte-hartzaile bakoitzak bere ekarpena zuzena dela frogatu behar du, bidaltzen duen une berean**. Kontratu adimendunak (*smart contract*) berehala egiaztatzen du froga: bidalketa baliodunak onartu egiten dira, eta baliogabeak bertan bertatik baztertzen dira. Ez dago joan-etorririk, ezta erreakziozko erronkarik ere. Transkripzio osoa katean erregistratzen denez, **egiaztagarritasun publikoa** ere lortzen dugu.
+
+Diseinuz ez-interaktiboa izateaz gain, NI-DKG protokoloa **asinkronoa da praktikan, eragiketei dagokienez**. Haren faseak bloke-zenbakien bidez definitzen dira, erantzun-epe hauskorren bidez definitu beharrean.
+
+### **Zergatik da garrantzitsua**
+
+Gaur egungo blockchain bidezko DKG protokoloak gatazka-faseetan oinarritzen dira: nodo batek datu okerrak jasotzen baditu, kexa bat aurkezten du katean, eta salatuak epe baten barruan erantzun behar du. Horrek txandak, gas-kostuak eta eraso-azalera gehitzen ditu: nodo zintzoak kanpoan gera daitezke erantzuna berandu iristen bazaie, eta eragile maltzurrek funsgabeko kexak aurkez ditzakete, prozesua oztopatzeko. Erabat asinkronoa den DKGari buruzko azken lan akademikoek emaitza teoriko ikusgarriak lortu dituzte, baina protokolo horiek oso konplexuak dira.
+
+Eta garrantzitsuena: NI-DKG oso-osorik primitiba kriptografiko **estandar eta ondo ulertuez** eraikita dago. Ez dugu hipotesi berririk sartzen; aitzitik, teknika finkatuak modu praktikoago batean aplikatzen ditugu. Protokoloak **erdibide pragmatiko eta praktiko bat** hartzen du: eraikuntza erabat asinkronoak baino sinpleagoa da, baina eskema sinkrono inozoak baino sendoagoa. Azpiko blockchainaren denbora-eredua heredatzen du, kateko aplikazioetarako berezkoa dena, eta ezagutza zeroko froga proaktiboekin konbinatzen du, kexa-prozedura interaktiboak ezabatzeko; horiexek dira, hain zuzen, egungo diseinuen ahulgune ohikoenetakoak. Emaitza protokolo seguruago bat da, mundu errealeko hedapenetarako oso egokia.
+
+### **NI-DKG protokoloaren faseak**
+
+**_Sorkuntza_**
+
+1. **Hasiera:** antolatzaileak `(n, t)` parametroak argitaratzen ditu.
+2. **Esku-altxatzea:** nodo hautagarriek prest daudela adierazten dute (aukeran, stake eta guzti).
+3. **Nodoen hautaketa:** `n` nodo hautatzen dira, katearen ausazkotasuna erabiliz; politika betetzen ez bada, prozesua bertan behera uzten da.
+4. **DKG prozesu nagusia:** nodo bakoitzak polinomio-konpromisoak eta zifratutako zatiak argitaratzen ditu, zuzentasunaren ZK froga batekin batera.
+5. **Amaiera:** antolatzaileak `PK` gako publikoa eta zati pribatuen konpromisoak kalkulatzen ditu, eta blockchainean argitaratzen ditu, zuzentasunaren ZK froga batekin batera.
+
+![](/blog/images/2026/03/dkg-process.webp)
+
+**_Deszifratzea_**
+
+1. **Zifratutako testuaren argitalpena:** zifratutako testu bat `(C1, C2)` argitaratzen da, txandaren identifikatzailearekin batera. Nodoek badakite noiz argitaratzen diren horrelako testuak.
+2. **Deszifratze partzialen argitalpena:** nodoek `C1`-en deszifratze partzial bana argitaratzen dute, logaritmo diskretuen berdintasun-froga batekin batera.
+3. **Deszifratzea:** `t` deszifratze partzial edo gehiago argitaratu ondoren, kontratu adimendunari dei dakioke mezua berreskuratzeko.
+
+![](/blog/images/2026/03/dkg-decryption.webp)
+
+**_Hautazko gako-agerpena_**
+
+Kontuan izan gakoaren agerpena ez dela DAVINCI protokoloaren parte; normalean urrats hori ez da beharrezkoa, deszifratze-fasea frogatu baitaiteke gako sekretua argitaratu beharrik gabe.
+
+1. **Hasiera:** gako sekretua agerian uzteko eskaera antolatzaileak bidal dezake, edo automatikoki abiaraz daiteke, betiere politika-parametroek hori onartzen badute.
+2. **Gako sekretuaren zatien argitalpena:** parte hartzen duen nodo bakoitzak sekretuaren bere zatia argitaratzen du.
+3. **Gako sekretuaren kalkulua:** `t` balio edo gehiago bidali ondoren, edonork kalkula dezake gako sekretua.
+
+![](/blog/images/2026/03/dkg-sk-disclosure.webp)
+
+### **Barne-funtzionamendua**
+
+Protokoloak bizi-ziklo osoa hartzen du: gako-sorkuntza, atalaseko deszifratzea eta hautazko gako-agerpena. Etapa bakoitzean, kontratu adimendunak koordinazio- eta egiaztapen-geruza gisa jokatzen du, eta ezagutza zeroko frogek egiaztapen kriptografiko astun guztiak katetik kanpora eramaten dituzte. Erantzukizunen banaketa garbia da: blockchainak ordena eta erregistro publikoa kudeatzen ditu; froga-sistemak zuzentasuna bermatzen du.
+
+Osagai kriptografikoak hauek dira:
+
+- **Shamir + Feldman VSS**: polinomioak, koefizienteen konpromiso publikoekin.
+- **Hashed ElGamal**, zatiak zifratzeko.
+- **Chaum-Pedersen DLOG** berdintasun-froga, deszifratze partzialetarako.
+- **zk-SNARKs** (Groth16, FFLONK, …), kateko egiaztapenerako.
+
+**Zirkuituak:**
+
+<!--kg-card-begin: html-->
+
+| Fasea                                                                | Helburua                                        | Irteera / Zer frogatzen duen                                                                  |
+| -------------------------------------------------------------------- | ----------------------------------------------- | --------------------------------------------------------------------------------------------- |
+| Sorkuntza, 4. fasea: DKG nagusia                                     | Parte-hartzaile bakoitzaren ekarpen-froga       | Parte-hartzaile bakoitzaren DKG ekarpena baliozkoa da.                                        |
+| Sorkuntza, 5. fasea: zati sekretuak eta gako publikoa kalkulatzea    | Amaiera                                         | Azken gako publikoa eta zatien konpromisoak zuzen eratorri dira.                              |
+| Deszifratzea, 2. fasea: deszifratze partzialen argitalpena           | Deszifratze partziala + DLEQ froga (nodoko)     | Nodo bakoitzaren deszifratze partziala zuzena da, eta zuzentasunaren DLEQ froga bat darama.   |
+| Deszifratzea, 3. fasea: deszifratzea                                 | Deszifratze partzialak konbinatu → testu arrunta | Deszifratze partzial baliodunak konbinatuz, testu arrunt zuzena lortzen da.                   |
+| Hautazko gako-agerpena, 2. fasea: gako sekretuaren zatien argitalpena | Zatia eta konpromisoa erkatzea (nodoko)         | Nodo bakoitzak frogatzen du agerian utzitako zatia aurrez argitaratutako konpromisoarekin bat datorrela. |
+| Hautazko gako-agerpena, 3. fasea: gako sekretua kalkulatzea          | Gako sekretua _t_ zatitatik berreraikitzea      | Gako sekretua atalaseko (_t_) zatietatik zuzen berreraikitzen da.                             |
+
+<!--kg-card-end: html-->
+
+### **Mugak**
+
+Faseak bloke-zenbakiei lotuta daudenez, protokoloak ostatatzen duen katearen sinkronia partziala heredatzen du. Kateko egiaztapenak eskalatze-mugak ere ezartzen ditu; hala ere, artikuluan deskribatutako sarrerak murrizteko estrategiekin, **40-50 parte-hartzaileko batzordeak onar ditzakegu**, modu errealistan. Hori nahikoa eta gehiago da hedapen praktiko gehienetarako.
+
+Proposatutako DKGa malgua bada ere, eta beste zifratze-eskema batzuetara egokitu badaiteke ere, Groth16 BN254 kurbaren gainean erabiltzeak esan nahi du aukerarik eraginkorrena BN254 eremu eskalarraren gainean definitutako zifratze-eskema bat dela, hau da, BabyJubJub kurba erabiltzea.
+
+### **Non gauden**
+
+**Protokoloaren diseinua osatuta dago**. Ikerketa-artikulu baten zirriborroak eraikuntza osoa deskribatzen du, zirkuituen zehaztapen xeheak ematen ditu, eta kateko kostuak murrizteko estrategiak aztertzen ditu. Hurrengo urratsak **inplementazioa eta benchmarkinga** dira, xede diren EVM kateetan.\
+\
+[Hemen](https://github.com/vocdoni/davinci-node/tree/main/crypto/elgamal/dkg) duzu Golang-eko PoC bat, oinarrizko eskema balioztatzeko.
+
+Artikulu osoa [hemen](https://eprint.iacr.org/2026/552) duzu eskuragarri.
+
+Proiektua kode irekikoa da. Ekarpenik egin nahi baduzu (garapenaren, ideien, baliabideen edo finantzaketaren bidez), jarri gurekin harremanetan.
+
+[Harremanetarako](https://chat.vocdoni.io)
+
+---

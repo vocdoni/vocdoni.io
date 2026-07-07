@@ -1,0 +1,80 @@
+---
+title: 'DAVINCI: adopzio unibertsalerako irizpideak betetzen dituen bozketa-protokoloa'
+publishedDate: '2025-04-24'
+updatedDate: '2026-03-06'
+excerpt: 'Milioi bat dolarreko pre-seed erronda bildu dugu inbertitzaile aingeruen eskutik, DAVINCI garatzeko. DAVINCIk gaur egungo bozketa-sistemen mugak gainditzen ditu: zentsurarekiko erresistentea, gasik gabea, eroskeriaren aurkakoa, eskalagarria eta anonimoa den soluzioa eskaintzen du gobernantza digitalerako.'
+coverImage: /blog/images/2026/01/blogpost_davinci_announcement.webp
+coverAlt: 'DAVINCI: adopzio unibertsalerako irizpideak betetzen dituen bozketa-protokoloa'
+authors:
+  - pau
+categories:
+  - davinci
+  - technology
+featured: true
+draft: false
+---
+
+2018an sortu genuen **Vocdoni**, jendeak bozkatzeko moduan hainbat akats identifikatu ondoren. **Paperezko boto-txartel tradizionalak** zenbatzen mantsoak izan daitezke, auditatzen zailak eta manipulazioaren aurrean zaurgarriak. **Kate barruko bozketak** (onchain) arazo horietako batzuk konpontzen ditu, baina berriak eransten ditu: kuota altuak, pribatutasun eskasa, boto-erosketa, «jendetzari jarraitzeko» presioa eta kudea dezakeen hautesle kopuruaren mugak.
+
+Bitcoinek eta Ethereumek finantzak interneteko konexioa duen edonori ireki zizkiotela ikusita, galdera hau egin genion geure buruari: **_zergatik ez egin gauza bera demokraziarekin?_** Gure lehen erantzuna bozketarako diseinatutako blockchain bat izan zen. Ordutik, ehunka bozketa bideratu ditu udalentzat, kirol-klubentzat, DAOentzat, alderdi politikoentzat eta beste hainbatentzat.
+
+Baina teknologia ez da inoiz geldi egoten. Tresna kriptografiko berriei esker, orain pribatutasuna babestu eta milioika hauteslerengana eskala dezakegu aldi berean. Beraz, berriro hastea erabaki genuen: hutsetik bozketa-protokolo bat diseinatzea, **bozketa seguru, pribatu eta merkearen munduko urre-patroi** bihur zitekeena.
+
+## Ezagutu DAVINCI: bozketa segururako estandar unibertsala
+
+[DAVINCI](https://davinci.vote/) bozketa-protokoloak \[Decentralized Autonomous Vote Integrity Network with Cryptographic Inference] paperezko zenbaketa mantsoak eta blockchain-kuota garestiak ordezkatzen ditu, sistema **baimenik gabeko, manipulaezin, pribatu eta edonork erabiltzeko bezain merke** batekin. Laburbilduz: _Decentralized Autonomous_-ek sarea irekia mantentzen du, _Vote Integrity Network_-ek urrats bakoitza frogatzen du, eta _Cryptographic Inference_-k boto-txartel bakoitza eta azken zenbaketa babesten ditu.
+
+### **Decentralized Autonomous**
+
+- **Guztiontzat irekia, inorena ez.** [DAVINCI](https://davinci.vote/) Ethereumen kontratu publikoen eta sekuentziatzaileen (*Sequencers*) sare deszentralizatu baten gainean dabil; beraz, ezein gobernuk edo enpresak ezin du bozketa bat gelditu edo zentsuratu.
+- **Gasik gabea hautesleentzat.** Kuotak bateratu eta sorta bakoitzeko behin ordaintzen dira; hala, herritarrek botoa eman dezakete zentimorik gastatu gabe.
+- **Sare geldiezina.** Edozein operadore sekuentziatzaile bihur daiteke (boto-txartelak egiaztatu eta agregatzen dituen eragilea), tokenak berme gisa jarrita besterik gabe; horrela, sistemak martxan jarraitzen du nodo batzuk desagertuta ere. Portaera zuzena dutenean, sekuentziatzaileek saria jasotzen dute.
+
+### **Vote Integrity Network**
+
+- **Muturretik muturrerako auditagarritasuna.** Boto-txartel, zenbaketa eta arau guztiak Ethereumeko kontratu adimendun (*smart contract*) batean bizi dira; edonork errepika ditzake frogak, emaitza baieztatzeko.
+- **Ezagutza zeroko rollup-ak, eskalatzeko.** Milioika boto kate kanpoan biltzen dira sortatan, eta gero zk-froga ñimiño bat argitaratzen da kate barruan; kostuak murrizten dira, segurtasun bera mantenduz.
+- **Edozein bozketa-estilotara egokitzen da.** Hautapen sailkatua, boto koadratikoa, boto transferigarri bakarra edo beste edozein bozketa-metodo posible dira. [DAVINCI](https://davinci.vote/)ren boto-txartelaren formatuak ez du eskema finkorik; beraz, antolatzaileek beren beharretara egokitzen diren arauak aukeratzen dituzte.
+
+### **Cryptographic Inference**
+
+- **Atalaseko zifratze homomorfikoa.** Boto bakoitza hainbat zenbatzaile independenteren artean banatutako gako batekin zigilatzen da; beraz, ezein alderdik ezin du boto-txartel bat ikusi edo aldatu. Bozketa ixten denean, aurrez ezarritako gutxieneko sekuentziatzaile kopuru batek soilik, gako-zatiak elkartuta, desblokea dezake azken zenbaketa agregatua - inoiz ez banakako aukerak.
+- **Ordezkagiririk eza (*receipt-freeness*) eta hertsapenaren aurkako babesa.** Boto-txartelak berriro zifratzen dira, hautesleek beren botoa isilean gainidatz dezakete, eta «ezeztatzaile» (nullifier) pribatuek boto-frogaren pantaila-argazkiak eragozten dituzte; horrela, eroskeria eta larderia alferrikakoak dira.
+- **Anonimotasuna, alborapenik gabe.** Boto-txartel bakoitza zifratuta dago eta ezin da egilearekin lotu; beraz, inork ezin du aukera bat pertsona jakin batekin lotu. Horrek pribatutasuna zaintzen du, eta hauteslea presioetatik eta errepresalietatik babesten du.
+
+## DAVINCI elikatzen duten lau zirkuituak
+
+[DAVINCI](https://davinci.vote/) **zk-SNARK bidezko egoera-makina bat da**, kate kanpoko sekuentziatzaileen sare deszentralizatu batek exekutatua. Muinean **lau zirkuitu kateatu** ditu: bakoitzak aurreko urratsak sortutako froga egiaztatzen du, eta gero berea eransten dio. zk-SNARKak errekurtsiboak eta trinkoak direnez, azkenean boto-txartel, arau eta zenbaketa guztiak froga bakar eta txiki batean biltzen dira, eta Ethereumek milisegundotan egiazta dezake froga hori.
+
+1. **Ballot Circuit - arauekin bat datorren zifratzea** Hautesleak bere aukerak atalaseko El Gamal-ekin zifratzen ditu, eta, ezagutza zeroan, boto-txartelak bozketaren arauak betetzen dituela frogatzen du (adib., «aukeratu bostetik bi gehienez»).
+2. **Eligibility Circuit - sinadura + Merkle froga** Sekuentziatzaile batek hauteslea baimenduta dagoela frogatzen du, ECDSA sinadura bat eta Merkle froga bat egiaztatuz argitaratutako hautesle-zerrendarekin erkatuta.
+3. **Aggregation Circuit - boto asko, froga bakarra** Gehienez _N_ boto-txartel zk-SNARK bakar batean konprimitzen dira. Frogaren tamaina ia konstante mantentzen da; beraz, milioika boto irits daitezke Ethereumera baten prezioan.
+4. **Tally Circuit - egoera-eguneraketa** Zifratutako testu agregatuak homomorfikoki gehitzen zaizkio zenbaketa zifratuari, eta egoera-erro berri bat zuzena dela frogatzen da, aurreko agregazio-froga barnean sartuz, katea osorik mantentzeko.
+
+Laugarren zirkuitua amaitzen denean, **azken froga errekurtsiboa (ehunka byte batzuk besterik ez) Ethereumeko kontratu adimendun batera bidaltzen da**. Egiaztatzaileak onartzen badu, bozketa-sorta osoa aldaezin bihurtzen da; onartzen ez badu, baztertu egiten da. Hurrengo sekuentziatzaileak Ethereumen likidatutako sortatik abiatuta hasiko du bere sorta-prozesatzea.
+
+![](/blog/images/2026/01/davinci-1.webp)
+
+## Protokolo jasangarri eta geldiezina
+
+Vocdoni [**DAVINCI**](https://davinci.vote/)ren diseinua eta garapena abiarazten ari da, **token natibo batek elikatutako protokolo baimenik gabeko eta geldiezin gisa**. Antolatzaileek tokena erabiltzen dute bozketak abiarazteko, eta sekuentziatzaileek berme gisa jartzen dute, botoak prozesatzeagatik sariak jasoz. **Botoa ematea beti da doakoa**; horrek bermatzen du parte-hartzea irekia eta guztientzat eskuragarria izatea.
+
+Protokoloa exekuzioa eta egiaztapena bereizteko diseinatuta dago: bozketak Ethereumen definitzen dira, botoak kate kanpoan ematen eta agregatzen dira, sekuentziatzaileen sare deszentralizatuaren bidez, eta egiaztatutako froga kriptografikoak soilik konprometitzen dira kate barruan. Emaitza: diseinuz gardena, segurua eta eskalagarria den sistema.
+
+## Web3ko izen handien babesarekin
+
+Vocdoniren **milioi bat dolarreko finantzaketa-errondak blockchain ekosistemako funtsezko pertsonen babesa erakarri zuen**; besteak beste, **Jordi Baylina** eta Ethereum Foundation, Polygon, OpenZeppelin, Giveth eta Privado ID bezalako erakundeetako kideak.\
+\
+Haien parte-hartzea ez da finantzarioa soilik: gobernantza-teknologia hobe baten beharra adierazten du, eta bide hori gidatzeko gugan duten konfiantza.
+
+## Hurrengo urratsak\*
+
+- **2025eko ekaina**: testnet publikoaren abiaraztea, UI sinple batekin + tokenaren aurresalmenten hasiera
+- **2026ko uztaila**: mainnet-aren abiaraztea eta TGEa, aurreikusitakoaren arabera
+- **2026ko 4. hiruhilekoa:** Vocdoni protokoloa erabiltzen duten erakundeen [DAVINCI](https://davinci.vote/)rako migrazioa hasiko da
+
+### Batu bozketaren etorkizunari
+
+📝 **Eman izena itxaron-zerrendan** [**_hemen_**](https://davinci.deform.cc/waitlist/), ekaineko testnet publikoari buruzko informazioa jasotzeko. **Lehen parte-hartzaileek** aukera izango dute **protokoloa probatzeko** eta sekuentziatzaile bat exekutatzeko, eta **baliteke abantaila esklusiboak jasotzea beren inplikazioagatik**.\
+\
+\* _Protokoloaren inplementazio oso eta frogatu bat eskaintzeko, bide-orria alda liteke._

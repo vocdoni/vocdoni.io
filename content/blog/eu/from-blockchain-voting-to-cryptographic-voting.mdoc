@@ -1,0 +1,97 @@
+---
+title: Blockchain bidezko bozketatik bozketa kriptografikora
+publishedDate: '2026-01-28'
+excerpt: 'Azken urteotan, Vocdonik Vochain-en gainean egin ditu bozketak, bozketarako berariaz sortutako gure L1 blockchainean. Edozein blockchainek bezala, zerbait indartsua eman zigun:…'
+coverImage: /blog/images/2026/01/Gemini_Generated_Image_6dzwdk6dzwdk6dzw-1.webp
+coverAlt: Blockchain bidezko bozketatik bozketa kriptografikora
+authors:
+  - pau
+categories:
+  - davinci
+  - technology
+featured: false
+draft: false
+seo:
+  metaDescription: |-
+    Pribatutasuna eta segurtasuna ezin dira «ezaugarri» hutsak
+    izan Web3 gobernantzan. Pribatutasunik gabe, bozketa ez da
+    demokratikoa. DAVINCI horri konponbidea emateko gure saiakera
+    da: zuzentasuna eta pribatutasuna ez-negoziagarri bihurtzea.
+  ogImage: /blog/images/2026/01/socialmedia_card-1.webp
+---
+
+Azken urteotan, [Vocdonik](https://vocdoni.io/eu) **Vochain**-en gainean egin ditu bozketak: bozketarako berariaz diseinatutako gure L1 blockchaina. Edozein blockchainek bezala, zerbait indartsua eman zigun: **dena gardena, erreproduzigarria eta egiaztagarria da**. Edonork audita dezake. Zerbait manipulatzen bada, antzeman daiteke. Adostasuna nodo zintzoen gehiengoak lortzen du, eta haiek bermatzen dute sareak aurrera jarraitzea.
+
+Eredu horrek funtzionatzen du, eta [benetako bozketak bideratu ditu](/blog/referendum-bellpuig). Baina azken helburua _erabakitze autonomoa_ bada (non emaitzek ekintzak segurtasunez abiaraz ditzaketen), «auditagarria» ez da oraindik «faltsutu ezina» bezainbeste.
+
+Izan ere, blockchainak, azken batean, segurtasun ekonomikoa duten makina sozialak dira. Iruzur egiteko pizgarria behar bezain handi bihurtzen bada, joko-teoria atea jotzen hasten da.
+
+Beraz, galdera hau egin genion geure buruari: **eta zenbaketa ez balitz _sareari konfiantzaz_ uzten diozun zerbait, baizik eta sarea kriptografikoki zuzen egitera behartuta dagoen zerbait?**
+
+Horixe da _blockchain bidezko bozketatik_ **bozketa kriptografikora** dagoen jauzia.
+
+---
+
+### Nola funtzionatzen du?
+
+Ezagutza zeroa «pribatutasun-teknologia» gisa saltzen da askotan. Eta bai, pribatutasunak garrantzia du. Baina benetan disruptiboa den propietatea **konputazio egiaztatua** da: arau multzo bat bete duzula froga dezakezu, inori zure exekuzioan konfiantza izateko eskatu gabe. [DAVINCI](https://davinci.vote/) ideia horren inguruan eraikita dago: frogak ez dira osagarri atsegin bat. Atezainak dira.
+
+Praktikan: froga sortu ezin baduzu, ezin duzu zenbaketa eguneratu.
+
+DAVINCI [**Ethereum**](https://ethereum.org/) gaineko **bozketarako zkRollup bat da**: sekuentziatzaileen (*Sequencers*) sare deszentralizatu batek botoak sortatan biltzen ditu eta bozketaren egoera eguneratzen du, eta Ethereumek eguneraketa horiek onartzen ditu **soilik zkSNARK froga batek zuzen egin direla frogatzen badu**.
+
+Frogarik ez → egoera-eguneraketarik ez → emaitza faltsurik ez.
+
+**Ethereum da «koordinazio-geruza»**
+
+> Bozketa-prozesu bat kate barruko konfigurazio gisa hasten da: arauak, epeak eta hautesle-erregistroaren konpromisoa (errolda). Ethereumen bizi da, halaber, bozketaren azken baliozko egoera-erroa: egiaren iturria.
+
+**Sekuentziatzaileek egiten dute lana - baina ez dute «erabakitzeko» ahalmenik**
+
+> Sekuentziatzaileak operadoreak dira: botoak jaso, egiaztatu, sortatan bildu, egoera berria kalkulatu eta froga bat bidaltzen dute Ethereumera. Ez dute adostasun-mekanismorik erabiltzen zenbaketa adosteko. Boto-sorten froga kriptografikoak egiten dituzte, eta zenbaketa zifratua kate barruan eguneratzen dute.
+
+**Bozkatzea gasik gabekoa da erabiltzaileentzat**
+
+> Hautesle bakoitzak transakzio-kuota bat ordaindu beharrean, kostuak banatu egiten dira: botoak sortatan bildu eta multzoka likidatzen dira. Horrela lortzen da gasik gabeko bozketa, Ethereumen segurtasuna sakrifikatu gabe.
+
+**Pribatutasuna zifratzetik + atalaseko deszifratzetik dator**
+
+> Boto-txartelak atalaseko zifratze homomorfikoarekin (ElGamal) zifratzen dira: botoak zifratuta daudela agrega daitezke, eta ez dago haiek deszifra ditzakeen alderdi bakarrik. Bozketa ixten denean soilik, eta gako-zati independente nahikoa agerian jartzen direnean, deszifra daiteke azken zenbaketa.
+
+**Ordezkagiririk eza (*receipt-freeness*) mekanikaren parte da**
+
+> DAVINCI hertsapena eta boto-erosketa zailago edo ezinezko bihurtzeko eraikita dago:\
+> \- boto-txartelak sekuentziatzaileek **berriro zifratzen** dituzte (beraz, ezin duzu zure botoa «frogatu» ausazko ezkutatze-faktorea erakutsiz).\
+> \- eta hautesleek beren botoa **isilean gainidatz dezakete** (zure azken botoak balio du).
+
+**Datuen erabilgarritasuna**
+
+> DAVINCIk egoera-trantsizioetarako behar diren datuak **Ethereumen blob-en bidez (EIP-4844)** konprometitzen ditu, eta kate barruko egiaztapen-urratsarekin lotzen ditu. Horri esker, beste sekuentziatzaile batzuek modu independentean egiaztatu eta egoera partekatu beretik jarrai dezakete.
+
+---
+
+### Zerk bihurtzen du «bozketa kriptografiko»?
+
+**Ez da auditagarria soilik; betearazgarria da**
+
+> «Blockchain bidezko bozketa» tradizionalak gardentasuna ematen dizu. DAVINCIk urrats bat gehiago egiten du: zenbaketa zuzena **betekizun kriptografiko** bihurtzen du.
+
+**Boto-zenbaketarako ez dago gehiengo zintzoaren hipotesirik**
+
+> Emaitzan konfiantza izateko ez duzu suposatu behar «nodo gehienak zintzoak direla». Emaitza onartzen da soilik frogak Ethereumen egiaztapena gainditzen badu.
+
+**Parte-hartzea banatua izan daiteke, diseinuz**
+
+> Sekuentziatzaileek azken egoera egiaztatua hartu, hurrengoa eraiki eta katearekin jarrai dezakete. Horrek sistema zentsuratzen zailagoa egiten du, eta bizirik mantentzen errazagoa, operadore batzuk desagertuta ere.
+
+---
+
+### **Ondorioa**
+
+Pribatutasuna eta segurtasuna ezin dira «ezaugarri» hutsak izan Web3 gobernantzan; oinarria dira. **Pribatutasunik gabe, bozketak demokratikoa izateari uzten dio**: parte-hartzaile batek nola bozkatu duen froga badezake, hertsatu edo eros dezakete, eta gobernantza presio-merkatu bihurtzen da.
+
+[**DAVINCI**](https://davinci.vote/) horri konponbidea emateko gure saiakera da, **_zuzentasuna_ ez-negoziagarri bihurtuz**: zenbaketa optimistarik ez, «operadorean konfiatu» beharrik ez, zenbaketarako gehiengo zintzoaren hipotesirik ez; kriptografia eta Ethereum baino ez, arauak betearazten.
+
+Parte-hartzearen ohiko zergak kentzeko diseinatuta dago: gasik gabeko bozketa erabiltzaileentzat, Ethereum mailako segurtasuna likidaziorako, eta hardware arruntera (CPU bidezko makinak, ez GPU klusterrak) bideratutako sekuentziatzaile-rola, **benetan irekia**.
+
+Eta garrantzitsuena: **DAVINCI** ez da «Vocdoniren produktua». Gu katalizatzaileak gara, baina hau bozketa-estandar unibertsal bihurtuko da soilik behar duten komunitateek definitzen, defendatzen eta exijitzen badute. **Gobernantzak lehenespenez pribatua, edonorentzat egiaztagarria eta faltsutu ezina izan behar duela uste baduzu**, gehitu zure izena [Manifestura.](https://manifesto.davinci.vote)
