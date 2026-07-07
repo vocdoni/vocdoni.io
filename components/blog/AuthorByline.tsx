@@ -31,7 +31,7 @@ export function AuthorByline({ authors, meta, size = 'md', className }: AuthorBy
         ))}
       </div>
       <div className='min-w-0'>
-        <p className={cn('truncate font-medium text-foreground', size === 'sm' ? 'text-sm' : 'text-sm')}>{names}</p>
+        <p className='truncate text-sm font-medium text-foreground'>{names}</p>
         {role ? <p className='truncate text-xs text-muted-foreground'>{role}</p> : null}
         {meta ? <p className='truncate text-xs text-muted-foreground'>{meta}</p> : null}
       </div>
