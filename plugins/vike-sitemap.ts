@@ -10,6 +10,15 @@ type Options = {
   includeRobots?: boolean
 }
 
+// A route plus the locales it actually exists in. Most pages exist in every
+// locale, but blog posts only exist in the languages they were authored in
+// (other locales are served via English fallback and must not be advertised as
+// canonical alternates).
+export interface SitemapRoute {
+  baseRoute: string
+  locales: string[]
+}
+
 const isPageComponent = (name: string) => name.startsWith('+Page.')
 // Skip Vike internals (`_`, `+`), dynamic-param dirs (`@slug`, enumerated
 // separately), and the client-only Keystatic admin.
@@ -39,58 +48,47 @@ async function discoverBaseRoutes(pagesDir: string) {
   return routes
 }
 
-function withLocales(baseRoutes: Set<string>, locales: string[]) {
-  const routes = new Set<string>()
-
-  for (const route of baseRoutes) {
-    for (const locale of locales) {
-      const localized = route === '/' ? `/${locale}` : `/${locale}${route}`
-      routes.add(localized)
-    }
-  }
-
-  return Array.from(routes)
-    .filter((r) => !r.endsWith('/404'))
-    .sort()
-}
-
-function stripLocalePrefix(route: string, locales: string[]) {
-  const [firstSegment, ...rest] = route.replace(/^\/+/, '').split('/')
-  if (!locales.includes(firstSegment)) return route
-  return rest.length ? `/${rest.join('/')}` : '/'
-}
-
 function withLocalePrefix(locale: string, route: string) {
   return route === '/' ? `/${locale}` : `/${locale}${route}`
 }
 
-export function buildSitemapXml(hostname: string, routes: string[], locales: string[], defaultLocale: string) {
+export function buildSitemapXml(hostname: string, routes: SitemapRoute[], defaultLocale: string) {
   const host = hostname.replace(/\/+$/, '')
   const lastmod = new Date().toISOString()
-  const lines = [
+
+  // One <url> per (route, locale) it exists in, each carrying reciprocal hreflang
+  // alternates limited to that route's own locales so we never advertise a
+  // fallback URL as a canonical alternate.
+  const blocks: { loc: string; xml: string }[] = []
+  for (const { baseRoute, locales } of routes) {
+    if (!locales.length) continue
+    const canonicalLocale = locales.includes(defaultLocale) ? defaultLocale : locales[0]
+    const alternates = [
+      ...locales.map(
+        (locale) =>
+          `    <xhtml:link rel="alternate" hreflang="${locale}" href="${host}${withLocalePrefix(locale, baseRoute)}" />`
+      ),
+      `    <xhtml:link rel="alternate" hreflang="x-default" href="${host}${withLocalePrefix(canonicalLocale, baseRoute)}" />`,
+    ]
+    for (const locale of locales) {
+      const loc = `${host}${withLocalePrefix(locale, baseRoute)}`
+      blocks.push({
+        loc,
+        xml: ['  <url>', `    <loc>${loc}</loc>`, ...alternates, `    <lastmod>${lastmod}</lastmod>`, '  </url>'].join(
+          '\n'
+        ),
+      })
+    }
+  }
+
+  blocks.sort((a, b) => a.loc.localeCompare(b.loc))
+  return [
     '<?xml version="1.0" encoding="UTF-8"?>',
     '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">',
-    ...routes.map((route) => {
-      const baseRoute = stripLocalePrefix(route, locales)
-      const alternates = [
-        ...locales.map(
-          (locale) =>
-            `    <xhtml:link rel="alternate" hreflang="${locale}" href="${host}${withLocalePrefix(locale, baseRoute)}" />`
-        ),
-        `    <xhtml:link rel="alternate" hreflang="x-default" href="${host}${withLocalePrefix(defaultLocale, baseRoute)}" />`,
-      ]
-      return [
-        '  <url>',
-        `    <loc>${host}${route}</loc>`,
-        ...alternates,
-        `    <lastmod>${lastmod}</lastmod>`,
-        '  </url>',
-      ].join('\n')
-    }),
+    ...blocks.map((b) => b.xml),
     '</urlset>',
     '',
-  ]
-  return lines.join('\n')
+  ].join('\n')
 }
 
 function buildRobotsTxt(hostname: string) {
@@ -100,33 +98,49 @@ function buildRobotsTxt(hostname: string) {
 
 // Enumerate concrete blog post + category archive routes from the content files
 // (the dynamic @slug pages are skipped by the filesystem walk above). Drafts are
-// excluded; slugs are de-duplicated across locales.
-async function discoverBlogRoutes(resolvedRoot: string): Promise<string[]> {
+// excluded. Each post route carries only the locales it was authored in; category
+// archives exist in every locale because their post lists fall back to English.
+async function discoverBlogRoutes(resolvedRoot: string, allLocales: string[]): Promise<SitemapRoute[]> {
   const blogDir = path.join(resolvedRoot, 'content', 'blog')
-  const routes = new Set<string>()
+  const localesBySlug = new Map<string, Set<string>>()
   const categories = new Set<string>()
 
   const localeDirs = await fs.readdir(blogDir, { withFileTypes: true }).catch(() => [])
   for (const dir of localeDirs) {
     if (!dir.isDirectory() || dir.name === 'authors' || dir.name === 'categories') continue
+    if (!allLocales.includes(dir.name)) continue
     const files = await fs.readdir(path.join(blogDir, dir.name)).catch(() => [])
     for (const file of files) {
       if (!file.endsWith('.mdoc')) continue
       const { data } = matter(await fs.readFile(path.join(blogDir, dir.name, file), 'utf8'))
       if (data.draft === true) continue
-      routes.add(`/blog/${file.replace(/\.mdoc$/, '')}`)
+      const slug = file.replace(/\.mdoc$/, '')
+      if (!localesBySlug.has(slug)) localesBySlug.set(slug, new Set())
+      localesBySlug.get(slug)!.add(dir.name)
       if (Array.isArray(data.categories)) for (const category of data.categories) categories.add(String(category))
     }
   }
-  for (const category of categories) routes.add(`/blog/category/${category}`)
-  return [...routes]
+
+  const routes: SitemapRoute[] = []
+  for (const [slug, slugLocales] of localesBySlug) {
+    routes.push({ baseRoute: `/blog/${slug}`, locales: allLocales.filter((l) => slugLocales.has(l)) })
+  }
+  for (const category of categories) {
+    routes.push({ baseRoute: `/blog/category/${category}`, locales: allLocales })
+  }
+  return routes
 }
 
-async function resolveRoutes(resolvedRoot: string, locales: string[]) {
+async function resolveRoutes(resolvedRoot: string, locales: string[]): Promise<SitemapRoute[]> {
   const pagesDir = path.join(resolvedRoot, 'pages')
   const baseRoutes = await discoverBaseRoutes(pagesDir)
-  for (const route of await discoverBlogRoutes(resolvedRoot)) baseRoutes.add(route)
-  return withLocales(baseRoutes, locales)
+  const routes: SitemapRoute[] = []
+  for (const route of baseRoutes) {
+    if (route === '/404') continue
+    routes.push({ baseRoute: route, locales })
+  }
+  routes.push(...(await discoverBlogRoutes(resolvedRoot, locales)))
+  return routes
 }
 
 export function vikeSitemapPlugin(options: Options): Plugin {
@@ -153,7 +167,7 @@ export function vikeSitemapPlugin(options: Options): Plugin {
         const routes = await resolveRoutes(resolvedRoot, options.locales)
         if (url === '/sitemap.xml') {
           res.setHeader('Content-Type', 'application/xml')
-          res.end(buildSitemapXml(options.hostname, routes, options.locales, options.defaultLocale))
+          res.end(buildSitemapXml(options.hostname, routes, options.defaultLocale))
           return
         }
         res.setHeader('Content-Type', 'text/plain')
@@ -169,7 +183,7 @@ export function vikeSitemapPlugin(options: Options): Plugin {
 
       await fs.mkdir(clientOutDir, { recursive: true })
 
-      const sitemap = buildSitemapXml(options.hostname, routes, options.locales, options.defaultLocale)
+      const sitemap = buildSitemapXml(options.hostname, routes, options.defaultLocale)
       const robots = options.includeRobots === false ? null : buildRobotsTxt(options.hostname)
 
       await Promise.all([

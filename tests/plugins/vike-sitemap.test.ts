@@ -4,12 +4,7 @@ import { buildSitemapXml } from '@/plugins/vike-sitemap'
 
 describe('vike sitemap plugin', () => {
   it('emits canonical locale-prefixed URLs with reciprocal hreflang alternates', () => {
-    const xml = buildSitemapXml(
-      'https://vocdoni.io',
-      ['/ca/use-cases', '/en/use-cases', '/es/use-cases'],
-      ['ca', 'en', 'es'],
-      'en'
-    )
+    const xml = buildSitemapXml('https://vocdoni.io', [{ baseRoute: '/use-cases', locales: ['ca', 'en', 'es'] }], 'en')
 
     expect(xml).toContain('<loc>https://vocdoni.io/en/use-cases</loc>')
     expect(xml).toContain('<loc>https://vocdoni.io/es/use-cases</loc>')
@@ -18,5 +13,17 @@ describe('vike sitemap plugin', () => {
     expect(xml).toContain('<xhtml:link rel="alternate" hreflang="ca" href="https://vocdoni.io/ca/use-cases" />')
     expect(xml).toContain('<xhtml:link rel="alternate" hreflang="en" href="https://vocdoni.io/en/use-cases" />')
     expect(xml).toContain('<xhtml:link rel="alternate" hreflang="x-default" href="https://vocdoni.io/en/use-cases" />')
+  })
+
+  it('advertises only the locales a post actually exists in', () => {
+    const xml = buildSitemapXml('https://vocdoni.io', [{ baseRoute: '/blog/only-catalan', locales: ['ca'] }], 'en')
+
+    // Only the Catalan URL is listed, and it is the x-default (no English source).
+    expect(xml).toContain('<loc>https://vocdoni.io/ca/blog/only-catalan</loc>')
+    expect(xml).not.toContain('https://vocdoni.io/en/blog/only-catalan')
+    expect(xml).not.toContain('https://vocdoni.io/es/blog/only-catalan')
+    expect(xml).toContain(
+      '<xhtml:link rel="alternate" hreflang="x-default" href="https://vocdoni.io/ca/blog/only-catalan" />'
+    )
   })
 })
