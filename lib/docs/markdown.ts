@@ -580,6 +580,44 @@ function rehypeLocalizeLinks(locale: Locale) {
   }
 }
 
+// --- rehype: neutralise author-supplied raw HTML + unsafe URLs --------------
+//
+// The pipeline enables `allowDangerousHtml` so our own plugins can emit trusted
+// SVG icons (see `raw()`). That same passthrough would otherwise render any
+// literal HTML an editor types into a post/doc body verbatim - a persistent XSS
+// vector, since blog/author content is authored through Keystatic. This plugin
+// runs right after remark-rehype and *before* our plugins inject their trusted
+// SVGs, so at this point every `raw` node is author-supplied source HTML. We
+// turn those into inert text and drop dangerous link/media URL schemes. Markdown
+// can only produce dangerous markup via raw HTML or `javascript:`-style URLs, so
+// handling both fully closes the injection surface (no sanitiser schema needed).
+
+const DANGEROUS_URL_SCHEME = /^(?:javascript|vbscript|data|file):/i
+const SAFE_DATA_URL = /^data:image\//i
+
+const isDangerousUrl = (value: unknown): boolean => {
+  if (typeof value !== 'string') return false
+  const cleaned = value.replace(/[^\x21-\x7e]/g, '')
+  return DANGEROUS_URL_SCHEME.test(cleaned) && !SAFE_DATA_URL.test(cleaned)
+}
+
+function rehypeSanitizeSource() {
+  return (tree: HastNode) => {
+    // Escape literal source HTML to visible text: `<script>` becomes inert and
+    // `<placeholder>` tokens survive as-is instead of being dropped.
+    visit(tree, (node: HastNode) => {
+      if (node.type === 'raw') node.type = 'text'
+    })
+    // Strip javascript:/vbscript:/etc. from links and media sources.
+    visit(tree, 'element', (node: HastNode) => {
+      const props = node.properties
+      if (!props) return
+      if (node.tagName === 'a' && isDangerousUrl(props.href)) delete props.href
+      if (isDangerousUrl(props.src)) delete props.src
+    })
+  }
+}
+
 // --- compile ----------------------------------------------------------------
 
 export interface CompileOptions {
@@ -598,6 +636,7 @@ export function compile(markdown: string, options: CompileOptions = {}): string 
     .use(remarkDirective)
     .use(remarkDocDirectives)
     .use(remarkRehype, { allowDangerousHtml: true })
+    .use(rehypeSanitizeSource)
     .use(rehypeSlug)
     .use(rehypeAdmonitions)
     .use(rehypeSteps)
