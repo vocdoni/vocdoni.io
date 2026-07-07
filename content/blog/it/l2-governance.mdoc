@@ -1,0 +1,52 @@
+---
+title: Modelli di governance L2
+publishedDate: '2021-12-08'
+updatedDate: '2026-01-29'
+excerpt: Una panoramica tecnica di tre modelli di governance e voto Layer 2 su Ethereum.
+coverImage: /blog/images/2026/01/blogpost_l2_governance_models.webp
+coverAlt: Modelli di governance L2
+authors:
+  - ferran
+categories:
+  - technology
+featured: false
+draft: false
+---
+
+Come i successi della finanza decentralizzata (DeFi) ci ricordano i primi tempi della governance su blockchain, lo stesso fanno le sue sfide. Le commissioni elevate su Ethereum, che stanno spingendo gli utenti DeFi verso le soluzioni Layer 2 (L2), hanno un effetto simile sulla governance decentralizzata (dGov), dove votare on-chain è diventato proibitivamente costoso. Si stanno quindi sperimentando vari approcci per «arrotolare» (roll up) transazioni o voti in smart contract off-chain, poi riconciliati con la chain principale in un'unica esecuzione, oppure per usare sidechain con bridge sicuri che aggiungono capacità extra. Inoltre, insieme a questo spostamento verso L2 per ridurre i costi, arriva l'opportunità di esplorare modelli di dGov nuovi e stimolanti.
+
+### **Governance off-chain ottimistica**
+
+La governance ottimistica è il modello L2 con la barriera d'ingresso più bassa. Il compromesso è che questo modello è quello che richiede più fiducia. Un processo di questo tipo si svolge off-chain in uno o più ambienti fidati.
+
+Tra gli esempi più basilari ci sono, nel caso estremo, un processo di voto condotto su un foglio di calcolo condiviso o, più comunemente, un'applicazione centralizzata che registra i voti su IPFS. La sicurezza del metodo con cui si determina se un voto è valido dipende dal proprietario del foglio di calcolo o dal sistema centralizzato. Non è coinvolto alcun meccanismo di consenso automatico.
+
+Applicata alla governance su blockchain, la governance off-chain ottimistica potrebbe includere un servizio centralizzato che esegue un nodo Ethereum sincronizzato per convalidare l'idoneità di un votante chiamando la funzione `balanceOf(holderAddr)` e verificando che possieda il token di governance (nel caso di un token ERC20). Tutti i partecipanti, però, dovrebbero fidarsi dell'integrità e del buon comportamento del nodo che esegue il controllo di validità.
+
+Una volta concluso un processo di governance di questo tipo, i risultati possono essere rinviati a Ethereum tramite uno smart contract in stile optimistic rollup (come ERC3000). Se i risultati non vengono contestati entro una finestra temporale prestabilita, si considerano validi. Se vengono contestati, un processo separato gestito da una o più parti fidate potrebbe determinarne la validità.
+
+Questo approccio solleva diverse preoccupazioni, in particolare il rischio di censura o di manipolazione dei voti dovuto alla sua natura centralizzata, oltre alla mancanza di riproducibilità: non esiste un'unica fonte di verità, quindi i dati potrebbero essere alterati, persi o corrotti.
+
+### **Governance off-chain deterministica**
+
+La governance off-chain deterministica è un modello che consente un voto completamente permissionless e trustless. Un processo di voto deterministico genera un censo di voto e conta i voti in modo verificabile e riproducibile da qualsiasi osservatore terzo.
+
+Questo schema potrebbe usare una sidechain deterministica a stato condiviso per permettere a chiunque di partecipare a un processo di voto e convalidarlo. Su questa chain a stato condiviso, tutti i validatori manterrebbero una copia completa del censo e dei dati di voto e raggiungerebbero il consenso sulla validità di ogni voto, e quindi sul risultato finale dell'elezione.
+
+Questo modello scala in proporzione al numero di transazioni al secondo del meccanismo di consenso, dato che ogni transazione può contenere un singolo voto. La resistenza agli attacchi di censura deriva dal fatto che chiunque nel mondo può aggiungere i propri nodi alla rete peer-to-peer e far rispettare un consenso distribuito. La governance deterministica consente anche la riproducibilità, perché lo stato può essere ricostruito in modo deterministico rieseguendo l'insieme delle transazioni, disponibili pubblicamente sulla rete p2p.
+
+In questo modello servono prove verificabili off-chain per dimostrare l'idoneità di ciascun votante. A questo scopo, un sistema potrebbe calcolare [prove di Merkle sugli storage trie di Ethereum](https://docs.vocdoni.io/architecture/smart-contracts/storage-proofs.html) per dimostrare alla blockchain di voto L2 il possesso di dati specifici su Ethereum. In questo modo i votanti possono provare di detenere token su un determinato contratto ERC20, permettendo un censo di voto off-chain ponderato, determinato in modo trustless da prove on-chain sui token.
+
+Sebbene lo stato L2 offra un alto livello di integrità garantita, non esiste ancora un modo per assicurare l'esecuzione vincolante dei risultati su Ethereum senza fidarsi di uno o più attori. Per questa interoperabilità cross-chain è necessaria una rete di oracoli che convalidi e pubblichi i risultati.
+
+### **Governance on-chain verificata e vincolante**
+
+Il terzo modello, il più avanzato, può essere implementato come estensione del precedente modello di governance off-chain deterministica basata sul consenso, per favorire la decentralizzazione, oppure come servizio centralizzato dotato dei meccanismi adeguati per evitare la censura. L'innovazione chiave è che l'esecuzione off-chain verificata / deterministica può essere dimostrata matematicamente da uno smart contract.
+
+Per la prossima generazione di governance on-chain, si potrebbe usare un circuito zk-SNARK (Zero-Knowledge Succinct Non-interactive Argument of Knowledge) specializzato per integrare questo modello di governance in un protocollo di governance off-chain deterministica. Un circuito del genere potrebbe calcolare una dimostrazione a conoscenza zero (ZKP) su lotti di transazioni di voto valide o su processi di voto, una volta conclusa un'elezione. Una ZKP contenente la [Merkle root del censo](https://docs.vocdoni.io/architecture/census-overview.html) (un riepilogo in forma di hash del censo dei votanti), il numero di aventi diritto al voto e i risultati numerici dell'elezione può essere convalidata da uno smart contract su Ethereum. Da lì, qualsiasi azione vincolante può essere eseguita on-chain.
+
+Pietra angolare della governance L2, questo modello rappresenta lo stato dell'arte. La governance off-chain verificata con risultati vincolanti on-chain offre un voto su larga scala deterministico, permissionless, universalmente verificabile e trustless, senza perdere nulla delle funzionalità del voto on-chain. Soprattutto, questo modello può essere implementato in modo completamente gratuito per i votanti.
+
+# **La strada da percorrere**
+
+[Vocdoni](https://vocdoni.io/it) è un'organizzazione guidata da uno scopo: la nostra visione non è niente di meno che una governance on-chain verificata e vincolante. Il team di Vocdoni sta attualmente lavorando a una proof of concept di questo modello basata sulla tecnologia zkRollup, di cui speriamo di poter raccontare di più nelle prossime settimane. Nel frattempo continueremo a rilasciare ogni iterazione che migliori lo status quo e ci avvicini a quell'obiettivo. Nelle versioni attuali di Vocdoni, il 90 % del modello di governance off-chain deterministica è stato implementato usando validatori fidati (proof of authority), ma stiamo già lavorando per convertire nel medio termine la nostra blockchain di conteggio dei voti alla proof of stake.

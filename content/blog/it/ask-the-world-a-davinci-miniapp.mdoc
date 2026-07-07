@@ -1,0 +1,80 @@
+---
+title: Ask the World - Una miniapp DAVINCI basata su Self Protocol
+publishedDate: '2026-03-19'
+excerpt: 'La maggior parte dei sistemi di voto digitale si inceppa ancora al livello dell''identità. Puoi rendere le schede verificabili e resistenti alla censura, ma se non riesci…'
+coverImage: /blog/images/2026/03/01_hero_banner.webp
+coverAlt: Ask the World - Una miniapp DAVINCI basata su Self Protocol
+authors:
+  - rica
+categories: []
+featured: false
+draft: false
+---
+
+La maggior parte dei sistemi di voto digitale si inceppa ancora al livello dell'identità. Puoi rendere le schede verificabili e resistenti alla censura, ma se non riesci a far rispettare idoneità e unicità senza trasformare il sistema in un'infrastruttura di sorveglianza, non hai risolto il problema del voto: hai solo spostato il confine della fiducia.
+
+È da qui che è nato Ask the World. **Volevamo che i partecipanti idonei potessero dimostrare solo le proprietà rilevanti per una determinata votazione, senza rivelare la propria identità.**
+
+[_Ask the World_](https://asktheworld.davinci.ninja) è una miniapp sperimentale che mostra cosa diventa possibile quando un protocollo di voto full-stack incontra l'identità a conoscenza zero, grazie al nostro partner [Self Protocol](https://self.xyz/).
+
+## Perché l'abbiamo costruita
+
+[DAVINCI](https://davinci.vote) è un protocollo di voto verificabile, on-chain e senza gas. Non è solo un'infrastruttura che archivia voti: è un protocollo costruito appositamente per risolvere i problemi più difficili del voto digitale:
+
+- **Resistenza alla coercizione:** nessuno può costringere un elettore a dimostrare come ha votato.
+- **Assenza di ricevuta (_receipt-freeness_):** chi vota non può produrre una ricevuta della propria scelta, il che elimina la compravendita di voti.
+- **Resistenza alla collusione:** la manipolazione coordinata tra votanti, o tra votanti e organizzatori, è impedita crittograficamente.
+- **Cifratura a soglia:** i voti sono cifrati con uno schema di chiavi distribuito, così nessuna singola parte può decifrare le schede prima della fine del processo.
+
+Sono le proprietà che distinguono un vero protocollo di voto dai semplici «voti su una blockchain». Sotto il cofano, [DAVINCI](https://davinci.vote) si affida agli **zkSNARKs** per la verifica delle dimostrazioni e alla **cifratura omomorfica a soglia** per garantire la segretezza del voto: primitive crittografiche che danno a queste garanzie una solidità matematica.
+
+Con [_Ask the World_](https://asktheworld.davinci.ninja/) volevamo spingerci oltre: aprire una votazione a ogni cittadino idoneo di un paese, verificato tramite un documento d'identità ufficiale, mantenendo l'elettore anonimo.
+
+## Come funziona
+
+### Creare una votazione
+
+Chi crea una votazione definisce la domanda, le opzioni disponibili, la nazionalità ammessa e un'età minima. DAVINCI distribuisce un contratto di censo dedicato per quella specifica votazione e registra il processo on-chain. Il creatore ottiene un link pubblico, così chiunque soddisfi i criteri può partecipare.
+
+### Esprimere il voto
+
+Dal punto di vista dell'elettore, l'esperienza è quella di una qualsiasi web app:
+
+![](/blog/images/2026/03/02_voting_process-1.webp)
+
+1. **Apri il link.** Dietro le quinte viene generato un wallet effimero: nessun wallet crypto, nessuna commissione di gas, nessuna configurazione.
+2. **Scansiona un codice QR.** L'elettore usa l'[app Self](https://self.xyz) per generare una dimostrazione a conoscenza zero direttamente sul proprio dispositivo. Questa prova conferma che il documento è valido, che la nazionalità è quella richiesta e che l'età minima è rispettata; tutto senza esporre nome, numero di documento o alcun dato personale. Viene inoltre generato un nullifier univoco per impedire la doppia registrazione.
+3. **Entra nel censo.** Il contratto di censo on-chain verifica crittograficamente la prova. Se è valida, il wallet effimero dell'elettore viene aggiunto al censo.
+4. **Vota.** L'elettore fa la sua scelta. La sua scheda viene cifrata con la cifratura a soglia e registrata on-chain: verificabile da chiunque, leggibile da nessuno finché il processo non si chiude.
+
+Una scansione. Un voto. Nessuna conoscenza della blockchain richiesta.
+
+### Cosa succede sotto la superficie
+
+Ask the World non è un singolo strumento: sono quattro livelli che lavorano insieme, ognuno responsabile di un pezzo preciso del puzzle.
+
+![](/blog/images/2026/03/03_architecture_stack.webp)
+
+In cima c'è [DAVINCI](https://davinci.vote), il protocollo di voto vero e proprio. Gestisce l'intero ciclo di vita di una votazione: crea il processo, cifra ogni scheda con la cifratura omomorfica a soglia, calcola il risultato e garantisce la verificabilità end-to-end. Resistenza alla coercizione, assenza di ricevuta e resistenza alla collusione non sono componenti aggiuntivi: sono incorporate nel design crittografico.
+
+Sotto, per ogni votazione viene distribuito uno smart contract di censo dedicato. Quando un elettore presenta la sua prova ZK, questo contratto la verifica on-chain e aggiunge il wallet effimero dell'elettore a un albero di Merkle. Poiché ogni processo ha il proprio censo, votazioni diverse possono definire criteri di idoneità completamente diversi senza collisioni.
+
+Il livello dell'identità è gestito da [Self Protocol](https://self.xyz), che genera le prove ZK direttamente sul dispositivo dell'elettore: conferma che il documento è valido, che il titolare soddisfa i requisiti di nazionalità ed età, e produce un nullifier univoco per impedire la doppia registrazione. In nessun momento il nome, il numero di documento o altri dati personali dell'elettore lasciano il dispositivo.
+
+Infine, i wallet effimeri astraggono tutta l'interazione con la blockchain. Chi vota non ha bisogno di un wallet crypto, non paga commissioni di gas e non si accorge nemmeno di stare interagendo con una blockchain. L'intera esperienza è quella di una normale web app.
+
+## Il quadro più ampio
+
+Il flusso è lineare: un'identità reale diventa una prova privata, la prova viene verificata e inserita in un censo, e il censo abilita una votazione cifrata on-chain. Quattro passaggi, senza esporre dati personali in nessun momento.
+
+![](/blog/images/2026/03/04_bigger_picture.webp)
+
+Ma ciò che rende tutto questo significativo non è il flusso in sé: è ciò che ogni passaggio elimina. Il passaggio dall'identità reale alla prova privata rimuove il compromesso tra verifica e anonimato. Il passaggio dalla prova al censo elimina il doppio voto senza tracciare le persone. E il passaggio dal censo alla scheda cifrata garantisce che nessuno, nemmeno l'organizzatore, possa vedere come ha votato qualcuno prima della chiusura del processo.
+
+Combinando la verifica dell'identità a conoscenza zero di [Self](https://self.xyz/) con il protocollo di voto resistente alla coercizione di DAVINCI, _Ask the World_ ottiene qualcosa che la maggior parte dei sistemi di voto digitale considera impossibile da conciliare: una partecipazione al tempo stesso più sicura e più privata di qualsiasi alternativa disponibile oggi, con un'esperienza di voto semplice come la scansione di un codice QR.
+
+[_Ask the World_](https://asktheworld.davinci.ninja/) è un esperimento, ma il protocollo che c'è sotto non lo è. L'[SDK di DAVINCI](https://github.com/vocdoni/davinci-sdk/) è pronto per gli sviluppatori che vogliono costruire le proprie applicazioni di voto: per la governance, le decisioni di comunità, i sondaggi informali o casi d'uso che non abbiamo ancora immaginato.
+
+---
+
+**Vuoi iniziare a costruire?** Esplora l'[SDK di DAVINCI](https://github.com/vocdoni/davinci-sdk/) e inizia oggi stesso a creare esperienze decisionali verificabili e private.

@@ -1,0 +1,80 @@
+---
+title: 'DAVINCI: il protocollo di voto che soddisfa i criteri per l''adozione universale'
+publishedDate: '2025-04-24'
+updatedDate: '2026-03-06'
+excerpt: 'Abbiamo raccolto con successo un round pre-seed da 1 milione di dollari da investitori angel per sviluppare DAVINCI. DAVINCI supera i limiti dei sistemi di voto esistenti, offrendo una soluzione resistente alla censura, gasless, anti-corruzione, scalabile e anonima per la governance digitale.'
+coverImage: /blog/images/2026/01/blogpost_davinci_announcement.webp
+coverAlt: 'DAVINCI: il protocollo di voto che soddisfa i criteri per l''adozione universale'
+authors:
+  - pau
+categories:
+  - davinci
+  - technology
+featured: true
+draft: false
+---
+
+Nel 2018 abbiamo avviato **Vocdoni** dopo aver individuato alcune falle nel modo in cui le persone votano. **Le schede cartacee tradizionali** possono essere lente da contare, difficili da sottoporre ad audit e vulnerabili alle manomissioni. **Il voto onchain** risolve alcuni di questi problemi ma ne aggiunge di nuovi: commissioni elevate, scarsa privacy, compravendita di voti, pressione a «seguire la massa» e limiti al numero di votanti che può gestire.
+
+Ispirati dal modo in cui Bitcoin ed Ethereum hanno aperto la finanza a chiunque abbia una connessione a internet, ci siamo chiesti: **_perché non fare lo stesso per la democrazia?_** La nostra prima risposta è stata una blockchain progettata per il voto. Da allora ha alimentato centinaia di elezioni per consigli comunali, club sportivi, DAO, partiti politici e altro ancora.
+
+Ma la tecnologia non sta mai ferma. I nuovi strumenti crittografici ci permettono oggi di proteggere la privacy e scalare a milioni di votanti contemporaneamente. Così abbiamo deciso di ricominciare da capo, progettando da zero un protocollo di voto che potesse diventare **il gold standard globale per un voto sicuro, privato ed economico**.
+
+## Ecco DAVINCI: lo standard universale per il voto sicuro
+
+Il protocollo di voto [DAVINCI](https://davinci.vote/) \[Decentralized Autonomous Vote Integrity Network with Cryptographic Inference] sostituisce i lenti conteggi cartacei e le costose commissioni blockchain con un sistema **permissionless, a prova di manomissione, privato e abbastanza economico da poter essere usato da chiunque**. In breve: _Decentralized Autonomous_ mantiene la rete aperta, _Vote Integrity Network_ dimostra ogni passaggio e _Cryptographic Inference_ protegge ogni scheda e il conteggio finale.
+
+### **Decentralized Autonomous**
+
+- **Aperto a tutti, di proprietà di nessuno.** [DAVINCI](https://davinci.vote/) gira su contratti pubblici di Ethereum e su una rete decentralizzata di Sequencer, quindi nessun governo o azienda può sospendere o censurare un'elezione.
+- **Gasless per i votanti.** Le commissioni vengono messe in comune e pagate una sola volta per batch, così i cittadini possono votare senza spendere un centesimo.
+- **Una rete inarrestabile.** Qualsiasi operatore può diventare Sequencer (l'attore che verifica e aggrega le schede) semplicemente mettendo in staking dei token come garanzia, mantenendo il sistema attivo anche se alcuni nodi spariscono. Se si comportano correttamente, i Sequencer vengono ricompensati.
+
+### **Vote Integrity Network**
+
+- **Auditabilità end-to-end.** Ogni scheda, conteggio e regola risiede in uno smart contract su Ethereum; chiunque può rieseguire le prove per confermare il risultato.
+- **Rollup a conoscenza zero per la scalabilità.** Milioni di voti vengono raggruppati off-chain, poi una minuscola prova zk viene pubblicata on-chain, riducendo i costi e mantenendo la stessa sicurezza.
+- **Adatto a qualsiasi stile di voto.** Voto a preferenza ordinata (ranked-choice), quadratico, a voto singolo trasferibile o qualsiasi altro metodo. Il formato di scheda di [DAVINCI](https://davinci.vote/) è privo di schema, quindi gli organizzatori scelgono le regole più adatte a loro.
+
+### **Cryptographic Inference**
+
+- **Crittografia omomorfica a soglia.** Ogni voto è sigillato con una chiave suddivisa tra diversi scrutatori indipendenti, così nessuna singola parte può vedere o modificare una scheda. Alla chiusura della votazione, solo un numero minimo prestabilito di Sequencer, unendo i propri frammenti di chiave, può sbloccare il conteggio finale aggregato, mai le scelte individuali.
+- **Assenza di ricevuta (_receipt-freeness_) e anti-coercizione.** Le schede vengono ri-cifrate, i votanti possono sovrascrivere silenziosamente il proprio voto e dei «nullifier» privati impediscono gli screenshot come prova di voto, rendendo inutili corruzione e intimidazioni.
+- **Anonimato senza distorsioni.** Ogni scheda è cifrata e non collegabile al suo autore, quindi nessuno può risalire da una scelta a una persona: questo protegge la privacy e mette i votanti al riparo da pressioni o ritorsioni.
+
+## I quattro circuiti che alimentano DAVINCI
+
+[DAVINCI](https://davinci.vote/) è una **macchina a stati basata su zk-SNARK** gestita da una rete decentralizzata di Sequencer offchain. Al suo centro ci sono **quattro circuiti concatenati**: ognuno verifica la prova prodotta dal passaggio precedente e poi aggiunge la propria. Poiché gli zk-SNARK sono ricorsivi e succinti, ogni scheda, regola e conteggio si condensa alla fine in un'unica, minuscola prova che Ethereum può verificare in millisecondi.
+
+1. **Ballot Circuit - cifratura conforme alle regole** Il votante cifra le proprie scelte con El Gamal a soglia e dimostra, a conoscenza zero, che la scheda rispetta le regole dell'elezione (ad es. «scegli fino a due opzioni su cinque»).
+2. **Eligibility Circuit - firma + prova di Merkle** Un Sequencer dimostra che il votante è autorizzato verificando una firma ECDSA e una prova di Merkle rispetto alla lista dei votanti pubblicata.
+3. **Aggregation Circuit - molti voti, una sola prova** Fino a _N_ schede vengono compresse in un unico zk-SNARK. La dimensione della prova resta quasi costante, così milioni di voti possono viaggiare verso Ethereum al prezzo di uno.
+4. **Tally Circuit - aggiornamento dello stato** I testi cifrati aggregati vengono sommati omomorficamente al conteggio cifrato e la nuova state root viene dimostrata corretta, incorporando la precedente prova di aggregazione per mantenere intatta la catena.
+
+Quando il quarto circuito termina, **la prova ricorsiva finale (poche centinaia di byte) viene inviata a uno smart contract su Ethereum**. Se il verificatore la accetta, l'intero batch elettorale diventa immutabile; in caso contrario viene respinto. Il Sequencer successivo inizierà a elaborare il proprio batch partendo da quello regolato su Ethereum.
+
+![](/blog/images/2026/01/davinci-1.webp)
+
+## Un protocollo sostenibile e inarrestabile
+
+Vocdoni sta avviando la progettazione e lo sviluppo di [**DAVINCI**](https://davinci.vote/) **come protocollo permissionless e inarrestabile alimentato da un token nativo**. Gli organizzatori usano il token per lanciare le elezioni, mentre i sequencer lo mettono in staking come garanzia e ricevono ricompense per l'elaborazione dei voti. **Votare è sempre gratuito**, così la partecipazione resta aperta e accessibile a tutti.
+
+Il protocollo è progettato per separare l'esecuzione dalla verifica: le elezioni vengono definite su Ethereum, mentre i voti vengono espressi e aggregati offchain dalla rete decentralizzata di sequencer, e solo le prove crittografiche verificate vengono registrate onchain. Il risultato è un sistema trasparente, sicuro e scalabile fin dalla progettazione.
+
+## Sostenuti da figure di primo piano del Web3
+
+Il **round di finanziamento da 1 milione di dollari di Vocdoni ha attirato il sostegno di figure chiave dell'ecosistema blockchain**, tra cui **Jordi Baylina** e membri di organizzazioni come Ethereum Foundation, Polygon, OpenZeppelin, Giveth e Privado ID.\
+\
+Il loro coinvolgimento non è solo finanziario: segnala il bisogno di una tecnologia di governance migliore e la loro fiducia nella nostra capacità di guidarla.
+
+## I prossimi passi\*
+
+- **Giugno 2025**: lancio della testnet pubblica con una UI semplice + avvio delle prevendite del token
+- **Luglio 2026**: lancio previsto della mainnet e TGE
+- **Q4 2026:** inizia la migrazione delle organizzazioni che usano il Vocdoni Protocol verso [DAVINCI](https://davinci.vote/)
+
+### Unisciti al futuro del voto
+
+📝 **Iscriviti alla lista d'attesa** [**_qui_**](https://davinci.deform.cc/waitlist/) per restare aggiornato sulla testnet pubblica in arrivo a giugno. **I primi partecipanti** potranno **provare il protocollo,** far girare un sequencer e **potrebbero ricevere vantaggi esclusivi per il loro coinvolgimento**.\
+\
+\* _Per offrire un'implementazione del protocollo completa e collaudata, la roadmap potrebbe subire modifiche._

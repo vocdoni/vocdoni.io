@@ -1,0 +1,182 @@
+---
+title: Esecuzione vincolante su Ethereum con zk-rollup
+publishedDate: '2022-10-12'
+updatedDate: '2026-01-14'
+excerpt: 'L''ultima ricerca di Vocdoni sui processi di voto off-chain sicuri.'
+coverImage: /blog/images/2026/01/blogpost_binding_execution.webp
+coverAlt: Esecuzione vincolante su Ethereum con zk-rollup
+authors:
+  - ferran
+categories:
+  - technology
+featured: false
+draft: false
+---
+
+Questo articolo propone una proof of concept che sfrutta gli zk-SNARKs per raggiungere la prossima frontiera della governance: **una governance on-chain senza gas, verificata e vincolante**.
+
+_Il contenuto tecnico di questa proposta è stato pubblicato anche sul forum_ [_Ethresear.ch_](http://Ethresear.ch)_,_ [_qui_](https://ethresear.ch/t/experiment-in-gassless-voting-using-snarks/10927)_, per la discussione con la community._
+
+# **Contesto**
+
+Come progetto di riferimento nella governance digitale, Vocdoni investe molto nella ricerca e nell'innovazione dei modelli di governance. Abbiamo individuato diverse soluzioni di governance layer 2 promettenti, che però lasciano aperte varie questioni tecniche. Siamo riusciti a realizzare processi di voto senza gas sulla nostra [blockchain di voto](https://docs.vocdoni.io/architecture/components.html#vochain) specializzata, Vochain, e a progettare e implementare un metodo che usa le [Storage Proof di Ethereum](https://docs.vocdoni.io/architecture/census/on-chain.html) per portare su Vochain censi basati su token ERC20 provenienti da Ethereum. Finora, però, la possibilità di riportare i risultati _su Ethereum_ era rimasta una questione di ricerca aperta.
+
+A questo scopo, Vocdoni ha condotto esperimenti su un nuovo design che permetterebbe di trasferire su Ethereum i risultati di un processo di voto off-chain, senza ricorrere a oracoli soggettivi né ad altri componenti fidati.
+
+L'innovazione centrale di questa proposta è chiara: nessun sistema a noi noto è in grado di organizzare un processo di voto off-chain ed eseguire in modo trustless azioni su Ethereum in base ai suoi risultati. I casi d'uso includono potenzialmente _tutti_ i processi di governance che eseguono azioni vincolanti in base ai risultati, come (ma non solo) le votazioni delle DAO sull'allocazione di asset o sulle modifiche agli smart contract. Oggi questi processi di governance devono svolgersi sulla mainnet di Ethereum, con costi di gas considerevoli per ogni elettore. In alternativa, il voto può avvenire off-chain, ma affidandosi a un componente esterno perché riporti i risultati su Ethereum in modo accurato e onesto.
+
+La nostra proposta permetterebbe a processi di voto interamente off-chain di eseguire i risultati su Ethereum con la stessa integrità della governance on-chain, a una frazione del costo.
+
+# **Requisiti della proof of concept del protocollo di voto**
+
+Prima di elaborare una soluzione tecnica, abbiamo definito i parametri della nostra proposta di ricerca.
+
+I **requisiti** per il protocollo di voto erano i seguenti:
+
+1. Permissionless.
+2. Resistente alla censura.
+3. In grado di rendere vincolanti i risultati su Ethereum.
+4. Senza gas per gli elettori.
+5. Senza bridging di token.
+6. Il più semplice possibile (nessuna sidechain).
+7. Utilizzabile con ERC20 / ERC777 e NFT per votare.
+
+Trattandosi di un design proof of concept, abbiamo accettato le seguenti **limitazioni**:
+
+1. Nessun anonimato per gli utenti: i voti possono essere ricondotti a un indirizzo Ethereum.
+2. Nessuna *assenza di ricevuta* (receipt-freeness): la compravendita di voti potrebbe essere possibile.
+3. Non pensato per elezioni su scala nazionale: solo per DAO o possessori di ERC20 / NFT. Va quindi fissata una dimensione massima del censo (in funzione di prestazioni e costi).
+4. Nessun modello di incentivazione definito per i relayer.
+
+# **Proposta ideale**
+
+Secondo il design di questa proposta, alla creazione di un nuovo processo di voto gli organizzatori inviano una transazione a Ethereum specificando l'indirizzo del contratto di un token ERC20 da usare come censo degli elettori. Lo Storage Root Hash di questo indirizzo, a una determinata altezza di blocco, diventa la radice del censo per il processo. Chiunque possieda il token può dimostrare la propria idoneità fornendo una prova di Merkle (tramite [EIP1186](https://github.com/ethereum/EIPs/issues/1186)) del proprio saldo. Può quindi esprimere il voto inviando la prova (siblings) e una firma a un relayer di rollup [zk-SNARK](https://en.wikipedia.org/wiki/Non-interactive_zero-knowledge_proof), che calcolerà una prova dei risultati finali.
+
+Un potenziale problema è che l'attore che calcola la prova zk-SNARK dei risultati (il coordinatore) potrebbe, in teoria, censurare il risultato decidendo di escludere dei voti. Affrontiamo questo problema consentendo a chiunque (non solo al coordinatore) di inviare nuovi voti: qualsiasi utente può generare e inviare un rollup contenente il proprio voto se rileva che un coordinatore non lo ha incluso.
+
+La nostra proposta usa gli zk-SNARKs per i seguenti scopi:
+
+- Verificare che un indirizzo non abbia già votato, tramite l'accumulatore ad albero di Merkle.
+- Verificare che l'utente possieda i token, tramite Storage Proof.
+- Calcolare i risultati parziali su un lotto di voti.
+- Verificare la firma del voto.
+
+![](/blog/images/2026/01/vocdoni_zk_scheme.webp)
+
+Esecuzione vincolante su Ethereum con zkSNARKs: proposta idealizzata.
+
+Nello schema qui sopra si possono individuare due problemi principali:
+
+### **Problema 1: la verifica delle Storage Proof ERC20 non è SNARK-friendly**
+
+Le Storage Proof ERC20 sono molto complesse da verificare all'interno di uno SNARK. Ciò è dovuto in parte all'uso del parsing Recursive Length Prefix (RLP) e a molteplici verifiche di hash [Keccak-256](https://en.wikipedia.org/wiki/SHA-3), entrambi inefficienti da calcolare con l'attuale stato dell'arte della tecnologia dei rollup SNARK. È un problema difficile da aggirare, quindi per il momento lo risolviamo con una validazione ottimistica.
+
+### **Problema 2: la verifica delle firme ECDSA / Secp256k1 non è SNARK-friendly**
+
+Uno standard crittografico attuale che potremmo usare per verificare le firme degli utenti è ECDSA con una chiave [BabyJubJub](https://eips.ethereum.org/EIPS/eip-2494) derivata da una firma Ethereum, usando la firma come chiave privata grezza, il che consente all'utente di recuperare il proprio indirizzo. Poiché questo metodo si basa su una firma dell'utente, è vulnerabile ad agenti malevoli che inducono gli utenti a firmare transazioni fraudolente nel loro wallet Web3. Questa vulnerabilità esiste ovunque si usi un wallet nel browser per firmare una transazione. Una possibile soluzione potrebbe essere derivare una chiave privata usando l'indirizzo web come percorso di derivazione.
+
+Un'ulteriore sfida consiste nel dimostrare che l'indirizzo Ethereum di ciascun possessore di token approva la chiave BabyJubJub per il voto all'altezza di blocco della creazione del processo. Lo otteniamo con uno smart contract «singleton» che mappa gli indirizzi Ethereum sulle chiavi pubbliche BabyJubJub: l'utente deve aggiungere la propria chiave allo smart contract tramite una transazione standard. La mappatura tra un indirizzo e una chiave può essere contestata tramite una fraud proof ottimistica sullo storage (dato che abbiamo già aperto la porta alla validazione ottimistica delle Storage Proof). Questa soluzione risolve anche il problema della disponibilità dei dati con un design riutilizzabile, poiché è previsto che queste chiavi autorizzate vengano usate più volte in processi di voto diversi.
+
+In sintesi, possiamo gestire la maggior parte delle verifiche all'interno di uno SNARK, ma non tutte:
+
+- Verificare che un indirizzo non abbia già votato tramite l'accumulatore ad albero di Merkle → SNARK
+- Verificare che l'utente possieda i token tramite Storage Proof → ottimistico
+- Calcolare i risultati parziali della votazione → SNARK
+- Verificare la firma del voto → SNARK
+
+# **Proposta**
+
+![](/blog/images/2026/01/vocdoni_zk_scheme_2.webp)
+
+Esecuzione vincolante su Ethereum con zkSNARKs: proposta
+
+### **Utente**
+
+- Crea una chiave BabyJubJub, derivata da una firma Ethereum, e la registra nello smart contract Voter Registry.
+- Recupera le informazioni di voto e la Storage Proof del proprio account, genera una firma sul pacchetto di voto e lo inoltra a un relayer o a un insieme di relayer.
+
+### **Smart contract di voto**
+
+- Registra il processo di voto, includendo: l'indirizzo dello smart contract ERC20, l'indice dello slot della mappatura indirizzo→saldo dell'ERC20, lo state root hash del blocco di inizio del processo e i parametri del processo per il calcolo dello scrutinio (vedi il [Ballot Protocol](https://developer.vocdoni.io/protocol) di Vocdoni).
+- Resta in ascolto della registrazione di nuovi voti tramite zk-rollup, uno SNARK che dimostra:
+- Il calcolo del risultato.
+- Che la firma del voto è stata prodotta da una chiave BabyJubJub.
+- Mantiene aggiornati gli accumulatori di voto.
+- Mantiene aggiornata la lista dei votanti.
+- Consente a chiunque di contestare le fraud proof dell'ultima registrazione di voti. Una contestazione deve fornire uno dei seguenti elementi:
+- Una Storage Proof che dimostra che l'indirizzo Ethereum di un votante non possiede token.
+- Una Storage Proof che dimostra che l'indirizzo Ethereum di un votante non è collegato a una chiave BabyJubJub.
+- Una prova che la chiave BabyJubJub ha già votato (la chiave è nell'albero dei «voti già espressi»).
+
+### **Relayer**
+
+- **fase 0:** il processo elettorale viene creato su Ethereum e si seleziona un relayer da una lista di relayer disponibili. L'organizzatore dell'elezione deve coprirne i costi (che vanno in ricompensa al coordinatore). L'organizzatore fornisce il bytecode EVM da eseguire dopo l'elezione sugli smart contract della DAO, in funzione dei risultati.
+- **fase 1:** inizia la votazione. Chiunque può inviare pacchetti di voto al coordinatore selezionato (si possono usare trasporti HTTPs o libp2p). Il coordinatore aggrega in lotti i risultati selezionati, costruisce una prova zk-SNARK, carica prova e risultati su Ethereum, raccoglie i voti espressi dagli utenti, li verifica e li trasmette agli altri relayer.
+- **fase 2:** i coordinatori che rilevano un voto non aggiunto possono aggregare i propri voti in un rollup e inviare una prova di validità zk-SNARK allo smart contract di voto. Inoltre, se rilevano che un voto è stato aggiunto in modo scorretto, possono inviare una fraud proof per dimostrare che il risultato aggiunto in precedenza non è valido, e il coordinatore che lo ha prodotto subirà uno slashing.
+- **fase 3:** al raggiungimento della data limite della votazione:
+- La somma dei risultati caricati (dal coordinatore e da eventuali terzi) è considerata valida e la ricompensa viene distribuita tra il coordinatore e gli attori che hanno incluso più voti (se presenti).
+- Chiunque (di solito il coordinatore) invoca il bytecode EVM da eseguire, usando i risultati finali come input.
+
+### **Il circuito e il contratto**
+
+Uno zk-SNARK aggregherà una lista di voti espressi. La prova zk-SNARK è valida rispetto a una data lista di voti, una radice del censo, un identificatore dell'elezione (electionId) e un risultato aggregato.
+
+![](/blog/images/2026/01/vocdoni_zk_scheme_3.webp)
+
+Il circuito e il contratto
+
+**INPUT DELLO zk-SNARK**
+
+- Hash degli input (pubblico) (serve a ridurre il costo in gas della verifica dello SNARK).
+- ElectionId (privato).
+- Calcolo dei risultati di voto di questo lotto (privato).
+- Radice attuale dei nullifier (privato).
+- Radice aggiornata dei nullifier (privato).
+- Numero di voti nel lotto (privato).
+- Valori dei voti e corrispondenti firme BabyJubJub \[1..BATCHSIZE] (privato).
+
+Gli input della chiamata alla funzione dello smart contract per il caricamento dei risultati del coordinatore sono:
+
+- electionId.
+- Lista delle chiavi pubbliche dei votanti di questo lotto.
+- Radice aggiornata dei nullifier.
+- Calcolo dei risultati di voto di questo lotto.
+- Prova SNARK.
+
+# **Implementazione della proof of concept**
+
+Abbiamo implementato gli smart contract e i circuiti minimi necessari per verificare costi e fattibilità della soluzione, disponibili [qui](https://github.com/vocdoni/voterollup). Questa PoC include solo il registro degli utenti, l'aggregazione dei voti e la verifica delle fraud proof.
+
+I nostri test hanno registrato i seguenti costi in gas:
+
+```toml
+user key registry
+  deployment           258,536
+  registration         68,956
+
+voting
+  deployment           6,673,159
+  new voting           25,989
+  aggregate rollup     291,801
+  fraud proof-1        574,574 (babyjubjub key not registered)
+  fraud proof-2        908,822 (account ERC20 balance is zero)
+```
+
+Nelle misurazioni per stimare un numero fattibile di voti da aggregare, con un server standard con 32 GB di RAM / 8 CPU abbiamo riscontrato che è possibile aggregare fino a 300 voti (con un accumulatore ad albero di Merkle a 64 livelli e \~3,8 milioni di constraint), impiegando 450 secondi per creare la prova e consumando 30 GB di RAM. Per le prove abbiamo usato Groth16 con Circom, generazione del witness in C++ e rapidSNARK.
+
+Sul fronte positivo, la prova da calcolare per generare una fraud proof è abbastanza piccola (50k) da poter essere generata in un browser. Questo permette agli utenti di contestare un lotto di voti senza scaricare alcun software specializzato.
+
+# **Ricerca futura**
+
+Partendo da questa ricerca, vorremmo approfondire le seguenti idee:
+
+- Verificare firme standard Keccak / ECDSA / Sec256k1 tramite SNARK. Riteniamo che presto [PLOOKUP](https://eprint.iacr.org/2020/315.pdf) sarà in grado di verificare questi schemi, il che aprirà due possibilità:
+- Dimostrare che la chiave BabyJubJub è stata derivata da una chiave Secp256k1 (operazione necessaria una sola volta).
+- Verificare la firma del voto stessa.
+- Verificare le Storage Proof all'interno di uno SNARK. Pensiamo che questo tipo di circuito complesso potrebbe essere integrato facilmente tramite una zkVM, anche se il costo potrebbe essere significativo. Ci preoccupa la possibilità che i client Ethereum dismettano i nodi archive per privilegiare limiti di gas più alti, quindi un'altra area di ricerca è provare a usare metodi diversi da EIP1186 per le Storage Proof.
+- Per calcolare lo scrutinio, incorporare una qualche forma di opcode da eseguire all'interno di una zkVM, abilitando circuiti di voto generici e programmabili.
+- Generare una prova di voto nel browser, mescolare tramite batching e aggregare ricorsivamente i risultati, in modo simile al protocollo di [zk.money](http://Ethresear.ch). Il risultato sarebbe una maggiore privacy per il processo di voto.
+- Consentire il calcolo degli SNARK a livello di browser in modo distribuito, anche se computazionalmente costosi. Questo evita di dipendere da server ad alta visibilità e, essendo completamente P2P, dà tutto il potere agli elettori.
+- Incorporare privacy e mixing nel protocollo di voto a livello di rete.
+- Trovare un modello criptoeconomico razionale e pienamente interoperabile con Ethereum 2.0.
+- Generare una prova unica che possa essere verificata facilmente. Questo apre la possibilità, per qualsiasi L1 e L2 programmabile (EVM o meno), di reagire a qualsiasi risultato di voto su Ethereum. L'obiettivo a lungo termine è poter votare su qualsiasi chain e verificare i risultati su qualsiasi altra. Potrebbe diventare una sorta di standard di riferimento per la verifica di Storage Proof cross-rollup / cross-chain tramite SNARK.
