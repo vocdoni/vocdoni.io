@@ -287,7 +287,14 @@ export function HeadTags(pageContext: PageContext) {
 
   const canonicalPath = withLocalePrefix(effectiveLocale, urlLogical)
   const canonicalUrl = `${siteUrl}${canonicalPath}`
-  const xDefaultUrl = `${siteUrl}${withLocalePrefix(localeDefault, urlLogical)}`
+  // x-default points at the default-language version, falling back to the post's
+  // canonical locale when the post has no default-language source (otherwise it
+  // would target a fallback URL whose own canonical points elsewhere).
+  const xDefaultLocale =
+    isBlogPost && blogPost!.availableLocales?.length && !blogPost!.availableLocales.includes(localeDefault)
+      ? effectiveLocale
+      : localeDefault
+  const xDefaultUrl = `${siteUrl}${withLocalePrefix(xDefaultLocale, urlLogical)}`
 
   const title = resolveConfigValue(pageContext.config?.title, pageContext)
   const description = resolveConfigValue(pageContext.config?.description, pageContext)
