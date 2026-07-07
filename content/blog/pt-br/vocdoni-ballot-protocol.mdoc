@@ -1,0 +1,218 @@
+---
+title: Apresentando o Protocolo de Cédulas da Vocdoni
+publishedDate: '2021-04-16'
+updatedDate: '2026-01-14'
+excerpt: 'Protocolo de Cédulas da Vocdoni A inovação central do protocolo da Vocdoni está em implementar o primeiro protocolo de votação online descentralizado, resistente à censura e…'
+coverImage: /blog/images/2025/12/ballot_protocol_post.webp
+coverAlt: Apresentando o Protocolo de Cédulas da Vocdoni
+authors:
+  - ferran
+categories:
+  - technology
+featured: false
+draft: false
+---
+
+# **Protocolo de Cédulas da Vocdoni**
+
+A inovação central do protocolo da Vocdoni está em implementar o primeiro protocolo de votação online descentralizado, resistente à censura e anônimo da história. Mas, além dessas aspirações técnicas, o Protocolo permite compatibilidade com uma ampla gama de processos democráticos. A Vocdoni consegue isso, em parte, graças à nossa especificação versátil para cédulas de voto.
+
+O **Protocolo de Cédulas da Vocdoni** (Vocdoni Ballot Protocol) pretende ser uma especificação simples, porém poderosa, para a representação de cédulas e resultados de um processo de votação.
+
+# **Primeiro, algumas definições:**
+
+Um **_processo de votação_** é composto por um ou mais **_campos_**, cada um representando uma única pergunta ou uma opção de uma pergunta, dependendo do **_tipo de processo_**. Ao votar, os eleitores habilitados escolhem entre um conjunto de **_respostas_** predefinidas para cada campo. O número permitido de respostas, o tipo de resposta etc. também dependem do tipo específico de processo. Um eleitor habilitado expressa suas escolhas depositando uma **_cédula_**.
+
+Uma cédula é representada como um array (ou lista) de números naturais. Cada posição do array contém uma resposta a um dos campos do processo.
+
+Os resultados são acumulados em um array bidimensional de números naturais (uma matriz). Cada linha dessa matriz corresponde a um campo da cédula, e cada coluna corresponde a um dos valores possíveis para esse campo. Cada número na matriz de resultados é simplesmente a contagem dos votos para o valor representado naquele índice.
+
+Antes de entrarmos nos detalhes de como um processo pode ser configurado, vamos passar por um exemplo genérico. Digamos que temos um processo com três campos, `A`, `B` e `C`, cada um aceitando `0`, `1` e `2` como valores possíveis. Não sabemos o que esses valores ou campos representam, mas isso não importa por enquanto.
+
+![](https://storage.googleapis.com/papyrus_images/47fc7647a24d815d609ad569c4456e39.png)
+
+Neste exemplo, dois votos foram depositados. O primeiro eleitor escolheu o valor `2` para o campo `A`, `0` para o campo `B` e `1` para o campo `C`. A segunda cédula tem os valores `0`, `0` e `2`. Você pode ver no diagrama acima como as cédulas se relacionam com a matriz de resultados. O _índice_ de um valor de uma cédula determina o _campo_ ao qual esse valor pertence — ou seja, o primeiro índice da cédula 1 tem o valor `2`, então a cédula 1 está atribuindo o valor `2` ao campo A. Dentro de cada campo da matriz de resultados, o valor do voto é representado pelo seu índice. Colocamos um `1` no índice `2` do `campo A` para representar o único voto dado ao valor `2`.
+
+Isso pode não ser intuitivo à primeira vista. Tente acompanhar mais alguns valores de uma das cédulas até a matriz de resultados para garantir que você compreendeu bem como os resultados são representados aqui.
+
+---
+
+# **O Protocolo em si**
+
+O protocolo de cédulas é composto por um conjunto de variáveis numéricas e booleanas (verdadeiro/falso) que restringem o formato de uma cédula válida.
+
+![](https://storage.googleapis.com/papyrus_images/b8d920f2d64cf347ff2f47f7e34a3340.png)
+
+Como o exemplo que apresentamos acima poderia ser representado com esse protocolo?
+
+Para começar, sabemos que temos três campos, então
+
+- `maxCount` = 3
+
+Temos 0, 1 e 2 como valores válidos, então podemos definir
+
+- `minValue` = 0
+- `maxValue` = 2
+
+A segunda cédula contém o valor `0` em vários campos. Portanto, para que essa cédula seja válida, precisamos definir
+
+- `uniqueValues` = 0 (aqui, 0 representa "falso" e 1 representa "verdadeiro")
+
+Não há um conjunto óbvio de atribuições para as três variáveis seguintes, então vamos acrescentar um pouco mais de contexto ao nosso processo de exemplo. Por exemplo, digamos que esse processo seja uma única pergunta pedindo aos eleitores que distribuam moedas de ouro entre diferentes organizações. Cada campo representa uma organização, e o valor atribuído a esse campo é o número de moedas de ouro que o eleitor deseja alocar para aquela organização.
+
+Com base nas variáveis `minValue` e `maxValue` que já definimos, sabemos que cada usuário pode alocar entre 0 e 2 moedas para uma mesma organização. Mas uma regra plausível que poderíamos acrescentar é que os eleitores só podem alocar 3 moedas no total. E vamos imaginar também que os eleitores _precisam_ alocar pelo menos 1 moeda.
+
+Isso dá significado ao diagrama do processo acima: a primeira cédula aloca 3 moedas no total (talvez esse eleitor apoie as organizações A e C, mas goste um pouco mais da A). A segunda cédula aloca apenas 2 das suas 3 moedas possíveis (esse eleitor só apoia a organização C e prefere desperdiçar a terceira moeda a entregá-la para A ou B). Então podemos definir com segurança
+
+- `minTotalCost` = 1
+- `maxTotalCost` = 3
+
+e ambas as cédulas serão válidas.
+
+A última variável que precisamos definir é `costExponent`, que se relaciona com a [votação quadrática](https://www.wikiwand.com/en/Quadratic_voting). Não vamos nos aprofundar nesse tipo de votação por enquanto, então basta definir o padrão
+
+- `costExponent` = 1
+
+Mais uma vez, reserve um momento para refletir sobre cada uma dessas variáveis e veja se consegue entender como a mudança de qualquer uma delas afetaria nosso processo de votação de exemplo.
+
+# **Interpretação dos resultados**
+
+As variáveis acima representam a totalidade do Protocolo de Cédulas da Vocdoni, que cobre a validação de cédulas e a tabulação de resultados conforme processadas pela infraestrutura central. Mas obviamente ainda falta muita informação quando se trata da experiência humana. Os integradores do protocolo precisam decidir como comunicar aos eleitores o conteúdo real de um processo, bem como interpretar e representar a matriz de resultados. A interpretação dos resultados está fora do escopo do Protocolo de Cédulas, mas é relevante para entender como o Protocolo pode ser usado.
+
+Em sua iteração atual, a Vocdoni define dois formatos de interpretação de resultados: **_Ponderado por índice_** e **_Valores discretos_**.
+
+### **Ponderado por índice**
+
+Usaríamos a fórmula de interpretação ponderada por índice para o nosso processo de exemplo. Esse esquema é adequado para processos de pergunta única, como voto preferencial, múltipla escolha ou orçamento participativo. Cada índice em um campo da matriz de resultados representa um valor ponderado; neste caso, o peso representa o número de moedas alocadas a uma organização. A soma dos votos, multiplicados pelos seus valores ponderados por índice, é o valor total daquele campo.
+
+![](https://storage.googleapis.com/papyrus_images/345a07aee1ddf6a6aad51db7e58fd399.png)
+
+Essa interpretação agrega nosso processo de exemplo. A organização A recebe 2 moedas; a organização C recebe 3.
+
+### **Valores discretos**
+
+A interpretação por valores discretos é usada em processos nos quais cada campo é uma pergunta independente. Aqui, cada valor representa uma única opção discreta (por exemplo, "Candidato 2"), e não um multiplicador (por exemplo, "2 pontos para esta opção"). Assim, esse método interpreta os resultados simplesmente informando qual valor, se houver, recebeu mais votos em cada campo.
+
+O `0` é reservado para empate entre opções.
+
+![](https://storage.googleapis.com/papyrus_images/97e8bca257a9b118b86ee3dd31165107.png)
+
+Esses dois formatos não pretendem ser exaustivos. Como dito acima, o Protocolo de Cédulas em si é agnóstico quanto à forma de agregação dos resultados, e qualquer pessoa que construa sua própria camada de aplicação sobre o protocolo pode definir sua própria interpretação de resultados.
+
+---
+
+# **Exemplos**
+
+Vamos passar por alguns exemplos do mundo real para dar uma ideia de quão versátil o Protocolo de Cédulas é.
+
+### **Voto preferencial**
+
+Eu administro uma fábrica de doces. Estamos prestes a lançar um novo sabor de pirulito e queremos fazer um teste de mercado para determinar de qual sabor os clientes vão gostar mais. Enviamos a alguns dos nossos clientes mais fiéis uma caixa contendo pirulitos sabor `aspargo`, `feijão`, `cenoura` e `endro` (não somos uma fábrica de doces muito bem-sucedida ☹). Estamos pedindo que eles indiquem suas preferências classificando os pirulitos em um processo de votação da Vocdoni...
+
+Essa situação é perfeita para um processo de [voto preferencial](https://www.wikiwand.com/en/Ranked_voting). Veja como vamos criar o processo para nossos testadores:
+
+Temos quatro sabores diferentes de doce que queremos classificar. Os usuários devem atribuir um valor a cada doce, então precisamos de um campo separado para cada tipo de doce.
+
+- `maxCount` = 4
+
+Vamos instruir os usuários a classificar os doces do melhor para o pior, sendo `3` o melhor e `0` o pior.
+
+- `minValue` = 0
+- `maxValue` = 3
+
+Não nos ajuda em nada se os testadores acharem que alguns doces são igualmente bons — queremos uma classificação clara do melhor ao pior.
+
+- `uniqueValues` = 1
+
+Como os usuários são obrigados a atribuir quatro valores únicos, sabemos que o custo total deve ser 0+1+2+3=6.
+
+- `minTotalCost` = 6
+- `maxTotalCost` = 6
+
+De novo, não temos uso para o costExponent aqui.
+
+- `costExponent` = 1
+
+![](https://storage.googleapis.com/papyrus_images/d06d57a97367e2f40ed75228f02392a7.png)
+
+Vamos tratar da nossa primeira cédula. Esse testador de produto adora cenouras, então classifica cenoura como primeira escolha. Depois vêm aspargo e endro, com feijão em último lugar. Veja como essa cédula é registrada na matriz de resultados:
+
+![](https://storage.googleapis.com/papyrus_images/e63207ba97dca5657af93969f5424cb3.png)
+
+As cédulas continuam chegando, e recebemos um total de 30 respostas! Com a matriz de resultados completa, agregamos então os resultados de acordo com o método ponderado por índice...
+
+![](https://storage.googleapis.com/papyrus_images/49480940bd6ea3db2320d77b587455ae.png)
+
+Endro é o vencedor! 🎉 Graças a essa extensa pesquisa de mercado, em breve você poderá encontrar pirulitos sabor endro no supermercado do seu bairro.
+
+### **Votação quadrática**
+
+Nossa cooperativa de fabricação de calçados, administrada pelos trabalhadores, realiza sua assembleia anual esta semana, durante a qual elegeremos um novo responsável pelo marketing. É uma disputa muito acirrada, e surgiu uma proposta de usar votação quadrática para equilibrar o jogo.
+
+A votação quadrática é um método que permite aos eleitores alocar múltiplos votos a um candidato, a um custo crescente. Neste caso, há quatro candidatos concorrendo, e cada membro tem até 9 "pontos" para gastar na votação. O detalhe é que o custo de atribuir um determinado valor `v` a um campo é `v` elevado a `costExponent`. Então, considerando um `costExponent` de 2, se eu atribuo 1 voto ao Candidato A, isso me custa um ponto; mas, se atribuo 2 votos, custa 4 pontos, e 3 votos para um único candidato me custam todos os 9 pontos. Vamos nos aprofundar e explicar isso melhor.
+
+Temos quatro candidatos diferentes, e os usuários podem votar em vários deles. Então cada um precisa ter seu próprio campo.
+
+- `maxCount` = 4
+
+Vamos colocar um limite razoável no valor que um eleitor pode atribuir a um único candidato.
+
+- `minValue` = 0
+- `maxValue` = 3
+
+Não há problema em os membros repetirem valores.
+
+- `uniqueValues` = 0
+
+Como dissemos acima, os membros podem gastar até 9 pontos.
+
+- `minTotalCost` = 0
+- `maxTotalCost` = 9
+
+Finalmente essa variável tem sua hora de brilhar. Vamos defini-la como 2, o que significa que o custo de qualquer valor é o quadrado desse valor.
+
+- `costExponent` = 2
+
+![](https://storage.googleapis.com/papyrus_images/a645cc0a4a064387d26dafb4972d053a.png)
+
+Vamos imaginar algumas configurações de cédula para dar uma ideia de como a votação quadrática funciona.
+
+**Cédula 1**
+
+Nosso primeiro eleitor ficaria satisfeito com qualquer um dos candidatos, mas tem uma leve preferência pelo Candidato B. Ele também quer usar o máximo possível do seu poder de voto.
+
+![](https://storage.googleapis.com/papyrus_images/d9e9d195ba9159cc90da7228e4764cfc.png)
+
+Cada valor `1` que esse eleitor deposita adiciona apenas `1` ao seu custo total. Mas um valor `2` adiciona `2^2`, ou seja, `4`, ao custo total. Ao distribuir votos entre todos os candidatos, esse eleitor consegue alocar um valor total de 5, alcançando um custo de apenas 7. Ele não consegue atingir o custo total máximo de 9, porque aumentar qualquer um dos seus valores `1` para `2` elevaria o custo acima de 9.
+
+**Cédula 2**
+
+O segundo eleitor tem opiniões muito fortes. Ele apoia apenas o Candidato C. Portanto, faz sentido atribuir o valor máximo ao Candidato 3. Embora tenha usado um valor total de apenas `3`, seu custo total está no máximo: `3^2` = `9`.
+
+![](https://storage.googleapis.com/papyrus_images/99d22c797167c3a9f1a5be94957e158c.png)
+
+Você pode imaginar como, em um processo maior, com mais candidatos e eleitores, a votação quadrática pode ser uma forma muito poderosa de medir a intensidade da preferência, além da própria preferência. Por ora, deixaremos a interpretação desses resultados como exercício para o leitor.
+
+---
+
+# **Um protocolo aberto e flexível**
+
+Esperamos que você tenha agora uma boa noção de alguns casos de uso possíveis para o Protocolo de Cédulas da Vocdoni. A característica mais importante do Protocolo, no entanto, é sua flexibilidade. Além das configurações apresentadas acima, existem inúmeras outras variantes e mecanismos de interpretação. Essas 8 variáveis abrangem uma ampla gama de cenários, representando quase todos os tipos de votação que conhecemos, além de outros que ainda nem foram inventados. E isso é apenas uma iteração inicial — o Protocolo pode se expandir, se necessário, para permitir ainda mais possibilidades.
+
+A flexibilidade técnica e a abertura desse Protocolo se refletem em seus usos no mundo real. A facilidade com que uma organização pode montar um processo de qualquer tipo reduz drasticamente a barreira para todos os tipos de tomada de decisão, seja uma votação tradicional ou algo mais direto, fluido e experimental. Os membros da sociedade civil agora têm as ferramentas para se fortalecer e conduzir processos democráticos que _melhor os representem_, seja qual for a forma que isso assuma.
+
+---
+
+# **Obs.: exemplos de código**
+
+Para quem é da área técnica e chegou até aqui, o Protocolo pode não significar muito sem alguns exemplos de código concretos. Veja como você poderia usar a [dvote-js](https://github.com/vocdoni/dvote-js), a implementação do Protocolo em typescript/javascript, para criar um processo.
+
+Primeiro, vamos preparar o ambiente. Importe os pacotes necessários, conecte-se aos gateways da Vocdoni e gere um censo de eleitores fictícios. Também vamos buscar a altura de bloco atual para definir corretamente o horário de início do processo.
+
+_Consulte a&#xA0;_[_documentação_](https://docs.vocdoni.io/#/integration/overview)_&#xA0;para guias mais aprofundados sobre configuração inicial, conexão a gateways, geração de censo etc._
+
+Agora podemos criar os metadados do nosso processo. Vamos criar um processo para o exemplo dos sabores de doce que discutimos acima. Os metadados são informações que ajudam os clientes a exibir corretamente o processo de votação e contêm as informações legíveis por humanos, sem configurar o processo no nível do protocolo. Aqui definimos uma pergunta por sabor de doce, incluindo cada um dos valores de escolha predefinidos de `0` a `3`. Também declaramos os tipos de agregação e exibição, que indicam aos clientes como interpretar os resultados e apresentar o processo aos usuários.
+
+Por fim, podemos criar o processo em si. As variáveis do Protocolo de Cédulas são simplesmente definidas conforme as que estabelecemos acima para este processo de exemplo, com a variável `uniqueValues` definida como o `envelopeType`. Além dessas variáveis, o `processParams` descreve onde o censo e os metadados desse processo estão armazenados, se o processo é criptografado e/ou anônimo, qual infraestrutura o processo deve usar, quando o processo começa e termina, e outras informações auxiliares.
+
+Depois de publicar esse processo, podemos lê-lo de volta, verificar se os parâmetros estão definidos corretamente, instruir clientes web ou de aplicativos a exibir esse tipo de processo e começar a votação!

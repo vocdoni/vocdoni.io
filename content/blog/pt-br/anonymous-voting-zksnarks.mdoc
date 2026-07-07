@@ -1,0 +1,189 @@
+---
+title: 'Análise técnica: voto anônimo com zk-SNARKs'
+publishedDate: '2022-10-19'
+updatedDate: '2026-01-14'
+excerpt: Conheça as especificações técnicas do voto anônimo da Vocdoni e como chegamos a este design.
+coverImage: /blog/images/2026/01/blogpost_anonymous_zksnarks.webp
+coverAlt: 'Análise técnica: voto anônimo com zk-SNARKs'
+authors:
+  - ferran
+categories:
+  - technology
+featured: false
+draft: false
+---
+
+# **Definindo o voto anônimo**
+
+Antes de entrar nas especificações técnicas, vale explicar como definimos voto anônimo e por que chegamos a este design. No artigo de anúncio do produto, apresentamos dois tipos de anonimato: a ofuscação da cédula e o anonimato do eleitor.
+
+A ofuscação da cédula se refere ao anonimato obtido ao ocultar o conteúdo de cada voto, enquanto o anonimato do eleitor rompe o vínculo entre cada eleitor e seu voto, sem ocultar os votos em si. Nossa implementação de voto anônimo usa o anonimato do eleitor. Por quê?
+
+Em primeiro lugar, a ofuscação da cédula traz consigo alguns compromissos significativos. Para permitir a verificabilidade de ponta a ponta de um processo de votação, os eleitores precisam poder rastrear e examinar o conteúdo das cédulas que depositaram. Se garantirmos o anonimato por meio da ofuscação da cédula, perdemos a propriedade da verificabilidade, pois é impossível verificar que seu voto foi contado e auditar a integridade da votação se o conteúdo de cada voto está oculto.
+
+Outra desvantagem da ofuscação da cédula é a dificuldade de implementá-la em um sistema de votação digital. Uma técnica de ofuscação da cédula é o uso de criptografia homomórfica, que já foi [proposta](https://www.itm-conferences.org/articles/itmconf/pdf/2020/02/itmconf_icacc2020_03023.pdf) para fornecer anonimato criptográfico a sistemas de votação tradicionais. A criptografia homomórfica permite computar sobre valores criptografados, ou seja, é possível calcular a apuração dos votos sem examinar o conteúdo de uma única cédula. Embora sólida na teoria, a criptografia homomórfica carrega muitas desvantagens que a tornam menos desejável como espinha dorsal de uma tecnologia de votação.
+
+A mais notável é que esse método só permite computações básicas sobre as cédulas criptografadas, o que torna esquemas como o [voto quadrático](https://en.wikipedia.org/wiki/Quadratic_voting?oldformat=true) ou o [voto](https://en.wikipedia.org/wiki/Instant-runoff_voting?oldformat=true) [preferencial](https://www.wikiwand.com/en/Instant-runoff_voting) mais difíceis de [implementar](https://blog.aragon.org/vocdoni-ballot-protocol/). Além disso, embora a computação dos resultados seja garantida com a criptografia homomórfica, a verificação de ponta a ponta da cédula de um eleitor não é. Esse esquema não fornece nenhuma prova criptográfica que garanta que a cédula de um eleitor foi incluída e representada corretamente no conjunto de resultados. Estimamos ainda que a validação da prova homomórfica de um processo de votação exigiria recursos computacionais significativos, que só crescem com processos de votação maiores. Isso poderia anular os benefícios de um sistema universalmente verificável, já que a verificação só poderia ser computada em máquinas potentes e caras, em uma escala de tempo proibitivamente longa.
+
+O anonimato do eleitor tem uma série de vantagens sobre a criptografia homomórfica. Em primeiro lugar, é possível um grau muito maior de verificabilidade de ponta a ponta. Embora o vínculo entre um eleitor e sua cédula deva ser opaco para qualquer observador _terceiro_, os próprios eleitores ainda conseguem identificar sua cédula. Como as cédulas em si são visíveis, qualquer usuário pode rastrear seu voto desde o momento em que foi depositado até sua inclusão nos resultados. Além disso, terceiros conseguem verificar que cada cédula pertence a um eleitor válido e que o conteúdo dessa cédula foi contado corretamente.
+
+O anonimato do eleitor também tende a permitir designs muito mais eficientes do ponto de vista computacional. Sistemas com anonimato do eleitor realizam a ofuscação uma única vez, sobre a prova da cédula de cada eleitor, em vez de sobre o conjunto inteiro de resultados a cada nova cédula depositada. Nenhuma etapa computacional significativa é necessária para disponibilizar amplamente os resultados. Os resultados da eleição podem inclusive ser publicados _durante_ o processo de votação sem comprometer o anonimato (desde que ataques de correlação temporal tenham sido mitigados).
+
+Por isso, decidimos incorporar o anonimato do eleitor ao nosso mecanismo de prova de censo.
+
+# **Árvore de Merkle do censo**
+
+O ponto de partida do mecanismo de censo de eleitores é uma [_árvore de Merkle do censo_](https://docs.vocdoni.io/architecture/census/off-chain-tree.html). Trata-se de uma estrutura de chaves públicas com hash, cada uma representando um eleitor apto do censo. O uso de uma árvore de Merkle aqui permite, na prática, que qualquer eleitor válido prove que possui uma `censusKey` pertencente ao censo, sem conhecer as chaves de nenhum outro eleitor. O eleitor então envia essa prova como parte de sua cédula. Também vem anexado a esse _envelope de voto_ um `nullifier`: um dado derivado da `censusKey` do usuário e do `electionID`, que corresponde de forma única ao seu voto.
+
+Usar apenas essa prova permitiria ao organizador de um processo correlacionar cada envelope de voto, via seu `nullifier`, com a `censusKey` de um eleitor, desanonimizando a votação. Para combater isso, a Vocdoni usa _zk-SNARKs_ para garantir o anonimato do voto.
+
+### **zk-SNARKs para voto anônimo**
+
+[zk-SNARK](https://en.wikipedia.org/wiki/Non-interactive_zero-knowledge_proof?oldformat=true) é a sigla de _zero-knowledge Succinct Non-interactive ARgument of Knowledge_ (argumento de conhecimento sucinto, não interativo e de conhecimento zero). Um zk-SNARK permite que um usuário prove a um terceiro que possui uma determinada informação, sem revelar a informação em si.
+
+No nosso caso, os zk-SNARKs permitem que os eleitores provem que pertencem ao censo sem revelar sua `secretKey`. Especificamente, isso é feito com um zk-Circuit, um circuito de software projetado para gerar uma prova de conhecimento zero (ZKP).
+
+### **zk-Circuit**
+
+Projetamos um circuito que permite aos usuários gerar uma ZKP de sua inclusão no censo sem revelar sua `secretKey`. O circuito recebe entradas privadas e públicas, e os dados que poderiam revelar a identidade do eleitor são mantidos privados. As entradas públicas são enviadas dentro do envelope de voto para que os validadores possam conferi-las contra a prova e garantir que o usuário não votou duas vezes.
+
+O circuito pode ser usado para qualquer processo com um censo de tamanho semelhante, e só precisa ser gerado uma vez por tamanho. Sendo mais específico: um circuito pode ser gerado e depois reutilizado para qualquer árvore de Merkle de censo com a mesma altura de árvore. Como usamos uma árvore binária, isso significa que é necessário um circuito para cada valor `n` em que o tamanho-alvo do censo esteja dentro do intervalo de `2^n` (ex.: 128, 256, ..., 8192, 16384 etc.).
+
+A geração do circuito depende de uma [cerimônia de configuração confiável](https://medium.com/qed-it/diving-into-the-snarks-setup-phase-b7660242a0d7) (_trusted setup_). É um processo de geração das chaves do provador e do verificador do circuito, e é "confiável" porque, se uma única parte controlasse toda a geração dessas chaves, ela poderia gerar provas falsas. Por isso, é necessária uma "cerimônia" descentralizada para garantir a confiabilidade do circuito. Nessa cerimônia, várias partes com interesses conflitantes e em locais diferentes executam, cada uma, uma etapa da geração das chaves. Basta que uma única dessas partes mantenha a integridade para que seja impossível gerar uma prova falsa.
+
+A `franchise proof` é gerada pela execução do circuito zk-SNARK.
+
+- **Entradas privadas:** `index`, `secretKey`, `census Merkle-proof`
+- **Entradas públicas:** `census Merkle-root`, `nullifier`, `election ID`, `vote`
+- **Saída:** `franchise proof`
+
+![](/blog/images/2026/01/zksnarks_anonymous_1.webp)
+
+# **Definindo o voto anônimo**
+
+Antes de entrar nas especificações técnicas, vale explicar como definimos voto anônimo e por que chegamos a este design. No artigo de anúncio do produto, apresentamos dois tipos de anonimato: a ofuscação da cédula e o anonimato do eleitor.
+
+A ofuscação da cédula se refere ao anonimato obtido ao ocultar o conteúdo de cada voto, enquanto o anonimato do eleitor rompe o vínculo entre cada eleitor e seu voto, sem ocultar os votos em si. Nossa implementação de voto anônimo usa o anonimato do eleitor. Por quê?
+
+Em primeiro lugar, a ofuscação da cédula traz consigo alguns compromissos significativos. Para permitir a verificabilidade de ponta a ponta de um processo de votação, os eleitores precisam poder rastrear e examinar o conteúdo das cédulas que depositaram. Se garantirmos o anonimato por meio da ofuscação da cédula, perdemos a propriedade da verificabilidade, pois é impossível verificar que seu voto foi contado e auditar a integridade da votação se o conteúdo de cada voto está oculto.
+
+Outra desvantagem da ofuscação da cédula é a dificuldade de implementá-la em um sistema de votação digital. Uma técnica de ofuscação da cédula é o uso de criptografia homomórfica, que já foi [proposta](https://www.itm-conferences.org/articles/itmconf/pdf/2020/02/itmconf_icacc2020_03023.pdf) para fornecer anonimato criptográfico a sistemas de votação tradicionais. A criptografia homomórfica permite computar sobre valores criptografados, ou seja, é possível calcular a apuração dos votos sem examinar o conteúdo de uma única cédula. Embora sólida na teoria, a criptografia homomórfica carrega muitas desvantagens que a tornam menos desejável como espinha dorsal de uma tecnologia de votação.
+
+A mais notável é que esse método só permite computações básicas sobre as cédulas criptografadas, o que torna esquemas como o [voto quadrático](https://en.wikipedia.org/wiki/Quadratic_voting?oldformat=true) ou o [voto](https://en.wikipedia.org/wiki/Instant-runoff_voting?oldformat=true) [preferencial](https://www.wikiwand.com/en/Instant-runoff_voting) mais difíceis de [implementar](https://blog.aragon.org/vocdoni-ballot-protocol/). Além disso, embora a computação dos resultados seja garantida com a criptografia homomórfica, a verificação de ponta a ponta da cédula de um eleitor não é. Esse esquema não fornece nenhuma prova criptográfica que garanta que a cédula de um eleitor foi incluída e representada corretamente no conjunto de resultados. Estimamos ainda que a validação da prova homomórfica de um processo de votação exigiria recursos computacionais significativos, que só crescem com processos de votação maiores. Isso poderia anular os benefícios de um sistema universalmente verificável, já que a verificação só poderia ser computada em máquinas potentes e caras, em uma escala de tempo proibitivamente longa.
+
+O anonimato do eleitor tem uma série de vantagens sobre a criptografia homomórfica. Em primeiro lugar, é possível um grau muito maior de verificabilidade de ponta a ponta. Embora o vínculo entre um eleitor e sua cédula deva ser opaco para qualquer observador _terceiro_, os próprios eleitores ainda conseguem identificar sua cédula. Como as cédulas em si são visíveis, qualquer usuário pode rastrear seu voto desde o momento em que foi depositado até sua inclusão nos resultados. Além disso, terceiros conseguem verificar que cada cédula pertence a um eleitor válido e que o conteúdo dessa cédula foi contado corretamente.
+
+O anonimato do eleitor também tende a permitir designs muito mais eficientes do ponto de vista computacional. Sistemas com anonimato do eleitor realizam a ofuscação uma única vez, sobre a prova da cédula de cada eleitor, em vez de sobre o conjunto inteiro de resultados a cada nova cédula depositada. Nenhuma etapa computacional significativa é necessária para disponibilizar amplamente os resultados. Os resultados da eleição podem inclusive ser publicados _durante_ o processo de votação sem comprometer o anonimato (desde que ataques de correlação temporal tenham sido mitigados).
+
+Por isso, decidimos incorporar o anonimato do eleitor ao nosso mecanismo de prova de censo.
+
+# **Árvore de Merkle do censo**
+
+O ponto de partida do mecanismo de censo de eleitores é uma [_árvore de Merkle do censo_](https://docs.vocdoni.io/architecture/census/off-chain-tree.html). Trata-se de uma estrutura de chaves públicas com hash, cada uma representando um eleitor apto do censo. O uso de uma árvore de Merkle aqui permite, na prática, que qualquer eleitor válido prove que possui uma `censusKey` pertencente ao censo, sem conhecer as chaves de nenhum outro eleitor. O eleitor então envia essa prova como parte de sua cédula. Também vem anexado a esse _envelope de voto_ um `nullifier`: um dado derivado da `censusKey` do usuário e do `electionID`, que corresponde de forma única ao seu voto.
+
+Usar apenas essa prova permitiria ao organizador de um processo correlacionar cada envelope de voto, via seu `nullifier`, com a `censusKey` de um eleitor, desanonimizando a votação. Para combater isso, a Vocdoni usa _zk-SNARKs_ para garantir o anonimato do voto.
+
+### **zk-SNARKs para voto anônimo**
+
+[zk-SNARK](https://en.wikipedia.org/wiki/Non-interactive_zero-knowledge_proof?oldformat=true) é a sigla de _zero-knowledge Succinct Non-interactive ARgument of Knowledge_ (argumento de conhecimento sucinto, não interativo e de conhecimento zero). Um zk-SNARK permite que um usuário prove a um terceiro que possui uma determinada informação, sem revelar a informação em si.
+
+No nosso caso, os zk-SNARKs permitem que os eleitores provem que pertencem ao censo sem revelar sua `secretKey`. Especificamente, isso é feito com um zk-Circuit, um circuito de software projetado para gerar uma prova de conhecimento zero (ZKP).
+
+### **zk-Circuit**
+
+Projetamos um circuito que permite aos usuários gerar uma ZKP de sua inclusão no censo sem revelar sua `secretKey`. O circuito recebe entradas privadas e públicas, e os dados que poderiam revelar a identidade do eleitor são mantidos privados. As entradas públicas são enviadas dentro do envelope de voto para que os validadores possam conferi-las contra a prova e garantir que o usuário não votou duas vezes.
+
+O circuito pode ser usado para qualquer processo com um censo de tamanho semelhante, e só precisa ser gerado uma vez por tamanho. Sendo mais específico: um circuito pode ser gerado e depois reutilizado para qualquer árvore de Merkle de censo com a mesma altura de árvore. Como usamos uma árvore binária, isso significa que é necessário um circuito para cada valor `n` em que o tamanho-alvo do censo esteja dentro do intervalo de `2^n` (ex.: 128, 256, ..., 8192, 16384 etc.).
+
+A geração do circuito depende de uma [cerimônia de configuração confiável](https://medium.com/qed-it/diving-into-the-snarks-setup-phase-b7660242a0d7) (_trusted setup_). É um processo de geração das chaves do provador e do verificador do circuito, e é "confiável" porque, se uma única parte controlasse toda a geração dessas chaves, ela poderia gerar provas falsas. Por isso, é necessária uma "cerimônia" descentralizada para garantir a confiabilidade do circuito. Nessa cerimônia, várias partes com interesses conflitantes e em locais diferentes executam, cada uma, uma etapa da geração das chaves. Basta que uma única dessas partes mantenha a integridade para que seja impossível gerar uma prova falsa.
+
+A `franchise proof` é gerada pela execução do circuito zk-SNARK.
+
+- **Entradas privadas:** `index`, `secretKey`, `census Merkle-proof`
+- **Entradas públicas:** `census Merkle-root`, `nullifier`, `election ID`, `vote`
+- **Saída:** `franchise proof`
+
+![](https://storage.googleapis.com/papyrus_images/6b32fa7a072e4433398cb3ebd67ea70e.png)
+
+Sem revelar a `secretKey` nem a _prova de Merkle do censo_, esse circuito é capaz de demonstrar que:
+
+1. O eleitor é o dono da `secretKey` correspondente a uma determinada `zkCensusKey`.
+2. A `zkCensusKey` do eleitor está incluída na árvore de Merkle do censo.
+3. O `nullifier` fornecido pelo eleitor corresponde de forma única à sua `secretKey` e ao `election ID` de um processo de votação específico.
+
+Embora a computação seja intensiva em CPU e memória, as ZKPs podem ser geradas no cliente do usuário, rodando em hardware modesto. No protocolo da [Vocdoni](http://vocdoni.app/), a prova é validada pelos nós da [Vochain](https://docs.vocdoni.io/architecture/services/vochain.html), pelos mineradores e por qualquer terceiro que esteja monitorando o processo.
+
+O circuito é minimizado e otimizado até seus requisitos mínimos para torná-lo acessível a qualquer tipo de hardware de cliente. Essa é a razão de não usarmos verificação de assinatura, e sim uma abordagem baseada em secretKey.
+
+### **Árvores de Merkle e de censo**
+
+A árvore de Merkle usada para construir o _censo anônimo_ precisa ser uma implementação compatível com zk-SNARKs. Como atualmente usamos o compilador [Circom](https://github.com/iden3/circom) para os circuitos zk-SNARK, precisamos de uma árvore compatível com a implementação de árvore de Merkle da [circomlib](https://github.com/iden3/circomlib/tree/master/circuits/smt). Uma especificação dessa árvore de Merkle [pode ser encontrada aqui](https://docs.iden3.io/publications/pdfs/Merkle-Tree.pdf).
+
+A [Vochain](https://docs.vocdoni.io/architecture/services/vochain.html) usa a árvore de Merkle [arbo](https://github.com/vocdoni/arbo), uma implementação em Go compatível com o design do Circom. A árvore de Merkle usa o hash Poseidon, uma função de hash "amigável a SNARKs" que pode depois ser provada dentro de um circuito sem exigir restrições demais. O diagrama a seguir é uma representação visual da estrutura de dados das folhas da árvore de Merkle usada no esquema da zk-census-proof.
+
+![](/blog/images/2026/01/zksnarks_anonymous_2.webp)
+
+O valor de `index` é determinado pelo construtor da _árvore de censo_, que mantém um valor de `index` para cada árvore de censo. Esse valor é incrementado com a adição de cada nova _folha_. As _folhas_ são estruturadas dessa forma para usar as árvores de Merkle com mais eficiência, permitindo que as chaves de mais usuários caibam em uma árvore menor e reduzindo, assim, o tamanho do zk-Circuit. Isso acontece porque o `value` da `key` de uma folha determina a posição dessa folha na árvore.
+
+Se a chave da folha fosse determinada pela `zkCensusKey`, em vez de um `index` incremental, cada nova folha teria uma chance significativa de colisão antes de preencher todas as posições de folha disponíveis para uma dada altura. As árvores seriam, portanto, menos balanceadas e exigiriam circuitos maiores para o mesmo tamanho de censo, devido ao uso ineficiente do espaço da árvore. Com a abordagem do índice incremental, por outro lado, todas as posições de folha podem ser preenchidas sem uma única colisão. Isso produz circuitos muito menores para o mesmo número de usuários.
+
+### **Geração das zk-Inputs**
+
+```json
+{
+	"censusRoot": "51642541620950251760298704744678482162425252475654827255045491135352807540162",
+	"censusSiblings": ["0","0","0","0"],
+	"index": "30",
+	"secretKey": "6190793965647866647574058687473278714480561351424348391693421151024369116465",
+	"voteValue": ["100964581237483263846637432502620436451", "278307331411790712608582894981321409946"],
+	"electionId": "10",
+	"nullifier": "1938187656076799017313903315498318464349291455761501098436114043715056719301",
+}
+```
+
+Origem de cada parâmetro de zk-Input:
+
+Todos os parâmetros são `string` ou `[]string` que representam `bigInt` ou `[]bigInt`.
+
+- `censusRoot`: computado pela _autoridade do censo_ a partir da _árvore de censo_.
+- `censusSiblings`: computado pela autoridade do censo; é a prova de Merkle
+- o usuário obtém os _siblings_ da Vochain por meio do gateway.
+- o comprimento de `censusSiblings` dependerá do zk-Circuit:
+- O design da árvore de Merkle usada na circomlib faz com que sejam retornados siblings de comprimentos diferentes ao gerar uma prova de Merkle.
+- A profundidade da árvore, definida da raiz até as folhas, dependerá de cada folha e de suas vizinhas.
+- Mais detalhes podem ser encontrados na [especificação da árvore de Merkle](https://docs.iden3.io/publications/pdfs/Merkle-Tree.pdf).
+- Para inserir esses siblings no circuito, o `nLevels` do circuito é fixo, então `siblings.length` também precisa ser fixo.
+- O `siblings.length` dependerá do zk-Circuit em uso, especificamente do parâmetro `nLevels` do circuito
+- A lógica que precisa ser implementada no lado do usuário pode ser encontrada [aqui (go), linhas 67-70](https://github.com/vocdoni/zk-franchise-proof-circuit/blob/feature/go-code-inputs-generation/test/go-inputs-generator/census_test.go#L67) e [aqui (js), linha 23](https://github.com/vocdoni/zk-franchise-proof-circuit/blob/feature/go-code-inputs-generation/src/franchise.js#L33): `while (siblings.length < this.levels) siblings.push(BigInt(0));`
+- `index`: determinado pela Vochain ao adicionar a `zkCensusKey` do usuário à árvore de censo
+- `secretKey`: gerada pelo usuário
+- `voteValue`: valor com hash do voto do usuário, composto por dois inteiros grandes.
+- O voto bruto do usuário é um array de valores de comprimento variável, e seus valores não precisam ser verificados no circuito. Além disso, os valores podem ser criptografados.
+- Como os valores codificados do voto podem não caber em um número constante de entradas do circuito, calculamos um resumo do voto bruto do usuário usando uma função de hash amigável à EVM: `sha256(vote_bytes)`. A saída do hash `sha256` é ligeiramente maior que o corpo (field) usado em SNARKs, então dividimos a saída do hash (32 bytes) em 2 arrays de 16 bytes, os interpretamos como inteiros (em little-endian) e os usamos como entradas do circuito.
+- O hash `sha256` é usado porque, se necessário no futuro, ele pode ser [verificado dentro](https://github.com/iden3/circomlib/blob/master/circuits/sha256/sha256.circom) do circuito. Esse uso tem duas características a ter em mente: o `sha256` é duas vezes mais caro que o `keccak256` em termos de gas na EVM, mas está implementado em circom, então pode ser conferido dentro de um circuito; verificar o `sha256` dentro de um circuito circom é caro em termos de número de restrições (na versão atual desta especificação, isso não é verificado dentro do circuito).
+
+```go
+h := sha256.Sum256(voteBytes) // voteBytes can be the votes array converted to bytes, or the encrypted votes
+b1 := new(big.Int).SetBytes(swapEndianness(h[:16])) // swap endianness, as golang big int package works in big-endian, and we use little-endian
+b2 := new(big.Int).SetBytes(swapEndianness(h[16:]))
+```
+
+E a entrada json do `voteValue` para o circuito seria: `"voteValue": [b1, b2]`
+
+- `electionID`: o ID da eleição em que o _usuário_ está participando
+- `nullifier`: computado pelo _usuário_: `nullifier = poseidon.Hash(sk, electionID)`
+
+# **Voto anônimo para DAOs**
+
+Para responder à pergunta "como essa tecnologia pode ser usada na votação de DAOs no Ethereum", precisamos acrescentar um pouco de contexto:
+
+- Atualmente, a criptografia interna, as estruturas de dados e a árvore de Merkle do Ethereum não são amigáveis a zk-SNARKs, então as opções são limitadas (por enquanto).
+- A Vocdoni atualmente oferece [votação com provas de armazenamento do Ethereum](https://www.notion.so/Introducing-Vocdoni-Bridge-voice-cf7e73d38c4a45788358e9a1497cdf19?pvs=21), que é hoje a forma mais segura e sem intermediários de confiança (trustless) de executar votações offchain sem gas (implementada no frontend [https://voice.aragon.org](https://blog.aragon.org/introducing-vocdoni-anonymous-voting/))
+- Embora a Vocdoni ainda não ofereça execução vinculante offchain completa (votar dentro do Ethereum exige uma abordagem otimista), já fizemos alguns [trabalhos de prova de conceito nesse escopo](https://blog.aragon.org/binding-execution-on-ethereum-with-zk-rollups/) e continuamos pesquisando para alcançar as propriedades completas (novos designs e provas de conceito em breve).
+
+A forma como a Vocdoni pode atualmente oferecer voto anônimo em DAOs segue estes passos:
+
+1. Uma nova eleição é criada na blockchain da Vocdoni com o censusRoot igual à raiz de estado (state root) do Ethereum e ao endereço do contrato ERC20.
+2. Os usuários obtêm da Web3 uma prova de armazenamento do Ethereum que demonstra que possuem tokens para um contrato e uma raiz de estado.
+3. Os usuários geram uma nova `secretKey` temporária e enviam uma transação à blockchain da Vocdoni, provando que são eleitores aptos (por meio da prova de armazenamento). Essa transação inclui o hash da `secretKey`, que é adicionado a um `rolling Census` computado internamente pela lógica da blockchain da Vocdoni. Essa etapa se chama **pré-registro de chave**.
+4. Concluído o pré-registro, os usuários podem votar anonimamente usando sua `secretKey`

@@ -1,0 +1,153 @@
+---
+title: Como a Vocdoni e a Society22 protegeram a eleição de 2026 do Conselho de Coordenação da Bielorrússia
+publishedDate: '2026-05-22'
+excerpt: 'A eleição de 2026 do Conselho de Coordenação da Bielorrússia enfrentou 24 bilhões de requisições maliciosas e 68 TB de tráfego de ataque. Mesmo sob ciberataques contínuos, a Vocdoni e a Society22 mantiveram a eleição online, verificável e resistente à censura, permitindo que 2.113 participantes votassem com segurança.'
+coverImage: /blog/images/2026/05/cc_belarus_2026.webp
+coverAlt: Como a Vocdoni e a Society22 protegeram a eleição de 2026 do Conselho de Coordenação da Bielorrússia
+authors:
+  - ferran
+  - jordi-pinyana
+categories:
+  - success-stories
+featured: false
+draft: false
+---
+
+Em maio de 2026, as forças democráticas bielorrussas realizaram uma eleição que não poderia acontecer com segurança em locais de votação. Seu eleitorado estava espalhado por vários países, muitos participantes atuavam sob pressão política ou no exílio, e a própria votação se tornou alvo de uma campanha de ataques sustentada.
+
+De 11 a 19 de maio, 2.113 participantes votaram online na eleição para renovar o Conselho de Coordenação da Bielorrússia, um órgão representativo ligado às forças democráticas bielorrussas, à sociedade civil e às comunidades da diáspora. Pela segunda vez, [depois da eleição de 2024](/blog/new-belarus-vocdoni), a Vocdoni forneceu a infraestrutura de votação verificável de ponta a ponta e resistente à censura que tornou possível a participação online segura, enquanto a [Society22](https://www.society22.org), uma iniciativa cívica e plataforma digital a serviço das comunidades democráticas e da diáspora bielorrussa, operou a camada de identidade e acesso.
+
+A eleição aconteceu sob pressão excepcional. A plataforma ao redor foi atacada continuamente em várias frentes, enfrentando cerca de 24 bilhões de requisições e cerca de 68 TB de tráfego de ataque durante o período eleitoral, incluindo padrões de tráfego sofisticados, projetados para se parecer com atividade humana normal. Apesar disso, a infraestrutura de votação da [Vocdoni](https://vocdoni.io/pt-br) registrou 99,45 % de disponibilidade, enquanto a plataforma mais ampla da Society22 reportou 95,2 %. Mais importante: as cédulas depositadas por meio da Vocdoni permaneceram verificáveis de forma independente. E este não foi um evento isolado: ao longo de 2025, a Cloudflare relatou ter [mitigado 47,1 milhões de ataques DDoS, um aumento de 121 % em relação ao ano anterior](https://blog.cloudflare.com/ddos-threat-report-2025-q4/).
+
+Este caso mostra por que [uma infraestrutura de participação verificável e resistente à censura importa, especialmente em ambientes políticos de alto risco](/blog/what-political-parties-need-from-an-online-voting-provider). Uma eleição digital séria precisa proteger a integridade das cédulas, a privacidade do eleitor e a verificabilidade pública, mesmo quando a plataforma ao redor está sob ataque.
+
+**Principais pontos**
+
+- A Vocdoni operou a infraestrutura de votação da eleição de 2026 do Conselho de Coordenação da Bielorrússia, a segunda vez que apoia esse órgão depois da votação de 2024.
+- A votação ocorreu de 11 a 19 de maio de 2026, prorrogada da janela original de 11 a 17 para manter o acesso aberto enquanto os ataques eram mitigados. 2.113 pessoas participaram.
+- A plataforma enfrentou ataques sustentados: a Society22 reportou cerca de 24 bilhões de requisições DDoS e 68 TB de tráfego projetado para parecer humano.
+- A mitigação da Vocdoni combinou filtragem por país e por ASN, limites estritos de requisições nas APIs e cache, mantendo a disponibilidade da infraestrutura de votação em 99,45 %.
+- Disponibilidade e integridade são propriedades diferentes. Os ataques miraram a disponibilidade. A votação verificável de ponta a ponta protege a integridade, e um sistema sério precisa das duas.
+
+## O que é o Conselho de Coordenação da Bielorrússia
+
+O [Conselho de Coordenação da Bielorrússia](https://tsikhanouskaya.org/en/coordinating-council.html) é um órgão representativo e de coordenação, ligado às forças democráticas bielorrussas, a atores da sociedade civil e às comunidades da diáspora. Ele surgiu em 2020, depois de uma eleição presidencial contestada e da crise política que se seguiu.
+
+O Conselho funciona por meio de um sistema eleitoral proporcional, com eleições realizadas pelo menos a cada dois anos, e hoje atua em vários países, já que muitos de seus membros e participantes vivem no exílio ou fora da Bielorrússia.
+
+Esse último ponto importa para tudo o que vem a seguir. Uma grande parte da vida cívica e política bielorrussa acontece hoje de forma transnacional. O Conselho é, em parte, um mecanismo para manter a representação e a coordenação intactas através das fronteiras, quando as pessoas envolvidas não conseguem exercer a vida política sem sofrer repressão nem compartilhar a mesma jurisdição.
+
+![](/blog/images/2026/05/image.webp)
+
+Distribuição de cadeiras nas eleições de 2026 do Conselho de Coordenação
+
+## Por que essas eleições acontecem online
+
+As eleições do Conselho renovam sua composição. Os participantes bielorrussos aptos escolhem entre candidatos e listas eleitorais que buscam representação. A votação é online porque o eleitorado está distribuído dentro e fora da Bielorrússia, enquanto a repressão política e os riscos de segurança tornam o voto presencial dentro do país impossível para muitos participantes.
+
+Nesse contexto, a votação online não é uma questão de conveniência. É a única forma prática de essas forças democráticas alternativas organizarem eleições e manterem a participação representativa através das fronteiras.
+
+Isso não significava que qualquer sistema de votação online seria suficiente. A eleição exigia uma infraestrutura capaz de proteger a privacidade do eleitor, preservar a integridade e a verificabilidade do resultado e permanecer resiliente contra censura, interrupções e ataques direcionados.
+
+A votação de 2026 foi a segunda vez que a Vocdoni forneceu essa infraestrutura. A [primeira eleição online do Conselho de Coordenação, em 2024](/blog/new-belarus-vocdoni), estabeleceu o modelo. O processo de 2026 o repetiu em condições mais duras.
+
+## A Society22 e a camada de identidade
+
+A autenticação passou pela Society22, que forneceu um sistema de identidade autossoberana (SSI). Isso permitiu que os participantes se autenticassem por meio de um framework alternativo de identidade digital, em vez de depender inteiramente da infraestrutura de identidade emitida pelo Estado.
+
+Essa separação é o ponto que vale guardar. Uma arquitetura de votação bem construída mantém várias funções distintas: verificação de identidade, validação de elegibilidade, depósito da cédula, sigilo do voto e apuração. Colapsar tudo em uma única premissa de confiança cria risco sistêmico.
+
+Aqui, a Society22 cuidou da camada de identidade e acesso, enquanto a camada de votação da Vocdoni manteve suas próprias garantias de verificabilidade e integridade. Os eleitores autenticados puderam participar sem que o sistema de identidade e o sistema de votação precisassem confiar cegamente um no outro.
+
+## Visão geral da eleição
+
+Os números centrais, conforme reportados pela Vocdoni e pela Society22:
+
+<!--kg-card-begin: html-->
+
+| Métrica                                                | Valor                                            |
+| ------------------------------------------------------ | ------------------------------------------------ |
+| Período de votação                                     | 11 a 19 de maio de 2026 (prorrogado de 11 a 17)  |
+| Participantes                                          | 2.113                                            |
+| Autenticação                                           | Sistema de identidade SSI da Society22           |
+| Infraestrutura de votação                              | Vocdoni                                          |
+| Disponibilidade da infraestrutura de votação (Vocdoni) | 99,45 %                                          |
+| Disponibilidade da plataforma Society22                | 95,2 %                                           |
+| Volume de DDoS reportado                               | \~24 bilhões de requisições                      |
+| Tráfego de ataque reportado                            | \~68 TB                                          |
+| Amostra de ataque pré-eleitoral em abril               | mais de 12 bilhões de requisições                |
+
+<!--kg-card-end: html-->
+
+![](/blog/images/2026/05/coordination_council_2026_belarus_results.webp)
+
+[Resultados da eleição de 2026 do Conselho de Coordenação da Bielorrússia](https://explorer.vote/process/6b342d99f218567131f63a34cd9ac911f84d2fd4cb92f1b9d55a030c00000005) no explorador público de verificação da Vocdoni.
+
+Dois detalhes merecem nota. Primeiro, a janela de votação foi prorrogada. A votação estava originalmente prevista para encerrar em 17 de maio e foi estendida até 19 de maio, para absorver a interrupção causada pelos ataques e manter o acesso aberto aos eleitores legítimos. A prorrogação foi uma decisão operacional em favor da participação.
+
+Segundo, os dois números de disponibilidade descrevem coisas diferentes. Os 99,45 % se referem à infraestrutura de votação da Vocdoni. Os 95,2 % se referem ao ambiente mais amplo da plataforma Society22. Não são o mesmo escopo e não devem ser lidos como um número só. Um relatório mais completo detalhará a metodologia de medição e os componentes afetados por trás de cada um.
+
+## Operando sob ataque
+
+Segundo a Society22, a plataforma enfrentou atividade de negação de serviço distribuída somando cerca de 24 bilhões de requisições e cerca de 68 TB de tráfego. Uma amostra de ataque separada, em abril, contra um [site informativo de campanha](https://tryslany.com), teria gerado sozinha mais de 12 bilhões de requisições. Vale ler essa atividade de abril como um sinal antecipado: o ecossistema mais amplo estava sendo sondado antes mesmo de a votação abrir.
+
+A parte mais difícil foi o caráter do tráfego, não apenas seu volume. A Society22 reportou que uma grande parcela do tráfego de ataque foi classificada como semelhante a humano e passou pelas proteções padrão da AWS e da Cloudflare. Isso não significa que essas proteções foram ineficazes. Significa que o tráfego foi projetado para se parecer com o comportamento comum de usuários, exatamente o padrão contra o qual as defesas genéricas são mais fracas.
+
+Uma nota sobre o termo: "semelhante a humano" descreve uma classificação, um padrão de comportamento, e não usuários humanos confirmados. É a diferença entre uma enxurrada óbvia de bots e um tráfego deliberadamente moldado para parecer legítimo.
+
+![](/blog/images/2026/05/aws_cloudfare_society22.webp)
+
+Este gráfico da AWS/Cloudflare, do site promocional da campanha, ilustra o problema. O tráfego classificado como proveniente de celulares chegou a cerca de 9,39 bilhões de requisições, e o classificado como desktop, a cerca de 1,88 bilhão, enquanto o tráfego categorizado como bot ou crawler foi uma fração minúscula da amostra. O desafio operacional não era bloquear tráfego malicioso óbvio. Era manter o acesso aberto para eleitores reais enquanto se filtrava ou absorvia tráfego construído para parecer real.
+
+A Society22 também reportou tentativas persistentes de alcançar os servidores durante todo o período de votação. Como a atividade continuou sem pausa, dia e noite, a Society22 avaliou que provavelmente era coordenada por uma equipe dedicada. As tentativas não conseguiram comprometer os servidores.
+
+## Como a infraestrutura de votação resistiu: a mitigação da Vocdoni
+
+O sistema de votação da Vocdoni é projetado desde a origem para ambientes adversariais, em que censura, interrupções coordenadas e ataques em larga escala são riscos operacionais esperados. Sua arquitetura descentralizada reduz pontos únicos de falha, preserva a verificabilidade sob pressão e ajuda a manter a disponibilidade da eleição mesmo em condições hostis. Durante a eleição bielorrussa de 2026, porém, essa resiliência nativa foi reforçada com uma estratégia operacional de defesa mais ampla, que combinou filtragem em nível de rede, limitação de requisições, cache e escalonamento horizontal. O objetivo foi claro do início ao fim: manter a plataforma acessível para os eleitores legítimos enquanto as defesas eram continuamente adaptadas contra um tráfego malicioso deliberadamente projetado para se parecer com o comportamento normal de usuários.
+
+### Bloqueio por país e por ASN
+
+As conexões foram bloqueadas por país e por Número de Sistema Autônomo (ASN) onde a equipe tinha alta confiança de que nenhum eleitor legítimo era esperado. Isso reduziu a superfície de ataque sem cortar o acesso de participantes aptos de outros processos eleitorais ativos, com base nos requisitos definidos pelos organizadores de cada eleição.
+
+### Limites estritos de requisições nas APIs
+
+Limites estritos de requisições por rota foram aplicados às APIs na camada de CDN. Isso conteve enxurradas de requisições de alto volume e reduziu o risco de exaustão do backend. A limitação de requisições foi especialmente importante aqui porque parte do tráfego de ataque se parecia com atividade comum de usuários, então os controles de volume tiveram que fazer um trabalho que a correspondência de padrões, sozinha, não conseguiria.
+
+### Cache sempre que possível
+
+O cache foi aplicado sempre que viável, para que as requisições nem sempre chegassem aos servidores finais de backend. Isso absorveu a carga repetitiva antes que ela atingisse a infraestrutura sensível e preservou a capacidade dos servidores para as ações que mais importavam: depositar e registrar votos.
+
+### Escalonamento horizontal e isolamento de serviços
+
+A capacidade das APIs foi escalonada horizontalmente durante a eleição, com novos servidores adicionados conforme o volume de requisições subia. O mesmo design distribuído isolou a implantação do Conselho de Coordenação do restante das eleições hospedadas pela Vocdoni: outras organizações que estavam realizando votações na plataforma no mesmo período não ficaram expostas à carga do ataque. Adicionar capacidade onde era necessário e conter a pressão onde ela era direcionada eram, ambas, propriedades nativas da arquitetura.
+
+### Reforçando o perímetro mais amplo
+
+A superfície de ataque nunca foi apenas o sistema descentralizado de cédulas. A Society22 reportou que um componente de Google Storage Bucket enfrentou tentativas de drenagem de tráfego de vários terabytes. Ativos estáticos, armazenamento, sites informativos, APIs, endpoints de identidade e interfaces de verificação fazem todos parte do perímetro real de uma eleição, e todos precisam de reforço.
+
+Se a sua organização está avaliando para o que um provedor de votação deve estar preparado, [os requisitos que importam em eleições politicamente sensíveis](/blog/what-political-parties-need-from-an-online-voting-provider) são um bom ponto de partida.
+
+## Disponibilidade e integridade: por que as duas importaram
+
+Os ataques durante a eleição miraram a disponibilidade: impedir que os eleitores alcançassem a plataforma e depositassem suas cédulas por meio de atividade sustentada de negação de serviço. Eles não miraram — e não poderiam ter comprometido apenas com pressão de rede — as garantias criptográficas que determinam como as cédulas são registradas e contadas. Manter um sistema de votação online é a parte visível do problema.
+
+A integridade é a propriedade que garante que todo voto válido seja registrado, incluído e contado corretamente, sem manipulação posterior. Disponibilidade e integridade tratam de riscos diferentes, e um sistema eleitoral sério precisa entregar as duas. A disponibilidade da infraestrutura mantém a participação aberta durante a janela de votação; a [votação verificável de ponta a ponta](https://developer.vocdoni.io/) protege a correção do resultado final, permitindo que eleitores e observadores confirmem o desfecho de forma independente, sem depender do relatório de um operador central.
+
+Para o Conselho de Coordenação, essa distinção não é abstrata. O que está em jogo é a própria legitimidade do processo. Manter a eleição online era necessário, mas não suficiente: o sistema também precisava oferecer garantias públicas, verificáveis de forma independente, de que o resultado publicado era correto e resistente à manipulação em condições adversariais.
+
+A arquitetura da Vocdoni foi construída para entregar as duas coisas. Quatro propriedades foram diretamente relevantes para esta eleição.
+
+- **Verificabilidade independente.** Eleitores e observadores podem confirmar que os votos foram incluídos e contados corretamente, sem que ninguém descubra como uma determinada pessoa votou. O resultado é um registro público e conferível, e não o relatório de um fornecedor. Você pode ver isso na prática no [explorador público de eleições](https://explorer.vote).
+- **Transparência e auditabilidade.** O processo produz registros que terceiros podem inspecionar, o que reduz a dependência de intermediários opacos e facilita que [observadores internacionais](https://frederic-petit.eu/wp-content/uploads/2026/04/Invitation-to-Observe-the-Elections-to-the-Coordination-Council-of-Belarus-Voting_-11%E2%80%9317-May-2026.pdf) e auditores independentes revisem a integridade de todo o processo.
+- **Resistência à censura.** A Vocdoni é projetada para cenários democráticos adversariais e de alto risco, em que a participação pode ser interrompida, bloqueada ou politicamente contestada. Sua arquitetura usa componentes descentralizados e distribuídos para evitar pontos únicos de falha e manter o processo de votação alcançável, resiliente e verificável de forma independente sob pressão.
+- **Separação das camadas de confiança.** Identidade, elegibilidade, depósito da cédula, sigilo do voto e verificação do resultado são tratados como camadas distintas. Isso reduz o risco sistêmico e torna todo o processo mais fácil de auditar. A transição da Vocdoni [de um design baseado em blockchain para uma fundação de provas criptográficas](/blog/from-blockchain-voting-to-cryptographic-voting) é movida exatamente por esse objetivo: fazer a verificabilidade se sustentar sem um ponto único de confiança.
+
+## Conclusão
+
+A eleição de 2026 do Conselho de Coordenação da Bielorrússia é um exemplo concreto de infraestrutura democrática digital operando em condições adversariais. A votação ocorreu online de 11 a 19 de maio de 2026, 2.113 pessoas participaram, e o processo permaneceu disponível e verificável durante uma campanha de ataques sustentada, projetada para escapar das proteções padrão.
+
+As conclusões são diretas. Esta não foi uma implantação normal. Os ataques foram contínuos e construídos para se parecer com requisições de rede legítimas, as proteções padrão de nuvem não bastaram sozinhas, e a resposta combinou filtragem, limites de requisições e cache para manter a disponibilidade da infraestrutura de votação em 99,45 %. Acima de tudo, disponibilidade e integridade são requisitos complementares, e um sistema sério precisa tratar dos dois.
+
+Um relatório técnico mais completo virá em breve. Enquanto isso, o caso mostra para que serve, de fato, uma infraestrutura de votação resistente à censura: não para enquetes de baixo risco, mas para os ambientes em que a tomada de decisão coletiva transparente e verificável de forma independente mais importa.
+
+Para ver como a votação verificável de ponta a ponta funciona na prática, explore a [tecnologia da Vocdoni](https://developer.vocdoni.io/) ou inspecione qualquer eleição no [explorador público](https://explorer.vote). A Vocdoni torna a votação digital de alta garantia e verificável de forma independente acessível a organizações de qualquer tamanho, de associações locais a processos democráticos de larga escala. Experimente você mesmo no [Vocdoni App](https://app.vocdoni.io).
