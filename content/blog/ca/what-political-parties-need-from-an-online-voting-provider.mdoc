@@ -1,0 +1,150 @@
+---
+title: Què necessiten els partits polítics d'un proveïdor de vot online
+publishedDate: '2026-03-06'
+excerpt: 'Les eleccions internes d''un partit polític exigeixen més que comoditat: exigeixen legitimitat verificable. Aquest article explica els set estàndards essencials que ha de complir qualsevol plataforma de vot online, des de la neutralitat estructural i el secret criptogràfic fins a la resistència a la censura i els resultats verificables de manera independent.'
+coverImage: /blog/images/2026/03/header_political_parties.webp
+coverAlt: Què necessiten els partits polítics d'un proveïdor de vot online
+authors:
+  - ferran
+categories:
+  - use-cases
+featured: false
+draft: false
+---
+
+Quan s'impugna l'elecció de la direcció d'un partit polític, poques vegades és perquè la votació s'hagi manipulat de debò. **És perquè ningú no ha pogut demostrar que no s'havia manipulat**.
+
+Per a la majoria d'organitzacions, un resultat qüestionat és una situació incòmoda. Per a un partit polític, **pot dividir la militància, empènyer membres cap a faccions rivals i regalar als adversaris un relat fet a mida sobre la disfunció interna**. El que hi ha en joc amb un resultat no verificable és d'una altra categoria.
+
+Per això el vot online per a les eleccions internes d'un partit polític demana una avaluació diferent de la de triar una plataforma per a la votació anual d'un club de lectura. Aquest article recull **set requisits que qualsevol partit hauria d'exigir abans de signar amb cap proveïdor**.
+
+## Per què les eleccions de partit exigeixen un estàndard més alt
+
+Les associacions professionals fan eleccions per complir els seus estatuts. Les cooperatives, per satisfer les seves obligacions democràtiques. Els partits polítics fan eleccions per decidir qui els lidera, qui es presenta a les institucions en nom seu i què pensen realment els seus membres.
+
+Aquestes decisions donen forma a la vida pública. Els membres que voten són políticament conscients i escèptics per convicció. Hi ha faccions. Els resultats ajustats van seguits de disputes. En entorns com aquests, **«la plataforma ho diu» no és una base acceptable per a un resultat**.
+
+També hi ha una dimensió adversarial. Un proveïdor comercial d'eleccions pot prometre neutralitat de manera creïble a una associació d'enginyers. El mateix proveïdor al servei d'un partit polític s'enfronta a un nivell d'escrutini diferent: qui n'és el propietari, sota quina jurisdicció opera, si algun actor amb interessos en el resultat el podria influir i si algun govern el podria obligar a lliurar les dades dels membres.
+
+No són preguntes paranoiques. Són **les preguntes correctes que qualsevol responsable de governança ha de fer** abans de comprometre's amb una plataforma per a les eleccions internes del partit.
+
+## Les decisions que els partits polítics sotmeten al vot dels membres
+
+La democràcia interna de partit abasta tot un ventall de decisions, cadascuna amb els seus propis requisits de legitimitat:
+
+- **Eleccions de lideratge**: triar el líder del partit, la presidència o l'executiva nacional
+- **Selecció de candidats**: primàries internes i processos de selecció per decidir qui va a la llista electoral
+- **Votacions fundacionals i estratègiques**: consultes als membres sobre programes, estatuts interns, aliances polítiques o les bases ideològiques del partit
+- **Decisions de congressos i assemblees**: eleccions de delegats, votacions d'esmenes i resolucions als congressos del partit
+- **Referèndums de línia política**: votacions dels membres sobre qüestions concretes entre congressos
+
+El que tenen en comú aquestes decisions és que qui vota té un interès directe en el resultat, una motivació forta per qüestionar qualsevol resultat que li sigui contrari i, en molts casos, faccions organitzades amb recursos per plantar cara. Els requisits que segueixen s'apliquen a totes.
+
+## Set requisits per al vot online en eleccions de partits polítics
+
+### 1. Neutralitat estructural: la plataforma no pot dependre de cap actor polític
+
+La plataforma **ha d'operar de manera independent, sense cap dependència de cap govern, autoritat estatal o inversor políticament vinculat**. L'estructura de governança importa tant com la política d'empresa: una plataforma que una ordre judicial pugui obligar a revelar dades de la militància, o que operi sota la jurisdicció d'un govern amb interessos en els afers interns del partit, no compleix aquest requisit per moltes bones intencions que tingui.
+
+Fes la pregunta concreta: si el partit que governa el nostre país exigís accés a les dades de la nostra elecció, es podria forçar la plataforma a cedir-les? La resposta ha de ser que no per disseny, no per promesa.
+
+[DAVINCI](/blog/davinci-universal-voting-protocol) és un protocol de votació descentralitzat desenvolupat per Vocdoni Association, una organització sense ànim de lucre. I encara més important: **l'arquitectura fa que cap actor únic, Vocdoni inclòs, tingui les claus dels resultats ni dels vots individuals**.
+
+### 2. Secret del vot criptogràfic: una propietat del sistema, no una promesa
+
+Totes les plataformes electorals legítimes prometen el secret del vot. Menys en poden explicar el mecanisme. Encara menys el poden demostrar estructuralment.
+
+La diferència importa. **Una plataforma que promet no mirar els vots individuals és una plataforma que demana confiança**. Una plataforma on els vots es xifren al dispositiu del votant abans d'enviar-se, es recompten sense desxifrar mai cap vot individual i es verifiquen sense que ningú llegeixi mai cap opció triada, és una plataforma que estructuralment no pot mirar ni que ho volgués.
+
+Per a un partit polític on líders de faccions, equips de direcció i candidats rivals tenen tots interessos en el resultat, «prometem que no hem mirat» no és un estàndard creïble. **El mecanisme ha de fer del secret un fet**, no una promesa.
+
+### 3. Prevenir la compra de vots i la coerció
+
+Aquí hi treballen dos mecanismes alhora, i tots dos compten.
+
+El primer és la **sobreescriptura del vot**: els votants poden canviar el seu vot en qualsevol moment abans que es tanqui l'elecció. **Només compta l'últim vot emès**. Un votant que vota davant d'algú, sota observació o pressió, pot tornar-hi més tard en privat i canviar-lo.
+
+El segon és l'**absència de rebuts** (*receipt-freeness*): cap votant no pot generar un registre verificable de la seva tria per ensenyar-lo a ningú, ni que vulgui. **Aquesta propietat elimina la compra de vots d'arrel**. Una facció amb recursos pot oferir incentius i exigir proves del compliment, però cap votant no pot aportar una prova que s'aguanti. La «prova» que dona és indemostrable, així que la transacció no té cap valor exigible.
+
+Juntes, aquestes dues propietats tanquen els dos vectors d'atac. **La sobreescriptura del vot vol dir que un votant coaccionat pot desfer qualsevol vot emès sota pressió. L'absència de rebuts vol dir que un comprador de vots mai no pot verificar què ha pagat**. Una plataforma amb sobreescriptura del vot però sense absència de rebuts encara permet ensenyar proves de la tria en el moment de votar. Una plataforma amb absència de rebuts però sense sobreescriptura no dona cap manera de desfer el mal fet a qui ha estat coaccionat presencialment en el moment de votar. **Totes dues són necessàries**.
+
+La coerció també pot operar vigilant patrons de participació en lloc de proves de la tria. A una operació de vot en bloc potser només li cal saber si algú ha votat, quan ho ha fet i si el moment coincideix amb l'assistència a un acte concret. **El disseny correcte de la plataforma manté la identitat del votant desvinculada de les metadades de participació**.
+
+### 4. Verificació independent dels resultats: una prova que qualsevol membre pot comprovar pel seu compte
+
+La resposta habitual a un resultat electoral qüestionat és demanar un informe a la plataforma. La plataforma genera un PDF. Al membre que impugna se li demana que se'l cregui.
+
+Això no és suficient per a una elecció política. Un membre que no confia en la plataforma tampoc no confiarà en l'informe de la mateixa plataforma. **Un resultat verificable públicament, en canvi, és un resultat que qualsevol membre, qualsevol periodista o qualsevol auditor independent pot comprovar sense implicar-hi la plataforma per a res**.
+
+Cada elecció de Vocdoni genera un registre públic a [explorer.vote](https://explorer.vote). **La prova matemàtica que el recompte coincideix amb els vots emesos és pública i es pot comprovar amb eines disponibles públicament. No cal confiar en Vocdoni.** No cal confiar en ningú. És una prova.
+
+### 5. Codi lliure: res de caixes negres propietàries
+
+La majoria de plataformes demanen a les organitzacions que confiïn no només en els resultats que produeixen, sinó també en el programari que els produeix. El codi és propietari. No hi ha manera de verificar que el sistema funciona tal com es descriu.
+
+Per a un partit polític els membres i adversaris del qual escrutaran cada decisió, «el programari és segur perquè ho diem nosaltres» no és una posició creïble. **El codi ha de ser públicament disponible perquè qualsevol investigador de seguretat, desenvolupador o expert independent el pugui inspeccionar**.
+
+**El** [**protocol Vocdoni**](https://davinci.vote) **el desenvolupa i el manté una organització sense ànim de lucre i és completament de codi lliure**. La **Vocdoni App**, que implementa aquest protocol per a organitzacions, l'opera una empresa amb ànim de lucre, **també de codi lliure**. Les dues capes són públicament inspeccionables, i qualsevol pot verificar que l'app implementa fidelment el protocol. **Els incentius comercials de l'empresa de l'app no poden comprometre la integritat electoral, perquè els resultats estan ancorats al protocol de codi lliure**, que cap capa propietària no pot passar per sobre.
+
+### 6. Resistència a la censura: una plataforma que cap actor hostil no pot tancar
+
+Els partits que operen en entorns polítics difícils, els moviments d'oposició en països amb un estat de dret fràgil i les organitzacions polítiques de la diàspora s'enfronten a un risc que els votants d'una associació convencional no tenen: **que la plataforma de què depenen sigui clausurada**.
+
+Una plataforma centralitzada té servidors. Els servidors tenen proveïdors d'allotjament. Els proveïdors d'allotjament operen sota jurisdiccions. Un govern que vulgui sabotejar l'elecció interna d'un partit de l'oposició pot, en alguns casos, pressionar a través d'aquests canals.
+
+**Una plataforma resistent a la censura no té cap servidor únic contra el qual apuntar**. **La infraestructura de Vocdoni és descentralitzada: no hi ha cap punt central que es pugui pressionar**, ni cap empresa única que es pugui obligar a interrompre el servei. Això importa sobretot quan més importa.
+
+### 7. Compliment del RGPD i protecció de dades polítiques
+
+Segons el [Reglament General de Protecció de Dades](https://gdpr-info.eu), **l'opinió política es defineix com una categoria especial de dades personals a l'article 9**. Té el nivell més alt de protecció del dret de la UE. Una plataforma que gestiona dades d'eleccions de partits polítics ha de tractar la informació de la militància i els registres de participació en conseqüència.
+
+La [Recomanació CM/Rec(2017)5 del Consell d'Europa](https://www.coe.int/en/web/electoral-assistance/e-voting) sobre estàndards de vot electrònic per a eleccions democràtiques ofereix un bon punt de referència de governança: **exigeix que els sistemes garanteixin que la identitat del votant es mantingui separada del contingut del vot, que els resultats siguin verificables de manera independent i que la infraestructura sigui resistent a interferències externes**. No són estàndards aspiracionals. Són el mínim que un partit hauria d'exigir.
+
+Els requisits clau del RGPD en aquest context són **la minimització de dades, la limitació de la finalitat i la separació estructural entre la identitat del votant i el contingut del vot**. Vocdoni només recull el que cal per verificar l'elegibilitat i donar accés a la votació. La identitat està separada del contingut del vot per disseny. **Totes les dades s'allotgen en infraestructura de la UE**.
+
+Per als responsables de governança de partit amb preguntes específiques de compliment, [l'equip de Vocdoni](https://vocdoni.io/ca/contact) pot facilitar documentació sobre el marc de compliment de la plataforma.
+
+![](/blog/images/2026/03/infography-political-parties-online-voting.webp)
+
+## Com Vocdoni compleix els set requisits
+
+Vocdoni no es va dissenyar per fer enquestes fàcils. **Es va construir per a eleccions on els resultats han de resistir l'escrutini de gent amb un interès fort a impugnar-los**.
+
+La combinació de verificació independent dels resultats, sobreescriptura del vot, absència de rebuts, infraestructura resistent a la censura i codi completament lliure fa que, quan una elecció de Vocdoni acaba, el resultat no sigui la paraula de Vocdoni. **És una prova pública i verificable de manera independent**. Qualsevol la pot comprovar. Ningú no la pot qüestionar amb credibilitat.
+
+La impossibilitat arquitectònica que cap actor, inclosa la branca comercial de Vocdoni, accedeixi als vots individuals o alteri els recomptes satisfà el requisit de neutralitat d'una manera que cap declaració de principis podria igualar per si sola.
+
+## Organitzacions polítiques que han fet servir Vocdoni per a eleccions d'alt risc
+
+### Esquerra Republicana de Catalunya: 77,12% de participació en una votació d'alt risc
+
+Esquerra Republicana és **un dels partits polítics més grans de l'Estat espanyol**, i va fer una **votació interna decisiva de la militància amb Vocdoni** sobre una qüestió amb conseqüències polítiques significatives. [La participació va arribar al 77,12%](/blog/esquerra-republicana-political-party-membership-vote-with-vocdoni-77-12-turnout-in-a-decisive-political-decision). Aquesta xifra no és una fita tècnica. És un resultat de legitimitat: el resultat va tenir autoritat perquè la participació era inequívoca, el procés era verificable de manera independent i cap membre no tenia una base creïble per impugnar-lo.
+
+### New Belarus: eleccions de la societat civil des de l'exili
+
+New Belarus és una **plataforma cívica que permet a les forces democràtiques i la societat civil bielorusses** autoorganitzar-se. **Va fer servir Vocdoni per celebrar les eleccions del seu Consell de Coordinació, un òrgan representatiu que aplega organitzacions democràtiques que no poden operar amb seguretat dins de Bielorússia**. L'elecció es va celebrar del 25 al 28 de maig de 2024, en unes condicions on la resistència a la censura no era un avantatge teòric sinó una necessitat operativa. Una plataforma centralitzada hauria pogut ser sabotejada per les autoritats bielorusses. **Es van emetre 6.723 vots, sota la supervisió d'un grup de set observadors internacionals**. [Llegeix el cas d'èxit complet](/blog/new-belarus-vocdoni).
+
+### Alhora
+
+Alhora és un partit polític català jove i en creixement amb **membres repartits per Catalunya i l'estranger**. Quan va necessitar fer una gran votació participativa per definir les bases fundacionals del partit, la mena de decisió que condiciona tot el que ve després, va triar Vocdoni.
+
+## Preguntes freqüents sobre el vot online per a partits polítics
+
+**El vot online és legalment vàlid per a eleccions internes de partits polítics?**\
+A la majoria de jurisdiccions, sí, sempre que el procés compleixi els criteris estàndard de governança: un cens documentat, un vot secret, un resultat a prova de manipulacions i un rastre d'auditoria verificable. **Vocdoni compleix tots quatre per disseny**. Els requisits concrets varien segons la jurisdicció i els estatuts del partit. Consulta el teu assessor legal.
+
+**Els administradors o càrrecs del partit poden veure què ha votat cada membre?\
+No**. Els vots es xifren al dispositiu del votant abans d'enviar-se. El recompte es fa sense desxifrar mai cap vot individual. **Ningú, ni els administradors, ni els càrrecs del partit, ni Vocdoni, pot reconstruir la tria de cap membre**. Els administradors poden veure la participació agregada per gestionar el quòrum. Fins aquí arriba la seva visibilitat.
+
+**Com evita Vocdoni que una facció pressioni els membres perquè votin en bloc?**\
+Amb l'absència de rebuts. Cap votant no pot generar un registre verificable de la seva tria per ensenyar-lo a ningú. **Un votant que rep pressions pot votar davant d'algú i després canviar el vot en privat abans que es tanqui l'elecció**. El vot canviat és el que compta. El coaccionador no pot verificar quin vot ha estat el definitiu. Això desmunta el mecanisme que fa efectives les operacions coercitives de vot en bloc.
+
+## El resultat que els teus membres no podran discutir
+
+Tota organització política acaba topant tard o d'hora amb una elecció impugnada. La pregunta no és si passarà. És si el resultat s'aguantarà quan passi.
+
+**Un resultat ancorat a una prova pública i verificable de manera independent és un resultat que s'aguanta**. No hi ha res a discutir quan refutar el resultat exigiria refutar unes matemàtiques a les quals qualsevol membre pot accedir pel seu compte.
+
+Vocdoni ha processat més de [200.000 vots](https://vocdoni.io/ca/impact) entre partits polítics, col·legis professionals, federacions i organitzacions cíviques. **Cap elecció no s'ha impugnat amb èxit per la integritat del resultat**. No perquè els resultats no es qüestionin. Perquè la prova és pública.
+
+Pots **provar Vocdoni gratis a** [**app.vocdoni.io**](https://app.vocdoni.io) **sense targeta de crèdit ni trucades comercials**. [Els preus són públics al web](https://app.vocdoni.io/plans), així que sabràs exactament què costarà l'elecció del teu partit abans de comprometre't a res. I si en qualsevol moment tens dubtes sobre la configuració, sobre com adaptar l'elecció als requisits específics del teu partit o sobre la documentació de compliment per als teus estatuts, [**l'equip de Vocdoni**](https://vocdoni.io/ca/contact) **és aquí per ajudar-te**. Les organitzacions com la teva són exactament per a qui es va construir aquesta plataforma.

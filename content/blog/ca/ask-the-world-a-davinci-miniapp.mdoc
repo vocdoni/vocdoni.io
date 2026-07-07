@@ -1,0 +1,80 @@
+---
+title: Ask the World - una miniapp de DAVINCI impulsada per Self Protocol
+publishedDate: '2026-03-19'
+excerpt: 'La majoria de sistemes de vot digital encara fallen a la capa d''identitat. Pots fer que les paperetes siguin verificables i resistents a la censura, però si no pots…'
+coverImage: /blog/images/2026/03/01_hero_banner.webp
+coverAlt: Ask the World - una miniapp de DAVINCI impulsada per Self Protocol
+authors:
+  - rica
+categories: []
+featured: false
+draft: false
+---
+
+La majoria de sistemes de vot digital encara fallen a la capa d'identitat. Pots fer que les paperetes siguin verificables i resistents a la censura, però si no pots garantir l'elegibilitat i la unicitat sense convertir el sistema en una via de vigilància, no has resolt el vot: només has desplaçat la frontera de la confiança.
+
+Aquest va ser el punt de partida d'Ask the World. **Volíem que els participants elegibles poguessin demostrar només les propietats que importen per a una votació concreta sense revelar la seva identitat.**
+
+[_Ask the World_](https://asktheworld.davinci.ninja) és una miniapp experimental que mostra què és possible quan un protocol de votació complet es troba amb la identitat de coneixement zero, a través del nostre partner [Self Protocol](https://self.xyz/).
+
+## Per què l'hem construïda
+
+[DAVINCI](https://davinci.vote) és un protocol de votació verificable, on-chain i sense comissions de gas. No és només una infraestructura que emmagatzema vots: és un protocol dissenyat expressament per resoldre els problemes més difícils del vot digital:
+
+- **Resistència a la coerció:** ningú no pot obligar un votant a demostrar com ha votat.
+- **Absència de rebut:** els votants no poden generar cap comprovant de la seva tria, cosa que elimina la compra de vots.
+- **Resistència a la col·lusió:** la manipulació coordinada entre votants, o entre votants i organitzadors, queda impedida criptogràficament.
+- **Xifratge llindar:** els vots es xifren amb un esquema de claus distribuïdes, de manera que cap part per si sola pot desxifrar paperetes individuals abans que acabi el procés.
+
+Són les propietats que separen un protocol de votació de debò dels "vots en una blockchain". Sota el capó, [DAVINCI](https://davinci.vote) es basa en els **zkSNARKs** per a la verificació de proves i en el **xifratge homomòrfic llindar** per garantir el secret de la papereta: primitives criptogràfiques que donen múscul matemàtic a aquestes garanties.
+
+Amb [_Ask the World_](https://asktheworld.davinci.ninja/) volíem anar un pas més enllà: obrir una votació a tots els ciutadans elegibles d'un país, verificats amb un document d'identitat oficial, mantenint el votant anònim.
+
+## Com funciona
+
+### Crear una votació
+
+Qui crea la votació defineix la pregunta, les opcions disponibles, una nacionalitat permesa i una edat mínima. DAVINCI desplega un contracte de cens dedicat per a aquella votació concreta i registra el procés on-chain. El creador obté un enllaç públic, de manera que qualsevol persona que compleixi els criteris pot participar.
+
+### Emetre un vot
+
+Des del punt de vista del votant, l'experiència és com la de qualsevol aplicació web:
+
+![](/blog/images/2026/03/02_voting_process-1.webp)
+
+1. **Obre l'enllaç.** Es genera un moneder efímer entre bastidors: sense moneder cripto, sense comissions de gas, sense cap configuració.
+2. **Escaneja un codi QR.** El votant fa servir l'[app de Self](https://self.xyz) per generar una prova de coneixement zero directament al seu propi dispositiu. Aquesta prova confirma que el seu document és vàlid, que té la nacionalitat requerida i que compleix l'edat mínima; tot això sense exposar el seu nom, el número de document ni cap dada personal. També es genera un _nullifier_ únic per evitar el doble registre.
+3. **Entra al cens.** El contracte de cens on-chain verifica la prova criptogràficament. Si és correcta, el moneder efímer del votant s'afegeix al cens.
+4. **Vota.** El votant fa la seva tria. La seva papereta es xifra amb xifratge llindar i es registra on-chain: verificable per qualsevol, llegible per ningú fins que el procés es tanca.
+
+Un escaneig. Un vot. Sense necessitat de saber res de blockchain.
+
+### Què passa per sota
+
+Ask the World no és una única eina: són quatre capes treballant juntes, cadascuna encarregada d'una peça diferent del trencaclosques.
+
+![](/blog/images/2026/03/03_architecture_stack.webp)
+
+A dalt de tot hi ha [DAVINCI](https://davinci.vote), el protocol de votació. Gestiona tot el cicle de vida d'una votació: crear el procés, xifrar cada papereta amb xifratge homomòrfic llindar, calcular el resultat i garantir la verificabilitat d'extrem a extrem. La resistència a la coerció, l'absència de rebut i la resistència a la col·lusió no són afegits: formen part del disseny criptogràfic.
+
+Per sota, es desplega un contracte intel·ligent (_smart contract_) de cens dedicat per a cada votació. Quan un votant presenta la seva prova de coneixement zero, aquest contracte la verifica on-chain i afegeix el moneder efímer del votant a un arbre de Merkle. Com que cada procés té el seu propi cens, votacions diferents poden definir criteris d'elegibilitat completament diferents sense col·lisions.
+
+De la capa d'identitat se n'encarrega [Self Protocol](https://self.xyz). Genera proves de coneixement zero directament al dispositiu del votant, confirma que un document és vàlid i que el titular compleix els requisits de nacionalitat i edat, i produeix un _nullifier_ únic per evitar el doble registre. Ni el nom del votant, ni el número de document, ni cap dada personal no surten mai del dispositiu.
+
+Finalment, els moneders efímers abstrauen tota la interacció amb la blockchain. Els votants no necessiten mai un moneder cripto, no paguen mai comissions de gas i ni tan sols saben que estan interactuant amb una blockchain. Tota l'experiència és com la d'una aplicació web estàndard.
+
+## La imatge global
+
+El flux és senzill: una identitat real es converteix en una prova privada, aquesta prova es verifica per entrar en un cens, i el cens fa possible una votació xifrada i on-chain. Quatre passos, sense exposar cap dada personal en cap moment.
+
+![](/blog/images/2026/03/04_bigger_picture.webp)
+
+Però el que fa que això sigui rellevant no és el flux en si, sinó el que elimina cada transició. El pas d'identitat real a prova privada elimina el dilema entre verificació i anonimat. El pas de prova a cens elimina el doble vot sense rastrejar les persones. I el pas de cens a papereta xifrada garanteix que ningú, ni tan sols l'organitzador, pugui veure com ha votat ningú abans que el procés es tanqui.
+
+En combinar la verificació d'identitat de coneixement zero de [Self](https://self.xyz/) amb el protocol de votació resistent a la coerció de DAVINCI, _Ask the World_ aconsegueix una cosa que la majoria de sistemes de vot digital tracten com a mútuament excloent: una participació que és alhora més segura i més privada que qualsevol alternativa disponible avui, amb una experiència per al votant tan senzilla com escanejar un codi QR.
+
+[_Ask the World_](https://asktheworld.davinci.ninja/) és un experiment, però el protocol que hi ha a sota no ho és. L'[SDK de DAVINCI](https://github.com/vocdoni/davinci-sdk/) està a punt per als desenvolupadors que vulguin construir les seves pròpies aplicacions de votació: per a governança, presa de decisions comunitària, sondejos ràpids o casos d'ús que encara no hem imaginat.
+
+---
+
+**A punt per construir?** Explora l'[SDK de DAVINCI](https://github.com/vocdoni/davinci-sdk/) i comença avui mateix a crear experiències de presa de decisions verificables i privades.

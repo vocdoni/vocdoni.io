@@ -1,0 +1,97 @@
+---
+title: Del vot blockchain al vot criptogràfic
+publishedDate: '2026-01-28'
+excerpt: 'Durant els darrers anys, Vocdoni ha executat les votacions a Vochain, la nostra blockchain L1 dissenyada específicament per votar. Com qualsevol blockchain, ens donava una cosa potent:…'
+coverImage: /blog/images/2026/01/Gemini_Generated_Image_6dzwdk6dzwdk6dzw-1.webp
+coverAlt: Del vot blockchain al vot criptogràfic
+authors:
+  - pau
+categories:
+  - davinci
+  - technology
+featured: false
+draft: false
+seo:
+  metaDescription: |-
+    La privadesa i la seguretat no poden ser «funcionalitats»
+    en la governança Web3. Sense privadesa, el vot no és democràtic.
+    DAVINCI és el nostre intent d'arreglar-ho fent que la correcció
+    i la privadesa siguin innegociables.
+  ogImage: /blog/images/2026/01/socialmedia_card-1.webp
+---
+
+Durant els darrers anys, [Vocdoni](https://vocdoni.io/ca) ha executat les votacions a **Vochain,** la nostra blockchain L1 dissenyada específicament per votar. Com qualsevol blockchain, ens donava una cosa potent: **tot és transparent, reproduïble i verificable**. Qualsevol pot auditar-ho. Si algú manipula alguna cosa, es pot detectar. El consens l'assoleix una majoria de nodes honestos, que garanteixen que la xarxa continuï funcionant.
+
+Aquest model funciona, i ha [impulsat eleccions reals](/blog/referendum-bellpuig). Però si l'objectiu final és la _presa de decisions autònoma_ (on els resultats poden desencadenar accions de manera segura), «auditable» encara no és el mateix que «impossible de falsejar».
+
+Perquè les blockchains són, al capdavall, màquines socials amb seguretat econòmica. Si l'incentiu per fer trampes es fa prou gran, la teoria de jocs comença a trucar a la porta.
+
+Així que ens vam preguntar: **i si el recompte no fos una cosa que _confies que la xarxa_ farà, sinó una cosa que la xarxa està criptogràficament obligada a fer correctament?**
+
+Aquest és el pas del _vot blockchain_ al **vot criptogràfic**.
+
+---
+
+### Com funciona?
+
+El zero-knowledge sovint es ven com a «tecnologia de privadesa». I sí, la privadesa importa. Però la propietat realment disruptiva és la **computació verificada**: pots demostrar que has seguit unes regles sense demanar a ningú que confiï en la teva execució. [DAVINCI](https://davinci.vote/) està construït al voltant d'aquesta idea: les proves no són un complement opcional. Són les que obren o tanquen la porta.
+
+En termes pràctics: si no pots produir la prova, no pots actualitzar el recompte.
+
+DAVINCI és un **zkRollup centrat en el vot sobre** [**Ethereum**](https://ethereum.org/), on una xarxa descentralitzada de Sequencers agrupa els vots en lots i actualitza l'estat de l'elecció, i Ethereum només accepta aquestes actualitzacions **si una prova zkSNARK demostra que s'han fet correctament**.
+
+Sense prova → sense actualització d'estat → sense resultat fals.
+
+**Ethereum és la «capa de coordinació»**
+
+> Un procés de votació comença com una configuració onchain: regles, calendari i el compromís del registre de votants (cens). Ethereum és també on viu l'última arrel d'estat vàlida de l'elecció, la font de veritat.
+
+**Els Sequencers fan la feina, però no «decideixen»**
+
+> Els Sequencers són operadors que reben vots, els verifiquen, els agrupen en lots, calculen el nou estat i envien una prova a Ethereum. No fan servir cap mecanisme de consens per posar-se d'acord sobre el recompte. Generen proves criptogràfiques per als lots de vots i actualitzen el recompte xifrat onchain.
+
+**Votar és gasless per als usuaris**
+
+> En lloc que cada votant pagui una comissió de transacció, els costos s'amortitzen: els vots s'empaqueten i es liquiden per lots. Així s'aconsegueix el vot gasless sense sacrificar la seguretat d'Ethereum.
+
+**La privadesa ve del xifratge + desxifratge llindar**
+
+> Les paperetes es xifren amb xifratge homomòrfic llindar (ElGamal): els vots es poden agregar mentre encara estan xifrats, i cap part per si sola no els pot desxifrar. Només quan la votació es tanca, i es revelen prou fragments de clau independents, es pot desxifrar el recompte final.
+
+**L'absència de rebut és part de la mecànica**
+
+> DAVINCI està construït per fer que la coerció i la compra de vots siguin més difícils o impossibles:\
+> \- els sequencers **tornen a xifrar** les paperetes (així no pots «demostrar» el teu vot ensenyant el factor aleatori d'ocultació).\
+> \- i els votants poden **sobreescriure silenciosament** el seu vot (compta l'últim vot).
+
+**Disponibilitat de dades**
+
+> DAVINCI publica les dades necessàries per a les transicions d'estat mitjançant **blobs d'Ethereum (EIP-4844)** i les enllaça amb el pas de verificació onchain. Així és com altres sequencers poden verificar de manera independent i continuar des del mateix estat compartit.
+
+---
+
+### Què el converteix en «vot criptogràfic»?
+
+**No només és auditable: és exigible**
+
+> El «vot blockchain» tradicional et dona transparència. DAVINCI va un pas més enllà: fa del recompte correcte un **requisit criptogràfic**.
+
+**Cap supòsit de majoria honesta per comptar els vots**
+
+> No cal assumir que «la majoria de nodes són honestos» per confiar en el resultat. El resultat només s'accepta si la prova es valida a Ethereum.
+
+**La participació pot ser distribuïda, per disseny**
+
+> Els Sequencers poden agafar l'últim estat verificat, construir el següent i continuar la cadena. Això fa que el sistema sigui més difícil de censurar i més fàcil de mantenir viu encara que alguns operadors desapareguin.
+
+---
+
+### **La conclusió**
+
+La privadesa i la seguretat no poden ser «funcionalitats» en la governança Web3; són el punt de partida. **Sense privadesa, el vot deixa de ser democràtic**: si un participant pot demostrar com ha votat, pot ser coaccionat o subornat, i la governança es converteix en un mercat de pressions.
+
+[**DAVINCI**](https://davinci.vote/) és el nostre intent d'arreglar-ho **fent que la _correcció_ sigui innegociable**: ni recompte optimista, ni «confia en l'operador», ni supòsits de majoria honesta per comptar; només criptografia i Ethereum fent complir les regles.
+
+Està dissenyat per eliminar els peatges habituals de la participació: vot gasless per als usuaris, seguretat de nivell Ethereum per a la liquidació, i un rol de sequencer pensat per a maquinari corrent (màquines amb CPU, no clústers de GPU), **genuïnament obert**.
+
+I el més important: **DAVINCI** no és «el producte de Vocdoni». Nosaltres en som els catalitzadors, però això només esdevindrà un estàndard universal de votació si les comunitats que el necessiten ajuden a definir-lo, defensar-lo i exigir-lo. **Si creus que la governança hauria de ser privada per defecte, verificable per qualsevol i impossible de falsejar**, afegeix el teu nom al [Manifest.](https://manifesto.davinci.vote)

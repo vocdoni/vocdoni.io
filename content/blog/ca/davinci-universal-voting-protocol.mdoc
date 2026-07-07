@@ -1,0 +1,80 @@
+---
+title: 'DAVINCI: el protocol de votació que compleix els criteris per a l''adopció universal'
+publishedDate: '2025-04-24'
+updatedDate: '2026-03-06'
+excerpt: 'Hem tancat amb èxit una ronda pre-seed d''1 milió de dòlars amb inversors àngel per desenvolupar DAVINCI. DAVINCI supera les limitacions dels sistemes de votació existents i ofereix una solució resistent a la censura, gasless, anti-suborn, escalable i anònima per a la governança digital.'
+coverImage: /blog/images/2026/01/blogpost_davinci_announcement.webp
+coverAlt: 'DAVINCI: el protocol de votació que compleix els criteris per a l''adopció universal'
+authors:
+  - pau
+categories:
+  - davinci
+  - technology
+featured: true
+draft: false
+---
+
+L'any 2018 vam posar en marxa **Vocdoni** després de detectar alguns defectes en la manera com vota la gent. **Les paperetes de paper tradicionals** poden ser lentes de comptar, difícils d'auditar i vulnerables a la manipulació. **El vot onchain** resol alguns d'aquests problemes, però n'afegeix de nous, com ara comissions altes, poca privadesa, compra de vots, pressió de «seguir la majoria» i límits en el nombre de votants que pot gestionar.
+
+Inspirats per com Bitcoin i Ethereum van obrir les finances a qualsevol persona amb connexió a internet, ens vam preguntar: **_per què no fer el mateix amb la democràcia?_** La nostra primera resposta va ser una blockchain dissenyada per votar. Des de llavors, ha impulsat centenars d'eleccions per a ajuntaments, clubs esportius, DAO, partits polítics i molt més.
+
+Però la tecnologia mai no s'atura. Les noves eines criptogràfiques ens permeten ara protegir la privadesa i escalar a milions de votants alhora. Així que vam decidir tornar a començar, dissenyant des de zero un protocol de votació que pogués esdevenir **l'estàndard d'or global per a un vot segur, privat i assequible**.
+
+## Coneix DAVINCI: l'estàndard universal per al vot segur
+
+El protocol de votació [DAVINCI](https://davinci.vote/) \[Decentralized Autonomous Vote Integrity Network with Cryptographic Inference] substitueix els recomptes lents en paper i les costoses comissions de blockchain per un sistema **obert (permissionless), a prova de manipulacions, privat i prou barat perquè el pugui fer servir qualsevol**. En resum: _Decentralized Autonomous_ manté la xarxa oberta, _Vote Integrity Network_ demostra cada pas i _Cryptographic Inference_ protegeix cada papereta i el recompte final.
+
+### **Decentralized Autonomous**
+
+- **Obert a tothom, propietat de ningú.** [DAVINCI](https://davinci.vote/) funciona sobre contractes públics d'Ethereum i una xarxa descentralitzada de Sequencers, de manera que cap govern ni empresa no pot aturar ni censurar una elecció.
+- **Gasless per als votants.** Les comissions s'agrupen i es paguen un cop per lot, de manera que la ciutadania pot emetre una papereta sense gastar ni un cèntim.
+- **Xarxa imparable.** Qualsevol operador pot incorporar-se com a Sequencer (l'actor que verifica i agrega paperetes) simplement dipositant tokens com a garantia (staking), cosa que manté el sistema viu encara que alguns nodes desapareguin. Si es comporten correctament, els Sequencers reben recompenses.
+
+### **Vote Integrity Network**
+
+- **Auditabilitat d'extrem a extrem.** Cada papereta, recompte i regla viu en un contracte intel·ligent (*smart contract*) d'Ethereum; qualsevol pot tornar a reproduir les proves per confirmar el resultat.
+- **Rollups de coneixement zero per escalar.** Milions de vots s'empaqueten off-chain i després es publica una petita prova zk on-chain, cosa que retalla costos mantenint la mateixa seguretat.
+- **S'adapta a qualsevol estil de votació.** El vot preferencial, el quadràtic, el vot únic transferible o qualsevol altre mètode de votació són possibles. El format de papereta de [DAVINCI](https://davinci.vote/) és lliure d'esquema, així que els organitzadors trien les regles que més els convenen.
+
+### **Cryptographic Inference**
+
+- **Xifratge homomòrfic llindar.** Cada vot es segella amb una clau repartida entre diversos custodis independents, de manera que cap part per si sola no pot veure ni canviar una papereta. Quan la votació es tanca, només un mínim preestablert de Sequencers que uneixin els seus fragments de clau pot desbloquejar el recompte final agregat, mai les opcions individuals.
+- **Sense rebut i anti-coerció.** Les paperetes es tornen a xifrar, els votants poden sobreescriure silenciosament el seu propi vot i uns «nullifiers» privats impedeixen les captures de pantalla com a prova del vot, cosa que fa inútils el suborn o la intimidació.
+- **Anonimat sense biaix.** Cada papereta està xifrada i no es pot vincular al seu autor, així que ningú no pot rastrejar una opció fins a una persona, cosa que protegeix la privadesa i posa els votants a recer de pressions o represàlies.
+
+## Els quatre circuits que impulsen DAVINCI
+
+[DAVINCI](https://davinci.vote/) és una **màquina d'estats basada en zk-SNARKs** operada per una xarxa descentralitzada de Sequencers offchain. Al seu nucli hi ha **quatre circuits encadenats**: cadascun verifica la prova produïda pel pas anterior i després hi afegeix la seva. Com que els zk-SNARKs són recursius i succints, cada papereta, regla i recompte acaba col·lapsant en una única prova diminuta que Ethereum pot verificar en mil·lisegons.
+
+1. **Ballot Circuit - xifratge conforme a les regles** El votant xifra les seves opcions amb El Gamal llindar i demostra, en coneixement zero, que la papereta segueix les regles de l'elecció (p. ex., «tria fins a dues de cinc»).
+2. **Eligibility Circuit - signatura + prova de Merkle** Un Sequencer demostra que el votant està autoritzat comprovant una signatura ECDSA i una prova de Merkle contra la llista de votants publicada.
+3. **Aggregation Circuit - molts vots, una prova** Fins a _N_ paperetes es comprimeixen en un únic zk-SNARK. La mida de la prova es manté gairebé constant, així que milions de vots poden viatjar fins a Ethereum pel preu d'un.
+4. **Tally Circuit - actualització d'estat** Els textos xifrats agregats se sumen homomòrficament al recompte xifrat i es demostra que la nova arrel d'estat és correcta, incrustant-hi la prova d'agregació anterior per mantenir la cadena intacta.
+
+Quan el quart circuit acaba, **la prova recursiva final (només uns quants centenars de bytes) s'envia a un contracte intel·ligent d'Ethereum**. Si el verificador l'accepta, tot el lot de l'elecció esdevé immutable; si no, es rebutja. El Sequencer següent començarà a processar el seu lot a partir del que s'ha liquidat a Ethereum.
+
+![](/blog/images/2026/01/davinci-1.webp)
+
+## Un protocol sostenible i imparable
+
+Vocdoni impulsa el disseny i el desenvolupament de [**DAVINCI**](https://davinci.vote/) **com un protocol obert (permissionless) i imparable alimentat per un token natiu**. Els organitzadors fan servir el token per llançar eleccions, mentre que els sequencers el dipositen com a garantia i guanyen recompenses per processar vots. **Emetre un vot és sempre gratuït**, cosa que garanteix que la participació es mantingui oberta i accessible per a tothom.
+
+El protocol està dissenyat per separar l'execució de la verificació: les eleccions es defineixen a Ethereum, mentre que els vots s'emeten i s'agreguen offchain a través de la xarxa descentralitzada de sequencers, i només les proves criptogràfiques verificades es publiquen onchain. El resultat és un sistema transparent, segur i escalable per disseny.
+
+## Amb el suport de figures destacades del Web3
+
+La **ronda de finançament d'1 milió de dòlars de Vocdoni ha atret el suport de figures clau de l'ecosistema blockchain**, com ara **Jordi Baylina** i membres d'organitzacions com Ethereum Foundation, Polygon, OpenZeppelin, Giveth i Privado ID.\
+\
+La seva implicació no és només financera: assenyala la necessitat d'una tecnologia de governança millor i la seva confiança que la liderem nosaltres.
+
+## Què ve ara\*
+
+- **Juny de 2025**: llançament de la testnet pública amb una UI senzilla + inici de la prevenda del token
+- **Juliol de 2026**: llançament previst de la mainnet i TGE
+- **Q4 de 2026:** comença la migració de les organitzacions que fan servir el Vocdoni Protocol cap a [DAVINCI](https://davinci.vote/)
+
+### Uneix-te al futur del vot
+
+📝 **Apunta't a la llista d'espera** [**_aquí_**](https://davinci.deform.cc/waitlist/) per estar al dia de la propera testnet pública del juny. **Els primers participants** podran **provar el protocol,** operar un sequencer i **podrien rebre avantatges exclusius per la seva implicació**.\
+\
+\* _Per poder oferir una implementació del protocol completa i provada, el full de ruta es pot modificar._

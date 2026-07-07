@@ -1,0 +1,106 @@
+---
+title: El camí cap al vot anònim i vinculant per a Ethereum
+publishedDate: '2023-06-23'
+updatedDate: '2026-01-14'
+excerpt: 'A Vocdoni, el nostre objectiu principal és construir tecnologia que faci possibles processos de votació segurs i sense friccions a Ethereum.'
+coverImage: /blog/images/2026/01/blogpost_road_to_anonymous_ethereum.webp
+coverAlt: El camí cap al vot anònim i vinculant per a Ethereum
+authors:
+  - ferran
+categories:
+  - technology
+featured: false
+draft: false
+---
+
+L'anonimat protegeix la privadesa del votant i garanteix la lliure expressió de les opinions, mitigant el risc de coerció o de represàlies. La resistència a la censura, per la seva banda, garanteix que cap entitat individual pugui manipular o denegar drets de vot, reforçant encara més un procés democràtic descentralitzat, just i obert.
+
+A [Vocdoni](https://vocdoni.io/ca), el nostre objectiu principal és aportar la pila tecnològica que permeti processos de votació segurs i sense friccions dins la blockchain d'Ethereum, especialment per a l'ecosistema de les organitzacions autònomes descentralitzades (DAO). Volem crear un sistema nou de vot off-chain, sense gas i anònim, amb execució vinculant.
+
+Aquest document exposa el nostre enfocament per abordar aquesta missió ambiciosa, organitzat en les àrees centrals següents:
+
+- Construir i verificar un cens complet
+- Abordar el problema del determinisme del nullifier inherent a les signatures ECDSA
+- El mecanisme per emetre vots off-chain
+- El rol i les funcions de l'agregador de vots
+- El procés de pujada dels resultats de la votació a Ethereum
+
+### **1. El cens verificat**
+
+Com a component central de qualsevol sistema de votació, el cens s'encarrega d'enumerar els votants elegibles i d'atribuir els pesos de vot. Ara bé, generar un cens a partir de dades de la blockchain d'Ethereum presenta complexitats pròpies. Entre elles:
+
+- **Estructura de dades:** Les dades de la blockchain d'Ethereum no estan estructurades en un format adequat per generar un cens. Per exemple, per a un token ERC20 no hi ha cap estructura de dades específica que mantingui una llista completa dels posseïdors del token.
+- **Compatibilitat criptogràfica:** La criptografia d'Ethereum no és fonamentalment compatible amb els zkSnarks, cosa que fa més difícil crear i verificar proves de coneixement zero.
+
+El gran repte, doncs, és crear un cens basat en tokens i compatible amb zkSnarks sense dependre de la confiança en tercers, que permeti votar off-chain. També és crucial tenir en compte que les transaccions ERC20 poden passar en qualsevol moment, la qual cosa implica que el cens pot variar significativament d'un bloc a un altre.
+
+Per superar aquests reptes, proposem l'enfocament següent:
+
+- **Cens off-chain:** Construir un cens off-chain amigable amb els zkSnarks.
+- **Generació de la prova:** Generar una prova zkSnark que verifiqui la correcció del cens.
+- **Validació on-chain:** Validar la prova de creació del cens on-chain mitjançant un contracte intel·ligent (*smart contract*).
+- **Facilitar la votació:** Un cop validat, el cens es pot fer servir per votar.
+
+La validació del cens a Ethereum es pot fer de dues maneres:
+
+- **Comprovació de saldo:** El contracte intel·ligent verifica la validesa de tots els posseïdors (o d'un subconjunt) invocant la funció balanceOfAt(). Aquest enfocament, però, podria comportar costos de transacció alts per a qui l'envia.
+- **Storage Proof:** La zkProof del cens es crea usant storage proofs, i el contracte en comprova la correcció respecte d'una State Root anterior d'Ethereum. Tot i que aquest mètode pot ser computacionalment car per a qui construeix el cens, ofereix una solució robusta.
+
+Creiem que l'enfocament de la comprovació de saldo s'adapta millor a les DAOs petites (100-200 membres), mentre que la Storage Proof funcionaria millor per a organitzacions grans que puguin cobrir els costos d'una infraestructura computacional més gran.
+
+### **2. El problema del determinisme del nullifier**
+
+Quan es treballa amb sistemes criptogràfics, el determinisme és crític: la mateixa entrada ha de produir sempre la mateixa sortida. Amb les signatures d'Ethereum, però, apareix un entrebanc.
+
+Les signatures ECDSA inclouen un nonce arbitrari, un nombre que s'usa un sol cop o molt poc sovint. Qui signa pot alterar aquest nonce per generar signatures diferents a partir del mateix contingut. El resultat? No-determinisme: sortides diferents a partir de la mateixa entrada.
+
+Aquest no-determinisme es converteix en un obstacle a l'hora de calcular un nullifier, una eina essencial per prevenir el vot doble. Un nullifier és un identificador únic per a cada vot. Quan s'emet un vot, el nullifier queda registrat en una llista pública a la blockchain.
+
+Generar un nullifier determinista requereix un esquema de signatura determinista. I com que les signatures ECDSA no són deterministes, no lliguen bé amb la generació de nullifiers. Així que topem amb un mur quan intentem evitar el vot doble en un sistema de vot anònim i vinculant a Ethereum.
+
+Introduïm el concepte de Registre Global de Claus de Compromís (Global Registry of Commitment Keys). Un contracte intel·ligent gestiona aquest registre i serveix d'eina de mapatge que vincula una adreça d'Ethereum amb una clau de compromís. L'estructura bàsica és aquesta: Adreça d'Ethereum => hash(secret).
+
+La clau de compromís, generada a partir d'un secret de l'usuari, ajuda a lligar una adreça d'Ethereum a una sortida determinista, garantint així el determinisme, crític per al nostre cas d'ús.
+
+Aquesta informació de mapatge clau-adreça s'emmagatzema a la blockchain d'Ethereum com un arbre de Merkle amigable amb els Snarks. Els arbres de Merkle són especialment adequats per a aquest propòsit perquè permeten crear un sistema eficient i a prova de manipulacions per emmagatzemar i verificar grans quantitats de dades, un requisit essencial en el nostre cas.
+
+En emetre un vot, l'usuari ha d'aportar una prova zkSNARK. Aquesta prova demostra que l'usuari coneix el secret de la clau de compromís, que forma part de l'arbre de Merkle de claus de compromís emmagatzemat a Ethereum. Això ens permet crear un sistema de votació segur, anònim i resistent al vot doble, sense necessitar determinisme en les signatures ECDSA.
+
+### **3. L'emissió de vots off-chain**
+
+Amb un cens de votació verificat i l'arrel de Merkle del Registre Global a punt, ja pot començar l'emissió de vots.
+
+Per emetre un vot, l'usuari ha de demostrar dues coses:
+
+- **Inclusió al cens:** L'adreça i el saldo de l'usuari formen part del cens de votació.
+- **Coneixement de la clau secreta:** L'usuari coneix la clau secreta del compromís assignat a la seva adreça al Registre Global.
+
+Aleshores l'usuari construeix les proves zkSnark, anonimitzant de fet la seva identitat i generant un nullifier. Aquest nullifier es calcula de manera determinista fent el hash de la clau secreta amb un identificador únic de la proposta.
+
+Fixa't que amb aquest mecanisme, com que el registre global és un arbre de Merkle amigable amb els zkSnarks, no cal fer servir la criptografia d'Ethereum (secp256k1) dins del circuit, cosa que dona com a resultat una generació de la papereta més eficient i apta per al navegador.
+
+La papereta i la prova s'empaqueten juntes i es distribueixen a una xarxa peer-to-peer (p2p) d'agregadors. Una xarxa p2p descentralitzada és fonamental per assolir la resistència a la censura, garantint que cap entitat individual pugui controlar o manipular el procés de votació.
+
+### **4. El procés d'agregació de vots**
+
+Un cop emesos els vots, cal agregar-los en una prova zkSnark completa. Aquesta agregació es pot fer tota de cop o per lots. La prova construïda durant aquest procés verifica el següent:
+
+- Un hash d'arrel concret del cens de votació
+- Un hash d'arrel únic del registre global
+- Una llista de nullifiers de vot vàlids
+- La correcció dels resultats de la votació
+
+Atès que els vots originals ja són proves zkSnark en si mateixos, el procés d'agregació necessita un nivell de recursió, és a dir, un zkSnark que demostra la correcció d'un altre zkSnark.
+
+Ara bé, donat l'estat de l'art actual i la compatibilitat limitada d'Ethereum amb les corbes el·líptiques, executar aquest procés de generació de proves recursives és un repte considerable. Les complexitats implicades fan que potser calgui esperar que els frameworks de zkSnark avancin i que Ethereum ofereixi millor suport per a la criptografia zkSnark.
+
+### **5. La pujada de resultats a Ethereum**
+
+Un cop completada l'agregació de vots, qualsevol usuari pot enviar la prova final a un contracte intel·ligent d'Ethereum. La responsabilitat del contracte intel·ligent és verificar el següent:
+
+- **Prova de resultats:** La prova dels resultats és correcta.
+- **Arrel del cens de votació:** L'arrel del cens de votació coincideix amb la verificada prèviament.
+- **Arrel del registre global:** L'arrel del registre global és correcta.
+- **Període de votació:** El període de votació s'ajusta al marc temporal predefinit.
+
+Amb la verificació correcta d'aquests elements, el contracte intel·ligent pot executar les accions predeterminades associades al procés de votació a Ethereum. Aquest procés garanteix la validesa i la integritat dels vots i facilita la implementació

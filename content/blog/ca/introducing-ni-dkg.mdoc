@@ -1,0 +1,115 @@
+---
+title: 'Presentem NI-DKG: un protocol no interactiu de generació distribuïda de claus basat en zkSNARKs'
+publishedDate: '2026-03-03'
+updatedDate: '2026-03-24'
+excerpt: 'Vocdoni ha desenvolupat un nou protocol DKG que és no interactiu per disseny, operativament asíncron a la pràctica i construït a partir de primitives criptogràfiques estàndard.'
+coverImage: /blog/images/2026/03/dkg.webp
+coverAlt: 'Presentem NI-DKG: un protocol no interactiu de generació distribuïda de claus basat en zkSNARKs'
+authors:
+  - jordi-pinyana
+categories:
+  - technology
+  - davinci
+  - announcements
+featured: false
+draft: false
+seo:
+  metaTitle: Presentem NI-DKG
+  metaDescription: 'Un protocol no interactiu de generació distribuïda de claus basat en zkSNARKs'
+---
+
+El xifratge homomòrfic llindar és una peça fonamental del protocol de votació [DAVINCI](https://davinci.vote). Garanteix que cap part pugui desxifrar els resultats de la votació pel seu compte: la clau de desxifratge es reparteix entre diversos nodes independents, i només quan n'hi cooperen prou es poden desxifrar els resultats.
+
+Abans que es pugui desxifrar res, però, aquests nodes primer han de crear la clau conjuntament. Aquest procés s'anomena **generació distribuïda de claus (DKG, Distributed Key Generation)**. Estem construint una versió de DKG dissenyada específicament per a entorns blockchain, on cada participant ha de demostrar que la seva contribució és correcta abans que sigui acceptada a la cadena.
+
+**DAVINCI garanteix** la **privadesa** del procés de votació mitjançant un esquema de **xifratge homomòrfic llindar**. En concret, es fa servir un [criptosistema ElGamal llindar](https://github.com/tompetersen/threshold-crypto) sobre corbes el·líptiques. Els missatges xifrats es poden combinar per produir un xifratge de la suma dels textos en clar originals sense desxifrar-los. Aquest esquema permet desxifrar un text xifrat concret sense revelar mai la clau secreta llindar, de manera que el recompte final es pot desxifrar mentre les paperetes individuals es mantenen confidencials.
+
+### **Visió general del protocol**
+
+NI-DKG és un protocol natiu de blockchain dissenyat per ser completament **no interactiu**: imposa la correcció en el moment de l'enviament mitjançant proves ZK.
+
+En lloc de fases de queixa i rondes de disputa, **cada participant ha de demostrar que la seva contribució és correcta en el moment d'enviar-la**. El contracte intel·ligent (*smart contract*) comprova la prova immediatament: els enviaments vàlids s'accepten i els invàlids es rebutgen a l'acte. No hi ha anades i vingudes ni impugnacions reactives. Com que tota la transcripció queda registrada a la cadena, també obtenim **verificabilitat pública**.
+
+A més de ser no interactiu per disseny, el protocol NI-DKG també és **operativament asíncron a la pràctica**. Les seves fases es defineixen per números de bloc i no per terminis de resposta fràgils.
+
+### **Per què és important**
+
+Els protocols DKG assistits per blockchain actuals depenen de fases de disputa: si un node rep dades incorrectes, presenta una queixa a la cadena, i l'acusat ha de respondre abans d'un termini. Això afegeix rondes, costos de gas i superfície d'atac: els nodes honestos poden quedar exclosos si la seva resposta arriba tard, i els actors maliciosos poden presentar queixes frívoles per sabotejar el procés. La recerca acadèmica recent sobre DKG totalment asíncron ha produït resultats teòrics impressionants, però són protocols molt complexos.
+
+I el més important: NI-DKG es construeix íntegrament amb **primitives criptogràfiques estàndard** i ben enteses. No introduïm cap supòsit nou; apliquem tècniques consolidades d'una manera més pràctica. El protocol ocupa un **punt intermedi pragmàtic i pràctic**: més senzill que les construccions totalment asíncrones, però més robust que els esquemes síncrons ingenus. Hereta el model temporal de la blockchain subjacent, natural per a les aplicacions on-chain, i el combina amb proves de coneixement zero proactives per eliminar els procediments de queixa interactius, un punt feble habitual dels dissenys existents. El resultat és un protocol més segur i ben adaptat als desplegaments al món real.
+
+### **Fases del protocol NI-DKG**
+
+**_Generació_**
+
+1. **Inici:** l'organitzador publica els paràmetres `(n, t)`.
+2. **Mà alçada:** els nodes elegibles indiquen que estan a punt (opcionalment amb stake).
+3. **Selecció de nodes**: es seleccionen `n` nodes fent servir l'aleatorietat de la cadena; s'avorta si no es compleix la política.
+4. **Procés DKG principal:** cada node publica compromisos polinòmics i parts xifrades, juntament amb una prova ZK de correcció.
+5. **Finalització:** l'organitzador calcula la clau pública `PK` i els compromisos de les parts privades, i ho publica a la blockchain juntament amb una prova ZK de correcció.
+
+![](/blog/images/2026/03/dkg-process.webp)
+
+**_Desxifratge_**
+
+1. **Publicació del text xifrat:** es publica un text xifrat `(C1, C2)` juntament amb l'identificador de ronda. Els nodes saben quan es publiquen aquests textos xifrats.
+2. **Publicació dels desxifratges parcials:** els nodes publiquen un desxifratge parcial de `C1`, juntament amb una prova d'igualtat de logaritmes discrets.
+3. **Desxifratge:** quan s'han publicat `t` o més desxifratges parcials, es pot cridar el contracte intel·ligent per recuperar el missatge.
+
+![](/blog/images/2026/03/dkg-decryption.webp)
+
+**_Revelació opcional de la clau_**
+
+Tingues en compte que la revelació de la clau no forma part del protocol DAVINCI; normalment aquesta part no és necessària, ja que es pot demostrar la fase de desxifratge sense necessitat de publicar la clau secreta.
+
+1. **Inici**: la petició de revelar la clau secreta la pot enviar l'organitzador o es pot activar automàticament, sempre que ho permetin els paràmetres de la política.
+2. **Publicació de les parts de la clau secreta:** cada node participant publica la seva part del secret.
+3. **Càlcul de la clau secreta:** quan s'han enviat `t` o més valors, qualsevol pot calcular la clau secret&#x61;**.**
+
+![](/blog/images/2026/03/dkg-sk-disclosure.webp)
+
+### **Sota el capó**
+
+El protocol cobreix tot el cicle de vida: generació de claus, desxifratge llindar i revelació opcional de la clau. En cada etapa, el contracte intel·ligent actua com a capa de coordinació i verificació, mentre que les proves de coneixement zero traslladen totes les comprovacions criptogràfiques pesades fora de la cadena. Hi ha una separació neta de responsabilitats: la blockchain s'encarrega de l'ordenació i del registre públic; el sistema de proves garanteix la correcció.
+
+Les peces criptogràfiques bàsiques són les següents:
+
+- **Shamir + Feldman VSS**: polinomis amb compromisos públics dels coeficients.
+- **Hashed ElGamal** per xifrar les parts.
+- Prova d'igualtat **Chaum-Pedersen DLOG**, usada per als desxifratges parcials.
+- **zk-SNARKs** (Groth16 , FFLONK, …) per a la verificació on-chain.
+
+**Circuits:**
+
+<!--kg-card-begin: html-->
+
+| Fase                                                                | Propòsit                                     | Sortida / Què demostra                                                                       |
+| ------------------------------------------------------------------- | -------------------------------------------- | -------------------------------------------------------------------------------------------- |
+| GeneracióFase 4: DKG principal                                       | Prova de contribució per participant         | La contribució DKG de cada participant és vàlida.                                            |
+| GeneracióFase 5: Càlcul de les parts secretes i la clau pública      | Finalització                                 | La clau pública final i els compromisos de les parts es deriven correctament.                 |
+| DesxifratgeFase 2: Publicació dels desxifratges parcials             | Desxifratge parcial + prova DLEQ (per node)  | El desxifratge parcial de cada node és correcte i va acompanyat d'una prova DLEQ de correcció. |
+| DesxifratgeFase 3: Desxifratge                                       | Combinació de desxifratges parcials → text en clar | La combinació de desxifratges parcials vàlids produeix el text en clar correcte.        |
+| Revelació opcional de la clauFase 2: Publicació de les parts de la clau secreta | Comprovació de part vs. compromís (per node) | Cada node demostra que la part revelada coincideix amb el compromís publicat prèviament. |
+| Revelació opcional de la clauFase 3: Càlcul de la clau secreta       | Reconstrucció de la clau secreta a partir de _t_ parts | La reconstrucció de la clau secreta a partir del llindar (_t_) de parts és correcta.  |
+
+<!--kg-card-end: html-->
+
+### **Limitacions**
+
+Com que les fases estan lligades a números de bloc, el protocol hereta la sincronia parcial de la cadena que l'allotja. La verificació on-chain també imposa restriccions d'escalabilitat, tot i que amb les estratègies de reducció d'entrades descrites a l'article podem, de manera realista, **suportar comitès de 40–50 participants**. Això cobreix de sobres el rang necessari per a la majoria de desplegaments pràctics.
+
+Tot i que el DKG proposat és flexible i es podria adaptar a altres esquemes de xifratge, fer servir Groth16 sobre BN254 implica que l'opció més eficient és un esquema de xifratge definit sobre el cos escalar de BN254, és a dir, fent servir la corba BabyJubJub.
+
+### **On som**
+
+El **disseny del protocol està complet**. Un esborrany d'article de recerca descriu la construcció completa, dona especificacions detallades dels circuits i analitza estratègies per reduir els costos on-chain. **El pas següent és la implementació i el benchmarking** a les cadenes EVM objectiu.\
+\
+[Aquí](https://github.com/vocdoni/davinci-node/tree/main/crypto/elgamal/dkg) tens una PoC en Golang per validar l'esquema bàsic.
+
+Tens l'article complet disponible [aquí](https://eprint.iacr.org/2026/552).
+
+Això és codi lliure. Si vols contribuir-hi, amb desenvolupament, idees, recursos o finançament, escriu-nos.
+
+[Contacte](https://chat.vocdoni.io)
+
+---

@@ -1,0 +1,218 @@
+---
+title: Presentem el Protocol de Paperetes de Vocdoni
+publishedDate: '2021-04-16'
+updatedDate: '2026-01-14'
+excerpt: 'Protocol de Paperetes de Vocdoni La innovació central del protocol de Vocdoni és la implementació del primer protocol de vot online descentralitzat, resistent a la censura i…'
+coverImage: /blog/images/2025/12/ballot_protocol_post.webp
+coverAlt: Presentem el Protocol de Paperetes de Vocdoni
+authors:
+  - ferran
+categories:
+  - technology
+featured: false
+draft: false
+---
+
+# **Protocol de Paperetes de Vocdoni**
+
+La innovació central del protocol de Vocdoni és la implementació del primer protocol de vot online descentralitzat, resistent a la censura i anònim. Però més enllà d'aquestes aspiracions tècniques, el Protocol permet la compatibilitat amb una àmplia gamma de processos democràtics. Vocdoni ho aconsegueix, en part, gràcies a la nostra especificació versàtil per a les paperetes de vot.
+
+El **Protocol de Paperetes de Vocdoni** vol ser una especificació senzilla però potent per representar les paperetes i els resultats d'un procés de votació.
+
+# **Primer, unes quantes definicions:**
+
+Un **_procés de votació_** es compon d'un o més **_camps_**, cadascun dels quals representa una pregunta o una opció d'una pregunta, segons el **_tipus de procés_**. En votar, els votants amb dret a vot trien entre un conjunt de **_respostes_** predefinides per a cada camp. El nombre de respostes permeses, el tipus de resposta, etc. també depenen del tipus concret de procés. Un votant expressa les seves opcions emetent una **_papereta_**.
+
+Una papereta es representa com un array (o llista) de nombres naturals. Cada posició de l'array conté una resposta a un dels camps del procés.
+
+Els resultats s'acumulen en un array de dues dimensions de nombres naturals (una matriu). Cada fila d'aquesta matriu correspon a un camp de la papereta, i cada columna correspon a un dels valors possibles per a aquell camp. Qualsevol nombre de la matriu de resultats és, simplement, el recompte de vots per al valor representat en aquell índex.
+
+Abans d'entrar al detall de com es pot configurar un procés, repassem un exemple genèric. Suposem que tenim un procés amb tres camps, `A`, `B` i `C`, cadascun dels quals admet `0`, `1` i `2` com a valors possibles. No sabem què representen aquests valors ni aquests camps, però de moment tant és.
+
+![](https://storage.googleapis.com/papyrus_images/47fc7647a24d815d609ad569c4456e39.png)
+
+En aquest exemple s'han emès dos vots. El primer votant ha triat el valor `2` per al camp `A`, `0` per al camp `B` i `1` per al camp `C`. La segona papereta té els valors `0`, `0` i `2`. Al diagrama de dalt pots veure com es relacionen les paperetes amb la matriu de resultats. L'_índex_ d'un valor d'una papereta determina el _camp_ al qual pertany aquell valor: és a dir, el primer índex de la papereta 1 té el valor `2`, així que la papereta 1 assigna el valor `2` al camp A. Dins de cada camp de la matriu de resultats, el valor del vot es representa pel seu índex. Col·loquem un `1` a l'índex `2` del `camp A` per representar aquest únic vot al valor `2`.
+
+Potser d'entrada no és intuïtiu. Prova de seguir un parell més de valors d'una de les paperetes fins a la matriu de resultats per assegurar-te que entens bé com es representen aquí els resultats.
+
+---
+
+# **El Protocol en si**
+
+El protocol de paperetes es compon d'un conjunt de variables numèriques i booleanes (cert/fals) que restringeixen el format d'una papereta vàlida.
+
+![](https://storage.googleapis.com/papyrus_images/b8d920f2d64cf347ff2f47f7e34a3340.png)
+
+Com es representaria amb aquest protocol l'exemple que hem presentat abans?
+
+Per començar, sabem que tenim tres camps, així que
+
+- `maxCount` = 3
+
+Tenim 0, 1 i 2 com a valors vàlids, així que podem definir
+
+- `minValue` = 0
+- `maxValue` = 2
+
+La segona papereta conté el valor `0` en més d'un camp. Perquè aquesta papereta sigui vàlida, doncs, hem de definir
+
+- `uniqueValues` = 0 (aquí 0 representa «fals» i 1 representa «cert»)
+
+No hi ha una assignació òbvia per a les tres variables següents, així que afegim una mica més de context al nostre procés d'exemple. Suposem que aquest procés és una única pregunta que demana als votants que reparteixin monedes d'or entre diferents organitzacions. Cada camp representa una organització, i el valor assignat a aquell camp és el nombre de monedes d'or que el votant vol destinar a aquella organització.
+
+Per les variables `minValue` i `maxValue` que ja hem definit, sabem que cada usuari pot destinar entre 0 i 2 monedes a cada organització. Però una regla plausible que hi podríem afegir és que els votants només poden repartir 3 monedes en total. I imaginem també que els votants _han_ de destinar com a mínim 1 moneda.
+
+Això dona sentit al diagrama del procés de dalt: la primera papereta reparteix 3 monedes en total (potser donen suport a les organitzacions A i C, però A els agrada una mica més). La segona papereta només reparteix 2 de les 3 monedes possibles (només donen suport a l'organització C i prefereixen malgastar la tercera moneda abans que donar-la a A o B). Així que podem definir tranquil·lament
+
+- `minTotalCost` = 1
+- `maxTotalCost` = 3
+
+i totes dues paperetes seran vàlides.
+
+L'última variable que hem de definir és `costExponent`, que té a veure amb el [vot quadràtic](https://www.wikiwand.com/en/Quadratic_voting). De moment no entrarem en aquest tipus de votació, així que deixem el valor per defecte
+
+- `costExponent` = 1
+
+Un altre cop, dedica un moment a reflexionar sobre cadascuna d'aquestes variables i mira d'entendre com canviar-ne qualsevol podria afectar el nostre procés de votació d'exemple.
+
+# **Interpretació dels resultats**
+
+Les variables de dalt representen la totalitat del Protocol de Paperetes de Vocdoni, que cobreix la validació de paperetes i la tabulació de resultats tal com les gestiona la infraestructura bàsica. Però és evident que encara falta molta informació pel que fa a l'experiència humana. Els integradors del protocol han de decidir com comunicar el contingut real d'un procés als votants, i també com interpretar i representar la matriu de resultats. La interpretació dels resultats queda fora de l'abast del Protocol de Paperetes, però és rellevant per entendre com es pot fer servir el Protocol.
+
+En la seva iteració actual, Vocdoni defineix dos formats d'interpretació de resultats: **_ponderat per índex_** i **_valors discrets_**.
+
+### **Ponderat per índex**
+
+Per al nostre procés d'exemple faríem servir la fórmula d'interpretació de resultats ponderada per índex. Aquest esquema és adequat per a processos d'una sola pregunta com ara el vot preferencial, l'elecció múltiple o els pressupostos participatius. Cada índex d'un camp de la matriu de resultats representa un valor ponderat, on en aquest cas el pes representa el nombre de monedes destinades a una organització. La suma dels vots, multiplicada pels seus valors ponderats per índex, és el valor total d'aquell camp.
+
+![](https://storage.googleapis.com/papyrus_images/345a07aee1ddf6a6aad51db7e58fd399.png)
+
+Aquesta interpretació agrega el nostre procés d'exemple. L'organització A rep 2 monedes; l'organització C, 3.
+
+### **Valors discrets**
+
+La interpretació per valors discrets es fa servir en processos en què cada camp és una pregunta independent. Aquí cada valor representa una única opció discreta (per exemple, «Candidat 2»), i no un multiplicador (per exemple, «2 punts per a aquesta opció»). Així, aquest mètode interpreta els resultats simplement informant de quin valor, si n'hi ha cap, ha rebut més vots en cada camp.
+
+El `0` es reserva per a l'empat entre opcions.
+
+![](https://storage.googleapis.com/papyrus_images/97e8bca257a9b118b86ee3dd31165107.png)
+
+Aquests dos formats no pretenen ser exhaustius. Com hem dit abans, el Protocol de Paperetes en si és agnòstic respecte a com s'agreguen els resultats, i qualsevol que construeixi la seva pròpia capa d'aplicació sobre el protocol pot definir la seva pròpia interpretació de resultats.
+
+---
+
+# **Exemples**
+
+Repassem un parell d'exemples del món real perquè et facis una idea de com n'és, de versàtil, el Protocol de Paperetes.
+
+### **Vot preferencial**
+
+Dirigeixo una empresa de caramels. Som a punt de treure un nou sabor de piruleta i volem fer una mica d'estudi de mercat per determinar quin sabor agradarà més als clients. Hem enviat a alguns dels nostres clients més fidels una caixa amb piruletes de gust d'`espàrrec`, `mongeta`, `pastanaga` i `anet` (no som una empresa de caramels gaire pròspera ☹). Els demanem que expressin les seves preferències ordenant les piruletes en un procés de votació de Vocdoni...
+
+Aquesta situació és perfecta per a un procés de [vot preferencial](https://www.wikiwand.com/en/Ranked_voting). Així és com crearem el procés per als nostres testers:
+
+Tenim quatre sabors diferents de caramel que volem ordenar. Els usuaris han d'assignar un valor a cada caramel, així que necessitem un camp separat per a cada tipus de caramel.
+
+- `maxCount` = 4
+
+Indicarem als usuaris que ordenin els caramels de millor a pitjor, on `3` és el millor i `0` el pitjor.
+
+- `minValue` = 0
+- `maxValue` = 3
+
+No ens serveix que els testers considerin que dos caramels són igual de bons: volem una classificació clara de millor a pitjor.
+
+- `uniqueValues` = 1
+
+Com que els usuaris estan obligats a assignar quatre valors únics, sabem que el cost total ha de ser 0+1+2+3=6.
+
+- `minTotalCost` = 6
+- `maxTotalCost` = 6
+
+Un altre cop, aquí `costExponent` no ens fa cap servei.
+
+- `costExponent` = 1
+
+![](https://storage.googleapis.com/papyrus_images/d06d57a97367e2f40ed75228f02392a7.png)
+
+Processem la primera papereta. Aquest tester de producte adora les pastanagues, així que posa la pastanaga com a primera opció. Després venen l'espàrrec i l'anet, amb la mongeta a l'última posició. Així és com aquesta papereta queda registrada a la matriu de resultats:
+
+![](https://storage.googleapis.com/papyrus_images/e63207ba97dca5657af93969f5424cb3.png)
+
+Les paperetes continuen arribant i acabem amb un total de 30 respostes! Amb la matriu de resultats plena, agreguem els resultats segons el mètode ponderat per índex...
+
+![](https://storage.googleapis.com/papyrus_images/49480940bd6ea3db2320d77b587455ae.png)
+
+Guanya l'anet! 🎉 Gràcies a aquest exhaustiu estudi de mercat, aviat podràs trobar piruletes de gust d'anet al supermercat del teu barri.
+
+### **Vot quadràtic**
+
+La nostra cooperativa de fabricació de sabates gestionada pels treballadors celebra aquesta setmana l'assemblea anual, durant la qual elegirem un nou responsable de màrqueting. És una cursa molt renyida, i s'ha proposat fer servir el vot quadràtic per anivellar el terreny de joc.
+
+El vot quadràtic és un mètode que permet als votants assignar diversos vots a un mateix candidat, amb un cost creixent. En aquest cas hi ha quatre candidats i cada membre té fins a 9 «punts» per gastar votant. La qüestió és que el cost d'assignar un cert valor `v` a un camp és `v` elevat a `costExponent`. Així, amb un `costExponent` de 2, si assigno 1 vot al candidat A, em costa un punt; però si n'hi assigno 2, em costa 4 punts, i 3 vots per a un sol candidat em costen els 9 punts. Entrem-hi a fons per explicar-ho millor.
+
+Tenim quatre candidats diferents i els usuaris poden votar-ne més d'un. Així que cadascun ha de tenir el seu propi camp.
+
+- `maxCount` = 4
+
+Posem un límit raonable al valor que un votant pot assignar a un candidat.
+
+- `minValue` = 0
+- `maxValue` = 3
+
+No hi ha problema que els membres repeteixin valors.
+
+- `uniqueValues` = 0
+
+Com hem dit abans, els membres poden gastar fins a 9 punts.
+
+- `minTotalCost` = 0
+- `maxTotalCost` = 9
+
+Per fi aquesta variable té el seu moment de glòria. La definim a 2, de manera que el cost de qualsevol valor és el quadrat d'aquell valor.
+
+- `costExponent` = 2
+
+![](https://storage.googleapis.com/papyrus_images/a645cc0a4a064387d26dafb4972d053a.png)
+
+Imaginem un parell de configuracions de papereta perquè vegis com funciona el vot quadràtic.
+
+**Papereta 1**
+
+Al nostre primer votant li aniria bé qualsevol dels candidats, però té una lleugera preferència pel candidat B. També vol fer servir tant poder de vot com sigui possible.
+
+![](https://storage.googleapis.com/papyrus_images/d9e9d195ba9159cc90da7228e4764cfc.png)
+
+Cada valor `1` que emet aquest votant només suma `1` al seu cost total. Però un valor de `2` suma `2^2`, és a dir `4`, al cost total. Distribuint els vots entre tots els candidats, aquest votant pot assignar un valor total de 5 amb un cost de només 7. No pot arribar al cost total màxim de 9, perquè apujar qualsevol dels seus `1` a `2` faria pujar el cost per sobre de 9.
+
+**Papereta 2**
+
+El segon votant té opinions molt fermes. Només dona suport al candidat C. Per tant, té sentit que assigni el valor màxim al candidat 3. Tot i que només ha fet servir un valor total de `3`, el seu cost total és el màxim: `3^3` = `9`.
+
+![](https://storage.googleapis.com/papyrus_images/99d22c797167c3a9f1a5be94957e158c.png)
+
+Pots imaginar com, en un procés més gran amb més candidats i votants, el vot quadràtic podria ser una manera molt potent de mesurar la intensitat de la preferència, a més de la preferència mateixa. De moment, deixem la interpretació d'aquests resultats com a exercici per al lector.
+
+---
+
+# **Un protocol obert i flexible**
+
+Esperem que ara tinguis una bona idea d'alguns casos d'ús possibles del Protocol de Paperetes de Vocdoni. La característica més important del Protocol, però, és la seva flexibilitat. A més de les configuracions presentades aquí, hi ha incomptables variants i mecanismes d'interpretació més. Aquestes 8 variables cobreixen una àmplia gamma d'escenaris que representen gairebé tots els tipus de votació que coneixem, i d'altres que encara no s'han inventat. I això només és una primera iteració: el Protocol es podria ampliar si calgués per obrir encara més possibilitats.
+
+La flexibilitat tècnica i l'obertura d'aquest Protocol es reflecteixen en els seus usos al món real. La facilitat amb què una organització pot muntar un procés de qualsevol tipus redueix dràsticament la barrera per a tota mena de presa de decisions, ja sigui una votació tradicional o alguna cosa més directa, fluida i experimental. Els membres de la societat civil ara tenen les eines per apoderar-se i posar en marxa els processos democràtics que _millor els representin_, siguin com siguin.
+
+---
+
+# **NB: exemples de codi**
+
+Per als més tècnics que heu arribat fins aquí, el Protocol potser no vol dir res sense uns quants exemples de codi ben concrets. Així és com podries fer servir [dvote-js](https://github.com/vocdoni/dvote-js), la implementació en typescript/javascript del Protocol, per crear un procés.
+
+Primer, preparem l'entorn. Importa els paquets necessaris, connecta't als gateways de Vocdoni i genera un cens de votants ficticis. També obtindrem l'alçada de bloc actual per poder definir correctament l'hora d'inici del procés.
+
+_Consulta la&#xA0;_[_documentació_](https://docs.vocdoni.io/#/integration/overview)_&#xA0;per a guies més detallades sobre la configuració inicial, la connexió als gateways, la generació d'un cens, etc._
+
+Ara podem crear les metadades del procés. Creem un procés per a l'exemple dels sabors de caramel que hem comentat abans. Les metadades són informació que ajuda els clients a mostrar correctament el procés de votació i contenen la informació llegible per humans, sense configurar el procés a nivell de protocol. Aquí definim una pregunta per sabor de caramel, incloent-hi cadascun dels valors d'opció predefinits de `0` a `3`. També declarem els tipus d'agregació i de visualització, que indiquen als clients com interpretar els resultats i com mostrar el procés als usuaris.
+
+Finalment, podem crear el procés en si. Les variables del Protocol de Paperetes es defineixen simplement segons les que hem establert abans per a aquest procés d'exemple, amb la variable `uniqueValues` definida com a `envelopeType`. A més d'aquestes variables, els `processParams` descriuen on s'emmagatzemen el cens i les metadades d'aquest procés, si el procés és xifrat i/o anònim, quina infraestructura ha de fer servir, quan comença i acaba, i altra informació auxiliar.
+
+Després de publicar aquest procés, podem tornar-lo a llegir, verificar que els paràmetres estan ben definits, indicar als clients web o d'aplicació que mostrin aquest tipus de procés, i començar a votar!

@@ -1,0 +1,241 @@
+---
+title: 'L''estàndard de vot online del Canadà: què exigeix el CAN/DGSI 111 i per què és important'
+publishedDate: '2026-03-12'
+excerpt: 'Les setmanes abans de les eleccions municipals d''Ontario del 2022, cartes d''informació al votant amb credencials d''accés úniques acabaven, sense obrir, als contenidors de reciclatge…'
+coverAlt: 'L''estàndard de vot online del Canadà: què exigeix el CAN/DGSI 111 i per què és important'
+authors:
+  - ferran
+categories: []
+featured: false
+draft: true
+---
+
+Les setmanes abans de les eleccions municipals d'Ontario del 2022, cartes d'informació al votant amb credencials d'accés úniques acabaven, sense obrir, als contenidors de reciclatge de les oficines de correus rurals. Qualsevol que les recollís podria haver votat en nom de votants reals.
+
+Aquesta era la vulnerabilitat de baixa tecnologia. La d'alta tecnologia era pitjor. Els investigadors van descobrir que un terç dels sistemes de vot online d'Ontario no tenien proteccions contra atacs de superposició de pantalla, en què una capa oculta sobre la interfície de votació pot redirigir el clic del votant cap a un candidat diferent sense que se n'adoni. La nit electoral, fins a un milió de paperetes estaven potencialment en risc.
+
+Aquestes fallades van passar en una província que fa eleccions online des del 2003. Una província on més de la meitat dels municipis ja ofereixen vot digital. Una província que, fins que es va publicar el CAN/DGSI 111 el desembre del 2024, no tenia cap estàndard nacional que regulés com funcionava res de tot això.
+
+Aquest estàndard, el **CAN/DGSI 111-1:2024**, ara existeix. És el primer marc nacional del Canadà per al vot electoral online, desenvolupat a partir d'anys de recerca acadèmica i construït com a resposta directa a fallades documentades. Tot municipi que planegi una elecció online el 2026 hauria d'entendre què exigeix, què deixa encara obert i quins sistemes estan realment construïts per complir-lo.
+
+---
+
+## Dues dècades d'eleccions digitals sense regles comunes
+
+El Canadà és un dels països del món que més utilitza el vot online a escala municipal. Només a Ontario, **222 dels seus 444 municipis** oferien vot online a les eleccions del 2022, un augment respecte dels 180 municipis del 2018. Es calcula que un milió de votants van emetre el seu vot online només a les eleccions d'Ontario del 2018. S'espera que el cicle del 2026 estableixi un nou rècord.
+
+Durant la major part d'aquesta història, tot això va passar sense cap estàndard nacional. Cap requisit federal ni provincial. Cap procés de certificació. Cap línia de base de seguretat compartida. Cada municipi contractava pel seu compte en un mercat de proveïdors en competència, amb els secretaris municipals, no pas criptògrafs, com a última capa de rendició de comptes.
+
+La professora Nicole Goodman, de la Brock University, codesenvolupadora del nou estàndard nacional, va resumir la situació sense embuts: «Durant un temps, el Canadà va ser l'únic país del món que utilitzava tecnologies electorals sense regulació, tot i que el Canadà té una de les taxes d'ús més altes.»
+
+La fragmentació era profunda. Els municipis d'Ontario feien servir sis proveïdors diferents. De vegades els contractes s'estructuraven per sota dels llindars de contractació competitiva: un municipi va contractar serveis de votació per menys de 10.000 dòlars, esquivant del tot la licitació competitiva. Els proveïdors no estaven subjectes a la llei d'accés a la informació. Cap municipi d'Ontario no havia fet públic mai cap informe de test de penetració en cinc anys de recerca acadèmica sobre el tema.
+
+Les comunitats de Primeres Nacions del Canadà han viscut la seva pròpia història paral·lela. Més de 50 Primeres Nacions han desplegat el vot online per a eleccions de consells de banda i processos de governança, servides principalment per empreses tecnològiques indígenes com [OneFeather](https://www.onefeather.ca/), que ara gestiona més de 370.000 membres de més de 289 nacions. La recerca ha trobat que el 54% dels indígenes que no van votar a les eleccions federals del 2011 deien que haurien votat si el vot online hagués estat disponible. Les eines de participació digital importen moltíssim en comunitats escampades per distàncies enormes. I tanmateix, la Indian Act i la First Nations Elections Act han exigit històricament que les comunitats tinguin el seu propi codi electoral o un acord d'autogovern abans de poder utilitzar cap mètode de votació alternatiu, una barrera legal que els investigadors de polítiques públiques fa temps que demanen al govern federal que elimini.
+
+---
+
+## Què van trobar els investigadors: mesurant la seguretat del vot online al Canadà
+
+Abans que es publiqués el CAN/DGSI 111, els mateixos acadèmics que després el codesenvoluparien van passar anys auditant què estava passant realment a Ontario. Les conclusions, publicades en un estudi revisat per parells del 2023 d'Essex, Goodman i col·legues ([«Online Voting in Ontario Municipalities: A Standards-Based Review»](https://link.springer.com/chapter/10.1007/978-3-031-43756-4_4), _Electronic Voting_, Springer), són l'auditoria pública més rigorosa que existeix de desplegaments reals de vot online.
+
+El punt de referència eren els Standards for E-Voting del Consell d'Europa: 141 requisits i directrius que representen el marc internacional més citat en seguretat d'eleccions digitals.
+
+**Ontario complia el 14% de les directives aplicables. És a dir, 18 de 126.**
+
+Això no és un resultat ajustat. Les fallades eren sistemàtiques i estaven documentades en totes les categories principals.
+
+**Cap ciutat oferia verificabilitat universal.** Ni un sol municipi permetia que cap tercer verifiqués de manera independent que els vots s'havien comptat correctament. El proveïdor feia el recompte i publicava un resultat. No hi havia cap prova pública, només la paraula del proveïdor.
+
+**Les afirmacions sobre el secret de vot eren falses.** Simply Voting deia als municipis que era «impossible» que ningú veiés com havien votat els seus membres. Una anàlisi tècnica posterior no va trobar cap separació criptogràfica a la capa d'aplicació entre l'elecció del votant i les seves dades d'autenticació. Més del 50% dels votants d'Ontario podien ser reidentificats de manera única combinant la seva ciutat i la seva data de naixement. Els municipis traslladaven al públic les afirmacions de secret del proveïdor sense tocar-les.
+
+**La funció de «verificabilitat» de Scytl violava el secret de vot.** El sistema que Scytl va construir perquè els votants verifiquessin la seva papereta els mostrava quin candidat havien seleccionat. Això creava un rebut. Qualsevol tercer amb les credencials d'un votant i un codi QR podia fer servir aquell rebut per demostrar com havia votat algú, fent possible precisament la compra de vots i la coerció que la funció havia d'evitar.
+
+**No existia resistència a la coerció enlloc.** Cap dels proveïdors d'Ontario oferia protecció tècnica contra la compra de vots o la pressió sobre els votants en entorns remots no supervisats.
+
+**La transparència era pràcticament inexistent.** No es va fer públic mai ni un sol test de penetració. El codi font dels proveïdors era propietari. Els registres d'auditoria els gestionava el proveïdor, no el municipi. Dos terços de les directives de transparència del Consell d'Europa quedaven sense complir.
+
+**Les fallades operatives eren habituals i no es feien públiques.** Els votants de Thunder Bay van rebre paperetes del districte equivocat. Cambridge va presentar una papereta amb candidats que hi faltaven. Els sistemes de Dominion van causar interrupcions de servei en més de 50 municipis el 2018, cosa que va obligar a allargar l'horari de votació a tota la província.
+
+Després va arribar el 2022. La [investigació de la CBC](https://www.cbc.ca/news/canada/ontario-municipal-elections-online-voting-study-1.7644536) va documentar el que les conclusions acadèmiques predeien: el 70% de les eleccions d'Ontario es van avaluar amb un «risc alt o extrem» de compromís. La vulnerabilitat del PIN al contenidor de reciclatge era real i estava documentada. Scytl va rebre un pedaç a mitja elecció després que els investigadors els alertessin. Neuvote seguia sense pedaç quan van tancar els col·legis electorals.
+
+Aquest és el problema que el CAN/DGSI 111 es va construir per resoldre.
+
+---
+
+## Què exigeix realment el CAN/DGSI 111-1:2024
+
+El CAN/DGSI 111-1:2024, titulat formalment «Online Electoral Voting – Part 1: Implementation of Online Voting in Canadian Municipal Elections», es va publicar com a Estàndard Nacional del Canadà pel Digital Governance Standards Institute (DGSI) el desembre del 2024, i està [registrat al Standards Council of Canada](https://scc-ccn.ca/standardsdb/standards/4033474).
+
+El van codesenvolupar la professora Nicole Goodman (Brock University) i el professor Aleksander Essex (Western University), amb les aportacions d'un comitè tècnic de més de 100 experts en ciberseguretat, ciència política, polítiques públiques i administració electoral.
+
+**Sobre si és voluntari o obligatori:** ara mateix l'estàndard és voluntari. Cap llei no obliga els municipis a complir-lo. No hi ha cap mecanisme d'aplicació, cap organisme de certificació ni cap mandat provincial. El que sí que aporta l'estàndard és un marc de contractació: està dissenyat per ajudar els administradors electorals municipals a avaluar proveïdors, orientar les licitacions i exigir responsabilitats als proveïdors a partir de requisits documentats. Una jurisdicció ha anat més enllà. Els Territoris del Nord-oest van adaptar el CAN/DGSI 111 com a base de la seva pròpia regulació territorial i el van utilitzar com a marc per a les eleccions generals del 2023. El resultat: el 96,4% dels votants van expressar una satisfacció alta o moderada. Aquest és el camí que porta del voluntari al vinculant.
+
+També val la pena assenyalar que l'estàndard original del 2024 s'està revisant ara mateix. El desembre del 2025 es va publicar un esborrany D1 per a comentaris públics, amb data límit el març del 2026. Les eleccions municipals d'Ontario del 2026 es faran sota la versió del 2024 mentre es finalitza l'estàndard actualitzat. L'estàndard és actiu i evoluciona alhora.
+
+### Els requisits fonamentals
+
+L'estàndard especifica requisits en nou àrees principals:
+
+**Secret de vot i absència de rebut (*receipt-freeness*).** Ningú, ni tan sols els operadors del sistema i els funcionaris electorals, no pot rastrejar les opcions de vot fins als votants individuals. L'estàndard va més enllà: els votants no han de poder demostrar a ningú com han votat. Aquest segon requisit és l'absència de rebut, la propietat que evita la compra de vots i la coerció de manera estructural, no només procedimental, i és un mandat estricte de l'estàndard, no una recomanació. L'estàndard exigeix que es defineixi l'accés privilegiat a la informació i que es documentin les garanties tècniques de privadesa. «Diem que és secret» no és una resposta suficient.
+
+**Resultats verificables.** L'estàndard exigeix «evidència verificable de manera independent que doni suport al resultat de l'elecció». Més avall expliquem què vol dir això a la pràctica: hi ha una variació significativa en com es pot interpretar «verificable».
+
+**Autenticació del votant.** Documentació i processos per a la verificació de la identitat del votant, per fer front a vulnerabilitats basades en credencials com les fallades dels PIN del 2022. El requisit de protegir les dades d'autenticació implica enfocaments de múltiples factors.
+
+**Seguretat de dades i estàndards criptogràfics.** Llindars de seguretat per a les dades en trànsit i emmagatzemades a tots els dispositius i entitats implicats en l'elecció. Destaquen dos mandats criptogràfics concrets: quan els vots es xifren a la capa d'aplicació al costat del client, l'estàndard exigeix xifratge llindar per generar les claus de desxifratge, de manera que cap part per si sola pugui desxifrar els resultats. El mòdul criptogràfic utilitzat ha de passar per proves independents o ser auditable públicament mitjançant la publicació del codi lliure. Tots dos són requisits estrictes que van molt més enllà del que ofereixen els proveïdors canadencs actuals.
+
+**Tests de lògica i precisió.** Processos de prova preelectorals i postelectorals per verificar la integritat del sistema abans i després de la votació.
+
+**Disseny de la papereta i accessibilitat.** Requisits de claredat, usabilitat i accessibilitat de la papereta per garantir que tots els votants puguin participar.
+
+**Transparència i divulgació.** La informació sobre com funciona el sistema ha de ser accessible públicament. Els proveïdors no poden operar com a caixes negres.
+
+**Guia de contractació.** Requisits de processos de contractació competitius i transparents, adreçats directament a la contractació per sota de llindars documentada a l'auditoria acadèmica.
+
+**Rendició de comptes de l'organisme de gestió electoral.** El municipi ha de tenir un control real sobre el procés, no una supervisió merament nominal.
+
+### L'espectre de la verificabilitat
+
+El requisit de verificabilitat de l'estàndard és el més important, i ara mateix el més obert, perquè «verificable de manera independent» pot voler dir coses molt diferents a la pràctica:
+
+1. **Informe d'auditoria emès pel proveïdor**: un PDF del proveïdor que diu que els resultats són correctes. És el que ofereixen la majoria dels proveïdors canadencs actuals. Exigeix confiar en el proveïdor.
+2. **Pista d'auditoria administrativa**: registres i documents que un auditor extern pot inspeccionar amb accés restringit. Millor, però encara exigeix confiar en l'auditor.
+3. **Verificabilitat criptogràfica d'extrem a extrem**: qualsevol votant pot confirmar que la seva papereta individual s'ha inclòs al recompte; qualsevol tercer pot verificar el resultat complet sense confiar en ningú. La prova és pública i matemàticament comprovable.
+
+L'obligació de primer nivell de l'estàndard aquí és un «should»: una recomanació forta, no un mandat estricte. Però l'estàndard deixa clar que, si es proporciona evidència verificable, els subrequisits són vinculants: l'evidència ha de ser verificable per un observador independent qualificat, suficient per convèncer els observadors que el resultat és correcte o per detectar-ne un d'incorrecte, i precisa. El buit que deixa l'estàndard és a l'hora d'especificar _com_ de verificable. Un PDF emès pel proveïdor satisfà tècnicament la lletra; una prova criptogràfica en satisfà la intenció.
+
+Els codesenvolupadors acadèmics són explícits sobre què exigeix l'evidència. La Recomanació 5 del paper del 2023 demana directament la «verificació criptogràfica d'extrem a extrem» com l'enfocament que resoldria més directives incomplertes de l'auditoria del Consell d'Europa. Aquesta recomanació la van escriure els mateixos investigadors que van coescriure l'estàndard: és la direcció que assenyalen, i s'espera que les futures revisions la converteixin en un requisit més estricte.
+
+Sobre la **resistència a la coerció**: l'estàndard recomana (should) que els sistemes permetin actualitzar el vot, la capacitat del votant de canviar la seva opció en silenci abans que tanquin les urnes, especialment en entorns no controlats com votar des de casa. Quan no es permet actualitzar el vot, els proveïdors han de documentar les salvaguardes alternatives i els riscos residuals. Això és una recomanació, no un mandat. Però combinada amb el requisit estricte d'absència de rebut, la intenció és clara: l'estàndard tracta la protecció contra la compra de vots i la coerció com una obligació de disseny genuïna, no com una qüestió menor.
+
+---
+
+## Per què aquest estàndard importa als administradors electorals
+
+L'estàndard no és, en primer lloc, un document de seguretat. És una eina de governança que protegeix els administradors electorals.
+
+Abans del CAN/DGSI 111, un secretari municipal que gestionava una elecció online no tenia cap marc comú. Els proveïdors feien afirmacions («impossible de comprometre», «xifratge de nivell bancari», «totalment auditable») i els secretaris no tenien cap eina per avaluar si aquelles afirmacions eren certes. La recerca va demostrar que sovint no ho eren.
+
+L'estàndard canvia això. Dona als administradors electorals:
+
+- Una llista de requisits verificables per plantejar als proveïdors en una licitació
+- Un llenguatge comú que permet una comparació real entre proveïdors
+- Una base documentada per rebutjar proveïdors que no puguin demostrar el compliment
+- Protecció legal i reputacional quan alguna cosa va malament
+
+L'últim punt és important. Un administrador electoral que pot demostrar que va seguir l'estàndard nacional en contractar un sistema de votació està en una posició molt més forta que un que es va refiar dels materials de màrqueting d'un proveïdor. L'estàndard no elimina el risc. Trasllada la rendició de comptes allà on toca: a les especificacions tècniques documentades del proveïdor, no a la confiança del secretari en un discurs comercial.
+
+Els secretaris municipals no haurien d'haver de ser criptògrafs. L'estàndard existeix precisament perquè no ho hagin de ser.
+
+---
+
+## Com queden els proveïdors actuals davant l'estàndard
+
+Cap proveïdor ha estat certificat formalment segons el CAN/DGSI 111: la infraestructura de certificació encara no existeix. El que sí que podem fer és comparar els requisits declarats de l'estàndard amb el que l'auditoria acadèmica del 2023 va documentar sobre els sistemes que servien les eleccions municipals canadenques en aquell moment. Les conclusions, del paper revisat per parells d'Essex/Goodman, cobreixen tot el mercat d'Ontario.
+
+<!--kg-card-begin: html-->
+
+| Requisit                                                                                        | Proveïdors actuals d'Ontario (auditoria Essex/Goodman 2023)                                                    | DAVINCI / Vocdoni                                                 |
+| -------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------- |
+| **Verificabilitat universal** (qualsevol tercer pot verificar el resultat complet)                             | No l'oferia cap proveïdor auditat                                                                    | Verificabilitat criptogràfica E2E completa                                          |
+| **Verificabilitat individual** (el votant pot confirmar que la seva papereta s'ha comptat)                          | No s'oferia; l'intent d'un proveïdor creava un rebut que trencava el secret de vot                        | Completa, sense crear cap rebut                                  |
+| **Absència de rebut** (SHALL: el votant no pot demostrar la seva opció a un tercer)                       | No l'oferia cap proveïdor auditat                                                                    | Sí, per disseny                                                    |
+| **Secret de vot (tècnic)** (el contingut del vot és estructuralment inaccessible per al servidor)                  | La majoria de proveïdors només es basaven en el xifratge de la capa de transport; accés del servidor a les opcions de vot documentat | Complet: els vots es compten sense que ningú desxifri paperetes individuals |
+| **Xifratge llindar** (SHALL quan s'usa xifratge al client: cap part per si sola desxifra) | No l'implementaven els proveïdors auditats                                                                    | Sí, generació distribuïda de claus                                    |
+| **Sense accés prematur als resultats**                                                                     | Accés en temps real del servidor a recomptes en curs documentat almenys per a un proveïdor                         | Complet: els vots es mantenen xifrats fins al tancament de l'elecció                  |
+| **Protecció contra atacs MITM / de superposició**                                                                 | Absent o incompleta a la majoria de sistemes auditats; un terç dels sistemes no tenien protecció contra atacs de superposició   | Sí                                                                |
+| **Mòdul criptogràfic de codi lliure** (SHALL: codi criptogràfic auditable públicament)                       | Tots els proveïdors auditats: propietari, codi tancat                                                       | Sí, tot el codi és públic                                        |
+| **Tests de penetració publicats**                                                                  | Cap municipi no va fer públic cap test de penetració en cinc anys de recerca                       | El codi lliure permet l'auditoria independent per part de qualsevol en qualsevol moment       |
+| **Resistència a la coerció / actualització del vot** (SHOULD: el votant pot canviar el vot en silenci)             | No l'oferia cap proveïdor auditat                                                                    | Sí, sobreescriptura del vot per disseny                                   |
+| **Transparència de procediments**                                                                     | No s'oferia; codi font i registres d'auditoria del proveïdor propietaris                                           | Sí, codi públic i pista d'auditoria pública                             |
+
+<!--kg-card-end: html-->
+
+_Les avaluacions dels proveïdors es basen en l'_[_auditoria revisada per parells Essex/Goodman 2023_](https://link.springer.com/chapter/10.1007/978-3-031-43756-4_4) _del mercat de vot online d'Ontario. Alguns proveïdors poden haver actualitzat els seus sistemes des del 2022. Les avaluacions de DAVINCI es basen en la documentació publicada del protocol._
+
+La diferència no és que els proveïdors rendeixin pitjor sobre la mateixa arquitectura. És una diferència estructural. Els proveïdors canadencs actuals es van construir sobre models de seguretat administrativa: controlar qui pot accedir al sistema, xifrar les dades en trànsit, produir registres d'auditoria. DAVINCI es construeix sobre seguretat criptogràfica: la garantia no depèn de confiar en ningú, perquè la prova és pública i verificable matemàticament.
+
+Són dissenys diferents, no nivells de rendiment diferents sobre el mateix disseny. Complir el mandat d'absència de rebut de l'estàndard, el requisit de xifratge llindar, el requisit de mòdul criptogràfic de codi lliure i els nivells de verificabilitat recomanats exigiria una reconstrucció arquitectònica de dalt a baix, no una actualització de configuració.
+
+---
+
+## Com és el vot online genuïnament segur i auditable
+
+El requisit de verificabilitat de l'estàndard obre la porta a un concepte en què la comunitat acadèmica treballa des de fa anys: el **vot verificable d'extrem a extrem**.
+
+A la majoria de sistemes de vot online actuals, emets el teu vot, el servidor el registra i el proveïdor produeix un resultat que se suposa que has d'acceptar. No tens cap manera de confirmar que el teu vot s'ha comptat. No tens cap manera de confirmar que no s'han afegit ni eliminat vots. Confies en el proveïdor.
+
+La verificabilitat d'extrem a extrem canvia això. En un sistema ben dissenyat:
+
+- Cada votant rep una manera de confirmar que la seva papereta individual s'ha inclòs al recompte, sense revelar què ha votat
+- Qualsevol observador independent pot verificar el resultat complet i confirmar que és matemàticament correcte
+- La verificació no exigeix confiar en ningú, perquè la prova és pública i comprovable
+
+Això no és un concepte teòric. Ja està implementat tècnicament en sistemes actuals. [El referèndum de Bellpuig](/blog/referendum-bellpuig), el primer referèndum totalment digital fet sota la llei espanyola, el va utilitzar. El resultat es va certificar i era verificable de manera independent per qualsevol participant.
+
+Els coautors de la recerca del CAN/DGSI 111 van fer del vot verificable d'extrem a extrem la seva Recomanació 5 explícita: «Feu que els resultats electorals es basin en evidència... una verificació independent com la verificació criptogràfica d'extrem a extrem resoldria moltes directives incomplertes.»
+
+L'estàndard apunta en aquesta direcció. L'arquitectura que ho fa possible ha d'estar a punt abans que arribi el mandat.
+
+---
+
+## Com compleixen Vocdoni i DAVINCI els requisits de l'estàndard
+
+Vocdoni desplega vot digital des del 2018. En set anys, la companyia ha fet eleccions per a partits polítics, col·legis professionals, cooperatives, municipis i organitzacions nacionals amb centenars de milers de membres. El protocol de votació DAVINCI és el motor criptogràfic de nova generació de Vocdoni que impulsa la plataforma, [l'arquitectura que fa que els resultats siguin verificables de manera independent](/blog/davinci-universal-voting-protocol) d'una manera que cap proveïdor canadenc actual no ofereix. La [validació acadèmica](/blog/vocdoni-upc-partnership) de la plataforma, desenvolupada en col·laboració amb investigadors de la Universitat Politècnica de Catalunya, és directament rellevant per a un públic que ha vist què passa quan la tecnologia electoral no té un escrutini independent rigorós.
+
+Aquí tens com DAVINCI encaixa amb cada àrea de requisits del CAN/DGSI 111.
+
+<!--kg-card-begin: html-->
+
+| Àrea de requisits del CAN/DGSI 111                   | Com ho compleix DAVINCI                                                                                                                                                                                                                                                                                                         | Estat                                                   |
+| ----------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------- |
+| **Secret de vot**                                | Els vots es xifren en el moment d'emetre's. El recompte es fa sense que ningú desxifri mai paperetes individuals: ni el municipi, ni Vocdoni. La identitat del votant queda desacoblada estructuralment del contingut del vot per disseny.                                                                                                | Complet (SHALL)                                             |
+| **Xifratge llindar**                        | Cap part per si sola no té la clau de desxifratge. Diversos posseïdors de claus independents han de cooperar per fer el recompte: el mandat criptogràfic explícit de l'estàndard.                                                                                                                                                                     | Complet (SHALL)                                             |
+| **Sense divulgació prematura de resultats**              | Els vots es mantenen xifrats fins després del tancament de l'elecció. Ni tan sols Vocdoni pot veure un recompte en curs. El resultat es publica automàticament quan acaba l'elecció.                                                                                                                                                                 | Complet (SHALL)                                             |
+| **Verificabilitat independent**                   | Prova criptogràfica pública: qualsevol votant, qualsevol observador, qualsevol expert independent pot verificar el resultat complet sense implicar-hi Vocdoni. [El registre electoral públic a explorer.vote](https://explorer.vote) ho mostra a la pràctica.                                                                                               | Complet, supera el SHOULD de l'estàndard amb verificabilitat criptogràfica E2E |
+| **Sense vot duplicat**                             | Nul·lificadors criptogràfics: un hash únic derivat de les credencials del votant evita que el mateix votant enviï més d'un vot final, de manera demostrable i sense exposar la identitat del votant.                                                                                                                                       | Complet                                                     |
+| **Autenticació del votant**                        | Sistema de cens flexible: admet qualsevol proveïdor d'identitat (correu electrònic, SMS, sistemes d'identificació governamentals, SSO). L'elegibilitat es verifica criptogràficament contra una llista de votants.                                                                                                                                                | Complet                                                     |
+| **Protecció contra MITM i atacs al costat del client**      | HTTPS estàndard més una cadena de proves criptogràfiques: qualsevol manipulació de la papereta en trànsit produeix una prova invàlida que es rebutja automàticament.                                                                                                                                                                          | Complet                                                     |
+| **Secret de vot / absència de rebut**           | Els votants no poden produir cap rebut que mostri el seu vot. Encara que volguessin demostrar a un tercer com han votat, el mecanisme de rexifratge ho fa estructuralment impossible.                                                                                                                                            | Complet (SHALL)                                             |
+| **Resistència a la coerció / actualització del vot**         | Els votants poden sobreescriure el seu vot en silenci en qualsevol moment abans del tancament de l'elecció. Fins i tot sota coerció, qui coacciona no pot verificar el vot final. L'estàndard recomana (SHOULD) l'actualització del vot per a entorns no controlats; DAVINCI l'ofereix com a garantia arquitectònica estricta.                                             | Complet, supera el SHOULD de l'estàndard                          |
+| **Tests de lògica i precisió**                  | El codi lliure vol dir que qualsevol municipi o part independent pot inspeccionar tot el codi, fer eleccions de prova i verificar els resultats abans de posar-lo en marxa.                                                                                                                                                                        | Complet                                                     |
+| **Mòdul criptogràfic de codi lliure**            | L'estàndard exigeix que el mòdul criptogràfic passi proves independents o sigui auditable públicament mitjançant la publicació del codi. Tot el codi criptogràfic de DAVINCI és públic.                                                                                                                                         | Complet (SHALL)                                             |
+| **Transparència i divulgació**                 | El codi és públic (GitHub). Els registres electorals són públics (explorer.vote). Qualsevol part pot inspeccionar com funciona el sistema abans, durant i després d'una elecció.                                                                                                                                                                       | Complet, supera l'estàndard                                   |
+| **Disseny de la papereta i accessibilitat**             | Formats de papereta configurables: opció única, opció múltiple, ordenada, ponderada, quadràtica. Independent del dispositiu: qualsevol navegador, sense descàrrega d'app per als votants.                                                                                                                                                                 | Complet (SHALL)                                             |
+| **Transparència en la contractació**                    | Preus públics a app.vocdoni.io/plans. Autoservei. Sense trucada comercial per a configuracions estàndard.                                                                                                                                                                                                                    | Complet                                                     |
+| **Rendició de comptes de l'organisme de gestió electoral** | El municipi o l'administrador electoral controla tots els paràmetres de l'elecció: llista de votants, papereta, calendari. Vocdoni no pot alterar-los després de la configuració.                                                                                                                                                                                 | Complet (SHALL)                                             |
+| **Localització de dades**                           | L'estàndard exigeix que les dades electorals siguin en servidors canadencs. Per a sistemes descentralitzats, el requisit es compleix quan les dades fora del Canadà no poden reconstruir la identitat del votant ni alterar els resultats. L'arquitectura de DAVINCI compleix aquesta condició per disseny; es poden configurar nodes allotjats al Canadà per a desplegaments municipals. | Complet via l'excepció descentralitzada                                |
+
+<!--kg-card-end: html-->
+
+Val la pena abordar directament un requisit: l'estàndard obliga que totes les dades electorals s'emmagatzemin en servidors situats físicament al Canadà. La infraestructura de Vocdoni és a la UE. L'estàndard inclou una disposició explícita per a sistemes descentralitzats: el requisit es compleix quan els components crítics de l'elecció s'executen en infraestructura canadenca, o quan les dades emmagatzemades fora del Canadà no es poden utilitzar per reconstruir la identitat del votant ni alterar els resultats electorals. El disseny criptogràfic de DAVINCI, on el contingut del vot està xifrat i els vots individuals no es poden enllaçar amb els votants a nivell d'infraestructura, compleix la segona condició. Per a eleccions municipals canadenques, Vocdoni configuraria a més els nodes crítics de l'elecció en infraestructura allotjada al Canadà. És una configuració operativa, no una barrera arquitectònica.
+
+Els proveïdors canadencs actuals no suspenen el CAN/DGSI 111 per una mala implementació. Suspenen perquè es van construir per a un model de seguretat diferent. Oferir resultats verificables i absència de rebut exigeix un redisseny arquitectònic, no una actualització de programari.
+
+Consulta [l'arquitectura de votació de Vocdoni](https://vocdoni.io/ca/technology) per a una explicació tècnica completa, o mira [la diferència entre seguretat administrativa i criptogràfica a la pràctica](/blog/from-blockchain-voting-to-cryptographic-voting).
+
+---
+
+## Cap a on va l'estàndard a partir d'aquí
+
+El CAN/DGSI 111 es titula «Part 1» per alguna raó. Cobreix les eleccions municipals. Els seus codesenvolupadors ja estan debatent activament el camí cap a la cobertura provincial i federal.
+
+Els Territoris del Nord-oest van construir un marc regulador per al vot online basat en esborranys primerencs del CAN/DGSI 111 i el van aplicar a les eleccions territorials del 2023. L'estàndard és el fonament tècnic; la llei n'aporta l'aplicació. Amb les eleccions municipals d'Ontario del 2026, el primer gran cicle electoral amb l'estàndard en vigor, la qüestió de si els municipis realment el fan servir a les licitacions determinarà si el marc voluntari té cap efecte pràctic.
+
+L'experiència del Canadà aquí és realment inusual. Dues dècades de vot online real a gran escala, seguides d'una documentació acadèmica sistemàtica de les fallades, seguida d'un estàndard desenvolupat pels investigadors que van trobar aquelles fallades. Poques altres jurisdiccions tenen aquesta combinació. La revista Policy Options apuntava el 2022 que «a mesura que els governs d'arreu del món busquen tancar buits als seus marcs reguladors... potser miraran cap al Canadà». La Recomanació CM/Rec(2017)5 vigent del Consell d'Europa és anterior a molts dels avenços criptogràfics en verificabilitat E2E i absència de rebut; l'estàndard del Canadà es va construir sobre recerca més actual. Els països amb una adopció emergent del vot online, a la Commonwealth, l'Amèrica Llatina i l'Àsia-Pacífic, estan pendents de què fa el Canadà a continuació.
+
+La barrera legal de les Primeres Nacions també es mou. La crida a esmenar la Indian Act i la First Nations Elections Act perquè les comunitats puguin triar de debò els seus mètodes de votació està guanyant impuls. Si arriben aquestes esmenes, la demanda d'infraestructura de vot digital que compleixi o superi els requisits del CAN/DGSI 111 creixerà de cop.
+
+L'estàndard no és una destinació. És el començament d'una conversa que el Canadà hauria d'haver tingut fa anys.
+
+---
+
+## Què vol dir això per a la teva propera elecció
+
+Tant si ets un secretari municipal que es prepara per al 2026, com un responsable de governança d'una associació professional o un funcionari electoral que avalua proveïdors per primer cop, el CAN/DGSI 111 et dona una cosa que abans no existia: una línia de base documentada del que exigeixen les eleccions digitals segures.
+
+Fes-lo servir com a eina de contractació. Demana als proveïdors que demostrin el compliment de cada requisit; que no l'afirmin, que el demostrin. Pregunta específicament per la verificació independent dels resultats: pot qualsevol tercer comprovar el resultat sense confiar en el proveïdor? Pregunta pel secret de vot: la protecció és tècnica i estructural, o és una promesa del proveïdor? Pregunta per l'absència de rebut: pot un votant demostrar a algú com ha votat? Demana veure el codi font.
+
+L'estàndard puja el llistó mínim. La tecnologia per superar-lo ja existeix.
+
+Vocdoni fa set anys que la construeix. Si estàs avaluant programari de vot online per a una elecció pròxima, la diferència entre els sistemes que compleixen l'estàndard i els que diuen que el compleixen ara està clarament documentada. [Mira com funciona DAVINCI](https://vocdoni.io/ca/technology), o [fes la teva primera elecció gratis a app.vocdoni.io](https://vocdoni.io/ca/app). Sense trucada comercial.
