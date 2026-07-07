@@ -16,6 +16,9 @@ const iconButton =
 export function ShareButtons({ title, className }: ShareButtonsProps) {
   const { t } = useTranslation()
   const [copied, setCopied] = React.useState(false)
+  const resetTimer = React.useRef<number | undefined>(undefined)
+
+  React.useEffect(() => () => window.clearTimeout(resetTimer.current), [])
 
   const currentUrl = () => (typeof window === 'undefined' ? '' : window.location.href)
 
@@ -36,7 +39,8 @@ export function ShareButtons({ title, className }: ShareButtonsProps) {
     try {
       await navigator.clipboard.writeText(currentUrl())
       setCopied(true)
-      window.setTimeout(() => setCopied(false), 2000)
+      window.clearTimeout(resetTimer.current)
+      resetTimer.current = window.setTimeout(() => setCopied(false), 2000)
     } catch {
       /* clipboard unavailable */
     }
