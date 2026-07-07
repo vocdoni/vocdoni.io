@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next'
 // Wires the copy buttons ([data-copy]) baked into compiled code blocks. The
 // buttons are static HTML from the markdown pipeline; this adds clipboard
 // behaviour after hydration.
-function useCodeCopyButtons() {
+function useCodeCopyButtons(html: string) {
   const { t } = useTranslation()
   React.useEffect(() => {
     const article = document.getElementById('blog-article')
@@ -46,13 +46,13 @@ function useCodeCopyButtons() {
       buttons.forEach((button) => button.removeEventListener('click', onClick))
       timers.forEach((id) => window.clearTimeout(id))
     }
-  })
+  }, [html, t])
 }
 
 // Progressive enhancement for :::code-tabs groups baked into the compiled HTML.
 const CODE_LANG_KEY = 'blog-code-lang'
 
-function useCodeTabs() {
+function useCodeTabs(html: string) {
   React.useEffect(() => {
     const article = document.getElementById('blog-article')
     if (!article) return
@@ -127,14 +127,14 @@ function useCodeTabs() {
     }
     applyLang(stored)
     return () => cleanups.forEach((fn) => fn())
-  })
+  }, [html])
 }
 
 // The post body: renders compiled HTML in the reading-optimised prose wrapper and
 // activates the code affordances. The #blog-article id feeds the on-this-page rail.
 export function BlogArticle({ html }: { html: string }) {
-  useCodeCopyButtons()
-  useCodeTabs()
+  useCodeCopyButtons(html)
+  useCodeTabs(html)
   return (
     <div id='blog-article' className='min-w-0'>
       <BlogProse dangerouslySetInnerHTML={{ __html: html }} />
