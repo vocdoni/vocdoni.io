@@ -1,0 +1,96 @@
+---
+title: Les syndicats de l'éducation de Catalogne choisissent Vocdoni pour consulter près de 100 000 enseignants de l'école publique
+publishedDate: '2026-06-04'
+excerpt: 'En quatre jours, plus de 60 000 enseignants de Catalogne ont voté pour décider s''ils validaient le préaccord avec le Departament d''Educació. Trois syndicats différents ont mené la consultation ensemble avec Vocdoni, une technologie de vote sécurisée, vérifiable et secrète par conception.'
+coverImage: /blog/images/2026/06/consulta_edu.webp
+coverAlt: Les syndicats de l'éducation de Catalogne choisissent Vocdoni pour consulter près de 100 000 enseignants de l'école publique
+authors:
+  - ferran
+categories:
+  - success-stories
+featured: false
+draft: false
+---
+
+**Les syndicats, fédérations et mouvements de membres se heurtent souvent au même problème structurel au pire moment possible : quand une décision à fort enjeu doit être soumise à la base, il faut pouvoir le faire avec un système qui garantisse une intégrité, une vérifiabilité et une confidentialité maximales.** Une consultation n'est solide que dans la mesure où les gens ont confiance dans la réalité du résultat.
+
+C'est exactement la situation qu'ont affrontée plusieurs syndicats enseignants de Catalogne. Après des mois de mobilisations et de grèves, un préaccord sur les salaires et les effectifs a été conclu le 29 mai avec le département de l'Éducation de Catalogne (_Departament d'Educació_). Plutôt que de le signer ou de le rejeter au nom des enseignants, les syndicats à l'origine des grèves (**USTEC-STEs, CGT et l'Intersindical**) ont décidé de soumettre le préaccord directement à l'ensemble du corps enseignant lors d'une consultation contraignante.
+
+Ils l'ont menée avec **Vocdoni**, du 1er au 4 juin 2026.
+
+## Les faits en bref
+
+- **Organisations :** USTEC-STEs, CGT et l'Intersindical (consultation conjointe)
+- **Question :** valider ou rejeter le préaccord conclu avec le département de l'Éducation de Catalogne
+- **Personnes appelées à voter :** 99 305 enseignants des établissements publics de Catalogne
+- **Participation :** 60 686 votes exprimés, soit 61,11 %, environ dix points de plus que la consultation sectorielle de mars ([Cadena SER](https://cadenaser.com/cataluna/2026/06/04/els-professors-rebutgen-lacord-amb-educacio-sercat/))
+- **Fenêtre de vote :** du 1er au 4 juin 2026
+- **Temps de mise en place :** conçue et déployée en 24 heures
+- **Méthode de vote :** vote en ligne à distance depuis n'importe quel appareil, avec un logiciel open source et vérifiable de bout en bout
+- **Résultats :** disponibles immédiatement à la clôture du scrutin
+
+## Le défi : une urne unique, partagée et neutre
+
+Comme la consultation ne se limitait pas aux adhérents des syndicats convocateurs mais s'adressait à la totalité des enseignants de Catalogne, plusieurs organisations syndicales indépendantes, aux sensibilités et affiliations différentes, ont dû s'accorder sur un mécanisme partagé pour gérer une urne unique. Cela exigeait une infrastructure neutre, acceptée par toutes les parties, capable de garantir l'intégrité du processus sans dépendre de la confiance envers une organisation en particulier.
+
+Les exigences en deviennent particulièrement élevées :
+
+- **Neutralité de l'infrastructure.** Aucun syndicat ne pouvait être le fournisseur de l'infrastructure.
+- **La vérifiabilité comme condition préalable.** La véracité de l'ensemble du processus et l'intégrité des votes devaient pouvoir être auditées de manière ouverte.
+- **Une échelle massive dans une fenêtre très courte.** Près de 100 000 votants potentiels en quatre jours, avec des pics de participation très concentrés à l'ouverture et à la clôture.
+- **La confidentialité pour chaque votant.**
+
+Comme l'a expliqué l'un des cofondateurs de Vocdoni [à _NacióDigital_](https://naciodigital.cat/societat/codi-lliure-i-verificacio-constant-aixi-sha-gestat-la-consulta-per-avalar-o-no-lacord-amb-educacio.html) : _« Nous fonctionnons en open source, sur une infrastructure blockchain, si bien que n'importe qui peut voir comment cela a été fait et le contrôler »_, tandis que _« les données de chacun restent privées »_.
+
+![](/blog/images/2026/06/image.webp)
+
+Résultats de la consultation des enseignants de Catalogne sur le préaccord du 29 mai
+
+## La solution : ouverte par conception, privée par défaut
+
+Vocdoni est construit précisément pour ce type de vote à fort enjeu, où la confiance, l'auditabilité et la rapidité ne sont pas négociables.
+
+### Comment vote-t-on ?
+
+L'une des clés de la participation, c'est la simplicité du vote. Le parcours a été conçu pour être clair et rapide depuis n'importe quel appareil, sans connaissances techniques.
+
+1. **Une URL dédiée à la consultation.** Le votant accède à un espace propre (ici `consultaunitaria.vocdoni.vote`) avec toute l'information sur le processus.
+2. **Identification par e-mail.** Il s'identifie de manière unique avec son adresse e-mail.
+3. **Authentification à deux facteurs (2FA).** Il reçoit un code par e-mail et le saisit pour valider son identité : ainsi, seules les personnes habilitées peuvent voter.
+4. **Émission du vote chiffré.** Il choisit son option et la confirme avant de l'envoyer. Le vote part chiffré depuis l'appareil du votant lui-même.
+5. **Reçu de vote.** Une fois le vote effectué, il reçoit un reçu qui lui permet de vérifier par lui-même que son vote a bien été enregistré et inclus dans le dépouillement.
+
+### Tout le monde peut auditer le processus, personne ne peut voir votre vote
+
+Pendant toute la consultation, **n'importe qui pouvait voir la taille totale de la liste électorale et le nombre de personnes ayant déjà voté, mis à jour en continu** sur une [page de suivi](https://consultaunitaria.vocdoni.vote/processes/6b342d99f2187fae0e2d41c7dcccc8dc01106d4b33f4addc4425030400000003/summary) et une [page d'analyse détaillée](https://explorer.vote/process/6b342d99f2187fae0e2d41c7dcccc8dc01106d4b33f4addc4425030400000003), mais le contenu des bulletins est resté chiffré jusqu'à la clôture. C'est cette propriété qui permet à des syndicats différents de partager une même urne : la vérifiabilité est accessible à tous en même temps, à eux, à leurs adhérents et à la société dans son ensemble.
+
+Le cofondateur l'a résumé ainsi, [dans des déclarations à _NacióDigital_](https://naciodigital.cat/societat/codi-lliure-i-verificacio-constant-aixi-sha-gestat-la-consulta-per-avalar-o-no-lacord-amb-educacio.html) : _« Nous passons du modèle centralisé des années 2000, avec l'urne comme une “boîte noire” où il fallait faire aveuglément confiance à la bonne foi du prestataire, à un modèle entièrement vérifiable, open source et doté de cryptographie avancée. N'importe qui peut vérifier que le processus se déroule correctement. »_
+
+## Ce que la technologie de Vocdoni apporte à un processus comme celui-ci
+
+- **Open source et auditable.** Pas de boîtes noires : toute partie peut inspecter le fonctionnement du système. Une transparence réelle, pas une simple promesse.
+- **Vérifiabilité de bout en bout.** Chaque votant peut vérifier que son vote a été émis et compté correctement, et tout observateur peut vérifier le dépouillement, en analysant la piste d'audit qui blinde le processus contre les doutes et les contestations.
+- **Confidentialité garantie.** Le vote est secret et protégé : on peut vérifier le résultat sans jamais révéler qui a voté quoi.
+- **Robustesse opérationnelle.** Une infrastructure prête à absorber des dizaines de milliers de votes simultanés avec intégrité et disponibilité.
+
+## Pourquoi c'est important pour les syndicats et d'autres organisations
+
+Le titre de la semaine sera le résultat politique. Mais la partie la plus durable, c'est la **légitimité** : une consultation comme celle-ci rappelle que la légitimité ne dépend pas seulement du résultat, mais aussi de la manière dont on y est parvenu.
+
+Pour un syndicat, comme pour toute autre organisation, la démocratie interne est la source de son autorité. Quand une décision est lourde et controversée, la valeur d'une consultation de la base ne tient pas seulement à la réponse ; elle tient à ce que **l'opinion réelle des adhérents devient connue, au terme d'un processus que partisans et détracteurs peuvent vérifier à égalité.** Des syndicats différents, sans raison particulière de se faire confiance, ont pu se ranger derrière un même décompte. Des dizaines de milliers de personnes ont participé en quelques jours. Le verdict, quel qu'il soit, est difficile à contester sur le plan de la procédure.
+
+Le même schéma vaut bien au-delà du monde syndical : élections dans les ordres professionnels, consultations dans les coopératives et les entreprises à large base sociétaire, processus internes dans les partis et les associations, ou assemblées d'institutions et d'entités publiques. Partout, le défi est le même : porter la décision à tout le monde, vite et à grande échelle, avec un résultat défendable.
+
+Voilà ce que le vote en ligne sécurisé et vérifiable offre aux organisations : un moyen de porter les décisions directement aux personnes qu'elles représentent, vite et à grande échelle, **en renforçant leur légitimité par une relation plus proche et plus directe avec leur base**, sans renoncer à la sécurité, à la confidentialité ni à la crédibilité du résultat.
+
+## Pourquoi ces syndicats pouvaient faire confiance à Vocdoni
+
+La Catalogne est pionnière du vote numérique depuis deux décennies, et l'approche de Vocdoni reflète cet héritage : nous ne construisons pas une boîte noire à laquelle vous devriez vous fier sur parole, mais **une infrastructure open source, vérifiable de bout en bout, que n'importe qui peut auditer.**
+
+---
+
+Si votre syndicat, fédération ou organisation doit soumettre une décision à sa base, le vote en ligne sécurisé peut éliminer la friction logistique sans ajouter de complexité technique ni entamer la confiance.
+
+Contactez Vocdoni pour voir comment le mettre en place.
+
+[Contactez-nous](https://vocdoni.io/fr/contact)

@@ -1,0 +1,80 @@
+---
+title: Ask the World - une miniapp DAVINCI propulsée par Self Protocol
+publishedDate: '2026-03-19'
+excerpt: 'La plupart des systèmes de vote numérique échouent encore au niveau de la couche d’identité. On peut rendre les bulletins vérifiables et résistants à la censure, mais si l’on ne peut pas garantir…'
+coverImage: /blog/images/2026/03/01_hero_banner.webp
+coverAlt: Ask the World - une miniapp DAVINCI propulsée par Self Protocol
+authors:
+  - rica
+categories: []
+featured: false
+draft: false
+---
+
+La plupart des systèmes de vote numérique échouent encore au niveau de la couche d’identité. On peut rendre les bulletins vérifiables et résistants à la censure ; mais si l’on ne peut pas garantir l’éligibilité et l’unicité des votants sans transformer le système en machine de surveillance, on n’a pas résolu le problème du vote : on a seulement déplacé la frontière de confiance.
+
+C’est le point de départ d’Ask the World. **Nous voulions que les participants éligibles puissent prouver uniquement les propriétés pertinentes pour un vote donné, sans révéler leur identité.**
+
+[_Ask the World_](https://asktheworld.davinci.ninja) est une miniapp expérimentale qui montre ce qui devient possible quand un protocole de vote complet rencontre l’identité à divulgation nulle de connaissance, grâce à notre partenaire [Self Protocol](https://self.xyz/).
+
+## Pourquoi nous l’avons construite
+
+[DAVINCI](https://davinci.vote) est un protocole de vote vérifiable, on-chain et sans frais de gas. Pas une simple infrastructure qui stocke des votes : un protocole conçu spécifiquement pour résoudre les problèmes les plus difficiles du vote numérique :
+
+- **Résistance à la coercition :** personne ne peut forcer un électeur à prouver comment il a voté.
+- **Absence de reçu de vote (_receipt-freeness_) :** les votants ne peuvent pas produire de reçu de leur choix, ce qui élimine l’achat de votes.
+- **Résistance à la collusion :** la manipulation coordonnée entre votants, ou entre votants et organisateurs, est cryptographiquement empêchée.
+- **Chiffrement à seuil :** les votes sont chiffrés selon un schéma de clé distribuée, de sorte qu’aucune partie ne peut déchiffrer seule les bulletins individuels avant la fin du processus.
+
+Ce sont ces propriétés qui séparent un véritable protocole de vote de simples « votes sur une blockchain ». Sous le capot, [DAVINCI](https://davinci.vote) s’appuie sur des **zkSNARKs** pour la vérification des preuves et sur le **chiffrement homomorphe à seuil** pour garantir le secret du vote : des primitives cryptographiques qui donnent à ces garanties une assise mathématique.
+
+Avec [_Ask the World_](https://asktheworld.davinci.ninja/), nous voulions aller plus loin : ouvrir un vote à chaque citoyen éligible d’un pays, vérifié par un document d’identité officiel, tout en gardant l’électeur anonyme.
+
+## Comment ça marche
+
+### Créer un vote
+
+Le créateur d’un vote définit la question, les options disponibles, une nationalité autorisée et un âge minimum. DAVINCI déploie un contrat de liste électorale dédié à ce vote précis et enregistre le processus on-chain. Le créateur obtient un lien public, si bien que toute personne remplissant les critères peut participer.
+
+### Voter
+
+Du point de vue de l’électeur, l’expérience ressemble à n’importe quelle application web :
+
+![](/blog/images/2026/03/02_voting_process-1.webp)
+
+1. **Ouvrir le lien.** Un portefeuille éphémère est généré en coulisses : pas de portefeuille crypto, pas de frais de gas, aucune configuration.
+2. **Scanner un QR code.** L’électeur utilise l’[application Self](https://self.xyz) pour générer une preuve à divulgation nulle de connaissance directement sur son propre appareil. Cette preuve confirme que son document est valide, qu’il possède la nationalité requise et qu’il atteint l’âge minimum ; le tout sans exposer son nom, son numéro de document ni la moindre donnée personnelle. Un _nullifier_ unique est également généré pour empêcher tout double enregistrement.
+3. **Être ajouté à la liste électorale.** Le contrat de liste électorale on-chain vérifie la preuve cryptographiquement. Si elle est valide, le portefeuille éphémère de l’électeur est ajouté à la liste électorale.
+4. **Voter.** L’électeur fait son choix. Son bulletin est chiffré via le chiffrement à seuil et enregistré on-chain : vérifiable par tous, lisible par personne tant que le processus n’est pas clos.
+
+Un scan. Un vote. Aucune connaissance de la blockchain requise.
+
+### Ce qui se passe en coulisses
+
+Ask the World n’est pas un outil unique : ce sont quatre couches qui fonctionnent ensemble, chacune prenant en charge une pièce distincte du puzzle.
+
+![](/blog/images/2026/03/03_architecture_stack.webp)
+
+Au sommet se trouve [DAVINCI](https://davinci.vote), le protocole de vote lui-même. Il gère tout le cycle de vie d’un vote : création du processus, chiffrement de chaque bulletin par chiffrement homomorphe à seuil, calcul du résultat et garantie de vérifiabilité de bout en bout. La résistance à la coercition, l’absence de reçu de vote et la résistance à la collusion ne sont pas des options ajoutées après coup : elles sont inscrites dans la conception cryptographique.
+
+En dessous, un contrat intelligent (_smart contract_) de liste électorale dédié est déployé pour chaque vote. Quand un électeur présente sa preuve ZK, ce contrat la vérifie on-chain et ajoute le portefeuille éphémère de l’électeur à un arbre de Merkle. Comme chaque processus dispose de sa propre liste électorale, des votes différents peuvent définir des critères d’éligibilité totalement différents, sans collision.
+
+La couche d’identité est assurée par [Self Protocol](https://self.xyz). Il génère les preuves ZK directement sur l’appareil de l’électeur : il confirme qu’un document est valide, que son détenteur satisfait aux exigences de nationalité et d’âge, et produit un _nullifier_ unique pour empêcher le double enregistrement. À aucun moment le nom de l’électeur, son numéro de document ou une quelconque donnée personnelle ne quittent l’appareil.
+
+Enfin, les portefeuilles éphémères masquent toute interaction avec la blockchain. Les votants n’ont jamais besoin d’un portefeuille crypto, ne paient jamais de frais de gas et ne savent même pas qu’ils interagissent avec une blockchain. L’expérience entière ressemble à une application web classique.
+
+## La vision d’ensemble
+
+Le déroulé est simple : une identité réelle devient une preuve privée, cette preuve est vérifiée et inscrite dans une liste électorale, et cette liste rend possible un vote chiffré on-chain. Quatre étapes, aucune donnée personnelle exposée à aucun moment.
+
+![](/blog/images/2026/03/04_bigger_picture.webp)
+
+Mais ce qui rend tout cela significatif, ce n’est pas le déroulé lui-même : c’est ce que chaque transition élimine. Le passage de l’identité réelle à la preuve privée supprime le compromis entre vérification et anonymat. Le passage de la preuve à la liste électorale élimine le double vote sans traçage des individus. Et le passage de la liste électorale au bulletin chiffré garantit que personne, pas même l’organisateur, ne peut voir comment quiconque a voté avant la clôture du processus.
+
+En combinant la vérification d’identité à divulgation nulle de connaissance de [Self](https://self.xyz/) avec le protocole de vote résistant à la coercition de DAVINCI, _Ask the World_ réussit ce que la plupart des systèmes de vote numérique considèrent comme incompatible : une participation à la fois plus sécurisée et plus confidentielle que tout ce qui existe aujourd’hui, avec une expérience aussi simple pour le votant que scanner un QR code.
+
+[_Ask the World_](https://asktheworld.davinci.ninja/) est une expérimentation, mais le protocole qui la sous-tend n’en est pas une. Le [SDK de DAVINCI](https://github.com/vocdoni/davinci-sdk/) est prêt pour les développeurs qui veulent construire leurs propres applications de vote : gouvernance, décisions communautaires, sondages d’opinion, ou des cas d’usage auxquels nous n’avons pas encore pensé.
+
+---
+
+**Prêt à construire ?** Explorez le [SDK DAVINCI](https://github.com/vocdoni/davinci-sdk/) et commencez dès aujourd’hui à créer des expériences de prise de décision vérifiables et privées.

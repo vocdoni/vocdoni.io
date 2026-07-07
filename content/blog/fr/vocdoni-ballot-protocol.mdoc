@@ -1,0 +1,218 @@
+---
+title: Présentation du protocole de bulletins Vocdoni
+publishedDate: '2021-04-16'
+updatedDate: '2026-01-14'
+excerpt: 'Protocole de bulletins Vocdoni : l''innovation centrale du protocole Vocdoni réside dans la mise en œuvre du premier protocole de vote en ligne décentralisé, résistant à la censure et…'
+coverImage: /blog/images/2025/12/ballot_protocol_post.webp
+coverAlt: Présentation du protocole de bulletins Vocdoni
+authors:
+  - ferran
+categories:
+  - technology
+featured: false
+draft: false
+---
+
+# **Le protocole de bulletins Vocdoni**
+
+L'innovation centrale du protocole Vocdoni réside dans la mise en œuvre du tout premier protocole de vote en ligne décentralisé, résistant à la censure et anonyme. Au-delà de ces ambitions techniques, le Protocole assure la compatibilité avec un large éventail de processus démocratiques. Vocdoni y parvient en partie grâce à sa spécification polyvalente des bulletins de vote.
+
+Le **protocole de bulletins Vocdoni** (*Vocdoni Ballot Protocol*) se veut une spécification simple mais puissante pour représenter les bulletins et les résultats d'un processus de vote.
+
+# **Commençons par quelques définitions**
+
+Un **_processus de vote_** se compose d'un ou plusieurs **_champs_**, chacun représentant une question ou l'une des options d'une question, selon le **_type de processus_**. Au moment de voter, les électeurs éligibles choisissent parmi un ensemble de **_réponses_** prédéfinies pour chaque champ. Le nombre de réponses autorisées, leur type, etc. dépendent également du type de processus. Un électeur éligible exprime ses choix en déposant un **_bulletin_**.
+
+Un bulletin est représenté par un tableau (ou une liste) de nombres entiers naturels. Chaque position du tableau contient une réponse à l'un des champs du processus.
+
+Les résultats sont accumulés dans un tableau de nombres entiers naturels à deux dimensions (une matrice). Chaque ligne de cette matrice correspond à un champ du bulletin, et chaque colonne à l'une des valeurs possibles pour ce champ. Chaque nombre de la matrice des résultats est simplement le décompte des votes obtenus par la valeur représentée à cet indice.
+
+Avant d'entrer dans le détail de la configuration d'un processus, prenons un exemple générique. Supposons un processus à trois champs, `A`, `B` et `C`, chacun acceptant les valeurs `0`, `1` et `2`. Nous ignorons ce que représentent ces valeurs et ces champs, mais peu importe pour l'instant.
+
+![](https://storage.googleapis.com/papyrus_images/47fc7647a24d815d609ad569c4456e39.png)
+
+Dans cet exemple, deux votes ont été déposés. Le premier électeur a choisi la valeur `2` pour le champ `A`, `0` pour le champ `B` et `1` pour le champ `C`. Le second bulletin contient les valeurs `0`, `0` et `2`. Le schéma ci-dessus montre comment les bulletins se traduisent dans la matrice des résultats. L'_indice_ d'une valeur du bulletin détermine le _champ_ auquel cette valeur appartient : le premier indice du bulletin 1 contient la valeur `2`, donc le bulletin 1 attribue la valeur `2` au champ A. Dans chaque champ de la matrice des résultats, la valeur du vote est représentée par son indice. On place un `1` à l'indice `2` du `champ A` pour représenter le vote unique en faveur de la valeur `2`.
+
+Cela peut sembler peu intuitif au premier abord. Suivez le parcours de quelques autres valeurs, d'un bulletin jusqu'à la matrice des résultats, pour bien saisir la façon dont les résultats sont représentés.
+
+---
+
+# **Le protocole lui-même**
+
+Le protocole de bulletins se compose d'un ensemble de variables numériques et booléennes (vrai/faux) qui restreignent le format d'un bulletin valide.
+
+![](https://storage.googleapis.com/papyrus_images/b8d920f2d64cf347ff2f47f7e34a3340.png)
+
+Comment représenter l'exemple ci-dessus avec ce protocole ?
+
+Pour commencer, nous savons que nous avons trois champs, donc :
+
+- `maxCount` = 3
+
+Les valeurs valides sont 0, 1 et 2, nous pouvons donc définir :
+
+- `minValue` = 0
+- `maxValue` = 2
+
+Le second bulletin contient la valeur `0` dans plusieurs champs. Pour que ce bulletin soit valide, il faut donc définir :
+
+- `uniqueValues` = 0 (ici, 0 signifie « faux » et 1 signifie « vrai »)
+
+Il n'existe pas d'affectation évidente pour les trois variables suivantes ; ajoutons donc un peu de contexte à notre exemple de processus. Disons qu'il s'agit d'une question unique demandant aux votants de répartir des pièces d'or entre différentes organisations. Chaque champ représente une organisation, et la valeur attribuée à ce champ correspond au nombre de pièces d'or que le votant souhaite allouer à cette organisation.
+
+D'après les variables `minValue` et `maxValue` déjà définies, chaque utilisateur peut allouer entre 0 et 2 pièces à une même organisation. Une règle plausible serait toutefois de limiter à 3 le nombre total de pièces allouées par votant. Et imaginons aussi que chaque votant _doive_ allouer au moins 1 pièce.
+
+Cela donne du sens au schéma du processus ci-dessus : le premier bulletin alloue 3 pièces au total (son auteur soutient peut-être les organisations A et C, avec une légère préférence pour A). Le second bulletin n'alloue que 2 de ses 3 pièces possibles (son auteur ne soutient que l'organisation C et préfère perdre sa troisième pièce plutôt que de la donner à A ou B). Nous pouvons donc définir sans risque :
+
+- `minTotalCost` = 1
+- `maxTotalCost` = 3
+
+et les deux bulletins seront valides.
+
+La dernière variable à définir est `costExponent`, qui concerne le [vote quadratique](https://www.wikiwand.com/en/Quadratic_voting). Nous n'aborderons pas ce type de vote pour l'instant ; gardons simplement la valeur par défaut :
+
+- `costExponent` = 1
+
+Là encore, prenez un moment pour examiner chacune de ces variables et essayez de comprendre comment la modification de l'une d'elles affecterait notre exemple de processus de vote.
+
+# **Interprétation des résultats**
+
+Les variables ci-dessus constituent l'intégralité du protocole de bulletins Vocdoni, qui couvre la validation des bulletins et le décompte des résultats tels que gérés par l'infrastructure de base. Mais il manque évidemment encore beaucoup d'informations du point de vue de l'expérience humaine. Les intégrateurs du protocole doivent décider comment communiquer le contenu réel d'un processus aux électeurs, ainsi que la façon d'interpréter et de présenter la matrice des résultats. L'interprétation des résultats sort du périmètre du protocole de bulletins, mais elle aide à comprendre comment celui-ci peut être utilisé.
+
+Dans son itération actuelle, Vocdoni définit deux formats d'interprétation des résultats : la **_pondération par indice_** (*index-weighted*) et les **_valeurs discrètes_**.
+
+### **Pondération par indice**
+
+C'est la formule d'interprétation par pondération par indice que nous utiliserions pour notre exemple de processus. Ce schéma convient aux processus à question unique comme le vote par classement, le choix multiple ou le budget participatif. Chaque indice d'un champ de la matrice des résultats représente une valeur pondérée ; ici, le poids correspond au nombre de pièces allouées à une organisation. La somme des votes, multipliés par leur valeur pondérée par indice, donne le total du champ.
+
+![](https://storage.googleapis.com/papyrus_images/345a07aee1ddf6a6aad51db7e58fd399.png)
+
+Cette interprétation agrège notre exemple de processus : l'organisation A reçoit 2 pièces, l'organisation C en reçoit 3.
+
+### **Valeurs discrètes**
+
+L'interprétation par valeurs discrètes s'applique aux processus où chaque champ constitue une question à part entière. Chaque valeur représente alors une option discrète (par exemple « candidat 2 ») plutôt qu'un multiplicateur (par exemple « 2 points pour cette option »). Cette méthode interprète donc les résultats en indiquant simplement quelle valeur, le cas échéant, a reçu le plus de votes pour chaque champ.
+
+`0` est réservé à l'égalité entre options.
+
+![](https://storage.googleapis.com/papyrus_images/97e8bca257a9b118b86ee3dd31165107.png)
+
+Ces deux formats ne se veulent pas exhaustifs. Comme indiqué plus haut, le protocole de bulletins est lui-même agnostique quant à l'agrégation des résultats : quiconque construit sa propre couche applicative au-dessus du protocole peut définir sa propre interprétation des résultats.
+
+---
+
+# **Exemples**
+
+Passons en revue quelques exemples concrets pour vous donner une idée de la polyvalence du protocole de bulletins.
+
+### **Vote par classement**
+
+Je dirige une confiserie. Nous nous apprêtons à lancer un nouveau parfum de sucette et nous voulons réaliser une étude de marché pour déterminer le parfum que nos clients préféreront. Nous avons expédié à certains de nos clients les plus fidèles une boîte de sucettes aux parfums `asperge`, `haricot`, `carotte` et `aneth` (notre confiserie ne connaît pas un grand succès ☹). Nous leur demandons d'exprimer leurs préférences en classant les sucettes dans un processus de vote Vocdoni…
+
+Cette situation se prête parfaitement à un processus de [vote par classement](https://www.wikiwand.com/en/Ranked_voting). Voici comment créer le processus pour nos testeurs :
+
+Nous avons quatre parfums de sucettes à classer. Les utilisateurs doivent attribuer une valeur à chaque sucette ; il faut donc un champ distinct par parfum.
+
+- `maxCount` = 4
+
+Nous demanderons aux utilisateurs de classer les sucettes de la meilleure à la pire, `3` étant la meilleure et `0` la pire.
+
+- `minValue` = 0
+- `maxValue` = 3
+
+Il ne nous sert à rien que nos testeurs jugent certaines sucettes à égalité : nous voulons un classement clair, de la meilleure à la pire.
+
+- `uniqueValues` = 1
+
+Comme les utilisateurs sont contraints d'attribuer quatre valeurs uniques, nous savons que le coût total doit être 0+1+2+3=6.
+
+- `minTotalCost` = 6
+- `maxTotalCost` = 6
+
+Là encore, `costExponent` ne nous est d'aucune utilité ici.
+
+- `costExponent` = 1
+
+![](https://storage.googleapis.com/papyrus_images/d06d57a97367e2f40ed75228f02392a7.png)
+
+Traitons notre premier bulletin. Ce testeur adore les carottes : il classe donc la carotte en premier choix, suivie de l'asperge puis de l'aneth, le haricot arrivant en dernier. Voici comment ce bulletin est enregistré dans la matrice des résultats :
+
+![](https://storage.googleapis.com/papyrus_images/e63207ba97dca5657af93969f5424cb3.png)
+
+Les bulletins continuent d'affluer, et nous recevons 30 réponses au total ! Une fois la matrice des résultats complète, nous agrégeons les résultats selon la méthode de pondération par indice…
+
+![](https://storage.googleapis.com/papyrus_images/49480940bd6ea3db2320d77b587455ae.png)
+
+L'aneth l'emporte ! 🎉 Grâce à cette vaste étude de marché, vous trouverez bientôt des sucettes à l'aneth dans votre épicerie de quartier.
+
+### **Vote quadratique**
+
+Notre coopérative ouvrière de fabrication de chaussures tient son assemblée annuelle cette semaine, au cours de laquelle nous élirons notre nouveau responsable marketing. La course est très serrée, et il a été proposé de recourir au vote quadratique pour équilibrer les chances.
+
+Le vote quadratique est une méthode qui permet aux électeurs d'attribuer plusieurs voix à un même candidat, à un coût croissant. Ici, quatre candidats sont en lice et chaque membre dispose de 9 « points » à dépenser pour voter. La subtilité : attribuer une valeur `v` à un champ coûte `v` élevé à la puissance `costExponent`. Avec un `costExponent` de 2, si j'attribue 1 voix au candidat A, cela me coûte 1 point ; 2 voix me coûtent 4 points, et 3 voix pour un même candidat me coûtent la totalité de mes 9 points. Entrons dans le détail.
+
+Nous avons quatre candidats, et les utilisateurs peuvent voter pour plusieurs d'entre eux. Chaque candidat doit donc disposer de son propre champ.
+
+- `maxCount` = 4
+
+Fixons un plafond raisonnable à la valeur qu'un votant peut attribuer à un même candidat.
+
+- `minValue` = 0
+- `maxValue` = 3
+
+Les membres peuvent tout à fait répéter des valeurs.
+
+- `uniqueValues` = 0
+
+Comme indiqué plus haut, les membres peuvent dépenser jusqu'à 9 points.
+
+- `minTotalCost` = 0
+- `maxTotalCost` = 9
+
+Cette variable a enfin l'occasion de briller. Fixons-la à 2 : le coût d'une valeur est donc le carré de cette valeur.
+
+- `costExponent` = 2
+
+![](https://storage.googleapis.com/papyrus_images/a645cc0a4a064387d26dafb4972d053a.png)
+
+Imaginons deux configurations de bulletin pour illustrer le fonctionnement du vote quadratique.
+
+**Bulletin 1**
+
+Notre premier votant s'accommoderait de n'importe quel candidat, mais préfère légèrement le candidat B. Il souhaite aussi utiliser le plus de pouvoir de vote possible.
+
+![](https://storage.googleapis.com/papyrus_images/d9e9d195ba9159cc90da7228e4764cfc.png)
+
+Chaque valeur `1` déposée par ce votant n'ajoute que `1` à son coût total. Mais une valeur de `2` ajoute `2^2`, soit `4`, à son coût total. En répartissant ses voix entre tous les candidats, ce votant parvient à allouer une valeur totale de 5 pour un coût de seulement 7. Il ne peut pas atteindre le coût total maximal de 9 : faire passer l'une de ses valeurs `1` à `2` porterait le coût au-delà de 9.
+
+**Bulletin 2**
+
+Le second votant a des opinions très tranchées : il ne soutient que le candidat C. Il est donc logique qu'il attribue la valeur maximale au candidat 3. Bien qu'il n'ait utilisé qu'une valeur totale de `3`, son coût total atteint le maximum : `3^3` = `9`.
+
+![](https://storage.googleapis.com/papyrus_images/99d22c797167c3a9f1a5be94957e158c.png)
+
+Vous imaginez sans peine comment, dans un processus plus vaste comptant davantage de candidats et de votants, le vote quadratique peut devenir un moyen très puissant de mesurer l'intensité des préférences, en plus des préférences elles-mêmes. Nous laissons l'interprétation de ces résultats en exercice au lecteur.
+
+---
+
+# **Un protocole ouvert et flexible**
+
+Vous avez maintenant, nous l'espérons, un bon aperçu de quelques cas d'usage possibles du protocole de bulletins Vocdoni. Sa caractéristique la plus importante reste toutefois sa flexibilité. Au-delà des configurations présentées ci-dessus, il existe d'innombrables autres variantes et mécanismes d'interprétation. Ces 8 variables couvrent un large éventail de scénarios représentant la quasi-totalité des types de vote que nous connaissons, sans compter ceux qui n'ont pas encore été inventés. Et il ne s'agit que d'une première itération : le Protocole pourrait s'étendre au besoin pour ouvrir encore plus de possibilités.
+
+La flexibilité technique et l'ouverture de ce Protocole se reflètent dans ses usages réels. La facilité avec laquelle une organisation peut mettre en place un processus de n'importe quel type abaisse considérablement la barrière à toutes les formes de prise de décision, qu'il s'agisse de vote traditionnel ou de démarches plus directes, fluides et expérimentales. Les membres de la société civile disposent désormais des outils pour agir par eux-mêmes et mettre en œuvre les processus démocratiques qui _les représentent le mieux_, quelle qu'en soit la forme.
+
+---
+
+# **NB : exemples de code**
+
+Pour les plus techniques d'entre vous qui êtes arrivés jusqu'ici, le Protocole ne signifierait pas grand-chose sans quelques exemples de code concrets. Voici comment utiliser [dvote-js](https://github.com/vocdoni/dvote-js), l'implémentation TypeScript/JavaScript du Protocole, pour créer un processus.
+
+Commençons par la mise en place : importez les paquets nécessaires, connectez-vous aux passerelles Vocdoni et générez une liste électorale de votants fictifs. Nous récupérerons aussi la hauteur de bloc actuelle afin de définir correctement l'heure de début du processus.
+
+_Consultez la_ [_documentation_](https://docs.vocdoni.io/#/integration/overview) _pour des guides plus détaillés sur la mise en place, la connexion aux passerelles, la génération d'une liste électorale, etc._
+
+Nous pouvons maintenant créer les métadonnées du processus. Créons un processus pour l'exemple des parfums de sucettes vu plus haut. Les métadonnées aident les clients à afficher correctement le processus de vote et contiennent les informations lisibles par un humain, sans configurer le processus au niveau du protocole. Nous définissons ici une question par parfum, avec les valeurs de choix prédéfinies de `0` à `3`. Nous déclarons aussi les types d'agrégation et d'affichage, qui indiquent aux clients comment interpréter les résultats et présenter le processus aux utilisateurs.
+
+Enfin, nous pouvons créer le processus lui-même. Les variables du protocole de bulletins sont simplement définies selon celles que nous avons établies plus haut pour cet exemple de processus, la variable `uniqueValues` étant définie via l'`envelopeType`. Au-delà de ces variables, `processParams` décrit où sont stockées la liste électorale et les métadonnées du processus, si le processus est chiffré et/ou anonyme, quelle infrastructure il doit utiliser, quand il commence et se termine, ainsi que d'autres informations auxiliaires.
+
+Une fois ce processus publié, nous pouvons le relire, vérifier que les paramètres sont correctement définis, indiquer aux clients web ou applicatifs comment afficher ce type de processus, et lancer le vote !

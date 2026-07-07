@@ -1,0 +1,98 @@
+---
+title: Du vote sur blockchain au vote cryptographique
+publishedDate: '2026-01-28'
+excerpt: 'Ces dernières années, Vocdoni a fait fonctionner le vote sur Vochain, notre blockchain L1 conçue spécifiquement pour le vote. Comme toute blockchain, elle nous offrait un atout puissant :…'
+coverImage: /blog/images/2026/01/Gemini_Generated_Image_6dzwdk6dzwdk6dzw-1.webp
+coverAlt: Du vote sur blockchain au vote cryptographique
+authors:
+  - pau
+categories:
+  - davinci
+  - technology
+featured: false
+draft: false
+seo:
+  metaDescription: |-
+    La confidentialité et la sécurité ne peuvent pas être de
+    simples « fonctionnalités » dans la gouvernance Web3.
+    Sans confidentialité, le vote n'est pas démocratique.
+    DAVINCI est notre réponse : rendre l'exactitude et la
+    confidentialité non négociables.
+  ogImage: /blog/images/2026/01/socialmedia_card-1.webp
+---
+
+Ces dernières années, [Vocdoni](https://vocdoni.io/fr) a fait fonctionner le vote sur **Vochain,** notre blockchain L1 conçue spécifiquement pour le vote. Comme toute blockchain, elle nous offrait un atout puissant : **tout y est transparent, reproductible et vérifiable**. N'importe qui peut auditer. Si quelque chose est falsifié, cela peut être détecté. Le consensus est atteint par une majorité de nœuds honnêtes, qui garantissent que le réseau continue de fonctionner.
+
+Ce modèle fonctionne, et il a [servi à de véritables élections](/blog/referendum-bellpuig). Mais si l'objectif final est la _prise de décision autonome_ (où les résultats peuvent déclencher des actions en toute sécurité), « auditable » ne veut toujours pas dire « impossible à falsifier ».
+
+Car les blockchains restent, au fond, des machines sociales à sécurité économique. Si l'incitation à tricher devient suffisamment forte, la théorie des jeux frappe à la porte.
+
+Nous nous sommes donc posé la question : **et si le dépouillement n'était pas une opération que l'on _confie au réseau_, mais une opération que le réseau est cryptographiquement contraint d'exécuter correctement ?**
+
+C'est le passage du _vote sur blockchain_ au **vote cryptographique**.
+
+---
+
+### Comment ça fonctionne ?
+
+Le zero-knowledge est souvent présenté comme une « technologie de confidentialité ». Et oui, la confidentialité compte. Mais sa propriété réellement disruptive, c'est le **calcul vérifié** : vous pouvez prouver que vous avez suivi un ensemble de règles sans demander à quiconque de faire confiance à votre exécution. [DAVINCI](https://davinci.vote/) est construit autour de cette idée : les preuves ne sont pas un bonus. Elles sont les gardiennes du système.
+
+En termes pratiques : sans preuve, impossible de mettre à jour le dépouillement.
+
+DAVINCI est un **zkRollup dédié au vote sur** [**Ethereum**](https://ethereum.org/), où un réseau décentralisé de séquenceurs regroupe les votes par lots et met à jour l'état de l'élection, et où Ethereum n'accepte ces mises à jour **que si une preuve zkSNARK démontre qu'elles ont été effectuées correctement**.
+
+Pas de preuve → pas de mise à jour de l'état → pas de résultat falsifié.
+
+**Ethereum est la « couche de coordination »**
+
+> Un processus de vote commence par une configuration en chaîne : les règles, le calendrier et l'engagement du registre des votants (le recensement). C'est aussi sur Ethereum que réside la dernière racine d'état valide de l'élection, la source de vérité.
+
+**Les séquenceurs font le travail, mais ils ne « décident » pas**
+
+> Les séquenceurs sont des opérateurs qui reçoivent les votes, les vérifient, les regroupent par lots, calculent le nouvel état et soumettent une preuve à Ethereum. Ils n'utilisent pas de mécanisme de consensus pour s'accorder sur le dépouillement. Ils produisent des preuves cryptographiques pour des lots de votes et mettent à jour le dépouillement chiffré en chaîne.
+
+**Le vote est sans frais de gaz pour les utilisateurs**
+
+> Plutôt que de faire payer des frais de transaction à chaque votant, les coûts sont mutualisés : les votes sont regroupés et réglés par lots. C'est ainsi qu'on obtient un vote sans frais de gaz sans sacrifier la sécurité d'Ethereum.
+
+**La confidentialité vient du chiffrement + déchiffrement à seuil**
+
+> Les bulletins sont chiffrés au moyen d'un chiffrement homomorphe à seuil (ElGamal) : les votes peuvent être agrégés tout en restant chiffrés, et aucune partie ne peut, seule, les déchiffrer. Ce n'est qu'à la clôture du scrutin, lorsque suffisamment de fragments de clé indépendants ont été révélés, que quiconque peut déchiffrer le dépouillement final.
+
+**L'absence de reçu de vote (_receipt-freeness_) fait partie des mécanismes**
+
+> DAVINCI est conçu pour rendre la coercition et l'achat de votes plus difficiles, voire impossibles :\
+> \- les bulletins sont **re-chiffrés** par les séquenceurs (vous ne pouvez donc pas « prouver » votre vote en montrant le facteur aléatoire de masquage) ;\
+> \- et les votants peuvent **écraser silencieusement** leur vote (c'est votre dernier vote qui compte).
+
+**Disponibilité des données**
+
+> DAVINCI publie les données nécessaires aux transitions d'état au moyen des **blobs Ethereum (EIP-4844)** et les relie à l'étape de vérification en chaîne. C'est ce qui permet aux autres séquenceurs de vérifier indépendamment le même état partagé et de poursuivre à partir de celui-ci.
+
+---
+
+### Qu'est-ce qui en fait un « vote cryptographique » ?
+
+**Ce n'est pas seulement auditable, c'est contraignant**
+
+> Le « vote sur blockchain » traditionnel vous offre la transparence. DAVINCI va un cran plus loin : il fait du dépouillement correct une **exigence cryptographique**.
+
+**Aucune hypothèse de majorité honnête pour le décompte des votes**
+
+> Vous n'avez pas besoin de supposer que « la plupart des nœuds sont honnêtes » pour faire confiance au résultat. Le résultat n'est accepté que si la preuve est validée sur Ethereum.
+
+**La participation peut être distribuée, par conception**
+
+> Les séquenceurs peuvent prendre le dernier état vérifié, construire le suivant et poursuivre la chaîne. Le système est ainsi plus difficile à censurer, et plus facile à maintenir en vie même si certains opérateurs disparaissent.
+
+---
+
+### **Ce qu'il faut retenir**
+
+La confidentialité et la sécurité ne peuvent pas être de simples « fonctionnalités » dans la gouvernance Web3 ; elles en sont le socle. **Sans confidentialité, le vote cesse d'être démocratique** : si un participant peut prouver comment il a voté, il peut être contraint ou acheté, et la gouvernance se transforme en marché de la pression.
+
+[**DAVINCI**](https://davinci.vote/) est notre tentative d'y remédier en **rendant l'_exactitude_ non négociable** : pas de dépouillement optimiste, pas de « faites confiance à l'opérateur », pas d'hypothèse de majorité honnête pour le décompte, seulement la cryptographie et Ethereum qui font respecter les règles.
+
+Le protocole est conçu pour supprimer les habituelles taxes à la participation : vote sans frais de gaz pour les utilisateurs, sécurité de niveau Ethereum pour le règlement, et un rôle de séquenceur pensé pour du matériel courant (des machines à base de CPU, pas des grappes de GPU), **véritablement ouvert**.
+
+Surtout : **DAVINCI** n'est pas « le produit de Vocdoni ». Nous en sommes les catalyseurs, mais il ne deviendra un standard universel de vote que si les communautés qui en ont besoin contribuent à le définir, à le défendre et à l'exiger. **Si vous pensez que la gouvernance doit être privée par défaut, vérifiable par tous et impossible à falsifier**, ajoutez votre nom au [Manifeste.](https://manifesto.davinci.vote)

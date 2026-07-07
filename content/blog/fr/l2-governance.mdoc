@@ -1,0 +1,52 @@
+---
+title: Modèles de gouvernance L2
+publishedDate: '2021-12-08'
+updatedDate: '2026-01-29'
+excerpt: Un aperçu technique de trois modèles de gouvernance et de vote de couche 2 (L2) sur Ethereum.
+coverImage: /blog/images/2026/01/blogpost_l2_governance_models.webp
+coverAlt: Modèles de gouvernance L2
+authors:
+  - ferran
+categories:
+  - technology
+featured: false
+draft: false
+---
+
+Les succès de la finance décentralisée (DeFi) rappellent les premiers temps de la gouvernance sur blockchain, et ses difficultés tout autant. Les frais élevés d'Ethereum, qui poussent les utilisateurs de la DeFi vers les solutions de couche 2 (L2), produisent un effet similaire sur la gouvernance décentralisée (dGov), où voter en chaîne est devenu d'un coût prohibitif. Diverses approches tentent donc de regrouper (« roll up ») les transactions ou les votes dans des contrats intelligents (*smart contracts*) hors chaîne, avant de les réconcilier avec la chaîne principale en une seule exécution, ou encore d'utiliser des chaînes latérales dotées de ponts sécurisés pour accroître la capacité. Ce passage aux L2, motivé par la réduction des coûts, offre par ailleurs l'occasion d'explorer de nouveaux modèles de dGov particulièrement prometteurs.
+
+### **Gouvernance optimiste hors chaîne**
+
+La gouvernance optimiste est le modèle L2 dont la barrière à l'entrée est la plus basse. En contrepartie, c'est celui qui exige le plus de confiance. Un tel processus se déroule hors chaîne, dans un ou plusieurs environnements de confiance.
+
+Parmi les exemples élémentaires, on trouve, dans le cas le plus extrême, un vote mené sur une feuille de calcul partagée ou, plus couramment, une application centralisée qui enregistre les votes sur IPFS. La sécurité de la méthode qui détermine la validité d'un vote repose sur le propriétaire de la feuille de calcul ou sur le système centralisé. Aucun mécanisme de consensus automatique n'intervient.
+
+Appliquée à la gouvernance blockchain, la gouvernance optimiste hors chaîne pourrait s'appuyer sur un service centralisé exécutant un nœud Ethereum synchronisé pour valider l'éligibilité d'un électeur, en appelant la fonction `balanceOf(holderAddr)` afin de vérifier qu'il détient le token de gouvernance (dans le cas d'un token ERC20). Tous les participants devraient cependant faire confiance à l'intégrité et au bon comportement du nœud chargé de cette vérification.
+
+Une fois le processus de gouvernance terminé, les résultats peuvent être renvoyés vers Ethereum dans un contrat intelligent de type rollup optimiste (comme ERC3000). Si les résultats ne sont pas contestés dans une fenêtre de temps donnée, ils sont considérés comme valides. En cas de contestation, un processus distinct, confié à une ou plusieurs parties de confiance, pourrait statuer sur leur validité.
+
+Cette approche soulève plusieurs inquiétudes, au premier rang desquelles le risque de censure ou de manipulation des votes lié à sa nature centralisée, ainsi que l'absence de reproductibilité : faute de source unique de vérité, les données peuvent être altérées, perdues ou corrompues.
+
+### **Gouvernance déterministe hors chaîne**
+
+La gouvernance déterministe hors chaîne est un modèle qui permet un vote entièrement sans permission et sans tiers de confiance. Un processus de vote déterministe génère un registre des votants et décompte les votes d'une manière vérifiable et reproductible par tout observateur tiers.
+
+Un tel schéma pourrait utiliser une chaîne latérale déterministe à état partagé, afin que quiconque puisse participer à un processus de vote et le valider. Sur cette chaîne à état partagé, tous les validateurs conserveraient une copie complète du registre et des données de vote et parviendraient à un consensus sur la validité de chaque vote, et donc sur le résultat final de l'élection.
+
+Ce modèle passe à l'échelle proportionnellement au nombre de transactions par seconde du mécanisme de consensus, chaque transaction pouvant contenir un seul vote. La résistance aux attaques par censure tient au fait que n'importe qui, partout dans le monde, peut ajouter ses propres nœuds au réseau pair-à-pair et faire respecter un consensus distribué. La gouvernance déterministe garantit aussi la reproductibilité : on peut reconstruire l'état de façon déterministe en rejouant l'ensemble des transactions, publiquement disponibles sur le réseau p2p.
+
+Dans ce modèle, des preuves vérifiables hors chaîne sont nécessaires pour établir l'éligibilité de chaque votant. À cette fin, un système pourrait calculer des [preuves de Merkle sur les tries de stockage d'Ethereum](https://docs.vocdoni.io/architecture/smart-contracts/storage-proofs.html) afin de démontrer, auprès de la blockchain de vote L2, la possession de données spécifiques sur Ethereum. Les votants peuvent ainsi prouver qu'ils détiennent des tokens sur un contrat ERC20 donné, ce qui permet un registre de vote hors chaîne pondéré, déterminé sans tiers de confiance par des preuves de tokens en chaîne.
+
+Si l'état de la L2 bénéficie d'un haut niveau d'intégrité garanti, il n'existe pas encore de moyen d'assurer l'exécution contraignante des résultats sur Ethereum sans faire confiance à un ou plusieurs acteurs. Cette interopérabilité inter-chaînes exige un réseau d'oracles pour valider et publier les résultats.
+
+### **Gouvernance en chaîne vérifiée et contraignante**
+
+Le troisième modèle, le plus avancé, peut être mis en œuvre comme une extension du modèle précédent de gouvernance déterministe hors chaîne fondée sur le consensus, au bénéfice de la décentralisation, ou comme un service centralisé doté des mécanismes appropriés contre la censure. L'innovation clé : l'exécution hors chaîne vérifiée / déterministe peut être prouvée mathématiquement par un contrat intelligent.
+
+Pour la prochaine génération de gouvernance en chaîne, un circuit spécialisé de type zk-SNARK (Zero-Knowledge Succinct Non-interactive Argument of Knowledge) pourrait intégrer ce modèle de gouvernance dans un protocole de gouvernance déterministe hors chaîne. Un tel circuit pourrait calculer une preuve à divulgation nulle de connaissance (ZKP) sur des lots de transactions de vote valides ou de processus de vote, une fois l'élection terminée. Une preuve ZK contenant la [racine de Merkle du registre](https://docs.vocdoni.io/architecture/census-overview.html) (un condensé haché du registre des votants), le nombre de votants éligibles et les résultats numériques de l'élection peut être validée par un contrat intelligent Ethereum. À partir de là, toute action contraignante peut être exécutée en chaîne.
+
+Pierre angulaire de la gouvernance L2, ce modèle représente l'état de l'art. La gouvernance hors chaîne vérifiée, avec des résultats contraignants en chaîne, offre un vote à grande échelle qui est déterministe, sans permission, universellement vérifiable et sans tiers de confiance, sans rien perdre des fonctionnalités du vote en chaîne. Surtout, ce modèle peut être mis en œuvre d'une manière totalement gratuite pour les votants.
+
+# **La voie à suivre**
+
+[Vocdoni](https://vocdoni.io/fr) est une organisation guidée par sa mission : notre vision n'est rien de moins que la gouvernance en chaîne vérifiée et contraignante. L'équipe de Vocdoni travaille actuellement sur une preuve de concept de ce modèle, fondée sur la technologie zkRollup, dont nous espérons vous en dire davantage dans les prochaines semaines. D'ici là, nous continuerons de publier chaque itération qui améliore l'existant et nous rapproche de cet objectif. Dans les versions actuelles de Vocdoni, 90 % du modèle de gouvernance déterministe hors chaîne est déjà implémenté à l'aide de validateurs de confiance (preuve d'autorité), et nous travaillons déjà à faire passer, à moyen terme, notre blockchain de décompte des votes à la preuve d'enjeu.

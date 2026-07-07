@@ -1,0 +1,106 @@
+---
+title: Vers un vote anonyme et contraignant pour Ethereum
+publishedDate: '2023-06-23'
+updatedDate: '2026-01-14'
+excerpt: 'Chez Vocdoni, notre objectif principal est de construire une technologie qui permette des processus de vote fluides et sécurisés sur Ethereum.'
+coverImage: /blog/images/2026/01/blogpost_road_to_anonymous_ethereum.webp
+coverAlt: Vers un vote anonyme et contraignant pour Ethereum
+authors:
+  - ferran
+categories:
+  - technology
+featured: false
+draft: false
+---
+
+L'anonymat protège la vie privée des électeurs et garantit la libre expression des opinions, en réduisant le risque de coercition ou de représailles. La résistance à la censure, de son côté, garantit qu'aucune entité ne peut à elle seule manipuler le vote ou en refuser le droit, renforçant ainsi un processus démocratique décentralisé, équitable et ouvert.
+
+Chez [Vocdoni](https://vocdoni.io/fr), notre objectif principal est de fournir la pile technologique permettant des processus de vote fluides et sécurisés au sein de la blockchain Ethereum, en particulier pour l'écosystème des organisations autonomes décentralisées (DAO). Nous voulons créer un système inédit de vote hors chaîne, anonyme, sans frais de gas et à exécution contraignante.
+
+Ce document présente notre approche pour mener à bien cette mission ambitieuse, organisée autour des axes suivants :
+
+- construire et vérifier un recensement complet des votants ;
+- traiter le problème du déterminisme du *nullifier*, inhérent aux signatures ECDSA ;
+- le mécanisme d'émission des votes hors chaîne ;
+- le rôle et les fonctions de l'agrégateur de votes ;
+- la publication des résultats du vote sur Ethereum.
+
+### **1. Le recensement vérifié**
+
+Composant central de tout système de vote, le recensement est chargé d'énumérer les électeurs éligibles et de leur attribuer un poids de vote. Or, générer un recensement à partir des données de la blockchain Ethereum présente des difficultés propres, notamment :
+
+- **Structure des données :** les données de la blockchain Ethereum ne sont pas structurées dans un format propice à la génération d'un recensement. Par exemple, pour un token ERC20, il n'existe pas de structure de données distincte qui maintienne la liste complète des détenteurs du token.
+- **Compatibilité cryptographique :** la cryptographie d'Ethereum n'est pas fondamentalement compatible avec les zk-SNARKs, ce qui complique la création et la vérification de preuves à divulgation nulle de connaissance.
+
+Le défi global consiste donc à créer, sans tiers de confiance, un recensement fondé sur des tokens et compatible avec les zk-SNARKs, afin de permettre le vote hors chaîne. Il faut aussi tenir compte du fait que des transactions ERC20 peuvent survenir à tout moment : le recensement peut donc varier sensiblement d'un bloc à l'autre.
+
+Pour répondre à ces défis, nous proposons l'approche suivante :
+
+- **Recensement hors chaîne :** construire un recensement hors chaîne adapté aux zk-SNARKs.
+- **Génération de preuve :** générer une preuve zk-SNARK attestant l'exactitude du recensement.
+- **Validation sur la chaîne :** valider la preuve de création du recensement sur Ethereum, via un contrat intelligent (*smart contract*).
+- **Vote :** une fois validé, le recensement peut être utilisé pour voter.
+
+La validation du recensement sur Ethereum peut s'effectuer de deux manières :
+
+- **Vérification des soldes :** le contrat intelligent vérifie la validité de tous les détenteurs (ou d'un sous-ensemble) en invoquant la fonction balanceOfAt(). Cette approche peut toutefois entraîner des coûts de transaction élevés pour l'expéditeur.
+- **Preuve de stockage :** la preuve ZK du recensement est construite à partir de preuves de stockage (*storage proofs*), et le contrat en vérifie la cohérence par rapport à une racine d'état (State Root) antérieure d'Ethereum. Cette méthode peut être coûteuse en calcul pour le constructeur du recensement, mais elle offre une solution robuste.
+
+Nous pensons que la vérification des soldes convient mieux aux petites DAO (100 à 200 membres), tandis que la preuve de stockage est plus adaptée aux grandes organisations capables d'assumer les coûts d'une infrastructure de calcul plus importante.
+
+### **2. Le problème du déterminisme du nullifier**
+
+Dans les systèmes cryptographiques, le déterminisme est essentiel : une même entrée doit toujours produire la même sortie. Or, les signatures Ethereum posent ici un problème.
+
+Les signatures ECDSA incluent un nonce arbitraire, c'est-à-dire un nombre utilisé une seule fois ou très rarement. Le signataire peut modifier ce nonce pour générer des signatures différentes à partir de la même charge utile. Résultat : du non-déterminisme, c'est-à-dire des sorties différentes pour une même entrée.
+
+Ce non-déterminisme devient un obstacle pour le calcul du nullifier, un outil essentiel pour empêcher le double vote. Le nullifier est un identifiant unique associé à chaque vote. Lorsqu'un vote est émis, le nullifier est inscrit dans une liste publique sur la blockchain.
+
+Générer un nullifier déterministe exige un schéma de signature déterministe. Et comme les signatures ECDSA ne sont pas déterministes, elles se prêtent mal à la génération de nullifiers. Nous voici donc face à un blocage pour empêcher le double vote dans un système de vote anonyme et contraignant sur Ethereum.
+
+Nous introduisons le concept de registre global de clés d'engagement (*commitment keys*). Un contrat intelligent gère ce registre et sert d'outil d'association entre une adresse Ethereum et une clé d'engagement. La structure de base est la suivante : adresse Ethereum => hash(secret).
+
+La clé d'engagement, générée à partir d'un secret de l'utilisateur, permet de lier une adresse Ethereum à une sortie déterministe, garantissant ainsi le déterminisme indispensable à notre cas d'usage.
+
+Cette association clé-adresse est stockée sur la blockchain Ethereum sous la forme d'un arbre de Merkle adapté aux SNARKs. Les arbres de Merkle se prêtent particulièrement bien à cet usage : ils permettent de construire un système efficace et infalsifiable pour stocker et vérifier de grands volumes de données, une exigence essentielle dans notre cas.
+
+Pour voter, l'utilisateur doit fournir une preuve zk-SNARK. Cette preuve démontre qu'il connaît le secret de la clé d'engagement, laquelle fait partie de l'arbre de Merkle des clés d'engagement stocké sur Ethereum. Cela nous permet de créer un système de vote sécurisé, anonyme et résistant au double vote, sans exiger de déterminisme des signatures ECDSA.
+
+### **3. L'émission des votes hors chaîne**
+
+Avec un recensement vérifié et la racine de Merkle du registre global en place, l'émission des bulletins peut commencer.
+
+Pour voter, l'utilisateur doit prouver deux choses :
+
+- **Inclusion dans le recensement :** son adresse et son solde font partie du recensement du vote.
+- **Connaissance de la clé secrète :** il connaît la clé secrète de l'engagement associé à son adresse dans le registre global.
+
+L'utilisateur construit ensuite les preuves zk-SNARK, ce qui anonymise effectivement son identité et génère un nullifier. Ce nullifier est calculé de manière déterministe en hachant la clé secrète avec l'identifiant unique de la proposition.
+
+Notez qu'avec ce mécanisme, le registre global étant un arbre de Merkle adapté aux zk-SNARKs, il n'est pas nécessaire d'utiliser la cryptographie d'Ethereum (secp256k1) à l'intérieur du circuit, ce qui rend la génération du bulletin plus efficace et mieux adaptée au navigateur.
+
+Le bulletin et la preuve sont regroupés dans un paquet et distribués à un réseau pair-à-pair (P2P) d'agrégateurs. Un réseau P2P décentralisé est fondamental pour atteindre la résistance à la censure : il garantit qu'aucune entité ne peut à elle seule contrôler ou manipuler le processus de vote.
+
+### **4. Le processus d'agrégation des votes**
+
+Une fois les votes émis, ils doivent être agrégés dans une preuve zk-SNARK globale. Cette agrégation peut se faire en une seule fois ou par lots. La preuve construite lors de ce processus vérifie les éléments suivants :
+
+- un hash racine précis du recensement du vote ;
+- un hash racine unique du registre global ;
+- une liste de nullifiers de votes valides ;
+- l'exactitude des résultats du vote.
+
+Les votes d'origine étant eux-mêmes des preuves zk-SNARK, l'agrégation nécessite un niveau de récursion : un zk-SNARK prouvant l'exactitude d'un autre zk-SNARK.
+
+Cependant, compte tenu de l'état de l'art actuel et de la compatibilité limitée d'Ethereum avec les courbes elliptiques, l'exécution de cette génération récursive de preuves représente un défi de taille. Face à ces difficultés, il nous faudra peut-être attendre que les frameworks zk-SNARK progressent et qu'Ethereum offre une meilleure prise en charge de la cryptographie zk-SNARK.
+
+### **5. La publication des résultats sur Ethereum**
+
+Une fois l'agrégation des votes terminée, n'importe quel utilisateur peut soumettre la preuve finale à un contrat intelligent Ethereum. Ce contrat a la responsabilité de vérifier les éléments suivants :
+
+- **Preuve des résultats :** la preuve des résultats est correcte.
+- **Racine du recensement :** la racine du recensement du vote correspond à celle vérifiée précédemment.
+- **Racine du registre global :** la racine du registre global est exacte.
+- **Période de vote :** la période de vote respecte le calendrier prédéfini.
+
+Une fois ces éléments vérifiés, le contrat intelligent peut exécuter les actions prédéterminées associées au processus de vote sur Ethereum. Ce processus garantit la validité et l'intégrité des votes et en facilite la mise en œuvre.
