@@ -1,0 +1,218 @@
+---
+title: Presentamos el protocolo de papeletas de Vocdoni
+publishedDate: '2021-04-16'
+updatedDate: '2026-01-14'
+excerpt: 'La principal innovación del protocolo de Vocdoni es la implementación del primer protocolo de voto online descentralizado, resistente a la censura y…'
+coverImage: /blog/images/2025/12/ballot_protocol_post.webp
+coverAlt: Presentamos el protocolo de papeletas de Vocdoni
+authors:
+  - ferran
+categories:
+  - technology
+featured: false
+draft: false
+---
+
+# **El protocolo de papeletas de Vocdoni**
+
+La principal innovación del núcleo del protocolo de Vocdoni consiste en implementar el primer protocolo de voto online descentralizado, resistente a la censura y anónimo. Pero, más allá de estas aspiraciones técnicas, el protocolo es compatible con una amplia variedad de procesos democráticos. Vocdoni lo consigue, en parte, gracias a nuestra versátil especificación para las papeletas de voto.
+
+El **protocolo de papeletas de Vocdoni** (*Vocdoni Ballot Protocol*) pretende ser una especificación sencilla pero potente para representar las papeletas y los resultados de un proceso de votación.
+
+# **Primero, algunas definiciones:**
+
+Un **_proceso de votación_** se compone de uno o más **_campos_**, cada uno de los cuales representa una pregunta o una opción de una pregunta, según el **_tipo de proceso_**. Al votar, los electores con derecho a voto eligen entre un conjunto de **_respuestas_** predefinidas para cada campo. El número de respuestas permitidas, el tipo de respuesta, etc., también dependen del tipo concreto de proceso. Un elector expresa sus preferencias emitiendo una **_papeleta_**.
+
+Una papeleta se representa como un array (o lista) de números naturales. Cada posición del array contiene la respuesta a uno de los campos del proceso.
+
+Los resultados se acumulan en un array bidimensional de números naturales (una matriz). Cada fila de esta matriz corresponde a un campo de la papeleta, y cada columna, a uno de los valores posibles de ese campo. Cada número de la matriz de resultados es simplemente el recuento de votos del valor representado en ese índice.
+
+Antes de entrar en los detalles de cómo se configura un proceso, veamos un ejemplo genérico. Supongamos que tenemos un proceso con tres campos, `A`, `B` y `C`, cada uno de los cuales admite `0`, `1` y `2` como valores posibles. No sabemos qué representan estos valores o campos, pero de momento no importa.
+
+![](https://storage.googleapis.com/papyrus_images/47fc7647a24d815d609ad569c4456e39.png)
+
+En este ejemplo se han emitido dos votos. El primer votante eligió el valor `2` para el campo `A`, `0` para el campo `B` y `1` para el campo `C`. La segunda papeleta contiene los valores `0`, `0` y `2`. En el diagrama anterior puedes ver cómo se relacionan las papeletas con la matriz de resultados. El _índice_ de un valor de la papeleta determina el _campo_ al que pertenece ese valor: el primer índice de la papeleta 1 tiene el valor `2`, así que la papeleta 1 asigna el valor `2` al campo A. Dentro de cada campo de la matriz de resultados, el valor del voto se representa mediante su índice. Colocamos un `1` en el índice `2` del `campo A` para representar el único voto que ha recibido el valor `2`.
+
+Puede que al principio no resulte intuitivo. Prueba a seguir un par de valores más desde una de las papeletas hasta la matriz de resultados para asegurarte de que entiendes bien cómo se representan aquí los resultados.
+
+---
+
+# **El protocolo en sí**
+
+El protocolo de papeletas se compone de un conjunto de variables numéricas y booleanas (verdadero/falso) que restringen el formato de una papeleta válida.
+
+![](https://storage.googleapis.com/papyrus_images/b8d920f2d64cf347ff2f47f7e34a3340.png)
+
+¿Cómo se representaría con este protocolo el ejemplo que hemos presentado antes?
+
+Para empezar, sabemos que tenemos tres campos, así que
+
+- `maxCount` = 3
+
+Nuestros valores válidos son 0, 1 y 2, de modo que podemos establecer
+
+- `minValue` = 0
+- `maxValue` = 2
+
+La segunda papeleta contiene el valor `0` en varios campos. Para que esta papeleta sea válida, debemos establecer
+
+- `uniqueValues` = 0 (aquí 0 representa «falso» y 1 representa «verdadero»)
+
+Para las tres variables siguientes no hay una asignación evidente, así que vamos a añadir algo más de contexto a nuestro proceso de ejemplo. Supongamos que el proceso consiste en una única pregunta en la que se pide a los votantes que repartan monedas de oro entre distintas organizaciones. Cada campo representa una organización, y el valor asignado a ese campo es el número de monedas de oro que el votante quiere destinar a esa organización.
+
+Por las variables `minValue` y `maxValue` que ya hemos definido, sabemos que cada usuario puede asignar entre 0 y 2 monedas a una misma organización. Pero una regla plausible que podríamos añadir es que los votantes solo puedan repartir 3 monedas en total. E imaginemos también que los votantes _tienen_ que asignar al menos 1 moneda.
+
+Esto da sentido al diagrama del proceso anterior: la primera papeleta reparte 3 monedas en total (quizá apoya a las organizaciones A y C, pero A le gusta un poco más). La segunda papeleta solo reparte 2 de sus 3 monedas posibles (solo apoya a la organización C y prefiere desperdiciar su tercera moneda antes que dársela a A o a B). Así que podemos establecer sin problema
+
+- `minTotalCost` = 1
+- `maxTotalCost` = 3
+
+y ambas papeletas serán válidas.
+
+La última variable que nos queda por fijar es `costExponent`, relacionada con el [voto cuadrático](https://www.wikiwand.com/en/Quadratic_voting). No vamos a profundizar ahora en este tipo de votación, así que dejamos el valor por defecto
+
+- `costExponent` = 1
+
+De nuevo, dedica un momento a reflexionar sobre cada una de estas variables y comprueba si entiendes cómo afectaría a nuestro proceso de ejemplo cambiar cualquiera de ellas.
+
+# **Interpretación de resultados**
+
+Las variables anteriores constituyen la totalidad del protocolo de papeletas de Vocdoni, que cubre la validación de papeletas y la tabulación de resultados tal y como las gestiona la infraestructura principal. Pero es evidente que falta mucha información en lo que respecta a la experiencia humana. Quienes integran el protocolo deben decidir cómo comunicar a los votantes el contenido real de un proceso, y también cómo interpretar y representar la matriz de resultados. La interpretación de resultados queda fuera del alcance del protocolo de papeletas, pero es relevante para entender cómo puede usarse el protocolo.
+
+En su iteración actual, Vocdoni define dos formatos de interpretación de resultados: **_ponderación por índice_** y **_valores discretos_**.
+
+### **Ponderación por índice**
+
+Para nuestro proceso de ejemplo usaríamos la fórmula de interpretación de resultados con ponderación por índice. Este esquema es adecuado para procesos de una sola pregunta, como el voto preferencial, la elección múltiple o los presupuestos participativos. Cada índice de un campo de la matriz de resultados representa un valor ponderado; en este caso, el peso representa el número de monedas asignadas a una organización. La suma de los votos, multiplicados por sus valores ponderados por índice, es el valor total de ese campo.
+
+![](https://storage.googleapis.com/papyrus_images/345a07aee1ddf6a6aad51db7e58fd399.png)
+
+Esta interpretación agrega nuestro proceso de ejemplo. La organización A recibe 2 monedas; la organización C, 3.
+
+### **Valores discretos**
+
+La interpretación de valores discretos se usa en procesos en los que cada campo es una pregunta independiente. Aquí cada valor representa una única opción discreta (p. ej., «candidato 2»), y no un multiplicador (p. ej., «2 puntos para esta opción»). Así, este método interpreta los resultados indicando simplemente qué valor, si lo hay, ha recibido más votos en cada campo.
+
+El `0` se reserva para el empate entre opciones.
+
+![](https://storage.googleapis.com/papyrus_images/97e8bca257a9b118b86ee3dd31165107.png)
+
+Estos dos formatos no pretenden ser exhaustivos. Como decíamos antes, el protocolo de papeletas es agnóstico respecto a cómo se agregan los resultados, y cualquiera que construya su propia capa de aplicación sobre el protocolo puede definir su propia interpretación de resultados.
+
+---
+
+# **Ejemplos**
+
+Veamos un par de ejemplos del mundo real para que te hagas una idea de lo versátil que es el protocolo de papeletas.
+
+### **Voto preferencial**
+
+Dirijo una empresa de golosinas. Estamos a punto de lanzar un nuevo sabor de piruleta y queremos hacer un estudio de mercado para determinar qué sabor gustará más a los clientes. Hemos enviado a algunos de nuestros clientes más fieles una caja con piruletas de sabor `asparagus` (espárrago), `beans` (judías), `carrot` (zanahoria) y `dill` (eneldo); no somos una empresa de golosinas con mucho éxito ☹. Les pedimos que expresen sus preferencias ordenando las piruletas en un proceso de votación de Vocdoni…
+
+Esta situación es perfecta para un proceso de [voto preferencial](https://www.wikiwand.com/en/Ranked_voting). Así crearemos el proceso para nuestros probadores:
+
+Tenemos cuatro sabores distintos que queremos ordenar. Los usuarios deben asignar un valor a cada golosina, así que necesitamos un campo separado para cada sabor.
+
+- `maxCount` = 4
+
+Indicaremos a los usuarios que ordenen las golosinas de mejor a peor, donde `3` es la mejor y `0` la peor.
+
+- `minValue` = 0
+- `maxValue` = 3
+
+No nos sirve que los probadores consideren que algunos sabores son igual de buenos: queremos una clasificación clara de mejor a peor.
+
+- `uniqueValues` = 1
+
+Como los usuarios están obligados a asignar cuatro valores únicos, sabemos que el coste total debe ser 0+1+2+3=6.
+
+- `minTotalCost` = 6
+- `maxTotalCost` = 6
+
+De nuevo, aquí no necesitamos costExponent.
+
+- `costExponent` = 1
+
+![](https://storage.googleapis.com/papyrus_images/d06d57a97367e2f40ed75228f02392a7.png)
+
+Vamos con nuestra primera papeleta. A este probador le encanta la zanahoria, así que sitúa `carrot` como primera opción. Después vienen `asparagus` y `dill`, y `beans` queda en último lugar. Así se registra esta papeleta en la matriz de resultados:
+
+![](https://storage.googleapis.com/papyrus_images/e63207ba97dca5657af93969f5424cb3.png)
+
+Las papeletas siguen llegando y obtenemos un total de ¡30 respuestas! Con la matriz de resultados completa, agregamos los resultados según el método de ponderación por índice…
+
+![](https://storage.googleapis.com/papyrus_images/49480940bd6ea3db2320d77b587455ae.png)
+
+¡El eneldo (`dill`) es el ganador! 🎉 Gracias a este exhaustivo estudio de mercado, pronto podrás encontrar piruletas con sabor a eneldo en tu supermercado.
+
+### **Voto cuadrático**
+
+Nuestra cooperativa de fabricación de calzado, gestionada por sus trabajadores, celebra esta semana su asamblea anual, en la que elegiremos a una nueva persona responsable de marketing. Es una carrera muy reñida, y se ha propuesto usar el voto cuadrático para igualar las condiciones.
+
+El voto cuadrático es un método que permite a los votantes asignar varios votos a un mismo candidato, con un coste creciente. En este caso se presentan cuatro candidatos, y cada miembro dispone de hasta 9 «puntos» para gastar al votar. El truco es que el coste de asignar un valor `v` a un campo es `v` elevado a `costExponent`. Con un `costExponent` de 2, si asigno 1 voto al candidato A me cuesta un punto, pero si le asigno 2 votos me cuesta 4 puntos, y 3 votos a un mismo candidato me cuestan los 9 puntos. Vamos a verlo con más detalle.
+
+Tenemos cuatro candidatos, y los usuarios pueden votar a varios de ellos. Así que cada uno debe tener su propio campo.
+
+- `maxCount` = 4
+
+Pongamos un límite razonable al valor que un votante puede asignar a un candidato.
+
+- `minValue` = 0
+- `maxValue` = 3
+
+No hay problema en que los miembros repitan valores.
+
+- `uniqueValues` = 0
+
+Como hemos dicho antes, los miembros pueden gastar hasta 9 puntos.
+
+- `minTotalCost` = 0
+- `maxTotalCost` = 9
+
+Por fin le llega a esta variable su momento de brillar. La fijamos en 2, de modo que el coste de cualquier valor es el cuadrado de ese valor.
+
+- `costExponent` = 2
+
+![](https://storage.googleapis.com/papyrus_images/a645cc0a4a064387d26dafb4972d053a.png)
+
+Imaginemos un par de configuraciones de papeleta para que veas cómo funciona el voto cuadrático.
+
+**Papeleta 1**
+
+A nuestro primer votante le parecería bien cualquiera de los candidatos, aunque prefiere ligeramente al candidato B. Además, quiere usar todo el poder de voto posible.
+
+![](https://storage.googleapis.com/papyrus_images/d9e9d195ba9159cc90da7228e4764cfc.png)
+
+Cada valor de `1` que emite este votante solo añade `1` a su coste total. Pero un valor de `2` añade `2^2`, es decir, `4`, a su coste total. Al repartir los votos entre todos los candidatos, este votante consigue asignar un valor total de 5 con un coste de solo 7. No puede llegar al coste total máximo de 9, porque subir de `1` a `2` cualquiera de sus valores elevaría el coste por encima de 9.
+
+**Papeleta 2**
+
+El segundo votante tiene opiniones muy firmes. Solo apoya al candidato C, así que tiene sentido que asigne el valor máximo al candidato 3. Aunque solo ha usado un valor total de `3`, su coste total alcanza el máximo: `3^3` = `9`.
+
+![](https://storage.googleapis.com/papyrus_images/99d22c797167c3a9f1a5be94957e158c.png)
+
+Puedes imaginar cómo, en un proceso mayor con más candidatos y votantes, el voto cuadrático puede ser una forma muy potente de medir no solo la preferencia, sino también su intensidad. De momento, dejamos la interpretación de estos resultados como ejercicio para el lector.
+
+---
+
+# **Un protocolo abierto y flexible**
+
+Esperamos que ya te hagas una idea de algunos posibles casos de uso del protocolo de papeletas de Vocdoni. Sin embargo, la característica más importante del protocolo es su flexibilidad. Además de las configuraciones presentadas, existen infinidad de variantes y mecanismos de interpretación. Estas 8 variables abarcan una amplia gama de escenarios que representan casi todos los tipos de votación que conocemos, además de otros que ni siquiera se han inventado todavía. Y esto es solo una primera iteración: el protocolo podría ampliarse si fuera necesario para abrir aún más posibilidades.
+
+La flexibilidad técnica y la apertura de este protocolo se reflejan en sus usos reales. La facilidad con la que una organización puede montar un proceso de cualquier tipo reduce drásticamente las barreras a todo tipo de toma de decisiones, ya sea una votación tradicional o algo más directo, fluido y experimental. La sociedad civil dispone ahora de las herramientas para empoderarse y poner en marcha los procesos democráticos que _mejor la representen_, sean cuales sean.
+
+---
+
+# **Nota: ejemplos de código**
+
+Si eres de perfil técnico y has llegado hasta aquí, puede que el protocolo no signifique gran cosa sin unos ejemplos de código con los pies en la tierra. Así es como podrías usar [dvote-js](https://github.com/vocdoni/dvote-js), la implementación en TypeScript/JavaScript del protocolo, para crear un proceso.
+
+Primero, preparemos el entorno. Importa los paquetes necesarios, conéctate a las pasarelas de Vocdoni y genera un censo de votantes ficticios. También obtendremos la altura de bloque actual para poder fijar correctamente el inicio del proceso.
+
+_Consulta la&#xA0;_[_documentación_](https://docs.vocdoni.io/#/integration/overview)_&#xA0;para ver guías más detalladas sobre la configuración inicial, la conexión a las pasarelas, la generación de un censo, etc._
+
+Ahora podemos crear los metadatos del proceso. Vamos a crear un proceso para el ejemplo de los sabores de golosinas que hemos visto antes. Los metadatos son la información que ayuda a los clientes a mostrar correctamente el proceso de votación y contienen la información legible por humanos, sin configurar el proceso a nivel de protocolo. Aquí definimos una pregunta por sabor, incluyendo cada uno de los valores de elección predefinidos, de `0` a `3`. También declaramos los tipos de agregación y de visualización, que indican a los clientes cómo interpretar los resultados y cómo mostrar el proceso a los usuarios.
+
+Por último, podemos crear el proceso en sí. Las variables del protocolo de papeletas se establecen según los valores que hemos definido antes para este proceso de ejemplo, con la variable `uniqueValues` configurada como `envelopeType`. Además de estas variables, `processParams` describe dónde se almacenan el censo y los metadatos del proceso, si el proceso es cifrado o anónimo, qué infraestructura debe usar, cuándo empieza y termina, y otra información auxiliar.
+
+Después de publicar el proceso podemos leerlo de vuelta, verificar que los parámetros son correctos, indicar a los clientes web o de aplicación que muestren este tipo de proceso ¡y empezar a votar!

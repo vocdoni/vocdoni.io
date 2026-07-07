@@ -1,0 +1,115 @@
+---
+title: 'Presentamos NI-DKG: un protocolo no interactivo de generación distribuida de claves basado en zkSNARKs'
+publishedDate: '2026-03-03'
+updatedDate: '2026-03-24'
+excerpt: 'Vocdoni ha desarrollado un nuevo protocolo DKG no interactivo por diseño, operativamente asíncrono en la práctica y construido a partir de primitivas criptográficas estándar.'
+coverImage: /blog/images/2026/03/dkg.webp
+coverAlt: 'Presentamos NI-DKG: un protocolo no interactivo de generación distribuida de claves basado en zkSNARKs'
+authors:
+  - jordi-pinyana
+categories:
+  - technology
+  - davinci
+  - announcements
+featured: false
+draft: false
+seo:
+  metaTitle: Presentamos NI-DKG
+  metaDescription: 'Un protocolo no interactivo de generación distribuida de claves basado en zkSNARKs'
+---
+
+El cifrado homomórfico con umbral es una pieza fundamental del protocolo de votación [DAVINCI](https://davinci.vote). Garantiza que ninguna parte pueda descifrar por sí sola los resultados de la votación: la clave de descifrado se reparte entre varios nodos independientes, y solo cuando cooperan suficientes de ellos pueden descifrarse los resultados.
+
+Sin embargo, antes de poder descifrar nada, esos nodos deben crear primero la clave de forma conjunta. Ese proceso se llama **generación distribuida de claves (DKG, por sus siglas en inglés)**. Estamos construyendo una versión de DKG diseñada específicamente para entornos blockchain, en los que cada participante debe demostrar que su contribución es correcta antes de que se acepte en la cadena.
+
+**DAVINCI garantiza** la **privacidad** del proceso de votación mediante un esquema de **cifrado homomórfico con umbral**. En concreto, se usa un [criptosistema ElGamal con umbral](https://github.com/tompetersen/threshold-crypto) sobre curvas elípticas. Los mensajes cifrados pueden combinarse para producir un cifrado de la suma de los textos en claro originales sin necesidad de descifrarlos. Este esquema permite descifrar un texto cifrado concreto sin revelar en ningún momento la clave secreta del esquema de umbral, de modo que el escrutinio final puede descifrarse mientras las papeletas individuales permanecen confidenciales.
+
+### **Visión general del protocolo**
+
+NI-DKG es un protocolo nativo de blockchain diseñado para ser completamente **no interactivo**: la corrección se exige en el momento del envío mediante pruebas ZK.
+
+En lugar de fases de reclamación y rondas de disputa, **cada participante debe demostrar que su contribución es correcta en el mismo momento de enviarla**. El contrato inteligente (*smart contract*) comprueba la prueba de inmediato: los envíos válidos se aceptan y los inválidos se rechazan en el acto. No hay idas y venidas ni impugnaciones reactivas. Como toda la transcripción queda registrada en la cadena, obtenemos además **verificabilidad pública**.
+
+Además de ser no interactivo por diseño, el protocolo NI-DKG es también **operativamente asíncrono en la práctica**. Sus fases se definen por números de bloque y no por frágiles plazos de respuesta.
+
+### **Por qué es importante**
+
+Los protocolos DKG asistidos por blockchain actuales dependen de fases de disputa: si un nodo recibe datos incorrectos, presenta una reclamación en la cadena y el acusado debe responder antes de un plazo. Esto añade rondas, costes de gas y superficie de ataque: los nodos honestos pueden quedar excluidos si su respuesta llega tarde, y los actores maliciosos pueden presentar reclamaciones infundadas para entorpecer el proceso. Los trabajos académicos recientes sobre DKG totalmente asíncrono han producido resultados teóricos impresionantes, pero se trata de protocolos de una complejidad muy elevada.
+
+Y lo más importante: NI-DKG se construye íntegramente a partir de **primitivas criptográficas estándar** y bien entendidas. No introducimos supuestos nuevos; aplicamos técnicas consolidadas de una forma más práctica. El protocolo ocupa un **término medio pragmático y práctico**: más simple que las construcciones totalmente asíncronas y, a la vez, más robusto que los esquemas síncronos ingenuos. Hereda el modelo temporal de la blockchain subyacente, natural para las aplicaciones on-chain, y lo combina con pruebas de conocimiento cero proactivas para eliminar los procedimientos interactivos de reclamación, un punto débil habitual en los diseños existentes. El resultado es un protocolo más seguro y muy adecuado para despliegues en el mundo real.
+
+### **Fases del protocolo NI-DKG**
+
+**_Generación_**
+
+1. **Inicio:** el organizador publica los parámetros `(n, t)`.
+2. **Manifestación de interés:** los nodos elegibles señalan su disponibilidad (opcionalmente con stake).
+3. **Selección de nodos**: se seleccionan `n` nodos usando la aleatoriedad de la cadena; se aborta si no se cumple la política.
+4. **Proceso DKG principal:** cada nodo publica compromisos polinómicos y fragmentos cifrados, junto con una prueba ZK de corrección.
+5. **Finalización:** el organizador calcula la clave pública `PK` y los compromisos de los fragmentos privados, y los publica en la blockchain junto con una prueba ZK de corrección.
+
+![](/blog/images/2026/03/dkg-process.webp)
+
+**_Descifrado_**
+
+1. **Publicación del texto cifrado:** se publica un texto cifrado `(C1, C2)` junto con el identificador de ronda. Los nodos saben cuándo se publican estos textos cifrados.
+2. **Publicación de descifrados parciales:** los nodos publican un descifrado parcial de `C1`, junto con una prueba de igualdad de logaritmos discretos.
+3. **Descifrado:** una vez publicados `t` o más descifrados parciales, puede llamarse al contrato inteligente para recuperar el mensaje.
+
+![](/blog/images/2026/03/dkg-decryption.webp)
+
+**_Revelación opcional de la clave_**
+
+Ten en cuenta que la revelación de la clave no forma parte del protocolo DAVINCI; normalmente esta parte no es necesaria, ya que es posible probar la fase de descifrado sin necesidad de publicar la clave secreta.
+
+1. **Inicio**: la solicitud de revelar la clave secreta puede enviarla el organizador o activarse automáticamente, siempre que lo permitan los parámetros de la política.
+2. **Publicación de los fragmentos de la clave secreta:** cada nodo participante publica su fragmento del secreto.
+3. **Cálculo de la clave secreta:** una vez enviados `t` o más valores, cualquiera puede calcular la clave secreta.
+
+![](/blog/images/2026/03/dkg-sk-disclosure.webp)
+
+### **Bajo el capó**
+
+El protocolo cubre el ciclo de vida completo: generación de claves, descifrado con umbral y revelación opcional de la clave. En cada etapa, el contrato inteligente actúa como capa de coordinación y verificación, mientras que las pruebas de conocimiento cero trasladan fuera de la cadena todas las comprobaciones criptográficas pesadas. Hay una separación limpia de responsabilidades: la blockchain se ocupa del orden y del registro público; el sistema de pruebas garantiza la corrección.
+
+Los bloques criptográficos básicos son los siguientes:
+
+- **Shamir + VSS de Feldman**: polinomios con compromisos públicos de los coeficientes.
+- **ElGamal con hash** para cifrar los fragmentos.
+- Prueba de igualdad de logaritmos discretos de **Chaum-Pedersen**, usada para los descifrados parciales.
+- **zk-SNARKs** (Groth16, FFLONK, …) para la verificación en la cadena.
+
+**Circuitos:**
+
+<!--kg-card-begin: html-->
+
+| Fase                                                                       | Propósito                                        | Salida / Qué demuestra                                                                                |
+| -------------------------------------------------------------------------- | ------------------------------------------------ | ----------------------------------------------------------------------------------------------------- |
+| Generación, fase 4: proceso DKG principal                                   | Prueba de contribución por participante          | La contribución DKG de cada participante es válida.                                                    |
+| Generación, fase 5: cálculo de los fragmentos secretos y la clave pública   | Finalización                                     | La clave pública final y los compromisos de los fragmentos se derivan correctamente.                   |
+| Descifrado, fase 2: publicación de descifrados parciales                    | Descifrado parcial + prueba DLEQ (por nodo)      | El descifrado parcial de cada nodo es correcto y va acompañado de una prueba DLEQ de corrección.        |
+| Descifrado, fase 3: descifrado                                              | Combinar descifrados parciales → texto en claro  | La combinación de descifrados parciales válidos produce el texto en claro correcto.                    |
+| Revelación opcional de la clave, fase 2: publicación de los fragmentos      | Comprobación fragmento vs. compromiso (por nodo) | Cada nodo demuestra que su fragmento revelado coincide con el compromiso publicado previamente.         |
+| Revelación opcional de la clave, fase 3: cálculo de la clave secreta        | Reconstruir la clave secreta a partir de _t_ fragmentos | La reconstrucción de la clave secreta a partir del umbral (_t_) de fragmentos es correcta.        |
+
+<!--kg-card-end: html-->
+
+### **Limitaciones**
+
+Como las fases están ligadas a números de bloque, el protocolo hereda la sincronía parcial de la cadena que lo aloja. La verificación en la cadena también impone restricciones de escalado, aunque con las estrategias de reducción de entradas descritas en el artículo es realista **admitir comités de 40–50 participantes**. Esto cubre con holgura las necesidades de la mayoría de despliegues prácticos.
+
+Aunque el DKG propuesto es flexible y podría adaptarse a otros esquemas de cifrado, usar Groth16 sobre BN254 implica que la opción más eficiente es un esquema de cifrado definido sobre el cuerpo escalar de BN254, es decir, usando la curva BabyJubJub.
+
+### **Dónde estamos**
+
+El **diseño del protocolo está completo**. Un borrador de artículo de investigación describe la construcción completa, ofrece especificaciones detalladas de los circuitos y analiza estrategias para reducir los costes en la cadena. Los siguientes pasos son la **implementación y las pruebas de rendimiento** en las cadenas EVM objetivo.\
+\
+[Aquí](https://github.com/vocdoni/davinci-node/tree/main/crypto/elgamal/dkg) tienes una prueba de concepto en Golang para validar el esquema básico.
+
+El artículo completo está disponible [aquí](https://eprint.iacr.org/2026/552).
+
+Este proyecto es de código abierto. Si quieres contribuir, ya sea con desarrollo, ideas, recursos o financiación, escríbenos.
+
+[Contacto](https://chat.vocdoni.io)
+
+---

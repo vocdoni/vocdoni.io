@@ -1,0 +1,96 @@
+---
+title: Catalonia's education unions choose Vocdoni to consult nearly 100,000 public school teachers
+publishedDate: '2026-06-04'
+excerpt: 'In four days, more than 60,000 teachers in Catalonia cast their vote on whether to endorse the preliminary agreement with Catalonia''s Department of Education. Three different unions ran the consultation together with Vocdoni, a voting technology that is secure, verifiable and secret by design.'
+coverImage: /blog/images/2026/06/consulta_edu.webp
+coverAlt: Catalonia's education unions choose Vocdoni to consult nearly 100,000 public school teachers
+authors:
+  - ferran
+categories:
+  - success-stories
+featured: false
+draft: false
+---
+
+**Unions, federations and member-based movements often face the same structural problem at the worst possible moment: when a high-stakes decision has to go to the membership, it matters to be able to do it with a system that provides maximum integrity, verifiability and privacy.** A consultation is only as solid as people's confidence that the result is real.
+
+This is exactly the situation several teachers' unions in Catalonia faced. After months of mobilizations and strikes, a preliminary agreement on salaries and staffing was reached on May 29 with Catalonia's Department of Education (_Departament d'Educació_). Instead of signing or rejecting it on teachers' behalf, the unions that had called the strikes (**USTEC-STEs, CGT and Intersindical**) decided to take the preliminary agreement directly to the entire teaching body in a binding consultation.
+
+They ran it with **Vocdoni**, from June 1 to 4, 2026.
+
+## Key facts
+
+- **Organizations:** USTEC-STEs, CGT and Intersindical (joint consultation)
+- **Question:** Endorse or reject the preliminary agreement reached with Catalonia's Department of Education
+- **Eligible voters:** 99,305 teachers from Catalonia's public schools
+- **Turnout:** 60,686 votes cast. 61.11%, around ten points higher than the sectoral consultation held in March ([Cadena SER](https://cadenaser.com/cataluna/2026/06/04/els-professors-rebutgen-lacord-amb-educacio-sercat/))
+- **Voting window:** June 1 to 4, 2026
+- **Setup time:** designed and deployed in 24 hours
+- **Voting method:** remote online voting from any device, with open-source, end-to-end verifiable software
+- **Results:** available immediately at poll close
+
+## The challenge: a single, shared, neutral ballot box
+
+Because the consultation was not limited to members of the convening unions but open to every teacher in Catalonia, several independent union organizations, with different sensibilities and affiliations, had to agree on a shared mechanism to manage a single ballot box. That called for neutral infrastructure, accepted by all parties, able to guarantee the integrity of the process without relying on trust in any one organization.
+
+This makes the requirements especially demanding:
+
+- **Infrastructure neutrality.** No union could be the infrastructure provider.
+- **Verifiability as a precondition.** The truthfulness of the entire process, and the integrity of the votes, had to be openly auditable.
+- **Massive scale in a very short window.** Close to 100,000 potential voters in four days, with turnout peaks heavily concentrated at opening and close.
+- **Privacy for every voter.**
+
+As one of Vocdoni's co-founders explained [to _NacióDigital_](https://naciodigital.cat/societat/codi-lliure-i-verificacio-constant-aixi-sha-gestat-la-consulta-per-avalar-o-no-lacord-amb-educacio.html): _"We run on open source, over a blockchain infrastructure, which means anyone can see how it was done and scrutinize it"_, while _"everyone's data remains private"_.
+
+![](/blog/images/2026/06/image.webp)
+
+Results of the consultation of Catalonia's teachers on the May 29 preliminary agreement
+
+## The solution: open by design, private by default
+
+Vocdoni is built precisely for this kind of high-stakes vote, where trust, auditability and speed are non-negotiable.
+
+### How does voting work?
+
+One of the keys to turnout is making voting simple. The flow was designed to be clear and fast from any device, with no technical knowledge required.
+
+1. **A dedicated URL for the consultation.** Voters enter a dedicated space (in this case `consultaunitaria.vocdoni.vote`) with all the information about the process.
+2. **Email identification.** They identify uniquely with their email address.
+3. **Two-factor authentication (2FA).** They receive a code by email and enter it to validate their identity, so only eligible voters can vote.
+4. **Casting the encrypted vote.** They choose their option and confirm it before submitting. The vote is cast encrypted from the voter's own device.
+5. **Vote receipt.** Once done, they receive a receipt they can use to verify on their own that their vote was recorded and included in the tally.
+
+### Anyone can audit the process, no one can see your vote
+
+Throughout the consultation, **anyone could see the total census and how many people had voted, updated continuously** on a [tracking page](https://consultaunitaria.vocdoni.vote/processes/6b342d99f2187fae0e2d41c7dcccc8dc01106d4b33f4addc4425030400000003/summary) and a [detailed analytics page](https://explorer.vote/process/6b342d99f2187fae0e2d41c7dcccc8dc01106d4b33f4addc4425030400000003), but the content of the ballots remained encrypted until the close. This is the property that lets different unions share a single ballot box: verifiability is accessible to all of them at once, to their members, and to society at large.
+
+The co-founder summed it up like this, [speaking to _NacióDigital_](https://naciodigital.cat/societat/codi-lliure-i-verificacio-constant-aixi-sha-gestat-la-consulta-per-avalar-o-no-lacord-amb-educacio.html): _"We are moving from the centralized model of the 2000s, with the ballot box as a 'black box' where you had to blindly trust the good faith of the provider, to a fully verifiable model, open source and with advanced cryptography. Anyone can check that the process is being run correctly."_
+
+## What Vocdoni's technology brings to a process like this
+
+- **Open source and auditable.** No black boxes: any party can inspect how the system works. Real transparency, not just a promise.
+- **End-to-end verifiability.** Every voter can check that their vote was cast and counted correctly, and any observer can verify the tally, analyzing the audit trail that shields the process against doubts or challenges.
+- **Guaranteed privacy.** The vote is secret and protected: the result can be verified without ever revealing who voted for what.
+- **Operational robustness.** Infrastructure ready to sustain tens of thousands of concurrent votes with integrity and availability.
+
+## Why this matters to unions and other organizations
+
+This week's headline will be the political result. The more lasting part, though, is **legitimacy**: a consultation like this is a reminder that legitimacy depends not only on the result, but on how it was reached.
+
+For a union, or any other organization, internal democracy is the source of its authority. When a decision is momentous and controversial, the value of consulting the membership is not just the answer; it is that **the membership's real opinion becomes known, through a process that supporters and detractors alike can verify.** Different unions, with no particular reason to trust one another, were able to stand behind the same tally. Tens of thousands of people took part within a few days. The verdict, whatever it was, is hard to dispute on procedural grounds.
+
+The same pattern applies well beyond the union world: elections in professional bodies, consultations in cooperatives and companies with a broad membership base, internal processes in parties and associations, or assemblies of public institutions and entities. In all of them the challenge is the same: bring the decision to everyone, quickly and at scale, with a result that can be defended.
+
+This is what secure, verifiable online voting offers organizations: a way to take decisions directly to the people they represent, quickly and at scale, **strengthening their legitimacy through a closer, more direct relationship with their base**, without giving up security, privacy or the credibility of the result.
+
+## Why these unions could trust Vocdoni
+
+Catalonia has been a pioneer in digital voting for two decades, and Vocdoni's approach reflects that legacy: we do not build a black box you have to trust us on, but **open-source, end-to-end verifiable infrastructure that anyone can audit.**
+
+---
+
+If your union, federation or organization needs to take a decision to its membership, secure online voting can remove the logistical friction without adding technical complexity or compromising trust.
+
+Contact Vocdoni to see how to implement it.
+
+[Contact us](https://vocdoni.io/contact)

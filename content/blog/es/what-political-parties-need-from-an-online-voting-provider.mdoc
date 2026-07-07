@@ -1,0 +1,150 @@
+---
+title: Qué necesitan los partidos políticos de un proveedor de voto online
+publishedDate: '2026-03-06'
+excerpt: 'Las elecciones internas de un partido político exigen algo más que comodidad: exigen legitimidad verificable. Este artículo explica los siete estándares esenciales que debe cumplir cualquier plataforma de voto online, desde la neutralidad estructural y el secreto criptográfico hasta la resistencia a la censura y los resultados verificables de forma independiente.'
+coverImage: /blog/images/2026/03/header_political_parties.webp
+coverAlt: Qué necesitan los partidos políticos de un proveedor de voto online
+authors:
+  - ferran
+categories:
+  - use-cases
+featured: false
+draft: false
+---
+
+Cuando se impugna la elección de la dirección de un partido político, rara vez es porque la votación en sí haya sido manipulada. **Es porque nadie pudo demostrar que no lo fue**.
+
+Para la mayoría de organizaciones, un resultado disputado es un bochorno. Para un partido político, **puede dividir a la militancia, empujar a los afiliados hacia facciones rivales y regalar a los adversarios un relato ya montado sobre la disfunción interna**. Lo que se juega con un resultado no verificable es categóricamente distinto.
+
+Por eso el voto online en las elecciones internas de un partido exige una evaluación diferente a la de elegir plataforma para la votación anual de un club de lectura. Este artículo recoge **siete requisitos que cualquier partido debería exigir antes de firmar con un proveedor**.
+
+## Por qué las elecciones de partido exigen un estándar más alto
+
+Los colegios profesionales celebran elecciones para cumplir sus estatutos. Las cooperativas, para cumplir sus obligaciones democráticas. Los partidos políticos celebran elecciones para decidir quién los dirige, quién se presenta a las instituciones en su nombre y qué piensan de verdad sus afiliados.
+
+Estas decisiones moldean la vida pública. Quienes votan son personas con conciencia política y escépticas por principio. Existen facciones. Los resultados ajustados traen disputas. En entornos así, **«lo dice la plataforma» no es una base aceptable para un resultado**.
+
+Hay además una dimensión adversarial. Un proveedor comercial de elecciones puede prometer neutralidad de forma creíble a una asociación de ingenieros. Ese mismo proveedor, al servicio de un partido político, se enfrenta a otro nivel de escrutinio: quién es su propietario, bajo qué jurisdicción opera, si algún actor con intereses en el resultado podría influir en él y si algún gobierno podría obligarle a entregar los datos de los afiliados.
+
+No son preguntas paranoicas. Son las **preguntas correctas que debe hacerse cualquier responsable de gobernanza** antes de comprometerse con una plataforma para las elecciones internas del partido.
+
+## Las decisiones que los partidos políticos someten al voto de sus afiliados
+
+La democracia interna de un partido abarca decisiones de distinto tipo, cada una con sus propios requisitos de legitimidad:
+
+- **Elecciones de liderazgo**: elegir al líder del partido, a la presidencia o a la ejecutiva nacional
+- **Selección de candidatos**: primarias internas y procesos de selección para decidir quién va en la lista electoral
+- **Votaciones fundacionales y estratégicas**: consultas a la militancia sobre programas, estatutos internos, alianzas políticas o las bases ideológicas del partido
+- **Decisiones de congresos y asambleas**: elección de delegados, votación de mociones y resoluciones en los congresos del partido
+- **Referéndums sobre políticas concretas**: votaciones de los afiliados sobre cuestiones específicas entre congresos
+
+Lo que estas decisiones tienen en común es que quienes votan tienen un interés directo en el resultado, una fuerte motivación para cuestionar cualquier resultado que les sea contrario y, en muchos casos, facciones organizadas con recursos para plantear una impugnación. Los requisitos siguientes se aplican a todas ellas.
+
+## Siete requisitos para el voto online en elecciones de partidos políticos
+
+### 1. Neutralidad estructural: la plataforma no debe rendir cuentas a ningún actor político
+
+La plataforma **debe operar de forma independiente, sin depender de ningún gobierno, autoridad estatal o inversor con vínculos políticos**. La estructura de gobernanza importa tanto como las políticas de empresa: una plataforma a la que una orden judicial pueda obligar a revelar datos de afiliación, o que opere bajo la jurisdicción de un gobierno interesado en los asuntos internos del partido, no cumple este requisito por muy buenas intenciones que tenga.
+
+Hazte la pregunta concreta: si el partido en el gobierno de nuestro país exigiera acceso a los datos de nuestra elección, ¿podría obligarse a la plataforma a entregarlos? La respuesta debe ser no por diseño, no por promesa.
+
+[DAVINCI](/blog/davinci-universal-voting-protocol) es un protocolo de votación descentralizado desarrollado por Vocdoni Association, una organización sin ánimo de lucro. Y lo más importante: **la arquitectura garantiza que ningún actor por sí solo, Vocdoni incluida, tiene las claves de los resultados ni de las papeletas individuales**.
+
+### 2. Secreto del voto criptográfico: una propiedad del sistema, no una promesa
+
+Toda plataforma electoral legítima promete el secreto del voto. Menos son las que saben explicar el mecanismo. Y menos aún las que pueden demostrarlo estructuralmente.
+
+La diferencia importa. **Una plataforma que promete no mirar los votos individuales es una plataforma que pide confianza**. Una plataforma donde los votos se cifran en el dispositivo del votante antes de enviarse, se escrutan sin descifrar jamás ninguna papeleta individual y se verifican sin que nadie llegue a leer una sola elección, es una plataforma que estructuralmente no puede mirar aunque quisiera.
+
+Para un partido político donde líderes de facciones, equipos de dirección y candidatos rivales tienen intereses en el resultado, «prometemos que no hemos mirado» no es un estándar creíble. **El mecanismo debe convertir el secreto en un hecho**, no en una promesa.
+
+### 3. Prevención de la compra de votos y de la coerción
+
+Aquí actúan dos mecanismos conjuntamente, y ambos importan.
+
+El primero es la **sobrescritura del voto**: los votantes pueden cambiar su voto en cualquier momento antes del cierre de la elección. **Solo cuenta la última papeleta emitida**. Un votante que vota en presencia de alguien, bajo observación o presión, puede volver más tarde en privado y cambiar su voto.
+
+El segundo es la **ausencia de comprobante** (*receipt-freeness*): ningún votante puede generar un registro verificable de su elección para mostrárselo a nadie, ni aunque quiera. **Esta propiedad elimina la compra de votos de raíz**. Una facción con recursos puede ofrecer incentivos y exigir pruebas de cumplimiento, pero ningún votante puede aportar una prueba que se sostenga. La «prueba» que entrega es indemostrable, así que la transacción no tiene valor exigible.
+
+Juntas, estas dos propiedades cierran ambos vectores de ataque. **La sobrescritura del voto permite a un votante coaccionado deshacer cualquier papeleta emitida bajo presión. La ausencia de comprobante impide que quien compra votos pueda verificar jamás lo que ha pagado**. Una plataforma con sobrescritura del voto pero sin ausencia de comprobante sigue permitiendo mostrar pruebas de la elección en el momento de votar. Una plataforma con ausencia de comprobante pero sin sobrescritura no deja forma de deshacer el daño cuando el coaccionador está presente en el momento de votar. **Ambas son necesarias**.
+
+La coerción también puede operar mediante la vigilancia de los patrones de participación, sin necesidad de pruebas de la elección. A una operación de voto en bloque puede bastarle con saber si alguien ha votado, cuándo lo ha hecho y si el momento coincide con la asistencia a un determinado acto. **El diseño correcto de la plataforma mantiene la identidad del votante desvinculada de los metadatos de participación**.
+
+### 4. Verificación independiente del resultado: una prueba que cualquier afiliado puede comprobar por sí mismo
+
+La respuesta habitual ante un resultado electoral impugnado es pedirle un informe a la plataforma. La plataforma genera un PDF. Al afiliado que impugna se le pide que confíe en él.
+
+Esto no basta en una elección política. Un afiliado que no confía en la plataforma tampoco confiará en el informe de la propia plataforma. **Un resultado públicamente verificable, en cambio, es uno que cualquier afiliado, periodista o auditor independiente puede comprobar sin contar con la plataforma para nada**.
+
+Cada elección de Vocdoni genera un registro público en [explorer.vote](https://explorer.vote). **La prueba matemática de que el escrutinio coincide con los votos emitidos es pública y puede comprobarse con herramientas públicamente disponibles. No requiere confiar en Vocdoni.** No requiere confiar en nadie. Es una prueba.
+
+### 5. Código abierto: sin cajas negras propietarias
+
+La mayoría de plataformas piden a las organizaciones que confíen no solo en los resultados que producen, sino en el software que los produce. El código es propietario. No hay forma de verificar que el sistema funciona como se describe.
+
+Para un partido político cuyos afiliados y adversarios escrutarán cada decisión, «el software es seguro porque lo decimos nosotros» no es una posición creíble. **El código debe estar públicamente disponible para que cualquier investigador de seguridad, desarrollador o experto independiente pueda inspeccionarlo**.
+
+**El** [**protocolo Vocdoni**](https://davinci.vote) **está desarrollado y mantenido por una organización sin ánimo de lucro y es completamente de código abierto**. La **Vocdoni App**, que implementa ese protocolo para las organizaciones, está operada por una empresa con ánimo de lucro y es **también de código abierto**. Ambas capas son públicamente inspeccionables, y cualquiera puede verificar que la app implementa fielmente el protocolo. **Los incentivos comerciales de la empresa de la app no pueden comprometer la integridad de la elección, porque los resultados están anclados al protocolo de código abierto**, que ninguna capa propietaria puede alterar.
+
+### 6. Resistencia a la censura: una plataforma que un actor hostil no puede apagar
+
+Los partidos que operan en entornos políticos difíciles, los movimientos de oposición en países con un Estado de derecho frágil y las organizaciones políticas de la diáspora afrontan un riesgo que las asociaciones convencionales no tienen: **que la plataforma de la que dependen pueda ser clausurada**.
+
+Una plataforma centralizada tiene servidores. Los servidores tienen proveedores de alojamiento. Los proveedores de alojamiento operan bajo jurisdicciones. Un gobierno que quiera perturbar la elección interna de un partido de la oposición puede, en algunos casos, presionar por esos canales.
+
+**Una plataforma resistente a la censura no tiene un único servidor al que atacar**. **La infraestructura de Vocdoni es descentralizada: no hay un punto central al que presionar**, ni una única empresa a la que se pueda obligar a interrumpir el servicio. Y esto importa sobre todo cuando más importa.
+
+### 7. Cumplimiento del RGPD y protección de los datos políticos
+
+Según el [Reglamento General de Protección de Datos](https://gdpr-info.eu), **la opinión política es una categoría especial de datos personales conforme al artículo 9**. Goza del máximo nivel de protección del derecho de la UE. Una plataforma que gestione datos de elecciones de partidos políticos debe tratar en consecuencia la información de afiliación y los registros de participación.
+
+La [Recomendación CM/Rec(2017)5 del Consejo de Europa](https://www.coe.int/en/web/electoral-assistance/e-voting) sobre estándares de voto electrónico para elecciones democráticas ofrece una referencia de gobernanza útil: **exige que los sistemas garanticen que la identidad del votante permanezca separada del contenido de la papeleta, que los resultados sean verificables de forma independiente y que la infraestructura resista las injerencias externas**. No son estándares aspiracionales. Son el mínimo que un partido debe exigir.
+
+Los requisitos clave del RGPD en este contexto son **la minimización de datos, la limitación de la finalidad y la separación estructural entre la identidad del votante y el contenido de la papeleta**. Vocdoni recoge solo lo necesario para verificar la elegibilidad y dar acceso a la votación. La identidad está separada del contenido de la papeleta por diseño. **Todos los datos se alojan en infraestructura de la UE**.
+
+Para responsables de gobernanza con dudas concretas sobre cumplimiento normativo, [el equipo de Vocdoni](https://vocdoni.io/es/contact) puede facilitar documentación sobre el marco de cumplimiento de la plataforma.
+
+![](/blog/images/2026/03/infography-political-parties-online-voting.webp)
+
+## Cómo Vocdoni cumple los siete requisitos
+
+Vocdoni no se diseñó para encuestas sencillas. **Se construyó para elecciones cuyos resultados deben resistir el escrutinio de personas con un gran interés en impugnarlos**.
+
+La combinación de verificación independiente del resultado, sobrescritura del voto, ausencia de comprobante, infraestructura resistente a la censura y código completamente abierto significa que, cuando una elección de Vocdoni termina, el resultado no es la palabra de Vocdoni. **Es una prueba pública y verificable de forma independiente**. Cualquiera puede comprobarla. Nadie puede disputarla con credibilidad.
+
+La imposibilidad arquitectónica de que ningún actor, incluido el brazo comercial de Vocdoni, acceda a votos individuales o altere escrutinios satisface el requisito de neutralidad como no podría hacerlo ninguna declaración de intenciones.
+
+## Organizaciones políticas que han usado Vocdoni en elecciones trascendentes
+
+### Esquerra Republicana de Catalunya: un 77,12 % de participación en una votación trascendente
+
+Esquerra Republicana es **uno de los mayores partidos políticos de España**. Celebró con Vocdoni **una votación interna decisiva entre su militancia** sobre una cuestión de importantes consecuencias políticas. [La participación alcanzó el 77,12 %](/blog/esquerra-republicana-political-party-membership-vote-with-vocdoni-77-12-turnout-in-a-decisive-political-decision). Esa cifra no es un logro técnico. Es un resultado de legitimidad: el resultado tuvo autoridad porque la participación fue inequívoca, el proceso era verificable de forma independiente y ningún afiliado tenía una base creíble para impugnar el desenlace.
+
+### New Belarus: elecciones de la sociedad civil desde el exilio
+
+New Belarus es una **plataforma cívica que permite autoorganizarse a las** fuerzas democráticas y la sociedad civil bielorrusas. **Usó Vocdoni para celebrar las elecciones a su Consejo de Coordinación, un órgano representativo que agrupa a organizaciones democráticas que no pueden operar con seguridad dentro de Bielorrusia**. La elección se celebró del 25 al 28 de mayo de 2024, en condiciones donde la resistencia a la censura no era una ventaja teórica, sino una necesidad operativa. Una plataforma centralizada podría haber sido bloqueada por las autoridades bielorrusas. **Se emitieron 6.723 votos, bajo la supervisión de un grupo de siete observadores internacionales**. [Lee el caso de éxito completo](/blog/new-belarus-vocdoni).
+
+### Alhora
+
+Alhora es un partido político catalán joven y en crecimiento, con **afiliados repartidos por Cataluña y el extranjero**. Cuando necesitó celebrar una gran votación participativa para definir las bases fundacionales del partido, el tipo de decisión que condiciona todo lo que viene después, eligió Vocdoni.
+
+## Preguntas frecuentes sobre el voto online para partidos políticos
+
+**¿Es legalmente válido el voto online en las elecciones internas de un partido político?**\
+En la mayoría de jurisdicciones, sí, siempre que el proceso cumpla los criterios estándar de gobernanza: un censo documentado, un voto secreto, un resultado a prueba de manipulaciones y un rastro de auditoría verificable. **Vocdoni cumple los cuatro por diseño**. Los requisitos concretos varían según la jurisdicción y los estatutos del partido. Consulta con tu asesoría jurídica.
+
+**¿Pueden los administradores o los cargos del partido ver el voto de cada afiliado?\
+No**. Los votos se cifran en el dispositivo del votante antes de enviarse. El escrutinio se produce sin descifrar jamás ninguna papeleta individual. **Nadie, ni los administradores, ni los cargos del partido, ni Vocdoni, puede reconstruir la elección de ningún afiliado**. Los administradores pueden ver la participación agregada para gestionar el quórum. Hasta ahí llega su visibilidad.
+
+**¿Cómo evita Vocdoni que una facción presione a los afiliados para votar en bloque?**\
+Mediante la ausencia de comprobante. Ningún votante puede generar un registro verificable de su elección para mostrárselo a nadie. **Un votante presionado puede emitir una papeleta en presencia de otra persona y cambiarla después en privado, antes del cierre de la elección**. La papeleta modificada es la que cuenta. El coaccionador no puede verificar cuál fue la papeleta final. Esto elimina el mecanismo que hace eficaces las operaciones coercitivas de voto en bloque.
+
+## El resultado que tus afiliados no podrán discutir
+
+Toda organización política acaba enfrentándose a una elección impugnada. La cuestión no es si ocurrirá. Es si el resultado se sostendrá cuando ocurra.
+
+**Un resultado anclado a una prueba pública y verificable de forma independiente es un resultado que se sostiene**. No hay nada que discutir cuando refutar el resultado exigiría refutar unas matemáticas a las que cualquier afiliado puede acceder por sí mismo.
+
+Vocdoni ha procesado más de [200.000 votos](https://vocdoni.io/es/impact) de partidos políticos, colegios profesionales, federaciones y organizaciones cívicas. **Ninguna elección ha sido impugnada con éxito por la integridad del resultado**. No porque no se impugnen resultados. Porque la prueba es pública.
+
+Puedes **probar Vocdoni gratis en** [**app.vocdoni.io**](https://app.vocdoni.io) **sin tarjeta de crédito y sin llamadas comerciales**. [Los precios son públicos en la web](https://app.vocdoni.io/plans), así que sabrás exactamente cuánto costará la elección de tu partido antes de comprometerte a nada. Y si en algún momento tienes dudas sobre la puesta en marcha, sobre cómo configurar la elección según los requisitos específicos de tu partido o sobre la documentación de cumplimiento para tus estatutos, [**el equipo de Vocdoni**](https://vocdoni.io/es/contact) **está para ayudarte**. Esta plataforma se construyó exactamente para organizaciones como la tuya.

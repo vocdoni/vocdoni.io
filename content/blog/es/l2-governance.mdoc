@@ -1,0 +1,52 @@
+---
+title: Modelos de gobernanza en L2
+publishedDate: '2021-12-08'
+updatedDate: '2026-01-29'
+excerpt: Un repaso técnico a tres modelos de gobernanza y votación de capa 2 (L2) sobre Ethereum.
+coverImage: /blog/images/2026/01/blogpost_l2_governance_models.webp
+coverAlt: Modelos de gobernanza en L2
+authors:
+  - ferran
+categories:
+  - technology
+featured: false
+draft: false
+---
+
+Los éxitos de las finanzas descentralizadas (DeFi) nos recuerdan a los primeros tiempos de la gobernanza en blockchain, y sus retos también. Las elevadas comisiones de Ethereum, que están empujando a los usuarios de DeFi hacia soluciones de capa 2 (L2), tienen un efecto similar en la gobernanza descentralizada (dGov), donde votar en cadena se ha vuelto prohibitivamente caro. Como alternativa, se están explorando distintas vías para «enrollar» (*roll up*) transacciones o votos en contratos inteligentes (*smart contracts*) fuera de la cadena, que después se reconcilian con la cadena principal en una sola ejecución, o para usar sidechains con puentes seguros que añadan capacidad extra. Además, este desplazamiento hacia L2 para abaratar costes abre la puerta a explorar modelos de dGov nuevos y prometedores.
+
+### **Gobernanza optimista fuera de la cadena**
+
+La gobernanza optimista es el modelo L2 con la barrera de entrada más baja. La contrapartida es que es también el que más confianza exige. El proceso se desarrolla fuera de la cadena (*off-chain*), en uno o varios entornos de confianza.
+
+Entre los ejemplos más básicos están, en el caso más extremo, una votación realizada en una hoja de cálculo compartida o, más habitualmente, una aplicación centralizada que registra los votos en IPFS. La seguridad del método que determina si un voto es válido depende del propietario de la hoja de cálculo o del sistema centralizado: no interviene ningún mecanismo automático de consenso.
+
+Aplicada a la gobernanza en blockchain, la gobernanza optimista fuera de la cadena podría apoyarse en un servicio centralizado con un nodo de Ethereum sincronizado que valide la elegibilidad de cada votante llamando a la función `balanceOf(holderAddr)` para comprobar que posee el token de gobernanza (en el caso de un token ERC20). Ahora bien, todos los participantes tendrían que confiar en la integridad y el buen comportamiento del nodo que realiza esa comprobación.
+
+Una vez completado el proceso de gobernanza, los resultados pueden enviarse de vuelta a Ethereum mediante un contrato inteligente de tipo rollup optimista (como ERC3000). Si nadie los impugna dentro de un plazo determinado, se consideran válidos. Si se impugnan, un proceso aparte, gestionado por una o varias partes de confianza, podría determinar su validez.
+
+Este enfoque plantea varias dudas, sobre todo el riesgo de censura o manipulación de votos derivado de su carácter centralizado, además de la falta de reproducibilidad: al no existir una única fuente de verdad, los datos pueden alterarse, perderse o corromperse.
+
+### **Gobernanza determinista fuera de la cadena**
+
+La gobernanza determinista fuera de la cadena es un modelo que permite votar sin permisos y sin depositar confianza en terceros (*permissionless* y *trustless*). Un proceso de votación determinista genera el censo y realiza el recuento de los votos de forma verificable y reproducible por cualquier observador externo.
+
+Este esquema podría usar una sidechain determinista de estado compartido para que cualquiera pueda participar en un proceso de votación y validarlo. En esa cadena de estado compartido, todos los validadores mantendrían una copia completa del censo y de los datos de votación y alcanzarían consenso sobre la validez de cada voto y, por tanto, sobre el resultado final de la elección.
+
+Este modelo escala en proporción al número de transacciones por segundo del mecanismo de consenso, ya que cada transacción puede contener un solo voto. La resistencia a los ataques de censura viene de que cualquier persona, en cualquier parte del mundo, puede añadir sus propios nodos a la red peer-to-peer y hacer cumplir un consenso distribuido. La gobernanza determinista también permite la reproducibilidad, porque el estado puede reconstruirse de forma determinista reproduciendo el conjunto de transacciones, disponibles públicamente en la red p2p.
+
+En este modelo hacen falta pruebas verificables fuera de la cadena que acrediten la elegibilidad de cada votante. Para ello, un sistema podría calcular [pruebas de Merkle sobre los tries de almacenamiento de Ethereum](https://docs.vocdoni.io/architecture/smart-contracts/storage-proofs.html) que demuestren ante la blockchain de votación L2 la posesión de determinados datos en Ethereum. Así, los votantes pueden demostrar que poseen tokens de un contrato ERC20 concreto, lo que permite censos de votación ponderada fuera de la cadena determinados sin confianza mediante pruebas de tokens en cadena.
+
+Aunque el estado de la L2 goza de un alto nivel de integridad garantizada, todavía no existe una forma de asegurar la ejecución vinculante de los resultados en Ethereum sin confiar en algún actor. Para esta interoperabilidad entre cadenas se necesita una red de oráculos que valide y publique los resultados.
+
+### **Gobernanza en cadena verificada y vinculante**
+
+El tercer modelo, el más avanzado, puede implementarse como una extensión del modelo anterior de gobernanza determinista fuera de la cadena basada en consenso (para favorecer la descentralización) o como un servicio centralizado con los mecanismos adecuados para evitar la censura. La innovación clave es que la ejecución verificada y determinista fuera de la cadena puede demostrarse matemáticamente mediante un contrato inteligente.
+
+Para la próxima generación de gobernanza en cadena, podría usarse un circuito zk-SNARK (*Zero-Knowledge Succinct Non-interactive Argument of Knowledge*) especializado para incorporar este modelo a un protocolo de gobernanza determinista fuera de la cadena. Ese circuito calcularía una prueba de conocimiento cero (ZKP) sobre lotes de transacciones de voto válidas o procesos de votación completos, una vez terminada la elección. Una ZKP que contenga la [raíz de Merkle del censo](https://docs.vocdoni.io/architecture/census-overview.html) (un resumen del censo de votantes en forma de hash), el número de votantes con derecho a voto y los resultados numéricos de la elección puede validarse en un contrato inteligente de Ethereum. A partir de ahí, cualquier acción vinculante puede ejecutarse en cadena.
+
+Piedra angular de la gobernanza L2, este modelo representa el estado del arte. La gobernanza verificada fuera de la cadena con resultados vinculantes en cadena ofrece votación a gran escala determinista, sin permisos, universalmente verificable y sin necesidad de confianza, sin perder ninguna de las funcionalidades del voto en cadena. Y lo más importante: este modelo puede implementarse de forma totalmente gratuita para los votantes.
+
+# **El camino por delante**
+
+[Vocdoni](https://vocdoni.io/es) es una organización guiada por un propósito: nuestra visión no es otra que la gobernanza en cadena verificada y vinculante. El equipo de Vocdoni trabaja actualmente en una prueba de concepto de este modelo con tecnología zkRollup, de la que esperamos contar más en las próximas semanas. Mientras tanto, seguiremos publicando cada iteración que mejore el statu quo y nos acerque a ese objetivo. En las versiones actuales de Vocdoni, el 90 % del modelo de gobernanza determinista fuera de la cadena ya está implementado con validadores de confianza (prueba de autoridad, *proof of authority*), y ya trabajamos para convertir a medio plazo nuestra blockchain de recuento de votos a prueba de participación (*proof of stake*).
