@@ -1,0 +1,241 @@
+---
+title: 'A norma canadiana de votação online: o que exige a CAN/DGSI 111 e porque é importante'
+publishedDate: '2026-03-12'
+excerpt: 'Nas semanas anteriores às eleições municipais de 2022 no Ontário, cartas com credenciais de acesso únicas estavam a ser deitadas fora, por abrir, em contentores de reciclagem…'
+coverAlt: 'A norma canadiana de votação online: o que exige a CAN/DGSI 111 e porque é importante'
+authors:
+  - ferran
+categories: []
+featured: false
+draft: true
+---
+
+Nas semanas anteriores às eleições municipais de 2022 no Ontário, cartas de informação eleitoral com credenciais de acesso únicas estavam a ser deitadas fora, por abrir, em contentores de reciclagem de estações de correios rurais. Qualquer pessoa que as apanhasse poderia ter votado em nome de eleitores reais.
+
+Essa era a vulnerabilidade de baixa tecnologia. A de alta tecnologia era pior. Investigadores descobriram que um terço dos sistemas de votação online do Ontário não tinha proteções contra ataques de sobreposição de ecrã, em que uma camada oculta sobre a interface de votação pode redirecionar o clique do eleitor para um candidato diferente sem que este se aperceba. Na noite eleitoral, até um milhão de boletins de voto estiveram potencialmente em risco.
+
+Estas falhas ocorreram numa província que realiza eleições online desde 2003. Uma província onde mais de metade dos municípios já oferece votação digital. Uma província que, até à publicação da CAN/DGSI 111 em dezembro de 2024, não tinha qualquer norma nacional a regular o funcionamento de tudo isto.
+
+Essa norma, a **CAN/DGSI 111-1:2024**, existe agora. É o primeiro quadro nacional do Canadá para a votação eleitoral online, desenvolvido ao longo de anos de investigação académica e construído em resposta direta a falhas documentadas. Todos os municípios que planeiem uma eleição online em 2026 devem compreender o que a norma exige, o que ainda deixa em aberto e que sistemas estão genuinamente construídos para a cumprir.
+
+---
+
+## Duas décadas de eleições digitais sem regras comuns
+
+O Canadá é um dos maiores utilizadores mundiais de votação online ao nível municipal. Só no Ontário, **222 dos 444 municípios** ofereceram votação online nas eleições de 2022, um aumento face aos 180 municípios de 2018. Estima-se que um milhão de eleitores tenha votado online apenas nas eleições de 2018 no Ontário. Espera-se que o ciclo de 2026 estabeleça um novo recorde.
+
+Durante a maior parte dessa história, tudo isto aconteceu sem qualquer norma nacional. Sem requisitos federais ou provinciais. Sem processo de certificação. Sem uma base de segurança comum. Cada município contratava de forma independente num mercado de fornecedores concorrentes, com os secretários municipais, e não criptógrafos, como última camada de responsabilização.
+
+A Prof.ª Nicole Goodman, da Brock University, que codesenvolveu a nova norma nacional, resumiu a situação sem rodeios: «Durante algum tempo, o Canadá foi o único país do mundo a utilizar tecnologias eleitorais sem regulamentação, apesar de o Canadá ter uma das taxas de utilização mais elevadas.»
+
+A fragmentação era profunda. Os municípios do Ontário utilizavam seis fornecedores diferentes. Os contratos eram por vezes estruturados abaixo dos limiares de contratação concorrencial: um município contratou serviços de votação por menos de 10.000 dólares, contornando por completo o concurso público. Os fornecedores não estavam sujeitos à lei de acesso à informação. Nenhum relatório de testes de intrusão foi alguma vez divulgado publicamente por qualquer município do Ontário em cinco anos de investigação académica sobre o tema.
+
+As comunidades das Primeiras Nações do Canadá viveram uma história paralela própria. Mais de 50 Primeiras Nações implementaram a votação online para eleições dos conselhos de banda e processos de governação, servidas sobretudo por empresas tecnológicas indígenas como a [OneFeather](https://www.onefeather.ca/), que gere atualmente mais de 370.000 membros em mais de 289 nações. A investigação concluiu que 54 % dos não votantes indígenas nas eleições federais de 2011 afirmaram que teriam votado se a votação online tivesse estado disponível. As ferramentas de participação digital são enormemente importantes em comunidades dispersas por vastas distâncias. No entanto, o Indian Act e o First Nations Elections Act têm historicamente exigido que as comunidades disponham de um código eleitoral próprio ou de um acordo de autogoverno antes de poderem utilizar qualquer método de votação alternativo — uma barreira legal que os investigadores de políticas públicas têm vindo a pedir ao governo federal que elimine.
+
+---
+
+## O que os investigadores descobriram: medir a segurança da votação online no Canadá
+
+Antes da publicação da CAN/DGSI 111, os mesmos académicos que viriam a codesenvolvê-la passaram anos a auditar o que estava realmente a acontecer no Ontário. As conclusões, publicadas num estudo revisto por pares de 2023 por Essex, Goodman e colegas ([«Online Voting in Ontario Municipalities: A Standards-Based Review»](https://link.springer.com/chapter/10.1007/978-3-031-43756-4_4), _Electronic Voting_, Springer), constituem a auditoria pública mais rigorosa disponível sobre implementações reais de votação online.
+
+A referência foi o conjunto de Normas para o Voto Eletrónico do Conselho da Europa: 141 requisitos e diretrizes que representam o quadro internacional mais citado em matéria de segurança de eleições digitais.
+
+**O Ontário cumpria 14 % das diretivas aplicáveis. Ou seja, 18 em 126.**
+
+Não é um resultado tangencial. As falhas eram sistemáticas e estavam documentadas em todas as grandes categorias.
+
+**Nenhuma cidade oferecia verificabilidade universal.** Nem um único município permitia que um terceiro verificasse de forma independente que os votos tinham sido contados corretamente. O fornecedor apurava os votos e emitia um resultado. Não havia prova pública, apenas a palavra do fornecedor.
+
+**As alegações de segredo de voto eram falsas.** A Simply Voting dizia aos municípios que era «impossível» alguém ver como os seus membros tinham votado. Uma análise técnica posterior não encontrou qualquer separação criptográfica, na camada de aplicação, entre a escolha do eleitor e os seus dados de autenticação. Mais de 50 % dos eleitores do Ontário podiam ser reidentificados de forma única a partir da combinação da sua cidade com a data de nascimento. Os municípios transmitiam ao público as alegações de segredo do fornecedor sem qualquer alteração.
+
+**A funcionalidade de «verificabilidade» da Scytl violava o segredo de voto.** O sistema que a Scytl construiu para permitir aos eleitores verificar o seu boletim mostrava-lhes o candidato que tinham selecionado. Isso criava um comprovativo. Qualquer terceiro com as credenciais de um eleitor e um código QR podia usar esse comprovativo para provar como alguém tinha votado, possibilitando precisamente a compra de votos e a coação que a funcionalidade deveria prevenir.
+
+**Não existia resistência à coação em lado nenhum.** Nenhum dos fornecedores do Ontário oferecia proteção técnica contra a compra de votos ou a pressão sobre eleitores em ambientes remotos não supervisionados.
+
+**A transparência estava essencialmente ausente.** Nem um único teste de intrusão foi alguma vez tornado público. O código-fonte dos fornecedores era proprietário. Os registos de auditoria eram geridos pelo fornecedor, não pelo município. Dois terços das diretivas de transparência do Conselho da Europa não eram cumpridos.
+
+**As falhas operacionais eram frequentes e não divulgadas.** Eleitores de Thunder Bay receberam boletins do círculo errado. Cambridge apresentou um boletim com candidatos em falta. Os sistemas da Dominion causaram interrupções de serviço em mais de 50 municípios em 2018, obrigando a prolongar o horário de votação em toda a província.
+
+Depois veio 2022. A [investigação da CBC](https://www.cbc.ca/news/canada/ontario-municipal-elections-online-voting-study-1.7644536) documentou o que as conclusões académicas previam: 70 % das corridas eleitorais do Ontário foram avaliadas como estando em «risco elevado ou extremo» de comprometimento. A vulnerabilidade do PIN no contentor de reciclagem era real e foi documentada. A Scytl foi corrigida a meio da eleição depois de os investigadores a terem alertado. A Neuvote continuava por corrigir quando as urnas fecharam.
+
+É este o problema que a CAN/DGSI 111 foi criada para resolver.
+
+---
+
+## O que a CAN/DGSI 111-1:2024 exige realmente
+
+A CAN/DGSI 111-1:2024, formalmente intitulada «Online Electoral Voting – Part 1: Implementation of Online Voting in Canadian Municipal Elections», foi publicada como Norma Nacional do Canadá pelo Digital Governance Standards Institute (DGSI) em dezembro de 2024 e está [registada no Standards Council of Canada](https://scc-ccn.ca/standardsdb/standards/4033474).
+
+Foi codesenvolvida pela Prof.ª Nicole Goodman (Brock University) e pelo Prof. Aleksander Essex (Western University), com o contributo de um comité técnico de mais de 100 especialistas em cibersegurança, ciência política, políticas públicas e administração eleitoral.
+
+**Sobre o caráter voluntário vs. obrigatório:** a norma é atualmente voluntária. Nenhuma lei obriga os municípios a cumpri-la. Não existe mecanismo de aplicação, organismo de certificação nem mandato provincial. O que a norma oferece é um quadro de contratação: foi concebida para ajudar os administradores eleitorais municipais a avaliar fornecedores, informar os cadernos de encargos e responsabilizar os prestadores por requisitos documentados. Uma jurisdição foi mais longe. Os Territórios do Noroeste adaptaram a CAN/DGSI 111 como base da sua própria regulamentação territorial e utilizaram-na como quadro para as eleições gerais de 2023. O resultado: 96,4 % dos eleitores expressaram satisfação elevada ou moderada. É este o caminho do voluntário para o vinculativo.
+
+Vale também a pena notar que a norma original de 2024 está atualmente a ser revista. Um rascunho D1 foi publicado em dezembro de 2025 para consulta pública, com prazo até março de 2026. As eleições municipais de 2026 no Ontário decorrerão sob a versão de 2024 enquanto a norma atualizada é finalizada. A norma está ativa e em evolução ao mesmo tempo.
+
+### Os requisitos fundamentais
+
+A norma especifica requisitos em nove áreas principais:
+
+**Segredo de voto e ausência de comprovativo.** Ninguém, incluindo os operadores do sistema e os responsáveis eleitorais, pode associar as escolhas de voto a eleitores individuais. A norma vai mais longe: os eleitores não devem poder provar a terceiros como votaram. Este segundo requisito é a ausência de comprovativo (*receipt-freeness*), a propriedade que previne a compra de votos e a coação de forma estrutural, não apenas procedimental, e é um mandato firme na norma, não uma recomendação. A norma exige que o acesso privilegiado à informação seja definido e que as garantias técnicas de privacidade sejam documentadas. «Nós dizemos que é secreto» não é uma resposta suficiente.
+
+**Resultados verificáveis.** A norma exige «evidência verificável de forma independente que sustente o resultado da eleição». Mais adiante detalha-se o que isto significa na prática, dado que há uma variação significativa na forma como «verificável» pode ser interpretado.
+
+**Autenticação dos eleitores.** Documentação e processos para a verificação da identidade dos eleitores, respondendo a vulnerabilidades baseadas em credenciais como as falhas dos PIN em 2022. As abordagens multifator estão implícitas no requisito de proteção dos dados de autenticação.
+
+**Segurança dos dados e normas criptográficas.** Limiares de segurança para os dados em trânsito e em armazenamento, em todos os dispositivos e entidades envolvidos na eleição. Destacam-se dois mandatos criptográficos específicos: quando os votos são encriptados na camada de aplicação, do lado do cliente, a norma exige encriptação de limiar (*threshold encryption*) na geração das chaves de desencriptação, o que significa que nenhuma parte pode desencriptar os resultados sozinha. O módulo criptográfico utilizado deve ser submetido a testes independentes ou ser publicamente auditável através da publicação em código aberto. Ambos são requisitos firmes que vão muito além do que os atuais fornecedores canadianos oferecem.
+
+**Testes de lógica e precisão.** Processos de teste pré-eleitorais e pós-eleitorais para verificar a integridade do sistema antes e depois da votação.
+
+**Desenho do boletim e acessibilidade.** Requisitos de clareza, usabilidade e acessibilidade do boletim, para garantir que todos os eleitores podem participar.
+
+**Transparência e divulgação.** A informação sobre o funcionamento do sistema deve estar publicamente disponível. Os fornecedores não podem operar como caixas negras.
+
+**Orientações de contratação.** Requisitos de processos de contratação concorrenciais e transparentes, visando diretamente a contratação abaixo dos limiares documentada na auditoria académica.
+
+**Responsabilização do organismo de gestão eleitoral.** O município deve ter um controlo efetivo sobre o processo, não apenas uma supervisão nominal.
+
+### O espetro da verificabilidade
+
+O requisito de verificabilidade da norma é o mais importante e, atualmente, o mais aberto, porque «verificável de forma independente» pode significar coisas muito diferentes na prática:
+
+1. **Relatório de auditoria emitido pelo fornecedor**: um PDF do fornecedor a afirmar que os resultados estão corretos. É o que a maioria dos atuais fornecedores canadianos oferece. Exige confiar no fornecedor.
+2. **Registo de auditoria administrativo**: registos e documentos que um auditor terceiro pode inspecionar sob acesso restrito. Melhor, mas continua a exigir confiar no auditor.
+3. **Verificabilidade criptográfica ponta a ponta**: qualquer eleitor pode confirmar que o seu boletim individual foi incluído na contagem; qualquer terceiro pode verificar o resultado completo sem confiar em ninguém. A prova é pública e matematicamente verificável.
+
+A obrigação de topo da norma neste ponto é um «should»: uma recomendação forte, não um mandato firme. Mas a norma deixa claro que, se for fornecida evidência verificável, os subrequisitos são vinculativos: a evidência deve ser verificável por um observador independente qualificado, suficiente para convencer os observadores de que o resultado está correto ou para detetar um resultado incorreto, e exata. A lacuna que a norma deixa está na especificação de _quão_ verificável. Um PDF emitido pelo fornecedor satisfaz tecnicamente a letra; uma prova criptográfica satisfaz a intenção.
+
+Os codesenvolvedores académicos são explícitos quanto ao que a evidência exige. A Recomendação 5 do artigo de 2023 apela diretamente à «verificação criptográfica ponta a ponta» como a abordagem que responderia ao maior número de diretivas não cumpridas da auditoria do Conselho da Europa. Essa recomendação foi escrita pelos mesmos investigadores que foram coautores da norma: é a direção que apontam, e espera-se que futuras revisões a transformem num requisito mais firme.
+
+Sobre a **resistência à coação**: a norma recomenda (should) que os sistemas suportem a atualização do voto, a capacidade de um eleitor alterar silenciosamente a sua escolha antes do fecho das urnas, sobretudo em ambientes não controlados como o voto a partir de casa. Quando a atualização do voto não é suportada, os fornecedores devem documentar salvaguardas alternativas e riscos residuais. É uma recomendação, não um mandato. Mas, em conjunto com o requisito firme de ausência de comprovativo, a intenção é clara: a norma trata a proteção contra a compra de votos e a coação como uma verdadeira obrigação de conceção, não como um acrescento tardio.
+
+---
+
+## Porque é que esta norma importa para os administradores eleitorais
+
+A norma não é, antes de mais, um documento de segurança. É um instrumento de governação que protege os administradores eleitorais.
+
+Antes da CAN/DGSI 111, um secretário municipal a gerir uma eleição online não dispunha de qualquer quadro comum. Os fornecedores faziam afirmações — «impossível de comprometer», «encriptação de nível bancário», «totalmente auditável» — e os secretários não tinham ferramentas para avaliar se essas afirmações eram verdadeiras. A investigação mostrou que muitas vezes não eram.
+
+A norma muda isto. Dá aos administradores eleitorais:
+
+- Uma lista de requisitos verificáveis para apresentar aos fornecedores num caderno de encargos
+- Uma linguagem comum que permite uma comparação genuína entre fornecedores
+- Uma base documentada para rejeitar prestadores que não consigam demonstrar conformidade
+- Proteção legal e reputacional quando algo corre mal
+
+O último ponto é importante. Um administrador eleitoral que consiga demonstrar que seguiu a norma nacional ao contratar um sistema de votação está numa posição muito mais forte do que um que se apoiou nos materiais de marketing de um fornecedor. A norma não elimina o risco. Transfere a responsabilização para onde ela pertence: as especificações técnicas documentadas do fornecedor, e não a confiança do secretário num discurso comercial.
+
+Os secretários municipais não deveriam ter de ser criptógrafos. A norma existe precisamente para que não tenham de o ser.
+
+---
+
+## Como os fornecedores atuais se comparam com a norma
+
+Nenhum fornecedor foi formalmente certificado segundo a CAN/DGSI 111 — a infraestrutura de certificação ainda não existe. O que se pode fazer é comparar os requisitos declarados da norma com o que a auditoria académica de 2023 documentou sobre os sistemas ao serviço das eleições municipais canadianas na altura. As conclusões, do artigo revisto por pares de Essex/Goodman, cobrem todo o mercado do Ontário.
+
+<!--kg-card-begin: html-->
+
+| Requisito                                                                                        | Fornecedores atuais do Ontário (auditoria Essex/Goodman 2023)                                                    | DAVINCI / Vocdoni                                                 |
+| ------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------ |
+| **Verificabilidade universal** (qualquer terceiro pode verificar o resultado completo)           | Não oferecida por nenhum fornecedor auditado                                                                       | Verificabilidade criptográfica ponta a ponta completa               |
+| **Verificabilidade individual** (o eleitor pode confirmar que o seu boletim foi contado)         | Não oferecida; a tentativa de um fornecedor criou um comprovativo que quebrava o segredo de voto                   | Completa, sem criar comprovativo                                    |
+| **Ausência de comprovativo** (SHALL: o eleitor não pode provar a sua escolha a um terceiro)      | Não oferecida por nenhum fornecedor auditado                                                                       | Sim, por conceção                                                   |
+| **Segredo de voto (técnico)** (conteúdo do voto estruturalmente inacessível ao servidor)         | A maioria dos fornecedores dependia apenas de encriptação na camada de transporte; acesso do servidor às escolhas de voto documentado | Completo: votos apurados sem que ninguém desencripte boletins individuais |
+| **Encriptação de limiar** (SHALL quando há encriptação do lado do cliente: nenhuma parte desencripta sozinha) | Não implementada pelos fornecedores auditados                                                                       | Sim, geração distribuída de chaves                                  |
+| **Sem acesso prematuro aos resultados**                                                          | Acesso do servidor em tempo real a contagens parciais documentado em pelo menos um fornecedor                      | Completo: os votos permanecem encriptados até ao fecho da eleição   |
+| **Proteção contra ataques MITM / de sobreposição**                                              | Ausente ou incompleta na maioria dos sistemas auditados; um terço dos sistemas não tinha proteção contra ataques de sobreposição | Sim                                                                 |
+| **Módulo criptográfico de código aberto** (SHALL: código criptográfico publicamente auditável)   | Todos os fornecedores auditados: proprietário, código fechado                                                       | Sim, todo o código público                                          |
+| **Testes de intrusão divulgados**                                                                | Nenhum município divulgou publicamente um teste de intrusão em cinco anos de investigação                           | O código aberto permite auditoria independente por qualquer pessoa, a qualquer momento |
+| **Resistência à coação / atualização do voto** (SHOULD: o eleitor pode alterar silenciosamente o seu voto) | Não oferecida por nenhum fornecedor auditado                                                                        | Sim, substituição do voto por conceção                              |
+| **Transparência dos procedimentos**                                                              | Não oferecida; código-fonte e registos de auditoria dos fornecedores proprietários                                  | Sim, código público e registo de auditoria público                  |
+
+<!--kg-card-end: html-->
+
+_As avaliações dos fornecedores baseiam-se na_ [_auditoria revista por pares de Essex/Goodman de 2023_](https://link.springer.com/chapter/10.1007/978-3-031-43756-4_4) _ao mercado de votação online do Ontário. Fornecedores individuais podem ter atualizado os seus sistemas desde 2022. As avaliações do DAVINCI baseiam-se na documentação publicada do protocolo._
+
+A diferença não é uma questão de fornecedores com mau desempenho sobre a mesma arquitetura. É uma diferença estrutural. Os atuais fornecedores canadianos foram construídos sobre modelos de segurança administrativa: controlar quem acede ao sistema, encriptar dados em trânsito, produzir registos de auditoria. O DAVINCI assenta em segurança criptográfica: a garantia não depende de confiar em ninguém, porque a prova é pública e matematicamente verificável.
+
+São conceções diferentes, não níveis de desempenho diferentes sobre a mesma conceção. Cumprir o mandato de ausência de comprovativo da norma, o requisito de encriptação de limiar, o requisito de módulo criptográfico de código aberto e os níveis de verificabilidade recomendados exigiria uma reconstrução arquitetónica de fundo, não uma atualização de configuração.
+
+---
+
+## Como é uma votação online genuinamente segura e auditável
+
+O requisito de verificabilidade da norma abre a porta a um conceito em que a comunidade académica trabalha há anos: a **votação verificável ponta a ponta**.
+
+Na maioria dos sistemas atuais de votação online, o eleitor deposita o voto, o servidor regista-o e o fornecedor produz um resultado que se espera que todos aceitem. Não há forma de confirmar que o voto foi contado. Não há forma de confirmar que não foram acrescentados ou removidos votos. Confia-se no fornecedor.
+
+A verificabilidade ponta a ponta muda isto. Num sistema bem concebido:
+
+- Cada eleitor recebe uma forma de confirmar que o seu boletim individual foi incluído na contagem, sem revelar em que votou
+- Qualquer observador independente pode verificar o resultado completo e confirmar que está matematicamente correto
+- A verificação não exige confiar em ninguém, porque a prova é pública e verificável
+
+Não se trata de um conceito teórico. Está tecnicamente implementado em sistemas atuais. [O referendo de Bellpuig](/blog/referendum-bellpuig), o primeiro referendo totalmente digital realizado ao abrigo da lei espanhola, utilizou-o. O resultado foi certificado e verificável de forma independente por qualquer participante.
+
+Os investigadores coautores da CAN/DGSI 111 fizeram da votação verificável ponta a ponta a sua Recomendação 5 explícita: «Tornar os resultados eleitorais baseados em evidência... uma verificação independente, como a verificação criptográfica ponta a ponta, responderia a muitas diretivas não cumpridas.»
+
+A norma aponta nesta direção. A arquitetura que a suporta tem de estar pronta antes de o mandato chegar.
+
+---
+
+## Como a Vocdoni e o DAVINCI cumprem os requisitos da norma
+
+A Vocdoni implementa votação digital desde 2018. Em sete anos, a empresa realizou eleições para partidos políticos, ordens profissionais, cooperativas, municípios e organizações nacionais com centenas de milhares de membros. O protocolo de votação DAVINCI é o motor criptográfico de nova geração da Vocdoni que alimenta a plataforma, [a arquitetura que torna os resultados verificáveis de forma independente](/blog/davinci-universal-voting-protocol) de um modo que nenhum fornecedor canadiano atual oferece. A [validação académica](/blog/vocdoni-upc-partnership) da plataforma, desenvolvida em colaboração com investigadores da Universitat Politècnica de Catalunya, é diretamente relevante para uma audiência que já viu o que acontece quando a tecnologia eleitoral carece de escrutínio independente rigoroso.
+
+Eis como o DAVINCI corresponde a cada área de requisitos da CAN/DGSI 111.
+
+<!--kg-card-begin: html-->
+
+| Área de requisitos da CAN/DGSI 111                 | Como o DAVINCI a cumpre                                                                                                                                                                                                                                                                                                       | Estado                                                    |
+| -------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | --------------------------------------------------------- |
+| **Segredo de voto**                                | Os votos são encriptados no momento em que são depositados. O escrutínio decorre sem que ninguém desencripte boletins individuais: nem o município, nem a Vocdoni. A identidade do eleitor está estruturalmente dissociada do conteúdo do voto por conceção.                                                                    | Completo (SHALL)                                          |
+| **Encriptação de limiar**                          | Nenhuma parte detém sozinha a chave de desencriptação. Vários detentores de chaves independentes têm de cooperar para apurar os votos — o mandato criptográfico explícito da norma.                                                                                                                                             | Completo (SHALL)                                          |
+| **Sem divulgação prematura de resultados**         | Os votos permanecem encriptados até ao fecho da eleição. Nem a Vocdoni consegue ver uma contagem parcial. O resultado é publicado automaticamente quando a eleição termina.                                                                                                                                                     | Completo (SHALL)                                          |
+| **Verificabilidade independente**                  | Prova criptográfica pública: qualquer eleitor, qualquer observador, qualquer perito independente pode verificar o resultado completo sem envolver a Vocdoni. [O registo eleitoral público em explorer.vote](https://explorer.vote) mostra-o na prática.                                                                          | Completo, excede o SHOULD da norma com verificabilidade criptográfica ponta a ponta |
+| **Sem votos duplicados**                           | Anuladores criptográficos: um hash único derivado das credenciais do eleitor impede que o mesmo eleitor submeta mais do que um voto final, de forma demonstrável e sem expor a identidade do eleitor.                                                                                                                           | Completo                                                  |
+| **Autenticação dos eleitores**                     | Sistema de censo flexível: suporta qualquer fornecedor de identidade (email, SMS, sistemas de identificação governamentais, SSO). A elegibilidade é verificada criptograficamente contra uma lista de eleitores.                                                                                                                | Completo                                                  |
+| **Proteção contra MITM e ataques do lado do cliente** | HTTPS padrão mais uma cadeia de provas criptográficas: qualquer adulteração do boletim em trânsito produz uma prova inválida que é automaticamente rejeitada.                                                                                                                                                                  | Completo                                                  |
+| **Segredo de voto / ausência de comprovativo**     | Os eleitores não conseguem produzir um comprovativo que mostre o seu voto. Mesmo que quisessem provar a um terceiro como votaram, o mecanismo de reencriptação torna-o estruturalmente impossível.                                                                                                                              | Completo (SHALL)                                          |
+| **Resistência à coação / atualização do voto**     | Os eleitores podem substituir silenciosamente o seu voto a qualquer momento antes do fecho da eleição. Mesmo sob coação, o coator não consegue verificar o voto final. A norma recomenda (SHOULD) a atualização do voto para ambientes não controlados; o DAVINCI oferece-a como garantia arquitetónica firme.                   | Completo, excede o SHOULD da norma                        |
+| **Testes de lógica e precisão**                    | O código aberto significa que qualquer município ou parte independente pode inspecionar todo o código, realizar eleições de teste e verificar os resultados antes da entrada em produção.                                                                                                                                       | Completo                                                  |
+| **Módulo criptográfico de código aberto**          | A norma exige que o módulo criptográfico seja testado de forma independente ou publicamente auditável através da publicação em código aberto. Todo o código criptográfico do DAVINCI é público.                                                                                                                                 | Completo (SHALL)                                          |
+| **Transparência e divulgação**                     | O código é público (GitHub). Os registos eleitorais são públicos (explorer.vote). Qualquer parte pode inspecionar o funcionamento do sistema antes, durante e depois de uma eleição.                                                                                                                                            | Completo, excede a norma                                  |
+| **Desenho do boletim e acessibilidade**            | Formatos de boletim configuráveis: escolha única, escolha múltipla, ordenado, ponderado, quadrático. Independente do dispositivo: qualquer navegador, sem necessidade de descarregar uma aplicação para votar.                                                                                                                  | Completo (SHALL)                                          |
+| **Transparência na contratação**                   | Preços públicos em app.vocdoni.io/plans. Self-service. Sem necessidade de contacto comercial para configurações padrão.                                                                                                                                                                                                         | Completo                                                  |
+| **Responsabilização do organismo de gestão eleitoral** | O município ou administrador eleitoral controla todos os parâmetros da eleição: lista de eleitores, boletim, calendário. A Vocdoni não pode alterá-los após a configuração.                                                                                                                                                    | Completo (SHALL)                                          |
+| **Localização dos dados**                          | A norma exige que os dados eleitorais fiquem em servidores no Canadá. Para sistemas descentralizados, o requisito fica satisfeito quando os dados fora do Canadá não permitem reconstruir a identidade dos eleitores nem alterar os resultados. A arquitetura do DAVINCI satisfaz esta condição por conceção; podem configurar-se nós alojados no Canadá para implementações municipais. | Completo, via exceção para sistemas descentralizados      |
+
+<!--kg-card-end: html-->
+
+Um requisito que vale a pena abordar diretamente: a norma exige que todos os dados eleitorais sejam armazenados em servidores fisicamente localizados no Canadá. A infraestrutura da Vocdoni está sediada na UE. A norma inclui uma disposição explícita para sistemas descentralizados: o requisito fica satisfeito quando os componentes eleitorais críticos correm em infraestrutura canadiana, ou quando os dados armazenados fora do Canadá não podem ser usados para reconstruir a identidade dos eleitores nem alterar os resultados eleitorais. A conceção criptográfica do DAVINCI, em que o conteúdo do voto está encriptado e os votos individuais não são associáveis aos eleitores ao nível da infraestrutura, satisfaz a segunda condição. Para eleições municipais canadianas, a Vocdoni configuraria adicionalmente os nós eleitorais críticos em infraestrutura alojada no Canadá. Trata-se de uma configuração operacional, não de uma barreira arquitetónica.
+
+Os atuais fornecedores canadianos não falham a CAN/DGSI 111 por má implementação. Falham porque foram construídos para um modelo de segurança diferente. Oferecer resultados verificáveis e ausência de comprovativo exige uma reformulação arquitetónica, não uma atualização de software.
+
+Consulte [a arquitetura de votação da Vocdoni](https://vocdoni.io/pt/technology) para uma explicação técnica completa, ou veja [a diferença entre segurança administrativa e criptográfica na prática](/blog/from-blockchain-voting-to-cryptographic-voting).
+
+---
+
+## Para onde vai a norma a partir daqui
+
+A CAN/DGSI 111 chama-se «Parte 1» por uma razão. Abrange as eleições municipais. O caminho para a cobertura provincial e federal está a ser ativamente discutido pelos seus codesenvolvedores.
+
+Os Territórios do Noroeste construíram um quadro regulamentar para a votação online informado por rascunhos iniciais da CAN/DGSI 111 e aplicaram-no nas eleições territoriais de 2023. A norma é a base técnica; a lei fornece a aplicação. À medida que decorrerem as eleições municipais de 2026 no Ontário, o primeiro grande ciclo eleitoral com a norma em vigor, a questão de saber se os municípios a utilizam efetivamente nos cadernos de encargos determinará se o quadro voluntário tem algum efeito prático.
+
+A experiência do Canadá é aqui genuinamente invulgar. Duas décadas de votação online real em escala, seguidas de documentação académica sistemática das falhas, seguidas de uma norma desenvolvida pelos investigadores que encontraram essas falhas. Poucas outras jurisdições reúnem esta combinação. A revista Policy Options observou em 2022 que «à medida que os governos de todo o mundo procuram colmatar lacunas nos quadros regulamentares... poderão estar a olhar para o Canadá». A Recomendação CM/Rec(2017)5 do Conselho da Europa é anterior a muitos dos avanços criptográficos em verificabilidade ponta a ponta e ausência de comprovativo; a norma canadiana foi construída sobre investigação mais recente. Países com adoção emergente da votação online, na Commonwealth, na América Latina e na Ásia-Pacífico, estão atentos ao que o Canadá fizer a seguir.
+
+A barreira legal das Primeiras Nações também está a mexer-se. O apelo à alteração do Indian Act e do First Nations Elections Act, para dar às comunidades uma escolha genuína dos seus métodos de votação, está a ganhar força. Se essas alterações chegarem, a procura de infraestrutura de votação digital que cumpra ou exceda os requisitos da CAN/DGSI 111 crescerá acentuadamente.
+
+A norma não é um destino. É o início de uma conversa que o Canadá já devia ter tido há anos.
+
+---
+
+## O que isto significa para a sua próxima eleição
+
+Quer seja um secretário municipal a preparar 2026, um responsável de governação de uma associação profissional ou um responsável eleitoral a avaliar fornecedores pela primeira vez, a CAN/DGSI 111 oferece algo que antes não existia: uma base documentada do que as eleições digitais seguras exigem.
+
+Utilize-a como instrumento de contratação. Peça aos fornecedores que demonstrem a conformidade com cada requisito — que não a aleguem, que a demonstrem. Pergunte especificamente sobre a verificação independente dos resultados: pode um terceiro verificar o resultado sem confiar no fornecedor? Pergunte sobre o segredo de voto: a proteção é técnica e estrutural, ou é uma promessa do fornecedor? Pergunte sobre a ausência de comprovativo: pode um eleitor provar a alguém como votou? Peça para ver o código-fonte.
+
+A norma eleva o patamar mínimo. A tecnologia para o exceder já existe.
+
+A Vocdoni está a construí-la há sete anos. Se estiver a avaliar software de votação online para uma próxima eleição, a diferença entre os sistemas que cumprem a norma e os que dizem cumpri-la está agora claramente documentada. [Veja como funciona o DAVINCI](https://vocdoni.io/pt/technology) ou [realize a sua primeira eleição gratuitamente em app.vocdoni.io](https://vocdoni.io/pt/app). Sem necessidade de contacto comercial.

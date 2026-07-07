@@ -1,0 +1,106 @@
+---
+title: Rumo ao voto anónimo e vinculativo em Ethereum
+publishedDate: '2023-06-23'
+updatedDate: '2026-01-14'
+excerpt: 'Na Vocdoni, o nosso principal objetivo é construir tecnologia que permita processos de votação seguros e sem fricção em Ethereum.'
+coverImage: /blog/images/2026/01/blogpost_road_to_anonymous_ethereum.webp
+coverAlt: Rumo ao voto anónimo e vinculativo em Ethereum
+authors:
+  - ferran
+categories:
+  - technology
+featured: false
+draft: false
+---
+
+O anonimato protege a privacidade do eleitor e assegura a livre expressão de opiniões, mitigando o risco de coação ou de represálias. A resistência à censura, por sua vez, garante que nenhuma entidade isolada pode manipular ou negar direitos de voto, reforçando um processo democrático descentralizado, justo e aberto.
+
+Na [Vocdoni](https://vocdoni.io/pt), o nosso principal objetivo é disponibilizar a pilha tecnológica que permita processos de votação seguros e sem fricção na blockchain Ethereum, em particular para o ecossistema das organizações autónomas descentralizadas (DAO). Pretendemos criar um sistema inovador de votação off-chain, anónima e sem custos de gas, com execução vinculativa.
+
+Este documento descreve a nossa abordagem a esta missão ambiciosa, organizada nas seguintes áreas centrais:
+
+- Construção e verificação de um censo abrangente
+- Resolução do problema do determinismo do *nullifier*, inerente às assinaturas ECDSA
+- O mecanismo de emissão de votos off-chain
+- O papel e as funções do agregador de votos
+- O processo de carregamento dos resultados da votação em Ethereum
+
+### **1. O censo verificado**
+
+Enquanto componente central de qualquer sistema de votação, o censo é responsável por enumerar os eleitores elegíveis e atribuir os pesos de voto. No entanto, gerar um censo a partir de dados da blockchain Ethereum apresenta complexidades próprias, entre as quais:
+
+- **Estrutura de dados:** os dados da blockchain Ethereum não estão estruturados num formato propício à geração de um censo. Por exemplo, para um token ERC20 não existe uma estrutura de dados distinta que mantenha uma lista completa dos detentores do token.
+- **Compatibilidade criptográfica:** a criptografia de Ethereum não é fundamentalmente compatível com os zkSnarks, o que torna mais difícil criar e verificar provas de conhecimento zero.
+
+O grande desafio reside, então, em criar um censo baseado em tokens, compatível com zkSnarks e sem depender de confiança em terceiros, que permita a votação off-chain. É também crucial ter em conta que as transações ERC20 podem ocorrer a qualquer momento, o que implica que o censo pode variar significativamente de um bloco para outro.
+
+Para responder a estes desafios, propomos a seguinte abordagem:
+
+- **Censo off-chain:** construir um censo off-chain compatível com zkSnarks.
+- **Geração da prova:** gerar uma prova zkSnark que verifique a correção do censo.
+- **Validação on-chain:** validar on-chain a prova de criação do censo através de um contrato inteligente (*smart contract*).
+- **Facilitar a votação:** após a validação, o censo pode ser utilizado para fins de votação.
+
+A validação do censo em Ethereum pode ser feita de duas formas:
+
+- **Verificação de saldos:** o contrato inteligente verifica a validade de todos os detentores (ou de um subconjunto) invocando a função balanceOfAt(). Esta abordagem, porém, pode implicar custos de transação elevados para o remetente.
+- **Storage Proof:** a zkProof do censo é criada com provas de armazenamento (*storage proofs*), e o contrato verifica a sua correção em relação a uma State Root anterior de Ethereum. Embora este método possa ser computacionalmente dispendioso para o construtor do censo, oferece uma solução robusta.
+
+Consideramos que a abordagem de verificação de saldos se adequa melhor a DAOs pequenas (100-200 membros), enquanto a Storage Proof funcionará melhor para grandes organizações capazes de suportar os custos de uma infraestrutura computacional maior.
+
+### **2. O problema do determinismo do nullifier**
+
+Ao trabalhar com sistemas criptográficos, o determinismo é crítico: a mesma entrada deve produzir sempre a mesma saída. Contudo, surge um percalço com as assinaturas Ethereum.
+
+As assinaturas ECDSA incluem um nonce arbitrário, um número usado uma única vez ou muito raramente. O signatário pode alterar este nonce para gerar assinaturas diferentes a partir do mesmo conteúdo. O resultado? Não determinismo: saídas diferentes a partir da mesma entrada.
+
+Este não determinismo torna-se um obstáculo no cálculo de um *nullifier* (anulador), uma ferramenta essencial para impedir o voto duplo. Um nullifier é um identificador único de cada voto. Quando um voto é emitido, o nullifier é registado numa lista pública na blockchain.
+
+Gerar um nullifier determinístico exige um esquema de assinatura determinístico. E, como as assinaturas ECDSA não são determinísticas, não se adequam à geração de nullifiers. Deparamo-nos, assim, com um bloqueio ao tentar impedir votos duplos num sistema de votação anónima e vinculativa em Ethereum.
+
+Introduzimos o conceito de Registo Global de Chaves de Compromisso (Global Registry of Commitment Keys). Um contrato inteligente gere este registo e serve de ferramenta de mapeamento que liga um endereço Ethereum a uma chave de compromisso. A estrutura básica é: Endereço Ethereum => hash(segredo).
+
+A chave de compromisso, gerada a partir de um segredo do utilizador, ajuda a associar um endereço Ethereum a uma saída determinística, garantindo assim o determinismo, crítico para o nosso caso de uso.
+
+Esta informação de mapeamento chave-endereço é armazenada na blockchain Ethereum sob a forma de uma árvore de Merkle compatível com Snarks. As árvores de Merkle são particularmente adequadas para este fim porque permitem criar um sistema eficiente e à prova de adulteração para armazenar e verificar grandes quantidades de dados, um requisito essencial no nosso caso.
+
+Ao emitir um voto, o utilizador tem de fornecer uma prova zkSNARK. Esta prova demonstra que o utilizador conhece o segredo da chave de compromisso, que faz parte da árvore de Merkle de chaves de compromisso armazenada em Ethereum. Isto permite-nos criar um sistema de votação seguro, anónimo e resistente ao voto duplo, sem necessidade de determinismo nas assinaturas ECDSA.
+
+### **3. Emissão de votos off-chain**
+
+Com um censo de votação verificado e a raiz de Merkle do Registo Global estabelecidos, pode iniciar-se o processo de emissão de boletins de voto.
+
+Para votar, o utilizador precisa de provar duas coisas:
+
+- **Inclusão no censo:** o endereço e o saldo do utilizador fazem parte do censo de votação.
+- **Conhecimento da chave secreta:** o utilizador conhece a chave secreta do compromisso atribuído ao seu endereço no Registo Global.
+
+O utilizador constrói então provas zkSnark, anonimizando efetivamente a sua identidade e gerando um nullifier. Este nullifier é calculado de forma determinística através do hash da chave secreta com um identificador único da proposta.
+
+Note-se que, com este mecanismo, dado que o registo global é uma árvore de Merkle compatível com zkSnarks, não precisamos de usar a criptografia de Ethereum (secp256k1) dentro do circuito, o que resulta numa geração de boletins mais eficiente e adequada ao navegador.
+
+O boletim e a prova são agrupados num pacote e distribuídos por uma rede peer-to-peer (p2p) de agregadores. Uma rede p2p descentralizada é fundamental para alcançar resistência à censura, garantindo que nenhuma entidade isolada pode controlar ou manipular o processo de votação.
+
+### **4. O processo de agregação de votos**
+
+Uma vez emitidos os votos, estes precisam de ser agregados numa prova zkSnark abrangente. Esta agregação pode ser feita de uma só vez ou em lotes. A prova construída durante este processo verifica o seguinte:
+
+- Um hash de raiz específico do censo de votação
+- Um hash de raiz único do registo global
+- Uma lista de nullifiers de votos válidos
+- A correção dos resultados da votação
+
+Dado que os votos originais são, eles próprios, provas zkSnark, o processo de agregação exige um nível de recursão, ou seja, uma zkSnark que prova a exatidão de outra zkSnark.
+
+Contudo, dado o estado da arte atual e a compatibilidade limitada de Ethereum com curvas elípticas, executar este processo de geração recursiva de provas é um desafio significativo. As complexidades envolvidas significam que talvez tenhamos de aguardar por avanços nos frameworks de zkSnark e por um melhor suporte de Ethereum para a criptografia zkSnark.
+
+### **5. Carregamento dos resultados em Ethereum**
+
+Concluída a agregação dos votos, qualquer utilizador pode submeter a prova final a um contrato inteligente de Ethereum. A responsabilidade do contrato inteligente é verificar o seguinte:
+
+- **Prova de resultados:** a prova dos resultados está correta.
+- **Raiz do censo de votação:** a raiz do censo de votação corresponde à previamente verificada.
+- **Raiz do registo global:** a raiz do registo global é exata.
+- **Período de votação:** o período de votação está em conformidade com o intervalo de tempo predefinido.
+
+Após a verificação bem-sucedida destes elementos, o contrato inteligente pode executar as ações predeterminadas associadas ao processo de votação em Ethereum. Este processo assegura a validade e a integridade dos votos e facilita a implementação

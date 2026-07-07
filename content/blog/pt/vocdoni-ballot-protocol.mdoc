@@ -1,0 +1,218 @@
+---
+title: Apresentação do Vocdoni Ballot Protocol
+publishedDate: '2021-04-16'
+updatedDate: '2026-01-14'
+excerpt: 'Vocdoni Ballot Protocol A inovação central do protocolo da Vocdoni está na implementação do primeiro protocolo de votação online descentralizado, resistente à censura e…'
+coverImage: /blog/images/2025/12/ballot_protocol_post.webp
+coverAlt: Apresentação do Vocdoni Ballot Protocol
+authors:
+  - ferran
+categories:
+  - technology
+featured: false
+draft: false
+---
+
+# **Vocdoni Ballot Protocol**
+
+A inovação central do protocolo da Vocdoni está na implementação do primeiro protocolo de votação online descentralizado, resistente à censura e anónimo. Mas, para além destas aspirações técnicas, o Protocolo permite a compatibilidade com uma vasta gama de processos democráticos. A Vocdoni consegue-o, em parte, graças à sua especificação versátil para os boletins de voto.
+
+O **Vocdoni Ballot Protocol** pretende ser uma especificação simples, mas poderosa, para a representação de boletins e resultados de um processo de votação.
+
+# **Primeiro, algumas definições:**
+
+Um **_processo de votação_** é composto por um ou mais **_campos_**, cada um dos quais representa uma pergunta ou uma opção de uma pergunta, consoante o **_tipo de processo_**. Ao votar, os eleitores elegíveis escolhem entre um conjunto de **_respostas_** predefinidas para cada campo. O número de respostas permitido, o tipo de resposta, etc., também dependem do tipo específico de processo. Um eleitor elegível expressa as suas escolhas ao depositar um **_boletim de voto_**.
+
+Um boletim é representado como um vetor (ou lista) de números naturais. Cada posição do vetor contém uma resposta a um dos campos do processo.
+
+Os resultados acumulam-se numa matriz bidimensional de números naturais. Cada linha desta matriz corresponde a um campo do boletim e cada coluna corresponde a um dos valores possíveis para esse campo. Cada número na matriz de resultados é simplesmente a contagem dos votos para o valor representado nesse índice.
+
+Antes de entrarmos nos pormenores de como um processo pode ser configurado, vejamos um exemplo genérico. Suponha-se um processo com três campos, `A`, `B` e `C`, cada um dos quais admite `0`, `1` e `2` como valores possíveis. Não sabemos o que estes valores ou campos representam, mas isso não importa por agora.
+
+![](https://storage.googleapis.com/papyrus_images/47fc7647a24d815d609ad569c4456e39.png)
+
+Neste exemplo, foram depositados dois votos. O primeiro eleitor escolheu o valor `2` para o campo `A`, `0` para o campo `B` e `1` para o campo `C`. O segundo boletim tem os valores `0`, `0` e `2`. Pode ver-se no diagrama acima como os boletins se relacionam com a matriz de resultados. O _índice_ de um valor de um boletim determina o _campo_ a que esse valor pertence: o primeiro índice do boletim 1 tem o valor `2`, pelo que o boletim 1 está a atribuir o valor `2` ao campo A. Dentro de cada campo da matriz de resultados, o valor do voto é representado pelo seu índice. Colocamos um `1` no índice `2` do `campo A` para representar o único voto no valor `2`.
+
+Isto pode não ser intuitivo à primeira. Vale a pena seguir mais alguns valores de um dos boletins até à matriz de resultados, para garantir uma compreensão sólida de como os resultados são aqui representados.
+
+---
+
+# **O Protocolo propriamente dito**
+
+O protocolo de boletins é composto por um conjunto de variáveis numéricas e booleanas (verdadeiro/falso) que restringem o formato de um boletim válido.
+
+![](https://storage.googleapis.com/papyrus_images/b8d920f2d64cf347ff2f47f7e34a3340.png)
+
+Como se representaria o exemplo apresentado acima com este protocolo?
+
+Para começar, sabemos que temos três campos, portanto
+
+- `maxCount` = 3
+
+Temos 0, 1 e 2 como valores válidos, pelo que podemos definir
+
+- `minValue` = 0
+- `maxValue` = 2
+
+O segundo boletim contém o valor `0` em vários campos. Assim, para que este boletim seja válido, é necessário definir
+
+- `uniqueValues` = 0 (aqui, 0 representa «falso» e 1 representa «verdadeiro»)
+
+Não existe uma atribuição óbvia para as três variáveis seguintes, por isso acrescentemos um pouco mais de contexto ao nosso processo de exemplo. Suponhamos que este processo consiste numa única pergunta que pede aos eleitores para delegarem moedas de ouro a diferentes organizações. Cada campo representa uma organização, e o valor atribuído a esse campo é o número de moedas de ouro que esse eleitor quer alocar a essa organização.
+
+Com base nas variáveis `minValue` e `maxValue` já definidas, sabemos que cada utilizador pode alocar entre 0 e 2 moedas a cada organização. Mas uma regra plausível a acrescentar seria que os eleitores só podem alocar 3 moedas no total. E imaginemos também que os eleitores _têm_ de alocar pelo menos 1 moeda.
+
+Isto acrescenta significado ao diagrama do processo acima: o primeiro boletim aloca 3 moedas no total (talvez apoie as organizações A e C, mas goste um pouco mais de A). O segundo boletim aloca apenas 2 das suas 3 moedas possíveis (só apoia a organização C e prefere desperdiçar a terceira moeda a dá-la a A ou a B). Podemos, portanto, definir com segurança
+
+- `minTotalCost` = 1
+- `maxTotalCost` = 3
+
+e ambos os boletins serão válidos.
+
+A última variável a definir é `costExponent`, relacionada com a [votação quadrática](https://www.wikiwand.com/en/Quadratic_voting). Não vamos aprofundar este tipo de votação por agora, por isso fica simplesmente o valor por omissão
+
+- `costExponent` = 1
+
+Uma vez mais, vale a pena refletir sobre cada uma destas variáveis e perceber como a alteração de qualquer uma delas afetaria o nosso processo de votação de exemplo.
+
+# **Interpretação dos resultados**
+
+As variáveis acima representam a totalidade do Vocdoni Ballot Protocol, que cobre a validação de boletins e a tabulação de resultados tal como são tratadas pela infraestrutura central. Mas falta, obviamente, muita informação no que toca à experiência humana. Os integradores do protocolo precisam de decidir como comunicar o conteúdo real de um processo aos eleitores, bem como a forma de interpretar e representar a matriz de resultados. A interpretação dos resultados está fora do âmbito do Ballot Protocol, mas é relevante para compreender como o Protocolo pode ser utilizado.
+
+Na sua iteração atual, a Vocdoni define dois formatos de interpretação de resultados: **_ponderação por índice_** e **_valores discretos_**.
+
+### **Ponderação por índice**
+
+Para o nosso processo de exemplo, usaríamos a fórmula de interpretação de resultados por ponderação por índice. Este esquema adequa-se a processos de pergunta única, como a votação por ordem de preferência, a escolha múltipla ou os orçamentos participativos. Cada índice num campo da matriz de resultados representa um valor ponderado; neste caso, o peso representa o número de moedas alocadas a uma organização. A soma dos votos, multiplicados pelos respetivos valores ponderados por índice, é o valor total desse campo.
+
+![](https://storage.googleapis.com/papyrus_images/345a07aee1ddf6a6aad51db7e58fd399.png)
+
+Esta interpretação agrega o nosso processo de exemplo. A organização A recebe 2 moedas; a organização C recebe 3.
+
+### **Valores discretos**
+
+A interpretação por valores discretos é utilizada em processos em que cada campo é uma pergunta autónoma. Aqui, cada valor representa uma opção discreta (por exemplo, «Candidato 2»), e não um multiplicador (por exemplo, «2 pontos para esta opção»). Assim, este método interpreta os resultados indicando simplesmente qual o valor, se algum, que recebeu mais votos em cada campo.
+
+`0` está reservado para o empate entre opções.
+
+![](https://storage.googleapis.com/papyrus_images/97e8bca257a9b118b86ee3dd31165107.png)
+
+Estes dois formatos não pretendem ser exaustivos. Como referido acima, o Ballot Protocol é agnóstico quanto à forma como os resultados são agregados, e quem construa a sua própria camada aplicacional sobre o protocolo pode definir a sua própria interpretação de resultados.
+
+---
+
+# **Exemplos**
+
+Vejamos alguns exemplos do mundo real para dar uma ideia da versatilidade do Ballot Protocol.
+
+### **Votação por ordem de preferência**
+
+Gerimos uma empresa de doces. Estamos prestes a lançar um novo sabor de chupa-chupa e queremos fazer alguns testes de mercado para determinar qual o sabor que os clientes vão preferir. Enviámos a alguns dos nossos clientes mais fiéis uma caixa com chupa-chupas com sabor a espargos (`asparagus`), feijão (`beans`), cenoura (`carrot`) e endro (`dill`) — não somos uma empresa de doces com muito sucesso ☹. Estamos a pedir-lhes que indiquem as suas preferências ordenando os chupa-chupas num processo de votação da Vocdoni…
+
+Esta situação é perfeita para um processo de [votação por ordem de preferência](https://www.wikiwand.com/en/Ranked_voting). Eis como criaremos o processo para os nossos testadores:
+
+Temos quatro sabores diferentes de doces que queremos ordenar. Os utilizadores devem atribuir um valor a cada doce, pelo que precisamos de um campo separado para cada tipo de doce.
+
+- `maxCount` = 4
+
+Vamos indicar aos utilizadores que ordenem os doces do melhor para o pior, sendo `3` o melhor e `0` o pior.
+
+- `minValue` = 0
+- `maxValue` = 3
+
+Não nos ajuda que os testadores considerem alguns doces igualmente bons: queremos uma ordenação clara do melhor para o pior.
+
+- `uniqueValues` = 1
+
+Como os utilizadores estão obrigados a atribuir quatro valores únicos, sabemos que o custo total tem de ser 0+1+2+3=6.
+
+- `minTotalCost` = 6
+- `maxTotalCost` = 6
+
+Mais uma vez, o costExponent não tem aqui utilidade.
+
+- `costExponent` = 1
+
+![](https://storage.googleapis.com/papyrus_images/d06d57a97367e2f40ed75228f02392a7.png)
+
+Vejamos o nosso primeiro boletim. Este testador de produto adora cenouras, por isso coloca a cenoura como primeira escolha. Seguem-se os espargos e depois o endro, ficando o feijão em último lugar. Eis como este boletim fica registado na matriz de resultados:
+
+![](https://storage.googleapis.com/papyrus_images/e63207ba97dca5657af93969f5424cb3.png)
+
+Os boletins continuam a chegar e obtemos um total de 30 respostas! Com a matriz de resultados completa, agregamos então os resultados segundo o método de ponderação por índice…
+
+![](https://storage.googleapis.com/papyrus_images/49480940bd6ea3db2320d77b587455ae.png)
+
+O endro é o vencedor! 🎉 Graças a este extenso estudo de mercado, em breve poderá encontrar chupa-chupas com sabor a endro no supermercado.
+
+### **Votação quadrática**
+
+A nossa cooperativa de fabrico de calçado gerida pelos trabalhadores realiza esta semana a sua assembleia anual, durante a qual vamos eleger um novo responsável de marketing. É uma corrida muito renhida e surgiu uma proposta para usar a votação quadrática para equilibrar as condições.
+
+A votação quadrática é um método que permite aos eleitores alocar vários votos a um mesmo candidato, com um custo crescente. Neste caso, há quatro candidatos a concurso e cada membro dispõe de até 9 «pontos» para gastar na votação. O detalhe é que o custo de atribuir um determinado valor `v` a um campo é `v` elevado a `costExponent`. Assim, com um `costExponent` de 2, atribuir 1 voto ao candidato A custa um ponto, mas atribuir 2 votos custa 4 pontos, e 3 votos num único candidato custam os 9 pontos. Vejamos isto com mais pormenor.
+
+Temos quatro candidatos diferentes e os utilizadores podem votar em vários deles. Cada um deve, portanto, ter o seu próprio campo.
+
+- `maxCount` = 4
+
+Vamos impor um limite razoável ao valor que um eleitor pode atribuir a um candidato.
+
+- `minValue` = 0
+- `maxValue` = 3
+
+Não há problema em os membros repetirem valores.
+
+- `uniqueValues` = 0
+
+Como referimos acima, os membros podem gastar até 9 pontos.
+
+- `minTotalCost` = 0
+- `maxTotalCost` = 9
+
+Finalmente, esta variável tem a sua oportunidade de brilhar. Vamos defini-la como 2, o que significa que o custo de qualquer valor é o quadrado desse valor.
+
+- `costExponent` = 2
+
+![](https://storage.googleapis.com/papyrus_images/a645cc0a4a064387d26dafb4972d053a.png)
+
+Imaginemos algumas configurações de boletins para dar uma ideia de como funciona a votação quadrática.
+
+**Boletim 1**
+
+O nosso primeiro eleitor aceitaria qualquer um dos candidatos, mas prefere ligeiramente o candidato B. Também quer usar o máximo de poder de voto possível.
+
+![](https://storage.googleapis.com/papyrus_images/d9e9d195ba9159cc90da7228e4764cfc.png)
+
+Cada valor de `1` que este eleitor atribui acrescenta apenas `1` ao seu custo total. Mas um valor de `2` acrescenta `2^2`, ou seja, `4`, ao custo total. Ao distribuir os votos por todos os candidatos, este eleitor consegue alocar um valor total de 5, atingindo apenas um custo de 7. Não consegue chegar ao custo total máximo de 9, porque subir qualquer um dos seus valores `1` para `2` faria o custo ultrapassar 9.
+
+**Boletim 2**
+
+O segundo eleitor tem opiniões muito firmes. Só apoia o candidato C. Faz-lhe, portanto, sentido atribuir o valor máximo ao candidato 3. Embora só tenha usado um valor total de `3`, o seu custo total atinge o máximo: `3^2` = `9`.
+
+![](https://storage.googleapis.com/papyrus_images/99d22c797167c3a9f1a5be94957e158c.png)
+
+É fácil imaginar como, num processo maior, com mais candidatos e eleitores, a votação quadrática pode ser uma forma muito poderosa de medir a intensidade das preferências, para além das preferências em si. Por agora, deixamos a interpretação destes resultados como exercício para o leitor.
+
+---
+
+# **Um protocolo aberto e flexível**
+
+Esperamos que tenha ficado com uma boa noção de alguns casos de uso possíveis do Vocdoni Ballot Protocol. A característica mais importante do Protocolo é, porém, a sua flexibilidade. Para além das configurações apresentadas acima, existem inúmeras outras variantes e mecanismos de interpretação. Estas 8 variáveis abrangem uma vasta gama de cenários, representando quase todos os tipos de votação que conhecemos, além de outros que ainda nem sequer foram inventados. E isto é apenas uma iteração inicial: o Protocolo poderá expandir-se, se necessário, para permitir ainda mais possibilidades.
+
+A flexibilidade técnica e a abertura deste Protocolo refletem-se nos seus usos no mundo real. A facilidade com que uma organização pode montar um processo de qualquer tipo reduz drasticamente a barreira a todos os tipos de tomada de decisão, seja a votação tradicional ou algo mais direto, fluido e experimental. Os membros da sociedade civil dispõem agora das ferramentas para se capacitarem e realizarem os processos democráticos que _melhor os representem_, seja qual for a forma que isso assuma.
+
+---
+
+# **Nota: exemplos de código**
+
+Para os mais técnicos que chegaram até aqui, o Protocolo pode não significar nada sem alguns exemplos de código concretos. Eis como se pode usar o [dvote-js](https://github.com/vocdoni/dvote-js), a implementação do Protocolo em TypeScript/JavaScript, para criar um processo.
+
+Primeiro, a preparação. Importam-se os pacotes necessários, estabelece-se a ligação aos gateways da Vocdoni e gera-se um censo de eleitores fictícios. Também vamos obter a altura de bloco atual, para definir corretamente a hora de início do processo.
+
+_Consulte a&#xA0;_[_documentação_](https://docs.vocdoni.io/#/integration/overview)_&#xA0;para guias mais aprofundados sobre a configuração inicial, a ligação a gateways, a geração de um censo, etc._
+
+Agora podemos criar os metadados do processo. Criemos um processo para o exemplo dos sabores de doces discutido acima. Os metadados são informação que ajuda os clientes a apresentar corretamente o processo de votação e contêm a informação legível por humanos, sem configurar o processo ao nível do protocolo. Aqui definimos uma pergunta por sabor de doce, incluindo cada um dos valores de escolha predefinidos de `0` a `3`. Também declaramos os tipos de agregação e de apresentação, que indicam aos clientes como interpretar os resultados e como apresentar o processo aos utilizadores.
+
+Por fim, podemos criar o processo propriamente dito. As variáveis do Ballot Protocol são definidas de acordo com as que estabelecemos acima para este processo de exemplo, com a variável `uniqueValues` definida como `envelopeType`. Para além destas variáveis, os `processParams` descrevem onde estão armazenados o censo e os metadados deste processo, se o processo é encriptado e/ou anónimo, que infraestrutura deve utilizar, quando começa e quando termina, e outra informação auxiliar.
+
+Depois de publicar este processo, podemos lê-lo de volta, verificar que os parâmetros estão corretamente definidos, indicar aos clientes web ou de aplicação que apresentem este tipo de processo e dar início à votação!

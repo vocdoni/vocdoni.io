@@ -1,0 +1,97 @@
+---
+title: Da votação em blockchain à votação criptográfica
+publishedDate: '2026-01-28'
+excerpt: 'Nos últimos anos, a Vocdoni executou votações na Vochain, a nossa blockchain L1 concebida especificamente para votação. Como qualquer blockchain, deu-nos algo poderoso:…'
+coverImage: /blog/images/2026/01/Gemini_Generated_Image_6dzwdk6dzwdk6dzw-1.webp
+coverAlt: Da votação em blockchain à votação criptográfica
+authors:
+  - pau
+categories:
+  - davinci
+  - technology
+featured: false
+draft: false
+seo:
+  metaDescription: |-
+    A privacidade e a segurança não podem ser «funcionalidades»
+    na governação Web3. Sem privacidade, a votação não é
+    democrática. O DAVINCI é a nossa tentativa de corrigir isso,
+    tornando a correção e a privacidade inegociáveis.
+  ogImage: /blog/images/2026/01/socialmedia_card-1.webp
+---
+
+Nos últimos anos, a [Vocdoni](https://vocdoni.io/pt) executou votações na **Vochain,** a nossa blockchain L1 concebida especificamente para votação. Como qualquer blockchain, deu-nos algo poderoso: **tudo é transparente, reproduzível e verificável**. Qualquer pessoa pode auditar. Se algo for adulterado, pode ser detetado. O consenso é alcançado por uma maioria de nós honestos, que garantem que a rede continua a funcionar.
+
+Esse modelo funciona e já [sustentou eleições reais](/blog/referendum-bellpuig). Mas se o objetivo final é a _tomada de decisões autónoma_ (em que os resultados podem desencadear ações com segurança), «auditável» continua a não ser o mesmo que «impossível de falsificar».
+
+Porque as blockchains são, no fundo, máquinas sociais com segurança económica. Se o incentivo para fazer batota se tornar suficientemente grande, a teoria dos jogos começa a bater à porta.
+
+Então perguntámo-nos: **e se o escrutínio não fosse algo que se _confia à rede_, mas algo que a rede é criptograficamente forçada a fazer corretamente?**
+
+É essa a mudança da _votação em blockchain_ para a **votação criptográfica**.
+
+---
+
+### Como funciona?
+
+O conhecimento zero é muitas vezes publicitado como «tecnologia de privacidade». E sim, a privacidade importa. Mas a propriedade verdadeiramente disruptiva é a **computação verificada**: é possível provar que se seguiu um conjunto de regras sem pedir a ninguém que confie na execução. O [DAVINCI](https://davinci.vote/) foi construído em torno dessa ideia: as provas não são um extra opcional. São elas que guardam a porta.
+
+Em termos práticos: quem não consegue produzir a prova não pode atualizar o escrutínio.
+
+O DAVINCI é um **zkRollup focado em votação sobre o** [**Ethereum**](https://ethereum.org/), em que uma rede descentralizada de Sequencers agrupa votos e atualiza o estado da eleição, e o Ethereum só aceita essas atualizações **se uma prova zkSNARK demonstrar que foram feitas corretamente**.
+
+Sem prova → sem atualização de estado → sem resultados falsos.
+
+**O Ethereum é a «camada de coordenação»**
+
+> Um processo de votação começa como uma configuração onchain: regras, calendário e o compromisso do registo de eleitores (censo). É também no Ethereum que vive a raiz de estado válida mais recente da eleição, a fonte de verdade.
+
+**Os Sequencers fazem o trabalho - mas não lhes cabe «decidir»**
+
+> Os Sequencers são operadores que recebem os votos, verificam-nos, agrupam-nos, calculam o novo estado e submetem uma prova ao Ethereum. Não usam um mecanismo de consenso para chegar a acordo sobre o escrutínio. Produzem provas criptográficas para lotes de votos e atualizam o escrutínio encriptado onchain.
+
+**A votação é sem gas para os utilizadores**
+
+> Em vez de cada eleitor pagar uma taxa de transação, os custos são amortizados: os votos são agrupados e liquidados em lotes. É assim que se consegue votação sem gas sem sacrificar a segurança do Ethereum.
+
+**A privacidade vem da encriptação + desencriptação por limiar**
+
+> Os boletins de voto são encriptados com encriptação homomórfica de limiar (ElGamal): os votos podem ser agregados enquanto ainda estão encriptados e nenhuma parte isolada os pode desencriptar. Só quando a votação encerra, e um número suficiente de frações independentes da chave é revelado, é que alguém pode desencriptar o escrutínio final.
+
+**A ausência de comprovativo (*receipt-freeness*) faz parte da mecânica**
+
+> O DAVINCI foi construído para tornar a coação e a compra de votos mais difíceis ou impossíveis:\
+> \- os boletins são **re-encriptados** pelos sequencers (para que ninguém possa «provar» o seu voto mostrando o fator aleatório de ocultação).\
+> \- e os eleitores podem **substituir silenciosamente** o seu voto (conta o último voto emitido).
+
+**Disponibilidade de dados**
+
+> O DAVINCI publica os dados necessários para as transições de estado através de **blobs do Ethereum (EIP-4844)** e liga-os ao passo de verificação onchain. É assim que outros sequencers conseguem verificar de forma independente e continuar a partir do mesmo estado partilhado.
+
+---
+
+### O que faz dela «votação criptográfica»?
+
+**Não é apenas auditável, é de cumprimento garantido**
+
+> A «votação em blockchain» tradicional dá transparência. O DAVINCI vai um passo mais além: torna o escrutínio correto um **requisito criptográfico**.
+
+**Sem pressupostos de maioria honesta para a contagem de votos**
+
+> Não é preciso assumir que «a maioria dos nós é honesta» para confiar no resultado. O resultado só é aceite se a prova for validada no Ethereum.
+
+**A participação pode ser distribuída, por conceção**
+
+> Os Sequencers podem pegar no último estado verificado, construir o seguinte e continuar a cadeia. Isso torna o sistema mais difícil de censurar e mais fácil de manter vivo, mesmo que alguns operadores desapareçam.
+
+---
+
+### **A conclusão**
+
+A privacidade e a segurança não podem ser «funcionalidades» na governação Web3; são a base. **Sem privacidade, a votação deixa de ser democrática**: se um participante consegue provar como votou, pode ser coagido ou subornado, e a governação transforma-se num mercado de pressão.
+
+O [**DAVINCI**](https://davinci.vote/) é a nossa tentativa de corrigir isso, **tornando a _correção_ inegociável**: sem escrutínio otimista, sem «confie no operador», sem pressuposto de maioria honesta para a contagem, apenas criptografia e o Ethereum a fazer cumprir as regras.
+
+Foi concebido para eliminar os habituais impostos à participação: votação sem gas para os utilizadores, segurança de nível Ethereum para a liquidação e um papel de sequencer pensado para hardware comum (máquinas baseadas em CPU, não clusters de GPU), **genuinamente aberto**.
+
+Mais importante ainda: o **DAVINCI** não é «o produto da Vocdoni». Somos os catalisadores, mas isto só se torna um padrão universal de votação se as comunidades que dele precisam ajudarem a defini-lo, a defendê-lo e a exigi-lo. **Quem acredita que a governação deve ser privada por defeito, verificável por qualquer pessoa e impossível de falsificar** pode juntar o seu nome ao [Manifesto.](https://manifesto.davinci.vote)
