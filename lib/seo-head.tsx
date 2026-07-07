@@ -472,7 +472,9 @@ export function HeadTags(pageContext: PageContext) {
         />
       )}
       {isBlogPost &&
-        blogPost!.authors.map((author) => <meta key={author.name} property='article:author' content={author.name} />)}
+        blogPost!.authors.map((author, index) => (
+          <meta key={`${author.name}-${index}`} property='article:author' content={author.name} />
+        ))}
       {title && <meta property='og:title' content={title} />}
       {description && <meta property='og:description' content={description} />}
       <meta property='og:url' content={canonicalUrl} />
