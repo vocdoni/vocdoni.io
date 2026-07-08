@@ -46,6 +46,26 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      # The real Netlify deploy URL embeds a deploy id that only exists after upload, so it can't be
+      # known at build time. Instead we pin a deterministic deploy *alias* (below) whose URL we can
+      # compute up front and bake into SITE_URL, so canonical/og:image/etc. point at the host that
+      # actually serves this deploy's assets — otherwise shared preview links resolve to production,
+      # where a PR's new posts/images don't exist yet.
+      - name: Resolve Netlify deploy URL
+        id: netlify_url
+        env:
+          NETLIFY_SITE_NAME: vocdoni-io
+        run: |
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            alias="deploy-preview-${{ github.event.number }}"
+            site_url="https://${alias}--${NETLIFY_SITE_NAME}.netlify.app"
+          else
+            alias=""
+            site_url="https://${NETLIFY_SITE_NAME}.netlify.app"
+          fi
+          echo "alias=${alias}" >> "$GITHUB_OUTPUT"
+          echo "site_url=${site_url}" >> "$GITHUB_OUTPUT"
+
       - name: Build project
         run: pnpm build
         env:
@@ -53,12 +73,16 @@ jobs:
           EMAILJS_SERVICE_ID: ${{ vars.EMAILJS_SERVICE_ID }}
           EMAILJS_TEMPLATE_ID: ${{ vars.EMAILJS_TEMPLATE_ID }}
           GHOST_URL: ${{ vars.GHOST_URL }}
+          SITE_URL: ${{ steps.netlify_url.outputs.site_url }}
 
       - name: Deploy to Netlify
         uses: nwtgck/actions-netlify@v3.0
         with:
           publish-dir: './dist/client'
           production-branch: main
+          # Pin the alias so the served URL matches the SITE_URL baked into the build above. Empty on
+          # main, where production-branch triggers a production deploy at the site's primary URL.
+          alias: ${{ steps.netlify_url.outputs.alias }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
           deploy-message: 'Deploy from GitHub Actions'
           enable-pull-request-comment: true

@@ -18,13 +18,11 @@ const viteconfig = ({ mode }: ConfigEnv) => {
     commitSha = execSync('git rev-parse --short HEAD').toString().trim()
   } catch {}
 
-  // Netlify sets CONTEXT (production | deploy-preview | branch-deploy) and DEPLOY_PRIME_URL (the
-  // deploy's own URL). On non-production deploys, prefer that URL so canonical/og:image/etc. resolve
-  // to the host actually serving this build's assets — otherwise shared preview links point at
-  // production, where new posts/images don't exist yet. Production + local builds keep SITE_URL.
-  const isNetlifyPreview = Boolean(process.env.CONTEXT) && process.env.CONTEXT !== 'production'
-  const siteUrl =
-    (isNetlifyPreview && process.env.DEPLOY_PRIME_URL) || process.env.SITE_URL || 'https://vocdoni.io'
+  // Absolute URLs (canonical, og:image, sitemap, RSS) are built from this. CI passes SITE_URL per
+  // target: production (DigitalOcean) uses the canonical domain; Netlify preview deploys pass their
+  // own deterministic alias URL (see .github/workflows/deploy-netlify.yml) so shared preview links
+  // resolve to the host that actually serves that build's assets. Local builds fall back to prod.
+  const siteUrl = process.env.SITE_URL || 'https://vocdoni.io'
 
   return defineConfig({
     plugins: [
