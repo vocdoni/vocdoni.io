@@ -12,12 +12,17 @@ import { collection, config, fields } from '@keystatic/core'
 // same files with the existing docs markdown pipeline (see lib/blog/*). Keystatic
 // is purely the authoring layer, so it never sits on the production build path.
 
-// PROD detection that works in the browser (Vite injects import.meta.env.PROD),
-// in Vite SSR, and in a plain Node bundle (Netlify function -> process.env).
-const viteEnv = (typeof import.meta !== 'undefined' ? (import.meta as { env?: { PROD?: boolean } }).env : undefined) as
-  | { PROD?: boolean }
-  | undefined
-const isProd = viteEnv ? Boolean(viteEnv.PROD) : typeof process !== 'undefined' && process.env.NODE_ENV === 'production'
+// PROD detection that works in the browser (Vike statically replaces
+// import.meta.env.PROD), in Vite SSR, and in a plain Node bundle (Netlify
+// function). Vike only substitutes the static `import.meta.env.PROD` form, so it
+// must be written exactly like that; in a Node bundle import.meta.env is undefined
+// and the access throws, so we fall back to NODE_ENV there.
+let isProd: boolean
+try {
+  isProd = Boolean(import.meta.env.PROD)
+} catch {
+  isProd = typeof process !== 'undefined' && process.env.NODE_ENV === 'production'
+}
 
 // Locales that get their own posts collection in the admin. Mirrors locales/index.ts;
 // kept as a literal here so keystatic.config stays importable without the app alias.

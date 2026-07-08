@@ -20,7 +20,9 @@ export const BLOG_BASE = '/blog'
 export const BLOG_CATEGORY_BASE = '/blog/category'
 
 // Drafts are visible while developing, excluded from the built/prerendered site.
-const INCLUDE_DRAFTS = Boolean(import.meta.env?.DEV)
+// Must be the static `import.meta.env.DEV` form so Vike replaces it at build time;
+// an optional-chained read (`?.DEV`) is swapped for `null` and would disable drafts in dev.
+const INCLUDE_DRAFTS = Boolean(import.meta.env.DEV)
 
 export interface BlogSeo {
   metaTitle?: string
