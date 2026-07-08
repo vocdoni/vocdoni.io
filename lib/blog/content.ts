@@ -323,7 +323,7 @@ export const listCategories = (locale: Locale): CategoryWithCount[] => {
   }
   return [...counts.entries()]
     .map(([slug, count]) => ({ ...getCategory(slug, locale), count }))
-    .sort((a, b) => b.count - a.count || a.name.localeCompare(b.name))
+    .sort((a, b) => b.count - a.count || a.name.localeCompare(b.name, locale))
 }
 
 // Category slugs to prerender (locale-agnostic, drafts excluded).
