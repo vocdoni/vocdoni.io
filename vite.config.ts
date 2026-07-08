@@ -18,6 +18,14 @@ const viteconfig = ({ mode }: ConfigEnv) => {
     commitSha = execSync('git rev-parse --short HEAD').toString().trim()
   } catch {}
 
+  // Netlify sets CONTEXT (production | deploy-preview | branch-deploy) and DEPLOY_PRIME_URL (the
+  // deploy's own URL). On non-production deploys, prefer that URL so canonical/og:image/etc. resolve
+  // to the host actually serving this build's assets — otherwise shared preview links point at
+  // production, where new posts/images don't exist yet. Production + local builds keep SITE_URL.
+  const isNetlifyPreview = Boolean(process.env.CONTEXT) && process.env.CONTEXT !== 'production'
+  const siteUrl =
+    (isNetlifyPreview && process.env.DEPLOY_PRIME_URL) || process.env.SITE_URL || 'https://vocdoni.io'
+
   return defineConfig({
     plugins: [
       // First so its dev middleware handles /api/keystatic before Vike's routing.
@@ -28,12 +36,12 @@ const viteconfig = ({ mode }: ConfigEnv) => {
       docsMarkdownPlugin(),
       legacyRedirectsPlugin(),
       vikeSitemapPlugin({
-        hostname: process.env.SITE_URL || 'https://vocdoni.io',
+        hostname: siteUrl,
         locales,
         defaultLocale: localeDefault,
       }),
       blogRssPlugin({
-        hostname: process.env.SITE_URL || 'https://vocdoni.io',
+        hostname: siteUrl,
         locales,
         defaultLocale: localeDefault,
       }),
@@ -60,7 +68,7 @@ const viteconfig = ({ mode }: ConfigEnv) => {
     },
 
     define: {
-      SITE_URL: JSON.stringify(process.env.SITE_URL || 'https://vocdoni.io'),
+      SITE_URL: JSON.stringify(siteUrl),
       PLAUSIBLE_DOMAIN: JSON.stringify(process.env.PLAUSIBLE_DOMAIN || ''),
       GTM_ID: JSON.stringify(process.env.GTM_ID || ''),
       EMAILJS_PUBLIC_KEY: JSON.stringify(process.env.EMAILJS_PUBLIC_KEY || ''),
