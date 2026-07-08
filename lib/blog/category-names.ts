@@ -18,15 +18,19 @@ import { localeDefault, type Locale } from '@/locales'
 
 const t = (_key: string, defaultValue: string) => defaultValue
 
+// Category slugs are kebab-case; locale keys are snake_case per repo convention
+// (blog.back_to_blog, blog.copy_link, …). Map slug -> key for every lookup.
+const slugToKey = (slug: string): string => slug.replace(/-/g, '_')
+
 const categoryNameDefaults: Record<string, string> = {
   announcements: t('blog.category_names.announcements', 'Announcements'),
   davinci: t('blog.category_names.davinci', 'DAVINCI'),
   partnerships: t('blog.category_names.partnerships', 'Partnerships'),
-  'product-updates': t('blog.category_names.product-updates', 'Product updates'),
-  'success-stories': t('blog.category_names.success-stories', 'Success stories'),
+  'product-updates': t('blog.category_names.product_updates', 'Product updates'),
+  'success-stories': t('blog.category_names.success_stories', 'Success stories'),
   technology: t('blog.category_names.technology', 'Technology'),
-  'use-cases': t('blog.category_names.use-cases', 'Use cases'),
-  'vocdoni-app': t('blog.category_names.vocdoni-app', 'Vocdoni App'),
+  'use-cases': t('blog.category_names.use_cases', 'Use cases'),
+  'vocdoni-app': t('blog.category_names.vocdoni_app', 'Vocdoni App'),
 }
 
 // Locale common.json bundles, read at build time (same glob technique as
@@ -38,7 +42,7 @@ const LOCALE_JSON = import.meta.glob('/locales/*/common.json', {
 }) as Record<string, CategoryNamesBundle>
 
 const localizedName = (slug: string, locale: Locale): string | undefined => {
-  const value = LOCALE_JSON[`/locales/${locale}/common.json`]?.blog?.category_names?.[slug]
+  const value = LOCALE_JSON[`/locales/${locale}/common.json`]?.blog?.category_names?.[slugToKey(slug)]
   return typeof value === 'string' && value.trim() ? value : undefined
 }
 
