@@ -44,7 +44,7 @@ export default function BlogPostPage() {
               <AuthorBio authors={post.authors} />
             </div>
 
-            <BlogTOC />
+            <BlogTOC html={post.html} />
           </div>
         </Container>
       </div>

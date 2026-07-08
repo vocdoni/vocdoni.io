@@ -1,7 +1,6 @@
 import { cn } from '@/lib/utils'
 import * as React from 'react'
 import { useTranslation } from 'react-i18next'
-import { usePageContext } from 'vike-react/usePageContext'
 
 type Heading = { id: string; text: string; level: number }
 
@@ -15,10 +14,11 @@ const slugify = (text: string) =>
 
 // "On this page" rail for a blog post. Scans #blog-article for h2/h3 and
 // highlights the section currently in view. Mirrors the docs rail behaviour.
-export function BlogTOC() {
+// Keyed off the compiled `html` (like BlogArticle) so the scan re-runs whenever
+// the article content changes — including language switches, where the URL's
+// logical path stays the same but the body is recompiled in the new locale.
+export function BlogTOC({ html }: { html: string }) {
   const { t } = useTranslation()
-  const pageContext = usePageContext() as any
-  const urlLogical = pageContext.urlLogical as string
   const [headings, setHeadings] = React.useState<Heading[]>([])
   const [activeId, setActiveId] = React.useState<string>('')
 
@@ -71,7 +71,7 @@ export function BlogTOC() {
       window.removeEventListener('resize', onScroll)
       if (frame) window.cancelAnimationFrame(frame)
     }
-  }, [urlLogical])
+  }, [html])
 
   if (headings.length < 2) return <div className='hidden xl:block' />
 
