@@ -1,4 +1,5 @@
 import { collection, config, fields } from '@keystatic/core'
+import { availableLocales, localeDefault } from './locales/index'
 
 // Keystatic CMS for the Vocdoni blog.
 //
@@ -24,19 +25,16 @@ try {
   isProd = typeof process !== 'undefined' && process.env.NODE_ENV === 'production'
 }
 
-// Locales that get their own posts collection in the admin. Mirrors locales/index.ts;
-// kept as a literal here so keystatic.config stays importable without the app alias.
-const LOCALES: Record<string, string> = {
-  en: 'English',
-  es: 'Español',
-  ca: 'Català',
-  de: 'Deutsch',
-  el: 'Ελληνικά',
-  eu: 'Euskara',
-  fr: 'Français',
-  it: 'Italiano',
-  pt: 'Português',
-}
+// Locales that get their own posts collection in the admin, derived from the served
+// locales in locales/index.ts (default locale first) so the two never drift. Imported
+// relative rather than via the `@/` alias: the Netlify function bundles this config with
+// esbuild, which doesn't resolve the app alias. locales/index.ts is self-contained, so a
+// relative import stays safe in every build context.
+const LOCALES: Record<string, string> = Object.fromEntries(
+  [...availableLocales]
+    .sort((a, b) => (a.value === localeDefault ? -1 : b.value === localeDefault ? 1 : 0))
+    .map(({ value, label }) => [value, label])
+)
 
 const postSchema = {
   title: fields.slug({

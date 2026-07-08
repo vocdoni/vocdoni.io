@@ -1,32 +1,17 @@
 import gdprLogo from '@/assets/gdpr.webp'
 import { Link } from '@/components/Link'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
 import { Icon } from '@iconify/react'
-import { ArrowRight, Globe, Send } from 'lucide-react'
-import { useState } from 'react'
+import { Globe, Send } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import VocdoniLogo from './Logo'
 
 export default function Footer() {
   const { t } = useTranslation()
-  const [email, setEmail] = useState('')
-  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
 
-  const handleSubscribe = async () => {
-    if (!email || status === 'loading' || status === 'success') return
-    setStatus('loading')
-    try {
-      const res = await fetch(`${GHOST_URL}/members/api/send-magic-link/`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, emailType: 'subscribe' }),
-      })
-      setStatus(res.ok ? 'success' : 'error')
-    } catch {
-      setStatus('error')
-    }
-  }
+  // Newsletter subscription is temporarily hidden until we choose a replacement
+  // for the retired Ghost backend. The markup is preserved (commented) in the
+  // footer below so it can be rewired to the new provider once it is ready.
+
   return (
     <footer className='w-full bg-background border-t border-border/50 pt-16 pb-8 px-4 sm:px-6 lg:px-8'>
       <div className='container mx-auto max-w-7xl'>
@@ -125,6 +110,11 @@ export default function Footer() {
             </ul>
           </div>
 
+          {/*
+            Newsletter subscription temporarily hidden - the Ghost backend it posted to has been
+            retired. Restore this block (and the handler/state removed from the top of the file)
+            once a replacement provider is chosen.
+
           <div className='lg:col-span-4'>
             <h3 className='font-bold text-sm mb-6 uppercase tracking-wider'>{t('footer.newsletter.title')}</h3>
             <div className='flex bg-white rounded-full p-1 border border-border/50 mb-3 group focus-within:border-primary/50 transition-colors'>
@@ -163,6 +153,7 @@ export default function Footer() {
               </p>
             )}
           </div>
+          */}
         </div>
 
         <div className='mb-6 flex flex-wrap justify-center gap-6 text-xs uppercase tracking-[0.2em] text-muted-foreground'>

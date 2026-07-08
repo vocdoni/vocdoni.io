@@ -54,9 +54,6 @@ static_sites:
   - key: SITE_URL
     scope: BUILD_TIME
     value: ${SITE_URL}
-  - key: GHOST_URL
-    scope: BUILD_TIME
-    value: ${GHOST_URL}
   github:
     branch: main
     deploy_on_push: false

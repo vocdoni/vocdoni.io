@@ -6,7 +6,8 @@
 - `components/`: shared UI building blocks (shadcn/ui components live under `components/ui/`).
 - `layouts/`: page-level layout wrappers.
 - `hooks/`, `lib/`: reusable hooks and utilities.
-- `locales/`: i18n resources (currently `en`, `es`, and `ca`).
+- `content/`: Markdoc (`.mdoc`) content - the blog lives under `content/blog/`.
+- `locales/`: i18n resources; the served locale set is defined in `locales/index.ts`.
 - `assets/` and `public/`: static assets; `public/` is copied as-is.
 - `tests/`: Vitest unit tests, organized by `components/`, `pages/`, and `lib/`.
 
@@ -65,6 +66,15 @@
 - User-facing copy in `pages/` and `components/` must go through `t(...)` with a default value. Do not add hardcoded JSX copy unless it is an explicitly documented exception.
 - `pnpm guardrails:translations` must pass without modifying locale files.
 - Non-English locales must not contain copy pasted verbatim from English. `pnpm guardrails:translations:no-copy` diffs every in-progress locale (`de`, `el`, `eu`, `fr`, `it`, `pt`) against `en` and fails on any value identical to the English source. The complete reference locales (`es`, `ca`) tell real copy apart from proper nouns/brands/acronyms: a key is only flagged when at least one reference renders it differently from English. Leave a value as an empty string (`""`) until it is translated rather than copying the English text. Values that are intentionally identical to English (brand/product names, proper nouns not shared across the references, and genuine cross-language cognates) are listed in `scripts/guardrails/untranslated-copy-allowlist.json`.
+
+## Blog Content
+
+- Posts are `.mdoc` files (YAML frontmatter + plain Markdown body) at `content/blog/<locale>/<slug>.mdoc`, authored via **Keystatic** (`/keystatic`) and rendered at build time by `lib/blog/`. Posts do not use custom Markdoc tags.
+- The **slug is the filename** (`my-post.mdoc` → `/blog/my-post`), not a frontmatter field.
+- Translate a post by creating a file with the **same filename** in another locale dir; only frontmatter values and body prose change. Keep locale parity across the served locales in `locales/index.ts`.
+- Store images under `public/blog/images/YYYY/MM/` as `.webp`, referenced web-absolute (`/blog/images/...`, no `public/` prefix).
+- Blog UI copy (not post prose) goes through `react-i18next` under `blog.*` keys with English defaults.
+- Full authoring reference: [`content/blog/AGENTS.md`](content/blog/AGENTS.md).
 
 ## Commit & Pull Request Guidelines
 
