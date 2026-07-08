@@ -24,5 +24,5 @@ export default function data(pageContext: Vike.PageContextServer): BlogCategoryD
   const posts = listPosts(locale, { category: slug })
   if (!posts.length) throw render(404)
 
-  return { category: getCategory(slug), posts, categories: listCategories(locale) }
+  return { category: getCategory(slug, locale), posts, categories: listCategories(locale) }
 }
