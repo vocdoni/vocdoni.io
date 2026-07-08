@@ -1,3 +1,4 @@
+import { categoryDisplayName } from '@/lib/blog/category-names'
 import { compile } from '@/lib/docs/markdown'
 import { localeDefault, type Locale, locales } from '@/locales'
 import matter from 'gray-matter'
@@ -210,7 +211,14 @@ const categoryIndex = (): Map<string, BlogCategory> => {
 }
 
 export const getAuthor = (slug: string): BlogAuthor => authorIndex().get(slug) ?? { slug, name: slug }
-export const getCategory = (slug: string): BlogCategory => categoryIndex().get(slug) ?? { slug, name: slug }
+
+// Category names are authored English-only; the display name is localized here so
+// every consumer (components + SEO) gets the translated string via category.name.
+// The authored English name is the ultimate fallback (see category-names.ts).
+export const getCategory = (slug: string, locale: Locale = localeDefault): BlogCategory => {
+  const base = categoryIndex().get(slug) ?? { slug, name: slug }
+  return { ...base, name: categoryDisplayName(slug, locale, base.name) }
+}
 
 // --- resolution -------------------------------------------------------------
 
@@ -246,7 +254,7 @@ const buildMeta = (slug: string, locale: Locale, resolved: Resolved): BlogPostMe
     frontmatter,
     readingMinutes: readingMinutes(content),
     authors: frontmatter.authors.map(getAuthor),
-    categories: frontmatter.categories.map(getCategory),
+    categories: frontmatter.categories.map((s) => getCategory(s, locale)),
   }
 }
 
@@ -314,8 +322,8 @@ export const listCategories = (locale: Locale): CategoryWithCount[] => {
     for (const slug of post.frontmatter.categories) counts.set(slug, (counts.get(slug) ?? 0) + 1)
   }
   return [...counts.entries()]
-    .map(([slug, count]) => ({ ...getCategory(slug), count }))
-    .sort((a, b) => b.count - a.count || a.name.localeCompare(b.name))
+    .map(([slug, count]) => ({ ...getCategory(slug, locale), count }))
+    .sort((a, b) => b.count - a.count || a.name.localeCompare(b.name, locale))
 }
 
 // Category slugs to prerender (locale-agnostic, drafts excluded).

@@ -1,4 +1,4 @@
-import { allBlogSlugs, listCategories, listPosts, loadPost } from '@/lib/blog/content'
+import { allBlogSlugs, getCategory, listCategories, listPosts, loadPost } from '@/lib/blog/content'
 import { describe, expect, it } from 'vitest'
 
 // Integration test over the committed content/blog files.
@@ -44,6 +44,17 @@ describe('blog content loader', () => {
     const slugs = categories.map((category) => category.slug)
     expect(slugs).toContain('success-stories')
     expect(categories.every((category) => category.count > 0)).toBe(true)
+  })
+
+  it('localizes category display names per locale', () => {
+    expect(getCategory('success-stories', 'en').name).toBe('Success stories')
+    expect(getCategory('success-stories', 'es').name).toBe('Casos de éxito')
+  })
+
+  it('falls back to the slug for categories without a localized name', () => {
+    // Unknown slug has no locale entry and no English default: the slug itself is
+    // the ultimate fallback (see lib/blog/category-names.ts).
+    expect(getCategory('__missing__', 'es').name).toBe('__missing__')
   })
 
   it('enumerates every published slug for prerendering', () => {
