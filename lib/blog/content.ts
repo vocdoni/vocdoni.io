@@ -19,6 +19,10 @@ import matter from 'gray-matter'
 export const BLOG_BASE = '/blog'
 export const BLOG_CATEGORY_BASE = '/blog/category'
 
+// Raw-markdown URL that mirrors the rendered post route + `.md`, emitted per-locale by
+// plugins/blog-markdown.ts. Mirrors `rawHrefFor` in lib/docs/markdown.ts.
+export const rawBlogHrefFor = (locale: string, slug: string): string => `/${locale}/blog/${slug}.md`
+
 // Drafts are visible while developing, excluded from the built/prerendered site.
 // Must be the static `import.meta.env.DEV` form so Vike replaces it at build time;
 // an optional-chained read (`?.DEV`) is swapped for `null` and would disable drafts in dev.

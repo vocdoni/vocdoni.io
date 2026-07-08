@@ -685,6 +685,9 @@ export interface DocFrontmatter {
   group?: string
   order?: number
   reference?: DocReference
+  // Name of the agent skill relevant to this page (matches a dir under
+  // content/agent-skills/); rendered as a link to its SKILL.md by DocPage.
+  skill?: string
 }
 
 function parseReference(value: unknown): DocReference | undefined {
@@ -777,6 +780,7 @@ export function loadDoc(slug: string, locale: Locale, files: DocFileMap = DOC_FI
     group: typeof data.group === 'string' ? data.group : undefined,
     order: typeof data.order === 'number' ? data.order : undefined,
     reference: parseReference(data.reference),
+    skill: typeof data.skill === 'string' ? data.skill : undefined,
   }
 
   return {

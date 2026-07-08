@@ -6,7 +6,8 @@ import { RelatedPosts } from '@/components/blog/RelatedPosts'
 import { ShareButtons } from '@/components/blog/ShareButtons'
 import { Container } from '@/components/Container'
 import { Link } from '@/components/Link'
-import { BLOG_BASE } from '@/lib/blog/content'
+import { MarkdownLinkButton } from '@/components/MarkdownLinkButton'
+import { BLOG_BASE, rawBlogHrefFor } from '@/lib/blog/content'
 import { ArrowLeft } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import { useData } from 'vike-react/useData'
@@ -38,7 +39,13 @@ export default function BlogPostPage() {
                   <ArrowLeft className='size-4' />
                   {t('blog.back_to_blog', 'Back to blog')}
                 </Link>
-                <ShareButtons title={post.frontmatter.title} />
+                <div className='flex flex-wrap items-center gap-3'>
+                  <MarkdownLinkButton
+                    href={rawBlogHrefFor(locale, post.slug)}
+                    label={t('blog.view_markdown', 'View as markdown')}
+                  />
+                  <ShareButtons title={post.frontmatter.title} />
+                </div>
               </div>
 
               <AuthorBio authors={post.authors} />
