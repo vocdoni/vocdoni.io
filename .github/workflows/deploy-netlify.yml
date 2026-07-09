@@ -72,7 +72,6 @@ jobs:
           EMAILJS_PUBLIC_KEY: ${{ vars.EMAILJS_PUBLIC_KEY }}
           EMAILJS_SERVICE_ID: ${{ vars.EMAILJS_SERVICE_ID }}
           EMAILJS_TEMPLATE_ID: ${{ vars.EMAILJS_TEMPLATE_ID }}
-          GHOST_URL: ${{ vars.GHOST_URL }}
           SITE_URL: ${{ steps.netlify_url.outputs.site_url }}
 
       - name: Deploy to Netlify

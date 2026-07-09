@@ -69,7 +69,8 @@ pages/          Vike routes and page entry points (+Page.tsx, +config.ts, …)
 components/     Shared UI building blocks (shadcn/ui lives under components/ui/)
 layouts/        Page-level layout wrappers
 hooks/          Reusable React hooks
-lib/            Utility modules (including redirect rules)
+lib/            Utility modules (including redirect rules and blog loader)
+content/        Markdoc (.mdoc) content - the blog lives under content/blog/
 locales/        i18n resources (en, es, ca + in-progress locales)
 assets/         Static assets bundled by Vite
 public/         Files copied as-is to the build output
@@ -79,6 +80,8 @@ plugins/        Vite plugins (e.g. redirect file emitter)
 .do/            DigitalOcean App Platform configuration
 .github/        CI/CD workflows
 ```
+
+The blog is authored via Keystatic (admin at `/keystatic`, config in `keystatic.config.ts`) and stored as `.mdoc` files under `content/blog/`. See [`content/blog/AGENTS.md`](content/blog/AGENTS.md) for the authoring guide.
 
 ## Environment Variables
 
@@ -93,7 +96,6 @@ Create a `.env.local` file to override any variable locally. All of the followin
 | `PLAUSIBLE_DOMAIN` | Plausible Analytics domain |
 | `RECAPTCHA_SITE_KEY` | reCAPTCHA v3 site key |
 | `SITE_URL` | Public base URL (used for canonical tags and sitemaps) |
-| `GHOST_URL` | Ghost CMS API URL (blog content) |
 
 ## Deployment
 
