@@ -67,7 +67,7 @@ describe('LEGACY_REDIRECTS source of truth', () => {
     }
   })
 
-  it('maps /product to /app and everything else to home', () => {
+  it('maps each legacy path to its current destination', () => {
     const map = Object.fromEntries(LEGACY_REDIRECTS.map((r) => [r.from, r.to]))
     expect(map['/product']).toBe('/en/app') // unprefixed -> default locale
     expect(map['/es/product']).toBe('/es/app')

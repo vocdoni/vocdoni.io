@@ -47,7 +47,7 @@ const LEGACY_PATHS: Record<string, string> = {
   footer: '/', // stray footer link -> landing page
 }
 
-/** Turn a logical destination (`/app` | `/`) into a locale-prefixed final URL. */
+/** Turn a logical destination (e.g. `/`, `/app`, `/developers`) into a locale-prefixed final URL. */
 const localize = (logical: string, lang: string) => (logical === '/' ? `/${lang}` : `/${lang}${logical}`)
 
 function buildRedirects(): LegacyRedirect[] {
