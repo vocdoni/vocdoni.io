@@ -3,32 +3,17 @@ import { availableLocales, localeDefault } from './locales/index'
 
 // Keystatic CMS for the Vocdoni blog.
 //
-// Storage is environment-aware so the same config powers both editing modes:
-//   - development -> `local`  : the admin at /keystatic writes markdown files
-//     straight to disk; you commit them yourself.
-//   - production  -> `github` : the deployed admin commits through the Keystatic
-//     GitHub App (needs the app installed + KEYSTATIC_* env vars on the host).
+// Storage is `local` only: the admin at /keystatic writes markdown files straight
+// to disk during `pnpm dev`, and you commit them yourself. There is no deployed
+// editing surface - editors run the admin locally (see plugins/keystatic-api.ts).
 //
 // The live site does NOT read content through Keystatic's reader: it renders the
 // same files with the existing docs markdown pipeline (see lib/blog/*). Keystatic
 // is purely the authoring layer, so it never sits on the production build path.
 
-// PROD detection that works in the browser (Vike statically replaces
-// import.meta.env.PROD), in Vite SSR, and in a plain Node bundle (Netlify
-// function). Vike only substitutes the static `import.meta.env.PROD` form, so it
-// must be written exactly like that; in a Node bundle import.meta.env is undefined
-// and the access throws, so we fall back to NODE_ENV there.
-let isProd: boolean
-try {
-  isProd = Boolean(import.meta.env.PROD)
-} catch {
-  isProd = typeof process !== 'undefined' && process.env.NODE_ENV === 'production'
-}
-
 // Locales that get their own posts collection in the admin, derived from the served
 // locales in locales/index.ts (default locale first) so the two never drift. Imported
-// relative rather than via the `@/` alias: the Netlify function bundles this config with
-// esbuild, which doesn't resolve the app alias. locales/index.ts is self-contained, so a
+// relative rather than via the `@/` alias. locales/index.ts is self-contained, so a
 // relative import stays safe in every build context.
 const LOCALES: Record<string, string> = Object.fromEntries(
   [...availableLocales]
@@ -96,7 +81,7 @@ const postsCollections = Object.fromEntries(
 )
 
 export default config({
-  storage: isProd ? { kind: 'github', repo: { owner: 'vocdoni', name: 'vocdoni.io' } } : { kind: 'local' },
+  storage: { kind: 'local' },
   ui: {
     brand: { name: 'Vocdoni blog' },
     navigation: {
