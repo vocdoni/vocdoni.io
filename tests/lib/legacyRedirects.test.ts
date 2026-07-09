@@ -67,12 +67,15 @@ describe('LEGACY_REDIRECTS source of truth', () => {
     }
   })
 
-  it('maps /product to /app and everything else to home', () => {
+  it('maps each legacy path to its current destination', () => {
     const map = Object.fromEntries(LEGACY_REDIRECTS.map((r) => [r.from, r.to]))
     expect(map['/product']).toBe('/en/app') // unprefixed -> default locale
     expect(map['/es/product']).toBe('/es/app')
     expect(map['/advantages']).toBe('/en')
     expect(map['/es/advantages']).toBe('/es')
+    expect(map['/docs']).toBe('/en/developers')
+    expect(map['/es/docs']).toBe('/es/developers')
+    expect(map['/footer']).toBe('/en')
     expect(map['/api']).toBe('/en') // internal only - never an external site
     expect(map['/politica-priv-14fruites']).toBe('/en/privacy')
   })

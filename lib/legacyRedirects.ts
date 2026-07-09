@@ -33,7 +33,7 @@ const targetLang = (lang: string) => ((locales as readonly string[]).includes(la
 
 /**
  * Renamed legacy marketing paths and their CURRENT logical destination (unprefixed).
- * Everything collapses to the landing page except `/product`, which maps to `/app`.
+ * Everything collapses to the landing page except `/product` (-> `/app`) and `/docs` (-> `/developers`).
  */
 const LEGACY_PATHS: Record<string, string> = {
   product: '/app',
@@ -43,9 +43,11 @@ const LEGACY_PATHS: Record<string, string> = {
   explore: '/',
   impact: '/',
   home: '/',
+  docs: '/developers', // old docs section now lives under /developers
+  footer: '/', // stray footer link -> landing page
 }
 
-/** Turn a logical destination (`/app` | `/`) into a locale-prefixed final URL. */
+/** Turn a logical destination (e.g. `/`, `/app`, `/developers`) into a locale-prefixed final URL. */
 const localize = (logical: string, lang: string) => (logical === '/' ? `/${lang}` : `/${lang}${logical}`)
 
 function buildRedirects(): LegacyRedirect[] {
