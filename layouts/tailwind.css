@@ -3,117 +3,134 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  --background: oklch(0.976 0.008 85);
-  --foreground: oklch(0.3211 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.3211 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.3211 0 0);
-  --primary: oklch(0.324 0.055 145);
-  --primary-foreground: oklch(0.984 0.029 93);
+  --background: oklch(0.988 0.011 97);
+  --foreground: oklch(0.24 0.013 106);
+  --card: oklch(0.988 0.011 97);
+  --card-foreground: oklch(0.24 0.013 106);
+  --popover: oklch(0.988 0.011 97);
+  --popover-foreground: oklch(0.24 0.013 106);
+  --primary: oklch(0.47 0.085 158);
+  --primary-foreground: oklch(0.985 0.012 97);
   --brand-whatsapp: oklch(0.42 0.13 155);
-  --secondary: oklch(0.967 0.0029 264.5419);
-  --secondary-foreground: oklch(0.4461 0.0263 256.8018);
-  --muted: oklch(0.9846 0.0017 247.8389);
-  --muted-foreground: oklch(0.49 0.0234 264.3637);
-  --accent: oklch(0.9119 0.0222 243.8174);
-  --accent-foreground: oklch(0.3791 0.1378 265.5222);
+  --secondary: oklch(0.962 0.022 97);
+  --secondary-foreground: oklch(0.24 0.013 106);
+  --muted: oklch(0.936 0.033 97);
+  --muted-foreground: oklch(0.24 0.013 106 / 0.64);
+  --accent: oklch(0.24 0.013 106 / 0.07);
+  --accent-foreground: oklch(0.24 0.013 106);
   --destructive: oklch(0.6368 0.2078 25.3313);
   --destructive-foreground: oklch(1 0 0);
-  --success: oklch(0.42 0.15 143);
+  --success: oklch(0.45 0.12 152);
   --warning: oklch(0.48 0.17 45);
-  --border: oklch(0.9022 0.0052 247.8822);
-  --input: oklch(0.97 0.0029 264.542);
-  --ring: oklch(0.6397 0.172 36.4421);
+  --signal: oklch(0.93 0.11 102);
+  --signal-halo: oklch(0.93 0.11 102 / 0.18);
+  --surface-dark: oklch(0.235 0.012 107);
+  --surface-dark-foreground: oklch(0.985 0.012 97);
+  --faint: oklch(0.24 0.013 106 / 0.55);
+  --border: oklch(0.24 0.013 106 / 0.1);
+  --input: oklch(0.24 0.013 106 / 0.1);
+  --ring: oklch(0.47 0.085 158);
   --chart-1: oklch(0.7156 0.0605 248.6845);
   --chart-2: oklch(0.7875 0.0917 35.9616);
   --chart-3: oklch(0.5778 0.0759 254.1573);
   --chart-4: oklch(0.5016 0.0849 259.4902);
   --chart-5: oklch(0.4241 0.0952 264.0306);
-  --sidebar: oklch(0.903 0.0046 258.3257);
-  --sidebar-foreground: oklch(0.3211 0 0);
-  --sidebar-primary: oklch(0.6397 0.172 36.4421);
-  --sidebar-primary-foreground: oklch(1 0 0);
-  --sidebar-accent: oklch(0.9119 0.0222 243.8174);
-  --sidebar-accent-foreground: oklch(0.3791 0.1378 265.5222);
-  --sidebar-border: oklch(0.9276 0.0058 264.5313);
-  --sidebar-ring: oklch(0.6397 0.172 36.4421);
+  --sidebar: oklch(0.962 0.022 97);
+  --sidebar-foreground: oklch(0.24 0.013 106);
+  --sidebar-primary: oklch(0.47 0.085 158);
+  --sidebar-primary-foreground: oklch(0.985 0.012 97);
+  --sidebar-accent: oklch(0.24 0.013 106 / 0.07);
+  --sidebar-accent-foreground: oklch(0.24 0.013 106);
+  --sidebar-border: oklch(0.24 0.013 106 / 0.1);
+  --sidebar-ring: oklch(0.47 0.085 158);
   --font-sans: 'Inter Variable', Inter, sans-serif;
-  --font-serif: 'Lora Variable', Lora, serif;
+  --font-serif: 'Instrument Serif', Georgia, serif;
   --font-mono: 'JetBrains Mono Variable', 'JetBrains Mono', monospace;
-  --radius: 0.75rem;
+  --radius: 1rem;
   --shadow-x: 0px;
   --shadow-y: 1px;
   --shadow-blur: 3px;
   --shadow-spread: 0px;
   --shadow-opacity: 0.1;
   --shadow-color: hsl(0 0% 0%);
-  --shadow-2xs: 0px 1px 3px 0px hsl(0 0% 0% / 0.05);
-  --shadow-xs: 0px 1px 3px 0px hsl(0 0% 0% / 0.05);
-  --shadow-sm: 0px 1px 3px 0px hsl(0 0% 0% / 0.1), 0px 1px 2px -1px hsl(0 0% 0% / 0.1);
-  --shadow: 0px 1px 3px 0px hsl(0 0% 0% / 0.1), 0px 1px 2px -1px hsl(0 0% 0% / 0.1);
-  --shadow-md: 0px 1px 3px 0px hsl(0 0% 0% / 0.1), 0px 2px 4px -1px hsl(0 0% 0% / 0.1);
-  --shadow-lg: 0px 1px 3px 0px hsl(0 0% 0% / 0.1), 0px 4px 6px -1px hsl(0 0% 0% / 0.1);
-  --shadow-xl: 0px 1px 3px 0px hsl(0 0% 0% / 0.1), 0px 8px 10px -1px hsl(0 0% 0% / 0.1);
-  --shadow-2xl: 0px 1px 3px 0px hsl(0 0% 0% / 0.25);
+  --shadow-2xs: 0px 1px 2px 0px rgb(0 0 0 / 0.05);
+  --shadow-xs: 0px 1px 2px 0px rgb(0 0 0 / 0.06);
+  --shadow-sm: 0px 1px 2px 0px rgb(0 0 0 / 0.08);
+  --shadow: 0px 1px 3px 0px rgb(0 0 0 / 0.08), 0px 1px 2px -1px rgb(0 0 0 / 0.06);
+  --shadow-md: 0px 2px 6px -1px rgb(0 0 0 / 0.1), 0px 1px 2px 0px rgb(0 0 0 / 0.06);
+  --shadow-lg: 0px 4px 14px 0px rgb(0 0 0 / 0.16);
+  --shadow-xl: 0px 8px 24px -4px rgb(0 0 0 / 0.16), 0px 2px 6px -2px rgb(0 0 0 / 0.08);
+  --shadow-2xl: 0px 16px 40px -8px rgb(0 0 0 / 0.2);
+  --shadow-panel: 0px 12px 32px -8px oklch(0.24 0.013 106 / 0.16), 0px 2px 6px -2px oklch(0.24 0.013 106 / 0.08);
+  --shadow-inset-top: inset 0 1px 1px rgb(255 255 255 / 0.14);
   --shadow-button:
-    0px 2px 3px -1px rgba(0, 0, 0, 0.1), 0px 1px 0px 0px rgba(25, 28, 33, 0.02), 0px 0px 0px 1px rgba(25, 28, 33, 0.08);
+    0px 2px 3px -1px oklch(0.24 0.013 106 / 0.12), 0px 1px 0px 0px oklch(0.24 0.013 106 / 0.03),
+    0px 0px 0px 1px oklch(0.24 0.013 106 / 0.1);
   --tracking-normal: 0em;
   --spacing: 0.3125rem;
 }
 
 .dark {
-  --background: oklch(0.2598 0.0306 262.6666);
-  --foreground: oklch(0.9219 0 0);
-  --card: oklch(0.3106 0.0301 268.6365);
-  --card-foreground: oklch(0.9219 0 0);
-  --popover: oklch(0.29 0.0249 268.3986);
-  --popover-foreground: oklch(0.9219 0 0);
-  --secondary: oklch(0.3095 0.0266 266.7132);
-  --secondary-foreground: oklch(0.9219 0 0);
-  --muted: oklch(0.3095 0.0266 266.7132);
-  --muted-foreground: oklch(0.7155 0 0);
-  --accent: oklch(0.338 0.0589 267.5867);
-  --accent-foreground: oklch(0.8823 0.0571 254.1284);
+  --background: oklch(0.22 0.012 106);
+  --foreground: oklch(0.95 0.012 97);
+  --card: oklch(0.25 0.013 106);
+  --card-foreground: oklch(0.95 0.012 97);
+  --popover: oklch(0.25 0.013 106);
+  --popover-foreground: oklch(0.95 0.012 97);
+  --primary: oklch(0.62 0.09 158);
+  --primary-foreground: oklch(0.2 0.012 106);
+  --secondary: oklch(0.27 0.014 106);
+  --secondary-foreground: oklch(0.95 0.012 97);
+  --muted: oklch(0.29 0.016 106);
+  --muted-foreground: oklch(0.95 0.012 97 / 0.66);
+  --accent: oklch(1 0 0 / 0.07);
+  --accent-foreground: oklch(0.95 0.012 97);
   --destructive: oklch(0.6368 0.2078 25.3313);
   --destructive-foreground: oklch(1 0 0);
   --brand-whatsapp: #25d366;
-  --success: oklch(0.65 0.154 143);
+  --success: oklch(0.65 0.12 152);
   --warning: oklch(0.78 0.15 50);
-  --border: oklch(0.3843 0.0301 269.7337);
-  --input: oklch(0.3843 0.0301 269.7337);
-  --ring: oklch(0.6397 0.172 36.4421);
+  --signal: oklch(0.93 0.11 102);
+  --signal-halo: oklch(0.93 0.11 102 / 0.18);
+  --surface-dark: oklch(0.235 0.012 107);
+  --surface-dark-foreground: oklch(0.985 0.012 97);
+  --faint: oklch(0.95 0.012 97 / 0.5);
+  --border: oklch(1 0 0 / 0.1);
+  --input: oklch(1 0 0 / 0.1);
+  --ring: oklch(0.62 0.09 158);
   --chart-1: oklch(0.7156 0.0605 248.6845);
   --chart-2: oklch(0.7693 0.0876 34.1875);
   --chart-3: oklch(0.5778 0.0759 254.1573);
   --chart-4: oklch(0.5016 0.0849 259.4902);
   --chart-5: oklch(0.4241 0.0952 264.0306);
-  --sidebar: oklch(0.31 0.0283 267.7408);
-  --sidebar-foreground: oklch(0.9219 0 0);
-  --sidebar-primary: oklch(0.6397 0.172 36.4421);
-  --sidebar-primary-foreground: oklch(1 0 0);
-  --sidebar-accent: oklch(0.338 0.0589 267.5867);
-  --sidebar-accent-foreground: oklch(0.8823 0.0571 254.1284);
-  --sidebar-border: oklch(0.3843 0.0301 269.7337);
-  --sidebar-ring: oklch(0.6397 0.172 36.4421);
+  --sidebar: oklch(0.25 0.013 106);
+  --sidebar-foreground: oklch(0.95 0.012 97);
+  --sidebar-primary: oklch(0.62 0.09 158);
+  --sidebar-primary-foreground: oklch(0.2 0.012 106);
+  --sidebar-accent: oklch(1 0 0 / 0.07);
+  --sidebar-accent-foreground: oklch(0.95 0.012 97);
+  --sidebar-border: oklch(1 0 0 / 0.1);
+  --sidebar-ring: oklch(0.62 0.09 158);
   --font-sans: 'Inter Variable', Inter, sans-serif;
-  --font-serif: 'Lora Variable', Lora, serif;
+  --font-serif: 'Instrument Serif', Georgia, serif;
   --font-mono: 'JetBrains Mono Variable', 'JetBrains Mono', monospace;
-  --radius: 0.75rem;
+  --radius: 1rem;
   --shadow-x: 0px;
   --shadow-y: 1px;
   --shadow-blur: 3px;
   --shadow-spread: 0px;
   --shadow-opacity: 0.1;
   --shadow-color: hsl(0 0% 0%);
-  --shadow-2xs: 0px 1px 3px 0px hsl(0 0% 0% / 0.05);
-  --shadow-xs: 0px 1px 3px 0px hsl(0 0% 0% / 0.05);
-  --shadow-sm: 0px 1px 3px 0px hsl(0 0% 0% / 0.1), 0px 1px 2px -1px hsl(0 0% 0% / 0.1);
-  --shadow: 0px 1px 3px 0px hsl(0 0% 0% / 0.1), 0px 1px 2px -1px hsl(0 0% 0% / 0.1);
-  --shadow-md: 0px 1px 3px 0px hsl(0 0% 0% / 0.1), 0px 2px 4px -1px hsl(0 0% 0% / 0.1);
-  --shadow-lg: 0px 1px 3px 0px hsl(0 0% 0% / 0.1), 0px 4px 6px -1px hsl(0 0% 0% / 0.1);
-  --shadow-xl: 0px 1px 3px 0px hsl(0 0% 0% / 0.1), 0px 8px 10px -1px hsl(0 0% 0% / 0.1);
-  --shadow-2xl: 0px 1px 3px 0px hsl(0 0% 0% / 0.25);
+  --shadow-2xs: 0px 1px 2px 0px rgb(0 0 0 / 0.2);
+  --shadow-xs: 0px 1px 2px 0px rgb(0 0 0 / 0.22);
+  --shadow-sm: 0px 1px 2px 0px rgb(0 0 0 / 0.25);
+  --shadow: 0px 1px 3px 0px rgb(0 0 0 / 0.25), 0px 1px 2px -1px rgb(0 0 0 / 0.2);
+  --shadow-md: 0px 2px 6px -1px rgb(0 0 0 / 0.3), 0px 1px 2px 0px rgb(0 0 0 / 0.2);
+  --shadow-lg: 0px 4px 14px 0px rgb(0 0 0 / 0.35);
+  --shadow-xl: 0px 8px 24px -4px rgb(0 0 0 / 0.35), 0px 2px 6px -2px rgb(0 0 0 / 0.25);
+  --shadow-2xl: 0px 16px 40px -8px rgb(0 0 0 / 0.4);
+  --shadow-panel: 0px 12px 32px -8px rgb(0 0 0 / 0.4), 0px 2px 6px -2px rgb(0 0 0 / 0.25);
+  --shadow-inset-top: inset 0 1px 1px rgb(255 255 255 / 0.1);
 }
 
 @theme inline {
@@ -152,15 +169,20 @@
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-whatsapp: var(--brand-whatsapp);
+  --color-signal: var(--signal);
+  --color-surface-dark: var(--surface-dark);
+  --color-surface-dark-foreground: var(--surface-dark-foreground);
+  --color-faint: var(--faint);
 
   --font-sans: var(--font-sans);
   --font-mono: var(--font-mono);
   --font-serif: var(--font-serif);
 
-  --radius-sm: calc(var(--radius) - 4px);
-  --radius-md: calc(var(--radius) - 2px);
+  --radius-sm: calc(var(--radius) - 6px);
+  --radius-md: calc(var(--radius) - 4px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
+  --radius-card: 1.25rem;
 
   --shadow-2xs: var(--shadow-2xs);
   --shadow-xs: var(--shadow-xs);
@@ -171,6 +193,8 @@
   --shadow-xl: var(--shadow-xl);
   --shadow-2xl: var(--shadow-2xl);
   --shadow-button: var(--shadow-button);
+  --shadow-panel: var(--shadow-panel);
+  --shadow-inset-top: var(--shadow-inset-top);
 
   /* ── Spacing scale (base: 6px) ──────────────────────────────
      Natural 6× multiples: 1=6px, 2=12px, 2.5=15px, 4=24px, 12=72px
@@ -219,6 +243,8 @@
     text-rendering: optimizeLegibility;
     text-wrap: pretty;
   }
+  /* Display headings: single-weight serif, tight tracking, compact leading.
+     Utilities (font-*, leading-*, tracking-*) still win over these defaults. */
   h1,
   h2,
   h3,
@@ -226,6 +252,9 @@
   h5,
   h6 {
     @apply font-serif;
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    line-height: 1.05;
     text-wrap: balance;
   }
 
@@ -275,8 +304,8 @@
     animation-play-state: paused;
   }
   .mask-gradient-x {
-    mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
-    -webkit-mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
+    mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+    -webkit-mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
   }
   /* Subtle 1px media edge - inset box-shadow follows border-radius and is never clipped
      by overflow-hidden parents. Pure black (light) / pure white (dark) for future-readiness. */
@@ -292,6 +321,18 @@
 }
 
 @layer components {
+  /* Eyebrow label: small uppercase tag above section headings, preceded by a
+     signal dot. Signal yellow is reserved for these dots - never surfaces. */
+  .eyebrow {
+    @apply inline-flex items-center gap-2 text-sm font-medium uppercase tracking-[0.11em] text-muted-foreground;
+  }
+  .eyebrow-dot {
+    @apply inline-block size-2 shrink-0 rounded-full bg-signal;
+  }
+  .eyebrow-dot-halo {
+    box-shadow: 0 0 0 4px var(--signal-halo);
+  }
+
   /* Tactile press feedback - scoped transition (never `all`). */
   .press-scale {
     transition: scale 150ms cubic-bezier(0.2, 0, 0, 1);

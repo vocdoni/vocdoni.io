@@ -7,7 +7,7 @@ a {
   margin-left: -10px;
 }
 #sidebar a.is-active {
-  background-color: oklch(var(--muted));
+  background-color: var(--muted);
 }
 
 /* Reset */
@@ -18,8 +18,8 @@ body {
   overflow-x: clip;
 }
 html {
-  /* Offset in-page anchor jumps so targets land clearly below the fixed navbar. */
-  scroll-padding-top: 7.5rem;
+  /* Offset in-page anchor jumps so targets land clearly below the sticky navbar. */
+  scroll-padding-top: 5.5rem;
 }
 @media (prefers-reduced-motion: no-preference) {
   html {
