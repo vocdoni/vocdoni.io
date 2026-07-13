@@ -13,7 +13,7 @@ export default function Footer() {
   // footer below so it can be rewired to the new provider once it is ready.
 
   return (
-    <footer className='w-full bg-background border-t border-border/50 pt-16 pb-8 px-4 sm:px-6 lg:px-8'>
+    <footer className='w-full bg-background border-t border-border pt-24 pb-10 px-4 sm:px-6 lg:px-8'>
       <div className='container mx-auto max-w-7xl'>
         <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 lg:gap-8 mb-16'>
           {/* Brand & Description */}
@@ -74,7 +74,9 @@ export default function Footer() {
 
           {/* Links Sections */}
           <div className='lg:col-span-2'>
-            <h3 className='font-bold text-sm mb-6 uppercase tracking-wider'>{t('footer.product.title')}</h3>
+            <h3 className='font-sans text-[11px] font-semibold mb-6 uppercase tracking-wider text-faint'>
+              {t('footer.product.title')}
+            </h3>
             <ul className='space-y-4'>
               <li>
                 <Link href='https://app.vocdoni.io' target='_blank' variant='footerNav'>
@@ -90,7 +92,9 @@ export default function Footer() {
           </div>
 
           <div className='lg:col-span-2'>
-            <h3 className='font-bold text-sm mb-6 uppercase tracking-wider'>{t('footer.company.title')}</h3>
+            <h3 className='font-sans text-[11px] font-semibold mb-6 uppercase tracking-wider text-faint'>
+              {t('footer.company.title')}
+            </h3>
             <ul className='space-y-4'>
               <li>
                 <Link href='/about-us' variant='footerNav'>
@@ -116,7 +120,7 @@ export default function Footer() {
             once a replacement provider is chosen.
 
           <div className='lg:col-span-4'>
-            <h3 className='font-bold text-sm mb-6 uppercase tracking-wider'>{t('footer.newsletter.title')}</h3>
+            <h3 className='font-sans text-[11px] font-semibold mb-6 uppercase tracking-wider text-faint'>{t('footer.newsletter.title')}</h3>
             <div className='flex bg-white rounded-full p-1 border border-border/50 mb-3 group focus-within:border-primary/50 transition-colors'>
               <label htmlFor='newsletter-email' className='sr-only'>
                 {t('footer.newsletter.label', 'Email address for newsletter')}

@@ -1,4 +1,5 @@
 import { Container } from '@/components/Container'
+import { SectionHeader } from '@/components/SectionHeader'
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
 import { Button } from '@/components/ui/button'
 import { useTranslation } from 'react-i18next'
@@ -30,12 +31,12 @@ export default function HomeFAQ() {
   return (
     <section className='bg-muted/35 py-20 sm:py-24'>
       <Container className='max-w-4xl'>
-        <div className='mx-auto max-w-3xl text-center mb-12 sm:mb-16'>
-          <p className='text-sm font-medium uppercase tracking-[0.2em] text-primary/80'>{t('faq.eyebrow', 'FAQ')}</p>
-          <h2 className='mt-3 text-balance text-3xl font-semibold tracking-tight sm:text-4xl'>
-            {t('faq.title', 'Common questions')}
-          </h2>
-        </div>
+        <SectionHeader
+          className='mx-auto max-w-3xl mb-12 sm:mb-16'
+          eyebrow={t('faq.eyebrow', 'FAQ')}
+          title={t('faq.title', 'Common questions')}
+          titleClassName='text-4xl sm:text-5xl'
+        />
 
         <Accordion
           type='single'

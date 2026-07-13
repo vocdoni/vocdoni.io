@@ -2,6 +2,7 @@ import { useReducedMotion } from 'motion/react'
 import type { CSSProperties } from 'react'
 import { useEffect, useState } from 'react'
 
+import { Eyebrow } from '@/components/Eyebrow'
 import { MotionPreset } from '@/components/ui/motion-preset'
 
 import TestimonialCard from '@/components/shadcn-studio/blocks/testimonials-component-03/testimonial-card'
@@ -169,14 +170,14 @@ const TestimonialsComponent = ({ eyebrow, title, description, testimonials }: Te
     <section className='bg-muted pt-8 sm:pt-16 lg:pt-24'>
       <div className='mx-auto max-w-7xl space-y-12 px-4 sm:space-y-16 sm:px-6 lg:space-y-24 lg:px-8'>
         <div className='space-y-4 text-center sm:space-y-5'>
-          <p className='text-primary text-sm font-medium uppercase'>{eyebrow}</p>
+          <Eyebrow>{eyebrow}</Eyebrow>
 
           <MotionPreset
             component='h2'
             fade
             slide={{ direction: 'down' }}
             transition={{ duration: 0.5 }}
-            className='text-foreground z-1 inline-block text-3xl font-bold sm:text-4xl lg:text-5xl'
+            className='text-foreground z-1 block text-4xl sm:text-5xl'
           >
             {title}
           </MotionPreset>
