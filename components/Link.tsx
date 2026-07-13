@@ -11,8 +11,8 @@ const linkVariants = cva('transition-colors', {
     variant: {
       default: 'text-foreground hover:text-primary underline-offset-4 hover:underline',
       navbarItem:
-        'block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground',
-      navbarMobile: 'text-sm text-muted-foreground hover:text-foreground py-2 block',
+        'block select-none space-y-1 rounded-[10px] px-3 py-2 leading-none no-underline outline-none transition-colors duration-150 hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground',
+      navbarMobile: 'text-base text-foreground hover:bg-accent rounded-[10px] px-3 py-2.5 block transition-colors',
       navbarStatic: 'text-sm font-medium hover:text-primary transition-colors py-3 border-b border-border/40 block',
       footerNav: 'text-sm text-muted-foreground hover:text-foreground transition-colors',
       footerLegal: 'text-muted-foreground hover:text-foreground transition-colors',
