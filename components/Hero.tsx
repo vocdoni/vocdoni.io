@@ -36,35 +36,6 @@ const Hero = () => {
           {/* Left Column: Content */}
           <div className='flex flex-col items-start gap-6 relative z-10 w-full min-w-0'>
             <MotionPreset fade slide delay={0} transition={{ duration: 0.5 }}>
-              <Link
-                href='https://app.vocdoni.io'
-                target='_blank'
-                rel='noopener noreferrer'
-                variant='unstyled'
-                className='group inline-flex max-w-full items-center gap-3'
-              >
-                <span className='eyebrow shrink-0'>
-                  <span className='relative flex size-2' role='img' aria-label={t('hero.badge.status_live', 'Live')}>
-                    <span
-                      className='animate-ping absolute inline-flex h-full w-full rounded-full bg-signal opacity-75'
-                      aria-hidden='true'
-                    ></span>
-                    <span className='eyebrow-dot eyebrow-dot-halo relative' aria-hidden='true'></span>
-                  </span>
-                  {t('hero.badge.label')}
-                </span>
-                <span className='flex items-center gap-1 truncate text-sm font-medium leading-tight text-muted-foreground'>
-                  <span className='hidden sm:inline'>{t('hero.badge.description_long')}</span>
-                  <span className='sm:hidden'>{t('hero.badge.description_short')}</span>
-                  <ArrowRight
-                    className='h-3 w-3 transition-transform group-hover:translate-x-0.5 shrink-0'
-                    aria-hidden='true'
-                  />
-                </span>
-              </Link>
-            </MotionPreset>
-
-            <MotionPreset fade slide delay={0} transition={{ duration: 0.5 }}>
               <h1 className='text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-[4.75rem] leading-[0.95] max-w-3xl break-words text-foreground text-balance'>
                 {t('hero.title')}{' '}
                 <span className='inline-flex min-w-[0px] xs:min-w-[120px] text-primary relative'>
