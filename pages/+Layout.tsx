@@ -117,7 +117,8 @@ function LocalizedLayout({
         <SkipToMainContent />
         <CookieConsent />
         <Navbar />
-        <main id='main-content' tabIndex={-1} className='flex-1 pt-20'>
+        {/* The navbar is sticky and in normal flow, so no top padding is needed. */}
+        <main id='main-content' tabIndex={-1} className='flex-1'>
           <ErrorBoundary key={urlLogical}>{children}</ErrorBoundary>
         </main>
         <Footer />

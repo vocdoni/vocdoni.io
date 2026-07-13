@@ -33,7 +33,7 @@ vi.mock('vike-react/usePageContext', () => ({
 }))
 
 describe('Layout', () => {
-  it('adds top padding to keep content clear of the fixed navbar', () => {
+  it('renders main content in normal flow below the sticky navbar', () => {
     mockedUsePageContext.mockReturnValue({
       initialLocale: 'en',
       initialI18nStore: { en: { common: {} } },
@@ -47,7 +47,7 @@ describe('Layout', () => {
         <div>Child</div>
       </Layout>
     )
-    expect(html).toContain('pt-20')
+    expect(html).toContain('id="main-content"')
     expect(html).toContain('data-testid="navbar"')
   })
 

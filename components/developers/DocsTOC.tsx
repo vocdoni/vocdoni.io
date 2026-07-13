@@ -85,7 +85,7 @@ export function DocsTOC() {
 
   return (
     <aside className='hidden xl:block'>
-      <div className='sticky top-24 max-h-[calc(100vh-7rem)] overflow-y-auto pb-10'>
+      <div className='sticky top-20 max-h-[calc(100vh-6rem)] overflow-y-auto pb-10'>
         <p className='mb-3 text-xs font-semibold uppercase tracking-wide text-muted-foreground/80'>
           {t('developers.docs.common.on_this_page', 'On this page')}
         </p>
