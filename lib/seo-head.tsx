@@ -430,6 +430,14 @@ export function HeadTags(pageContext: PageContext) {
         type='font/woff2'
         crossOrigin='anonymous'
       />
+      {/* Headings render above the fold on every page, so preload the serif too. */}
+      <link
+        rel='preload'
+        href='/fonts/files/instrument-serif-latin-400-normal.woff2'
+        as='font'
+        type='font/woff2'
+        crossOrigin='anonymous'
+      />
       <link rel='stylesheet' href='/fonts/fonts.css' />
       <link rel='dns-prefetch' href='https://www.googletagmanager.com' />
       <link rel='dns-prefetch' href='https://plausible.io' />

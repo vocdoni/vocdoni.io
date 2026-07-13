@@ -1,4 +1,4 @@
-// Assembles self-hosted webfonts into public/fonts/ from the @fontsource-variable
+// Assembles self-hosted webfonts into public/fonts/ from the @fontsource
 // packages. We serve them from public/ (instead of importing the CSS through the
 // bundler) so Vike does not inject a <link rel="preload"> for every unicode-range
 // subset: the browser lazily fetches only the subset each page actually needs.
@@ -11,13 +11,13 @@ const root = resolve(dirname(fileURLToPath(import.meta.url)), '..')
 const outDir = resolve(root, 'public/fonts')
 const filesDir = resolve(outDir, 'files')
 
-// Match the axes currently used by the site: Inter + Lora upright and italic,
-// JetBrains Mono upright only.
+// Match the axes currently used by the site: Inter (variable) + Instrument
+// Serif (single 400 weight) upright and italic, JetBrains Mono upright only.
 const sources = [
   '@fontsource-variable/inter/wght.css',
   '@fontsource-variable/inter/wght-italic.css',
-  '@fontsource-variable/lora/wght.css',
-  '@fontsource-variable/lora/wght-italic.css',
+  '@fontsource/instrument-serif/400.css',
+  '@fontsource/instrument-serif/400-italic.css',
   '@fontsource-variable/jetbrains-mono/wght.css',
 ]
 
