@@ -108,7 +108,7 @@ export default function AboutUsPage() {
             <p className='text-primary text-sm font-medium uppercase tracking-wide'>
               {t('about_us.trust_section.eyebrow', 'How trust is built')}
             </p>
-            <h2 className='text-2xl font-bold tracking-tight sm:text-3xl'>
+            <h2 className='text-2xl sm:text-3xl'>
               {t('about_us.trust_section.title', 'Transparent voting infrastructure for serious decisions')}
             </h2>
             <p className='text-muted-foreground text-lg leading-relaxed'>

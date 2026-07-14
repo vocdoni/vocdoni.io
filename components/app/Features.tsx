@@ -22,7 +22,7 @@ export default function Features() {
           <p className='text-sm font-medium uppercase tracking-[0.2em] text-primary/80'>
             {t('app_landing.features.eyebrow', 'Feature proof')}
           </p>
-          <h2 className='mt-3 text-balance text-3xl font-semibold tracking-tight sm:text-4xl'>
+          <h2 className='mt-3 text-balance text-3xl sm:text-4xl'>
             {t('app_landing.features.title', 'Everything you need to run a real election')}
           </h2>
           <p className='mt-4 text-lg leading-8 text-muted-foreground'>

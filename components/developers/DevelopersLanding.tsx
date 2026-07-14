@@ -216,9 +216,7 @@ function StartBuilding() {
     <section className='border-t border-border/60 bg-muted/20 py-14 sm:py-20'>
       <Container>
         <div className='mx-auto mb-10 max-w-2xl text-center'>
-          <h2 className='text-2xl font-bold tracking-tight sm:text-3xl'>
-            {t('developers.landing.build.title', 'Start building')}
-          </h2>
+          <h2 className='text-2xl sm:text-3xl'>{t('developers.landing.build.title', 'Start building')}</h2>
           <p className='mt-3 text-muted-foreground'>
             {t('developers.landing.build.subtitle', 'Jump straight to the part of the API you need.')}
           </p>
@@ -280,7 +278,7 @@ function Capabilities() {
     <section className='py-14 sm:py-20'>
       <Container>
         <div className='mx-auto mb-10 max-w-2xl text-center'>
-          <h2 className='text-2xl font-bold tracking-tight sm:text-3xl'>
+          <h2 className='text-2xl sm:text-3xl'>
             {t('developers.landing.capabilities.title', 'Built on guarantees you can prove')}
           </h2>
         </div>
@@ -335,9 +333,7 @@ function Resources() {
     <section className='border-t border-border/60 py-14 sm:py-20'>
       <Container>
         <div className='mb-8 flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-end'>
-          <h2 className='text-2xl font-bold tracking-tight sm:text-3xl'>
-            {t('developers.landing.resources.title', 'Resources')}
-          </h2>
+          <h2 className='text-2xl sm:text-3xl'>{t('developers.landing.resources.title', 'Resources')}</h2>
           <Button asChild variant='outline'>
             <Link href='/developers/docs' variant='inlineIcon'>
               {t('developers.landing.resources.cta', 'Browse the docs')}

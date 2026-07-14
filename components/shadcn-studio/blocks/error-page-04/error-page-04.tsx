@@ -23,7 +23,7 @@ const ErrorPage = () => {
         <img src={notFoundImage} alt={title} className='mx-auto w-full object-contain' loading='lazy' />
       </div>
       <div className='flex flex-col items-center gap-4 text-center'>
-        <h1 className='text-3xl font-semibold tracking-tight sm:text-4xl'>{title}</h1>
+        <h1 className='text-3xl sm:text-4xl'>{title}</h1>
         <p className='text-muted-foreground max-w-sm text-base'>{description}</p>
         <div className='flex gap-3 pt-2'>
           <Button asChild>

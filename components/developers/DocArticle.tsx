@@ -19,7 +19,7 @@ export function DocArticle({ slug, title, lead, notice, children }: DocArticlePr
       <DocsBreadcrumbs slug={slug} />
       {notice}
       <header className='mb-2'>
-        <h1 className='text-3xl font-bold tracking-tight text-balance sm:text-4xl'>{title}</h1>
+        <h1 className='text-3xl text-balance sm:text-4xl'>{title}</h1>
         {lead ? <p className='mt-3 text-lg leading-8 text-muted-foreground'>{lead}</p> : null}
       </header>
       <div id='docs-article' className='min-w-0'>

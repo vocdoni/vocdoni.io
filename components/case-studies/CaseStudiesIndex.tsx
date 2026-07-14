@@ -51,7 +51,7 @@ export function CaseStudiesIndex() {
             </MotionPreset>
             <MotionPreset
               component='h1'
-              className='mb-6 text-3xl font-bold tracking-tight text-balance sm:text-4xl lg:text-5xl'
+              className='mb-6 text-3xl text-balance sm:text-4xl lg:text-5xl'
               fade
               blur
               slide

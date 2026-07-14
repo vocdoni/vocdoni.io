@@ -24,7 +24,7 @@ export default function Services() {
               <p className='text-sm font-medium uppercase tracking-[0.2em] text-primary/80'>
                 {t('app_landing.cta.eyebrow', 'Start without friction')}
               </p>
-              <h2 className='mt-3 text-balance text-3xl font-semibold tracking-tight sm:text-4xl'>
+              <h2 className='mt-3 text-balance text-3xl sm:text-4xl'>
                 {t('app_landing.cta.title', 'Your next vote can be live today')}
               </h2>
               <p className='mt-4 max-w-2xl text-lg leading-8 text-muted-foreground'>

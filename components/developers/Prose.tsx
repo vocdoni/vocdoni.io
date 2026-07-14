@@ -12,7 +12,7 @@ export function Prose({ className, ...props }: ProseProps) {
       className={cn(
         'max-w-none text-[15px] leading-7 text-muted-foreground',
         // Headings (anchor offset handled globally via html scroll-padding-top)
-        '[&_h2]:text-2xl [&_h2]:font-semibold [&_h2]:tracking-tight [&_h2]:text-foreground [&_h2]:mt-12 [&_h2]:mb-4',
+        '[&_h2]:text-2xl [&_h2]:text-foreground [&_h2]:mt-12 [&_h2]:mb-4',
         '[&_h3]:text-lg [&_h3]:font-semibold [&_h3]:text-foreground [&_h3]:mt-8 [&_h3]:mb-3',
         // Paragraphs and lists
         '[&_p]:my-4',

@@ -21,7 +21,7 @@ export default function AppHeroWithVideo() {
           <div className='flex flex-col items-start gap-8 relative z-10 w-full min-w-0'>
             <div className='flex flex-col gap-6'>
               <MotionPreset fade blur slide delay={0} transition={{ duration: 0.5 }}>
-                <h1 className='text-4xl font-black tracking-tight sm:text-5xl lg:text-6xl xl:text-6xl max-w-2xl break-words leading-none text-foreground text-balance'>
+                <h1 className='text-4xl sm:text-5xl lg:text-6xl xl:text-6xl max-w-2xl break-words leading-none text-foreground text-balance'>
                   {t('vocdoni_app.app_hero.title', 'Run your vote online,')}{' '}
                   <span className='text-primary lg:block lg:mt-1'>
                     {t('vocdoni_app.app_hero.title_highlight', 'with confidence')}

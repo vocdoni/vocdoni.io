@@ -13,7 +13,7 @@ const StepsSection = () => {
         <div className='mb-12 space-y-4 text-center sm:mb-16 lg:mb-24'>
           <MotionPreset
             component='h2'
-            className='text-2xl font-semibold md:text-3xl lg:text-4xl'
+            className='text-2xl md:text-3xl lg:text-4xl'
             fade
             slide={{ direction: 'down', offset: 50 }}
             blur

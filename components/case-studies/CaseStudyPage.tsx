@@ -60,7 +60,7 @@ export function CaseStudyPage({ content, logo, image, blogHref, solutionHref }: 
           </div>
           <MotionPreset
             component='h1'
-            className='mb-6 text-3xl font-bold tracking-tight text-balance sm:text-4xl lg:text-5xl'
+            className='mb-6 text-3xl text-balance sm:text-4xl lg:text-5xl'
             fade
             blur
             slide
@@ -118,7 +118,7 @@ export function CaseStudyPage({ content, logo, image, blogHref, solutionHref }: 
           <article className='space-y-10'>
             {sections.map((section, index) => (
               <div key={index} className='space-y-4'>
-                <h2 className='text-2xl font-semibold tracking-tight sm:text-3xl'>{section.heading}</h2>
+                <h2 className='text-2xl sm:text-3xl'>{section.heading}</h2>
                 {asArray<string>(section.paragraphs).map((paragraph, pIndex) => (
                   <p key={pIndex} className='text-muted-foreground text-base leading-8'>
                     {paragraph}
