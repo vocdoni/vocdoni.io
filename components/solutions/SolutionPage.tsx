@@ -55,8 +55,6 @@ export interface SolutionPageProps {
 // Semantic icons for the trust band, cycled by index.
 const TRUST_ICONS: LucideIcon[] = [ShieldCheckIcon, EyeIcon, ScaleIcon, FileCheckIcon]
 
-const APP_URL = 'https://app.vocdoni.io'
-
 const asArray = <T,>(value: unknown): T[] => (Array.isArray(value) ? (value as T[]) : [])
 
 export function SolutionPage({ icon: Icon, content, logos, caseStudyHref }: SolutionPageProps) {

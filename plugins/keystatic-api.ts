@@ -3,8 +3,8 @@ import type { Plugin } from 'vite'
 
 // Dev-only middleware that serves Keystatic's local API at /api/keystatic/*, so
 // the admin at /keystatic can read and write content files on disk during
-// `pnpm dev`. In production the same handler runs as a Netlify function
-// (netlify/functions/keystatic.ts); this plugin is inert outside `vite serve`.
+// `pnpm dev`. Keystatic storage is local-only, so there is no production API
+// counterpart; this plugin is inert outside `vite serve`.
 //
 // Keystatic (and its React-heavy deps) are imported lazily inside configureServer
 // so they never enter the production build graph or the config-load module graph.

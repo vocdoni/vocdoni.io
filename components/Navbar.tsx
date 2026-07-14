@@ -140,7 +140,7 @@ export function Navbar() {
   // Dashboard instead of the voting app.
   const pageContext = usePageContext() as any
   const inDevelopers = isDevelopersPath(pageContext.urlLogical)
-  const ctaHref = inDevelopers ? DEVELOPERS_DASHBOARD_URL : 'https://app.vocdoni.io'
+  const ctaHref = inDevelopers ? DEVELOPERS_DASHBOARD_URL : APP_URL
   const ctaLabel = inDevelopers ? t('navbar.dashboard_button', 'API Dashboard') : t('navbar.app_button')
 
   const productFeatures = React.useMemo(() => buildProductFeatures(t), [t])

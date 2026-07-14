@@ -73,7 +73,7 @@ const Hero = () => {
             <MotionPreset fade slide delay={0.3} transition={{ duration: 0.5 }}>
               <div className='flex flex-col sm:flex-row gap-4 w-full sm:w-auto'>
                 <Button variant='dark' size='lg' className='group text-base has-[>svg]:px-6 w-full sm:w-auto' asChild>
-                  <Link href='https://app.vocdoni.io' variant='inlineIcon'>
+                  <Link href={APP_URL} variant='inlineIcon'>
                     {t('hero.cta_primary')}
                     <ArrowRight
                       className='h-5 w-5 transition-transform duration-200 group-hover:translate-x-0.5'
