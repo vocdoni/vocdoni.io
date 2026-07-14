@@ -1,4 +1,4 @@
-// Assembles self-hosted webfonts into public/fonts/ from the @fontsource
+// Assembles self-hosted webfonts into public/fonts/ from the @fontsource-variable
 // packages. We serve them from public/ (instead of importing the CSS through the
 // bundler) so Vike does not inject a <link rel="preload"> for every unicode-range
 // subset: the browser lazily fetches only the subset each page actually needs.
