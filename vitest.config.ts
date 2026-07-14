@@ -8,8 +8,8 @@ export default defineConfig({
     },
   },
   define: {
-    APP_URL: JSON.stringify('https://app.vocdoni.io'),
-    PLATFORM_URL: JSON.stringify('https://platform.vocdoni.io'),
+    APP_URL: JSON.stringify(process.env.APP_URL || 'https://app.vocdoni.io'),
+    PLATFORM_URL: JSON.stringify(process.env.PLATFORM_URL || 'https://platform.vocdoni.io'),
   },
   test: {
     exclude: ['.worktrees/**', 'dist/**', 'node_modules/**'],
