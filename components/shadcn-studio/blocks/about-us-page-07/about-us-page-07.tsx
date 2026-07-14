@@ -4,6 +4,8 @@ import { useTranslation } from 'react-i18next'
 
 import aboutVocdoniImage from '@/assets/about_vocdoni.webp'
 
+import { SectionHeader } from '@/components/SectionHeader'
+
 import { Card, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { MotionPreset } from '@/components/ui/motion-preset'
 import { cn } from '@/lib/utils'
@@ -44,13 +46,13 @@ const AboutUs = ({
         <div className='mb-10 grid gap-16 lg:grid-cols-2'>
           <div className='space-y-10'>
             <MotionPreset fade blur slide delay={0} transition={{ duration: 0.5 }} inView inViewOnce>
-              <div className='space-y-4'>
-                <p className='text-primary text-sm font-medium uppercase'>{t('about_us.eyebrow')}</p>
-                <h2 className='text-3xl font-bold md:text-4xl lg:text-5xl tracking-tight leading-tight'>
-                  {t('about_us.title')}
-                </h2>
-                <p className='text-muted-foreground text-xl leading-relaxed'>{t('about_us.description')}</p>
-              </div>
+              <SectionHeader
+                align='left'
+                eyebrow={t('about_us.eyebrow')}
+                title={t('about_us.title')}
+                lede={t('about_us.description')}
+                titleClassName='text-4xl md:text-5xl'
+              />
             </MotionPreset>
 
             {/* Mission/Vision/Values Tabs - only shown when tabs are provided */}
@@ -182,7 +184,7 @@ const AboutUs = ({
         {!hideTeam && (
           <MotionPreset fade blur slide delay={1} transition={{ duration: 0.5 }} inView inViewOnce>
             <div className='mt-24 pt-16 border-t border-primary/10 text-center max-w-3xl mx-auto'>
-              <h3 className='text-lg font-bold mb-4 uppercase tracking-widest text-primary/60'>
+              <h3 className='font-sans text-sm font-semibold mb-4 uppercase tracking-widest text-faint'>
                 {t('about_us.team.title')}
               </h3>
               <p className='text-muted-foreground text-xl leading-relaxed font-medium italic'>

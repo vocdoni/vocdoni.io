@@ -55,7 +55,7 @@ export function ArticlePage({ content, ctaHref = '/solutions' }: ArticlePageProp
           </MotionPreset>
           <MotionPreset
             component='h1'
-            className='mb-6 text-3xl font-bold tracking-tight text-balance sm:text-4xl lg:text-5xl'
+            className='mb-6 text-3xl text-balance sm:text-4xl lg:text-5xl'
             fade
             blur
             slide
@@ -84,7 +84,7 @@ export function ArticlePage({ content, ctaHref = '/solutions' }: ArticlePageProp
           <article className='space-y-10'>
             {sections.map((section, index) => (
               <div key={index} className='space-y-4'>
-                <h2 className='text-2xl font-semibold tracking-tight sm:text-3xl'>{section.heading}</h2>
+                <h2 className='text-2xl sm:text-3xl'>{section.heading}</h2>
                 {asArray<string>(section.paragraphs).map((paragraph, pIndex) => (
                   <p key={pIndex} className='text-muted-foreground text-base leading-8'>
                     {paragraph}
@@ -122,7 +122,7 @@ export function ArticlePage({ content, ctaHref = '/solutions' }: ArticlePageProp
       {faq.length > 0 && (
         <section className='py-12'>
           <Container className='max-w-3xl'>
-            <h2 className='mb-8 text-2xl font-semibold tracking-tight sm:text-3xl'>{content.faq_title}</h2>
+            <h2 className='mb-8 text-2xl sm:text-3xl'>{content.faq_title}</h2>
             <Accordion type='single' collapsible className='bg-background rounded-3xl border px-6 shadow-sm sm:px-8'>
               {faq.map((item, index) => (
                 <AccordionItem key={index} value={`faq-${index}`}>

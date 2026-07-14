@@ -1,5 +1,6 @@
 import { Container } from '@/components/Container'
 import { Link } from '@/components/Link'
+import { SectionHeader } from '@/components/SectionHeader'
 import { Button } from '@/components/ui/button'
 import { BuildingIcon, GraduationCapIcon, LandmarkIcon, UsersIcon } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
@@ -44,10 +45,12 @@ export default function TargetUsersV3() {
   return (
     <section className='py-20 bg-muted'>
       <Container>
-        <div className='flex flex-col items-center text-center mb-12'>
-          <h2 className='text-3xl font-bold tracking-tight sm:text-4xl mb-4'>{t('vocdoni_app.target_users.title')}</h2>
-          <p className='text-lg text-muted-foreground max-w-2xl'>{t('vocdoni_app.target_users.description')}</p>
-        </div>
+        <SectionHeader
+          className='mb-12'
+          title={t('vocdoni_app.target_users.title')}
+          lede={t('vocdoni_app.target_users.description')}
+          titleClassName='text-4xl sm:text-5xl'
+        />
 
         <div className='mx-auto flex max-w-5xl flex-wrap justify-center gap-3'>
           {targets.map((item, key) => (

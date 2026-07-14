@@ -29,7 +29,7 @@ const ContactUs = () => {
 
             <MotionPreset
               component='h1'
-              className='mb-6 text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl'
+              className='mb-6 text-4xl sm:text-5xl lg:text-6xl'
               fade
               blur
               slide
@@ -61,7 +61,7 @@ const ContactUs = () => {
                 <Card className='bg-primary py-10 px-8 shadow-none rounded-none md:col-span-2 border-0'>
                   <CardContent className='text-primary-foreground space-y-8 p-0'>
                     <div className='space-y-3'>
-                      <h2 className='text-2xl font-bold'>{t('contact.get_in_touch_title', 'Get in touch')}</h2>
+                      <h2 className='text-2xl'>{t('contact.get_in_touch_title', 'Get in touch')}</h2>
                       <p className='text-primary-foreground/90 leading-relaxed'>
                         {t(
                           'contact.get_in_touch_description',

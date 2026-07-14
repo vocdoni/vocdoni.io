@@ -3,13 +3,11 @@ import { ArrowRight } from 'lucide-react'
 import * as React from 'react'
 import { useTranslation } from 'react-i18next'
 
-import appImage from '@/assets/navbar_app_highlight.webp'
 import { CalBookingDialog } from '@/components/CalBookingDialog'
 import { Link } from '@/components/Link'
 import { DEVELOPERS_DASHBOARD_URL, isDevelopersPath } from '@/lib/developers'
 import { usePageContext } from 'vike-react/usePageContext'
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
-import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import {
   NavigationMenu,
@@ -63,14 +61,6 @@ const buildProductFeatures = (t: (key: string) => string): ProductFeature[] => [
   },
 ]
 
-const buildFeaturedSolution = (t: (key: string) => string) => ({
-  title: t('navbar.featured_solution.vocdoni_app.title'),
-  description: t('navbar.featured_solution.vocdoni_app.description'),
-  href: APP_URL,
-  cta: t('navbar.featured_solution.vocdoni_app.cta'),
-  badge: t('navbar.featured_solution.vocdoni_app.badge'),
-})
-
 type ResourceItem = { title: string; href: string; description: string; target?: string; rel?: string }
 
 const buildResourcesItems = (t: TFunction): ResourceItem[] => [
@@ -111,6 +101,36 @@ const buildSolutionVerticals = (t: TFunction) => [
   { title: t('navbar.solution_links.companies_agm', 'Companies & AGMs'), href: '/solutions/companies-agm' },
 ]
 
+/* Two-part dropdown panel: a tinted intro column on the left introduces the
+   group, the right side holds the link items. */
+const MenuPanel = ({
+  introTitle,
+  introDescription,
+  children,
+}: {
+  introTitle: string
+  introDescription: string
+  children: React.ReactNode
+}) => (
+  <div className='flex'>
+    <div className='flex w-[264px] shrink-0 flex-col gap-3 bg-secondary px-6 py-7'>
+      <p className='font-serif text-3xl leading-[1.05] tracking-[-0.01em] text-foreground'>{introTitle}</p>
+      <p className='text-[13.5px] leading-snug text-muted-foreground'>{introDescription}</p>
+    </div>
+    <div className='flex min-w-[316px] flex-col p-3.5'>{children}</div>
+  </div>
+)
+
+/* Small uppercase group label inside a dropdown panel. */
+const PanelLabel = ({ className, children }: { className?: string; children: React.ReactNode }) => (
+  <p className={`px-3 pb-1 pt-2 text-[11px] font-semibold uppercase tracking-wider text-faint ${className ?? ''}`}>
+    {children}
+  </p>
+)
+
+/* Thin divider between top-level nav entries. */
+const NavDivider = () => <li aria-hidden='true' className='h-3 w-px shrink-0 self-center bg-foreground/15' />
+
 export function Navbar() {
   const { t } = useTranslation()
   const [isOpen, setIsOpen] = React.useState(false)
@@ -124,54 +144,57 @@ export function Navbar() {
   const ctaLabel = inDevelopers ? t('navbar.dashboard_button', 'API Dashboard') : t('navbar.app_button')
 
   const productFeatures = React.useMemo(() => buildProductFeatures(t), [t])
-  const featuredSolution = React.useMemo(() => buildFeaturedSolution(t), [t])
   const resourcesItems = React.useMemo(() => buildResourcesItems(t), [t])
   const solutionVerticals = React.useMemo(() => buildSolutionVerticals(t), [t])
 
   return (
-    <div className='fixed top-6 left-0 right-0 z-50 flex justify-center px-4 cursor-none pointer-events-none'>
-      <header className='cursor-default pointer-events-auto flex items-center justify-between gap-4 rounded-full border border-border/40 bg-background/80 px-4 py-2 shadow-sm backdrop-blur-md w-full max-w-[2000px] transition-[background-color,box-shadow,backdrop-filter] duration-300'>
+    <header className='sticky top-0 z-50 border-b border-border bg-background/75 backdrop-blur-[14px]'>
+      <div className='mx-auto flex w-full max-w-[1408px] items-center justify-between gap-4 px-4 py-2 sm:px-6'>
         {/* Logo */}
-        <div className='pointer-events'>
+        <div className='flex items-center'>
           <Link href='/' variant='unstyled' aria-label={t('navbar.logo_aria_label', 'Vocdoni - go to homepage')}>
             <VocdoniLogo minimal className='h-7 xl:hidden' aria-hidden='true' />
-            <VocdoniLogo className='hidden xl:block h-8' aria-hidden='true' />
+            <VocdoniLogo className='hidden xl:block h-7' aria-hidden='true' />
           </Link>
         </div>
 
         {/* Desktop Navigation */}
         <NavigationMenu className='hidden xl:flex min-w-max'>
-          <NavigationMenuList>
-            {/* Solutions (formerly Product) */}
+          <NavigationMenuList className='gap-1'>
+            {/* Solutions */}
             <NavigationMenuItem>
               <NavigationMenuTrigger>{t('navbar.solutions')}</NavigationMenuTrigger>
               <NavigationMenuContent>
-                <div className='w-[820px] p-6'>
-                  <div className='grid grid-cols-3 gap-6'>
+                <MenuPanel
+                  introTitle={t('navbar.solutions_intro.title', 'Voting that fits your organization')}
+                  introDescription={t(
+                    'navbar.solutions_intro.description',
+                    'Secure, verifiable digital voting for every kind of organization, from associations to institutions.'
+                  )}
+                >
+                  <div className='flex gap-3'>
                     {/* Column 1: Products */}
-                    <div className='space-y-2'>
-                      <p className='mb-3 px-2 text-sm text-muted-foreground font-medium'>
-                        {t('navbar.solutions_header')}
-                      </p>
-                      <ul className='space-y-0.5'>
+                    <div className='flex w-[250px] flex-col'>
+                      <PanelLabel>{t('navbar.solutions_header')}</PanelLabel>
+                      <ul className='flex flex-col gap-0.5'>
                         {productFeatures.map((item) => (
                           <li key={item.title}>
                             {item.kind === 'link' ? (
                               <NavigationMenuLink asChild>
                                 <Link href={item.href} target={item.target} rel={item.rel} variant='navbarItem'>
                                   <div className='text-sm font-medium leading-none'>{item.title}</div>
-                                  <p className='line-clamp-2 text-sm font-normal leading-snug text-muted-foreground'>
+                                  <p className='line-clamp-2 text-xs font-normal leading-snug text-muted-foreground'>
                                     {item.description}
                                   </p>
                                 </Link>
                               </NavigationMenuLink>
                             ) : (
                               <CalBookingDialog
-                                className='block w-full select-none space-y-1 rounded-md p-3 text-left leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:bg-accent focus-visible:text-accent-foreground'
+                                className='block w-full select-none space-y-1 rounded-[10px] px-3 py-2 text-left leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:bg-accent focus-visible:text-accent-foreground'
                                 triggerAriaLabel={item.triggerAriaLabel}
                               >
                                 <div className='text-sm font-medium leading-none'>{item.title}</div>
-                                <p className='line-clamp-2 text-sm leading-snug text-muted-foreground'>
+                                <p className='line-clamp-2 text-xs leading-snug text-muted-foreground'>
                                   {item.description}
                                 </p>
                               </CalBookingDialog>
@@ -182,11 +205,9 @@ export function Navbar() {
                     </div>
 
                     {/* Column 2: By organization type */}
-                    <div className='space-y-2'>
-                      <p className='mb-3 px-2 text-sm text-muted-foreground font-medium'>
-                        {t('navbar.solutions_by_type_header', 'By organization type')}
-                      </p>
-                      <ul className='space-y-0.5'>
+                    <div className='flex w-[260px] flex-col'>
+                      <PanelLabel>{t('navbar.solutions_by_type_header', 'By organization type')}</PanelLabel>
+                      <ul className='flex flex-col gap-0.5'>
                         {solutionVerticals.map((item) => (
                           <li key={item.href}>
                             <NavigationMenuLink asChild>
@@ -196,59 +217,26 @@ export function Navbar() {
                             </NavigationMenuLink>
                           </li>
                         ))}
-                        <li>
-                          <NavigationMenuLink asChild>
-                            <Link href='/solutions' variant='navbarItem'>
-                              <div className='text-primary inline-flex items-center gap-1 text-sm font-medium leading-none'>
-                                {t('navbar.view_all_solutions', 'View all solutions')}
-                                <ArrowRight className='size-3.5' />
-                              </div>
-                            </Link>
-                          </NavigationMenuLink>
-                        </li>
                       </ul>
                     </div>
+                  </div>
 
-                    {/* Column 3: Featured card with image */}
-                    <div className='relative flex flex-col'>
-                      <p className='mb-2 px-2 text-sm text-muted-foreground font-medium'>
-                        {t('navbar.featured_solution.header')}
-                      </p>
-                      <Link href={featuredSolution.href} target='_blank' rel='noopener noreferrer' variant='card'>
-                        <div className='relative h-full'>
-                          {/* App highlight image */}
-                          <img
-                            src={appImage}
-                            alt='Vocdoni App'
-                            className='aspect-video w-full object-cover'
-                            loading='lazy'
-                            decoding='async'
-                            width={640}
-                            height={360}
-                          />
-                          {/* Gradient overlay */}
-                          <span className='absolute inset-0 bg-gradient-to-t from-black/60 to-transparent' />
-                          {/* Content overlay */}
-                          <span className='absolute bottom-0 p-4 text-white'>
-                            <div className='flex items-center gap-2 mb-1'>
-                              <h3 className='font-semibold text-sm'>{featuredSolution.title}</h3>
-                              {featuredSolution.badge && (
-                                <Badge variant='secondary' className='text-xs px-2 py-0'>
-                                  {featuredSolution.badge}
-                                </Badge>
-                              )}
-                            </div>
-                            {featuredSolution.description && (
-                              <p className='text-xs text-white/90'>{featuredSolution.description}</p>
-                            )}
-                          </span>
+                  {/* Footer link */}
+                  <div className='mt-1.5 border-t border-border pt-1'>
+                    <NavigationMenuLink asChild>
+                      <Link href='/solutions' variant='navbarItem'>
+                        <div className='inline-flex items-center gap-1.5 text-sm font-semibold leading-none'>
+                          {t('navbar.view_all_solutions', 'View all solutions')}
+                          <ArrowRight className='size-3.5' />
                         </div>
                       </Link>
-                    </div>
+                    </NavigationMenuLink>
                   </div>
-                </div>
+                </MenuPanel>
               </NavigationMenuContent>
             </NavigationMenuItem>
+
+            <NavDivider />
 
             {/* Use Cases */}
             <NavigationMenuItem>
@@ -256,6 +244,8 @@ export function Navbar() {
                 {t('navbar.use_cases')}
               </Link>
             </NavigationMenuItem>
+
+            <NavDivider />
 
             <NavigationMenuItem>
               <Link
@@ -269,19 +259,37 @@ export function Navbar() {
               </Link>
             </NavigationMenuItem>
 
-            {/* Resources (replaces Success stories) */}
+            <NavDivider />
+
+            {/* Resources */}
             <NavigationMenuItem>
               <NavigationMenuTrigger>{t('navbar.resources')}</NavigationMenuTrigger>
               <NavigationMenuContent>
-                <ul className='grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]'>
-                  {resourcesItems.map((item) => (
-                    <ListItem key={item.title} title={item.title} href={item.href} target={item.target} rel={item.rel}>
-                      {item.description}
-                    </ListItem>
-                  ))}
-                </ul>
+                <MenuPanel
+                  introTitle={t('navbar.resources_intro.title', 'Learn and build')}
+                  introDescription={t(
+                    'navbar.resources_intro.description',
+                    'Guides, real-world case studies, and documentation to get the most out of Vocdoni.'
+                  )}
+                >
+                  <ul className='flex w-[290px] flex-col gap-0.5'>
+                    {resourcesItems.map((item) => (
+                      <ListItem
+                        key={item.title}
+                        title={item.title}
+                        href={item.href}
+                        target={item.target}
+                        rel={item.rel}
+                      >
+                        {item.description}
+                      </ListItem>
+                    ))}
+                  </ul>
+                </MenuPanel>
               </NavigationMenuContent>
             </NavigationMenuItem>
+
+            <NavDivider />
 
             {/* About Us */}
             <NavigationMenuItem>
@@ -289,6 +297,8 @@ export function Navbar() {
                 {t('navbar.about')}
               </Link>
             </NavigationMenuItem>
+
+            <NavDivider />
 
             <NavigationMenuItem>
               <Link href='/contact' variant='unstyled' className={navigationMenuTriggerStyle()}>
@@ -338,7 +348,7 @@ export function Navbar() {
               <SheetContent side='left' className='w-[300px] sm:w-[400px] p-0'>
                 <div className='flex flex-col h-full bg-background'>
                   {/* Header inside Sheet */}
-                  <div className='p-6 border-b'>
+                  <div className='p-6 border-b border-border'>
                     <VocdoniLogo aria-hidden='true' />
                   </div>
 
@@ -347,41 +357,14 @@ export function Navbar() {
                     <Accordion type='single' collapsible className='w-full'>
                       {/* Solutions (mobile) */}
                       <AccordionItem value='product' className='border-border/40'>
-                        <AccordionTrigger className='font-sans text-sm font-medium py-3 hover:text-primary hover:no-underline transition-colors'>
+                        <AccordionTrigger className='font-sans text-base font-medium py-3 hover:no-underline'>
                           {t('navbar.solutions')}
                         </AccordionTrigger>
                         <AccordionContent>
-                          <div className='flex flex-col space-y-2 pl-4'>
-                            {/* Featured solution - mobile version */}
-                            <div className='mb-2 p-3 rounded-lg bg-primary/5 border border-primary/20'>
-                              <Link
-                                href={featuredSolution.href}
-                                target='_blank'
-                                rel='noopener noreferrer'
-                                variant='unstyled'
-                                className='block'
-                                onClick={() => setIsOpen(false)}
-                              >
-                                <div className='flex items-start justify-between gap-2'>
-                                  <div className='flex-1'>
-                                    <div className='flex items-center gap-2 mb-1'>
-                                      <span className='text-sm font-semibold'>{featuredSolution.title}</span>
-                                      {featuredSolution.badge && (
-                                        <Badge variant='secondary' className='text-xs px-1.5 py-0'>
-                                          {featuredSolution.badge}
-                                        </Badge>
-                                      )}
-                                    </div>
-                                    <span className='text-xs text-muted-foreground block'>
-                                      {featuredSolution.description}
-                                    </span>
-                                  </div>
-                                  <ArrowRight className='h-4 w-4 text-primary flex-shrink-0 mt-0.5' />
-                                </div>
-                              </Link>
-                            </div>
-
-                            {/* Regular items */}
+                          <div className='flex flex-col space-y-1 pl-2'>
+                            <p className='px-3 pb-1 pt-2 text-[11px] font-semibold uppercase tracking-wider text-faint'>
+                              {t('navbar.solutions_header')}
+                            </p>
                             {productFeatures.map((item) =>
                               item.kind === 'link' ? (
                                 <Link
@@ -397,7 +380,7 @@ export function Navbar() {
                               ) : (
                                 <CalBookingDialog
                                   key={item.title}
-                                  className='block py-2 text-left text-sm text-muted-foreground transition-colors hover:text-foreground'
+                                  className='block rounded-[10px] px-3 py-2.5 text-left text-base transition-colors hover:bg-accent'
                                   triggerAriaLabel={item.triggerAriaLabel}
                                   onClick={() => setIsOpen(false)}
                                 >
@@ -407,7 +390,7 @@ export function Navbar() {
                             )}
 
                             {/* By organization type */}
-                            <p className='mt-3 pt-3 border-t border-border/40 text-xs font-medium uppercase tracking-wide text-muted-foreground'>
+                            <p className='px-3 pb-1 pt-3 text-[11px] font-semibold uppercase tracking-wider text-faint'>
                               {t('navbar.solutions_by_type_header', 'By organization type')}
                             </p>
                             {solutionVerticals.map((item) => (
@@ -423,7 +406,7 @@ export function Navbar() {
                             <Link
                               href='/solutions'
                               variant='navbarMobile'
-                              className='text-primary font-medium'
+                              className='font-semibold'
                               onClick={() => setIsOpen(false)}
                             >
                               {t('navbar.view_all_solutions', 'View all solutions')}
@@ -434,11 +417,11 @@ export function Navbar() {
 
                       {/* Resources (mobile) */}
                       <AccordionItem value='resources' className='border-border/40'>
-                        <AccordionTrigger className='font-sans text-sm font-medium py-3 hover:text-primary hover:no-underline transition-colors'>
+                        <AccordionTrigger className='font-sans text-base font-medium py-3 hover:no-underline'>
                           {t('navbar.resources')}
                         </AccordionTrigger>
                         <AccordionContent>
-                          <div className='flex flex-col space-y-2 pl-4'>
+                          <div className='flex flex-col space-y-1 pl-2'>
                             {resourcesItems.map((item) => (
                               <Link
                                 key={item.title}
@@ -480,8 +463,8 @@ export function Navbar() {
                   </div>
 
                   {/* Footer App Button */}
-                  <div className='p-6 border-t mt-auto'>
-                    <Button asChild className='w-full rounded-full'>
+                  <div className='p-6 border-t border-border mt-auto'>
+                    <Button asChild variant='dark' className='w-full'>
                       <Link
                         href={ctaHref}
                         target='_blank'
@@ -498,17 +481,17 @@ export function Navbar() {
             </Sheet>
           </div>
 
-          {/* Sign in button (hidden on mobile) */}
+          {/* Primary CTA (hidden on mobile) */}
           <div className='hidden xl:block'>
-            <Button asChild className='rounded-full px-6'>
+            <Button asChild variant='dark' size='sm' className='px-5'>
               <Link href={ctaHref} target='_blank' rel='noopener noreferrer' variant='unstyled'>
                 {ctaLabel}
               </Link>
             </Button>
           </div>
         </div>
-      </header>
-    </div>
+      </div>
+    </header>
   )
 }
 
@@ -519,7 +502,7 @@ const ListItem = React.forwardRef<React.ElementRef<'a'>, React.ComponentPropsWit
         <NavigationMenuLink asChild>
           <Link ref={ref} variant='navbarItem' className={className} {...props}>
             <div className='text-sm font-medium leading-none'>{title}</div>
-            <p className='line-clamp-2 text-sm font-normal leading-snug text-muted-foreground'>{children}</p>
+            <p className='line-clamp-2 text-xs font-normal leading-snug text-muted-foreground'>{children}</p>
           </Link>
         </NavigationMenuLink>
       </li>

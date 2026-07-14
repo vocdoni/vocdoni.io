@@ -125,7 +125,7 @@ const SuccessStories = () => {
 
           <MotionPreset
             component='h2'
-            className='text-3xl font-bold sm:text-4xl lg:text-5xl'
+            className='text-3xl sm:text-4xl lg:text-5xl'
             fade
             blur
             slide

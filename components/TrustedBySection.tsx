@@ -19,7 +19,7 @@ export default function TrustedBySection() {
 
   return (
     <div className='w-full max-w-full'>
-      <p className='text-sm text-muted-foreground mb-4 font-medium'>
+      <p className='text-xs text-faint mb-4 font-semibold uppercase tracking-wider'>
         {t('hero.trusted_by', 'Trusted by organizations of all sizes')}
       </p>
       <div className='relative w-full max-w-full overflow-hidden mask-gradient-x'>

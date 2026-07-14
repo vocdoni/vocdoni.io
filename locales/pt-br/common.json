@@ -2590,11 +2590,13 @@
   },
   "footer": {
     "company": {
-      "links": {
-        "0": "Sobre nós",
-        "1": "Casos de sucesso"
-      },
-      "title": "Empresa"
+      "about": "Sobre nós",
+      "blog": "Blog",
+      "case_studies": "Estudos de caso",
+      "contact": "Contato",
+      "learn": "Saiba mais",
+      "title": "Empresa",
+      "use_cases": "Casos de uso"
     },
     "copyright": "© {{year}} Vocdoni. Feito com ❤️ em Barcelona.",
     "gdpr": "Em conformidade com o GDPR",
@@ -2613,11 +2615,12 @@
       "title": "Assine a newsletter"
     },
     "product": {
-      "links": {
-        "0": "Plataforma de votação",
-        "1": "SDK"
-      },
-      "title": "Produto"
+      "custom_projects": "Projetos personalizados",
+      "documentation": "Documentação",
+      "sdk_api": "SDK e API",
+      "technology": "Tecnologia",
+      "title": "Produto",
+      "voting_platform": "Plataforma de votação"
     },
     "rights": "Todos os direitos reservados. Votação digital segura para todos.",
     "social": {
@@ -2627,6 +2630,16 @@
       "telegram": "Vocdoni no Telegram (abre em uma nova aba)",
       "twitter": "Vocdoni no X / Twitter (abre em uma nova aba)",
       "website": "Site da Vocdoni (abre em uma nova aba)"
+    },
+    "solutions": {
+      "associations": "Associações e federações",
+      "companies_agm": "Empresas e AGMs",
+      "cooperatives": "Cooperativas",
+      "municipalities": "Municípios",
+      "political_parties": "Partidos políticos",
+      "professional_colleges": "Ordens profissionais",
+      "title": "Soluções",
+      "view_all": "Ver todas as soluções"
     }
   },
   "hero_cards": {
@@ -2648,12 +2661,6 @@
     "voted_just_now": "acabou de votar"
   },
   "hero": {
-    "badge": {
-      "description_long": "Uma plataforma fácil de usar para votar",
-      "description_short": "Vote com facilidade",
-      "label": "Vocdoni app",
-      "status_live": "Ao vivo"
-    },
     "cta_primary": "Comece grátis",
     "cta_secondary": "Fale com um especialista",
     "dynamic_words": [
@@ -2892,15 +2899,6 @@
     "app_button": "App",
     "contact": "Contato",
     "dashboard_button": "Painel de API",
-    "featured_solution": {
-      "header": "Destaque",
-      "vocdoni_app": {
-        "badge": "Popular",
-        "cta": "Experimentar agora",
-        "description": "Plataforma de votação pronta para uso, com implantação imediata",
-        "title": "Vocdoni app"
-      }
-    },
     "logo_aria_label": "Vocdoni - ir para a página inicial",
     "product_features": {
       "custom_projects": {
@@ -2917,6 +2915,10 @@
       }
     },
     "resources": "Recursos",
+    "resources_intro": {
+      "description": "Guias, casos de sucesso reais e documentação para aproveitar ao máximo o Vocdoni.",
+      "title": "Aprenda e construa"
+    },
     "resources_items": {
       "blog": {
         "description": "Últimos artigos e novidades.",
@@ -2946,6 +2948,10 @@
     "solutions": "Soluções",
     "solutions_by_type_header": "Por tipo de organização",
     "solutions_header": "Todas as soluções",
+    "solutions_intro": {
+      "description": "Votação digital segura e verificável para todo tipo de organização, de associações a instituições.",
+      "title": "Votação sob medida para a sua organização"
+    },
     "technology": "Tecnologia",
     "toggle_menu": "Alternar menu",
     "use_cases": "Casos de uso",

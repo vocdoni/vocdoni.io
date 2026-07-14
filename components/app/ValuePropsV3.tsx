@@ -34,7 +34,7 @@ export default function ValuePropsV3() {
     <section className='py-20'>
       <Container>
         <div className='flex flex-col items-center text-center mb-16'>
-          <h2 className='text-3xl font-bold tracking-tight sm:text-4xl'>{t('vocdoni_app.value_props.title')}</h2>
+          <h2 className='text-3xl sm:text-4xl'>{t('vocdoni_app.value_props.title')}</h2>
         </div>
 
         <div className='grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4'>

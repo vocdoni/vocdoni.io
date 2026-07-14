@@ -47,7 +47,7 @@ export default function SocialProof() {
           <p className='text-sm font-medium uppercase tracking-[0.2em] text-primary/80'>
             {t('app_landing.social_proof.eyebrow', 'Social proof')}
           </p>
-          <h2 className='mt-3 text-balance text-3xl font-semibold tracking-tight sm:text-4xl'>
+          <h2 className='mt-3 text-balance text-3xl sm:text-4xl'>
             {t('app_landing.social_proof.title', 'Trusted by organizations that cannot afford disputed results')}
           </h2>
           <p className='mt-4 text-lg leading-8 text-muted-foreground'>
@@ -88,7 +88,7 @@ export default function SocialProof() {
               <p className='text-sm font-medium uppercase tracking-[0.18em] text-primary/80'>
                 {t('app_landing.social_proof.case_study.eyebrow', 'Mini case study')}
               </p>
-              <h3 className='mt-2 text-2xl font-semibold tracking-tight'>
+              <h3 className='mt-2 text-2xl'>
                 {t(
                   'app_landing.social_proof.case_study.title',
                   'How COIB ran its AGM online with instant, verifiable results'

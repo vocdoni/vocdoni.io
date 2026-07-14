@@ -24,7 +24,7 @@ export default function Technology() {
             <p className='text-sm font-medium uppercase tracking-[0.2em] text-primary/80'>
               {t('app_landing.technology.eyebrow', 'The technology behind Vocdoni app')}
             </p>
-            <h2 className='mt-3 text-balance text-3xl font-semibold tracking-tight sm:text-4xl'>
+            <h2 className='mt-3 text-balance text-3xl sm:text-4xl'>
               {t('app_landing.technology.title', 'Proof your members can check themselves')}
             </h2>
             <p className='mt-5 text-lg leading-8 text-muted-foreground'>

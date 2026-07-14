@@ -71,7 +71,7 @@ const AccordionWithImage = () => {
                 {t('steps_section.label', 'Setup a vote in under 10 minutes')}
               </p>
             </div>
-            <h3 className='text-2xl font-semibold'>
+            <h3 className='text-2xl'>
               {t('steps_section.panel_title', 'From spreadsheet to live election in minutes')}
             </h3>
             <p className='text-muted-foreground'>

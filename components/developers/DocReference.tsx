@@ -47,7 +47,7 @@ export function DocReference({ reference }: { reference: DocReferenceData }) {
   const id = slugify(reference.title)
   return (
     <section className='mt-12'>
-      <h2 id={id} className={`${HEADING_GROUP_CLASS} mb-4 text-2xl font-semibold tracking-tight text-foreground`}>
+      <h2 id={id} className={`${HEADING_GROUP_CLASS} mb-4 text-2xl text-foreground`}>
         {reference.title}
         <a href={`#${id}`} className={HEADING_ANCHOR_CLASS} aria-label={HEADING_ANCHOR_LABEL}>
           <span aria-hidden='true'>{PILCROW}</span>

@@ -84,7 +84,7 @@ export function SolutionPage({ icon: Icon, content, logos, caseStudyHref }: Solu
 
             <MotionPreset
               component='h1'
-              className='mb-6 text-3xl font-bold tracking-tight text-balance sm:text-4xl lg:text-5xl'
+              className='mb-6 text-3xl text-balance sm:text-4xl lg:text-5xl'
               fade
               blur
               slide
@@ -145,7 +145,7 @@ export function SolutionPage({ icon: Icon, content, logos, caseStudyHref }: Solu
       <section className='bg-muted/50 py-16 sm:py-24'>
         <Container className='max-w-5xl'>
           <div className='mx-auto mb-12 max-w-3xl text-center'>
-            <h2 className='text-3xl font-bold sm:text-4xl'>{content.challenge?.title}</h2>
+            <h2 className='text-3xl sm:text-4xl'>{content.challenge?.title}</h2>
             <p className='text-muted-foreground mt-4 text-lg'>{content.challenge?.intro}</p>
           </div>
           <ul className='grid gap-4 sm:grid-cols-2'>
@@ -165,7 +165,7 @@ export function SolutionPage({ icon: Icon, content, logos, caseStudyHref }: Solu
       <section className='py-16 sm:py-24'>
         <Container>
           <div className='mx-auto mb-12 max-w-3xl text-center sm:mb-16'>
-            <h2 className='text-3xl font-bold sm:text-4xl'>{content.solution?.title}</h2>
+            <h2 className='text-3xl sm:text-4xl'>{content.solution?.title}</h2>
             <p className='text-muted-foreground mt-4 text-lg'>{content.solution?.intro}</p>
           </div>
           <div className='grid gap-6 md:grid-cols-2 lg:grid-cols-3'>
@@ -188,7 +188,7 @@ export function SolutionPage({ icon: Icon, content, logos, caseStudyHref }: Solu
       <section className='bg-muted/50 py-16 sm:py-24'>
         <Container className='max-w-5xl'>
           <div className='mx-auto mb-12 max-w-3xl text-center'>
-            <h2 className='text-3xl font-bold sm:text-4xl'>{content.trust?.title}</h2>
+            <h2 className='text-3xl sm:text-4xl'>{content.trust?.title}</h2>
             <p className='text-muted-foreground mt-4 text-lg'>{content.trust?.intro}</p>
           </div>
           <div className='grid gap-6 sm:grid-cols-2'>
@@ -214,7 +214,7 @@ export function SolutionPage({ icon: Icon, content, logos, caseStudyHref }: Solu
       <section className='py-16 sm:py-24'>
         <Container className='max-w-4xl'>
           <div className='mb-10 text-center'>
-            <h2 className='text-3xl font-bold sm:text-4xl'>{content.proof?.title}</h2>
+            <h2 className='text-3xl sm:text-4xl'>{content.proof?.title}</h2>
           </div>
           <Card className='overflow-hidden'>
             <CardContent className='flex flex-col gap-6 p-8 sm:p-12'>
@@ -265,7 +265,7 @@ export function SolutionPage({ icon: Icon, content, logos, caseStudyHref }: Solu
       <section className='bg-muted/35 py-16 sm:py-24'>
         <Container className='max-w-4xl'>
           <div className='mx-auto max-w-3xl text-center'>
-            <h2 className='text-3xl font-semibold tracking-tight text-balance sm:text-4xl'>{content.faq?.title}</h2>
+            <h2 className='text-3xl text-balance sm:text-4xl'>{content.faq?.title}</h2>
           </div>
           <Accordion
             type='single'

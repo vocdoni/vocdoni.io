@@ -2,6 +2,7 @@ import { CircleCheckIcon, XCircleIcon } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 
 import { Section } from '@/components/Section'
+import { SectionHeader } from '@/components/SectionHeader'
 import { MotionPreset } from '@/components/ui/motion-preset'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 
@@ -36,13 +37,13 @@ const ComparisonSection = ({
         <div className='space-y-12 sm:space-y-16 lg:space-y-24'>
           {/* Header */}
           <MotionPreset fade blur slide delay={0} transition={{ duration: 0.5 }} inView inViewOnce>
-            <div className='space-y-4'>
-              <p className='text-primary text-sm font-medium uppercase'>{t('comparison.eyebrow')}</p>
-
-              <h2 className='text-2xl font-semibold sm:text-3xl lg:text-4xl'>{t('comparison.title')}</h2>
-
-              <p className='text-muted-foreground text-xl max-w-3xl'>{t('comparison.description')}</p>
-            </div>
+            <SectionHeader
+              align='left'
+              eyebrow={t('comparison.eyebrow')}
+              title={t('comparison.title')}
+              lede={t('comparison.description')}
+              titleClassName='text-4xl sm:text-5xl'
+            />
           </MotionPreset>
 
           {/* Table - Desktop */}

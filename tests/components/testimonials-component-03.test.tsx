@@ -46,7 +46,7 @@ describe('TestimonialsComponent', () => {
     expect(html).toContain('Testimonials')
     expect(html).toContain('Real stories, real impact')
     expect(html).toContain('From grassroots movements to large institutions.')
-    expect(html).toContain('class="text-foreground z-1 inline-block text-3xl font-bold sm:text-4xl lg:text-5xl"')
+    expect(html).toContain('class="text-foreground z-1 block text-4xl sm:text-5xl"')
     expect(html).not.toContain('&quot;just amazing...&quot;')
     expect(html).not.toContain('Legacy hero slide')
   })

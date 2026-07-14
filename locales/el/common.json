@@ -2590,11 +2590,13 @@
   },
   "footer": {
     "company": {
-      "links": {
-        "0": "Σχετικά με εμάς",
-        "1": "Ιστορίες επιτυχίας"
-      },
-      "title": "Εταιρεία"
+      "about": "Σχετικά με εμάς",
+      "blog": "Ιστολόγιο",
+      "case_studies": "Μελέτες περιπτώσεων",
+      "contact": "Επικοινωνία",
+      "learn": "Μάθετε",
+      "title": "Εταιρεία",
+      "use_cases": "Περιπτώσεις χρήσης"
     },
     "copyright": "© {{year}} Vocdoni. Φτιαγμένο με ❤️ στη Βαρκελώνη.",
     "gdpr": "Συμμορφωμένη με τον ΓΚΠΔ",
@@ -2613,11 +2615,12 @@
       "title": "Εγγραφή στο newsletter"
     },
     "product": {
-      "links": {
-        "0": "Πλατφόρμα ψηφοφορίας",
-        "1": "SDK"
-      },
-      "title": "Προϊόν"
+      "custom_projects": "Εξατομικευμένα έργα",
+      "documentation": "Τεκμηρίωση",
+      "sdk_api": "SDK και API",
+      "technology": "Τεχνολογία",
+      "title": "Προϊόν",
+      "voting_platform": "Πλατφόρμα ψηφοφορίας"
     },
     "rights": "Με την επιφύλαξη παντός δικαιώματος. Ασφαλής ψηφιακή ψηφοφορία για όλους.",
     "social": {
@@ -2627,6 +2630,16 @@
       "telegram": "Vocdoni στο Telegram (ανοίγει σε νέα καρτέλα)",
       "twitter": "Vocdoni στο X / Twitter (ανοίγει σε νέα καρτέλα)",
       "website": "Ιστότοπος Vocdoni (ανοίγει σε νέα καρτέλα)"
+    },
+    "solutions": {
+      "associations": "Σύλλογοι και ομοσπονδίες",
+      "companies_agm": "Εταιρείες και ετήσιες γενικές συνελεύσεις (Γ.Σ.)",
+      "cooperatives": "Συνεταιρισμοί",
+      "municipalities": "Δήμοι",
+      "political_parties": "Πολιτικά κόμματα",
+      "professional_colleges": "Επαγγελματικά επιμελητήρια",
+      "title": "Λύσεις",
+      "view_all": "Προβολή όλων των λύσεων"
     }
   },
   "hero_cards": {
@@ -2648,12 +2661,6 @@
     "voted_just_now": "ψήφισε μόλις τώρα"
   },
   "hero": {
-    "badge": {
-      "description_long": "Μια εύχρηστη πλατφόρμα ψηφοφορίας",
-      "description_short": "Ψηφοφορία με απλότητα",
-      "label": "Vocdoni app",
-      "status_live": "Σε εξέλιξη"
-    },
     "cta_primary": "Ξεκινήστε δωρεάν",
     "cta_secondary": "Μιλήστε με ειδικό",
     "dynamic_words": [
@@ -2892,15 +2899,6 @@
     "app_button": "Σύνδεση",
     "contact": "Επικοινωνία",
     "dashboard_button": "API Dashboard",
-    "featured_solution": {
-      "header": "Προτεινόμενο",
-      "vocdoni_app": {
-        "badge": "Δημοφιλές",
-        "cta": "Δοκιμάστε τώρα",
-        "description": "Έτοιμη προς χρήση πλατφόρμα ψηφοφορίας για άμεση εφαρμογή",
-        "title": "Vocdoni app"
-      }
-    },
     "logo_aria_label": "Vocdoni - μετάβαση στην αρχική σελίδα",
     "product_features": {
       "custom_projects": {
@@ -2917,6 +2915,10 @@
       }
     },
     "resources": "Πόροι",
+    "resources_intro": {
+      "description": "Οδηγοί, πραγματικές μελέτες περίπτωσης και τεκμηρίωση για να αξιοποιήσετε στο έπακρο το Vocdoni.",
+      "title": "Μάθετε και δημιουργήστε"
+    },
     "resources_items": {
       "blog": {
         "description": "Πρόσφατα άρθρα και νέα.",
@@ -2946,6 +2948,10 @@
     "solutions": "Λύσεις",
     "solutions_by_type_header": "Ανά είδος οργανισμού",
     "solutions_header": "Όλες οι λύσεις",
+    "solutions_intro": {
+      "description": "Ασφαλής και επαληθεύσιμη ψηφιακή ψηφοφορία για κάθε είδους οργανισμό, από συλλόγους έως θεσμούς.",
+      "title": "Ψηφοφορία στα μέτρα του οργανισμού σας"
+    },
     "technology": "Τεχνολογία",
     "toggle_menu": "Άνοιγμα μενού",
     "use_cases": "Περιπτώσεις χρήσης",

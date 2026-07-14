@@ -87,7 +87,7 @@ export function DocsSidebar() {
       {/* Desktop: sticky sidebar. No max-height/overflow so the full section
           list always renders without its own scrollbar. */}
       <aside className='hidden lg:block'>
-        <div className='sticky top-24 pb-10 pr-2'>
+        <div className='sticky top-20 pb-10 pr-2'>
           <NavTree />
         </div>
       </aside>

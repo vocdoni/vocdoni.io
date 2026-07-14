@@ -2,6 +2,7 @@ import { ArrowRightIcon } from 'lucide-react'
 
 import { CalBookingDialog } from '@/components/CalBookingDialog'
 import { Link } from '@/components/Link'
+import { SectionHeader } from '@/components/SectionHeader'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardTitle } from '@/components/ui/card'
 import { MotionPreset } from '@/components/ui/motion-preset'
@@ -35,18 +36,17 @@ const Portfolio = ({ portfolioItems }: PortfolioProps) => {
       <div className='mx-auto max-w-7xl space-y-12 px-4 sm:space-y-16 sm:px-6 lg:space-y-20 lg:px-8'>
         {/* Header */}
         <MotionPreset fade blur slide delay={0} transition={{ duration: 0.5 }} inView inViewOnce>
-          <div className='mb-12 space-y-4 sm:mb-16 lg:mb-24'>
-            <p className='text-primary text-sm font-medium uppercase'>{t('portfolio.solutions.badge', 'Solutions')}</p>
-            <h2 className='text-2xl font-semibold sm:text-3xl lg:text-4xl'>
-              {t('portfolio.solutions.title', 'Democratic tools that adapt to your needs')}
-            </h2>
-            <p className='text-muted-foreground text-xl max-w-3xl'>
-              {t(
-                'portfolio.solutions.description',
-                'Choose the right fit for your organization: launch in minutes with our self-service app, build on top of our secure SDK, or let us manage the entire process for you.'
-              )}
-            </p>
-          </div>
+          <SectionHeader
+            align='left'
+            className='mb-12 sm:mb-16 lg:mb-24'
+            eyebrow={t('portfolio.solutions.badge', 'Solutions')}
+            title={t('portfolio.solutions.title', 'Democratic tools that adapt to your needs')}
+            lede={t(
+              'portfolio.solutions.description',
+              'Choose the right fit for your organization: launch in minutes with our self-service app, build on top of our secure SDK, or let us manage the entire process for you.'
+            )}
+            titleClassName='text-4xl sm:text-5xl'
+          />
         </MotionPreset>
 
         {/* Portfolio Grid */}
