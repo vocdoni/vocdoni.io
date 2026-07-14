@@ -77,7 +77,7 @@ export default function Footer() {
             <h3 className='font-bold text-sm mb-6 uppercase tracking-wider'>{t('footer.product.title')}</h3>
             <ul className='space-y-4'>
               <li>
-                <Link href='https://app.vocdoni.io' target='_blank' variant='footerNav'>
+                <Link href={APP_URL} target='_blank' variant='footerNav'>
                   {t('footer.product.links.0')}
                 </Link>
               </li>

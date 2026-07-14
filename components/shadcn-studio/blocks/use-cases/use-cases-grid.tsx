@@ -132,7 +132,7 @@ const UseCasesGrid = () => {
         { src: logoBloock, alt: 'BLOOCK' },
         { src: logoDemocracy5, alt: 'Democracy OS' },
       ] as LogoEntry[],
-      caseStudy: { href: 'https://platform.vocdoni.io' },
+      caseStudy: { href: PLATFORM_URL },
       title: t('use_cases_page.grid.items.integrators.title'),
       description: t('use_cases_page.grid.items.integrators.description'),
       features: t('use_cases_page.grid.items.integrators.features', { returnObjects: true }) as string[],
@@ -246,7 +246,7 @@ const UseCasesGrid = () => {
           </p>
           <div className='flex flex-wrap justify-center gap-4'>
             <Button size='lg' className='has-[>svg]:px-6' asChild>
-              <Link href='https://app.vocdoni.io' variant='inlineIcon'>
+              <Link href={APP_URL} variant='inlineIcon'>
                 {t('use_cases_page.hero.cta_primary')}
                 <ArrowRightIcon className='size-5' />
               </Link>

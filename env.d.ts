@@ -2,6 +2,9 @@
 
 declare const PLAUSIBLE_DOMAIN: string
 declare const SITE_URL: string
+// Product URLs (app + integrator dashboard) defined in vite.config.ts
+declare const APP_URL: string
+declare const PLATFORM_URL: string
 declare const GTM_ID: string
 // EmailJS configuration variables defined in vite.config.ts
 declare const EMAILJS_PUBLIC_KEY: string

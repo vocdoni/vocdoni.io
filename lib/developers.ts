@@ -5,8 +5,13 @@
 export const DEVELOPERS_BASE = '/developers'
 export const DEVELOPERS_DOCS_BASE = '/developers/docs'
 
-// Integrator login (API Dashboard). Not live yet - safe to update here later.
-export const DEVELOPERS_DASHBOARD_URL = 'https://platform.vocdoni.io'
+// Integrator login (API Dashboard). Sourced from the PLATFORM_URL build global
+// (vite.config.ts), overridable via the PLATFORM_URL env var. This module is also
+// pulled into the Vite *config* bundle (through the docs-markdown plugin's import
+// graph), where that global is not injected - fall back to process.env / the
+// literal there so config evaluation doesn't crash.
+export const DEVELOPERS_DASHBOARD_URL =
+  typeof PLATFORM_URL !== 'undefined' ? PLATFORM_URL : process.env.PLATFORM_URL || 'https://platform.vocdoni.io'
 
 // SaaS API base URL surfaced in the docs/examples. Points at staging while the
 // API is in alpha; switch to https://saas-api-prod.vocdoni.net for production.
