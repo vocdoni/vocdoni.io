@@ -1,10 +1,10 @@
 import { useEffect, useState, type ComponentType } from 'react'
 
-// Keystatic admin UI. Storage is resolved in keystatic.config.ts (local in dev,
-// GitHub in production). Keystatic and its React-heavy deps are imported lazily on
-// the client only, so they never enter the SSR / prerender graph (which would pull
-// Keystatic's react-server build and break rendering). Reads/writes go through
-// /api/keystatic/* (Vite dev middleware locally, Netlify function in production).
+// Keystatic admin UI. Storage is local-only (see keystatic.config.ts): this admin
+// only works under `pnpm dev`. Keystatic and its React-heavy deps are imported
+// lazily on the client only, so they never enter the SSR / prerender graph (which
+// would pull Keystatic's react-server build and break rendering). Reads/writes go
+// through /api/keystatic/*, served by the Vite dev middleware (plugins/keystatic-api.ts).
 export default function KeystaticAdminPage() {
   const [Admin, setAdmin] = useState<ComponentType | null>(null)
 
