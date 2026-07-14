@@ -425,7 +425,7 @@ export function HeadTags(pageContext: PageContext) {
           unicode-range subset each page needs is fetched, with font-display: swap. */}
       <link
         rel='preload'
-        href='/fonts/files/inter-latin-wght-normal.woff2'
+        href='/fonts/files/hanken-grotesk-latin-wght-normal.woff2'
         as='font'
         type='font/woff2'
         crossOrigin='anonymous'
@@ -433,7 +433,7 @@ export function HeadTags(pageContext: PageContext) {
       {/* Headings render above the fold on every page, so preload the serif too. */}
       <link
         rel='preload'
-        href='/fonts/files/instrument-serif-latin-400-normal.woff2'
+        href='/fonts/files/fraunces-latin-full-normal.woff2'
         as='font'
         type='font/woff2'
         crossOrigin='anonymous'

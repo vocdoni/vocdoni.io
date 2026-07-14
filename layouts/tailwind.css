@@ -43,8 +43,8 @@
   --sidebar-accent-foreground: oklch(0.24 0.013 106);
   --sidebar-border: oklch(0.24 0.013 106 / 0.1);
   --sidebar-ring: oklch(0.47 0.085 158);
-  --font-sans: 'Inter Variable', Inter, sans-serif;
-  --font-serif: 'Instrument Serif', Georgia, serif;
+  --font-sans: 'Hanken Grotesk Variable', system-ui, sans-serif;
+  --font-serif: 'Fraunces Variable', Georgia, serif;
   --font-mono: 'JetBrains Mono Variable', 'JetBrains Mono', monospace;
   --radius: 1rem;
   --shadow-x: 0px;
@@ -111,8 +111,8 @@
   --sidebar-accent-foreground: oklch(0.95 0.012 97);
   --sidebar-border: oklch(1 0 0 / 0.1);
   --sidebar-ring: oklch(0.62 0.09 158);
-  --font-sans: 'Inter Variable', Inter, sans-serif;
-  --font-serif: 'Instrument Serif', Georgia, serif;
+  --font-sans: 'Hanken Grotesk Variable', system-ui, sans-serif;
+  --font-serif: 'Fraunces Variable', Georgia, serif;
   --font-mono: 'JetBrains Mono Variable', 'JetBrains Mono', monospace;
   --radius: 1rem;
   --shadow-x: 0px;
@@ -243,8 +243,10 @@
     text-rendering: optimizeLegibility;
     text-wrap: pretty;
   }
-  /* Display headings: single-weight serif, tight tracking, compact leading.
-     Utilities (font-*, leading-*, tracking-*) still win over these defaults. */
+  /* Display headings: warm rounded serif voice, tight tracking, compact
+     leading. The SOFT axis rounds the serifs into the display character; WONK
+     stays off for legibility. Utilities (font-*, leading-*, tracking-*) still
+     win over these defaults. */
   h1,
   h2,
   h3,
@@ -253,8 +255,11 @@
   h6 {
     @apply font-serif;
     font-weight: 400;
-    letter-spacing: -0.02em;
-    line-height: 1.05;
+    font-variation-settings:
+      'SOFT' 100,
+      'WONK' 0;
+    letter-spacing: -0.03em;
+    line-height: 1.02;
     text-wrap: balance;
   }
 

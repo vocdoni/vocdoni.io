@@ -48,7 +48,7 @@ function Hero() {
               <Code2 className='size-4' aria-hidden='true' />
               {t('developers.landing.hero.eyebrow', 'Vocdoni for developers')}
             </p>
-            <h1 className='text-4xl font-bold tracking-tight text-balance sm:text-5xl lg:text-6xl'>
+            <h1 className='text-4xl text-balance sm:text-5xl lg:text-6xl'>
               {t('developers.landing.hero.title', 'Build verifiable voting into your product')}
             </h1>
             <p className='mt-5 max-w-xl text-lg leading-8 text-muted-foreground'>

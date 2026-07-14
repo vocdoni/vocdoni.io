@@ -11,13 +11,14 @@ const root = resolve(dirname(fileURLToPath(import.meta.url)), '..')
 const outDir = resolve(root, 'public/fonts')
 const filesDir = resolve(outDir, 'files')
 
-// Match the axes currently used by the site: Inter (variable) + Instrument
-// Serif (single 400 weight) upright and italic, JetBrains Mono upright only.
+// Match the axes currently used by the site: Hanken Grotesk (variable weight)
+// upright and italic, Fraunces (full axes: wght + opsz + SOFT/WONK, needed for
+// the display-heading voice) upright and italic, JetBrains Mono upright only.
 const sources = [
-  '@fontsource-variable/inter/wght.css',
-  '@fontsource-variable/inter/wght-italic.css',
-  '@fontsource/instrument-serif/400.css',
-  '@fontsource/instrument-serif/400-italic.css',
+  '@fontsource-variable/hanken-grotesk/wght.css',
+  '@fontsource-variable/hanken-grotesk/wght-italic.css',
+  '@fontsource-variable/fraunces/full.css',
+  '@fontsource-variable/fraunces/full-italic.css',
   '@fontsource-variable/jetbrains-mono/wght.css',
 ]
 

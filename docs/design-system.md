@@ -34,8 +34,8 @@ Primary green on cream is 6.3:1 (AA).
 
 ## Typography
 
-- **Body**: Inter (`--font-sans`), self-hosted via `scripts/copy-fonts.mjs`.
-- **Headings**: Instrument Serif (`--font-serif`), single 400 weight. The base layer gives every `h1-h6` `font-weight: 400`, `letter-spacing: -0.02em`, `line-height: 1.05`. Sizes are set per component; because the serif sets optically small, headings typically run one Tailwind step larger than they would in a sans design (section h2: `text-4xl sm:text-5xl`; hero h1 up to `xl:text-[4.75rem] leading-[0.95]`).
+- **Body**: Hanken Grotesk Variable (`--font-sans`), self-hosted via `scripts/copy-fonts.mjs`. A warm grotesk; UI text runs 14-16px, CTAs and labels semibold.
+- **Headings**: Fraunces Variable (`--font-serif`) at a single visual weight of 400. The base layer gives every `h1-h6` `font-weight: 400`, `letter-spacing: -0.03em`, `line-height: 1.02`, and `font-variation-settings: 'SOFT' 100, 'WONK' 0` - the SOFT axis rounds the serifs into the brand's warm display voice (keep WONK off). Optical sizing (`opsz`) is applied automatically by the browser. Sizes are set per component (section h2: `text-4xl sm:text-5xl`; hero h1 up to `xl:text-[4.75rem] leading-[0.95]`).
 - **Labels/eyebrows**: sans, `text-sm font-medium uppercase tracking-[0.11em]`; group labels inside panels are `text-[11px] font-semibold uppercase tracking-wider text-faint`.
 - **CTAs**: sans semibold, 14-16px.
 
