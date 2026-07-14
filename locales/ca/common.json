@@ -2590,11 +2590,13 @@
   },
   "footer": {
     "company": {
-      "links": {
-        "0": "Sobre nosaltres",
-        "1": "Casos d'èxit"
-      },
-      "title": "Empresa"
+      "about": "Sobre nosaltres",
+      "blog": "Blog",
+      "case_studies": "Casos d'èxit",
+      "contact": "Contacte",
+      "learn": "Aprèn",
+      "title": "Empresa",
+      "use_cases": "Casos d'ús"
     },
     "copyright": "© {{year}} Vocdoni. Fet amb ❤️ a Barcelona.",
     "gdpr": "Compleix el RGPD",
@@ -2613,11 +2615,12 @@
       "title": "Subscriviu-vos al butlletí"
     },
     "product": {
-      "links": {
-        "0": "Plataforma de vot",
-        "1": "SDK"
-      },
-      "title": "Producte"
+      "custom_projects": "Projectes a mida",
+      "documentation": "Documentació",
+      "sdk_api": "SDK i API",
+      "technology": "Tecnologia",
+      "title": "Producte",
+      "voting_platform": "Plataforma de vot"
     },
     "rights": "Tots els drets reservats. Votació digital segura per a tothom.",
     "social": {
@@ -2627,6 +2630,16 @@
       "telegram": "Vocdoni a Telegram (s'obre en una nova pestanya)",
       "twitter": "Vocdoni a X / Twitter (s'obre en una nova pestanya)",
       "website": "Lloc web de Vocdoni (s'obre en una nova pestanya)"
+    },
+    "solutions": {
+      "associations": "Associacions i federacions",
+      "companies_agm": "Empreses i juntes",
+      "cooperatives": "Cooperatives",
+      "municipalities": "Ajuntaments",
+      "political_parties": "Partits polítics",
+      "professional_colleges": "Col·legis professionals",
+      "title": "Solucions",
+      "view_all": "Veure totes les solucions"
     }
   },
   "hero_cards": {

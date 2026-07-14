@@ -2590,11 +2590,13 @@
   },
   "footer": {
     "company": {
-      "links": {
-        "0": "About us",
-        "1": "Success stories"
-      },
-      "title": "Company"
+      "about": "About us",
+      "blog": "Blog",
+      "case_studies": "Case studies",
+      "contact": "Contact",
+      "learn": "Learn",
+      "title": "Company",
+      "use_cases": "Use cases"
     },
     "copyright": "© {{year}} Vocdoni. Made with ❤️ in Barcelona.",
     "gdpr": "GDPR compliant",
@@ -2613,11 +2615,12 @@
       "title": "Subscribe to newsletter"
     },
     "product": {
-      "links": {
-        "0": "Voting platform",
-        "1": "SDK"
-      },
-      "title": "Product"
+      "custom_projects": "Custom projects",
+      "documentation": "Documentation",
+      "sdk_api": "SDK & API",
+      "technology": "Technology",
+      "title": "Product",
+      "voting_platform": "Voting platform"
     },
     "rights": "All rights reserved. Secure digital voting for everyone.",
     "social": {
@@ -2627,6 +2630,16 @@
       "telegram": "Vocdoni on Telegram (opens in new tab)",
       "twitter": "Vocdoni on X / Twitter (opens in new tab)",
       "website": "Vocdoni website (opens in new tab)"
+    },
+    "solutions": {
+      "associations": "Associations & federations",
+      "companies_agm": "Companies & AGMs",
+      "cooperatives": "Cooperatives",
+      "municipalities": "Municipalities",
+      "political_parties": "Political parties",
+      "professional_colleges": "Professional colleges",
+      "title": "Solutions",
+      "view_all": "View all solutions"
     }
   },
   "hero_cards": {

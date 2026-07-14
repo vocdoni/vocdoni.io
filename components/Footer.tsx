@@ -1,12 +1,69 @@
 import gdprLogo from '@/assets/gdpr.webp'
 import { Link } from '@/components/Link'
 import { Icon } from '@iconify/react'
+import type { TFunction } from 'i18next'
 import { Globe, Send } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import VocdoniLogo from './Logo'
 
+type FooterLink = { label: string; href: string; external?: boolean; highlight?: boolean }
+
+const buildProductLinks = (t: TFunction): FooterLink[] => [
+  { label: t('footer.product.voting_platform', 'Voting platform'), href: 'https://app.vocdoni.io', external: true },
+  { label: t('footer.product.sdk_api', 'SDK & API'), href: '/developers' },
+  { label: t('footer.product.documentation', 'Documentation'), href: '/developers/docs' },
+  { label: t('footer.product.technology', 'Technology'), href: 'https://davinci.vote', external: true },
+  { label: t('footer.product.custom_projects', 'Custom projects'), href: '/contact' },
+]
+
+const buildSolutionsLinks = (t: TFunction): FooterLink[] => [
+  { label: t('footer.solutions.associations', 'Associations & federations'), href: '/solutions/associations' },
+  { label: t('footer.solutions.cooperatives', 'Cooperatives'), href: '/solutions/cooperatives' },
+  {
+    label: t('footer.solutions.professional_colleges', 'Professional colleges'),
+    href: '/solutions/professional-colleges',
+  },
+  { label: t('footer.solutions.political_parties', 'Political parties'), href: '/solutions/political-parties' },
+  { label: t('footer.solutions.municipalities', 'Municipalities'), href: '/solutions/municipalities' },
+  { label: t('footer.solutions.companies_agm', 'Companies & AGMs'), href: '/solutions/companies-agm' },
+  { label: t('footer.solutions.view_all', 'View all solutions'), href: '/solutions', highlight: true },
+]
+
+const buildCompanyLinks = (t: TFunction): FooterLink[] => [
+  { label: t('footer.company.about', 'About us'), href: '/about-us' },
+  { label: t('footer.company.use_cases', 'Use cases'), href: '/use-cases' },
+  { label: t('footer.company.case_studies', 'Case studies'), href: '/case-studies' },
+  { label: t('footer.company.learn', 'Learn'), href: '/learn' },
+  { label: t('footer.company.blog', 'Blog'), href: '/blog' },
+  { label: t('footer.company.contact', 'Contact'), href: '/contact' },
+]
+
+const FooterColumn = ({ title, links }: { title: string; links: FooterLink[] }) => (
+  <div className='lg:col-span-2'>
+    <h3 className='font-sans text-[11px] font-semibold mb-6 uppercase tracking-wider text-faint'>{title}</h3>
+    <ul className='space-y-4'>
+      {links.map((link) => (
+        <li key={`${link.href}-${link.label}`}>
+          <Link
+            href={link.href}
+            target={link.external ? '_blank' : undefined}
+            variant='footerNav'
+            className={link.highlight ? 'text-foreground font-medium' : undefined}
+          >
+            {link.label}
+          </Link>
+        </li>
+      ))}
+    </ul>
+  </div>
+)
+
 export default function Footer() {
   const { t } = useTranslation()
+
+  const productLinks = buildProductLinks(t)
+  const solutionsLinks = buildSolutionsLinks(t)
+  const companyLinks = buildCompanyLinks(t)
 
   // Newsletter subscription is temporarily hidden until we choose a replacement
   // for the retired Ghost backend. The markup is preserved (commented) in the
@@ -73,46 +130,9 @@ export default function Footer() {
           </div>
 
           {/* Links Sections */}
-          <div className='lg:col-span-2'>
-            <h3 className='font-sans text-[11px] font-semibold mb-6 uppercase tracking-wider text-faint'>
-              {t('footer.product.title')}
-            </h3>
-            <ul className='space-y-4'>
-              <li>
-                <Link href='https://app.vocdoni.io' target='_blank' variant='footerNav'>
-                  {t('footer.product.links.0')}
-                </Link>
-              </li>
-              <li>
-                <Link href='/developers/docs/sdks-and-tools' target='_blank' variant='footerNav'>
-                  {t('footer.product.links.1')}
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          <div className='lg:col-span-2'>
-            <h3 className='font-sans text-[11px] font-semibold mb-6 uppercase tracking-wider text-faint'>
-              {t('footer.company.title')}
-            </h3>
-            <ul className='space-y-4'>
-              <li>
-                <Link href='/about-us' variant='footerNav'>
-                  {t('footer.company.links.0')}
-                </Link>
-              </li>
-              <li>
-                <Link href='/use-cases' variant='footerNav'>
-                  {t('footer.company.links.1')}
-                </Link>
-              </li>
-              <li>
-                <Link href='/blog' variant='footerNav'>
-                  {t('blog.title', 'Blog')}
-                </Link>
-              </li>
-            </ul>
-          </div>
+          <FooterColumn title={t('footer.product.title')} links={productLinks} />
+          <FooterColumn title={t('footer.solutions.title', 'Solutions')} links={solutionsLinks} />
+          <FooterColumn title={t('footer.company.title')} links={companyLinks} />
 
           {/*
             Newsletter subscription temporarily hidden - the Ghost backend it posted to has been
