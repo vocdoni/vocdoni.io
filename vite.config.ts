@@ -67,6 +67,8 @@ const viteconfig = ({ mode }: ConfigEnv) => {
 
     define: {
       SITE_URL: JSON.stringify(siteUrl),
+      APP_URL: JSON.stringify(process.env.APP_URL || 'https://app.vocdoni.io'),
+      PLATFORM_URL: JSON.stringify(process.env.PLATFORM_URL || 'https://platform.vocdoni.io'),
       PLAUSIBLE_DOMAIN: JSON.stringify(process.env.PLAUSIBLE_DOMAIN || ''),
       GTM_ID: JSON.stringify(process.env.GTM_ID || ''),
       EMAILJS_PUBLIC_KEY: JSON.stringify(process.env.EMAILJS_PUBLIC_KEY || ''),

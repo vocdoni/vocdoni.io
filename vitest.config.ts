@@ -7,6 +7,10 @@ export default defineConfig({
       '@': path.resolve(__dirname, './'),
     },
   },
+  define: {
+    APP_URL: JSON.stringify(process.env.APP_URL || 'https://app.vocdoni.io'),
+    PLATFORM_URL: JSON.stringify(process.env.PLATFORM_URL || 'https://platform.vocdoni.io'),
+  },
   test: {
     exclude: ['.worktrees/**', 'dist/**', 'node_modules/**'],
     globals: true,

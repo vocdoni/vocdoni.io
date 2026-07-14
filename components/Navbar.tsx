@@ -66,7 +66,7 @@ const buildProductFeatures = (t: (key: string) => string): ProductFeature[] => [
 const buildFeaturedSolution = (t: (key: string) => string) => ({
   title: t('navbar.featured_solution.vocdoni_app.title'),
   description: t('navbar.featured_solution.vocdoni_app.description'),
-  href: 'https://app.vocdoni.io',
+  href: APP_URL,
   cta: t('navbar.featured_solution.vocdoni_app.cta'),
   badge: t('navbar.featured_solution.vocdoni_app.badge'),
 })
@@ -120,7 +120,7 @@ export function Navbar() {
   // Dashboard instead of the voting app.
   const pageContext = usePageContext() as any
   const inDevelopers = isDevelopersPath(pageContext.urlLogical)
-  const ctaHref = inDevelopers ? DEVELOPERS_DASHBOARD_URL : 'https://app.vocdoni.io'
+  const ctaHref = inDevelopers ? DEVELOPERS_DASHBOARD_URL : APP_URL
   const ctaLabel = inDevelopers ? t('navbar.dashboard_button', 'API Dashboard') : t('navbar.app_button')
 
   const productFeatures = React.useMemo(() => buildProductFeatures(t), [t])

@@ -36,7 +36,7 @@ const Hero = () => {
           {/* Left Column: Content */}
           <div className='flex flex-col items-start gap-6 relative z-10 w-full min-w-0'>
             <MotionPreset fade slide delay={0} transition={{ duration: 0.5 }}>
-              <Link href='https://app.vocdoni.io' target='_blank' rel='noopener noreferrer' variant='heroBadge'>
+              <Link href={APP_URL} target='_blank' rel='noopener noreferrer' variant='heroBadge'>
                 <span className='bg-foreground text-background px-2.5 py-0.5 rounded-full font-semibold shrink-0 flex items-center gap-1.5'>
                   <span className='relative flex h-2 w-2' role='img' aria-label={t('hero.badge.status_live', 'Live')}>
                     <span
@@ -96,7 +96,7 @@ const Hero = () => {
             <MotionPreset fade slide delay={0.3} transition={{ duration: 0.5 }}>
               <div className='flex flex-col sm:flex-row gap-4 w-full sm:w-auto'>
                 <Button size='lg' className='group text-base has-[>svg]:px-6 w-full sm:w-auto' asChild>
-                  <Link href='https://app.vocdoni.io' variant='inlineIcon'>
+                  <Link href={APP_URL} variant='inlineIcon'>
                     {t('hero.cta_primary')}
                     <ArrowRight
                       className='h-5 w-5 transition-transform duration-200 group-hover:translate-x-0.5'
