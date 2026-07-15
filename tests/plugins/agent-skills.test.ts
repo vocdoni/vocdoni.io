@@ -45,6 +45,11 @@ describe('parseGithubSource', () => {
   it('returns null for unsupported sources', () => {
     expect(parseGithubSource('https://example.com/foo', BASE)).toBeNull()
   })
+
+  it('rejects local sources that escape the repo root', () => {
+    expect(parseGithubSource('../elsewhere', BASE)).toBeNull()
+    expect(parseGithubSource('./plugins/../../elsewhere', BASE)).toBeNull()
+  })
 })
 
 describe('skillMdPaths', () => {

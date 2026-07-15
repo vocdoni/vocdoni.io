@@ -685,8 +685,8 @@ export interface DocFrontmatter {
   group?: string
   order?: number
   reference?: DocReference
-  // Name of the agent skill relevant to this page (matches a dir under
-  // content/agent-skills/); rendered as a link to its SKILL.md by DocPage.
+  // Name of the agent skill relevant to this page. When set, DocPage renders an
+  // "Agent skill" button linking to the skills marketplace (DEVELOPERS_SKILLS_URL).
   skill?: string
 }
 

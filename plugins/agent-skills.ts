@@ -83,7 +83,11 @@ export function selectIncludedPlugins(plugins: MarketplacePlugin[]): Marketplace
 // resolve against the marketplace repo; absolute GitHub URLs point at their own repo root.
 export function parseGithubSource(source: string, base: { owner: string; repo: string }): SourceRef | null {
   if (source.startsWith('./') || source.startsWith('../')) {
-    return { owner: base.owner, repo: base.repo, subpath: source.replace(/^\.\//, '').replace(/\/+$/, '') }
+    const subpath = source.replace(/^\.\//, '').replace(/\/+$/, '')
+    // A marketplace path resolves against the repo root and cannot escape it, so any
+    // `..` segment (including a leading `../`) is invalid rather than silently rewritten.
+    if (subpath === '' || subpath.split('/').includes('..')) return null
+    return { owner: base.owner, repo: base.repo, subpath }
   }
   const m = source.match(/^https?:\/\/github\.com\/([^/]+)\/([^/#?]+)/)
   if (!m) return null
