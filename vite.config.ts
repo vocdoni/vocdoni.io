@@ -4,6 +4,7 @@ import { execSync } from 'node:child_process'
 import vike from 'vike/plugin'
 import { ConfigEnv, defineConfig, loadEnv } from 'vite'
 import { localeDefault, locales } from './locales'
+import { agentSkillsPlugin } from './plugins/agent-skills'
 import { blogMarkdownPlugin } from './plugins/blog-markdown'
 import { blogRssPlugin } from './plugins/blog-rss'
 import { docsMarkdownPlugin } from './plugins/docs-markdown'
@@ -50,6 +51,7 @@ const viteconfig = ({ mode }: ConfigEnv) => {
         hostname: siteUrl,
         defaultLocale: localeDefault,
       }),
+      agentSkillsPlugin(),
     ],
 
     build: {
