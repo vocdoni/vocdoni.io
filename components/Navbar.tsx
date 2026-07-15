@@ -115,7 +115,7 @@ const MenuPanel = ({
   <div className='flex'>
     <div className='flex w-[264px] shrink-0 flex-col gap-3 bg-secondary px-6 py-7'>
       <p className='font-serif text-3xl leading-[1.05] tracking-[-0.01em] text-foreground'>{introTitle}</p>
-      <p className='text-[13.5px] leading-snug text-muted-foreground'>{introDescription}</p>
+      <p className='text-sm leading-snug text-muted-foreground'>{introDescription}</p>
     </div>
     <div className='flex min-w-[316px] flex-col p-3.5'>{children}</div>
   </div>
@@ -123,7 +123,7 @@ const MenuPanel = ({
 
 /* Small uppercase group label inside a dropdown panel. */
 const PanelLabel = ({ className, children }: { className?: string; children: React.ReactNode }) => (
-  <p className={`px-3 pb-1 pt-2 text-[11px] font-semibold uppercase tracking-wider text-faint ${className ?? ''}`}>
+  <p className={`px-3 pb-1 pt-2 text-xs font-semibold uppercase tracking-wider text-faint ${className ?? ''}`}>
     {children}
   </p>
 )
@@ -182,8 +182,8 @@ export function Navbar() {
                             {item.kind === 'link' ? (
                               <NavigationMenuLink asChild>
                                 <Link href={item.href} target={item.target} rel={item.rel} variant='navbarItem'>
-                                  <div className='text-sm font-medium leading-none'>{item.title}</div>
-                                  <p className='line-clamp-2 text-xs font-normal leading-snug text-muted-foreground'>
+                                  <div className='text-[15px] font-medium leading-none'>{item.title}</div>
+                                  <p className='line-clamp-2 text-[13px] font-normal leading-snug text-muted-foreground'>
                                     {item.description}
                                   </p>
                                 </Link>
@@ -193,8 +193,8 @@ export function Navbar() {
                                 className='block w-full select-none space-y-1 rounded-[10px] px-3 py-2 text-left leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:bg-accent focus-visible:text-accent-foreground'
                                 triggerAriaLabel={item.triggerAriaLabel}
                               >
-                                <div className='text-sm font-medium leading-none'>{item.title}</div>
-                                <p className='line-clamp-2 text-xs leading-snug text-muted-foreground'>
+                                <div className='text-[15px] font-medium leading-none'>{item.title}</div>
+                                <p className='line-clamp-2 text-[13px] leading-snug text-muted-foreground'>
                                   {item.description}
                                 </p>
                               </CalBookingDialog>
@@ -212,7 +212,7 @@ export function Navbar() {
                           <li key={item.href}>
                             <NavigationMenuLink asChild>
                               <Link href={item.href} variant='navbarItem'>
-                                <div className='text-sm font-medium leading-none'>{item.title}</div>
+                                <div className='text-[15px] font-medium leading-none'>{item.title}</div>
                               </Link>
                             </NavigationMenuLink>
                           </li>
@@ -225,7 +225,7 @@ export function Navbar() {
                   <div className='mt-1.5 border-t border-border pt-1'>
                     <NavigationMenuLink asChild>
                       <Link href='/solutions' variant='navbarItem'>
-                        <div className='inline-flex items-center gap-1.5 text-sm font-semibold leading-none'>
+                        <div className='inline-flex items-center gap-1.5 text-[15px] font-semibold leading-none'>
                           {t('navbar.view_all_solutions', 'View all solutions')}
                           <ArrowRight className='size-3.5' />
                         </div>
@@ -362,7 +362,7 @@ export function Navbar() {
                         </AccordionTrigger>
                         <AccordionContent>
                           <div className='flex flex-col space-y-1 pl-2'>
-                            <p className='px-3 pb-1 pt-2 text-[11px] font-semibold uppercase tracking-wider text-faint'>
+                            <p className='px-3 pb-1 pt-2 text-xs font-semibold uppercase tracking-wider text-faint'>
                               {t('navbar.solutions_header')}
                             </p>
                             {productFeatures.map((item) =>
@@ -390,7 +390,7 @@ export function Navbar() {
                             )}
 
                             {/* By organization type */}
-                            <p className='px-3 pb-1 pt-3 text-[11px] font-semibold uppercase tracking-wider text-faint'>
+                            <p className='px-3 pb-1 pt-3 text-xs font-semibold uppercase tracking-wider text-faint'>
                               {t('navbar.solutions_by_type_header', 'By organization type')}
                             </p>
                             {solutionVerticals.map((item) => (
@@ -501,8 +501,8 @@ const ListItem = React.forwardRef<React.ElementRef<'a'>, React.ComponentPropsWit
       <li>
         <NavigationMenuLink asChild>
           <Link ref={ref} variant='navbarItem' className={className} {...props}>
-            <div className='text-sm font-medium leading-none'>{title}</div>
-            <p className='line-clamp-2 text-xs font-normal leading-snug text-muted-foreground'>{children}</p>
+            <div className='text-[15px] font-medium leading-none'>{title}</div>
+            <p className='line-clamp-2 text-[13px] font-normal leading-snug text-muted-foreground'>{children}</p>
           </Link>
         </NavigationMenuLink>
       </li>

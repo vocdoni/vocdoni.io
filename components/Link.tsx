@@ -13,7 +13,7 @@ const linkVariants = cva('transition-colors', {
       navbarItem:
         'block select-none space-y-1 rounded-[10px] px-3 py-2 leading-none no-underline outline-none transition-colors duration-150 hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground',
       navbarMobile: 'text-base text-foreground hover:bg-accent rounded-[10px] px-3 py-2.5 block transition-colors',
-      navbarStatic: 'text-sm font-medium hover:text-primary transition-colors py-3 border-b border-border/40 block',
+      navbarStatic: 'text-base font-medium hover:text-primary transition-colors py-3 border-b border-border/40 block',
       footerNav: 'text-sm text-muted-foreground hover:text-foreground transition-colors',
       footerLegal: 'text-muted-foreground hover:text-foreground transition-colors',
       heroBadge:

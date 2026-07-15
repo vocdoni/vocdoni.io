@@ -36,7 +36,7 @@ const Hero = () => {
           {/* Left Column: Content */}
           <div className='flex flex-col items-start gap-6 relative z-10 w-full min-w-0'>
             <MotionPreset fade slide delay={0} transition={{ duration: 0.5 }}>
-              <h1 className='text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-[4.75rem] leading-[0.95] max-w-3xl break-words text-foreground text-balance'>
+              <h1 className='text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-[4.55rem] leading-[0.95] max-w-3xl break-words text-foreground text-balance'>
                 {t('hero.title')}{' '}
                 <span className='inline-flex min-w-[0px] xs:min-w-[120px] text-primary relative'>
                   {reducedMotion ? (
