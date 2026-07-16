@@ -4,11 +4,14 @@ import { execSync } from 'node:child_process'
 import vike from 'vike/plugin'
 import { ConfigEnv, defineConfig, loadEnv } from 'vite'
 import { localeDefault, locales } from './locales'
+import { agentSkillsPlugin } from './plugins/agent-skills'
+import { blogMarkdownPlugin } from './plugins/blog-markdown'
 import { blogRssPlugin } from './plugins/blog-rss'
 import { docsMarkdownPlugin } from './plugins/docs-markdown'
 import { keystaticApiPlugin } from './plugins/keystatic-api'
 import { legacyRedirectsPlugin } from './plugins/legacy-redirects'
 import { vikeSitemapPlugin } from './plugins/vike-sitemap'
+import { wellKnownPlugin } from './plugins/well-known'
 
 const viteconfig = ({ mode }: ConfigEnv) => {
   process.env = { ...process.env, ...loadEnv(mode, process.cwd(), '') }
@@ -32,6 +35,7 @@ const viteconfig = ({ mode }: ConfigEnv) => {
       react(),
       tailwindcss(),
       docsMarkdownPlugin(),
+      blogMarkdownPlugin(),
       legacyRedirectsPlugin(),
       vikeSitemapPlugin({
         hostname: siteUrl,
@@ -43,6 +47,11 @@ const viteconfig = ({ mode }: ConfigEnv) => {
         locales,
         defaultLocale: localeDefault,
       }),
+      wellKnownPlugin({
+        hostname: siteUrl,
+        defaultLocale: localeDefault,
+      }),
+      agentSkillsPlugin(),
     ],
 
     build: {

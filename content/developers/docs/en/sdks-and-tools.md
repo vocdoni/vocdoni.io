@@ -3,6 +3,7 @@ title: SDKs and tools
 lead: 'There are two ways to integrate Vocdoni: the REST API documented here, and the lower-level TypeScript SDK. Pick the one that matches how much control you need.'
 group: get_started
 order: 30
+skill: integrator-sdk
 reference:
   title: References and repositories
   columns: 2

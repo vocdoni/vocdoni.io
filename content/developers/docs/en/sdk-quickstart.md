@@ -3,6 +3,7 @@ title: SDK quickstart
 lead: Install the TypeScript SDK, initialize the API client, and cast your first vote. The SDK talks only to the Vocdoni SaaS API - never the blockchain directly.
 group: get_started
 order: 35
+skill: integrator-sdk
 reference:
   title: Where to go next
   columns: 3

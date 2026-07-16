@@ -1,3 +1,4 @@
+import { DEVELOPERS_SKILLS_URL, DEVELOPERS_SWAGGER_URL } from '@/lib/developers'
 import { getCompatibilityRedirectTarget } from '@/lib/localeRedirect'
 import { localeDefault, locales } from '@/locales'
 import type { PageContext } from 'vike/types'
@@ -307,6 +308,22 @@ export function HeadTags(pageContext: PageContext) {
   const ogImageUrl = toAbsoluteUrl(siteUrl, image) || undefined
   const ogType = isBlogPost ? 'article' : 'website'
 
+  // Raw-markdown companion for agents, emitted by plugins/blog-markdown.ts and
+  // plugins/docs-markdown.ts. Advertised at the same locale as the canonical URL so it
+  // always resolves to a file that exists. Only docs pages and blog posts have one.
+  const markdownAltHref = (() => {
+    if (isBlogPost) {
+      const slug = urlLogical.slice('/blog/'.length)
+      return slug ? `${siteUrl}/${effectiveLocale}/blog/${slug}.md` : null
+    }
+    if (urlLogical === '/developers/docs') return `${siteUrl}/${effectiveLocale}/developers/docs.md`
+    if (urlLogical.startsWith('/developers/docs/')) {
+      const slug = urlLogical.slice('/developers/docs/'.length)
+      return slug ? `${siteUrl}/${effectiveLocale}/developers/docs/${slug}.md` : null
+    }
+    return null
+  })()
+
   // hreflang / og:locale alternates: for a post, advertise only the locales it
   // actually has (English fallback covers the rest); every other page lists all.
   const alternateLocales = (
@@ -449,6 +466,13 @@ export function HeadTags(pageContext: PageContext) {
         </>
       )}
       <link rel='canonical' href={canonicalUrl} />
+      {/* Agent discovery pointers (RFC 8288 relations). Static site: emitted as <link>
+          elements since production cannot set HTTP Link headers. See plugins/well-known.ts. */}
+      <link rel='api-catalog' href='/.well-known/api-catalog' />
+      <link rel='service-doc' href={`${siteUrl}/developers/docs`} />
+      <link rel='service-desc' href={DEVELOPERS_SWAGGER_URL} />
+      <link rel='related' title='Vocdoni agent skills' href={DEVELOPERS_SKILLS_URL} />
+      {markdownAltHref && <link rel='alternate' type='text/markdown' href={markdownAltHref} />}
       {isBlogSection && (
         <link rel='alternate' type='application/rss+xml' title='Vocdoni blog' href={`${siteUrl}/blog/rss.xml`} />
       )}

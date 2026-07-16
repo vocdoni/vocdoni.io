@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
-import { buildSitemapXml } from '@/plugins/vike-sitemap'
+import { buildRobotsTxt, buildSitemapXml } from '@/plugins/vike-sitemap'
 
 describe('vike sitemap plugin', () => {
   it('emits canonical locale-prefixed URLs with reciprocal hreflang alternates', () => {
@@ -25,5 +25,14 @@ describe('vike sitemap plugin', () => {
     expect(xml).toContain(
       '<xhtml:link rel="alternate" hreflang="x-default" href="https://vocdoni.io/ca/blog/only-catalan" />'
     )
+  })
+})
+
+describe('buildRobotsTxt', () => {
+  it('declares AIPREF content signals and points at the sitemap', () => {
+    const robots = buildRobotsTxt('https://vocdoni.io/')
+    expect(robots).toContain('Content-Signal: search=yes, ai-input=yes, ai-train=no')
+    expect(robots).toContain('Disallow: /keystatic')
+    expect(robots).toContain('Sitemap: https://vocdoni.io/sitemap.xml')
   })
 })

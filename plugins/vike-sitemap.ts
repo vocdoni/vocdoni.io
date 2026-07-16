@@ -91,9 +91,12 @@ export function buildSitemapXml(hostname: string, routes: SitemapRoute[], defaul
   ].join('\n')
 }
 
-function buildRobotsTxt(hostname: string) {
+// Content-Signal (contentsignals.org / AIPREF) declares how the public content may
+// be used: discoverable via search and usable as live AI input, but not for model
+// training. Kept alongside the standard crawl rules so agents see both at once.
+export function buildRobotsTxt(hostname: string) {
   const host = hostname.replace(/\/+$/, '')
-  return `User-agent: *\nAllow: /\nDisallow: /keystatic\nDisallow: /api/keystatic\n\nSitemap: ${host}/sitemap.xml\n`
+  return `User-agent: *\nContent-Signal: search=yes, ai-input=yes, ai-train=no\nAllow: /\nDisallow: /keystatic\nDisallow: /api/keystatic\n\nSitemap: ${host}/sitemap.xml\n`
 }
 
 // Enumerate concrete blog post + category archive routes from the content files
