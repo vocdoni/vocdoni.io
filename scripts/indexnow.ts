@@ -9,7 +9,7 @@
  *   pnpm indexnow --dry-run                         # print what would be sent, submit nothing
  *
  * The IndexNow key is the PUBLIC key file served at the domain root (public/<key>.txt). It is
- * auto-detected from that file, or overridden with INDEXNOW_KEY. It is not a secret — it is
+ * auto-detected from that file, or overridden with INDEXNOW_KEY. It is not a secret - it is
  * literally hosted at ${SITE_URL}/<key>.txt so engines can verify ownership.
  *
  * The site host and key location are derived from SITE_URL (defaults to https://vocdoni.io).
@@ -29,7 +29,7 @@ const args = process.argv.slice(2)
 const dryRun = args.includes('--dry-run')
 const sitemapFlagIdx = args.indexOf('--sitemap')
 // Index of --sitemap's value, or -1 when the flag is absent (so it never collides with a real
-// arg position — a bare +1 would wrongly claim index 0 and drop the first explicit URL).
+// arg position - a bare +1 would wrongly claim index 0 and drop the first explicit URL).
 const sitemapValueIdx = sitemapFlagIdx === -1 ? -1 : sitemapFlagIdx + 1
 if (sitemapFlagIdx !== -1 && (!args[sitemapValueIdx] || args[sitemapValueIdx].startsWith('--'))) {
   console.error('--sitemap requires a following path or URL.')
@@ -63,7 +63,10 @@ async function collectSitemapUrls(source: string | undefined): Promise<string[]>
     xml = await fs.readFile(path.resolve(source), 'utf8')
   } else {
     // Cache-bust so a CDN (Cloudflare) can't serve a stale sitemap right after a deploy.
-    const url = `${source ?? `${siteUrl}/sitemap.xml`}?cb=${Date.now()}`
+    // Built via URL/searchParams so a source that already has a query string stays valid.
+    const target = new URL(source ?? `${siteUrl}/sitemap.xml`)
+    target.searchParams.set('cb', String(Date.now()))
+    const url = target.toString()
     const res = await fetch(url, { cache: 'no-store', headers: { 'cache-control': 'no-cache' } })
     if (!res.ok) throw new Error(`Failed to fetch sitemap (${res.status}) from ${url}`)
     xml = await res.text()
