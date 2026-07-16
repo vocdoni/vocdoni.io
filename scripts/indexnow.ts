@@ -28,11 +28,16 @@ const host = new URL(siteUrl).host
 const args = process.argv.slice(2)
 const dryRun = args.includes('--dry-run')
 const sitemapFlagIdx = args.indexOf('--sitemap')
-const sitemapSource = sitemapFlagIdx !== -1 ? args[sitemapFlagIdx + 1] : undefined
-// Anything that isn't a flag or a flag's value is treated as an explicit URL to submit.
-const explicitUrls = args.filter(
-  (a, i) => !a.startsWith('--') && i !== sitemapFlagIdx + 1
-)
+// Index of --sitemap's value, or -1 when the flag is absent (so it never collides with a real
+// arg position — a bare +1 would wrongly claim index 0 and drop the first explicit URL).
+const sitemapValueIdx = sitemapFlagIdx === -1 ? -1 : sitemapFlagIdx + 1
+if (sitemapFlagIdx !== -1 && (!args[sitemapValueIdx] || args[sitemapValueIdx].startsWith('--'))) {
+  console.error('--sitemap requires a following path or URL.')
+  process.exit(1)
+}
+const sitemapSource = sitemapFlagIdx !== -1 ? args[sitemapValueIdx] : undefined
+// Anything that isn't a flag or the --sitemap value is treated as an explicit URL to submit.
+const explicitUrls = args.filter((a, i) => !a.startsWith('--') && i !== sitemapValueIdx)
 
 /** Read the IndexNow key from INDEXNOW_KEY, else from the public/<key>.txt ownership file. */
 async function resolveKey(): Promise<string> {
@@ -79,7 +84,14 @@ const rawUrls = explicitUrls.length ? explicitUrls : await collectSitemapUrls(si
 // IndexNow rejects the whole batch (422) if any URL is off-host, so drop foreign hosts loudly.
 const urls: string[] = []
 for (const u of rawUrls) {
-  if (new URL(u).host === host) urls.push(u)
+  let parsed: URL
+  try {
+    parsed = new URL(u)
+  } catch {
+    console.warn(`skip (invalid URL): ${u}`)
+    continue
+  }
+  if (parsed.host === host) urls.push(u)
   else console.warn(`skip (host mismatch): ${u}`)
 }
 
