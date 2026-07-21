@@ -43,7 +43,7 @@ Each **question** shapes one ballot:
 | `type` | string | `singlechoice` or `multichoice`. See [Voting types](/developers/docs/voting-types). |
 | `typeSetup` | object | `minChoices`, `maxChoices`, `uniqueChoices`. |
 | `ballotProtocol` | object | Optional raw ballot override (approval, ranked, quadratic). Takes priority over `type`/`typeSetup`. |
-| `census` | object | Optional eligibility subset (`groupId`/`memberIds`) ⊆ the process census. Omit ⇒ all census members. |
+| `census` | object | Optional eligibility subset (`groupId`/`memberIds`) within the process census. Omit to include all census members. |
 | `secretUntilTheEnd` | boolean | Keep this question's tally encrypted until it ends. |
 
 ```bash
@@ -63,7 +63,7 @@ PROCESS=$(curl -s "${auth[@]}" -X POST "$B/processes" -d "{
 ```
 
 ```jsonc
-{ "processId": "6a1f..." }   // 202 - carry forward
+{ "processId": "6a1f..." }   // 200 - carry forward
 ```
 
 :::code-tabs[create a process]
@@ -127,7 +127,7 @@ and question `status`.
 
 ```bash
 curl "${auth[@]}" "$B/processes/$PROCESS"
-curl "${auth[@]}" "$B/processes?orgAddress=$ORG&status=ready&page=1"
+curl "${auth[@]}" "$B/processes?orgAddress=$ORG&status=READY&page=1"
 ```
 
 ```jsonc
@@ -146,7 +146,8 @@ curl "${auth[@]}" "$B/processes?orgAddress=$ORG&status=ready&page=1"
 ```
 
 The per-question read (`/questions/{questionId}`) is **public** - voter UIs use it to render a
-question and its status without authenticating.
+question and its status without authenticating. A question's `id` is the value used as the
+`{questionId}` path parameter, and as `questionId` in the results and status payloads.
 
 ## Checking readiness
 
@@ -201,7 +202,8 @@ curl "${auth[@]}" -X PUT "$B/processes/$PROCESS/census" -d '{"memberIds":["<id1>
 
 Move published questions through `READY`, `PAUSED`, `ENDED`, or `CANCELED` - one at a time or in bulk.
 Both are asynchronous jobs. Only published questions (those with an `upstreamId`) can change status.
-Status is case-insensitive on input and returned uppercase.
+Status is case-insensitive on input and returned uppercase. Reads may also show `RESULTS` once a
+question has been tallied - a terminal state you observe but cannot set.
 
 - **PUT** `/processes/{processId}/questions/{questionId}/status`
 - **PUT** `/processes/{processId}/questions/status`

@@ -47,6 +47,8 @@ curl -s "$B/processes/$PROCESS/results"
 | `upstreamId` | string | The question's on-chain election id. |
 | `status` | string | Election state, for example READY, PAUSED, ENDED or RESULTS. |
 | `voteCount` | integer | Total votes cast on this question so far. |
+| `startDate` | string | When voting opened for this question. |
+| `endDate` | string | When voting closed for this question. |
 | `results` | string[][] | The raw histogram - one row per field, one tally per value. |
 | `finalResults` | boolean | True once the question has ended and its results are final. |
 

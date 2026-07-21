@@ -37,14 +37,15 @@ group to include everyone.
 
 ## Authentication types
 
-The census **type** is inferred from the fields you choose - you never set it directly:
+The census **type** is inferred from the fields you choose - you never set it directly. Every type
+still identifies the voter with `authFields`; the `twoFaFields` column only adds the second factor:
 
 | Type | Fields | Second factor |
 | --- | --- | --- |
 | `auth` | `authFields` only | none (auth-only) |
-| `mail` | `twoFaFields: ["email"]` | email OTP |
-| `sms` | `twoFaFields: ["phone"]` | SMS OTP |
-| `sms_or_mail` | `twoFaFields: ["email","phone"]` | voter's choice |
+| `mail` | `authFields` + `twoFaFields: ["email"]` | email OTP |
+| `sms` | `authFields` + `twoFaFields: ["phone"]` | SMS OTP |
+| `sms_or_mail` | `authFields` + `twoFaFields: ["email","phone"]` | voter's choice |
 
 - `authFields` options: `name`, `surname`, `memberNumber`, `nationalId`, `birthDate`.
 - `twoFaFields` options: `email`, `phone`.
@@ -61,7 +62,7 @@ The census **type** is inferred from the fields you choose - you never set it di
 ## Per-question eligibility
 
 The process census is the full electorate. A single **question** can narrow it to a subset with its
-own optional `census` object (a `groupId` or `memberIds`, always ⊆ the process census); omit it and
+own optional `census` object (a `groupId` or `memberIds`, always within the process census); omit it and
 every census member may vote on that question. Reads expose the resolved subset as
 `eligibleMemberIds`.
 
