@@ -1,12 +1,13 @@
 ---
 title: Quickstart
-lead: Run a full election end to end - create a managed organization, build a census, open a voting process and read the tally. Examples are cURL, with C# and Python variants; any HTTP client works the same way.
+lead: Run a full election end to end - create a managed organization, add a voter, open a voting process with an inline census, publish it, and read the tally. Examples are cURL, with C# and Python variants; any HTTP client works the same way.
 group: get_started
 order: 10
 ---
 
-This runs the entire lifecycle once: create a managed organization for a customer, add a voter, build
-an auth-only census, open a yes/no election, publish it on-chain, and read the tally.
+This runs the entire lifecycle once: create a managed organization for a customer, add a voter, open a
+yes/no process whose census is declared inline, publish it on-chain, and read the tally. There is no
+separate census create-and-publish step - the process carries its census.
 
 The one step omitted here is **casting a ballot** - voter-facing client-side cryptography, done in the
 browser by the SDK. The Quickstart proves the full server-side path up to reading results; see
@@ -62,94 +63,69 @@ until [ "$(curl -s "${auth[@]}" "$B/organizations/$ORG/members/job/$JOB" | jq -r
 
 ## Create an all-members group
 
-The group is the bridge to publishing an auth-only census.
+The group is what the inline census points at to include your members.
 
 ```bash
 GROUP=$(curl -s "${auth[@]}" -X POST "$B/organizations/$ORG/groups" \
   -d '{"title":"All voters","includeAllMembers":true}' | jq -r .id)
 ```
 
-## Create an auth-only census
-
-Voters authenticate by member number; no second factor.
-
-```bash
-CENSUS=$(curl -s "${auth[@]}" -X POST "$B/census" \
-  -d "{\"orgAddress\":\"$ORG\",\"authFields\":[\"memberNumber\"]}" | jq -r .id)
-```
-
-## Publish the census through the group
-
-Auth-only censuses must be published **through a group** - the plain `/publish` rejects them.
-
-```bash
-curl -s "${auth[@]}" -X POST "$B/census/$CENSUS/group/$GROUP/publish" \
-  -d '{"authFields":["memberNumber"],"weighted":false}' >/dev/null
-```
-
 ## Create a voting process
 
-`POST /process` returns the ProcessID as a bare JSON string.
+One call carries the inline census (auth-only by member number, populated from the group) and the
+question. It returns the `processId` as a draft.
 
 ```bash
-PROCESS=$(curl -s "${auth[@]}" -X POST "$B/process" -d "{
-  \"orgAddress\":\"$ORG\",\"censusId\":\"$CENSUS\",
-  \"metadata\":{\"title\":\"Repaint the fence?\"},
-  \"electionParams\":{
+PROCESS=$(curl -s "${auth[@]}" -X POST "$B/processes" -d "{
+  \"orgAddress\":\"$ORG\",
+  \"census\":{\"authFields\":[\"memberNumber\"],\"groupId\":\"$GROUP\"},
+  \"title\":{\"default\":\"Repaint the fence?\"},
+  \"description\":{\"default\":\"Annual maintenance vote\"},
+  \"startDate\":\"2026-07-01T09:00:00Z\",\"endDate\":\"2026-07-08T09:00:00Z\",
+  \"questions\":[{
     \"title\":{\"default\":\"Repaint the fence?\"},
-    \"description\":{\"default\":\"Annual maintenance vote\"},
-    \"questions\":[{\"title\":{\"default\":\"Repaint the fence?\"},
-      \"choices\":[{\"title\":{\"default\":\"Yes\"},\"value\":0},
-                   {\"title\":{\"default\":\"No\"},\"value\":1}]}],
-    \"voteType\":{\"maxCount\":1,\"maxValue\":1},
-    \"electionType\":{\"autostart\":true,\"interruptible\":true},
-    \"startDate\":\"2026-07-01T09:00:00Z\",\"endDate\":\"2026-07-08T09:00:00Z\",
-    \"maxCensusSize\":1000
-  }}" | jq -r .)
+    \"choices\":[{\"title\":{\"default\":\"Yes\"},\"value\":0},
+                 {\"title\":{\"default\":\"No\"},\"value\":1}],
+    \"type\":\"singlechoice\"
+  }]
+}" | jq -r .processId)
 ```
 
 ## Publish on-chain
 
-Publishing is asynchronous; poll the job until it completes. Voters then cast ballots client-side with
-the SDK.
+Publishing is asynchronous and atomic (census + one election per question); poll the job until it
+completes. Voters then cast ballots client-side - see [Casting votes](/developers/docs/casting-votes).
 
 ```bash
-PJOB=$(curl -s "${auth[@]}" -X POST "$B/process/$PROCESS/publish" | jq -r .jobId)
+PJOB=$(curl -s "${auth[@]}" -X POST "$B/processes/$PROCESS/publish" | jq -r .jobId)
 until [ "$(curl -s "$B/jobs/$PJOB" | jq -r .status)" = "completed" ]; do sleep 2; done
 ```
 
 ## Read the results
 
-Public, no auth - addressed by the ProcessID.
+Public, no auth - addressed by the `processId`, one tally per question.
 
 ```bash
-curl -s "$B/process/$PROCESS/results" | jq
+curl -s "$B/processes/$PROCESS/results" | jq
 ```
 
 :::
 
 > [!TIP] Next steps
 > Read [Members and groups](/developers/docs/members-and-groups) for bulk imports and the members-job,
-> [Census](/developers/docs/census) for auth-only vs. 2FA, [Voting processes](/developers/docs/voting-processes)
-> for parameters and bundles, [Casting votes](/developers/docs/casting-votes) for the client-side ballot
-> flow, and [Voting types](/developers/docs/voting-types) for single choice, approval, ranked and
+> [Census](/developers/docs/census) for auth types and per-question eligibility,
+> [Voting processes](/developers/docs/voting-processes) for the full authoring API,
+> [Casting votes](/developers/docs/casting-votes) for the client-side ballot flow, and
+> [Voting types](/developers/docs/voting-types) for single choice, multichoice, approval, ranked and
 > quadratic ballots.
 
-## The same flow with the SDK, C# and Python
+## The same flow with C# and Python
 
-The bash steps above translate directly. The [SDK]({{SDK_URL}}) collapses the whole flow into typed
-client calls; the C# and Python variants define the `Post`/`Get` helpers they reuse.
+The bash steps above translate directly. The C# and Python variants define the `Post`/`Get` helpers
+they reuse.
 
 :::code-tabs[client setup - the Post / Get helpers the flow reuses]
 
-```ts
-import { VocdoniApiClient } from '@vocdoni/api-client'
-
-const client = new VocdoniApiClient({
-  apiUrl: '{{API_BASE_URL}}',
-  authToken: () => process.env.VOCDONI_API_TOKEN, // "vsk_..."
-})
-```
 ```csharp
 using System.Net.Http.Json;
 using System.Text.Json;
@@ -175,47 +151,8 @@ def get(path):             r = s.get(B + path);             r.raise_for_status()
 ```
 :::
 
-:::code-tabs[full election flow - all eight steps, end to end]
+:::code-tabs[full election flow - end to end]
 
-```ts
-// 1. managed org
-const { address: org } = await client.organizations.createManaged({ type: 'association' })
-
-// 2. member (async) -> wait for the members job
-const { jobId: memberJob } = await client.organizations.addMembers(org, [
-  { name: 'Alice', memberNumber: 'A-101', email: 'alice@example.org', weight: 1 },
-])
-if (memberJob) await client.organizations.waitForMembersJob(org, memberJob)
-
-// 3. group   4. census (auth-only)   5. group-publish
-const { id: group } = await client.organizations.createGroup(org, { title: 'All voters', includeAllMembers: true })
-const { id: census } = await client.census.create({ orgAddress: org, authFields: ['memberNumber'] })
-await client.census.publishGroup(census, group, { authFields: ['memberNumber'], weighted: false })
-
-// 6. create the process draft
-const process = await client.elections.create({
-  orgAddress: org,
-  censusId: census,
-  electionParams: {
-    title: { default: 'Repaint the fence?' },
-    description: { default: 'Annual maintenance vote' },
-    questions: [{ title: { default: 'Repaint the fence?' }, choices: [
-      { title: { default: 'Yes' }, value: 0 },
-      { title: { default: 'No' }, value: 1 },
-    ] }],
-    voteType: { maxCount: 1, maxValue: 1 },
-    electionType: { autostart: true, interruptible: true },
-    startDate: '2026-07-01T09:00:00Z', endDate: '2026-07-08T09:00:00Z',
-    maxCensusSize: 1000,
-  },
-})
-
-// 7. publish on-chain (async) -> waits for the job
-await client.elections.publishAndWait(process)
-
-// 8. results - addressed by the ProcessID
-console.log(await client.elections.getResults(process))
-```
 ```csharp
 // 1. managed org
 var org = (await Post("/integrator/organizations",
@@ -228,36 +165,32 @@ var job = (await Post($"/organizations/{org}/members",
 while ((await Get($"/organizations/{org}/members/job/{job}")).GetProperty("progress").GetInt32() < 100)
     await Task.Delay(1000);
 
-// 3. group   4. census (auth-only)   5. group-publish
+// 3. all-members group
 var group = (await Post($"/organizations/{org}/groups",
     new { title = "All voters", includeAllMembers = true })).GetProperty("id").GetString();
-var census = (await Post("/census", new { orgAddress = org, authFields = new[] { "memberNumber" } })).GetProperty("id").GetString();
-await Post($"/census/{census}/group/{group}/publish", new { authFields = new[] { "memberNumber" }, weighted = false });
 
-// 6. create the process -> bare JSON string (the ProcessID)
-var process = (await Post("/process", new {
-    orgAddress = org, censusId = census,
-    metadata = new { title = "Repaint the fence?" },
-    electionParams = new {
+// 4. create the process draft (inline census + question) -> { processId }
+var process = (await Post("/processes", new {
+    orgAddress = org,
+    census = new { authFields = new[] { "memberNumber" }, groupId = group },
+    title = new { @default = "Repaint the fence?" },
+    description = new { @default = "Annual maintenance vote" },
+    startDate = "2026-07-01T09:00:00Z", endDate = "2026-07-08T09:00:00Z",
+    questions = new[] { new {
         title = new { @default = "Repaint the fence?" },
-        description = new { @default = "Annual maintenance vote" },
-        questions = new[] { new { title = new { @default = "Repaint the fence?" },
-            choices = new[] { new { title = new { @default = "Yes" }, value = 0 },
-                              new { title = new { @default = "No" },  value = 1 } } } },
-        voteType = new { maxCount = 1, maxValue = 1 },
-        electionType = new { autostart = true, interruptible = true },
-        startDate = "2026-07-01T09:00:00Z", endDate = "2026-07-08T09:00:00Z",
-        maxCensusSize = 1000,
-    }})).GetString();
+        choices = new[] { new { title = new { @default = "Yes" }, value = 0 },
+                          new { title = new { @default = "No" },  value = 1 } },
+        type = "singlechoice",
+    }}})).GetProperty("processId").GetString();
 
-// 7. publish (async) -> wait for the job
-var pjob = (await Post($"/process/{process}/publish", null)).GetProperty("jobId").GetString();
+// 5. publish (async) -> wait for the job
+var pjob = (await Post($"/processes/{process}/publish", null)).GetProperty("jobId").GetString();
 JsonElement j;
 do { await Task.Delay(2000); j = await Get($"/jobs/{pjob}"); }
 while (j.GetProperty("status").GetString() != "completed");
 
-// 8. results - addressed by the ProcessID
-Console.WriteLine(await Get($"/process/{process}/results"));
+// 6. results - one tally per question
+Console.WriteLine(await Get($"/processes/{process}/results"));
 ```
 ```python
 # 1. managed org
@@ -271,34 +204,28 @@ job = post(f"/organizations/{org}/members",
 while get(f"/organizations/{org}/members/job/{job}").json()["progress"] < 100:
     time.sleep(1)
 
-# 3. group   4. census (auth-only)   5. group-publish
+# 3. all-members group
 group = post(f"/organizations/{org}/groups",
              {"title": "All voters", "includeAllMembers": True}).json()["id"]
-census = post("/census", {"orgAddress": org, "authFields": ["memberNumber"]}).json()["id"]
-post(f"/census/{census}/group/{group}/publish", {"authFields": ["memberNumber"], "weighted": False})
 
-# 6. create the process -> bare JSON string (the ProcessID)
-process = post("/process", {
-    "orgAddress": org, "censusId": census,
-    "metadata": {"title": "Repaint the fence?"},
-    "electionParams": {
-        "title": {"default": "Repaint the fence?"},
-        "description": {"default": "Annual maintenance vote"},
-        "questions": [{"title": {"default": "Repaint the fence?"},
-                       "choices": [{"title": {"default": "Yes"}, "value": 0},
-                                   {"title": {"default": "No"}, "value": 1}]}],
-        "voteType": {"maxCount": 1, "maxValue": 1},
-        "electionType": {"autostart": True, "interruptible": True},
-        "startDate": "2026-07-01T09:00:00Z", "endDate": "2026-07-08T09:00:00Z",
-        "maxCensusSize": 1000,
-    }}).json()
+# 4. create the process draft (inline census + question) -> { processId }
+process = post("/processes", {
+    "orgAddress": org,
+    "census": {"authFields": ["memberNumber"], "groupId": group},
+    "title": {"default": "Repaint the fence?"},
+    "description": {"default": "Annual maintenance vote"},
+    "startDate": "2026-07-01T09:00:00Z", "endDate": "2026-07-08T09:00:00Z",
+    "questions": [{"title": {"default": "Repaint the fence?"},
+                   "choices": [{"title": {"default": "Yes"}, "value": 0},
+                               {"title": {"default": "No"}, "value": 1}],
+                   "type": "singlechoice"}]}).json()["processId"]
 
-# 7. publish (async) -> wait for the job
-pjob = post(f"/process/{process}/publish").json()["jobId"]
+# 5. publish (async) -> wait for the job
+pjob = post(f"/processes/{process}/publish").json()["jobId"]
 while get(f"/jobs/{pjob}").json()["status"] != "completed":
     time.sleep(2)
 
-# 8. results - addressed by the ProcessID
-print(get(f"/process/{process}/results").json())
+# 6. results - one tally per question
+print(get(f"/processes/{process}/results").json())
 ```
 :::

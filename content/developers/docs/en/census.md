@@ -1,148 +1,101 @@
 ---
 title: Census
-lead: A census is the list of who can vote in an election and how they prove who they are. Publishing a census produces a cryptographic root that binds the eligible voters to a process.
+lead: A census is the who-can-vote list and how they prove who they are. It is declared inline when you create a process - no separate create-and-publish step - and its type is inferred from the fields you pick.
 group: core_concepts
 order: 30
 ---
 
-A **census** is the eligible-voter list for an election, anchored to a cryptographic **root** that the
-election binds to. When you create a census you also choose **how voters prove who they are**.
+A **census** is the eligible-voter list plus the rules for how a voter authenticates. You no longer
+build and publish it separately: you declare it **inline** in the `census` object of
+[`POST /processes`](/developers/docs/voting-processes), and the server materializes and publishes it
+for you at [publish](/developers/docs/voting-processes#publishing-on-chain) time. Its internal id is
+never sent or returned.
 
-## Authentication fields
+## The census object
 
-- `authFields` - the fields a voter must present to authenticate (e.g. `memberNumber`). With only
-  `authFields` set, the census is **auth-only**: no second factor.
-- `twoFaFields` - fields used for a one-time-code second factor: `email` or `phone`.
-
-These combine into four census types: **`auth`** (auth-only), **`mail`**, **`sms`**, and
-**`sms_or_mail`**. The type is derived from the two-factor fields you choose.
-
-`authFields` options: `name`, `surname`, `memberNumber`, `nationalId`, `birthDate`.
-`twoFaFields` options: `email`, `phone`.
-
-## Creating a census
-
-Create a census for an organization, declaring the authentication and two-factor fields it will use.
-The response returns the census id.
-
-- **POST** `/census`
+```jsonc
+{
+  "weighted": false,          // when true, each member's weight counts as vote weight
+  "authFields": ["memberNumber"],
+  "twoFaFields": [],          // e.g. ["email"] for an email OTP second factor
+  "groupId": "",              // populate from a group's members...
+  "memberIds": []             // ...or list member ids explicitly
+}
+```
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `orgAddress` (required) | string | The organization the census belongs to. |
-| `authFields` | string[] | Fields the voter must provide to authenticate. |
-| `twoFaFields` | string[] | Channels for the second factor: email or phone. |
+| `authFields` | string[] | Fields a voter must present to authenticate (e.g. `memberNumber`). |
+| `twoFaFields` | string[] | Channels for a one-time-code second factor: `email` or `phone`. |
+| `weighted` | boolean | Count each member's `weight` as their vote weight. |
+| `groupId` | string | Populate the census from a [group's](/developers/docs/members-and-groups) members. |
+| `memberIds` | string[] | Populate the census from an explicit list of member ids. |
 
-```bash
-CENSUS=$(curl -s "${auth[@]}" -X POST "$B/census" \
-  -d "{\"orgAddress\":\"$ORG\",\"authFields\":[\"memberNumber\"]}" | jq -r .id)
-```
+Populate the census from a `groupId` **or** an explicit `memberIds` list - both reference the
+organization's [members and groups](/developers/docs/members-and-groups). Use the auto "All members"
+group to include everyone.
 
-```jsonc
-{ "id": "6a1f..." }   // carry forward: census id
-```
+## Authentication types
 
-Add `"twoFaFields":["email"]` for an email-OTP census.
+The census **type** is inferred from the fields you choose - you never set it directly:
 
-:::code-tabs[create a census]
+| Type | Fields | Second factor |
+| --- | --- | --- |
+| `auth` | `authFields` only | none (auth-only) |
+| `mail` | `twoFaFields: ["email"]` | email OTP |
+| `sms` | `twoFaFields: ["phone"]` | SMS OTP |
+| `sms_or_mail` | `twoFaFields: ["email","phone"]` | voter's choice |
 
-```ts
-const { id: census } = await client.census.create({
-  orgAddress: org,
-  authFields: ['memberNumber'],
-})
-```
-```csharp
-var census = (await Post("/census",
-    new { orgAddress = org, authFields = new[] { "memberNumber" } })).GetProperty("id").GetString();
-```
-```python
-census = post("/census", {"orgAddress": org, "authFields": ["memberNumber"]}).json()["id"]
-```
-:::
+- `authFields` options: `name`, `surname`, `memberNumber`, `nationalId`, `birthDate`.
+- `twoFaFields` options: `email`, `phone`.
 
-## Adding participants
-
-For a **2FA** census, add organization members by id before publishing. **Auth-only** censuses are
-populated from their group at publish time, so they skip this step. Members already present are
-skipped.
-
-- **POST** `/census/{id}`
-
-```bash
-curl "${auth[@]}" -X POST "$B/census/$CENSUS" \
-  -d '{ "memberIds": ["<id1>", "<id2>"] }'
-```
-
-## Publishing a census
-
-Publishing locks the participant list and produces the root the election binds to. **How you publish
-depends on the census type** - this is the single most common stumble.
-
-- **POST** `/census/{id}/publish`
-- **POST** `/census/{id}/group/{groupID}/publish`
-
-**2FA types** (`mail` / `sms` / `sms_or_mail`) publish directly:
-
-```bash
-curl "${auth[@]}" -X POST "$B/census/$CENSUS/publish"
-```
-
-**Auth-only** censuses are **rejected** by the plain publish (`census type not found`). Publish them
-**through a group** instead - this both supports auth-only and populates participants from the group:
-
-```bash
-curl "${auth[@]}" -X POST "$B/census/$CENSUS/group/$GROUP/publish" \
-  -d '{"authFields":["memberNumber"],"weighted":false}'
-```
-
-Either way you get the published census:
-
-```jsonc
-{ "root": "deadbeef...", "size": 1, "uri": "https://..." }
-```
-
-The `size` is the eligible-voter count - useful later for turnout (see [Results](/developers/docs/results)). Set
-`"weighted": true` to make each member's `weight` count as vote weight.
-
-:::code-tabs[auth-only via group]
-
-```ts
-await client.census.publishGroup(census, group, {
-  authFields: ['memberNumber'],
-  weighted: false,
-})
-```
-```csharp
-await Post($"/census/{census}/group/{group}/publish",
-           new { authFields = new[] { "memberNumber" }, weighted = false });
-```
-```python
-post(f"/census/{census}/group/{group}/publish",
-     {"authFields": ["memberNumber"], "weighted": False})
-```
-:::
+> [!WARNING] Auth fields must be unique
+> An auth-only credential is derived from its auth field, so a field used to authenticate (e.g.
+> `memberNumber`) must be **unique** across the members you include - duplicates fail the publish
+> [readiness check](/developers/docs/voting-processes#checking-readiness).
 
 > [!NOTE] Weighted voting
-> Set `"weighted": true` when publishing to make each member's `weight` field count as their vote
-> weight - use it for shareholder meetings or any vote where members do not count equally.
+> Set `"weighted": true` to make each member's `weight` count as their vote weight - use it for
+> shareholder meetings or any vote where members do not count equally.
 
-## Inspecting participants
+## Per-question eligibility
 
-- **GET** `/census/{id}/participants`
+The process census is the full electorate. A single **question** can narrow it to a subset with its
+own optional `census` object (a `groupId` or `memberIds`, always ⊆ the process census); omit it and
+every census member may vote on that question. Reads expose the resolved subset as
+`eligibleMemberIds`.
+
+```jsonc
+"questions": [{
+  "title": { "default": "Board seat (full members only)" },
+  "choices": [ /* ... */ ],
+  "census": { "groupId": "<full-members-group>" }   // subset of the process census
+}]
+```
+
+Identity and weight always come from the process census; the subset only decides **which** members may
+vote on **which** question. This is how one process runs questions with different electorates without
+building multiple censuses.
+
+## Validating a census
+
+Dry-run a census spec before you create the process. It flags the common problems - duplicate or
+missing auth-field data across the members it resolves - without creating anything.
+
+- **POST** `/processes/census/validation`
 
 ```bash
-curl "${auth[@]}" "$B/census/$CENSUS/participants"
+curl "${auth[@]}" -X POST "$B/processes/census/validation" \
+  -d "{\"orgAddress\":\"$ORG\",\"census\":{\"authFields\":[\"memberNumber\"],\"groupId\":\"$GROUP\"}}"
 ```
 
 ```jsonc
-{ "censusId": "6a1f...", "memberIds": ["..."] }
+{ "valid": true, "errors": [] }   // errors may carry the offending member ids
 ```
 
-## Gotchas
+## Growing the census after publishing
 
-- **Auth-only must be published via a group** (`/census/{id}/group/{groupId}/publish`). The plain
-  `/publish` rejects it.
-- The auth-only credential is derived from the auth field, so **`memberNumber` must be unique** across
-  the census - duplicates fail at publish.
-- One published census can back **multiple** processes - reuse it across votes.
+The census is fixed at [publish](/developers/docs/voting-processes#publishing-on-chain), but you can
+add more members later without re-creating the process - see
+[Growing a published census](/developers/docs/voting-processes#growing-a-published-census). Questions
+with an eligibility subset keep their fixed size.

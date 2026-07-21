@@ -1,6 +1,6 @@
 ---
 title: Organizations
-lead: An organization is the account that owns members, censuses, processes and API keys. Almost every endpoint is scoped to an organization address.
+lead: An organization is the account that owns members, groups, processes and API keys. Almost every endpoint is scoped to an organization address.
 group: core_concepts
 order: 10
 ---
@@ -10,7 +10,7 @@ order: 10
 > [Managed organizations](/developers/docs/managed-organizations) for creating, listing and deleting
 > them with your integrator key. Everything on this page applies to those organizations too.
 
-An **organization** is the tenant that owns members, censuses, and elections. As an integrator you
+An **organization** is the tenant that owns members, groups, and processes. As an integrator you
 don't operate one shared org - you create one **managed organization per customer** and run everything
 inside it with your integrator key. This page covers what an organization is and how to read and
 update it; creating and deleting managed organizations is covered in
@@ -90,7 +90,7 @@ curl "${auth[@]}" -X PUT "$B/organizations/$ORG" \
 ## The integrator relationship
 
 Your **integrator organization** is the parent account; each managed organization is an isolated
-tenant beneath it, with its own address, members, censuses, and elections. Customers never need a
+tenant beneath it, with its own address, members, groups, and processes. Customers never need a
 Vocdoni account - your integrator key acts as the admin of every org it creates.
 
 - To **provision** a managed org, see [Managed organizations](/developers/docs/managed-organizations).

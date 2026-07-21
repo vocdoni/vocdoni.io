@@ -32,11 +32,11 @@ curl {{API_BASE_URL}}/organizations/$ORG \
 ## Identifiers
 
 - **Addresses and ids are hex strings** - for example `0x1234...` for an organization address.
-- **A process has two identifiers, do not mix them.** A `draftId` is the 24-hex database id of a draft process, returned when you create it. A `processId` is the 64-hex on-chain election id, assigned when you publish. Organizer CRUD uses the `draftId`; voting and reading results use the `processId`.
+- **A process and its questions have different ids, do not mix them.** A `processId` identifies a process (a draft until published) and addresses it everywhere server-side. Each question's `upstreamId` is the 64-hex on-chain election id, assigned at publish; voters need it to sign a ballot, but you never address the process by it.
 
 ## Asynchronous operations
 
-Some operations take longer than a single request should wait - bulk imports, census publishing, process publishing and status changes, and relaying a vote. These return `202 Accepted` with a `{ "jobId": "..." }` body. Poll the job until it finishes, then read the outcome from `result`. See [Jobs](/developers/docs/jobs) for the full model.
+Some operations take longer than a single request should wait - bulk imports, process publishing and status changes, and relaying a vote. These return `202 Accepted` with a `{ "jobId": "..." }` body. Poll the job until it finishes, then read the outcome from `result`. See [Jobs](/developers/docs/jobs) for the full model.
 
 ## Pagination
 
