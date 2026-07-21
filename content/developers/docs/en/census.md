@@ -25,8 +25,8 @@ never sent or returned.
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `authFields` | string[] | Fields a voter must present to authenticate (e.g. `memberNumber`). |
-| `twoFaFields` | string[] | Channels for a one-time-code second factor: `email` or `phone`. |
+| `authFields` | string[] | Optional. Identity fields a voter must present (e.g. `memberNumber`). |
+| `twoFaFields` | string[] | Optional. Channels for a one-time-code second factor: `email` or `phone`. |
 | `weighted` | boolean | Count each member's `weight` as their vote weight. |
 | `groupId` | string | Populate the census from a [group's](/developers/docs/members-and-groups) members. |
 | `memberIds` | string[] | Populate the census from an explicit list of member ids. |
@@ -35,25 +35,34 @@ Populate the census from a `groupId` **or** an explicit `memberIds` list - both 
 organization's [members and groups](/developers/docs/members-and-groups). Use the auto "All members"
 group to include everyone.
 
-## Authentication types
+## Authentication
 
-The census **type** is inferred from the fields you choose - you never set it directly. Every type
-still identifies the voter with `authFields`; the `twoFaFields` column only adds the second factor:
+`authFields` and `twoFaFields` are **two independent settings, each optional**. Set **either, or both**:
 
-| Type | Fields | Second factor |
+- **`authFields` only** - an **auth-only** census: the voter authenticates purely by presenting these
+  identity fields, no second factor.
+- **`twoFaFields` only** - a 2FA census with **no `authFields` required**: the voter identifies by the
+  contact channel (email or phone), receives a one-time code, and enters it. Turning on 2FA does not
+  require any auth fields.
+- **both** - identity fields **and** a one-time code.
+
+The census **type** is inferred from `twoFaFields` (you never set it directly); `authFields` can be
+combined with any of them:
+
+| Type | `twoFaFields` | Second factor |
 | --- | --- | --- |
-| `auth` | `authFields` only | none (auth-only) |
-| `mail` | `authFields` + `twoFaFields: ["email"]` | email OTP |
-| `sms` | `authFields` + `twoFaFields: ["phone"]` | SMS OTP |
-| `sms_or_mail` | `authFields` + `twoFaFields: ["email","phone"]` | voter's choice |
+| `auth` | none | none (auth-only) |
+| `mail` | `["email"]` | email OTP |
+| `sms` | `["phone"]` | SMS OTP |
+| `sms_or_mail` | `["email","phone"]` | voter's choice |
 
 - `authFields` options: `name`, `surname`, `memberNumber`, `nationalId`, `birthDate`.
 - `twoFaFields` options: `email`, `phone`.
 
-> [!WARNING] Auth fields must be unique
-> An auth-only credential is derived from its auth field, so a field used to authenticate (e.g.
-> `memberNumber`) must be **unique** across the members you include - duplicates fail the publish
-> [readiness check](/developers/docs/voting-processes#checking-readiness).
+> [!WARNING] The identifying field must be unique
+> Whatever field identifies a voter - an `authFields` value like `memberNumber` on an auth-only census,
+> or the `email`/`phone` used for the code - must be **unique** across the members you include;
+> duplicates fail the publish [readiness check](/developers/docs/voting-processes#checking-readiness).
 
 > [!NOTE] Weighted voting
 > Set `"weighted": true` to make each member's `weight` count as their vote weight - use it for

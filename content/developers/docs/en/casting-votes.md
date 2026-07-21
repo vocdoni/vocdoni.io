@@ -14,8 +14,9 @@ process, then **signs and relays a ballot per question** they are eligible for.
 
 ## The flow
 
-1. **Authenticate once** - the voter proves membership against the process census with their auth
-   fields, plus a one-time code for 2FA censuses. Success yields a token bound to the process.
+1. **Authenticate once** - the voter presents whatever the census requires: identity `authFields`
+   and/or a one-time code sent to their `email`/`phone` (a 2FA census needs no auth fields). Success
+   yields a token bound to the process.
 2. **Blind-sign per question** - for each question, the credential service (CSP) blind-signs the
    voter's ephemeral voting address for **that question's election**. It refuses unless the voter is
    in the question's [eligibility subset](/developers/docs/census#per-question-eligibility). Signatures
@@ -33,8 +34,9 @@ The voter-facing endpoints are **public** - they carry no API key. The voter nee
 Sign the protobuf vote envelope yourself and relay it.
 
 ```bash
-# a) Authenticate (step 0) - send exactly the fields the census authFields require.
-#    Auth-only censuses are verified here and there is no code.
+# a) Authenticate (step 0) - send exactly the fields the census requires (authFields and/or the
+#    email/phone used for the code). Here an auth-only census by memberNumber; a mail census would
+#    send { "email": "voter@example.org" }. Auth-only censuses are verified here and there is no code.
 curl -X POST "$B/processes/$PROCESS/auth/0" \
   -H "Content-Type: application/json" \
   -d '{ "memberNumber": "A-101" }'
