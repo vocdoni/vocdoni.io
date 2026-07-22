@@ -21,7 +21,8 @@ ends (final). Because each question is its own election, results come back **per
 
 Fetch results for the whole process by `processId`. Each entry is one published question, keyed by its
 `questionId` and `upstreamId`, with a `results` matrix (one row per question field, one column per
-value).
+value). Per-question status and dates are not returned here - read those from the
+[process](/developers/docs/voting-processes#reading-a-process) or question read.
 
 - **GET** `/processes/{processId}/results`
 
@@ -34,8 +35,7 @@ curl -s "$B/processes/$PROCESS/results"
   "id": "6a1f...",
   "questions": [{
     "questionId": "b2c3...", "upstreamId": "a1b2...64hex...",
-    "status": "RESULTS", "finalResults": true, "voteCount": 42,
-    "startDate": "2026-07-01T09:00:00Z", "endDate": "2026-07-03T18:00:00Z",
+    "voteCount": 42, "maxVoters": 500, "finalResults": true,
     "results": [ ["25", "17"] ]
   }]
 }
@@ -45,15 +45,20 @@ curl -s "$B/processes/$PROCESS/results"
 | --- | --- | --- |
 | `questionId` | string | The question this tally belongs to. |
 | `upstreamId` | string | The question's on-chain election id. |
-| `status` | string | Election state, for example READY, PAUSED, ENDED or RESULTS. |
 | `voteCount` | integer | Total votes cast on this question so far. |
-| `startDate` | string | When voting opened for this question. |
-| `endDate` | string | When voting closed for this question. |
+| `maxVoters` | integer | Eligible voters for this question - its own `maxCensusSize`, restricted to its eligibility subset. |
 | `results` | string[][] | The raw histogram - one row per field, one tally per value. |
 | `finalResults` | boolean | True once the question has ended and its results are final. |
 
 - `finalResults: false` - the question is still open; the tally is provisional.
 - `finalResults: true` - voting has ended; results are final.
+
+> [!NOTE] Results are also inline on a single question read
+> Once a question reaches `RESULTS`, the same tally (a `results` object) is included **inline** on
+> `GET /processes/{processId}` and the public question read (see
+> [Voting processes](/developers/docs/voting-processes#reading-a-process)). The `GET /processes` **list**
+> endpoint does not resolve it, so an absent `results` in a list response means "not resolved here", not
+> "not final" - poll a single read for finality.
 
 :::code-tabs[read results]
 
@@ -108,9 +113,9 @@ approve several options, so iterate the fields, not one field's values. See
 
 ## Turnout
 
-`voteCount` is how many ballots a question received. To show **turnout** - what share of the eligible
-electorate voted - divide by the eligible-voter count for that question. That count is the question's
-`maxCensusSize` (its [eligibility subset](/developers/docs/census#per-question-eligibility) if set,
-otherwise the whole process census). A bar that fills `votesForOption / eligibleVoters` reads as
-turnout share; one that fills against the leading option always shows the winner at 100%, which hides
-participation.
+`voteCount` is how many ballots a question received; **`maxVoters`** is its eligible-voter count,
+already restricted to the question's
+[eligibility subset](/developers/docs/census#per-question-eligibility) - so **turnout is
+`voteCount / maxVoters`**, straight from the response. A bar that fills `votesForOption / maxVoters`
+reads as turnout share; one that fills against the leading option always shows the winner at 100%,
+which hides participation.
