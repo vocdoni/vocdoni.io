@@ -158,6 +158,11 @@ The per-question read (`/questions/{questionId}`) is **public** - voter UIs use 
 question and its status without authenticating. A question's `id` is the value used as the
 `{questionId}` path parameter, and as `questionId` in the results and status payloads.
 
+A question created with `secretUntilTheEnd` also carries **`encryptionKeys`** (an array of
+`{ index, key }`) - the on-chain keys voters seal their ballots with. The field is **absent until the
+keykeepers publish the keys**, so treat its absence as "not yet published" and poll. See
+[Casting votes](/developers/docs/casting-votes) for the encrypted-vote flow.
+
 ## Checking readiness
 
 Before publishing, dry-run the publish preconditions. It changes nothing and lists what is still

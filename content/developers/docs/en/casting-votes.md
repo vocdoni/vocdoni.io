@@ -70,8 +70,15 @@ Repeat steps **b** and **c** for every question the voter is eligible for; the a
 
 > [!NOTE] What is in the envelope
 > The vote package inside the envelope is `{"votes":[<choice>]}` - for example `{"votes":[1]}`. Building
-> and signing the envelope is exactly what the SDK does for you above. See
+> and signing the envelope is what a client library does for you. See
 > [Voting types](/developers/docs/voting-types) for how the choices array is shaped per ballot type.
+
+> [!NOTE] Encrypted (secret-until-the-end) questions
+> For a question created with `secretUntilTheEnd`, seal the vote package with the question's
+> **`encryptionKeys`** before building the envelope. Read them from the
+> [question read](/developers/docs/voting-processes#reading-a-process): the field is **absent until the
+> keykeepers publish the keys**, so poll the question until `encryptionKeys` is present, then encrypt
+> with them.
 
 ## Voter status
 

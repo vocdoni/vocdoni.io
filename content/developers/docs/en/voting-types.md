@@ -78,7 +78,9 @@ Note the field names differ from `typeSetup`: the raw override uses `maxCount`/`
 > expressible.
 
 > [!NOTE] Secret results
-> Set `"secretUntilTheEnd": true` on a question to keep its tally encrypted until it ends.
+> Set `"secretUntilTheEnd": true` on a question to keep its tally encrypted until it ends. Voters seal
+> their ballots with the question's on-chain encryption keys - see
+> [Casting votes](/developers/docs/casting-votes).
 
 ## Reading the results
 
