@@ -1,13 +1,17 @@
 ---
 title: Casting votes
-lead: How a voter actually votes - authenticate once against the process census, get the credential service to blind-sign a ballot per question, then relay the signed envelope. The SaaS forwards the ballot without ever decoding it.
+lead: How a voter actually votes - authenticate once against the process census, get the credential service to blind-sign a ballot per question, then relay the signed envelope. The SDK's voting package does the signing for you; the SaaS forwards the ballot without ever decoding it.
 group: core_concepts
 order: 45
+skill: integrator-sdk
 ---
 
 Casting a vote is the only step with client-side cryptography. Everything else in the API is a plain
-REST call; here the voter signs their own ballot so the SaaS never sees how they voted. A client
-library can do the signing for you (see the [SDK]({{SDK_URL}})); the raw REST flow is documented below.
+REST call; here the voter signs their own ballot so the SaaS never sees how they voted. The SDK's
+voting package, `@vocdoni/api-voting`, does that cryptography for you: it generates the ephemeral
+key, builds and signs the protobuf vote envelope, and relays it. Start with it below; if you would
+rather implement the signing yourself, the raw flow is at the
+[end of this page](#doing-the-signing-yourself).
 
 Because each **question** is its own on-chain election, a voter **authenticates once** against the
 process, then **signs and relays a ballot per question** they are eligible for.
@@ -26,12 +30,151 @@ process, then **signs and relays a ballot per question** they are eligible for.
 4. **Relay** - the signed envelope is relayed (asynchronously) to the protocol, which returns a vote
    receipt (nullifier).
 
-The voter-facing endpoints are **public** - they carry no API key. The voter needs the `apiUrl`, the
-`processId`, and each question's `upstreamId` (from the [process read](/developers/docs/voting-processes#reading-a-process)).
+Steps 1 and 2 are plain REST calls, wrapped by the API client as `client.processes`; steps 3 and 4
+are the cryptography `@vocdoni/api-voting` implements.
 
-## Cast a vote
+The voter-facing endpoints are **public** - they carry no API key. The voter only needs the
+`apiUrl`, the `processId` and the Vochain `chainId`. The
+[process read](/developers/docs/voting-processes#reading-a-process) that returns them is
+authenticated, so your backend does it and hands both values to the voter app; each question's
+`upstreamId` is then reported publicly by the check call below.
 
-Sign the protobuf vote envelope yourself and relay it.
+## Cast a vote with the SDK
+
+Install the voting package alongside the API client - the client covers the voter-facing REST
+calls, the voting package the cryptography:
+
+:::code-tabs
+
+```npm
+npm install @vocdoni/api-client @vocdoni/api-voting
+```
+```pnpm
+pnpm add @vocdoni/api-client @vocdoni/api-voting
+```
+```yarn
+yarn add @vocdoni/api-client @vocdoni/api-voting
+```
+:::
+
+`client.processes` covers the voter-facing calls (authenticate, check eligibility, get the CSP
+signature) and `VotingClient` does the rest - one call builds the envelope, signs it with the
+ephemeral key and relays it:
+
+```ts
+import { VocdoniApiClient } from '@vocdoni/api-client'
+import { EphemeralSigner, VotingClient } from '@vocdoni/api-voting'
+
+const client = new VocdoniApiClient({ apiUrl: '{{API_BASE_URL}}' })
+const voting = new VotingClient({ client })
+
+// Handed over by your backend's (authenticated) process read.
+const processId = '<processId>'
+const chainId = '<chainId>'
+
+// 1. Authenticate once - send exactly the fields the census requires. An
+//    auth-only census (like this one) returns a verified token right away; a
+//    2FA census confirms a one-time code first (see the note below).
+const { authToken } = await client.processes.authStep0(processId, { memberNumber: 'A-101' })
+
+// 2. Check where the voter stands - census membership plus, per question,
+//    eligibility and that question's on-chain election id (upstreamId).
+const { belongsToProcess, questions } = await client.processes.check(processId, { authToken })
+const question = questions.find((q) => q.canVote && !q.hasVoted)
+if (!belongsToProcess || !question?.upstreamId) throw new Error('nothing to vote on')
+
+// 3. Fresh ephemeral key per ballot; the CSP signs its address for this
+//    question's election. Refused unless the voter is in the question's
+//    eligibility subset.
+const signer = new EphemeralSigner()
+const { signature, weight } = await client.processes.sign(processId, {
+  authToken,
+  electionId: question.upstreamId,
+  payload: signer.address,
+})
+
+// 4. Build + sign the vote envelope locally, relay it, and poll for the receipt.
+const jobId = await voting.vote({
+  processId: question.upstreamId, // the vote goes to the question's election
+  chainId,
+  choices: [1], // the ballot - see Voting types for its shape per ballot type
+  signer,
+  cspSignature: signature,
+  cspWeight: weight,
+})
+const job = await client.jobs.waitFor(jobId)
+console.log('voteID:', job.result?.voteID)
+```
+
+Repeat steps 3 and 4 for every question the voter is eligible for - the auth token and the check
+from steps 1 and 2 are reused across all of them, but each ballot needs a **fresh
+`EphemeralSigner`**. The returned `voteID` is the vote **nullifier** - the voter's receipt, which
+they can use to verify their vote was counted. Once a question ends, read its tally from
+[Results](/developers/docs/results).
+
+> [!NOTE] 2FA censuses
+> When the census verifies voters by `email`/`phone`, step 0 sends a one-time code and returns a
+> pending token. Confirm it before signing:
+> `client.processes.authStep1(processId, { authToken, authData: ['123456'] })`. Need a new code?
+> `client.processes.resend(processId, { authToken })`.
+
+### Encrypted questions
+
+A question created with `secretUntilTheEnd` keeps its ballots sealed until it ends. Fetch its
+`encryptionKeys` from the public
+[question read](/developers/docs/voting-processes#reading-a-process) and pass them to `vote()` -
+the ballot is sealed automatically:
+
+```ts
+const { encryptionKeys } = await client.processes.getQuestion(processId, question.questionId)
+
+const jobId = await voting.vote({
+  // ...same options as above, plus:
+  encryptionKeys,
+})
+```
+
+The keykeepers publish the keys asynchronously, so `encryptionKeys` can be absent for a few seconds
+right after publish - poll the question read until it is present before building the ballot.
+
+> [!TIP] Building with React
+> `@vocdoni/react-providers` wraps this whole flow in context providers and hooks that authenticate,
+> sign and relay for you. See the [SDK repository]({{SDK_URL}}) and the
+> [SDK quickstart](/developers/docs/sdk-quickstart).
+
+## Voter status
+
+Public helpers let a UI show a voter where they stand without casting anything. Each identifies the
+voter by their verified `authToken`:
+
+- **POST** `/processes/{processId}/check` (`client.processes.check`) - voter status:
+  `belongsToProcess`, `weight`, and per question `{ questionId, upstreamId, canVote, hasVoted }`.
+  Ineligibility is `belongsToProcess: false` with a `200`, not an error.
+- **POST** `/processes/{processId}/weight` (`client.processes.weight`) - the voter's vote weight.
+- **POST** `/processes/{processId}/sign-info` (`client.processes.signInfo`) - the voter's receipts:
+  per **voted** question its `{ questionId, upstreamId, address, nullifier, at }`.
+
+```bash
+curl -X POST "$B/processes/$PROCESS/check" -d '{ "authToken": "<authToken>" }'
+# -> { "belongsToProcess": true, "weight": "1",
+#      "questions": [ { "questionId": "...", "upstreamId": "...", "canVote": true, "hasVoted": false } ] }
+```
+
+Looking up whether specific members voted is an admin task, not a voter one:
+
+- **GET** `/processes/{processId}/participants` (`client.elections.participants()`) - requires a
+  manager/admin of the owning organization. Matches organization members by one field (`email`,
+  `phone`, `memberNumber` or `nationalId`) and reports each match's per-question voted status.
+- **GET** `/processes/{processId}/participants/{participantId}` - public, but a placeholder for
+  now: it validates the ids and always returns `null`.
+
+## Doing the signing yourself
+
+Not using the SDK - a non-JS client, or you want to audit what goes on the wire? Everything above
+reduces to the REST calls below plus building and signing the envelope: generate an ephemeral
+secp256k1 keypair, build the protobuf `VoteEnvelope` carrying the CSP (CA) proof, and sign the
+transaction with an EIP-191 `personal_sign` signature. The
+[voting package source]({{SDK_URL}}) is the reference implementation.
 
 ```bash
 # a) Authenticate (step 0) - send exactly the fields the census requires (authFields and/or the
@@ -70,7 +213,7 @@ Repeat steps **b** and **c** for every question the voter is eligible for; the a
 
 > [!NOTE] What is in the envelope
 > The vote package inside the envelope is `{"votes":[<choice>]}` - for example `{"votes":[1]}`. Building
-> and signing the envelope is what a client library does for you. See
+> and signing the envelope is exactly what the SDK does for you above. See
 > [Voting types](/developers/docs/voting-types) for how the choices array is shaped per ballot type.
 
 > [!NOTE] Encrypted (secret-until-the-end) questions
@@ -79,29 +222,3 @@ Repeat steps **b** and **c** for every question the voter is eligible for; the a
 > [question read](/developers/docs/voting-processes#reading-a-process): the field is **absent until the
 > keykeepers publish the keys**, so poll the question until `encryptionKeys` is present, then encrypt
 > with them.
-
-## Voter status
-
-Public helpers let a UI show a voter where they stand without casting anything. Each identifies the
-voter by their verified `authToken`:
-
-- **POST** `/processes/{processId}/check` - voter status: `belongsToProcess`, `weight`, and per question
-  `{ questionId, upstreamId, canVote, hasVoted }`. Ineligibility is `belongsToProcess: false` with a
-  `200`, not an error.
-- **POST** `/processes/{processId}/weight` - the voter's vote weight.
-- **POST** `/processes/{processId}/sign-info` - the voter's receipts: per **voted** question its
-  `{ questionId, upstreamId, address, nullifier, at }`.
-
-```bash
-curl -X POST "$B/processes/$PROCESS/check" -d '{ "authToken": "<authToken>" }'
-# -> { "belongsToProcess": true, "weight": "1",
-#      "questions": [ { "questionId": "...", "upstreamId": "...", "canVote": true, "hasVoted": false } ] }
-```
-
-Participant info (by member id, not auth token) is also public:
-
-- **GET** `/processes/{processId}/participants` - list the process's voted participants.
-- **GET** `/processes/{processId}/participants/{participantId}` - one participant.
-
-The returned `voteID` is the vote nullifier - the voter's receipt, which they can use to verify their
-vote was counted. Once a question ends, read its tally from [Results](/developers/docs/results).
