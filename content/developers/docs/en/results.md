@@ -1,75 +1,81 @@
 ---
 title: Results
-lead: Read the tally for a voting process at any time. Results are computed from the protocol and can be independently verified, so you can show live counts and a trustworthy final outcome.
+lead: Read the tally for each question in a process at any time. Results are computed from the protocol and can be independently verified, so you can show live counts and a trustworthy final outcome.
 group: core_concepts
 order: 50
 ---
 
 > [!NOTE] Coming soon
-> Today the `results` matrix is a raw histogram you interpret according to the voting type (see [Voting types](/developers/docs/voting-types) for how to read it per type, or the [Interpretation](#interpretation) section below). A future version of the API will return results already aggregated per voting type, so you will not have to map the matrix yourself. The raw matrix will stay available for clients that need it.
+> Today each question's `results` matrix is a raw histogram you interpret according to its voting type
+> (see [Voting types](/developers/docs/voting-types), or the [Interpretation](#interpretation) section
+> below). A future version of the API will return results already aggregated per voting type, so you
+> will not have to map the matrix yourself. The raw matrix will stay available for clients that need it.
 >
-> Until then, the [vocdoni-ballot-protocol agent skill](/developers/docs/sdk-quickstart#ai-agent-skills) walks through exactly how the matrix encodes and aggregates per type.
+> Until then, the [vocdoni-ballot-protocol agent skill](/developers/docs/sdk-quickstart#ai-agent-skills)
+> walks through exactly how the matrix encodes and aggregates per type.
 
 Results are **public** (no auth) and available both while a process runs (a live tally) and after it
-ends (final). You address them by **ProcessID**.
+ends (final). Because each question is its own election, results come back **per question**.
 
 ## Reading results
 
-Fetch results by process id. The `results` field is an array per question, with one tally per choice
-in the order the choices were defined.
+Fetch results for the whole process by `processId`. Each entry is one published question, keyed by its
+`questionId` and `upstreamId`, with a `results` matrix (one row per question field, one column per
+value).
 
-- **GET** `/process/{processId}/results`
+- **GET** `/processes/{processId}/results`
 
 ```bash
-curl -s "$B/process/$PROCESS/results"
+curl -s "$B/processes/$PROCESS/results"
 ```
 
 ```jsonc
-{ "status": "RESULTS",
-  "finalResults": true,
-  "voteCount": 42,
-  "startDate": "2026-07-01T09:00:00Z",
-  "endDate":   "2026-07-03T18:00:00Z",
-  "results": [ ["25", "17"] ] }
+{
+  "id": "6a1f...",
+  "questions": [{
+    "questionId": "b2c3...", "upstreamId": "a1b2...64hex...",
+    "status": "RESULTS", "finalResults": true, "voteCount": 42,
+    "startDate": "2026-07-01T09:00:00Z", "endDate": "2026-07-03T18:00:00Z",
+    "results": [ ["25", "17"] ]
+  }]
+}
 ```
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `status` | string | Process state, for example READY, PAUSED or ENDED. |
-| `voteCount` | integer | Total number of votes cast so far. |
-| `results` | string[][] | Tallies per question, one entry per choice. |
-| `startDate` | string | When voting opened. |
-| `endDate` | string | When voting closed. |
-| `finalResults` | boolean | True once the process has ended and results are final. |
+| `questionId` | string | The question this tally belongs to. |
+| `upstreamId` | string | The question's on-chain election id. |
+| `status` | string | Election state, for example READY, PAUSED, ENDED or RESULTS. |
+| `voteCount` | integer | Total votes cast on this question so far. |
+| `startDate` | string | When voting opened for this question. |
+| `endDate` | string | When voting closed for this question. |
+| `results` | string[][] | The raw histogram - one row per field, one tally per value. |
+| `finalResults` | boolean | True once the question has ended and its results are final. |
 
-- `finalResults: false` - the process is still open; the tally is provisional.
+- `finalResults: false` - the question is still open; the tally is provisional.
 - `finalResults: true` - voting has ended; results are final.
 
 :::code-tabs[read results]
 
-```ts
-const { voteCount: votes } = await client.elections.getResults(process)
-```
 ```csharp
-var r = await Get($"/process/{process}/results");
-int votes = r.GetProperty("voteCount").GetInt32();
+var r = await Get($"/processes/{process}/results");
+int votes = r.GetProperty("questions")[0].GetProperty("voteCount").GetInt32();
 ```
 ```python
-r = get(f"/process/{process}/results").json()
-votes = r["voteCount"]
+r = get(f"/processes/{process}/results").json()
+votes = r["questions"][0]["voteCount"]
 ```
 :::
 
 > [!NOTE] Live versus final results
-> While a process is running, results reflect votes counted so far unless the election was configured
-> to keep results secret until the end. Once the process ends, `finalResults` becomes true and the
-> tally no longer changes.
+> While a question is running, results reflect votes counted so far unless it was set
+> `secretUntilTheEnd`. Once it ends, `finalResults` becomes true and the tally no longer changes.
 
 ## The results matrix
 
-`results` is a matrix of strings (tallies can be large or weighted): `results[field][value]` = the
-number of voters who put `value` in that field. For a single yes/no question with choices
-`Yes (value 0)` and `No (value 1)`:
+Each question's `results` is a matrix of strings (tallies can be large or weighted):
+`results[field][value]` = the number of voters who put `value` in that field. For a single yes/no
+question with choices `Yes (value 0)` and `No (value 1)`:
 
 ```
 results[0] = ["25", "17"]
@@ -79,16 +85,16 @@ results[0] = ["25", "17"]
 ## Interpretation
 
 The matrix is a raw histogram; clients turn it into per-option numbers in one of two ways, picked by
-the voting type:
+the question's voting type:
 
-- **Discrete** (count per choice) - the common case for single choice and multi-question. Each inner
-  array is read directly as the per-choice counts.
+- **Discrete** (count per choice) - the common case for single choice. Each inner array is read
+  directly as the per-choice counts.
 - **Index-weighted** - for each field, multiply each count by its column index and sum. Used by
-  ranked, quadratic, budget, and rating ballots, where the *value* carries meaning.
+  ranked and quadratic ballots, where the *value* carries meaning.
 
 **Approval / multichoice reads differently again.** There the matrix has **one field per option**,
-each a `[#voted-0, #voted-1]` histogram, so an option's count is the **second** number, `results[i][1]`
-- not `results[0]`:
+each a `[#voted-0, #voted-1]` histogram, so an option's count is the **second** number,
+`results[i][1]` - not `results[0]`:
 
 ```
 results = [ ["0","3"], ["1","2"] ]    # options Yes / No, 3 ballots
@@ -100,11 +106,11 @@ Reading `results[0]` here (`["0","3"]`) as "Yes 0, No 3" is the classic mistake 
 approve several options, so iterate the fields, not one field's values. See
 [Voting types](/developers/docs/voting-types) for which reading each ballot uses.
 
-## Turnout and the census size
+## Turnout
 
-`voteCount` is how many ballots were cast. To show **turnout** - what share of the *electorate* voted
-- divide by the eligible-voter count, which is the **published census size**. The results payload does
-not carry it; read it from the process detail (`census.size` on `GET /process/{id}`) or remember the
-`size` returned when you [published the census](/developers/docs/census#publishing-a-census). A bar that fills
-`votesForOption / censusSize` reads as turnout share; one that fills against the leading option always
-shows the winner at 100%, which hides participation.
+`voteCount` is how many ballots a question received. To show **turnout** - what share of the eligible
+electorate voted - divide by the eligible-voter count for that question. That count is the question's
+`maxCensusSize` (its [eligibility subset](/developers/docs/census#per-question-eligibility) if set,
+otherwise the whole process census). A bar that fills `votesForOption / eligibleVoters` reads as
+turnout share; one that fills against the leading option always shows the winner at 100%, which hides
+participation.

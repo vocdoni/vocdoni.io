@@ -77,8 +77,8 @@ curl "${auth[@]}" "$B/integrator/organizations?page=1&limit=10"
 
 ## Deleting a managed organization
 
-Deletion **cascades**: it removes the managed org and all its off-chain data (members, censuses,
-processes, bundles, CSP tokens, jobs, invites) and rolls back your usage counters, freeing the slot.
+Deletion **cascades**: it removes the managed org and all its off-chain data (members, groups,
+processes, CSP tokens, jobs, invites) and rolls back your usage counters, freeing the slot.
 
 - **DELETE** `/integrator/organizations/{orgAddress}`
 
@@ -90,11 +90,11 @@ curl "${auth[@]}" -X DELETE "$B/integrator/organizations/$ORG"
 { "address": "0x4a3b..." }   // 200 OK
 ```
 
-> [!WARNING] 409 if elections are still active
-> Deletion is blocked while any of the org's published elections is `READY` or `PAUSED` on-chain - end
-> them first (`PUT /process/{id}/status` -> `ended`). A `404` means the org is already gone (safe to
-> treat as success). On-chain accounts and published elections are immutable on the Vochain and are
-> **not** removed - only the off-chain data is.
+> [!WARNING] 409 if questions are still active
+> Deletion is blocked while any of the org's published questions is `READY` or `PAUSED` on-chain - end
+> them first (`PUT /processes/{id}/questions/status` -> `ENDED`). A `404` means the org is already gone
+> (safe to treat as success). On-chain accounts and published elections are immutable on the Vochain and
+> are **not** removed - only the off-chain data is.
 
 ## Quota and usage
 

@@ -39,10 +39,10 @@ with exactly what the integration needs.
 | `managed:read` | List managed organizations (`GET /integrator/organizations`). |
 | `quota:read` | Read integrator quota and usage (`GET /integrator`). |
 | `members:write` | Manage members and groups inside a managed org (`/organizations/{addr}/members` and `/groups`). |
-| `voting:write` | Run the election lifecycle: census, process, bundle and vote relay (`/census`, `/process`, `/vote`). |
+| `voting:write` | Author and publish processes, read them, and relay votes (`/processes`, `/vote`). |
 
 The election lifecycle inside a managed org is split across `members:write` (members and groups) and
-`voting:write` (census, process, bundle, vote relay), so an integration that runs a vote end to end
+`voting:write` (processes and vote relay), so an integration that runs a vote end to end
 needs **both**, in addition to the `managed:*` scopes it uses to provision the org. An admin user
 logging in with email/password carries these implicitly; an API key must be granted each one
 explicitly.

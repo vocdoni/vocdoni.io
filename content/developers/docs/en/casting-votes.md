@@ -1,97 +1,61 @@
 ---
 title: Casting votes
-lead: How a voter actually votes - authenticate against the census, get the credential service to blind-sign an ephemeral key, build and sign the vote envelope, and relay it. The SaaS forwards the ballot without ever decoding it.
+lead: How a voter actually votes - authenticate once against the process census, get the credential service to blind-sign a ballot per question, then relay the signed envelope. The SaaS forwards the ballot without ever decoding it.
 group: core_concepts
 order: 45
 ---
 
-Casting a vote is the only step with client-side cryptography. Everything else in the API is a plain REST call; here the voter signs their own ballot so the SaaS never sees how they voted. The [SDK]({{SDK_URL}}) does the signing for you - the raw REST flow is shown below it for reference.
+Casting a vote is the only step with client-side cryptography. Everything else in the API is a plain
+REST call; here the voter signs their own ballot so the SaaS never sees how they voted. A client
+library can do the signing for you (see the [SDK]({{SDK_URL}})); the raw REST flow is documented below.
+
+Because each **question** is its own on-chain election, a voter **authenticates once** against the
+process, then **signs and relays a ballot per question** they are eligible for.
 
 ## The flow
 
-1. **Bundle** - a process bundle ties a published census to one or more processes; voters authenticate against the bundle.
-2. **Authenticate** - the voter proves membership with their census auth fields, plus a second factor for 2FA censuses.
-3. **Blind-sign** - the credential service (CSP) blind-signs the voter's ephemeral voting address, so eligibility is proven without linking the voter to their ballot. Each token can sign each process once - no double-voting.
-4. **Build and sign** - the voter builds the protobuf vote envelope and signs it locally with the ephemeral key.
-5. **Relay** - the signed envelope is relayed (asynchronously) to the protocol, which returns a vote receipt.
+1. **Authenticate once** - the voter presents whatever the census requires: identity `authFields`
+   and/or a one-time code sent to their `email`/`phone` (a 2FA census needs no auth fields). Success
+   yields a token bound to the process.
+2. **Blind-sign per question** - for each question, the credential service (CSP) blind-signs the
+   voter's ephemeral voting address for **that question's election**. It refuses unless the voter is
+   in the question's [eligibility subset](/developers/docs/census#per-question-eligibility). Signatures
+   are salted per election, so one cannot be replayed on another question.
+3. **Build and sign** - the voter builds the protobuf vote envelope and signs it locally with the
+   ephemeral key.
+4. **Relay** - the signed envelope is relayed (asynchronously) to the protocol, which returns a vote
+   receipt (nullifier).
 
-## Create a bundle
+The voter-facing endpoints are **public** - they carry no API key. The voter needs the `apiUrl`, the
+`processId`, and each question's `upstreamId` (from the [process read](/developers/docs/voting-processes#reading-a-process)).
 
-Voters authenticate against a bundle, not a bare census. Create one from a published census and the processes it should cover. See [Voting processes](/developers/docs/voting-processes) for bundling several elections together.
+## Cast a vote
 
-```bash
-BUNDLE_URI=$(curl -s "${auth[@]}" -X POST "$B/process/bundle" \
-  -d "{\"censusId\":\"$CENSUS\",\"processes\":[\"$PROCESS\"]}" | jq -r .uri)
-BUNDLE="${BUNDLE_URI##*/}"   # bundleId is the last path segment
-```
-
-This is the only authenticated call in the flow; the voter-facing steps below are public.
-
-## Cast a vote with the SDK
-
-Recommended - in practice you don't call the voter-facing endpoints by hand. The SDK resolves the
-on-chain id, generates the ephemeral identity, encodes the ballot, signs, relays, and polls. You need
-the **apiUrl**, the **bundleId**, and the **ProcessID**.
-
-```ts
-import { VocdoniApiClient } from '@vocdoni/api-client'
-import { VotingClient, EphemeralSigner } from '@vocdoni/api-voting'
-
-const client = new VocdoniApiClient({ apiUrl: '{{API_BASE_URL}}' })
-const voting = new VotingClient({ client })
-
-// 1. authenticate against the bundle (auth/sign flow lives in api-client)
-const bundle = await client.bundle.get(bundleId)
-let { authToken } = await client.bundle.authStep0(bundleId, { memberNumber })
-if ((bundle.census?.twoFaFields?.length ?? 0) > 0)
-  ({ authToken } = await client.bundle.authStep1(bundleId, { authToken, authData: [otp] }))
-
-// 2. the CSP signs the voter's ephemeral address for the election
-const election = await client.elections.get(processId)   // processId = the 24-hex ProcessID
-const signer = new EphemeralSigner()
-const { signature: cspSignature } = await client.bundle.sign(
-  bundleId, { authToken, electionId: election.address, payload: signer.address })
-
-// 3. build, sign and relay in one call -> async job id
-const jobId = await voting.vote({
-  processId: election.address,
-  chainId: election.chainId,   // Vochain chain id the vote is destined for
-  choices,                     // ballot array - see Voting types
-  signer,                      // ephemeral signer whose address the CSP signed
-  cspSignature,                // signature from the bundle sign endpoint
-})
-const nullifier = (await client.jobs.waitFor(jobId)).result?.voteID
-```
-
-The `@vocdoni/api-voting` package also exports `buildVotePackage`, `buildVoteTransaction` and
-`BallotEncryptor` for lower-level control - including encrypting the ballot for secret-until-the-end
-elections. See the [SDK]({{SDK_URL}}) for those.
-
-## Cast a vote with raw REST
-
-Use this if you sign the protobuf vote envelope yourself. The auth, sign and relay endpoints are
-public - they carry no API key.
+Sign the protobuf vote envelope yourself and relay it.
 
 ```bash
-# a) Authenticate (step 0) - send exactly the fields the census authFields require.
-#    Auth-only censuses are verified here and there is no code.
-curl -X POST "$B/process/bundle/$BUNDLE/auth/0" \
+# a) Authenticate (step 0) - send exactly the fields the census requires (authFields and/or the
+#    email/phone used for the code). Here an auth-only census by memberNumber; a mail census would
+#    send { "email": "voter@example.org" }. Auth-only censuses are verified here and there is no code.
+curl -X POST "$B/processes/$PROCESS/auth/0" \
   -H "Content-Type: application/json" \
   -d '{ "memberNumber": "A-101" }'
 # -> { "authToken": "<authToken>" }
 
-# 2FA censuses only: submit the emailed/SMS one-time code (authData[0] is the code)
-curl -X POST "$B/process/bundle/$BUNDLE/auth/1" \
+# 2FA censuses only: submit the emailed/SMS one-time code (authData[0] is the code).
+# Need a new code? POST /processes/$PROCESS/auth/resend with the authToken.
+curl -X POST "$B/processes/$PROCESS/auth/1" \
   -H "Content-Type: application/json" \
   -d '{ "authToken": "<authToken>", "authData": ["123456"] }'
 
-# b) CSP blind-signs the voter's ephemeral address for the election. Each token signs each process once.
-curl -X POST "$B/process/bundle/$BUNDLE/sign" \
+# b) CSP blind-signs the ephemeral address for one question's election (electionId = its upstreamId).
+#    Refused unless the voter is in that question's eligibility subset.
+curl -X POST "$B/processes/$PROCESS/sign" \
   -H "Content-Type: application/json" \
-  -d '{ "authToken": "<authToken>", "electionId": "'"$PROCESS"'", "payload": "<hex ephemeral address>" }'
+  -d '{ "authToken": "<authToken>", "electionId": "<upstreamId>", "payload": "<hex ephemeral address>" }'
 # -> { "signature": "<csp-signature>", "weight": "1" }
 
-# c) Build + sign the protobuf Vote envelope locally, hex-encode the SignedTx, then relay it (async)
+# c) Build + sign the protobuf Vote envelope locally, hex-encode the SignedTx, then relay it (async).
 curl -X POST "$B/vote" \
   -H "Content-Type: application/json" \
   -d '{ "txPayload": "<hex of the signed Vote envelope>" }'
@@ -101,7 +65,36 @@ curl -s "$B/jobs/<jobId>"
 # -> { "status": "completed", "result": { "voteID": "<nullifier>" } }
 ```
 
-> [!NOTE] What is in the envelope
-> The vote package inside the envelope is `{"votes":[<choice>]}` - for example `{"votes":[1]}`. Building and signing the envelope is exactly what the SDK's `vote()` does for you in the path above. See [Voting types](/developers/docs/voting-types) for how the choices array is shaped per ballot type.
+Repeat steps **b** and **c** for every question the voter is eligible for; the auth token from step
+**a** is reused across all of them.
 
-The returned `voteID` is the vote nullifier - the voter's receipt, which they can use to verify their vote was counted. Once the process ends, read the tally from [Results](/developers/docs/results).
+> [!NOTE] What is in the envelope
+> The vote package inside the envelope is `{"votes":[<choice>]}` - for example `{"votes":[1]}`. Building
+> and signing the envelope is exactly what the SDK does for you above. See
+> [Voting types](/developers/docs/voting-types) for how the choices array is shaped per ballot type.
+
+## Voter status
+
+Public helpers let a UI show a voter where they stand without casting anything. Each identifies the
+voter by their verified `authToken`:
+
+- **POST** `/processes/{processId}/check` - voter status: `belongsToProcess`, `weight`, and per question
+  `{ questionId, upstreamId, canVote, hasVoted }`. Ineligibility is `belongsToProcess: false` with a
+  `200`, not an error.
+- **POST** `/processes/{processId}/weight` - the voter's vote weight.
+- **POST** `/processes/{processId}/sign-info` - the voter's receipts: per **voted** question its
+  `{ questionId, upstreamId, address, nullifier, at }`.
+
+```bash
+curl -X POST "$B/processes/$PROCESS/check" -d '{ "authToken": "<authToken>" }'
+# -> { "belongsToProcess": true, "weight": "1",
+#      "questions": [ { "questionId": "...", "upstreamId": "...", "canVote": true, "hasVoted": false } ] }
+```
+
+Participant info (by member id, not auth token) is also public:
+
+- **GET** `/processes/{processId}/participants` - list the process's voted participants.
+- **GET** `/processes/{processId}/participants/{participantId}` - one participant.
+
+The returned `voteID` is the vote nullifier - the voter's receipt, which they can use to verify their
+vote was counted. Once a question ends, read its tally from [Results](/developers/docs/results).

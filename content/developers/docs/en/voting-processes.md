@@ -1,185 +1,247 @@
 ---
 title: Voting processes
-lead: A process is an election - a set of questions run against a published census, with rules for how votes are cast and when voting opens and closes.
+lead: A process is one authoring call that bundles shared settings, an inline census, and one or more questions - each question becomes its own on-chain election. Create it as a draft, publish it in one batch, then read results.
 group: core_concepts
 order: 40
 ---
 
-A **process** is an election: one or more questions run against a published [census](/developers/docs/census),
-governed by rules about how votes are cast and when voting opens and closes. You create it off-chain
-(fully editable at first), **publish** it on-chain, voters [cast ballots](/developers/docs/casting-votes),
-and you read [results](/developers/docs/results).
+A **process** groups everything an election needs into a single object: shared settings (title,
+dates, header), an inline [census](/developers/docs/census), and **one or more questions**. Each
+question becomes its **own on-chain election**, so a process with three questions publishes three
+elections in one batch - no separate census setup, no per-question wiring.
 
-One **ProcessID** identifies the election throughout. `POST /process` returns it as a bare JSON
-string, and you reuse the same id for publish, status, results, metadata, and bundling - before and
-after publishing.
+You create a process as a **draft** (`published: false`), edit it freely, then **publish** it. One
+**`processId`** identifies it for its whole life; each published question exposes its on-chain election
+id as **`upstreamId`** (voters need it to sign; you never address the process by it).
 
 ## Creating a process
 
-Bind the process to a published census and describe it with election parameters. Titles and
-descriptions are [multilanguage strings](/developers/docs/api-conventions#multilanguage-strings) -
-objects keyed by language, each with a `default`.
+`POST /processes` creates the draft and its inline census, and returns the `processId`. Titles and
+descriptions are [multilanguage strings](/developers/docs/api-conventions#multilanguage-strings).
 
-- **POST** `/process`
-
-```bash
-PROCESS=$(curl -s "${auth[@]}" -X POST "$B/process" -d "{
-  \"orgAddress\":\"$ORG\",\"censusId\":\"$CENSUS\",
-  \"metadata\":{\"title\":\"Board election 2026\"},
-  \"electionParams\":{
-    \"title\":{\"default\":\"Board election 2026\"},
-    \"description\":{\"default\":\"Elect the new board\"},
-    \"questions\":[{\"title\":{\"default\":\"Who should chair the board?\"},
-      \"choices\":[{\"title\":{\"default\":\"Ada Lovelace\"},\"value\":0},
-                   {\"title\":{\"default\":\"Alan Turing\"},\"value\":1}]}],
-    \"voteType\":{\"maxCount\":1,\"maxValue\":1},
-    \"electionType\":{\"autostart\":true,\"interruptible\":true},
-    \"startDate\":\"2026-07-01T09:00:00Z\",\"endDate\":\"2026-07-03T18:00:00Z\",
-    \"maxCensusSize\":1000
-  }}" | jq -r .)   # bare JSON string -> the ProcessID
-```
-
-### Election parameters
+- **POST** `/processes`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `title` | multilang | Election title, keyed by language with a `default`. |
-| `description` | multilang | Longer description of the election. |
-| `startDate` | string (ISO 8601) | When voting opens. |
-| `endDate` | string (ISO 8601) | When voting closes. |
-| `electionType` | object | Behavioral flags such as anonymous and autostart - see below. |
-| `voteType` | object | Ballot shape - see [Voting types](/developers/docs/voting-types). |
-| `questions` | array | One or more questions, each with a `title` and `choices` (each choice a `title` plus a numeric `value`). |
-| `maxCensusSize` | integer | Upper bound on eligible voters for the process. |
-| `streamUri` | string | Optional live stream URL shown with the election. |
+| `orgAddress` (required) | string | The organization the process belongs to (`0x…`). |
+| `census` (required) | object | Inline census - who can vote and how they authenticate. See [Census](/developers/docs/census). |
+| `title` (required) | multilang | Process title, keyed by language with a `default`. |
+| `description` | multilang | Longer description. |
+| `startDate` (required) | string (ISO 8601) | When voting opens. |
+| `endDate` (required) | string (ISO 8601) | When voting closes. |
+| `header` | string | Optional banner image URL. |
+| `streamUri` | string | Optional live-stream URL. |
+| `questions` (required) | array | 1..N questions (see below). Each becomes one on-chain election. |
 
-### Election type flags
+Each **question** shapes one ballot:
 
-- `autostart` - open voting automatically at `startDate`.
-- `interruptible` - allow pausing or ending the process early.
-- `anonymous` - hide *who* voted using zero-knowledge proofs.
-- `dynamicCensus` - allow the census to change after the process starts.
-- `secretUntilTheEnd` - keep results hidden until voting closes (encrypted ballots).
+| Field | Type | Description |
+| --- | --- | --- |
+| `title` (required) | multilang | Question title. |
+| `description` | multilang | Question description. |
+| `choices` (required) | array | Options, each a `title` plus a numeric `value`. |
+| `type` | string | `singlechoice` or `multichoice`. See [Voting types](/developers/docs/voting-types). |
+| `typeSetup` | object | `minChoices`, `maxChoices`, `uniqueChoices`. |
+| `ballotProtocol` | object | Optional raw ballot override (approval, ranked, quadratic). Takes priority over `type`/`typeSetup`. |
+| `census` | object | Optional eligibility subset (`groupId`/`memberIds`) within the process census. Omit to include all census members. |
+| `secretUntilTheEnd` | boolean | Keep this question's tally encrypted until it ends. |
 
-### Vote type
+```bash
+# draft created, published:false
+PROCESS=$(curl -s "${auth[@]}" -X POST "$B/processes" -d @- <<JSON | jq -r .processId
+{
+  "orgAddress": "$ORG",
+  "census": { "authFields": ["memberNumber"] },
+  "title": { "default": "Board election 2026" },
+  "description": { "default": "Elect the new board" },
+  "startDate": "2026-07-01T09:00:00Z",
+  "endDate": "2026-07-03T18:00:00Z",
+  "questions": [
+    {
+      "title": { "default": "Who should chair the board?" },
+      "choices": [
+        { "title": { "default": "Ada Lovelace" }, "value": 0 },
+        { "title": { "default": "Alan Turing" }, "value": 1 }
+      ],
+      "type": "singlechoice"
+    }
+  ]
+}
+JSON
+)
+```
 
-`voteType` shapes the ballot - single choice, approval/multichoice, ranked, quadratic, budget, or
-multi-question. Each shape is a specific combination of `maxCount`, `maxValue`, `uniqueChoices`, and
-cost fields. See **[Voting types](/developers/docs/voting-types)** for the per-field reference and the
-ballot shape of each.
+```jsonc
+{ "processId": "6a1f..." }   // 200 - carry forward
+```
 
 :::code-tabs[create a process]
 
-```ts
-const process = await client.elections.create({
-  orgAddress: org,
-  censusId: census,
-  metadata: { title: 'Board election 2026' },
-  electionParams: {
-    title: { default: 'Board election 2026' },
-    questions: [{
-      title: { default: 'Who should chair the board?' },
-      choices: [
-        { title: { default: 'Ada Lovelace' }, value: 0 },
-        { title: { default: 'Alan Turing' }, value: 1 },
-      ],
-    }],
-    voteType: { maxCount: 1, maxValue: 1 },
-    electionType: { autostart: true, interruptible: true },
-    startDate: '2026-07-01T09:00:00Z',
-    endDate: '2026-07-03T18:00:00Z',
-    maxCensusSize: 1000,
-  },
-})
-```
 ```csharp
-var process = (await Post("/process", new {
-    orgAddress = org, censusId = census,
-    metadata = new { title = "Board election 2026" },
-    electionParams = new {
-        title = new { @default = "Board election 2026" },
-        questions = new[] { new { title = new { @default = "Who should chair the board?" },
-            choices = new[] { new { title = new { @default = "Ada Lovelace" }, value = 0 },
-                              new { title = new { @default = "Alan Turing" }, value = 1 } } } },
-        voteType = new { maxCount = 1, maxValue = 1 },
-        electionType = new { autostart = true, interruptible = true },
-        startDate = "2026-07-01T09:00:00Z", endDate = "2026-07-03T18:00:00Z",
-        maxCensusSize = 1000,
-    }})).GetString();
+var processId = (await Post("/processes", new {
+    orgAddress = org,
+    census = new { authFields = new[] { "memberNumber" } },
+    title = new { @default = "Board election 2026" },
+    startDate = "2026-07-01T09:00:00Z", endDate = "2026-07-03T18:00:00Z",
+    questions = new[] { new {
+        title = new { @default = "Who should chair the board?" },
+        choices = new[] { new { title = new { @default = "Ada Lovelace" }, value = 0 },
+                          new { title = new { @default = "Alan Turing" }, value = 1 } },
+        type = "singlechoice",
+    }}})).GetProperty("processId").GetString();
 ```
 ```python
-process = post("/process", {
-    "orgAddress": org, "censusId": census,
-    "metadata": {"title": "Board election 2026"},
-    "electionParams": {
-        "title": {"default": "Board election 2026"},
-        "questions": [{"title": {"default": "Who should chair the board?"},
-                       "choices": [{"title": {"default": "Ada Lovelace"}, "value": 0},
-                                   {"title": {"default": "Alan Turing"}, "value": 1}]}],
-        "voteType": {"maxCount": 1, "maxValue": 1},
-        "electionType": {"autostart": True, "interruptible": True},
-        "startDate": "2026-07-01T09:00:00Z", "endDate": "2026-07-03T18:00:00Z",
-        "maxCensusSize": 1000,
-    }}).json()
+processId = post("/processes", {
+    "orgAddress": org,
+    "census": {"authFields": ["memberNumber"]},
+    "title": {"default": "Board election 2026"},
+    "startDate": "2026-07-01T09:00:00Z", "endDate": "2026-07-03T18:00:00Z",
+    "questions": [{
+        "title": {"default": "Who should chair the board?"},
+        "choices": [{"title": {"default": "Ada Lovelace"}, "value": 0},
+                    {"title": {"default": "Alan Turing"}, "value": 1}],
+        "type": "singlechoice",
+    }]}).json()["processId"]
 ```
 :::
 
-## Publishing on-chain
+## Editing a draft
 
-Publishing is **asynchronous**: it returns a `jobId` (or `200` directly if already published). Poll
-the [job](/developers/docs/jobs) until it completes.
+While a process is unpublished you can replace its fields with the same body. Once published it is
+immutable - the update returns `409`.
 
-- **POST** `/process/{processId}/publish`
+- **PUT** `/processes/{processId}`
 
 ```bash
-PJOB=$(curl -s "${auth[@]}" -X POST "$B/process/$PROCESS/publish" | jq -r .jobId)
+curl "${auth[@]}" -X PUT "$B/processes/$PROCESS" -d '{ ...same shape as create... }'
+```
+
+Delete a draft you no longer need (allowed only while unpublished):
+
+- **DELETE** `/processes/{processId}`
+
+```bash
+curl "${auth[@]}" -X DELETE "$B/processes/$PROCESS"
+```
+
+## Reading a process
+
+`GET /processes/{processId}` returns the process with every question **fully hydrated**, including its
+`upstreamId` and synced `status`. `GET /processes` lists them paginated, filterable by `orgAddress`
+and question `status`.
+
+- **GET** `/processes/{processId}`
+- **GET** `/processes`
+- **GET** `/processes/{processId}/questions/{questionId}`
+
+```bash
+curl "${auth[@]}" "$B/processes/$PROCESS"
+curl "${auth[@]}" "$B/processes?orgAddress=$ORG&status=READY&page=1"
+```
+
+```jsonc
+{
+  "id": "6a1f...", "orgAddress": "0x...", "published": true,
+  "census": { "authFields": ["memberNumber"] },
+  "title": { "default": "Board election 2026" },
+  "startDate": "2026-07-01T09:00:00Z", "endDate": "2026-07-03T18:00:00Z",
+  "questions": [{
+    "id": "b2c3...", "upstreamId": "a1b2...64hex...", "parentProcessId": "6a1f...",
+    "status": "READY", "type": "singlechoice",
+    "title": { "default": "Who should chair the board?" },
+    "choices": [ /* ... */ ], "eligibleMemberIds": []
+  }]
+}
+```
+
+The per-question read (`/questions/{questionId}`) is **public** - voter UIs use it to render a
+question and its status without authenticating. A question's `id` is the value used as the
+`{questionId}` path parameter, and as `questionId` in the results and status payloads.
+
+## Checking readiness
+
+Before publishing, dry-run the publish preconditions. It changes nothing and lists what is still
+missing (dates, choices, a resolvable census, ballot params within your plan).
+
+- **GET** `/processes/{processId}/validation`
+
+```bash
+curl "${auth[@]}" "$B/processes/$PROCESS/validation"
+```
+
+```jsonc
+{ "valid": true, "errors": [] }
+```
+
+## Publishing on-chain
+
+Publishing is **asynchronous** and **atomic**: the census and one election per question are published
+in a single batch. It returns a `jobId`; poll the [job](/developers/docs/jobs) until it completes.
+Either all questions publish or none do.
+
+- **POST** `/processes/{processId}/publish`
+
+```bash
+PJOB=$(curl -s "${auth[@]}" -X POST "$B/processes/$PROCESS/publish" | jq -r .jobId)
 until [ "$(curl -s "$B/jobs/$PJOB" | jq -r .status)" = "completed" ]; do sleep 2; done
 ```
 
-The job's `result.address` is the **on-chain election id**. You keep addressing the process by its
-**ProcessID** for everything server-side; the on-chain id surfaces only client-side, when a voter
-signs a ballot.
+On success each question gains its `upstreamId` and a `status` of `READY`, and the process flips to
+`published: true`. Re-read the process to get the `upstreamId`s that voters sign against.
+
+## Growing a published census
+
+After publishing you can add more members to the census - `PUT /processes/{processId}/census` adds
+existing organization members and raises each affected election's `maxCensusSize` so they can vote.
+Members are added synchronously; the on-chain resize runs as an async job (`jobId`). Questions with an
+[eligibility subset](/developers/docs/census#per-question-eligibility) keep their fixed size and are
+unaffected.
+
+- **PUT** `/processes/{processId}/census`
+
+```bash
+curl "${auth[@]}" -X PUT "$B/processes/$PROCESS/census" -d '{"memberIds":["<id1>","<id2>"]}'
+```
+
+```jsonc
+{ "added": 2, "errors": [], "jobId": "e5f6a7..." }   // poll /jobs/{jobId} for the resize
+```
 
 ## Changing status
 
-Status changes (`ready`, `paused`, `ended`, `canceled`) are also asynchronous. Address by ProcessID.
+Move published questions through `READY`, `PAUSED`, `ENDED`, or `CANCELED` - one at a time or in bulk.
+Both are asynchronous jobs. Only published questions (those with an `upstreamId`) can change status.
+Status is case-insensitive on input and returned uppercase. Reads may also show `RESULTS` once a
+question has been tallied - a terminal state you observe but cannot set.
 
-- **PUT** `/process/{processId}/status`
+- **PUT** `/processes/{processId}/questions/{questionId}/status`
+- **PUT** `/processes/{processId}/questions/status`
 
 ```bash
-curl "${auth[@]}" -X PUT "$B/process/$PROCESS/status" -d '{"status":"ended"}'
+# one question
+curl "${auth[@]}" -X PUT "$B/processes/$PROCESS/questions/$QID/status" -d '{"status":"ENDED"}'
+
+# many questions (omit "questions" to target all published questions)
+curl "${auth[@]}" -X PUT "$B/processes/$PROCESS/questions/status" -d @- <<JSON
+{
+  "status": "ENDED",
+  "questions": [ { "id": "$QID" } ]
+}
+JSON
 ```
 
 ```jsonc
 { "jobId": "d4e5f6..." }   // 202 - poll /jobs/{jobId}
 ```
 
-## Process bundles
-
-A **bundle** groups one or more processes under a census and is the **voter-facing entry point** for
-casting. Reference each process by its **ProcessID**. Bundles are useful when an assembly votes on
-several motions in one session.
-
-- **POST** `/process/bundle`
-- **GET** `/organizations/{address}/processes`
-
-```bash
-BUNDLE_URI=$(curl -s "${auth[@]}" -X POST "$B/process/bundle" \
-  -d "{\"censusId\":\"$CENSUS\",\"processes\":[\"$PROCESS\"]}" | jq -r .uri)
-BUNDLE="${BUNDLE_URI##*/}"   # bundleId is the last path segment
-```
-
-```jsonc
-{ "root": "deadbeef...", "uri": "https://.../process/bundle/<bundleId>" }
-```
-
 > [!TIP] Reading results
-> Once a process is running you can read live or final tallies. See [Results](/developers/docs/results)
-> for the response shape and how finality works.
+> Each question tallies independently. See [Results](/developers/docs/results) for the per-question
+> response shape and how finality works.
 
 ## Gotchas
 
-- `POST /process` returns a **bare string** (the ProcessID), not an object.
+- A process is a **draft** until you publish it; edits are allowed only while `published: false`.
 - Publish and status changes are **jobs** - read the outcome from `/jobs/{jobId}`, not the POST body.
-- Address the process by its **ProcessID** everywhere server-side (status, results, metadata, bundle);
-  the on-chain id is only needed client-side, to sign voter payloads.
+- Address the process by its **`processId`** everywhere server-side. A question's **`upstreamId`** is
+  only needed client-side, when a voter signs a ballot for that question.
+- The inline census id is internal - you never send or receive it. See [Census](/developers/docs/census).

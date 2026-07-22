@@ -66,6 +66,12 @@ before you provision more.
 > A `0` limit means **unlimited**. `enabled: false` means integrator features aren't turned on for your
 > plan - enable integrator access or upgrade from the [API Dashboard](https://platform.vocdoni.io).
 
+> [!NOTE] How processes are counted
+> A [process](/developers/docs/voting-processes) counts as **one** published process against
+> `maxManagedProcesses` no matter how many questions it holds, and only once it is published - drafts
+> do not count. Some plans also restrict which [voting types](/developers/docs/voting-types) you may
+> use; a disallowed type is rejected when you publish.
+
 ## Tiers
 
 **Free tier.** Allows **one managed organization** with modest limits on processes, votes and OTP

@@ -1,12 +1,12 @@
 ---
 title: Members and groups
-lead: Members are the people in your organization. Import them once, organize them into groups, and reuse them to build censuses for many elections.
+lead: Members are the people in your organization. Import them once, organize them into groups, and reuse them in the census of many processes.
 group: core_concepts
 order: 20
 ---
 
 **Members** are an organization's people - your customer's voters. **Groups** are named subsets of
-members, and a group is also the **bridge that lets you publish an auth-only census** (see
+members, and a group can **populate a process census** by reference (see
 [Census](/developers/docs/census)).
 
 ## The member object
@@ -119,9 +119,9 @@ curl "${auth[@]}" -X DELETE "$B/organizations/$ORG/members" -d '{"ids":["<member
 
 ## Groups
 
-A group is a named subset of members. The common case is an **all-members group**, which is what you
-publish an auth-only census through. You can also build a group from explicit member ids, and validate
-that its members carry the fields a census will require.
+A group is a named subset of members. The common case is an **all-members group**, which a process
+[census](/developers/docs/census) can reference by `groupId` to include everyone. You can also build a
+group from explicit member ids, and validate that its members carry the fields a census will require.
 
 - **GET** `/organizations/{address}/groups`
 - **POST** `/organizations/{address}/groups`

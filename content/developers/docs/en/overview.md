@@ -47,19 +47,19 @@ Every example is shown in **bash + curl**, with **.NET (C#)** and **Python** var
 
 Most integrations follow the same path. Each step maps to a small group of endpoints documented here.
 
-- **Organization** - the tenant that owns members, censuses, elections and API keys. Everything is
+- **Organization** - the tenant that owns members, groups, processes and API keys. Everything is
   scoped to an organization address; as an integrator you create one managed org per customer.
 - **Members and groups** - the people in an organization, and named subsets of them. Import them once,
   then reuse them across many elections.
-- **Census** - the eligible-voter list for a given election, plus *how* voters authenticate.
-  Publishing a census produces a cryptographic root.
-- **Process** - a voting process (an election) with its questions, vote type and timing, run against a
-  published census.
-- **Results** - live or final tallies that anyone can verify against the protocol.
+- **Census** - who can vote and *how* they authenticate. It is declared inline in a process, not built
+  and published separately.
+- **Process** - one authoring call that carries shared settings, an inline census, and one or more
+  questions; each question becomes its own on-chain election. Create it as a draft, then publish.
+- **Results** - live or final tallies, one per question, that anyone can verify against the protocol.
 
 > [!TIP] Heavy work runs asynchronously
-> Bulk member imports, census publishing, process publishing and status changes can take time, so they
-> return a job id you poll until completion. See [Jobs](/developers/docs/jobs) for the pattern.
+> Bulk member imports, process publishing and status changes can take time, so they return a job id you
+> poll until completion. See [Jobs](/developers/docs/jobs) for the pattern.
 
 ## Two ways to integrate
 

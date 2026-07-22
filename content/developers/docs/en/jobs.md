@@ -1,6 +1,6 @@
 ---
 title: Jobs
-lead: Some operations take longer than a single request should wait - bulk imports, census publishing, process publishing and status changes. These return a job id you poll until the work finishes.
+lead: Some operations take longer than a single request should wait - bulk imports, process publishing and status changes. These return a job id you poll until the work finishes.
 group: core_concepts
 order: 60
 ---
@@ -22,11 +22,10 @@ curl -s "$B/jobs/$JOBID"     # public - the job id is the capability
 
 ```jsonc
 { "jobId": "a1b2c3...",
-  "type": "publish_process",          // org_members | census_participants | publish_process |
+  "type": "publish_voting_process",   // org_members | publish_voting_process |
                                       //   set_process_status | relay_vote
   "status": "completed",              // pending | completed | failed
-  "result": { "address": "0x9f2c...", // on publish: the on-chain election id
-              "status": "READY",      // on status change: the new status
+  "result": { "status": "READY",      // on status change: the new status
               "voteID": "" },         // on relay_vote: the vote nullifier
   "error": "" }                       // populated only when status == failed
 ```
@@ -70,9 +69,8 @@ while True:
 ## Job types
 
 - `org_members` - bulk member import.
-- `census_participants` - adding participants to a census.
-- `publish_process` - publishing a voting process.
-- `set_process_status` - changing a process status.
+- `publish_voting_process` - publishing a process (its census and one election per question, in one batch).
+- `set_process_status` - changing a question's status.
 - `relay_vote` - relaying a vote to the protocol.
 
 ## The members-job
@@ -88,8 +86,8 @@ curl -s "${auth[@]}" "$B/organizations/$ORG/members/job/$JOBID"
 { "added": 120, "total": 200, "progress": 60, "errors": [] }   // progress == 100 -> done
 ```
 
-Wait for `progress: 100` (and an empty `errors`) before building a census from the members. See
-[Members and groups](/developers/docs/members-and-groups#adding-members).
+Wait for `progress: 100` (and an empty `errors`) before publishing a process whose census uses the
+members. See [Members and groups](/developers/docs/members-and-groups#adding-members).
 
 ## Listing jobs
 
