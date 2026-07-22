@@ -86,6 +86,9 @@ curl -s "${auth[@]}" "$B/organizations/$ORG/members/job/$JOBID"
 { "added": 120, "total": 200, "progress": 60, "errors": [] }   // progress == 100 -> done
 ```
 
+Each entry in `errors` is prefixed with `line N:` - the 1-based position of the offending member in the
+list you submitted - so you can map a failure back to its input row.
+
 Wait for `progress: 100` (and an empty `errors`) before publishing a process whose census uses the
 members. See [Members and groups](/developers/docs/members-and-groups#adding-members).
 
