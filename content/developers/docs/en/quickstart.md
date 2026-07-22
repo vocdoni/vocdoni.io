@@ -55,9 +55,11 @@ ORG=$(curl -s "${auth[@]}" -X POST "$B/integrator/organizations" \
 Bulk member writes are asynchronous: the call returns a `jobId` you poll until `progress: 100`.
 
 ```bash
-JOB=$(curl -s "${auth[@]}" -X POST "$B/organizations/$ORG/members" \
-  -d '{"members":[{"name":"Alice","memberNumber":"A-101","email":"alice@example.org","weight":"1"}]}' \
-  | jq -r .jobId)
+JOB=$(curl -s "${auth[@]}" -X POST "$B/organizations/$ORG/members" -d '{
+  "members": [
+    { "name": "Alice", "memberNumber": "A-101", "email": "alice@example.org", "weight": "1" }
+  ]
+}' | jq -r .jobId)
 until [ "$(curl -s "${auth[@]}" "$B/organizations/$ORG/members/job/$JOB" | jq -r .progress)" = "100" ]; do sleep 1; done
 ```
 
@@ -76,19 +78,27 @@ One call carries the inline census (auth-only by member number, populated from t
 question. It returns the `processId` as a draft.
 
 ```bash
-PROCESS=$(curl -s "${auth[@]}" -X POST "$B/processes" -d "{
-  \"orgAddress\":\"$ORG\",
-  \"census\":{\"authFields\":[\"memberNumber\"],\"groupId\":\"$GROUP\"},
-  \"title\":{\"default\":\"Repaint the fence?\"},
-  \"description\":{\"default\":\"Annual maintenance vote\"},
-  \"startDate\":\"2026-07-01T09:00:00Z\",\"endDate\":\"2026-07-08T09:00:00Z\",
-  \"questions\":[{
-    \"title\":{\"default\":\"Repaint the fence?\"},
-    \"choices\":[{\"title\":{\"default\":\"Yes\"},\"value\":0},
-                 {\"title\":{\"default\":\"No\"},\"value\":1}],
-    \"type\":\"singlechoice\"
-  }]
-}" | jq -r .processId)
+PROCESS=$(curl -s "${auth[@]}" -X POST "$B/processes" -d @- <<JSON | jq -r .processId
+{
+  "orgAddress": "$ORG",
+  "census": { "authFields": ["memberNumber"], "groupId": "$GROUP" },
+  "title": { "default": "Repaint the fence?" },
+  "description": { "default": "Annual maintenance vote" },
+  "startDate": "2026-07-01T09:00:00Z",
+  "endDate": "2026-07-08T09:00:00Z",
+  "questions": [
+    {
+      "title": { "default": "Repaint the fence?" },
+      "choices": [
+        { "title": { "default": "Yes" }, "value": 0 },
+        { "title": { "default": "No" }, "value": 1 }
+      ],
+      "type": "singlechoice"
+    }
+  ]
+}
+JSON
+)
 ```
 
 ## Publish on-chain

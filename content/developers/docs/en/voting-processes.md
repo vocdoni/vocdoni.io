@@ -47,19 +47,28 @@ Each **question** shapes one ballot:
 | `secretUntilTheEnd` | boolean | Keep this question's tally encrypted until it ends. |
 
 ```bash
-PROCESS=$(curl -s "${auth[@]}" -X POST "$B/processes" -d "{
-  \"orgAddress\":\"$ORG\",
-  \"census\":{\"authFields\":[\"memberNumber\"]},
-  \"title\":{\"default\":\"Board election 2026\"},
-  \"description\":{\"default\":\"Elect the new board\"},
-  \"startDate\":\"2026-07-01T09:00:00Z\",\"endDate\":\"2026-07-03T18:00:00Z\",
-  \"questions\":[{
-    \"title\":{\"default\":\"Who should chair the board?\"},
-    \"choices\":[{\"title\":{\"default\":\"Ada Lovelace\"},\"value\":0},
-                 {\"title\":{\"default\":\"Alan Turing\"},\"value\":1}],
-    \"type\":\"singlechoice\"
-  }]
-}" | jq -r .processId)   # draft created, published:false
+# draft created, published:false
+PROCESS=$(curl -s "${auth[@]}" -X POST "$B/processes" -d @- <<JSON | jq -r .processId
+{
+  "orgAddress": "$ORG",
+  "census": { "authFields": ["memberNumber"] },
+  "title": { "default": "Board election 2026" },
+  "description": { "default": "Elect the new board" },
+  "startDate": "2026-07-01T09:00:00Z",
+  "endDate": "2026-07-03T18:00:00Z",
+  "questions": [
+    {
+      "title": { "default": "Who should chair the board?" },
+      "choices": [
+        { "title": { "default": "Ada Lovelace" }, "value": 0 },
+        { "title": { "default": "Alan Turing" }, "value": 1 }
+      ],
+      "type": "singlechoice"
+    }
+  ]
+}
+JSON
+)
 ```
 
 ```jsonc
@@ -213,8 +222,12 @@ question has been tallied - a terminal state you observe but cannot set.
 curl "${auth[@]}" -X PUT "$B/processes/$PROCESS/questions/$QID/status" -d '{"status":"ENDED"}'
 
 # many questions (omit "questions" to target all published questions)
-curl "${auth[@]}" -X PUT "$B/processes/$PROCESS/questions/status" \
-  -d '{"status":"ENDED","questions":[{"id":"'"$QID"'"}]}'
+curl "${auth[@]}" -X PUT "$B/processes/$PROCESS/questions/status" -d @- <<JSON
+{
+  "status": "ENDED",
+  "questions": [ { "id": "$QID" } ]
+}
+JSON
 ```
 
 ```jsonc

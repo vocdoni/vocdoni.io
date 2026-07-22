@@ -95,8 +95,12 @@ missing auth-field data across the members it resolves - without creating anythi
 - **POST** `/processes/census/validation`
 
 ```bash
-curl "${auth[@]}" -X POST "$B/processes/census/validation" \
-  -d "{\"orgAddress\":\"$ORG\",\"census\":{\"authFields\":[\"memberNumber\"],\"groupId\":\"$GROUP\"}}"
+curl "${auth[@]}" -X POST "$B/processes/census/validation" -d @- <<JSON
+{
+  "orgAddress": "$ORG",
+  "census": { "authFields": ["memberNumber"], "groupId": "$GROUP" }
+}
+JSON
 ```
 
 ```jsonc
