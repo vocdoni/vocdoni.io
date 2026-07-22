@@ -163,6 +163,11 @@ A question created with `secretUntilTheEnd` also carries **`encryptionKeys`** (a
 keykeepers publish the keys**, so treat its absence as "not yet published" and poll. See
 [Casting votes](/developers/docs/casting-votes) for the encrypted-vote flow.
 
+Once a question reaches `RESULTS`, both single reads (`GET /processes/{processId}` and the public
+`GET /processes/{processId}/questions/{questionId}`) also carry its tally **inline** as a `results`
+object (`voteCount`, `maxVoters`, `finalResults`, `results`) - absent until then, so poll. The
+`GET /processes` list does not resolve it. See [Results](/developers/docs/results).
+
 ## Checking readiness
 
 Before publishing, dry-run the publish preconditions. It changes nothing and lists what is still
