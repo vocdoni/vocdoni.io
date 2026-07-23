@@ -68,15 +68,16 @@ import { VocdoniApiClient } from '@vocdoni/api-client'
 const client = new VocdoniApiClient({ apiUrl: '{{API_BASE_URL}}' })
 ```
 
-The client exposes typed sub-clients for each part of the API - `client.bundle`, `client.elections`,
-`client.census`, `client.organizations`, `client.jobs` and `client.auth`.
+The client exposes typed sub-clients for each part of the API - `client.processes`,
+`client.organizations`, `client.elections`, `client.jobs` and `client.auth`.
 
 ## Cast a vote
 
-Casting adds `@vocdoni/api-voting` on top of the client. Every vote follows the same path: read the
-bundle, authenticate the voter, check membership, get a CSP signature, then build and relay the
-transaction. This is the condensed version - [Casting votes](/developers/docs/casting-votes) covers
-2FA censuses, encrypted elections and error handling.
+Casting adds `@vocdoni/api-voting` on top of the client. Every vote follows the same path:
+authenticate once against the process census, check the voter's per-question eligibility, get a CSP
+signature for that question's election, then build and relay the transaction. This is the condensed
+version - [Casting votes](/developers/docs/casting-votes) covers 2FA censuses, encrypted questions
+and error handling.
 
 ```ts
 import { VocdoniApiClient } from '@vocdoni/api-client'
@@ -85,31 +86,31 @@ import { EphemeralSigner, VotingClient } from '@vocdoni/api-voting'
 const client = new VocdoniApiClient({ apiUrl: '{{API_BASE_URL}}' })
 const voting = new VotingClient({ client })
 
-// 1. Bundle info (chainId, census config)
-const bundle = await client.bundle.get(bundleId)
+// Both reported by the (public) process read.
+const processId = '<processId>'
+const chainId = '<chainId>'
 
-// 2. Authenticate the voter (auth-only census - no 2FA step)
-const { authToken } = await client.bundle.authStep0(bundleId, { memberNumber: '42' })
+// 1. Authenticate once against the process census (auth-only census - no 2FA step)
+const { authToken } = await client.processes.authStep0(processId, { memberNumber: '42' })
 
-// 3. Resolve the on-chain election (the SDK endpoints expect election.address, not the ProcessID)
-const election = await client.elections.get(processId)
+// 2. Check the voter's standing - census membership plus, per question,
+//    eligibility and that question's on-chain election id (upstreamId)
+const { belongsToProcess, questions } = await client.processes.check(processId, { authToken })
+const question = questions.find((q) => q.canVote && !q.hasVoted)
+if (!belongsToProcess || !question?.upstreamId) throw new Error('Cannot vote')
 
-// 4. Confirm the voter belongs and hasn't voted yet
-const { belongs, hasVoted } = await client.bundle.check(bundleId, { authToken, electionId: election.address })
-if (!belongs || hasVoted) throw new Error('Cannot vote')
-
-// 5. Get a CSP signature over an ephemeral voter address
+// 3. Get a CSP signature over a fresh ephemeral address for that question's election
 const signer = new EphemeralSigner()
-const { signature, weight } = await client.bundle.sign(bundleId, {
+const { signature, weight } = await client.processes.sign(processId, {
   authToken,
-  electionId: election.address,
+  electionId: question.upstreamId,
   payload: signer.address,
 })
 
-// 6. Build, relay and poll for the vote nullifier
+// 4. Build, relay and poll for the vote nullifier
 const jobId = await voting.vote({
-  processId: election.address,
-  chainId: election.chainId ?? bundle.chainId!,
+  processId: question.upstreamId, // the vote goes to the question's election
+  chainId,
   choices: [0],
   signer,
   cspSignature: signature,
@@ -122,9 +123,9 @@ console.log('voteID:', job.result?.voteID)
 ::::
 
 > [!TIP] Building with React
-> `@vocdoni/react-providers` wraps the client in context providers and hooks (`BundleProvider`,
-> `ElectionProvider`, `useElection`) that automate the whole flow, and `@vocdoni/react-components`
-> adds unstyled UI on top. See the [SDK repository]({{SDK_URL}}) for the React packages.
+> `@vocdoni/react-providers` wraps the client in context providers and hooks that authenticate,
+> sign and relay for you, and `@vocdoni/react-components` adds unstyled UI on top. See the
+> [SDK repository]({{SDK_URL}}) for the React packages.
 
 ## AI agent skills
 

@@ -35,9 +35,9 @@ are the cryptography `@vocdoni/api-voting` implements.
 
 The voter-facing endpoints are **public** - they carry no API key. The voter only needs the
 `apiUrl`, the `processId` and the Vochain `chainId`. The
-[process read](/developers/docs/voting-processes#reading-a-process) that returns them is
-authenticated, so your backend does it and hands both values to the voter app; each question's
-`upstreamId` is then reported publicly by the check call below.
+[process read](/developers/docs/voting-processes#reading-a-process) that returns them is public
+too, so the voter app fetches them directly - no backend handover needed; each question's
+`upstreamId` is also reported by the check call below.
 
 ## Cast a vote with the SDK
 
@@ -68,7 +68,7 @@ import { EphemeralSigner, VotingClient } from '@vocdoni/api-voting'
 const client = new VocdoniApiClient({ apiUrl: '{{API_BASE_URL}}' })
 const voting = new VotingClient({ client })
 
-// Handed over by your backend's (authenticated) process read.
+// Both reported by the (public) process read.
 const processId = '<processId>'
 const chainId = '<chainId>'
 
