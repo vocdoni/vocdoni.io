@@ -27,7 +27,7 @@ curl -s "$B/jobs/$JOBID"     # public - the job id is the capability
   "status": "completed",              // pending | completed | failed
   "result": { "status": "READY",      // on status change: the new status
               "voteID": "" },         // on relay_vote: the vote nullifier
-  "error": "" }                       // populated only when status == failed
+  "errors": [] }                      // failure reasons (per-row for imports); empty on success
 ```
 
 | Field | Type | Description |
@@ -36,12 +36,12 @@ curl -s "$B/jobs/$JOBID"     # public - the job id is the capability
 | `type` | string | What kind of work the job performs. |
 | `status` | string | pending, completed or failed. |
 | `result` | object | On success, details such as an address or vote id. |
-| `error` | string | On failure, a human-readable reason. Detailed import errors are shown to the org's managers/admins. |
+| `errors` | string[] | Failure reasons (per-row for imports). Detailed import errors are shown to the org's managers/admins. |
 
 Rules of thumb:
 
 - The call always returns `200`, even for failures - branch on the **`status`** field.
-- `completed`: read `result`. `failed`: read `error` and **fail fast** (don't keep polling). Anything
+- `completed`: read `result`. `failed`: read `errors` and **fail fast** (don't keep polling). Anything
   else: keep polling (every ~2s is plenty).
 
 :::code-tabs[poll to completion]
@@ -55,13 +55,13 @@ JsonElement job;
 do { await Task.Delay(2000); job = await Get($"/jobs/{jobId}"); }
 while (job.GetProperty("status").GetString() == "pending");
 if (job.GetProperty("status").GetString() == "failed")
-    throw new Exception(job.GetProperty("error").GetString());
+    throw new Exception(job.GetProperty("errors").ToString());
 ```
 ```python
 while True:
     job = get(f"/jobs/{jobId}").json()
     if job["status"] == "completed": break
-    if job["status"] == "failed": raise RuntimeError(job["error"])
+    if job["status"] == "failed": raise RuntimeError(job["errors"])
     time.sleep(2)
 ```
 :::

@@ -53,9 +53,11 @@ curl -s "$B/processes/$PROCESS/results"
 - `finalResults: false` - the question is still open; the tally is provisional.
 - `finalResults: true` - voting has ended; results are final.
 
-> [!NOTE] The matrix is empty until a tally exists
-> `results` is `[]` (empty) until there is something to count - before any vote is cast, or while a
-> `secretUntilTheEnd` election is still encrypted (only `voteCount` moves). Poll on an empty matrix.
+> [!NOTE] The matrix before a tally is revealed
+> A published question with no votes yet returns a **zero-filled** matrix (e.g. `[["0","0"]]`,
+> `voteCount: 0`). While a `secretUntilTheEnd` question is still encrypted the tally is withheld: the
+> inner `results` field is **omitted entirely** (not `[]`) and only `voteCount` moves - treat a missing
+> matrix as "not yet revealed" and poll.
 
 > [!NOTE] Results are also inline on a single question read
 > Every **published** question also carries its **live** tally inline (a `results` object) on

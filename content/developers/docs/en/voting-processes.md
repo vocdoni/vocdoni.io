@@ -131,13 +131,13 @@ synced `status`, and live per-question results). `GET /processes` lists them pag
 `orgAddress` and question `status`.
 
 These reads are **public for published processes** - anyone can read them, no API key. Two things are
-gated to a **Manager/Admin** of the org (or a `voting:write` API key acting as one):
+gated to a **manager/admin** of the org (or a `voting:write` API key acting as one):
 
 - **drafts** (`published: false`) - the single read returns `404` for everyone else (hiding existence),
   and the list returns published processes only;
 - **`eligibleMemberIds`** on each question (who may vote) - stripped for non-managers. A voter checks
   their *own* per-question eligibility with
-  [`POST /processes/{id}/check`](/developers/docs/casting-votes#voter-status).
+  [`POST /processes/{processId}/check`](/developers/docs/casting-votes#voter-status).
 
 - **GET** `/processes/{processId}`
 - **GET** `/processes`
@@ -160,7 +160,7 @@ curl -s "${auth[@]}" "$B/processes?orgAddress=$ORG&status=READY&page=1"
     "id": "b2c3...", "upstreamId": "a1b2...64hex...", "parentProcessId": "6a1f...",
     "status": "READY", "type": "singlechoice",
     "title": { "default": "Who should chair the board?" },
-    "choices": [ /* ... */ ], "eligibleMemberIds": [],
+    "choices": [ /* ... */ ],
     "results": { "voteCount": 12, "maxVoters": 500, "finalResults": false, "results": [ ["7", "5"] ] }
   }]
 }
@@ -177,15 +177,15 @@ keykeepers publish the keys**, so treat its absence as "not yet published" and p
 
 Every **published** question carries its **live** tally inline as a `results` object (`voteCount`,
 `maxVoters`, `finalResults`, and the `results` matrix); `finalResults` marks live vs final. The object
-is absent only for a **draft** (no election yet), and its inner `results` matrix is **empty until a
-tally exists** - before any vote, or while a `secretUntilTheEnd` election is still encrypted (only
-`voteCount` moves) - so poll on an empty matrix. The `GET /processes` **list** does not resolve results.
-See [Results](/developers/docs/results).
+is absent only for a **draft** (no election yet). A published question with no votes yet has a
+**zero-filled** matrix; while a `secretUntilTheEnd` question is still encrypted the inner `results` is
+**omitted** (only `voteCount` moves) - poll until it appears. The `GET /processes` **list** does not
+resolve results. See [Results](/developers/docs/results).
 
-On the **detail read**, the `census` object also carries response-only **`size`** (eligible-voter count)
-and **`totalWeight`** (the sum of members' weights - equals `size` for a non-weighted census), the
-denominator for turning weighted results into percentages. `totalWeight` is resolved only on
-`GET /processes/{id}` (not the list) and is absent when it cannot be computed.
+The `census` object also carries response-only **`size`** (eligible-voter count, on every read) and
+**`totalWeight`** (the sum of members' weights - equals `size` for a non-weighted census), the
+denominator for turning weighted results into percentages. `totalWeight` is resolved only on the
+**detail read** `GET /processes/{processId}` (not the list) and is absent when it cannot be computed.
 
 ## Checking readiness
 
