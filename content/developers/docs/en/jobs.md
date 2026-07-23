@@ -12,12 +12,15 @@ to learn the outcome. This is the async spine of the API.
 ## Polling a job
 
 The generic job endpoint is **public** - the job id is the capability. Poll it until `status` is
-`completed` or `failed`, then read the result.
+`completed` or `failed`, then read the result. Anonymous callers get the status and counters;
+**pass your API key** on the poll to also see per-row import error detail (which can reference member
+data).
 
 - **GET** `/jobs/{jobId}`
 
 ```bash
-curl -s "$B/jobs/$JOBID"     # public - the job id is the capability
+curl -s "$B/jobs/$JOBID"                 # public: status + counters
+curl -s "${auth[@]}" "$B/jobs/$JOBID"    # manager/admin: also per-row import errors
 ```
 
 ```jsonc
@@ -36,13 +39,13 @@ curl -s "$B/jobs/$JOBID"     # public - the job id is the capability
 | `type` | string | What kind of work the job performs. |
 | `status` | string | pending, completed or failed. |
 | `result` | object | On success, details such as an address or vote id. |
-| `errors` | string[] | Failure reasons (per-row for imports). Detailed import errors are shown to the org's managers/admins. |
+| `errors` | string[] | Failure reasons. For an import, per-row detail (`line N:` prefixed) is returned only to an authenticated manager/admin - pass your API key on the poll; anonymous callers get status and counters only. |
 
 Rules of thumb:
 
 - The call always returns `200`, even for failures - branch on the **`status`** field.
-- `completed`: read `result`. `failed`: read `errors` and **fail fast** (don't keep polling). Anything
-  else: keep polling (every ~2s is plenty).
+- `completed`: read `result`. `failed`: **fail fast** (don't keep polling); read `errors` for the
+  reason (with your API key for per-row import detail). Anything else: keep polling (every ~2s is plenty).
 
 :::code-tabs[poll to completion]
 

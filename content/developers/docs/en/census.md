@@ -35,6 +35,9 @@ Populate the census from a `groupId` **or** an explicit `memberIds` list - both 
 organization's [members and groups](/developers/docs/members-and-groups). Use the auto "All members"
 group to include everyone.
 
+The fields above are what you **send**. A process read adds response-only `size` and `totalWeight` to
+the census object - see [Reading a process](/developers/docs/voting-processes#reading-a-process).
+
 ## Authentication
 
 `authFields` and `twoFaFields` are **two independent settings, each optional**. Set **either, or both**:
@@ -72,8 +75,10 @@ combined with any of them:
 
 The process census is the full electorate. A single **question** can narrow it to a subset with its
 own optional `census` object (a `groupId` or `memberIds`, always within the process census); omit it and
-every census member may vote on that question. Reads expose the resolved subset as
-`eligibleMemberIds`.
+every census member may vote on that question. Reads expose the resolved subset as `eligibleMemberIds`,
+but **only to a manager/admin** (or a `voting:write` key) - it is stripped from the public process
+reads. A voter checks their own per-question eligibility with
+[`POST /processes/{processId}/check`](/developers/docs/casting-votes#voter-status).
 
 ```jsonc
 "questions": [{
