@@ -12,15 +12,14 @@ to learn the outcome. This is the async spine of the API.
 ## Polling a job
 
 The generic job endpoint is **public** - the job id is the capability. Poll it until `status` is
-`completed` or `failed`, then read the result. Anonymous callers get the status and counters;
-**pass your API key** on the poll to also see per-row import error detail (which can reference member
-data).
+`completed` or `failed`, then read the result. Everyone gets the status and counters; per-row import
+error detail (which can reference member data) is added **only for a logged-in manager/admin** (a
+dashboard session) - scoped API keys are treated as anonymous on this endpoint.
 
 - **GET** `/jobs/{jobId}`
 
 ```bash
-curl -s "$B/jobs/$JOBID"                 # public: status + counters
-curl -s "${auth[@]}" "$B/jobs/$JOBID"    # manager/admin: also per-row import errors
+curl -s "$B/jobs/$JOBID"     # public: status + counters (per-row errors only for a manager session)
 ```
 
 ```jsonc
@@ -30,7 +29,7 @@ curl -s "${auth[@]}" "$B/jobs/$JOBID"    # manager/admin: also per-row import er
   "status": "completed",              // pending | completed | failed
   "result": { "status": "READY",      // on status change: the new status
               "voteID": "" },         // on relay_vote: the vote nullifier
-  "errors": [] }                      // failure reasons (per-row for imports); empty on success
+  "errors": [] }                      // per-row import failures; omitempty (absent), manager session only
 ```
 
 | Field | Type | Description |
@@ -39,13 +38,13 @@ curl -s "${auth[@]}" "$B/jobs/$JOBID"    # manager/admin: also per-row import er
 | `type` | string | What kind of work the job performs. |
 | `status` | string | pending, completed or failed. |
 | `result` | object | On success, details such as an address or vote id. |
-| `errors` | string[] | Failure reasons. For an import, per-row detail (`line N:` prefixed) is returned only to an authenticated manager/admin - pass your API key on the poll; anonymous callers get status and counters only. |
+| `errors` | string[] | Per-row import failures (`line N:` prefixed), returned only to a logged-in manager/admin (dashboard session); scoped API keys and anonymous callers get status and counters only. `omitempty`, so absent when empty. |
 
 Rules of thumb:
 
 - The call always returns `200`, even for failures - branch on the **`status`** field.
 - `completed`: read `result`. `failed`: **fail fast** (don't keep polling); read `errors` for the
-  reason (with your API key for per-row import detail). Anything else: keep polling (every ~2s is plenty).
+  reason (per-row import detail needs a manager/admin session). Anything else: keep polling (every ~2s is plenty).
 
 :::code-tabs[poll to completion]
 
