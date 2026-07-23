@@ -48,8 +48,7 @@ until [ "$(curl -s "${auth[@]}" "$B/jobs/$JOB" | jq -r .result.progress)" = "100
 ```jsonc
 // GET /jobs/{jobId}
 { "type": "org_members", "status": "completed",
-  "result": { "added": 1, "total": 1, "progress": 100 },   // result.progress == 100 -> done
-  "errors": [] }
+  "result": { "added": 1, "total": 1, "progress": 100 } }   // errors omitempty: absent when empty
 ```
 
 :::code-tabs[add members (async)]
