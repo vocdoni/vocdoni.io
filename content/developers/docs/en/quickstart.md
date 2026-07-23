@@ -60,7 +60,7 @@ JOB=$(curl -s "${auth[@]}" -X POST "$B/organizations/$ORG/members" -d '{
     { "name": "Alice", "memberNumber": "A-101", "email": "alice@example.org", "weight": "1" }
   ]
 }' | jq -r .jobId)
-until [ "$(curl -s "${auth[@]}" "$B/organizations/$ORG/members/job/$JOB" | jq -r .progress)" = "100" ]; do sleep 1; done
+until [ "$(curl -s "${auth[@]}" "$B/jobs/$JOB" | jq -r .result.progress)" = "100" ]; do sleep 1; done
 ```
 
 ## Create an all-members group
@@ -172,7 +172,7 @@ var org = (await Post("/integrator/organizations",
 var job = (await Post($"/organizations/{org}/members",
     new { members = new[] { new { name = "Alice", memberNumber = "A-101",
                                   email = "alice@example.org", weight = "1" } } })).GetProperty("jobId").GetString();
-while ((await Get($"/organizations/{org}/members/job/{job}")).GetProperty("progress").GetInt32() < 100)
+while ((await Get($"/jobs/{job}")).GetProperty("result").GetProperty("progress").GetInt32() < 100)
     await Task.Delay(1000);
 
 // 3. all-members group
@@ -211,7 +211,7 @@ org = post("/integrator/organizations",
 job = post(f"/organizations/{org}/members",
            {"members": [{"name": "Alice", "memberNumber": "A-101",
                          "email": "alice@example.org", "weight": "1"}]}).json()["jobId"]
-while get(f"/organizations/{org}/members/job/{job}").json()["progress"] < 100:
+while get(f"/jobs/{job}").json()["result"]["progress"] < 100:
     time.sleep(1)
 
 # 3. all-members group

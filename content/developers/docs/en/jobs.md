@@ -75,29 +75,32 @@ while True:
 
 ## The members-job
 
-Bulk member adds report a richer, progress-based shape instead of the generic job above. Poll it on a
-dedicated path:
+A bulk member add is an `org_members` job - poll the same generic `GET /jobs/{jobId}`. Its `result`
+carries the import counters (`added`, `total`, `progress`), and top-level `errors` holds any per-row
+failures:
 
 ```bash
-curl -s "${auth[@]}" "$B/organizations/$ORG/members/job/$JOBID"
+curl -s "$B/jobs/$JOBID"
 ```
 
 ```jsonc
-{ "added": 120, "total": 200, "progress": 60, "errors": [] }   // progress == 100 -> done
+{ "type": "org_members", "status": "pending",
+  "result": { "added": 120, "total": 200, "progress": 60 },   // result.progress == 100 -> done
+  "errors": [] }
 ```
 
 Each entry in `errors` is prefixed with `line N:` - the 1-based position of the offending member in the
 list you submitted - so you can map a failure back to its input row.
 
-Wait for `progress: 100` (and an empty `errors`) before publishing a process whose census uses the
-members. See [Members and groups](/developers/docs/members-and-groups#adding-members).
+Wait for `result.progress: 100` (and an empty `errors`) before publishing a process whose census uses
+the members. See [Members and groups](/developers/docs/members-and-groups#adding-members).
 
 ## Listing jobs
 
 You can list an organization's jobs with [pagination](/developers/docs/api-conventions#pagination) and
-an optional type filter to monitor recent imports and batch operations.
+an optional `type` filter to monitor recent imports and batch operations.
 
-- **GET** `/organizations/{address}/jobs`
+- **GET** `/jobs?orgAddress={address}`
 
 > [!WARNING] Jobs expire
 > Member import jobs are cleared shortly after they complete. Read the final state promptly rather than
