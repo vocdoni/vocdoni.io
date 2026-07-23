@@ -53,12 +53,16 @@ curl -s "$B/processes/$PROCESS/results"
 - `finalResults: false` - the question is still open; the tally is provisional.
 - `finalResults: true` - voting has ended; results are final.
 
+> [!NOTE] The matrix is empty until a tally exists
+> `results` is `[]` (empty) until there is something to count - before any vote is cast, or while a
+> `secretUntilTheEnd` election is still encrypted (only `voteCount` moves). Poll on an empty matrix.
+
 > [!NOTE] Results are also inline on a single question read
-> Once a question reaches `RESULTS`, the same tally (a `results` object) is included **inline** on
+> Every **published** question also carries its **live** tally inline (a `results` object) on
 > `GET /processes/{processId}` and the public question read (see
-> [Voting processes](/developers/docs/voting-processes#reading-a-process)). The `GET /processes` **list**
-> endpoint does not resolve it, so an absent `results` in a list response means "not resolved here", not
-> "not final" - poll a single read for finality.
+> [Voting processes](/developers/docs/voting-processes#reading-a-process)) - `finalResults` marks live
+> vs final. The object is absent only for a draft. The `GET /processes` **list** endpoint does not
+> resolve it, so an absent `results` in a list response means "not resolved here", not "not final".
 
 :::code-tabs[read results]
 

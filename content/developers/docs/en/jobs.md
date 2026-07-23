@@ -36,7 +36,7 @@ curl -s "$B/jobs/$JOBID"     # public - the job id is the capability
 | `type` | string | What kind of work the job performs. |
 | `status` | string | pending, completed or failed. |
 | `result` | object | On success, details such as an address or vote id. |
-| `error` | string | On failure, a human-readable reason. |
+| `error` | string | On failure, a human-readable reason. Detailed import errors are shown to the org's managers/admins. |
 
 Rules of thumb:
 
