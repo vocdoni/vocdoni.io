@@ -25,7 +25,7 @@ markdown pipeline (`lib/docs/markdown.ts`).
 |---|---|---|---|
 | `title` | string | yes | Display title. Quote it if it contains `:` or apostrophes. |
 | `publishedDate` | `'YYYY-MM-DD'` | yes | Quoted ISO date. Drives newest-first sort order. |
-| `updatedDate` | `'YYYY-MM-DD'` | no | Shown as "updated" date. |
+| `updatedDate` | `'YYYY-MM-DD'` | no | Not rendered in the post UI. Feeds `article:modified_time` and the JSON-LD `dateModified` (`lib/seo-head.tsx`); falls back to `publishedDate`. |
 | `excerpt` | string | no | Short summary; used in listings and as the meta-description fallback. |
 | `coverImage` | path | no | Web-absolute, e.g. `/blog/images/2026/01/foo.webp`. |
 | `coverAlt` | string | no | Cover alt text (usually mirrors the title). |
