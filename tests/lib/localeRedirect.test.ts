@@ -42,6 +42,10 @@ describe('resolvePreferredLocale', () => {
   it('resolves a generic browser language to the base locale', () => {
     expect(resolvePreferredLocale(null, ['pt'], ['en', 'pt', 'pt-br'], 'en')).toBe('pt')
   })
+
+  it('resolves an Indian Hindi browser language to the base locale', () => {
+    expect(resolvePreferredLocale(null, ['hi-IN'], ['en', 'es', 'hi'], 'en')).toBe('hi')
+  })
 })
 
 describe('buildLocaleRedirectTarget', () => {

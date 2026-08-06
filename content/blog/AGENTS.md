@@ -82,7 +82,7 @@ Current slugs: `announcements`, `davinci`, `partnerships`, `product-updates`, `s
 
 ## Translations & locales
 
-Served locales (`locales/index.ts`): `en` (default), `es`, `ca`, `de`, `el`, `eu`, `fr`, `it`,
+Served locales (`locales/index.ts`): `en` (default), `es`, `ca`, `de`, `el`, `eu`, `fr`, `hi`, `it`,
 `pt`, `pt-br`.
 
 - Translate a post by creating a file with the **same filename** in another locale directory. Only

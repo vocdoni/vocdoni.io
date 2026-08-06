@@ -168,6 +168,7 @@ const REQUIRED_LABEL: Record<string, string> = {
   el: 'Απαιτείται',
   eu: 'Beharrezkoa',
   fr: 'Requis',
+  hi: 'आवश्यक',
   it: 'Obbligatorio',
   pt: 'Obrigatório',
 }
