@@ -24,7 +24,8 @@ describe('blog content loader', () => {
     expect(post!.usedLocale).toBe('en')
     expect(post!.availableLocales).toContain('ca')
     expect(post!.availableLocales).toContain('en')
-    expect(post!.availableLocales.length).toBeGreaterThanOrEqual(10)
+    expect(post!.availableLocales).toContain('hi')
+    expect(post!.availableLocales.length).toBeGreaterThanOrEqual(11)
     expect(post!.html.length).toBeGreaterThan(0)
 
     const caPost = loadPost('consulta-docents-sindicats-2026', 'ca')
