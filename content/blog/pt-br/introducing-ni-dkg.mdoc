@@ -64,7 +64,7 @@ Observe que a divulgação da chave não faz parte do protocolo DAVINCI; normalm
 
 1. **Iniciação**: o pedido de divulgação da chave secreta pode ser enviado pelo organizador ou disparado automaticamente, desde que os parâmetros da política permitam.
 2. **Publicação das frações da chave secreta:** cada nó participante publica sua fração do segredo.
-3. **Cálculo da chave secreta:** assim que `t` ou mais valores tiverem sido submetidos, qualquer pessoa pode calcular a chave secret&#x61;**.**
+3. **Cálculo da chave secreta:** assim que `t` ou mais valores tiverem sido submetidos, qualquer pessoa pode calcular a chave secret&#x61;.
 
 ![](/blog/images/2026/03/dkg-sk-disclosure.webp)
 
@@ -81,8 +81,6 @@ Os blocos de construção criptográficos são os seguintes:
 
 **Circuitos:**
 
-<!--kg-card-begin: html-->
-
 | Fase                                                                | Propósito                                       | Saída / O que prova                                                                              |
 | ------------------------------------------------------------------- | ----------------------------------------------- | ------------------------------------------------------------------------------------------------ |
 | Geração, fase 4: processo principal de DKG                          | Prova de contribuição por participante          | A contribuição de DKG de cada participante é válida.                                             |
@@ -91,8 +89,6 @@ Os blocos de construção criptográficos são os seguintes:
 | Descriptografia, fase 3: descriptografia                            | Combinar descriptografias parciais → texto original | A combinação de descriptografias parciais válidas produz o texto original correto.           |
 | Divulgação opcional da chave, fase 2: publicação das frações da chave secreta | Verificação de fração vs. compromisso (por nó) | Cada nó prova que sua fração revelada corresponde ao compromisso publicado anteriormente. |
 | Divulgação opcional da chave, fase 3: cálculo da chave secreta      | Reconstruir a chave secreta a partir de _t_ frações | A reconstrução da chave secreta a partir das (_t_) frações do limiar está correta.           |
-
-<!--kg-card-end: html-->
 
 ### **Limitações**
 

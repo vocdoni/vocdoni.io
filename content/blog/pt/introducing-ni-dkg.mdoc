@@ -64,7 +64,7 @@ Note-se que a divulgação da chave não faz parte do protocolo DAVINCI; normalm
 
 1. **Iniciação:** o pedido de divulgação da chave secreta pode ser enviado pelo organizador ou acionado automaticamente, desde que os parâmetros da política o permitam.
 2. **Publicação das partes da chave secreta:** cada nó participante publica a sua parte do segredo.
-3. **Cálculo da chave secreta:** assim que forem submetidos `t` ou mais valores, qualquer pessoa pode calcular a chave secreta**.**
+3. **Cálculo da chave secreta:** assim que forem submetidos `t` ou mais valores, qualquer pessoa pode calcular a chave secreta.
 
 ![](/blog/images/2026/03/dkg-sk-disclosure.webp)
 
@@ -81,8 +81,6 @@ Os blocos criptográficos são os seguintes:
 
 **Circuitos:**
 
-<!--kg-card-begin: html-->
-
 | Fase                                                                    | Objetivo                                          | Resultado / o que prova                                                                              |
 | ----------------------------------------------------------------------- | ------------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
 | Geração, fase 4: processo principal de DKG                              | Prova de contribuição por participante            | A contribuição de DKG de cada participante é válida.                                                 |
@@ -91,8 +89,6 @@ Os blocos criptográficos são os seguintes:
 | Desencriptação, fase 3: desencriptação                                  | Combinar desencriptações parciais → texto em claro | A combinação de desencriptações parciais válidas produz o texto em claro correto.                    |
 | Divulgação opcional da chave, fase 2: publicação das partes da chave secreta | Verificação parte vs. compromisso (por nó)   | Cada nó prova que a parte revelada corresponde ao compromisso publicado anteriormente.               |
 | Divulgação opcional da chave, fase 3: cálculo da chave secreta          | Reconstrução da chave secreta a partir de _t_ partes | A reconstrução da chave secreta a partir do limiar (_t_) de partes está correta.                   |
-
-<!--kg-card-end: html-->
 
 ### **Limitações**
 

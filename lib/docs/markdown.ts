@@ -213,9 +213,60 @@ const findDescendant = (node: HastNode, tagName: string): HastNode | undefined =
 
 // --- remark: map the :::steps / :::code-tabs directives to placeholder divs --
 
+// `remark-directive` claims every `:name` in prose as a text directive, including
+// the ones nobody wrote on purpose: `10:00`, `CAN/DGSI 111-1:2024`. Unclaimed
+// directives fall through to `mdast-util-to-hast`, whose default handler emits an
+// empty `<div>` and drops the source text. Put the literal text back instead.
+function directiveAttributes(node: HastNode): string {
+  const attributes = node.attributes as Record<string, string | null | undefined> | undefined
+  if (!attributes) return ''
+  const parts: string[] = []
+  for (const [key, value] of Object.entries(attributes)) {
+    if (value === null || value === undefined) continue
+    if (key === 'id') parts.push(`#${value}`)
+    else if (key === 'class')
+      parts.push(
+        ...value
+          .split(/\s+/)
+          .filter(Boolean)
+          .map((name) => `.${name}`)
+      )
+    // A valueless attribute parses to '', so write it back bare rather than as `k=""`.
+    else if (value === '') parts.push(key)
+    // Quote with whichever delimiter the value does not itself contain. A value
+    // can only carry `"` by being single-quoted and `'` by being double-quoted,
+    // and unquoted rejects both, so no directive can produce a value holding
+    // both — the escape below is defensive and currently unreachable.
+    else if (value.includes('"') && !value.includes("'")) parts.push(`${key}='${value}'`)
+    else parts.push(`${key}="${value.replace(/"/g, '\\"')}"`)
+  }
+  return parts.length ? `{${parts.join(' ')}}` : ''
+}
+
+function unwrapDirective(node: HastNode, index: number, parent: HastNode, marker: string): [typeof SKIP, number] {
+  const label: HastNode[] = node.children ?? []
+  const replacement: HastNode[] = [t(`${marker}${node.name ?? ''}`)]
+  // Bracket literals are built inline rather than through the local `t` helper:
+  // the i18next extractor treats a single-quoted argument to any `t` as a key.
+  if (label.length) replacement.push({ type: 'text', value: '[' }, ...label, { type: 'text', value: ']' })
+  const attributes = directiveAttributes(node)
+  if (attributes) replacement.push(t(attributes))
+  // A leaf directive occupies a block slot, so its text needs a paragraph to live
+  // in; a text directive is already inline and splices in as-is.
+  const nodes = marker === '::' ? [{ type: 'paragraph', children: replacement }] : replacement
+  parent.children.splice(index, 1, ...nodes)
+  // Resume at this index (so a directive nested in the label is repaired too) but
+  // SKIP the detached node's own children, which are no longer part of the tree.
+  return [SKIP, index]
+}
+
 function remarkDocDirectives() {
   return (tree: HastNode) => {
-    visit(tree, (node: HastNode) => {
+    visit(tree, (node: HastNode, index: number | undefined, parent: HastNode | undefined) => {
+      if (node.type === 'textDirective') {
+        if (!parent || index === undefined) return
+        return unwrapDirective(node, index, parent, ':')
+      }
       if (node.type !== 'containerDirective' && node.type !== 'leafDirective') return
       if (node.name === 'steps') {
         const data = node.data || (node.data = {})
@@ -236,6 +287,10 @@ function remarkDocDirectives() {
         data.hName = 'div'
         data.hProperties = { className: ['code-tabs-root'], ...(label ? { 'data-tabs-label': label } : {}) }
         return
+      }
+      // Same reasoning as text directives: an unclaimed `::name` is prose, not markup.
+      if (node.type === 'leafDirective' && parent && index !== undefined) {
+        return unwrapDirective(node, index, parent, '::')
       }
     })
   }
@@ -283,14 +338,16 @@ function rehypeAdmonitions() {
 
 // --- rehype: hover-reveal ¶ permalink on section headings -------------------
 
+const ANCHORED_HEADINGS = new Set(['h2', 'h3', 'h4'])
+
 // rehype-slug gives every heading an id (so deep links to any subsection work);
-// this appends a ¶ permalink to h2/h3 that stays hidden until the heading is
+// this appends a ¶ permalink to h2/h3/h4 that stays hidden until the heading is
 // hovered or the link is focused. Runs after rehypeSteps so numbered step
 // titles (STEP_HEADING) are skipped - they are not standalone sections.
 function rehypeMainSectionAnchors() {
   return (tree: HastNode) => {
     visit(tree, 'element', (node: HastNode) => {
-      if (node.tagName !== 'h2' && node.tagName !== 'h3') return
+      if (!ANCHORED_HEADINGS.has(node.tagName as string)) return
       if (node.properties?.className === STEP_HEADING) return
       const id = node.properties?.id
       if (!id) return
