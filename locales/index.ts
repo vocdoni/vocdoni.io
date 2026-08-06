@@ -1,5 +1,5 @@
-type Locale = 'ca' | 'de' | 'el' | 'en' | 'es' | 'eu' | 'fr' | 'it' | 'pt' | 'pt-br'
-const locales: Locale[] = ['ca', 'de', 'el', 'en', 'es', 'eu', 'fr', 'it', 'pt', 'pt-br']
+type Locale = 'ca' | 'de' | 'el' | 'en' | 'es' | 'eu' | 'fr' | 'hi' | 'it' | 'pt' | 'pt-br'
+const locales: Locale[] = ['ca', 'de', 'el', 'en', 'es', 'eu', 'fr', 'hi', 'it', 'pt', 'pt-br']
 const localeDefault: Locale = 'en'
 const availableLocales: { value: Locale; label: string }[] = [
   { value: 'ca', label: 'Català' },
@@ -9,6 +9,7 @@ const availableLocales: { value: Locale; label: string }[] = [
   { value: 'es', label: 'Español' },
   { value: 'eu', label: 'Euskara' },
   { value: 'fr', label: 'Français' },
+  { value: 'hi', label: 'हिन्दी' },
   { value: 'it', label: 'Italiano' },
   { value: 'pt', label: 'Português (Portugal)' },
   { value: 'pt-br', label: 'Português (Brasil)' },

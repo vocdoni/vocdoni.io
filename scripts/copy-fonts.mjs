@@ -14,12 +14,17 @@ const filesDir = resolve(outDir, 'files')
 // Match the axes currently used by the site: Hanken Grotesk (variable weight)
 // upright and italic, Fraunces (full axes: wght + opsz + SOFT/WONK, needed for
 // the display-heading voice) upright and italic, JetBrains Mono upright only.
+// Noto Sans Devanagari covers the Hindi locale: neither Hanken Grotesk nor
+// Fraunces ships a Devanagari subset, so without it `hi` falls back to whatever
+// the OS happens to have. Its latin subsets never load in practice because
+// Hanken Grotesk comes first in --font-sans and already covers those ranges.
 const sources = [
   '@fontsource-variable/hanken-grotesk/wght.css',
   '@fontsource-variable/hanken-grotesk/wght-italic.css',
   '@fontsource-variable/fraunces/full.css',
   '@fontsource-variable/fraunces/full-italic.css',
   '@fontsource-variable/jetbrains-mono/wght.css',
+  '@fontsource-variable/noto-sans-devanagari/wght.css',
 ]
 
 rmSync(outDir, { recursive: true, force: true })

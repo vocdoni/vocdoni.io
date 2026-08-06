@@ -455,6 +455,17 @@ export function HeadTags(pageContext: PageContext) {
         type='font/woff2'
         crossOrigin='anonymous'
       />
+      {/* Devanagari pages still need the latin subsets above (brand names and the technical
+          vocabulary we keep in latin script), so this is additive rather than a swap. */}
+      {effectiveLocale === 'hi' && (
+        <link
+          rel='preload'
+          href='/fonts/files/noto-sans-devanagari-devanagari-wght-normal.woff2'
+          as='font'
+          type='font/woff2'
+          crossOrigin='anonymous'
+        />
+      )}
       <link rel='stylesheet' href='/fonts/fonts.css' />
       <link rel='dns-prefetch' href='https://www.googletagmanager.com' />
       <link rel='dns-prefetch' href='https://plausible.io' />
