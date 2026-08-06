@@ -133,8 +133,6 @@ Municipal clerks should not have to be cryptographers. The standard exists preci
 
 No vendor has been formally certified against CAN/DGSI 111 - the certification infrastructure does not yet exist. What we can do is compare the standard's stated requirements against what the 2023 academic audit documented about the systems serving Canadian municipal elections at the time. The findings, from the Essex/Goodman peer-reviewed paper, cover the full Ontario market.
 
-<!--kg-card-begin: html-->
-
 | Requirement                                                                                        | Current Ontario vendors (Essex/Goodman 2023 audit)                                                    | DAVINCI / Vocdoni                                                 |
 | -------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------- |
 | **Universal verifiability** (any 3rd party can verify the full result)                             | Not provided by any vendor audited                                                                    | Full cryptographic E2E-V                                          |
@@ -148,8 +146,6 @@ No vendor has been formally certified against CAN/DGSI 111 - the certification i
 | **Penetration testing disclosed**                                                                  | No municipality publicly disclosed a penetration test in five years of research                       | Open source enables independent audit by anyone at any time       |
 | **Coercion resistance / vote updating** (SHOULD: voter can silently change their vote)             | Not provided by any vendor audited                                                                    | Yes, vote overwriting by design                                   |
 | **Transparency of procedures**                                                                     | Not provided; vendor source code and audit logs proprietary                                           | Yes, public code and public audit trail                           |
-
-<!--kg-card-end: html-->
 
 _Vendor assessments are based on the_ [_Essex/Goodman 2023 peer-reviewed audit_](https://link.springer.com/chapter/10.1007/978-3-031-43756-4_4) _of Ontario's online voting market. Individual vendors may have updated their systems since 2022. DAVINCI assessments are based on the published protocol documentation._
 
@@ -185,8 +181,6 @@ Vocdoni has been deploying digital voting since 2018. In seven years, the compan
 
 Here is how DAVINCI maps to each CAN/DGSI 111 requirement area.
 
-<!--kg-card-begin: html-->
-
 | CAN/DGSI 111 requirement area                   | How DAVINCI meets it                                                                                                                                                                                                                                                                                                         | Status                                                   |
 | ----------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------- |
 | **Vote secrecy**                                | Votes are encrypted at the moment they are cast. Tallying happens without anyone ever decrypting individual ballots, not the municipality, not Vocdoni. Voter identity is structurally decoupled from vote content by design.                                                                                                | Full (SHALL)                                             |
@@ -205,8 +199,6 @@ Here is how DAVINCI maps to each CAN/DGSI 111 requirement area.
 | **Procurement transparency**                    | Public pricing at app.vocdoni.io/plans. Self-service. No sales call required for standard configurations.                                                                                                                                                                                                                    | Full                                                     |
 | **Accountability of electoral management body** | Municipality or election administrator controls all election parameters, voter list, ballot, timing. Vocdoni cannot alter these after setup.                                                                                                                                                                                 | Full (SHALL)                                             |
 | **Data localization**                           | The standard requires election data on Canadian servers. For decentralized systems, the requirement is satisfied where data outside Canada cannot reconstruct voter identity or alter results. DAVINCI's architecture satisfies this condition by design; Canadian-hosted nodes can be configured for municipal deployments. | Full via decentralized exception                         |
-
-<!--kg-card-end: html-->
 
 One requirement worth addressing directly: the standard mandates that all election data be stored on servers physically located in Canada. Vocdoni's infrastructure is EU-based. The standard includes an explicit provision for decentralized systems: the requirement is satisfied where election-critical components run on Canadian infrastructure, or where data stored outside Canada cannot be used to reconstruct voter identity or alter election results. DAVINCI's cryptographic design - where vote content is encrypted and individual votes are unlinkable to voters at the infrastructure level - satisfies the second condition. For Canadian municipal elections, Vocdoni would also configure election-critical nodes on Canadian-hosted infrastructure. This is an operational configuration, not an architectural barrier.
 

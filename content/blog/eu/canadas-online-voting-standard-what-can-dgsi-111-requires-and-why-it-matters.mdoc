@@ -133,8 +133,6 @@ Udal idazkariek ez lukete kriptografo izan beharrik. Estandarra, hain zuzen, hor
 
 Hornitzaile bakar bat ere ez da formalki ziurtatu CAN/DGSI 111en arabera — ziurtapen-azpiegitura ez dago oraindik. Egin dezakeguna da estandarrak ezarritako betekizunak alderatzea 2023ko auditoria akademikoak Kanadako udal hauteskundeak garai hartan zerbitzatzen zituzten sistemei buruz dokumentatutakoarekin. Emaitzak Essexen eta Goodmanen parekoek berrikusitako artikulutik hartuta daude, eta Ontarioko merkatu osoa hartzen dute.
 
-<!--kg-card-begin: html-->
-
 | Betekizuna                                                                                              | Ontarioko egungo hornitzaileak (Essex/Goodman 2023ko auditoria)                                                              | DAVINCI / Vocdoni                                                             |
 | ------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------ |
 | **Egiaztagarritasun unibertsala** (edozein hirugarrenek egiazta dezake emaitza osoa)                     | Auditatutako hornitzaile bakar batek ere ez zuen eskaintzen                                                                    | Muturretik muturrerako egiaztagarritasun kriptografiko osoa                     |
@@ -148,8 +146,6 @@ Hornitzaile bakar bat ere ez da formalki ziurtatu CAN/DGSI 111en arabera — ziu
 | **Penetrazio-probak argitaratuta**                                                                       | Bost urteko ikerketan, udalerri bakar batek ere ez zuen penetrazio-probarik publiko egin                                       | Kode irekiari esker, edonork egin dezake auditoria independentea, edonoiz       |
 | **Hertsapenarekiko erresistentzia / botoa eguneratzea** (SHOULD: hautesleak isilean alda dezake botoa)    | Auditatutako hornitzaile bakar batek ere ez zuen eskaintzen                                                                    | Bai, botoa gainidaztea diseinuz                                                 |
 | **Prozeduren gardentasuna**                                                                              | Ez zen eskaintzen; hornitzailearen iturburu-kodea eta auditoria-erregistroak jabedunak ziren                                   | Bai, kode publikoa eta auditoria-aztarna publikoa                               |
-
-<!--kg-card-end: html-->
 
 _Hornitzaileen ebaluazioak_ [_Essexen eta Goodmanen 2023ko auditorian_](https://link.springer.com/chapter/10.1007/978-3-031-43756-4_4) _(parekoek berrikusia) oinarrituta daude, Ontarioko onlineko bozketaren merkatuari buruzkoan. Baliteke hornitzaile batzuek beren sistemak eguneratu izana 2022az geroztik. DAVINCIren ebaluazioak argitaratutako protokolo-dokumentazioan oinarrituta daude._
 
@@ -185,8 +181,6 @@ Vocdoni 2018az geroztik ari da bozketa digitalak hedatzen. Zazpi urtean, konpain
 
 Hona hemen DAVINCIk CAN/DGSI 111en betekizun-arlo bakoitzari nola erantzuten dion.
 
-<!--kg-card-begin: html-->
-
 | CAN/DGSI 111 betekizun-arloa                      | Nola betetzen duen DAVINCIk                                                                                                                                                                                                                                                     | Egoera                                                                        |
 | -------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------ |
 | **Botoaren sekretua**                              | Botoak ematen diren unean bertan zifratzen dira. Zenbaketa inork banakako boto-txartelik deszifratu gabe egiten da; ez udalerriak, ez Vocdonik. Hauteslearen nortasuna botoaren edukitik egituraz bereizita dago, diseinuz.                                                     | Osoa (SHALL)                                                                   |
@@ -205,8 +199,6 @@ Hona hemen DAVINCIk CAN/DGSI 111en betekizun-arlo bakoitzari nola erantzuten dio
 | **Kontratazioaren gardentasuna**                   | Prezio publikoak, app.vocdoni.io/plans helbidean. Autozerbitzua. Konfigurazio estandarretarako ez da salmenta-deirik behar.                                                                                                                                                      | Osoa                                                                           |
 | **Hauteskunde-kudeaketako erakundearen erantzukizuna** | Udalerriak edo hauteskunde-administratzaileak kontrolatzen ditu bozketa-parametro guztiak: hautesle-zerrenda, boto-txartela, egutegia. Vocdonik ezin ditu horiek aldatu, konfigurazioa egin ondoren.                                                                             | Osoa (SHALL)                                                                   |
 | **Datuen kokapena**                                | Estandarrak hauteskunde-datuak Kanadako zerbitzarietan gordetzea eskatzen du. Sistema deszentralizatuetarako, betekizuna betetzat jotzen da Kanadatik kanpoko datuekin hauteslearen nortasuna berreraiki edo emaitzak aldatu ezin direnean. DAVINCIren arkitekturak diseinuz betetzen du baldintza hori; udal hedapenetarako, Kanadan ostatatutako nodoak konfigura daitezke. | Osoa, salbuespen deszentralizatuaren bidez                                     |
-
-<!--kg-card-end: html-->
 
 Bada zuzenean heldu beharreko betekizun bat: estandarrak agintzen du hauteskunde-datu guztiak Kanadan fisikoki kokatutako zerbitzarietan gorde behar direla. Vocdoniren azpiegitura EBn dago. Estandarrak berariazko xedapen bat dauka sistema deszentralizatuetarako: betekizuna betetzat jotzen da hauteskundeetarako funtsezkoak diren osagaiak Kanadako azpiegituran exekutatzen direnean, edo Kanadatik kanpo gordetako datuak hauteslearen nortasuna berreraikitzeko edo hauteskunde-emaitzak aldatzeko erabili ezin direnean. DAVINCIren diseinu kriptografikoak — non botoaren edukia zifratuta baitago eta banakako botoak hautesleekin lotu ezin baitira azpiegitura-mailan — bigarren baldintza betetzen du. Kanadako udal hauteskundeetarako, gainera, Vocdonik hauteskundeetarako funtsezkoak diren nodoak Kanadan ostatatutako azpiegituran konfiguratuko lituzke. Konfigurazio operatiboa da hori, ez oztopo arkitektonikoa.
 

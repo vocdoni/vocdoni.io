@@ -15,7 +15,7 @@ draft: false
 
 Aquest article proposa una prova de concepte que aprofita els zk-SNARKs per assolir la propera frontera de la governança: **governança on-chain sense gas, verificada i vinculant**.
 
-_El contingut tècnic d'aquesta proposta també s'ha publicat al fòrum_ [_Ethresear.ch_](http://Ethresear.ch)_&#xA0;_[_aquí_](https://ethresear.ch/t/experiment-in-gassless-voting-using-snarks/10927)_&#xA0;perquè la comunitat en pugui debatre._
+_El contingut tècnic d'aquesta proposta també s'ha publicat al fòrum_ [_Ethresear.ch_](https://ethresear.ch)_&#xA0;_[_aquí_](https://ethresear.ch/t/experiment-in-gassless-voting-using-snarks/10927)_&#xA0;perquè la comunitat en pugui debatre._
 
 # **Context**
 
@@ -175,7 +175,7 @@ A partir d'aquesta recerca, ens agradaria explorar amb més profunditat les idee
 - Verificar la mateixa signatura del vot.
 - Verificar Storage Proofs dins d'un SNARK. Pensem que aquest tipus de circuit complex es podria integrar fàcilment via una zkVM, tot i que el cost podria ser significatiu. Ens preocupa que els clients d'Ethereum abandonin els nodes d'arxiu per prioritzar límits de gas més alts, així que una altra àrea de recerca és intentar fer servir mètodes diferents d'EIP1186 per a les Storage Proofs.
 - Per computar el recompte, incrustar algun tipus d'opcodes que s'executin dins d'una zkVM, per habilitar circuits de votació genèrics i programables.
-- Generar una prova de vot al navegador, mesclar via batching i agregar recursivament els resultats, de manera similar al protocol de [zk.money](http://Ethresear.ch). Això augmentaria la privadesa del procés de votació.
+- Generar una prova de vot al navegador, mesclar via batching i agregar recursivament els resultats, de manera similar al protocol de [zk.money](https://zk.money). Això augmentaria la privadesa del procés de votació.
 - Permetre computar SNARKs a nivell de navegador de manera distribuïda, encara que siguin computacionalment cars. Això estalvia dependre de servidors molt exposats i, en ser totalment P2P, dona tot el poder als votants.
 - Incrustar la privadesa i la mescla (mixing) al protocol de votació a nivell de xarxa.
 - Trobar un model criptoeconòmic que sigui racional i plenament interoperable amb Ethereum 2.0.

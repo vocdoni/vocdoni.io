@@ -81,8 +81,6 @@ Die kryptografischen Bausteine sind:
 
 **Circuits:**
 
-<!--kg-card-begin: html-->
-
 | Phase                                                                       | Zweck                                            | Ausgabe / Was bewiesen wird                                                                       |
 | --------------------------------------------------------------------------- | ------------------------------------------------ | ------------------------------------------------------------------------------------------------- |
 | Erzeugung, Phase 4: Eigentlicher DKG-Prozess                                | Beitragsbeweis pro Teilnehmer                    | Der DKG-Beitrag jedes Teilnehmers ist gültig.                                                     |
@@ -91,8 +89,6 @@ Die kryptografischen Bausteine sind:
 | Entschlüsselung, Phase 3: Entschlüsselung                                   | Kombination partieller Entschlüsselungen → Klartext | Die Kombination gültiger partieller Entschlüsselungen ergibt den korrekten Klartext.              |
 | Optionale Schlüsseloffenlegung, Phase 2: Veröffentlichung der Shares des geheimen Schlüssels | Abgleich Share vs. Commitment (pro Knoten) | Jeder Knoten beweist, dass sein offengelegter Share zum zuvor veröffentlichten Commitment passt.  |
 | Optionale Schlüsseloffenlegung, Phase 3: Berechnung des geheimen Schlüssels | Rekonstruktion des geheimen Schlüssels aus _t_ Shares | Die Rekonstruktion des geheimen Schlüssels aus (_t_) Threshold-Shares ist korrekt.                |
-
-<!--kg-card-end: html-->
 
 ### **Grenzen**
 

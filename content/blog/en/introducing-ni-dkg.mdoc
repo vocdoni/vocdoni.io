@@ -64,7 +64,7 @@ Please note that the key disclosure is not part of the DAVINCI protocol, usually
 
 1. **Initiation**: the request to disclose the secret key can be sent by the organizer or triggered automatically, assuming this is allowed by the policy parameters.
 2. **Publish shares of secret key:** every participating node publishes their share of the secret.
-3. **Compute secret key:** once `t` or more values have been submitted, anyone can compute the secret ke&#x79;**.**
+3. **Compute secret key:** once `t` or more values have been submitted, anyone can compute the secret ke&#x79;.
 
 ![](/blog/images/2026/03/dkg-sk-disclosure.webp)
 
@@ -77,11 +77,9 @@ The cryptographic building blocks are the following:
 - **Shamir + Feldman VSS**: polynomials with public coefficient commitments.
 - **Hashed ElGamal** for encrypting shares.
 - **Chaum-Pedersen DLOG** equality proof, used for partial decryptions.
-- **zk-SNARKs** (Groth16 , FFLONK, …) for on-chain verification.
+- **zk-SNARKs** (Groth16, FFLONK, …) for on-chain verification.
 
 **Circuits:**
-
-<!--kg-card-begin: html-->
 
 | Phase                                                        | Purpose                                    | Output / What it Proves                                                                   |
 | ------------------------------------------------------------ | ------------------------------------------ | ----------------------------------------------------------------------------------------- |
@@ -91,8 +89,6 @@ The cryptographic building blocks are the following:
 | DecryptionPhase 3: Decryption                                | Combine partial decryptions → plaintext    | Combining valid partial decryptions yields the correct plaintext.                         |
 | Optional Key DisclosurePhase 2: Publish shares of secret key | Share vs. commitment check (per node)      | Each node proves its revealed share matches the previously published commitment.          |
 | Optional Key DisclosurePhase 3: Compute secret key           | Reconstruct secret key from _t_ shares     | The secret key reconstruction from threshold (_t_) shares is correct.                     |
-
-<!--kg-card-end: html-->
 
 ### **Limitations**
 

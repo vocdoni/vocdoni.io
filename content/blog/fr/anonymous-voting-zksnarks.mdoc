@@ -59,59 +59,13 @@ La `franchise proof` est générée en exécutant le circuit zk-SNARK.
 
 ![](/blog/images/2026/01/zksnarks_anonymous_1.webp)
 
-# **Définir le vote anonyme**
-
-Avant d'entrer dans les spécifications techniques, il convient de préciser ce que nous entendons par vote anonyme, et pourquoi nous avons retenu cette conception. Dans l'article d'annonce du produit, nous présentons deux formes d'anonymat : le masquage des bulletins et l'anonymat de l'électeur.
-
-Le masquage des bulletins désigne l'anonymat obtenu en cachant le contenu de chaque vote, tandis que l'anonymat de l'électeur rompt le lien entre chaque électeur et son vote, sans dissimuler les votes eux-mêmes. Notre implémentation du vote anonyme repose sur l'anonymat de l'électeur. Pourquoi ce choix ?
-
-Tout d'abord, le masquage des bulletins implique des compromis importants. Pour qu'un processus de vote soit vérifiable de bout en bout, les électeurs doivent pouvoir suivre et examiner le contenu des bulletins qu'ils ont déposés. Si l'anonymat repose sur le masquage des bulletins, la vérifiabilité disparaît : impossible de vérifier que votre vote a été comptabilisé ni d'auditer l'intégrité du scrutin si le contenu de chaque vote est caché.
-
-Autre inconvénient : le masquage des bulletins est difficile à mettre en œuvre dans un système de vote numérique. Une des techniques possibles est le chiffrement homomorphe, qui a été [proposé](https://www.itm-conferences.org/articles/itmconf/pdf/2020/02/itmconf_icacc2020_03023.pdf) pour apporter un anonymat cryptographique aux systèmes de vote traditionnels. Le chiffrement homomorphe permet d'effectuer des calculs sur des valeurs chiffrées : on peut ainsi obtenir le décompte des votes sans examiner le contenu d'un seul bulletin. Solide en théorie, le chiffrement homomorphe présente néanmoins de nombreux inconvénients qui en font une base peu souhaitable pour une technologie de vote.
-
-Surtout, cette méthode ne permet que des calculs élémentaires sur les bulletins chiffrés, ce qui rend des modes de scrutin comme le vote [quadratique](https://en.wikipedia.org/wiki/Quadratic_voting?oldformat=true) ou [par](https://en.wikipedia.org/wiki/Instant-runoff_voting?oldformat=true) [classement](https://www.wikiwand.com/en/Instant-runoff_voting) plus difficiles à [mettre en œuvre](https://blog.aragon.org/vocdoni-ballot-protocol/). De plus, si le chiffrement homomorphe garantit le calcul des résultats, il ne garantit pas la vérification de bout en bout du bulletin d'un électeur. Ce schéma ne fournit aucune preuve cryptographique attestant que le bulletin d'un électeur a bien été inclus et correctement représenté dans les résultats. Nous estimons également que la validation de la preuve homomorphe d'un processus de vote exigerait des ressources de calcul considérables, qui croissent avec la taille du scrutin. Cela pourrait annuler les bénéfices d'un système universellement vérifiable, la vérification ne pouvant être effectuée que sur des machines puissantes et coûteuses, sur une durée prohibitive.
-
-L'anonymat de l'électeur présente plusieurs avantages par rapport au chiffrement homomorphe. D'abord, il permet un degré de vérifiabilité de bout en bout bien plus élevé. Si le lien entre un électeur et son bulletin doit rester opaque pour tout observateur _tiers_, l'électeur lui-même peut toujours identifier son bulletin. Les bulletins étant visibles, chacun peut suivre son vote depuis le moment où il est déposé jusqu'à son inclusion dans les résultats. Les tiers peuvent en outre vérifier que chaque bulletin appartient à un électeur légitime et que son contenu a été correctement décompté.
-
-L'anonymat de l'électeur permet aussi des conceptions bien plus efficaces sur le plan du calcul. Les systèmes fondés sur l'anonymat de l'électeur n'appliquent le masquage qu'une seule fois, sur la preuve associée au bulletin de chaque électeur, plutôt que sur l'ensemble des résultats à chaque nouveau bulletin déposé. Aucune étape de calcul lourde n'est nécessaire pour rendre les résultats largement accessibles. Les résultats peuvent même être publiés _pendant_ le processus de vote sans compromettre l'anonymat (à condition d'avoir paré les attaques par corrélation temporelle).
-
-C'est pourquoi nous avons intégré l'anonymat de l'électeur à notre mécanisme de preuve de recensement.
-
-# **L'arbre de Merkle du recensement**
-
-Le point de départ du mécanisme de recensement des votants est un [_arbre de Merkle de recensement_](https://docs.vocdoni.io/architecture/census/off-chain-tree.html). Il s'agit d'une structure de clés publiques hachées, dont chacune représente un électeur éligible du recensement. L'arbre de Merkle permet à tout électeur légitime de prouver qu'il détient une `censusKey` appartenant au recensement, sans connaître les clés des autres électeurs. L'électeur soumet ensuite cette preuve avec son bulletin. À cette _enveloppe de vote_ est également joint un `nullifier` : une donnée dérivée de la `censusKey` de l'utilisateur et de l'`electionID`, qui correspond de manière unique à son vote.
-
-Utilisée seule, cette preuve permettrait à l'organisateur d'un processus de corréler chaque enveloppe de vote, via son `nullifier`, avec la `censusKey` d'un électeur, et donc de désanonymiser le vote. Pour y remédier, Vocdoni utilise des _zk-SNARKs_ afin de garantir l'anonymat du vote.
-
-### **Les zk-SNARKs au service du vote anonyme**
-
-[zk-SNARK](https://en.wikipedia.org/wiki/Non-interactive_zero-knowledge_proof?oldformat=true) signifie _zero-knowledge Succinct Non-interactive ARgument of Knowledge_, soit « argument de connaissance succinct et non interactif à divulgation nulle ». Un zk-SNARK permet à un utilisateur de prouver à un tiers qu'il possède une certaine information, sans révéler l'information elle-même.
-
-Dans notre cas, les zk-SNARKs permettent aux électeurs de prouver leur appartenance au recensement sans révéler leur `secretKey`. Concrètement, cela passe par un zk-Circuit, un circuit logiciel conçu pour générer une preuve à divulgation nulle de connaissance (ZKP, _Zero-Knowledge Proof_).
-
-### **zk-Circuit**
-
-Nous avons conçu un circuit qui permet aux utilisateurs de générer une ZKP de leur appartenance au recensement sans révéler leur `secretKey`. Le circuit reçoit des entrées privées et publiques ; les données susceptibles de révéler l'identité de l'électeur restent privées. Les entrées publiques sont transmises dans l'enveloppe de vote afin que les validateurs puissent les confronter à la preuve et s'assurer que l'utilisateur n'a pas voté deux fois.
-
-Le circuit peut servir à tout processus dont le recensement est de taille comparable, et il ne doit être généré qu'une seule fois par taille. Plus précisément, un circuit généré peut être réutilisé pour tout arbre de Merkle de recensement de même hauteur. Comme nous utilisons un arbre binaire, il faut un circuit pour chaque valeur `n` telle que la taille cible du recensement tient dans `2^n` (par ex. 128, 256, ..., 8192, 16384, etc.).
-
-La génération du circuit repose sur une [cérémonie de configuration de confiance](https://medium.com/qed-it/diving-into-the-snarks-setup-phase-b7660242a0d7) (_trusted setup_). Il s'agit d'un processus de génération des clés de preuve et de vérification du circuit ; on parle de « confiance » car, si une seule partie contrôlait l'intégralité de la génération de ces clés, elle pourrait produire de fausses preuves. Une « cérémonie » décentralisée est donc nécessaire pour garantir la fiabilité du circuit. Lors d'une telle cérémonie, plusieurs parties aux intérêts divergents, situées en des lieux différents, effectuent chacune une étape de la génération des clés. Il suffit qu'une seule d'entre elles reste intègre pour qu'il soit impossible de générer une fausse preuve.
-
-La `franchise proof` est générée en exécutant le circuit zk-SNARK.
-
-- **Entrées privées :** `index`, `secretKey`, `census Merkle-proof`
-- **Entrées publiques :** `census Merkle-root`, `nullifier`, `election ID`, `vote`
-- **Sortie :** `franchise proof`
-
-![](https://storage.googleapis.com/papyrus_images/6b32fa7a072e4433398cb3ebd67ea70e.png)
-
 Sans révéler la `secretKey` ni la _preuve de Merkle du recensement_, ce circuit est en mesure de démontrer que :
 
 1. L'électeur est bien le détenteur de la `secretKey` correspondant à une certaine `zkCensusKey`.
 2. La `zkCensusKey` de l'électeur figure dans l'arbre de Merkle du recensement.
 3. Le `nullifier` fourni par l'électeur correspond de manière unique à sa `secretKey` et à l'`election ID` d'un processus de vote donné.
 
-Bien que le calcul soit gourmand en processeur et en mémoire, les ZKP peuvent être générées depuis le client de l'utilisateur, sur du matériel modeste. Dans le protocole [Vocdoni](http://vocdoni.app/), la preuve est validée par les nœuds de la [Vochain](https://docs.vocdoni.io/architecture/services/vochain.html), les mineurs et tout tiers qui surveille le processus.
+Bien que le calcul soit gourmand en processeur et en mémoire, les ZKP peuvent être générées depuis le client de l'utilisateur, sur du matériel modeste. Dans le protocole [Vocdoni](https://vocdoni.app), la preuve est validée par les nœuds de la [Vochain](https://docs.vocdoni.io/architecture/services/vochain.html), les mineurs et tout tiers qui surveille le processus.
 
 Le circuit est réduit et optimisé à son strict minimum afin de rester accessible à tout type de matériel client. C'est la raison pour laquelle nous n'utilisons pas de vérification de signature, mais une approche fondée sur une secretKey.
 
@@ -178,7 +132,7 @@ Et l'entrée JSON `voteValue` pour le circuit serait : `"voteValue": [b1, b2]`
 Pour répondre à la question « comment cette technologie peut-elle servir au vote des DAO sur Ethereum ? », un peu de contexte s'impose :
 
 - Actuellement, la cryptographie interne d'Ethereum, ses structures de données et son arbre de Merkle ne sont pas compatibles avec les zk-SNARKs ; les options sont donc limitées (pour l'instant).
-- Vocdoni prend actuellement en charge le [vote par preuve de stockage Ethereum](https://www.notion.so/Introducing-Vocdoni-Bridge-voice-cf7e73d38c4a45788358e9a1497cdf19?pvs=21), qui constitue aujourd'hui le moyen le plus sûr et sans tiers de confiance d'exécuter un vote hors chaîne sans frais de gaz (implémenté dans l'interface [https://voice.aragon.org](https://blog.aragon.org/introducing-vocdoni-anonymous-voting/)).
+- Vocdoni prend actuellement en charge le [vote par preuve de stockage Ethereum](https://www.notion.so/Introducing-Vocdoni-Bridge-voice-cf7e73d38c4a45788358e9a1497cdf19?pvs=21), qui constitue aujourd'hui le moyen le plus sûr et sans tiers de confiance d'exécuter un vote hors chaîne sans frais de gaz (implémenté dans l'interface [Aragon Voice](https://blog.aragon.org/introducing-vocdoni-anonymous-voting/)).
 - Si Vocdoni n'offre pas encore d'exécution contraignante entièrement hors chaîne (voter au sein d'Ethereum exige une approche optimiste), nous avons réalisé des [preuves de concept sur ce sujet](https://blog.aragon.org/binding-execution-on-ethereum-with-zk-rollups/) et poursuivons nos recherches pour atteindre l'ensemble de ces propriétés (nouvelles conceptions et preuves de concept à venir).
 
 Voici comment Vocdoni peut aujourd'hui permettre le vote anonyme au sein des DAO :
@@ -186,4 +140,4 @@ Voici comment Vocdoni peut aujourd'hui permettre le vote anonyme au sein des DAO
 1. Une nouvelle élection est créée sur la blockchain Vocdoni, avec un censusRoot égal à la racine d'état d'Ethereum et à l'adresse du contrat ERC20.
 2. Les utilisateurs récupèrent via Web3 une preuve de stockage Ethereum démontrant qu'ils détiennent des tokens pour un contrat et une racine d'état donnés.
 3. Les utilisateurs génèrent une nouvelle `secretKey` temporaire et envoient une transaction à la blockchain Vocdoni prouvant qu'ils sont des électeurs éligibles (au moyen de la preuve de stockage). Cette transaction inclut la `secretKey` hachée, qui est ajoutée à un `rolling Census` calculé en interne par la logique de la blockchain Vocdoni. Cette étape s'appelle le **pré-enregistrement de clé**.
-4. Une fois le pré-enregistrement terminé, les utilisateurs peuvent voter anonymement avec leur `secretKey`
+4. Une fois le pré-enregistrement terminé, les utilisateurs peuvent voter anonymement avec leur `secretKey`.

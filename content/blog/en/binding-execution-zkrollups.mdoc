@@ -15,7 +15,7 @@ draft: false
 
 This article proposes a proof-of-concept that leverages zk-SNARKs to achieve the next frontier of governance: **gasless,** **verified, and binding on-chain governance**.
 
-_The technical content of this proposal has also been posted to the_ [_Ethresear.ch_](http://Ethresear.ch) _forum&#xA0;_[_here_](https://ethresear.ch/t/experiment-in-gassless-voting-using-snarks/10927)_&#xA0;for community discussion._
+_The technical content of this proposal has also been posted to the_ [_Ethresear.ch_](https://ethresear.ch) _forum&#xA0;_[_here_](https://ethresear.ch/t/experiment-in-gassless-voting-using-snarks/10927)_&#xA0;for community discussion._
 
 # **Background**
 
@@ -175,7 +175,7 @@ Building on this research we would like to explore the following ideas in more d
 - To verify the vote signature itself.
 - Verify Storage Proofs inside a SNARK. We think that this kind of complex circuit could be easily integrated via a zkVM, though the cost could be significant. We are worried about Ethereum clients sunsetting archive nodes to prioritize higher gas limits, so another area of research is to try to use methods other than EIP1186 for Storage Proofs.
 - To compute the tally, embed some kind of opcodes to be executed inside a zkVM, enabling generic programmable voting circuits.
-- Generate a voting proof in the browser, mix via batching, and recursively aggregate the results, similarly to the [zk.money](http://Ethresear.ch) protocol. This would result in increased privacy for the voting process.
+- Generate a voting proof in the browser, mix via batching, and recursively aggregate the results, similarly to the [zk.money](https://zk.money) protocol. This would result in increased privacy for the voting process.
 - Allow SNARKs to be computed at the browser level in a distributed way, even if they are computationally expensive. This saves relying on high visibility servers and, being fully P2P, gives all of the power to voters.
 - Embed privacy and mixing in the voting protocol at a network-level.
 - Find a cryptoeconomics model that is rational and fully interoperable with Ethereum 2.0.

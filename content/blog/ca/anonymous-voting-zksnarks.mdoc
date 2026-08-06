@@ -59,59 +59,13 @@ La `franchise proof` es genera executant el circuit zk-SNARK.
 
 ![](/blog/images/2026/01/zksnarks_anonymous_1.webp)
 
-# **Què entenem per vot anònim**
-
-Abans d'entrar en les especificacions tècniques, val la pena explicar com definim el vot anònim i per què vam arribar a aquest disseny. A l'article d'anunci del producte presentem dos tipus d'anonimat: l'ofuscació de la papereta i l'anonimat del votant.
-
-L'ofuscació de la papereta és l'anonimat que s'obté amagant el contingut de cada vot, mentre que l'anonimat del votant trenca el vincle entre cada votant i el seu vot, sense amagar els vots en si. La nostra implementació del vot anònim fa servir l'anonimat del votant. Per què?
-
-En primer lloc, l'ofuscació de la papereta comporta contrapartides importants. Perquè un procés de votació sigui verificable d'extrem a extrem, els votants han de poder seguir i examinar el contingut de les paperetes que han emès. Si garantim l'anonimat ofuscant les paperetes, perdem la verificabilitat: és impossible verificar que el teu vot s'ha comptat i auditar la integritat de la votació si el contingut de cada vot està amagat.
-
-Un altre inconvenient de l'ofuscació de la papereta és que és difícil d'implementar en un sistema de votació digital. Una de les tècniques d'ofuscació és el xifratge homomòrfic, que s'ha [proposat](https://www.itm-conferences.org/articles/itmconf/pdf/2020/02/itmconf_icacc2020_03023.pdf) per aportar anonimat criptogràfic als sistemes de votació tradicionals. El xifratge homomòrfic permet fer càlculs sobre valors xifrats, de manera que es pot calcular el recompte de vots sense examinar el contingut de cap papereta. Tot i ser sòlid en teoria, el xifratge homomòrfic té molts inconvenients que el fan poc desitjable com a base d'una tecnologia de votació.
-
-El més destacable és que aquest mètode només permet càlculs bàsics sobre les paperetes xifrades, cosa que fa més difícil d'[implementar](https://blog.aragon.org/vocdoni-ballot-protocol/) esquemes com el [vot](https://www.wikiwand.com/en/Instant-runoff_voting) [quadràtic](https://en.wikipedia.org/wiki/Quadratic_voting?oldformat=true) o el [preferencial](https://en.wikipedia.org/wiki/Instant-runoff_voting?oldformat=true). A més, tot i que el càlcul dels resultats està garantit amb el xifratge homomòrfic, la verificació d'extrem a extrem de la papereta d'un votant no ho està. Aquest esquema no ofereix cap prova criptogràfica que garanteixi que la papereta d'un votant s'ha inclòs i representat correctament al conjunt de resultats. També estimem que la validació de la prova homomòrfica d'un procés de votació exigiria recursos computacionals significatius, que a més creixen amb la mida del procés. Això podria anul·lar els avantatges d'un sistema universalment verificable, perquè la verificació només es podria fer en màquines potents i cares, en un termini prohibitivament llarg.
-
-L'anonimat del votant té diversos avantatges respecte del xifratge homomòrfic. Primer, permet un grau molt més alt de verificabilitat d'extrem a extrem. Tot i que el vincle entre un votant i la seva papereta ha de ser opac per a qualsevol observador _extern_, els votants sí que poden identificar la seva papereta. Com que les paperetes són visibles, qualsevol usuari pot seguir el seu vot des del moment que l'emet fins a la seva inclusió en els resultats. A més, els tercers poden comprovar que cada papereta pertany a un votant vàlid i que el seu contingut s'ha comptat correctament.
-
-L'anonimat del votant també tendeix a permetre dissenys molt més eficients computacionalment. Els sistemes amb anonimat del votant apliquen l'ofuscació un sol cop, sobre la prova de la papereta de cada votant, en lloc de fer-ho sobre tot el conjunt de resultats cada vegada que s'emet una nova papereta. No cal cap pas computacional important per fer els resultats àmpliament accessibles. Fins i tot es poden publicar resultats _durant_ el procés de votació sense comprometre l'anonimat (sempre que s'hagin mitigat els atacs de correlació temporal).
-
-Per tot això, hem decidit incorporar l'anonimat del votant al nostre mecanisme de prova de cens.
-
-# **Arbre de Merkle del cens**
-
-El punt de partida del mecanisme de cens de votants és un [_arbre de Merkle de cens_](https://docs.vocdoni.io/architecture/census/off-chain-tree.html). Es tracta d'una estructura de claus públiques amb hash, cadascuna de les quals representa un votant elegible del cens. L'ús d'un arbre de Merkle permet que qualsevol votant vàlid demostri que té una `censusKey` que pertany al cens, sense conèixer les claus de cap altre votant. El votant envia aquesta prova com a part de la seva papereta. A aquest _sobre de vot_ també s'hi adjunta un `nullifier`: una dada derivada de la `censusKey` de l'usuari i de l'`electionID` que correspon de manera única al seu vot.
-
-Si es fes servir només aquesta prova, l'organitzador d'un procés podria correlacionar cada sobre de vot, a través del seu `nullifier`, amb la `censusKey` d'un votant, i desanonimitzar la votació. Per evitar-ho, Vocdoni fa servir _zk-SNARKs_ per garantir l'anonimat del vot.
-
-### **zk-SNARKs per al vot anònim**
-
-[zk-SNARK](https://en.wikipedia.org/wiki/Non-interactive_zero-knowledge_proof?oldformat=true) són les sigles de &#x7A;_&#x65;ro-knowledge_ _Succinct Non-interactive ARgument of Knowledge_. Un zk-SNARK permet que un usuari demostri a un tercer que posseeix una determinada informació, sense revelar la informació en si.
-
-En el nostre cas, els zk-SNARKs permeten als votants demostrar que pertanyen al cens sense revelar la seva `secretKey`. En concret, això es fa amb un zk-Circuit, un circuit de programari dissenyat per generar una prova de coneixement zero (ZKP).
-
-### **zk-Circuit**
-
-Hem dissenyat un circuit que permet als usuaris generar una ZKP de la seva pertinença al cens sense revelar la seva `secretKey`. El circuit rep entrades privades i públiques, i les dades que podrien revelar la identitat del votant es mantenen privades. Les entrades públiques s'envien dins del sobre de vot perquè els validadors les puguin contrastar amb la prova i assegurar-se que l'usuari no ha votat dues vegades.
-
-El circuit es pot fer servir per a qualsevol procés amb un cens de mida similar, i només cal generar-lo un cop per a cada mida. Més concretament, un circuit es pot generar i reutilitzar per a qualsevol arbre de Merkle de cens amb la mateixa alçada d'arbre. Com que fem servir un arbre binari, això vol dir que cal un circuit per a cada valor `n` tal que la mida del cens objectiu estigui dins del rang de `2^n` (p. ex. 128, 256, ..., 8192, 16384, etc.).
-
-La generació del circuit depèn d'una [cerimònia de configuració de confiança](https://medium.com/qed-it/diving-into-the-snarks-setup-phase-b7660242a0d7) (_trusted setup_). És el procés que genera les claus de provador i de verificador del circuit, i es diu «de confiança» perquè, si una sola part controlés tota la generació d'aquestes claus, podria generar proves falses. Per això cal una «cerimònia» descentralitzada que asseguri la fiabilitat del circuit. En una cerimònia així, diverses parts amb interessos contraposats i en ubicacions diferents fan cadascuna un pas de la generació de claus. Si només una d'aquestes parts manté la integritat, serà impossible generar una prova falsa.
-
-La `franchise proof` es genera executant el circuit zk-SNARK.
-
-- **Entrades privades:** `index`, `secretKey`, `census Merkle-proof`
-- **Entrades públiques:** `census Merkle-root`, `nullifier`, `election ID`, `vote`
-- **Sortida:** `franchise proof`
-
-![](https://storage.googleapis.com/papyrus_images/6b32fa7a072e4433398cb3ebd67ea70e.png)
-
 Sense revelar la `secretKey` ni la _prova de Merkle del cens_, aquest circuit és capaç de demostrar que:
 
 1. El votant és el propietari de la `secretKey` corresponent a una determinada `zkCensusKey`.
 2. La `zkCensusKey` del votant està inclosa a l'arbre de Merkle del cens.
 3. El `nullifier` que aporta el votant correspon de manera única a la seva `secretKey` i a l'`election ID` d'un procés de votació concret.
 
-Tot i que el càlcul és intensiu en CPU i memòria, les ZKP es poden generar des del client de l'usuari, en maquinari modest. Al protocol de [Vocdoni](http://vocdoni.app/), la prova la validen els nodes de la [Vochain](https://docs.vocdoni.io/architecture/services/vochain.html), els miners i qualsevol tercer que monitori el procés.
+Tot i que el càlcul és intensiu en CPU i memòria, les ZKP es poden generar des del client de l'usuari, en maquinari modest. Al protocol de [Vocdoni](https://vocdoni.app), la prova la validen els nodes de la [Vochain](https://docs.vocdoni.io/architecture/services/vochain.html), els miners i qualsevol tercer que monitori el procés.
 
 El circuit està minimitzat i optimitzat fins als seus requisits mínims per fer-lo accessible a qualsevol tipus de maquinari de client. Aquesta és la raó per la qual no fem servir verificació de signatura sinó un enfocament basat en secretKey.
 
@@ -178,7 +132,7 @@ I l'entrada json del `voteValue` per al circuit seria: `"voteValue": [b1, b2]`
 Per respondre la pregunta «com es pot fer servir aquesta tecnologia per a les votacions de DAOs a Ethereum», cal afegir una mica de context:
 
 - Actualment, la criptografia interna d'Ethereum, les seves estructures de dades i el seu arbre de merkle no són compatibles amb zk-SNARKs, així que les opcions són limitades (de moment).
-- Vocdoni suporta actualment el [vot amb proves d'emmagatzematge d'Ethereum](https://www.notion.so/Introducing-Vocdoni-Bridge-voice-cf7e73d38c4a45788358e9a1497cdf19?pvs=21), que ara mateix és la manera més segura i sense confiança d'executar votacions offchain sense gas (implementat al frontend de [https://voice.aragon.org](https://blog.aragon.org/introducing-vocdoni-anonymous-voting/))
+- Vocdoni suporta actualment el [vot amb proves d'emmagatzematge d'Ethereum](https://www.notion.so/Introducing-Vocdoni-Bridge-voice-cf7e73d38c4a45788358e9a1497cdf19?pvs=21), que ara mateix és la manera més segura i sense confiança d'executar votacions offchain sense gas (implementat al frontend de [Aragon Voice](https://blog.aragon.org/introducing-vocdoni-anonymous-voting/))
 - Tot i que Vocdoni encara no ofereix execució vinculant offchain completa (votar dins d'Ethereum requereix un enfocament optimista), hem fet [proves de concepte en aquest àmbit](https://blog.aragon.org/binding-execution-on-ethereum-with-zk-rollups/) i seguim investigant per assolir totes les propietats (aviat arribaran nous dissenys i proves de concepte).
 
 La manera com Vocdoni pot suportar actualment el vot anònim en DAOs és seguint aquests passos:
@@ -186,4 +140,4 @@ La manera com Vocdoni pot suportar actualment el vot anònim en DAOs és seguint
 1. Es crea una nova elecció a la blockchain de Vocdoni amb un censusRoot igual a l'arrel d'estat d'Ethereum i l'adreça del contracte ERC20.
 2. Els usuaris obtenen de Web3 una prova d'emmagatzematge d'Ethereum que demostra que tenen tokens per a un contracte i una arrel d'estat.
 3. Els usuaris generen una nova `secretKey` temporal i envien una transacció a la blockchain de Vocdoni per demostrar que són votants elegibles (fent servir la prova d'emmagatzematge). Aquesta transacció inclou la `secretKey` amb hash, que s'afegeix a un `rolling Census` que la lògica de la blockchain de Vocdoni calcula internament. Aquest pas s'anomena **preregistre de claus**.
-4. Un cop acabat el preregistre, els usuaris poden votar de manera anònima amb la seva `secretKey`
+4. Un cop acabat el preregistre, els usuaris poden votar de manera anònima amb la seva `secretKey`.

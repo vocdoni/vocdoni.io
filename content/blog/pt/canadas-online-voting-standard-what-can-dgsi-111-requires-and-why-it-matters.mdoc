@@ -133,8 +133,6 @@ Os secretários municipais não deveriam ter de ser criptógrafos. A norma exist
 
 Nenhum fornecedor foi formalmente certificado segundo a CAN/DGSI 111 — a infraestrutura de certificação ainda não existe. O que se pode fazer é comparar os requisitos declarados da norma com o que a auditoria académica de 2023 documentou sobre os sistemas ao serviço das eleições municipais canadianas na altura. As conclusões, do artigo revisto por pares de Essex/Goodman, cobrem todo o mercado do Ontário.
 
-<!--kg-card-begin: html-->
-
 | Requisito                                                                                        | Fornecedores atuais do Ontário (auditoria Essex/Goodman 2023)                                                    | DAVINCI / Vocdoni                                                 |
 | ------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------ |
 | **Verificabilidade universal** (qualquer terceiro pode verificar o resultado completo)           | Não oferecida por nenhum fornecedor auditado                                                                       | Verificabilidade criptográfica ponta a ponta completa               |
@@ -148,8 +146,6 @@ Nenhum fornecedor foi formalmente certificado segundo a CAN/DGSI 111 — a infra
 | **Testes de intrusão divulgados**                                                                | Nenhum município divulgou publicamente um teste de intrusão em cinco anos de investigação                           | O código aberto permite auditoria independente por qualquer pessoa, a qualquer momento |
 | **Resistência à coação / atualização do voto** (SHOULD: o eleitor pode alterar silenciosamente o seu voto) | Não oferecida por nenhum fornecedor auditado                                                                        | Sim, substituição do voto por conceção                              |
 | **Transparência dos procedimentos**                                                              | Não oferecida; código-fonte e registos de auditoria dos fornecedores proprietários                                  | Sim, código público e registo de auditoria público                  |
-
-<!--kg-card-end: html-->
 
 _As avaliações dos fornecedores baseiam-se na_ [_auditoria revista por pares de Essex/Goodman de 2023_](https://link.springer.com/chapter/10.1007/978-3-031-43756-4_4) _ao mercado de votação online do Ontário. Fornecedores individuais podem ter atualizado os seus sistemas desde 2022. As avaliações do DAVINCI baseiam-se na documentação publicada do protocolo._
 
@@ -185,8 +181,6 @@ A Vocdoni implementa votação digital desde 2018. Em sete anos, a empresa reali
 
 Eis como o DAVINCI corresponde a cada área de requisitos da CAN/DGSI 111.
 
-<!--kg-card-begin: html-->
-
 | Área de requisitos da CAN/DGSI 111                 | Como o DAVINCI a cumpre                                                                                                                                                                                                                                                                                                       | Estado                                                    |
 | -------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | --------------------------------------------------------- |
 | **Segredo de voto**                                | Os votos são encriptados no momento em que são depositados. O escrutínio decorre sem que ninguém desencripte boletins individuais: nem o município, nem a Vocdoni. A identidade do eleitor está estruturalmente dissociada do conteúdo do voto por conceção.                                                                    | Completo (SHALL)                                          |
@@ -205,8 +199,6 @@ Eis como o DAVINCI corresponde a cada área de requisitos da CAN/DGSI 111.
 | **Transparência na contratação**                   | Preços públicos em app.vocdoni.io/plans. Self-service. Sem necessidade de contacto comercial para configurações padrão.                                                                                                                                                                                                         | Completo                                                  |
 | **Responsabilização do organismo de gestão eleitoral** | O município ou administrador eleitoral controla todos os parâmetros da eleição: lista de eleitores, boletim, calendário. A Vocdoni não pode alterá-los após a configuração.                                                                                                                                                    | Completo (SHALL)                                          |
 | **Localização dos dados**                          | A norma exige que os dados eleitorais fiquem em servidores no Canadá. Para sistemas descentralizados, o requisito fica satisfeito quando os dados fora do Canadá não permitem reconstruir a identidade dos eleitores nem alterar os resultados. A arquitetura do DAVINCI satisfaz esta condição por conceção; podem configurar-se nós alojados no Canadá para implementações municipais. | Completo, via exceção para sistemas descentralizados      |
-
-<!--kg-card-end: html-->
 
 Um requisito que vale a pena abordar diretamente: a norma exige que todos os dados eleitorais sejam armazenados em servidores fisicamente localizados no Canadá. A infraestrutura da Vocdoni está sediada na UE. A norma inclui uma disposição explícita para sistemas descentralizados: o requisito fica satisfeito quando os componentes eleitorais críticos correm em infraestrutura canadiana, ou quando os dados armazenados fora do Canadá não podem ser usados para reconstruir a identidade dos eleitores nem alterar os resultados eleitorais. A conceção criptográfica do DAVINCI, em que o conteúdo do voto está encriptado e os votos individuais não são associáveis aos eleitores ao nível da infraestrutura, satisfaz a segunda condição. Para eleições municipais canadianas, a Vocdoni configuraria adicionalmente os nós eleitorais críticos em infraestrutura alojada no Canadá. Trata-se de uma configuração operacional, não de uma barreira arquitetónica.
 

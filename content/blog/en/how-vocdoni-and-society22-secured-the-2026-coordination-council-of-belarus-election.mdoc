@@ -63,8 +63,6 @@ Here, Society22 handled the identity and access layer, while Vocdoni's voting la
 
 The core figures, as reported by Vocdoni and Society22:
 
-<!--kg-card-begin: html-->
-
 | Metric                               | Figure                                     |
 | ------------------------------------ | ------------------------------------------ |
 | Voting period                        | 11 to 19 May 2026 (extended from 11 to 17) |
@@ -77,8 +75,6 @@ The core figures, as reported by Vocdoni and Society22:
 | Reported attack traffic              | \~68TB                                     |
 | April pre-election attack sample     | 12 billion+ requests                       |
 
-<!--kg-card-end: html-->
-
 ![](/blog/images/2026/05/coordination_council_2026_belarus_results.webp)
 
 [Results of the 2026 Coordination Council of Belarus election](https://explorer.vote/process/6b342d99f218567131f63a34cd9ac911f84d2fd4cb92f1b9d55a030c00000005) in Vocdoni’s public verification explorer.
@@ -89,7 +85,7 @@ Second, the two uptime figures describe different things. The 99.45% figure refe
 
 ## Operating under attack
 
-According to Society22, the platform faced distributed denial-of-service activity amounting to roughly 24 billion requests and around 68TB of traffic. A separate attack sample from April, targeting an [informational campaign website](https://tryslany.com), reportedly generated more than 12 billion requests on its own. That April activity is worth reading as an early signal: the wider ecosystem was being probed before the vote itself opened
+According to Society22, the platform faced distributed denial-of-service activity amounting to roughly 24 billion requests and around 68TB of traffic. A separate attack sample from April, targeting an [informational campaign website](https://tryslany.com), reportedly generated more than 12 billion requests on its own. That April activity is worth reading as an early signal: the wider ecosystem was being probed before the vote itself opened.
 
 The hardest part was the character of the traffic, not just its volume. Society22 reported that a large share of the attack traffic was classified as human-like and passed through default AWS and Cloudflare protections. This does not mean those protections were ineffective. It means the traffic was engineered to resemble ordinary user behavior, which is exactly the pattern generic defenses are weakest against.
 
@@ -129,7 +125,7 @@ If your organization is weighing what a voting provider should be ready for, [th
 
 ## Availability and integrity: why both mattered
 
-The attacks during the election targeted availability: preventing voters from reaching the platform and casting ballots through sustained denial-of-service activity. They did not target - and could not have compromised through network pressure alone - the cryptographic guarantees that determine how ballots are recorded and counted. Keeping a voting system online is the visible part of the problem
+The attacks during the election targeted availability: preventing voters from reaching the platform and casting ballots through sustained denial-of-service activity. They did not target - and could not have compromised through network pressure alone - the cryptographic guarantees that determine how ballots are recorded and counted. Keeping a voting system online is the visible part of the problem.
 
 Integrity is the property that ensures every valid vote is recorded, included and counted correctly, without manipulation after the fact. Availability and integrity address different risks, and a serious election system has to deliver both. Infrastructure availability keeps participation open during the voting window; [end-to-end verifiable voting](https://developer.vocdoni.io/) protects the correctness of the final result by letting voters and observers confirm the outcome independently, without relying on a central operator's report.
 

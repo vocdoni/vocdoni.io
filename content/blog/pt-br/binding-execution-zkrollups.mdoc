@@ -15,7 +15,7 @@ draft: false
 
 Este artigo propõe uma prova de conceito que utiliza zk-SNARKs para alcançar a próxima fronteira da governança: **governança on-chain sem custos de gas, verificada e vinculante**.
 
-_O conteúdo técnico desta proposta também foi publicado no fórum_ [_Ethresear.ch_](http://Ethresear.ch)_,&#xA0;_[_aqui_](https://ethresear.ch/t/experiment-in-gassless-voting-using-snarks/10927)_,&#xA0;para discussão com a comunidade._
+_O conteúdo técnico desta proposta também foi publicado no fórum_ [_Ethresear.ch_](https://ethresear.ch)_,&#xA0;_[_aqui_](https://ethresear.ch/t/experiment-in-gassless-voting-using-snarks/10927)_,&#xA0;para discussão com a comunidade._
 
 # **Contexto**
 
@@ -175,7 +175,7 @@ A partir desta pesquisa, gostaríamos de explorar as seguintes ideias com mais p
 - Verificar a própria assinatura do voto.
 - Verificar Storage Proofs dentro de um SNARK. Achamos que esse tipo de circuito complexo poderia ser facilmente integrado via uma zkVM, embora o custo possa ser significativo. Preocupa-nos que os clientes Ethereum descontinuem os archive nodes para priorizar limites de gas mais altos, então outra linha de pesquisa é tentar usar métodos diferentes do EIP1186 para as Storage Proofs.
 - Para computar a apuração, embutir algum tipo de opcodes a serem executados dentro de uma zkVM, viabilizando circuitos de votação programáveis genéricos.
-- Gerar uma prova de votação no navegador, misturar via batching e agregar os resultados recursivamente, de forma semelhante ao protocolo do [zk.money](http://Ethresear.ch). Isso resultaria em maior privacidade para o processo de votação.
+- Gerar uma prova de votação no navegador, misturar via batching e agregar os resultados recursivamente, de forma semelhante ao protocolo do [zk.money](https://zk.money). Isso resultaria em maior privacidade para o processo de votação.
 - Permitir que os SNARKs sejam computados no nível do navegador de forma distribuída, mesmo que sejam computacionalmente caros. Isso evita depender de servidores de alta visibilidade e, sendo totalmente P2P, entrega todo o poder aos eleitores.
 - Embutir privacidade e mixing no protocolo de votação no nível da rede.
 - Encontrar um modelo criptoeconômico que seja racional e totalmente interoperável com o Ethereum 2.0.

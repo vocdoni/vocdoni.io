@@ -15,7 +15,7 @@ draft: false
 
 Dieser Artikel stellt einen Proof of Concept vor, der zk-SNARKs nutzt, um die nächste Stufe der Governance zu erreichen: **gaslose,** **verifizierte und verbindliche On-Chain-Governance**.
 
-_Der technische Inhalt dieses Vorschlags wurde zur Diskussion in der Community auch im_ [_Ethresear.ch_](http://Ethresear.ch)_-Forum veröffentlicht&#xA0;–&#xA0;_[_hier_](https://ethresear.ch/t/experiment-in-gassless-voting-using-snarks/10927)_._
+_Der technische Inhalt dieses Vorschlags wurde zur Diskussion in der Community auch im_ [_Ethresear.ch_](https://ethresear.ch)_-Forum veröffentlicht&#xA0;–&#xA0;_[_hier_](https://ethresear.ch/t/experiment-in-gassless-voting-using-snarks/10927)_._
 
 # **Hintergrund**
 
@@ -175,7 +175,7 @@ Aufbauend auf dieser Forschung möchten wir folgende Ideen vertiefen:
 - Die Stimmsignatur selbst verifizieren.
 - Storage Proofs innerhalb eines SNARKs verifizieren. Ein derart komplexer Circuit ließe sich unserer Einschätzung nach gut über eine zkVM integrieren, allerdings womöglich zu erheblichen Kosten. Uns beunruhigt, dass Ethereum-Clients Archivknoten zugunsten höherer Gas-Limits einstellen könnten; ein weiteres Forschungsfeld ist daher, für Storage Proofs andere Methoden als EIP1186 zu nutzen.
 - Für die Auszählung eine Art Opcodes einbetten, die in einer zkVM ausgeführt werden – das ermöglicht generische, programmierbare Abstimmungs-Circuits.
-- Einen Abstimmungsbeweis im Browser erzeugen, per Batching mischen und die Ergebnisse rekursiv aggregieren, ähnlich dem [zk.money](http://Ethresear.ch)-Protokoll. Das würde die Privatsphäre des Abstimmungsprozesses erhöhen.
+- Einen Abstimmungsbeweis im Browser erzeugen, per Batching mischen und die Ergebnisse rekursiv aggregieren, ähnlich dem [zk.money](https://zk.money)-Protokoll. Das würde die Privatsphäre des Abstimmungsprozesses erhöhen.
 - SNARKs verteilt auf Browser-Ebene berechnen lassen, auch wenn sie rechenintensiv sind. Das erspart die Abhängigkeit von exponierten Servern und legt – vollständig P2P – die gesamte Kontrolle in die Hände der Wählenden.
 - Privatsphäre und Mixing auf Netzwerkebene in das Abstimmungsprotokoll einbetten.
 - Ein kryptoökonomisches Modell finden, das rational und vollständig interoperabel mit Ethereum 2.0 ist.
