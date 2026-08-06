@@ -48,7 +48,7 @@ Soprattutto, NI-DKG è costruito interamente a partire da **primitive crittograf
 4. **Processo DKG principale:** ogni nodo pubblica i commitment polinomiali e le quote (share) cifrate, insieme a una prova ZK di correttezza.
 5. **Finalizzazione:** l'organizzatore calcola la chiave pubblica `PK` e i commitment alle quote private, e li pubblica sulla blockchain insieme a una prova ZK di correttezza.
 
-![](/blog/images/2026/03/dkg-process.webp)
+![Diagramma di sequenza fra l'organizzatore, i partecipanti e la blockchain lungo cinque fasi: avvio, manifestazione di interesse, determinazione dei partecipanti, il round DKG principale in cui ogni nodo invia impegni, quote cifrate e una prova di correttezza, e finalizzazione, in cui la chiave pubblica viene calcolata on-chain.](/blog/images/2026/03/dkg-process.webp)
 
 **_Decifratura_**
 
@@ -56,7 +56,7 @@ Soprattutto, NI-DKG è costruito interamente a partire da **primitive crittograf
 2. **Pubblicazione delle decifrature parziali:** i nodi pubblicano una decifratura parziale di `C1`, insieme a una prova di uguaglianza di logaritmi discreti.
 3. **Decifratura:** una volta pubblicate `t` o più decifrature parziali, si può chiamare lo smart contract per recuperare il messaggio.
 
-![](/blog/images/2026/03/dkg-decryption.webp)
+![Diagramma di sequenza in tre fasi. Un mittente pubblica il testo cifrato, ogni partecipante invia poi una decifratura parziale con una prova di uguaglianza dei logaritmi discreti che la blockchain verifica, e una chiamata a completeDecryption recupera il messaggio in chiaro.](/blog/images/2026/03/dkg-decryption.webp)
 
 **_Divulgazione opzionale della chiave_**
 
@@ -66,7 +66,7 @@ Tieni presente che la divulgazione della chiave non fa parte del protocollo DAVI
 2. **Pubblicazione delle quote della chiave segreta:** ogni nodo partecipante pubblica la propria quota del segreto.
 3. **Calcolo della chiave segreta:** una volta inviati `t` o più valori, chiunque può calcolare la chiave segreta.
 
-![](/blog/images/2026/03/dkg-sk-disclosure.webp)
+![Diagramma di sequenza in tre fasi. L'organizzatore richiede la divulgazione, i partecipanti inviano le loro quote del segreto, e una chiamata a computeSecretKey lo ricostruisce. Una nota ricorda che, una volta che la soglia di quote è on-chain, chiunque può già ricostruire la chiave, e che l'ultima fase si limita a renderla pubblica.](/blog/images/2026/03/dkg-sk-disclosure.webp)
 
 ### **Sotto il cofano**
 

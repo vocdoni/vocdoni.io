@@ -57,7 +57,7 @@ A `franchise proof` é gerada ao executar o circuito zk-SNARK.
 - **Entradas públicas:** `census Merkle-root`, `nullifier`, `election ID`, `vote`
 - **Saída:** `franchise proof`
 
-![](/blog/images/2026/01/zksnarks_anonymous_1.webp)
+![Diagrama do circuito. As entradas públicas raiz do censo, voto, ID do processo e nullifier, e as entradas privadas prova de Merkle, índice e secretKey, alimentam um verificador de provas de Merkle e dois blocos de hash, cujos resultados são combinados por uma porta AND numa única saída.](/blog/images/2026/01/zksnarks_anonymous_1.webp)
 
 Sem revelar a `secretKey` nem a _prova de Merkle do censo_, este circuito consegue demonstrar que:
 
@@ -75,7 +75,7 @@ A árvore de Merkle usada para construir o _censo anónimo_ tem de ser uma imple
 
 A [Vochain](https://docs.vocdoni.io/architecture/services/vochain.html) usa a árvore de Merkle [arbo](https://github.com/vocdoni/arbo), uma implementação em Go compatível com o design do Circom. A árvore de Merkle usa o hash Poseidon, uma função de hash «amigável para SNARKs» que pode depois ser provada dentro de um circuito sem exigir demasiadas restrições. O diagrama seguinte é uma representação visual da estrutura de dados das folhas da árvore de Merkle usada no esquema da zk-census-proof.
 
-![](/blog/images/2026/01/zksnarks_anonymous_2.webp)
+![Árvore de Merkle construída com o hash Poseidon. As folhas 0 a N sobem em hash através de nós intermédios até uma única raiz do censo. Cada folha emparelha uma chave, o índice incremental, com um valor que é o hash Poseidon da secretKey, e juntas formam a zkCensusKey.](/blog/images/2026/01/zksnarks_anonymous_2.webp)
 
 O valor de `index` é determinado pelo construtor da _árvore do censo_, que mantém um valor de `index` para cada árvore de censo. Este valor incrementa com a adição de cada nova _folha_. As _folhas_ estão estruturadas desta forma para usar as árvores de Merkle com mais eficiência, permitindo que caibam mais chaves de utilizadores numa árvore mais pequena e reduzindo assim a dimensão do zk-Circuit. Isto acontece porque o `value` da `key` de cada folha determina a posição dessa folha na árvore.
 

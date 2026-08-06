@@ -48,7 +48,7 @@ Vor allem aber baut NI-DKG vollständig auf gut verstandenen, **kryptografischen
 4. **Eigentlicher DKG-Prozess:** Jeder Knoten veröffentlicht Polynom-Commitments und verschlüsselte Shares, zusammen mit einem ZK-Korrektheitsbeweis.
 5. **Finalisierung:** Der Organisator berechnet den öffentlichen Schlüssel `PK` sowie Commitments zu den privaten Shares und veröffentlicht beides auf der Blockchain, zusammen mit einem ZK-Korrektheitsbeweis.
 
-![](/blog/images/2026/03/dkg-process.webp)
+![Sequenzdiagramm zwischen der organisierenden Person, den Teilnehmenden und der Blockchain über fünf Phasen: Initiierung, Interessensbekundung, Bestimmung der Teilnehmenden, die eigentliche DKG-Runde, in der jeder Knoten Commitments, verschlüsselte Shares und einen Korrektheitsbeweis einreicht, und Abschluss, in dem der öffentliche Schlüssel on-chain berechnet wird.](/blog/images/2026/03/dkg-process.webp)
 
 **_Entschlüsselung_**
 
@@ -56,7 +56,7 @@ Vor allem aber baut NI-DKG vollständig auf gut verstandenen, **kryptografischen
 2. **Veröffentlichung partieller Entschlüsselungen:** Die Knoten veröffentlichen eine partielle Entschlüsselung von `C1`, zusammen mit einem Beweis der Gleichheit diskreter Logarithmen.
 3. **Entschlüsselung:** Sobald `t` oder mehr partielle Entschlüsselungen veröffentlicht wurden, kann der Smart Contract aufgerufen werden, um die Nachricht wiederherzustellen.
 
-![](/blog/images/2026/03/dkg-decryption.webp)
+![Sequenzdiagramm über drei Phasen. Eine einreichende Partei veröffentlicht den Chiffretext, jede teilnehmende Partei reicht anschließend eine Teilentschlüsselung mit einem Beweis der Gleichheit diskreter Logarithmen ein, den die Blockchain verifiziert, und ein Aufruf von completeDecryption stellt die Klartextnachricht wieder her.](/blog/images/2026/03/dkg-decryption.webp)
 
 **_Optionale Schlüsseloffenlegung_**
 
@@ -66,7 +66,7 @@ Beachten Sie, dass die Schlüsseloffenlegung nicht Teil des DAVINCI-Protokolls i
 2. **Veröffentlichung der Shares des geheimen Schlüssels:** Jeder teilnehmende Knoten veröffentlicht seinen Share des Geheimnisses.
 3. **Berechnung des geheimen Schlüssels:** Sobald `t` oder mehr Werte eingereicht wurden, kann jeder den geheimen Schlüssel berechnen.
 
-![](/blog/images/2026/03/dkg-sk-disclosure.webp)
+![Sequenzdiagramm über drei Phasen. Die organisierende Person fordert die Offenlegung an, die Teilnehmenden reichen ihre Shares des Geheimnisses ein, und ein Aufruf von computeSecretKey rekonstruiert es. Eine Notiz hält fest, dass der Schlüssel bereits rekonstruierbar ist, sobald der Schwellenwert an Shares on-chain liegt, und die letzte Phase ihn nur noch öffentlich macht.](/blog/images/2026/03/dkg-sk-disclosure.webp)
 
 ### **Ein Blick unter die Haube**
 

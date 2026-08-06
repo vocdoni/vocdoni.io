@@ -29,7 +29,7 @@ I risultati si accumulano in un array bidimensionale di numeri naturali (una mat
 
 Prima di entrare nei dettagli di come si può configurare un processo, vediamo un esempio generico. Supponiamo di avere un processo con tre campi, `A`, `B` e `C`, ognuno dei quali ammette `0`, `1` e `2` come valori possibili. Non sappiamo cosa rappresentino questi valori o questi campi, ma per ora non importa.
 
-![](https://storage.googleapis.com/papyrus_images/47fc7647a24d815d609ad569c4456e39.png)
+![Diagramma. Un processo ha i campi A, B e C, ciascuno dei quali accetta i valori 0, 1 o 2. La scheda 1 contiene 2, 0 e 1, la scheda 2 contiene 0, 0 e 2. Le frecce portano ogni scelta nella matrice dei risultati, lasciando il campo A con i conteggi 1, 0, 1, il campo B con 2, 0, 0 e il campo C con 0, 1, 1.](https://storage.googleapis.com/papyrus_images/47fc7647a24d815d609ad569c4456e39.png)
 
 In questo esempio sono stati espressi due voti. Il primo elettore ha scelto il valore `2` per il campo `A`, `0` per il campo `B` e `1` per il campo `C`. La seconda scheda contiene i valori `0`, `0` e `2`. Nel diagramma qui sopra puoi vedere come le schede si riflettono nella matrice dei risultati. L'_indice_ di un valore della scheda determina il _campo_ a cui quel valore appartiene: per esempio, il primo indice della scheda 1 contiene il valore `2`, quindi la scheda 1 assegna il valore `2` al campo A. All'interno di ogni campo della matrice dei risultati, il valore del voto è rappresentato dal suo indice. Mettiamo un `1` all'indice `2` del `campo A` per rappresentare l'unico voto per il valore `2`.
 
@@ -41,7 +41,7 @@ All'inizio può non sembrare intuitivo. Prova a seguire un paio di altri valori 
 
 Il ballot protocol è composto da un insieme di variabili numeriche e booleane (vero/falso) che vincolano il formato di una scheda valida.
 
-![](https://storage.googleapis.com/papyrus_images/b8d920f2d64cf347ff2f47f7e34a3340.png)
+![Diagramma delle variabili della scheda. maxCount limita quanti campi ha una scheda, maxValue e minValue delimitano ogni singolo campo, uniqueValues impone che tutti i campi siano diversi, maxTotalCost e minTotalCost delimitano la loro somma, e costExponent eleva ogni valore a una potenza prima che ne venga calcolato il costo.](https://storage.googleapis.com/papyrus_images/b8d920f2d64cf347ff2f47f7e34a3340.png)
 
 Come si potrebbe rappresentare con questo protocollo l'esempio presentato sopra?
 
@@ -85,7 +85,7 @@ Nella sua iterazione attuale, Vocdoni definisce due formati di interpretazione d
 
 Per il nostro processo di esempio useremmo la formula di interpretazione dei risultati con ponderazione per indice. Questo schema è adatto ai processi con una sola domanda, come il voto per ordine di preferenza, la scelta multipla o il bilancio partecipativo. Ogni indice in un campo della matrice dei risultati rappresenta un valore ponderato, dove in questo caso il peso rappresenta il numero di monete assegnate a un'organizzazione. La somma dei voti, moltiplicata per i rispettivi valori ponderati per indice, è il valore totale di quel campo.
 
-![](https://storage.googleapis.com/papyrus_images/345a07aee1ddf6a6aad51db7e58fd399.png)
+![Diagramma. I tre vettori di campo della matrice dei risultati, 1, 0, 1 poi 2, 0, 0 poi 0, 1, 1, vengono ciascuno compattati moltiplicando ogni conteggio per il proprio indice e sommando i prodotti, il che dà i risultati aggregati 2, 0 e 3.](https://storage.googleapis.com/papyrus_images/345a07aee1ddf6a6aad51db7e58fd399.png)
 
 Questa interpretazione aggrega il nostro processo di esempio. L'organizzazione A riceve 2 monete, l'organizzazione C ne riceve 3.
 
@@ -95,7 +95,7 @@ L'interpretazione a valori discreti si usa nei processi in cui ogni campo è una
 
 `0` è riservato al pareggio tra opzioni.
 
-![](https://storage.googleapis.com/papyrus_images/97e8bca257a9b118b86ee3dd31165107.png)
+![Diagramma. Tre vettori di domanda, 1, 2, 0 poi 0, 1, 2 poi 1, 1, 1, vengono ciascuno ridotti alla posizione della propria opzione vincente. I risultati aggregati sono 2 per B nella prima domanda e 3 per C nella seconda, mentre il terzo è 0 perché le tre opzioni sono in parità e lo 0 è riservato all'assenza di vincitore.](https://storage.googleapis.com/papyrus_images/97e8bca257a9b118b86ee3dd31165107.png)
 
 Questi due formati non vogliono essere esaustivi. Come detto sopra, il Ballot Protocol in sé è agnostico rispetto a come i risultati vengono aggregati, e chiunque costruisca il proprio livello applicativo sopra il protocollo può definire la propria interpretazione dei risultati.
 
@@ -133,15 +133,15 @@ Anche in questo caso, costExponent non ci serve.
 
 - `costExponent` = 1
 
-![](https://storage.googleapis.com/papyrus_images/d06d57a97367e2f40ed75228f02392a7.png)
+![Diagramma. Una valutazione di prodotti per ordine di preferenza si estende su quattro campi, asparago, fagiolo, carota e aneto, con i valori disponibili da 0 a 3, che devono essere tutti unici.](https://storage.googleapis.com/papyrus_images/d06d57a97367e2f40ed75228f02392a7.png)
 
 Vediamo la nostra prima scheda. Questo tester adora le carote, quindi mette la carota al primo posto. Poi vengono l'asparago e l'aneto, con i fagioli all'ultimo posto. Ecco come questa scheda viene registrata nella matrice dei risultati:
 
-![](https://storage.googleapis.com/papyrus_images/e63207ba97dca5657af93969f5424cb3.png)
+![Diagramma. La scheda 1 assegna 2 all'asparago, 0 al fagiolo, 3 alla carota e 1 all'aneto. Ogni valore finisce nella colonna dei punti corrispondente nella riga dei risultati di quella verdura.](https://storage.googleapis.com/papyrus_images/e63207ba97dca5657af93969f5424cb3.png)
 
 Le schede continuano ad arrivare e raccogliamo in totale 30 risposte! Con la matrice dei risultati completa, aggreghiamo i risultati con il metodo della ponderazione per indice...
 
-![](https://storage.googleapis.com/papyrus_images/49480940bd6ea3db2320d77b587455ae.png)
+![Diagramma. Dopo 30 schede, la riga dei risultati di ogni verdura viene compattata moltiplicando ogni conteggio per il suo valore in punti e sommando i prodotti. L'asparago totalizza 51, il fagiolo 36, la carota 37 e l'aneto 56.](https://storage.googleapis.com/papyrus_images/49480940bd6ea3db2320d77b587455ae.png)
 
 Vince l'aneto! 🎉 Grazie a questa approfondita ricerca di mercato, presto potrai trovare i lecca-lecca all'aneto nel tuo supermercato di fiducia.
 
@@ -173,7 +173,7 @@ Finalmente questa variabile ha il suo momento di gloria. Impostiamola a 2: il co
 
 - `costExponent` = 2
 
-![](https://storage.googleapis.com/papyrus_images/a645cc0a4a064387d26dafb4972d053a.png)
+![Diagramma. Un'elezione a voto quadratico si estende su quattro campi candidato, da A a D, con i valori disponibili da 0 a 3, un esponente di costo di 2 e un costo totale massimo di 9.](https://storage.googleapis.com/papyrus_images/a645cc0a4a064387d26dafb4972d053a.png)
 
 Immaginiamo un paio di configurazioni di scheda per darti un'idea di come funziona il voto quadratico.
 
@@ -181,7 +181,7 @@ Immaginiamo un paio di configurazioni di scheda per darti un'idea di come funzio
 
 Al nostro primo elettore andrebbe bene qualsiasi candidato, ma preferisce leggermente il candidato B. Vuole anche usare quanto più potere di voto possibile.
 
-![](https://storage.googleapis.com/papyrus_images/d9e9d195ba9159cc90da7228e4764cfc.png)
+![Diagramma. La scheda 1 assegna 1 al candidato A, 2 al candidato B, 1 al candidato C e 1 al candidato D. Elevando al quadrato ogni valore, il costo totale sale a 7, sotto il massimo di 9, e ogni valore segna la colonna dei punti corrispondente nella riga dei risultati del proprio candidato.](https://storage.googleapis.com/papyrus_images/d9e9d195ba9159cc90da7228e4764cfc.png)
 
 Ognuno dei valori `1` che questo elettore esprime aggiunge solo `1` al suo costo totale. Ma un valore di `2` aggiunge `2^2`, cioè `4`, al costo totale. Distribuendo i voti tra tutti i candidati, questo elettore riesce ad assegnare un valore totale di 5 raggiungendo un costo di appena 7. Non può arrivare al costo totale massimo di 9, perché alzare a `2` uno qualsiasi dei suoi valori `1` porterebbe il costo oltre 9.
 
@@ -189,7 +189,7 @@ Ognuno dei valori `1` che questo elettore esprime aggiunge solo `1` al suo costo
 
 Il secondo elettore ha opinioni molto nette. Sostiene solo il candidato C. Per lui ha quindi senso assegnare il valore massimo al candidato 3. Anche se ha usato un valore totale di appena `3`, il suo costo totale è al massimo: `3^2` = `9`.
 
-![](https://storage.googleapis.com/papyrus_images/99d22c797167c3a9f1a5be94957e158c.png)
+![Diagramma. La scheda 2 assegna 0 ai candidati A, B e D e 3 al candidato C. Elevando al quadrato ogni valore, il costo totale raggiunge esattamente il massimo di 9, e le righe dei risultati contengono ora i totali di entrambe le schede.](https://storage.googleapis.com/papyrus_images/99d22c797167c3a9f1a5be94957e158c.png)
 
 Puoi immaginare come, in un processo più grande con più candidati e più elettori, il voto quadratico possa essere uno strumento molto potente per misurare l'intensità delle preferenze, oltre alle preferenze stesse. Per ora lasciamo l'interpretazione di questi risultati come esercizio per il lettore.
 

@@ -61,7 +61,7 @@ Nuestra propuesta usa los zk-SNARKs para los siguientes fines:
 - Computar los resultados parciales de un lote de votos.
 - Verificar la firma del voto.
 
-![](/blog/images/2026/01/vocdoni_zk_scheme.webp)
+![Esquema. Cada votante obtiene una prueba de saldo EIP-1186 de Ethereum y envía una prueba de Merkle, una firma y un paquete de voto al zkRelayer. El relayer también lee el slot del mapeo de saldos y el hash de la raíz de almacenamiento del contrato, y emite una única prueba zk-SNARK junto con los resultados finales.](/blog/images/2026/01/vocdoni_zk_scheme.webp)
 
 Ejecución vinculante en Ethereum con zkSNARKs: propuesta idealizada.
 
@@ -86,7 +86,7 @@ En resumen, podemos realizar la mayoría de las verificaciones dentro de un SNAR
 
 # **Propuesta**
 
-![](/blog/images/2026/01/vocdoni_zk_scheme_2.webp)
+![Esquema. Un organizador crea una propuesta en el contrato inteligente de votación y selecciona a un coordinador. Los usuarios se registran en el registro de claves Snark y envían sus votos al coordinador del relayer, que sube la prueba zkSNARK. Los relayers de terceros pueden subir votos que falten y pruebas de fraude. El contrato inteligente de la DAO ejecuta después acciones con los resultados como entrada.](/blog/images/2026/01/vocdoni_zk_scheme_2.webp)
 
 Ejecución vinculante en Ethereum con zkSNARKs: propuesta
 
@@ -121,7 +121,7 @@ Ejecución vinculante en Ethereum con zkSNARKs: propuesta
 
 Un zk-SNARK agregará una lista de votos emitidos. La prueba zk-SNARK es válida respecto a una lista de votos dada, una raíz de censo, un identificador de elección (electionId) y un resultado agregado.
 
-![](/blog/images/2026/01/vocdoni_zk_scheme_3.webp)
+![Diagrama del circuito. Para cada uno de los N votos el circuito ejecuta un verificador de firmas EdDSA Poseidon y un procesador de árbol de Merkle disperso, encadenando cada nueva raíz de nullifiers a la siguiente iteración, y comprueba los valores firmados acumulados contra el resultado declarado. Las entradas públicas se hashean conjuntamente con SHA256 y se comparan con hashInputs.](/blog/images/2026/01/vocdoni_zk_scheme_3.webp)
 
 El circuito y el contrato
 

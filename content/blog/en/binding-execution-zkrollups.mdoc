@@ -61,7 +61,7 @@ Our proposal uses zk-SNARKS for the following purposes:
 - To compute partial results on a batch of votes.
 - To verify the signature of the vote.
 
-![](/blog/images/2026/01/vocdoni_zk_scheme.webp)
+![Schematic. Each voter pulls an EIP-1186 balance proof from Ethereum and sends a Merkle proof, a signature and a vote package to the zkRelayer. The relayer also reads the balance mapping slot and the contract storage root hash, and emits one zk-SNARK proof alongside the final results.](/blog/images/2026/01/vocdoni_zk_scheme.webp)
 
 Binding Execution on Ethereum with zkSNARKs - idealized proposal.
 
@@ -86,7 +86,7 @@ In summary, we can handle most verifications within a SNARK, but not all:
 
 # **Proposal**
 
-![](/blog/images/2026/01/vocdoni_zk_scheme_2.webp)
+![Schematic. An organizer creates a proposal in the voting smart contract and selects a coordinator. Users register in the Snark keys registry and send their votes to the relayer coordinator, which uploads the zkSNARK proof. Third party relayers can upload missing votes and fraud proofs. The DAO smart contract then executes actions with the results as input.](/blog/images/2026/01/vocdoni_zk_scheme_2.webp)
 
 Binding Execution on Ethereum with zkSNARKs - proposal
 
@@ -121,7 +121,7 @@ Binding Execution on Ethereum with zkSNARKs - proposal
 
 A zk-SNARK will aggregate a list of cast votes. The zk-SNARK proof is valid based on a given list of votes, a census root, an election identifier (electionId) and an aggregated result.
 
-![](/blog/images/2026/01/vocdoni_zk_scheme_3.webp)
+![Circuit diagram. For each of the N votes the circuit runs an EdDSA Poseidon signature verifier and a sparse Merkle tree processor, chaining every new nullifiers root into the next iteration, and checks the accumulated signed values against the declared result. The public inputs are hashed together with SHA256 and compared to hashInputs.](/blog/images/2026/01/vocdoni_zk_scheme_3.webp)
 
 The Circuit and the Contract
 

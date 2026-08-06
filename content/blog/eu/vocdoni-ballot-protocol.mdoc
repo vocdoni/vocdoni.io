@@ -29,7 +29,7 @@ Emaitzak zenbaki arrunten bi dimentsioko array batean (matrize batean) metatzen 
 
 Prozesu bat nola konfigura daitekeen xehetasunez aztertu aurretik, ikus dezagun adibide generiko bat. Demagun hiru eremuko prozesu bat dugula, `A`, `B` eta `C`, eta eremu bakoitzak `0`, `1` eta `2` balioak onartzen dituela. Ez dakigu balio edo eremu horiek zer adierazten duten, baina oraingoz ez du axola.
 
-![](https://storage.googleapis.com/papyrus_images/47fc7647a24d815d609ad569c4456e39.png)
+![Diagrama. Prozesu batek A, B eta C eremuak ditu, eta bakoitzak 0, 1 edo 2 balioak onartzen ditu. 1. boto-txartelak 2, 0 eta 1 ditu, eta 2.ak 0, 0 eta 2. Geziek aukera bakoitza emaitzen matrizera eramaten dute, eta A eremua 1, 0, 1 zenbaketekin uzten dute, B eremua 2, 0, 0rekin eta C eremua 0, 1, 1ekin.](https://storage.googleapis.com/papyrus_images/47fc7647a24d815d609ad569c4456e39.png)
 
 Adibide honetan, bi boto eman dira. Lehen hautesleak `2` balioa aukeratu du `A` eremurako, `0` balioa `B` eremurako eta `1` balioa `C` eremurako. Bigarren boto-txartelak `0`, `0` eta `2` balioak ditu. Goiko diagraman ikus dezakezu boto-txartelak nola lotzen diren emaitzen matrizearekin. Boto-txartel bateko balio baten _indizeak_ zehazten du balio hori zein _eremuri_ dagokion; adibidez, 1. boto-txartelaren lehen indizeak `2` balioa du, eta, beraz, 1. boto-txartelak `2` balioa esleitzen dio A eremuari. Emaitzen matrizearen eremu bakoitzaren barruan, botoaren balioa indizearen bidez adierazten da: `A eremuko` `2` indizean `1` jartzen dugu, `2` balioak jaso duen boto bakarra adierazteko.
 
@@ -41,7 +41,7 @@ Baliteke hasieran intuitiboa ez izatea. Saiatu boto-txarteletako beste balio par
 
 Boto-txartelen protokoloa zenbakizko aldagai eta aldagai boolear (egia/gezurra) multzo batek osatzen du, eta aldagai horiek boto-txartel baliodun baten formatua mugatzen dute.
 
-![](https://storage.googleapis.com/papyrus_images/b8d920f2d64cf347ff2f47f7e34a3340.png)
+![Boto-txartelaren aldagaien diagrama. maxCount-ek boto-txartel batek zenbat eremu dituen mugatzen du, maxValue-k eta minValue-k eremu bakoitza banaka mugatzen dute, uniqueValues-ek eremu guztiak desberdinak izatera behartzen du, maxTotalCost-ek eta minTotalCost-ek horien batura mugatzen dute, eta costExponent-ek balio bakoitza berretura batera igotzen du kostua kalkulatu aurretik.](https://storage.googleapis.com/papyrus_images/b8d920f2d64cf347ff2f47f7e34a3340.png)
 
 Nola adieraz liteke goian aurkeztutako adibidea protokolo honekin?
 
@@ -85,7 +85,7 @@ Egungo bertsioan, Vocdonik emaitzak interpretatzeko bi formatu definitzen ditu: 
 
 Gure adibideko prozesurako, indize-haztatuaren interpretazio-formula erabiliko genuke. Eskema hori galdera bakarreko prozesuetarako egokia da: sailkapen bidezko bozketa, aukera anitzeko bozketa edo aurrekontu parte-hartzaileak, esaterako. Emaitzen matrizearen eremu bateko indize bakoitzak balio haztatu bat adierazten du; kasu honetan, haztapena erakunde bati esleitutako txanpon kopurua da. Botoen batura, indizearen araberako balio haztatuekin biderkatuta, eremu horren balio osoa da.
 
-![](https://storage.googleapis.com/papyrus_images/345a07aee1ddf6a6aad51db7e58fd399.png)
+![Diagrama. Emaitzen matrizearen hiru eremu-bektoreak, 1, 0, 1 gero 2, 0, 0 eta gero 0, 1, 1, banaka biltzen dira zenbaketa bakoitza bere indizearekin biderkatuz eta biderkadurak batuz, eta horrek 2, 0 eta 3 emaitza batuak ematen ditu.](https://storage.googleapis.com/papyrus_images/345a07aee1ddf6a6aad51db7e58fd399.png)
 
 Interpretazio horrek gure adibideko prozesua laburbiltzen du: A erakundeak 2 txanpon jaso ditu, eta C erakundeak 3.
 
@@ -95,7 +95,7 @@ Balio diskretuen interpretazioa eremu bakoitza bere kabuz galdera bat den prozes
 
 `0` balioa aukeren arteko berdinketarako gordeta dago.
 
-![](https://storage.googleapis.com/papyrus_images/97e8bca257a9b118b86ee3dd31165107.png)
+![Diagrama. Hiru galdera-bektore, 1, 2, 0 gero 0, 1, 2 eta gero 1, 1, 1, bakoitza bere aukera irabazlearen posiziora murrizten da. Emaitza batuak 2 dira B aukerarentzat lehen galderan eta 3 C aukerarentzat bigarrenean, eta hirugarrena 0 da hiru aukerak berdinduta daudelako eta 0a irabazlerik ez dagoenerako gordeta dagoelako.](https://storage.googleapis.com/papyrus_images/97e8bca257a9b118b86ee3dd31165107.png)
 
 Bi formatu horiek ez dira zerrenda itxi bat izateko pentsatu. Esan bezala, Ballot Protocol bera agnostikoa da emaitzak nola batzen diren erabakitzeko orduan, eta protokoloaren gainean bere aplikazio-geruza eraikitzen duen edonork bere emaitza-interpretazioa defini dezake.
 
@@ -133,15 +133,15 @@ Berriro ere, hemen ez dugu costExponent-en beharrik.
 
 - `costExponent` = 1
 
-![](https://storage.googleapis.com/papyrus_images/d06d57a97367e2f40ed75228f02392a7.png)
+![Diagrama. Produktuen sailkapen bat lau eremutan zehar hedatzen da, zainzuria, babarruna, azenarioa eta eneldoa, 0tik 3ra bitarteko balio erabilgarriekin, guztiak bakarrak izan behar dutela.](https://storage.googleapis.com/papyrus_images/d06d57a97367e2f40ed75228f02392a7.png)
 
 Har dezagun lehen boto-txartela. Produktu-probatzaile honi azenarioak izugarri gustatzen zaizkio; beraz, azenarioa jarri du lehen aukera gisa. Gero zainzuria, gero aneta, eta babarrunak azkenak. Honela jasotzen da boto-txartel hori emaitzen matrizean:
 
-![](https://storage.googleapis.com/papyrus_images/e63207ba97dca5657af93969f5424cb3.png)
+![Diagrama. 1. boto-txartelak 2 ematen dio zainzuriari, 0 babarrunari, 3 azenarioari eta 1 eneldoari. Balio bakoitza barazki horren emaitza-lerroko puntu zutabe egokian kokatzen da.](https://storage.googleapis.com/papyrus_images/e63207ba97dca5657af93969f5424cb3.png)
 
 Boto-txartelak etengabe iristen dira, eta 30 erantzun jaso ditugu guztira! Emaitzen matrizea beteta dagoela, indize-haztatuaren metodoaren arabera batzen ditugu emaitzak...
 
-![](https://storage.googleapis.com/papyrus_images/49480940bd6ea3db2320d77b587455ae.png)
+![Diagrama. 30 boto-txartelen ondoren, barazki bakoitzaren emaitza-lerroa biltzen da zenbaketa bakoitza bere puntu balioarekin biderkatuz eta biderkadurak batuz. Zainzuriak 51 puntu lortzen ditu, babarrunak 36, azenarioak 37 eta eneldoak 56.](https://storage.googleapis.com/papyrus_images/49480940bd6ea3db2320d77b587455ae.png)
 
 Aneta da irabazlea! 🎉 Merkatu-azterketa sakon honi esker, laster aurkituko dituzu aneta zaporeko piruletak zure auzoko dendan.
 
@@ -173,7 +173,7 @@ Azkenean iritsi da aldagai honen unea. Ezar dezagun 2an: horrek esan nahi du edo
 
 - `costExponent` = 2
 
-![](https://storage.googleapis.com/papyrus_images/a645cc0a4a064387d26dafb4972d053a.png)
+![Diagrama. Boto koadratikoko hauteskunde bat lau hautagai eremutan zehar hedatzen da, Atik Dra, 0tik 3ra bitarteko balio erabilgarriekin, 2ko kostu-berretzailearekin eta 9ko gehieneko kostu osoarekin.](https://storage.googleapis.com/papyrus_images/a645cc0a4a064387d26dafb4972d053a.png)
 
 Imajina ditzagun boto-txartelen konfigurazio pare bat, bozketa koadratikoak nola funtzionatzen duen ikusteko.
 
@@ -181,7 +181,7 @@ Imajina ditzagun boto-txartelen konfigurazio pare bat, bozketa koadratikoak nola
 
 Gure lehen hauteslearentzat edozein hautagai litzateke onargarria, baina B hautagaia du gustukoen, alde txikiarekin. Gainera, ahalik eta boto-botere handiena erabili nahi du.
 
-![](https://storage.googleapis.com/papyrus_images/d9e9d195ba9159cc90da7228e4764cfc.png)
+![Diagrama. 1. boto-txartelak 1 ematen dio A hautagaiari, 2 B hautagaiari, 1 C hautagaiari eta 1 D hautagaiari. Balio bakoitza karratura igotzean, kostu osoa 7ra iristen da, 9ko gehienekoaren azpitik, eta balio bakoitzak bere hautagaiaren emaitza-lerroko puntu zutabe egokia markatzen du.](https://storage.googleapis.com/papyrus_images/d9e9d195ba9159cc90da7228e4764cfc.png)
 
 Hautesle honek ematen duen `1` balio bakoitzak `1` baino ez dio gehitzen kostu osoari. Baina `2` balio batek `2^2`, hau da, `4`, gehitzen dio. Botoak hautagai guztien artean banatuta, hauteslea 5eko balio osoa esleitzera iristen da, kostua 7koa baino ez dela. Ezin da 9ko gehienezko kostura iritsi: bere `1` balioetako edozein `2`ra igotzeak kostua 9tik gora eramango luke.
 
@@ -189,7 +189,7 @@ Hautesle honek ematen duen `1` balio bakoitzak `1` baino ez dio gehitzen kostu o
 
 Bigarren hauteslearen iritziak oso sendoak dira: C hautagaia baino ez du babesten. Beraz, zentzuzkoa da harentzat balio maximoa 3. hautagaiari esleitzea. Guztira `3`ko balioa baino erabili ez badu ere, kostu osoa gehienezkoa da: `3^2` = `9`.
 
-![](https://storage.googleapis.com/papyrus_images/99d22c797167c3a9f1a5be94957e158c.png)
+![Diagrama. 2. boto-txartelak 0 ematen die A, B eta D hautagaiei eta 3 C hautagaiari. Balio bakoitza karratura igotzean, kostu osoa 9ko gehienekora iristen da zehatz-mehatz, eta emaitza-lerroek bi boto-txartelen batuketak dituzte orain.](https://storage.googleapis.com/papyrus_images/99d22c797167c3a9f1a5be94957e158c.png)
 
 Pentsa dezakezu nola, hautagai eta hautesle gehiagoko prozesu handiago batean, bozketa koadratikoa oso tresna indartsua izan litekeen, lehentasuna bera ez ezik lehentasunaren indarra ere neurtzeko. Oraingoz, emaitza hauen interpretazioa irakurlearen esku utziko dugu, ariketa gisa.
 

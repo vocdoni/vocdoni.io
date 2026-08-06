@@ -57,7 +57,7 @@ La `franchise proof` est générée en exécutant le circuit zk-SNARK.
 - **Entrées publiques :** `census Merkle-root`, `nullifier`, `election ID`, `vote`
 - **Sortie :** `franchise proof`
 
-![](/blog/images/2026/01/zksnarks_anonymous_1.webp)
+![Schéma de circuit. Les entrées publiques racine du recensement, vote, ID du processus et nullifier, ainsi que les entrées privées preuve de Merkle, index et secretKey, alimentent un vérificateur de preuves de Merkle et deux blocs de hachage, dont les résultats sont combinés par une porte AND en une sortie unique.](/blog/images/2026/01/zksnarks_anonymous_1.webp)
 
 Sans révéler la `secretKey` ni la _preuve de Merkle du recensement_, ce circuit est en mesure de démontrer que :
 
@@ -75,7 +75,7 @@ L'arbre de Merkle utilisé pour construire le _recensement anonyme_ doit être u
 
 La [Vochain](https://docs.vocdoni.io/architecture/services/vochain.html) utilise [arbo](https://github.com/vocdoni/arbo), une implémentation d'arbre de Merkle en Go compatible avec la conception Circom. L'arbre de Merkle emploie le hachage Poseidon, une fonction de hachage adaptée aux SNARKs qui peut ensuite être prouvée dans un circuit sans exiger trop de contraintes. Le diagramme suivant représente la structure des données des feuilles de l'arbre de Merkle utilisé dans le schéma de la zk-census-proof.
 
-![](/blog/images/2026/01/zksnarks_anonymous_2.webp)
+![Arbre de Merkle construit avec le hachage Poseidon. Les feuilles 0 à N sont hachées vers le haut à travers des nœuds intermédiaires jusqu'à une racine du recensement unique. Chaque feuille associe une clé, l'index incrémental, à une valeur qui est le hachage Poseidon de la secretKey, et ensemble elles forment la zkCensusKey.](/blog/images/2026/01/zksnarks_anonymous_2.webp)
 
 La valeur `index` est déterminée par le constructeur de l'_arbre de recensement_, qui maintient une valeur `index` pour chaque arbre de recensement. Cette valeur s'incrémente à l'ajout de chaque nouvelle _feuille_. Les _feuilles_ sont structurées ainsi pour exploiter les arbres de Merkle plus efficacement : davantage de clés d'utilisateurs tiennent dans un arbre plus petit, ce qui réduit la taille du zk-Circuit. En effet, la `value` de la `key` d'une feuille détermine la position de cette feuille dans l'arbre.
 

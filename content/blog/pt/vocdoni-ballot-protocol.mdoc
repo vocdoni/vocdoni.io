@@ -29,7 +29,7 @@ Os resultados acumulam-se numa matriz bidimensional de números naturais. Cada l
 
 Antes de entrarmos nos pormenores de como um processo pode ser configurado, vejamos um exemplo genérico. Suponha-se um processo com três campos, `A`, `B` e `C`, cada um dos quais admite `0`, `1` e `2` como valores possíveis. Não sabemos o que estes valores ou campos representam, mas isso não importa por agora.
 
-![](https://storage.googleapis.com/papyrus_images/47fc7647a24d815d609ad569c4456e39.png)
+![Diagrama. Um processo tem os campos A, B e C, cada um deles a aceitar os valores 0, 1 ou 2. O boletim 1 contém 2, 0 e 1, o boletim 2 contém 0, 0 e 2. As setas levam cada escolha à matriz de resultados, deixando o campo A com as contagens 1, 0, 1, o campo B com 2, 0, 0 e o campo C com 0, 1, 1.](https://storage.googleapis.com/papyrus_images/47fc7647a24d815d609ad569c4456e39.png)
 
 Neste exemplo, foram depositados dois votos. O primeiro eleitor escolheu o valor `2` para o campo `A`, `0` para o campo `B` e `1` para o campo `C`. O segundo boletim tem os valores `0`, `0` e `2`. Pode ver-se no diagrama acima como os boletins se relacionam com a matriz de resultados. O _índice_ de um valor de um boletim determina o _campo_ a que esse valor pertence: o primeiro índice do boletim 1 tem o valor `2`, pelo que o boletim 1 está a atribuir o valor `2` ao campo A. Dentro de cada campo da matriz de resultados, o valor do voto é representado pelo seu índice. Colocamos um `1` no índice `2` do `campo A` para representar o único voto no valor `2`.
 
@@ -41,7 +41,7 @@ Isto pode não ser intuitivo à primeira. Vale a pena seguir mais alguns valores
 
 O protocolo de boletins é composto por um conjunto de variáveis numéricas e booleanas (verdadeiro/falso) que restringem o formato de um boletim válido.
 
-![](https://storage.googleapis.com/papyrus_images/b8d920f2d64cf347ff2f47f7e34a3340.png)
+![Diagrama das variáveis do boletim. maxCount limita quantos campos tem um boletim, maxValue e minValue limitam cada campo individualmente, uniqueValues obriga a que todos os campos sejam diferentes, maxTotalCost e minTotalCost limitam a sua soma, e costExponent eleva cada valor a uma potência antes de lhe ser calculado o custo.](https://storage.googleapis.com/papyrus_images/b8d920f2d64cf347ff2f47f7e34a3340.png)
 
 Como se representaria o exemplo apresentado acima com este protocolo?
 
@@ -85,7 +85,7 @@ Na sua iteração atual, a Vocdoni define dois formatos de interpretação de re
 
 Para o nosso processo de exemplo, usaríamos a fórmula de interpretação de resultados por ponderação por índice. Este esquema adequa-se a processos de pergunta única, como a votação por ordem de preferência, a escolha múltipla ou os orçamentos participativos. Cada índice num campo da matriz de resultados representa um valor ponderado; neste caso, o peso representa o número de moedas alocadas a uma organização. A soma dos votos, multiplicados pelos respetivos valores ponderados por índice, é o valor total desse campo.
 
-![](https://storage.googleapis.com/papyrus_images/345a07aee1ddf6a6aad51db7e58fd399.png)
+![Diagrama. Os três vetores de campo da matriz de resultados, 1, 0, 1 depois 2, 0, 0 e depois 0, 1, 1, são condensados multiplicando cada contagem pelo seu índice e somando os produtos, o que dá os resultados agregados 2, 0 e 3.](https://storage.googleapis.com/papyrus_images/345a07aee1ddf6a6aad51db7e58fd399.png)
 
 Esta interpretação agrega o nosso processo de exemplo. A organização A recebe 2 moedas; a organização C recebe 3.
 
@@ -95,7 +95,7 @@ A interpretação por valores discretos é utilizada em processos em que cada ca
 
 `0` está reservado para o empate entre opções.
 
-![](https://storage.googleapis.com/papyrus_images/97e8bca257a9b118b86ee3dd31165107.png)
+![Diagrama. Três vetores de pergunta, 1, 2, 0 depois 0, 1, 2 e depois 1, 1, 1, são cada um reduzidos à posição da sua opção vencedora. Os resultados agregados são 2 para B na primeira pergunta e 3 para C na segunda, enquanto o terceiro é 0 porque as três opções empatam e o 0 está reservado para a ausência de vencedor.](https://storage.googleapis.com/papyrus_images/97e8bca257a9b118b86ee3dd31165107.png)
 
 Estes dois formatos não pretendem ser exaustivos. Como referido acima, o Ballot Protocol é agnóstico quanto à forma como os resultados são agregados, e quem construa a sua própria camada aplicacional sobre o protocolo pode definir a sua própria interpretação de resultados.
 
@@ -133,15 +133,15 @@ Mais uma vez, o costExponent não tem aqui utilidade.
 
 - `costExponent` = 1
 
-![](https://storage.googleapis.com/papyrus_images/d06d57a97367e2f40ed75228f02392a7.png)
+![Diagrama. Uma classificação de produtos por ordem de preferência estende-se por quatro campos, espargo, feijão, cenoura e endro, com os valores disponíveis de 0 a 3, que têm de ser todos únicos.](https://storage.googleapis.com/papyrus_images/d06d57a97367e2f40ed75228f02392a7.png)
 
 Vejamos o nosso primeiro boletim. Este testador de produto adora cenouras, por isso coloca a cenoura como primeira escolha. Seguem-se os espargos e depois o endro, ficando o feijão em último lugar. Eis como este boletim fica registado na matriz de resultados:
 
-![](https://storage.googleapis.com/papyrus_images/e63207ba97dca5657af93969f5424cb3.png)
+![Diagrama. O boletim 1 dá 2 ao espargo, 0 ao feijão, 3 à cenoura e 1 ao endro. Cada valor cai na coluna de pontos correspondente da linha de resultados desse legume.](https://storage.googleapis.com/papyrus_images/e63207ba97dca5657af93969f5424cb3.png)
 
 Os boletins continuam a chegar e obtemos um total de 30 respostas! Com a matriz de resultados completa, agregamos então os resultados segundo o método de ponderação por índice…
 
-![](https://storage.googleapis.com/papyrus_images/49480940bd6ea3db2320d77b587455ae.png)
+![Diagrama. Ao fim de 30 boletins, a linha de resultados de cada legume é condensada multiplicando cada contagem pelo seu valor em pontos e somando os produtos. O espargo soma 51, o feijão 36, a cenoura 37 e o endro 56.](https://storage.googleapis.com/papyrus_images/49480940bd6ea3db2320d77b587455ae.png)
 
 O endro é o vencedor! 🎉 Graças a este extenso estudo de mercado, em breve poderá encontrar chupa-chupas com sabor a endro no supermercado.
 
@@ -173,7 +173,7 @@ Finalmente, esta variável tem a sua oportunidade de brilhar. Vamos defini-la co
 
 - `costExponent` = 2
 
-![](https://storage.googleapis.com/papyrus_images/a645cc0a4a064387d26dafb4972d053a.png)
+![Diagrama. Uma eleição por voto quadrático estende-se por quatro campos de candidato, de A a D, com os valores disponíveis de 0 a 3, um expoente de custo de 2 e um custo total máximo de 9.](https://storage.googleapis.com/papyrus_images/a645cc0a4a064387d26dafb4972d053a.png)
 
 Imaginemos algumas configurações de boletins para dar uma ideia de como funciona a votação quadrática.
 
@@ -181,7 +181,7 @@ Imaginemos algumas configurações de boletins para dar uma ideia de como funcio
 
 O nosso primeiro eleitor aceitaria qualquer um dos candidatos, mas prefere ligeiramente o candidato B. Também quer usar o máximo de poder de voto possível.
 
-![](https://storage.googleapis.com/papyrus_images/d9e9d195ba9159cc90da7228e4764cfc.png)
+![Diagrama. O boletim 1 dá 1 ao candidato A, 2 ao candidato B, 1 ao candidato C e 1 ao candidato D. Ao elevar cada valor ao quadrado, o custo total sobe para 7, abaixo do máximo de 9, e cada valor marca a coluna de pontos correspondente da linha de resultados do seu candidato.](https://storage.googleapis.com/papyrus_images/d9e9d195ba9159cc90da7228e4764cfc.png)
 
 Cada valor de `1` que este eleitor atribui acrescenta apenas `1` ao seu custo total. Mas um valor de `2` acrescenta `2^2`, ou seja, `4`, ao custo total. Ao distribuir os votos por todos os candidatos, este eleitor consegue alocar um valor total de 5, atingindo apenas um custo de 7. Não consegue chegar ao custo total máximo de 9, porque subir qualquer um dos seus valores `1` para `2` faria o custo ultrapassar 9.
 
@@ -189,7 +189,7 @@ Cada valor de `1` que este eleitor atribui acrescenta apenas `1` ao seu custo to
 
 O segundo eleitor tem opiniões muito firmes. Só apoia o candidato C. Faz-lhe, portanto, sentido atribuir o valor máximo ao candidato 3. Embora só tenha usado um valor total de `3`, o seu custo total atinge o máximo: `3^2` = `9`.
 
-![](https://storage.googleapis.com/papyrus_images/99d22c797167c3a9f1a5be94957e158c.png)
+![Diagrama. O boletim 2 dá 0 aos candidatos A, B e D e 3 ao candidato C. Ao elevar cada valor ao quadrado, o custo total chega exatamente ao máximo de 9, e as linhas de resultados contêm agora os totais dos dois boletins.](https://storage.googleapis.com/papyrus_images/99d22c797167c3a9f1a5be94957e158c.png)
 
 É fácil imaginar como, num processo maior, com mais candidatos e eleitores, a votação quadrática pode ser uma forma muito poderosa de medir a intensidade das preferências, para além das preferências em si. Por agora, deixamos a interpretação destes resultados como exercício para o leitor.
 

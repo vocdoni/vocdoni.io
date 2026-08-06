@@ -48,7 +48,7 @@ Eta garrantzitsuena: NI-DKG oso-osorik primitiba kriptografiko **estandar eta on
 4. **DKG prozesu nagusia:** nodo bakoitzak polinomio-konpromisoak eta zifratutako zatiak argitaratzen ditu, zuzentasunaren ZK froga batekin batera.
 5. **Amaiera:** antolatzaileak `PK` gako publikoa eta zati pribatuen konpromisoak kalkulatzen ditu, eta blockchainean argitaratzen ditu, zuzentasunaren ZK froga batekin batera.
 
-![](/blog/images/2026/03/dkg-process.webp)
+![Antolatzailearen, parte-hartzaileen eta blockchain-aren arteko sekuentzia-diagrama, bost fasetan: hasiera, interesa adieraztea, parte-hartzaileak zehaztea, DKG txanda nagusia, non nodo bakoitzak konpromisoak, zati zifratuak eta zuzentasun-froga bat aurkezten dituen, eta amaiera, non gako publikoa katean kalkulatzen den.](/blog/images/2026/03/dkg-process.webp)
 
 **_Deszifratzea_**
 
@@ -56,7 +56,7 @@ Eta garrantzitsuena: NI-DKG oso-osorik primitiba kriptografiko **estandar eta on
 2. **Deszifratze partzialen argitalpena:** nodoek `C1`-en deszifratze partzial bana argitaratzen dute, logaritmo diskretuen berdintasun-froga batekin batera.
 3. **Deszifratzea:** `t` deszifratze partzial edo gehiago argitaratu ondoren, kontratu adimendunari dei dakioke mezua berreskuratzeko.
 
-![](/blog/images/2026/03/dkg-decryption.webp)
+![Hiru faseko sekuentzia-diagrama. Aurkezle batek testu zifratua argitaratzen du, parte-hartzaile bakoitzak deszifratze partzial bat aurkezten du gero, logaritmo diskretuen berdintasunaren froga batekin, blockchain-ak egiaztatzen duena, eta completeDecryption-i egindako dei batek testu argiko mezua berreskuratzen du.](/blog/images/2026/03/dkg-decryption.webp)
 
 **_Hautazko gako-agerpena_**
 
@@ -66,7 +66,7 @@ Kontuan izan gakoaren agerpena ez dela DAVINCI protokoloaren parte; normalean ur
 2. **Gako sekretuaren zatien argitalpena:** parte hartzen duen nodo bakoitzak sekretuaren bere zatia argitaratzen du.
 3. **Gako sekretuaren kalkulua:** `t` balio edo gehiago bidali ondoren, edonork kalkula dezake gako sekretua.
 
-![](/blog/images/2026/03/dkg-sk-disclosure.webp)
+![Hiru faseko sekuentzia-diagrama. Antolatzaileak ezagutzera ematea eskatzen du, parte-hartzaileek sekretuaren zatiak aurkezten dituzte, eta computeSecretKey-ri egindako dei batek berreraikitzen du. Ohar batek jasotzen du zatien atalasea katean dagoenetik edonork berreraiki dezakeela jada gakoa, eta azken faseak publiko egin baino ez duela egiten.](/blog/images/2026/03/dkg-sk-disclosure.webp)
 
 ### **Barne-funtzionamendua**
 

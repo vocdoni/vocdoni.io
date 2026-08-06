@@ -48,7 +48,7 @@ Mais importante: o NI-DKG é construído inteiramente a partir de **primitivas c
 4. **Processo principal de DKG:** cada nó publica compromissos polinomiais e frações (shares) criptografadas, junto com uma prova ZK de correção.
 5. **Finalização:** o organizador calcula a chave pública `PK` e os compromissos das frações privadas, e os publica na blockchain junto com uma prova ZK de correção.
 
-![](/blog/images/2026/03/dkg-process.webp)
+![Diagrama de sequência entre o organizador, os participantes e a blockchain ao longo de cinco fases: iniciação, manifestação de interesse, determinação dos participantes, a rodada DKG principal em que cada nó envia compromissos, frações criptografadas e uma prova de correção, e finalização, em que a chave pública é calculada na cadeia.](/blog/images/2026/03/dkg-process.webp)
 
 **_Descriptografia_**
 
@@ -56,7 +56,7 @@ Mais importante: o NI-DKG é construído inteiramente a partir de **primitivas c
 2. **Publicação das descriptografias parciais:** os nós publicam uma descriptografia parcial de `C1`, junto com uma prova de igualdade de logaritmo discreto.
 3. **Descriptografia:** assim que `t` ou mais descriptografias parciais tiverem sido publicadas, o contrato inteligente pode ser chamado para recuperar a mensagem.
 
-![](/blog/images/2026/03/dkg-decryption.webp)
+![Diagrama de sequência em três fases. Um remetente publica o texto cifrado, cada participante envia em seguida uma descriptografia parcial com uma prova de igualdade de logaritmos discretos que a blockchain verifica, e uma chamada a completeDecryption recupera a mensagem em texto claro.](/blog/images/2026/03/dkg-decryption.webp)
 
 **_Divulgação opcional da chave_**
 
@@ -66,7 +66,7 @@ Observe que a divulgação da chave não faz parte do protocolo DAVINCI; normalm
 2. **Publicação das frações da chave secreta:** cada nó participante publica sua fração do segredo.
 3. **Cálculo da chave secreta:** assim que `t` ou mais valores tiverem sido submetidos, qualquer pessoa pode calcular a chave secret&#x61;.
 
-![](/blog/images/2026/03/dkg-sk-disclosure.webp)
+![Diagrama de sequência em três fases. O organizador pede a divulgação, os participantes enviam suas frações do segredo, e uma chamada a computeSecretKey o reconstrói. Uma nota registra que, assim que o limiar de frações está na cadeia, qualquer pessoa já consegue reconstruir a chave, e que a última fase apenas a torna pública.](/blog/images/2026/03/dkg-sk-disclosure.webp)
 
 ### **Por dentro do protocolo**
 

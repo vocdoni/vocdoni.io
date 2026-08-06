@@ -61,7 +61,7 @@ La nostra proposta usa gli zk-SNARKs per i seguenti scopi:
 - Calcolare i risultati parziali su un lotto di voti.
 - Verificare la firma del voto.
 
-![](/blog/images/2026/01/vocdoni_zk_scheme.webp)
+![Schema. Ogni elettore preleva una prova di saldo EIP-1186 da Ethereum e invia una prova di Merkle, una firma e un pacchetto di voto al zkRelayer. Il relayer legge anche lo slot della mappatura dei saldi e l'hash della radice di storage del contratto, ed emette un'unica prova zk-SNARK insieme ai risultati finali.](/blog/images/2026/01/vocdoni_zk_scheme.webp)
 
 Esecuzione vincolante su Ethereum con zkSNARKs: proposta idealizzata.
 
@@ -86,7 +86,7 @@ In sintesi, possiamo gestire la maggior parte delle verifiche all'interno di uno
 
 # **Proposta**
 
-![](/blog/images/2026/01/vocdoni_zk_scheme_2.webp)
+![Schema. Un organizzatore crea una proposta nello smart contract di voto e seleziona un coordinatore. Gli utenti si registrano nel registro delle chiavi Snark e inviano i loro voti al coordinatore del relayer, che carica la prova zkSNARK. I relayer di terze parti possono caricare i voti mancanti e prove di frode. Lo smart contract della DAO esegue poi azioni prendendo i risultati come input.](/blog/images/2026/01/vocdoni_zk_scheme_2.webp)
 
 Esecuzione vincolante su Ethereum con zkSNARKs: proposta
 
@@ -121,7 +121,7 @@ Esecuzione vincolante su Ethereum con zkSNARKs: proposta
 
 Uno zk-SNARK aggregherà una lista di voti espressi. La prova zk-SNARK è valida rispetto a una data lista di voti, una radice del censo, un identificatore dell'elezione (electionId) e un risultato aggregato.
 
-![](/blog/images/2026/01/vocdoni_zk_scheme_3.webp)
+![Diagramma del circuito. Per ciascuno degli N voti il circuito esegue un verificatore di firme EdDSA Poseidon e un processore di albero di Merkle sparso, concatenando ogni nuova radice dei nullifier all'iterazione successiva, e confronta i valori firmati accumulati con il risultato dichiarato. Gli input pubblici vengono sottoposti a hash insieme con SHA256 e confrontati con hashInputs.](/blog/images/2026/01/vocdoni_zk_scheme_3.webp)
 
 Il circuito e il contratto
 

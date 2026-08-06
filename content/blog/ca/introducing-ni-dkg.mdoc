@@ -48,7 +48,7 @@ I el més important: NI-DKG es construeix íntegrament amb **primitives criptogr
 4. **Procés DKG principal:** cada node publica compromisos polinòmics i parts xifrades, juntament amb una prova ZK de correcció.
 5. **Finalització:** l'organitzador calcula la clau pública `PK` i els compromisos de les parts privades, i ho publica a la blockchain juntament amb una prova ZK de correcció.
 
-![](/blog/images/2026/03/dkg-process.webp)
+![Diagrama de seqüència entre l'organitzador, els participants i la blockchain al llarg de cinc fases: iniciació, manifestació d'interès, determinació dels participants, la ronda DKG principal en què cada node envia compromisos, fragments xifrats i una prova de correcció, i finalització, on la clau pública es calcula en cadena.](/blog/images/2026/03/dkg-process.webp)
 
 **_Desxifratge_**
 
@@ -56,7 +56,7 @@ I el més important: NI-DKG es construeix íntegrament amb **primitives criptogr
 2. **Publicació dels desxifratges parcials:** els nodes publiquen un desxifratge parcial de `C1`, juntament amb una prova d'igualtat de logaritmes discrets.
 3. **Desxifratge:** quan s'han publicat `t` o més desxifratges parcials, es pot cridar el contracte intel·ligent per recuperar el missatge.
 
-![](/blog/images/2026/03/dkg-decryption.webp)
+![Diagrama de seqüència en tres fases. Un emissor publica el text xifrat, cada participant envia després un desxifratge parcial amb una prova d'igualtat de logaritmes discrets que la blockchain verifica, i una crida a completeDecryption recupera el missatge en clar.](/blog/images/2026/03/dkg-decryption.webp)
 
 **_Revelació opcional de la clau_**
 
@@ -66,7 +66,7 @@ Tingues en compte que la revelació de la clau no forma part del protocol DAVINC
 2. **Publicació de les parts de la clau secreta:** cada node participant publica la seva part del secret.
 3. **Càlcul de la clau secreta:** quan s'han enviat `t` o més valors, qualsevol pot calcular la clau secret&#x61;.
 
-![](/blog/images/2026/03/dkg-sk-disclosure.webp)
+![Diagrama de seqüència en tres fases. L'organitzador sol·licita la divulgació, els participants envien els seus fragments del secret, i una crida a computeSecretKey el reconstrueix. Una nota recorda que, un cop el llindar de fragments és en cadena, qualsevol pot reconstruir ja la clau, i l'última fase només la fa pública.](/blog/images/2026/03/dkg-sk-disclosure.webp)
 
 ### **Sota el capó**
 

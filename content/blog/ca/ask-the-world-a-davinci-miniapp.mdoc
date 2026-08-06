@@ -40,7 +40,7 @@ Qui crea la votació defineix la pregunta, les opcions disponibles, una nacional
 
 Des del punt de vista del votant, l'experiència és com la de qualsevol aplicació web:
 
-![](/blog/images/2026/03/02_voting_process-1.webp)
+![Flux de quatre passos titulat un escaneig, un vot. Obrir l'enllaç genera un wallet efímer en segon pla, escanejar un codi QR fa que Self.xyz construeixi una prova de coneixement zero al dispositiu del mateix votant, el votant entra al cens quan un contracte intel·ligent en cadena verifica aquesta prova, i finalment la papereta s'emet xifrada amb xifratge de llindar.](/blog/images/2026/03/02_voting_process-1.webp)
 
 1. **Obre l'enllaç.** Es genera un moneder efímer entre bastidors: sense moneder cripto, sense comissions de gas, sense cap configuració.
 2. **Escaneja un codi QR.** El votant fa servir l'[app de Self](https://self.xyz) per generar una prova de coneixement zero directament al seu propi dispositiu. Aquesta prova confirma que el seu document és vàlid, que té la nacionalitat requerida i que compleix l'edat mínima; tot això sense exposar el seu nom, el número de document ni cap dada personal. També es genera un _nullifier_ únic per evitar el doble registre.
@@ -53,7 +53,7 @@ Un escaneig. Un vot. Sense necessitat de saber res de blockchain.
 
 Ask the World no és una única eina: són quatre capes treballant juntes, cadascuna encarregada d'una peça diferent del trencaclosques.
 
-![](/blog/images/2026/03/03_architecture_stack.webp)
+![Pila d'arquitectura de quatre capes. DAVINCI, el protocol de votació, gestiona tot el cicle de vida de la votació. Un contracte intel·ligent de cens verifica les zk-proofs en cadena, un per cada procés de votació. Self.xyz genera proves d'identitat al dispositiu. Els wallets efímers abstreuen totes les interaccions amb la blockchain.](/blog/images/2026/03/03_architecture_stack.webp)
 
 A dalt de tot hi ha [DAVINCI](https://davinci.vote), el protocol de votació. Gestiona tot el cicle de vida d'una votació: crear el procés, xifrar cada papereta amb xifratge homomòrfic llindar, calcular el resultat i garantir la verificabilitat d'extrem a extrem. La resistència a la coerció, l'absència de rebut i la resistència a la col·lusió no són afegits: formen part del disseny criptogràfic.
 
@@ -67,7 +67,7 @@ Finalment, els moneders efímers abstrauen tota la interacció amb la blockchain
 
 El flux és senzill: una identitat real es converteix en una prova privada, aquesta prova es verifica per entrar en un cens, i el cens fa possible una votació xifrada i on-chain. Quatre passos, sense exposar cap dada personal en cap moment.
 
-![](/blog/images/2026/03/04_bigger_picture.webp)
+![Flux de la identitat al vot xifrat. Un passaport oficial o un document d'identitat nacional es converteix en una prova de coneixement zero d'elegibilitat mitjançant Self.xyz, aquesta prova es verifica en cadena i forma un cens de votants anònims, i DAVINCI la converteix en una papereta xifrada, resistent a la coacció i sense rebut.](/blog/images/2026/03/04_bigger_picture.webp)
 
 Però el que fa que això sigui rellevant no és el flux en si, sinó el que elimina cada transició. El pas d'identitat real a prova privada elimina el dilema entre verificació i anonimat. El pas de prova a cens elimina el doble vot sense rastrejar les persones. I el pas de cens a papereta xifrada garanteix que ningú, ni tan sols l'organitzador, pugui veure com ha votat ningú abans que el procés es tanqui.
 

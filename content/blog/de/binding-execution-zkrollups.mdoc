@@ -61,7 +61,7 @@ Unser Vorschlag setzt zk-SNARKs für folgende Zwecke ein:
 - Teilergebnisse für ein Stimmen-Batch berechnen.
 - Die Signatur der Stimme verifizieren.
 
-![](/blog/images/2026/01/vocdoni_zk_scheme.webp)
+![Schema. Jede wählende Person holt einen EIP-1186-Guthabennachweis von Ethereum und sendet einen Merkle-Beweis, eine Signatur und ein Stimmpaket an den zkRelayer. Der Relayer liest außerdem den Slot des Guthaben-Mappings und den Hash der Storage-Wurzel des Contracts und gibt einen zk-SNARK-Beweis zusammen mit den Endergebnissen aus.](/blog/images/2026/01/vocdoni_zk_scheme.webp)
 
 Verbindliche Ausführung auf Ethereum mit zkSNARKs – idealisierter Vorschlag.
 
@@ -86,7 +86,7 @@ Zusammengefasst: Die meisten Verifikationen lassen sich innerhalb eines SNARKs a
 
 # **Vorschlag**
 
-![](/blog/images/2026/01/vocdoni_zk_scheme_2.webp)
+![Schema. Eine organisierende Person erstellt einen Vorschlag im Abstimmungs-Smart-Contract und wählt eine koordinierende Person aus. Nutzerinnen und Nutzer registrieren sich im Snark-Schlüsselregister und senden ihre Stimmen an den Relayer-Koordinator, der den zkSNARK-Beweis hochlädt. Relayer Dritter können fehlende Stimmen und Betrugsnachweise hochladen. Der Smart Contract der DAO führt anschließend Aktionen mit den Ergebnissen als Eingabe aus.](/blog/images/2026/01/vocdoni_zk_scheme_2.webp)
 
 Verbindliche Ausführung auf Ethereum mit zkSNARKs – Vorschlag
 
@@ -121,7 +121,7 @@ Verbindliche Ausführung auf Ethereum mit zkSNARKs – Vorschlag
 
 Ein zk-SNARK aggregiert eine Liste abgegebener Stimmen. Der zk-SNARK-Beweis ist gültig in Bezug auf eine gegebene Stimmenliste, eine Zensus-Wurzel, eine Wahlkennung (electionId) und ein aggregiertes Ergebnis.
 
-![](/blog/images/2026/01/vocdoni_zk_scheme_3.webp)
+![Schaltkreisdiagramm. Für jede der N Stimmen führt der Schaltkreis einen EdDSA-Poseidon-Signaturverifizierer und einen Sparse-Merkle-Tree-Prozessor aus, verkettet jede neue Nullifier-Wurzel mit der nächsten Iteration und prüft die aufsummierten signierten Werte gegen das erklärte Ergebnis. Die öffentlichen Eingaben werden gemeinsam mit SHA256 gehasht und mit hashInputs verglichen.](/blog/images/2026/01/vocdoni_zk_scheme_3.webp)
 
 Der Circuit und der Contract
 

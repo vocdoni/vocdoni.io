@@ -29,7 +29,7 @@ Els resultats s'acumulen en un array de dues dimensions de nombres naturals (una
 
 Abans d'entrar al detall de com es pot configurar un procés, repassem un exemple genèric. Suposem que tenim un procés amb tres camps, `A`, `B` i `C`, cadascun dels quals admet `0`, `1` i `2` com a valors possibles. No sabem què representen aquests valors ni aquests camps, però de moment tant és.
 
-![](https://storage.googleapis.com/papyrus_images/47fc7647a24d815d609ad569c4456e39.png)
+![Diagrama. Un procés té els camps A, B i C, cadascun dels quals accepta els valors 0, 1 o 2. La papereta 1 conté 2, 0 i 1, i la papereta 2 conté 0, 0 i 2. Les fletxes porten cada tria a la matriu de resultats, i deixen el camp A amb els recomptes 1, 0, 1, el camp B amb 2, 0, 0 i el camp C amb 0, 1, 1.](https://storage.googleapis.com/papyrus_images/47fc7647a24d815d609ad569c4456e39.png)
 
 En aquest exemple s'han emès dos vots. El primer votant ha triat el valor `2` per al camp `A`, `0` per al camp `B` i `1` per al camp `C`. La segona papereta té els valors `0`, `0` i `2`. Al diagrama de dalt pots veure com es relacionen les paperetes amb la matriu de resultats. L'_índex_ d'un valor d'una papereta determina el _camp_ al qual pertany aquell valor: és a dir, el primer índex de la papereta 1 té el valor `2`, així que la papereta 1 assigna el valor `2` al camp A. Dins de cada camp de la matriu de resultats, el valor del vot es representa pel seu índex. Col·loquem un `1` a l'índex `2` del `camp A` per representar aquest únic vot al valor `2`.
 
@@ -41,7 +41,7 @@ Potser d'entrada no és intuïtiu. Prova de seguir un parell més de valors d'un
 
 El protocol de paperetes es compon d'un conjunt de variables numèriques i booleanes (cert/fals) que restringeixen el format d'una papereta vàlida.
 
-![](https://storage.googleapis.com/papyrus_images/b8d920f2d64cf347ff2f47f7e34a3340.png)
+![Diagrama de les variables de la papereta. maxCount limita quants camps té una papereta, maxValue i minValue limiten cada camp individual, uniqueValues obliga que tots els camps siguin diferents, maxTotalCost i minTotalCost limiten la seva suma, i costExponent eleva cada valor a una potència abans de calcular-ne el cost.](https://storage.googleapis.com/papyrus_images/b8d920f2d64cf347ff2f47f7e34a3340.png)
 
 Com es representaria amb aquest protocol l'exemple que hem presentat abans?
 
@@ -85,7 +85,7 @@ En la seva iteració actual, Vocdoni defineix dos formats d'interpretació de re
 
 Per al nostre procés d'exemple faríem servir la fórmula d'interpretació de resultats ponderada per índex. Aquest esquema és adequat per a processos d'una sola pregunta com ara el vot preferencial, l'elecció múltiple o els pressupostos participatius. Cada índex d'un camp de la matriu de resultats representa un valor ponderat, on en aquest cas el pes representa el nombre de monedes destinades a una organització. La suma dels vots, multiplicada pels seus valors ponderats per índex, és el valor total d'aquell camp.
 
-![](https://storage.googleapis.com/papyrus_images/345a07aee1ddf6a6aad51db7e58fd399.png)
+![Diagrama. Els tres vectors de camp de la matriu de resultats, 1, 0, 1 després 2, 0, 0 i després 0, 1, 1, es col·lapsen multiplicant cada recompte pel seu índex i sumant els productes, cosa que dona els resultats agregats 2, 0 i 3.](https://storage.googleapis.com/papyrus_images/345a07aee1ddf6a6aad51db7e58fd399.png)
 
 Aquesta interpretació agrega el nostre procés d'exemple. L'organització A rep 2 monedes; l'organització C, 3.
 
@@ -95,7 +95,7 @@ La interpretació per valors discrets es fa servir en processos en què cada cam
 
 El `0` es reserva per a l'empat entre opcions.
 
-![](https://storage.googleapis.com/papyrus_images/97e8bca257a9b118b86ee3dd31165107.png)
+![Diagrama. Tres vectors de pregunta, 1, 2, 0 després 0, 1, 2 i després 1, 1, 1, es redueixen cadascun a la posició de la seva opció guanyadora. Els resultats agregats són 2 per a B a la primera pregunta i 3 per a C a la segona, mentre que el tercer és 0 perquè les tres opcions empaten i el 0 es reserva per a l'absència de guanyador.](https://storage.googleapis.com/papyrus_images/97e8bca257a9b118b86ee3dd31165107.png)
 
 Aquests dos formats no pretenen ser exhaustius. Com hem dit abans, el Protocol de Paperetes en si és agnòstic respecte a com s'agreguen els resultats, i qualsevol que construeixi la seva pròpia capa d'aplicació sobre el protocol pot definir la seva pròpia interpretació de resultats.
 
@@ -133,15 +133,15 @@ Un altre cop, aquí `costExponent` no ens fa cap servei.
 
 - `costExponent` = 1
 
-![](https://storage.googleapis.com/papyrus_images/d06d57a97367e2f40ed75228f02392a7.png)
+![Diagrama. Una valoració de producte per ordre de preferència s'estén sobre quatre camps, espàrrec, mongeta, pastanaga i anet, amb els valors disponibles del 0 al 3, que han de ser tots únics.](https://storage.googleapis.com/papyrus_images/d06d57a97367e2f40ed75228f02392a7.png)
 
 Processem la primera papereta. Aquest tester de producte adora les pastanagues, així que posa la pastanaga com a primera opció. Després venen l'espàrrec i l'anet, amb la mongeta a l'última posició. Així és com aquesta papereta queda registrada a la matriu de resultats:
 
-![](https://storage.googleapis.com/papyrus_images/e63207ba97dca5657af93969f5424cb3.png)
+![Diagrama. La papereta 1 dona 2 a l'espàrrec, 0 a la mongeta, 3 a la pastanaga i 1 a l'anet. Cada valor cau a la columna de punts corresponent de la fila de resultats d'aquella verdura.](https://storage.googleapis.com/papyrus_images/e63207ba97dca5657af93969f5424cb3.png)
 
 Les paperetes continuen arribant i acabem amb un total de 30 respostes! Amb la matriu de resultats plena, agreguem els resultats segons el mètode ponderat per índex...
 
-![](https://storage.googleapis.com/papyrus_images/49480940bd6ea3db2320d77b587455ae.png)
+![Diagrama. Després de 30 paperetes, la fila de resultats de cada verdura es col·lapsa multiplicant cada recompte pel seu valor en punts i sumant els productes. L'espàrrec suma 51, la mongeta 36, la pastanaga 37 i l'anet 56.](https://storage.googleapis.com/papyrus_images/49480940bd6ea3db2320d77b587455ae.png)
 
 Guanya l'anet! 🎉 Gràcies a aquest exhaustiu estudi de mercat, aviat podràs trobar piruletes de gust d'anet al supermercat del teu barri.
 
@@ -173,7 +173,7 @@ Per fi aquesta variable té el seu moment de glòria. La definim a 2, de manera 
 
 - `costExponent` = 2
 
-![](https://storage.googleapis.com/papyrus_images/a645cc0a4a064387d26dafb4972d053a.png)
+![Diagrama. Una elecció de vot quadràtic s'estén sobre quatre camps de candidat, d'A a D, amb els valors disponibles del 0 al 3, un exponent de cost de 2 i un cost total màxim de 9.](https://storage.googleapis.com/papyrus_images/a645cc0a4a064387d26dafb4972d053a.png)
 
 Imaginem un parell de configuracions de papereta perquè vegis com funciona el vot quadràtic.
 
@@ -181,7 +181,7 @@ Imaginem un parell de configuracions de papereta perquè vegis com funciona el v
 
 Al nostre primer votant li aniria bé qualsevol dels candidats, però té una lleugera preferència pel candidat B. També vol fer servir tant poder de vot com sigui possible.
 
-![](https://storage.googleapis.com/papyrus_images/d9e9d195ba9159cc90da7228e4764cfc.png)
+![Diagrama. La papereta 1 dona 1 al candidat A, 2 al candidat B, 1 al candidat C i 1 al candidat D. En elevar al quadrat cada valor, el cost total puja a 7, per sota del màxim de 9, i cada valor marca la columna de punts corresponent de la fila de resultats del seu candidat.](https://storage.googleapis.com/papyrus_images/d9e9d195ba9159cc90da7228e4764cfc.png)
 
 Cada valor `1` que emet aquest votant només suma `1` al seu cost total. Però un valor de `2` suma `2^2`, és a dir `4`, al cost total. Distribuint els vots entre tots els candidats, aquest votant pot assignar un valor total de 5 amb un cost de només 7. No pot arribar al cost total màxim de 9, perquè apujar qualsevol dels seus `1` a `2` faria pujar el cost per sobre de 9.
 
@@ -189,7 +189,7 @@ Cada valor `1` que emet aquest votant només suma `1` al seu cost total. Però u
 
 El segon votant té opinions molt fermes. Només dona suport al candidat C. Per tant, té sentit que assigni el valor màxim al candidat 3. Tot i que només ha fet servir un valor total de `3`, el seu cost total és el màxim: `3^2` = `9`.
 
-![](https://storage.googleapis.com/papyrus_images/99d22c797167c3a9f1a5be94957e158c.png)
+![Diagrama. La papereta 2 dona 0 als candidats A, B i D i 3 al candidat C. En elevar al quadrat cada valor, el cost total arriba exactament al màxim de 9, i les files de resultats contenen ara els totals de les dues paperetes.](https://storage.googleapis.com/papyrus_images/99d22c797167c3a9f1a5be94957e158c.png)
 
 Pots imaginar com, en un procés més gran amb més candidats i votants, el vot quadràtic podria ser una manera molt potent de mesurar la intensitat de la preferència, a més de la preferència mateixa. De moment, deixem la interpretació d'aquests resultats com a exercici per al lector.
 

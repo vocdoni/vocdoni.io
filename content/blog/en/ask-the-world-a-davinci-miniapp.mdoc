@@ -40,7 +40,7 @@ A vote creator defines the question, the available options, an allowed nationali
 
 From the voter's perspective, the experience feels like any web app:
 
-![](/blog/images/2026/03/02_voting_process-1.webp)
+![Four step flow titled one scan, one vote. Opening the link generates an ephemeral wallet behind the scenes, scanning a QR code has Self.xyz build a zero-knowledge proof on the voter's own device, the voter joins the census when an on-chain contract verifies that proof, and the ballot is finally cast encrypted with threshold encryption.](/blog/images/2026/03/02_voting_process-1.webp)
 
 1. **Open the link.** An ephemeral wallet is generated behind the scenes: no crypto wallet, no gas fees, no setup.
 2. **Scan a QR code.** The voter uses the [Self app](https://self.xyz) to generate a zero-knowledge proof directly on their own device. This proof confirms their document is valid, they hold the right nationality, and they meet the minimum age; all without exposing their name, document number, or any personal data. A unique nullifier is also generated to prevent double-registration.
@@ -53,7 +53,7 @@ One scan. One vote. No blockchain knowledge required.
 
 Ask the World isn't a single tool, it's four layers working together, each handling a distinct piece of the puzzle.
 
-![](/blog/images/2026/03/03_architecture_stack.webp)
+![Architecture stack of four layers. DAVINCI, the voting protocol, manages the full voting lifecycle. A census smart contract verifies zk-proofs on chain, one per voting process. Self.xyz generates identity proofs on the device. Ephemeral wallets abstract away every blockchain interaction.](/blog/images/2026/03/03_architecture_stack.webp)
 
 At the top sits [DAVINCI](https://davinci.vote), the voting protocol itself. It manages the entire lifecycle of a vote: creating the process, encrypting every ballot with threshold homomorphic encryption, computing the result, and guaranteeing end-to-end verifiability. Coercion resistance, receipt-freeness, and collusion resistance aren't add-ons, they're baked into the cryptographic design.
 
@@ -67,7 +67,7 @@ Finally, ephemeral wallets abstract away all blockchain interaction. Voters neve
 
 The flow is straightforward: a real identity becomes a private proof, that proof is verified into a census, and the census enables an encrypted, on-chain vote. Four steps, no personal data exposed at any point.
 
-![](/blog/images/2026/03/04_bigger_picture.webp)
+![Flow from identity to encrypted vote. An official passport or national ID becomes a zero-knowledge proof of eligibility through Self.xyz, that proof is verified on chain into a census of anonymous voters, and DAVINCI turns it into a coercion-resistant, receipt-free encrypted ballot.](/blog/images/2026/03/04_bigger_picture.webp)
 
 But what makes this meaningful isn't the flow itself, it's what each transition eliminates. The move from real identity to private proof removes the trade-off between verification and anonymity. The move from proof to census eliminates double-voting without tracking individuals. And the move from census to encrypted ballot ensures that no one, not even the organiser, can see how anyone voted before the process closes.
 

@@ -48,7 +48,7 @@ Most importantly, NI-DKG is built entirely from well-understood, **standard cryp
 4. **Main DKG process:** every node posts polynomial commitments and encrypted shares, together with a ZK proof of correctness.
 5. **Finalization:** the organizer computes the public key `PK` and commitments to private shares, and posts these to the blockchain together with a ZK proof of correctness.
 
-![](/blog/images/2026/03/dkg-process.webp)
+![Sequence diagram between the organizer, the participants and the blockchain over five phases: initiation, show of hands, determining the participants, the main DKG round in which every node submits commitments, encrypted shares and a proof of correctness, and finalization, where the public key is computed on chain.](/blog/images/2026/03/dkg-process.webp)
 
 **_Decryption_**
 
@@ -56,7 +56,7 @@ Most importantly, NI-DKG is built entirely from well-understood, **standard cryp
 2. **Publication of partial decryptions:** nodes publish a partial decryption of `C1`, together with a proof of discrete logarithm equality.
 3. **Decryption:** once `t` or more partial decryptions have been published, the smart contract can be called to recover the message.
 
-![](/blog/images/2026/03/dkg-decryption.webp)
+![Sequence diagram over three phases. A submitter publishes the ciphertext, each participant then submits a partial decryption with a discrete logarithm equality proof that the blockchain verifies, and a call to completeDecryption recovers the plaintext message.](/blog/images/2026/03/dkg-decryption.webp)
 
 **_Optional key disclosure_**
 
@@ -66,7 +66,7 @@ Please note that the key disclosure is not part of the DAVINCI protocol, usually
 2. **Publish shares of secret key:** every participating node publishes their share of the secret.
 3. **Compute secret key:** once `t` or more values have been submitted, anyone can compute the secret ke&#x79;.
 
-![](/blog/images/2026/03/dkg-sk-disclosure.webp)
+![Sequence diagram over three phases. The organizer requests disclosure, the participants submit their shares of the secret, and a call to computeSecretKey reconstructs it. A note records that once the threshold of shares is on chain anyone can already reconstruct the key, and the last phase only makes it public.](/blog/images/2026/03/dkg-sk-disclosure.webp)
 
 ### **Under the hood**
 

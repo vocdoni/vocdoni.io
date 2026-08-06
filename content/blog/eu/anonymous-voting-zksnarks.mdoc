@@ -57,7 +57,7 @@ Zirkuituaren sorkuntza [konfiantzazko ezarpen-zeremonia](https://medium.com/qed-
 - **Sarrera publikoak:** `census Merkle-root`, `nullifier`, `election ID`, `vote`
 - **Irteera:** `franchise proof`
 
-![](/blog/images/2026/01/zksnarks_anonymous_1.webp)
+![Zirkuituaren diagrama. Sarrera publikoek (errolda-erroa, botoa, prozesuaren IDa eta nullifierra) eta sarrera pribatuek (Merkle froga, indizea eta secretKey) Merkle frogen egiaztatzaile bat eta bi hash bloke elikatzen dituzte, eta horien emaitzak AND ate batean konbinatzen dira irteera bakar bat emateko.](/blog/images/2026/01/zksnarks_anonymous_1.webp)
 
 `secretKey` edo _erroldaren Merkle froga_ agerian utzi gabe, zirkuitu hau gai da honako hau frogatzeko:
 
@@ -75,7 +75,7 @@ _Errolda anonimoa_ eraikitzeko erabiltzen den Merkle zuhaitzak zk-SNARKekin bate
 
 [Vochain](https://docs.vocdoni.io/architecture/services/vochain.html)-ek [arbo](https://github.com/vocdoni/arbo) Merkle zuhaitza erabiltzen du, Circom diseinuarekin bateragarria den Go inplementazio bat. Merkle zuhaitzak Poseidon hash-a erabiltzen du: «SNARK-lagunkoa» den hash-funtzio bat, gero zirkuitu baten barruan froga daitekeena murrizketa gehiegi behar izan gabe. Hurrengo diagramak zk-census-proof eskeman erabiltzen den Merkle zuhaitzeko hostoen datu-egitura irudikatzen du.
 
-![](/blog/images/2026/01/zksnarks_anonymous_2.webp)
+![Poseidon hash-arekin eraikitako Merkle zuhaitza. 0tik Nra bitarteko hostoak gorantz hashtzen dira bitarteko nodoen bidez errolda-erro bakar bateraino. Hosto bakoitzak gako bat, indize inkrementala, lotzen du balio batekin, hau da, secretKey-aren Poseidon hash-arekin, eta biek batera zkCensusKey osatzen dute.](/blog/images/2026/01/zksnarks_anonymous_2.webp)
 
 `index` balioa _errolda-zuhaitzaren_ eraikitzaileak zehazten du, eta errolda-zuhaitz bakoitzak bere `index` balioa du. Balio hori handitu egiten da _hosto_ berri bakoitza gehitzean. _Hostoak_ horrela egituratuta daude Merkle zuhaitzak modu eraginkorragoan erabiltzeko: erabiltzaile gehiagoren gakoak sartzen dira zuhaitz txikiago batean, eta, horrela, zk-Circuit-aren tamaina murrizten da. Izan ere, hosto bakoitzaren `key`-aren balioak (`value`) zehazten du hosto horrek zuhaitzean duen posizioa.
 
