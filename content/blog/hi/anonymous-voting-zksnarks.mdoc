@@ -57,7 +57,7 @@ draft: false
 - **सार्वजनिक इनपुट:** `census Merkle-root`, `nullifier`, `election ID`, `vote`
 - **आउटपुट:** `franchise proof`
 
-![](/blog/images/2026/01/zksnarks_anonymous_1.webp)
+![सर्किट का चित्र। सार्वजनिक इनपुट census root, vote, process ID और nullifier, और निजी इनपुट Merkle proof, index और secretKey, एक Merkle प्रमाण वेरिफ़ायर और दो हैश ब्लॉक में जाते हैं, जिनके नतीजों को एक AND गेट मिलाकर एक ही आउटपुट बनाता है।](/blog/images/2026/01/zksnarks_anonymous_1.webp)
 
 `secretKey` या _मतदाता सूची Merkle प्रमाण_ उजागर किए बिना यह सर्किट यह दिखा सकता है कि:
 
@@ -75,7 +75,7 @@ _गुमनाम मतदाता सूची_ बनाने में �
 
 [Vochain](https://docs.vocdoni.io/architecture/services/vochain.html) [arbo](https://github.com/vocdoni/arbo) Merkle ट्री इस्तेमाल करता है, जो Circom के ढाँचे के अनुकूल एक Go कार्यान्वयन है। यह Merkle ट्री Poseidon हैश पर चलता है, एक 'SNARK-अनुकूल' हैश फ़ंक्शन जिसे आगे चलकर सर्किट के भीतर, बहुत ज़्यादा कंस्ट्रेंट के बिना, प्रमाणित किया जा सकता है। नीचे दिया चित्र zk-census-proof की व्यवस्था में इस्तेमाल हो रहे Merkle ट्री की लीफ़ के डेटा ढाँचे को दिखाता है।
 
-![](/blog/images/2026/01/zksnarks_anonymous_2.webp)
+![Poseidon हैश से बना Merkle ट्री। लीफ़ 0 से N तक बीच के नोड से होते हुए ऊपर की ओर हैश होकर एक ही census root बनाती हैं। हर लीफ़ एक key, यानी बढ़ता हुआ index, को एक value से जोड़ती है जो secretKey का Poseidon हैश है, और दोनों मिलकर zkCensusKey बनाते हैं।](/blog/images/2026/01/zksnarks_anonymous_2.webp)
 
 `index` का मान _मतदाता सूची ट्री_ बनाने वाला तय करता है, जिसके पास हर सूची ट्री के लिए एक `index` मान होता है। हर नई _लीफ़_ जुड़ने पर यह मान एक बढ़ जाता है। _लीफ़_ को इसी ढंग से गढ़ा गया है ताकि Merkle ट्री का इस्तेमाल ज़्यादा कुशलता से हो, छोटे ट्री में ज़्यादा उपयोगकर्ताओं की कुंजियाँ समा जाएँ और zk-Circuit का आकार घट जाए। वजह यह है कि किसी भी लीफ़ की `key` का `value` ही ट्री पर उस लीफ़ की जगह तय करता है।
 
