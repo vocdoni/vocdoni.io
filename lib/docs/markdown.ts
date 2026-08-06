@@ -338,14 +338,16 @@ function rehypeAdmonitions() {
 
 // --- rehype: hover-reveal ¶ permalink on section headings -------------------
 
+const ANCHORED_HEADINGS = new Set(['h2', 'h3', 'h4'])
+
 // rehype-slug gives every heading an id (so deep links to any subsection work);
-// this appends a ¶ permalink to h2/h3 that stays hidden until the heading is
+// this appends a ¶ permalink to h2/h3/h4 that stays hidden until the heading is
 // hovered or the link is focused. Runs after rehypeSteps so numbered step
 // titles (STEP_HEADING) are skipped - they are not standalone sections.
 function rehypeMainSectionAnchors() {
   return (tree: HastNode) => {
     visit(tree, 'element', (node: HastNode) => {
-      if (node.tagName !== 'h2' && node.tagName !== 'h3') return
+      if (!ANCHORED_HEADINGS.has(node.tagName as string)) return
       if (node.properties?.className === STEP_HEADING) return
       const id = node.properties?.id
       if (!id) return
