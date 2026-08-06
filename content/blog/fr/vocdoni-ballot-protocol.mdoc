@@ -29,7 +29,7 @@ Les résultats sont accumulés dans un tableau de nombres entiers naturels à de
 
 Avant d'entrer dans le détail de la configuration d'un processus, prenons un exemple générique. Supposons un processus à trois champs, `A`, `B` et `C`, chacun acceptant les valeurs `0`, `1` et `2`. Nous ignorons ce que représentent ces valeurs et ces champs, mais peu importe pour l'instant.
 
-![](https://storage.googleapis.com/papyrus_images/47fc7647a24d815d609ad569c4456e39.png)
+![Schéma. Un processus comporte les champs A, B et C, chacun acceptant les valeurs 0, 1 ou 2. Le bulletin 1 contient 2, 0 et 1, le bulletin 2 contient 0, 0 et 2. Des flèches reportent chaque choix dans la matrice de résultats, laissant le champ A avec les décomptes 1, 0, 1, le champ B avec 2, 0, 0 et le champ C avec 0, 1, 1.](https://storage.googleapis.com/papyrus_images/47fc7647a24d815d609ad569c4456e39.png)
 
 Dans cet exemple, deux votes ont été déposés. Le premier électeur a choisi la valeur `2` pour le champ `A`, `0` pour le champ `B` et `1` pour le champ `C`. Le second bulletin contient les valeurs `0`, `0` et `2`. Le schéma ci-dessus montre comment les bulletins se traduisent dans la matrice des résultats. L'_indice_ d'une valeur du bulletin détermine le _champ_ auquel cette valeur appartient : le premier indice du bulletin 1 contient la valeur `2`, donc le bulletin 1 attribue la valeur `2` au champ A. Dans chaque champ de la matrice des résultats, la valeur du vote est représentée par son indice. On place un `1` à l'indice `2` du `champ A` pour représenter le vote unique en faveur de la valeur `2`.
 
@@ -41,7 +41,7 @@ Cela peut sembler peu intuitif au premier abord. Suivez le parcours de quelques 
 
 Le protocole de bulletins se compose d'un ensemble de variables numériques et booléennes (vrai/faux) qui restreignent le format d'un bulletin valide.
 
-![](https://storage.googleapis.com/papyrus_images/b8d920f2d64cf347ff2f47f7e34a3340.png)
+![Schéma des variables du bulletin. maxCount limite le nombre de champs d'un bulletin, maxValue et minValue bornent chaque champ pris isolément, uniqueValues impose que tous les champs diffèrent, maxTotalCost et minTotalCost bornent leur somme, et costExponent élève chaque valeur à une puissance avant qu'elle ne soit comptabilisée.](https://storage.googleapis.com/papyrus_images/b8d920f2d64cf347ff2f47f7e34a3340.png)
 
 Comment représenter l'exemple ci-dessus avec ce protocole ?
 
@@ -85,7 +85,7 @@ Dans son itération actuelle, Vocdoni définit deux formats d'interprétation de
 
 C'est la formule d'interprétation par pondération par indice que nous utiliserions pour notre exemple de processus. Ce schéma convient aux processus à question unique comme le vote par classement, le choix multiple ou le budget participatif. Chaque indice d'un champ de la matrice des résultats représente une valeur pondérée ; ici, le poids correspond au nombre de pièces allouées à une organisation. La somme des votes, multipliés par leur valeur pondérée par indice, donne le total du champ.
 
-![](https://storage.googleapis.com/papyrus_images/345a07aee1ddf6a6aad51db7e58fd399.png)
+![Schéma. Les trois vecteurs de champ de la matrice de résultats, 1, 0, 1 puis 2, 0, 0 puis 0, 1, 1, sont chacun condensés en multipliant chaque décompte par son index et en additionnant les produits, ce qui donne les résultats agrégés 2, 0 et 3.](https://storage.googleapis.com/papyrus_images/345a07aee1ddf6a6aad51db7e58fd399.png)
 
 Cette interprétation agrège notre exemple de processus : l'organisation A reçoit 2 pièces, l'organisation C en reçoit 3.
 
@@ -95,7 +95,7 @@ L'interprétation par valeurs discrètes s'applique aux processus où chaque cha
 
 `0` est réservé à l'égalité entre options.
 
-![](https://storage.googleapis.com/papyrus_images/97e8bca257a9b118b86ee3dd31165107.png)
+![Schéma. Trois vecteurs de question, 1, 2, 0 puis 0, 1, 2 puis 1, 1, 1, sont chacun réduits à la position de leur option gagnante. Les résultats agrégés sont 2 pour B à la première question et 3 pour C à la deuxième, tandis que le troisième vaut 0 parce que les trois options sont à égalité et que 0 est réservé à l'absence de gagnant.](https://storage.googleapis.com/papyrus_images/97e8bca257a9b118b86ee3dd31165107.png)
 
 Ces deux formats ne se veulent pas exhaustifs. Comme indiqué plus haut, le protocole de bulletins est lui-même agnostique quant à l'agrégation des résultats : quiconque construit sa propre couche applicative au-dessus du protocole peut définir sa propre interprétation des résultats.
 
@@ -133,15 +133,15 @@ Là encore, `costExponent` ne nous est d'aucune utilité ici.
 
 - `costExponent` = 1
 
-![](https://storage.googleapis.com/papyrus_images/d06d57a97367e2f40ed75228f02392a7.png)
+![Schéma. Une notation de produits par ordre de préférence porte sur quatre champs, asperge, haricot, carotte et aneth, avec les valeurs disponibles de 0 à 3, qui doivent toutes être uniques.](https://storage.googleapis.com/papyrus_images/d06d57a97367e2f40ed75228f02392a7.png)
 
 Traitons notre premier bulletin. Ce testeur adore les carottes : il classe donc la carotte en premier choix, suivie de l'asperge puis de l'aneth, le haricot arrivant en dernier. Voici comment ce bulletin est enregistré dans la matrice des résultats :
 
-![](https://storage.googleapis.com/papyrus_images/e63207ba97dca5657af93969f5424cb3.png)
+![Schéma. Le bulletin 1 attribue 2 à l'asperge, 0 au haricot, 3 à la carotte et 1 à l'aneth. Chaque valeur se place dans la colonne de points correspondante de la ligne de résultats du légume concerné.](https://storage.googleapis.com/papyrus_images/e63207ba97dca5657af93969f5424cb3.png)
 
 Les bulletins continuent d'affluer, et nous recevons 30 réponses au total ! Une fois la matrice des résultats complète, nous agrégeons les résultats selon la méthode de pondération par indice…
 
-![](https://storage.googleapis.com/papyrus_images/49480940bd6ea3db2320d77b587455ae.png)
+![Schéma. Après 30 bulletins, la ligne de résultats de chaque légume est condensée en multipliant chaque décompte par sa valeur en points et en additionnant les produits. L'asperge totalise 51, le haricot 36, la carotte 37 et l'aneth 56.](https://storage.googleapis.com/papyrus_images/49480940bd6ea3db2320d77b587455ae.png)
 
 L'aneth l'emporte ! 🎉 Grâce à cette vaste étude de marché, vous trouverez bientôt des sucettes à l'aneth dans votre épicerie de quartier.
 
@@ -173,7 +173,7 @@ Cette variable a enfin l'occasion de briller. Fixons-la à 2 : le coût d'une v
 
 - `costExponent` = 2
 
-![](https://storage.googleapis.com/papyrus_images/a645cc0a4a064387d26dafb4972d053a.png)
+![Schéma. Une élection au vote quadratique porte sur quatre champs de candidat, de A à D, avec les valeurs disponibles de 0 à 3, un exposant de coût de 2 et un coût total maximal de 9.](https://storage.googleapis.com/papyrus_images/a645cc0a4a064387d26dafb4972d053a.png)
 
 Imaginons deux configurations de bulletin pour illustrer le fonctionnement du vote quadratique.
 
@@ -181,7 +181,7 @@ Imaginons deux configurations de bulletin pour illustrer le fonctionnement du vo
 
 Notre premier votant s'accommoderait de n'importe quel candidat, mais préfère légèrement le candidat B. Il souhaite aussi utiliser le plus de pouvoir de vote possible.
 
-![](https://storage.googleapis.com/papyrus_images/d9e9d195ba9159cc90da7228e4764cfc.png)
+![Schéma. Le bulletin 1 attribue 1 au candidat A, 2 au candidat B, 1 au candidat C et 1 au candidat D. L'élévation au carré de chaque valeur porte le coût total à 7, sous le maximum de 9, et chaque valeur marque la colonne de points correspondante de la ligne de résultats de son candidat.](https://storage.googleapis.com/papyrus_images/d9e9d195ba9159cc90da7228e4764cfc.png)
 
 Chaque valeur `1` déposée par ce votant n'ajoute que `1` à son coût total. Mais une valeur de `2` ajoute `2^2`, soit `4`, à son coût total. En répartissant ses voix entre tous les candidats, ce votant parvient à allouer une valeur totale de 5 pour un coût de seulement 7. Il ne peut pas atteindre le coût total maximal de 9 : faire passer l'une de ses valeurs `1` à `2` porterait le coût au-delà de 9.
 
@@ -189,7 +189,7 @@ Chaque valeur `1` déposée par ce votant n'ajoute que `1` à son coût total. M
 
 Le second votant a des opinions très tranchées : il ne soutient que le candidat C. Il est donc logique qu'il attribue la valeur maximale au candidat 3. Bien qu'il n'ait utilisé qu'une valeur totale de `3`, son coût total atteint le maximum : `3^2` = `9`.
 
-![](https://storage.googleapis.com/papyrus_images/99d22c797167c3a9f1a5be94957e158c.png)
+![Schéma. Le bulletin 2 attribue 0 aux candidats A, B et D et 3 au candidat C. L'élévation au carré de chaque valeur porte le coût total exactement au maximum de 9, et les lignes de résultats contiennent désormais les totaux des deux bulletins.](https://storage.googleapis.com/papyrus_images/99d22c797167c3a9f1a5be94957e158c.png)
 
 Vous imaginez sans peine comment, dans un processus plus vaste comptant davantage de candidats et de votants, le vote quadratique peut devenir un moyen très puissant de mesurer l'intensité des préférences, en plus des préférences elles-mêmes. Nous laissons l'interprétation de ces résultats en exercice au lecteur.
 

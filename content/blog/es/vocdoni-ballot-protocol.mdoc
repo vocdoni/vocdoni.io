@@ -29,7 +29,7 @@ Los resultados se acumulan en un array bidimensional de números naturales (una 
 
 Antes de entrar en los detalles de cómo se configura un proceso, veamos un ejemplo genérico. Supongamos que tenemos un proceso con tres campos, `A`, `B` y `C`, cada uno de los cuales admite `0`, `1` y `2` como valores posibles. No sabemos qué representan estos valores o campos, pero de momento no importa.
 
-![](https://storage.googleapis.com/papyrus_images/47fc7647a24d815d609ad569c4456e39.png)
+![Diagrama. Un proceso tiene los campos A, B y C, cada uno de los cuales acepta los valores 0, 1 o 2. La papeleta 1 contiene 2, 0 y 1, y la papeleta 2 contiene 0, 0 y 2. Las flechas llevan cada elección a la matriz de resultados, y dejan el campo A con los recuentos 1, 0, 1, el campo B con 2, 0, 0 y el campo C con 0, 1, 1.](https://storage.googleapis.com/papyrus_images/47fc7647a24d815d609ad569c4456e39.png)
 
 En este ejemplo se han emitido dos votos. El primer votante eligió el valor `2` para el campo `A`, `0` para el campo `B` y `1` para el campo `C`. La segunda papeleta contiene los valores `0`, `0` y `2`. En el diagrama anterior puedes ver cómo se relacionan las papeletas con la matriz de resultados. El _índice_ de un valor de la papeleta determina el _campo_ al que pertenece ese valor: el primer índice de la papeleta 1 tiene el valor `2`, así que la papeleta 1 asigna el valor `2` al campo A. Dentro de cada campo de la matriz de resultados, el valor del voto se representa mediante su índice. Colocamos un `1` en el índice `2` del `campo A` para representar el único voto que ha recibido el valor `2`.
 
@@ -41,7 +41,7 @@ Puede que al principio no resulte intuitivo. Prueba a seguir un par de valores m
 
 El protocolo de papeletas se compone de un conjunto de variables numéricas y booleanas (verdadero/falso) que restringen el formato de una papeleta válida.
 
-![](https://storage.googleapis.com/papyrus_images/b8d920f2d64cf347ff2f47f7e34a3340.png)
+![Diagrama de las variables de la papeleta. maxCount limita cuántos campos tiene una papeleta, maxValue y minValue limitan cada campo individual, uniqueValues obliga a que todos los campos sean distintos, maxTotalCost y minTotalCost limitan su suma, y costExponent eleva cada valor a una potencia antes de calcular su coste.](https://storage.googleapis.com/papyrus_images/b8d920f2d64cf347ff2f47f7e34a3340.png)
 
 ¿Cómo se representaría con este protocolo el ejemplo que hemos presentado antes?
 
@@ -85,7 +85,7 @@ En su iteración actual, Vocdoni define dos formatos de interpretación de resul
 
 Para nuestro proceso de ejemplo usaríamos la fórmula de interpretación de resultados con ponderación por índice. Este esquema es adecuado para procesos de una sola pregunta, como el voto preferencial, la elección múltiple o los presupuestos participativos. Cada índice de un campo de la matriz de resultados representa un valor ponderado; en este caso, el peso representa el número de monedas asignadas a una organización. La suma de los votos, multiplicados por sus valores ponderados por índice, es el valor total de ese campo.
 
-![](https://storage.googleapis.com/papyrus_images/345a07aee1ddf6a6aad51db7e58fd399.png)
+![Diagrama. Los tres vectores de campo de la matriz de resultados, 1, 0, 1 luego 2, 0, 0 y luego 0, 1, 1, se colapsan multiplicando cada recuento por su índice y sumando los productos, lo que da los resultados agregados 2, 0 y 3.](https://storage.googleapis.com/papyrus_images/345a07aee1ddf6a6aad51db7e58fd399.png)
 
 Esta interpretación agrega nuestro proceso de ejemplo. La organización A recibe 2 monedas; la organización C, 3.
 
@@ -95,7 +95,7 @@ La interpretación de valores discretos se usa en procesos en los que cada campo
 
 El `0` se reserva para el empate entre opciones.
 
-![](https://storage.googleapis.com/papyrus_images/97e8bca257a9b118b86ee3dd31165107.png)
+![Diagrama. Tres vectores de pregunta, 1, 2, 0 luego 0, 1, 2 y luego 1, 1, 1, se reducen cada uno a la posición de su opción ganadora. Los resultados agregados son 2 para B en la primera pregunta y 3 para C en la segunda, mientras que el tercero es 0 porque las tres opciones empatan y el 0 se reserva para la ausencia de ganador.](https://storage.googleapis.com/papyrus_images/97e8bca257a9b118b86ee3dd31165107.png)
 
 Estos dos formatos no pretenden ser exhaustivos. Como decíamos antes, el protocolo de papeletas es agnóstico respecto a cómo se agregan los resultados, y cualquiera que construya su propia capa de aplicación sobre el protocolo puede definir su propia interpretación de resultados.
 
@@ -133,15 +133,15 @@ De nuevo, aquí no necesitamos costExponent.
 
 - `costExponent` = 1
 
-![](https://storage.googleapis.com/papyrus_images/d06d57a97367e2f40ed75228f02392a7.png)
+![Diagrama. Una valoración de producto por orden de preferencia se extiende sobre cuatro campos, espárrago, judía, zanahoria y eneldo, con los valores disponibles del 0 al 3, que deben ser todos únicos.](https://storage.googleapis.com/papyrus_images/d06d57a97367e2f40ed75228f02392a7.png)
 
 Vamos con nuestra primera papeleta. A este probador le encanta la zanahoria, así que sitúa `carrot` como primera opción. Después vienen `asparagus` y `dill`, y `beans` queda en último lugar. Así se registra esta papeleta en la matriz de resultados:
 
-![](https://storage.googleapis.com/papyrus_images/e63207ba97dca5657af93969f5424cb3.png)
+![Diagrama. La papeleta 1 da 2 al espárrago, 0 a la judía, 3 a la zanahoria y 1 al eneldo. Cada valor cae en la columna de puntos correspondiente de la fila de resultados de esa verdura.](https://storage.googleapis.com/papyrus_images/e63207ba97dca5657af93969f5424cb3.png)
 
 Las papeletas siguen llegando y obtenemos un total de ¡30 respuestas! Con la matriz de resultados completa, agregamos los resultados según el método de ponderación por índice…
 
-![](https://storage.googleapis.com/papyrus_images/49480940bd6ea3db2320d77b587455ae.png)
+![Diagrama. Después de 30 papeletas, la fila de resultados de cada verdura se colapsa multiplicando cada recuento por su valor en puntos y sumando los productos. El espárrago suma 51, la judía 36, la zanahoria 37 y el eneldo 56.](https://storage.googleapis.com/papyrus_images/49480940bd6ea3db2320d77b587455ae.png)
 
 ¡El eneldo (`dill`) es el ganador! 🎉 Gracias a este exhaustivo estudio de mercado, pronto podrás encontrar piruletas con sabor a eneldo en tu supermercado.
 
@@ -173,7 +173,7 @@ Por fin le llega a esta variable su momento de brillar. La fijamos en 2, de modo
 
 - `costExponent` = 2
 
-![](https://storage.googleapis.com/papyrus_images/a645cc0a4a064387d26dafb4972d053a.png)
+![Diagrama. Una elección de voto cuadrático se extiende sobre cuatro campos de candidato, de A a D, con los valores disponibles del 0 al 3, un exponente de coste de 2 y un coste total máximo de 9.](https://storage.googleapis.com/papyrus_images/a645cc0a4a064387d26dafb4972d053a.png)
 
 Imaginemos un par de configuraciones de papeleta para que veas cómo funciona el voto cuadrático.
 
@@ -181,7 +181,7 @@ Imaginemos un par de configuraciones de papeleta para que veas cómo funciona el
 
 A nuestro primer votante le parecería bien cualquiera de los candidatos, aunque prefiere ligeramente al candidato B. Además, quiere usar todo el poder de voto posible.
 
-![](https://storage.googleapis.com/papyrus_images/d9e9d195ba9159cc90da7228e4764cfc.png)
+![Diagrama. La papeleta 1 da 1 al candidato A, 2 al candidato B, 1 al candidato C y 1 al candidato D. Al elevar al cuadrado cada valor, el coste total sube a 7, por debajo del máximo de 9, y cada valor marca la columna de puntos correspondiente de la fila de resultados de su candidato.](https://storage.googleapis.com/papyrus_images/d9e9d195ba9159cc90da7228e4764cfc.png)
 
 Cada valor de `1` que emite este votante solo añade `1` a su coste total. Pero un valor de `2` añade `2^2`, es decir, `4`, a su coste total. Al repartir los votos entre todos los candidatos, este votante consigue asignar un valor total de 5 con un coste de solo 7. No puede llegar al coste total máximo de 9, porque subir de `1` a `2` cualquiera de sus valores elevaría el coste por encima de 9.
 
@@ -189,7 +189,7 @@ Cada valor de `1` que emite este votante solo añade `1` a su coste total. Pero 
 
 El segundo votante tiene opiniones muy firmes. Solo apoya al candidato C, así que tiene sentido que asigne el valor máximo al candidato 3. Aunque solo ha usado un valor total de `3`, su coste total alcanza el máximo: `3^2` = `9`.
 
-![](https://storage.googleapis.com/papyrus_images/99d22c797167c3a9f1a5be94957e158c.png)
+![Diagrama. La papeleta 2 da 0 a los candidatos A, B y D y 3 al candidato C. Al elevar al cuadrado cada valor, el coste total llega exactamente al máximo de 9, y las filas de resultados contienen ahora los totales de las dos papeletas.](https://storage.googleapis.com/papyrus_images/99d22c797167c3a9f1a5be94957e158c.png)
 
 Puedes imaginar cómo, en un proceso mayor con más candidatos y votantes, el voto cuadrático puede ser una forma muy potente de medir no solo la preferencia, sino también su intensidad. De momento, dejamos la interpretación de estos resultados como ejercicio para el lector.
 

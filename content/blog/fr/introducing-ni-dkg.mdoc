@@ -48,7 +48,7 @@ Surtout, NI-DKG est construit exclusivement à partir de **primitives cryptograp
 4. **Processus DKG principal :** chaque nœud publie des engagements polynomiaux et des parts chiffrées, accompagnés d'une preuve ZK de validité.
 5. **Finalisation :** l'organisateur calcule la clé publique `PK` et les engagements sur les parts privées, puis publie le tout sur la blockchain avec une preuve ZK de validité.
 
-![](/blog/images/2026/03/dkg-process.webp)
+![Diagramme de séquence entre l'organisateur, les participants et la blockchain, en cinq phases : initiation, manifestation d'intérêt, détermination des participants, la ronde DKG principale au cours de laquelle chaque nœud soumet des engagements, des parts chiffrées et une preuve de correction, et finalisation, où la clé publique est calculée en chaîne.](/blog/images/2026/03/dkg-process.webp)
 
 **_Déchiffrement_**
 
@@ -56,7 +56,7 @@ Surtout, NI-DKG est construit exclusivement à partir de **primitives cryptograp
 2. **Publication des déchiffrements partiels :** les nœuds publient un déchiffrement partiel de `C1`, accompagné d'une preuve d'égalité de logarithmes discrets.
 3. **Déchiffrement :** une fois `t` déchiffrements partiels ou plus publiés, le contrat intelligent peut être appelé pour reconstituer le message.
 
-![](/blog/images/2026/03/dkg-decryption.webp)
+![Diagramme de séquence en trois phases. Un soumetteur publie le texte chiffré, chaque participant soumet ensuite un déchiffrement partiel accompagné d'une preuve d'égalité de logarithmes discrets que la blockchain vérifie, et un appel à completeDecryption restitue le message en clair.](/blog/images/2026/03/dkg-decryption.webp)
 
 **_Divulgation optionnelle de la clé_**
 
@@ -66,7 +66,7 @@ Notez que la divulgation de la clé ne fait pas partie du protocole DAVINCI ; c
 2. **Publication des parts de la clé secrète :** chaque nœud participant publie sa part du secret.
 3. **Calcul de la clé secrète :** une fois `t` valeurs ou plus soumises, n'importe qui peut calculer la clé secrète.
 
-![](/blog/images/2026/03/dkg-sk-disclosure.webp)
+![Diagramme de séquence en trois phases. L'organisateur demande la divulgation, les participants soumettent leurs parts du secret, et un appel à computeSecretKey le reconstitue. Une note rappelle qu'une fois le seuil de parts en chaîne, n'importe qui peut déjà reconstituer la clé, et que la dernière phase ne fait que la rendre publique.](/blog/images/2026/03/dkg-sk-disclosure.webp)
 
 ### **Sous le capot**
 

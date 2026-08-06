@@ -57,7 +57,7 @@ Der `franchise proof` wird durch Ausführen des zk-SNARK-Circuits erzeugt.
 - **Öffentliche Eingaben:** `census Merkle-root`, `nullifier`, `election ID`, `vote`
 - **Ausgabe:** `franchise proof`
 
-![](/blog/images/2026/01/zksnarks_anonymous_1.webp)
+![Schaltkreisdiagramm. Die öffentlichen Eingaben Zensus-Wurzel, Stimme, Prozess-ID und Nullifier sowie die privaten Eingaben Merkle-Beweis, Index und secretKey speisen einen Merkle-Beweis-Verifizierer und zwei Hash-Blöcke, deren Ergebnisse ein AND-Gatter zu einer einzigen Ausgabe zusammenführt.](/blog/images/2026/01/zksnarks_anonymous_1.webp)
 
 Ohne den `secretKey` oder den _Zensus-Merkle-Beweis_ offenzulegen, kann dieser Circuit nachweisen:
 
@@ -75,7 +75,7 @@ Der Merkle-Baum, aus dem der _anonyme Zensus_ aufgebaut wird, muss eine zk-SNARK
 
 [Vochain](https://docs.vocdoni.io/architecture/services/vochain.html) verwendet den [arbo](https://github.com/vocdoni/arbo)-Merkle-Baum, eine Go-Implementierung, die mit dem Circom-Design kompatibel ist. Der Merkle-Baum nutzt den Poseidon-Hash, eine „SNARK-freundliche“ Hash-Funktion, die sich später innerhalb eines Circuits beweisen lässt, ohne zu viele Constraints zu erfordern. Das folgende Diagramm zeigt die Datenstruktur der Blätter des Merkle-Baums, der im Schema des zk-census-proof verwendet wird.
 
-![](/blog/images/2026/01/zksnarks_anonymous_2.webp)
+![Merkle-Baum, gebaut mit dem Poseidon-Hash. Die Blätter 0 bis N werden über Zwischenknoten nach oben zu einer einzigen Zensus-Wurzel gehasht. Jedes Blatt verbindet einen Schlüssel, den fortlaufenden Index, mit einem Wert, der der Poseidon-Hash des secretKey ist, und zusammen bilden sie den zkCensusKey.](/blog/images/2026/01/zksnarks_anonymous_2.webp)
 
 Den `index`-Wert legt der Ersteller des _Zensus-Baums_ fest, der für jeden Zensus-Baum einen eigenen `index`-Wert führt. Dieser Wert wird mit jedem neuen _Blatt_ hochgezählt. Die _Blätter_ sind so strukturiert, um die Merkle-Bäume effizienter zu nutzen: Es passen mehr Nutzerschlüssel in einen kleineren Baum, was die Größe des zk-Circuits reduziert. Der Grund: Der Wert (`value`) des Schlüssels (`key`) eines Blattes bestimmt dessen Position im Baum.
 

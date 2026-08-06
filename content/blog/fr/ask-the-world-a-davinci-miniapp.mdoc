@@ -40,7 +40,7 @@ Le créateur d’un vote définit la question, les options disponibles, une nati
 
 Du point de vue de l’électeur, l’expérience ressemble à n’importe quelle application web :
 
-![](/blog/images/2026/03/02_voting_process-1.webp)
+![Parcours en quatre étapes intitulé un scan, un vote. Ouvrir le lien génère un portefeuille éphémère en arrière-plan, scanner un code QR amène Self.xyz à construire une preuve à divulgation nulle de connaissance sur l'appareil même de l'électeur, l'électeur rejoint le recensement lorsqu'un contrat intelligent en chaîne vérifie cette preuve, et le bulletin est enfin déposé chiffré par chiffrement à seuil.](/blog/images/2026/03/02_voting_process-1.webp)
 
 1. **Ouvrir le lien.** Un portefeuille éphémère est généré en coulisses : pas de portefeuille crypto, pas de frais de gas, aucune configuration.
 2. **Scanner un QR code.** L’électeur utilise l’[application Self](https://self.xyz) pour générer une preuve à divulgation nulle de connaissance directement sur son propre appareil. Cette preuve confirme que son document est valide, qu’il possède la nationalité requise et qu’il atteint l’âge minimum ; le tout sans exposer son nom, son numéro de document ni la moindre donnée personnelle. Un _nullifier_ unique est également généré pour empêcher tout double enregistrement.
@@ -53,7 +53,7 @@ Un scan. Un vote. Aucune connaissance de la blockchain requise.
 
 Ask the World n’est pas un outil unique : ce sont quatre couches qui fonctionnent ensemble, chacune prenant en charge une pièce distincte du puzzle.
 
-![](/blog/images/2026/03/03_architecture_stack.webp)
+![Pile d'architecture à quatre couches. DAVINCI, le protocole de vote, gère tout le cycle de vie du vote. Un contrat intelligent de recensement vérifie les zk-preuves en chaîne, un par processus de vote. Self.xyz génère les preuves d'identité sur l'appareil. Les portefeuilles éphémères font abstraction de toutes les interactions avec la blockchain.](/blog/images/2026/03/03_architecture_stack.webp)
 
 Au sommet se trouve [DAVINCI](https://davinci.vote), le protocole de vote lui-même. Il gère tout le cycle de vie d’un vote : création du processus, chiffrement de chaque bulletin par chiffrement homomorphe à seuil, calcul du résultat et garantie de vérifiabilité de bout en bout. La résistance à la coercition, l’absence de reçu de vote et la résistance à la collusion ne sont pas des options ajoutées après coup : elles sont inscrites dans la conception cryptographique.
 
@@ -67,7 +67,7 @@ Enfin, les portefeuilles éphémères masquent toute interaction avec la blockch
 
 Le déroulé est simple : une identité réelle devient une preuve privée, cette preuve est vérifiée et inscrite dans une liste électorale, et cette liste rend possible un vote chiffré on-chain. Quatre étapes, aucune donnée personnelle exposée à aucun moment.
 
-![](/blog/images/2026/03/04_bigger_picture.webp)
+![Parcours de l'identité au vote chiffré. Un passeport officiel ou une carte nationale d'identité devient une preuve à divulgation nulle de connaissance du droit de vote via Self.xyz, cette preuve est vérifiée en chaîne pour former un recensement d'électeurs anonymes, et DAVINCI la transforme en bulletin chiffré, résistant à la coercition et sans reçu.](/blog/images/2026/03/04_bigger_picture.webp)
 
 Mais ce qui rend tout cela significatif, ce n’est pas le déroulé lui-même : c’est ce que chaque transition élimine. Le passage de l’identité réelle à la preuve privée supprime le compromis entre vérification et anonymat. Le passage de la preuve à la liste électorale élimine le double vote sans traçage des individus. Et le passage de la liste électorale au bulletin chiffré garantit que personne, pas même l’organisateur, ne peut voir comment quiconque a voté avant la clôture du processus.
 

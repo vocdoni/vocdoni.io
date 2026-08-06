@@ -40,7 +40,7 @@ Quien crea la votación define la pregunta, las opciones disponibles, la naciona
 
 Desde la perspectiva del votante, la experiencia es como la de cualquier aplicación web:
 
-![](/blog/images/2026/03/02_voting_process-1.webp)
+![Flujo de cuatro pasos titulado un escaneo, un voto. Abrir el enlace genera un monedero efímero en segundo plano, escanear un código QR hace que Self.xyz construya una prueba de conocimiento cero en el propio dispositivo del votante, el votante entra en el censo cuando un contrato inteligente en cadena verifica esa prueba, y finalmente la papeleta se emite cifrada con cifrado de umbral.](/blog/images/2026/03/02_voting_process-1.webp)
 
 1. **Abrir el enlace.** Se genera una cartera efímera entre bastidores: sin cartera cripto, sin comisiones de gas, sin configuración.
 2. **Escanear un código QR.** El votante usa la [app de Self](https://self.xyz) para generar una prueba de conocimiento cero directamente en su propio dispositivo. Esta prueba confirma que su documento es válido, que tiene la nacionalidad requerida y que cumple la edad mínima, todo sin exponer su nombre, su número de documento ni ningún dato personal. También se genera un *nullifier* único para evitar el doble registro.
@@ -53,7 +53,7 @@ Un escaneo. Un voto. Sin necesidad de saber nada de blockchain.
 
 Ask the World no es una sola herramienta: son cuatro capas trabajando juntas, cada una encargada de una pieza distinta del puzle.
 
-![](/blog/images/2026/03/03_architecture_stack.webp)
+![Pila de arquitectura de cuatro capas. DAVINCI, el protocolo de votación, gestiona todo el ciclo de vida de la votación. Un contrato inteligente de censo verifica las zk-proofs en cadena, uno por cada proceso de votación. Self.xyz genera pruebas de identidad en el dispositivo. Los monederos efímeros abstraen todas las interacciones con la blockchain.](/blog/images/2026/03/03_architecture_stack.webp)
 
 En lo más alto está [DAVINCI](https://davinci.vote), el propio protocolo de votación. Gestiona el ciclo de vida completo de una votación: crear el proceso, cifrar cada papeleta con cifrado homomórfico umbral, calcular el resultado y garantizar la verificabilidad de extremo a extremo. La resistencia a la coerción, la ausencia de comprobante y la resistencia a la colusión no son añadidos: están integradas en el diseño criptográfico.
 
@@ -67,7 +67,7 @@ Por último, las carteras efímeras abstraen toda la interacción con la blockch
 
 El flujo es sencillo: una identidad real se convierte en una prueba privada, esa prueba se verifica e incorpora a un censo, y el censo habilita un voto cifrado on-chain. Cuatro pasos, sin exponer datos personales en ningún momento.
 
-![](/blog/images/2026/03/04_bigger_picture.webp)
+![Flujo de la identidad al voto cifrado. Un pasaporte oficial o un documento nacional de identidad se convierte en una prueba de conocimiento cero de elegibilidad mediante Self.xyz, esa prueba se verifica en cadena y forma un censo de votantes anónimos, y DAVINCI la convierte en una papeleta cifrada, resistente a la coacción y sin recibo.](/blog/images/2026/03/04_bigger_picture.webp)
 
 Pero lo que hace valioso este flujo no es el flujo en sí, sino lo que elimina cada transición. El paso de identidad real a prueba privada elimina el dilema entre verificación y anonimato. El paso de prueba a censo elimina el doble voto sin rastrear a las personas. Y el paso de censo a papeleta cifrada garantiza que nadie, ni siquiera el organizador, pueda ver cómo ha votado cada uno antes de que se cierre el proceso.
 

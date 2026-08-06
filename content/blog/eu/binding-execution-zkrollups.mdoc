@@ -61,7 +61,7 @@ Gure proposamenak honetarako erabiltzen ditu zk-SNARKak:
 - Boto sorta baten emaitza partzialak kalkulatzeko.
 - Botoaren sinadura egiaztatzeko.
 
-![](/blog/images/2026/01/vocdoni_zk_scheme.webp)
+![Eskema. Hautesle bakoitzak EIP-1186 saldo-froga bat hartzen du Ethereumetik eta Merkle froga bat, sinadura bat eta boto-pakete bat bidaltzen dizkio zkRelayerri. Relayerrak saldo-mapaketaren slota eta kontratuaren biltegiratze-erroaren hash-a ere irakurtzen ditu, eta zk-SNARK froga bakar bat igortzen du azken emaitzekin batera.](/blog/images/2026/01/vocdoni_zk_scheme.webp)
 
 Exekuzio loteslea Ethereumen zk-SNARKekin: proposamen idealizatua.
 
@@ -86,7 +86,7 @@ Laburbilduz, egiaztapen gehienak SNARK baten barruan egin ditzakegu, baina ez gu
 
 # **Proposamena**
 
-![](/blog/images/2026/01/vocdoni_zk_scheme_2.webp)
+![Eskema. Antolatzaile batek proposamen bat sortzen du bozketaren kontratu adimendunean eta koordinatzaile bat hautatzen du. Erabiltzaileak Snark gakoen erregistroan izena ematen dute eta beren botoak relayerraren koordinatzaileari bidaltzen dizkiote, zeinak zkSNARK froga igotzen duen. Hirugarrenen relayerrek falta diren botoak eta iruzur-frogak igo ditzakete. Ondoren, DAOaren kontratu adimendunak ekintzak exekutatzen ditu emaitzak sarrera gisa hartuta.](/blog/images/2026/01/vocdoni_zk_scheme_2.webp)
 
 Exekuzio loteslea Ethereumen zk-SNARKekin: proposamena
 
@@ -121,7 +121,7 @@ Exekuzio loteslea Ethereumen zk-SNARKekin: proposamena
 
 zk-SNARK batek emandako botoen zerrenda bat agregatuko du. zk-SNARK froga baliozkoa da boto-zerrenda jakin baten, errolda-erro baten, bozketa-identifikatzaile baten (electionId) eta emaitza agregatu baten arabera.
 
-![](/blog/images/2026/01/vocdoni_zk_scheme_3.webp)
+![Zirkuituaren diagrama. N botoetako bakoitzerako, zirkuituak EdDSA Poseidon sinadura-egiaztatzaile bat eta Merkle zuhaitz sakabanatuaren prozesadore bat exekutatzen ditu, nullifiers erro berri bakoitza hurrengo iterazioarekin kateatuz, eta metatutako balio sinatuak adierazitako emaitzarekin alderatzen ditu. Sarrera publikoak SHA256rekin batera hashtzen dira eta hashInputs-ekin alderatzen.](/blog/images/2026/01/vocdoni_zk_scheme_3.webp)
 
 Zirkuitua eta kontratua
 

@@ -61,7 +61,7 @@ A nossa proposta usa zk-SNARKs para os seguintes fins:
 - Calcular resultados parciais sobre um lote de votos.
 - Verificar a assinatura do voto.
 
-![](/blog/images/2026/01/vocdoni_zk_scheme.webp)
+![Esquema. Cada eleitor obtém uma prova de saldo EIP-1186 do Ethereum e envia uma prova de Merkle, uma assinatura e um pacote de voto ao zkRelayer. O relayer lê também o slot do mapeamento de saldos e o hash da raiz de armazenamento do contrato, e emite uma única prova zk-SNARK juntamente com os resultados finais.](/blog/images/2026/01/vocdoni_zk_scheme.webp)
 
 Execução vinculativa em Ethereum com zkSNARKs, proposta idealizada.
 
@@ -86,7 +86,7 @@ Em resumo, conseguimos tratar a maioria das verificações dentro de um SNARK, m
 
 # **Proposta**
 
-![](/blog/images/2026/01/vocdoni_zk_scheme_2.webp)
+![Esquema. Um organizador cria uma proposta no contrato inteligente de votação e seleciona um coordenador. Os utilizadores registam-se no registo de chaves Snark e enviam os seus votos ao coordenador do relayer, que carrega a prova zkSNARK. Relayers de terceiros podem carregar votos em falta e provas de fraude. O contrato inteligente da DAO executa depois ações com os resultados como entrada.](/blog/images/2026/01/vocdoni_zk_scheme_2.webp)
 
 Execução vinculativa em Ethereum com zkSNARKs, proposta
 
@@ -121,7 +121,7 @@ Execução vinculativa em Ethereum com zkSNARKs, proposta
 
 Um zk-SNARK agrega uma lista de votos emitidos. A prova zk-SNARK é válida com base numa dada lista de votos, numa raiz de censo, num identificador de eleição (electionId) e num resultado agregado.
 
-![](/blog/images/2026/01/vocdoni_zk_scheme_3.webp)
+![Diagrama do circuito. Para cada um dos N votos, o circuito executa um verificador de assinaturas EdDSA Poseidon e um processador de árvore de Merkle esparsa, encadeando cada nova raiz de nullifiers na iteração seguinte, e compara os valores assinados acumulados com o resultado declarado. As entradas públicas são sujeitas a hash em conjunto com SHA256 e comparadas com hashInputs.](/blog/images/2026/01/vocdoni_zk_scheme_3.webp)
 
 O circuito e o contrato
 

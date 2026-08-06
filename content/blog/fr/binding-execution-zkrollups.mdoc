@@ -61,7 +61,7 @@ Notre proposition utilise les zk-SNARKs pour :
 - calculer des résultats partiels sur un lot de votes ;
 - vérifier la signature du vote.
 
-![](/blog/images/2026/01/vocdoni_zk_scheme.webp)
+![Schéma. Chaque électeur récupère une preuve de solde EIP-1186 depuis Ethereum et envoie une preuve de Merkle, une signature et un paquet de vote au zkRelayer. Le relayer lit aussi l'emplacement du mappage des soldes et le hachage de la racine de stockage du contrat, puis émet une seule preuve zk-SNARK avec les résultats finaux.](/blog/images/2026/01/vocdoni_zk_scheme.webp)
 
 Exécution contraignante sur Ethereum avec les zk-SNARKs : proposition idéalisée.
 
@@ -86,7 +86,7 @@ En résumé, la plupart des vérifications peuvent se faire dans un SNARK, mais 
 
 # **Proposition**
 
-![](/blog/images/2026/01/vocdoni_zk_scheme_2.webp)
+![Schéma. Un organisateur crée une proposition dans le contrat intelligent de vote et sélectionne un coordinateur. Les utilisateurs s'enregistrent dans le registre de clés Snark et envoient leurs votes au coordinateur du relayer, qui téléverse la preuve zkSNARK. Des relayers tiers peuvent téléverser les votes manquants et des preuves de fraude. Le contrat intelligent de la DAO exécute ensuite des actions avec les résultats en entrée.](/blog/images/2026/01/vocdoni_zk_scheme_2.webp)
 
 Exécution contraignante sur Ethereum avec les zk-SNARKs : proposition.
 
@@ -121,7 +121,7 @@ Exécution contraignante sur Ethereum avec les zk-SNARKs : proposition.
 
 Un zk-SNARK agrège une liste de votes émis. La preuve zk-SNARK est valide pour une liste de votes donnée, une racine de recensement, un identifiant d'élection (electionId) et un résultat agrégé.
 
-![](/blog/images/2026/01/vocdoni_zk_scheme_3.webp)
+![Schéma de circuit. Pour chacun des N votes, le circuit exécute un vérificateur de signatures EdDSA Poseidon et un processeur d'arbre de Merkle creux, en chaînant chaque nouvelle racine de nullifiers à l'itération suivante, et compare les valeurs signées accumulées au résultat déclaré. Les entrées publiques sont hachées ensemble avec SHA256 et comparées à hashInputs.](/blog/images/2026/01/vocdoni_zk_scheme_3.webp)
 
 Le circuit et le contrat.
 

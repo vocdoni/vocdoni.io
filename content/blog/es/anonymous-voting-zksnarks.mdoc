@@ -57,7 +57,7 @@ La `franchise proof` se genera ejecutando el circuito zk-SNARK.
 - **Entradas públicas:** `census Merkle-root`, `nullifier`, `election ID`, `vote`
 - **Salida:** `franchise proof`
 
-![](/blog/images/2026/01/zksnarks_anonymous_1.webp)
+![Diagrama del circuito. Las entradas públicas raíz del censo, voto, ID del proceso y nullifier, y las entradas privadas prueba de Merkle, índice y secretKey, alimentan un verificador de pruebas de Merkle y dos bloques de hash, cuyos resultados se combinan en una puerta AND para dar una única salida.](/blog/images/2026/01/zksnarks_anonymous_1.webp)
 
 Sin revelar la `secretKey` ni la _prueba de Merkle del censo_, este circuito es capaz de demostrar que:
 
@@ -75,7 +75,7 @@ El árbol de Merkle usado para construir el _censo anónimo_ tiene que ser una i
 
 La [Vochain](https://docs.vocdoni.io/architecture/services/vochain.html) usa [arbo](https://github.com/vocdoni/arbo), una implementación de árboles de Merkle en Go compatible con el diseño de Circom. El árbol de Merkle usa el hash Poseidon, una función de hash «amigable con SNARKs» que puede probarse después dentro de un circuito sin requerir demasiadas restricciones. El siguiente diagrama es una representación visual de la estructura de datos de las hojas del árbol de Merkle que se usa en el esquema de la zk-census-proof.
 
-![](/blog/images/2026/01/zksnarks_anonymous_2.webp)
+![Árbol de Merkle construido con el hash Poseidon. Las hojas 0 a N se van hasheando hacia arriba a través de nodos intermedios hasta una única raíz del censo. Cada hoja empareja una clave, el índice incremental, con un valor que es el hash Poseidon de la secretKey, y juntas forman la zkCensusKey.](/blog/images/2026/01/zksnarks_anonymous_2.webp)
 
 El valor de `index` lo determina el constructor del _árbol de censo_, que mantiene un valor de `index` para cada árbol de censo. Este valor se incrementa con cada nueva _hoja_ que se añade. Las _hojas_ se estructuran así para usar los árboles de Merkle con más eficiencia, de modo que quepan más claves de usuarios en un árbol más pequeño y se reduzca el tamaño del zk-Circuit. Esto se debe a que el `value` de la `key` de cada hoja determina la posición de esa hoja en el árbol.
 

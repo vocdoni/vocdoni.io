@@ -61,7 +61,7 @@ La nostra proposta fa servir zk-SNARKs per a:
 - Computar resultats parcials sobre un lot de vots.
 - Verificar la signatura del vot.
 
-![](/blog/images/2026/01/vocdoni_zk_scheme.webp)
+![Esquema. Cada votant obté una prova de saldo EIP-1186 d'Ethereum i envia una prova de Merkle, una signatura i un paquet de vot al zkRelayer. El relayer també llegeix l'slot del mapatge de saldos i el hash de l'arrel d'emmagatzematge del contracte, i emet una única prova zk-SNARK juntament amb els resultats finals.](/blog/images/2026/01/vocdoni_zk_scheme.webp)
 
 Execució vinculant a Ethereum amb zkSNARKs - proposta idealitzada.
 
@@ -86,7 +86,7 @@ En resum, podem gestionar la majoria de verificacions dins d'un SNARK, però no 
 
 # **Proposta**
 
-![](/blog/images/2026/01/vocdoni_zk_scheme_2.webp)
+![Esquema. Un organitzador crea una proposta al contracte intel·ligent de votació i selecciona un coordinador. Els usuaris es registren al registre de claus Snark i envien els seus vots al coordinador del relayer, que puja la prova zkSNARK. Els relayers de tercers poden pujar vots que faltin i proves de frau. El contracte intel·ligent de la DAO executa després accions amb els resultats com a entrada.](/blog/images/2026/01/vocdoni_zk_scheme_2.webp)
 
 Execució vinculant a Ethereum amb zkSNARKs - proposta
 
@@ -121,7 +121,7 @@ Execució vinculant a Ethereum amb zkSNARKs - proposta
 
 Un zk-SNARK agregarà una llista de vots emesos. La prova zk-SNARK és vàlida en funció d'una llista de vots donada, una arrel de cens, un identificador d'elecció (electionId) i un resultat agregat.
 
-![](/blog/images/2026/01/vocdoni_zk_scheme_3.webp)
+![Diagrama del circuit. Per a cadascun dels N vots el circuit executa un verificador de signatures EdDSA Poseidon i un processador d'arbre de Merkle dispers, encadenant cada nova arrel de nullifiers a la iteració següent, i comprova els valors signats acumulats contra el resultat declarat. Les entrades públiques es fan hash conjuntament amb SHA256 i es comparen amb hashInputs.](/blog/images/2026/01/vocdoni_zk_scheme_3.webp)
 
 El circuit i el contracte
 

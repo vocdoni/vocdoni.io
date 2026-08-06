@@ -40,7 +40,7 @@ Quem cria a votação define a pergunta, as opções disponíveis, uma nacionali
 
 Da perspectiva do eleitor, a experiência é como a de qualquer aplicativo web:
 
-![](/blog/images/2026/03/02_voting_process-1.webp)
+![Fluxo de quatro etapas intitulado uma leitura, um voto. Abrir o link gera uma carteira efêmera em segundo plano, ler um código QR faz com que o Self.xyz construa uma prova de conhecimento zero no próprio dispositivo do eleitor, o eleitor entra no censo quando um contrato inteligente na cadeia verifica essa prova, e por fim a cédula é depositada criptografada com criptografia de limiar.](/blog/images/2026/03/02_voting_process-1.webp)
 
 1. **Abrir o link.** Uma carteira efêmera é gerada nos bastidores: sem carteira cripto, sem taxas de gás, sem configuração.
 2. **Escanear um código QR.** O eleitor usa o [app Self](https://self.xyz) para gerar uma prova de conhecimento zero diretamente no próprio dispositivo. Essa prova confirma que o documento é válido, que a pessoa tem a nacionalidade exigida e que atende à idade mínima; tudo sem expor nome, número do documento ou qualquer dado pessoal. Um nullifier único também é gerado para impedir o registro duplicado.
@@ -53,7 +53,7 @@ Um escaneamento. Um voto. Nenhum conhecimento de blockchain necessário.
 
 O Ask the World não é uma ferramenta única: são quatro camadas trabalhando juntas, cada uma cuidando de uma peça distinta do quebra-cabeça.
 
-![](/blog/images/2026/03/03_architecture_stack.webp)
+![Pilha de arquitetura com quatro camadas. O DAVINCI, o protocolo de votação, gerencia todo o ciclo de vida da votação. Um contrato inteligente de censo verifica as zk-provas na cadeia, um para cada processo de votação. O Self.xyz gera provas de identidade no dispositivo. As carteiras efêmeras abstraem todas as interações com a blockchain.](/blog/images/2026/03/03_architecture_stack.webp)
 
 No topo está o [DAVINCI](https://davinci.vote), o protocolo de votação em si. Ele gerencia todo o ciclo de vida de uma votação: criar o processo, criptografar cada cédula com criptografia homomórfica de limiar, computar o resultado e garantir a verificabilidade de ponta a ponta. Resistência à coerção, ausência de comprovante e resistência ao conluio não são acessórios: estão embutidas no design criptográfico.
 
@@ -67,7 +67,7 @@ Por fim, as carteiras efêmeras abstraem toda a interação com a blockchain. Os
 
 O fluxo é direto: uma identidade real vira uma prova privada, essa prova é verificada e entra em um censo, e o censo habilita uma votação criptografada on-chain. Quatro passos, nenhum dado pessoal exposto em momento algum.
 
-![](/blog/images/2026/03/04_bigger_picture.webp)
+![Fluxo da identidade até o voto criptografado. Um passaporte oficial ou uma carteira de identidade nacional se torna uma prova de conhecimento zero do direito de voto por meio do Self.xyz, essa prova é verificada na cadeia e forma um censo de eleitores anônimos, e o DAVINCI a transforma em uma cédula criptografada, resistente à coação e sem recibo.](/blog/images/2026/03/04_bigger_picture.webp)
 
 Mas o que torna isso significativo não é o fluxo em si, é o que cada transição elimina. A passagem da identidade real para a prova privada remove o dilema entre verificação e anonimato. A passagem da prova para o censo elimina o voto duplicado sem rastrear indivíduos. E a passagem do censo para a cédula criptografada garante que ninguém, nem mesmo o organizador, possa ver como alguém votou antes do encerramento do processo.
 

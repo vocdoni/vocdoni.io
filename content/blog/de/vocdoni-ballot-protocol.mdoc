@@ -29,7 +29,7 @@ Die Ergebnisse werden in einem zweidimensionalen Array natürlicher Zahlen (eine
 
 Bevor wir uns im Detail ansehen, wie ein Prozess konfiguriert werden kann, gehen wir ein generisches Beispiel durch. Angenommen, ein Prozess hat drei Felder `A`, `B` und `C`, die jeweils `0`, `1` und `2` als mögliche Werte zulassen. Was diese Werte oder Felder bedeuten, wissen wir nicht – das spielt vorerst keine Rolle.
 
-![](https://storage.googleapis.com/papyrus_images/47fc7647a24d815d609ad569c4456e39.png)
+![Diagramm. Ein Prozess hat die Felder A, B und C, die jeweils die Werte 0, 1 oder 2 annehmen. Stimmzettel 1 enthält 2, 0 und 1, Stimmzettel 2 enthält 0, 0 und 2. Pfeile tragen jede Auswahl in die Ergebnismatrix und hinterlassen Feld A mit den Zählwerten 1, 0, 1, Feld B mit 2, 0, 0 und Feld C mit 0, 1, 1.](https://storage.googleapis.com/papyrus_images/47fc7647a24d815d609ad569c4456e39.png)
 
 In diesem Beispiel wurden zwei Stimmen abgegeben. Der erste Wähler hat für Feld `A` den Wert `2` gewählt, für Feld `B` den Wert `0` und für Feld `C` den Wert `1`. Der zweite Stimmzettel enthält die Werte `0`, `0` und `2`. Im Diagramm oben sehen Sie, wie sich die Stimmzettel zur Ergebnismatrix verhalten. Der _Index_ eines Werts auf dem Stimmzettel bestimmt das _Feld_, zu dem dieser Wert gehört: Der erste Index von Stimmzettel 1 enthält den Wert `2`, also weist Stimmzettel 1 dem Feld A den Wert `2` zu. Innerhalb jedes Felds der Ergebnismatrix wird der Wert der Stimme durch seinen Index repräsentiert. Wir tragen eine `1` an Index `2` von `Feld A` ein – sie steht für die eine Stimme für den Wert `2`.
 
@@ -41,7 +41,7 @@ Das wirkt auf den ersten Blick vielleicht nicht intuitiv. Verfolgen Sie am beste
 
 Das Ballot-Protokoll besteht aus einer Reihe numerischer und boolescher (wahr/falsch) Variablen, die das Format eines gültigen Stimmzettels einschränken.
 
-![](https://storage.googleapis.com/papyrus_images/b8d920f2d64cf347ff2f47f7e34a3340.png)
+![Diagramm der Stimmzettel-Variablen. maxCount begrenzt, wie viele Felder ein Stimmzettel hat, maxValue und minValue begrenzen jedes einzelne Feld, uniqueValues erzwingt, dass sich alle Felder unterscheiden, maxTotalCost und minTotalCost begrenzen ihre Summe, und costExponent potenziert jeden Wert, bevor er verrechnet wird.](https://storage.googleapis.com/papyrus_images/b8d920f2d64cf347ff2f47f7e34a3340.png)
 
 Wie ließe sich unser obiges Beispiel mit diesem Protokoll abbilden?
 
@@ -85,7 +85,7 @@ In der aktuellen Fassung definiert Vocdoni zwei Formate für die Ergebnisauswert
 
 Für unseren Beispielprozess würden wir die index-gewichtete Interpretationsformel verwenden. Dieses Schema eignet sich für Prozesse mit einer einzelnen Frage, etwa Rangfolge-Abstimmungen (Ranked Choice), Mehrfachauswahl oder Bürgerhaushalte. Jeder Index in einem Feld der Ergebnismatrix steht für einen gewichteten Wert; in unserem Fall entspricht das Gewicht der Anzahl der Münzen, die einer Organisation zugeteilt wurden. Die Summe der Stimmen, multipliziert mit ihren index-gewichteten Werten, ergibt den Gesamtwert für dieses Feld.
 
-![](https://storage.googleapis.com/papyrus_images/345a07aee1ddf6a6aad51db7e58fd399.png)
+![Diagramm. Die drei Feldvektoren der Ergebnismatrix, 1, 0, 1 dann 2, 0, 0 dann 0, 1, 1, werden jeweils zusammengefasst, indem jeder Zählwert mit seinem Index multipliziert und die Produkte addiert werden, was die aggregierten Ergebnisse 2, 0 und 3 ergibt.](https://storage.googleapis.com/papyrus_images/345a07aee1ddf6a6aad51db7e58fd399.png)
 
 Diese Interpretation aggregiert unseren Beispielprozess: Organisation A erhält 2 Münzen, Organisation C erhält 3.
 
@@ -95,7 +95,7 @@ Die Interpretation mit diskreten Werten wird für Prozesse verwendet, in denen j
 
 `0` ist für ein Unentschieden zwischen Optionen reserviert.
 
-![](https://storage.googleapis.com/papyrus_images/97e8bca257a9b118b86ee3dd31165107.png)
+![Diagramm. Drei Fragevektoren, 1, 2, 0 dann 0, 1, 2 dann 1, 1, 1, werden jeweils auf die Position ihrer siegreichen Option reduziert. Die aggregierten Ergebnisse sind 2 für B in der ersten Frage und 3 für C in der zweiten, während das dritte 0 ist, weil alle drei Optionen gleichauf liegen und 0 für keinen Sieger reserviert ist.](https://storage.googleapis.com/papyrus_images/97e8bca257a9b118b86ee3dd31165107.png)
 
 Diese beiden Formate erheben keinen Anspruch auf Vollständigkeit. Wie gesagt: Das Ballot-Protokoll selbst gibt nicht vor, wie Ergebnisse aggregiert werden. Wer eine eigene Anwendungsschicht auf dem Protokoll aufbaut, kann eine eigene Ergebnisinterpretation definieren.
 
@@ -133,15 +133,15 @@ Auch hier haben wir keine Verwendung für `costExponent`.
 
 - `costExponent` = 1
 
-![](https://storage.googleapis.com/papyrus_images/d06d57a97367e2f40ed75228f02392a7.png)
+![Diagramm. Eine Produktbewertung nach Rangfolge läuft über vier Felder, Spargel, Bohne, Karotte und Dill, mit den verfügbaren Werten 0 bis 3, die alle unterschiedlich sein müssen.](https://storage.googleapis.com/papyrus_images/d06d57a97367e2f40ed75228f02392a7.png)
 
 Nehmen wir uns den ersten Stimmzettel vor. Diese Produkttesterin liebt Karotten und setzt Karotte auf Platz eins. Dann folgen Spargel und Dill, Bohnen landen auf dem letzten Platz. So wird dieser Stimmzettel in der Ergebnismatrix erfasst:
 
-![](https://storage.googleapis.com/papyrus_images/e63207ba97dca5657af93969f5424cb3.png)
+![Diagramm. Stimmzettel 1 gibt Spargel 2, der Bohne 0, der Karotte 3 und dem Dill 1. Jeder Wert landet in der passenden Punktespalte der Ergebniszeile des jeweiligen Gemüses.](https://storage.googleapis.com/papyrus_images/e63207ba97dca5657af93969f5424cb3.png)
 
 Die Stimmzettel treffen weiter ein, und am Ende haben wir 30 Antworten! Mit der vollständigen Ergebnismatrix aggregieren wir die Ergebnisse nach der index-gewichteten Methode …
 
-![](https://storage.googleapis.com/papyrus_images/49480940bd6ea3db2320d77b587455ae.png)
+![Diagramm. Nach 30 Stimmzetteln wird die Ergebniszeile jedes Gemüses zusammengefasst, indem jeder Zählwert mit seinem Punktwert multipliziert und die Produkte addiert werden. Spargel kommt auf 51, die Bohne auf 36, die Karotte auf 37 und der Dill auf 56.](https://storage.googleapis.com/papyrus_images/49480940bd6ea3db2320d77b587455ae.png)
 
 Dill gewinnt! 🎉 Dank dieser umfassenden Marktforschung finden Sie Lutscher mit Dillgeschmack demnächst in Ihrem Supermarkt.
 
@@ -173,7 +173,7 @@ Und endlich hat diese Variable ihren großen Auftritt. Wir setzen sie auf 2 – 
 
 - `costExponent` = 2
 
-![](https://storage.googleapis.com/papyrus_images/a645cc0a4a064387d26dafb4972d053a.png)
+![Diagramm. Eine Wahl mit quadratischem Stimmrecht läuft über vier Kandidatenfelder, A bis D, mit den verfügbaren Werten 0 bis 3, einem Kostenexponenten von 2 und maximalen Gesamtkosten von 9.](https://storage.googleapis.com/papyrus_images/a645cc0a4a064387d26dafb4972d053a.png)
 
 Stellen wir uns zwei Stimmzettel-Konfigurationen vor, um zu zeigen, wie Quadratic Voting funktioniert.
 
@@ -181,7 +181,7 @@ Stellen wir uns zwei Stimmzettel-Konfigurationen vor, um zu zeigen, wie Quadrati
 
 Unserem ersten Wähler wäre jeder Kandidat recht, er bevorzugt aber leicht Kandidat B. Außerdem will er möglichst viel Stimmkraft einsetzen.
 
-![](https://storage.googleapis.com/papyrus_images/d9e9d195ba9159cc90da7228e4764cfc.png)
+![Diagramm. Stimmzettel 1 gibt Kandidat A 1, Kandidat B 2, Kandidat C 1 und Kandidat D 1. Durch das Quadrieren jedes Werts steigen die Gesamtkosten auf 7 und bleiben damit unter dem Maximum von 9, und jeder Wert markiert die passende Punktespalte in der Ergebniszeile seines Kandidaten.](https://storage.googleapis.com/papyrus_images/d9e9d195ba9159cc90da7228e4764cfc.png)
 
 Jeder Wert `1`, den dieser Wähler vergibt, erhöht seine Gesamtkosten nur um `1`. Ein Wert von `2` schlägt dagegen mit `2^2`, also `4`, zu Buche. Indem er seine Stimmen auf alle Kandidaten verteilt, kann dieser Wähler einen Gesamtwert von 5 vergeben und kommt dabei nur auf Kosten von 7. Die maximalen Gesamtkosten von 9 kann er nicht erreichen: Würde er einen seiner `1`-Werte auf `2` erhöhen, stiegen die Kosten über 9.
 
@@ -189,7 +189,7 @@ Jeder Wert `1`, den dieser Wähler vergibt, erhöht seine Gesamtkosten nur um `1
 
 Die zweite Wählerin hat eine sehr klare Meinung: Sie unterstützt ausschließlich Kandidat C. Es liegt also nahe, dass sie Kandidat C den Maximalwert zuweist. Obwohl sie nur einen Gesamtwert von `3` vergeben hat, liegen ihre Gesamtkosten beim Maximum von `3^2` = `9`.
 
-![](https://storage.googleapis.com/papyrus_images/99d22c797167c3a9f1a5be94957e158c.png)
+![Diagramm. Stimmzettel 2 gibt den Kandidaten A, B und D jeweils 0 und Kandidat C 3. Durch das Quadrieren jedes Werts erreichen die Gesamtkosten genau das Maximum von 9, und die Ergebniszeilen enthalten nun die Summen aus beiden Stimmzetteln.](https://storage.googleapis.com/papyrus_images/99d22c797167c3a9f1a5be94957e158c.png)
 
 Sie können sich vorstellen, wie Quadratic Voting in einem größeren Prozess mit mehr Kandidaten und Wählenden nicht nur Präferenzen, sondern auch deren Intensität sichtbar machen kann. Die Interpretation dieser Ergebnisse überlassen wir vorerst Ihnen als Übung.
 

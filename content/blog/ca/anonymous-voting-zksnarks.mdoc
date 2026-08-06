@@ -57,7 +57,7 @@ La `franchise proof` es genera executant el circuit zk-SNARK.
 - **Entrades públiques:** `census Merkle-root`, `nullifier`, `election ID`, `vote`
 - **Sortida:** `franchise proof`
 
-![](/blog/images/2026/01/zksnarks_anonymous_1.webp)
+![Diagrama del circuit. Les entrades públiques arrel del cens, vot, ID del procés i nullifier, i les entrades privades prova de Merkle, índex i secretKey, alimenten un verificador de proves de Merkle i dos blocs de hash, els resultats dels quals es combinen en una porta AND per donar una sola sortida.](/blog/images/2026/01/zksnarks_anonymous_1.webp)
 
 Sense revelar la `secretKey` ni la _prova de Merkle del cens_, aquest circuit és capaç de demostrar que:
 
@@ -75,7 +75,7 @@ L'arbre de Merkle que es fa servir per construir el _cens anònim_ ha de ser una
 
 La [Vochain](https://docs.vocdoni.io/architecture/services/vochain.html) fa servir l'arbre de Merkle [arbo](https://github.com/vocdoni/arbo), una implementació en Go compatible amb el disseny de Circom. L'arbre de Merkle fa servir el hash Poseidon, una funció de hash «amigable amb SNARKs» que després es pot provar dins d'un circuit sense requerir massa restriccions. El diagrama següent és una representació visual de l'estructura de dades de les fulles de l'arbre de Merkle que es fa servir en l'esquema de la zk-census-proof.
 
-![](/blog/images/2026/01/zksnarks_anonymous_2.webp)
+![Arbre de Merkle construït amb el hash Poseidon. Les fulles 0 a N es van fent hash cap amunt a través de nodes intermedis fins a una única arrel del cens. Cada fulla aparella una clau, l'índex incremental, amb un valor que és el hash Poseidon de la secretKey, i juntes formen la zkCensusKey.](/blog/images/2026/01/zksnarks_anonymous_2.webp)
 
 El valor `index` el determina el constructor de l'_arbre del cens_, que té un valor `index` per a cada arbre de cens. Aquest valor s'incrementa amb l'addició de cada nova _fulla_. Les _fulles_ s'estructuren així per fer servir els arbres de Merkle de manera més eficient, fent cabre les claus de més usuaris dins d'un arbre més petit i reduint així la mida del zk-Circuit. Això és perquè el `value` de la `key` de qualsevol fulla determina la posició d'aquesta fulla a l'arbre.
 
