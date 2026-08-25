@@ -40,9 +40,9 @@ Each **question** shapes one ballot:
 | `title` (required) | multilang | Question title. |
 | `description` | multilang | Question description. |
 | `choices` (required) | array | Options, each a `title` plus a numeric `value`. |
-| `type` | string | `singlechoice` or `multichoice`. See [Voting types](/developers/docs/voting-types). |
-| `typeSetup` | object | `minChoices`, `maxChoices`, `uniqueChoices`. |
-| `ballotProtocol` | object | Optional raw ballot override (approval, ranked, quadratic). Takes priority over `type`/`typeSetup`. |
+| `type` | string | `singlechoice`, `multichoice`, `ranked` or `cumulative`. See [Voting types](/developers/docs/voting-types). |
+| `typeSetup` | object | Tuning for the type: `maxChoices` (`multichoice`), `budget` and `costExponent` (`cumulative`), `minChoices`. |
+| `ballotProtocol` | object | Optional raw ballot override for shapes the named types do not cover. Takes priority over `type`/`typeSetup`. |
 | `census` | object | Optional eligibility subset (`groupId`/`memberIds`) within the process census. Omit to include all census members. |
 | `secretUntilTheEnd` | boolean | Keep this question's tally encrypted until it ends. |
 
