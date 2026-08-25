@@ -126,8 +126,8 @@ curl -s "$B/processes/$PROCESS/results" | jq
 > [Census](/developers/docs/census) for auth types and per-question eligibility,
 > [Voting processes](/developers/docs/voting-processes) for the full authoring API,
 > [Casting votes](/developers/docs/casting-votes) for the client-side ballot flow, and
-> [Voting types](/developers/docs/voting-types) for single choice, multichoice, approval, ranked and
-> quadratic ballots.
+> [Voting types](/developers/docs/voting-types) for the four named ballot types (single choice,
+> multichoice, ranked, cumulative) and the raw override.
 
 ## The same flow with C# and Python
 

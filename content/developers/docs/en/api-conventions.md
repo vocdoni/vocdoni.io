@@ -29,6 +29,21 @@ curl {{API_BASE_URL}}/organizations/$ORG \
 > [!TIP] Start on staging
 > While the API is in alpha, build against staging first and switch to production once your flow is stable.
 
+### Optional authentication
+
+Some public reads return **more** fields when the caller is a manager/admin of the owning organization
+(or a `voting:write` API key acting as one). This is not a separate endpoint and not a `401`: everyone
+gets the same `200`, the manager-only fields are simply **absent** for anyone else. An anonymous client
+cannot tell from the response that it is missing anything.
+
+The fields gated this way today:
+
+- **`eligibleMemberIds`** on each question of a [process](/developers/docs/voting-processes#reading-a-process) - who may vote.
+- **`memos`** on an [open-value](/developers/docs/voting-types#open-value-choices) question's [results](/developers/docs/results#voter-memos) - the free-text voter memos.
+
+So treat an absent field as "not authorized, not applicable, or simply not present yet", never as proof
+it does not exist. Send your key when you need the manager view.
+
 ## Identifiers
 
 - **Addresses and ids are hex strings** - for example `0x1234...` for an organization address.

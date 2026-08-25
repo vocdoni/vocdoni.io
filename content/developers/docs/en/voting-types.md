@@ -8,7 +8,7 @@ order: 42
 Each **question** in a [process](/developers/docs/voting-processes) shapes its own ballot. You pick a
 named `type` and tune it with `typeSetup`, or drop to a raw `ballotProtocol` override for shapes that
 do not have a named preset yet. Because the type is per question, one process can mix a single-choice
-question with an approval question.
+question with a multichoice question.
 
 ## Named types
 
@@ -50,7 +50,7 @@ Set `type` and, optionally, `typeSetup` on the question:
 | `budget` | integer | Total credits a voter distributes in a `cumulative` ballot. Required and greater than zero for that type. |
 | `costExponent` | integer | Cost curve for `cumulative`: `1` linear, `2` quadratic. Required for that type; no other value is accepted. |
 | `minChoices` | integer | Client-side validation hint only. The protocol has no minimum-count field, so it is **not enforced on-chain**. |
-| `uniqueChoices` | boolean | **Ignored by the named types** - only `ranked` needs distinct values and it derives that from the type. Setting it on a `multichoice` is rejected, because on that layout no ballot could satisfy it and the question would tally to zero. Use `uniqueValues` in a raw override if you really need the flag. |
+| `uniqueChoices` | boolean | **Not a named-type input.** `ranked` derives distinct values from its type, and the other named types have nothing for it to bind to. `multichoice` in particular **rejects** it: on that layout no ballot could satisfy it and the question would tally to zero. Use `uniqueValues` in a raw override if you really need the flag. |
 
 ## Raw ballot override
 
@@ -79,7 +79,7 @@ over `N` choices:
 | `singlechoice` | `maxCount: 1`, `maxValue` = the highest `value` among the choices. |
 | `multichoice` | `maxCount: N`, `maxValue: 1`, `costExponent: 1`, `maxTotalCost` = `maxChoices`. |
 | `ranked` | `maxCount: N`, `maxValue: N - 1`, `uniqueValues: true`. |
-| `cumulative` | `maxCount: N`, `maxValue: 0`, `costExponent` and `maxTotalCost` = `budget`. |
+| `cumulative` | `maxCount: N`, `maxValue: 0`, `costExponent` = `costExponent` (1 or 2), `maxTotalCost` = `budget`. |
 
 So reach for the override when you need something off that map - a vote a voter may change, or a
 budget taken from each voter's census weight rather than a fixed number:
@@ -105,12 +105,56 @@ budget taken from each voter's census weight rather than a fixed number:
 > [!NOTE] Secret results
 > Set `"secretUntilTheEnd": true` on a question to keep its tally encrypted until it ends. Voters seal
 > their ballots with the question's on-chain encryption keys - see
-> [Casting votes](/developers/docs/casting-votes).
+> [Casting votes](/developers/docs/casting-votes). Note this seals the **ballot**, not an
+> [open-value choice's](#open-value-choices) free text, which stays readable.
+
+## Open-value choices
+
+Mark one choice with `"openValue": true` to make it the question's **open** option - the classic
+"Other: \_\_\_\_" answer. A voter who picks it can attach a short free-text **memo** to their ballot,
+and organizers read those memos back with the results.
+
+```jsonc
+// "Other" collects free text; the other choices do not
+{ "type": "singlechoice",
+  "choices": [
+    { "title": { "default": "Ada Lovelace" }, "value": 0 },
+    { "title": { "default": "Alan Turing" }, "value": 1 },
+    { "title": { "default": "Other" }, "value": 2, "openValue": true }
+  ] }
+```
+
+The flag is only a marker on the choice - it does not change the ballot shape, the tally, or the
+protocol parameters. It declares where a memo belongs, so that the API can tell which memos answered
+this question and which came from voters who picked something else.
+
+Rules:
+
+- **At most one choice per question** may set it. Two is a `400`.
+- Supported on `singlechoice`, `multichoice` and `cumulative`. **Not** on `ranked`, and not on a
+  question shaped only by a raw `ballotProtocol` that matches no named type - both are a `400`. A memo
+  is reported only when the ballot *selected* the open choice, and a ranked ballot ranks every choice,
+  so there is nothing to select.
+- `openValue` comes back on the **public** process and question reads, so a voter app can find the
+  open choice and render a text input next to it without authenticating.
+
+Voters attach the memo when they cast - see
+[Casting votes](/developers/docs/casting-votes#open-value-choices). Organizers read them back from the
+results, and the results API returns them **only** to organizers - see
+[Voter memos](/developers/docs/results#voter-memos).
+
+> [!WARNING] A memo is not secret
+> The memo travels on the vote envelope in cleartext, outside the encrypted ballot, so it is readable
+> on chain even on a `secretUntilTheEnd` question. Free text can also identify whoever wrote it. Label
+> the input accordingly and never invite sensitive detail into it. If a memo must stay confidential,
+> encrypt it client-side before casting - see
+> [Casting votes](/developers/docs/casting-votes#open-value-choices).
 
 ## Reading the results
 
 Whatever the type, a question's results come back as `results[field][value]`. Single choice reads
-discretely; approval reads the per-option `results[i][1]`; ranked and quadratic read index-weighted.
-See [Results](/developers/docs/results) for the response shape and the reading each type uses.
+discretely; multichoice reads the per-option `results[i][1]`; ranked reads index-weighted; cumulative
+sums each option's credits into `results[i][0]`. See [Results](/developers/docs/results) for the response shape and the reading each
+type uses.
 
 For the complete, machine-readable contract, see the [OpenAPI specification]({{SWAGGER_URL}}).
