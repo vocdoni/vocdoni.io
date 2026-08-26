@@ -2531,6 +2531,10 @@
         "answer": "No. I voti sono cifrati prima di essere espressi. Il risultato finale viene calcolato senza che nessuno, nemmeno Vocdoni, veda mai le scelte individuali.",
         "question": "Qualcuno può vedere come hanno votato i membri?"
       },
+      "authentication": {
+        "answer": "L'organizzazione importa l'elenco degli aventi diritto e può autenticare gli elettori con qualsiasi tipo di credenziale, con un secondo livello di sicurezza opzionale tramite un codice monouso inviato via SMS o e-mail. Ogni elettore deve dimostrare la propria idoneità prima di votare. Qualsiasi altro metodo di autenticazione può essere implementato su richiesta, inclusi i certificati digitali. I controlli crittografici impediscono voti finali duplicati senza collegare l'identità alla scelta espressa.",
+        "question": "Come vengono autenticati gli elettori?"
+      },
       "census": {
         "answer": "Sì. Puoi importare i tuoi membri tramite CSV o un altro formato di foglio di calcolo. Se hai bisogno di una configurazione più avanzata, possiamo aiutarti a collegarla tramite un'integrazione personalizzata.",
         "question": "Posso usare l'elenco elettori o il CRM esistente?"
@@ -2619,6 +2623,7 @@
     "product": {
       "custom_projects": "Progetti su misura",
       "documentation": "Documentazione",
+      "pricing": "Prezzi",
       "sdk_api": "SDK e API",
       "technology": "Tecnologia",
       "title": "Prodotto",
@@ -2642,8 +2647,7 @@
       "professional_colleges": "Collegi professionali",
       "title": "Soluzioni",
       "view_all": "Vedi tutte le soluzioni"
-    },
-    "tin_credit": "Growth by Tin"
+    }
   },
   "hero_cards": {
     "abstain": "Astensione",

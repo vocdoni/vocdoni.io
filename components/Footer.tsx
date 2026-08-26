@@ -10,6 +10,7 @@ type FooterLink = { label: string; href: string; external?: boolean; highlight?:
 
 const buildProductLinks = (t: TFunction): FooterLink[] => [
   { label: t('footer.product.voting_platform', 'Voting platform'), href: APP_URL, external: true },
+  { label: t('footer.product.pricing', 'Pricing'), href: `${APP_URL}/plans`, external: true },
   { label: t('footer.product.sdk_api', 'SDK & API'), href: '/developers' },
   { label: t('footer.product.documentation', 'Documentation'), href: '/developers/docs' },
   { label: t('footer.product.technology', 'Technology'), href: 'https://davinci.vote', external: true },
@@ -198,20 +199,7 @@ export default function Footer() {
         {/* Bottom Bar: Security & Copyright */}
         <div className='flex flex-col md:flex-row justify-between items-center gap-8'>
           <div className='flex flex-col gap-1 items-center md:items-start order-2 md:order-1'>
-            <div className='flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-xs text-muted-foreground md:justify-start'>
-              <p>{t('footer.copyright', { year: new Date().getFullYear() })}</p>
-              <span aria-hidden='true'>·</span>
-              <Link
-                href='https://tin.computer'
-                target='_blank'
-                rel='noopener noreferrer'
-                variant='footerLegal'
-                className='inline-flex items-center gap-1.5'
-              >
-                <span className='inline-block size-[0.9em] shrink-0 bg-[#66DC9D]' aria-hidden='true' />
-                {t('footer.tin_credit', 'Growth by Tin')}
-              </Link>
-            </div>
+            <p className='text-xs text-muted-foreground'>{t('footer.copyright', { year: new Date().getFullYear() })}</p>
             <p className='text-[10px] text-muted-foreground'>{t('footer.rights')}</p>
           </div>
 

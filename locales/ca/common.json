@@ -2531,6 +2531,10 @@
         "answer": "No. Els vots s'encripten abans d'emetre's. El resultat final es calcula sense que ningú, inclosa Vocdoni, no vegi mai les opcions individuals. Els membres reben un codi per confirmar que el seu vot ha estat comptat, sense revelar què han escollit.",
         "question": "Algú pot veure què han votat els membres?"
       },
+      "authentication": {
+        "answer": "L'organització importa el cens electoral i pot autenticar els votants amb qualsevol tipus de credencial, amb una segona capa de seguretat opcional mitjançant un codi d'un sol ús enviat per SMS o correu electrònic. Cada votant ha d'acreditar que és elegible abans de votar. Qualsevol altre mètode d'autenticació es pot implementar a demanda, inclosos els certificats digitals. Les comprovacions criptogràfiques eviten vots finals duplicats sense vincular la identitat amb l'opció de vot.",
+        "question": "Com s'autentiquen els votants?"
+      },
       "census": {
         "answer": "Sí. Podeu importar els membres mitjançant CSV o un altre format de full de càlcul. Si necessiteu una configuració més avançada, podem ajudar-vos a connectar-la mitjançant una integració personalitzada.",
         "question": "Puc utilitzar el meu cens actual o el meu CRM?"
@@ -2619,6 +2623,7 @@
     "product": {
       "custom_projects": "Projectes a mida",
       "documentation": "Documentació",
+      "pricing": "Preus",
       "sdk_api": "SDK i API",
       "technology": "Tecnologia",
       "title": "Producte",
@@ -2642,8 +2647,7 @@
       "professional_colleges": "Col·legis professionals",
       "title": "Solucions",
       "view_all": "Veure totes les solucions"
-    },
-    "tin_credit": "Growth by Tin"
+    }
   },
   "hero_cards": {
     "abstain": "Abstenció",

@@ -2531,6 +2531,10 @@
         "answer": "Non. Les votes sont chiffrés avant d'être exprimés. Le résultat final est calculé sans que personne, pas même Vocdoni, ne voie jamais les choix individuels.",
         "question": "Peut-on voir comment les membres ont voté ?"
       },
+      "authentication": {
+        "answer": "L'organisation importe la liste électorale et peut authentifier les électeurs avec tout type d'identifiant, avec une seconde couche de sécurité facultative par code à usage unique envoyé par SMS ou e-mail. Chaque électeur doit prouver son éligibilité avant de voter. Toute autre méthode d'authentification peut être mise en place à la demande, y compris les certificats numériques. Des contrôles cryptographiques empêchent les votes finaux en double sans relier l'identité au choix exprimé.",
+        "question": "Comment les électeurs sont-ils authentifiés ?"
+      },
       "census": {
         "answer": "Oui. Vous pouvez importer vos membres via CSV ou un autre format de feuille de calcul. Si vous avez besoin d'une configuration plus avancée, nous pouvons vous aider à la connecter grâce à une intégration personnalisée.",
         "question": "Puis-je utiliser ma liste électorale ou mon CRM existant ?"
@@ -2619,6 +2623,7 @@
     "product": {
       "custom_projects": "Projets sur mesure",
       "documentation": "Documentation",
+      "pricing": "Tarifs",
       "sdk_api": "SDK et API",
       "technology": "Technologie",
       "title": "Produit",
@@ -2642,8 +2647,7 @@
       "professional_colleges": "Ordres professionnels",
       "title": "Solutions",
       "view_all": "Voir toutes les solutions"
-    },
-    "tin_credit": "Growth by Tin"
+    }
   },
   "hero_cards": {
     "abstain": "Abstention",

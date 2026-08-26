@@ -2531,6 +2531,10 @@
         "answer": "Não. Os votos são criptografados antes de serem registrados. O resultado final é calculado sem que ninguém - incluindo a Vocdoni - veja as escolhas individuais.",
         "question": "Alguém consegue ver em quem os membros votaram?"
       },
+      "authentication": {
+        "answer": "A organização importa a lista de eleitores aptos e pode autenticar os eleitores com qualquer tipo de credencial, com uma segunda camada de segurança opcional por meio de um código de uso único enviado por SMS ou e-mail. Cada eleitor deve comprovar sua elegibilidade antes de votar. Qualquer outro método de autenticação pode ser implementado sob demanda, incluindo certificados digitais. Verificações criptográficas impedem votos finais duplicados sem vincular a identidade à opção escolhida.",
+        "question": "Como os eleitores são autenticados?"
+      },
       "census": {
         "answer": "Sim. Você pode importar seus membros por CSV ou sincronizá-los pela nossa API, caso já gerencie sua lista de eleitores em outro sistema.",
         "question": "Posso usar minha lista de eleitores atual ou meu CRM?"
@@ -2619,6 +2623,7 @@
     "product": {
       "custom_projects": "Projetos personalizados",
       "documentation": "Documentação",
+      "pricing": "Preços",
       "sdk_api": "SDK e API",
       "technology": "Tecnologia",
       "title": "Produto",
@@ -2642,8 +2647,7 @@
       "professional_colleges": "Ordens profissionais",
       "title": "Soluções",
       "view_all": "Ver todas as soluções"
-    },
-    "tin_credit": "Growth by Tin"
+    }
   },
   "hero_cards": {
     "abstain": "Abstenção",
