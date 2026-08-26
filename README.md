@@ -52,15 +52,15 @@ pnpm dev
 
 Open [http://localhost:5173](http://localhost:5173) to view the site. Other useful commands:
 
-| Command | Description |
-|---|---|
-| `pnpm build` | Production build (outputs to `dist/client`) |
-| `pnpm preview` | Serve the production build locally |
-| `pnpm test` | Run Vitest in CI mode |
-| `pnpm lint` | Check formatting with Prettier |
-| `pnpm validate` | Run all lint, test, and guardrail checks |
-| `pnpm translations` | Extract i18n keys with i18next-cli |
-| `pnpm shadcn add <component>` | Add a shadcn/ui component |
+| Command                       | Description                                 |
+| ----------------------------- | ------------------------------------------- |
+| `pnpm build`                  | Production build (outputs to `dist/client`) |
+| `pnpm preview`                | Serve the production build locally          |
+| `pnpm test`                   | Run Vitest in CI mode                       |
+| `pnpm lint`                   | Check formatting with Prettier              |
+| `pnpm validate`               | Run all lint, test, and guardrail checks    |
+| `pnpm translations`           | Extract i18n keys with i18next-cli          |
+| `pnpm shadcn add <component>` | Add a shadcn/ui component                   |
 
 ## Project Structure
 
@@ -92,6 +92,8 @@ Create a `.env.local` file to override any variable locally. All of the followin
 | `EMAILJS_SERVICE_ID` | EmailJS service ID |
 | `EMAILJS_TEMPLATE_ID` | EmailJS template ID |
 | `GTM_ID` | Google Tag Manager container ID |
+| `POSTHOG_PUBLIC_KEY` | Public PostHog browser-ingestion key |
+| `POSTHOG_HOST` | PostHog browser-ingestion host |
 | `PLAUSIBLE_DOMAIN` | Plausible Analytics domain |
 | `RECAPTCHA_SITE_KEY` | reCAPTCHA v3 site key |
 | `SITE_URL` | Public base URL (used for canonical tags and sitemaps) |

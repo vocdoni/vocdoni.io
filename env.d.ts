@@ -8,6 +8,8 @@ declare const NOINDEX: boolean
 declare const APP_URL: string
 declare const PLATFORM_URL: string
 declare const GTM_ID: string
+declare const POSTHOG_PUBLIC_KEY: string
+declare const POSTHOG_HOST: string
 // EmailJS configuration variables defined in vite.config.ts
 declare const EMAILJS_PUBLIC_KEY: string
 declare const EMAILJS_SERVICE_ID: string

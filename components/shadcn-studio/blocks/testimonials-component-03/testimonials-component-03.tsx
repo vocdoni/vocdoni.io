@@ -69,7 +69,9 @@ const getColumnCount = () => {
 }
 
 const useResponsiveColumnCount = () => {
-  const [columnCount, setColumnCount] = useState(getColumnCount)
+  // Keep the server and first client render identical. The effect applies the
+  // responsive layout after hydration, when matchMedia is safe to read.
+  const [columnCount, setColumnCount] = useState(1)
 
   useEffect(() => {
     const desktopQuery = window.matchMedia('(min-width: 1024px)')

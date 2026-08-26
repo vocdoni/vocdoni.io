@@ -1,3 +1,5 @@
+import { capturePostHogEvent } from '@/lib/posthog'
+
 type AnalyticsWindow = Window & {
   dataLayer?: Array<Record<string, unknown> | IArguments>
   gtag?: (...args: unknown[]) => void
@@ -57,6 +59,8 @@ export function trackAppCtaClick({ ctaId, destinationUrl }: AppCtaClick): void {
     destination_host: destination.hostname,
     destination_path: destination.pathname,
   }
+
+  capturePostHogEvent('app_cta_click', properties)
 
   if (typeof analyticsWindow.gtag === 'function') {
     analyticsWindow.gtag('event', 'app_cta_click', properties)
