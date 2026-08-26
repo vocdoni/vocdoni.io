@@ -71,7 +71,7 @@ export const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
     const hasAccessibleLabel = Boolean(props['aria-label'])
 
     const handleClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
-      if (cta) trackCtaClick(cta, href)
+      if (cta) trackCtaClick(cta, href, normalizedLogical)
       onClick?.(event)
     }
 

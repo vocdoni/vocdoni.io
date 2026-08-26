@@ -1,6 +1,13 @@
 import { describe, expect, it } from 'vitest'
 
-import { posthogBeforeSend, resolveCtaTarget, sanitizeAnalyticsUrl, toPosthogConsent } from '@/lib/analytics'
+import {
+  classifyPath,
+  pageViewEvent,
+  posthogBeforeSend,
+  resolveCtaTarget,
+  sanitizeAnalyticsUrl,
+  toPosthogConsent,
+} from '@/lib/analytics'
 
 const urls = { appUrl: 'https://app.vocdoni.io', platformUrl: 'https://platform.vocdoni.io' }
 
@@ -80,5 +87,63 @@ describe('toPosthogConsent', () => {
     expect(toPosthogConsent('yes')).toBeNull()
     expect(toPosthogConsent(null)).toBeNull()
     expect(toPosthogConsent(undefined)).toBeNull()
+  })
+})
+
+describe('classifyPath', () => {
+  it('reads the vertical off a solution page, which is what ranks the landing pages', () => {
+    expect(classifyPath('/solutions/associations')).toEqual({ pageType: 'solution', vertical: 'associations' })
+    expect(classifyPath('/solutions')).toEqual({ pageType: 'solutions_index' })
+  })
+
+  it('separates a blog post from a category listing', () => {
+    expect(classifyPath('/blog/my-post')).toEqual({ pageType: 'blog_post', slug: 'my-post' })
+    expect(classifyPath('/blog/category/governance')).toEqual({ pageType: 'blog_category', slug: 'governance' })
+    expect(classifyPath('/blog')).toEqual({ pageType: 'blog_index' })
+  })
+
+  it('distinguishes docs pages from the rest of the developers section', () => {
+    expect(classifyPath('/developers/docs/getting-started')).toEqual({
+      pageType: 'docs_page',
+      slug: 'getting-started',
+    })
+    expect(classifyPath('/developers/docs')).toEqual({ pageType: 'docs_index' })
+    expect(classifyPath('/developers')).toEqual({ pageType: 'developers' })
+  })
+
+  it('classifies the remaining known routes', () => {
+    expect(classifyPath('/')).toEqual({ pageType: 'home' })
+    expect(classifyPath('/case-studies/coib')).toEqual({ pageType: 'case_study', slug: 'coib' })
+    expect(classifyPath('/learn/anonymous-voting-explained')).toEqual({
+      pageType: 'learn_article',
+      slug: 'anonymous-voting-explained',
+    })
+    expect(classifyPath('/contact')).toEqual({ pageType: 'contact' })
+    expect(classifyPath('/privacy')).toEqual({ pageType: 'legal' })
+    expect(classifyPath('/something-new')).toEqual({ pageType: 'other' })
+  })
+
+  it('ignores trailing slashes, query strings and fragments', () => {
+    expect(classifyPath('/solutions/ngos/')).toEqual({ pageType: 'solution', vertical: 'ngos' })
+    expect(classifyPath('/blog/a-post?utm_source=x#section')).toEqual({ pageType: 'blog_post', slug: 'a-post' })
+  })
+})
+
+describe('pageViewEvent', () => {
+  it('emits a funnel-starting event for the page kinds that begin a journey', () => {
+    expect(pageViewEvent(classifyPath('/solutions/cooperatives'))).toEqual({
+      name: 'solution_page_viewed',
+      props: { vertical: 'cooperatives' },
+    })
+    expect(pageViewEvent(classifyPath('/learn/verifiable-voting-explained'))).toEqual({
+      name: 'learn_article_viewed',
+      props: { slug: 'verifiable-voting-explained' },
+    })
+  })
+
+  it('stays silent on ordinary pages, which $pageview already covers', () => {
+    expect(pageViewEvent(classifyPath('/'))).toBeNull()
+    expect(pageViewEvent(classifyPath('/solutions'))).toBeNull()
+    expect(pageViewEvent(classifyPath('/contact'))).toBeNull()
   })
 })

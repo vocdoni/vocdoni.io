@@ -9,6 +9,7 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
+import { AnalyticsEvents, trackAnalyticsEvent } from '@/lib/analytics'
 import { buildEmailJsParams, getContactFormConfigError, type ContactFormValues } from '@/lib/contactForm'
 import { setCookieConsent } from '@/lib/cookieConsent'
 import { useIsClient } from '@/lib/useIsClient'
@@ -53,6 +54,13 @@ const ContactForm = () => {
     try {
       await send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, buildEmailJsParams(data, token), EMAILJS_PUBLIC_KEY)
 
+      // No field values are reported: every one of them is free text the visitor
+      // typed, including the subject line, and may hold personal data.
+      trackAnalyticsEvent({
+        name: AnalyticsEvents.ContactFormSubmitted,
+        props: { has_organization: Boolean(data.organization) },
+      })
+
       setStatus('success')
       reset()
       setFormData(null)
@@ -61,6 +69,7 @@ const ContactForm = () => {
       resetStatusLater()
     } catch (error) {
       console.error('[Contact Form] EmailJS send error:', error)
+      trackAnalyticsEvent({ name: AnalyticsEvents.ContactFormFailed, props: { reason: 'send_error' } })
       setStatus('error')
       recaptchaRef.current?.reset()
       resetStatusLater()
@@ -74,6 +83,7 @@ const ContactForm = () => {
     }
 
     console.error('[Contact Form] reCAPTCHA verification failed')
+    trackAnalyticsEvent({ name: AnalyticsEvents.ContactFormFailed, props: { reason: 'captcha_error' } })
     setStatus('captcha_error')
     setShowRecaptcha(false)
     recaptchaRef.current?.reset()
@@ -100,6 +110,7 @@ const ContactForm = () => {
         )
       }
 
+      trackAnalyticsEvent({ name: AnalyticsEvents.ContactFormFailed, props: { reason: 'config_error' } })
       setStatus('config_error')
       resetStatusLater()
       return

@@ -192,6 +192,7 @@ export function Navbar() {
                               <CalBookingDialog
                                 className='block w-full select-none space-y-1 rounded-[10px] px-3 py-2 text-left leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:bg-accent focus-visible:text-accent-foreground'
                                 triggerAriaLabel={item.triggerAriaLabel}
+                                location='navbar'
                               >
                                 <div className='text-[15px] font-medium leading-none'>{item.title}</div>
                                 <p className='line-clamp-2 text-[13px] leading-snug text-muted-foreground'>
@@ -382,6 +383,7 @@ export function Navbar() {
                                   key={item.title}
                                   className='block rounded-[10px] px-3 py-2.5 text-left text-base transition-colors hover:bg-accent'
                                   triggerAriaLabel={item.triggerAriaLabel}
+                                  location='navbar_mobile'
                                   onClick={() => setIsOpen(false)}
                                 >
                                   {item.title}

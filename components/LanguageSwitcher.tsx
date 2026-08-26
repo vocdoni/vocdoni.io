@@ -1,4 +1,5 @@
 import { Link } from '@/components/Link'
+import { AnalyticsEvents, trackAnalyticsEvent } from '@/lib/analytics'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
 import { setLocalePreference } from '@/lib/localeDetection'
 import { getLocalizedPath, stripLocaleFromPath } from '@/lib/localized-path'
@@ -55,6 +56,13 @@ export function LanguageSwitcher() {
           const isActive = lang.value === current
           const handleClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
             setLocalePreference(lang.value)
+
+            if (!isActive) {
+              trackAnalyticsEvent({
+                name: AnalyticsEvents.LanguageChanged,
+                props: { from: current, to: lang.value },
+              })
+            }
 
             if (isActive && !event.defaultPrevented && isPlainLeftClick(event)) {
               event.preventDefault()

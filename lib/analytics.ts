@@ -10,6 +10,16 @@ import type { CaptureResult } from 'posthog-js'
  */
 export const AnalyticsEvents = {
   CtaClicked: 'cta_clicked',
+  SolutionPageViewed: 'solution_page_viewed',
+  CaseStudyViewed: 'case_study_viewed',
+  BlogPostViewed: 'blog_post_viewed',
+  LearnArticleViewed: 'learn_article_viewed',
+  DocsPageViewed: 'docs_page_viewed',
+  DemoRequested: 'demo_requested',
+  DemoBooked: 'demo_booked',
+  ContactFormSubmitted: 'contact_form_submitted',
+  ContactFormFailed: 'contact_form_failed',
+  LanguageChanged: 'language_changed',
 } as const
 
 export type AnalyticsEventName = (typeof AnalyticsEvents)[keyof typeof AnalyticsEvents]
@@ -20,6 +30,101 @@ export interface AnalyticsEvent {
 }
 
 export const DEFAULT_POSTHOG_HOST = 'https://eu.i.posthog.com'
+
+/**
+ * What kind of page a path is, derived from the route rather than declared page
+ * by page: routes are structured, so a new solution or article is classified
+ * correctly the day it is added, with nothing to remember.
+ *
+ * `path` is Vike's `urlLogical`, which already has the locale prefix stripped.
+ */
+export type PageType =
+  | 'home'
+  | 'solution'
+  | 'solutions_index'
+  | 'use_cases'
+  | 'case_study'
+  | 'case_studies_index'
+  | 'blog_post'
+  | 'blog_category'
+  | 'blog_index'
+  | 'learn_article'
+  | 'learn_index'
+  | 'docs_page'
+  | 'docs_index'
+  | 'developers'
+  | 'contact'
+  | 'app'
+  | 'about'
+  | 'legal'
+  | 'other'
+
+export type PageInfo = {
+  pageType: PageType
+  /** The vertical a solution page speaks to, e.g. `associations`. */
+  vertical?: string
+  /** The article, post, case study or docs page identifier. */
+  slug?: string
+}
+
+export function classifyPath(path: string): PageInfo {
+  const segments = (path || '/').split('?')[0].split('#')[0].split('/').filter(Boolean)
+
+  if (segments.length === 0) return { pageType: 'home' }
+
+  const [first, second, third] = segments
+
+  switch (first) {
+    case 'solutions':
+      return second ? { pageType: 'solution', vertical: second } : { pageType: 'solutions_index' }
+    case 'use-cases':
+      return { pageType: 'use_cases' }
+    case 'case-studies':
+      return second ? { pageType: 'case_study', slug: second } : { pageType: 'case_studies_index' }
+    case 'blog':
+      if (!second) return { pageType: 'blog_index' }
+      if (second === 'category') return third ? { pageType: 'blog_category', slug: third } : { pageType: 'blog_index' }
+      return { pageType: 'blog_post', slug: second }
+    case 'learn':
+      return second ? { pageType: 'learn_article', slug: second } : { pageType: 'learn_index' }
+    case 'developers':
+      if (second !== 'docs') return { pageType: 'developers' }
+      return third ? { pageType: 'docs_page', slug: third } : { pageType: 'docs_index' }
+    case 'contact':
+      return { pageType: 'contact' }
+    case 'app':
+      return { pageType: 'app' }
+    case 'about-us':
+      return { pageType: 'about' }
+    case 'privacy':
+    case 'terms':
+      return { pageType: 'legal' }
+    default:
+      return { pageType: 'other' }
+  }
+}
+
+/**
+ * The content event a page should report on arrival, if any. Only the page kinds
+ * that start a funnel get one; ordinary pages are covered by `$pageview`, which
+ * already carries the path.
+ */
+export function pageViewEvent(info: PageInfo): AnalyticsEvent | null {
+  switch (info.pageType) {
+    case 'solution':
+      return { name: AnalyticsEvents.SolutionPageViewed, props: { vertical: info.vertical ?? '' } }
+    case 'case_study':
+      return { name: AnalyticsEvents.CaseStudyViewed, props: { slug: info.slug ?? '' } }
+    case 'blog_post':
+      return { name: AnalyticsEvents.BlogPostViewed, props: { slug: info.slug ?? '' } }
+    case 'learn_article':
+      return { name: AnalyticsEvents.LearnArticleViewed, props: { slug: info.slug ?? '' } }
+    case 'docs_page':
+      return { name: AnalyticsEvents.DocsPageViewed, props: { slug: info.slug ?? '' } }
+    default:
+      return null
+  }
+}
 
 /** Where a CTA points, so funnels can select the ones that lead into a product. */
 export type CtaTarget = 'app' | 'platform' | 'contact' | 'external' | 'internal'
@@ -203,12 +308,20 @@ export const trackAnalyticsEvent = (event: AnalyticsEvent): void => {
  * problem, and therefore the join between the two halves of every cross-site
  * funnel. `location` names where the CTA sits, `target` where it leads.
  */
-export const trackCtaClick = (location: string, href: string): void => {
+export const trackCtaClick = (location: string, href: string, path: string): void => {
+  // Page context is read at click time rather than registered as a super
+  // property: PostHog captures `$pageview` from its own history listener, which
+  // fires before React re-renders, so a per-page super property would lag a
+  // navigation behind and attribute a click to the previous page.
+  const { pageType, vertical } = classifyPath(path)
+
   trackAnalyticsEvent({
     name: AnalyticsEvents.CtaClicked,
     props: {
       location,
       target: resolveCtaTarget(href, { appUrl: APP_URL, platformUrl: PLATFORM_URL }),
+      page_type: pageType,
+      ...(vertical ? { vertical } : {}),
     },
   })
 }

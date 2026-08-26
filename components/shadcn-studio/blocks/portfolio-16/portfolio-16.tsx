@@ -64,6 +64,7 @@ const Portfolio = ({ portfolioItems }: PortfolioProps) => {
                 <CalBookingDialog
                   triggerAriaLabel={`Book meeting for ${project.title}`}
                   className='flex h-full w-full text-left'
+                  location='use_cases'
                 >
                   <Card
                     className={`group relative flex h-full w-full flex-col justify-between overflow-hidden border-none pb-0 shadow-none transition-colors duration-300 ${project.backgroundColor}`}

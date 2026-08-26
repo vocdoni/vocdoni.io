@@ -3,12 +3,16 @@ import { useTranslation } from 'react-i18next'
 
 import {
   applyPosthogConsent,
+  classifyPath,
   initializePosthog,
+  pageViewEvent,
   registerPosthogSuperProperties,
   toPosthogConsent,
+  trackAnalyticsEvent,
   type PosthogConsent,
 } from '@/lib/analytics'
 import { CONSENT_CHANGE_EVENT, getCookieConsent } from '@/lib/cookieConsent'
+import { usePageContext } from 'vike-react/usePageContext'
 
 /**
  * Wires PostHog into the site: consent, and the super properties every event
@@ -20,6 +24,8 @@ import { CONSENT_CHANGE_EVENT, getCookieConsent } from '@/lib/cookieConsent'
  */
 export function Analytics() {
   const { i18n } = useTranslation()
+  const pageContext = usePageContext() as { urlLogical?: string }
+  const urlLogical = pageContext.urlLogical || '/'
   const [consent, setConsent] = useState<PosthogConsent>(null)
 
   // Consent is only readable in the browser, and this site is prerendered, so it
@@ -52,6 +58,14 @@ export function Analytics() {
     const locale = i18n.resolvedLanguage || i18n.language
     registerPosthogSuperProperties({ site: 'web', ...(locale ? { locale } : {}) })
   }, [i18n.resolvedLanguage, i18n.language])
+
+  // The content events that start a funnel. Ordinary pages are covered by
+  // `$pageview`, which already carries the path; these exist so a funnel can
+  // break down by `vertical` or `slug` without matching URLs.
+  useEffect(() => {
+    const event = pageViewEvent(classifyPath(urlLogical))
+    if (event) trackAnalyticsEvent(event)
+  }, [urlLogical])
 
   return null
 }
