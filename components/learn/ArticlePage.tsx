@@ -95,14 +95,34 @@ export function ArticlePage({ content, currentGuide, ctaHref = '/solutions' }: A
   const sections = asArray<ArticleSection>(content.sections)
   const takeaways = asArray<string>(content.takeaways)
   const faq = asArray<ArticleFaqItem>(content.faq)
+  // Titles come from the hub copy (`learn_index.cards.*`) rather than each
+  // article's own H1 so a guide is labelled identically on /learn and here.
   const guideTitles: Record<GuideSlug, string> = {
-    anonymous_voting_explained: t('learn.anonymous_voting_explained.title'),
-    blockchain_voting_myths_vs_reality: t('learn.blockchain_voting_myths_vs_reality.title'),
-    gdpr_requirements_for_digital_voting: t('learn.gdpr_requirements_for_digital_voting.title'),
-    how_secure_online_voting_works: t('learn.how_secure_online_voting_works.title'),
-    how_to_prevent_election_fraud_online: t('learn.how_to_prevent_election_fraud_online.title'),
-    how_to_run_a_legally_valid_agm_online: t('learn.how_to_run_a_legally_valid_agm_online.title'),
-    verifiable_voting_explained: t('learn.verifiable_voting_explained.title'),
+    anonymous_voting_explained: t('learn_index.cards.anonymous_voting_explained.title', 'Anonymous voting explained'),
+    blockchain_voting_myths_vs_reality: t(
+      'learn_index.cards.blockchain_voting_myths_vs_reality.title',
+      'Blockchain voting: myths vs reality'
+    ),
+    gdpr_requirements_for_digital_voting: t(
+      'learn_index.cards.gdpr_requirements_for_digital_voting.title',
+      'GDPR requirements for digital voting'
+    ),
+    how_secure_online_voting_works: t(
+      'learn_index.cards.how_secure_online_voting_works.title',
+      'How secure online voting works'
+    ),
+    how_to_prevent_election_fraud_online: t(
+      'learn_index.cards.how_to_prevent_election_fraud_online.title',
+      'How to prevent election fraud in online voting'
+    ),
+    how_to_run_a_legally_valid_agm_online: t(
+      'learn_index.cards.how_to_run_a_legally_valid_agm_online.title',
+      'How to run a legally valid AGM online'
+    ),
+    verifiable_voting_explained: t(
+      'learn_index.cards.verifiable_voting_explained.title',
+      'Verifiable voting explained'
+    ),
   }
   const relatedGuides = RELATED_GUIDES[currentGuide].map((slug) => ({
     href: GUIDE_HREFS[slug],

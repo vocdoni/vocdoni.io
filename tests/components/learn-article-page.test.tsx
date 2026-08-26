@@ -52,4 +52,13 @@ describe('Learn article related guides', () => {
     expect(html).toContain('/en/learn/how-to-prevent-election-fraud-online')
     expect(html).not.toContain('href="/en/learn/how-secure-online-voting-works"')
   })
+
+  it('renders translated guide titles rather than raw i18n keys', () => {
+    const html = renderToStaticMarkup(<ArticlePage content={content} currentGuide='how_secure_online_voting_works' />)
+
+    expect(html).toContain('Verifiable voting explained')
+    expect(html).toContain('Anonymous voting explained')
+    expect(html).toContain('How to prevent election fraud in online voting')
+    expect(html).not.toContain('learn_index.cards.')
+  })
 })
