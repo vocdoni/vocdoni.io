@@ -4,5 +4,10 @@ import { usePageContext } from 'vike-react/usePageContext'
 import type { PageContext } from 'vike/types'
 
 export default function HeadDefault() {
-  return <HeadTags {...(usePageContext() as PageContext)} />
+  return (
+    <>
+      <meta name='build-commit' content={__COMMIT_SHA__} />
+      <HeadTags {...(usePageContext() as PageContext)} />
+    </>
+  )
 }
