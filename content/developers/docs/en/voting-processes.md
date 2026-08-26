@@ -39,10 +39,10 @@ Each **question** shapes one ballot:
 | --- | --- | --- |
 | `title` (required) | multilang | Question title. |
 | `description` | multilang | Question description. |
-| `choices` (required) | array | Options, each a `title` plus a numeric `value`. |
-| `type` | string | `singlechoice` or `multichoice`. See [Voting types](/developers/docs/voting-types). |
-| `typeSetup` | object | `minChoices`, `maxChoices`, `uniqueChoices`. |
-| `ballotProtocol` | object | Optional raw ballot override (approval, ranked, quadratic). Takes priority over `type`/`typeSetup`. |
+| `choices` (required) | array | Options, each a `title` plus a numeric `value`. One choice may set `openValue: true` to collect a free-text memo - see [Open-value choices](/developers/docs/voting-types#open-value-choices). |
+| `type` | string | `singlechoice`, `multichoice`, `ranked` or `cumulative`. See [Voting types](/developers/docs/voting-types). |
+| `typeSetup` | object | Tuning for the type: `maxChoices` (`multichoice`), `budget` and `costExponent` (`cumulative`), `minChoices`. |
+| `ballotProtocol` | object | Optional raw ballot override for shapes the named types do not cover. Takes priority over `type`/`typeSetup`. |
 | `census` | object | Optional eligibility subset (`groupId`/`memberIds`) within the process census. Omit to include all census members. |
 | `secretUntilTheEnd` | boolean | Keep this question's tally encrypted until it ends. |
 
@@ -105,6 +105,12 @@ processId = post("/processes", {
 ```
 :::
 
+> [!NOTE] Collecting a free-text answer
+> To give a question an "Other" free-text option, mark one of its choices `"openValue": true`. See
+> [Open-value choices](/developers/docs/voting-types#open-value-choices) for which types allow it and
+> the one-per-question rule, and [Casting votes](/developers/docs/casting-votes#open-value-choices) for
+> how a voter fills it in.
+
 ## Editing a draft
 
 While a process is unpublished you can replace its fields with the same body. Once published it is
@@ -130,14 +136,17 @@ curl "${auth[@]}" -X DELETE "$B/processes/$PROCESS"
 synced `status`, and live per-question results). `GET /processes` lists them paginated, filterable by
 `orgAddress` and question `status`.
 
-These reads are **public for published processes** - anyone can read them, no API key. Two things are
+These reads are **public for published processes** - anyone can read them, no API key. Three things are
 gated to a **manager/admin** of the org (or a `voting:write` API key acting as one):
 
 - **drafts** (`published: false`) - the single read returns `404` for everyone else (hiding existence),
   and the list returns published processes only;
 - **`eligibleMemberIds`** on each question (who may vote) - stripped for non-managers. A voter checks
   their *own* per-question eligibility with
-  [`POST /processes/{processId}/check`](/developers/docs/casting-votes#voter-status).
+  [`POST /processes/{processId}/check`](/developers/docs/casting-votes#voter-status);
+- **`results.memos`** on an [open-value](/developers/docs/voting-types#open-value-choices) question -
+  the free-text voter memos, returned only to a manager and absent for everyone else. See
+  [Voter memos](/developers/docs/results#voter-memos).
 
 - **GET** `/processes/{processId}`
 - **GET** `/processes`
@@ -179,8 +188,10 @@ Every **published** question carries its **live** tally inline as a `results` ob
 `maxVoters`, `finalResults`, and the `results` matrix); `finalResults` marks live vs final. The object
 is absent only for a **draft** (no election yet). A published question with no votes yet has a
 **zero-filled** matrix; while a `secretUntilTheEnd` question is still encrypted the inner `results` is
-**omitted** (only `voteCount` moves) - poll until it appears. The `GET /processes` **list** does not
-resolve results. See [Results](/developers/docs/results).
+**omitted** (only `voteCount` moves) - poll until it appears. On an
+[open-value](/developers/docs/voting-types#open-value-choices) question a manager/admin also gets a
+`memos` array inside this object; it is absent for everyone else. The `GET /processes` **list** does
+not resolve results. See [Results](/developers/docs/results).
 
 The `census` object also carries response-only **`size`** (eligible-voter count, on every read) and
 **`totalWeight`** (the sum of members' weights - equals `size` for a non-weighted census), the

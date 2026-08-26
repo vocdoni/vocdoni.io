@@ -101,6 +101,7 @@ const jobId = await voting.vote({
   signer,
   cspSignature: signature,
   cspWeight: weight,
+  // memo: 'Grace Hopper',   // only for an open-value choice - see below
 })
 const job = await client.jobs.waitFor(jobId)
 console.log('voteID:', job.result?.voteID)
@@ -137,9 +138,61 @@ const jobId = await voting.vote({
 The keykeepers publish the keys asynchronously, so `encryptionKeys` can be absent for a few seconds
 right after publish - poll the question read until it is present before building the ballot.
 
+### Open-value choices
+
+When a question marks one choice with
+[`openValue`](/developers/docs/voting-types#open-value-choices) - an "Other" option - a voter who
+picks it can attach a free-text **memo** to their ballot. The flag is on the public question read, so
+the voter app finds the open choice and renders a text input for it without authenticating:
+
+```ts
+const { choices } = await client.processes.getQuestion(processId, question.questionId)
+// `openValue` is sent by the API but not yet in the SDK's Choice type; cast until it lands
+const openChoice = choices.find((c) => (c as { openValue?: boolean }).openValue)
+if (!openChoice) return // this question has no open-value choice
+
+const jobId = await voting.vote({
+  // ...same options as above, plus:
+  // singlechoice ballot selecting the open choice; multichoice and cumulative select it
+  // differently (one field per option) - see Voting types for the per-type ballot shape
+  choices: [openChoice.value],
+  memo: 'Grace Hopper',
+})
+```
+
+Two things decide whether that memo ever reaches an organizer:
+
+- **The ballot has to select the open choice.** A memo sent alongside any other selection is dropped
+  from the results - silently, with no error at cast time. So a UI that shows the text box should also
+  select the open choice, or refuse to submit. How the ballot selects it depends on the type
+  (singlechoice sets the field to its value, multichoice to `1`, cumulative to any credit) - see
+  [Voting types](/developers/docs/voting-types).
+- **It has to fit.** The cap is **256 bytes** (the memo's UTF-8 encoding) - bytes, not characters, so
+  accented or CJK text runs out sooner (~85 emoji). The chain **rejects the whole vote transaction** if
+  it is exceeded, not just the memo, so the SDK checks `MAX_MEMO_BYTES` and throws before the CSP
+  signature is spent.
+
+The memo is one string per ballot, so a process with several open-value questions carries one memo per
+question, each on its own vote.
+
+> [!WARNING] Memos are cleartext, even on secret questions
+> The memo rides on the vote envelope, not inside the vote package - and only the package is
+> encrypted. On a `secretUntilTheEnd` question the ballot is sealed but **the memo is not**: it is
+> readable on chain from the moment the vote lands. Free text is also self-identifying more often than
+> voters expect ("as the treasurer, I think..."), which can undo the anonymity of the ballot it rides
+> with. Treat a memo as public input, tell voters so, and never collect sensitive detail through it.
+> If a memo genuinely must stay confidential, encrypt the text client-side before casting: the protocol
+> treats the field as opaque, so ciphertext (encoded to fit the 256-byte cap, which leaves less room
+> than plain text) rides through unchanged, and only a holder of your key can read it back from the
+> results.
+
 > [!TIP] Building with React
 > `@vocdoni/react-providers` wraps this whole flow in context providers and hooks that authenticate,
-> sign and relay for you. See the [SDK repository]({{SDK_URL}}) and the
+> sign and relay for you. Its `vote(encodedBallots, memos?)` takes one optional memo per question and
+> validates the count and the byte cap up front, before any single-use CSP signature is spent. In
+> `@vocdoni/react-components`, registering reserved `memo.0`, `memo.1`, ... fields in the questions
+> form collects them automatically - no memo input is rendered by default, you add one where you want
+> it. See the [SDK repository]({{SDK_URL}}) and the
 > [SDK quickstart](/developers/docs/sdk-quickstart).
 
 ## Voter status
@@ -215,6 +268,15 @@ Repeat steps **b** and **c** for every question the voter is eligible for; the a
 > The vote package inside the envelope is `{"votes":[<choice>]}` - for example `{"votes":[1]}`. Building
 > and signing the envelope is exactly what the SDK does for you above. See
 > [Voting types](/developers/docs/voting-types) for how the choices array is shaped per ballot type.
+>
+> A memo for an [open-value choice](#open-value-choices) is the envelope's own `memo` field
+> (`VoteEnvelope.memo`, from `@vocdoni/proto` 1.15.13 on) - a sibling of the vote package, not part of
+> it. The chain caps it at **256 bytes** and **rejects the entire vote** past that - the transaction is
+> refused at mempool admission, so the ballot is lost, not just the note. The saas API relays the
+> signed envelope without checking, so the node is the only enforcement point: **validate the byte
+> length client-side** to fail before the CSP signature is spent, exactly as the SDK does above. The
+> field is opaque - the chain checks length only, not encoding - so measure the UTF-8 byte length, not
+> the character count.
 
 > [!NOTE] Encrypted (secret-until-the-end) questions
 > For a question created with `secretUntilTheEnd`, seal the vote package with the question's
