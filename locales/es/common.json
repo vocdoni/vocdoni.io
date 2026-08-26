@@ -2531,6 +2531,10 @@
         "answer": "No. Los votos se cifran antes de emitirse. El resultado final se calcula sin que nadie, incluido Vocdoni, vea nunca las opciones individuales.",
         "question": "¿Puede alguien ver qué han votado los miembros?"
       },
+      "authentication": {
+        "answer": "La organización importa el censo electoral y elige la autenticación por correo electrónico o SMS. Cada votante debe demostrar que puede participar antes de votar. Las comprobaciones criptográficas evitan votos finales duplicados sin vincular la identidad con la opción elegida.",
+        "question": "¿Cómo se autentica a los votantes?"
+      },
       "census": {
         "answer": "Sí. Puedes importar a tus miembros mediante CSV u otro formato de hoja de cálculo. Si necesitas una configuración más avanzada, podemos ayudarte a conectarla mediante una integración personalizada.",
         "question": "¿Puedo usar mi censo actual o mi CRM?"
@@ -2619,6 +2623,7 @@
     "product": {
       "custom_projects": "Proyectos a medida",
       "documentation": "Documentación",
+      "pricing": "Precios",
       "sdk_api": "SDK y API",
       "technology": "Tecnología",
       "title": "Producto",

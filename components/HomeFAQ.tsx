@@ -11,6 +11,7 @@ export default function HomeFAQ() {
     { question: t('faq.items.legal.question'), answer: t('faq.items.legal.answer') },
     { question: t('faq.items.anonymity.question'), answer: t('faq.items.anonymity.answer') },
     { question: t('faq.items.setup.question'), answer: t('faq.items.setup.answer') },
+    { question: t('faq.items.authentication.question'), answer: t('faq.items.authentication.answer') },
     { question: t('faq.items.free.question'), answer: t('faq.items.free.answer') },
     { question: t('faq.items.switch.question'), answer: t('faq.items.switch.answer') },
     { question: t('faq.items.dispute.question'), answer: t('faq.items.dispute.answer') },

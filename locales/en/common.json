@@ -2531,6 +2531,10 @@
         "answer": "No. Votes are encrypted before they are cast. The final result is calculated without anyone - including Vocdoni - ever seeing individual choices.",
         "question": "Can anyone see how members voted?"
       },
+      "authentication": {
+        "answer": "The organization imports the eligible voter list and chooses email or SMS authentication. Each voter must prove eligibility before voting. Cryptographic checks prevent duplicate final votes without linking identity to ballot choice.",
+        "question": "How are voters authenticated?"
+      },
       "census": {
         "answer": "Yes. You can import your members via CSV or another spreadsheet format. If you need a more advanced setup, we can help you connect it through a custom integration.",
         "question": "Can I use my existing voter list or CRM?"
@@ -2619,6 +2623,7 @@
     "product": {
       "custom_projects": "Custom projects",
       "documentation": "Documentation",
+      "pricing": "Pricing",
       "sdk_api": "SDK & API",
       "technology": "Technology",
       "title": "Product",

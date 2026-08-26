@@ -2531,6 +2531,10 @@
         "answer": "Ez. Botoak bidali aurretik enkriptatu egiten dira. Amaierako emaitza norbaitek ere (Vocdoni barne) inoren aukera indibidualak ikusi gabe kalkulatzen da.",
         "question": "Edonork ikus al dezake kideek nola bozkatu duten?"
       },
+      "authentication": {
+        "answer": "Erakundeak hautesle-errolda inportatzen du eta posta elektronikoz edo SMS bidez autentifikatzea aukeratzen du. Boto-emaile bakoitzak hautagarria dela frogatu behar du bozkatu aurretik. Egiaztapen kriptografikoek azken boto bikoiztuak eragozten dituzte, identitatea boto-aukerarekin lotu gabe.",
+        "question": "Nola autentifikatzen dira boto-emaileak?"
+      },
       "census": {
         "answer": "Bai. Zure kideak CSV bidez inporta ditzakezu, edo gure APIaren bidez sinkroniza ditzakezu, dagoeneko zure errolda beste sistema batean kudeatzen baduzu.",
         "question": "Erabili al dezaket nire lehendik dagoen botogileen zerrenda edo CRM-a?"
@@ -2619,6 +2623,7 @@
     "product": {
       "custom_projects": "Proiektu pertsonalizatuak",
       "documentation": "Dokumentazioa",
+      "pricing": "Prezioak",
       "sdk_api": "SDKa & APIa",
       "technology": "Teknologia",
       "title": "Produktua",
