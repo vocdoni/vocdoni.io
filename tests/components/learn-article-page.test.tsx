@@ -3,6 +3,7 @@ import { renderToStaticMarkup } from 'react-dom/server'
 import { describe, expect, it, vi } from 'vitest'
 
 import { ArticlePage, type ArticleContent } from '@/components/learn/ArticlePage'
+import { LearnHub } from '@/components/learn/LearnHub'
 import caCommon from '@/locales/ca/common.json'
 import deCommon from '@/locales/de/common.json'
 import elCommon from '@/locales/el/common.json'
@@ -53,6 +54,13 @@ const content: ArticleContent = {
 }
 
 describe('Learn article related guides', () => {
+  it('lists the quorum guide on the Learn hub', () => {
+    const html = renderToStaticMarkup(<LearnHub />)
+
+    expect(html).toContain('/learn/quorum-meaning-for-online-voting')
+    expect(html).toContain('Quorum meaning for online voting')
+  })
+
   it('has complete quorum guide content and metadata in every supported locale', () => {
     const locales = [
       caCommon,
