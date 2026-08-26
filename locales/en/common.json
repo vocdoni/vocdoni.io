@@ -693,6 +693,90 @@
       "takeaways_title": "Key takeaways",
       "title": "How to run a legally valid AGM online"
     },
+    "quorum_meaning_for_online_voting": {
+      "cta_label": "Explore voting for associations",
+      "cta_text": "See how associations can run accessible, verifiable member votes online.",
+      "cta_title": "Plan your next member vote",
+      "eyebrow": "Guide",
+      "faq": [
+        {
+          "answer": "There is no universal percentage. Your bylaws, charter, meeting rules, and local law set the requirement. It may be a fixed number, a percentage, or a majority of eligible members.",
+          "question": "What percentage is a quorum?"
+        },
+        {
+          "answer": "Only if the rules that govern your organization allow it. Check whether a proxy counts for attendance, voting, both, or neither before the meeting starts.",
+          "question": "Do proxy votes count toward quorum?"
+        },
+        {
+          "answer": "Often, yes. A member can be present for quorum while abstaining from a decision. Your rules may define this differently, so record attendance and votes separately.",
+          "question": "Do abstentions count toward quorum?"
+        },
+        {
+          "answer": "They can when your bylaws and local law allow remote participation. The meeting process must also identify who is present and keep the required attendance record.",
+          "question": "Do online participants count toward quorum?"
+        },
+        {
+          "answer": "Do not pass official decisions that require a quorum. Record the shortfall, follow your rules for adjournment or reconvening, and give any required new notice.",
+          "question": "What happens if there is no quorum?"
+        }
+      ],
+      "faq_title": "Frequently asked questions",
+      "intro": "A quorum is the minimum number of eligible members who must take part before a group can make valid decisions. This guide explains how to calculate, confirm, and document quorum for in-person, hybrid, and online votes.",
+      "sections": [
+        {
+          "heading": "What quorum means",
+          "paragraphs": [
+            "Quorum means the minimum attendance required before a meeting can conduct official business. The rule protects the wider membership from decisions made by a group that is too small to represent it.",
+            "The exact requirement usually comes from an organization's bylaws, charter, meeting rules, or applicable law. It may use a fixed number, a percentage, or a majority. Always check the rule that governs your organization before issuing the meeting notice."
+          ]
+        },
+        {
+          "heading": "Quorum is not the same as a voting majority",
+          "paragraphs": [
+            "Quorum decides whether the group may act. A voting threshold decides whether a proposal passes. These are separate tests.",
+            "For example, an association may need 60 members present to reach quorum. Its rules may then require more than half of the votes cast to approve an ordinary motion. A higher threshold may apply to changes such as amending bylaws."
+          ]
+        },
+        {
+          "heading": "How to calculate quorum",
+          "paragraphs": [
+            "First, identify the eligible membership for that meeting. Then apply the fixed number or percentage stated in your rules. If 120 members are eligible and the quorum is 50 percent, at least 60 must attend.",
+            "Write down how you will handle fractions, vacancies, suspended memberships, and late arrivals. Do not improvise these choices during the meeting. If the rule is unclear, get qualified advice before the vote opens."
+          ]
+        },
+        {
+          "heading": "Who counts toward quorum",
+          "paragraphs": [
+            "Attendance and ballot count are not always the same. A member may attend and abstain. A proxy may count under one organization's rules and not another's. Some rules count remote participants as present, while others require a specific form of participation.",
+            "Record each category separately. Keep the eligible-member total, confirmed attendance, proxies, abstentions, and ballots cast. This makes the final quorum record easier to review."
+          ]
+        },
+        {
+          "heading": "How quorum works in online voting",
+          "paragraphs": [
+            "An online process must translate the written quorum rule into a clear digital signal. Decide whether presence means joining a live meeting, authenticating during a time window, or casting a ballot. Your bylaws and local law should support that definition.",
+            "Before voting starts, prepare the eligible-member list and test the identity checks. During the meeting, track the participation data your rules require. After voting closes, preserve the attendance record separately from secret ballot choices.",
+            "A verifiable voting system can provide a checkable tally without exposing how each member voted. It does not decide your legal quorum rule. The organizer remains responsible for applying the correct rule and keeping the required records."
+          ]
+        },
+        {
+          "heading": "What to do when quorum is not reached",
+          "paragraphs": [
+            "Do not proceed with official decisions that require a quorum. Note the attendance shortfall in the minutes, then follow your rules for adjournment, a new meeting, or a second call with a different threshold.",
+            "Give fresh notice when required. Keep the failed attendance record with the later meeting record. This creates a clear history if members, auditors, or regulators review the decision. This guide gives general information, not legal advice."
+          ]
+        }
+      ],
+      "takeaways": [
+        "Quorum is the minimum attendance required before a group can act.",
+        "The quorum rule and the voting threshold are separate tests.",
+        "Your bylaws and local law decide who counts as present.",
+        "Online organizers must define and record the right participation signal.",
+        "Keep attendance evidence separate from secret ballot choices."
+      ],
+      "takeaways_title": "Key takeaways",
+      "title": "Quorum meaning: meetings, elections, and online voting"
+    },
     "verifiable_voting_explained": {
       "cta_label": "Explore solutions",
       "cta_text": "Explore how secure, verifiable voting fits your type of organization.",
@@ -788,6 +872,11 @@
         "category": "Guide",
         "description": "A practical checklist for a digital or hybrid annual general meeting.",
         "title": "How to run a legally valid AGM online"
+      },
+      "quorum_meaning_for_online_voting": {
+        "category": "Guide",
+        "description": "What quorum means, how to calculate it, and how to document it for online or hybrid votes.",
+        "title": "Quorum meaning for online voting"
       },
       "verifiable_voting_explained": {
         "category": "Explainer",
@@ -2838,6 +2927,10 @@
       "how_to_run_a_legally_valid_agm_online": {
         "description": "A practical guide to running a legally valid annual general meeting online: bylaws, notice, quorum, proxies, secret ballots, verifiable results and record-keeping.",
         "title": "How to run a legally valid AGM online | Vocdoni"
+      },
+      "quorum_meaning_for_online_voting": {
+        "description": "Learn what quorum means, how to calculate it, who counts, and how associations can document quorum for online or hybrid votes.",
+        "title": "Quorum meaning: meetings and online voting | Vocdoni"
       },
       "verifiable_voting_explained": {
         "description": "What verifiable voting and end-to-end verifiability mean, why they matter, and how voters and observers can check an election result without trusting the platform.",
