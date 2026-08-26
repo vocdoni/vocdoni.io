@@ -68,7 +68,7 @@ function Hero() {
                 </Link>
               </Button>
               <Button asChild size='lg' variant='outline' className='group w-full text-base sm:w-auto'>
-                <Link href={DEVELOPERS_DASHBOARD_URL} variant='inlineIcon'>
+                <Link href={DEVELOPERS_DASHBOARD_URL} variant='inlineIcon' cta='developers_landing'>
                   {t('developers.landing.hero.cta_dashboard', 'API Dashboard')}
                   <ArrowRight
                     className='size-5 transition-transform duration-200 group-hover:translate-x-0.5'

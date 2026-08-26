@@ -226,7 +226,7 @@ const UseCasesGrid = () => {
                         className='text-primary hover:text-primary w-full justify-center hover:bg-transparent'
                         asChild
                       >
-                        <Link href={useCase.caseStudy.href} variant='inlineIcon'>
+                        <Link href={useCase.caseStudy.href} variant='inlineIcon' cta='use_cases_case_study'>
                           {useCase.storyCtaLabel}
                           <ArrowRightIcon className='size-4' />
                         </Link>
