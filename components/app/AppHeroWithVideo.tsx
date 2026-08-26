@@ -55,6 +55,7 @@ export default function AppHeroWithVideo() {
               <Button size='lg' className='group text-base has-[>svg]:px-6 w-full sm:w-auto' asChild>
                 <Link
                   href={APP_URL}
+                  cta='app_hero'
                   target='_blank'
                   rel='noopener noreferrer'
                   variant='inlineIcon'

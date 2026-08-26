@@ -6,10 +6,10 @@ import { Globe, Send } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import VocdoniLogo from './Logo'
 
-type FooterLink = { label: string; href: string; external?: boolean; highlight?: boolean }
+type FooterLink = { label: string; href: string; external?: boolean; highlight?: boolean; cta?: string }
 
 const buildProductLinks = (t: TFunction): FooterLink[] => [
-  { label: t('footer.product.voting_platform', 'Voting platform'), href: APP_URL, external: true },
+  { label: t('footer.product.voting_platform', 'Voting platform'), href: APP_URL, external: true, cta: 'footer' },
   { label: t('footer.product.sdk_api', 'SDK & API'), href: '/developers' },
   { label: t('footer.product.documentation', 'Documentation'), href: '/developers/docs' },
   { label: t('footer.product.technology', 'Technology'), href: 'https://davinci.vote', external: true },
@@ -47,6 +47,7 @@ const FooterColumn = ({ title, links }: { title: string; links: FooterLink[] }) 
           <Link
             href={link.href}
             target={link.external ? '_blank' : undefined}
+            cta={link.cta}
             variant='footerNav'
             className={link.highlight ? 'text-foreground font-medium' : undefined}
           >

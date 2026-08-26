@@ -80,6 +80,8 @@ const viteconfig = ({ mode }: ConfigEnv) => {
       PLATFORM_URL: JSON.stringify(process.env.PLATFORM_URL || 'https://platform.vocdoni.io'),
       PLAUSIBLE_DOMAIN: JSON.stringify(process.env.PLAUSIBLE_DOMAIN || ''),
       GTM_ID: JSON.stringify(process.env.GTM_ID || ''),
+      POSTHOG_KEY: JSON.stringify(process.env.POSTHOG_KEY || ''),
+      POSTHOG_HOST: JSON.stringify(process.env.POSTHOG_HOST || 'https://eu.i.posthog.com'),
       EMAILJS_PUBLIC_KEY: JSON.stringify(process.env.EMAILJS_PUBLIC_KEY || ''),
       EMAILJS_SERVICE_ID: JSON.stringify(process.env.EMAILJS_SERVICE_ID || ''),
       EMAILJS_TEMPLATE_ID: JSON.stringify(process.env.EMAILJS_TEMPLATE_ID || ''),

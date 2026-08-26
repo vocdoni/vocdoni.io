@@ -48,6 +48,12 @@ static_sites:
   - key: PLAUSIBLE_DOMAIN
     scope: BUILD_TIME
     value: ${PLAUSIBLE_DOMAIN}
+  - key: POSTHOG_KEY
+    scope: BUILD_TIME
+    value: ${POSTHOG_KEY}
+  - key: POSTHOG_HOST
+    scope: BUILD_TIME
+    value: ${POSTHOG_HOST}
   - key: RECAPTCHA_SITE_KEY
     scope: BUILD_TIME
     value: ${RECAPTCHA_SITE_KEY}

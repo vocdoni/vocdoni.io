@@ -1,3 +1,4 @@
+import { Analytics } from '@/components/Analytics'
 import { CookieConsent } from '@/components/CookieConsent'
 import { getCompatibilityRedirectTarget, LOCALE_PREFERENCE_KEY, normalizeLogicalPath } from '@/lib/localeRedirect'
 import { useLocaleDetection } from '@/lib/useLocaleDetection'
@@ -115,6 +116,7 @@ function LocalizedLayout({
     <I18nextProvider i18n={i18n}>
       <div className='min-h-screen bg-background font-sans antialiased flex flex-col overflow-x-clip'>
         <SkipToMainContent />
+        <Analytics />
         <CookieConsent />
         <Navbar />
         {/* The navbar is sticky and in normal flow, so no top padding is needed. */}

@@ -1,3 +1,4 @@
+import { trackCtaClick } from '@/lib/analytics'
 import { ensureLeadingSlash, getLocalizedPath } from '@/lib/localized-path'
 import { cn } from '@/lib/utils'
 import { Locale } from '@/locales'
@@ -34,10 +35,17 @@ export interface LinkProps extends React.AnchorHTMLAttributes<HTMLAnchorElement>
   href: string
   locale?: Locale
   'keep-scroll-position'?: 'true' | 'false'
+  /**
+   * Reports a `cta_clicked` analytics event when the link is followed, naming
+   * where the CTA sits (`hero`, `navbar`, `footer`, ...). The destination is
+   * derived from `href`, so a single funnel can select only the links that lead
+   * into the app. Leave unset for ordinary navigation.
+   */
+  cta?: string
 }
 
 export const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
-  ({ href, children, locale, className, variant, ...props }, ref) => {
+  ({ href, children, locale, className, variant, cta, onClick, ...props }, ref) => {
     const { t } = useTranslation()
     const pageContext = usePageContext()
     locale = locale || (pageContext.locale as Locale) || 'en'
@@ -62,11 +70,17 @@ export const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
     const opensInNewTab = (externalProps.target ?? props.target) === '_blank'
     const hasAccessibleLabel = Boolean(props['aria-label'])
 
+    const handleClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
+      if (cta) trackCtaClick(cta, href)
+      onClick?.(event)
+    }
+
     return (
       <a
         ref={ref}
         href={fullHref}
         className={cn(linkVariants({ variant }), className, isActive ? 'font-semibold' : '')}
+        onClick={cta || onClick ? handleClick : undefined}
         {...externalProps}
         {...props}
       >

@@ -6,6 +6,10 @@ declare const SITE_URL: string
 declare const APP_URL: string
 declare const PLATFORM_URL: string
 declare const GTM_ID: string
+// PostHog: the project is shared with app.vocdoni.io, so both sites use the
+// same `phc_` key. Unset disables PostHog entirely (nothing is loaded).
+declare const POSTHOG_KEY: string
+declare const POSTHOG_HOST: string
 // EmailJS configuration variables defined in vite.config.ts
 declare const EMAILJS_PUBLIC_KEY: string
 declare const EMAILJS_SERVICE_ID: string

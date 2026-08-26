@@ -35,13 +35,13 @@ export default function Services() {
               </p>
               <div className='mt-8 flex flex-col gap-3 sm:flex-row sm:items-center'>
                 <Button asChild size='lg' className='has-[>svg]:px-6'>
-                  <Link href={APP_URL} variant='inlineIcon'>
+                  <Link href={APP_URL} variant='inlineIcon' cta='app_services'>
                     {t('app_landing.cta.primary', 'Start for free')}
                     <ArrowRightIcon />
                   </Link>
                 </Button>
                 <Button asChild variant='outline' size='lg'>
-                  <Link href={`${APP_URL}/plans`} variant='unstyled'>
+                  <Link href={`${APP_URL}/plans`} variant='unstyled' cta='app_plans'>
                     {t('app_landing.cta.secondary', 'See pricing')}
                   </Link>
                 </Button>

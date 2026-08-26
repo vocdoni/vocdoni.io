@@ -8,7 +8,10 @@ name: Deploy to DigitalOcean
 #   DIGITALOCEAN_ACCESS_TOKEN
 # Required GitHub repository variables (public, build-time values):
 #   EMAILJS_PUBLIC_KEY, EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID,
-#   GTM_ID, PLAUSIBLE_DOMAIN, RECAPTCHA_SITE_KEY, SITE_URL
+#   GTM_ID, PLAUSIBLE_DOMAIN, POSTHOG_KEY, POSTHOG_HOST, RECAPTCHA_SITE_KEY, SITE_URL
+#
+# POSTHOG_KEY is deliberately absent from the Netlify workflow: preview deploys must not report
+# into the production project, the same call already made for GTM_ID.
 #
 # `deploy_on_push` is set to false in the spec template so this action is the only thing that
 # deploys the app (no double deploys).
@@ -59,6 +62,8 @@ jobs:
           EMAILJS_TEMPLATE_ID: ${{ vars.EMAILJS_TEMPLATE_ID }}
           GTM_ID: ${{ vars.GTM_ID }}
           PLAUSIBLE_DOMAIN: ${{ vars.PLAUSIBLE_DOMAIN }}
+          POSTHOG_KEY: ${{ vars.POSTHOG_KEY }}
+          POSTHOG_HOST: ${{ vars.POSTHOG_HOST }}
           RECAPTCHA_SITE_KEY: ${{ vars.RECAPTCHA_SITE_KEY }}
           SITE_URL: ${{ vars.SITE_URL }}
         with:

@@ -470,6 +470,7 @@ export function Navbar() {
                         target='_blank'
                         rel='noopener noreferrer'
                         variant='unstyled'
+                        cta='navbar_mobile'
                         onClick={() => setIsOpen(false)}
                       >
                         {ctaLabel}
@@ -484,7 +485,7 @@ export function Navbar() {
           {/* Primary CTA (hidden on mobile) */}
           <div className='hidden xl:block'>
             <Button asChild variant='dark' size='sm' className='px-5'>
-              <Link href={ctaHref} target='_blank' rel='noopener noreferrer' variant='unstyled'>
+              <Link href={ctaHref} target='_blank' rel='noopener noreferrer' variant='unstyled' cta='navbar'>
                 {ctaLabel}
               </Link>
             </Button>
