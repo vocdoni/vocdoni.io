@@ -38,6 +38,7 @@ export type GuideSlug =
   | 'how_secure_online_voting_works'
   | 'how_to_prevent_election_fraud_online'
   | 'how_to_run_a_legally_valid_agm_online'
+  | 'quorum_meaning_for_online_voting'
   | 'verifiable_voting_explained'
 
 const RELATED_GUIDES: Record<GuideSlug, GuideSlug[]> = {
@@ -67,9 +68,14 @@ const RELATED_GUIDES: Record<GuideSlug, GuideSlug[]> = {
     'anonymous_voting_explained',
   ],
   how_to_run_a_legally_valid_agm_online: [
+    'quorum_meaning_for_online_voting',
     'gdpr_requirements_for_digital_voting',
     'how_secure_online_voting_works',
-    'how_to_prevent_election_fraud_online',
+  ],
+  quorum_meaning_for_online_voting: [
+    'how_to_run_a_legally_valid_agm_online',
+    'gdpr_requirements_for_digital_voting',
+    'how_secure_online_voting_works',
   ],
   verifiable_voting_explained: [
     'how_secure_online_voting_works',
@@ -85,6 +91,7 @@ const GUIDE_HREFS: Record<GuideSlug, string> = {
   how_secure_online_voting_works: '/learn/how-secure-online-voting-works',
   how_to_prevent_election_fraud_online: '/learn/how-to-prevent-election-fraud-online',
   how_to_run_a_legally_valid_agm_online: '/learn/how-to-run-a-legally-valid-agm-online',
+  quorum_meaning_for_online_voting: '/learn/quorum-meaning-for-online-voting',
   verifiable_voting_explained: '/learn/verifiable-voting-explained',
 }
 
@@ -118,6 +125,10 @@ export function ArticlePage({ content, currentGuide, ctaHref = '/solutions' }: A
     how_to_run_a_legally_valid_agm_online: t(
       'learn_index.cards.how_to_run_a_legally_valid_agm_online.title',
       'How to run a legally valid AGM online'
+    ),
+    quorum_meaning_for_online_voting: t(
+      'learn_index.cards.quorum_meaning_for_online_voting.title',
+      'Quorum meaning for online voting'
     ),
     verifiable_voting_explained: t(
       'learn_index.cards.verifiable_voting_explained.title',

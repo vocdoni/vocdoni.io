@@ -174,6 +174,14 @@ const metaDefaults = {
     'meta.learn.how_to_run_a_legally_valid_agm_online.description',
     'A practical guide to running a legally valid annual general meeting online: bylaws, notice, quorum, proxies, secret ballots, verifiable results and record-keeping.'
   ),
+  'meta.learn.quorum_meaning_for_online_voting.title': t(
+    'meta.learn.quorum_meaning_for_online_voting.title',
+    'Quorum meaning: meetings and online voting | Vocdoni'
+  ),
+  'meta.learn.quorum_meaning_for_online_voting.description': t(
+    'meta.learn.quorum_meaning_for_online_voting.description',
+    'Learn what quorum means, how to calculate it, who counts, and how associations can document quorum for online or hybrid votes.'
+  ),
   'meta.learn.gdpr_requirements_for_digital_voting.title': t(
     'meta.learn.gdpr_requirements_for_digital_voting.title',
     'GDPR requirements for digital voting | Vocdoni'

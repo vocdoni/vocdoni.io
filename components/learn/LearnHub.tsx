@@ -13,6 +13,7 @@ const ARTICLES: { slug: string; href: string }[] = [
   { slug: 'anonymous_voting_explained', href: '/learn/anonymous-voting-explained' },
   { slug: 'blockchain_voting_myths_vs_reality', href: '/learn/blockchain-voting-myths-vs-reality' },
   { slug: 'how_to_run_a_legally_valid_agm_online', href: '/learn/how-to-run-a-legally-valid-agm-online' },
+  { slug: 'quorum_meaning_for_online_voting', href: '/learn/quorum-meaning-for-online-voting' },
   { slug: 'gdpr_requirements_for_digital_voting', href: '/learn/gdpr-requirements-for-digital-voting' },
   { slug: 'how_to_prevent_election_fraud_online', href: '/learn/how-to-prevent-election-fraud-online' },
 ]
