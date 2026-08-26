@@ -115,7 +115,7 @@ export function SolutionPage({ icon: Icon, content, logos, caseStudyHref }: Solu
               transition={{ duration: 0.5 }}
             >
               <Button size='lg' className='has-[>svg]:px-6' asChild>
-                <Link href={APP_URL} variant='inlineIcon'>
+                <Link href={APP_URL} variant='inlineIcon' analyticsId='solution_hero_start'>
                   {content.cta_primary}
                   <ArrowRightIcon className='size-5' />
                 </Link>
