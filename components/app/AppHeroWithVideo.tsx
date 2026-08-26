@@ -58,6 +58,7 @@ export default function AppHeroWithVideo() {
                   target='_blank'
                   rel='noopener noreferrer'
                   variant='inlineIcon'
+                  ctaId='app_hero_start'
                   aria-label={t(
                     'vocdoni_app.app_hero.cta_primary_aria_label',
                     'Start for free in the Vocdoni app (opens in new tab)'

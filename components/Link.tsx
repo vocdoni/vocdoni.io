@@ -1,4 +1,5 @@
 import { ensureLeadingSlash, getLocalizedPath } from '@/lib/localized-path'
+import { trackAppCtaClick } from '@/lib/analytics'
 import { cn } from '@/lib/utils'
 import { Locale } from '@/locales'
 import { cva, type VariantProps } from 'class-variance-authority'
@@ -33,11 +34,12 @@ const linkVariants = cva('transition-colors', {
 export interface LinkProps extends React.AnchorHTMLAttributes<HTMLAnchorElement>, VariantProps<typeof linkVariants> {
   href: string
   locale?: Locale
+  ctaId?: string
   'keep-scroll-position'?: 'true' | 'false'
 }
 
 export const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
-  ({ href, children, locale, className, variant, ...props }, ref) => {
+  ({ href, children, locale, className, variant, ctaId, onClick, ...props }, ref) => {
     const { t } = useTranslation()
     const pageContext = usePageContext()
     locale = locale || (pageContext.locale as Locale) || 'en'
@@ -69,6 +71,10 @@ export const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
         className={cn(linkVariants({ variant }), className, isActive ? 'font-semibold' : '')}
         {...externalProps}
         {...props}
+        onClick={(event) => {
+          if (ctaId) trackAppCtaClick({ ctaId, destinationUrl: fullHref })
+          onClick?.(event)
+        }}
       >
         {children}
         {opensInNewTab && !hasAccessibleLabel && (
