@@ -8,11 +8,28 @@ export type AppCtaClick = {
   destinationUrl: string
 }
 
+/**
+ * Resolves a CTA destination, dropping anything that is not a well-formed
+ * http(s) URL. Schemes like `mailto:` or `tel:` carry the address in the
+ * pathname, which would leak user-entered content into the event payload.
+ */
+function resolveHttpDestination(destinationUrl: string): URL | null {
+  try {
+    const destination = new URL(destinationUrl, window.location.href)
+    if (destination.protocol !== 'http:' && destination.protocol !== 'https:') return null
+    return destination
+  } catch {
+    return null
+  }
+}
+
 export function trackAppCtaClick({ ctaId, destinationUrl }: AppCtaClick): void {
   if (typeof window === 'undefined') return
 
+  const destination = resolveHttpDestination(destinationUrl)
+  if (!destination) return
+
   const analyticsWindow = window as AnalyticsWindow
-  const destination = new URL(destinationUrl, window.location.href)
   const properties = {
     cta_id: ctaId,
     source_path: window.location.pathname,

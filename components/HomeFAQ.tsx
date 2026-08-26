@@ -59,7 +59,7 @@ export default function HomeFAQ() {
         <div className='mt-20 text-center bg-background p-10 rounded-3xl border border-border/70 shadow-sm'>
           <h3 className='text-2xl font-bold mb-4'>{t('faq.cta_title', 'Ready to see it for yourself?')}</h3>
           <Button asChild size='lg' className='rounded-full px-8 h-12 text-base'>
-            <Link href={APP_URL} target='_blank' rel='noreferrer' variant='unstyled' analyticsId='home_faq_start'>
+            <Link href={APP_URL} target='_blank' rel='noreferrer' variant='unstyled' ctaId='home_faq_start'>
               {t('faq.cta_button', 'Start for free')}
             </Link>
           </Button>

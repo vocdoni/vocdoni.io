@@ -34,12 +34,12 @@ const linkVariants = cva('transition-colors', {
 export interface LinkProps extends React.AnchorHTMLAttributes<HTMLAnchorElement>, VariantProps<typeof linkVariants> {
   href: string
   locale?: Locale
-  analyticsId?: string
+  ctaId?: string
   'keep-scroll-position'?: 'true' | 'false'
 }
 
 export const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
-  ({ href, children, locale, className, variant, analyticsId, onClick, ...props }, ref) => {
+  ({ href, children, locale, className, variant, ctaId, onClick, ...props }, ref) => {
     const { t } = useTranslation()
     const pageContext = usePageContext()
     locale = locale || (pageContext.locale as Locale) || 'en'
@@ -72,7 +72,7 @@ export const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
         {...externalProps}
         {...props}
         onClick={(event) => {
-          if (analyticsId) trackAppCtaClick({ ctaId: analyticsId, destinationUrl: fullHref })
+          if (ctaId) trackAppCtaClick({ ctaId, destinationUrl: fullHref })
           onClick?.(event)
         }}
       >

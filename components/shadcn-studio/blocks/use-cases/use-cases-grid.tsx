@@ -246,7 +246,7 @@ const UseCasesGrid = () => {
           </p>
           <div className='flex flex-wrap justify-center gap-4'>
             <Button size='lg' className='has-[>svg]:px-6' asChild>
-              <Link href={APP_URL} variant='inlineIcon' analyticsId='use_cases_grid_start'>
+              <Link href={APP_URL} variant='inlineIcon' ctaId='use_cases_grid_start'>
                 {t('use_cases_page.hero.cta_primary')}
                 <ArrowRightIcon className='size-5' />
               </Link>

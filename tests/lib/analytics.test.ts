@@ -51,4 +51,30 @@ describe('trackAppCtaClick', () => {
       },
     ])
   })
+
+  it('ignores non-http destinations that would leak user-entered content', () => {
+    const gtag = vi.fn()
+    const dataLayer: Array<Record<string, unknown>> = []
+    vi.stubGlobal('window', {
+      location: { href: 'https://vocdoni.io/en', pathname: '/en' },
+      gtag,
+      dataLayer,
+    })
+
+    trackAppCtaClick({ ctaId: 'contact_email', destinationUrl: 'mailto:someone@example.com' })
+
+    expect(gtag).not.toHaveBeenCalled()
+    expect(dataLayer).toEqual([])
+  })
+
+  it('ignores malformed destinations instead of throwing', () => {
+    const gtag = vi.fn()
+    vi.stubGlobal('window', {
+      location: { href: 'https://vocdoni.io/en', pathname: '/en' },
+      gtag,
+    })
+
+    expect(() => trackAppCtaClick({ ctaId: 'broken', destinationUrl: 'http://' })).not.toThrow()
+    expect(gtag).not.toHaveBeenCalled()
+  })
 })

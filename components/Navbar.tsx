@@ -470,7 +470,7 @@ export function Navbar() {
                         target='_blank'
                         rel='noopener noreferrer'
                         variant='unstyled'
-                        analyticsId={inDevelopers ? undefined : 'navbar_mobile_start'}
+                        ctaId={inDevelopers ? undefined : 'navbar_mobile_start'}
                         onClick={() => setIsOpen(false)}
                       >
                         {ctaLabel}
@@ -490,7 +490,7 @@ export function Navbar() {
                 target='_blank'
                 rel='noopener noreferrer'
                 variant='unstyled'
-                analyticsId={inDevelopers ? undefined : 'navbar_desktop_start'}
+                ctaId={inDevelopers ? undefined : 'navbar_desktop_start'}
               >
                 {ctaLabel}
               </Link>
