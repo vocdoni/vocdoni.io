@@ -2532,7 +2532,7 @@
         "question": "Peut-on voir comment les membres ont voté ?"
       },
       "authentication": {
-        "answer": "L'organisation importe la liste électorale et choisit une authentification par e-mail ou SMS. Chaque électeur doit prouver son éligibilité avant de voter. Des contrôles cryptographiques empêchent les votes finaux en double sans relier l'identité au choix exprimé.",
+        "answer": "L'organisation importe la liste électorale et peut authentifier les électeurs avec tout type d'identifiant, avec une seconde couche de sécurité par code à usage unique envoyé par SMS ou e-mail. Chaque électeur doit prouver son éligibilité avant de voter. Toute autre méthode d'authentification peut être mise en place à la demande, y compris les certificats numériques. Des contrôles cryptographiques empêchent les votes finaux en double sans relier l'identité au choix exprimé.",
         "question": "Comment les électeurs sont-ils authentifiés ?"
       },
       "census": {

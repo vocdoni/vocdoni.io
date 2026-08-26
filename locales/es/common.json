@@ -2532,7 +2532,7 @@
         "question": "¿Puede alguien ver qué han votado los miembros?"
       },
       "authentication": {
-        "answer": "La organización importa el censo electoral y elige la autenticación por correo electrónico o SMS. Cada votante debe demostrar que puede participar antes de votar. Las comprobaciones criptográficas evitan votos finales duplicados sin vincular la identidad con la opción elegida.",
+        "answer": "La organización importa el censo electoral y puede autenticar a los votantes con cualquier tipo de credencial, más una segunda capa de seguridad mediante un código de un solo uso enviado por SMS o correo electrónico. Cada votante debe demostrar que puede participar antes de votar. Cualquier otro método de autenticación puede implementarse a demanda, incluidos los certificados digitales. Las comprobaciones criptográficas evitan votos finales duplicados sin vincular la identidad con la opción elegida.",
         "question": "¿Cómo se autentica a los votantes?"
       },
       "census": {

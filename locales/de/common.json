@@ -2532,7 +2532,7 @@
         "question": "Kann jemand sehen, wie Mitglieder abgestimmt haben?"
       },
       "authentication": {
-        "answer": "Die Organisation importiert das Wählerverzeichnis und wählt die Authentifizierung per E-Mail oder SMS. Vor der Stimmabgabe muss jede Person ihre Wahlberechtigung nachweisen. Kryptografische Prüfungen verhindern doppelte endgültige Stimmen, ohne die Identität mit der Wahlentscheidung zu verknüpfen.",
+        "answer": "Die Organisation importiert das Wählerverzeichnis und kann die Wählerinnen und Wähler mit jeder Art von Zugangsdaten authentifizieren, ergänzt um eine zweite Sicherheitsebene per Einmalcode über SMS oder E-Mail. Vor der Stimmabgabe muss jede Person ihre Wahlberechtigung nachweisen. Jedes weitere Authentifizierungsverfahren lässt sich auf Anfrage umsetzen, einschließlich digitaler Zertifikate. Kryptografische Prüfungen verhindern doppelte endgültige Stimmen, ohne die Identität mit der Wahlentscheidung zu verknüpfen.",
         "question": "Wie werden Wählerinnen und Wähler authentifiziert?"
       },
       "census": {

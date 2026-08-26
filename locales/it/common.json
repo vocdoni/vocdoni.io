@@ -2532,7 +2532,7 @@
         "question": "Qualcuno può vedere come hanno votato i membri?"
       },
       "authentication": {
-        "answer": "L'organizzazione importa l'elenco degli aventi diritto e sceglie l'autenticazione tramite e-mail o SMS. Ogni elettore deve dimostrare la propria idoneità prima di votare. I controlli crittografici impediscono voti finali duplicati senza collegare l'identità alla scelta espressa.",
+        "answer": "L'organizzazione importa l'elenco degli aventi diritto e può autenticare gli elettori con qualsiasi tipo di credenziale, con un secondo livello di sicurezza tramite un codice monouso inviato via SMS o e-mail. Ogni elettore deve dimostrare la propria idoneità prima di votare. Qualsiasi altro metodo di autenticazione può essere implementato su richiesta, inclusi i certificati digitali. I controlli crittografici impediscono voti finali duplicati senza collegare l'identità alla scelta espressa.",
         "question": "Come vengono autenticati gli elettori?"
       },
       "census": {

@@ -2532,7 +2532,7 @@
         "question": "Algú pot veure què han votat els membres?"
       },
       "authentication": {
-        "answer": "L'organització importa el cens electoral i tria l'autenticació per correu electrònic o SMS. Cada votant ha d'acreditar que és elegible abans de votar. Les comprovacions criptogràfiques eviten vots finals duplicats sense vincular la identitat amb l'opció de vot.",
+        "answer": "L'organització importa el cens electoral i pot autenticar els votants amb qualsevol tipus de credencial, amb una segona capa de seguretat mitjançant un codi d'un sol ús enviat per SMS o correu electrònic. Cada votant ha d'acreditar que és elegible abans de votar. Qualsevol altre mètode d'autenticació es pot implementar a demanda, inclosos els certificats digitals. Les comprovacions criptogràfiques eviten vots finals duplicats sense vincular la identitat amb l'opció de vot.",
         "question": "Com s'autentiquen els votants?"
       },
       "census": {
