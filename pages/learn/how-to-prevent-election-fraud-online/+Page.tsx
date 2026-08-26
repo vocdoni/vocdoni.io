@@ -6,5 +6,5 @@ export default function Page() {
   const { t } = useTranslation()
   const content = t('learn.how_to_prevent_election_fraud_online', { returnObjects: true }) as ArticleContent
 
-  return <ArticlePage content={content} />
+  return <ArticlePage content={content} currentGuide='how_to_prevent_election_fraud_online' />
 }

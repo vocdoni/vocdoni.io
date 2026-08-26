@@ -6,5 +6,5 @@ export default function Page() {
   const { t } = useTranslation()
   const content = t('learn.how_to_run_a_legally_valid_agm_online', { returnObjects: true }) as ArticleContent
 
-  return <ArticlePage content={content} />
+  return <ArticlePage content={content} currentGuide='how_to_run_a_legally_valid_agm_online' />
 }
