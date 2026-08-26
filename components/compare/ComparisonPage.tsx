@@ -175,10 +175,10 @@ export function ComparisonPage({ content }: { content: ComparisonContent }) {
                     <th className='text-muted-foreground w-1/4 px-6 py-5 text-sm font-medium'>
                       {content.table_headers.criterion}
                     </th>
-                    <th className='bg-primary/8 w-3/8 px-6 py-5 text-lg font-semibold'>
+                    <th className='bg-primary/8 w-[37.5%] px-6 py-5 text-lg font-semibold'>
                       {content.table_headers.vocdoni}
                     </th>
-                    <th className='w-3/8 px-6 py-5 text-lg font-semibold'>{content.table_headers.electionbuddy}</th>
+                    <th className='w-[37.5%] px-6 py-5 text-lg font-semibold'>{content.table_headers.electionbuddy}</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -300,7 +300,10 @@ export function ComparisonPage({ content }: { content: ComparisonContent }) {
                 className='group bg-background hover:bg-muted flex min-h-24 items-center justify-between gap-4 p-6 font-medium'
               >
                 {item.label}
-                <ArrowRightIcon className='text-primary size-4 shrink-0 transition-transform group-hover:translate-x-1' />
+                <ArrowRightIcon
+                  className='text-primary size-4 shrink-0 transition-transform group-hover:translate-x-1'
+                  aria-hidden='true'
+                />
               </Link>
             ))}
           </div>
@@ -332,7 +335,7 @@ export function ComparisonPage({ content }: { content: ComparisonContent }) {
             <p className='text-muted-foreground mt-3 max-w-[60ch] leading-7'>{content.closing_text}</p>
             <Link href='/app' variant='inlineIcon' className='mt-6 font-semibold'>
               {content.closing_link}
-              <ArrowRightIcon className='size-4' />
+              <ArrowRightIcon className='size-4' aria-hidden='true' />
             </Link>
           </div>
         </Container>
