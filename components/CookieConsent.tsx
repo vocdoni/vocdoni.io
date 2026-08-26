@@ -4,7 +4,13 @@ import { useTranslation } from 'react-i18next'
 import { Link } from '@/components/Link'
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
 import { Button } from '@/components/ui/button'
-import { getCookieConsent, hasCookieConsent, initializeGTM, setCookieConsent } from '@/lib/cookieConsent'
+import {
+  CONSENT_CHANGE_EVENT,
+  getCookieConsent,
+  hasCookieConsent,
+  initializeGTM,
+  setCookieConsent,
+} from '@/lib/cookieConsent'
 import { cn } from '@/lib/utils'
 
 export function CookieConsent() {
@@ -42,7 +48,9 @@ export function CookieConsent() {
       }
     }
 
-    // Listen for cross-tab storage changes
+    // Listen for cross-tab changes. The choice is stored in a cookie shared
+    // with app.vocdoni.io and mirrored to localStorage, and localStorage is the
+    // only one of the two that raises an event in other tabs.
     const handleStorageChange = (e: StorageEvent) => {
       // Only respond to changes to the cookie consent key
       if (e.key === 'vocdoni-cookie-consent') {
@@ -52,12 +60,12 @@ export function CookieConsent() {
 
     // Register both event listeners
     window.addEventListener('storage', handleStorageChange)
-    window.addEventListener('cookie-consent-changed', handleConsentChange)
+    window.addEventListener(CONSENT_CHANGE_EVENT, handleConsentChange)
 
     // Clean up on unmount
     return () => {
       window.removeEventListener('storage', handleStorageChange)
-      window.removeEventListener('cookie-consent-changed', handleConsentChange)
+      window.removeEventListener(CONSENT_CHANGE_EVENT, handleConsentChange)
     }
   }, [])
 
