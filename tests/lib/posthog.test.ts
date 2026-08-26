@@ -56,4 +56,29 @@ describe('PostHog website pageviews', () => {
     expect(capturePostHogPageview()).toBe(false)
     expect(sendBeacon).not.toHaveBeenCalled()
   })
+
+  it('does not let event properties override privacy controls', async () => {
+    const sendBeacon = vi.fn((_url: string, _data?: BodyInit | null) => true)
+    vi.stubGlobal('localStorage', { getItem: vi.fn(() => 'accepted') })
+    vi.stubGlobal('navigator', { sendBeacon })
+    vi.stubGlobal('crypto', { randomUUID: vi.fn(() => 'protected-session') })
+    vi.stubGlobal('window', {
+      location: {
+        hostname: 'vocdoni.io',
+      },
+    })
+
+    const { capturePostHogEvent } = await import('@/lib/posthog')
+    capturePostHogEvent('app_cta_click', {
+      distinct_id: 'caller-override',
+      $process_person_profile: true,
+      measurement_source: 'caller-override',
+    })
+
+    const [, blob] = sendBeacon.mock.calls[0]
+    const payload = JSON.parse(await (blob as Blob).text())
+    expect(payload.properties.distinct_id).not.toBe('caller-override')
+    expect(payload.properties.$process_person_profile).toBe(false)
+    expect(payload.properties.measurement_source).toBe('vocdoni.io')
+  })
 })

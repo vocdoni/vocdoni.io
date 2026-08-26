@@ -44,10 +44,10 @@ export function capturePostHogEvent(event: '$pageview' | 'app_cta_click', proper
       api_key: POSTHOG_PUBLIC_KEY,
       event,
       properties: {
+        ...properties,
         distinct_id: getAnonymousSessionId(),
         $process_person_profile: false,
         measurement_source: 'vocdoni.io',
-        ...properties,
       },
     })
   )
