@@ -2047,6 +2047,92 @@
     "subtitle": "Vocdoni adapts to how your organization decides. Choose your type to see how secure, verifiable online voting solves your specific challenges.",
     "title": "Online voting solutions for every kind of organization"
   },
+  "compare_pages": {
+    "vocdoni_vs_electionbuddy": {
+      "eyebrow": "Online voting comparison",
+      "title": "Vocdoni vs ElectionBuddy: which fits your organization?",
+      "intro": "Both platforms help organizations run online votes. The main difference is fit: Vocdoni centers open, verifiable elections, while ElectionBuddy offers more ballot and delivery options.",
+      "primary_cta": "Start with Vocdoni for free",
+      "primary_cta_aria": "Start with Vocdoni for free (opens in a new tab)",
+      "image_alt": "The Vocdoni app vote builder showing election setup fields",
+      "image_caption": "Vocdoni self-service vote builder",
+      "table_title": "A factual side-by-side comparison",
+      "table_intro": "Choose from your real election needs. Price, ballot design, verification, and support can point to different answers.",
+      "table_headers": {
+        "criterion": "What to compare",
+        "vocdoni": "Vocdoni",
+        "electionbuddy": "ElectionBuddy"
+      },
+      "rows": [
+        {
+          "criterion": "Free entry point",
+          "vocdoni": "The Free plan supports up to 100 members and five counted votes each year.",
+          "electionbuddy": "The Free election plan supports up to 20 voters. Paid ElectionVote plans start at $29 for up to 350 voters."
+        },
+        {
+          "criterion": "Vote design",
+          "vocdoni": "The current app offers single-choice and multiple-choice questions, with AGM, election, and participatory budgeting templates.",
+          "electionbuddy": "Its public feature list includes first-past-the-post, cumulative, preferential, STV, scored, rating, and approval voting."
+        },
+        {
+          "criterion": "Verification",
+          "vocdoni": "Vocdoni publishes its source code. Its audit trail and public proof let observers check the result without exposing individual ballots.",
+          "electionbuddy": "ElectionBuddy describes auditable ballots, election audits, and optional independent review by a third party."
+        },
+        {
+          "criterion": "Setup and support",
+          "vocdoni": "Use the self-service app for recurring organization votes, or ask Vocdoni to manage a custom election project.",
+          "electionbuddy": "Set up elections or meeting votes yourself, then add expert review, setup, voter support, mail, or printed ballots when needed."
+        }
+      ],
+      "source_title": "How this comparison was checked",
+      "source_text": "ElectionBuddy details were checked on its official pricing and online voting pages on 26 August 2026. Vocdoni details come from the live app and public source code.",
+      "source_pricing": "ElectionBuddy pricing",
+      "source_features": "ElectionBuddy online voting",
+      "fit_title": "The better choice depends on your constraints",
+      "fit_intro": "Neither tool wins every use case. Start with the requirements that your bylaws, members, and election team cannot change.",
+      "vocdoni_fit_title": "Choose Vocdoni when",
+      "vocdoni_fit": [
+        "Open-source code and independently checkable results are essential.",
+        "You run recurring member votes and want a reusable organization memberbase.",
+        "Single-choice or multiple-choice ballots meet your current needs."
+      ],
+      "electionbuddy_fit_title": "Choose ElectionBuddy when",
+      "electionbuddy_fit": [
+        "You need STV, cumulative, approval, or other listed ballot methods.",
+        "Postal notices, printed ballots, or phone-based identity checks matter.",
+        "Paying per election suits a small number of votes each year."
+      ],
+      "verification_title": "The clearest difference is how trust is shown",
+      "verification_text": "Vocdoni makes verifiability part of the voting infrastructure. Its public code and election proofs let observers inspect the process. ElectionBuddy also offers audit and review tools, but describes independent verification as a service option.",
+      "related_title": "Check the requirements behind the comparison",
+      "related_intro": "These pages explain how Vocdoni handles association elections, verification, ballot privacy, and a real member vote.",
+      "related_links": {
+        "associations": "Online voting for associations",
+        "verifiability": "How verifiable voting works",
+        "anonymity": "How anonymous voting works",
+        "case_study": "How Òmnium Cultural voted online"
+      },
+      "faq_title": "Questions before you choose",
+      "faq": [
+        {
+          "question": "Is Vocdoni cheaper than ElectionBuddy?",
+          "answer": "It depends on voter count and frequency. Vocdoni includes up to 100 members and five counted yearly votes for free. ElectionBuddy includes up to 20 voters for free, then offers pay-per-election and subscription options. Compare the full annual cost for your eligible voter list."
+        },
+        {
+          "question": "Does Vocdoni support ranked or STV ballots?",
+          "answer": "Not in the current self-service app. The live builder offers single-choice and multiple-choice questions. Choose a different tool today if STV or ranked voting is mandatory."
+        },
+        {
+          "question": "Can both platforms be tested before payment?",
+          "answer": "Yes. Vocdoni has a free plan, and ElectionBuddy says you can create and test an election before paying to start it. Check the current plan limits before a live vote."
+        }
+      ],
+      "closing_title": "See whether Vocdoni fits your next vote",
+      "closing_text": "Review the self-service app, plan limits, and election workflow before you move member data.",
+      "closing_link": "Explore the Vocdoni app"
+    }
+  },
   "about_us": {
     "content_description": "Since 2018, Vocdoni (Esperanto for 'to give voice') has empowered organizations to run elections with mathematical integrity. We provide open, independently verifiable voting infrastructure, shifting trust from vendor promises to public proof.",
     "content_title": "Trust is not a promise. It is a structural property.",
@@ -2835,6 +2921,12 @@
       "omnium_cultural": {
         "description": "How Òmnium Cultural runs secure, verifiable statutory assemblies online, giving a large membership organization decisions with full guarantees.",
         "title": "Òmnium Cultural case study: statutory assemblies | Vocdoni"
+      }
+    },
+    "compare": {
+      "vocdoni_vs_electionbuddy": {
+        "description": "Compare Vocdoni and ElectionBuddy on pricing, ballot types, setup, support, open-source verification, and the organizations each platform fits best.",
+        "title": "Vocdoni vs ElectionBuddy: honest comparison | Vocdoni"
       }
     },
     "contact": {

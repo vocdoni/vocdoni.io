@@ -2047,6 +2047,92 @@
     "subtitle": "Vocdoni s'adapta a com decideix la teva organització. Tria el teu tipus per veure com el vot en línia segur i verificable resol els teus reptes concrets.",
     "title": "Solucions de vot en línia per a cada tipus d'organització"
   },
+  "compare_pages": {
+    "vocdoni_vs_electionbuddy": {
+      "eyebrow": "Comparativa de votació en línia",
+      "title": "Vocdoni o ElectionBuddy: quina opció encaixa amb la teva organització?",
+      "intro": "Totes dues plataformes ajuden les organitzacions a votar en línia. La diferència principal és l'enfocament: Vocdoni prioritza eleccions obertes i verificables, mentre ElectionBuddy ofereix més opcions de papereta i lliurament.",
+      "primary_cta": "Comença gratis amb Vocdoni",
+      "primary_cta_aria": "Comença gratis amb Vocdoni (s'obre en una pestanya nova)",
+      "image_alt": "El creador de votacions de l'aplicació Vocdoni amb els camps de configuració",
+      "image_caption": "Creador de votacions d'autoservei de Vocdoni",
+      "table_title": "Una comparativa objectiva, punt per punt",
+      "table_intro": "Tria segons les necessitats reals de l'elecció. El preu, la papereta, la verificació i el suport poden donar respostes diferents.",
+      "table_headers": {
+        "criterion": "Què cal comparar",
+        "vocdoni": "Vocdoni",
+        "electionbuddy": "ElectionBuddy"
+      },
+      "rows": [
+        {
+          "criterion": "Punt d'entrada gratuït",
+          "vocdoni": "El pla Gratuït admet fins a 100 membres i cinc votacions comptabilitzades cada any.",
+          "electionbuddy": "El pla gratuït admet fins a 20 votants. Els plans ElectionVote de pagament comencen en 29 USD per a un màxim de 350 votants."
+        },
+        {
+          "criterion": "Disseny de la votació",
+          "vocdoni": "L'aplicació actual ofereix preguntes d'opció única i múltiple, amb plantilles per a assemblees, eleccions i pressupostos participatius.",
+          "electionbuddy": "La seva llista pública inclou majoria simple, vot acumulatiu, preferencial, STV, puntuació, valoració i aprovació."
+        },
+        {
+          "criterion": "Verificació",
+          "vocdoni": "Vocdoni publica el codi font. El registre d'auditoria i la prova pública permeten comprovar el resultat sense revelar paperetes individuals.",
+          "electionbuddy": "ElectionBuddy descriu paperetes auditables, auditories electorals i una revisió independent opcional per tercers."
+        },
+        {
+          "criterion": "Configuració i suport",
+          "vocdoni": "Fes servir l'aplicació d'autoservei per a votacions periòdiques o demana a Vocdoni que gestioni un projecte electoral a mida.",
+          "electionbuddy": "Configura eleccions o votacions de reunions i afegeix revisió, preparació, suport al votant, correu o paperetes impreses quan calgui."
+        }
+      ],
+      "source_title": "Com hem comprovat aquesta comparativa",
+      "source_text": "Vam comprovar les dades d'ElectionBuddy a les seves pàgines oficials de preus i votació en línia el 26 d'agost de 2026. Les dades de Vocdoni provenen de l'aplicació i del codi públic.",
+      "source_pricing": "Preus d'ElectionBuddy",
+      "source_features": "Votació en línia d'ElectionBuddy",
+      "fit_title": "La millor opció depèn dels teus límits",
+      "fit_intro": "Cap eina guanya en tots els casos. Comença pels requisits que els estatuts, els membres i l'equip electoral no poden canviar.",
+      "vocdoni_fit_title": "Tria Vocdoni quan",
+      "vocdoni_fit": [
+        "El codi obert i els resultats verificables de manera independent siguin essencials.",
+        "Facis votacions periòdiques i vulguis una base de membres reutilitzable.",
+        "Les paperetes d'opció única o múltiple cobreixin les necessitats actuals."
+      ],
+      "electionbuddy_fit_title": "Tria ElectionBuddy quan",
+      "electionbuddy_fit": [
+        "Necessitis STV, vot acumulatiu, aprovació o altres mètodes de la seva llista.",
+        "Siguin importants els avisos postals, les paperetes impreses o la identificació telefònica.",
+        "El pagament per elecció encaixi amb poques votacions cada any."
+      ],
+      "verification_title": "La diferència més clara és com es demostra la confiança",
+      "verification_text": "Vocdoni integra la verificabilitat en la infraestructura electoral. El codi públic i les proves permeten revisar el procés. ElectionBuddy també ofereix auditoria i revisió, però presenta la verificació independent com un servei opcional.",
+      "related_title": "Revisa els requisits de la comparativa",
+      "related_intro": "Aquestes pàgines expliquen com tracta Vocdoni les eleccions d'associacions, la verificació, la privacitat i una votació real.",
+      "related_links": {
+        "associations": "Votació en línia per a associacions",
+        "verifiability": "Com funciona la votació verificable",
+        "anonymity": "Com funciona la votació anònima",
+        "case_study": "Com va votar Òmnium Cultural en línia"
+      },
+      "faq_title": "Preguntes abans de triar",
+      "faq": [
+        {
+          "question": "Vocdoni és més barat que ElectionBuddy?",
+          "answer": "Depèn del nombre de votants i la freqüència. Vocdoni inclou 100 membres i cinc votacions anuals comptabilitzades de franc. ElectionBuddy inclou 20 votants gratis i després ofereix pagament per elecció i subscripcions. Compara el cost anual per a tot el cens."
+        },
+        {
+          "question": "Vocdoni admet vot classificat o STV?",
+          "answer": "No a l'aplicació d'autoservei actual. El creador ofereix preguntes d'opció única i múltiple. Tria una altra eina si avui necessites STV o vot classificat."
+        },
+        {
+          "question": "Es poden provar totes dues plataformes abans de pagar?",
+          "answer": "Sí. Vocdoni té un pla gratuït i ElectionBuddy permet crear i provar una elecció abans de pagar per iniciar-la. Comprova els límits actuals abans d'una votació real."
+        }
+      ],
+      "closing_title": "Comprova si Vocdoni encaixa amb la teva pròxima votació",
+      "closing_text": "Revisa l'aplicació d'autoservei, els límits del pla i el procés abans de moure dades de membres.",
+      "closing_link": "Explora l'aplicació Vocdoni"
+    }
+  },
   "about_us": {
     "content_description": "Des del 2018, Vocdoni ('donar veu' en esperanto) ha empoderat les organitzacions per celebrar eleccions amb integritat matemàtica. Oferim infraestructura de votació oberta i verificable de manera independent, traslladant la confiança de les promeses del proveïdor a la prova pública.",
     "content_title": "La confiança no és una promesa. És una propietat estructural.",
@@ -2835,6 +2921,12 @@
       "omnium_cultural": {
         "description": "Com Òmnium Cultural celebra assemblees estatutàries segures i verificables en línia, donant a una gran entitat de socis decisions amb totes les garanties.",
         "title": "Cas Òmnium Cultural: assemblees estatutàries | Vocdoni"
+      }
+    },
+    "compare": {
+      "vocdoni_vs_electionbuddy": {
+        "description": "Compara Vocdoni i ElectionBuddy en preus, tipus de vot, configuració, suport, verificació oberta i adequació a cada organització.",
+        "title": "Vocdoni o ElectionBuddy: comparativa honesta | Vocdoni"
       }
     },
     "contact": {

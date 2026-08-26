@@ -177,6 +177,34 @@ describe('Head meta tags', () => {
     expect(html).toContain('"text":"Sí. Puedes ejecutar una votación gratis para hasta 100 miembros."')
   })
 
+  it('adds canonical, FAQ schema, and a valid breadcrumb for a comparison page', () => {
+    const html = renderHead({
+      locale: 'en',
+      urlLogical: '/compare/vocdoni-vs-electionbuddy',
+      config: {
+        title: 'Vocdoni vs ElectionBuddy: honest comparison | Vocdoni',
+        description: 'Compare two online voting platforms.',
+      },
+      initialI18nStore: {
+        en: {
+          common: {
+            compare_pages: {
+              vocdoni_vs_electionbuddy: {
+                faq: [{ question: 'Which tool fits?', answer: 'Choose from your election requirements.' }],
+              },
+            },
+          },
+        },
+      },
+    })
+
+    expect(html).toContain('rel="canonical" href="https://vocdoni.io/en/compare/vocdoni-vs-electionbuddy"')
+    expect(html).toContain('"@type":"FAQPage"')
+    expect(html).toContain('"name":"Which tool fits?"')
+    expect(html).toContain('"item":"https://vocdoni.io/en/compare/vocdoni-vs-electionbuddy"')
+    expect(html).not.toContain('"item":"https://vocdoni.io/en/compare"')
+  })
+
   it('adds noindex for 404 pages and omits canonical/hreflang tags', () => {
     const html = renderHead({
       locale: 'en',

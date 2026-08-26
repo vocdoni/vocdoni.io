@@ -114,6 +114,30 @@ const buildBreadcrumbSchema = (siteUrl: string, locale: string, urlLogical: stri
   if (urlLogical === '/') return null
 
   const segments = urlLogical.split('/').filter(Boolean)
+  const isUnindexedCollectionPage =
+    (urlLogical.startsWith('/compare/') || urlLogical.startsWith('/alternatives/')) && segments.length === 2
+
+  if (isUnindexedCollectionPage) {
+    return {
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        {
+          '@type': 'ListItem',
+          position: 1,
+          name: 'Vocdoni',
+          item: `${siteUrl}/${locale}`,
+        },
+        {
+          '@type': 'ListItem',
+          position: 2,
+          name: getBreadcrumbName(segments[1], title),
+          item: `${siteUrl}/${locale}${urlLogical}`,
+        },
+      ],
+    }
+  }
+
   return {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
@@ -141,6 +165,9 @@ const buildBreadcrumbSchema = (siteUrl: string, locale: string, urlLogical: stri
 // Route slugs are kebab-case; i18n keys are snake_case.
 const getFaqItemsKey = (urlLogical: string) => {
   if (urlLogical === '/app') return 'app_landing.faq.items'
+  if (urlLogical === '/compare/vocdoni-vs-electionbuddy') {
+    return 'compare_pages.vocdoni_vs_electionbuddy.faq'
+  }
   const toKey = (slug: string) => slug.replace(/-/g, '_')
   if (urlLogical.startsWith('/solutions/')) {
     const slug = urlLogical.split('/')[2]

@@ -2047,6 +2047,92 @@
     "subtitle": "Vocdoni s'adapte à la manière dont votre organisation prend ses décisions. Choisissez votre type pour voir comment le vote en ligne sécurisé et vérifiable résout vos défis spécifiques.",
     "title": "Solutions de vote en ligne pour tout type d'organisation"
   },
+  "compare_pages": {
+    "vocdoni_vs_electionbuddy": {
+      "eyebrow": "Comparatif de vote en ligne",
+      "title": "Vocdoni ou ElectionBuddy : quel outil convient à votre organisation ?",
+      "intro": "Les deux plateformes permettent d'organiser des votes en ligne. Vocdoni privilégie les scrutins ouverts et vérifiables. ElectionBuddy propose plus de modes de scrutin et d'envoi.",
+      "primary_cta": "Commencer gratuitement avec Vocdoni",
+      "primary_cta_aria": "Commencer gratuitement avec Vocdoni (ouvre un nouvel onglet)",
+      "image_alt": "L'éditeur de vote de l'application Vocdoni avec les champs de configuration",
+      "image_caption": "Éditeur de vote en libre-service Vocdoni",
+      "table_title": "Un comparatif factuel",
+      "table_intro": "Partez de vos besoins réels. Le prix, le bulletin, la vérification et l'accompagnement peuvent mener à des choix différents.",
+      "table_headers": {
+        "criterion": "Critère",
+        "vocdoni": "Vocdoni",
+        "electionbuddy": "ElectionBuddy"
+      },
+      "rows": [
+        {
+          "criterion": "Offre gratuite",
+          "vocdoni": "L'offre gratuite couvre jusqu'à 100 membres et cinq votes dépouillés par an.",
+          "electionbuddy": "L'offre gratuite couvre jusqu'à 20 électeurs. Les offres ElectionVote payantes débutent à 29 dollars pour 350 électeurs."
+        },
+        {
+          "criterion": "Conception du vote",
+          "vocdoni": "L'application actuelle propose des questions à choix unique ou multiple, avec des modèles pour assemblées, élections et budgets participatifs.",
+          "electionbuddy": "Sa liste publique comprend le scrutin majoritaire, cumulatif, préférentiel, STV, par points, par notation et par approbation."
+        },
+        {
+          "criterion": "Vérification",
+          "vocdoni": "Vocdoni publie son code source. Sa piste d'audit et ses preuves publiques permettent de vérifier le résultat sans révéler les bulletins individuels.",
+          "electionbuddy": "ElectionBuddy décrit des bulletins auditables, des audits électoraux et une vérification indépendante facultative par un tiers."
+        },
+        {
+          "criterion": "Configuration et aide",
+          "vocdoni": "Utilisez l'application en libre-service pour vos votes réguliers, ou confiez un projet électoral sur mesure à Vocdoni.",
+          "electionbuddy": "Configurez vous-même une élection ou un vote en réunion, puis ajoutez au besoin revue experte, configuration, aide aux électeurs, courrier ou bulletins papier."
+        }
+      ],
+      "source_title": "Méthode de vérification du comparatif",
+      "source_text": "Les informations sur ElectionBuddy ont été vérifiées le 26 août 2026 sur ses pages officielles de tarifs et de vote en ligne. Celles de Vocdoni viennent de l'application active et du code source public.",
+      "source_pricing": "Tarifs ElectionBuddy",
+      "source_features": "Vote en ligne ElectionBuddy",
+      "fit_title": "Le meilleur choix dépend de vos contraintes",
+      "fit_intro": "Aucun outil ne convient à tous les cas. Commencez par les exigences que vos statuts, vos membres et votre équipe électorale ne peuvent pas changer.",
+      "vocdoni_fit_title": "Choisissez Vocdoni si",
+      "vocdoni_fit": [
+        "Le code ouvert et les résultats vérifiables de façon indépendante sont essentiels.",
+        "Vous organisez des votes réguliers et voulez réutiliser la base de membres de votre organisation.",
+        "Les bulletins à choix unique ou multiple couvrent vos besoins actuels."
+      ],
+      "electionbuddy_fit_title": "Choisissez ElectionBuddy si",
+      "electionbuddy_fit": [
+        "Vous avez besoin du STV, du vote cumulatif, par approbation ou d'autres modes proposés.",
+        "Les avis postaux, bulletins papier ou contrôles d'identité par téléphone sont importants.",
+        "Un paiement par élection convient à votre faible nombre de votes annuels."
+      ],
+      "verification_title": "La principale différence est la preuve de confiance",
+      "verification_text": "Vocdoni intègre la vérifiabilité à l'infrastructure de vote. Son code public et ses preuves électorales permettent d'examiner le processus. ElectionBuddy propose aussi des audits, mais présente la vérification indépendante comme une option de service.",
+      "related_title": "Vérifiez les exigences de ce comparatif",
+      "related_intro": "Ces pages expliquent la gestion des élections associatives, de la vérification, du secret du vote et d'un vote réel avec Vocdoni.",
+      "related_links": {
+        "associations": "Vote en ligne pour les associations",
+        "verifiability": "Fonctionnement du vote vérifiable",
+        "anonymity": "Fonctionnement du vote anonyme",
+        "case_study": "Le vote en ligne d'Òmnium Cultural"
+      },
+      "faq_title": "Questions à poser avant de choisir",
+      "faq": [
+        {
+          "question": "Vocdoni coûte-t-il moins cher qu'ElectionBuddy ?",
+          "answer": "Cela dépend du nombre d'électeurs et de la fréquence. Vocdoni inclut gratuitement 100 membres et cinq votes dépouillés par an. ElectionBuddy inclut 20 électeurs, puis propose des offres par élection et par abonnement. Comparez le coût annuel total de votre liste électorale."
+        },
+        {
+          "question": "Vocdoni gère-t-il le vote classé ou STV ?",
+          "answer": "Pas dans l'application actuelle. L'éditeur propose des questions à choix unique ou multiple. Si le vote classé ou STV est obligatoire, choisissez aujourd'hui un autre outil."
+        },
+        {
+          "question": "Puis-je tester les deux plateformes avant de payer ?",
+          "answer": "Oui. Vocdoni propose une offre gratuite. ElectionBuddy indique que vous pouvez créer et tester une élection avant de payer son lancement. Vérifiez les limites actuelles avant un vote réel."
+        }
+      ],
+      "closing_title": "Vérifiez si Vocdoni convient à votre prochain vote",
+      "closing_text": "Examinez l'application, les limites des offres et le déroulement avant de transférer les données de vos membres.",
+      "closing_link": "Découvrir l'application Vocdoni"
+    }
+  },
   "about_us": {
     "content_description": "Depuis 2018, Vocdoni (de l'espéranto, «donner une voix») permet aux organisations d'organiser des élections avec une intégrité mathématique. Nous fournissons une infrastructure de vote ouverte et vérifiable de manière indépendante, en faisant passer la confiance des promesses du fournisseur à la preuve publique.",
     "content_title": "La confiance n'est pas une promesse. C'est une propriété structurelle.",
@@ -2835,6 +2921,12 @@
       "omnium_cultural": {
         "description": "Comment Òmnium Cultural organise en ligne des assemblées statutaires sécurisées et vérifiables, permettant à une vaste organisation de membres de prendre des décisions avec toutes les garanties.",
         "title": "Étude de cas Òmnium Cultural : assemblées statutaires | Vocdoni"
+      }
+    },
+    "compare": {
+      "vocdoni_vs_electionbuddy": {
+        "description": "Comparez Vocdoni et ElectionBuddy : tarifs, scrutins, configuration, aide, vérification ouverte et organisations adaptées.",
+        "title": "Vocdoni ou ElectionBuddy : comparatif honnête | Vocdoni"
       }
     },
     "contact": {

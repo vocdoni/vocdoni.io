@@ -44,6 +44,14 @@ const metaDefaults = {
     'meta.app.description',
     'Start free, upload your voter list, and publish results your members can verify. Built for organizations that need trust, speed, and proof.'
   ),
+  'meta.compare.vocdoni_vs_electionbuddy.title': t(
+    'meta.compare.vocdoni_vs_electionbuddy.title',
+    'Vocdoni vs ElectionBuddy: honest comparison | Vocdoni'
+  ),
+  'meta.compare.vocdoni_vs_electionbuddy.description': t(
+    'meta.compare.vocdoni_vs_electionbuddy.description',
+    'Compare Vocdoni and ElectionBuddy on pricing, ballot types, setup, support, open-source verification, and the organizations each platform fits best.'
+  ),
   'meta.solutions_index.title': t(
     'meta.solutions_index.title',
     'Online voting solutions by organization type | Vocdoni'
