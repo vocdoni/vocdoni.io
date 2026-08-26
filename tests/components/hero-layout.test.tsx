@@ -10,6 +10,9 @@ vi.mock('react-i18next', () => ({
       if (key === 'hero.dynamic_words' && options?.returnObjects) {
         return ['fast']
       }
+      if (key === 'hero.headline') {
+        return 'Run secure, verifiable elections for your organization'
+      }
       return key
     },
   }),
@@ -38,5 +41,14 @@ describe('Hero layout spacing', () => {
   it('does not add extra top padding on the hero section', () => {
     const html = renderToStaticMarkup(<Hero />)
     expect(html).not.toContain('pt-28')
+  })
+
+  it('renders one clear H1 before one primary activation CTA', () => {
+    const html = renderToStaticMarkup(<Hero />)
+
+    expect(html.match(/<h1/g) ?? []).toHaveLength(1)
+    expect(html).toContain('Run secure, verifiable elections for your organization')
+    expect(html.match(/data-hero-cta="primary"/g) ?? []).toHaveLength(1)
+    expect(html.indexOf('<h1')).toBeLessThan(html.indexOf('data-hero-cta="primary"'))
   })
 })
