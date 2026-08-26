@@ -35,8 +35,14 @@ const Hero = () => {
         <div className='grid gap-12 lg:grid-cols-2 lg:gap-8 items-center w-full min-w-0'>
           {/* Left Column: Content */}
           <div className='flex flex-col items-start gap-6 relative z-10 w-full min-w-0'>
-            <MotionPreset fade slide delay={0} transition={{ duration: 0.5 }}>
-              <h1 className='text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-[4.55rem] leading-[0.95] max-w-3xl break-words text-foreground text-balance'>
+            {/*
+              The headline is sized from its own measure (@container + cqw) rather than from
+              viewport breakpoints, so the characters-per-line ratio stays constant and the
+              headline lands on exactly three lines at every width. See `.hero-headline` in
+              layouts/style.css for the Devanagari adjustment.
+            */}
+            <MotionPreset fade slide delay={0} transition={{ duration: 0.5 }} className='w-full max-w-3xl @container'>
+              <h1 className='hero-headline text-[clamp(1.5rem,9cqw,4.75rem)] leading-[0.95] break-words text-foreground text-balance'>
                 {t('hero.headline', 'Run secure, verifiable elections for your organization')}
               </h1>
             </MotionPreset>
@@ -74,9 +80,10 @@ const Hero = () => {
               <MobileHeroScroll />
             </div>
 
-            <MotionPreset fade slide delay={0.3} transition={{ duration: 0.5 }}>
-              <div className='flex flex-col items-start gap-2 w-full sm:w-auto'>
-                <Button variant='dark' size='lg' className='group text-base has-[>svg]:px-6 w-full sm:w-auto' asChild>
+            <MotionPreset fade slide delay={0.3} transition={{ duration: 0.5 }} className='w-full'>
+              {/* Row layout: the expert link sits beside the CTA and wraps below it when space runs out. */}
+              <div className='flex flex-wrap items-center gap-x-4 gap-y-3'>
+                <Button variant='dark' size='lg' className='group text-base has-[>svg]:px-6' asChild>
                   <Link href={APP_URL} variant='inlineIcon' ctaId='home_hero_start' data-hero-cta='primary'>
                     {t('hero.cta_primary')}
                     <ArrowRight

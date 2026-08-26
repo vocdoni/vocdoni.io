@@ -101,3 +101,29 @@ body.page-transition #page-content {
 .hljs-strong {
   font-weight: 600;
 }
+
+/*
+ * Hero headline: Devanagari sets much narrower than the Latin and Greek
+ * headlines, so at the shared size the Hindi headline falls onto two lines
+ * while every other locale lands on three. Size it up relative to its own
+ * measure so it wraps to three lines like the rest.
+ */
+:lang(hi) .hero-headline {
+  font-size: clamp(1.833rem, 11cqw, 5.75rem);
+}
+
+/*
+ * Very narrow phones (~320px viewport). Line breaking is word-granular, so at
+ * this size the constant ratio above is no longer fine-grained enough and the
+ * longest German words tip the headline onto a fourth line. Step the ratio
+ * down slightly to keep three lines everywhere.
+ */
+@container (max-width: 20rem) {
+  .hero-headline {
+    font-size: 8.4cqw;
+  }
+
+  :lang(hi) .hero-headline {
+    font-size: 10.3cqw;
+  }
+}
