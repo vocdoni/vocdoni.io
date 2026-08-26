@@ -27,6 +27,8 @@ describe('buildLlmsTxt', () => {
       { heading: 'Blog', entries: [] },
     ])
     expect(out.startsWith('# Vocdoni')).toBe(true)
+    expect(out).toContain('self-service online voting software and managed election services')
+    expect(out).toContain('developer API and TypeScript SDK are in alpha')
     expect(out).toContain('## Developer docs')
     expect(out).toContain('- [Overview](https://vocdoni.io/en/developers/docs.md)')
     expect(out).not.toContain('## Blog')

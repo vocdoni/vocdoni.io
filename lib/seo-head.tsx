@@ -306,6 +306,7 @@ export function HeadTags(pageContext: PageContext) {
     configImage ||
     ogImageDefault
   const ogImageUrl = toAbsoluteUrl(siteUrl, image) || undefined
+  const organizationLogoUrl = toAbsoluteUrl(siteUrl, ogImageDefault) || undefined
   const ogType = isBlogPost ? 'article' : 'website'
 
   // Raw-markdown companion for agents, emitted by plugins/blog-markdown.ts and
@@ -333,9 +334,12 @@ export function HeadTags(pageContext: PageContext) {
   const organizationSchema = {
     '@context': 'https://schema.org',
     '@type': 'Organization',
+    '@id': `${siteUrl}/#organization`,
     name: 'Vocdoni',
     url: siteUrl,
-    ...(ogImageUrl ? { logo: ogImageUrl } : {}),
+    ...(organizationLogoUrl
+      ? { logo: { '@type': 'ImageObject', '@id': `${siteUrl}/#logo`, url: organizationLogoUrl } }
+      : {}),
     sameAs: [
       'https://github.com/vocdoni',
       'https://x.com/vocdoni',
@@ -347,8 +351,10 @@ export function HeadTags(pageContext: PageContext) {
   const websiteSchema = {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
+    '@id': `${siteUrl}/#website`,
     name: 'Vocdoni',
     url: siteUrl,
+    publisher: { '@id': `${siteUrl}/#organization` },
   }
 
   const pageSchema = {
@@ -358,9 +364,7 @@ export function HeadTags(pageContext: PageContext) {
     url: canonicalUrl,
     inLanguage: effectiveLocale,
     isPartOf: {
-      '@type': 'WebSite',
-      name: 'Vocdoni',
-      url: siteUrl,
+      '@id': `${siteUrl}/#website`,
     },
     ...(description ? { description } : {}),
     ...(ogImageUrl ? { image: ogImageUrl } : {}),
@@ -371,15 +375,15 @@ export function HeadTags(pageContext: PageContext) {
       ? {
           '@context': 'https://schema.org',
           '@type': 'SoftwareApplication',
+          '@id': `${siteUrl}/#vocdoni-app`,
           name: 'Vocdoni app',
           applicationCategory: 'BusinessApplication',
           operatingSystem: 'Web',
+          isAccessibleForFree: true,
           url: canonicalUrl,
           inLanguage: locale,
           publisher: {
-            '@type': 'Organization',
-            name: 'Vocdoni',
-            url: siteUrl,
+            '@id': `${siteUrl}/#organization`,
           },
           offers: {
             '@type': 'Offer',

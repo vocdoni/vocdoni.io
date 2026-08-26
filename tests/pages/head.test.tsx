@@ -114,9 +114,12 @@ describe('Head meta tags', () => {
 
     expect(html).toContain('type="application/ld+json"')
     expect(html).toContain('"@type":"Organization"')
+    expect(html).toContain('"@id":"https://vocdoni.io/#organization"')
     expect(html).toContain('"@type":"WebSite"')
     expect(html).toContain('"url":"https://vocdoni.io"')
     expect(html).toContain('"sameAs":["https://github.com/vocdoni"')
+    expect(html).toContain('"@type":"ImageObject"')
+    expect(html).toContain('"@id":"https://vocdoni.io/#logo"')
   })
 
   it('adds page-specific JSON-LD and breadcrumbs for about and contact pages', () => {
@@ -171,10 +174,28 @@ describe('Head meta tags', () => {
     })
 
     expect(html).toContain('"@type":"SoftwareApplication"')
+    expect(html).toContain('"@id":"https://vocdoni.io/#vocdoni-app"')
     expect(html).toContain('"name":"Vocdoni app"')
+    expect(html).toContain('"isAccessibleForFree":true')
+    expect(html).toContain('"publisher":{"@id":"https://vocdoni.io/#organization"}')
     expect(html).toContain('"@type":"FAQPage"')
     expect(html).toContain('"name":"¿Puedo ejecutar una votación gratis?"')
     expect(html).toContain('"text":"Sí. Puedes ejecutar una votación gratis para hasta 100 miembros."')
+  })
+
+  it('keeps the Organization logo stable when a page has its own image', () => {
+    const html = renderHead({
+      locale: 'en',
+      urlLogical: '/case-studies/coib',
+      config: {
+        title: 'COIB case study | Vocdoni',
+        image: '/case-studies/coib.webp',
+      },
+    })
+
+    expect(html).toContain('property="og:image" content="https://vocdoni.io/case-studies/coib.webp"')
+    expect(html).toContain('"logo":{"@type":"ImageObject","@id":"https://vocdoni.io/#logo"')
+    expect(html).not.toContain('"logo":"https://vocdoni.io/case-studies/coib.webp"')
   })
 
   it('adds noindex for 404 pages and omits canonical/hreflang tags', () => {

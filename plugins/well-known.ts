@@ -1,7 +1,6 @@
 import { promises as fs } from 'node:fs'
 import path from 'node:path'
 import type { Plugin } from 'vite'
-import matter from 'gray-matter'
 import {
   DEVELOPERS_API_BASE_URL,
   DEVELOPERS_GITHUB_URL,
@@ -36,7 +35,6 @@ interface Options {
   defaultLocale: string
 }
 
-const OVERVIEW_SLUG = 'overview'
 const stripSlash = (s: string) => s.replace(/\/+$/, '')
 
 // --- pure builders (unit-tested) --------------------------------------------
@@ -70,9 +68,9 @@ export function buildLlmsTxt(hostname: string, sections: { heading: string; entr
   const lines: string[] = [
     '# Vocdoni',
     '',
-    '> Vocdoni is an open-source, self-managed digital voting platform for secure, ' +
-      'verifiable and anonymous online elections. This file indexes the machine-readable ' +
-      'markdown versions of the documentation and blog for AI agents.',
+    '> Vocdoni offers self-service online voting software and managed election services for organizations. ' +
+      'The platform supports member lists, configurable ballots, scheduled voting, weighted voting power, ' +
+      'and verifiable results. Its public developer API and TypeScript SDK are in alpha.',
     '',
   ]
   for (const section of sections) {
@@ -100,59 +98,44 @@ export function buildNetlifyHeaders(): string {
   return ['/*', ...links.map((l) => `  Link: ${l}`), ''].join('\n')
 }
 
-// --- source enumeration (build/Node side) -----------------------------------
-
-const rawDocHref = (locale: string, slug: string) =>
-  slug === OVERVIEW_SLUG ? `/${locale}/developers/docs.md` : `/${locale}/developers/docs/${slug}.md`
-
-async function loadDocEntries(root: string, locale: string): Promise<LlmsEntry[]> {
-  const dir = path.join(root, 'content', 'developers', 'docs', locale)
-  const files = await fs.readdir(dir).catch(() => [])
-  const docs: { slug: string; title: string; order: number }[] = []
-  for (const file of files) {
-    if (!file.endsWith('.md')) continue
-    const slug = file.replace(/\.md$/, '')
-    const { data } = matter(await fs.readFile(path.join(dir, file), 'utf8'))
-    docs.push({
-      slug,
-      title: typeof data.title === 'string' ? data.title : slug,
-      order: typeof data.order === 'number' ? data.order : 999,
-    })
-  }
-  docs.sort((a, b) => a.order - b.order || a.title.localeCompare(b.title))
-  return docs.map((d) => ({ title: d.title, url: rawDocHref(locale, d.slug) }))
-}
-
-async function loadBlogEntries(root: string, locale: string): Promise<LlmsEntry[]> {
-  const dir = path.join(root, 'content', 'blog', locale)
-  const files = await fs.readdir(dir).catch(() => [])
-  const posts: { slug: string; title: string; date: string }[] = []
-  for (const file of files) {
-    if (!file.endsWith('.mdoc')) continue
-    const { data } = matter(await fs.readFile(path.join(dir, file), 'utf8'))
-    if (data.draft === true) continue
-    const slug = file.replace(/\.mdoc$/, '')
-    posts.push({
-      slug,
-      title: typeof data.title === 'string' ? data.title : slug,
-      date: typeof data.publishedDate === 'string' ? data.publishedDate : String(data.publishedDate ?? ''),
-    })
-  }
-  posts.sort((a, b) => b.date.localeCompare(a.date) || a.title.localeCompare(b.title))
-  return posts.map((p) => ({ title: p.title, url: `/${locale}/blog/${p.slug}.md` }))
-}
-
-async function buildLlms(root: string, host: string, locale: string): Promise<string> {
-  const [docs, posts] = await Promise.all([loadDocEntries(root, locale), loadBlogEntries(root, locale)])
+// Keep this file short and buyer-first. Raw developer docs and blog posts remain
+// discoverable through their own text/markdown alternate links.
+function buildLlms(host: string, locale: string): string {
   return buildLlmsTxt(host, [
-    { heading: 'Developer docs', entries: docs },
-    { heading: 'Blog', entries: posts },
     {
-      heading: 'Key pages',
+      heading: 'Product',
       entries: [
-        { title: 'Developer portal', url: '/developers' },
+        { title: 'Online voting app', url: `/${locale}/app`, note: 'Self-service plans start free.' },
+        {
+          title: 'Online voting for associations',
+          url: `/${locale}/solutions/associations`,
+          note: 'Member voting and assembly workflows.',
+        },
+        {
+          title: 'Online voting for professional colleges',
+          url: `/${locale}/solutions/professional-colleges`,
+          note: 'Elections for regulated professional bodies.',
+        },
+        { title: 'Case studies', url: `/${locale}/case-studies`, note: 'Published customer election examples.' },
+      ],
+    },
+    {
+      heading: 'Trust and verification',
+      entries: [
+        { title: 'How secure online voting works', url: `/${locale}/learn/how-secure-online-voting-works` },
+        { title: 'Verifiable voting explained', url: `/${locale}/learn/verifiable-voting-explained` },
+        {
+          title: 'GDPR requirements for digital voting',
+          url: `/${locale}/learn/gdpr-requirements-for-digital-voting`,
+        },
+      ],
+    },
+    {
+      heading: 'Developer resources',
+      entries: [
+        { title: 'Developer portal', url: `/${locale}/developers`, note: 'The developer platform is in alpha.' },
+        { title: 'Developer docs in Markdown', url: `/${locale}/developers/docs.md` },
         { title: 'API reference (OpenAPI)', url: DEVELOPERS_SWAGGER_URL },
-        { title: 'Status', url: DEVELOPERS_STATUS_URL },
         { title: 'GitHub', url: DEVELOPERS_GITHUB_URL },
       ],
     },
@@ -168,7 +151,6 @@ const CONTENT_TYPES: Record<string, string> = {
 
 export function wellKnownPlugin(options: Options): Plugin {
   let clientOutDir: string
-  let resolvedRoot: string
   let isSSRBuild = false
   let ran = false
   const host = stripSlash(options.hostname)
@@ -179,10 +161,9 @@ export function wellKnownPlugin(options: Options): Plugin {
       isSSRBuild = !!config.build.ssr
       const resolvedOutDir = config.build.outDir ? path.resolve(config.build.outDir) : path.resolve('dist')
       clientOutDir = resolvedOutDir.endsWith(`${path.sep}client`) ? resolvedOutDir : path.join(resolvedOutDir, 'client')
-      resolvedRoot = config.root ? path.resolve(config.root) : process.cwd()
     },
     configureServer(server) {
-      server.middlewares.use(async (req, res, next) => {
+      server.middlewares.use((req, res, next) => {
         if (!req.url) return next()
         const url = req.url.split('?')[0]
 
@@ -192,7 +173,7 @@ export function wellKnownPlugin(options: Options): Plugin {
         }
         if (url === '/llms.txt') {
           res.setHeader('Content-Type', CONTENT_TYPES[url])
-          return void res.end(await buildLlms(resolvedRoot, host, options.defaultLocale))
+          return void res.end(buildLlms(host, options.defaultLocale))
         }
         next()
       })
@@ -210,7 +191,7 @@ export function wellKnownPlugin(options: Options): Plugin {
 
       await Promise.all([
         write('.well-known/api-catalog', buildApiCatalog(host)),
-        write('llms.txt', await buildLlms(resolvedRoot, host, options.defaultLocale)),
+        write('llms.txt', buildLlms(host, options.defaultLocale)),
         write('_headers', buildNetlifyHeaders()),
       ])
     },
