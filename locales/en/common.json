@@ -2532,7 +2532,7 @@
         "question": "Can anyone see how members voted?"
       },
       "authentication": {
-        "answer": "The organization imports the eligible voter list and can authenticate voters with any type of credential, plus a second layer of security through a one-time code sent by SMS or email. Each voter must prove eligibility before voting. Any other authentication method can be implemented on demand, including digital certificates. Cryptographic checks prevent duplicate final votes without linking identity to ballot choice.",
+        "answer": "The organization imports the eligible voter list and can authenticate voters with any type of credential, with an optional second layer of security through a one-time code sent by SMS or email. Each voter must prove eligibility before voting. Any other authentication method can be implemented on demand, including digital certificates. Cryptographic checks prevent duplicate final votes without linking identity to ballot choice.",
         "question": "How are voters authenticated?"
       },
       "census": {

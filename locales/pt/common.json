@@ -2532,7 +2532,7 @@
         "question": "Alguém pode ver o que os membros votaram?"
       },
       "authentication": {
-        "answer": "A organização importa a lista de eleitores elegíveis e pode autenticar os eleitores com qualquer tipo de credencial, com uma segunda camada de segurança através de um código de utilização única enviado por SMS ou e-mail. Cada eleitor deve comprovar a sua elegibilidade antes de votar. Qualquer outro método de autenticação pode ser implementado mediante pedido, incluindo certificados digitais. As verificações criptográficas impedem votos finais duplicados sem associar a identidade à opção escolhida.",
+        "answer": "A organização importa a lista de eleitores elegíveis e pode autenticar os eleitores com qualquer tipo de credencial, com uma segunda camada de segurança opcional através de um código de utilização única enviado por SMS ou e-mail. Cada eleitor deve comprovar a sua elegibilidade antes de votar. Qualquer outro método de autenticação pode ser implementado mediante pedido, incluindo certificados digitais. As verificações criptográficas impedem votos finais duplicados sem associar a identidade à opção escolhida.",
         "question": "Como são autenticados os eleitores?"
       },
       "census": {
