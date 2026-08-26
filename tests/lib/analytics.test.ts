@@ -52,6 +52,36 @@ describe('trackAppCtaClick', () => {
     ])
   })
 
+  it('sends the event to the GA4 destination loaded by GTM', () => {
+    const dataLayer: Array<Record<string, unknown> | IArguments> = []
+    vi.stubGlobal('window', {
+      location: {
+        href: 'https://vocdoni.io/en',
+        pathname: '/en',
+      },
+      dataLayer,
+      google_tag_manager: {
+        'G-TQMYBZ8DLJ': {},
+        'GTM-T4KG28TW': {},
+      },
+    })
+
+    trackAppCtaClick({ ctaId: 'home_hero_start', destinationUrl: 'https://app.vocdoni.io' })
+
+    expect(Array.from(dataLayer[0] as IArguments)).toEqual(['config', 'G-TQMYBZ8DLJ', { send_page_view: false }])
+    expect(Array.from(dataLayer[1] as IArguments)).toEqual([
+      'event',
+      'app_cta_click',
+      {
+        cta_id: 'home_hero_start',
+        source_path: '/en',
+        destination_host: 'app.vocdoni.io',
+        destination_path: '/',
+        send_to: 'G-TQMYBZ8DLJ',
+      },
+    ])
+  })
+
   it('ignores non-http destinations that would leak user-entered content', () => {
     const gtag = vi.fn()
     const dataLayer: Array<Record<string, unknown>> = []
