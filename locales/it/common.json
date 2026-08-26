@@ -1,4 +1,87 @@
 {
+  "alternatives": {
+    "electionbuddy": {
+      "alternatives": [
+        {
+          "description": "Vocdoni pubblica il suo protocollo e permette verifiche da parte degli elettori e del pubblico. Le associazioni possono usarlo da sole o scegliere un progetto gestito.",
+          "fit": "Per elezioni open source verificabili in modo indipendente",
+          "name": "Vocdoni",
+          "pricing": "Il piano gratuito supporta fino a 100 membri. Sono disponibili piani pubblici più ampi."
+        },
+        {
+          "description": "OpaVote supporta voto classificato, STV, Condorcet, Borda, approvazione e scelta multipla. Offre anche elezioni, sondaggi pubblici e conteggio.",
+          "fit": "Per schede classificate con prezzo semplice a consumo",
+          "name": "OpaVote",
+          "pricing": "È gratuito fino a 25 elettori e 10 candidati. Le elezioni costano da 10 dollari ogni 125 elettori o 20 candidati."
+        },
+        {
+          "description": "Simply Voting offre elezioni self-service e gestite. Supporta anche voto web, telefonico e cartaceo, oltre all'accesso esistente dell'organizzazione.",
+          "fit": "Per unire self-service e gestione assistita",
+          "name": "Simply Voting",
+          "pricing": "I test con 10 aventi diritto o meno sono gratuiti. Per eventi più grandi serve un preventivo."
+        },
+        {
+          "description": "POLYAS divide il voto online nei pacchetti Standard, Verifiable e Certified. I clienti possono usare il self-service o aggiungere la gestione.",
+          "fit": "Per pacchetti di voto verificabili o certificati",
+          "name": "POLYAS",
+          "pricing": "Standard è gratuito fino a 50 elettori. Verifiable e Certified partono da 50 euro prima delle opzioni."
+        }
+      ],
+      "baseline_points": [
+        "Il piano gratuito copre fino a 20 aventi diritto.",
+        "I piani ElectionVote a pagamento dipendono dalle funzioni e dal numero di elettori.",
+        "Metodi di voto, avvisi via e-mail, SMS o posta e servizi esperti cambiano per piano."
+      ],
+      "baseline_text": "ElectionBuddy copre già molte elezioni organizzative. Valuta alternative se contano di più acquisto, metodo di voto o prova.",
+      "baseline_title": "Cosa copre già ElectionBuddy",
+      "criteria": [
+        {
+          "text": "Decidi se elettori e osservatori devono verificare il conteggio senza fidarsi di un solo fornitore.",
+          "title": "Verifica"
+        },
+        {
+          "text": "Elenca ogni conteggio, voto ponderato, risposta libera e gruppo richiesto dalle tue regole.",
+          "title": "Scheda"
+        },
+        {
+          "text": "Controlla le esigenze di e-mail, codici, accesso unico, carta, telefono e voto assistito.",
+          "title": "Accesso"
+        },
+        {
+          "text": "Confronta elettori, voti ripetuti, archivio, configurazione e supporto come costo totale.",
+          "title": "Modello di acquisto"
+        }
+      ],
+      "criteria_eyebrow": "Come scegliere",
+      "criteria_intro": "Parti dalle regole elettorali. Poi confronta prodotto, servizio e prezzo.",
+      "criteria_title": "Definisci quattro requisiti prima della selezione",
+      "electionbuddy_features": "Funzioni di ElectionBuddy",
+      "eyebrow": "Guida ai software elettorali",
+      "image_alt": "Il configuratore di Vocdoni mostra una schermata elettorale",
+      "image_caption": "Un voto preparato in Vocdoni",
+      "intro": "La scelta dipende da conteggio, verifica, assistenza e prezzo. Queste informazioni sono state controllate ad agosto 2026.",
+      "official_source": "Vedi la fonte ufficiale",
+      "primary_cta": "Esplora l'app Vocdoni",
+      "primary_cta_aria": "Esplora l'app di voto online Vocdoni",
+      "proof_eyebrow": "Usato da organizzazioni associative",
+      "proof_link": "Leggi il caso Òmnium Cultural",
+      "proof_logo_alt": "Logo di Òmnium Cultural",
+      "proof_text": "Òmnium Cultural usa Vocdoni per assemblee statutarie con oltre 180.000 membri. Il caso pubblico mostra il voto verificabile su scala associativa.",
+      "proof_title": "La prova deve reggere una vera elezione importante",
+      "related_intro": "Esamina il prodotto, il caso associativo, una vera elezione e il modello di sicurezza.",
+      "related_links": {
+        "app": "Esplora l'app Vocdoni",
+        "associations": "Voto online per associazioni",
+        "omnium": "Caso Òmnium Cultural",
+        "secure_voting": "Come funziona il voto online sicuro"
+      },
+      "related_title": "Continua la valutazione",
+      "shortlist_eyebrow": "Quattro opzioni",
+      "shortlist_intro": "Ogni fornitore segue un percorso diverso. Conferma i dettagli attuali con la fonte ufficiale.",
+      "shortlist_title": "Abbina la piattaforma al requisito più difficile",
+      "title": "4 alternative a ElectionBuddy per il voto organizzativo"
+    }
+  },
   "case_studies": {
     "bellpuig": {
       "author": "Jordi Estiarte",
@@ -2696,6 +2779,7 @@
     },
     "copyright": "© {{year}} Vocdoni. Fatto con ❤️ a Barcellona.",
     "gdpr": "Conforme al GDPR",
+    "growth_by_tin": "Crescita con Tin",
     "legal": {
       "cookies": "Impostazioni dei cookie",
       "privacy": "Politica sulla privacy",
@@ -2802,6 +2886,12 @@
     "about_us": {
       "description": "Conosci il team che costruisce un'infrastruttura di voto digitale verificabile e open source per organizzazioni che hanno bisogno di decisioni affidabili.",
       "title": "Su Vocdoni - infrastruttura di voto online open source"
+    },
+    "alternatives": {
+      "electionbuddy": {
+        "description": "Confronta Vocdoni, OpaVote, Simply Voting e POLYAS per metodo di voto, verifica, servizio e prezzo.",
+        "title": "4 alternative a ElectionBuddy per le organizzazioni | Vocdoni"
+      }
     },
     "app": {
       "description": "Inizia gratis, carica l'elenco elettori e pubblica risultati che i tuoi membri possono verificare. Pensata per organizzazioni che hanno bisogno di fiducia, velocità e prove.",

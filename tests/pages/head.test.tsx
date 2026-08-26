@@ -177,6 +177,25 @@ describe('Head meta tags', () => {
     expect(html).toContain('"text":"Sí. Puedes ejecutar una votación gratis para hasta 100 miembros."')
   })
 
+  it('adds canonical, locale alternatives, and breadcrumbs for an alternatives page', () => {
+    const html = renderHead({
+      locale: 'fr',
+      urlLogical: '/alternatives/electionbuddy-alternatives',
+      config: {
+        title: '4 alternatives à ElectionBuddy pour les organisations | Vocdoni',
+        description: 'Comparez quatre plateformes de vote.',
+      },
+    })
+
+    expect(html).toContain('rel="canonical" href="https://vocdoni.io/fr/alternatives/electionbuddy-alternatives"')
+    expect(html).toContain(
+      'rel="alternate" hrefLang="en" href="https://vocdoni.io/en/alternatives/electionbuddy-alternatives"'
+    )
+    expect(html).toContain('"@type":"WebPage"')
+    expect(html).toContain('"@type":"BreadcrumbList"')
+    expect(html).toContain('"item":"https://vocdoni.io/fr/alternatives/electionbuddy-alternatives"')
+  })
+
   it('adds noindex for 404 pages and omits canonical/hreflang tags', () => {
     const html = renderHead({
       locale: 'en',

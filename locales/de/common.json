@@ -1,4 +1,87 @@
 {
+  "alternatives": {
+    "electionbuddy": {
+      "alternatives": [
+        {
+          "description": "Vocdoni veröffentlicht sein Protokoll und ermöglicht die Prüfung durch Wähler und Öffentlichkeit. Vereine nutzen die Software selbst oder buchen ein betreutes Projekt.",
+          "fit": "Für Open-Source-Wahlen mit unabhängiger Prüfung",
+          "name": "Vocdoni",
+          "pricing": "Der kostenlose Tarif unterstützt bis zu 100 Mitglieder. Größere öffentliche Tarife sind verfügbar."
+        },
+        {
+          "description": "OpaVote unterstützt Rangwahl, STV, Condorcet, Borda, Zustimmungswahl und Mehrfachauswahl. Es bietet auch Online-Wahlen, öffentliche Umfragen und Auszählungen.",
+          "fit": "Für Rangwahl mit einfacher nutzungsbasierter Abrechnung",
+          "name": "OpaVote",
+          "pricing": "Bis zu 25 Wähler und 10 Kandidaten sind kostenlos. Bezahlte Wahlen kosten ab 10 US-Dollar je 125 Wähler oder 20 Kandidaten."
+        },
+        {
+          "description": "Simply Voting bietet Wahlen zur Selbstbedienung und mit Betreuung. Auch Web-, Telefon- und Papierwahl sowie bestehende Organisationszugänge werden unterstützt.",
+          "fit": "Für Selbstbedienung und betreute Durchführung",
+          "name": "Simply Voting",
+          "pricing": "Testwahlen mit höchstens 10 Wahlberechtigten sind kostenlos. Für größere Wahlen gilt ein individuelles Angebot."
+        },
+        {
+          "description": "POLYAS teilt Online-Wahlen in die Pakete Standard, Verifiable und Certified. Kunden können selbst arbeiten oder Wahlmanagement hinzubuchen.",
+          "fit": "Für verifizierbare oder zertifizierte Wahlpakete",
+          "name": "POLYAS",
+          "pricing": "Standard ist bis 50 Wähler kostenlos. Verifiable und Certified kosten vor Zusatzleistungen ab 50 Euro."
+        }
+      ],
+      "baseline_points": [
+        "Der kostenlose Tarif gilt für bis zu 20 Wahlberechtigte.",
+        "Bezahlte ElectionVote-Tarife hängen von Funktionen und Zahl der Wahlberechtigten ab.",
+        "Wahlverfahren, Benachrichtigungen per E-Mail, SMS oder Post und Expertenservice variieren je Tarif."
+      ],
+      "baseline_text": "ElectionBuddy deckt bereits viele Organisationswahlen ab. Prüfe Alternativen, wenn Kaufmodell, Wahlverfahren oder Nachweismodell wichtiger sind.",
+      "baseline_title": "Was ElectionBuddy bereits abdeckt",
+      "criteria": [
+        {
+          "text": "Lege fest, ob Wähler und Beobachter die Auszählung ohne Vertrauen in einen Anbieter prüfen müssen.",
+          "title": "Prüfbarkeit"
+        },
+        {
+          "text": "Liste jedes Auszählverfahren, Stimmgewicht, Freitextfeld und jede Wählergruppe aus deiner Satzung auf.",
+          "title": "Stimmzettel"
+        },
+        {
+          "text": "Prüfe E-Mail, Zugangscodes, Single Sign-on, Papier, Telefon und unterstützte Stimmabgabe.",
+          "title": "Wählerzugang"
+        },
+        {
+          "text": "Vergleiche Wahlberechtigte, Wiederholungen, Ergebnisspeicher, Einrichtung und Support als Gesamtkosten.",
+          "title": "Kaufmodell"
+        }
+      ],
+      "criteria_eyebrow": "So wählst du",
+      "criteria_intro": "Beginne mit deinen Wahlregeln. Vergleiche dann Produkt, Service und Preis.",
+      "criteria_title": "Lege vier Anforderungen vor der Auswahl fest",
+      "electionbuddy_features": "ElectionBuddy-Funktionen",
+      "eyebrow": "Leitfaden für Wahlsoftware",
+      "image_alt": "Der Wahlassistent von Vocdoni zeigt die Einrichtung einer Wahl",
+      "image_caption": "Eine Wahl wird in Vocdoni vorbereitet",
+      "intro": "Die passende Lösung hängt von Auszählung, Prüfung, Betreuung und Preis ab. Diese Angaben wurden im August 2026 geprüft.",
+      "official_source": "Offizielle Quelle ansehen",
+      "primary_cta": "Vocdoni app entdecken",
+      "primary_cta_aria": "Die Online-Wahl-App von Vocdoni entdecken",
+      "proof_eyebrow": "Von Mitgliederorganisationen genutzt",
+      "proof_link": "Fallstudie von Òmnium Cultural lesen",
+      "proof_logo_alt": "Logo von Òmnium Cultural",
+      "proof_text": "Òmnium Cultural nutzt Vocdoni für satzungsgemäße Versammlungen mit mehr als 180.000 Mitgliedern. Der öffentliche Fall zeigt verifizierbare Wahlen im Verbandsmaßstab.",
+      "proof_title": "Nachweise müssen einer echten wichtigen Wahl standhalten",
+      "related_intro": "Sieh dir Produkt, Verbandslösung, echte Wahl und Sicherheitsmodell an.",
+      "related_links": {
+        "app": "Vocdoni app entdecken",
+        "associations": "Online-Wahlen für Vereine",
+        "omnium": "Fallstudie Òmnium Cultural",
+        "secure_voting": "So funktioniert sichere Online-Wahl"
+      },
+      "related_title": "Bewertung fortsetzen",
+      "shortlist_eyebrow": "Vier Optionen",
+      "shortlist_intro": "Jeder Anbieter wählt einen anderen Ansatz. Prüfe aktuelle Angaben über die offizielle Quelle.",
+      "shortlist_title": "Ordne die Plattform deiner wichtigsten Anforderung zu",
+      "title": "4 Alternativen zu ElectionBuddy für Organisationswahlen"
+    }
+  },
   "case_studies": {
     "bellpuig": {
       "author": "Jordi Estiarte",
@@ -2696,6 +2779,7 @@
     },
     "copyright": "© {{year}} Vocdoni. Mit ❤️ in Barcelona gemacht.",
     "gdpr": "DSGVO-konform",
+    "growth_by_tin": "Wachstum mit Tin",
     "legal": {
       "cookies": "Cookie-Einstellungen",
       "privacy": "Datenschutzerklärung",
@@ -2802,6 +2886,12 @@
     "about_us": {
       "description": "Lerne das Team kennen, das eine Open-Source-Infrastruktur für digitale Wahlen für Organisationen baut, die verlässliche Entscheidungen brauchen.",
       "title": "Über Vocdoni - Open-Source-Infrastruktur für Online-Wahlen"
+    },
+    "alternatives": {
+      "electionbuddy": {
+        "description": "Vergleiche Vocdoni, OpaVote, Simply Voting und POLYAS nach Wahlverfahren, Prüfung, Service und Preis.",
+        "title": "4 Alternativen zu ElectionBuddy für Organisationswahlen | Vocdoni"
+      }
     },
     "app": {
       "description": "Kostenlos starten, Wählerliste hochladen und Ergebnisse veröffentlichen, die deine Mitglieder prüfen können. Gebaut für Organisationen, die Vertrauen, Tempo und Nachweise brauchen.",

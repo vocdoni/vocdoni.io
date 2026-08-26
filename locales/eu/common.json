@@ -1,4 +1,87 @@
 {
+  "alternatives": {
+    "electionbuddy": {
+      "alternatives": [
+        {
+          "description": "Vocdonik bere protokoloa argitaratzen du, eta hautesleen zein publikoaren egiaztapena ahalbidetzen du. Elkarteek beren kabuz edo laguntzarekin erabil dezakete.",
+          "fit": "Kode irekiko eta modu independentean egiazta daitezkeen hauteskundeetarako",
+          "name": "Vocdoni",
+          "pricing": "Doako planak 100 kide hartzen ditu. Talde handiagoentzako plan publikoak daude."
+        },
+        {
+          "description": "OpaVotek lehentasunezko botoa, STV, Condorcet, Borda, onespena eta aukera anitza onartzen ditu. Hauteskundeak, inkestak eta zenbaketa ere eskaintzen ditu.",
+          "fit": "Lehentasunezko botoetarako, erabileraren araberako prezioarekin",
+          "name": "OpaVote",
+          "pricing": "Doakoa da 25 hautesle eta 10 hautagairaino. Hauteskundeek 10 dolar balio dute 125 hautesle edo 20 hautagaiko."
+        },
+        {
+          "description": "Simply Votingek autogestiozko eta kudeatutako hauteskundeak eskaintzen ditu. Web, telefono eta paperezko botoa eta erakundearen sarbidea ere onartzen ditu.",
+          "fit": "Autogestioa eta lagundutako kudeaketa bateratzeko",
+          "name": "Simply Voting",
+          "pricing": "10 hautesle edo gutxiagoko probak doakoak dira. Hauteskunde handiagoetarako aurrekontua eskatu behar da."
+        },
+        {
+          "description": "POLYASek Standard, Verifiable eta Certified paketeak eskaintzen ditu. Bezeroek autogestioa edo hauteskunde-kudeaketa aukera dezakete.",
+          "fit": "Egiazta daitezkeen edo ziurtatutako boto-paketeetarako",
+          "name": "POLYAS",
+          "pricing": "Standard doakoa da 50 hautesleraino. Verifiable eta Certified 50 eurotik hasten dira aukerak gehitu aurretik."
+        }
+      ],
+      "baseline_points": [
+        "Doako planak 20 hautesle hartzen ditu.",
+        "Ordainpeko ElectionVote planak funtzioen eta hautesle kopuruaren araberakoak dira.",
+        "Boto-metodoak, posta elektroniko, SMS edo posta bidezko oharrak eta aditu-zerbitzuak planaren arabera aldatzen dira."
+      ],
+      "baseline_text": "ElectionBuddyk erakundeen hauteskunde asko estaltzen ditu. Beste erosketa, boto edo froga eredu bat garrantzitsuagoa bada, alderatu aukerak.",
+      "baseline_title": "ElectionBuddyk dagoeneko eskaintzen duena",
+      "criteria": [
+        {
+          "text": "Erabaki hautesleek eta behatzaileek zenbaketa hornitzaile bakar batengan fidatu gabe egiaztatu behar duten.",
+          "title": "Egiaztapena"
+        },
+        {
+          "text": "Zerrendatu arauek eskatzen dituzten zenbaketa, boto haztatu, erantzun ireki eta talde guztiak.",
+          "title": "Boto-papera"
+        },
+        {
+          "text": "Egiaztatu posta elektroniko, kode, saio-hasiera bakar, paper, telefono eta lagundutako boto beharrak.",
+          "title": "Hautesleen sarbidea"
+        },
+        {
+          "text": "Alderatu hautesleak, errepikapenak, biltegiratzea, konfigurazioa eta laguntza kostu bakarrean.",
+          "title": "Erosketa eredua"
+        }
+      ],
+      "criteria_eyebrow": "Nola aukeratu",
+      "criteria_intro": "Hasi zure hauteskunde arauekin. Gero alderatu produktua, zerbitzua eta prezioa.",
+      "criteria_title": "Zehaztu lau baldintza aukeraketa egin aurretik",
+      "electionbuddy_features": "ElectionBuddyren funtzioak",
+      "eyebrow": "Hauteskunde-softwarearen gida",
+      "image_alt": "Vocdoniren boto-sortzaileak hauteskunde baten konfigurazioa erakusten du",
+      "image_caption": "Boto bat Vocdonin prestatzen",
+      "intro": "Aukera zenbaketa, egiaztapen, laguntza eta prezioaren araberakoa da. Datuak 2026ko abuztuan egiaztatu dira.",
+      "official_source": "Ikusi iturri ofiziala",
+      "primary_cta": "Aztertu Vocdoni aplikazioa",
+      "primary_cta_aria": "Aztertu Vocdoniren lineako boto-aplikazioa",
+      "proof_eyebrow": "Kide-erakundeek erabiltzen dute",
+      "proof_link": "Irakurri Òmnium Cultural kasua",
+      "proof_logo_alt": "Òmnium Culturalen logotipoa",
+      "proof_text": "Òmnium Culturalek Vocdoni erabiltzen du estatutu-batzarretan, 180.000 kide baino gehiagorekin. Kasuak boto egiaztagarria erakusten du elkarte-eskalan.",
+      "proof_title": "Frogak benetako hauteskunde garrantzitsu bati eutsi behar dio",
+      "related_intro": "Ikusi produktua, elkartearen kasua, benetako hauteskundea eta segurtasun eredua.",
+      "related_links": {
+        "app": "Aztertu Vocdoni aplikazioa",
+        "associations": "Elkarteentzako lineako botoa",
+        "omnium": "Òmnium Cultural kasua",
+        "secure_voting": "Nola funtzionatzen duen lineako boto seguruak"
+      },
+      "related_title": "Jarraitu ebaluazioarekin",
+      "shortlist_eyebrow": "Lau aukera",
+      "shortlist_intro": "Hornitzaile bakoitzak bide bat jarraitzen du. Egiaztatu egungo datuak iturri ofizialean.",
+      "shortlist_title": "Lotu plataforma zure baldintza zailenarekin",
+      "title": "ElectionBuddyren 4 alternatiba erakundeen bozketarako"
+    }
+  },
   "case_studies": {
     "bellpuig": {
       "author": "Jordi Estiarte",
@@ -2696,6 +2779,7 @@
     },
     "copyright": "© {{year}} Vocdoni. Bartzelonan egina ❤️.",
     "gdpr": "GDPR-a betetzen du",
+    "growth_by_tin": "Tin-ekin hazkundea",
     "legal": {
       "cookies": "Cookie-en ezarpenak",
       "privacy": "Pribatutasun-politika",
@@ -2802,6 +2886,12 @@
     "about_us": {
       "description": "Ezagutu taldeak kode irekia eraikitzen duen, erakundeek erabaki fidagarriak behar dituztenean erabiltzeko balio duen, egiaztagarri den online boto-emate digitalerako azpiegitura.",
       "title": "Vocdoni-ri buruz - kode irekiko online boto-ematearen azpiegitura"
+    },
+    "alternatives": {
+      "electionbuddy": {
+        "description": "Alderatu Vocdoni, OpaVote, Simply Voting eta POLYAS boto, egiaztapen, zerbitzu eta prezioaren arabera.",
+        "title": "ElectionBuddyren 4 alternatiba erakundeentzat | Vocdoni"
+      }
     },
     "app": {
       "description": "Hasi doan, igo zure botogileen zerrenda eta argitaratu zure kideek egiaztatu dezaketen emaitzak. Konfiantza, abiadura eta froga behar dituzten erakundeentzat eraikia.",
