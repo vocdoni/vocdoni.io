@@ -37,31 +37,35 @@ const Hero = () => {
           <div className='flex flex-col items-start gap-6 relative z-10 w-full min-w-0'>
             <MotionPreset fade slide delay={0} transition={{ duration: 0.5 }}>
               <h1 className='text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-[4.55rem] leading-[0.95] max-w-3xl break-words text-foreground text-balance'>
-                {t('hero.title')}{' '}
-                <span className='inline-flex min-w-[0px] xs:min-w-[120px] text-primary relative'>
-                  {reducedMotion ? (
-                    <span className='block'>{dynamicWords[0]}</span>
-                  ) : (
-                    <AnimatePresence mode='wait'>
-                      <motion.span
-                        key={index}
-                        initial={{ y: 20, opacity: 0 }}
-                        animate={{ y: 0, opacity: 1 }}
-                        exit={{ y: -20, opacity: 0 }}
-                        transition={{ duration: 0.6, ease: [0.25, 1, 0.5, 1] }}
-                        className='block'
-                      >
-                        {dynamicWords[index]}
-                      </motion.span>
-                    </AnimatePresence>
-                  )}
-                </span>
+                {t('hero.headline', 'Run secure, verifiable elections for your organization')}
               </h1>
             </MotionPreset>
 
             <MotionPreset fade slide delay={0.2} transition={{ duration: 0.5 }}>
-              <p className='text-base sm:text-lg text-muted-foreground max-w-[600px] leading-relaxed break-words'>
-                {t('hero.subtitle')}
+              <p className='text-base sm:text-lg text-muted-foreground max-w-[600px] leading-relaxed break-words text-pretty'>
+                <span className='font-medium text-foreground'>
+                  {t('hero.title')}{' '}
+                  <span className='inline-flex min-w-[0px] xs:min-w-[72px] text-primary relative'>
+                    {reducedMotion ? (
+                      <span className='block'>{dynamicWords[0]}</span>
+                    ) : (
+                      <AnimatePresence mode='wait'>
+                        <motion.span
+                          key={index}
+                          initial={{ y: 20, opacity: 0 }}
+                          animate={{ y: 0, opacity: 1 }}
+                          exit={{ y: -20, opacity: 0 }}
+                          transition={{ duration: 0.6, ease: [0.25, 1, 0.5, 1] }}
+                          className='block'
+                        >
+                          {dynamicWords[index]}
+                        </motion.span>
+                      </AnimatePresence>
+                    )}
+                  </span>
+                  .
+                </span>{' '}
+                <span>{t('hero.subtitle')}</span>
               </p>
             </MotionPreset>
 
@@ -71,9 +75,9 @@ const Hero = () => {
             </div>
 
             <MotionPreset fade slide delay={0.3} transition={{ duration: 0.5 }}>
-              <div className='flex flex-col sm:flex-row gap-4 w-full sm:w-auto'>
+              <div className='flex flex-col items-start gap-2 w-full sm:w-auto'>
                 <Button variant='dark' size='lg' className='group text-base has-[>svg]:px-6 w-full sm:w-auto' asChild>
-                  <Link href={APP_URL} variant='inlineIcon' ctaId='home_hero_start'>
+                  <Link href={APP_URL} variant='inlineIcon' ctaId='home_hero_start' data-hero-cta='primary'>
                     {t('hero.cta_primary')}
                     <ArrowRight
                       className='h-5 w-5 transition-transform duration-200 group-hover:translate-x-0.5'
@@ -81,32 +85,32 @@ const Hero = () => {
                     />
                   </Link>
                 </Button>
-                <Button
-                  variant='outline'
-                  size='lg'
-                  asChild
-                  className='gap-2 w-full sm:w-auto border-whatsapp text-whatsapp bg-whatsapp/8 hover:bg-whatsapp/25'
+                <Link
+                  href='https://wa.me/34621501155'
+                  target='_blank'
+                  rel='noopener noreferrer'
+                  variant='unstyled'
+                  data-hero-cta='secondary'
+                  className='inline-flex min-h-11 items-center gap-2 rounded-md px-2 text-sm font-medium text-muted-foreground hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2'
                 >
-                  <Link href='https://wa.me/34621501155' target='_blank' rel='noopener noreferrer' variant='unstyled'>
-                    <svg
-                      className='inline-block mr-1 h-4 w-4 text-whatsapp'
-                      viewBox='0 0 24 24'
-                      fill='none'
-                      xmlns='http://www.w3.org/2000/svg'
-                      aria-hidden
-                    >
-                      <path
-                        d='M20.52 3.48A11.93 11.93 0 0012 0C5.37 0 .08 5.29.08 11.92.08 14.64.88 17.24 2.36 19.33L0 24l4.8-2.48A11.92 11.92 0 0012 24c6.63 0 11.92-5.29 11.92-11.92 0-3.19-1.24-6.17-3.4-8.6z'
-                        fill='currentColor'
-                      />
-                      <path
-                        d='M17.3 14.1c-.3-.15-1.77-.87-2.04-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.95 1.17-.18.2-.36.22-.66.07-.3-.15-1.27-.47-2.42-1.48-.9-.8-1.5-1.8-1.67-2.1-.17-.3-.02-.46.13-.6.13-.13.3-.36.45-.54.15-.18.2-.3.3-.5.1-.2 0-.4-.05-.55-.05-.15-.67-1.6-.92-2.2-.24-.57-.48-.5-.67-.51-.17 0-.37 0-.57 0-.2 0-.53.08-.8.37-.27.3-1.03 1-1.03 2.43 0 1.43 1.05 2.8 1.2 3 .15.2 2.08 3.37 5.05 4.73 2.97 1.36 2.97.9 3.5.84.53-.07 1.72-.7 1.97-1.38.24-.69.24-1.28.17-1.4-.07-.12-.27-.18-.57-.33z'
-                        fill='#fff'
-                      />
-                    </svg>
-                    {t('hero.cta_secondary')}
-                  </Link>
-                </Button>
+                  <svg
+                    className='h-4 w-4 text-whatsapp'
+                    viewBox='0 0 24 24'
+                    fill='none'
+                    xmlns='http://www.w3.org/2000/svg'
+                    aria-hidden
+                  >
+                    <path
+                      d='M20.52 3.48A11.93 11.93 0 0012 0C5.37 0 .08 5.29.08 11.92.08 14.64.88 17.24 2.36 19.33L0 24l4.8-2.48A11.92 11.92 0 0012 24c6.63 0 11.92-5.29 11.92-11.92 0-3.19-1.24-6.17-3.4-8.6z'
+                      fill='currentColor'
+                    />
+                    <path
+                      d='M17.3 14.1c-.3-.15-1.77-.87-2.04-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.95 1.17-.18.2-.36.22-.66.07-.3-.15-1.27-.47-2.42-1.48-.9-.8-1.5-1.8-1.67-2.1-.17-.3-.02-.46.13-.6.13-.13.3-.36.45-.54.15-.18.2-.3.3-.5.1-.2 0-.4-.05-.55-.05-.15-.67-1.6-.92-2.2-.24-.57-.48-.5-.67-.51-.17 0-.37 0-.57 0-.2 0-.53.08-.8.37-.27.3-1.03 1-1.03 2.43 0 1.43 1.05 2.8 1.2 3 .15.2 2.08 3.37 5.05 4.73 2.97 1.36 2.97.9 3.5.84.53-.07 1.72-.7 1.97-1.38.24-.69.24-1.28.17-1.4-.07-.12-.27-.18-.57-.33z'
+                      fill='currentColor'
+                    />
+                  </svg>
+                  {t('hero.cta_secondary')}
+                </Link>
               </div>
             </MotionPreset>
 
