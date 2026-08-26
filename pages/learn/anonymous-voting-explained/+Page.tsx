@@ -6,5 +6,5 @@ export default function Page() {
   const { t } = useTranslation()
   const content = t('learn.anonymous_voting_explained', { returnObjects: true }) as ArticleContent
 
-  return <ArticlePage content={content} />
+  return <ArticlePage content={content} currentGuide='anonymous_voting_explained' />
 }

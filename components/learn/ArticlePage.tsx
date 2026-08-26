@@ -1,4 +1,4 @@
-import { ArrowLeftIcon, ArrowRightIcon, LightbulbIcon } from 'lucide-react'
+import { ArrowLeftIcon, ArrowRightIcon, BookOpenIcon, LightbulbIcon } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 
 import { Container } from '@/components/Container'
@@ -27,16 +27,87 @@ export interface ArticleContent {
 
 export interface ArticlePageProps {
   content: ArticleContent
+  currentGuide: GuideSlug
   ctaHref?: string
+}
+
+export type GuideSlug =
+  | 'anonymous_voting_explained'
+  | 'blockchain_voting_myths_vs_reality'
+  | 'gdpr_requirements_for_digital_voting'
+  | 'how_secure_online_voting_works'
+  | 'how_to_prevent_election_fraud_online'
+  | 'how_to_run_a_legally_valid_agm_online'
+  | 'verifiable_voting_explained'
+
+const RELATED_GUIDES: Record<GuideSlug, GuideSlug[]> = {
+  anonymous_voting_explained: [
+    'how_secure_online_voting_works',
+    'verifiable_voting_explained',
+    'gdpr_requirements_for_digital_voting',
+  ],
+  blockchain_voting_myths_vs_reality: [
+    'how_secure_online_voting_works',
+    'verifiable_voting_explained',
+    'how_to_prevent_election_fraud_online',
+  ],
+  gdpr_requirements_for_digital_voting: [
+    'anonymous_voting_explained',
+    'how_to_run_a_legally_valid_agm_online',
+    'how_secure_online_voting_works',
+  ],
+  how_secure_online_voting_works: [
+    'verifiable_voting_explained',
+    'anonymous_voting_explained',
+    'how_to_prevent_election_fraud_online',
+  ],
+  how_to_prevent_election_fraud_online: [
+    'how_secure_online_voting_works',
+    'verifiable_voting_explained',
+    'anonymous_voting_explained',
+  ],
+  how_to_run_a_legally_valid_agm_online: [
+    'gdpr_requirements_for_digital_voting',
+    'how_secure_online_voting_works',
+    'how_to_prevent_election_fraud_online',
+  ],
+  verifiable_voting_explained: [
+    'how_secure_online_voting_works',
+    'anonymous_voting_explained',
+    'blockchain_voting_myths_vs_reality',
+  ],
+}
+
+const GUIDE_HREFS: Record<GuideSlug, string> = {
+  anonymous_voting_explained: '/learn/anonymous-voting-explained',
+  blockchain_voting_myths_vs_reality: '/learn/blockchain-voting-myths-vs-reality',
+  gdpr_requirements_for_digital_voting: '/learn/gdpr-requirements-for-digital-voting',
+  how_secure_online_voting_works: '/learn/how-secure-online-voting-works',
+  how_to_prevent_election_fraud_online: '/learn/how-to-prevent-election-fraud-online',
+  how_to_run_a_legally_valid_agm_online: '/learn/how-to-run-a-legally-valid-agm-online',
+  verifiable_voting_explained: '/learn/verifiable-voting-explained',
 }
 
 const asArray = <T,>(value: unknown): T[] => (Array.isArray(value) ? (value as T[]) : [])
 
-export function ArticlePage({ content, ctaHref = '/solutions' }: ArticlePageProps) {
+export function ArticlePage({ content, currentGuide, ctaHref = '/solutions' }: ArticlePageProps) {
   const { t } = useTranslation()
   const sections = asArray<ArticleSection>(content.sections)
   const takeaways = asArray<string>(content.takeaways)
   const faq = asArray<ArticleFaqItem>(content.faq)
+  const guideTitles: Record<GuideSlug, string> = {
+    anonymous_voting_explained: t('learn.anonymous_voting_explained.title'),
+    blockchain_voting_myths_vs_reality: t('learn.blockchain_voting_myths_vs_reality.title'),
+    gdpr_requirements_for_digital_voting: t('learn.gdpr_requirements_for_digital_voting.title'),
+    how_secure_online_voting_works: t('learn.how_secure_online_voting_works.title'),
+    how_to_prevent_election_fraud_online: t('learn.how_to_prevent_election_fraud_online.title'),
+    how_to_run_a_legally_valid_agm_online: t('learn.how_to_run_a_legally_valid_agm_online.title'),
+    verifiable_voting_explained: t('learn.verifiable_voting_explained.title'),
+  }
+  const relatedGuides = RELATED_GUIDES[currentGuide].map((slug) => ({
+    href: GUIDE_HREFS[slug],
+    title: guideTitles[slug],
+  }))
 
   return (
     <>
@@ -138,6 +209,36 @@ export function ArticlePage({ content, ctaHref = '/solutions' }: ArticlePageProp
           </Container>
         </section>
       )}
+
+      {/* Contextual links to the rest of the learning cluster */}
+      <section className='py-4 pb-12'>
+        <Container className='max-w-3xl'>
+          <aside className='border-border border-y py-8' aria-labelledby='related-guides-heading'>
+            <div className='mb-5 flex items-center gap-2'>
+              <BookOpenIcon className='text-primary size-5' aria-hidden='true' />
+              <h2 id='related-guides-heading' className='text-xl sm:text-2xl'>
+                {t('learn_index.related_guides', 'Related guides')}
+              </h2>
+            </div>
+            <div className='border-border bg-border grid gap-px overflow-hidden rounded-2xl border sm:grid-cols-3'>
+              {relatedGuides.map((guide) => (
+                <Link
+                  key={guide.href}
+                  href={guide.href}
+                  variant='unstyled'
+                  className='group bg-background hover:bg-muted/50 flex min-h-28 flex-col justify-between gap-4 p-5'
+                >
+                  <span className='font-medium leading-snug'>{guide.title}</span>
+                  <ArrowRightIcon
+                    className='text-primary size-4 transition-transform group-hover:translate-x-1'
+                    aria-hidden='true'
+                  />
+                </Link>
+              ))}
+            </div>
+          </aside>
+        </Container>
+      </section>
 
       {/* Closing callout + back to hub */}
       <section className='pb-16'>
