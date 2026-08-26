@@ -40,7 +40,7 @@ const buildCompanyLinks = (t: TFunction): FooterLink[] => [
 
 const FooterColumn = ({ title, links }: { title: string; links: FooterLink[] }) => (
   <div className='lg:col-span-2'>
-    <h3 className='font-sans text-[11px] font-semibold mb-6 uppercase tracking-wider text-faint'>{title}</h3>
+    <h3 className='font-sans text-[11px] font-semibold mb-6 uppercase tracking-wider text-muted-foreground'>{title}</h3>
     <ul className='space-y-4'>
       {links.map((link) => (
         <li key={`${link.href}-${link.label}`}>
