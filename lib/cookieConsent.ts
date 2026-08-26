@@ -3,26 +3,102 @@ import TagManager from 'react-gtm-module'
 const CONSENT_KEY = 'vocdoni-cookie-consent'
 const CONSENT_ACCEPTED = 'accepted'
 const CONSENT_REJECTED = 'rejected'
+const CONSENT_MAX_AGE_SECONDS = 60 * 60 * 24 * 365
 
 /**
- * Get the current cookie consent status from localStorage
+ * The registrable domain both properties live under. The consent choice is
+ * stored as a cookie scoped to it - not in localStorage, which is per-origin -
+ * so that `app.vocdoni.io` reads the same decision this site records.
+ *
+ * That sharing is what makes cross-site analytics work at all: PostHog only
+ * keeps one `distinct_id` across subdomains while both sites run with cookie
+ * persistence, and both sites only switch to cookie persistence once consent is
+ * known. A per-origin choice leaves the app in "no decision yet", where it
+ * ignores the shared cookie and mints a fresh anonymous id.
+ */
+const ROOT_DOMAIN = 'vocdoni.io'
+
+/** Dispatched on the window whenever the consent choice changes in this tab. */
+export const CONSENT_CHANGE_EVENT = 'cookie-consent-changed'
+
+/**
+ * Hosts outside `vocdoni.io` - localhost and Netlify preview deploys - get a
+ * host-only cookie, so preview builds never join production identities.
+ */
+export function consentCookieDomain(hostname: string): string | null {
+  if (hostname === ROOT_DOMAIN || hostname.endsWith(`.${ROOT_DOMAIN}`)) return `.${ROOT_DOMAIN}`
+  return null
+}
+
+export function buildConsentCookie(value: string, hostname: string, protocol: string): string {
+  const domain = consentCookieDomain(hostname)
+  return [
+    `${CONSENT_KEY}=${encodeURIComponent(value)}`,
+    'path=/',
+    `max-age=${CONSENT_MAX_AGE_SECONDS}`,
+    'samesite=lax',
+    ...(domain ? [`domain=${domain}`] : []),
+    ...(protocol === 'https:' ? ['secure'] : []),
+  ].join('; ')
+}
+
+export function readConsentCookie(cookieString: string): string | null {
+  for (const entry of cookieString.split(';')) {
+    const separator = entry.indexOf('=')
+    if (separator === -1) continue
+    if (entry.slice(0, separator).trim() !== CONSENT_KEY) continue
+    return decodeURIComponent(entry.slice(separator + 1).trim()) || null
+  }
+  return null
+}
+
+function readLegacyConsent(): string | null {
+  try {
+    return localStorage.getItem(CONSENT_KEY)
+  } catch {
+    // Safari private mode and storage-blocking extensions throw on access.
+    return null
+  }
+}
+
+function writeConsent(value: string): void {
+  document.cookie = buildConsentCookie(value, window.location.hostname, window.location.protocol)
+  try {
+    // Mirrored, not read first: keeps a rollback of either site working, since
+    // the previous implementation only ever looked at localStorage.
+    localStorage.setItem(CONSENT_KEY, value)
+  } catch {
+    // The cookie above is the source of truth; losing the mirror is harmless.
+  }
+}
+
+/**
+ * Get the current cookie consent status
  * @returns 'accepted', 'rejected', or null if no choice has been made
  */
 export function getCookieConsent(): string | null {
   if (typeof window === 'undefined') return null
-  return localStorage.getItem(CONSENT_KEY)
+
+  const fromCookie = readConsentCookie(document.cookie)
+  if (fromCookie) return fromCookie
+
+  // Choices made before the shared cookie existed live in localStorage. Honour
+  // one once and promote it, so nobody who already decided is asked again.
+  const legacy = readLegacyConsent()
+  if (legacy) writeConsent(legacy)
+  return legacy
 }
 
 /**
- * Set the cookie consent status in localStorage and dispatch a custom event
+ * Set the cookie consent status and dispatch a custom event
  * @param accepted - true if user accepted cookies, false if rejected
  */
 export function setCookieConsent(accepted: boolean): void {
   if (typeof window === 'undefined') return
-  localStorage.setItem(CONSENT_KEY, accepted ? CONSENT_ACCEPTED : CONSENT_REJECTED)
+  writeConsent(accepted ? CONSENT_ACCEPTED : CONSENT_REJECTED)
 
   // Dispatch custom event for same-page listeners (e.g., CookieConsent component)
-  window.dispatchEvent(new CustomEvent('cookie-consent-changed'))
+  window.dispatchEvent(new CustomEvent(CONSENT_CHANGE_EVENT))
 }
 
 /**
