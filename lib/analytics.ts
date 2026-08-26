@@ -1,11 +1,32 @@
 type AnalyticsWindow = Window & {
-  dataLayer?: Array<Record<string, unknown>>
+  dataLayer?: Array<Record<string, unknown> | IArguments>
   gtag?: (...args: unknown[]) => void
+  google_tag_manager?: Record<string, unknown>
 }
 
 export type AppCtaClick = {
   ctaId: string
   destinationUrl: string
+}
+
+const GA4_MEASUREMENT_ID = /^G-[A-Z0-9]+$/
+
+function getLoadedGa4MeasurementId(analyticsWindow: AnalyticsWindow): string | null {
+  return Object.keys(analyticsWindow.google_tag_manager || {}).find((id) => GA4_MEASUREMENT_ID.test(id)) || null
+}
+
+/**
+ * Queues the same `arguments` object produced by the standard gtag helper.
+ * Plain arrays are not processed as gtag commands by the live GTM container.
+ */
+function queueGtagCommand(analyticsWindow: AnalyticsWindow, command: unknown[]): void {
+  analyticsWindow.dataLayer = analyticsWindow.dataLayer || []
+
+  function enqueue(..._command: unknown[]): void {
+    analyticsWindow.dataLayer?.push(arguments)
+  }
+
+  enqueue.apply(undefined, command)
 }
 
 /**
@@ -39,6 +60,13 @@ export function trackAppCtaClick({ ctaId, destinationUrl }: AppCtaClick): void {
 
   if (typeof analyticsWindow.gtag === 'function') {
     analyticsWindow.gtag('event', 'app_cta_click', properties)
+    return
+  }
+
+  const measurementId = getLoadedGa4MeasurementId(analyticsWindow)
+  if (measurementId) {
+    queueGtagCommand(analyticsWindow, ['config', measurementId, { send_page_view: false }])
+    queueGtagCommand(analyticsWindow, ['event', 'app_cta_click', { ...properties, send_to: measurementId }])
     return
   }
 
