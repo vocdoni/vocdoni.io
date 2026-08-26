@@ -46,9 +46,9 @@ describe('Hero layout spacing', () => {
   it('renders one clear H1 before one primary activation CTA', () => {
     const html = renderToStaticMarkup(<Hero />)
 
-    expect(html.match(/<h1/g)).toHaveLength(1)
+    expect(html.match(/<h1/g) ?? []).toHaveLength(1)
     expect(html).toContain('Run secure, verifiable elections for your organization')
-    expect(html.match(/data-hero-cta="primary"/g)).toHaveLength(1)
+    expect(html.match(/data-hero-cta="primary"/g) ?? []).toHaveLength(1)
     expect(html.indexOf('<h1')).toBeLessThan(html.indexOf('data-hero-cta="primary"'))
   })
 })
