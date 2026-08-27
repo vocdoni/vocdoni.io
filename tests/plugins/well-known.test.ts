@@ -6,6 +6,7 @@ import {
   DEVELOPERS_STATUS_URL,
   DEVELOPERS_SWAGGER_URL,
 } from '@/lib/developers'
+import { ARD_OUTPUT_PATHS } from '@/plugins/ard'
 import { buildApiCatalog, buildLlmsTxt, buildNetlifyHeaders } from '@/plugins/well-known'
 
 describe('buildApiCatalog', () => {
@@ -74,11 +75,26 @@ describe('buildNetlifyHeaders', () => {
     expect(buildNetlifyHeaders()).not.toContain('/developers/docs\n')
   })
 
+  it('serves the ARD manifests as CORS-readable json', () => {
+    for (const out of [buildNetlifyHeaders(), buildNetlifyHeaders(true)]) {
+      for (const path of ARD_OUTPUT_PATHS) {
+        // Registries fetch these cross-origin; without the CORS header the manifest is unreadable.
+        expect(out).toContain(`/${path}\n  Content-Type: application/json\n  Access-Control-Allow-Origin: *`)
+      }
+    }
+  })
+
+  it('advertises the ARD manifests as Link relations', () => {
+    const out = buildNetlifyHeaders()
+    expect(out).toContain('  Link: </.well-known/ard.json>; rel="ard"')
+    expect(out).toContain('  Link: </.well-known/ai-catalog.json>; rel="ai-catalog"')
+  })
+
   it('is a well-formed _headers file: path lines flush left, header lines indented', () => {
     for (const out of [buildNetlifyHeaders(), buildNetlifyHeaders(true)]) {
       expect(out.endsWith('\n')).toBe(true)
       const blocks = out.trimEnd().split('\n\n')
-      expect(blocks).toHaveLength(5)
+      expect(blocks).toHaveLength(7)
       for (const bl of blocks) {
         const [pathLine, ...headerLines] = bl.split('\n')
         expect(pathLine.startsWith('/')).toBe(true)

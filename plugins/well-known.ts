@@ -2,6 +2,7 @@ import { promises as fs } from 'node:fs'
 import path from 'node:path'
 import type { Plugin } from 'vite'
 import matter from 'gray-matter'
+import { ARD_OUTPUT_PATHS } from './ard'
 import {
   DEVELOPERS_API_BASE_URL,
   DEVELOPERS_GITHUB_URL,
@@ -119,6 +120,11 @@ export function buildNetlifyHeaders(noindex = false): string {
     `<${DEVELOPERS_SWAGGER_URL}>; rel="service-desc"`,
     `<${DEVELOPERS_SKILLS_URL}>; rel="related"`,
     '</llms.txt>; rel="alternate"; type="text/plain"',
+    // ARD section 5.1: a conformant consumer MUST honour a rel="ard" link, so the manifest is
+    // discoverable by header as well as by well-known path. rel="ai-catalog" covers readers that
+    // only know the predecessor name.
+    '</.well-known/ard.json>; rel="ard"',
+    '</.well-known/ai-catalog.json>; rel="ai-catalog"',
   ]
   const headers = links.map((l) => `  Link: ${l}`)
   // Dev and preview deploys are production deploys of their own Netlify site, so Netlify does not
@@ -135,6 +141,12 @@ export function buildNetlifyHeaders(noindex = false): string {
     // those tags, parse the markdown as HTML and then report it as a page with no <title>.
     // `noindex` only; `nofollow` would be counterproductive on a file whose whole job is links.
     ...RAW_MARKDOWN_PATHS.map((p) => block(p, ['  X-Robots-Tag: noindex'])),
+    // ARD manifests (plugins/ard.ts). Netlify already types `.json` correctly, so `Content-Type`
+    // is belt and braces; `Access-Control-Allow-Origin` is the load-bearing one, because registries
+    // fetch these cross-origin and a missing header makes the manifest unreadable to them.
+    ...ARD_OUTPUT_PATHS.map((p) =>
+      block(`/${p}`, ['  Content-Type: application/json', '  Access-Control-Allow-Origin: *'])
+    ),
   ]
   return blocks.join('\n\n') + '\n'
 }

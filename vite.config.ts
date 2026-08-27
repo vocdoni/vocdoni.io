@@ -5,6 +5,7 @@ import vike from 'vike/plugin'
 import { ConfigEnv, defineConfig, loadEnv } from 'vite'
 import { localeDefault, locales } from './locales'
 import { agentSkillsPlugin } from './plugins/agent-skills'
+import { ardPlugin } from './plugins/ard'
 import { blogMarkdownPlugin } from './plugins/blog-markdown'
 import { blogRssPlugin } from './plugins/blog-rss'
 import { docsMarkdownPlugin } from './plugins/docs-markdown'
@@ -56,6 +57,10 @@ const viteconfig = ({ mode }: ConfigEnv) => {
         hostname: siteUrl,
         defaultLocale: localeDefault,
         noindex,
+      }),
+      ardPlugin({
+        hostname: siteUrl,
+        defaultLocale: localeDefault,
       }),
       agentSkillsPlugin(),
     ],
