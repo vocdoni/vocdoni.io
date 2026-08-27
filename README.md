@@ -109,8 +109,10 @@ Everything deploys to Netlify from a single workflow (`.github/workflows/deploy-
 
 Every environment defines the `NETLIFY_SITE_ID` secret, which decides *where* the deploy lands. Alongside it:
 
-- `SITE_URL` - branch pushes only (`production`, `develop`). PR previews compute their own URL from the deploy alias, so the variable is unread there.
-- `NETLIFY_SITE_NAME` - PR previews only, to build that alias URL. It must name the same site `NETLIFY_SITE_ID` points at, or the build bakes a canonical URL for a host that never serves it.
+- `SITE_URL` - branch pushes only (`production`, `develop`). The public base URL the build bakes into canonical tags, `og:image` and the sitemap. PR previews compute their own, so the variable is unread there.
+- `NETLIFY_SITE_NAME` - PR previews only. The site's Netlify *name* (the `dev-vocdoni-io` in `dev-vocdoni-io.netlify.app`), used purely as a string to spell that preview's base URL: `https://deploy-preview-<n>--<NETLIFY_SITE_NAME>.netlify.app`.
+
+`NETLIFY_SITE_ID` and `NETLIFY_SITE_NAME` address the same site from opposite directions: the id decides which site receives the upload, the name only spells the hostname the build will advertise. Nothing cross-checks them, so pointing them at different sites still deploys successfully - the files just land on one site while every canonical tag, `og:image` and sitemap entry names another.
 - `GTM_ID`, `PLAUSIBLE_DOMAIN`, `RECAPTCHA_SITE_KEY` - build-time values. Leaving the analytics pair unset cleanly disables those scripts, which is what you want outside production; `RECAPTCHA_SITE_KEY` should be set everywhere or the contact form returns `config_error` on submit.
 
 `NETLIFY_AUTH_TOKEN` and the `EMAILJS_*` variables are repository-wide. A missing `SITE_URL` on a branch push, or `NETLIFY_SITE_NAME` on a PR, fails the job rather than baking a wrong canonical URL.
