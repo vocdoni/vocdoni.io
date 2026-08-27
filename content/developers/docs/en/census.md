@@ -77,8 +77,12 @@ The process census is the full electorate. A single **question** can narrow it t
 own optional `census` object (a `groupId` or `memberIds`, always within the process census); omit it and
 every census member may vote on that question. Reads expose the resolved subset as `eligibleMemberIds`,
 but **only to a manager/admin** (or a `voting:write` key) - it is stripped from the public process
-reads. A voter checks their own per-question eligibility with
+reads. An **empty** subset means no restriction: the question is open to the whole census. A voter
+checks their own per-question eligibility with
 [`POST /processes/{processId}/check`](/developers/docs/casting-votes#voter-status).
+
+The subset is not fixed at publish time: replace it later - even while voting is ongoing - with
+[`PUT /processes/{processId}/questions/{questionId}/census`](/developers/docs/voting-processes#changing-a-questions-eligibility).
 
 ```jsonc
 "questions": [{
@@ -112,9 +116,21 @@ JSON
 { "valid": true, "errors": [] }   // errors may carry the offending member ids
 ```
 
-## Growing the census after publishing
+## Kept in sync with the memberbase
 
-The census is fixed at [publish](/developers/docs/voting-processes#publishing-on-chain), but you can
-add more members later without re-creating the process - see
-[Growing a published census](/developers/docs/voting-processes#growing-a-published-census). Questions
-with an eligibility subset keep their fixed size.
+The memberbase is the source of truth: a process census is a **snapshot of it taken through a group
+or a member list, kept in sync** after publishing. Changes to
+[members and groups](/developers/docs/members-and-groups) cascade to the censuses of ongoing
+processes:
+
+- **Additions propagate.** A member added to the group a live census was built from (including new
+  members landing in an auto "All members" group) joins that census and can vote; the affected
+  elections are resized on chain automatically. Additions are gated by your plan's census quota.
+- **Removals cascade, but voters are protected.** Deleting a member or removing them from a group
+  strips them from the affected censuses and question eligibility lists, so the credential service
+  stops signing for them. If the CSP has **already signed** for the member on a question that is
+  still `READY` or `PAUSED`, the removal is **refused** with a `409` (error code `40173`) and the
+  offending ids in `data.signedMemberIds` - once voting closes it succeeds.
+- The census can also be edited directly on the process - adding members, removing them, or
+  replacing a question's eligibility list - see
+  [Managing a published census](/developers/docs/voting-processes#managing-a-published-census).

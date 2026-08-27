@@ -70,7 +70,9 @@ before you provision more.
 > A [process](/developers/docs/voting-processes) counts as **one** published process against
 > `maxManagedProcesses` no matter how many questions it holds, and only once it is published - drafts
 > do not count. Some plans also restrict which [voting types](/developers/docs/voting-types) you may
-> use; a disallowed type is rejected when you publish.
+> use; a disallowed type is rejected when you publish. The gate applies however the question is
+> authored - a raw `ballotProtocol` describing a ranked or cumulative ballot needs the same plan
+> entitlement as the named type.
 
 ## Tiers
 
