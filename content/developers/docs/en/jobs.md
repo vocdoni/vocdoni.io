@@ -25,10 +25,13 @@ curl -s "$B/jobs/$JOBID"     # public: status + counters (per-row errors only fo
 ```jsonc
 { "jobId": "a1b2c3...",
   "type": "publish_voting_process",   // org_members | publish_voting_process |
-                                      //   set_process_status | relay_vote
+                                      //   set_process_status | relay_vote | relay_votes
   "status": "completed",              // pending | completed | failed
   "result": { "status": "READY",      // on status change: the new status
-              "voteID": "" },         // on relay_vote: the vote nullifier
+              "processId": "",        // on relay_vote: the target on-chain election id (the
+                                      //   question's upstreamId), readable while pending
+              "nullifier": "",        // on relay_vote: the vote nullifier (readable while pending)
+              "voteID": "" },         // on relay_vote: the nullifier as assigned on chain (on success)
   "errors": [] }                      // per-row import failures; omitempty (absent), manager session only
 ```
 
@@ -73,7 +76,23 @@ while True:
 - `org_members` - bulk member import.
 - `publish_voting_process` - publishing a process (its census and one election per question, in one batch).
 - `set_process_status` - changing a question's status.
-- `relay_vote` - relaying a vote to the protocol.
+- `relay_vote` - relaying a single vote to the protocol.
+- `relay_votes` - relaying a batch of votes (`POST /votes`) to the protocol.
+
+A `relay_votes` job reports every envelope of the batch, in the order they were sent. `total` is
+the batch size and `added` the number that have finished, so `progress` advances as the votes land;
+the job stays `pending` until the last one reports and ends `completed` only if every vote was
+accepted:
+
+```jsonc
+{ "jobId": "a1b2c3...", "type": "relay_votes", "status": "failed",
+  "errors": ["vote 2: vote already exists"],
+  "result": { "total": 3, "added": 3, "progress": 100,
+    "votes": [
+      { "processId": "9d3f...", "nullifier": "7ac1...", "voteID": "7ac1...", "status": "completed" },
+      { "processId": "4e77...", "nullifier": "b209...", "voteID": "b209...", "status": "completed" },
+      { "processId": "c015...", "nullifier": "33fa...", "status": "failed", "error": "vote already exists" } ] } }
+```
 
 ## The members-job
 

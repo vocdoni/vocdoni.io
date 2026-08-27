@@ -110,8 +110,17 @@ console.log('voteID:', job.result?.voteID)
 Repeat steps 3 and 4 for every question the voter is eligible for - the auth token and the check
 from steps 1 and 2 are reused across all of them, but each ballot needs a **fresh
 `EphemeralSigner`**. The returned `voteID` is the vote **nullifier** - the voter's receipt, which
-they can use to verify their vote was counted. Once a question ends, read its tally from
-[Results](/developers/docs/results).
+they can use to [verify their vote on chain](#verifying-a-vote-on-chain). Once a question ends,
+read its tally from [Results](/developers/docs/results).
+
+> [!TIP] Multi-question processes: batch the signing and the relay
+> Signing and relaying question by question leaves a window in which some ballots are on chain and
+> the rest are not - a crash mid-loop leaves the voter half-voted. For multi-question processes the
+> recommended path is the [batch flow below](#casting-a-multi-question-process-in-one-batch): one
+> `sign-batch` call signs every ballot under the auth token, and one `POST /votes` call relays the
+> envelopes together - the batch is accepted or rejected as a unit, and the job then reports each
+> vote individually. The SDK client does not wrap these two endpoints yet, so they are plain REST
+> calls.
 
 > [!NOTE] 2FA censuses
 > When the census verifies voters by `email`/`phone`, step 0 sends a one-time code and returns a
@@ -195,6 +204,91 @@ question, each on its own vote.
 > it. See the [SDK repository]({{SDK_URL}}) and the
 > [SDK quickstart](/developers/docs/sdk-quickstart).
 
+## Casting a multi-question process in one batch
+
+A multi-question process is one on-chain election per question, so the voter holds one ballot per
+question. Two public endpoints take them together, so a rejected batch never leaves the voter
+half-voted:
+
+**1. Sign every ballot in one call.** `POST /processes/{processId}/sign-batch` is the batch form of
+`/sign`: one verified `authToken`, one entry per question. Each ballot names its question by the
+on-chain election id (`upstreamId`, as returned by `check` and `sign-info`) and the ephemeral voter
+address to sign for it:
+
+```bash
+curl -X POST "$B/processes/$PROCESS/sign-batch" \
+  -H "Content-Type: application/json" \
+  -d '{ "authToken": "<authToken>", "ballots": [
+        { "upstreamId": "<upstreamId question 1>", "address": "<hex ephemeral address 1>" },
+        { "upstreamId": "<upstreamId question 2>", "address": "<hex ephemeral address 2>" } ] }'
+# -> { "signatures": [
+#       { "upstreamId": "<upstreamId question 1>", "signature": "<csp-signature>", "weight": "01" },
+#       { "upstreamId": "<upstreamId question 2>", "signature": "<csp-signature>", "weight": "01" } ] }
+```
+
+The batch is **authorized as a unit and signs nothing on failure**: every ballot must name an
+election of this process the voter is eligible for (`401` otherwise), carry a voter address, and no
+election may be repeated (`400`). Once authorized, every ballot is signed and the response is always
+a `200` with one entry per request item, in order - a `signature` plus `weight`, or a stable `code`
+with an `error` message. Retry **only** the entries whose code is retryable (`already_signing`,
+`sign_failed`); re-sending the whole batch re-signs the ballots that already succeeded, and each
+re-sign spends the election's finite overwrite budget (10). `already_consumed` is not retryable,
+and `auth_invalid` means the token was invalidated mid-batch - authenticate again.
+
+**2. Relay every envelope in one call.** Build and sign each vote envelope locally (a fresh
+ephemeral key per ballot, as usual), then relay them together with `POST /votes` instead of one
+`POST /vote` per question:
+
+```bash
+curl -X POST "$B/votes" \
+  -H "Content-Type: application/json" \
+  -d '{ "votes": [ { "txPayload": "<hex envelope question 1>" },
+                   { "txPayload": "<hex envelope question 2>" } ] }'
+# -> 202 Accepted   { "jobId": "<jobId>" }
+```
+
+The batch is validated synchronously and **enqueued all or nothing** - one undecodable envelope, a
+batch spanning two organizations, or a queue without room for all of them rejects the call with
+nothing relayed (at most 100 votes per call; each envelope's body is capped at 8 KiB). The single
+`jobId` covers the whole batch as a `relay_votes` [job](/developers/docs/jobs) whose result reports
+every envelope in request order - each entry carries its `processId` and `nullifier` (known while
+the job is still pending) plus the chain-assigned `voteID` once that vote is accepted, or the
+reason it failed:
+
+```bash
+curl -s "$B/jobs/<jobId>"
+# -> { "type": "relay_votes", "status": "completed",
+#      "result": { "total": 2, "added": 2, "progress": 100,
+#        "votes": [
+#          { "processId": "<upstreamId 1>", "nullifier": "<hex>", "voteID": "<hex>", "status": "completed" },
+#          { "processId": "<upstreamId 2>", "nullifier": "<hex>", "voteID": "<hex>", "status": "completed" } ] } }
+```
+
+## Verifying a vote on chain
+
+The nullifier is the voter's receipt, and `POST /votes/verify` (public) turns it into an on-chain
+confirmation - the endpoint a receipt screen calls. It takes up to 100 nullifiers (one per question
+of a multi-question process) and answers synchronously, per nullifier and in request order, whether
+the chain knows that vote:
+
+```bash
+curl -X POST "$B/votes/verify" \
+  -H "Content-Type: application/json" \
+  -d '{ "nullifiers": [ "<nullifier question 1>", "<nullifier question 2>" ] }'
+```
+
+```jsonc
+{ "votes": [
+  { "nullifier": "<hex>", "verified": true,
+    "processId": "<on-chain election id>", "txHash": "<hex>",
+    "blockHeight": 123456, "date": "2026-07-30T12:00:00Z" },
+  { "nullifier": "<hex>", "verified": false }   // receipt fields absent when not found
+] }
+```
+
+`verified: false` means the chain has no vote with that nullifier (yet) - right after relaying,
+poll the [job](/developers/docs/jobs) first and verify once it completes.
+
 ## Voter status
 
 Public helpers let a UI show a voter where they stand without casting anything. Each identifies the
@@ -258,11 +352,19 @@ curl -X POST "$B/vote" \
 # -> 202 Accepted   { "jobId": "<jobId>" }
 
 curl -s "$B/jobs/<jobId>"
-# -> { "status": "completed", "result": { "voteID": "<nullifier>" } }
+# -> { "status": "completed",
+#      "result": { "processId": "<upstreamId>", "nullifier": "<hex>", "voteID": "<nullifier>" } }
 ```
 
+The job carries the target `processId` and the vote `nullifier` from creation - both derived from
+the envelope, so they are readable while the job is still pending - and the chain-assigned `voteID`
+once the vote is accepted.
+
 Repeat steps **b** and **c** for every question the voter is eligible for; the auth token from step
-**a** is reused across all of them.
+**a** is reused across all of them. For a multi-question process, prefer the batch endpoints - one
+`POST /processes/{processId}/sign-batch` for step **b** and one `POST /votes` for step **c** - so
+the questions are signed under a single authorization and relayed all or nothing (see
+[the batch flow](#casting-a-multi-question-process-in-one-batch)).
 
 > [!NOTE] What is in the envelope
 > The vote package inside the envelope is `{"votes":[<choice>]}` - for example `{"votes":[1]}`. Building

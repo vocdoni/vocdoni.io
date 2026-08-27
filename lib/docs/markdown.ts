@@ -144,7 +144,10 @@ const METHOD_STYLES: Record<HttpMethod, string> = {
 
 // --- Property table, mirrored from the old PropertyTable.tsx -----------------
 
-const TABLE_WRAP = 'my-6 overflow-hidden rounded-xl border border-border/60'
+// overflow-x-auto (not hidden) so a table wider than the content column scrolls
+// inside its own box instead of being clipped; min-w-0 + max-w-full keep the
+// wrapper from pushing the page wider, mirroring CODE_PRE.
+const TABLE_WRAP = 'my-6 min-w-0 max-w-full overflow-x-auto rounded-xl border border-border/60'
 const TABLE = 'w-full border-collapse text-left text-sm'
 const TABLE_HEAD_ROW = 'bg-muted/50 text-xs uppercase tracking-wide text-muted-foreground'
 const TABLE_TH = 'px-4 py-2.5 font-medium'

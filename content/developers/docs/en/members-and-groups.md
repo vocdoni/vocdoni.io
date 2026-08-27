@@ -118,6 +118,21 @@ Update a single member, or delete members by id. Note the delete path is **plura
 curl "${auth[@]}" -X DELETE "$B/organizations/$ORG/members" -d '{"ids":["<memberId>"]}'
 ```
 
+Member and group changes **cascade to the censuses of ongoing processes** - the memberbase is the
+source of truth (see [Census](/developers/docs/census#kept-in-sync-with-the-memberbase)). Two
+consequences for these endpoints:
+
+- **Deleting a voter who already got their ballot signed is refused.** If the credential service has
+  already signed for a member on a question that is still `READY` or `PAUSED`, the delete returns a
+  `409` (error code `40173`) with the offending ids in `data.signedMemberIds` - one entry per
+  member, in the order you sent them. Retry once voting closes on those questions; deletion is never
+  permanently blocked. The same guard applies to removing such a member from a group a live census
+  was built from.
+- **Additions propagate.** A new member, or a member added to a group, joins the live censuses built
+  from that group and can vote; creations are gated by your plan's census quota.
+
+Malformed or unknown ids in the delete body are ignored rather than failing the request.
+
 ## Groups
 
 A group is a named subset of members. The common case is an **all-members group**, which a process
