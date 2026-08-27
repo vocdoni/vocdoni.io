@@ -7,7 +7,7 @@ import {
   DEVELOPERS_SWAGGER_URL,
 } from '@/lib/developers'
 import { ARD_OUTPUT_PATHS } from '@/plugins/ard'
-import { buildApiCatalog, buildLlmsTxt, buildNetlifyHeaders } from '@/plugins/well-known'
+import { artifactsFor, buildApiCatalog, buildNetlifyHeaders } from '@/plugins/well-known'
 
 describe('buildApiCatalog', () => {
   it('emits a valid RFC 9727 linkset anchored at the API base', () => {
@@ -18,26 +18,6 @@ describe('buildApiCatalog', () => {
     expect(entry['service-desc'][0].href).toBe(DEVELOPERS_SWAGGER_URL)
     expect(entry['service-doc'][0].href).toBe('https://vocdoni.io/developers/docs')
     expect(entry.status[0].href).toBe(DEVELOPERS_STATUS_URL)
-  })
-})
-
-describe('buildLlmsTxt', () => {
-  it('renders an H1, summary and link sections, skipping empty ones', () => {
-    const out = buildLlmsTxt('https://vocdoni.io', [
-      { heading: 'Developer docs', entries: [{ title: 'Overview', url: '/en/developers/docs.md' }] },
-      { heading: 'Blog', entries: [] },
-    ])
-    expect(out.startsWith('# Vocdoni')).toBe(true)
-    expect(out).toContain('## Developer docs')
-    expect(out).toContain('- [Overview](https://vocdoni.io/en/developers/docs.md)')
-    expect(out).not.toContain('## Blog')
-  })
-
-  it('keeps absolute URLs untouched', () => {
-    const out = buildLlmsTxt('https://vocdoni.io', [
-      { heading: 'Key pages', entries: [{ title: 'OpenAPI', url: DEVELOPERS_SWAGGER_URL }] },
-    ])
-    expect(out).toContain(`- [OpenAPI](${DEVELOPERS_SWAGGER_URL})`)
   })
 })
 
@@ -101,6 +81,35 @@ describe('buildNetlifyHeaders', () => {
         expect(headerLines.length).toBeGreaterThan(0)
         for (const line of headerLines) expect(line).toMatch(/^ {2}[\w-]+: \S/)
       }
+    }
+  })
+})
+
+describe('artifactsFor', () => {
+  const options = { hostname: 'https://vocdoni.io', defaultLocale: 'en', locales: ['en', 'es', 'ca'] }
+
+  it('emits the api catalog, a curated index, the full index and the headers file', () => {
+    const files = artifactsFor(options).map((a) => a.file)
+    expect(files).toEqual(['.well-known/api-catalog', 'llms.txt', 'llms-full.txt', '_headers'])
+  })
+
+  it('emits only the English index by default, even on a multi-locale site', () => {
+    const files = artifactsFor(options)
+      .filter((a) => a.file.startsWith('llms'))
+      .map((a) => a.file)
+    expect(files).toEqual(['llms.txt', 'llms-full.txt'])
+  })
+
+  it('keeps the per-locale seam available without using it', () => {
+    const files = artifactsFor({ ...options, llmsLocales: ['en', 'es'] }).map((a) => a.file)
+    expect(files).toContain('llms.txt')
+    expect(files).toContain('llms-es.txt')
+  })
+
+  it('serves the text artifacts in dev but never _headers', () => {
+    for (const artifact of artifactsFor(options)) {
+      expect(artifact.devServable).toBe(artifact.file !== '_headers')
+      if (artifact.file.endsWith('.txt')) expect(artifact.contentType).toBe('text/plain; charset=utf-8')
     }
   })
 })

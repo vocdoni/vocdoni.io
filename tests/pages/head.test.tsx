@@ -177,6 +177,14 @@ describe('Head meta tags', () => {
     expect(html).toContain('"text":"Sí. Puedes ejecutar una votación gratis para hasta 100 miembros."')
   })
 
+  it('advertises the single English llms.txt index from every locale', () => {
+    for (const locale of ['en', 'es', 'ca']) {
+      expect(renderHead({ locale, urlLogical: '/app', config: { title: 'Vocdoni' } })).toContain(
+        '<link rel="alternate" type="text/plain" href="/llms.txt"/>'
+      )
+    }
+  })
+
   it('adds noindex for 404 pages and omits canonical/hreflang tags', () => {
     const html = renderHead({
       locale: 'en',
