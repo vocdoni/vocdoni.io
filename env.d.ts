@@ -2,6 +2,8 @@
 
 declare const PLAUSIBLE_DOMAIN: string
 declare const SITE_URL: string
+// True on non-production deploys (dev site, PR previews); see vite.config.ts
+declare const NOINDEX: boolean
 // Product URLs (app + integrator dashboard) defined in vite.config.ts
 declare const APP_URL: string
 declare const PLATFORM_URL: string

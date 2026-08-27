@@ -3,13 +3,7 @@ import { dirname, join, relative, sep } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { describe, expect, it } from 'vitest'
 
-import {
-  buildDigitalOceanIngressRules,
-  buildNetlifyRedirects,
-  injectIngressRules,
-  LEGACY_REDIRECT_RULES_MARKER,
-  LEGACY_REDIRECTS,
-} from '@/lib/legacyRedirects'
+import { buildNetlifyRedirects, LEGACY_REDIRECTS } from '@/lib/legacyRedirects'
 import { localeDefault, locales } from '@/locales'
 
 const PAGES_DIR = join(dirname(fileURLToPath(import.meta.url)), '../../pages')
@@ -50,7 +44,7 @@ describe('LEGACY_REDIRECTS source of truth', () => {
   })
 
   it('never redirects a path that is, or prefixes, a real route', () => {
-    // DO matches by string prefix, so a `from` must neither equal nor prefix any live URL.
+    // Netlify matches `_redirects` rules by path, so a `from` must neither equal nor prefix any live URL.
     for (const { from } of LEGACY_REDIRECTS) {
       expect(REAL_URLS.has(from)).toBe(false)
       for (const real of REAL_URLS) expect(real.startsWith(from)).toBe(false)
@@ -101,49 +95,5 @@ describe('buildNetlifyRedirects', () => {
     // longest `from` first, so a shorter prefix can never shadow a more specific rule
     const lengths = lines.map((line) => line.split(/\s+/)[0].length)
     expect(lengths).toEqual([...lengths].sort((a, b) => b - a))
-  })
-})
-
-describe('buildDigitalOceanIngressRules', () => {
-  it('emits a prefix-matched 301 ingress rule per redirect', () => {
-    const yaml = buildDigitalOceanIngressRules()
-    expect((yaml.match(/redirect_code: 301/g) ?? []).length).toBe(LEGACY_REDIRECTS.length)
-    expect((yaml.match(/- match:/g) ?? []).length).toBe(LEGACY_REDIRECTS.length)
-    for (const { from, to } of LEGACY_REDIRECTS) {
-      expect(yaml).toContain(`prefix: ${from}`)
-      expect(yaml).toContain(`uri: ${to}`)
-    }
-  })
-})
-
-describe('injectIngressRules', () => {
-  const template = [
-    'ingress:',
-    '  rules:',
-    `  ${LEGACY_REDIRECT_RULES_MARKER}`,
-    '  - component:',
-    '      name: vocdoni-io',
-    '    match:',
-    '      path:',
-    '        prefix: /',
-    'static_sites:',
-    '- envs:',
-    '  - key: SITE_URL',
-    '    value: ${SITE_URL}',
-    '',
-  ].join('\n')
-
-  it('replaces the marker with every redirect rule, keeping the catch-all and env placeholders', () => {
-    const spec = injectIngressRules(template)
-    expect(spec).not.toContain(LEGACY_REDIRECT_RULES_MARKER)
-    expect((spec.match(/redirect_code: 301/g) ?? []).length).toBe(LEGACY_REDIRECTS.length)
-    expect(spec).toContain('- component:') // catch-all preserved
-    expect(spec).toContain('value: ${SITE_URL}') // env placeholder left for app_action to substitute
-    // the catch-all rule stays after the generated redirect rules
-    expect(spec.indexOf('redirect_code: 301')).toBeLessThan(spec.indexOf('- component:'))
-  })
-
-  it('throws when the template is missing the marker', () => {
-    expect(() => injectIngressRules('ingress:\n  rules: []\n')).toThrow(LEGACY_REDIRECT_RULES_MARKER)
   })
 })

@@ -437,6 +437,10 @@ export function HeadTags(pageContext: PageContext) {
 
   return (
     <>
+      {/* Dev site and PR previews are full copies of production. The `X-Robots-Tag` header in
+          plugins/well-known.ts is the authoritative signal; this mirrors it for any host that
+          serves the files without our `_headers`. */}
+      {NOINDEX && <meta name='robots' content='noindex,nofollow' />}
       <script type='application/ld+json'>{JSON.stringify(schema)}</script>
       {/* Self-hosted fonts (see scripts/copy-fonts.mjs). Served from public/ so only the
           unicode-range subset each page needs is fetched, with font-display: swap. */}

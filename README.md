@@ -77,7 +77,6 @@ public/         Files copied as-is to the build output
 tests/          Vitest unit tests
 scripts/        Build-time and guardrail scripts
 plugins/        Vite plugins (e.g. redirect file emitter)
-.do/            DigitalOcean App Platform configuration
 .github/        CI/CD workflows
 ```
 
@@ -99,19 +98,21 @@ Create a `.env.local` file to override any variable locally. All of the followin
 
 ## Deployment
 
-The site uses two deployment targets, both triggered by GitHub Actions:
+Everything deploys to Netlify from a single workflow (`.github/workflows/deploy-netlify.yml`). The Netlify site, its public URL and every build-time value come from the GitHub environment the trigger selects, so the workflow never hardcodes a site:
 
-- **Netlify**: PR previews and every push to `main`. Used for quick iteration and review. Redirects are written as a `_redirects` file into `dist/client` at build time.
-- **DigitalOcean App Platform**: production at `vocdoni.io`. Triggered only on push to `main`. The workflow runs `pnpm gen:do-appspec` to generate `.do/app.generated.yaml` (the DO app spec with redirect ingress rules injected), which is then passed to DigitalOcean's deploy action.
+| Trigger | Environment | Result |
+|---|---|---|
+| Push to `lts` | `production` | Production deploy at `vocdoni.io`. The only indexable deploy. |
+| Push to `main` | `develop` | Production deploy of the dev site, shipped with `X-Robots-Tag: noindex`. |
+| Pull request | `pull request` | Deploy preview at `deploy-preview-<n>--<site>.netlify.app`, also noindexed. |
 
-The split exists because Netlify and DigitalOcean handle redirects differently, and we need a single source of truth for the rules regardless of target.
+Each environment defines the `NETLIFY_SITE_ID` secret plus the `NETLIFY_SITE_NAME`, `SITE_URL`, `GTM_ID`, `PLAUSIBLE_DOMAIN` and `RECAPTCHA_SITE_KEY` variables. `NETLIFY_AUTH_TOKEN` and the `EMAILJS_*` variables are repository-wide. A missing `SITE_URL` fails the job rather than baking a wrong canonical URL.
+
+`main` is the development branch; production changes land on `lts`.
 
 ## Redirects
 
-All legacy URL redirects (301s) are defined in **`lib/legacyRedirects.ts`** (the single source of truth). Two emitters read from it at build/deploy time:
-
-- `buildNetlifyRedirects` → `_redirects` file (emitted by `plugins/legacy-redirects.ts`, never committed)
-- `buildDigitalOceanIngressRules` → ingress rules fragment injected into the DO app spec by `pnpm gen:do-appspec`
+All legacy URL redirects (301s) are defined in **`lib/legacyRedirects.ts`** (the single source of truth). `buildNetlifyRedirects` renders them into the `_redirects` file that `plugins/legacy-redirects.ts` emits into `dist/client` at build time (never committed).
 
 To add, change, or remove a redirect, edit `lib/legacyRedirects.ts` only.
 

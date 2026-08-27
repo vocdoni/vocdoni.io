@@ -24,13 +24,11 @@ import matter from 'gray-matter'
  * Discovery uses git only - a shallow, blobless clone of each source repo over the git
  * transport (no api.github.com, so no unauthenticated REST rate limit and no token to
  * provision on any builder), reading marketplace.json and each SKILL.md via `git cat-file`.
- * `git` is always on PATH: the Netlify build runs in GitHub Actions and the DigitalOcean
- * production build runs on DO's builders - both are git checkouts. Failures are non-fatal:
- * the plugin warns and skips the file rather than breaking the build.
+ * `git` is always on PATH: every build runs in GitHub Actions off a git checkout. Failures
+ * are non-fatal: the plugin warns and skips the file rather than breaking the build.
  *
  * The site is fully prerendered with no runtime server; this static JSON is served as-is
- * on both Netlify and DigitalOcean. Mirrors plugins/well-known.ts (also generated at
- * build, never committed).
+ * by Netlify. Mirrors plugins/well-known.ts (also generated at build, never committed).
  */
 
 export const SKILLS_SCHEMA_URI = 'https://schemas.agentskills.io/discovery/0.2.0/schema.json'

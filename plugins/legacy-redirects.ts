@@ -5,8 +5,8 @@ import { buildNetlifyRedirects } from '../lib/legacyRedirects'
 
 /**
  * Emits the Netlify `_redirects` file into the client build output from the single source of truth
- * in `lib/legacyRedirects.ts`. Netlify (used for the dev + PR-preview deploys) reads this file and
- * issues real 301s; production on DigitalOcean uses the generated `ingress.rules` instead.
+ * in `lib/legacyRedirects.ts`. Netlify reads this file and issues real 301s on every deploy -
+ * production, the dev site and PR previews alike.
  *
  * Mirrors `plugins/vike-sitemap.ts`: generated at build time, never committed, so it cannot drift.
  */

@@ -35,4 +35,11 @@ describe('buildRobotsTxt', () => {
     expect(robots).toContain('Disallow: /keystatic')
     expect(robots).toContain('Sitemap: https://vocdoni.io/sitemap.xml')
   })
+
+  it('stops advertising the sitemap on noindex deploys but keeps the site crawlable', () => {
+    const robots = buildRobotsTxt('https://vocdoni-io-dev.netlify.app', true)
+    expect(robots).not.toContain('Sitemap:')
+    // Still `Allow: /` on purpose - a blocked crawl would never read the X-Robots-Tag header.
+    expect(robots).toContain('Allow: /')
+  })
 })

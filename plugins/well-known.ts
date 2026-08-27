@@ -16,24 +16,26 @@ import {
  * repo's single sources of truth (`lib/developers.ts`, `content/developers/docs/`,
  * `content/blog/`) so nothing can drift.
  *
- * Files emitted (all under `dist/client`, served on both Netlify and DigitalOcean):
+ * Files emitted (all under `dist/client`):
  *   /.well-known/api-catalog   RFC 9727 linkset+json
  *   /llms.txt                  llmstxt.org index
- *   /_headers                  Netlify Link: headers (ignored by DO)
+ *   /_headers                  Netlify Link: headers (plus X-Robots-Tag on non-production deploys)
  *
  * Agent skills are NOT hosted here: they live in vocdoni/integrator-sdk and are
  * published via the vocdoni/skills marketplace, which the discovery links point to
  * (see lib/seo-head.tsx and the docs skill link) rather than vendoring a copy.
  *
- * The site is fully prerendered with no runtime server, so real HTTP Link headers only
- * apply on Netlify (`_headers`); production relies on the `<link rel>` tags in
- * `lib/seo-head.tsx` plus these static files. Mirrors `plugins/docs-markdown.ts` and
+ * The site is fully prerendered with no runtime server, so real HTTP Link headers come from
+ * Netlify reading `_headers`, alongside the `<link rel>` tags in `lib/seo-head.tsx` and these
+ * static files. Mirrors `plugins/docs-markdown.ts` and
  * `plugins/legacy-redirects.ts`: generated at build, never committed.
  */
 
 interface Options {
   hostname: string
   defaultLocale: string
+  /** Non-production deploy: ship `X-Robots-Tag: noindex, nofollow` so it never gets indexed. */
+  noindex?: boolean
 }
 
 const OVERVIEW_SLUG = 'overview'
@@ -89,7 +91,7 @@ export function buildLlmsTxt(hostname: string, sections: { heading: string; entr
 
 // Netlify-only Link headers, mirroring the <link rel> tags in lib/seo-head.tsx. DO ignores
 // this file; it makes the RFC 8288 header check pass on preview deploys.
-export function buildNetlifyHeaders(): string {
+export function buildNetlifyHeaders(noindex = false): string {
   const links = [
     '</.well-known/api-catalog>; rel="api-catalog"',
     '</developers/docs>; rel="service-doc"',
@@ -97,7 +99,11 @@ export function buildNetlifyHeaders(): string {
     `<${DEVELOPERS_SKILLS_URL}>; rel="related"`,
     '</llms.txt>; rel="alternate"; type="text/plain"',
   ]
-  return ['/*', ...links.map((l) => `  Link: ${l}`), ''].join('\n')
+  const headers = links.map((l) => `  Link: ${l}`)
+  // Dev and preview deploys are production deploys of their own Netlify site, so Netlify does not
+  // add this for us. Only the production branch is indexable.
+  if (noindex) headers.unshift('  X-Robots-Tag: noindex, nofollow')
+  return ['/*', ...headers, ''].join('\n')
 }
 
 // --- source enumeration (build/Node side) -----------------------------------
@@ -211,7 +217,7 @@ export function wellKnownPlugin(options: Options): Plugin {
       await Promise.all([
         write('.well-known/api-catalog', buildApiCatalog(host)),
         write('llms.txt', await buildLlms(resolvedRoot, host, options.defaultLocale)),
-        write('_headers', buildNetlifyHeaders()),
+        write('_headers', buildNetlifyHeaders(options.noindex)),
       ])
     },
   }
