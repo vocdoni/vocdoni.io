@@ -3,6 +3,7 @@ import {
   DEVELOPERS_PROTOCOL_URL,
   DEVELOPERS_SDK_URL,
   DEVELOPERS_SKILLS_URL,
+  DEVELOPERS_STATUS_URL,
   DEVELOPERS_SWAGGER_URL,
 } from '../developers'
 
@@ -142,6 +143,12 @@ export const CURATED_SECTIONS: CuratedSection[] = [
         url: DEVELOPERS_SKILLS_URL,
         titleKey: 'llms.titles.skills',
         noteKey: 'llms.notes.developers.skills',
+      },
+      {
+        type: 'external',
+        url: DEVELOPERS_STATUS_URL,
+        titleKey: 'llms.titles.status',
+        noteKey: 'llms.notes.developers.status',
       },
     ],
   },
