@@ -21,6 +21,21 @@ type PartialPageContext = {
 
 const renderHead = (pageContext: PartialPageContext) => renderToStaticMarkup(<HeadTags {...(pageContext as any)} />)
 
+/**
+ * JSON-LD assertions parse the payload rather than substring-matching the serialized
+ * output: key order and added fields are not part of the contract, the shape is.
+ */
+function jsonLd(html: string): Record<string, unknown>[] {
+  const blocks = [...html.matchAll(/<script type="application\/ld\+json">(.*?)<\/script>/gs)]
+  return blocks.flatMap((m) => {
+    const parsed = JSON.parse(m[1].replace(/\\u003c/g, '<'))
+    return Array.isArray(parsed) ? parsed : [parsed]
+  })
+}
+
+const node = (html: string, type: string) =>
+  jsonLd(html).find((n) => n['@type'] === type) as Record<string, any> | undefined
+
 describe('Head meta tags', () => {
   beforeEach(() => {
     ;(globalThis as any).SITE_URL = 'https://vocdoni.io'
@@ -112,11 +127,20 @@ describe('Head meta tags', () => {
       config: { title: 'Vocdoni - Blockchain Voting Technology' },
     })
 
-    expect(html).toContain('type="application/ld+json"')
-    expect(html).toContain('"@type":"Organization"')
-    expect(html).toContain('"@type":"WebSite"')
-    expect(html).toContain('"url":"https://vocdoni.io"')
-    expect(html).toContain('"sameAs":["https://github.com/vocdoni"')
+    const org = node(html, 'Organization')!
+    expect(org['@id']).toBe('https://vocdoni.io/#organization')
+    expect(org.url).toBe('https://vocdoni.io')
+    expect(org.sameAs).toContain('https://github.com/vocdoni')
+    expect(org.logo).toMatchObject({ '@type': 'ImageObject', '@id': 'https://vocdoni.io/#logo' })
+
+    const site = node(html, 'WebSite')!
+    expect(site['@id']).toBe('https://vocdoni.io/#website')
+    expect(site.publisher).toEqual({ '@id': 'https://vocdoni.io/#organization' })
+  })
+
+  it('links the page node to the WebSite node instead of redeclaring it', () => {
+    const html = renderHead({ locale: 'en', urlLogical: '/', config: { title: 'Vocdoni' } })
+    expect(node(html, 'WebPage')!.isPartOf).toEqual({ '@id': 'https://vocdoni.io/#website' })
   })
 
   it('adds page-specific JSON-LD and breadcrumbs for about and contact pages', () => {
@@ -170,8 +194,11 @@ describe('Head meta tags', () => {
       },
     })
 
-    expect(html).toContain('"@type":"SoftwareApplication"')
-    expect(html).toContain('"name":"Vocdoni app"')
+    const app = node(html, 'SoftwareApplication')!
+    expect(app['@id']).toBe('https://vocdoni.io/#vocdoni-app')
+    expect(app.name).toBe('Vocdoni app')
+    expect(app.isAccessibleForFree).toBe(true)
+    expect(app.publisher).toEqual({ '@id': 'https://vocdoni.io/#organization' })
     expect(html).toContain('"@type":"FAQPage"')
     expect(html).toContain('"name":"¿Puedo ejecutar una votación gratis?"')
     expect(html).toContain('"text":"Sí. Puedes ejecutar una votación gratis para hasta 100 miembros."')
@@ -183,6 +210,23 @@ describe('Head meta tags', () => {
         '<link rel="alternate" type="text/plain" href="/llms.txt"/>'
       )
     }
+  })
+
+  it('keeps the Organization logo stable when a page has its own social image', () => {
+    const branded = renderHead({ locale: 'en', urlLogical: '/', config: { title: 'Vocdoni' } })
+    const caseStudy = renderHead({
+      locale: 'en',
+      urlLogical: '/case-studies/coib',
+      config: { title: 'COIB case study | Vocdoni', image: '/case-studies/coib.webp' },
+    })
+
+    // The page's own image still drives og:image...
+    expect(caseStudy).toContain('property="og:image" content="https://vocdoni.io/case-studies/coib.webp"')
+
+    // ...but the Organization logo is the brand default, not the case-study cover.
+    const logo = node(caseStudy, 'Organization')!.logo
+    expect(logo.url).not.toBe('https://vocdoni.io/case-studies/coib.webp')
+    expect(logo.url).toBe(node(branded, 'Organization')!.logo.url)
   })
 
   it('adds noindex for 404 pages and omits canonical/hreflang tags', () => {
