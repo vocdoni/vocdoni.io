@@ -47,5 +47,10 @@ describe('buildNetlifyHeaders', () => {
     expect(out).toContain('Link: </.well-known/api-catalog>; rel="api-catalog"')
     expect(out).toContain(`Link: <${DEVELOPERS_SKILLS_URL}>; rel="related"`)
     expect(out).toContain(`Link: <${DEVELOPERS_SWAGGER_URL}>; rel="service-desc"`)
+    expect(out).not.toContain('X-Robots-Tag')
+  })
+
+  it('adds X-Robots-Tag on noindex deploys', () => {
+    expect(buildNetlifyHeaders(true)).toContain('  X-Robots-Tag: noindex, nofollow')
   })
 })

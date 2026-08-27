@@ -77,7 +77,6 @@ public/         Files copied as-is to the build output
 tests/          Vitest unit tests
 scripts/        Build-time and guardrail scripts
 plugins/        Vite plugins (e.g. redirect file emitter)
-.do/            DigitalOcean App Platform configuration
 .github/        CI/CD workflows
 ```
 
@@ -96,22 +95,35 @@ Create a `.env.local` file to override any variable locally. All of the followin
 | `PLAUSIBLE_DOMAIN` | Plausible Analytics domain |
 | `RECAPTCHA_SITE_KEY` | reCAPTCHA v3 site key |
 | `SITE_URL` | Public base URL (used for canonical tags and sitemaps) |
+| `NOINDEX` | Set to `true` on non-production deploys to keep them out of search indexes |
 
 ## Deployment
 
-The site uses two deployment targets, both triggered by GitHub Actions:
+Everything deploys to Netlify from a single workflow (`.github/workflows/deploy-netlify.yml`). The Netlify site, its public URL and every build-time value come from the GitHub environment the trigger selects, so the workflow never hardcodes a site:
 
-- **Netlify**: PR previews and every push to `main`. Used for quick iteration and review. Redirects are written as a `_redirects` file into `dist/client` at build time.
-- **DigitalOcean App Platform**: production at `vocdoni.io`. Triggered only on push to `main`. The workflow runs `pnpm gen:do-appspec` to generate `.do/app.generated.yaml` (the DO app spec with redirect ingress rules injected), which is then passed to DigitalOcean's deploy action.
+| Trigger | Environment | Result |
+|---|---|---|
+| Push to `lts` | `production` | Production deploy at `vocdoni.io`. The only indexable deploy. |
+| Push to `main` | `develop` | Production deploy of the dev site, shipped with `X-Robots-Tag: noindex`. |
+| Pull request | `pull request` | Deploy preview at `deploy-preview-<n>--<site>.netlify.app`, also noindexed. |
 
-The split exists because Netlify and DigitalOcean handle redirects differently, and we need a single source of truth for the rules regardless of target.
+Every environment defines the `NETLIFY_SITE_ID` secret, which decides *where* the deploy lands. Alongside it:
+
+- `SITE_URL` - branch pushes only (`production`, `develop`). PR previews compute their own URL from the deploy alias, so the variable is unread there.
+- `NETLIFY_SITE_NAME` - PR previews only, to build that alias URL. It must name the same site `NETLIFY_SITE_ID` points at, or the build bakes a canonical URL for a host that never serves it.
+- `GTM_ID`, `PLAUSIBLE_DOMAIN`, `RECAPTCHA_SITE_KEY` - build-time values. Leaving the analytics pair unset cleanly disables those scripts, which is what you want outside production; `RECAPTCHA_SITE_KEY` should be set everywhere or the contact form returns `config_error` on submit.
+
+`NETLIFY_AUTH_TOKEN` and the `EMAILJS_*` variables are repository-wide. A missing `SITE_URL` on a branch push, or `NETLIFY_SITE_NAME` on a PR, fails the job rather than baking a wrong canonical URL.
+
+### Releasing
+
+`main` is the development branch. A release is a merge of `main` into `lts`; the resulting push to `lts` is what triggers the production deploy. Everything merged into `main` since the last release ships together, so only merge work into `main` that you are willing to release next.
+
+Under this flow `lts` carries no commits of its own, so the merge normally fast-forwards. Guardrails run on pull requests targeting `lts` as well as `main`.
 
 ## Redirects
 
-All legacy URL redirects (301s) are defined in **`lib/legacyRedirects.ts`** (the single source of truth). Two emitters read from it at build/deploy time:
-
-- `buildNetlifyRedirects` → `_redirects` file (emitted by `plugins/legacy-redirects.ts`, never committed)
-- `buildDigitalOceanIngressRules` → ingress rules fragment injected into the DO app spec by `pnpm gen:do-appspec`
+All legacy URL redirects (301s) are defined in **`lib/legacyRedirects.ts`** (the single source of truth). `buildNetlifyRedirects` renders them into the `_redirects` file that `plugins/legacy-redirects.ts` emits into `dist/client` at build time (never committed).
 
 To add, change, or remove a redirect, edit `lib/legacyRedirects.ts` only.
 

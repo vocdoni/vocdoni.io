@@ -89,12 +89,19 @@
 
 ## Deployment
 
-This repo uses two deployment targets triggered by different GitHub events:
+Everything deploys to Netlify from one workflow (`.github/workflows/deploy-netlify.yml`). The site and all build-time values come from the GitHub environment the trigger selects:
 
-- **Netlify** — PR previews and main-branch deploys. Runs on every PR and every push to `main`. Redirect rules are emitted as a `_redirects` file inside `dist/client` at build time by `plugins/legacy-redirects.ts` (never committed).
-- **DigitalOcean App Platform** — production at `vocdoni.io`. Runs only on push to `main`. The workflow runs `pnpm gen:do-appspec`, which injects the redirect ingress rules into `.do/app.template.yaml` and writes `.do/app.generated.yaml`; that generated file is what DigitalOcean receives.
+- push to `lts` → `production` environment → `vocdoni.io`. The only indexable deploy.
+- push to `main` → `develop` environment → the dev site, built with `NOINDEX=true`.
+- pull request → `pull request` environment → `deploy-preview-<n>` alias, also `NOINDEX=true`.
 
-Both emitters share a single source of truth: **`lib/legacyRedirects.ts`**. To add, change, or remove a redirect, edit that file only — the correct format for each host is generated automatically at build/deploy time.
+`main` is the development branch. A release is a merge of `main` into `lts`: the resulting push to `lts` is what triggers the production deploy, so everything merged into `main` since the last release ships together. Only merge work into `main` that you are willing to release next.
+
+The per-environment secret and variable list is in [README.md](README.md#deployment).
+
+Redirect rules are emitted as a `_redirects` file inside `dist/client` at build time by `plugins/legacy-redirects.ts` (never committed), from the single source of truth in **`lib/legacyRedirects.ts`**. To add, change, or remove a redirect, edit that file only.
+
+`NOINDEX=true` makes the build emit `X-Robots-Tag: noindex, nofollow` in `_headers`, drop the `Sitemap:` line from `robots.txt`, and add a `robots` meta tag. Never set it for a production build.
 
 ## Agent-Specific Instructions
 

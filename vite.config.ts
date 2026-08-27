@@ -22,10 +22,14 @@ const viteconfig = ({ mode }: ConfigEnv) => {
   } catch {}
 
   // Absolute URLs (canonical, og:image, sitemap, RSS) are built from this. CI passes SITE_URL per
-  // target: production (DigitalOcean) uses the canonical domain; Netlify preview deploys pass their
-  // own deterministic alias URL (see .github/workflows/deploy-netlify.yml) so shared preview links
-  // resolve to the host that actually serves that build's assets. Local builds fall back to prod.
+  // deploy: production uses the canonical domain, while the dev site and preview deploys pass their
+  // own URL (see .github/workflows/deploy-netlify.yml) so shared links resolve to the host that
+  // actually serves that build's assets. Local builds fall back to prod.
   const siteUrl = process.env.SITE_URL || 'https://vocdoni.io'
+
+  // Only the production deploy is indexable. The dev site and PR previews are production deploys of
+  // their own Netlify site, so Netlify does not noindex them for us - the build has to.
+  const noindex = process.env.NOINDEX === 'true'
 
   return defineConfig({
     plugins: [
@@ -41,6 +45,7 @@ const viteconfig = ({ mode }: ConfigEnv) => {
         hostname: siteUrl,
         locales,
         defaultLocale: localeDefault,
+        noindex,
       }),
       blogRssPlugin({
         hostname: siteUrl,
@@ -50,6 +55,7 @@ const viteconfig = ({ mode }: ConfigEnv) => {
       wellKnownPlugin({
         hostname: siteUrl,
         defaultLocale: localeDefault,
+        noindex,
       }),
       agentSkillsPlugin(),
     ],
@@ -76,6 +82,7 @@ const viteconfig = ({ mode }: ConfigEnv) => {
 
     define: {
       SITE_URL: JSON.stringify(siteUrl),
+      NOINDEX: JSON.stringify(noindex),
       APP_URL: JSON.stringify(process.env.APP_URL || 'https://app.vocdoni.io'),
       PLATFORM_URL: JSON.stringify(process.env.PLATFORM_URL || 'https://platform.vocdoni.io'),
       PLAUSIBLE_DOMAIN: JSON.stringify(process.env.PLAUSIBLE_DOMAIN || ''),

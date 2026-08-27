@@ -8,6 +8,8 @@ type Options = {
   locales: string[]
   defaultLocale: string
   includeRobots?: boolean
+  /** Non-production deploy: drop the `Sitemap:` line so nothing advertises this host to crawlers. */
+  noindex?: boolean
 }
 
 // A route plus the locales it actually exists in. Most pages exist in every
@@ -94,9 +96,13 @@ export function buildSitemapXml(hostname: string, routes: SitemapRoute[], defaul
 // Content-Signal (contentsignals.org / AIPREF) declares how the public content may
 // be used: discoverable via search and usable as live AI input, but not for model
 // training. Kept alongside the standard crawl rules so agents see both at once.
-export function buildRobotsTxt(hostname: string) {
+export function buildRobotsTxt(hostname: string, noindex = false) {
   const host = hostname.replace(/\/+$/, '')
-  return `User-agent: *\nContent-Signal: search=yes, ai-input=yes, ai-train=no\nAllow: /\nDisallow: /keystatic\nDisallow: /api/keystatic\n\nSitemap: ${host}/sitemap.xml\n`
+  const rules = `User-agent: *\nContent-Signal: search=yes, ai-input=yes, ai-train=no\nAllow: /\nDisallow: /keystatic\nDisallow: /api/keystatic\n`
+  // Non-production deploys stay crawlable on purpose: `Disallow: /` would stop crawlers from ever
+  // reading the `X-Robots-Tag: noindex` header (plugins/well-known.ts) that actually de-indexes
+  // them. We simply never advertise the sitemap, so nothing invites the crawl in the first place.
+  return noindex ? rules : `${rules}\nSitemap: ${host}/sitemap.xml\n`
 }
 
 // Enumerate concrete blog post + category archive routes from the content files
@@ -174,7 +180,7 @@ export function vikeSitemapPlugin(options: Options): Plugin {
           return
         }
         res.setHeader('Content-Type', 'text/plain')
-        res.end(buildRobotsTxt(options.hostname))
+        res.end(buildRobotsTxt(options.hostname, options.noindex))
       })
     },
     async closeBundle() {
@@ -187,7 +193,7 @@ export function vikeSitemapPlugin(options: Options): Plugin {
       await fs.mkdir(clientOutDir, { recursive: true })
 
       const sitemap = buildSitemapXml(options.hostname, routes, options.defaultLocale)
-      const robots = options.includeRobots === false ? null : buildRobotsTxt(options.hostname)
+      const robots = options.includeRobots === false ? null : buildRobotsTxt(options.hostname, options.noindex)
 
       await Promise.all([
         fs.writeFile(path.join(clientOutDir, 'sitemap.xml'), sitemap, 'utf8'),

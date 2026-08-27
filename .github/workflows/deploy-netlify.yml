@@ -1,20 +1,38 @@
 name: Deploy to Netlify
 
+# Single deploy target for every environment. The Netlify site, its public URL and every build-time
+# value come from the GitHub environment selected below, so this file never hardcodes a site:
+#
+#   push to `lts`  -> `production`    -> vocdoni.io (the only indexable deploy)
+#   push to `main` -> `develop`       -> dev site (a production deploy of *that* site)
+#   pull request   -> `pull request`  -> deploy-preview-<n> alias on the preview site
+#
+# Each environment must define:
+#   secret    NETLIFY_SITE_ID
+#   variables NETLIFY_SITE_NAME, SITE_URL, GTM_ID, PLAUSIBLE_DOMAIN, RECAPTCHA_SITE_KEY
+# NETLIFY_AUTH_TOKEN and the EMAILJS_* variables are repository-wide.
+
 on:
   push:
     branches:
+      - lts
       - main
   pull_request:
     branches:
       - main
 
+concurrency:
+  # Never cancel a branch deploy midway; superseded PR previews are worth cancelling.
+  group: deploy-netlify-${{ github.event.pull_request.number || github.ref_name }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
-    # Netlify is the non-production target (PR previews and main-branch dev deploys); it always uses
-    # the 'pull request' environment. Production lives on DigitalOcean (see deploy-digitalocean.yml).
-    environment: 'pull request'
+    environment:
+      name: ${{ github.event_name == 'pull_request' && 'pull request' || (github.ref_name == 'lts' && 'production' || 'develop') }}
+      url: ${{ steps.netlify_url.outputs.site_url }}
 
     steps:
       - name: Checkout code
@@ -47,21 +65,31 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       # The real Netlify deploy URL embeds a deploy id that only exists after upload, so it can't be
-      # known at build time. Instead we pin a deterministic deploy *alias* (below) whose URL we can
-      # compute up front and bake into SITE_URL, so canonical/og:image/etc. point at the host that
-      # actually serves this deploy's assets — otherwise shared preview links resolve to production,
-      # where a PR's new posts/images don't exist yet.
+      # known at build time. Branch deploys use the environment's SITE_URL; PRs pin a deterministic
+      # deploy *alias* whose URL we can compute up front and bake into SITE_URL, so
+      # canonical/og:image/etc. point at the host that actually serves this deploy's assets -
+      # otherwise shared preview links resolve to production, where a PR's new posts/images don't
+      # exist yet. An unset value is a hard failure: falling back would bake the wrong canonical.
       - name: Resolve Netlify deploy URL
         id: netlify_url
         env:
-          NETLIFY_SITE_NAME: vocdoni-io
+          NETLIFY_SITE_NAME: ${{ vars.NETLIFY_SITE_NAME }}
+          SITE_URL: ${{ vars.SITE_URL }}
         run: |
           if [ "${{ github.event_name }}" = "pull_request" ]; then
+            if [ -z "${NETLIFY_SITE_NAME}" ]; then
+              echo "::error::NETLIFY_SITE_NAME is not set for this environment"
+              exit 1
+            fi
             alias="deploy-preview-${{ github.event.number }}"
             site_url="https://${alias}--${NETLIFY_SITE_NAME}.netlify.app"
           else
+            if [ -z "${SITE_URL}" ]; then
+              echo "::error::SITE_URL is not set for this environment"
+              exit 1
+            fi
             alias=""
-            site_url="https://${NETLIFY_SITE_NAME}.netlify.app"
+            site_url="${SITE_URL%/}"
           fi
           echo "alias=${alias}" >> "$GITHUB_OUTPUT"
           echo "site_url=${site_url}" >> "$GITHUB_OUTPUT"
@@ -72,15 +100,22 @@ jobs:
           EMAILJS_PUBLIC_KEY: ${{ vars.EMAILJS_PUBLIC_KEY }}
           EMAILJS_SERVICE_ID: ${{ vars.EMAILJS_SERVICE_ID }}
           EMAILJS_TEMPLATE_ID: ${{ vars.EMAILJS_TEMPLATE_ID }}
+          GTM_ID: ${{ vars.GTM_ID }}
+          PLAUSIBLE_DOMAIN: ${{ vars.PLAUSIBLE_DOMAIN }}
+          RECAPTCHA_SITE_KEY: ${{ vars.RECAPTCHA_SITE_KEY }}
           SITE_URL: ${{ steps.netlify_url.outputs.site_url }}
+          # Only the production branch is indexable. Dev and preview deploys are production deploys
+          # of their own Netlify site, so Netlify does not noindex them for us.
+          NOINDEX: ${{ !(github.event_name == 'push' && github.ref_name == 'lts') }}
 
       - name: Deploy to Netlify
         uses: nwtgck/actions-netlify@v3.0
         with:
           publish-dir: './dist/client'
-          production-branch: main
-          # Pin the alias so the served URL matches the SITE_URL baked into the build above. Empty on
-          # main, where production-branch triggers a production deploy at the site's primary URL.
+          # Every branch push is a production deploy of whichever site the environment points at.
+          production-deploy: ${{ github.event_name == 'push' }}
+          # Pin the alias so the served URL matches the SITE_URL baked into the build above. Empty
+          # on branch pushes, which serve the site's primary URL.
           alias: ${{ steps.netlify_url.outputs.alias }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
           deploy-message: 'Deploy from GitHub Actions'
