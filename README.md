@@ -95,6 +95,7 @@ Create a `.env.local` file to override any variable locally. All of the followin
 | `PLAUSIBLE_DOMAIN` | Plausible Analytics domain |
 | `RECAPTCHA_SITE_KEY` | reCAPTCHA v3 site key |
 | `SITE_URL` | Public base URL (used for canonical tags and sitemaps) |
+| `NOINDEX` | Set to `true` on non-production deploys to keep them out of search indexes |
 
 ## Deployment
 
@@ -106,7 +107,13 @@ Everything deploys to Netlify from a single workflow (`.github/workflows/deploy-
 | Push to `main` | `develop` | Production deploy of the dev site, shipped with `X-Robots-Tag: noindex`. |
 | Pull request | `pull request` | Deploy preview at `deploy-preview-<n>--<site>.netlify.app`, also noindexed. |
 
-Each environment defines the `NETLIFY_SITE_ID` secret plus the `NETLIFY_SITE_NAME`, `SITE_URL`, `GTM_ID`, `PLAUSIBLE_DOMAIN` and `RECAPTCHA_SITE_KEY` variables. `NETLIFY_AUTH_TOKEN` and the `EMAILJS_*` variables are repository-wide. A missing `SITE_URL` fails the job rather than baking a wrong canonical URL.
+Every environment defines the `NETLIFY_SITE_ID` secret, which decides *where* the deploy lands. Alongside it:
+
+- `SITE_URL` — branch pushes only (`production`, `develop`). PR previews compute their own URL from the deploy alias, so the variable is unread there.
+- `NETLIFY_SITE_NAME` — PR previews only, to build that alias URL. It must name the same site `NETLIFY_SITE_ID` points at, or the build bakes a canonical URL for a host that never serves it.
+- `GTM_ID`, `PLAUSIBLE_DOMAIN`, `RECAPTCHA_SITE_KEY` — build-time values. Leaving the analytics pair unset cleanly disables those scripts, which is what you want outside production; `RECAPTCHA_SITE_KEY` should be set everywhere or the contact form returns `config_error` on submit.
+
+`NETLIFY_AUTH_TOKEN` and the `EMAILJS_*` variables are repository-wide. A missing `SITE_URL` on a branch push, or `NETLIFY_SITE_NAME` on a PR, fails the job rather than baking a wrong canonical URL.
 
 `main` is the development branch; production changes land on `lts`.
 

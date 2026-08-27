@@ -95,7 +95,7 @@ Everything deploys to Netlify from one workflow (`.github/workflows/deploy-netli
 - push to `main` → `develop` environment → the dev site, built with `NOINDEX=true`.
 - pull request → `pull request` environment → `deploy-preview-<n>` alias, also `NOINDEX=true`.
 
-`main` is the development branch; production changes land on `lts`.
+`main` is the development branch; production changes land on `lts`. The per-environment secret and variable list is in [README.md](README.md#deployment).
 
 Redirect rules are emitted as a `_redirects` file inside `dist/client` at build time by `plugins/legacy-redirects.ts` (never committed), from the single source of truth in **`lib/legacyRedirects.ts`**. To add, change, or remove a redirect, edit that file only.
 
