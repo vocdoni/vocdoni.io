@@ -51,9 +51,15 @@ export interface SkillEntry {
   digest: string
 }
 
+/**
+ * A marketplace `source`. Historically a plain string (`"./plugins/x"` or a github URL); the
+ * marketplace also uses the Claude plugin object form `{ source: 'github', repo: 'owner/name' }`.
+ */
+export type MarketplaceSource = string | { source?: string; repo?: string; path?: string; subpath?: string }
+
 export interface MarketplacePlugin {
   name: string
-  source: string
+  source: MarketplaceSource
   category?: string
 }
 
@@ -77,14 +83,39 @@ export function selectIncludedPlugins(plugins: MarketplacePlugin[]): Marketplace
   return plugins.filter((p) => typeof p.category === 'string' && INCLUDED_CATEGORIES.has(p.category))
 }
 
-// Resolve a marketplace `source` to a repo + subpath. Local sources ("./plugins/x")
-// resolve against the marketplace repo; absolute GitHub URLs point at their own repo root.
-export function parseGithubSource(source: string, base: { owner: string; repo: string }): SourceRef | null {
+// Normalise a repo-relative path: drop a leading "./" or "/" and any trailing slashes. Returns null
+// when the path escapes the repo root - a marketplace path resolves against the root and cannot
+// climb out of it, so any `..` segment is invalid rather than silently rewritten. '' is the root.
+function normalizeSubpath(raw: string): string | null {
+  const subpath = raw.trim().replace(/^\.\//, '').replace(/^\/+/, '').replace(/\/+$/, '')
+  return subpath.split('/').includes('..') ? null : subpath
+}
+
+// The object form used by Claude plugin marketplaces: { source: 'github', repo: 'owner/name' }.
+// `repo` is "owner/name" and has to be split; an optional path/subpath narrows it to a subdirectory.
+function parseObjectSource(source: Exclude<MarketplaceSource, string>): SourceRef | null {
+  if (typeof source.source === 'string' && source.source !== 'github') return null
+  if (typeof source.repo !== 'string') return null
+  const [owner, name, ...rest] = source.repo.trim().replace(/\/+$/, '').split('/')
+  if (!owner || !name || rest.length) return null
+  const rawSubpath = source.path ?? source.subpath
+  if (rawSubpath !== undefined && typeof rawSubpath !== 'string') return null
+  const subpath = normalizeSubpath(rawSubpath ?? '')
+  if (subpath === null) return null
+  return { owner, repo: name.replace(/\.git$/, ''), subpath }
+}
+
+// Resolve a marketplace `source` to a repo + subpath. Local sources ("./plugins/x") resolve against
+// the marketplace repo; absolute GitHub URLs and the `{ source: 'github', repo }` object form point
+// at their own repo root. Anything unrecognised yields null - never a throw, so one bad entry can
+// only ever cost its own plugin.
+export function parseGithubSource(source: MarketplaceSource, base: { owner: string; repo: string }): SourceRef | null {
+  if (source !== null && typeof source === 'object') return parseObjectSource(source)
+  if (typeof source !== 'string') return null
   if (source.startsWith('./') || source.startsWith('../')) {
-    const subpath = source.replace(/^\.\//, '').replace(/\/+$/, '')
-    // A marketplace path resolves against the repo root and cannot escape it, so any
-    // `..` segment (including a leading `../`) is invalid rather than silently rewritten.
-    if (subpath === '' || subpath.split('/').includes('..')) return null
+    const subpath = normalizeSubpath(source)
+    // null = escapes the root, '' = the repo root, which is not a plugin of its own.
+    if (!subpath) return null
     return { owner: base.owner, repo: base.repo, subpath }
   }
   const m = source.match(/^https?:\/\/github\.com\/([^/]+)\/([^/#?]+)/)
@@ -185,27 +216,33 @@ export async function generateSkillsIndex(): Promise<string | null> {
     const included = selectIncludedPlugins(Array.isArray(marketplace.plugins) ? marketplace.plugins : [])
 
     const entries: SkillEntry[] = []
+    // Every per-plugin failure is contained here: a single malformed or unreachable marketplace
+    // entry is warned about and skipped so the rest of the index still builds.
     for (const plugin of included) {
-      const ref = parseGithubSource(plugin.source, base)
-      if (!ref) {
-        console.warn(`[agent-skills] unsupported source for plugin ${plugin.name}: ${plugin.source}`)
-        continue
-      }
-      let repo: RepoResolution
       try {
-        repo = await resolve(ref.owner, ref.repo)
-      } catch (err) {
-        console.warn(`[agent-skills] cannot clone ${ref.owner}/${ref.repo}:`, (err as Error).message)
-        continue
-      }
-      for (const filePath of skillMdPaths(repo.treePaths, ref.subpath)) {
-        // url is pinned to the SHA whose bytes we hash, so the digest always matches the artifact.
-        const url = rawGithubUrl(ref.owner, ref.repo, repo.sha, filePath)
-        try {
-          entries.push(buildSkillEntry(url, await readBlob(repo.dir, filePath)))
-        } catch (err) {
-          console.warn(`[agent-skills] skipping ${url}:`, (err as Error).message)
+        const ref = parseGithubSource(plugin.source, base)
+        if (!ref) {
+          console.warn(`[agent-skills] unsupported source for plugin ${plugin.name}:`, plugin.source)
+          continue
         }
+        let repo: RepoResolution
+        try {
+          repo = await resolve(ref.owner, ref.repo)
+        } catch (err) {
+          console.warn(`[agent-skills] cannot clone ${ref.owner}/${ref.repo}:`, (err as Error).message)
+          continue
+        }
+        for (const filePath of skillMdPaths(repo.treePaths, ref.subpath)) {
+          // url is pinned to the SHA whose bytes we hash, so the digest always matches the artifact.
+          const url = rawGithubUrl(ref.owner, ref.repo, repo.sha, filePath)
+          try {
+            entries.push(buildSkillEntry(url, await readBlob(repo.dir, filePath)))
+          } catch (err) {
+            console.warn(`[agent-skills] skipping ${url}:`, (err as Error).message)
+          }
+        }
+      } catch (err) {
+        console.warn(`[agent-skills] skipping plugin ${plugin.name}:`, (err as Error).message)
       }
     }
 

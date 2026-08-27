@@ -2,6 +2,7 @@ import { promises as fs } from 'node:fs'
 import path from 'node:path'
 import type { Plugin } from 'vite'
 import matter from 'gray-matter'
+import { ARD_OUTPUT_PATHS } from './ard'
 import {
   DEVELOPERS_API_BASE_URL,
   DEVELOPERS_GITHUB_URL,
@@ -89,6 +90,27 @@ export function buildLlmsTxt(hostname: string, sections: { heading: string; entr
   return lines.join('\n')
 }
 
+// Content types the static host cannot infer from the file name. Consumed both by the dev
+// middleware and by buildNetlifyHeaders, so the two can never disagree.
+// `/llms.txt` is deliberately the only entry Netlify already gets right on its own (`.txt` ->
+// `text/plain; charset=UTF-8`), so it is not repeated in `_headers`.
+const CONTENT_TYPES: Record<string, string> = {
+  '/.well-known/api-catalog': 'application/linkset+json',
+  '/llms.txt': 'text/plain; charset=utf-8',
+}
+
+// Raw-markdown mirrors emitted by `plugins/docs-markdown.ts` and `plugins/blog-markdown.ts`:
+//   /<locale>/developers/docs.md, /<locale>/developers/docs/<slug>.md, /<locale>/blog/<slug>.md
+// Wildcards rather than the ~385 enumerated paths. Netlify documents `*` as matching any character
+// within a path segment but does not say whether it also crosses `/`; these three shapes are
+// correct under either reading, because nothing else below those prefixes ends in `.md`.
+const RAW_MARKDOWN_PATHS = ['/*/developers/docs.md', '/*/developers/docs/*.md', '/*/blog/*.md']
+
+// Netlify `_headers`: a path pattern on its own line, then two-space-indented header lines. Every
+// matching rule is applied, so the `/*` block below keeps adding its Link headers to the raw
+// markdown URLs that the later blocks also match.
+const block = (path: string, headers: string[]) => [path, ...headers].join('\n')
+
 // Link headers mirroring the <link rel> tags in lib/seo-head.tsx, so the RFC 8288 header check
 // passes on every Netlify deploy.
 export function buildNetlifyHeaders(noindex = false): string {
@@ -98,12 +120,35 @@ export function buildNetlifyHeaders(noindex = false): string {
     `<${DEVELOPERS_SWAGGER_URL}>; rel="service-desc"`,
     `<${DEVELOPERS_SKILLS_URL}>; rel="related"`,
     '</llms.txt>; rel="alternate"; type="text/plain"',
+    // ARD section 5.1: a conformant consumer MUST honour a rel="ard" link, so the manifest is
+    // discoverable by header as well as by well-known path. rel="ai-catalog" covers readers that
+    // only know the predecessor name.
+    '</.well-known/ard.json>; rel="ard"',
+    '</.well-known/ai-catalog.json>; rel="ai-catalog"',
   ]
   const headers = links.map((l) => `  Link: ${l}`)
   // Dev and preview deploys are production deploys of their own Netlify site, so Netlify does not
   // add this for us. Only the production branch is indexable.
   if (noindex) headers.unshift('  X-Robots-Tag: noindex, nofollow')
-  return ['/*', ...headers, ''].join('\n')
+
+  const blocks = [
+    block('/*', headers),
+    // The catalog file is extensionless, so Netlify sniffs it as `text/plain`. RFC 9727 wants
+    // `application/linkset+json`, which the dev middleware already serves.
+    block('/.well-known/api-catalog', [`  Content-Type: ${CONTENT_TYPES['/.well-known/api-catalog']}`]),
+    // The `.md` mirrors must stay fetchable - agents consume them, and seo-head advertises them via
+    // <link rel="alternate" type="text/markdown"> - but must not be indexed: search crawlers follow
+    // those tags, parse the markdown as HTML and then report it as a page with no <title>.
+    // `noindex` only; `nofollow` would be counterproductive on a file whose whole job is links.
+    ...RAW_MARKDOWN_PATHS.map((p) => block(p, ['  X-Robots-Tag: noindex'])),
+    // ARD manifests (plugins/ard.ts). Netlify already types `.json` correctly, so `Content-Type`
+    // is belt and braces; `Access-Control-Allow-Origin` is the load-bearing one, because registries
+    // fetch these cross-origin and a missing header makes the manifest unreadable to them.
+    ...ARD_OUTPUT_PATHS.map((p) =>
+      block(`/${p}`, ['  Content-Type: application/json', '  Access-Control-Allow-Origin: *'])
+    ),
+  ]
+  return blocks.join('\n\n') + '\n'
 }
 
 // --- source enumeration (build/Node side) -----------------------------------
@@ -166,11 +211,6 @@ async function buildLlms(root: string, host: string, locale: string): Promise<st
 }
 
 // --- plugin -----------------------------------------------------------------
-
-const CONTENT_TYPES: Record<string, string> = {
-  '/.well-known/api-catalog': 'application/linkset+json',
-  '/llms.txt': 'text/plain; charset=utf-8',
-}
 
 export function wellKnownPlugin(options: Options): Plugin {
   let clientOutDir: string

@@ -108,22 +108,72 @@ jobs:
           # of their own Netlify site, so Netlify does not noindex them for us.
           NOINDEX: ${{ !(github.event_name == 'push' && github.ref_name == 'lts') }}
 
+      # The deploy used to run through nwtgck/actions-netlify, which uploads via the `netlify` JS
+      # client. That client only hashes static files and serverless functions - it has no notion of
+      # edge functions, so it can never ship `netlify/edge-functions/`. The CLI can: with
+      # `--no-build` it still bundles the directory declared in `netlify.toml` before uploading.
+      # Everything else about the deploy is deliberately unchanged, see the two steps below.
+      - name: Install Netlify CLI
+        run: npm install --global netlify-cli@27.4.0
+
       - name: Deploy to Netlify
-        uses: nwtgck/actions-netlify@v3.0
-        with:
-          publish-dir: './dist/client'
-          # Every branch push is a production deploy of whichever site the environment points at.
-          production-deploy: ${{ github.event_name == 'push' }}
-          # Pin the alias so the served URL matches the SITE_URL baked into the build above. Empty
-          # on branch pushes, which serve the site's primary URL.
-          alias: ${{ steps.netlify_url.outputs.alias }}
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          deploy-message: 'Deploy from GitHub Actions'
-          enable-pull-request-comment: true
-          enable-commit-comment: true
-          overwrites-pull-request-comment: true
+        id: deploy
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+          # Pin the alias so the served URL matches the SITE_URL baked into the build above. Empty
+          # on branch pushes, which serve the site's primary URL.
+          DEPLOY_ALIAS: ${{ steps.netlify_url.outputs.alias }}
+        run: |
+          set -euo pipefail
+          args=(deploy --no-build --dir=./dist/client --message='Deploy from GitHub Actions')
+          if [ "${{ github.event_name }}" = "push" ]; then
+            # Every branch push is a production deploy of whichever site the environment points at.
+            args+=(--prod)
+          else
+            args+=("--alias=${DEPLOY_ALIAS}")
+          fi
+          # Deliberately no `--json`: it suppresses the CLI's own logging, including whatever it
+          # reports when a deploy fails, which left a failure showing as nothing but `exit 2`. The
+          # only thing the JSON gave us was the deploy URL, and the `Resolve Netlify deploy URL`
+          # step above already computes that (it has to, to bake it into SITE_URL at build time),
+          # so full logs are worth more here than machine-readable output.
+          # If this ever fails with a bare `exit 2` and no explanation, it is the edge-function
+          # bundler: netlify-cli runs it with `buffer: true` and drops the buffered logs, so the
+          # reason never reaches CI. Reproduce locally with `netlify build --offline`, which runs
+          # the same core steps and prints the real error.
+          netlify --version
+          netlify "${args[@]}"
 
         timeout-minutes: 10
+
+      # Replaces the PR/commit comments the action used to post. Same shape: one comment per site on
+      # the PR, rewritten in place on every push instead of piling up, plus a commit comment. A
+      # comment failure must never fail a deploy that already succeeded.
+      - name: Comment the deploy URL
+        continue-on-error: true
+        uses: actions/github-script@v7
+        env:
+          IS_PRODUCTION: ${{ github.event_name == 'push' }}
+          SITE_URL: ${{ steps.netlify_url.outputs.site_url }}
+        with:
+          script: |
+            const identifier = '<!-- netlify deploy comment -->'
+            const { IS_PRODUCTION, SITE_URL } = process.env
+            // SITE_URL is the URL this deploy actually serves from: the environment's site on a
+            // branch push, the pinned deploy-preview alias on a PR. It is the same value baked
+            // into the build, so a link from here always resolves to this deploy's own assets.
+            const body = [
+              identifier,
+              IS_PRODUCTION === 'true' ? `Published on ${SITE_URL} as production.` : `Preview available at ${SITE_URL}`,
+            ].join('\n')
+            const { owner, repo } = context.repo
+
+            await github.rest.repos.createCommitComment({ owner, repo, commit_sha: context.sha, body })
+
+            if (context.issue.number === undefined) return
+            const issue_number = context.issue.number
+            const comments = await github.paginate(github.rest.issues.listComments, { owner, repo, issue_number })
+            const existing = comments.find((comment) => comment.body?.includes(identifier))
+            if (existing) await github.rest.issues.updateComment({ owner, repo, comment_id: existing.id, body })
+            else await github.rest.issues.createComment({ owner, repo, issue_number, body })
