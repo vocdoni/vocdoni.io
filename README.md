@@ -115,7 +115,7 @@ Every environment defines the `NETLIFY_SITE_ID` secret, which decides *where* th
 - `NETLIFY_SITE_NAME` - PR previews only. The site's Netlify *name* (the `dev-vocdoni-io` in `dev-vocdoni-io.netlify.app`), used purely as a string to spell that preview's base URL: `https://deploy-preview-<n>--<NETLIFY_SITE_NAME>.netlify.app`.
 
 `NETLIFY_SITE_ID` and `NETLIFY_SITE_NAME` address the same site from opposite directions: the id decides which site receives the upload, the name only spells the hostname the build will advertise. Nothing cross-checks them, so pointing them at different sites still deploys successfully - the files just land on one site while every canonical tag, `og:image` and sitemap entry names another.
-- `GTM_ID`, `PLAUSIBLE_DOMAIN`, `RECAPTCHA_SITE_KEY` - build-time values. Leaving the analytics pair unset cleanly disables those scripts, which is what you want outside production; `RECAPTCHA_SITE_KEY` should be set everywhere or the contact form returns `config_error` on submit.
+- `GTM_ID`, `PLAUSIBLE_DOMAIN`, `POSTHOG_PUBLIC_KEY`, `RECAPTCHA_SITE_KEY` - build-time values. Leaving any of the analytics variables unset cleanly disables that script, which is what you want outside production; `POSTHOG_HOST` is optional and defaults to the EU cluster. `RECAPTCHA_SITE_KEY` should be set everywhere or the contact form returns `config_error` on submit.
 
 `NETLIFY_AUTH_TOKEN` and the `EMAILJS_*` variables are repository-wide. A missing `SITE_URL` on a branch push, or `NETLIFY_SITE_NAME` on a PR, fails the job rather than baking a wrong canonical URL.
 
