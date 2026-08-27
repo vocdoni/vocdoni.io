@@ -43,14 +43,48 @@ describe('buildLlmsTxt', () => {
 describe('buildNetlifyHeaders', () => {
   it('emits Link headers mirroring the discovery relations', () => {
     const out = buildNetlifyHeaders()
-    expect(out.startsWith('/*')).toBe(true)
+    expect(out.startsWith('/*\n')).toBe(true)
     expect(out).toContain('Link: </.well-known/api-catalog>; rel="api-catalog"')
     expect(out).toContain(`Link: <${DEVELOPERS_SKILLS_URL}>; rel="related"`)
     expect(out).toContain(`Link: <${DEVELOPERS_SWAGGER_URL}>; rel="service-desc"`)
-    expect(out).not.toContain('X-Robots-Tag')
+    expect(out).not.toContain('noindex, nofollow')
   })
 
   it('adds X-Robots-Tag on noindex deploys', () => {
-    expect(buildNetlifyHeaders(true)).toContain('  X-Robots-Tag: noindex, nofollow')
+    const out = buildNetlifyHeaders(true)
+    expect(out).toContain('  X-Robots-Tag: noindex, nofollow')
+    // Still inside the /* block, right before the Link headers.
+    expect(out.startsWith('/*\n  X-Robots-Tag: noindex, nofollow\n  Link: ')).toBe(true)
+  })
+
+  it('serves the extensionless api-catalog as RFC 9727 linkset+json', () => {
+    for (const out of [buildNetlifyHeaders(), buildNetlifyHeaders(true)]) {
+      expect(out).toContain('/.well-known/api-catalog\n  Content-Type: application/linkset+json')
+    }
+  })
+
+  it('marks the raw markdown mirrors noindex with wildcard patterns', () => {
+    for (const out of [buildNetlifyHeaders(), buildNetlifyHeaders(true)]) {
+      for (const pattern of ['/*/developers/docs.md', '/*/developers/docs/*.md', '/*/blog/*.md']) {
+        expect(out).toContain(`${pattern}\n  X-Robots-Tag: noindex\n`)
+      }
+    }
+    // No enumerated locale paths sneaking in, and HTML pages stay indexable.
+    expect(buildNetlifyHeaders()).not.toContain('/en/')
+    expect(buildNetlifyHeaders()).not.toContain('/developers/docs\n')
+  })
+
+  it('is a well-formed _headers file: path lines flush left, header lines indented', () => {
+    for (const out of [buildNetlifyHeaders(), buildNetlifyHeaders(true)]) {
+      expect(out.endsWith('\n')).toBe(true)
+      const blocks = out.trimEnd().split('\n\n')
+      expect(blocks).toHaveLength(5)
+      for (const bl of blocks) {
+        const [pathLine, ...headerLines] = bl.split('\n')
+        expect(pathLine.startsWith('/')).toBe(true)
+        expect(headerLines.length).toBeGreaterThan(0)
+        for (const line of headerLines) expect(line).toMatch(/^ {2}[\w-]+: \S/)
+      }
+    }
   })
 })
