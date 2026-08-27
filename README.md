@@ -109,13 +109,17 @@ Everything deploys to Netlify from a single workflow (`.github/workflows/deploy-
 
 Every environment defines the `NETLIFY_SITE_ID` secret, which decides *where* the deploy lands. Alongside it:
 
-- `SITE_URL` — branch pushes only (`production`, `develop`). PR previews compute their own URL from the deploy alias, so the variable is unread there.
-- `NETLIFY_SITE_NAME` — PR previews only, to build that alias URL. It must name the same site `NETLIFY_SITE_ID` points at, or the build bakes a canonical URL for a host that never serves it.
-- `GTM_ID`, `PLAUSIBLE_DOMAIN`, `RECAPTCHA_SITE_KEY` — build-time values. Leaving the analytics pair unset cleanly disables those scripts, which is what you want outside production; `RECAPTCHA_SITE_KEY` should be set everywhere or the contact form returns `config_error` on submit.
+- `SITE_URL` - branch pushes only (`production`, `develop`). PR previews compute their own URL from the deploy alias, so the variable is unread there.
+- `NETLIFY_SITE_NAME` - PR previews only, to build that alias URL. It must name the same site `NETLIFY_SITE_ID` points at, or the build bakes a canonical URL for a host that never serves it.
+- `GTM_ID`, `PLAUSIBLE_DOMAIN`, `RECAPTCHA_SITE_KEY` - build-time values. Leaving the analytics pair unset cleanly disables those scripts, which is what you want outside production; `RECAPTCHA_SITE_KEY` should be set everywhere or the contact form returns `config_error` on submit.
 
 `NETLIFY_AUTH_TOKEN` and the `EMAILJS_*` variables are repository-wide. A missing `SITE_URL` on a branch push, or `NETLIFY_SITE_NAME` on a PR, fails the job rather than baking a wrong canonical URL.
 
-`main` is the development branch; production changes land on `lts`.
+### Releasing
+
+`main` is the development branch. A release is a merge of `main` into `lts`; the resulting push to `lts` is what triggers the production deploy. Everything merged into `main` since the last release ships together, so only merge work into `main` that you are willing to release next.
+
+Under this flow `lts` carries no commits of its own, so the merge normally fast-forwards. Guardrails run on pull requests targeting `lts` as well as `main`.
 
 ## Redirects
 
