@@ -1,4 +1,5 @@
 import { CookieConsent } from '@/components/CookieConsent'
+import { WebsiteAnalytics } from '@/components/WebsiteAnalytics'
 import { getCompatibilityRedirectTarget, LOCALE_PREFERENCE_KEY, normalizeLogicalPath } from '@/lib/localeRedirect'
 import { useLocaleDetection } from '@/lib/useLocaleDetection'
 import { localeDefault, locales } from '@/locales'
@@ -116,6 +117,7 @@ function LocalizedLayout({
       <div className='min-h-screen bg-background font-sans antialiased flex flex-col overflow-x-clip'>
         <SkipToMainContent />
         <CookieConsent />
+        <WebsiteAnalytics urlLogical={urlLogical} />
         <Navbar />
         {/* The navbar is sticky and in normal flow, so no top padding is needed. */}
         <main id='main-content' tabIndex={-1} className='flex-1'>
