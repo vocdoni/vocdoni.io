@@ -89,8 +89,8 @@ export function buildLlmsTxt(hostname: string, sections: { heading: string; entr
   return lines.join('\n')
 }
 
-// Netlify-only Link headers, mirroring the <link rel> tags in lib/seo-head.tsx. DO ignores
-// this file; it makes the RFC 8288 header check pass on preview deploys.
+// Link headers mirroring the <link rel> tags in lib/seo-head.tsx, so the RFC 8288 header check
+// passes on every Netlify deploy.
 export function buildNetlifyHeaders(noindex = false): string {
   const links = [
     '</.well-known/api-catalog>; rel="api-catalog"',
