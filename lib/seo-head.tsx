@@ -338,6 +338,9 @@ export function HeadTags(pageContext: PageContext) {
     '@type': 'Organization',
     '@id': `${siteUrl}/#organization`,
     name: 'Vocdoni',
+    legalName: 'Synergize S.L.',
+    description:
+      'Vocdoni provides open-source online voting software for associations and organizations, plus managed election services.',
     url: siteUrl,
     ...(organizationLogoUrl
       ? { logo: { '@type': 'ImageObject', '@id': `${siteUrl}/#logo`, url: organizationLogoUrl } }

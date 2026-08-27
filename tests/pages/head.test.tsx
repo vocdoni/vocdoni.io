@@ -130,6 +130,8 @@ describe('Head meta tags', () => {
     const org = node(html, 'Organization')!
     expect(org['@id']).toBe('https://vocdoni.io/#organization')
     expect(org.url).toBe('https://vocdoni.io')
+    expect(org.legalName).toBe('Synergize S.L.')
+    expect(org.description).toContain('online voting software for associations and organizations')
     expect(org.sameAs).toContain('https://github.com/vocdoni')
     expect(org.logo).toMatchObject({ '@type': 'ImageObject', '@id': 'https://vocdoni.io/#logo' })
 
