@@ -8,6 +8,11 @@
     "sourceMap": true,
     "module": "ESNext",
     "noEmit": true,
+    // Deno resolves modules by URL, so the Netlify edge functions under `netlify/edge-functions/`
+    // must spell out the `.ts` extension in their relative imports. This lets `tsc` check them
+    // alongside the rest of the repo instead of excluding them; it only permits the extension, it
+    // never requires it, and it is only valid because `noEmit` is set above.
+    "allowImportingTsExtensions": true,
     "moduleResolution": "Bundler",
     "target": "ES2022",
     "lib": ["DOM", "DOM.Iterable", "ESNext"],

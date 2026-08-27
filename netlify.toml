@@ -1,0 +1,15 @@
+# Netlify configuration for CLI deploys.
+#
+# The site is built in CI and uploaded with `netlify deploy --no-build --dir=./dist/client` (see
+# .github/workflows/deploy-netlify.yml), so there is deliberately no build command here: Netlify
+# never builds this site itself, and every build-time value comes from the GitHub environment.
+#
+# Redirects and headers are NOT declared here. They are generated into `dist/client` at build time
+# as `_redirects` (plugins/legacy-redirects.ts, from lib/legacyRedirects.ts) and `_headers`
+# (plugins/well-known.ts). Adding rules here would silently take precedence over those files.
+#
+# The one thing this file exists for is telling the CLI where the edge functions live, so it bundles
+# and uploads them. Declarations stay inline in each function.
+[build]
+  publish = "dist/client"
+  edge_functions = "netlify/edge-functions"

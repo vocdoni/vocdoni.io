@@ -103,6 +103,8 @@ Redirect rules are emitted as a `_redirects` file inside `dist/client` at build 
 
 `NOINDEX=true` makes the build emit `X-Robots-Tag: noindex, nofollow` in `_headers`, drop the `Sitemap:` line from `robots.txt`, and add a `robots` meta tag. Never set it for a production build.
 
+Netlify edge functions live in `netlify/edge-functions/` and are declared to the CLI by `netlify.toml`. The workflow uploads with `netlify deploy --no-build`, which bundles them; that is why the deploy runs through the Netlify CLI rather than a deploy action. Keep edge functions as a thin shell over a pure, unit-tested module in `lib/`, and keep `netlify.toml` free of redirect and header rules - those are generated into `dist/client` and toml rules would silently take precedence.
+
 ## Agent-Specific Instructions
 
 - This repo expects an `AGENTS.md` contributor guide; keep it updated as workflows change.

@@ -9,7 +9,7 @@
     "build": "vike build",
     "preview": "vike preview",
     "shadcn": "npx shadcn@latest",
-    "lint": "tsc && prettier --check ./components ./lib ./layouts ./pages ./plugins ./tests",
+    "lint": "tsc && prettier --check ./components ./lib ./layouts ./netlify ./pages ./plugins ./tests",
     "prepare": "husky",
     "test": "vitest run tests",
     "translations": "i18next-cli extract",
