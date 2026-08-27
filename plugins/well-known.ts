@@ -1,15 +1,15 @@
 import { promises as fs } from 'node:fs'
 import path from 'node:path'
 import type { Plugin } from 'vite'
-import matter from 'gray-matter'
 import { ARD_OUTPUT_PATHS } from './ard'
 import {
   DEVELOPERS_API_BASE_URL,
-  DEVELOPERS_GITHUB_URL,
   DEVELOPERS_SKILLS_URL,
   DEVELOPERS_STATUS_URL,
   DEVELOPERS_SWAGGER_URL,
 } from '../lib/developers'
+import { buildLlmsFull, buildLlmsIndex, type LlmsContent, type LlmsContext, loadLlmsContent } from '../lib/llms/build'
+import { llmsFileName, stripSlash } from '../lib/llms/routes'
 
 /**
  * Emits the agent-discovery artifacts into the client build output (and serves the
@@ -19,7 +19,8 @@ import {
  *
  * Files emitted (all under `dist/client`):
  *   /.well-known/api-catalog   RFC 9727 linkset+json
- *   /llms.txt                  llmstxt.org index
+ *   /llms.txt                  curated llmstxt.org index (English; see Options.llmsLocales)
+ *   /llms-full.txt             complete enumeration of routes and markdown mirrors
  *   /_headers                  Netlify Link: headers (plus X-Robots-Tag on non-production deploys)
  *
  * Agent skills are NOT hosted here: they live in vocdoni/integrator-sdk and are
@@ -35,12 +36,16 @@ import {
 interface Options {
   hostname: string
   defaultLocale: string
+  /** Every locale the site publishes. Used to enumerate content, not to pick output files. */
+  locales: readonly string[]
+  /**
+   * Locales to emit a curated index for. Defaults to just `defaultLocale`, which is what
+   * ships today: one English `/llms.txt`. Setting it emits `llms-<locale>.txt` alongside.
+   */
+  llmsLocales?: readonly string[]
   /** Non-production deploy: ship `X-Robots-Tag: noindex, nofollow` so it never gets indexed. */
   noindex?: boolean
 }
-
-const OVERVIEW_SLUG = 'overview'
-const stripSlash = (s: string) => s.replace(/\/+$/, '')
 
 // --- pure builders (unit-tested) --------------------------------------------
 
@@ -61,43 +66,12 @@ export function buildApiCatalog(hostname: string): string {
   return JSON.stringify(doc, null, 2) + '\n'
 }
 
-export interface LlmsEntry {
-  title: string
-  url: string
-  note?: string
-}
-
-// llmstxt.org index: H1 + summary blockquote + link sections.
-export function buildLlmsTxt(hostname: string, sections: { heading: string; entries: LlmsEntry[] }[]): string {
-  const host = stripSlash(hostname)
-  const lines: string[] = [
-    '# Vocdoni',
-    '',
-    '> Vocdoni is an open-source, self-managed digital voting platform for secure, ' +
-      'verifiable and anonymous online elections. This file indexes the machine-readable ' +
-      'markdown versions of the documentation and blog for AI agents.',
-    '',
-  ]
-  for (const section of sections) {
-    if (!section.entries.length) continue
-    lines.push(`## ${section.heading}`, '')
-    for (const { title, url, note } of section.entries) {
-      const absolute = url.startsWith('http') ? url : `${host}${url}`
-      lines.push(`- [${title}](${absolute})${note ? `: ${note}` : ''}`)
-    }
-    lines.push('')
-  }
-  return lines.join('\n')
-}
-
-// Content types the static host cannot infer from the file name. Consumed both by the dev
-// middleware and by buildNetlifyHeaders, so the two can never disagree.
-// `/llms.txt` is deliberately the only entry Netlify already gets right on its own (`.txt` ->
-// `text/plain; charset=UTF-8`), so it is not repeated in `_headers`.
-const CONTENT_TYPES: Record<string, string> = {
-  '/.well-known/api-catalog': 'application/linkset+json',
-  '/llms.txt': 'text/plain; charset=utf-8',
-}
+// Content types the static host cannot infer from the file name. Shared by the artifact table
+// below (which drives the dev middleware and the build output) and by buildNetlifyHeaders, so the
+// emitter and `_headers` can never disagree. `.txt` and `.json` are left to Netlify, which already
+// gets them right.
+const TEXT = 'text/plain; charset=utf-8'
+const API_CATALOG_TYPE = 'application/linkset+json'
 
 // Raw-markdown mirrors emitted by `plugins/docs-markdown.ts` and `plugins/blog-markdown.ts`:
 //   /<locale>/developers/docs.md, /<locale>/developers/docs/<slug>.md, /<locale>/blog/<slug>.md
@@ -135,7 +109,7 @@ export function buildNetlifyHeaders(noindex = false): string {
     block('/*', headers),
     // The catalog file is extensionless, so Netlify sniffs it as `text/plain`. RFC 9727 wants
     // `application/linkset+json`, which the dev middleware already serves.
-    block('/.well-known/api-catalog', [`  Content-Type: ${CONTENT_TYPES['/.well-known/api-catalog']}`]),
+    block('/.well-known/api-catalog', [`  Content-Type: ${API_CATALOG_TYPE}`]),
     // The `.md` mirrors must stay fetchable - agents consume them, and seo-head advertises them via
     // <link rel="alternate" type="text/markdown"> - but must not be indexed: search crawlers follow
     // those tags, parse the markdown as HTML and then report it as a page with no <title>.
@@ -151,73 +125,67 @@ export function buildNetlifyHeaders(noindex = false): string {
   return blocks.join('\n\n') + '\n'
 }
 
-// --- source enumeration (build/Node side) -----------------------------------
-
-const rawDocHref = (locale: string, slug: string) =>
-  slug === OVERVIEW_SLUG ? `/${locale}/developers/docs.md` : `/${locale}/developers/docs/${slug}.md`
-
-async function loadDocEntries(root: string, locale: string): Promise<LlmsEntry[]> {
-  const dir = path.join(root, 'content', 'developers', 'docs', locale)
-  const files = await fs.readdir(dir).catch(() => [])
-  const docs: { slug: string; title: string; order: number }[] = []
-  for (const file of files) {
-    if (!file.endsWith('.md')) continue
-    const slug = file.replace(/\.md$/, '')
-    const { data } = matter(await fs.readFile(path.join(dir, file), 'utf8'))
-    docs.push({
-      slug,
-      title: typeof data.title === 'string' ? data.title : slug,
-      order: typeof data.order === 'number' ? data.order : 999,
-    })
-  }
-  docs.sort((a, b) => a.order - b.order || a.title.localeCompare(b.title))
-  return docs.map((d) => ({ title: d.title, url: rawDocHref(locale, d.slug) }))
-}
-
-async function loadBlogEntries(root: string, locale: string): Promise<LlmsEntry[]> {
-  const dir = path.join(root, 'content', 'blog', locale)
-  const files = await fs.readdir(dir).catch(() => [])
-  const posts: { slug: string; title: string; date: string }[] = []
-  for (const file of files) {
-    if (!file.endsWith('.mdoc')) continue
-    const { data } = matter(await fs.readFile(path.join(dir, file), 'utf8'))
-    if (data.draft === true) continue
-    const slug = file.replace(/\.mdoc$/, '')
-    posts.push({
-      slug,
-      title: typeof data.title === 'string' ? data.title : slug,
-      date: typeof data.publishedDate === 'string' ? data.publishedDate : String(data.publishedDate ?? ''),
-    })
-  }
-  posts.sort((a, b) => b.date.localeCompare(a.date) || a.title.localeCompare(b.title))
-  return posts.map((p) => ({ title: p.title, url: `/${locale}/blog/${p.slug}.md` }))
-}
-
-async function buildLlms(root: string, host: string, locale: string): Promise<string> {
-  const [docs, posts] = await Promise.all([loadDocEntries(root, locale), loadBlogEntries(root, locale)])
-  return buildLlmsTxt(host, [
-    { heading: 'Developer docs', entries: docs },
-    { heading: 'Blog', entries: posts },
-    {
-      heading: 'Key pages',
-      entries: [
-        { title: 'Developer portal', url: '/developers' },
-        { title: 'API reference (OpenAPI)', url: DEVELOPERS_SWAGGER_URL },
-        { title: 'Status', url: DEVELOPERS_STATUS_URL },
-        { title: 'GitHub', url: DEVELOPERS_GITHUB_URL },
-      ],
-    },
-  ])
-}
-
 // --- plugin -----------------------------------------------------------------
+
+/**
+ * One table drives both the dev middleware and the build output, so the two can never
+ * drift. `devServable: false` is for files with no meaningful dev representation.
+ */
+interface Artifact {
+  /** Path relative to the client output dir; the served URL is `/` + this. */
+  file: string
+  contentType: string
+  devServable: boolean
+  /** `content` is the shared content walk; omitted in dev so each request re-reads disk. */
+  build: (root: string, content?: LlmsContent) => string | Promise<string>
+}
+
+export function artifactsFor(options: Options): Artifact[] {
+  const host = stripSlash(options.hostname)
+  const localesToEmit = options.llmsLocales?.length ? options.llmsLocales : [options.defaultLocale]
+  const context = (root: string, locale: string, content?: LlmsContent): LlmsContext => ({
+    root,
+    hostname: host,
+    locale,
+    defaultLocale: options.defaultLocale,
+    locales: options.locales,
+    content,
+  })
+
+  return [
+    {
+      file: '.well-known/api-catalog',
+      contentType: API_CATALOG_TYPE,
+      devServable: true,
+      build: () => buildApiCatalog(host),
+    },
+    ...localesToEmit.map((locale) => ({
+      file: llmsFileName(locale, options.defaultLocale),
+      contentType: TEXT,
+      devServable: true,
+      build: (root: string, content?: LlmsContent) => buildLlmsIndex(context(root, locale, content)),
+    })),
+    {
+      file: 'llms-full.txt',
+      contentType: TEXT,
+      devServable: true,
+      build: (root: string, content?: LlmsContent) => buildLlmsFull(context(root, options.defaultLocale, content)),
+    },
+    {
+      file: '_headers',
+      contentType: TEXT,
+      devServable: false,
+      build: () => buildNetlifyHeaders(options.noindex),
+    },
+  ]
+}
 
 export function wellKnownPlugin(options: Options): Plugin {
   let clientOutDir: string
   let resolvedRoot: string
   let isSSRBuild = false
   let ran = false
-  const host = stripSlash(options.hostname)
+  const artifacts = artifactsFor(options)
 
   return {
     name: 'well-known-plugin',
@@ -231,16 +199,11 @@ export function wellKnownPlugin(options: Options): Plugin {
       server.middlewares.use(async (req, res, next) => {
         if (!req.url) return next()
         const url = req.url.split('?')[0]
+        const artifact = artifacts.find((a) => a.devServable && `/${a.file}` === url)
+        if (!artifact) return next()
 
-        if (url === '/.well-known/api-catalog') {
-          res.setHeader('Content-Type', CONTENT_TYPES[url])
-          return void res.end(buildApiCatalog(host))
-        }
-        if (url === '/llms.txt') {
-          res.setHeader('Content-Type', CONTENT_TYPES[url])
-          return void res.end(await buildLlms(resolvedRoot, host, options.defaultLocale))
-        }
-        next()
+        res.setHeader('Content-Type', artifact.contentType)
+        res.end(await artifact.build(resolvedRoot))
       })
     },
     async closeBundle() {
@@ -248,17 +211,16 @@ export function wellKnownPlugin(options: Options): Plugin {
       if (ran) return
       ran = true
 
-      const write = async (rel: string, content: string) => {
-        const out = path.join(clientOutDir, rel)
-        await fs.mkdir(path.dirname(out), { recursive: true })
-        await fs.writeFile(out, content, 'utf8')
-      }
+      // One content walk shared by every emitted index.
+      const content = await loadLlmsContent(resolvedRoot, options.locales)
 
-      await Promise.all([
-        write('.well-known/api-catalog', buildApiCatalog(host)),
-        write('llms.txt', await buildLlms(resolvedRoot, host, options.defaultLocale)),
-        write('_headers', buildNetlifyHeaders(options.noindex)),
-      ])
+      await Promise.all(
+        artifacts.map(async (artifact) => {
+          const out = path.join(clientOutDir, artifact.file)
+          await fs.mkdir(path.dirname(out), { recursive: true })
+          await fs.writeFile(out, await artifact.build(resolvedRoot, content), 'utf8')
+        })
+      )
     },
   }
 }

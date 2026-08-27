@@ -487,6 +487,7 @@ export function HeadTags(pageContext: PageContext) {
       <link rel='service-doc' href={`${siteUrl}/developers/docs`} />
       <link rel='service-desc' href={DEVELOPERS_SWAGGER_URL} />
       <link rel='related' title='Vocdoni agent skills' href={DEVELOPERS_SKILLS_URL} />
+      <link rel='alternate' type='text/plain' href='/llms.txt' />
       {markdownAltHref && <link rel='alternate' type='text/markdown' href={markdownAltHref} />}
       {isBlogSection && (
         <link rel='alternate' type='application/rss+xml' title='Vocdoni blog' href={`${siteUrl}/blog/rss.xml`} />

@@ -1,7 +1,8 @@
-import matter from 'gray-matter'
 import { promises as fs } from 'node:fs'
 import path from 'node:path'
 import type { Plugin } from 'vite'
+
+import { discoverBlogCategories, discoverPageRoutes, discoverPosts } from '../lib/llms/routes'
 
 type Options = {
   hostname: string
@@ -19,35 +20,6 @@ type Options = {
 export interface SitemapRoute {
   baseRoute: string
   locales: string[]
-}
-
-const isPageComponent = (name: string) => name.startsWith('+Page.')
-// Skip Vike internals (`_`, `+`), dynamic-param dirs (`@slug`, enumerated
-// separately), and the client-only Keystatic admin.
-const isSkippedDir = (name: string) =>
-  name.startsWith('_') || name.startsWith('+') || name.startsWith('@') || name === 'keystatic'
-
-async function discoverBaseRoutes(pagesDir: string) {
-  const routes = new Set<string>()
-
-  const walk = async (dir: string) => {
-    const entries = await fs.readdir(dir, { withFileTypes: true })
-    for (const entry of entries) {
-      if (entry.isDirectory()) {
-        if (isSkippedDir(entry.name)) continue
-        await walk(path.join(dir, entry.name))
-        continue
-      }
-      if (!entry.isFile() || !isPageComponent(entry.name)) continue
-
-      const relDir = path.relative(pagesDir, dir).split(path.sep).join('/')
-      const route = relDir === '' || relDir === 'index' ? '/' : `/${relDir}`
-      routes.add(route)
-    }
-  }
-
-  await walk(pagesDir)
-  return routes
 }
 
 function withLocalePrefix(locale: string, route: string) {
@@ -110,44 +82,19 @@ export function buildRobotsTxt(hostname: string, noindex = false) {
 // excluded. Each post route carries only the locales it was authored in; category
 // archives exist in every locale because their post lists fall back to English.
 async function discoverBlogRoutes(resolvedRoot: string, allLocales: string[]): Promise<SitemapRoute[]> {
-  const blogDir = path.join(resolvedRoot, 'content', 'blog')
-  const localesBySlug = new Map<string, Set<string>>()
-  const categories = new Set<string>()
-
-  const localeDirs = await fs.readdir(blogDir, { withFileTypes: true }).catch(() => [])
-  for (const dir of localeDirs) {
-    if (!dir.isDirectory() || dir.name === 'authors' || dir.name === 'categories') continue
-    if (!allLocales.includes(dir.name)) continue
-    const files = await fs.readdir(path.join(blogDir, dir.name)).catch(() => [])
-    for (const file of files) {
-      if (!file.endsWith('.mdoc')) continue
-      const { data } = matter(await fs.readFile(path.join(blogDir, dir.name, file), 'utf8'))
-      if (data.draft === true) continue
-      const slug = file.replace(/\.mdoc$/, '')
-      if (!localesBySlug.has(slug)) localesBySlug.set(slug, new Set())
-      localesBySlug.get(slug)!.add(dir.name)
-      if (Array.isArray(data.categories)) for (const category of data.categories) categories.add(String(category))
-    }
-  }
-
-  const routes: SitemapRoute[] = []
-  for (const [slug, slugLocales] of localesBySlug) {
-    routes.push({ baseRoute: `/blog/${slug}`, locales: allLocales.filter((l) => slugLocales.has(l)) })
-  }
-  for (const category of categories) {
-    routes.push({ baseRoute: `/blog/category/${category}`, locales: allLocales })
-  }
-  return routes
+  const [posts, categories] = await Promise.all([
+    discoverPosts(resolvedRoot, allLocales),
+    discoverBlogCategories(resolvedRoot, allLocales),
+  ])
+  return [
+    ...posts.map((post) => ({ baseRoute: `/blog/${post.slug}`, locales: post.locales })),
+    ...categories.map((category) => ({ baseRoute: `/blog/category/${category}`, locales: allLocales })),
+  ]
 }
 
 async function resolveRoutes(resolvedRoot: string, locales: string[]): Promise<SitemapRoute[]> {
-  const pagesDir = path.join(resolvedRoot, 'pages')
-  const baseRoutes = await discoverBaseRoutes(pagesDir)
-  const routes: SitemapRoute[] = []
-  for (const route of baseRoutes) {
-    if (route === '/404') continue
-    routes.push({ baseRoute: route, locales })
-  }
+  const baseRoutes = await discoverPageRoutes(resolvedRoot)
+  const routes: SitemapRoute[] = baseRoutes.map((baseRoute) => ({ baseRoute, locales }))
   routes.push(...(await discoverBlogRoutes(resolvedRoot, locales)))
   return routes
 }

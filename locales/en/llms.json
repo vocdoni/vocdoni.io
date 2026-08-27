@@ -1,0 +1,103 @@
+{
+  "summary": "Vocdoni is open-source, end-to-end verifiable online voting for organizations that need a result nobody has to take on trust. Voters can check that their own ballot was counted and anyone can check the tally, while ballots stay secret by cryptography rather than by policy. It is available as a self-service app, as managed election projects run with our team, and as an API and SDK for building voting into your own product. EU-hosted and GDPR compliant, with a free plan that needs no credit card.",
+  "intro": {
+    "p1": "Vocdoni has three products. Vocdoni App is self-service online voting: import your member list, configure a ballot, send it, and publish a result your members can verify, with no IT team required. Vocdoni Projects is a managed service where our team runs a high-stakes or non-standard election end to end alongside you, from configuration through to certified verifiable results. The Vocdoni API and TypeScript SDK let you build organizations, censuses, voting processes and results directly into your own software, including multi-tenant setups where you run elections for your own customers.",
+    "p2": "End-to-end verifiable means two specific guarantees. Recorded as cast: each voter can confirm their own ballot was captured correctly. Counted as recorded: anyone can verify that the published tally is the correct sum of all recorded ballots. Neither check reveals how any individual voted. Because the evidence and the method are public, no single party, including Vocdoni, has to be trusted for the result to be believed. That is the difference between a platform that produces a result and asks you to trust it, and one that produces a result and proves it.",
+    "p3": "Capability sits at three levels. The underlying open-source protocol is general purpose: it can express any voting method and any voter authentication method, so anything not already exposed can be implemented. The API offers four named ballot types out of the box - single choice, multiple choice, ranked, and cumulative for budget and quadratic voting - and any other shape through a raw ballot-protocol override, alongside weighted voting, a different electorate per question, vote overwrite, and tallies that stay encrypted until voting closes; voters are authenticated by email or SMS one-time codes and by custom census fields. The Vocdoni App deliberately exposes a smaller, self-service subset of that surface. If an organization needs a voting method or an authentication flow the app does not show, it can be built on the API or delivered as a managed project.",
+    "p4": "Anonymity is configurable rather than all-or-nothing. Zero-knowledge cryptography can separate a voter's identity from their ballot so that no administrator, and not Vocdoni, can link the two, while the tally stays publicly verifiable. Organizations that need a named or open roll can run without it. Vote overwrite, which lets a voter silently change their choice while voting is open so only the last one counts, is available as a countermeasure against coercion and vote buying.",
+    "p5": "On compliance: data is hosted in the EU, the platform is built around GDPR data minimization and acts as a data processor under a written agreement, and every election produces a full audit trail and a certified results document meant to be defensible if the outcome is challenged. Where an organization's statutes permit electronic participation, this is the evidence pack its legal advisers and auditors ask for. The Vocdoni Association, a non-profit based in Switzerland, is the guarantor of the open-source code and of core protocol development.",
+    "p6": "Vocdoni has been running elections since 2018, has processed more than 200,000 votes for over 500 organizations, and no Vocdoni result has ever been successfully challenged on grounds of integrity. The same infrastructure and the same guarantees serve a 20-person club and organizations with well over 100,000 members. There is a free plan with no credit card and no time limit, and paid plans are published and self-service with no sales call required. Organizations moving off paper or postal ballots typically report around ten times lower cost per vote and up to 70% lower total election costs."
+  },
+  "sections": {
+    "products": "Products",
+    "organizations": "Online voting by organization type",
+    "security": "Security, verifiability and compliance",
+    "proof": "Proven elections and published results",
+    "developers": "Developer platform",
+    "protocol": "Protocol and research",
+    "company": "Company",
+    "optional": "Optional"
+  },
+  "titles": {
+    "product_app": "Vocdoni App",
+    "product_projects": "Vocdoni Projects",
+    "product_api": "Vocdoni API and SDK",
+    "openapi": "API reference (OpenAPI)",
+    "sdk": "TypeScript SDK",
+    "skills": "Agent skills for the Vocdoni API",
+    "protocol": "DAVINCI voting protocol",
+    "explorer": "Public vote explorer",
+    "github": "Source code on GitHub",
+    "full_index": "Complete link index"
+  },
+  "notes": {
+    "products": {
+      "app": "Self-service online voting: import a member list, configure the ballot, publish verifiable results. Free plan, no credit card, no time limit.",
+      "projects": "Managed elections run end to end with our team, for high-stakes or non-standard governance. Contact us to scope one.",
+      "api": "REST API and TypeScript SDK for building verifiable, optionally anonymous elections into your own product, including multi-tenant integrator setups."
+    },
+    "solutions_index": "All ten organization types, each with the statutory, turnout and secrecy problems it actually runs into.",
+    "solutions": {
+      "associations": "Board elections, statutory votes and member consultations for associations and federations, with secret ballots and instant verifiable results.",
+      "companies_agm": "Annual general meetings and shareholder votes with weighted votes, proxies, a full audit trail and results that satisfy auditors.",
+      "cooperatives": "General assemblies and board elections for cooperatives, one member one vote or weighted, without chasing quorum in person.",
+      "municipalities": "Local referendums, participatory budgeting and citizen consultations with public auditability and accessibility for every resident.",
+      "ngos": "Board elections and member decisions for NGOs and foundations whose members are spread across borders. Free to start.",
+      "political_parties": "Primaries, leadership elections and member consultations with secret, coercion-resistant ballots and end-to-end verifiable results.",
+      "professional_colleges": "Statutory elections and AGMs for professional colleges and regulated bodies, with the audit trail a compliance officer needs.",
+      "sports_clubs": "Presidential and board elections for clubs from a few dozen members to well over 100,000, with secret ballots and instant results.",
+      "trade_unions": "Officer elections, collective bargaining ballots and works council votes with genuinely secret, coercion-resistant online balloting.",
+      "universities": "Student union, faculty and governance elections across departments and campuses, with turnout that beats paper."
+    },
+    "learn_index": "Practical guides to how secure online voting works, written for the people who have to defend the result.",
+    "learn": {
+      "how_secure_online_voting_works": "Authentication, ballot secrecy, encryption and verifiability, and what actually makes a digital result trustworthy.",
+      "verifiable_voting_explained": "What end-to-end verifiability means in practice, and how voters and observers check a result without trusting the platform.",
+      "anonymous_voting_explained": "How zero-knowledge cryptography keeps ballots secret while the tally stays publicly verifiable, and how that blocks coercion and vote buying.",
+      "blockchain_voting_myths_vs_reality": "What a ledger does and does not solve for elections: the guarantees come from cryptography, the ledger only publishes the evidence.",
+      "how_to_run_a_legally_valid_agm_online": "Bylaws, notice, quorum, proxies, secret ballots, verifiable results and record-keeping for an AGM that holds up.",
+      "quorum_meaning_for_online_voting": "What quorum means, how to calculate it, who counts towards it, and how to document it for an online or hybrid vote.",
+      "gdpr_requirements_for_digital_voting": "Lawful basis, data minimization, the voter census, ballot secrecy, retention, processors and EU hosting, in plain language.",
+      "how_to_prevent_election_fraud_online": "The real risks in online voting and the controls that stop them: authentication, ballot secrecy, verifiable tallies and open-source scrutiny."
+    },
+    "case_studies_index": "Named organizations, real elections, published numbers.",
+    "case_studies": {
+      "coib": "COIB, the official college of nurses of Barcelona, ran its 2025 annual general meeting vote online and hybrid, saving members up to 50 euros each in travel.",
+      "esquerra_republicana": "A decisive Esquerra Republicana party membership vote: 77.12% turnout, 6,349 ballots, verifiable results within seconds of closing.",
+      "bellpuig": "Bellpuig City Council ran Spain's first fully digital public consultation, 1,095 voters at 31.67% turnout, later highlighted by the OECD.",
+      "new_belarus": "The New Belarus Coordination Council ran censorship-resistant elections in exile: 6,723 votes, supervised by seven international observers.",
+      "omnium_cultural": "Òmnium Cultural runs recurring statutory assemblies for a membership of around 180,000 with full cryptographic guarantees."
+    },
+    "posts": {
+      "provider_standards": "The seven standards a political organization should demand from any online voting provider: structural neutrality, cryptographic secrecy, censorship resistance and independently verifiable results.",
+      "teachers": "Three Catalan education unions consulted nearly 100,000 public school teachers; more than 60,000 voted in four days.",
+      "belarus_2026": "The 2026 Coordination Council election absorbed 24 billion malicious requests and 68TB of attack traffic while 2,113 people voted.",
+      "plataforma": "Plataforma per la Llengua gives all 26,000 of its members, spread across four states, an equal vote.",
+      "upc": "A binding student election at UPC where voters authenticated with their own university credentials, privately and verifiably.",
+      "davinci": "DAVINCI, the voting protocol behind Vocdoni: censorship-resistant, gasless for voters, receipt-free, and able to express any voting method.",
+      "cryptographic": "Why correct tallying should be a cryptographic requirement rather than a transparency promise.",
+      "zksnarks": "Technical deep dive on the zk-SNARK design behind anonymous voting.",
+      "nidkg": "NI-DKG, a non-interactive distributed key generation protocol, so no single party ever holds the decryption key."
+    },
+    "developers": {
+      "openapi": "Machine-readable OpenAPI specification for the Vocdoni API.",
+      "sdk": "Open-source TypeScript SDK handling client-side authentication, ballot encoding and vote signing.",
+      "skills": "Agent skills marketplace for building against the Vocdoni API."
+    },
+    "protocol": {
+      "davinci": "The open protocol underneath every Vocdoni product: any voting method, any authentication method, publicly auditable.",
+      "explorer": "Public explorer where any past election and its cryptographic proofs can be inspected independently.",
+      "github": "All source code, open for public scrutiny rather than vendor assurance."
+    },
+    "company": {
+      "about": "Who builds Vocdoni, and the Swiss non-profit that guarantees the open-source protocol.",
+      "use_cases": "Voting and governance scenarios by organization type, with published outcomes.",
+      "blog": "Product updates, technical deep dives and election reports.",
+      "privacy": "How personal data is collected, processed and retained.",
+      "terms": "Terms governing use of the platform."
+    },
+    "optional": {
+      "full": "Every page, plus the raw markdown mirror of every developer doc and blog post."
+    }
+  }
+}

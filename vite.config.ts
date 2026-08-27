@@ -56,6 +56,7 @@ const viteconfig = ({ mode }: ConfigEnv) => {
       wellKnownPlugin({
         hostname: siteUrl,
         defaultLocale: localeDefault,
+        locales,
         noindex,
       }),
       ardPlugin({
