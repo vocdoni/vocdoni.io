@@ -86,7 +86,7 @@ export const snake = (slug: string) => slug.replace(/-/g, '_')
 export const metaKeyForSlug = (namespace: string, slug: string) => `meta.${namespace}.${snake(slug)}`
 
 /** Meta titles carry a brand suffix that is noise inside an index that is already titled "Vocdoni". */
-export const stripBrandSuffix = (title: string) => title.replace(/\s*[|-]\s*Vocdoni(?:\s+blog)?\s*$/i, '').trim()
+export { stripBrandSuffix } from '../brand'
 
 /** First sentence of a docs `lead`, used as its one-line note so docs notes never need translating. */
 export function firstSentence(text: string, max = 200): string {

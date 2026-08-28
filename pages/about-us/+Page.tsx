@@ -137,7 +137,9 @@ export default function AboutUsPage() {
                   <dt className='text-muted-foreground text-sm'>
                     {t('about_us.identity.founded_label', 'Vocdoni began')}
                   </dt>
-                  <dd className='mt-1 text-xl font-semibold tabular-nums'>2018</dd>
+                  <dd className='mt-1 text-xl font-semibold tabular-nums'>
+                    {t('about_us.identity.founded_value', '2018')}
+                  </dd>
                 </div>
                 <div>
                   <dt className='text-muted-foreground text-sm'>

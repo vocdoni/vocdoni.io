@@ -1,3 +1,4 @@
+import { stripBrandSuffix } from '@/lib/brand'
 import { DEVELOPERS_SKILLS_URL, DEVELOPERS_SWAGGER_URL } from '@/lib/developers'
 import { getCompatibilityRedirectTarget } from '@/lib/localeRedirect'
 import { localeDefault, locales } from '@/locales'
@@ -96,9 +97,11 @@ const getPageSchemaType = (urlLogical: string) => {
   return 'WebPage'
 }
 
+// Titles carry the brand as a suffix, but `WebPage.name` and the breadcrumb leaf are names,
+// not titles: repeating it there duplicates the brand inside the structured data.
 const cleanTitle = (title?: string) => {
   if (!title) return 'Vocdoni'
-  return title.replace(/\s+-\s+Vocdoni$/i, '').trim()
+  return stripBrandSuffix(title) || 'Vocdoni'
 }
 
 const getBreadcrumbName = (segment: string, title?: string) => {
@@ -333,14 +336,38 @@ export function HeadTags(pageContext: PageContext) {
     isBlogPost && blogPost!.availableLocales?.length ? blogPost!.availableLocales : locales
   ) as readonly string[]
 
+  // The same sentence the about page renders under "Vocdoni at a glance", so the entity
+  // description a crawler reads matches the one a reader sees, in whichever locale it is
+  // being served. The literal is the fallback for when the i18n store is unavailable.
+  const localizedOrganizationDescription = getLocalizedValue(
+    pageContext,
+    effectiveLocale,
+    'about_us.identity.description'
+  )
+  const organizationDescription =
+    typeof localizedOrganizationDescription === 'string' && localizedOrganizationDescription.trim()
+      ? localizedOrganizationDescription
+      : 'Vocdoni provides open-source online voting software for associations and organizations, plus managed election services.'
+
   const organizationSchema = {
     '@context': 'https://schema.org',
     '@type': 'Organization',
     '@id': `${siteUrl}/#organization`,
     name: 'Vocdoni',
     legalName: 'Synergize S.L.',
-    description:
-      'Vocdoni provides open-source online voting software for associations and organizations, plus managed election services.',
+    description: organizationDescription,
+    foundingDate: '2018',
+    // The categories Vocdoni should be retrieved for, stated once in machine-readable form.
+    knowsAbout: [
+      'online voting',
+      'end-to-end verifiable elections',
+      'secret ballot',
+      'board elections',
+      'annual general meetings',
+      'statutory votes',
+      'GDPR compliant data processing',
+      'open-source voting protocols',
+    ],
     url: siteUrl,
     ...(organizationLogoUrl
       ? { logo: { '@type': 'ImageObject', '@id': `${siteUrl}/#logo`, url: organizationLogoUrl } }
