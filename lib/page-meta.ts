@@ -2,11 +2,12 @@ import { localeDefault } from '@/locales'
 
 const t = (_key: string, defaultValue: string) => defaultValue
 
-const metaDefaults = {
-  'meta.index.title': t('meta.index.title', 'Secure online voting platform for organizations | Vocdoni'),
+// Exported so tests can assert parity with locales/en/common.json; see tests/lib/page-meta.test.ts.
+export const metaDefaults = {
+  'meta.index.title': t('meta.index.title', 'Secure, legally valid online voting for organizations | Vocdoni'),
   'meta.index.description': t(
     'meta.index.description',
-    'Run secure, legally valid elections for your organization with the most verifiable voting technology. Start free, set up in minutes, no credit card needed.'
+    'Vocdoni is open-source online voting software for associations and organizations. Secure, legally valid, verifiable elections. Free plan, no credit card.'
   ),
   'meta.contact.title': t('meta.contact.title', 'Contact - Vocdoni'),
   'meta.contact.description': t(
@@ -39,10 +40,10 @@ const metaDefaults = {
     'meta.use_cases.description',
     "Discover real-world voting and governance use cases powered by Vocdoni's secure and transparent technology."
   ),
-  'meta.app.title': t('meta.app.title', 'Online voting software for associations & organizations | Vocdoni'),
+  'meta.app.title': t('meta.app.title', 'Free online voting software for organizations | Vocdoni'),
   'meta.app.description': t(
     'meta.app.description',
-    'Start free, upload your voter list, and publish results your members can verify. Built for organizations that need trust, speed, and proof.'
+    'Start free, import your member list, and publish results your members can verify. No credit card, set up in minutes.'
   ),
   'meta.solutions_index.title': t(
     'meta.solutions_index.title',
@@ -54,11 +55,11 @@ const metaDefaults = {
   ),
   'meta.solutions.associations.title': t(
     'meta.solutions.associations.title',
-    'Association voting platform for board elections | Vocdoni'
+    'Online voting for associations and board elections | Vocdoni'
   ),
   'meta.solutions.associations.description': t(
     'meta.solutions.associations.description',
-    'Secure, verifiable online voting for associations and federations. Run board elections, statutory votes and member consultations with secret ballots and instant results.'
+    'Run association board elections, statutory votes and member consultations online. Secret ballots, verifiable results and a legally defensible audit trail.'
   ),
   'meta.solutions.cooperatives.title': t(
     'meta.solutions.cooperatives.title',

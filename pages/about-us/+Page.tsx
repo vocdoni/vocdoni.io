@@ -1,6 +1,9 @@
 import AvatarGroupTooltip from '@/components/shadcn-studio/avatar/avatar-16'
 import AboutUs from '@/components/shadcn-studio/blocks/about-us-page-03/about-us-page-03'
+import { Link } from '@/components/Link'
+import { Button } from '@/components/ui/button'
 import { MotionPreset } from '@/components/ui/motion-preset'
+import { ArrowRight } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 
 export default function AboutUsPage() {
@@ -102,6 +105,65 @@ export default function AboutUsPage() {
   return (
     <>
       <AboutUs aboutUsData={aboutUsData} />
+      <section className='pb-16 sm:pb-20 lg:pb-24' aria-labelledby='vocdoni-identity-title'>
+        <div className='mx-auto max-w-7xl px-4 sm:px-6 lg:px-8'>
+          <MotionPreset
+            fade
+            blur
+            slide
+            transition={{ duration: 0.5 }}
+            inView
+            inViewOnce
+            className='grid gap-10 rounded-3xl border border-primary/15 bg-primary/5 p-6 sm:p-8 lg:grid-cols-[1.25fr_0.75fr] lg:items-end lg:p-12'
+          >
+            <div className='max-w-2xl space-y-4'>
+              <p className='text-primary text-sm font-medium uppercase tracking-wide'>
+                {t('about_us.identity.eyebrow', 'Verified identity')}
+              </p>
+              <h2 id='vocdoni-identity-title' className='text-2xl text-balance sm:text-3xl'>
+                {t('about_us.identity.title', 'Vocdoni at a glance')}
+              </h2>
+              <p className='text-muted-foreground max-w-[65ch] text-lg leading-relaxed'>
+                {t(
+                  'about_us.identity.description',
+                  'Vocdoni provides open-source online voting software for associations and organizations, plus managed election services.'
+                )}
+              </p>
+            </div>
+
+            <div className='space-y-6'>
+              <dl className='grid grid-cols-2 gap-6 border-y border-primary/15 py-5'>
+                <div>
+                  <dt className='text-muted-foreground text-sm'>
+                    {t('about_us.identity.founded_label', 'Vocdoni began')}
+                  </dt>
+                  <dd className='mt-1 text-xl font-semibold tabular-nums'>
+                    {t('about_us.identity.founded_value', '2018')}
+                  </dd>
+                </div>
+                <div>
+                  <dt className='text-muted-foreground text-sm'>
+                    {t('about_us.identity.legal_name_label', 'Legal operator')}
+                  </dt>
+                  <dd className='mt-1 text-xl font-semibold'>
+                    {t('about_us.identity.legal_name_value', 'Synergize S.L.')}
+                  </dd>
+                </div>
+              </dl>
+
+              <Button asChild size='lg' className='group w-full sm:w-auto'>
+                <Link href={APP_URL} variant='inlineIcon' ctaId='about_identity_start'>
+                  {t('about_us.identity.cta', 'Start a free election')}
+                  <ArrowRight
+                    className='transition-transform duration-150 group-hover:translate-x-0.5'
+                    aria-hidden='true'
+                  />
+                </Link>
+              </Button>
+            </div>
+          </MotionPreset>
+        </div>
+      </section>
       <section className='pb-16 sm:pb-20 lg:pb-24'>
         <div className='mx-auto grid max-w-7xl gap-10 px-4 sm:px-6 lg:grid-cols-[0.85fr_1.15fr] lg:px-8'>
           <MotionPreset fade blur slide transition={{ duration: 0.5 }} inView inViewOnce className='space-y-4'>

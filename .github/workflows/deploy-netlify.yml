@@ -119,7 +119,9 @@ jobs:
       # `--no-build` it still bundles the directory declared in `netlify.toml` before uploading.
       # Everything else about the deploy is deliberately unchanged, see the two steps below.
       - name: Install Netlify CLI
-        run: npm install --global netlify-cli@27.4.0
+        # Keep this temporary exact pin until @netlify/ai publishes a version matching ^1.0.1.
+        # @netlify/dev@5.0.4 currently requests that unavailable version through the CLI's caret.
+        run: npm install --global netlify-cli@27.4.0 @netlify/dev@5.0.1
 
       - name: Deploy to Netlify
         id: deploy

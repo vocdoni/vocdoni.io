@@ -130,12 +130,75 @@ describe('Head meta tags', () => {
     const org = node(html, 'Organization')!
     expect(org['@id']).toBe('https://vocdoni.io/#organization')
     expect(org.url).toBe('https://vocdoni.io')
+    expect(org.legalName).toBe('Synergize S.L.')
+    expect(org.description).toContain('online voting software for associations and organizations')
+    expect(org.foundingDate).toBe('2018')
+    expect(org.knowsAbout).toContain('online voting')
+    expect(org.knowsAbout).toContain('end-to-end verifiable elections')
     expect(org.sameAs).toContain('https://github.com/vocdoni')
     expect(org.logo).toMatchObject({ '@type': 'ImageObject', '@id': 'https://vocdoni.io/#logo' })
 
     const site = node(html, 'WebSite')!
     expect(site['@id']).toBe('https://vocdoni.io/#website')
     expect(site.publisher).toEqual({ '@id': 'https://vocdoni.io/#organization' })
+  })
+
+  // The entity description is the one sentence a crawler and a reader should agree on, so it is
+  // read from the same key the about page renders rather than duplicated as an English literal.
+  it('takes Organization.description from the about-us identity copy, in the served locale', () => {
+    const html = renderHead({
+      locale: 'es',
+      urlLogical: '/',
+      config: { title: 'Vocdoni' },
+      initialI18nStore: {
+        es: {
+          common: {
+            about_us: {
+              identity: {
+                description:
+                  'Vocdoni ofrece software de voto en línea de código abierto para asociaciones y organizaciones.',
+              },
+            },
+          },
+        },
+      },
+    })
+
+    expect(node(html, 'Organization')!.description).toBe(
+      'Vocdoni ofrece software de voto en línea de código abierto para asociaciones y organizaciones.'
+    )
+  })
+
+  it('falls back to the English entity description when the i18n store has no identity copy', () => {
+    const html = renderHead({ locale: 'en', urlLogical: '/', config: { title: 'Vocdoni' } })
+    expect(node(html, 'Organization')!.description).toContain(
+      'Vocdoni provides open-source online voting software for associations and organizations'
+    )
+  })
+
+  // 34 of 39 page titles use the `| Vocdoni` suffix; only the four legacy pages use ` - Vocdoni`.
+  it('strips either brand suffix from WebPage.name and the breadcrumb leaf', () => {
+    const html = renderHead({
+      locale: 'en',
+      urlLogical: '/solutions/associations',
+      config: { title: 'Online voting for associations and board elections | Vocdoni' },
+    })
+
+    expect(node(html, 'WebPage')!.name).toBe('Online voting for associations and board elections')
+
+    const crumbs = node(html, 'BreadcrumbList')!.itemListElement
+    expect(crumbs[crumbs.length - 1].name).toBe('Online voting for associations and board elections')
+    expect(JSON.stringify(crumbs)).not.toContain('| Vocdoni')
+  })
+
+  it('keeps stripping the legacy dash brand suffix', () => {
+    const html = renderHead({ locale: 'en', urlLogical: '/privacy', config: { title: 'Privacy policy - Vocdoni' } })
+    expect(node(html, 'WebPage')!.name).toBe('Privacy policy')
+  })
+
+  it('falls back to the brand when a title is nothing but the brand suffix', () => {
+    const html = renderHead({ locale: 'en', urlLogical: '/privacy', config: { title: '| Vocdoni' } })
+    expect(node(html, 'WebPage')!.name).toBe('Vocdoni')
   })
 
   it('links the page node to the WebSite node instead of redeclaring it', () => {
