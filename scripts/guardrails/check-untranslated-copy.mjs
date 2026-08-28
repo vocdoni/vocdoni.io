@@ -9,7 +9,7 @@ const SOURCE_LOCALE = 'en'
 // acronyms (identical across every reference) from being reported as untranslated copy.
 const REFERENCE_LOCALES = ['es', 'ca']
 // In-progress locales that must never ship copy pasted verbatim from the English source.
-const TARGET_LOCALES = ['de', 'el', 'eu', 'fr', 'hi', 'it', 'pt']
+const TARGET_LOCALES = ['de', 'el', 'eu', 'fr', 'hi', 'it', 'pt', 'pt-br']
 
 const localeRelativePath = (locale) => `locales/${locale}/common.json`
 const readLocale = (locale) => JSON.parse(fs.readFileSync(path.resolve(localeRelativePath(locale)), 'utf8'))
@@ -38,8 +38,8 @@ if (violations.length > 0) {
   }
   console.error('')
   console.error(
-    'These keys still hold the English copy. Translate them, or set the value to an empty string ("") ' +
-      'so the translation tooling can fill them in.'
+    'These keys still hold the English copy. Translate them. An empty string is not an option: ' +
+      'check-non-empty-translations rejects empty leaves, and getMetaByKey falls back to English.'
   )
   process.exit(1)
 }
