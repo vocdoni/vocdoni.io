@@ -207,7 +207,20 @@ export default function Footer() {
         {/* Bottom Bar: Security & Copyright */}
         <div className='flex flex-col md:flex-row justify-between items-center gap-8'>
           <div className='flex flex-col gap-1 items-center md:items-start order-2 md:order-1'>
-            <p className='text-xs text-muted-foreground'>{t('footer.copyright', { year: new Date().getFullYear() })}</p>
+            <div className='flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-xs text-muted-foreground md:justify-start'>
+              <p>{t('footer.copyright', { year: new Date().getFullYear() })}</p>
+              <Link
+                href='https://tin.computer'
+                variant='footerLegal'
+                className='inline-flex items-center gap-1.5'
+                aria-label={t('footer.tin_credit_aria', 'Growth by Tin (opens in new tab)')}
+              >
+                <svg className='h-[1em] w-[1em]' viewBox='0 0 32 32' aria-hidden='true'>
+                  <rect width='32' height='32' fill='#66DC9D' />
+                </svg>
+                {t('footer.tin_credit', 'Growth by Tin')}
+              </Link>
+            </div>
             <p className='text-[10px] text-muted-foreground'>{t('footer.rights')}</p>
           </div>
 
