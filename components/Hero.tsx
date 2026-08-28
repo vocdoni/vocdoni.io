@@ -1,33 +1,18 @@
 import { CensusCard, ResultsCard, VotingCard } from '@/components/HeroCards'
+import HeroVerticals from '@/components/HeroVerticals'
 import { Link } from '@/components/Link'
 import MobileHeroScroll from '@/components/MobileHeroScroll'
 import { Button } from '@/components/ui/button'
 import { MotionPreset } from '@/components/ui/motion-preset'
 import { ArrowRight } from 'lucide-react'
-import { AnimatePresence, motion, useReducedMotion } from 'motion/react'
-import { useEffect, useMemo, useState } from 'react'
+import { motion, useReducedMotion } from 'motion/react'
 import { useTranslation } from 'react-i18next'
 
 import TrustedBySection from '@/components/TrustedBySection'
 
-const fallbackWords = ['easy', 'secure', 'simple']
-
 const Hero = () => {
   const { t } = useTranslation()
-  const dynamicWords = useMemo(() => {
-    const arr = t('hero.dynamic_words', { returnObjects: true }) as string[] | undefined
-    return Array.isArray(arr) && arr.length > 0 ? arr : fallbackWords
-  }, [t])
   const reducedMotion = useReducedMotion()
-  const [index, setIndex] = useState(0)
-
-  useEffect(() => {
-    if (reducedMotion) return
-    const interval = setInterval(() => {
-      setIndex((prevIndex) => (prevIndex + 1) % dynamicWords.length)
-    }, 3000)
-    return () => clearInterval(interval)
-  }, [dynamicWords.length, reducedMotion])
 
   return (
     <section className='relative w-full pt-6 pb-20 lg:pt-10 lg:pb-28 px-4 sm:px-6 lg:px-8 overflow-hidden'>
@@ -50,28 +35,14 @@ const Hero = () => {
             <MotionPreset fade slide delay={0.2} transition={{ duration: 0.5 }}>
               <p className='text-base sm:text-lg text-muted-foreground max-w-[600px] leading-relaxed break-words text-pretty'>
                 <span className='font-medium text-foreground'>
-                  {t('hero.title')}{' '}
-                  <span className='inline-flex min-w-[0px] xs:min-w-[72px] text-primary relative'>
-                    {reducedMotion ? (
-                      <span className='block'>{dynamicWords[0]}</span>
-                    ) : (
-                      <AnimatePresence mode='wait'>
-                        <motion.span
-                          key={index}
-                          initial={{ y: 20, opacity: 0 }}
-                          animate={{ y: 0, opacity: 1 }}
-                          exit={{ y: -20, opacity: 0 }}
-                          transition={{ duration: 0.6, ease: [0.25, 1, 0.5, 1] }}
-                          className='block'
-                        >
-                          {dynamicWords[index]}
-                        </motion.span>
-                      </AnimatePresence>
-                    )}
-                  </span>
-                  .
+                  {t('hero.subtitle_lead', 'Take your voting processes online without taking on the risk.')}
                 </span>{' '}
-                <span>{t('hero.subtitle')}</span>
+                <span>
+                  {t(
+                    'hero.subtitle',
+                    'Vocdoni combines legal compliance, voter privacy, and results that you and your members can check independently.'
+                  )}
+                </span>
               </p>
             </MotionPreset>
 
@@ -85,7 +56,7 @@ const Hero = () => {
               <div className='flex flex-wrap items-center gap-x-4 gap-y-3'>
                 <Button variant='dark' size='lg' className='group text-base has-[>svg]:px-6' asChild>
                   <Link href={APP_URL} variant='inlineIcon' ctaId='home_hero_start' data-hero-cta='primary'>
-                    {t('hero.cta_primary')}
+                    {t('hero.cta_primary', 'Start for free')}
                     <ArrowRight
                       className='h-5 w-5 transition-transform duration-200 group-hover:translate-x-0.5'
                       aria-hidden='true'
@@ -116,12 +87,16 @@ const Hero = () => {
                       fill='#fff'
                     />
                   </svg>
-                  {t('hero.cta_secondary')}
+                  {t('hero.cta_secondary', 'Talk to an expert')}
                 </Link>
               </div>
             </MotionPreset>
 
-            <MotionPreset fade slide delay={0.4} transition={{ duration: 0.5 }} className='mt-8 w-full max-w-full'>
+            <MotionPreset fade slide delay={0.35} transition={{ duration: 0.5 }} className='w-full'>
+              <HeroVerticals />
+            </MotionPreset>
+
+            <MotionPreset fade slide delay={0.4} transition={{ duration: 0.5 }} className='mt-2 w-full max-w-full'>
               <TrustedBySection />
             </MotionPreset>
           </div>

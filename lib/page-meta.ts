@@ -51,7 +51,7 @@ export const metaDefaults = {
   ),
   'meta.solutions_index.description': t(
     'meta.solutions_index.description',
-    'Secure, verifiable online voting tailored to your organization: associations, cooperatives, professional colleges, political parties, municipalities, sports clubs, NGOs, universities, companies and unions.'
+    'Secure, verifiable online voting tailored to your organization: associations, cooperatives, professional associations, political parties, city councils, sports clubs, NGOs, universities, companies and unions.'
   ),
   'meta.solutions.associations.title': t(
     'meta.solutions.associations.title',
@@ -75,7 +75,7 @@ export const metaDefaults = {
   ),
   'meta.solutions.professional_colleges.description': t(
     'meta.solutions.professional_colleges.description',
-    'Compliant, auditable online voting for professional colleges and bodies. Run statutory elections and AGMs with a full audit trail and instant, verifiable results.'
+    'Compliant, auditable online voting for professional associations and regulated bodies. Run statutory elections and AGMs with a full audit trail and instant, verifiable results.'
   ),
   'meta.solutions.political_parties.title': t(
     'meta.solutions.political_parties.title',
@@ -202,7 +202,7 @@ export const metaDefaults = {
   'meta.case_studies_index.title': t('meta.case_studies_index.title', 'Online voting case studies | Vocdoni'),
   'meta.case_studies_index.description': t(
     'meta.case_studies_index.description',
-    'Real online voting case studies: professional colleges, political parties, municipalities, civic movements and associations that ran secure, verifiable elections with Vocdoni.'
+    'Real online voting case studies: professional associations, political parties, city councils, civic movements and associations that ran secure, verifiable elections with Vocdoni.'
   ),
   'meta.case_studies.coib.title': t(
     'meta.case_studies.coib.title',

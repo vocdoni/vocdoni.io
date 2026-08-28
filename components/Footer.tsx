@@ -4,6 +4,8 @@ import { Icon } from '@iconify/react'
 import type { TFunction } from 'i18next'
 import { Globe, Send } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
+
+import { getSolutionVertical } from '@/lib/solution-verticals'
 import VocdoniLogo from './Logo'
 
 type FooterLink = { label: string; href: string; external?: boolean; highlight?: boolean }
@@ -18,15 +20,21 @@ const buildProductLinks = (t: TFunction): FooterLink[] => [
 ]
 
 const buildSolutionsLinks = (t: TFunction): FooterLink[] => [
-  { label: t('footer.solutions.associations', 'Associations & federations'), href: '/solutions/associations' },
-  { label: t('footer.solutions.cooperatives', 'Cooperatives'), href: '/solutions/cooperatives' },
   {
-    label: t('footer.solutions.professional_colleges', 'Professional colleges'),
-    href: '/solutions/professional-colleges',
+    label: t('footer.solutions.associations', 'Associations & federations'),
+    href: getSolutionVertical('associations').href,
   },
-  { label: t('footer.solutions.political_parties', 'Political parties'), href: '/solutions/political-parties' },
-  { label: t('footer.solutions.municipalities', 'Municipalities'), href: '/solutions/municipalities' },
-  { label: t('footer.solutions.companies_agm', 'Companies & AGMs'), href: '/solutions/companies-agm' },
+  { label: t('footer.solutions.cooperatives', 'Cooperatives'), href: getSolutionVertical('cooperatives').href },
+  {
+    label: t('footer.solutions.professional_colleges', 'Professional associations'),
+    href: getSolutionVertical('professional_colleges').href,
+  },
+  {
+    label: t('footer.solutions.political_parties', 'Political parties'),
+    href: getSolutionVertical('political_parties').href,
+  },
+  { label: t('footer.solutions.municipalities', 'City councils'), href: getSolutionVertical('municipalities').href },
+  { label: t('footer.solutions.companies_agm', 'Companies & AGMs'), href: getSolutionVertical('companies_agm').href },
   { label: t('footer.solutions.view_all', 'View all solutions'), href: '/solutions', highlight: true },
 ]
 

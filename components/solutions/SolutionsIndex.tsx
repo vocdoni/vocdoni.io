@@ -1,39 +1,11 @@
-import {
-  ArrowRightIcon,
-  Building2Icon,
-  BuildingIcon,
-  BriefcaseIcon,
-  GraduationCapIcon,
-  HandshakeIcon,
-  HeartHandshakeIcon,
-  LandmarkIcon,
-  type LucideIcon,
-  MegaphoneIcon,
-  TrophyIcon,
-  UsersIcon,
-} from 'lucide-react'
+import { ArrowRightIcon } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 
 import { Container } from '@/components/Container'
 import { Link } from '@/components/Link'
 import { Card, CardContent } from '@/components/ui/card'
 import { MotionPreset } from '@/components/ui/motion-preset'
-
-type VerticalCard = { slug: string; href: string; icon: LucideIcon }
-
-// Order shown on the hub. Copy lives in i18n under solutions_index.cards.<slug>.
-const VERTICALS: VerticalCard[] = [
-  { slug: 'associations', href: '/solutions/associations', icon: UsersIcon },
-  { slug: 'cooperatives', href: '/solutions/cooperatives', icon: HandshakeIcon },
-  { slug: 'professional_colleges', href: '/solutions/professional-colleges', icon: BriefcaseIcon },
-  { slug: 'political_parties', href: '/solutions/political-parties', icon: Building2Icon },
-  { slug: 'municipalities', href: '/solutions/municipalities', icon: LandmarkIcon },
-  { slug: 'sports_clubs', href: '/solutions/sports-clubs', icon: TrophyIcon },
-  { slug: 'ngos', href: '/solutions/ngos', icon: HeartHandshakeIcon },
-  { slug: 'universities', href: '/solutions/universities', icon: GraduationCapIcon },
-  { slug: 'companies_agm', href: '/solutions/companies-agm', icon: BuildingIcon },
-  { slug: 'trade_unions', href: '/solutions/trade-unions', icon: MegaphoneIcon },
-]
+import { SOLUTION_VERTICALS } from '@/lib/solution-verticals'
 
 type IndexContent = {
   eyebrow: string
@@ -91,7 +63,7 @@ export function SolutionsIndex() {
       <section className='pb-16 sm:pb-24'>
         <Container>
           <div className='grid gap-6 md:grid-cols-2 lg:grid-cols-3'>
-            {VERTICALS.map(({ slug, href, icon: Icon }) => {
+            {SOLUTION_VERTICALS.map(({ slug, href, icon: Icon }) => {
               const card = cards[slug]
               if (!card) return null
               return (
