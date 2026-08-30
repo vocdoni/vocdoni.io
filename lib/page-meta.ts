@@ -45,6 +45,14 @@ export const metaDefaults = {
     'meta.app.description',
     'Start free, import your member list, and publish results your members can verify. No credit card, set up in minutes.'
   ),
+  'meta.compare.online_voting_software.title': t(
+    'meta.compare.online_voting_software.title',
+    'Online voting software guide: compare by organization fit | Vocdoni'
+  ),
+  'meta.compare.online_voting_software.description': t(
+    'meta.compare.online_voting_software.description',
+    'Compare online voting software by service model, ballot needs, support, and organization fit. See when Vocdoni, ElectionBuddy, Simply Voting, OpaVote, or an AGM suite fits.'
+  ),
   'meta.solutions_index.title': t(
     'meta.solutions_index.title',
     'Online voting solutions by organization type | Vocdoni'
