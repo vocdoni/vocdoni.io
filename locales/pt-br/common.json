@@ -1,4 +1,87 @@
 {
+  "alternatives": {
+    "electionbuddy": {
+      "alternatives": [
+        {
+          "description": "Vocdoni é um software de votação online de código aberto para associações e outras organizações de membros. O aplicativo de autoatendimento aceita perguntas de escolha única e múltipla, voto ponderado, início agendado e resultados ao vivo ou somente no final.",
+          "fit": "Para votação de autoatendimento e código aberto com cédulas ponderadas",
+          "name": "Vocdoni",
+          "pricing": "O plano gratuito atende até 100 membros. Há planos públicos para grupos maiores."
+        },
+        {
+          "description": "A OpaVote aceita voto preferencial, STV, Condorcet, Borda, aprovação e seleção múltipla. Também oferece eleições, enquetes públicas e apuração.",
+          "fit": "Para votos preferenciais com preço simples por uso",
+          "name": "OpaVote",
+          "pricing": "É grátis até 25 eleitores e 10 candidatos. Eleições pagas começam em US$ 10 por 125 eleitores ou 20 candidatos."
+        },
+        {
+          "description": "A Simply Voting oferece eleições autônomas e gerenciadas. Também aceita votação pela web, telefone e papel, além da autenticação existente.",
+          "fit": "Para combinar autonomia e gestão assistida",
+          "name": "Simply Voting",
+          "pricing": "Testes com 10 eleitores aptos ou menos são grátis. Eventos maiores exigem contato comercial."
+        },
+        {
+          "description": "A POLYAS divide a votação online nos pacotes Standard, Verifiable e Certified. O cliente pode adicionar gestão eleitoral.",
+          "fit": "Para pacotes de votação verificáveis ou certificados",
+          "name": "POLYAS",
+          "pricing": "O Standard é grátis até 50 eleitores. Verifiable e Certified começam em 50 euros antes das opções."
+        }
+      ],
+      "baseline_points": [
+        "O plano gratuito cobre até 20 eleitores aptos.",
+        "Os planos ElectionVote pagos dependem dos recursos e do número de eleitores.",
+        "Métodos, avisos por e-mail, SMS ou correio e serviços especializados variam por plano."
+      ],
+      "baseline_text": "A ElectionBuddy já cobre muitas eleições de organizações. Compare alternativas se outro modelo de compra, voto ou prova for mais importante.",
+      "baseline_title": "O que a ElectionBuddy já oferece",
+      "criteria": [
+        {
+          "text": "Decida se eleitores e observadores devem verificar a apuração sem confiar em um único fornecedor.",
+          "title": "Verificação"
+        },
+        {
+          "text": "Liste cada método de apuração, voto ponderado, resposta aberta e grupo exigido pelas regras.",
+          "title": "Cédula"
+        },
+        {
+          "text": "Confirme necessidades de e-mail, códigos, acesso único, papel, telefone e voto assistido.",
+          "title": "Acesso do eleitor"
+        },
+        {
+          "text": "Compare eleitores, eleições repetidas, arquivo, configuração e suporte como custo total.",
+          "title": "Modelo de compra"
+        }
+      ],
+      "criteria_eyebrow": "Como escolher",
+      "criteria_intro": "Comece pelas regras da eleição. Depois compare produto, serviço e preço.",
+      "criteria_title": "Defina quatro requisitos antes da seleção",
+      "electionbuddy_features": "Recursos da ElectionBuddy",
+      "eyebrow": "Guia de software eleitoral",
+      "image_alt": "O criador de votos da Vocdoni mostra a configuração de uma eleição",
+      "image_caption": "Um voto sendo preparado na Vocdoni",
+      "intro": "A escolha depende da apuração, verificação, suporte e preço. Estes dados foram verificados em agosto de 2026.",
+      "official_source": "Ver fonte oficial",
+      "primary_cta": "Explorar o app Vocdoni",
+      "primary_cta_aria": "Explorar o aplicativo de votação online Vocdoni",
+      "proof_eyebrow": "Usado por organizações associativas",
+      "proof_link": "Ler o caso da Òmnium Cultural",
+      "proof_logo_alt": "Logotipo da Òmnium Cultural",
+      "proof_text": "A Òmnium Cultural é um estudo de caso publicado da Vocdoni sobre assembleias estatutárias. Consulte a fonte para ver como uma organização de membros usou o serviço.",
+      "proof_title": "Use provas de eleições reais ao comparar ferramentas",
+      "related_intro": "Veja o produto, o caso associativo, uma eleição real e o modelo de segurança.",
+      "related_links": {
+        "app": "Explorar o app Vocdoni",
+        "associations": "Votação online para associações",
+        "omnium": "Caso da Òmnium Cultural",
+        "secure_voting": "Como funciona a votação online segura"
+      },
+      "related_title": "Continue sua avaliação",
+      "shortlist_eyebrow": "Quatro opções",
+      "shortlist_intro": "Cada fornecedor segue uma linha diferente. Confirme os dados atuais na fonte oficial.",
+      "shortlist_title": "Combine a plataforma com seu requisito mais difícil",
+      "title": "4 alternativas à ElectionBuddy para votações de organizações"
+    }
+  },
   "case_studies": {
     "bellpuig": {
       "author": "Jordi Estiarte",
@@ -2706,6 +2789,7 @@
     },
     "copyright": "© {{year}} Vocdoni. Feito com ❤️ em Barcelona.",
     "gdpr": "Em conformidade com o GDPR",
+    "growth_by_tin": "Growth by Tin",
     "legal": {
       "cookies": "Configurações de cookies",
       "privacy": "Política de privacidade",
@@ -2809,6 +2893,12 @@
     "about_us": {
       "description": "Conheça a equipe que constrói uma infraestrutura de votação digital verificável e de código aberto para organizações que precisam de decisões confiáveis.",
       "title": "Sobre a Vocdoni - infraestrutura de votação online de código aberto"
+    },
+    "alternatives": {
+      "electionbuddy": {
+        "description": "Compare Vocdoni, OpaVote, Simply Voting e POLYAS por método de voto, verificação, serviço e preço.",
+        "title": "4 alternativas à ElectionBuddy para organizações | Vocdoni"
+      }
     },
     "app": {
       "description": "Comece grátis, importe sua lista de associados e publique resultados que seus membros podem verificar. Sem cartão de crédito, configuração em minutos.",

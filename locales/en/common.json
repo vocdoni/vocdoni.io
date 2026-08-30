@@ -1,4 +1,87 @@
 {
+  "alternatives": {
+    "electionbuddy": {
+      "alternatives": [
+        {
+          "description": "Vocdoni is open-source online voting software for associations and other member organizations. Its self-service app supports single-choice and multiple-choice questions, voting weights, scheduled starts, and live or end-only results.",
+          "fit": "For open-source self-service voting with weighted ballots",
+          "name": "Vocdoni",
+          "pricing": "The free plan supports up to 100 members. Larger public plans are available."
+        },
+        {
+          "description": "OpaVote supports ranked-choice, STV, Condorcet, Borda, approval, and checkbox voting. It also offers online elections, public polls, and ballot counting.",
+          "fit": "For ranked ballots with simple pay-as-you-go pricing",
+          "name": "OpaVote",
+          "pricing": "It is free for up to 25 voters and 10 candidates. Paid elections start at $10 per 125 voters or 20 candidates."
+        },
+        {
+          "description": "Simply Voting offers self-service and managed elections. It also supports web, telephone, and paper voting, plus existing organization authentication.",
+          "fit": "For combined self-service and managed delivery",
+          "name": "Simply Voting",
+          "pricing": "Test elections with 10 eligible voters or fewer are free. Contact sales for larger events."
+        },
+        {
+          "description": "POLYAS separates online voting into Standard, Verifiable, and Certified packages. Buyers can use self-service or add election management.",
+          "fit": "For verifiable or certified voting packages",
+          "name": "POLYAS",
+          "pricing": "Standard is free for up to 50 voters. Verifiable and Certified packages start at €50 before added features and services."
+        }
+      ],
+      "baseline_points": [
+        "The free plan covers up to 20 eligible voters.",
+        "Paid ElectionVote tiers depend on features and the eligible voter count.",
+        "Ballot methods, email, text, mail notices, and expert services vary by plan."
+      ],
+      "baseline_text": "ElectionBuddy already covers many organization elections. Compare alternatives only when another buying model, voting method, or proof model matters more.",
+      "baseline_title": "What ElectionBuddy already covers",
+      "criteria": [
+        {
+          "text": "Decide whether your voters and observers must check the tally without trusting one vendor.",
+          "title": "Verification"
+        },
+        {
+          "text": "List every count method, weighted vote, write-in, and voter group your rules require.",
+          "title": "Ballot design"
+        },
+        {
+          "text": "Check email, access codes, single sign-on, paper, telephone, and assisted voting needs.",
+          "title": "Voter access"
+        },
+        {
+          "text": "Compare eligible voters, repeat elections, result storage, setup help, and support as one cost.",
+          "title": "Buying model"
+        }
+      ],
+      "criteria_eyebrow": "How to choose",
+      "criteria_intro": "Start with your election rules. Then compare the product, service, and price around them.",
+      "criteria_title": "Set four requirements before you shortlist tools",
+      "eyebrow": "Election software guide",
+      "electionbuddy_features": "ElectionBuddy features",
+      "image_alt": "Vocdoni vote builder showing an election setup screen",
+      "image_caption": "A vote being prepared in Vocdoni",
+      "intro": "The right fit depends on how you count, verify, support, and price an election. These four options use public product information checked in August 2026.",
+      "official_source": "View official source",
+      "primary_cta": "Explore the Vocdoni app",
+      "primary_cta_aria": "Explore the Vocdoni online voting app",
+      "proof_eyebrow": "Used by member organizations",
+      "proof_link": "Read the Òmnium Cultural case study",
+      "proof_logo_alt": "Òmnium Cultural logo",
+      "proof_text": "Òmnium Cultural is a published Vocdoni case study for statutory assemblies. Review the source to see how one member organization used the service.",
+      "proof_title": "Use real election evidence when you compare tools",
+      "related_intro": "See the product, the association use case, a real election, and the security model.",
+      "related_links": {
+        "app": "Explore the Vocdoni app",
+        "associations": "Online voting for associations",
+        "omnium": "Òmnium Cultural case study",
+        "secure_voting": "How secure online voting works"
+      },
+      "related_title": "Continue your evaluation",
+      "shortlist_eyebrow": "Four options",
+      "shortlist_intro": "Each provider takes a different route. Use the official source beside every option to confirm current details.",
+      "shortlist_title": "Match the platform to your hardest requirement",
+      "title": "4 ElectionBuddy alternatives for organization voting"
+    }
+  },
   "case_studies": {
     "bellpuig": {
       "author": "Jordi Estiarte",
@@ -2706,6 +2789,7 @@
     },
     "copyright": "© {{year}} Vocdoni. Made with ❤️ in Barcelona.",
     "gdpr": "GDPR compliant",
+    "growth_by_tin": "Growth by Tin",
     "legal": {
       "cookies": "Cookie settings",
       "privacy": "Privacy policy",
@@ -2809,6 +2893,12 @@
     "about_us": {
       "description": "Meet the team building open source, verifiable digital voting infrastructure for organizations that need trustworthy decisions.",
       "title": "About Vocdoni - open source online voting infrastructure"
+    },
+    "alternatives": {
+      "electionbuddy": {
+        "description": "Compare four ElectionBuddy alternatives for verifiable voting, ranked ballots, managed elections, and certified online voting.",
+        "title": "ElectionBuddy alternatives for organization voting | Vocdoni"
+      }
     },
     "app": {
       "description": "Start free, import your member list, and publish results your members can verify. No credit card, set up in minutes.",

@@ -199,6 +199,14 @@ export const metaDefaults = {
     'meta.learn.how_to_prevent_election_fraud_online.description',
     'The real risks in online voting and how to prevent fraud: voter authentication, ballot secrecy, verifiable tallies, audit trails and open-source scrutiny.'
   ),
+  'meta.alternatives.electionbuddy.title': t(
+    'meta.alternatives.electionbuddy.title',
+    'ElectionBuddy alternatives for organization voting | Vocdoni'
+  ),
+  'meta.alternatives.electionbuddy.description': t(
+    'meta.alternatives.electionbuddy.description',
+    'Compare four ElectionBuddy alternatives for verifiable voting, ranked ballots, managed elections, and certified online voting.'
+  ),
   'meta.case_studies_index.title': t('meta.case_studies_index.title', 'Online voting case studies | Vocdoni'),
   'meta.case_studies_index.description': t(
     'meta.case_studies_index.description',
