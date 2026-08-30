@@ -50,6 +50,10 @@ export interface AlternativesContent {
   related_title: string
   related_intro: string
   related_links: {
+    home: string
+    agm: string
+    pricing: string
+    software_guide: string
     app: string
     associations: string
     omnium: string
@@ -71,6 +75,10 @@ export function AlternativesPage({ content }: { content: AlternativesContent }) 
   const alternatives = asArray<Alternative>(content.alternatives)
   const baselinePoints = asArray<string>(content.baseline_points)
   const relatedLinks = [
+    { href: '/', label: content.related_links.home },
+    { href: '/solutions/companies-agm', label: content.related_links.agm },
+    { href: '/pricing', label: content.related_links.pricing },
+    { href: '/compare/online-voting-software', label: content.related_links.software_guide },
     { href: '/app', label: content.related_links.app },
     { href: '/solutions/associations', label: content.related_links.associations },
     { href: '/case-studies/omnium-cultural', label: content.related_links.omnium },
@@ -265,7 +273,7 @@ export function AlternativesPage({ content }: { content: AlternativesContent }) 
             align='left'
             titleClassName='text-3xl sm:text-4xl'
           />
-          <div className='mt-8 grid gap-px overflow-hidden rounded-2xl border bg-border sm:grid-cols-2'>
+          <div className='mt-8 grid gap-px overflow-hidden rounded-2xl border bg-border sm:grid-cols-2 lg:grid-cols-4'>
             {relatedLinks.map((item) => (
               <Link
                 key={item.href}
