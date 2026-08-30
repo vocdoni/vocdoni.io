@@ -47,4 +47,11 @@ describe('Online voting software guide', () => {
     expect(html).toContain('does not replace an AGM broadcast and question platform')
     expect(html).not.toMatch(/accessibility|on-premise|downloadable reports/i)
   })
+
+  it('connects the selection shelf to every required route', () => {
+    expect(html).toContain('href="/"')
+    expect(html).toContain('href="/solutions/companies-agm"')
+    expect(html).toContain('href="/pricing"')
+    expect(html).toContain('href="/alternatives/electionbuddy-alternatives"')
+  })
 })

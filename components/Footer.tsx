@@ -42,6 +42,14 @@ const buildCompanyLinks = (t: TFunction): FooterLink[] => [
   { label: t('footer.company.about', 'About us'), href: '/about-us' },
   { label: t('footer.company.use_cases', 'Use cases'), href: '/use-cases' },
   { label: t('footer.company.case_studies', 'Case studies'), href: '/case-studies' },
+  {
+    label: t('footer.company.online_voting_software', 'Online voting software guide'),
+    href: '/compare/online-voting-software',
+  },
+  {
+    label: t('footer.company.electionbuddy_alternatives', 'ElectionBuddy alternatives'),
+    href: '/alternatives/electionbuddy-alternatives',
+  },
   { label: t('footer.company.learn', 'Learn'), href: '/learn' },
   { label: t('footer.company.blog', 'Blog'), href: '/blog' },
   { label: t('footer.company.contact', 'Contact'), href: '/contact' },

@@ -59,8 +59,11 @@ export interface OnlineVotingSoftwareContent {
   related_title: string
   related_intro: string
   related_links: {
+    home: string
     associations: string
     agm: string
+    pricing: string
+    electionbuddy_alternatives: string
     security: string
   }
 }
@@ -89,8 +92,11 @@ export function OnlineVotingSoftwareGuide({ content }: { content: OnlineVotingSo
   const fitYes = asArray<string>(content.fit_yes)
   const fitNo = asArray<string>(content.fit_no)
   const relatedLinks = [
+    { href: '/', label: content.related_links.home },
     { href: '/solutions/associations', label: content.related_links.associations },
     { href: '/solutions/companies-agm', label: content.related_links.agm },
+    { href: '/pricing', label: content.related_links.pricing },
+    { href: '/alternatives/electionbuddy-alternatives', label: content.related_links.electionbuddy_alternatives },
     { href: '/learn/how-secure-online-voting-works', label: content.related_links.security },
   ]
 
@@ -338,7 +344,7 @@ export function OnlineVotingSoftwareGuide({ content }: { content: OnlineVotingSo
             align='left'
             titleClassName='text-3xl sm:text-4xl'
           />
-          <div className='mt-8 grid gap-px overflow-hidden rounded-2xl border bg-border sm:grid-cols-3'>
+          <div className='mt-8 grid gap-px overflow-hidden rounded-2xl border bg-border sm:grid-cols-2 lg:grid-cols-3'>
             {relatedLinks.map((item) => (
               <Link
                 key={item.href}

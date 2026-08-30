@@ -106,8 +106,11 @@ export const onlineVotingSoftwareContent = {
   related_title: 'Continue your evaluation',
   related_intro: 'Use the guide that matches your organization and risk questions.',
   related_links: {
+    home: 'Vocdoni homepage',
     associations: 'Online voting for associations',
     agm: 'AGM voting for companies',
+    pricing: 'Vocdoni pricing',
+    electionbuddy_alternatives: 'ElectionBuddy alternatives',
     security: 'How secure online voting works',
   },
 } satisfies OnlineVotingSoftwareContent
