@@ -1559,117 +1559,357 @@
         }
       ]
     },
-    "professional_colleges": {
-      "challenge": {
-        "intro": "Los colegios profesionales celebran elecciones bajo un marco legal estricto. El proceso debe ser impecable, estar totalmente documentado y ser accesible para cada colegiado, o puede impugnarse.",
-        "title": "Cumplimiento y participación, sin sobrecarga"
-      },
-      "cta_primary": "Empezar gratis",
-      "cta_secondary": "Habla con nuestro equipo",
-      "eyebrow": "Para colegios profesionales y entidades reguladas",
-      "faq": {
-        "items": [
-          {
-            "answer": "Sí, cuando tus estatutos permiten el voto electrónico o remoto, o no lo prohíben. Vocdoni aporta un registro de auditoría completo y evidencias verificables, así que el resultado es defendible si se impugna.",
-            "question": "¿Es legalmente válido el voto en línea para un colegio profesional?"
-          },
-          {
-            "answer": "Sí. Puedes configurar quórum, elegibilidad, censos electorales, cargos múltiples y ventanas de votación para que el proceso siga tu reglamento con precisión.",
-            "question": "¿Podemos celebrar una votación que cumpla nuestros requisitos estatutarios?"
-          },
-          {
-            "answer": "Recibes un dosier de evidencias exportable y un registro de auditoría completo y sellado en el tiempo. Junto con la verificabilidad de extremo a extremo, permite a cualquiera confirmar que el resultado se contó correctamente.",
-            "question": "¿Qué evidencias obtenemos si se impugna el resultado?"
-          },
-          {
-            "answer": "La experiencia de voto es deliberadamente sencilla, funciona en cualquier dispositivo sin instalación y sigue las pautas de accesibilidad WCAG. Quienes no puedan votar en línea pueden incluirse mediante un proceso híbrido.",
-            "question": "¿Es accesible para los colegiados de más edad?"
-          },
-          {
-            "answer": "Sí. La criptografía de conocimiento cero separa la identidad de la papeleta, así que el voto es secreto, mientras cualquiera puede verificar que todos los votos válidos se contaron correctamente.",
-            "question": "¿Podemos mantener el voto secreto y aun así auditar el resultado?"
-          }
-        ],
-        "title": "Voto en colegios profesionales: preguntas frecuentes"
-      },
-      "features": [
-        {
-          "description": "Define quórum, elegibilidad, censos electorales, cargos múltiples y ventanas de votación para ajustarse a tu reglamento.",
-          "title": "Configurable según tus estatutos"
-        },
-        {
-          "description": "Cada paso queda registrado y recibes un dosier de evidencias exportable que documenta la integridad del proceso.",
-          "title": "Registro de auditoría completo"
-        },
-        {
-          "description": "La criptografía mantiene cada papeleta privada, incluso frente a tus administradores y a Vocdoni.",
-          "title": "Voto secreto por diseño"
-        },
-        {
-          "description": "Funciona en cualquier dispositivo sin instalación, siguiendo las pautas de accesibilidad WCAG para todas las edades y capacidades.",
-          "title": "Accesible para cada colegiado"
-        },
-        {
-          "description": "Los resultados se cuentan en cuanto cierra la votación, con una prueba que cualquier colegiado puede comprobar.",
-          "title": "Resultados instantáneos y verificables"
-        },
-        {
-          "description": "Para elecciones de alto riesgo, nuestro equipo puede operar el proceso de principio a fin junto a ti.",
-          "title": "Soporte experto opcional"
-        }
-      ],
+    "professional_associations": {
+      "eyebrow": "para colegios profesionales y corporaciones",
       "hero": {
-        "subtitle": "Organiza elecciones de junta, votaciones estatutarias y asambleas generales de tu colegio profesional: conforme, auditable y sencillo para cada colegiado, desde cualquier dispositivo.",
-        "title": "Software de voto para colegios profesionales: elecciones estatutarias"
-      },
-      "pains": [
-        "Los plazos estatutarios y las reglas de quórum no dejan margen para el error de procedimiento.",
-        "Los colegiados están repartidos por el territorio y rara vez asisten en persona.",
-        "Las elecciones en papel y por correo son caras y lentas de contar.",
-        "Un resultado impugnado sin prueba independiente puede acabar en los tribunales.",
-        "Los colegiados esperan una experiencia moderna y accesible en cualquier dispositivo.",
-        "Cada ciclo electoral repite el mismo esfuerzo manual y costoso."
-      ],
-      "proof": {
-        "author": "COIB",
-        "case_study_label": "Lee el caso del COIB",
-        "organizations_label": "Organizaciones que votan con Vocdoni",
-        "quote": "Celebramos la votación de nuestra asamblea general en línea, de forma segura y con resultados instantáneos. Los colegiados confiaron en el proceso y teníamos las evidencias para respaldar el resultado.",
-        "role": "Colegio Oficial de Enfermeras y Enfermeros de Barcelona",
-        "title": "La confianza de los colegios profesionales"
-      },
-      "solution": {
-        "intro": "Vocdoni ofrece a los colegios profesionales una elección conforme y totalmente auditable, con la documentación y las evidencias que respaldan el resultado, mientras los colegiados votan en minutos desde cualquier lugar.",
-        "title": "Un proceso electoral defendible, en unos pocos clics"
+        "title": "Elecciones que vuestra junta electoral puede verificar",
+        "subtitle": "Elecciones a la junta de gobierno, votaciones estatutarias y juntas generales para colegios profesionales. El recuento se publica junto con el registro con el que se ha calculado, así que nadie tiene que creerse la palabra de un proveedor.",
+        "cta_primary": "Monta una votación de prueba",
+        "cta_secondary": "Habla con un experto electoral",
+        "risk_reversal": "Cuenta gratuita, sin tarjeta. Tu votación de prueba es real, no una demo.",
+        "proof_line": "El COIB celebró su junta general de 2025 con Vocdoni.",
+        "proof_link_label": "Mira cómo"
       },
       "trust": {
-        "intro": "La privacidad, la auditabilidad y la defensa legal no son complementos. Son la base de cada votación que organizas con Vocdoni.",
-        "title": "Resultados que resisten el escrutinio legal"
+        "logos_label": "Colegios profesionales que votan con Vocdoni",
+        "badges": [
+          "Expediente de evidencias para la junta electoral",
+          "Voto secreto por construcción",
+          "Híbrido: remoto y presencial",
+          "RGPD, alojamiento en la UE"
+        ],
+        "stats": [
+          {
+            "value": "200.000+",
+            "label": "votos procesados sobre la infraestructura de Vocdoni",
+            "source": "datos de la plataforma Vocdoni"
+          },
+          {
+            "value": "500+",
+            "label": "procesos de votación celebrados con tecnología Vocdoni",
+            "source": "histórico de proyectos de Vocdoni"
+          },
+          {
+            "value": "Desde 2018",
+            "label": "celebrando elecciones estatutarias y públicas en producción",
+            "source": "código abierto, inspeccionable públicamente"
+          }
+        ]
       },
-      "trust_badges": [
-        "Conforme con el RGPD",
-        "Verificable de extremo a extremo",
-        "Registro de auditoría completo",
-        "Voto secreto"
-      ],
-      "trust_points": [
-        {
-          "description": "Cada votante puede comprobar que su voto se contó, y cualquiera puede verificar el recuento final. La confianza nace de la prueba, no de nuestra palabra.",
-          "title": "Verificable de extremo a extremo"
+      "stakes": {
+        "eyebrow": "la posición en la que estáis de verdad",
+        "title": "Vuestra junta electoral firma un recuento que no ha hecho",
+        "intro": "Un colegio profesional es una corporación de derecho público. Sus decisiones electorales son recurribles, primero internamente y después ante la jurisdicción contencioso-administrativa. Eso cambia lo que un sistema de voto tiene que producir al final.",
+        "items": [
+          {
+            "title": "La certificación",
+            "description": "Si un candidato pregunta a la junta electoral cómo sabe que la cifra es correcta, hoy la respuesta honesta es que lo dice el proveedor. Es una posición incómoda desde la que firmar."
+          },
+          {
+            "title": "El censo electoral",
+            "description": "Colegiados morosos, altas recientes, colegiados no ejercientes. Quién tenía derecho a votar, y a qué fecha de corte, es el hecho más discutido en cualquier proceso estatutario."
+          },
+          {
+            "title": "El argumento de la participación",
+            "description": "Un colegiado que ejerce a dos horas no se desplazará para una asamblea de dos horas. La participación se queda baja, y la baja participación se convierte en un argumento contra el propio mandato."
+          }
+        ],
+        "turn": "El recuento se publica junto con el registro con el que se ha calculado. Vuestra junta no tiene que fiarse de nuestra palabra sobre la cifra. Tampoco quien discrepe del resultado."
+      },
+      "legal": {
+        "eyebrow": "antes que cualquier otra cosa",
+        "title": "¿Esto es válido para nosotros, y qué le entregamos a un impugnante?",
+        "intro": "Las dos preguntas que deciden si esto llega a vuestra junta de gobierno. Vuestros Estatutos y vuestro Reglamento Electoral están por encima de todo lo que sigue: son el documento desde el que configuramos.",
+        "jurisdiction_label": "Marco aplicable en España",
+        "response_label": "Qué obtenéis frente a ello",
+        "frameworks": [
+          {
+            "name": "Vuestros Estatutos y Reglamento Electoral",
+            "summary": "El documento vinculante. Define el censo, las competencias de la junta electoral, la validación de candidaturas, los plazos de reclamación y los desempates.",
+            "response": [
+              "La configuración se contrasta con vuestro texto cláusula por cláusula antes de abrir nada",
+              "Elegibilidad, fecha de corte, quórum, mayorías y ventana de votación, bloqueadas",
+              "El expediente final vincula cada garantía con la cláusula que satisface"
+            ]
+          },
+          {
+            "name": "Ley 2/1974, de Colegios Profesionales",
+            "summary": "Exige gobernanza democrática y elección de los órganos de gobierno por los colegiados, dejando el procedimiento concreto a los estatutos de cada colegio. La normativa autonómica puede añadir requisitos propios.",
+            "response": [
+              "Configuramos desde vuestro reglamento, no desde una plantilla",
+              "Cuando la norma autonómica añade obligaciones, se resuelven en la configuración",
+              "Trabajamos habitualmente bajo marcos autonómicos y podemos aportar referencias"
+            ]
+          },
+          {
+            "name": "RGPD y LOPDGDD 3/2018",
+            "summary": "El censo electoral es dato personal. Se exigen minimización, límites de conservación, un contrato de encargo de tratamiento y una base jurídica.",
+            "response": [
+              "Contrato de encargo de tratamiento incluido, alojamiento en la UE, conservación documentada",
+              "Censo minimizado: un identificador más un canal de contacto",
+              "El voto queda criptográficamente desvinculado de la identidad del votante"
+            ]
+          },
+          {
+            "name": "La vía de recurso",
+            "summary": "Los actos electorales de una corporación de derecho público pueden acabar ante la jurisdicción contencioso-administrativa, meses después de la votación.",
+            "response": [
+              "Registro de configuración fechado y huella digital del censo en la fecha de corte",
+              "Registro de participación y recuento publicado",
+              "Las pruebas que un tercero necesita para recalcular el resultado sin contar con nosotros"
+            ]
+          }
+        ],
+        "evidence": {
+          "title": "Qué le entregáis de verdad a un impugnante",
+          "intro": "Un expediente de evidencias exportable, el mismo día en que cierra la votación: la configuración firmada, la huella digital del censo en la fecha estatutaria de corte, el registro de participación, el recuento publicado, las instrucciones de verificación y una certificación técnica del proceso para el acta. Está pensado para que alguien hostil al resultado pueda comprobarlo sin necesitar nada de vosotros ni de nosotros."
         },
-        {
-          "description": "La criptografía de conocimiento cero separa la identidad de la papeleta, así el voto es secreto y no se puede rastrear, comprar ni coaccionar.",
-          "title": "Anónimo y resistente a la coacción"
+        "disclaimer": "Esto es información general, no asesoramiento jurídico, y la última palabra la tienen vuestros estatutos y vuestro propio asesor legal. A lo que sí nos comprometemos es a las evidencias de arriba, y a deciros claramente en la primera conversación si creemos que necesitáis una modificación estatutaria antes de celebrar nada.",
+        "cta_secondary": "Envíanos vuestro reglamento electoral",
+        "cta_note": "Lo leemos y os decimos qué es configurable tal como está escrito, qué necesita una decisión de la junta electoral y qué requeriría un cambio estatutario. Sin argumentario de ventas."
+      },
+      "proof": {
+        "eyebrow": "un colegio como el vuestro",
+        "title": "Un colegio de enfermería que llevó su junta general a formato online",
+        "intro": "El COIB, Col·legi Oficial d'Infermeres i Infermers de Barcelona, celebró su junta general de 2025 con identificación de doble factor, acceso híbrido y recuento inmediato al cierre.",
+        "org": "COIB, Col·legi Oficial d'Infermeres i Infermers de Barcelona",
+        "org_meta": "Colegio profesional, Barcelona, 2025, junta general híbrida",
+        "stats": [
+          {
+            "value": "hasta 50 €",
+            "label": "de desplazamiento ahorrado por colegiado asistente"
+          },
+          {
+            "value": "2FA",
+            "label": "por SMS o correo en cada voto"
+          },
+          {
+            "value": "Híbrido",
+            "label": "en la sala y en remoto, un único censo"
+          },
+          {
+            "value": "Inmediato",
+            "label": "recuento publicado al cierre"
+          }
+        ],
+        "case_study_label": "Lee el caso de éxito del COIB",
+        "blog_label": "La historia completa en el blog",
+        "cta_primary": "Monta una votación de prueba"
+      },
+      "how": {
+        "eyebrow": "cómo funciona",
+        "title": "Configurado desde vuestro reglamento electoral, no desde una plantilla",
+        "intro": "Estas son las funcionalidades que se acaban citando cuando un proceso se cuestiona, y la experiencia que producen en el colegiado.",
+        "features": [
+          {
+            "title": "Configurado desde vuestro reglamento",
+            "description": "Cargos, secciones, reglas de elegibilidad, fechas de corte y desempates se ajustan a vuestro texto. Lo leemos antes de configurar nada."
+          },
+          {
+            "title": "Censo congelado y con huella digital",
+            "description": "El censo se bloquea en la fecha estatutaria de corte y se le calcula una huella digital, de modo que después nadie pueda discutir quién estaba dentro."
+          },
+          {
+            "title": "Una consola para la junta electoral",
+            "description": "La junta ve la participación en tiempo real y recibe directamente la exportación certificada, sin acceso a ningún voto y sin depender de la palabra de la secretaría."
+          },
+          {
+            "title": "Híbrido, sobre un único censo",
+            "description": "Los colegiados que prefieran votar presencialmente pueden seguir haciéndolo, en un punto asistido en vuestra sede. Ambos canales se nutren de un solo censo, así que el voto duplicado es estructuralmente imposible."
+          },
+          {
+            "title": "Secreto incluso para vosotros",
+            "description": "La criptografía separa identidad y voto. Ni vuestro personal, ni la junta electoral, ni Vocdoni pueden reconstruir cómo votó un colegiado."
+          },
+          {
+            "title": "Reutilizable el ciclo siguiente",
+            "description": "La configuración se guarda y se reabre para la elección siguiente, en vez de rehacerse de memoria y a partir de la carpeta del ciclo anterior."
+          }
+        ],
+        "media_caption": "La vista propia de la junta electoral el día de la votación: la participación en directo, y ningún acceso a un solo voto.",
+        "steps_title": "Y qué hace realmente un colegiado",
+        "steps": [
+          {
+            "title": "Recibe la convocatoria",
+            "description": "Correo o SMS con la imagen del propio colegio, el orden del día, las candidaturas y la ventana exacta en la que la votación está abierta."
+          },
+          {
+            "title": "Se identifica, no se registra",
+            "description": "Un código de un solo uso por SMS o correo confirma que es el colegiado que está en el censo. No hay cuenta que crear, ni aplicación que instalar, ni número de colegiado que buscar."
+          },
+          {
+            "title": "Vota",
+            "description": "Cargos de la junta de gobierno, modificaciones estatutarias y aprobación de presupuestos, cada uno con su regla de mayoría, en una sola pantalla y con la documentación adjunta."
+          },
+          {
+            "title": "Puede comprobar su propio voto",
+            "description": "Se queda con un justificante que solo tiene él y, cuando cierra la votación, puede confirmar que su voto está dentro del resultado publicado."
+          }
+        ],
+        "steps_media_caption": "Lo que ve un colegiado en su móvil, desde la convocatoria hasta el justificante.",
+        "footnote": "La mayoría de colegiados terminan en menos de dos minutos, con el navegador que ya tienen abierto. Para la parte del censo que está realmente desconectada, el punto presencial asistido funciona sobre el mismo censo electoral, de modo que nadie queda excluido y nadie vota dos veces. En la práctica la barrera suele ser un número de móvil que falta en vuestra base de datos, y no el colegiado, por eso auditamos la cobertura de contacto antes de abrir."
+      },
+      "comparison": {
+        "eyebrow": "frente a lo que hacéis hoy",
+        "title": "Comparado con vuestro proceso postal o presencial actual",
+        "intro": "No frente a otra plataforma. Frente a lo que os costó de verdad vuestro último ciclo electoral, y frente a lo que os dejó en la mano después.",
+        "criterion_label": "La cuestión",
+        "traditional_label": "Postal o presencial",
+        "vocdoni_label": "Vocdoni",
+        "rows": [
+          {
+            "criterion": "Quién puede verificar el resultado",
+            "traditional": "Quienes estuvieron en la sala del recuento",
+            "vocdoni": "Cualquiera: vuestra junta, un colegiado, un candidato, un juzgado"
+          },
+          {
+            "criterion": "Qué ve la junta electoral durante la votación",
+            "traditional": "Nada hasta el recuento",
+            "vocdoni": "Participación en directo, sin acceso a ningún voto"
+          },
+          {
+            "criterion": "Cuándo aparece un error del censo",
+            "traditional": "En el recuento, cuando ya es tarde",
+            "vocdoni": "Antes de abrir, contrastado con vuestros propios criterios"
+          },
+          {
+            "criterion": "Pruebas si se impugna el resultado",
+            "traditional": "El acta y la palabra de los presentes",
+            "vocdoni": "Una prueba reproducible y un expediente el mismo día"
+          },
+          {
+            "criterion": "Colegiados en el extranjero o ejerciendo fuera",
+            "traditional": "Excluidos en la práctica",
+            "vocdoni": "Votan desde cualquier sitio, o en un punto asistido"
+          },
+          {
+            "criterion": "El ciclo siguiente",
+            "traditional": "Rehecho de memoria",
+            "vocdoni": "La misma configuración, reabierta"
+          }
+        ]
+      },
+      "engagement": {
+        "eyebrow": "quién lo ejecuta",
+        "title": "Lo hacéis vosotros, o lo hacemos con vosotros",
+        "intro": "La misma plataforma, las mismas garantías y las mismas evidencias al final. La mayoría de colegios contratan el servicio gestionado para el proceso estatutario y usan la misma suscripción por su cuenta para todo lo demás durante el año.",
+        "options": [
+          {
+            "badge": "autoservicio",
+            "title": "Lo hacéis vosotros, con vuestra suscripción",
+            "description": "Creáis, configuráis, lanzáis y cerráis vuestras propias votaciones cuando las necesitéis. Una persona, una tarde, sin equipo técnico, con formación y un canal de soporte detrás.",
+            "points": [
+              "En marcha la misma semana",
+              "Consultas, votaciones de comisiones y encuestas internas durante todo el año",
+              "Precios públicos, sin llamada comercial"
+            ],
+            "cta": "Monta una votación de prueba"
+          },
+          {
+            "badge": "elecciones gestionadas",
+            "title": "Lo hacemos con vosotros, de principio a fin",
+            "description": "Leemos vuestro reglamento electoral, configuramos el proceso, cargamos y validamos el censo, hacemos un simulacro completo con votantes de prueba, monitorizamos el día de la votación y entregamos los resultados, los informes y el expediente de evidencias. Vosotros aprobáis, nosotros operamos.",
+            "points": [
+              "Un contacto con nombre durante toda la ventana de votación",
+              "Un simulacro completo antes de la elección real",
+              "Lo que la aplicación no hace por sí sola, lo podemos hacer igualmente por vosotros"
+            ],
+            "cta": "Habla con un experto electoral"
+          }
+        ],
+        "recommendation": {
+          "title": "Qué os recomendaríamos",
+          "description": "Para unas elecciones a la junta de gobierno bajo una junta electoral, contratad el servicio gestionado. Un proceso estatutario no es el sitio donde un colegio quiere descubrir un detalle de configuración. Probad igualmente la aplicación gratis antes, para saber exactamente qué estáis comprando, y quedaos con la misma suscripción para consultas internas y votaciones de comisiones."
         },
-        {
-          "description": "Minimización de datos por diseño, alojamiento en la UE y un registro de auditoría completo te dan un dosier de evidencias que aguanta una impugnación.",
-          "title": "Conforme con el RGPD y defendible legalmente"
-        },
-        {
-          "description": "Nuestro protocolo de voto es totalmente de código abierto y auditable de forma independiente: la seguridad se gana con el escrutinio público, no con promesas.",
-          "title": "Infraestructura de código abierto"
+        "pricing": {
+          "title": "Cuánto cuesta",
+          "description": "Hay un plan gratuito sin límite de tiempo y sin tarjeta, y los planes de pago se tarifican por número de miembros. Los precios son públicos, así que podéis poner una cifra delante de vuestra junta de gobierno sin agendar ninguna llamada. Las elecciones gestionadas se presupuestan por proceso, según el tamaño del censo y la complejidad.",
+          "link_label": "consulta los planes"
         }
-      ]
+      },
+      "faq": {
+        "eyebrow": "las preguntas difíciles",
+        "title": "Lo que nos preguntan los colegios antes de decidirse",
+        "intro": "Las preguntas que planteará vuestra junta de gobierno, respondidas aquí para que tengáis la respuesta antes de que os la pidan.",
+        "items": [
+          {
+            "question": "Nuestros estatutos no mencionan el voto electrónico. ¿Podemos hacerlo igualmente?",
+            "answer": "Normalmente sí, pero comprobad la redacción antes de comprometeros. Los estatutos de muchos colegios describen las garantías que debe ofrecer una votación y no el medio que utiliza, lo que deja disponible el voto electrónico. Otros exigen una modificación expresa o un acuerdo de la junta de gobierno. Enviadnos vuestro texto y os diremos en cuál de los dos casos estáis, incluido cuando la respuesta sea que antes necesitáis un cambio estatutario. Preferimos decíroslo ahora que ejecutar un proceso que acabe anulado."
+          },
+          {
+            "question": "Algunos de nuestros colegiados tienen setenta años y no usan aplicaciones.",
+            "answer": "No hay ninguna aplicación. Es una página web en cualquier dispositivo, con un canal de soporte atendido durante toda la ventana de votación. Cuando una parte del censo está realmente desconectada montamos un punto de votación presencial asistido que funciona sobre el mismo censo electoral, de modo que esos colegiados votan con ayuda y el voto duplicado sigue siendo imposible."
+          },
+          {
+            "question": "¿Quién responde de qué?",
+            "answer": "Nosotros respondemos de la plataforma, de la configuración técnica, de la integridad y la verificabilidad de cada voto emitido, de la monitorización durante la ventana de votación y del recuento, los informes y las evidencias al cierre. Vosotros respondéis de la exactitud del censo en la fecha estatutaria de corte, del derecho de voto y de las decisiones de procedimiento electoral que corresponden a vuestra junta electoral. Ningún proveedor puede tomar esas decisiones por vosotros, y conviene desconfiar de quien se ofrezca a hacerlo."
+          },
+          {
+            "question": "¿Cuánto tiempo necesitamos antes del día de la votación?",
+            "answer": "Una votación sencilla puede estar en marcha la misma semana. Una elección estatutaria completa con servicio gestionado se planifica normalmente con cuatro a seis semanas de margen, sobre todo para dejar espacio a la aprobación de la junta electoral, al simulacro y a la comunicación a los colegiados, y no porque la configuración tarde tanto."
+          },
+          {
+            "question": "¿Dónde se alojan los datos de nuestros colegiados?",
+            "answer": "En la UE, bajo un contrato de encargo de tratamiento firmado, utilizados solo para ejecutar vuestra votación y eliminados según el calendario que fijéis. El censo se minimiza a un identificador más un canal de contacto. La pertenencia a un colegio profesional sumada al comportamiento electoral es exactamente la combinación que la normativa de protección de datos trata como sensible, y así se gestiona."
+          },
+          {
+            "question": "¿Se ha anulado alguna vez un resultado celebrado con Vocdoni?",
+            "answer": "No nos consta. Celebramos elecciones en producción desde 2018 y ningún resultado ejecutado en la plataforma ha sido impugnado con éxito por su integridad. Preferimos que no os lo creáis por fe: la razón para creerlo es que cada resultado queda en un registro público que podéis comprobar vosotros mismos."
+          },
+          {
+            "question": "¿Podemos mantener los resultados ocultos hasta que cierre la votación?",
+            "answer": "Sí. En modo cifrado nadie ve ningún resultado mientras la votación está abierta, tampoco nosotros, y el recuento se publica automáticamente al cierre. La alternativa es un recuento en directo, que encaja en una consulta interna pero rara vez en unas elecciones a la junta."
+          },
+          {
+            "question": "Parece caro para lo que es.",
+            "answer": "Comparadlo con un solo proceso impugnado, no con una licencia. Una sola impugnación significa abogacía externa, un órgano de gobierno reunido bajo presión, meses de mandato en cuestión y, a menudo, repetir toda la votación, la segunda vez bajo escrutinio público y con menos participación. Después comparad la licencia con lo que ya os cuesta hoy el proceso: impresión, franqueo, sala, horas de personal y un recuento que se alarga más allá de medianoche."
+          }
+        ]
+      },
+      "closing": {
+        "title": "Traednos vuestro reglamento electoral",
+        "description": "La primera conversación más útil no es una demo. Enviadnos vuestro reglamento electoral y os diremos qué es configurable tal como está escrito, qué necesita una decisión de la junta electoral y qué requeriría una modificación estatutaria. Si la respuesta es que todavía no deberíais llevar esta elección a formato digital, os lo diremos.",
+        "cta_primary": "Monta una votación de prueba",
+        "cta_secondary": "Habla con un experto electoral",
+        "note": "Cuenta gratuita, sin tarjeta. Sin argumentario de ventas, solo respuestas."
+      },
+      "resources": {
+        "eyebrow": "antes de decidir",
+        "title": "Léelo antes de decidir",
+        "intro": "Guías, explicaciones y casos de éxito que responden a la pregunta que probablemente os haréis a continuación.",
+        "items": [
+          {
+            "kind": "caso de éxito",
+            "title": "Cómo celebró el COIB su junta general de 2025 online",
+            "description": "Un colegio de enfermería, identificación de doble factor, acceso híbrido y costes de desplazamiento eliminados."
+          },
+          {
+            "kind": "guía",
+            "title": "Cómo celebrar una junta general online legalmente válida",
+            "description": "Una lista de comprobación práctica para una junta general digital o híbrida."
+          },
+          {
+            "kind": "guía",
+            "title": "Requisitos del RGPD en el voto digital",
+            "description": "Qué espera la normativa de protección de datos cuando llevas una votación a formato digital."
+          },
+          {
+            "kind": "guía",
+            "title": "Qué significa el quórum en una votación online",
+            "description": "Cómo se calcula y se sigue el quórum cuando los miembros votan en remoto."
+          },
+          {
+            "kind": "explicación",
+            "title": "El voto verificable, explicado",
+            "description": "Por qué cualquiera puede comprobar un resultado sin tener que fiarse de la plataforma."
+          },
+          {
+            "kind": "guía",
+            "title": "Cómo prevenir el fraude electoral en el voto online",
+            "description": "Los riesgos reales de una votación remota, y las defensas que los responden."
+          }
+        ]
+      }
     },
     "sports_clubs": {
       "challenge": {
@@ -2026,8 +2266,8 @@
         "description": "Primarias, elecciones de liderazgo y consultas a la militancia resistentes a la coacción.",
         "title": "Partidos políticos"
       },
-      "professional_colleges": {
-        "description": "Elecciones estatutarias y asambleas conformes y auditables para colegios profesionales.",
+      "professional_associations": {
+        "description": "Elecciones estatutarias y juntas generales con un resultado que vuestra junta electoral puede comprobar por sí misma.",
         "title": "Colegios profesionales"
       },
       "sports_clubs": {
@@ -2744,7 +2984,7 @@
       "cooperatives": "Cooperativas",
       "municipalities": "Ayuntamientos",
       "political_parties": "Partidos políticos",
-      "professional_colleges": "Colegios profesionales",
+      "professional_associations": "Colegios profesionales",
       "title": "Soluciones",
       "view_all": "Ver todas las soluciones"
     }
@@ -2977,9 +3217,9 @@
         "description": "Organiza primarias, elecciones de liderazgo y consultas a la militancia con voto secreto y resistente a la coacción, más participación y resultados verificables de extremo a extremo.",
         "title": "Software de voto para partidos: primarias | Vocdoni"
       },
-      "professional_colleges": {
-        "description": "Voto en línea conforme y auditable para colegios profesionales. Organiza elecciones estatutarias y asambleas con registro de auditoría completo y resultados instantáneos y verificables.",
-        "title": "Software de voto para colegios profesionales | Vocdoni"
+      "professional_associations": {
+        "description": "Elecciones a la junta de gobierno y juntas generales para colegios profesionales. Vuestra junta electoral puede comprobar el resultado por sí misma, en vez de certificar un recuento que no puede inspeccionar.",
+        "title": "Voto online para colegios profesionales | Vocdoni"
       },
       "sports_clubs": {
         "description": "Organiza elecciones a la presidencia y a la junta y votaciones de socios para clubes de cualquier tamaño. Escala a cientos de miles de socios con voto secreto y resultados instantáneos.",
@@ -3052,7 +3292,7 @@
       "cooperatives": "Cooperativas",
       "municipalities": "Ayuntamientos",
       "political_parties": "Partidos políticos",
-      "professional_colleges": "Colegios profesionales"
+      "professional_associations": "Colegios profesionales"
     },
     "solutions": "Soluciones",
     "solutions_by_type_header": "Por tipo de organización",

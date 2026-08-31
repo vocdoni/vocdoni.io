@@ -1559,117 +1559,485 @@
         }
       ]
     },
-    "professional_colleges": {
-      "challenge": {
-        "intro": "Professional associations run elections on a tight legal framework. The process has to be impeccable, fully documented and accessible to every member, or it can be challenged.",
-        "title": "Compliance and turnout, without the overhead"
-      },
-      "cta_primary": "Start free",
-      "cta_secondary": "Talk to our team",
-      "eyebrow": "For professional associations & regulated bodies",
-      "faq": {
-        "items": [
-          {
-            "answer": "Yes, when your statutes permit electronic or remote voting, or do not prohibit it. Vocdoni provides a complete audit trail and verifiable evidence, so the result is defensible if it is ever challenged.",
-            "question": "Is online voting legally valid for a professional association?"
-          },
-          {
-            "answer": "Yes. You can configure quorum, eligibility, electoral rolls, multiple seats and voting windows so the process follows your regulations precisely.",
-            "question": "Can we run a vote that meets our statutory requirements?"
-          },
-          {
-            "answer": "You receive an exportable evidence pack and a complete, time-stamped audit trail. Combined with end-to-end verifiability, this lets anyone confirm the result was tallied correctly.",
-            "question": "What evidence do we get if the result is challenged?"
-          },
-          {
-            "answer": "The voter experience is deliberately simple, works on any device with no installation, and follows WCAG accessibility guidelines. Members who cannot vote online can be included through a hybrid process.",
-            "question": "How accessible is it for older members?"
-          },
-          {
-            "answer": "Yes. Zero-knowledge cryptography separates identity from ballot, so votes are secret, while anyone can still verify that all valid votes were counted correctly.",
-            "question": "Can we keep the ballot secret and still audit the result?"
-          }
-        ],
-        "title": "Professional association voting: frequently asked questions"
-      },
-      "features": [
-        {
-          "description": "Set quorum, eligibility, electoral rolls, multiple seats and voting windows to match your regulations exactly.",
-          "title": "Configurable to your statutes"
-        },
-        {
-          "description": "Every step is logged and you receive an exportable evidence pack that documents the integrity of the process.",
-          "title": "Complete audit trail"
-        },
-        {
-          "description": "Cryptography keeps every ballot private, even from your own administrators and from Vocdoni.",
-          "title": "Secret ballot by design"
-        },
-        {
-          "description": "Works on any device with no installation, following WCAG accessibility guidelines for all ages and abilities.",
-          "title": "Accessible to every member"
-        },
-        {
-          "description": "Results are tallied the moment voting closes, with proof any member can independently check.",
-          "title": "Instant, verifiable results"
-        },
-        {
-          "description": "For high-stakes elections, our team can operate the process end to end alongside you.",
-          "title": "Optional expert support"
-        }
-      ],
+    "professional_associations": {
+      "eyebrow": "for professional associations",
       "hero": {
-        "subtitle": "Run board elections, statutory votes and annual general meetings for your professional body - compliant, auditable, and simple for every member from any device.",
-        "title": "Professional association voting software for statutory elections"
-      },
-      "pains": [
-        "Statutory deadlines and quorum rules leave no room for procedural error.",
-        "Members are spread across regions and rarely attend in person.",
-        "Paper and postal elections are expensive and slow to count.",
-        "A contested result without independent proof can end up in court.",
-        "Members expect a modern, accessible experience on any device.",
-        "Every election cycle repeats the same costly manual effort."
-      ],
-      "proof": {
-        "author": "COIB",
-        "case_study_label": "Read the COIB case study",
-        "organizations_label": "Organizations that vote with Vocdoni",
-        "quote": "We ran our annual general meeting vote online, securely and with instant results. Members trusted the process, and we had the evidence to back up the outcome.",
-        "role": "Official College of Nurses of Barcelona",
-        "title": "Trusted by professional bodies"
-      },
-      "solution": {
-        "intro": "Vocdoni gives professional bodies a compliant, fully auditable election with the documentation and evidence to back up the result - while members vote in minutes from anywhere.",
-        "title": "A defensible election process, run in a few clicks"
+        "title": "Take your elections online without giving up a single guarantee",
+        "subtitle": "Board elections, bylaw votes and AGMs for professional bodies. Configured from your own electoral regulations, run remotely or hybrid, and closed with the documents and the certificate that prove the result.",
+        "cta_primary": "Set up a test election",
+        "cta_secondary": "Talk to an election expert",
+        "risk_reversal": "Free account, no credit card."
       },
       "trust": {
-        "intro": "Privacy, auditability and legal defensibility are not add-ons. They are the foundation of every vote you run with Vocdoni.",
-        "title": "Results that withstand legal scrutiny"
+        "logos_label": "Professional bodies that vote with Vocdoni",
+        "badges": [
+          "Evidence pack for your electoral board",
+          "Secret ballot by design",
+          "Fully remote, or hybrid with a room",
+          "GDPR, hosted in the EU"
+        ],
+        "stats": [
+          {
+            "value": "200,000+",
+            "label": "votes processed on Vocdoni infrastructure",
+            "source": "Vocdoni platform figures"
+          },
+          {
+            "value": "500+",
+            "label": "voting processes run with Vocdoni technology",
+            "source": "Vocdoni project history"
+          },
+          {
+            "value": "Since 2018",
+            "label": "running statutory and public elections in production",
+            "source": "open source, publicly inspectable"
+          }
+        ]
       },
-      "trust_badges": [
-        "GDPR compliant",
-        "End-to-end verifiable",
-        "Full audit trail",
-        "Secret ballot"
-      ],
-      "trust_points": [
-        {
-          "description": "Every voter can check that their vote was counted, and anyone can verify the final tally. Trust comes from proof, not from our word.",
-          "title": "End-to-end verifiable"
+      "stakes": {
+        "eyebrow": "the position you are actually in",
+        "title": "Low turnout, high cost, and a result somebody can challenge",
+        "intro": "A board election is judged twice: by the members who did or did not take part, and, if somebody objects, by a court. Both judgments land on the same desk, and so does the bill.",
+        "items": [
+          {
+            "title": "The turnout",
+            "description": "A member practising two hours away will not travel for a two-hour assembly. Turnout stays low, and a board elected by a small fraction of the roll governs with an argument already made against it.",
+            "answer": "Voting takes two minutes from any device, so the members who never travelled now take part."
+          },
+          {
+            "title": "The certification",
+            "description": "A candidate asks your electoral board how it knows the number is right. Today the honest answer is that the provider said so. Nobody wants to sign their name to that.",
+            "answer": "The count is published with the record it was counted from, so your board checks it before signing rather than after."
+          },
+          {
+            "title": "The bill",
+            "description": "Printing, postage, the room, the staff hours and a count that runs past midnight. Every cycle, and the cycle after that.",
+            "answer": "A fraction of that, and next time you reopen this year's setup instead of rebuilding it from memory."
+          }
+        ],
+        "answer_label": "What changes with Vocdoni"
+      },
+      "legal": {
+        "eyebrow": "before anything else",
+        "title": "Is this valid for us, and what do we hand a challenger?",
+        "intro": "The two questions that decide whether this reaches your governing board. Your own statutes and electoral regulations sit above everything below: they are the document we configure from.",
+        "jurisdiction_label": "General framework. Ask us for the version that applies in your country.",
+        "response_label": "What you get against it",
+        "frameworks": [
+          {
+            "name": "A documented process",
+            "summary": "Whatever your statutes require, a remote ballot has to show that the rules were fixed in advance and then followed. Decisions improvised during the vote are what challenges are built on.",
+            "response": [
+              "A written configuration record, approved before anything opens",
+              "Eligibility, cut-off date, quorum, majority rules and voting window, locked",
+              "Every change time-stamped, with who made it"
+            ]
+          },
+          {
+            "name": "A result that can be audited",
+            "summary": "A count that nobody outside the room can check is a count that has to be believed. When your decisions can be appealed, belief is not enough.",
+            "response": [
+              "The whole process is verifiable end to end, from the roll to the published count",
+              "A member can confirm their own vote was counted, without revealing how they voted",
+              "An auditor gets every document and every figure the audit needs, and can redo the count without our help",
+              "A signed report and certificate of the process, issued when voting closes"
+            ]
+          },
+          {
+            "name": "A secret ballot",
+            "summary": "A member has to be able to vote against the sitting board without anyone finding out. Including your own staff.",
+            "response": [
+              "Identity and ballot separated by the system itself, not by policy",
+              "Neither your secretariat, nor the electoral board, nor Vocdoni can reconstruct a vote",
+              "Voters can change their vote until polls close, so nobody can be pressured into proving how they voted"
+            ]
+          },
+          {
+            "name": "An audit trail, and data protection",
+            "summary": "The electoral roll is personal data. Minimisation, retention limits, a processing agreement and a lawful basis are all required, and the trail has to survive the election.",
+            "response": [
+              "Data processing agreement, EU hosting, documented retention",
+              "A minimised roll: an identifier plus one contact channel",
+              "A time-stamped audit trail kept after the vote, without ever exposing a ballot"
+            ]
+          }
+        ],
+        "evidence": {
+          "title": "What you get when voting closes",
+          "intro": "The whole process is verifiable from end to end, and on the day voting closes you get the file that proves it. It holds the signed configuration, a sealed copy of the electoral roll at the cut-off date, the turnout log, the published count and the instructions for checking it, together with a report and a certificate of the process for your minutes. It is built for somebody hostile to the result: an auditor, a losing candidate or their adviser can check every part of it without needing anything from you, or from us."
         },
-        {
-          "description": "Zero-knowledge cryptography separates identity from ballot, so votes stay secret and cannot be traced, bought or coerced.",
-          "title": "Anonymous and coercion-resistant"
-        },
-        {
-          "description": "Data minimization by design, EU hosting and a complete audit trail give you an evidence pack that holds up if a result is challenged.",
-          "title": "GDPR compliant and legally defensible"
-        },
-        {
-          "description": "Our voting protocol is fully open source and independently auditable, so security is earned through public scrutiny, not vendor promises.",
-          "title": "Open source infrastructure"
+        "cta_secondary": "Talk to an election expert",
+        "requirement_label": "What your statutes require"
+      },
+      "proof": {
+        "eyebrow": "a body like yours",
+        "title": "A nursing college that moved its annual general meeting online",
+        "intro": "COIB, the official college of nurses of Barcelona, ran its 2025 AGM with a one-time code on every vote, members voting from the room and from home, and the count published at close.",
+        "org": "COIB, Col·legi Oficial d'Infermeres i Infermers de Barcelona",
+        "org_meta": "Professional body, Barcelona, 2025, hybrid annual general meeting",
+        "stats": [
+          {
+            "value": "up to €50",
+            "label": "travel saved per attending member"
+          },
+          {
+            "value": "One-time code",
+            "label": "sent by SMS or email for every vote, so nobody votes twice or in someone else's name"
+          },
+          {
+            "value": "Hybrid",
+            "label": "in the room and remote, one roll"
+          },
+          {
+            "value": "Instant",
+            "label": "tally published at close"
+          }
+        ],
+        "case_study_label": "Read the COIB case study",
+        "blog_label": "The full story on the blog",
+        "cta_primary": "Set up a test election"
+      },
+      "how": {
+        "eyebrow": "how it runs",
+        "title": "Configured from your electoral regulations, not from a template",
+        "intro": "These are the capabilities that get cited when a process is questioned, and the member experience they produce.",
+        "features": [
+          {
+            "title": "Configured from your regulations",
+            "description": "Seats, sections, eligibility rules, cut-off dates and tie-breaks follow your own text. We read it before configuring anything."
+          },
+          {
+            "title": "The roll is sealed at the cut-off date",
+            "description": "At the statutory cut-off date the electoral roll is locked and sealed with a short code that changes if a single name is added or removed. A dispute about who was entitled to vote takes a minute to settle."
+          },
+          {
+            "title": "A console for your electoral board",
+            "description": "The electoral board sees turnout as it happens and gets the certified export directly. No access to individual votes, and nobody can say the numbers passed through your office first."
+          },
+          {
+            "title": "Remote, or remote and in person",
+            "description": "Most bodies run the whole election remotely. If you want a room as well, members can vote at an assisted point in your offices on the same day. Both routes use the same electoral roll, so nobody votes twice."
+          },
+          {
+            "title": "Secret even from you",
+            "description": "Identity and ballot are kept apart by the system itself, not by a promise anyone could break. Nobody can put them back together: not your staff, not the electoral board, not Vocdoni."
+          },
+          {
+            "title": "Reusable next cycle",
+            "description": "The configuration is saved and reopened for the next election, instead of being rebuilt from memory and last cycle's folder."
+          }
+        ],
+        "media_caption": "The electoral board's own view on voting day: turnout as it happens, and no access to a single ballot.",
+        "steps_title": "And what a member actually does",
+        "steps": [
+          {
+            "title": "They get a notice",
+            "description": "Email or SMS with your own branding, the agenda, the candidates and the exact window in which voting is open."
+          },
+          {
+            "title": "They identify, they do not register",
+            "description": "A one-time code by SMS or email confirms this is the member on the roll. No account to create, no app to install, no membership number to look up."
+          },
+          {
+            "title": "They vote",
+            "description": "Board seats, bylaw amendments and budget approvals, each with its own majority rule, on one screen with the supporting documents attached."
+          },
+          {
+            "title": "They can check their own vote",
+            "description": "They keep a receipt nobody else has. When voting closes, they can confirm their own vote was counted in the published result."
+          }
+        ],
+        "steps_media_caption": "What a member sees on their phone, from the notice to the receipt.",
+        "footnote": "Most members finish in under two minutes, in the browser they already have open. If part of your roll is genuinely offline, the assisted point runs on the same electoral roll, so nobody is excluded and nobody votes twice. The obstacle is almost never the member: it is a missing mobile number in your database. So we check your contact details before anything opens."
+      },
+      "comparison": {
+        "eyebrow": "against the alternatives",
+        "title": "Compared with paper, and with the other platforms",
+        "intro": "Against what your last electoral cycle actually cost you, and against what a commercial provider hands you at the end. We name no one: this is the shape of the category.",
+        "criterion_label": "The question",
+        "traditional_label": "Postal or in person",
+        "vocdoni_label": "Vocdoni",
+        "rows": [
+          {
+            "criterion": "Who can verify the result",
+            "traditional": "The people who were in the counting room",
+            "digital": "The provider, and whoever they show the report to",
+            "vocdoni": "Anyone: your board, a member, a candidate, a court"
+          },
+          {
+            "criterion": "Can the count be redone independently",
+            "traditional": "Yes, by recounting the papers, if they are still sealed",
+            "digital": "Usually not. The result is whatever the system reports",
+            "vocdoni": "Yes. Anyone can redo the count from the published record"
+          },
+          {
+            "criterion": "Who could link a vote back to a member",
+            "traditional": "Nobody, with a paper ballot. Everyone in the room, with a show of hands",
+            "digital": "Usually the provider, because identity and ballot sit in one system",
+            "vocdoni": "Nobody. Identity and ballot are separated by the system itself"
+          },
+          {
+            "criterion": "What the electoral board sees during the vote",
+            "traditional": "Nothing until the count",
+            "digital": "A dashboard, if your board is given access to it",
+            "vocdoni": "Live turnout, with no access to any ballot"
+          },
+          {
+            "criterion": "Evidence if the result is challenged",
+            "traditional": "The minutes, and the word of those present",
+            "digital": "A report from the provider, which you have to take on trust",
+            "vocdoni": "A reproducible proof, and the audit documents the same day"
+          },
+          {
+            "criterion": "When a roll error surfaces",
+            "traditional": "At the count, when it is too late",
+            "digital": "Whenever the provider happens to validate the roll",
+            "vocdoni": "Before opening, checked against your own criteria"
+          },
+          {
+            "criterion": "What it costs a member to take part",
+            "traditional": "Travel from wherever they are in your region, a morning of their time, and whatever the journey costs them",
+            "digital": "Nothing beyond the device they already have",
+            "vocdoni": "Nothing beyond the device they already have"
+          },
+          {
+            "criterion": "Members abroad or working out of town",
+            "traditional": "By post where you offer it, or by proxy, with the paperwork and deadlines that involves",
+            "digital": "They vote from anywhere",
+            "vocdoni": "They vote from anywhere, or at an assisted point if you run one"
+          },
+          {
+            "criterion": "Next cycle",
+            "traditional": "Rebuilt from memory",
+            "digital": "Set up again with the provider",
+            "vocdoni": "The same configuration, reopened"
+          }
+        ],
+        "digital_label": "A typical online provider"
+      },
+      "engagement": {
+        "eyebrow": "who runs it",
+        "title": "Run it yourself, or have us run it with you",
+        "intro": "Same platform, same guarantees, same evidence at the end. Most bodies take the managed service for the statutory election and use the same subscription themselves for everything else during the year.",
+        "options": [
+          {
+            "badge": "self-service",
+            "title": "You run it, on your own subscription",
+            "description": "Create, configure, launch and close your own votes whenever you need them. One person, one afternoon, no IT team, with training and a support channel behind you.",
+            "points": [
+              "Live the same week",
+              "Remote or hybrid, for consultations and committee votes all year",
+              "Public pricing, no sales call"
+            ],
+            "cta": "Set up a test election"
+          },
+          {
+            "badge": "managed elections",
+            "title": "We run it with you, end to end",
+            "description": "We read your electoral regulations, configure the process, load and validate the roll, run a full rehearsal with test voters, monitor the voting day and deliver the results, the reports and the evidence pack. You approve, we operate.",
+            "points": [
+              "A named contact through the whole voting window",
+              "A full rehearsal before the real election",
+              "If your rules need something unusual, we handle it ourselves"
+            ],
+            "cta": "Talk to an election expert"
+          }
+        ],
+        "pricing": {
+          "title": "What it costs",
+          "description": "There is a free plan with no time limit and no card, and paid plans are priced by the number of members. Those prices are published, so you can see where it starts without booking a call. Managed elections, customisation and anything else you need on top are quoted per election, on the size of your roll and what the process involves.",
+          "link_label": "See where pricing starts"
         }
-      ]
+      },
+      "faq": {
+        "eyebrow": "the hard questions",
+        "title": "What professional bodies ask us before they commit",
+        "intro": "The questions your governing board will raise, answered here so you have the answer before they ask.",
+        "items": [
+          {
+            "question": "Our statutes do not mention electronic voting. Can we still do it?",
+            "answer": "Usually yes, but check the wording before you commit. Many statutes describe the guarantees a vote must offer rather than the medium it uses, which leaves electronic voting available. Others require an express amendment or a governing board resolution. Send us your text and we will tell you which of the two you are in, including when the answer is that you need a statutory change first. We would rather say so now than run a process that gets annulled."
+          },
+          {
+            "question": "Some of our members are in their seventies and do not use apps.",
+            "answer": "There is no app to install. It is a web page on any device, with a support line staffed through the whole voting window. If part of your roll is genuinely offline, you can run the election as a hybrid: we set up an assisted voting point in your offices on the same electoral roll, so those members vote with help and still nobody votes twice."
+          },
+          {
+            "question": "Who is responsible for what?",
+            "answer": "We are responsible for the platform, the technical configuration, the integrity and verifiability of every vote cast, the monitoring during the voting window, and the count, reports and evidence at close. You are responsible for the accuracy of the electoral roll at the statutory cut-off date, for who is entitled to vote, and for the procedural decisions that belong to your electoral board. No provider can take those decisions for you, and you should be wary of one that offers to."
+          },
+          {
+            "question": "How long do we need before election day?",
+            "answer": "A simple vote can be live the same week. A full statutory election with the managed service is normally planned four to six weeks ahead, mostly to leave room for electoral board approval, the rehearsal and the communication to members, rather than because configuration takes that long."
+          },
+          {
+            "question": "Where does our member data live?",
+            "answer": "In the EU, under a signed data processing agreement, used only to run your vote and deleted on the schedule you set. The roll is minimised to an identifier plus one contact channel. Who is on your electoral roll, and whether they voted, is sensitive information. We treat it that way."
+          },
+          {
+            "question": "Has a result run on Vocdoni ever been challenged?",
+            "answer": "No. No voting process Vocdoni has organised has been challenged. Several have been audited and checked, by the organisation itself and by third parties, and everything came back clean every time. We would rather you did not take that on faith either: every election closes with the documents that let somebody else check the count for themselves."
+          },
+          {
+            "question": "Can we keep the results hidden until voting closes?",
+            "answer": "Yes. In encrypted mode nobody sees any result while the vote is open, including us, and the tally is published automatically at close. The alternative is a live running tally, which suits an internal consultation but rarely a board election."
+          },
+          {
+            "question": "It looks expensive for what it is.",
+            "answer": "Compare it with one challenged process, not with a licence. A single challenge means external counsel, a governing body meeting under pressure, months of a mandate in question and often re-running the whole vote, the second time under public scrutiny and with lower turnout. Then compare the licence with what the process already costs you today: printing, postage, the venue, staff hours and a count that runs past midnight."
+          },
+          {
+            "question": "Who actually does the checking?",
+            "answer": "In practice, your auditor, a member with some technical confidence, or the adviser of whoever is disputing the result. The file we hand you at close contains every document and figure the audit needs, plus step by step instructions for redoing the count. None of it needs our help, our permission or our continued involvement. Your electoral board does not have to run the check itself: it has to be able to point at someone who can."
+          }
+        ]
+      },
+      "closing": {
+        "title": "Bring us your electoral regulations",
+        "description": "The most useful first conversation is not a demo. Send us your electoral regulations and we will tell you what is configurable as written, what needs an electoral board decision and what would need a statutory amendment. If the answer is that you should not take this election online yet, we will say so.",
+        "cta_primary": "Set up a test election",
+        "cta_secondary": "Talk to an election expert",
+        "note": "Free account, no credit card. No sales pitch, just answers."
+      },
+      "resources": {
+        "eyebrow": "before you decide",
+        "title": "Read this first",
+        "intro": "Guides, explainers and case studies that answer the question you are probably about to ask.",
+        "items": [
+          {
+            "kind": "case study",
+            "title": "How COIB ran its 2025 AGM online",
+            "description": "A nursing college, a one-time code on every vote, members voting from home or in the room, and travel costs removed."
+          },
+          {
+            "kind": "guide",
+            "title": "How to run a legally valid AGM online",
+            "description": "A practical checklist for a digital or hybrid annual general meeting."
+          },
+          {
+            "kind": "guide",
+            "title": "GDPR requirements for digital voting",
+            "description": "What data protection law expects when you take a vote digital."
+          },
+          {
+            "kind": "guide",
+            "title": "What quorum means for an online vote",
+            "description": "How quorum is calculated and tracked when members vote remotely."
+          },
+          {
+            "kind": "explainer",
+            "title": "Verifiable voting, explained",
+            "description": "Why anyone can check a result without having to trust the platform."
+          },
+          {
+            "kind": "guide",
+            "title": "How to prevent election fraud online",
+            "description": "The real risks in a remote ballot, and the defences that answer them."
+          }
+        ]
+      },
+      "timeline": {
+        "eyebrow": "the run-up",
+        "title": "What happens between now and voting day",
+        "intro": "A statutory election is planned backwards from a date you do not control. This is the shape of it.",
+        "steps": [
+          {
+            "when": "6 weeks out",
+            "title": "We read your regulations",
+            "description": "You send us your statutes and electoral regulations. We come back with what we can run as your rules stand, and what needs a decision from you.",
+            "owner": "You and us"
+          },
+          {
+            "when": "4 weeks out",
+            "title": "The electoral board approves",
+            "description": "Eligibility, cut-off date, quorum, majority rules and the voting window are written down and signed off before anything is built.",
+            "owner": "Your electoral board"
+          },
+          {
+            "when": "3 weeks out",
+            "title": "The roll is loaded and checked",
+            "description": "Your membership database becomes an electoral roll, validated against your own criteria. This is where missing mobile numbers surface, while there is still time.",
+            "owner": "Us"
+          },
+          {
+            "when": "2 weeks out",
+            "title": "A full rehearsal",
+            "description": "The real configuration with test voters. Your electoral board walks the process and your staff practise on the console before a single member is invited.",
+            "owner": "Both teams"
+          },
+          {
+            "when": "Voting day",
+            "title": "Open, monitored, closed",
+            "description": "Live turnout for the electoral board, a support line for members, and the count published when the window closes. The documents and the certificate follow the same day.",
+            "owner": "Us, on call"
+          }
+        ],
+        "footnote": "A simple internal vote can be live the same week. This schedule is for a statutory election under an electoral board, and most of it is your approvals rather than our configuration."
+      },
+      "sizes": {
+        "eyebrow": "whatever size you are",
+        "title": "From a few hundred members to a few tens of thousands",
+        "intro": "The platform is the same at every size. What changes is how much of it you need and how much we do with you.",
+        "tiers": [
+          {
+            "size": "Up to about 1,000",
+            "title": "A local body running it in an afternoon",
+            "description": "You do not need a project. One person creates the vote, uploads the roll and sends the link, on the free plan or a small subscription.",
+            "points": [
+              "Live the same week",
+              "Every voting method, weighted and delegate voting included",
+              "Free to start, and free to stay if you are small enough"
+            ]
+          },
+          {
+            "size": "A few thousand",
+            "title": "A regional body with a statutory election",
+            "description": "The shape most professional associations are. Self-serve or managed depending on what you need: how much you want customised, which extra services you want, or simply which parts you would rather hand to us.",
+            "points": [
+              "Roll imported from your membership database",
+              "Full rehearsal before the statutory vote",
+              "Subscription priced by member count, managed work quoted on top"
+            ]
+          },
+          {
+            "size": "Tens of thousands",
+            "title": "A national body with sections and delegates",
+            "description": "The platform is the same one the smaller bodies use. What changes at this size is how much you want us to take on: customisation, running the process for you, and people in the room on the day.",
+            "points": [
+              "Customisation, to whatever your regulations need",
+              "Roll synced by API rather than uploaded",
+              "Managed end to end, with our team present on voting day"
+            ]
+          }
+        ]
+      },
+      "board": {
+        "eyebrow": "for the people you have to convince",
+        "title": "The parts worth forwarding",
+        "intro": "You will not decide this alone. Each of these answers one person in the room, and each has its own link you can send them.",
+        "links": [
+          {
+            "label": "For your lawyer",
+            "description": "What governs the election, and what we produce against each requirement.",
+            "anchor": "legal-validity"
+          },
+          {
+            "label": "For your electoral board",
+            "description": "What they can see on the day, and what they get to certify against at the close.",
+            "anchor": "proof"
+          },
+          {
+            "label": "For your treasurer",
+            "description": "What it costs, and how the two ways of working with us differ.",
+            "anchor": "engagement"
+          },
+          {
+            "label": "For the sceptic on the board",
+            "description": "How this compares with the process you run today, line by line.",
+            "anchor": "comparison"
+          }
+        ]
+      }
     },
     "sports_clubs": {
       "challenge": {
@@ -2026,8 +2394,8 @@
         "description": "Primaries, leadership elections and member consultations that resist coercion.",
         "title": "Political parties"
       },
-      "professional_colleges": {
-        "description": "Compliant, auditable statutory elections and AGMs for professional bodies.",
+      "professional_associations": {
+        "description": "Statutory board elections and AGMs with every guarantee your own regulations require.",
         "title": "Professional associations"
       },
       "sports_clubs": {
@@ -2744,7 +3112,7 @@
       "cooperatives": "Cooperatives",
       "municipalities": "City councils",
       "political_parties": "Political parties",
-      "professional_colleges": "Professional associations",
+      "professional_associations": "Professional associations",
       "title": "Solutions",
       "view_all": "View all solutions"
     }
@@ -2977,9 +3345,9 @@
         "description": "Run primaries, leadership elections and member consultations with secret, coercion-resistant ballots, higher turnout and end-to-end verifiable results.",
         "title": "Political party voting software for primaries | Vocdoni"
       },
-      "professional_colleges": {
-        "description": "Compliant, auditable online voting for professional associations and regulated bodies. Run statutory elections and AGMs with a full audit trail and instant, verifiable results.",
-        "title": "Professional association voting software | Vocdoni"
+      "professional_associations": {
+        "description": "Board elections and AGMs for professional associations and statutory bodies. Take them online without giving up a single guarantee, with the documents and the certificate that prove the result.",
+        "title": "Online voting for professional associations | Vocdoni"
       },
       "sports_clubs": {
         "description": "Run presidential and board elections and member votes for clubs of any size. Scales to hundreds of thousands of members with secret ballots and instant results.",
@@ -3052,7 +3420,7 @@
       "cooperatives": "Cooperatives",
       "municipalities": "City councils",
       "political_parties": "Political parties",
-      "professional_colleges": "Professional associations"
+      "professional_associations": "Professional associations"
     },
     "solutions": "Solutions",
     "solutions_by_type_header": "By organization type",

@@ -1,5 +1,5 @@
 import { getMetaByKey } from '@/lib/page-meta'
 
 export default function title(pageContext: Vike.PageContextServer) {
-  return getMetaByKey(pageContext, 'meta.solutions.professional_colleges.title')
+  return getMetaByKey(pageContext, 'meta.solutions.professional_associations.title')
 }

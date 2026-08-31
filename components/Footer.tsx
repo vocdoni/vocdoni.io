@@ -26,8 +26,8 @@ const buildSolutionsLinks = (t: TFunction): FooterLink[] => [
   },
   { label: t('footer.solutions.cooperatives', 'Cooperatives'), href: getSolutionVertical('cooperatives').href },
   {
-    label: t('footer.solutions.professional_colleges', 'Professional associations'),
-    href: getSolutionVertical('professional_colleges').href,
+    label: t('footer.solutions.professional_associations', 'Professional associations'),
+    href: getSolutionVertical('professional_associations').href,
   },
   {
     label: t('footer.solutions.political_parties', 'Political parties'),

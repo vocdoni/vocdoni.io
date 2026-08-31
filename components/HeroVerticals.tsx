@@ -12,8 +12,8 @@ import { getSolutionVertical, type SolutionVerticalSlug } from '@/lib/solution-v
    the dynamic-key guardrail rejects computed ones. */
 const buildHeroVerticals = (t: TFunction): { slug: SolutionVerticalSlug; label: string }[] => [
   {
-    slug: 'professional_colleges',
-    label: t('solutions_index.cards.professional_colleges.title', 'Professional associations'),
+    slug: 'professional_associations',
+    label: t('solutions_index.cards.professional_associations.title', 'Professional associations'),
   },
   { slug: 'associations', label: t('solutions_index.cards.associations.title', 'Associations & federations') },
   { slug: 'political_parties', label: t('solutions_index.cards.political_parties.title', 'Political parties') },

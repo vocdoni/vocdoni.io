@@ -36,7 +36,10 @@ function sendPostHogPayload(payload: string): boolean {
   return true
 }
 
-export function capturePostHogEvent(event: '$pageview' | 'app_cta_click', properties: PostHogProperties): boolean {
+export function capturePostHogEvent(
+  event: '$pageview' | 'app_cta_click' | 'section_view',
+  properties: PostHogProperties
+): boolean {
   if (!POSTHOG_PUBLIC_KEY || !POSTHOG_HOST || !isProductionWebsite() || !hasAcceptedCookies()) return false
 
   return sendPostHogPayload(

@@ -20,7 +20,7 @@ import {
 export const SOLUTION_VERTICALS = [
   { slug: 'associations', href: '/solutions/associations', icon: UsersIcon },
   { slug: 'cooperatives', href: '/solutions/cooperatives', icon: HandshakeIcon },
-  { slug: 'professional_colleges', href: '/solutions/professional-colleges', icon: BriefcaseIcon },
+  { slug: 'professional_associations', href: '/solutions/professional-associations', icon: BriefcaseIcon },
   { slug: 'political_parties', href: '/solutions/political-parties', icon: Building2Icon },
   { slug: 'municipalities', href: '/solutions/municipalities', icon: LandmarkIcon },
   { slug: 'sports_clubs', href: '/solutions/sports-clubs', icon: TrophyIcon },
