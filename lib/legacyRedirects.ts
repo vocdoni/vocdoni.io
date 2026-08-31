@@ -49,6 +49,19 @@ const LEGACY_PATHS: Record<string, string> = {
 /** Turn a logical destination (e.g. `/`, `/app`, `/developers`) into a locale-prefixed final URL. */
 const localize = (logical: string, lang: string) => (logical === '/' ? `/${lang}` : `/${lang}${logical}`)
 
+/**
+ * Routes renamed on the CURRENT site, old logical path -> new logical path.
+ *
+ * Unlike `LEGACY_PATHS`, these URLs were live in every active locale and are
+ * indexed under each one, so they are emitted for `locales`, not for the
+ * languages the previous website happened to serve.
+ */
+const RENAMED_ROUTES: Record<string, string> = {
+  // "professional colleges" is a calque of `colegio profesional` that reads as a
+  // school in English; the segment self-identifies as professional associations.
+  '/solutions/professional-colleges': '/solutions/professional-associations',
+}
+
 function buildRedirects(): LegacyRedirect[] {
   const redirects: LegacyRedirect[] = []
 
@@ -58,6 +71,12 @@ function buildRedirects(): LegacyRedirect[] {
     // Each language the old site served: keep it if still active, otherwise collapse to the default.
     for (const lang of OLD_SITE_LANGS)
       redirects.push({ from: `/${lang}/${path}`, to: localize(logical, targetLang(lang)) })
+  }
+
+  for (const [from, to] of Object.entries(RENAMED_ROUTES)) {
+    // Unprefixed, then every locale the renamed route was served in.
+    redirects.push({ from, to: localize(to, localeDefault) })
+    for (const lang of locales) redirects.push({ from: `/${lang}${from}`, to: localize(to, lang) })
   }
 
   // One-offs observed in Google Search Console. Internal-only: never redirect to an external site.
