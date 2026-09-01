@@ -12,7 +12,7 @@ export default function Page() {
     <SolutionPage
       icon={BuildingIcon}
       content={content}
-      logos={[{ src: logoCoib, alt: 'COIB' }]}
+      logos={[{ src: logoCoib, alt: "Col·legi Oficial d'Infermeres i Infermers de Barcelona" }]}
       caseStudyHref='/case-studies/coib'
     />
   )

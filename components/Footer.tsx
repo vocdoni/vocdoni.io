@@ -209,12 +209,7 @@ export default function Footer() {
           <div className='flex flex-col gap-1 items-center md:items-start order-2 md:order-1'>
             <div className='flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-xs text-muted-foreground md:justify-start'>
               <p>{t('footer.copyright', { year: new Date().getFullYear() })}</p>
-              <Link
-                href='https://tin.computer'
-                variant='footerLegal'
-                className='inline-flex items-center gap-1.5'
-                aria-label={t('footer.tin_credit_aria', 'Growth by Tin (opens in new tab)')}
-              >
+              <Link href='https://tin.computer' variant='footerLegal' className='inline-flex items-center gap-1.5'>
                 <svg className='h-[1em] w-[1em]' viewBox='0 0 32 32' aria-hidden='true'>
                   <rect width='32' height='32' fill='#66DC9D' />
                 </svg>
