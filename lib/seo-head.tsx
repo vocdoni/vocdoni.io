@@ -276,7 +276,7 @@ const buildPricingSchema = (pageContext: PageContext, locale: string, siteUrl: s
     return typeof value === 'string' && value.trim() ? value : fallback
   }
 
-  const planUrl = 'https://app.vocdoni.io/en/plans'
+  const planUrl = `${APP_URL}/plans`
   const recurringPrice = (price: string, unitText: 'MONTH' | 'YEAR') => ({
     '@type': 'UnitPriceSpecification',
     price,

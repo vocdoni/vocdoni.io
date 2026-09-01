@@ -101,7 +101,10 @@ export default function PricingPage() {
                 <Button asChild size='lg' className='group w-full text-base sm:w-auto'>
                   <Link href={`${APP_URL}/plans`} ctaId='pricing_hero_start' variant='inlineIcon'>
                     {t('pricing_page.cta', 'Start with the Free plan')}
-                    <ArrowRight className='transition-transform duration-200 group-hover:translate-x-0.5' />
+                    <ArrowRight
+                      aria-hidden='true'
+                      className='transition-transform duration-200 group-hover:translate-x-0.5'
+                    />
                   </Link>
                 </Button>
               </div>
