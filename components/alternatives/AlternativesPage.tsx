@@ -246,7 +246,7 @@ export function AlternativesPage({ content }: { content: AlternativesContent }) 
                 src={omniumLogo}
                 alt={content.proof_logo_alt}
                 className='max-h-24 w-auto max-w-52 object-contain'
-                loading='eager'
+                loading='lazy'
               />
             </div>
             <div className='p-8 sm:p-12 lg:p-14'>
