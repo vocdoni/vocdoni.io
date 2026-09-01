@@ -56,15 +56,11 @@ export interface OnlineVotingSoftwareContent {
   method_title: string
   method_text: string
   source_note: string
-  related_title: string
-  related_intro: string
   related_links: {
     home: string
-    associations: string
     agm: string
     pricing: string
     electionbuddy_alternatives: string
-    security: string
   }
 }
 
@@ -91,14 +87,6 @@ export function OnlineVotingSoftwareGuide({ content }: { content: OnlineVotingSo
   const checklist = asArray<string>(content.checklist)
   const fitYes = asArray<string>(content.fit_yes)
   const fitNo = asArray<string>(content.fit_no)
-  const relatedLinks = [
-    { href: '/', label: content.related_links.home },
-    { href: '/solutions/associations', label: content.related_links.associations },
-    { href: '/solutions/companies-agm', label: content.related_links.agm },
-    { href: '/pricing', label: content.related_links.pricing },
-    { href: '/alternatives/electionbuddy-alternatives', label: content.related_links.electionbuddy_alternatives },
-    { href: '/learn/how-secure-online-voting-works', label: content.related_links.security },
-  ]
 
   return (
     <>
@@ -211,7 +199,23 @@ export function OnlineVotingSoftwareGuide({ content }: { content: OnlineVotingSo
                   <div className='flex flex-wrap items-start justify-between gap-4'>
                     <div>
                       <p className='text-primary text-sm font-semibold'>{vendor.model}</p>
-                      <h3 className='mt-2 text-3xl'>{vendor.name}</h3>
+                      <h3 className='mt-2 text-3xl'>
+                        {index === 0 ? (
+                          <Link href='/' variant='unstyled' aria-label={content.related_links.home}>
+                            {vendor.name}
+                          </Link>
+                        ) : index === 1 ? (
+                          <Link
+                            href='/alternatives/electionbuddy-alternatives'
+                            variant='unstyled'
+                            aria-label={content.related_links.electionbuddy_alternatives}
+                          >
+                            {vendor.name}
+                          </Link>
+                        ) : (
+                          vendor.name
+                        )}
+                      </h3>
                     </div>
                     <div className='flex flex-wrap gap-x-4 gap-y-2 text-sm font-medium'>
                       <Link
@@ -256,7 +260,11 @@ export function OnlineVotingSoftwareGuide({ content }: { content: OnlineVotingSo
               <VideoIcon className='text-primary size-20' aria-hidden='true' />
             </div>
             <div className='p-8 sm:p-12 lg:p-14'>
-              <h2 className='max-w-2xl text-3xl text-balance sm:text-4xl'>{content.meeting_title}</h2>
+              <h2 className='max-w-2xl text-3xl text-balance sm:text-4xl'>
+                <Link href='/solutions/companies-agm' variant='unstyled' aria-label={content.related_links.agm}>
+                  {content.meeting_title}
+                </Link>
+              </h2>
               <p className='text-surface-dark-foreground/70 mt-5 max-w-[64ch] text-lg leading-8 text-pretty'>
                 {content.meeting_text}
               </p>
@@ -303,6 +311,10 @@ export function OnlineVotingSoftwareGuide({ content }: { content: OnlineVotingSo
             align='left'
             titleClassName='max-w-3xl text-3xl sm:text-4xl lg:text-5xl'
           />
+          <Link href='/pricing' variant='inlineIcon' className='mt-5 font-semibold'>
+            {content.related_links.pricing}
+            <ArrowRightIcon className='size-4' aria-hidden='true' />
+          </Link>
           <div className='mt-10 grid gap-5 lg:grid-cols-2'>
             <article className='bg-primary/8 rounded-2xl border p-7 sm:p-9'>
               <h3 className='text-2xl'>{content.fit_yes_title}</h3>
@@ -333,33 +345,6 @@ export function OnlineVotingSoftwareGuide({ content }: { content: OnlineVotingSo
             <p className='text-muted-foreground mt-4 max-w-[76ch] leading-7 text-pretty'>{content.method_text}</p>
             <p className='text-muted-foreground mt-4 font-mono text-xs leading-5 uppercase'>{content.source_note}</p>
           </aside>
-        </Container>
-      </section>
-
-      <section className='bg-muted/45 border-y py-16 sm:py-20'>
-        <Container className='max-w-5xl'>
-          <SectionHeader
-            title={content.related_title}
-            lede={content.related_intro}
-            align='left'
-            titleClassName='text-3xl sm:text-4xl'
-          />
-          <div className='mt-8 grid gap-px overflow-hidden rounded-2xl border bg-border sm:grid-cols-2 lg:grid-cols-3'>
-            {relatedLinks.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                variant='unstyled'
-                className='group bg-background hover:bg-accent flex min-h-28 items-center justify-between gap-4 p-6 font-medium'
-              >
-                {item.label}
-                <ArrowRightIcon
-                  className='text-primary size-4 shrink-0 transition-transform group-hover:translate-x-1'
-                  aria-hidden='true'
-                />
-              </Link>
-            ))}
-          </div>
         </Container>
       </section>
     </>

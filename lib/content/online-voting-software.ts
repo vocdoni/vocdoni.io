@@ -103,14 +103,10 @@ export const onlineVotingSoftwareContent = {
   method_text:
     'We reviewed official product, feature, method, and pricing pages from each vendor. We also checked the current Vocdoni self-service question settings. This is a buyer-fit guide, not a performance ranking. We did not independently operate competitor elections.',
   source_note: 'Sources reviewed 30 August 2026. Product scope and pricing can change.',
-  related_title: 'Continue your evaluation',
-  related_intro: 'Use the guide that matches your organization and risk questions.',
   related_links: {
     home: 'Vocdoni homepage',
-    associations: 'Online voting for associations',
     agm: 'AGM voting for companies',
     pricing: 'Vocdoni pricing',
     electionbuddy_alternatives: 'ElectionBuddy alternatives',
-    security: 'How secure online voting works',
   },
 } satisfies OnlineVotingSoftwareContent
