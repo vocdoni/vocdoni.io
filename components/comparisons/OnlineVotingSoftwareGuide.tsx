@@ -64,19 +64,19 @@ export interface OnlineVotingSoftwareContent {
   }
 }
 
-const VENDOR_SOURCES = [
-  {
+const VENDOR_SOURCES: Record<string, { details: string; scope: string }> = {
+  Vocdoni: {
     details: 'https://vocdoni.io/en/app',
     scope:
       'https://github.com/vocdoni/vocdoni-app/blob/3edf755919160ff730e71c6b5ad97b9cd3c34027/src/components/Process/Create/MainContent/QuestionSettings.tsx',
   },
-  { details: 'https://electionbuddy.com/features/', scope: 'https://electionbuddy.com/pricing/' },
-  {
+  ElectionBuddy: { details: 'https://electionbuddy.com/features/', scope: 'https://electionbuddy.com/pricing/' },
+  'Simply Voting': {
     details: 'https://www.simplyvoting.com/online-voting/',
     scope: 'https://www.simplyvoting.com/pricing/',
   },
-  { details: 'https://opavote.com/methods/overview', scope: 'https://opavote.com/pricing' },
-]
+  OpaVote: { details: 'https://opavote.com/methods/overview', scope: 'https://opavote.com/pricing' },
+}
 
 const MODEL_ICONS = [ShieldCheckIcon, ScaleIcon, VideoIcon]
 const asArray = <T,>(value: unknown): T[] => (Array.isArray(value) ? (value as T[]) : [])
@@ -187,67 +187,65 @@ export function OnlineVotingSoftwareGuide({ content }: { content: OnlineVotingSo
             </div>
 
             <div className='overflow-hidden rounded-3xl border'>
-              {vendors.map((vendor, index) => (
-                <article
-                  key={vendor.name}
-                  className={
-                    index === 0
-                      ? 'bg-primary/8 border-b p-7 sm:p-9'
-                      : 'bg-background border-b p-7 last:border-b-0 sm:p-9'
-                  }
-                >
-                  <div className='flex flex-wrap items-start justify-between gap-4'>
-                    <div>
-                      <p className='text-primary text-sm font-semibold'>{vendor.model}</p>
-                      <h3 className='mt-2 text-3xl'>
-                        {index === 0 ? (
-                          <Link href='/' variant='unstyled' aria-label={content.related_links.home}>
-                            {vendor.name}
+              {vendors.map((vendor, index) => {
+                const vendorSources = VENDOR_SOURCES[vendor.name]
+
+                return (
+                  <article
+                    key={vendor.name}
+                    className={
+                      index === 0
+                        ? 'bg-primary/8 border-b p-7 sm:p-9'
+                        : 'bg-background border-b p-7 last:border-b-0 sm:p-9'
+                    }
+                  >
+                    <div className='flex flex-wrap items-start justify-between gap-4'>
+                      <div>
+                        <p className='text-primary text-sm font-semibold'>{vendor.model}</p>
+                        <h3 className='mt-2 text-3xl'>
+                          {index === 0 ? (
+                            <Link href='/' variant='unstyled' aria-label={content.related_links.home}>
+                              {vendor.name}
+                            </Link>
+                          ) : index === 1 ? (
+                            <Link
+                              href='/alternatives/electionbuddy-alternatives'
+                              variant='unstyled'
+                              aria-label={content.related_links.electionbuddy_alternatives}
+                            >
+                              {vendor.name}
+                            </Link>
+                          ) : (
+                            vendor.name
+                          )}
+                        </h3>
+                      </div>
+                      {vendorSources && (
+                        <div className='flex flex-wrap gap-x-4 gap-y-2 text-sm font-medium'>
+                          <Link href={vendorSources.details} target='_blank' variant='inlineIcon'>
+                            {content.official_details}
+                            <ExternalLinkIcon className='size-3.5' aria-hidden='true' />
                           </Link>
-                        ) : index === 1 ? (
-                          <Link
-                            href='/alternatives/electionbuddy-alternatives'
-                            variant='unstyled'
-                            aria-label={content.related_links.electionbuddy_alternatives}
-                          >
-                            {vendor.name}
+                          <Link href={vendorSources.scope} target='_blank' variant='inlineIcon'>
+                            {content.official_scope}
+                            <ExternalLinkIcon className='size-3.5' aria-hidden='true' />
                           </Link>
-                        ) : (
-                          vendor.name
-                        )}
-                      </h3>
+                        </div>
+                      )}
                     </div>
-                    <div className='flex flex-wrap gap-x-4 gap-y-2 text-sm font-medium'>
-                      <Link
-                        href={(VENDOR_SOURCES[index] || VENDOR_SOURCES[0]).details}
-                        target='_blank'
-                        variant='inlineIcon'
-                      >
-                        {content.official_details}
-                        <ExternalLinkIcon className='size-3.5' aria-hidden='true' />
-                      </Link>
-                      <Link
-                        href={(VENDOR_SOURCES[index] || VENDOR_SOURCES[0]).scope}
-                        target='_blank'
-                        variant='inlineIcon'
-                      >
-                        {content.official_scope}
-                        <ExternalLinkIcon className='size-3.5' aria-hidden='true' />
-                      </Link>
-                    </div>
-                  </div>
-                  <dl className='mt-6 grid gap-5 sm:grid-cols-2'>
-                    <div>
-                      <dt className='font-mono text-xs uppercase tracking-[0.14em]'>{content.vendor_fit_label}</dt>
-                      <dd className='text-muted-foreground mt-2 leading-7 text-pretty'>{vendor.best_for}</dd>
-                    </div>
-                    <div>
-                      <dt className='font-mono text-xs uppercase tracking-[0.14em]'>{content.vendor_check_label}</dt>
-                      <dd className='text-muted-foreground mt-2 leading-7 text-pretty'>{vendor.check}</dd>
-                    </div>
-                  </dl>
-                </article>
-              ))}
+                    <dl className='mt-6 grid gap-5 sm:grid-cols-2'>
+                      <div>
+                        <dt className='font-mono text-xs uppercase tracking-[0.14em]'>{content.vendor_fit_label}</dt>
+                        <dd className='text-muted-foreground mt-2 leading-7 text-pretty'>{vendor.best_for}</dd>
+                      </div>
+                      <div>
+                        <dt className='font-mono text-xs uppercase tracking-[0.14em]'>{content.vendor_check_label}</dt>
+                        <dd className='text-muted-foreground mt-2 leading-7 text-pretty'>{vendor.check}</dd>
+                      </div>
+                    </dl>
+                  </article>
+                )
+              })}
             </div>
           </div>
         </Container>
