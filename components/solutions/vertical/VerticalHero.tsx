@@ -33,7 +33,7 @@ const ENTRANCE = { direction: 'up', offset: 12 } as const
  */
 export function VerticalHero({ icon: Icon, eyebrow, hero, appHref, ctaId, media, mediaCaption }: VerticalHeroProps) {
   return (
-    <section className='pt-8 pb-12 sm:pt-12 sm:pb-16 lg:pt-14'>
+    <section id='overview' className='scroll-mt-[3.25rem] pt-8 pb-12 sm:pt-12 sm:pb-16 lg:pt-14 xl:scroll-mt-[1.5rem]'>
       <Container>
         <div className='grid items-center gap-10 lg:grid-cols-[1.1fr_1fr] lg:gap-16'>
           <div className='mx-auto max-w-2xl text-center lg:mx-0 lg:text-left'>

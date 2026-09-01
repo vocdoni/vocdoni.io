@@ -42,7 +42,7 @@ export function VerticalSection({ sectionId, pageId, children, className, ...pro
   }, [sectionId, pageId])
 
   return (
-    <Section ref={ref} id={sectionId} className={cn('scroll-mt-24', className)} {...props}>
+    <Section ref={ref} id={sectionId} className={cn('scroll-mt-[3.25rem] xl:scroll-mt-[1.5rem]', className)} {...props}>
       {children}
     </Section>
   )
