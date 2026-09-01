@@ -10,6 +10,7 @@ import type { VerticalMediaAsset } from '@/components/solutions/vertical/Vertica
 import { VerticalLegal } from '@/components/solutions/vertical/VerticalLegal'
 import { VerticalProof } from '@/components/solutions/vertical/VerticalProof'
 import { VerticalResources } from '@/components/solutions/vertical/VerticalResources'
+import { VerticalSectionIndex, type VerticalIndexItem } from '@/components/solutions/vertical/VerticalSectionIndex'
 import { VerticalStakes } from '@/components/solutions/vertical/VerticalStakes'
 import { VerticalTimeline } from '@/components/solutions/vertical/VerticalTimeline'
 import { VerticalTrustBand } from '@/components/solutions/vertical/VerticalTrustBand'
@@ -45,8 +46,25 @@ export function VerticalPage({
   resourceLinks,
   media,
 }: Props) {
+  const indexItems: VerticalIndexItem[] = [
+    { id: 'overview', label: content?.eyebrow },
+    { id: 'stakes', label: content?.stakes?.eyebrow },
+    { id: 'proof', label: content?.proof?.eyebrow },
+    { id: 'legal-validity', label: content?.legal?.eyebrow },
+    { id: 'how-it-runs', label: content?.how?.eyebrow },
+    ...(content?.timeline ? [{ id: 'timeline', label: content.timeline.eyebrow }] : []),
+    { id: 'comparison', label: content?.comparison?.eyebrow },
+    { id: 'engagement', label: content?.engagement?.eyebrow },
+    ...(content?.sizes ? [{ id: 'fit-by-size', label: content.sizes.eyebrow }] : []),
+    { id: 'faq', label: content?.faq?.eyebrow },
+    ...(content?.board ? [{ id: 'for-your-board', label: content.board.eyebrow }] : []),
+    { id: 'resources', label: content?.resources?.eyebrow },
+  ].filter((item): item is VerticalIndexItem => Boolean(item.label))
+
   return (
     <>
+      <VerticalSectionIndex items={indexItems} />
+
       <VerticalHero
         icon={icon}
         eyebrow={content?.eyebrow}
