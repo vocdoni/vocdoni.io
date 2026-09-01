@@ -49,4 +49,12 @@ describe('Free versus paid AGM guide', () => {
     expect(html).toContain('The prices above cover Vocdoni&#x27;s self-service app')
     expect(html).toContain('href="/contact"')
   })
+
+  it('connects the AGM buying shelf', () => {
+    expect(html).toContain('href="/solutions/companies-agm"')
+    expect(html).toContain('href="/pricing"')
+    expect(html).toContain('href="/compare/online-voting-software"')
+    expect(html).toContain('href="/alternatives/electionbuddy-alternatives"')
+    expect(html).toContain('href="/compare/agm-voting-platforms"')
+  })
 })

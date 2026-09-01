@@ -222,6 +222,16 @@ export function FreeVsPaidAgmGuide() {
             align='left'
             titleClassName='max-w-3xl text-3xl sm:text-4xl lg:text-5xl'
           />
+          <p className='text-muted-foreground mt-6 max-w-[72ch] leading-7 text-pretty'>
+            {content.buyingPathLead}{' '}
+            {content.buyingPathLinks.map((item, index) => (
+              <span key={item.href}>
+                {index > 0 && (index === content.buyingPathLinks.length - 1 ? ', and ' : ', ')}
+                <Link href={item.href}>{item.label}</Link>
+              </span>
+            ))}{' '}
+            {content.buyingPathEnd}
+          </p>
           <div className='mt-10 grid overflow-hidden rounded-2xl border sm:grid-cols-3'>
             <Link
               href='/learn/how-to-run-a-legally-valid-agm-online'

@@ -35,6 +35,14 @@ export const agmGuideContent = {
   chooseLede: 'Write these numbers down before you open the election builder.',
   relatedTitle: 'Plan the AGM before you build the ballot',
   relatedLede: 'Use these guides to confirm your meeting rules, voting workflow, and evidence needs.',
+  buyingPathLead: 'Compare',
+  buyingPathLinks: [
+    { href: '/pricing', label: 'Vocdoni pricing' },
+    { href: '/compare/online-voting-software', label: 'online voting software' },
+    { href: '/compare/agm-voting-platforms', label: 'AGM voting platforms' },
+    { href: '/alternatives/electionbuddy-alternatives', label: 'ElectionBuddy alternatives' },
+  ],
+  buyingPathEnd: 'before you choose.',
   relatedLinks: {
     validAgm: 'Run a legally valid AGM online',
     companies: 'AGM voting for companies',
