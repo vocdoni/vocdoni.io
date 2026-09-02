@@ -8,6 +8,7 @@ import { MotionPreset } from '@/components/ui/motion-preset'
 
 // Order shown on the hub. Copy lives in i18n under learn_index.cards.<slug>.
 const ARTICLES: { slug: string; href: string }[] = [
+  { slug: 'security_accessibility', href: '/security-accessibility' },
   { slug: 'how_secure_online_voting_works', href: '/learn/how-secure-online-voting-works' },
   { slug: 'verifiable_voting_explained', href: '/learn/verifiable-voting-explained' },
   { slug: 'anonymous_voting_explained', href: '/learn/anonymous-voting-explained' },
