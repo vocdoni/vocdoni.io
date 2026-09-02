@@ -16,7 +16,7 @@ describe('buildApiCatalog', () => {
     const entry = doc.linkset[0]
     expect(entry.anchor).toBe(DEVELOPERS_API_BASE_URL)
     expect(entry['service-desc'][0].href).toBe(DEVELOPERS_SWAGGER_URL)
-    expect(entry['service-doc'][0].href).toBe('https://vocdoni.io/developers/docs')
+    expect(entry['service-doc'][0].href).toBe('https://vocdoni.io/en/developers/docs')
     expect(entry.status[0].href).toBe(DEVELOPERS_STATUS_URL)
   })
 })
@@ -28,6 +28,8 @@ describe('buildNetlifyHeaders', () => {
     expect(out).toContain('Link: </.well-known/api-catalog>; rel="api-catalog"')
     expect(out).toContain(`Link: <${DEVELOPERS_SKILLS_URL}>; rel="related"`)
     expect(out).toContain(`Link: <${DEVELOPERS_SWAGGER_URL}>; rel="service-desc"`)
+    expect(out).toContain('Link: </en/developers/docs>; rel="service-doc"')
+    expect(out).not.toContain('Link: </developers/docs>; rel="service-doc"')
     expect(out).not.toContain('noindex, nofollow')
   })
 
@@ -50,8 +52,8 @@ describe('buildNetlifyHeaders', () => {
         expect(out).toContain(`${pattern}\n  X-Robots-Tag: noindex\n`)
       }
     }
-    // No enumerated locale paths sneaking in, and HTML pages stay indexable.
-    expect(buildNetlifyHeaders()).not.toContain('/en/')
+    // No enumerated raw-markdown paths sneak in, and HTML pages stay indexable.
+    expect(buildNetlifyHeaders()).not.toContain('/en/developers/docs.md\n')
     expect(buildNetlifyHeaders()).not.toContain('/developers/docs\n')
   })
 

@@ -520,7 +520,7 @@ export function HeadTags(pageContext: PageContext) {
       {/* Agent discovery pointers (RFC 8288 relations). Static site: emitted as <link>
           elements since production cannot set HTTP Link headers. See plugins/well-known.ts. */}
       <link rel='api-catalog' href='/.well-known/api-catalog' />
-      <link rel='service-doc' href={`${siteUrl}/developers/docs`} />
+      <link rel='service-doc' href={`${siteUrl}/${localeDefault}/developers/docs`} />
       <link rel='service-desc' href={DEVELOPERS_SWAGGER_URL} />
       <link rel='related' title='Vocdoni agent skills' href={DEVELOPERS_SKILLS_URL} />
       <link rel='alternate' type='text/plain' href='/llms.txt' />

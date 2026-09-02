@@ -31,6 +31,7 @@ export interface PostEntry {
   slug: string
   title: string
   date: string
+  updatedDate: string
   /** Locales the post was actually authored in. */
   locales: string[]
   categories: string[]
@@ -138,7 +139,7 @@ export async function discoverPosts(root: string, allLocales: readonly string[])
       if (data.draft === true) continue
       const slug = file.replace(/\.mdoc$/, '')
       const existing = bySlug.get(slug)
-      const entry: PostEntry = existing ?? { slug, title: slug, date: '', locales: [], categories: [] }
+      const entry: PostEntry = existing ?? { slug, title: slug, date: '', updatedDate: '', locales: [], categories: [] }
       entry.locales.push(dir.name)
       if (Array.isArray(data.categories)) {
         for (const category of data.categories)
@@ -148,6 +149,7 @@ export async function discoverPosts(root: string, allLocales: readonly string[])
       if (dir.name === 'en' || !existing) {
         if (typeof data.title === 'string') entry.title = data.title
         entry.date = typeof data.publishedDate === 'string' ? data.publishedDate : String(data.publishedDate ?? '')
+        entry.updatedDate = typeof data.updatedDate === 'string' ? data.updatedDate : String(data.updatedDate ?? '')
       }
       bySlug.set(slug, entry)
     }

@@ -80,6 +80,13 @@ describe('discoverPosts', () => {
     expect(post?.locales).toEqual(locales.filter((l) => post!.locales.includes(l)))
   })
 
+  it('records real published and updated dates for sitemap generation', async () => {
+    const posts = await discoverPosts(ROOT, locales)
+    const post = posts.find((p) => p.slug === 'introducing-ni-dkg')
+    expect(post?.date).toBe('2026-03-03')
+    expect(post?.updatedDate).toBe('2026-03-24')
+  })
+
   it('excludes drafts', async () => {
     const posts = await discoverPosts(ROOT, locales)
     expect(
