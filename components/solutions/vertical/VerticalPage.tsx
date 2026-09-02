@@ -30,9 +30,9 @@ interface Props extends VerticalPageProps {
  * loss once, prove it with a named body, clear the legal gate on that evidence,
  * then explain the mechanism, the schedule, the trade, and the ask.
  *
- * Timeline, fit-by-size and for-your-board render only where the locale has the
- * content, so languages that have not been propagated yet skip them cleanly
- * rather than shipping empty sections.
+ * Timeline, fit-by-size and for-your-board render only where the content block
+ * exists. Every locale of this vertical supplies all three; the guard is for the
+ * next vertical to adopt the kit, which starts without them.
  */
 export function VerticalPage({
   icon,

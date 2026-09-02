@@ -13,8 +13,8 @@ interface VerticalComparisonProps {
  * Three ways of running the same election side by side: paper, a typical
  * commercial provider, and this one.
  *
- * The provider column is optional. Locales that have not been given `digital`
- * copy yet fall back to the two-way comparison rather than rendering an empty
+ * The provider column is optional. A vertical whose content has no `digital`
+ * copy falls back to the two-way comparison rather than rendering an empty
  * column, so the section degrades instead of breaking.
  *
  * Built as an ARIA grid rather than a `<table>`: a multi-column table pushes the

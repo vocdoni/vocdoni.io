@@ -1560,68 +1560,70 @@
       ]
     },
     "professional_associations": {
-      "eyebrow": "für Berufskammern und Berufsverbände",
+      "eyebrow": "für Berufsverbände",
       "hero": {
-        "title": "Vorstandswahlen, die Ihr Wahlausschuss selbst prüfen kann",
-        "subtitle": "Vorstandswahlen, Satzungsabstimmungen und Mitgliederversammlungen für Berufskammern und Berufsverbände. Das Ergebnis wird zusammen mit dem Protokoll veröffentlicht, aus dem es berechnet wurde. Niemand muss dem Wort eines Anbieters glauben.",
+        "title": "Digitalisieren Sie Ihre Wahlen, ohne eine einzige Garantie aufzugeben",
+        "subtitle": "Vorstandswahlen, Satzungsabstimmungen und Mitgliederversammlungen für Berufskammern und Verbände. Konfiguriert aus Ihrer eigenen Wahlordnung, durchgeführt aus der Ferne oder hybrid, und abgeschlossen mit den Unterlagen und der Bescheinigung, die das Ergebnis belegen.",
         "cta_primary": "Testwahl einrichten",
         "cta_secondary": "Mit einer Wahlexpertin sprechen",
-        "risk_reversal": "Kostenloses Konto, ohne Karte. Ihre Testwahl ist echt, keine Demo.",
-        "proof_line": "COIB hat seine Mitgliederversammlung 2025 mit Vocdoni durchgeführt.",
-        "proof_link_label": "So lief es"
+        "risk_reversal": "Kostenloses Konto, ohne Kreditkarte."
       },
       "trust": {
         "logos_label": "Berufskammern und Verbände, die mit Vocdoni wählen",
         "badges": [
           "Nachweispaket für Ihren Wahlausschuss",
           "Geheime Stimmabgabe von Grund auf",
-          "Hybrid: aus der Ferne und vor Ort",
+          "Vollständig aus der Ferne, oder hybrid mit Wahlraum",
           "DSGVO, Hosting in der EU"
         ],
         "stats": [
           {
             "value": "200.000+",
-            "label": "über die Vocdoni-Infrastruktur verarbeitete Stimmen",
-            "source": "Kennzahlen der Vocdoni-Plattform"
+            "label": "Stimmen über die Infrastruktur von Vocdoni verarbeitet",
+            "source": "Zahlen der Vocdoni-Plattform"
           },
           {
             "value": "500+",
-            "label": "mit Vocdoni-Technologie durchgeführte Abstimmungen",
+            "label": "Abstimmungsverfahren mit Vocdoni-Technologie durchgeführt",
             "source": "Projekthistorie von Vocdoni"
           },
           {
             "value": "Seit 2018",
-            "label": "Satzungs- und öffentliche Wahlen im Produktivbetrieb",
+            "label": "Satzungsgemäße und öffentliche Wahlen im Produktivbetrieb",
             "source": "quelloffen, öffentlich einsehbar"
           }
         ]
       },
       "stakes": {
         "eyebrow": "die Lage, in der Sie tatsächlich sind",
-        "title": "Ihr Wahlausschuss zeichnet eine Auszählung ab, die er nicht vorgenommen hat",
-        "intro": "Eine Berufskammer ist eine Körperschaft des öffentlichen Rechts. Ihre Wahlentscheidungen sind anfechtbar, zunächst intern und danach vor dem Verwaltungsgericht. Das verändert, was ein Wahlsystem am Ende liefern muss.",
+        "title": "Geringe Beteiligung, hohe Kosten und ein anfechtbares Ergebnis",
+        "intro": "Eine Vorstandswahl wird zweimal beurteilt: von den Mitgliedern, die teilgenommen haben oder eben nicht, und, wenn jemand widerspricht, von einem Gericht. Beide Urteile landen auf demselben Schreibtisch. Die Rechnung ebenfalls.",
         "items": [
           {
+            "title": "Die Wahlbeteiligung",
+            "description": "Ein Mitglied, das zwei Stunden entfernt praktiziert, reist nicht für eine zweistündige Versammlung an. Die Beteiligung bleibt niedrig, und ein Vorstand, den ein kleiner Bruchteil des Verzeichnisses gewählt hat, regiert mit einem bereits vorgebrachten Gegenargument.",
+            "answer": "Das Abstimmen dauert zwei Minuten auf jedem Gerät, und so nehmen die Mitglieder teil, die nie angereist sind."
+          },
+          {
             "title": "Die Beurkundung",
-            "description": "Wenn eine Kandidatin den Wahlausschuss fragt, woher er weiß, dass die Zahl stimmt, lautet die ehrliche Antwort heute: weil der Anbieter das sagt. Aus dieser Position heraus unterschreibt es sich unangenehm."
+            "description": "Ein Kandidat fragt Ihren Wahlausschuss, woher er weiß, dass die Zahl stimmt. Die ehrliche Antwort lautet heute: weil der Anbieter es sagt. Dafür will niemand seinen Namen hergeben.",
+            "answer": "Die Auszählung wird zusammen mit dem Protokoll veröffentlicht, aus dem sie berechnet wurde. Ihr Ausschuss prüft sie also vor der Unterschrift statt danach."
           },
           {
-            "title": "Das Wählerverzeichnis",
-            "description": "Mitglieder mit Beitragsrückstand, Neuzugänge, nicht praktizierende Mitglieder. Wer stimmberechtigt war und zu welchem Stichtag, ist die am häufigsten bestrittene Tatsache jeder Kammerwahl."
-          },
-          {
-            "title": "Das Argument der Wahlbeteiligung",
-            "description": "Ein Mitglied, das zwei Stunden entfernt praktiziert, reist nicht für eine zweistündige Versammlung an. Die Beteiligung bleibt niedrig, und niedrige Beteiligung wird selbst zum Argument gegen das Mandat."
+            "title": "Die Rechnung",
+            "description": "Druck, Porto, der Saal, die Personalstunden und eine Auszählung, die über Mitternacht hinausgeht. In jedem Turnus, und im nächsten wieder.",
+            "answer": "Ein Bruchteil davon, und beim nächsten Mal öffnen Sie die diesjährige Konfiguration erneut, statt sie aus dem Gedächtnis neu zu bauen."
           }
         ],
-        "turn": "Das Ergebnis wird zusammen mit dem Protokoll veröffentlicht, aus dem es berechnet wurde. Ihr Ausschuss muss uns die Zahl nicht glauben. Und wer das Ergebnis bestreitet, ebenso wenig."
+        "answer_label": "Was sich mit Vocdoni ändert"
       },
       "legal": {
         "eyebrow": "vor allem anderen",
-        "title": "Ist das für uns zulässig, und was legen wir einem Anfechtenden vor?",
-        "intro": "Die beiden Fragen, die entscheiden, ob das überhaupt bis in Ihren Vorstand kommt. Ihre Satzung und Ihre Wahlordnung stehen über allem, was hier folgt: aus ihnen konfigurieren wir.",
+        "title": "Ist das für uns gültig, und was geben wir einem Anfechtenden in die Hand?",
+        "intro": "Die zwei Fragen, die darüber entscheiden, ob das bis in Ihren Vorstand gelangt. Ihre Satzung und Ihre Wahlordnung stehen über allem, was folgt: Sie sind das Dokument, aus dem wir konfigurieren.",
         "jurisdiction_label": "Rechtsrahmen für Deutschland",
         "response_label": "Was Sie dagegen in der Hand haben",
+        "requirement_label": "Was der Rahmen verlangt",
         "frameworks": [
           {
             "name": "Ihre Satzung und Ihre Wahlordnung",
@@ -1661,27 +1663,25 @@
           }
         ],
         "evidence": {
-          "title": "Was Sie einem Anfechtenden tatsächlich vorlegen",
-          "intro": "Ein exportierbares Nachweispaket, noch am Tag des Wahlschlusses: die abgezeichnete Konfiguration, die Prüfsumme des Wählerverzeichnisses zum satzungsmäßigen Stichtag, das Beteiligungsprotokoll, die veröffentlichte Auszählung, die Prüfanleitung und ein technisches Ergebniszertifikat für Ihr Protokoll. Es ist so gebaut, dass jemand, der dem Ergebnis feindlich gegenübersteht, es nachprüfen kann, ohne etwas von Ihnen oder von uns zu brauchen."
+          "title": "Was Sie bei Schließung der Wahl erhalten",
+          "intro": "Der gesamte Ablauf ist von Anfang bis Ende überprüfbar, und noch am Tag der Schließung erhalten Sie die Akte, die das belegt. Sie enthält die unterzeichnete Konfiguration, eine versiegelte Kopie des Mitgliederverzeichnisses zum Stichtag, das Beteiligungsprotokoll, die veröffentlichte Auszählung und die Anleitung zu ihrer Überprüfung, dazu einen Bericht und eine Bescheinigung des Verfahrens für Ihr Protokoll. Sie ist für jemanden gebaut, der dem Ergebnis feindlich gegenübersteht: eine Prüferin, ein unterlegener Kandidat oder dessen Beraterin kann jeden Teil davon prüfen, ohne etwas von Ihnen oder von uns zu benötigen."
         },
-        "disclaimer": "Dies sind allgemeine Hinweise, keine Rechtsberatung, und das letzte Wort haben Ihre Satzung und Ihre eigene Rechtsberatung. Wozu wir uns verpflichten, sind die Nachweise oben und ein klares Wort im ersten Gespräch, falls wir meinen, dass Sie zuerst eine Satzungsänderung brauchen.",
-        "cta_secondary": "Schicken Sie uns Ihre Wahlordnung",
-        "cta_note": "Wir lesen sie und sagen Ihnen, was so konfigurierbar ist, wie es dasteht, wofür es einen Beschluss des Wahlausschusses braucht und was eine Satzungsänderung erfordern würde. Ohne Verkaufsgespräch."
+        "cta_secondary": "Mit einer Wahlexpertin sprechen"
       },
       "proof": {
-        "eyebrow": "eine Körperschaft wie Ihre",
-        "title": "Eine Pflegekammer, die ihre Mitgliederversammlung online durchgeführt hat",
-        "intro": "COIB, die offizielle Kammer der Pflegekräfte von Barcelona, führte ihre Mitgliederversammlung 2025 mit Zwei-Faktor-Identifikation, hybridem Zugang und sofortiger Auszählung bei Wahlschluss durch.",
+        "eyebrow": "eine Kammer wie Ihre",
+        "title": "Eine Pflegekammer, die ihre Mitgliederversammlung online gebracht hat",
+        "intro": "Das COIB, die offizielle Pflegekammer von Barcelona, führte seine Mitgliederversammlung 2025 mit einem Einmalcode bei jeder Stimmabgabe durch, mit Mitgliedern im Saal und zu Hause, und der Auszählung, die bei Schließung veröffentlicht wurde.",
         "org": "COIB, Col·legi Oficial d'Infermeres i Infermers de Barcelona",
         "org_meta": "Berufskammer, Barcelona, 2025, hybride Mitgliederversammlung",
         "stats": [
           {
             "value": "bis zu 50 €",
-            "label": "eingesparte Reisekosten je teilnehmendem Mitglied"
+            "label": "eingesparte Anreise je teilnehmendem Mitglied"
           },
           {
-            "value": "2FA",
-            "label": "per SMS oder E-Mail bei jeder Stimme"
+            "value": "Einmalcode",
+            "label": "per SMS oder E-Mail bei jeder Stimmabgabe, damit niemand zweimal oder im Namen eines anderen wählt"
           },
           {
             "value": "Hybrid",
@@ -1689,7 +1689,7 @@
           },
           {
             "value": "Sofort",
-            "label": "Auszählung bei Wahlschluss veröffentlicht"
+            "label": "Auszählung bei Schließung veröffentlicht"
           }
         ],
         "case_study_label": "Die COIB-Fallstudie lesen",
@@ -1698,194 +1698,219 @@
       },
       "how": {
         "eyebrow": "wie es abläuft",
-        "title": "Konfiguriert aus Ihrer Wahlordnung, nicht aus einer Vorlage",
-        "intro": "Das sind die Funktionen, die zitiert werden, wenn ein Verfahren infrage gestellt wird, und die Erfahrung, die sie für Ihre Mitglieder erzeugen.",
+        "title": "Aus Ihrer Wahlordnung konfiguriert, nicht aus einer Vorlage",
+        "intro": "Das sind die Funktionen, die zitiert werden, wenn ein Verfahren in Frage gestellt wird, und die Erfahrung, die sie beim Mitglied erzeugen.",
         "features": [
           {
             "title": "Aus Ihrer Wahlordnung konfiguriert",
             "description": "Ämter, Sektionen, Wählbarkeitsregeln, Stichtage und Stichentscheide folgen Ihrem eigenen Text. Wir lesen ihn, bevor wir irgendetwas konfigurieren."
           },
           {
-            "title": "Verzeichnis eingefroren und mit Prüfsumme versehen",
-            "description": "Das Wählerverzeichnis wird zum satzungsmäßigen Stichtag gesperrt und erhält eine Prüfsumme, damit hinterher niemand bestreiten kann, wer darin stand."
+            "title": "Das Verzeichnis wird zum Stichtag versiegelt",
+            "description": "Zum satzungsgemäßen Stichtag wird das Mitgliederverzeichnis gesperrt und mit einem kurzen Code versiegelt, der sich ändert, sobald ein einziger Name hinzukommt oder wegfällt. Ein Streit darüber, wer wahlberechtigt war, ist in einer Minute geklärt."
           },
           {
             "title": "Eine Konsole für Ihren Wahlausschuss",
-            "description": "Der Ausschuss sieht die Beteiligung in Echtzeit und erhält den beglaubigten Export direkt, ohne Zugriff auf einzelne Stimmen und ohne auf das Wort der Geschäftsstelle angewiesen zu sein."
+            "description": "Der Wahlausschuss sieht die Beteiligung in Echtzeit und erhält den beglaubigten Export direkt. Kein Zugriff auf einzelne Stimmen, und niemand kann behaupten, die Zahlen seien zuerst durch Ihre Geschäftsstelle gegangen."
           },
           {
-            "title": "Hybrid, auf einem einzigen Verzeichnis",
-            "description": "Mitglieder, die vor Ort wählen möchten, können das weiterhin tun, an einer betreuten Wahlstelle in Ihrer Geschäftsstelle. Beide Kanäle speisen sich aus einem Verzeichnis, doppelte Stimmabgabe ist damit strukturell ausgeschlossen."
+            "title": "Aus der Ferne, oder aus der Ferne und vor Ort",
+            "description": "Die meisten Kammern führen die gesamte Wahl aus der Ferne durch. Wenn Sie zusätzlich einen Wahlraum wollen, können Mitglieder am selben Tag an einer betreuten Station in Ihrer Geschäftsstelle abstimmen. Beide Wege nutzen dasselbe Mitgliederverzeichnis, also wählt niemand zweimal."
           },
           {
             "title": "Geheim, auch vor Ihnen",
-            "description": "Kryptografie trennt Identität und Stimme. Weder Ihre Mitarbeitenden noch der Wahlausschuss noch Vocdoni können rekonstruieren, wie ein Mitglied gewählt hat."
+            "description": "Identität und Stimme hält das System selbst auseinander, nicht ein Versprechen, das jemand brechen könnte. Niemand kann sie wieder zusammenführen: weder Ihre Mitarbeitenden noch der Wahlausschuss noch Vocdoni."
           },
           {
             "title": "Im nächsten Turnus wiederverwendbar",
-            "description": "Die Konfiguration wird gespeichert und für die nächste Wahl wieder geöffnet, statt aus dem Gedächtnis und dem Ordner des letzten Turnus rekonstruiert zu werden."
+            "description": "Die Konfiguration wird gespeichert und für die nächste Wahl erneut geöffnet, statt aus dem Gedächtnis und dem Ordner des letzten Turnus neu gebaut zu werden."
           }
         ],
-        "media_caption": "Die eigene Sicht des Wahlausschusses am Wahltag: die Beteiligung in Echtzeit, und kein Zugriff auf eine einzige Stimme.",
+        "media_caption": "Die eigene Ansicht des Wahlausschusses am Wahltag: die Beteiligung in Echtzeit, und kein Zugriff auf eine einzige Stimme.",
         "steps_title": "Und was ein Mitglied tatsächlich tut",
         "steps": [
           {
             "title": "Es erhält die Einladung",
-            "description": "E-Mail oder SMS im Erscheinungsbild Ihrer Kammer, mit Tagesordnung, Kandidaturen und dem genauen Zeitfenster, in dem die Wahl geöffnet ist."
+            "description": "E-Mail oder SMS im Erscheinungsbild Ihrer eigenen Kammer, mit Tagesordnung, Kandidaturen und dem genauen Zeitfenster, in dem die Wahl geöffnet ist."
           },
           {
-            "title": "Es identifiziert sich, es registriert sich nicht",
-            "description": "Ein Einmalcode per SMS oder E-Mail bestätigt, dass es das Mitglied aus dem Verzeichnis ist. Kein Konto anzulegen, keine App zu installieren, keine Mitgliedsnummer herauszusuchen."
+            "title": "Es weist sich aus, es registriert sich nicht",
+            "description": "Ein Einmalcode per SMS oder E-Mail bestätigt, dass es das Mitglied aus dem Verzeichnis ist. Kein Konto anzulegen, keine App zu installieren, keine Mitgliedsnummer nachzuschlagen."
           },
           {
-            "title": "Es wählt",
-            "description": "Vorstandsämter, Satzungsänderungen und Haushaltsbeschlüsse, jeweils mit eigener Mehrheitsregel, auf einem Bildschirm und mit den Unterlagen im Anhang."
+            "title": "Es stimmt ab",
+            "description": "Vorstandsämter, Satzungsänderungen und Haushaltsbeschlüsse, jeweils mit eigener Mehrheitsregel, auf einem Bildschirm und mit den beigefügten Unterlagen."
           },
           {
             "title": "Es kann die eigene Stimme prüfen",
-            "description": "Es behält einen Beleg, den nur es selbst hat, und kann nach Wahlschluss bestätigen, dass seine Stimme im veröffentlichten Ergebnis enthalten ist."
+            "description": "Es behält einen Beleg, den sonst niemand hat, und kann nach Schließung der Wahl bestätigen, dass seine Stimme im veröffentlichten Ergebnis enthalten ist."
           }
         ],
         "steps_media_caption": "Was ein Mitglied auf dem Telefon sieht, von der Einladung bis zum Beleg.",
-        "footnote": "Die meisten Mitglieder sind in unter zwei Minuten fertig, im Browser, den sie ohnehin offen haben. Für den Teil des Verzeichnisses, der wirklich offline ist, läuft die betreute Wahlstelle vor Ort auf demselben Wählerverzeichnis, sodass niemand ausgeschlossen wird und niemand zweimal wählt. In der Praxis ist die Hürde meist eine fehlende Mobilnummer in Ihrer Datenbank und nicht das Mitglied, deshalb prüfen wir die Kontaktabdeckung vor der Öffnung."
+        "footnote": "Die meisten Mitglieder sind in weniger als zwei Minuten fertig, im Browser, den sie ohnehin offen haben. Wenn ein Teil Ihres Verzeichnisses tatsächlich offline ist, läuft die betreute Station auf demselben Mitgliederverzeichnis, also wird niemand ausgeschlossen und niemand wählt zweimal. Das Hindernis ist fast nie das Mitglied: es ist eine fehlende Mobilnummer in Ihrer Datenbank. Deshalb prüfen wir Ihre Kontaktdaten, bevor irgendetwas öffnet."
       },
       "comparison": {
-        "eyebrow": "gegen das, was Sie heute tun",
-        "title": "Verglichen mit Ihrer heutigen Briefwahl oder Präsenzwahl",
-        "intro": "Nicht gegen eine andere Plattform. Gegen das, was Ihr letzter Wahlturnus tatsächlich gekostet hat, und gegen das, was er Ihnen danach in die Hand gegeben hat.",
+        "eyebrow": "gegenüber den Alternativen",
+        "title": "Verglichen mit Papier, und mit den anderen Plattformen",
+        "intro": "Gegenüber dem, was Sie Ihr letzter Wahlturnus tatsächlich gekostet hat, und gegenüber dem, was ein kommerzieller Anbieter Ihnen am Ende aushändigt. Wir nennen niemanden beim Namen: so sieht die Kategorie aus.",
         "criterion_label": "Die Frage",
         "traditional_label": "Brief oder Präsenz",
+        "digital_label": "Ein üblicher Online-Anbieter",
         "vocdoni_label": "Vocdoni",
         "rows": [
           {
-            "criterion": "Wer das Ergebnis prüfen kann",
-            "traditional": "Wer im Auszählungsraum war",
-            "vocdoni": "Alle: Ihr Ausschuss, ein Mitglied, eine Kandidatin, ein Gericht"
+            "criterion": "Wer das Ergebnis überprüfen kann",
+            "traditional": "Die Personen, die im Auszählungsraum waren",
+            "digital": "Der Anbieter, und wem er den Bericht zeigt",
+            "vocdoni": "Jede und jeder: Ihr Ausschuss, ein Mitglied, ein Kandidat, ein Gericht"
+          },
+          {
+            "criterion": "Lässt sich die Auszählung unabhängig wiederholen",
+            "traditional": "Ja, durch erneutes Auszählen der Umschläge, sofern sie noch versiegelt sind",
+            "digital": "Meist nicht. Das Ergebnis ist, was das System meldet",
+            "vocdoni": "Ja. Jede und jeder kann die Auszählung aus dem veröffentlichten Protokoll wiederholen"
+          },
+          {
+            "criterion": "Wer eine Stimme einem Mitglied zuordnen könnte",
+            "traditional": "Niemand, beim Stimmzettel. Der ganze Saal, beim Handzeichen",
+            "digital": "Meist der Anbieter, weil Identität und Stimme in einem System liegen",
+            "vocdoni": "Niemand. Identität und Stimme trennt das System selbst"
           },
           {
             "criterion": "Was der Wahlausschuss während der Wahl sieht",
             "traditional": "Nichts bis zur Auszählung",
+            "digital": "Ein Dashboard, falls Ihr Ausschuss Zugang erhält",
             "vocdoni": "Beteiligung in Echtzeit, ohne Zugriff auf eine Stimme"
+          },
+          {
+            "criterion": "Nachweise bei Anfechtung des Ergebnisses",
+            "traditional": "Das Protokoll und das Wort der Anwesenden",
+            "digital": "Ein Bericht des Anbieters, den Sie ihm glauben müssen",
+            "vocdoni": "Ein reproduzierbarer Nachweis und die Prüfunterlagen am selben Tag"
           },
           {
             "criterion": "Wann ein Fehler im Verzeichnis auffällt",
             "traditional": "Bei der Auszählung, wenn es zu spät ist",
-            "vocdoni": "Vor der Öffnung, geprüft gegen Ihre eigenen Kriterien"
+            "digital": "Wann immer der Anbieter das Verzeichnis prüft",
+            "vocdoni": "Vor der Öffnung, geprüft an Ihren eigenen Kriterien"
           },
           {
-            "criterion": "Nachweise bei einer Anfechtung",
-            "traditional": "Das Protokoll und das Wort der Anwesenden",
-            "vocdoni": "Ein reproduzierbarer Beweis und ein Nachweispaket am selben Tag"
+            "criterion": "Was die Teilnahme ein Mitglied kostet",
+            "traditional": "Anreise von überall in Ihrem Bezirk, ein Vormittag seiner Zeit und was die Fahrt kostet",
+            "digital": "Nichts über das Gerät hinaus, das es ohnehin hat",
+            "vocdoni": "Nichts über das Gerät hinaus, das es ohnehin hat"
           },
           {
             "criterion": "Mitglieder im Ausland oder auswärts tätig",
-            "traditional": "Faktisch ausgeschlossen",
-            "vocdoni": "Wählen von überall, oder an einer betreuten Wahlstelle"
+            "traditional": "Per Brief, wo Sie ihn anbieten, oder per Vollmacht, mit dem Papierkram und den Fristen, die dazugehören",
+            "digital": "Sie wählen von überall",
+            "vocdoni": "Sie wählen von überall, oder an einer betreuten Station, wenn Sie eine anbieten"
           },
           {
             "criterion": "Der nächste Turnus",
-            "traditional": "Aus dem Gedächtnis rekonstruiert",
-            "vocdoni": "Dieselbe Konfiguration, wieder geöffnet"
+            "traditional": "Aus dem Gedächtnis neu gebaut",
+            "digital": "Erneut mit dem Anbieter aufgesetzt",
+            "vocdoni": "Dieselbe Konfiguration, erneut geöffnet"
           }
         ]
       },
       "engagement": {
-        "eyebrow": "wer sie durchführt",
-        "title": "Sie führen sie durch, oder wir tun es mit Ihnen",
-        "intro": "Dieselbe Plattform, dieselben Garantien, dieselben Nachweise am Ende. Die meisten Körperschaften nehmen den betreuten Service für die Satzungswahl und nutzen dasselbe Abonnement das restliche Jahr über selbst.",
+        "eyebrow": "wer es durchführt",
+        "title": "Sie führen es selbst durch, oder wir tun es mit Ihnen",
+        "intro": "Dieselbe Plattform, dieselben Garantien, dieselben Nachweise am Ende. Die meisten Kammern nehmen den betreuten Dienst für die satzungsgemäße Wahl und nutzen dasselbe Abonnement das Jahr über selbst für alles andere.",
         "options": [
           {
             "badge": "Selbstbedienung",
-            "title": "Sie führen sie durch, mit Ihrem eigenen Abonnement",
+            "title": "Sie führen es durch, mit Ihrem eigenen Abonnement",
             "description": "Sie erstellen, konfigurieren, starten und schließen Ihre Abstimmungen, wann immer Sie sie brauchen. Eine Person, ein Nachmittag, kein IT-Team, mit Schulung und einem Supportkanal im Rücken.",
             "points": [
-              "In derselben Woche startklar",
-              "Befragungen, Ausschussabstimmungen und interne Umfragen das ganze Jahr",
-              "Öffentliche Preise, kein Verkaufsgespräch"
+              "In derselben Woche einsatzbereit",
+              "Aus der Ferne oder hybrid, für Befragungen und Ausschussabstimmungen das ganze Jahr",
+              "Öffentliche Preise, ohne Vertriebsgespräch"
             ],
             "cta": "Testwahl einrichten"
           },
           {
             "badge": "betreute Wahlen",
-            "title": "Wir führen sie mit Ihnen durch, von Anfang bis Ende",
-            "description": "Wir lesen Ihre Wahlordnung, konfigurieren das Verfahren, laden und validieren das Verzeichnis, führen einen vollständigen Probelauf mit Testwählenden durch, überwachen den Wahltag und liefern Ergebnisse, Berichte und das Nachweispaket. Sie genehmigen, wir betreiben.",
+            "title": "Wir führen es mit Ihnen durch, von Anfang bis Ende",
+            "description": "Wir lesen Ihre Wahlordnung, konfigurieren das Verfahren, laden und prüfen das Verzeichnis, führen einen vollständigen Probelauf mit Testwählenden durch, begleiten den Wahltag und liefern die Ergebnisse, die Berichte und das Nachweispaket. Sie genehmigen, wir betreiben.",
             "points": [
-              "Eine namentlich benannte Ansprechperson über den gesamten Wahlzeitraum",
+              "Eine namentlich benannte Ansprechperson während des gesamten Wahlzeitraums",
               "Ein vollständiger Probelauf vor der echten Wahl",
-              "Was die App allein nicht leistet, können wir trotzdem für Sie umsetzen"
+              "Wenn Ihre Ordnung etwas Ungewöhnliches verlangt, übernehmen wir das selbst"
             ],
             "cta": "Mit einer Wahlexpertin sprechen"
           }
         ],
-        "recommendation": {
-          "title": "Was wir Ihnen raten würden",
-          "description": "Für eine Vorstandswahl unter einem Wahlausschuss nehmen Sie den betreuten Service. Ein Satzungsverfahren ist nicht der Ort, an dem eine Kammer ein Konfigurationsdetail entdecken möchte. Testen Sie die App trotzdem vorher kostenlos, damit Sie genau wissen, was Sie kaufen, und behalten Sie dasselbe Abonnement für interne Befragungen und Ausschussabstimmungen."
-        },
         "pricing": {
           "title": "Was es kostet",
-          "description": "Es gibt einen kostenlosen Tarif ohne Zeitlimit und ohne Karte, und bezahlte Tarife richten sich nach der Mitgliederzahl. Die Preise sind öffentlich, Sie können Ihrem Vorstand also eine Zahl vorlegen, ohne vorher ein Gespräch zu buchen. Betreute Wahlen werden pro Verfahren kalkuliert, nach Größe des Verzeichnisses und Komplexität.",
-          "link_label": "die Tarife ansehen"
+          "description": "Es gibt einen kostenlosen Tarif ohne Zeitbegrenzung und ohne Karte, und die kostenpflichtigen Tarife richten sich nach der Zahl der Mitglieder. Diese Preise sind veröffentlicht, Sie sehen also ohne Terminvereinbarung, wo es beginnt. Betreute Wahlen, Anpassungen und alles Weitere, das Sie zusätzlich brauchen, werden je Wahl angeboten, nach Größe Ihres Verzeichnisses und Umfang des Verfahrens.",
+          "link_label": "Sehen, wo die Preise beginnen"
         }
       },
       "faq": {
-        "eyebrow": "die unbequemen Fragen",
-        "title": "Was Kammern uns fragen, bevor sie sich entscheiden",
-        "intro": "Die Fragen, die Ihr Vorstand stellen wird, hier beantwortet, damit Sie die Antwort haben, bevor man sie von Ihnen verlangt.",
+        "eyebrow": "die harten Fragen",
+        "title": "Was Berufskammern uns fragen, bevor sie sich festlegen",
+        "intro": "Die Fragen, die Ihr Vorstand stellen wird, hier beantwortet, damit Sie die Antwort schon vorher haben.",
         "items": [
           {
-            "question": "Unsere Satzung erwähnt elektronische Wahlen nicht. Dürfen wir das trotzdem?",
-            "answer": "Meistens ja, aber prüfen Sie den Wortlaut, bevor Sie sich festlegen. Viele Satzungen beschreiben die Garantien, die eine Wahl bieten muss, und nicht das Medium, mit dem sie durchgeführt wird, womit die elektronische Wahl offensteht. Andere verlangen eine ausdrückliche Änderung oder einen Vorstandsbeschluss. Schicken Sie uns Ihren Text, und wir sagen Ihnen, welcher der beiden Fälle vorliegt, auch dann, wenn die Antwort lautet, dass Sie zuerst eine Satzungsänderung brauchen. Uns ist lieber, das jetzt zu sagen, als ein Verfahren durchzuführen, das am Ende für ungültig erklärt wird."
+            "question": "Unsere Satzung erwähnt elektronische Wahlen nicht. Können wir das trotzdem tun?",
+            "answer": "Meistens ja, prüfen Sie aber den Wortlaut, bevor Sie sich festlegen. Viele Satzungen beschreiben die Garantien, die eine Wahl bieten muss, und nicht das Medium, das sie nutzt, womit die elektronische Wahl offensteht. Andere verlangen eine ausdrückliche Änderung oder einen Vorstandsbeschluss. Schicken Sie uns Ihren Text, und wir sagen Ihnen, welcher der beiden Fälle vorliegt, auch dann, wenn die Antwort lautet, dass Sie zuerst eine Satzungsänderung brauchen. Das sagen wir lieber jetzt, als ein Verfahren durchzuführen, das später für ungültig erklärt wird."
           },
           {
             "question": "Einige unserer Mitglieder sind über siebzig und nutzen keine Apps.",
-            "answer": "Es gibt keine App. Es ist eine Webseite auf jedem Gerät, mit einem Supportkanal, der über den gesamten Wahlzeitraum besetzt ist. Wo ein Teil des Verzeichnisses tatsächlich offline ist, richten wir eine betreute Wahlstelle vor Ort ein, die auf demselben Wählerverzeichnis läuft. Diese Mitglieder wählen dort mit Unterstützung, und doppelte Stimmabgabe bleibt ausgeschlossen."
+            "answer": "Es gibt keine App zu installieren. Es ist eine Webseite auf jedem Gerät, mit einer Supportleitung, die während des gesamten Wahlzeitraums besetzt ist. Wenn ein Teil Ihres Verzeichnisses tatsächlich offline ist, können Sie die Wahl hybrid durchführen: Wir richten in Ihrer Geschäftsstelle eine betreute Wahlstation auf demselben Mitgliederverzeichnis ein, sodass diese Mitglieder mit Hilfe abstimmen und trotzdem niemand zweimal wählt."
           },
           {
-            "question": "Wer haftet wofür?",
-            "answer": "Wir stehen für die Plattform ein, für die technische Konfiguration, für Integrität und Prüfbarkeit jeder abgegebenen Stimme, für die Überwachung während des Wahlzeitraums sowie für Auszählung, Berichte und Nachweise bei Wahlschluss. Sie stehen ein für die Richtigkeit des Wählerverzeichnisses zum satzungsmäßigen Stichtag, für die Wahlberechtigung und für die verfahrensrechtlichen Entscheidungen, die Ihrem Wahlausschuss zustehen. Kein Anbieter kann diese Entscheidungen für Sie treffen, und bei einem, der es anbietet, sollten Sie skeptisch werden."
+            "question": "Wer ist wofür verantwortlich?",
+            "answer": "Wir verantworten die Plattform, die technische Konfiguration, die Integrität und Überprüfbarkeit jeder abgegebenen Stimme, die Begleitung während des Wahlzeitraums sowie Auszählung, Berichte und Nachweise bei Schließung. Sie verantworten die Richtigkeit des Mitgliederverzeichnisses zum satzungsgemäßen Stichtag, die Wahlberechtigung und die Verfahrensentscheidungen, die Ihrem Wahlausschuss zustehen. Kein Anbieter kann diese Entscheidungen für Sie treffen, und bei einem, der es anbietet, ist Vorsicht geboten."
           },
           {
-            "question": "Wie viel Vorlauf brauchen wir vor dem Wahltag?",
-            "answer": "Eine einfache Abstimmung kann in derselben Woche laufen. Eine vollständige Satzungswahl mit betreutem Service wird üblicherweise vier bis sechs Wochen im Voraus geplant, vor allem um Raum für die Genehmigung durch den Wahlausschuss, den Probelauf und die Kommunikation an die Mitglieder zu lassen, und nicht weil die Konfiguration so lange dauert."
+            "question": "Wie viel Zeit brauchen wir vor dem Wahltag?",
+            "answer": "Eine einfache Abstimmung kann in derselben Woche laufen. Eine vollständige satzungsgemäße Wahl mit betreutem Dienst wird üblicherweise vier bis sechs Wochen im Voraus geplant, vor allem um Raum für die Genehmigung des Wahlausschusses, den Probelauf und die Information der Mitglieder zu lassen, und nicht, weil die Konfiguration so lange dauert."
           },
           {
-            "question": "Wo liegen unsere Mitgliederdaten?",
-            "answer": "In der EU, unter einem unterzeichneten Auftragsverarbeitungsvertrag, ausschließlich zur Durchführung Ihrer Wahl genutzt und nach dem von Ihnen festgelegten Zeitplan gelöscht. Das Verzeichnis wird auf eine Kennung und einen Kontaktkanal reduziert. Die Mitgliedschaft in einer Berufskammer zusammen mit dem Wahlverhalten ist genau die Kombination, die das Datenschutzrecht als sensibel behandelt, und so wird sie auch behandelt."
+            "question": "Wo liegen die Daten unserer Mitglieder?",
+            "answer": "In der EU, unter einem unterzeichneten Auftragsverarbeitungsvertrag, ausschließlich zur Durchführung Ihrer Wahl genutzt und nach dem von Ihnen festgelegten Zeitplan gelöscht. Das Verzeichnis wird auf eine Kennung plus einen Kontaktkanal reduziert. Wer in Ihrem Mitgliederverzeichnis steht und ob diese Person gewählt hat, ist eine sensible Information. Wir behandeln sie entsprechend."
           },
           {
-            "question": "Wurde jemals ein Ergebnis von Vocdoni aufgehoben?",
-            "answer": "Nach unserem Kenntnisstand nicht. Wir führen seit 2018 Wahlen im Produktivbetrieb durch, und kein auf der Plattform durchgeführtes Ergebnis wurde in seiner Integrität erfolgreich angefochten. Uns wäre lieber, Sie glauben uns das nicht einfach: der Grund, es zu glauben, ist, dass jedes Ergebnis in einem öffentlichen Register landet, das Sie selbst prüfen können."
+            "question": "Wurde ein mit Vocdoni durchgeführtes Ergebnis jemals angefochten?",
+            "answer": "Nein. Kein von Vocdoni organisiertes Abstimmungsverfahren ist angefochten worden. Mehrere wurden geprüft und kontrolliert, von der Organisation selbst und von Dritten, und jedes Mal war alles in Ordnung. Auch das sollen Sie uns nicht einfach glauben: Jede Wahl endet mit den Unterlagen, mit denen eine andere Person die Auszählung selbst nachprüfen kann."
           },
           {
-            "question": "Können wir die Ergebnisse bis zum Wahlschluss verborgen halten?",
-            "answer": "Ja. Im verschlüsselten Modus sieht niemand ein Ergebnis, solange die Wahl geöffnet ist, wir eingeschlossen, und die Auszählung wird bei Wahlschluss automatisch veröffentlicht. Die Alternative ist eine laufende Live-Auszählung, die zu einer internen Befragung passt, aber selten zu einer Vorstandswahl."
+            "question": "Können wir die Ergebnisse bis zur Schließung der Wahl verborgen halten?",
+            "answer": "Ja. Im verschlüsselten Modus sieht niemand ein Ergebnis, solange die Wahl geöffnet ist, wir eingeschlossen, und die Auszählung wird bei Schließung automatisch veröffentlicht. Die Alternative ist eine laufende Auszählung in Echtzeit, die zu einer internen Befragung passt, aber selten zu einer Vorstandswahl."
           },
           {
             "question": "Das wirkt teuer für das, was es ist.",
-            "answer": "Vergleichen Sie es mit einem einzigen angefochtenen Verfahren, nicht mit einer Lizenz. Eine einzige Anfechtung bedeutet externe Anwaltschaft, ein unter Druck tagendes Gremium, Monate eines infrage stehenden Mandats und oft die Wiederholung der gesamten Wahl, beim zweiten Mal unter öffentlicher Beobachtung und mit geringerer Beteiligung. Vergleichen Sie die Lizenz dann mit dem, was Sie das Verfahren heute schon kostet: Druck, Porto, Saal, Personalstunden und eine Auszählung, die über Mitternacht hinausgeht."
+            "answer": "Vergleichen Sie es mit einem einzigen angefochtenen Verfahren, nicht mit einer Lizenz. Eine einzige Anfechtung bedeutet externe Rechtsberatung, ein unter Druck tagendes Organ, Monate infrage stehender Amtszeit und oft die Wiederholung der gesamten Wahl, beim zweiten Mal unter öffentlicher Beobachtung und mit geringerer Beteiligung. Vergleichen Sie die Lizenz dann mit dem, was Sie das Verfahren heute schon kostet: Druck, Porto, der Saal, Personalstunden und eine Auszählung, die über Mitternacht hinausgeht."
+          },
+          {
+            "question": "Wer prüft das eigentlich?",
+            "answer": "In der Praxis Ihre Prüferin, ein technisch versiertes Mitglied oder die Beraterin desjenigen, der das Ergebnis bestreitet. Die Akte, die wir Ihnen bei Schließung übergeben, enthält alle Unterlagen und alle Zahlen, die die Prüfung braucht, dazu eine Schritt-für-Schritt-Anleitung zur Wiederholung der Auszählung. Nichts davon braucht unsere Hilfe, unsere Erlaubnis oder unsere weitere Beteiligung. Ihr Wahlausschuss muss die Prüfung nicht selbst durchführen: Er muss auf jemanden verweisen können, der es kann."
           }
         ]
       },
       "closing": {
         "title": "Bringen Sie uns Ihre Wahlordnung",
-        "description": "Das nützlichste erste Gespräch ist keine Demo. Schicken Sie uns Ihre Wahlordnung, und wir sagen Ihnen, was so konfigurierbar ist, wie es dasteht, wofür es einen Beschluss des Wahlausschusses braucht und was eine Satzungsänderung erfordern würde. Wenn die Antwort lautet, dass Sie diese Wahl noch nicht digital durchführen sollten, sagen wir das.",
+        "description": "Das nützlichste erste Gespräch ist keine Demo. Schicken Sie uns Ihre Wahlordnung, und wir sagen Ihnen, was sich so konfigurieren lässt, wie es dort steht, was eine Entscheidung des Wahlausschusses braucht und was eine Satzungsänderung erfordern würde. Wenn die Antwort lautet, dass Sie diese Wahl noch nicht online bringen sollten, sagen wir das.",
         "cta_primary": "Testwahl einrichten",
         "cta_secondary": "Mit einer Wahlexpertin sprechen",
-        "note": "Kostenloses Konto, ohne Karte. Kein Verkaufsgespräch, nur Antworten."
+        "note": "Kostenloses Konto, ohne Kreditkarte. Kein Verkaufsgespräch, nur Antworten."
       },
       "resources": {
         "eyebrow": "bevor Sie entscheiden",
-        "title": "Lesen Sie das zuerst",
-        "intro": "Leitfäden, Erklärungen und Fallstudien, die genau die Frage beantworten, die Sie sich als Nächstes stellen werden.",
+        "title": "Lesen Sie zuerst das hier",
+        "intro": "Leitfäden, Erklärungen und Fallstudien, die genau die Frage beantworten, die Sie vermutlich gleich stellen.",
         "items": [
           {
             "kind": "Fallstudie",
-            "title": "Wie COIB seine Mitgliederversammlung 2025 online durchführte",
-            "description": "Eine Pflegekammer, Zwei-Faktor-Identifikation, hybrider Zugang und wegfallende Reisekosten."
+            "title": "Wie das COIB seine Mitgliederversammlung 2025 online durchführte",
+            "description": "Eine Pflegekammer, ein Einmalcode bei jeder Stimmabgabe, Mitglieder, die von zu Hause oder aus dem Saal wählten, und keine Reisekosten mehr."
           },
           {
             "kind": "Leitfaden",
-            "title": "So führen Sie eine rechtsgültige Mitgliederversammlung online durch",
+            "title": "Wie Sie eine rechtsgültige Mitgliederversammlung online durchführen",
             "description": "Eine praktische Checkliste für eine digitale oder hybride Mitgliederversammlung."
           },
           {
@@ -1896,17 +1921,119 @@
           {
             "kind": "Leitfaden",
             "title": "Was Beschlussfähigkeit bei einer Onlinewahl bedeutet",
-            "description": "Wie das Quorum berechnet und verfolgt wird, wenn Mitglieder aus der Ferne wählen."
+            "description": "Wie die Beschlussfähigkeit berechnet und verfolgt wird, wenn Mitglieder aus der Ferne abstimmen."
           },
           {
             "kind": "Erklärung",
-            "title": "Nachprüfbares Wählen, erklärt",
-            "description": "Warum jede Person ein Ergebnis prüfen kann, ohne der Plattform vertrauen zu müssen."
+            "title": "Überprüfbares Wählen, erklärt",
+            "description": "Warum jede und jeder ein Ergebnis prüfen kann, ohne der Plattform vertrauen zu müssen."
           },
           {
             "kind": "Leitfaden",
-            "title": "So verhindern Sie Wahlbetrug bei Onlinewahlen",
-            "description": "Die tatsächlichen Risiken einer Fernwahl und die Schutzmaßnahmen, die darauf antworten."
+            "title": "Wie Sie Wahlbetrug online verhindern",
+            "description": "Die tatsächlichen Risiken einer Fernwahl, und die Schutzmaßnahmen, die ihnen begegnen."
+          }
+        ]
+      },
+      "timeline": {
+        "eyebrow": "der Countdown",
+        "title": "Was zwischen heute und dem Wahltag passiert",
+        "intro": "Eine satzungsgemäße Wahl wird rückwärts von einem Datum geplant, das Sie nicht bestimmen. So sieht das aus.",
+        "steps": [
+          {
+            "when": "6 Wochen vorher",
+            "title": "Wir lesen Ihre Ordnung",
+            "description": "Sie schicken uns Ihre Satzung und Ihre Wahlordnung. Wir melden zurück, was wir so durchführen können, wie Ihre Regeln stehen, und was eine Entscheidung von Ihnen braucht.",
+            "owner": "Sie und wir"
+          },
+          {
+            "when": "4 Wochen vorher",
+            "title": "Der Wahlausschuss genehmigt",
+            "description": "Wählbarkeit, Stichtag, Beschlussfähigkeit, Mehrheitsregeln und Wahlzeitraum werden schriftlich festgehalten und freigegeben, bevor irgendetwas gebaut wird.",
+            "owner": "Ihr Wahlausschuss"
+          },
+          {
+            "when": "3 Wochen vorher",
+            "title": "Das Verzeichnis wird geladen und geprüft",
+            "description": "Ihre Mitgliederdatenbank wird zum Mitgliederverzeichnis, geprüft an Ihren eigenen Kriterien. Hier fallen fehlende Mobilnummern auf, solange noch Zeit ist.",
+            "owner": "Wir"
+          },
+          {
+            "when": "2 Wochen vorher",
+            "title": "Ein vollständiger Probelauf",
+            "description": "Die echte Konfiguration mit Testwählenden. Ihr Wahlausschuss geht das Verfahren durch und Ihre Mitarbeitenden üben an der Konsole, bevor ein einziges Mitglied eingeladen wird.",
+            "owner": "Beide Teams"
+          },
+          {
+            "when": "Wahltag",
+            "title": "Öffnen, begleiten, schließen",
+            "description": "Beteiligung in Echtzeit für den Wahlausschuss, eine Supportleitung für die Mitglieder und die Auszählung, veröffentlicht mit Schließung des Zeitfensters. Die Unterlagen und die Bescheinigung folgen am selben Tag.",
+            "owner": "Wir, in Rufbereitschaft"
+          }
+        ],
+        "footnote": "Eine einfache interne Abstimmung kann in derselben Woche laufen. Dieser Zeitplan gilt für eine satzungsgemäße Wahl unter einem Wahlausschuss, und der größte Teil davon sind Ihre Freigaben, nicht unsere Konfiguration."
+      },
+      "sizes": {
+        "eyebrow": "welche Größe Sie auch haben",
+        "title": "Von einigen hundert Mitgliedern bis zu einigen zehntausend",
+        "intro": "Die Plattform ist bei jeder Größe dieselbe. Was sich ändert, ist, wie viel davon Sie brauchen und wie viel wir gemeinsam mit Ihnen tun.",
+        "tiers": [
+          {
+            "size": "Bis etwa 1.000",
+            "title": "Ein lokaler Verband, der es an einem Nachmittag erledigt",
+            "description": "Sie brauchen kein Projekt. Eine Person legt die Abstimmung an, lädt das Verzeichnis hoch und verschickt den Link, im kostenlosen Tarif oder mit einem kleinen Abonnement.",
+            "points": [
+              "In derselben Woche einsatzbereit",
+              "Alle Abstimmungsverfahren, gewichtetes Wählen und Delegation eingeschlossen",
+              "Kostenlos zum Start, und kostenlos auf Dauer, wenn Sie klein genug sind"
+            ]
+          },
+          {
+            "size": "Einige tausend",
+            "title": "Eine regionale Kammer mit satzungsgemäßer Wahl",
+            "description": "Die Gestalt, die die meisten Berufsverbände haben. Selbstbedienung oder betreut, je nachdem, was Sie brauchen: wie viel Sie anpassen wollen, welche Zusatzleistungen Sie möchten oder schlicht, welche Teile Sie lieber an uns abgeben.",
+            "points": [
+              "Verzeichnis aus Ihrer Mitgliederdatenbank importiert",
+              "Vollständiger Probelauf vor der satzungsgemäßen Wahl",
+              "Abonnement nach Mitgliederzahl, betreute Arbeit zusätzlich angeboten"
+            ]
+          },
+          {
+            "size": "Zehntausende",
+            "title": "Eine Bundeskammer mit Sektionen und Delegierten",
+            "description": "Die Plattform ist dieselbe, die auch die kleineren Kammern nutzen. Was sich in dieser Größe ändert, ist, wie viel wir übernehmen sollen: Anpassungen, die Durchführung des Verfahrens für Sie und Personen vor Ort am Wahltag.",
+            "points": [
+              "Anpassungen, so weit Ihre Ordnung es verlangt",
+              "Verzeichnis per API synchronisiert statt hochgeladen",
+              "Von Anfang bis Ende betreut, mit unserem Team am Wahltag vor Ort"
+            ]
+          }
+        ]
+      },
+      "board": {
+        "eyebrow": "für die Menschen, die Sie überzeugen müssen",
+        "title": "Die Teile, die sich zu weiterleiten lohnen",
+        "intro": "Sie entscheiden das nicht allein. Jede dieser Antworten richtet sich an eine Person im Raum, und jede hat ihren eigenen Link, den Sie ihr schicken können.",
+        "links": [
+          {
+            "label": "Für Ihre Juristin",
+            "description": "Was die Wahl regelt, und was wir zu jeder Anforderung liefern.",
+            "anchor": "legal-validity"
+          },
+          {
+            "label": "Für Ihren Wahlausschuss",
+            "description": "Was er am Wahltag sehen kann, und woran er bei Schließung beurkundet.",
+            "anchor": "proof"
+          },
+          {
+            "label": "Für Ihre Schatzmeisterin",
+            "description": "Was es kostet, und worin sich die beiden Arten der Zusammenarbeit unterscheiden.",
+            "anchor": "engagement"
+          },
+          {
+            "label": "Für die Skeptikerin im Vorstand",
+            "description": "Wie sich das mit dem Verfahren vergleicht, das Sie heute durchführen, Zeile für Zeile.",
+            "anchor": "comparison"
           }
         ]
       }

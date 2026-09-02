@@ -46,12 +46,6 @@ export function VerticalStakes({ stakes, pageId, quote }: VerticalStakesProps) {
           ))}
         </ul>
 
-        {/* Locales not yet propagated still answer in one closing paragraph
-            rather than per card. Keep rendering it until they catch up. */}
-        {stakes?.turn && (
-          <p className='mx-auto mt-10 max-w-3xl text-center text-lg text-pretty sm:text-xl'>{stakes.turn}</p>
-        )}
-
         <VerticalQuote testimonial={quote} />
       </Container>
     </VerticalSection>

@@ -14,8 +14,8 @@ import type { Locale } from '@/locales'
  * is the code half, which was hardcoded in the page.
  *
  * Organizations are named by their `platformName` in `lib/testimonials-data.ts`
- * and their logo key in `VERTICAL_LOGOS`, so a market override is a list of
- * names rather than a set of imports.
+ * and their key in the page's own `ORGANIZATIONS` map, so a market override is a
+ * list of names rather than a set of imports.
  */
 export interface VerticalProofConfig {
   /** Logo order in the trust band. The first is the market's anchor. */
