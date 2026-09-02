@@ -72,7 +72,9 @@ before you provision more.
 > do not count. Some plans also restrict which [voting types](/developers/docs/voting-types) you may
 > use; a disallowed type is rejected when you publish. The gate applies however the question is
 > authored - a raw `ballotProtocol` describing a ranked or cumulative ballot needs the same plan
-> entitlement as the named type.
+> entitlement as the named type. The same gating covers an
+> [anonymous census](/developers/docs/census#anonymous-voting): publishing with `anonymous: true`
+> needs the plan's `anonymous` feature.
 
 ## Tiers
 

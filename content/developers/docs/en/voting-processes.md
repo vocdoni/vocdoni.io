@@ -229,7 +229,14 @@ until [ "$(curl -s "$B/jobs/$PJOB" | jq -r .status)" = "completed" ]; do sleep 2
 On success each question gains its `upstreamId` and a `status` of `READY`, and the process flips to
 `published: true`. Re-read the process to get the `upstreamId`s that voters sign against.
 
-## Growing a published census
+## Managing a published census
+
+Publishing does not freeze the census. You can still grow the process census with new members, and
+replace a question's [eligibility subset](/developers/docs/census#per-question-eligibility) - even
+while voting is ongoing. Changes to the memberbase itself also cascade into live censuses - see
+[Kept in sync with the memberbase](/developers/docs/census#kept-in-sync-with-the-memberbase).
+
+### Growing the census
 
 After publishing you can add more members to the census - `PUT /processes/{processId}/census` adds
 existing organization members and raises each affected election's `maxCensusSize` so they can vote.
@@ -246,6 +253,39 @@ curl "${auth[@]}" -X PUT "$B/processes/$PROCESS/census" -d '{"memberIds":["<id1>
 ```jsonc
 { "added": 2, "errors": [], "jobId": "e5f6a7..." }   // poll /jobs/{jobId} for the resize
 ```
+
+### Changing a question's eligibility
+
+Replace the set of members eligible to vote one question - on a draft or a **published** process,
+even mid-vote. The body is the **complete desired list, not a delta**, so the request is idempotent:
+resend the whole list to change it. Every id must already be a participant of the process census
+(grow the census first if not); input order is preserved and duplicates are dropped. Requires a
+manager/admin of the org, or a `voting:write` API key.
+
+- **PUT** `/processes/{processId}/questions/{questionId}/census`
+
+```bash
+curl "${auth[@]}" -X PUT "$B/processes/$PROCESS/questions/$QID/census" \
+  -d '{"memberIds":["<id1>","<id2>"]}'
+```
+
+```jsonc
+{ "eligible": 2 }        // 200 - updated, no on-chain resize needed
+{ "eligible": 9, "jobId": "f6a7b8..." }   // 202 - resize enqueued, poll /jobs/{jobId}
+```
+
+> [!NOTE] An empty list means "no restriction", not "nobody"
+> Sending `{"memberIds": []}` **reopens the question to every member of the process census**. A
+> response of `eligible: 0` therefore means the question is open to everyone.
+
+Because reopening a restricted question can multiply its electorate beyond what its election was
+sized for on chain, a `maxCensusSize` increase is enqueued as an async [job](/developers/docs/jobs)
+whenever the question needs more room than it was published with - the `202` case above.
+
+Removing a member the CSP has **already signed for**, while a question of the process is still
+`READY` or `PAUSED`, is refused with `409` and the offending ids in `data.signedMemberIds` - the
+same protection that guards [memberbase removals](/developers/docs/census#kept-in-sync-with-the-memberbase).
+A `409` is also returned while a publish is in progress or when the list changed concurrently.
 
 ## Changing status
 

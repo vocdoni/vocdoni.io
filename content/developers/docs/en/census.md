@@ -16,6 +16,7 @@ never sent or returned.
 ```jsonc
 {
   "weighted": false,          // when true, each member's weight counts as vote weight
+  "anonymous": false,         // when true, the CSP blind-signs ballots it cannot link to voters
   "authFields": ["memberNumber"],
   "twoFaFields": [],          // e.g. ["email"] for an email OTP second factor
   "groupId": "",              // populate from a group's members...
@@ -28,6 +29,7 @@ never sent or returned.
 | `authFields` | string[] | Optional. Identity fields a voter must present (e.g. `memberNumber`). |
 | `twoFaFields` | string[] | Optional. Channels for a one-time-code second factor: `email` or `phone`. |
 | `weighted` | boolean | Count each member's `weight` as their vote weight. |
+| `anonymous` | boolean | Blind the CSP signatures so authorizations cannot be linked to ballots - see [Anonymous voting](#anonymous-voting). |
 | `groupId` | string | Populate the census from a [group's](/developers/docs/members-and-groups) members. |
 | `memberIds` | string[] | Populate the census from an explicit list of member ids. |
 
@@ -70,6 +72,33 @@ combined with any of them:
 > [!NOTE] Weighted voting
 > Set `"weighted": true` to make each member's `weight` count as their vote weight - use it for
 > shareholder meetings or any vote where members do not count equally.
+
+## Anonymous voting
+
+Set `"anonymous": true` on the census to make the process **unlinkable**: the credential service
+(CSP) signs each ballot **blind** - it signs a message it cannot read - so it cannot correlate the
+authorization it granted with the envelope that lands on chain. Nobody, including the CSP, can tell
+who cast which vote; double-vote protection keys on the voter's auth token instead of an address.
+
+The flag is orthogonal to everything else in the census: combine it with any `authFields`, any 2FA
+channel, and with `weighted` (the authorized weight is cryptographically bound into the signature,
+so a voter cannot claim a different one).
+
+> [!NOTE] A blind signature, not zero-knowledge
+> This is **not** zk voting: the on-chain envelope type stays non-anonymous, and anonymity comes
+> from the blind signature rather than a zero-knowledge membership proof. Anyone can still verify
+> that every ballot was authorized by the CSP - just not for whom.
+
+Under the hood, an anonymous process publishes with the CSP's **blind public key** as its census
+root, and ballots carry blind-signature proofs. Voter authentication is unchanged; only the signing
+step differs - a two-round blind exchange instead of a plain sign. See
+[Anonymous voting with blind signatures](/developers/docs/casting-votes#anonymous-voting-with-blind-signatures)
+for the voter flow.
+
+One consequence to plan for: the CSP never learns the voter's address or nullifier, so
+[`sign-info`](/developers/docs/casting-votes#voter-status) cannot return them - a vote receipt exists
+only in the session that cast it. Anonymous voting is gated by your plan's `anonymous` feature - see
+[Quotas and subscriptions](/developers/docs/quotas-and-subscriptions).
 
 ## Per-question eligibility
 
@@ -131,6 +160,6 @@ processes:
   stops signing for them. If the CSP has **already signed** for the member on a question that is
   still `READY` or `PAUSED`, the removal is **refused** with a `409` (error code `40173`) and the
   offending ids in `data.signedMemberIds` - once voting closes it succeeds.
-- The census can also be edited directly on the process - adding members, removing them, or
-  replacing a question's eligibility list - see
+- The census can also be edited directly on the process - adding members, or replacing a
+  question's eligibility list - see
   [Managing a published census](/developers/docs/voting-processes#managing-a-published-census).
