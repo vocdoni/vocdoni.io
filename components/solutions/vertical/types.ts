@@ -14,7 +14,7 @@ export type VerticalItem = { title: string; description: string }
  * the folder they hand to a challenger, not reading a summary of the law.
  */
 /** A problem the buyer already has, paired with what changes about it. */
-export type VerticalStake = { title: string; description: string; answer: string }
+export type VerticalStake = { title: string; description: string; answer?: string }
 
 export type VerticalFramework = { name: string; summary: string; response: string[] }
 
@@ -23,8 +23,9 @@ export type VerticalFaqItem = { question: string; answer: string }
 export type VerticalComparisonRow = {
   criterion: string
   traditional: string
-  /** What a typical commercial online voting provider gives you. */
-  digital: string
+  /** What a typical commercial online voting provider gives you. Optional: a
+   *  vertical without this copy falls back to the two-column comparison. */
+  digital?: string
   vocdoni: string
 }
 
@@ -118,7 +119,8 @@ export interface VerticalContent {
     intro: string
     criterion_label: string
     traditional_label: string
-    digital_label: string
+    /** Absent for a vertical with no provider column; see `digital` above. */
+    digital_label?: string
     vocdoni_label: string
     rows: VerticalComparisonRow[]
   }

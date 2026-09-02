@@ -8,6 +8,7 @@ import { VerticalCtaPair } from '@/components/solutions/vertical/VerticalCtaPair
 import { VerticalSection } from '@/components/solutions/vertical/VerticalSection'
 import { asArray, type VerticalContent, type VerticalStat } from '@/components/solutions/vertical/types'
 import type { Testimonial } from '@/lib/testimonials-data'
+import { cn } from '@/lib/utils'
 
 interface VerticalProofProps {
   proof: VerticalContent['proof']
@@ -33,8 +34,15 @@ export function VerticalProof({ proof, pageId, caseStudy, quote, appHref, ctaId,
         <SectionHeader size='section' align='left' eyebrow={proof?.eyebrow} title={proof?.title} lede={proof?.intro} />
 
         {/* Two columns on desktop: the case study imagery is portrait, so it is
-            contained in its own column rather than cropped into a banner. */}
-        <div className='bg-background rounded-card mt-12 grid overflow-hidden border shadow-sm sm:mt-16 lg:grid-cols-[2fr_3fr]'>
+            contained in its own column rather than cropped into a banner. The
+            second column is only reserved when there is an image to put in it —
+            a case study without one would otherwise leave 3fr of empty row. */}
+        <div
+          className={cn(
+            'bg-background rounded-card mt-12 grid overflow-hidden border shadow-sm sm:mt-16',
+            caseStudy.image && 'lg:grid-cols-[2fr_3fr]'
+          )}
+        >
           {caseStudy.image && (
             <div className='bg-muted/40 flex p-4 sm:p-6'>
               <img

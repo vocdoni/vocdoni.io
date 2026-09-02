@@ -46,18 +46,36 @@ function resolveHttpDestination(destinationUrl: string): URL | null {
   }
 }
 
+/**
+ * The vertical tag we hand the app on a signup link. It is the only query
+ * parameter carried into the event: the rest of the query string is dropped on
+ * purpose, since a destination can contain user-entered content, but this value
+ * is one we set ourselves in the href.
+ *
+ * It matters because it is the join key. A click recorded here and a signup
+ * recorded in the app are two events in two properties on two hosts; `type` is
+ * what says they are the same funnel.
+ */
+function readSignupType(destination: URL): string | null {
+  const type = destination.searchParams.get('type')
+  if (!type || type.length > 64 || !/^[a-z0-9-]+$/.test(type)) return null
+  return type
+}
+
 export function trackAppCtaClick({ ctaId, destinationUrl }: AppCtaClick): void {
   if (typeof window === 'undefined') return
 
   const destination = resolveHttpDestination(destinationUrl)
   if (!destination) return
 
+  const signupType = readSignupType(destination)
   const analyticsWindow = window as AnalyticsWindow
   const properties = {
     cta_id: ctaId,
     source_path: window.location.pathname,
     destination_host: destination.hostname,
     destination_path: destination.pathname,
+    ...(signupType ? { signup_type: signupType } : {}),
   }
 
   capturePostHogEvent('app_cta_click', properties)
