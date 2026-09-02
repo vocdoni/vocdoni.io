@@ -97,6 +97,13 @@ export function VerticalLegal({ legal, pageId, appHref, ctaId }: VerticalLegalPr
           </div>
         </VerticalPanel>
 
+        {/* This section names statutes and article numbers, so it says once, and
+            quietly, which part of the reading is ours and which is their
+            lawyer's. Optional: verticals without a legal block skip it. */}
+        {legal?.counsel_note && (
+          <p className='text-muted-foreground mt-6 max-w-3xl text-sm leading-relaxed'>{legal.counsel_note}</p>
+        )}
+
         {/* The highest-intent ask on the page gets a real button, not a grey link. */}
         <VerticalCtaPair
           className='mt-10'
