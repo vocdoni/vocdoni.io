@@ -890,120 +890,484 @@
   },
   "solutions": {
     "associations": {
-      "challenge": {
-        "intro": "For an association, every election or statutory vote is a test of legitimacy. Low turnout, contested results or a leaked ballot can damage trust for years.",
-        "title": "Why member votes are hard to get right"
-      },
-      "cta_primary": "Start free",
-      "cta_secondary": "Talk to our team",
-      "eyebrow": "For associations & federations",
-      "faq": {
-        "items": [
-          {
-            "answer": "Yes. When your statutes allow remote or electronic voting (or do not prohibit it), a Vocdoni election is legally valid. We provide a complete audit trail and verifiable evidence so the result is defensible if it is ever challenged. Many associations update their bylaws to explicitly allow digital voting.",
-            "question": "Is online voting legally valid for our association?"
-          },
-          {
-            "answer": "Yes, and this is the core of what Vocdoni does. Zero-knowledge cryptography separates a member's identity from their ballot, so no one - not your board, not Vocdoni - can link a vote to a person. At the same time, anyone can verify that all valid votes were counted correctly.",
-            "question": "Can we keep ballots secret and still verify the result?"
-          },
-          {
-            "answer": "From a handful to hundreds of thousands. You can run a free vote for up to 100 members, and paid plans scale to very large federations without performance issues.",
-            "question": "How many members can vote?"
-          },
-          {
-            "answer": "The voter experience is designed to be as simple as possible and works on any device with no installation. We follow WCAG accessibility guidelines, and for members who cannot vote online you can combine digital and in-person voting.",
-            "question": "What if a member is not comfortable with technology?"
-          },
-          {
-            "answer": "Results are tallied automatically the instant the voting window closes. There is no manual counting, so you get accurate, verifiable results in seconds rather than hours or days.",
-            "question": "How fast are the results?"
-          },
-          {
-            "answer": "No. If you can send an email and fill in a form, you can run a vote. Templates, guided setup and optional expert support mean you are never on your own for an important decision.",
-            "question": "Do we need technical knowledge to run a vote?"
-          }
-        ],
-        "title": "Association voting: frequently asked questions"
-      },
-      "features": [
-        {
-          "description": "Create an election from a template, upload your member list and launch. No IT team and no training required.",
-          "title": "Set up in minutes"
-        },
-        {
-          "description": "Anonymous voting backed by cryptography keeps every ballot private, even from Vocdoni and from your own administrators.",
-          "title": "Secret ballot by design"
-        },
-        {
-          "description": "Members vote from a phone, tablet or computer, anywhere in the world, with nothing to install.",
-          "title": "Vote from any device"
-        },
-        {
-          "description": "Results are tallied automatically the moment voting closes, with proof anyone can check.",
-          "title": "Instant, verifiable results"
-        },
-        {
-          "description": "Configure quorum, eligibility, weighted votes, multiple questions and voting windows to match your statutes.",
-          "title": "Your rules, enforced"
-        },
-        {
-          "description": "Add your logo, colours and language so the experience feels like your association, not a generic tool.",
-          "title": "Branded for your organization"
-        }
-      ],
+      "eyebrow": "for associations and federations",
       "hero": {
-        "subtitle": "Run secure, verifiable board elections, statutory votes and member consultations online. Higher turnout, secret ballots, and results your members can trust - without paper or postal costs.",
-        "title": "Association voting platform for board elections and member votes"
-      },
-      "pains": [
-        "Postal and in-person voting is expensive, slow and pushes turnout down.",
-        "Members worry their ballot is not really secret, so they abstain.",
-        "A close or contested result can be challenged when there is no independent proof.",
-        "Quorum and statutory rules are easy to break with spreadsheets and email.",
-        "Remote and international members are effectively excluded from decisions.",
-        "Manual counting delays results and invites human error."
-      ],
-      "proof": {
-        "author": "Òmnium Cultural",
-        "case_study_label": "Read the Òmnium Cultural case study",
-        "organizations_label": "Organizations that vote with Vocdoni",
-        "quote": "We needed a vote our members would accept without question. Vocdoni gave us secret ballots, instant results and proof that nobody could dispute.",
-        "role": "Membership organization, Catalonia",
-        "title": "Trusted by associations and federations"
-      },
-      "solution": {
-        "intro": "Vocdoni turns a complex governance process into a few guided steps - so any board or secretariat can run a vote without technical expertise.",
-        "title": "Everything your association needs to decide online"
+        "title": "Assemblies that reach quorum, and decisions that hold",
+        "subtitle": "Board elections, statutory votes and general assemblies for associations and federations. Configured from your own statutes, run remotely or hybrid, and closed with the record that shows how the result was reached.",
+        "cta_primary": "Set up a test vote",
+        "cta_secondary": "Talk to an election expert",
+        "risk_reversal": "Free account, no credit card."
       },
       "trust": {
-        "intro": "Privacy, auditability and legal defensibility are not add-ons. They are the foundation of every vote you run with Vocdoni.",
-        "title": "Built so results hold up to scrutiny"
+        "logos_label": "Associations and federations that vote with Vocdoni",
+        "badges": [
+          "Quorum tracked live against your own rule",
+          "Secret ballot by design",
+          "Fully remote, or hybrid with a room",
+          "GDPR, hosted in the EU"
+        ],
+        "stats": [
+          {
+            "value": "200,000+",
+            "label": "votes processed on Vocdoni infrastructure",
+            "source": "Vocdoni platform figures"
+          },
+          {
+            "value": "500+",
+            "label": "voting processes run with Vocdoni technology",
+            "source": "Vocdoni project history"
+          },
+          {
+            "value": "Since 2018",
+            "label": "running statutory and public elections in production",
+            "source": "open source, publicly inspectable"
+          }
+        ]
       },
-      "trust_badges": [
-        "GDPR compliant",
-        "End-to-end verifiable",
-        "Secret ballot",
-        "Open source"
-      ],
-      "trust_points": [
-        {
-          "description": "Every voter can confirm their vote was counted, and anyone can verify the final tally - no need to trust the platform.",
-          "title": "End-to-end verifiable"
+      "stakes": {
+        "eyebrow": "the position you are actually in",
+        "title": "An assembly that barely made quorum, and a decision somebody can still unpick",
+        "intro": "An association's decisions are only as strong as the participation behind them. When an assembly scrapes quorum on a pile of proxy forms, everything voted there is arguable — and the people arguing are your own members.",
+        "items": [
+          {
+            "title": "Quorum",
+            "description": "Members are spread across the country, the assembly is on a Saturday morning, and the room holds the same forty people it held last year. You reach quorum on proxies, or you postpone and convene again.",
+            "answer": "Members vote in two minutes from wherever they are, so quorum comes from members who actually decided rather than from forms somebody collected."
+          },
+          {
+            "title": "The proxies",
+            "description": "Delegation forms arrive by email, get checked by hand, and one person ends up carrying twenty votes. It is lawful, it is in your statutes, and it is the first thing a disgruntled member points at.",
+            "answer": "Every member votes for themselves, and where your statutes allow delegation the platform enforces the limits instead of a volunteer counting signatures."
+          },
+          {
+            "title": "The record",
+            "description": "Months later somebody asks how the count was reached. The honest answer is a spreadsheet, a scanned attendance sheet and the recollection of the people who were there.",
+            "answer": "The count is published with the record it was calculated from, so your board can point at evidence instead of memory."
+          }
+        ],
+        "answer_label": "What changes with Vocdoni"
+      },
+      "legal": {
+        "eyebrow": "before anything else",
+        "title": "Do our statutes allow this, and what do we show a member who objects?",
+        "intro": "The two questions that decide whether this reaches your board. Your own statutes sit above everything below: for an association they are not one input among several, they are the instrument.",
+        "jurisdiction_label": "General framework",
+        "response_label": "What you get against it",
+        "requirement_label": "What the framework requires",
+        "frameworks": [
+          {
+            "name": "Your statutes decide the medium",
+            "summary": "Association law usually says how decisions are taken — the assembly, the majorities, the notice — and says nothing about by what means. That silence is not permission by default: where remote voting is not provided for, it generally has to be added before you can rely on it.",
+            "response": [
+              "We read your statutes before configuring anything, and tell you which of the two situations you are in",
+              "Eligibility, quorum, majority rules and the voting window are written down and locked before anything opens",
+              "If the answer is that you should amend your statutes first, you hear that from us rather than after the vote"
+            ]
+          },
+          {
+            "name": "A quorum you can evidence",
+            "summary": "Quorum is the most contested number in an association's year. It has to be computed the way your statutes define it, and shown to have been met at the moment the decision was taken.",
+            "response": [
+              "Quorum is calculated from your own definition, including categories of member who count differently",
+              "Your board watches it against that rule in real time, and knows before the window closes whether the vote will stand",
+              "The participation log is time-stamped and goes into the final file"
+            ]
+          },
+          {
+            "name": "A secret ballot",
+            "summary": "A member has to be able to vote against the sitting board without anyone finding out — including the volunteers who run the association and see everything else.",
+            "response": [
+              "Identity and ballot separated by the system itself, not by policy",
+              "No single party — your secretariat, your board, or Vocdoni — holds what would be needed to reconstruct a vote",
+              "Voters can change their vote until polls close, so nobody can be pressured into proving how they voted"
+            ]
+          },
+          {
+            "name": "A result that can be checked, and data protection",
+            "summary": "A count nobody outside the room can check is a count that has to be believed, and your member register is personal data whatever else it is.",
+            "response": [
+              "The whole process is verifiable end to end, from the sealed register to the published count",
+              "A member can confirm their own vote was counted, without revealing how they voted",
+              "Data processing agreement, EU hosting, documented retention, and a register minimised to an identifier plus one contact channel"
+            ]
+          }
+        ],
+        "evidence": {
+          "title": "What you get when voting closes",
+          "intro": "The whole process is verifiable from end to end, and on the day voting closes you get the file that proves it. It holds the signed configuration, a sealed copy of the member register at the cut-off, the participation log against your quorum rule, the published count and the instructions for checking it, together with a report and a certificate of the process for your minutes. It is built for somebody unhappy with the result: a member, an auditor or their adviser can check every part of it without needing anything from you, or from us."
         },
-        {
-          "description": "Cryptographic privacy separates identity from ballot, so votes stay secret and cannot be bought or coerced.",
-          "title": "Anonymous and anti-coercion"
-        },
-        {
-          "description": "GDPR-compliant by design, with a complete audit trail and evidence pack that stands up to challenges.",
-          "title": "Legally defensible"
-        },
-        {
-          "description": "Our voting protocol is fully open source, so security comes from public scrutiny, not vendor promises.",
-          "title": "Open source and auditable"
+        "counsel_note": "We state the framework as we understand it and produce the evidence above; the legal reading of your own statutes belongs to your counsel.",
+        "cta_secondary": "Talk to an election expert"
+      },
+      "proof": {
+        "eyebrow": "an association like yours",
+        "title": "A cultural association that took its statutory assemblies online",
+        "intro": "Òmnium Cultural holds its statutory assemblies on Vocdoni: ballots that stay secret, members taking part from wherever they are, and a result that is auditable rather than asserted.",
+        "org": "Òmnium Cultural",
+        "org_meta": "Membership association, Catalonia, statutory assemblies",
+        "stats": [
+          {
+            "value": "Secret",
+            "label": "ballot, separated from identity by the system itself"
+          },
+          {
+            "value": "Verifiable",
+            "label": "result, checkable by any member or auditor"
+          },
+          {
+            "value": "Any device",
+            "label": "no app to install, nothing for a member to set up"
+          },
+          {
+            "value": "Statutory",
+            "label": "assemblies held to the guarantees the statutes require"
+          }
+        ],
+        "case_study_label": "Read the Òmnium Cultural case study",
+        "blog_label": "How an association with members across four states votes",
+        "cta_primary": "Set up a test vote"
+      },
+      "how": {
+        "eyebrow": "how it runs",
+        "title": "Configured from your statutes, not from a template",
+        "intro": "These are the capabilities that get cited when a decision is questioned, and the experience they produce for a member.",
+        "features": [
+          {
+            "title": "Configured from your statutes",
+            "description": "Seats, categories of member, eligibility rules, quorum and tie-breaks follow your own text. We read it before configuring anything."
+          },
+          {
+            "title": "The register is sealed before the vote",
+            "description": "At the cut-off your member register is locked and sealed with a short code that changes if a single name is added or removed. A dispute about who was entitled to vote takes a minute to settle."
+          },
+          {
+            "title": "Quorum, live",
+            "description": "Your board sees participation against your own quorum rule as it happens, and knows before the window closes whether the assembly will stand. No access to individual votes at any point."
+          },
+          {
+            "title": "Weighted and delegate voting",
+            "description": "For a federation whose members are themselves organisations, votes carry the weight your statutes give them. Where your statutes allow delegation, the platform applies the limits instead of a volunteer checking forms."
+          },
+          {
+            "title": "Remote, or remote and in person",
+            "description": "Most associations run the whole vote remotely. If you want a room as well, members can vote at an assisted point on the same register, so nobody votes twice and the two channels produce one result."
+          },
+          {
+            "title": "Secret even from you",
+            "description": "Identity and ballot are kept apart by the system itself, not by a promise anyone could break. Nobody can put them back together: not your staff, not your board, not Vocdoni."
+          }
+        ],
+        "media_caption": "The board's own view during the assembly: participation against quorum, and no access to a single ballot.",
+        "steps_title": "And what a member actually does",
+        "steps": [
+          {
+            "title": "They get a notice",
+            "description": "Email or SMS with your own branding, the agenda, the motions and the exact window in which voting is open."
+          },
+          {
+            "title": "They identify, they do not register",
+            "description": "A one-time code by SMS or email confirms this is the member on the register. No account to create, no app to install, no membership number to look up."
+          },
+          {
+            "title": "They vote",
+            "description": "Board seats, statute amendments and the accounts, each with its own majority rule, on one screen with the supporting documents attached."
+          },
+          {
+            "title": "They can check their own vote",
+            "description": "They keep a receipt nobody else has. When voting closes, they can confirm their own vote was counted in the published result."
+          }
+        ],
+        "steps_media_caption": "What a member sees on their phone, from the notice to the receipt.",
+        "footnote": "Most members finish in under two minutes, in the browser they already have open. If part of your membership is genuinely offline, the assisted point runs on the same register, so nobody is excluded and nobody votes twice. The obstacle is almost never the member: it is a missing mobile number in a register nobody has cleaned in years. So we check your contact details before anything opens."
+      },
+      "comparison": {
+        "eyebrow": "against the alternatives",
+        "title": "Compared with the assembly you hold today, and with the other platforms",
+        "intro": "Against what your last assembly actually cost you in effort and attendance, and against what a commercial provider hands you at the end. We name no one: this is the shape of the category.",
+        "criterion_label": "The question",
+        "traditional_label": "In the room, with proxies",
+        "digital_label": "A typical online provider",
+        "vocdoni_label": "Vocdoni",
+        "rows": [
+          {
+            "criterion": "How you reach quorum",
+            "traditional": "Attendance plus a stack of proxy forms, checked by hand on the morning",
+            "digital": "More members can vote, but the count is whatever the system reports",
+            "vocdoni": "Members voting for themselves, tracked live against your own quorum rule"
+          },
+          {
+            "criterion": "Who can verify the result",
+            "traditional": "The people who were in the room when it was counted",
+            "digital": "The provider, and whoever they show the report to",
+            "vocdoni": "Anyone: your board, a member, an auditor, a court"
+          },
+          {
+            "criterion": "Can the count be redone independently",
+            "traditional": "Only if the papers were kept, and usually they were not",
+            "digital": "Usually not. The result is whatever the system reports",
+            "vocdoni": "Yes. Anyone can redo the count from the published record"
+          },
+          {
+            "criterion": "Who could link a vote back to a member",
+            "traditional": "Nobody, with a paper ballot. Everyone in the room, with a show of hands",
+            "digital": "Usually the provider, because identity and ballot sit in one system",
+            "vocdoni": "Nobody. Identity and ballot are separated by the system itself"
+          },
+          {
+            "criterion": "Delegated votes",
+            "traditional": "Paper forms, counted by a volunteer, with the limits applied by hand",
+            "digital": "Often unsupported, or supported without your statutes' limits",
+            "vocdoni": "Applied as your statutes define them, including weight for member organisations"
+          },
+          {
+            "criterion": "What the board sees during the vote",
+            "traditional": "The room, and nothing about who has not arrived",
+            "digital": "A dashboard, if your board is given access to it",
+            "vocdoni": "Live participation against quorum, with no access to any ballot"
+          },
+          {
+            "criterion": "Evidence if a member objects",
+            "traditional": "The minutes, the attendance sheet, and the word of those present",
+            "digital": "A report from the provider, which you have to take on trust",
+            "vocdoni": "A reproducible proof, and the audit documents the same day"
+          },
+          {
+            "criterion": "Members abroad, ill, or working that day",
+            "traditional": "A proxy form, if they remember to send it",
+            "digital": "They vote from anywhere",
+            "vocdoni": "They vote from anywhere, or at an assisted point if you run one"
+          },
+          {
+            "criterion": "Next year",
+            "traditional": "Rebuilt from memory and last year's folder",
+            "digital": "Set up again with the provider",
+            "vocdoni": "The same configuration, reopened"
+          }
+        ]
+      },
+      "engagement": {
+        "eyebrow": "who runs it",
+        "title": "Run it yourself, or have us run it with you",
+        "intro": "Same platform, same guarantees, same evidence at the end. Most associations run their own consultations and committee votes all year, and take the managed service for the statutory assembly.",
+        "options": [
+          {
+            "badge": "self-service",
+            "title": "You run it, on your own subscription",
+            "description": "Create, configure, launch and close your own votes whenever you need them. One person, one afternoon, no IT team and no technical background, with training and a support channel behind you.",
+            "points": [
+              "Live the same week",
+              "Every voting method, weighted and delegate voting included",
+              "Public pricing, no sales call"
+            ],
+            "cta": "Set up a test vote"
+          },
+          {
+            "badge": "managed elections",
+            "title": "We run it with you, end to end",
+            "description": "We read your statutes, configure the process, load and validate the register, run a full rehearsal with test voters, monitor the assembly and deliver the results, the reports and the evidence pack. You approve, we operate.",
+            "points": [
+              "A named contact through the whole voting window",
+              "A full rehearsal before the real assembly",
+              "If your statutes need something unusual, we handle it ourselves"
+            ],
+            "cta": "Talk to an election expert"
+          }
+        ],
+        "pricing": {
+          "title": "What it costs",
+          "description": "There is a free plan with no time limit and no card, and paid plans are priced by the number of members. Those prices are published, so a volunteer treasurer can put a figure in front of the board without booking a call. Managed assemblies, customisation and anything else you need on top are quoted per vote, on the size of your register and what the process involves.",
+          "link_label": "See where pricing starts"
         }
-      ]
+      },
+      "faq": {
+        "eyebrow": "the hard questions",
+        "title": "What associations ask us before they commit",
+        "intro": "The questions your board will raise, answered here so you have the answer before they ask.",
+        "items": [
+          {
+            "question": "Our statutes do not mention electronic voting. Can we still do it?",
+            "answer": "Sometimes, but check the wording before you commit, because for an association this is the whole question. Association law generally regulates how decisions are taken and stays silent on the medium, which leaves it to your statutes. Some statutes describe the guarantees a vote must offer rather than the means, and electronic voting is available under those. Others provide only for voting in person or by proxy, and then remote voting has to be added first. Send us your text and we will tell you which of the two you are in, including when the answer is that you need an amendment. We would rather say so now than run an assembly whose decisions get annulled."
+          },
+          {
+            "question": "Can we still allow proxies and delegated votes?",
+            "answer": "Yes, where your statutes provide for them, and the limits stop being a manual check. If a member may carry at most three delegated votes, the platform applies that; if your federation gives a member organisation weight in proportion to its own membership, it carries that weight. What changes is that the limits are enforced as written rather than reconstructed by a volunteer from a pile of forms on the morning of the assembly."
+          },
+          {
+            "question": "How do we know the assembly actually reached quorum?",
+            "answer": "Quorum is calculated from your own definition, including categories of member that count differently or not at all, and your board watches it in real time rather than finding out at the end. The participation log is time-stamped and goes into the file you keep, so the answer to \"was quorum met when that motion passed\" is a document rather than a recollection."
+          },
+          {
+            "question": "Some of our members are in their seventies and do not use apps.",
+            "answer": "There is no app to install. It is a web page on any device, with a support line staffed through the whole voting window. If part of your membership is genuinely offline, you can run the assembly as a hybrid: we set up an assisted voting point in your venue on the same register, so those members vote with help and still nobody votes twice."
+          },
+          {
+            "question": "Who is responsible for what?",
+            "answer": "We are responsible for the platform, the technical configuration, the integrity and verifiability of every vote cast, the monitoring during the voting window, and the count, reports and evidence at close. You are responsible for the accuracy of the member register at the cut-off, for who is entitled to vote, and for the procedural decisions that belong to your board. No provider can take those decisions for you, and you should be wary of one that offers to."
+          },
+          {
+            "question": "Where does our member data live?",
+            "answer": "In the EU, under a signed data processing agreement, used only to run your vote and deleted on the schedule you set. The register is minimised to an identifier plus one contact channel. Who is on your member register, and whether they voted, is sensitive information. We treat it that way."
+          },
+          {
+            "question": "Has a result run on Vocdoni ever been challenged?",
+            "answer": "No. No voting process Vocdoni has organised has been challenged. Several have been audited and checked, by the organisation itself and by third parties, and everything came back clean every time. We would rather you did not take that on faith either: every vote closes with the documents that let somebody else check the count for themselves."
+          },
+          {
+            "question": "Can we keep the results hidden until voting closes?",
+            "answer": "Yes. In encrypted mode nobody sees any result while the vote is open, including us, and the tally is published automatically at close. The alternative is a live running tally, which suits an internal consultation but rarely a board election or a statute amendment."
+          },
+          {
+            "question": "We are a volunteer-run association. Is this affordable, and is it a lot of work?",
+            "answer": "There is a free plan with no time limit, and paid plans are priced by the number of members, so a small association pays little or nothing. On effort, compare it with the assembly you run today: the venue, the printing, the postage, the proxy forms checked by hand and the evening spent counting. One person can set up a vote in an afternoon, and next year you reopen this year's configuration instead of rebuilding it from memory."
+          }
+        ]
+      },
+      "closing": {
+        "title": "Bring us your statutes",
+        "description": "The most useful first conversation is not a demo. Send us your statutes and we will tell you what is configurable as written, what needs a board decision and what would need an amendment at your next assembly. If the answer is that you should not take this vote online yet, we will say so.",
+        "cta_primary": "Set up a test vote",
+        "cta_secondary": "Talk to an election expert",
+        "note": "Free account, no credit card. No sales pitch, just answers."
+      },
+      "resources": {
+        "eyebrow": "before you decide",
+        "title": "Read this first",
+        "intro": "Guides, explainers and case studies that answer the question you are probably about to ask.",
+        "items": [
+          {
+            "kind": "case study",
+            "title": "How Òmnium Cultural runs its statutory assemblies online",
+            "description": "A large membership association, secret ballots, and assemblies held with the guarantees its statutes require."
+          },
+          {
+            "kind": "guide",
+            "title": "What quorum means for an online vote",
+            "description": "How quorum is calculated and tracked when members vote remotely."
+          },
+          {
+            "kind": "guide",
+            "title": "How to run a legally valid AGM online",
+            "description": "A practical checklist for a digital or hybrid general assembly."
+          },
+          {
+            "kind": "explainer",
+            "title": "Anonymous voting, explained",
+            "description": "How a ballot stays secret from the people who run the vote, including us."
+          },
+          {
+            "kind": "explainer",
+            "title": "Verifiable voting, explained",
+            "description": "Why anyone can check a result without having to trust the platform."
+          },
+          {
+            "kind": "guide",
+            "title": "GDPR requirements for digital voting",
+            "description": "What data protection law expects when you take a vote digital."
+          }
+        ]
+      },
+      "timeline": {
+        "eyebrow": "the run-up",
+        "title": "What happens between now and the assembly",
+        "intro": "A statutory assembly is planned backwards from a date in your statutes. This is the shape of it.",
+        "steps": [
+          {
+            "when": "4 weeks out",
+            "title": "We read your statutes",
+            "description": "You send us your statutes and any electoral rules. We come back with what we can run as they stand, and what needs a decision from you.",
+            "owner": "You and us"
+          },
+          {
+            "when": "3 weeks out",
+            "title": "The board approves",
+            "description": "Eligibility, the cut-off, quorum, majority rules and the voting window are written down and signed off before anything is built.",
+            "owner": "Your board"
+          },
+          {
+            "when": "2 weeks out",
+            "title": "The register is loaded and checked",
+            "description": "Your membership database becomes a voting register, validated against your own criteria. This is where missing mobile numbers and lapsed members surface, while there is still time.",
+            "owner": "Us"
+          },
+          {
+            "when": "1 week out",
+            "title": "A full rehearsal",
+            "description": "The real configuration with test voters. Your board walks the process and whoever will run it practises on the console before a single member is invited.",
+            "owner": "Both teams"
+          },
+          {
+            "when": "Assembly day",
+            "title": "Open, monitored, closed",
+            "description": "Live participation against quorum for the board, a support line for members, and the count published when the window closes. The documents and the certificate follow the same day.",
+            "owner": "Us, on call"
+          }
+        ],
+        "footnote": "A simple internal consultation can be live the same week. This schedule is for a statutory assembly under your own notice periods, and most of it is your approvals rather than our configuration."
+      },
+      "sizes": {
+        "eyebrow": "whatever size you are",
+        "title": "From a local association to a federation of member organisations",
+        "intro": "The platform is the same at every size. What changes is how much of it you need and how much we do with you.",
+        "tiers": [
+          {
+            "size": "Up to about 1,000 members",
+            "title": "A local association running it in an afternoon",
+            "description": "You do not need a project or a budget line. One person creates the vote, uploads the register and sends the link, on the free plan or a small subscription.",
+            "points": [
+              "Live the same week",
+              "Every voting method, weighted and delegate voting included",
+              "Free to start, and free to stay if you are small enough"
+            ]
+          },
+          {
+            "size": "A few thousand members",
+            "title": "A national association with a statutory assembly",
+            "description": "The shape most membership associations are. Self-serve or managed depending on what you need: how much you want customised, which extra services you want, or simply which parts you would rather hand to us.",
+            "points": [
+              "Register imported from your membership database",
+              "Full rehearsal before the statutory assembly",
+              "Subscription priced by member count, managed work quoted on top"
+            ]
+          },
+          {
+            "size": "A federation",
+            "title": "Member organisations, each with its own weight",
+            "description": "Where the members are themselves associations, the vote has to carry the weight your statutes give each of them, and the delegates who cast it have to be the right ones. That is configuration, not a special edition of the product.",
+            "points": [
+              "Weighted votes and delegate rolls, as your statutes define them",
+              "Register synced by API rather than uploaded",
+              "Managed end to end, with our team present on the day"
+            ]
+          }
+        ]
+      },
+      "board": {
+        "eyebrow": "for the people you have to convince",
+        "title": "The parts worth forwarding",
+        "intro": "You will not decide this alone. Each of these answers one person in the room, and each has its own link you can send them.",
+        "links": [
+          {
+            "label": "For your lawyer",
+            "description": "What governs the vote, and what we produce against each requirement.",
+            "anchor": "legal-validity"
+          },
+          {
+            "label": "For your board",
+            "description": "What they can see on the day, and what they get to certify against at the close.",
+            "anchor": "proof"
+          },
+          {
+            "label": "For your treasurer",
+            "description": "What it costs, and how the two ways of working with us differ.",
+            "anchor": "engagement"
+          },
+          {
+            "label": "For the sceptic in the room",
+            "description": "How this compares with the assembly you hold today, line by line.",
+            "anchor": "comparison"
+          }
+        ]
+      }
     },
     "companies_agm": {
       "challenge": {
@@ -3323,8 +3687,8 @@
     },
     "solutions": {
       "associations": {
-        "description": "Run association board elections, statutory votes and member consultations online. Secret ballots, verifiable results and a legally defensible audit trail.",
-        "title": "Online voting for associations and board elections | Vocdoni"
+        "description": "Board elections, statutory votes and general assemblies for associations and federations. Reach quorum with members voting from anywhere, secret ballots, and a result any member can check.",
+        "title": "Online voting for associations and federations | Vocdoni"
       },
       "companies_agm": {
         "description": "Run annual general meetings and shareholder votes digitally. Weighted votes and proxies, a full audit trail and verifiable results that satisfy auditors.",

@@ -890,120 +890,484 @@
   },
   "solutions": {
     "associations": {
-      "challenge": {
-        "intro": "Per a una associació, cada elecció o votació estatutària és una prova de legitimitat. Una participació baixa, un resultat impugnat o una papereta filtrada poden danyar la confiança durant anys.",
-        "title": "Per què és difícil encertar amb les votacions de socis"
-      },
-      "cta_primary": "Comenceu gratis",
-      "cta_secondary": "Parleu amb el nostre equip",
-      "eyebrow": "Per a associacions i federacions",
-      "faq": {
-        "items": [
-          {
-            "answer": "Sí. Si els vostres estatuts permeten el vot remot o electrònic (o no el prohibeixen), una votació amb Vocdoni és legalment vàlida. Aportem un registre d'auditoria complet i evidències verificables perquè el resultat sigui defensable si s'impugna. Moltes associacions actualitzen els estatuts per permetre el vot digital de manera explícita.",
-            "question": "És legalment vàlid el vot en línia per a la nostra associació?"
-          },
-          {
-            "answer": "Sí, i és el nucli del que fa Vocdoni. La criptografia de coneixement zero separa la identitat del soci de la seva papereta, de manera que ningú (ni la vostra junta ni Vocdoni) pot vincular un vot a una persona. Alhora, qualsevol pot verificar que tots els vots vàlids s'han comptat correctament.",
-            "question": "Podem mantenir el vot secret i tot i així verificar el resultat?"
-          },
-          {
-            "answer": "Des d'uns quants fins a centenars de milers. Podeu organitzar una votació gratuïta per a fins a 100 socis, i els plans de pagament escalen a federacions molt grans sense problemes de rendiment.",
-            "question": "Quants socis poden votar?"
-          },
-          {
-            "answer": "L'experiència de vot està dissenyada per ser tan simple com sigui possible i funciona en qualsevol dispositiu sense instal·lació. Seguim les pautes d'accessibilitat WCAG i, per a qui no pugui votar en línia, podeu combinar vot digital i presencial.",
-            "question": "I si un soci no es manega bé amb la tecnologia?"
-          },
-          {
-            "answer": "El recompte és automàtic en l'instant en què tanca la finestra de votació. No hi ha recompte manual, així que obteniu resultats precisos i verificables en segons, no en hores o dies.",
-            "question": "Amb quina rapidesa hi ha els resultats?"
-          },
-          {
-            "answer": "No. Si sabeu enviar un correu i emplenar un formulari, podeu organitzar una votació. Les plantilles, la configuració guiada i el suport expert opcional fan que mai no estigueu sols davant d'una decisió important.",
-            "question": "Necessitem coneixements tècnics per votar?"
-          }
-        ],
-        "title": "Vot en associacions: preguntes freqüents"
-      },
-      "features": [
-        {
-          "description": "Creeu una elecció des d'una plantilla, pugeu la vostra llista de socis i publiqueu-la. Sense equip d'informàtica ni formació.",
-          "title": "Llest en minuts"
-        },
-        {
-          "description": "El vot anònim amb criptografia manté cada papereta privada, fins i tot davant de Vocdoni i dels vostres administradors.",
-          "title": "Vot secret per disseny"
-        },
-        {
-          "description": "Els socis voten des del mòbil, la tauleta o l'ordinador, arreu del món, sense instal·lar res.",
-          "title": "Voteu des de qualsevol dispositiu"
-        },
-        {
-          "description": "El recompte és automàtic quan tanca la votació, amb una prova que qualsevol pot comprovar.",
-          "title": "Resultats instantanis i verificables"
-        },
-        {
-          "description": "Configureu quòrum, elegibilitat, vot ponderat, diverses preguntes i finestres de votació segons els vostres estatuts.",
-          "title": "Les vostres regles, aplicades"
-        },
-        {
-          "description": "Afegiu el vostre logotip, colors i idioma perquè l'experiència sigui la de la vostra associació, no una eina genèrica.",
-          "title": "Amb la marca de la vostra organització"
-        }
-      ],
+      "eyebrow": "per a associacions i federacions",
       "hero": {
-        "subtitle": "Organitzeu eleccions de junta, votacions estatutàries i consultes als socis de manera segura i verificable. Més participació, vot secret i resultats en què els vostres socis confien, sense paper ni costos postals.",
-        "title": "Plataforma de vot per a associacions: eleccions de junta i votacions de socis"
-      },
-      "pains": [
-        "El vot postal i presencial és car, lent i redueix la participació.",
-        "Els socis dubten que el seu vot sigui realment secret, així que s'abstenen.",
-        "Un resultat ajustat o impugnat es pot qüestionar si no hi ha una prova independent.",
-        "Les regles de quòrum i estatutàries són fàcils d'incomplir amb fulls de càlcul i correu.",
-        "Els socis remots i internacionals queden exclosos de les decisions.",
-        "El recompte manual endarrereix els resultats i convida a l'error humà."
-      ],
-      "proof": {
-        "author": "Òmnium Cultural",
-        "case_study_label": "Llegiu el cas d'Òmnium Cultural",
-        "organizations_label": "Organitzacions que voten amb Vocdoni",
-        "quote": "Necessitàvem una votació que els nostres socis acceptessin sense dubtar. Vocdoni ens va donar vot secret, resultats instantanis i una prova que ningú podia discutir.",
-        "role": "Organització de socis, Catalunya",
-        "title": "La confiança d'associacions i federacions"
-      },
-      "solution": {
-        "intro": "Vocdoni converteix un procés de governança complex en uns quants passos guiats, perquè qualsevol junta o secretaria pugui votar sense coneixements tècnics.",
-        "title": "Tot el que la vostra associació necessita per decidir en línia"
+        "title": "Assemblees que assoleixen el quòrum, i decisions que se sostenen",
+        "subtitle": "Eleccions a la junta directiva, votacions estatutàries i assemblees generals per a associacions i federacions. Configurades des dels vostres propis estatuts, celebrades en remot o en híbrid, i tancades amb el registre que mostra com s'ha arribat al resultat.",
+        "cta_primary": "Munta una votació de prova",
+        "cta_secondary": "Parla amb un expert electoral",
+        "risk_reversal": "Compte gratuït, sense targeta."
       },
       "trust": {
-        "intro": "La privadesa, l'auditabilitat i la defensa legal no són complements. Són la base de cada votació que organitzeu amb Vocdoni.",
-        "title": "Pensat perquè el resultat resisteixi l'escrutini"
+        "logos_label": "Associacions i federacions que voten amb Vocdoni",
+        "badges": [
+          "Quòrum en directe, segons la vostra pròpia regla",
+          "Vot secret per construcció",
+          "Totalment en remot, o híbrid amb sala",
+          "RGPD, allotjament a la UE"
+        ],
+        "stats": [
+          {
+            "value": "200.000+",
+            "label": "vots processats sobre la infraestructura de Vocdoni",
+            "source": "dades de la plataforma Vocdoni"
+          },
+          {
+            "value": "500+",
+            "label": "processos de votació celebrats amb tecnologia Vocdoni",
+            "source": "històric de projectes de Vocdoni"
+          },
+          {
+            "value": "Des del 2018",
+            "label": "celebrant eleccions estatutàries i públiques en producció",
+            "source": "codi obert, inspeccionable públicament"
+          }
+        ]
       },
-      "trust_badges": [
-        "Compleix el RGPD",
-        "Verificable d'extrem a extrem",
-        "Vot secret",
-        "Codi obert"
-      ],
-      "trust_points": [
-        {
-          "description": "Cada votant pot comprovar que el seu vot s'ha comptat, i qualsevol pot verificar el recompte final. La confiança neix de la prova, no de la nostra paraula.",
-          "title": "Verificable d'extrem a extrem"
+      "stakes": {
+        "eyebrow": "la posició en què sou realment",
+        "title": "Una assemblea que va fregar el quòrum, i una decisió que algú encara pot desfer",
+        "intro": "Les decisions d'una associació valen el que val la participació que les sosté. Quan una assemblea assoleix el quòrum a força de delegacions, tot el que s'hi vota és discutible, i qui ho discuteix és un soci vostre.",
+        "items": [
+          {
+            "title": "El quòrum",
+            "description": "Els socis estan repartits per tot el territori, l'assemblea és un dissabte al matí i a la sala hi ha les mateixes quaranta persones de l'any passat. O arribeu al quòrum amb delegacions, o ajorneu i torneu a convocar.",
+            "answer": "Els socis voten en dos minuts des d'on siguin, així que el quòrum el formen socis que han decidit i no formularis que algú va recollir."
+          },
+          {
+            "title": "Les delegacions",
+            "description": "Les delegacions arriben per correu, es comproven a mà i una sola persona acaba portant vint vots. És legal, és als vostres estatuts i és el primer que assenyala un soci descontent.",
+            "answer": "Cada soci vota per ell mateix i, on els vostres estatuts permeten la delegació, la plataforma aplica els límits en lloc d'un voluntari comptant signatures."
+          },
+          {
+            "title": "El registre",
+            "description": "Mesos després algú pregunta com s'ha arribat al recompte. La resposta honesta és un full de càlcul, una llista d'assistència escanejada i el record de qui hi era.",
+            "answer": "El recompte es publica juntament amb el registre amb què s'ha calculat, així que la junta assenyala proves en comptes de records."
+          }
+        ],
+        "answer_label": "Què canvia amb Vocdoni"
+      },
+      "legal": {
+        "eyebrow": "abans que qualsevol altra cosa",
+        "title": "Ens ho permeten els estatuts, i què ensenyem a un soci que impugna?",
+        "intro": "Les dues preguntes que decideixen si això arriba a la vostra junta directiva. Els vostres estatuts estan per damunt de tot el que segueix: en una associació no són una dada més, són l'instrument.",
+        "jurisdiction_label": "Marc aplicable a Catalunya",
+        "response_label": "Què obteniu davant d'això",
+        "requirement_label": "Què exigeix el marc",
+        "frameworks": [
+          {
+            "name": "Llibre tercer del Codi civil de Catalunya (Llei 4/2008)",
+            "summary": "És la norma que regeix les associacions amb domicili a Catalunya: la constitució, els òrgans, l'assemblea general com a òrgan sobirà i el règim d'acords. Com la llei estatal, regula com es prenen les decisions i deixa el mitjà de votació als estatuts de cada entitat.",
+            "response": [
+              "Llegim els vostres estatuts abans de configurar res i us diem si emparen la votació electrònica tal com estan escrits",
+              "Elegibilitat, data de tall, quòrum, majories i finestra de votació, fixades per escrit abans d'obrir",
+              "Si la resposta és que primer heu de modificar els estatuts, us ho diem a la primera conversa"
+            ]
+          },
+          {
+            "name": "Un quòrum que podeu acreditar",
+            "summary": "El quòrum és la xifra més discutida de l'any d'una associació. S'ha de calcular tal com el defineixen els vostres estatuts i demostrar-se assolit en el moment en què es va prendre la decisió.",
+            "response": [
+              "El quòrum es calcula des de la vostra pròpia definició, incloses les categories de soci que compten d'una altra manera",
+              "La vostra junta el segueix en temps real i sap abans del tancament si la votació se sosté",
+              "El registre de participació queda datat i entra a l'expedient final"
+            ]
+          },
+          {
+            "name": "El vot secret",
+            "summary": "Un soci ha de poder votar contra la junta sortint sense que ningú se n'assabenti, inclosos els voluntaris que porten l'associació i veuen tota la resta.",
+            "response": [
+              "La identitat i el vot els separa el sistema mateix, no una política d'ús",
+              "Cap part per si sola, ni la vostra secretaria, ni la junta, ni Vocdoni, no té el que caldria per reconstruir un vot",
+              "Es pot canviar el vot fins al tancament, de manera que ningú no pot ser pressionat per demostrar què va votar"
+            ]
+          },
+          {
+            "name": "RGPD i Llei Orgànica 3/2018 (LOPDGDD)",
+            "summary": "El registre de socis és dada personal, i un recompte que ningú de fora no pot comprovar és un recompte que cal creure's.",
+            "response": [
+              "Contracte d'encàrrec de tractament inclòs, allotjament a la UE, conservació documentada",
+              "Registre minimitzat: un identificador més un canal de contacte",
+              "El procés és verificable de cap a cap, i cada soci pot confirmar que el seu vot hi és sense revelar què va votar"
+            ]
+          }
+        ],
+        "evidence": {
+          "title": "Què rebeu quan tanca la votació",
+          "intro": "Tot el procés és verificable de cap a cap i, el mateix dia en què tanca la votació, rebeu l'expedient que ho demostra. Conté la configuració signada, una còpia segellada del registre de socis a la data de tall, el registre de participació davant la vostra regla de quòrum, el recompte publicat i les instruccions per comprovar-lo, juntament amb un informe i una certificació del procés per a l'acta. Està pensat per a algú descontent amb el resultat: un soci, un auditor o el seu assessor poden comprovar-ne cada part sense necessitar res de vosaltres ni de nosaltres."
         },
-        {
-          "description": "La criptografia de coneixement zero separa la identitat de la papereta, així el vot és secret i no es pot rastrejar, comprar ni coaccionar.",
-          "title": "Anònim i resistent a la coacció"
-        },
-        {
-          "description": "Minimització de dades per disseny, allotjament a la UE i un registre d'auditoria complet us donen un dossier d'evidències que aguanta una impugnació.",
-          "title": "Compleix el RGPD i és defensable legalment"
-        },
-        {
-          "description": "El nostre protocol de vot és totalment de codi obert i auditable de manera independent: la seguretat es guanya amb l'escrutini públic, no amb promeses.",
-          "title": "Infraestructura de codi obert"
+        "counsel_note": "Nosaltres exposem el marc tal com l'entenem i produïm les evidències de dalt; la lectura jurídica dels vostres propis estatuts correspon a la vostra assessoria.",
+        "cta_secondary": "Parla amb un expert electoral"
+      },
+      "proof": {
+        "eyebrow": "una associació com la vostra",
+        "title": "Una associació cultural que va portar les assemblees estatutàries al format en línia",
+        "intro": "Òmnium Cultural celebra les seves assemblees estatutàries amb Vocdoni: vots que continuen sent secrets, socis participant des d'on siguin i un resultat auditable en comptes d'afirmat.",
+        "org": "Òmnium Cultural",
+        "org_meta": "Associació de socis, Catalunya, assemblees estatutàries",
+        "stats": [
+          {
+            "value": "Secret",
+            "label": "el vot, separat de la identitat pel sistema mateix"
+          },
+          {
+            "value": "Verificable",
+            "label": "el resultat, comprovable per qualsevol soci o auditor"
+          },
+          {
+            "value": "Qualsevol dispositiu",
+            "label": "sense aplicació per instal·lar ni res per configurar"
+          },
+          {
+            "value": "Estatutàries",
+            "label": "assemblees celebrades amb les garanties que exigeixen els estatuts"
+          }
+        ],
+        "case_study_label": "Llegeix el cas d'èxit d'Òmnium Cultural",
+        "blog_label": "Com vota una associació amb socis a quatre estats",
+        "cta_primary": "Munta una votació de prova"
+      },
+      "how": {
+        "eyebrow": "com funciona",
+        "title": "Configurat des dels vostres estatuts, no des d'una plantilla",
+        "intro": "Aquestes són les funcionalitats que s'acaben citant quan una decisió es qüestiona, i l'experiència que produeixen en el soci.",
+        "features": [
+          {
+            "title": "Configurat des dels vostres estatuts",
+            "description": "Càrrecs, categories de soci, regles d'elegibilitat, quòrum i desempats s'ajusten al vostre text. El llegim abans de configurar res."
+          },
+          {
+            "title": "El registre es segella abans de votar",
+            "description": "A la data de tall el registre de socis es bloqueja i se segella amb un codi curt que canvia si s'hi afegeix o se'n treu un sol nom. Una discussió sobre qui tenia dret a votar es resol en un minut."
+          },
+          {
+            "title": "El quòrum, en directe",
+            "description": "La vostra junta veu la participació davant la vostra pròpia regla de quòrum a mesura que passa, i sap abans del tancament si l'assemblea se sosté. Sense accés a cap vot individual en cap moment."
+          },
+          {
+            "title": "Vot ponderat i delegat",
+            "description": "En una federació els membres de la qual són al seu torn entitats, cada vot porta el pes que li donen els vostres estatuts. On els estatuts permeten la delegació, la plataforma aplica els límits en lloc d'un voluntari revisant formularis."
+          },
+          {
+            "title": "En remot, o en remot i presencial",
+            "description": "La majoria d'associacions celebren tota la votació en remot. Si a més voleu sala, els socis poden votar en un punt assistit sobre el mateix registre, així que ningú no vota dues vegades i els dos canals produeixen un sol resultat."
+          },
+          {
+            "title": "Secret fins i tot per a vosaltres",
+            "description": "La identitat i el vot els manté separats el sistema mateix, no una promesa que algú pugui trencar. Ningú no els pot tornar a unir: ni el vostre personal, ni la junta, ni Vocdoni."
+          }
+        ],
+        "media_caption": "La vista pròpia de la junta durant l'assemblea: la participació davant el quòrum, i cap accés a un sol vot.",
+        "steps_title": "I què fa realment un soci",
+        "steps": [
+          {
+            "title": "Rep la convocatòria",
+            "description": "Correu o SMS amb la imatge de la mateixa associació, l'ordre del dia, les propostes i la finestra exacta en què la votació és oberta."
+          },
+          {
+            "title": "S'identifica, no es registra",
+            "description": "Un codi d'un sol ús per SMS o correu confirma que és el soci que consta al registre. No hi ha compte per crear, ni aplicació per instal·lar, ni número de soci per buscar."
+          },
+          {
+            "title": "Vota",
+            "description": "Càrrecs de la junta, modificacions estatutàries i aprovació de comptes, cadascun amb la seva regla de majoria, en una sola pantalla i amb la documentació adjunta."
+          },
+          {
+            "title": "Pot comprovar el seu propi vot",
+            "description": "Es queda amb un justificant que només té ell i, quan tanca la votació, pot confirmar que el seu vot és dins del resultat publicat."
+          }
+        ],
+        "steps_media_caption": "El que veu un soci al mòbil, des de la convocatòria fins al justificant.",
+        "footnote": "La majoria de socis acaben en menys de dos minuts, amb el navegador que ja tenen obert. Si una part de la vostra massa social està realment desconnectada, el punt assistit funciona sobre el mateix registre, així que ningú no queda exclòs i ningú no vota dues vegades. La barrera gairebé mai no és el soci: és un número de mòbil que falta en un registre que ningú no ha netejat en anys. Per això revisem les vostres dades de contacte abans d'obrir res."
+      },
+      "comparison": {
+        "eyebrow": "davant de les alternatives",
+        "title": "Comparat amb l'assemblea que celebreu avui, i amb les altres plataformes",
+        "intro": "Davant del que us va costar de debò la darrera assemblea en esforç i assistència, i davant del que un proveïdor comercial us deixa a la mà al final. No assenyalem ningú: així és la categoria.",
+        "criterion_label": "La qüestió",
+        "traditional_label": "A la sala, amb delegacions",
+        "digital_label": "Una plataforma en línia a l'ús",
+        "vocdoni_label": "Vocdoni",
+        "rows": [
+          {
+            "criterion": "Com s'assoleix el quòrum",
+            "traditional": "Assistència més un munt de delegacions, revisades a mà aquell mateix matí",
+            "digital": "Vota més gent, però el còmput és el que digui el sistema",
+            "vocdoni": "Socis votant per ells mateixos, seguits en directe davant la vostra pròpia regla"
+          },
+          {
+            "criterion": "Qui pot verificar el resultat",
+            "traditional": "Els qui eren a la sala quan es va comptar",
+            "digital": "El proveïdor, i aquell a qui ensenyi l'informe",
+            "vocdoni": "Qualsevol: la vostra junta, un soci, un auditor, un jutjat"
+          },
+          {
+            "criterion": "Es pot refer el recompte de manera independent",
+            "traditional": "Només si es van guardar les paperetes, i normalment no es van guardar",
+            "digital": "Normalment no. El resultat és el que digui el sistema",
+            "vocdoni": "Sí. Qualsevol pot refer el recompte des del registre publicat"
+          },
+          {
+            "criterion": "Qui podria vincular un vot amb un soci",
+            "traditional": "Ningú, amb papereta. Tota la sala, si es vota a mà alçada",
+            "digital": "Normalment el proveïdor, perquè identitat i vot viuen al mateix sistema",
+            "vocdoni": "Ningú. La identitat i el vot els separa el sistema mateix"
+          },
+          {
+            "criterion": "Els vots delegats",
+            "traditional": "Formularis en paper, comptats per un voluntari, amb els límits aplicats a mà",
+            "digital": "Sovint no es contemplen, o es contemplen sense els límits dels vostres estatuts",
+            "vocdoni": "Aplicats tal com els defineixen els vostres estatuts, amb el pes de cada entitat membre"
+          },
+          {
+            "criterion": "Què veu la junta durant la votació",
+            "traditional": "La sala, i res sobre qui no ha arribat",
+            "digital": "Un tauler, si doneu accés a la vostra junta",
+            "vocdoni": "Participació en directe davant el quòrum, sense accés a cap vot"
+          },
+          {
+            "criterion": "Proves si un soci impugna",
+            "traditional": "L'acta, la llista d'assistència i la paraula dels presents",
+            "digital": "Un informe del proveïdor, que cal acceptar per confiança",
+            "vocdoni": "Una prova reproduïble i els documents d'auditoria el mateix dia"
+          },
+          {
+            "criterion": "Socis a l'estranger, malalts o treballant aquell dia",
+            "traditional": "Una delegació, si es recorden d'enviar-la",
+            "digital": "Voten des de qualsevol lloc",
+            "vocdoni": "Voten des de qualsevol lloc, o en un punt assistit si en munteu"
+          },
+          {
+            "criterion": "L'any que ve",
+            "traditional": "Refet de memòria i amb la carpeta de l'any passat",
+            "digital": "Muntat una altra vegada amb el proveïdor",
+            "vocdoni": "La mateixa configuració, reoberta"
+          }
+        ]
+      },
+      "engagement": {
+        "eyebrow": "qui l'executa",
+        "title": "Ho feu vosaltres, o ho fem amb vosaltres",
+        "intro": "La mateixa plataforma, les mateixes garanties i les mateixes evidències al final. La majoria d'associacions porten pel seu compte les consultes i les votacions de comissions durant tot l'any, i contracten el servei gestionat per a l'assemblea estatutària.",
+        "options": [
+          {
+            "badge": "autoservei",
+            "title": "Ho feu vosaltres, amb la vostra subscripció",
+            "description": "Creeu, configureu, llanceu i tanqueu les vostres pròpies votacions quan les necessiteu. Una persona, una tarda, sense equip tècnic i sense coneixements previs, amb formació i un canal de suport al darrere.",
+            "points": [
+              "En marxa la mateixa setmana",
+              "Tots els mètodes de vot, inclosos el ponderat i el delegat",
+              "Preus públics, sense trucada comercial"
+            ],
+            "cta": "Munta una votació de prova"
+          },
+          {
+            "badge": "eleccions gestionades",
+            "title": "Ho fem amb vosaltres, de cap a cap",
+            "description": "Llegim els vostres estatuts, configurem el procés, carreguem i validem el registre, fem un simulacre complet amb votants de prova, monitorem l'assemblea i lliurem els resultats, els informes i l'expedient d'evidències. Vosaltres aproveu, nosaltres operem.",
+            "points": [
+              "Un contacte amb nom durant tota la finestra de votació",
+              "Un simulacre complet abans de l'assemblea real",
+              "Si els vostres estatuts demanen alguna cosa poc habitual, ens n'encarreguem nosaltres"
+            ],
+            "cta": "Parla amb un expert electoral"
+          }
+        ],
+        "pricing": {
+          "title": "Quant costa",
+          "description": "Hi ha un pla gratuït sense límit de temps i sense targeta, i els plans de pagament es tarifen per nombre de socis. Aquests preus són públics, així que un tresorer voluntari pot posar una xifra davant la junta sense agendar cap trucada. Les assemblees gestionades, la personalització i qualsevol altra cosa que necessiteu al damunt es pressuposten per votació, segons la mida del registre i el que impliqui el procés.",
+          "link_label": "Mira on comencen els preus"
         }
-      ]
+      },
+      "faq": {
+        "eyebrow": "les preguntes difícils",
+        "title": "El que ens pregunten les associacions abans de decidir-se",
+        "intro": "Les preguntes que plantejarà la vostra junta, respostes aquí perquè tingueu la resposta abans que us la demanin.",
+        "items": [
+          {
+            "question": "Els nostres estatuts no esmenten el vot electrònic. Ho podem fer igualment?",
+            "answer": "De vegades sí, però comproveu la redacció abans de comprometre-us, perquè en una associació aquesta és tota la qüestió. El llibre tercer del Codi civil de Catalunya regula com es prenen els acords i no diu res del mitjà, així que la decisió queda als vostres estatuts. Uns descriuen les garanties que ha d'oferir una votació i no el mitjà, i sota aquests el vot electrònic està disponible. D'altres només preveuen el vot presencial o per delegació, i llavors cal incorporar-lo abans. Envieu-nos el vostre text i us direm en quin dels dos casos sou, inclòs quan la resposta sigui que necessiteu una modificació estatutària. Preferim dir-vos-ho ara que celebrar una assemblea els acords de la qual acabin anul·lats."
+          },
+          {
+            "question": "Podem continuar admetent delegacions de vot?",
+            "answer": "Sí, on els vostres estatuts les prevegin, i els límits deixen de ser una comprovació manual. Si un soci pot portar com a màxim tres vots delegats, la plataforma ho aplica; si la vostra federació dona a una entitat membre un pes proporcional a la seva pròpia massa social, aquest vot el porta. El que canvia és que els límits s'apliquen tal com estan escrits, en comptes de refer-se a mà el matí de l'assemblea."
+          },
+          {
+            "question": "Com sabem que l'assemblea va assolir realment el quòrum?",
+            "answer": "El quòrum es calcula des de la vostra pròpia definició, incloses les categories de soci que compten d'una altra manera o no compten, i la vostra junta el segueix en temps real en lloc d'assabentar-se'n al final. El registre de participació queda datat i entra a l'expedient, així que la resposta a «hi havia quòrum quan es va aprovar aquell punt?» és un document i no un record."
+          },
+          {
+            "question": "Alguns dels nostres socis tenen setanta anys i no fan servir aplicacions.",
+            "answer": "No hi ha cap aplicació per instal·lar. És una pàgina web en qualsevol dispositiu, amb un canal de suport atès durant tota la finestra de votació. Si una part de la vostra massa social està realment desconnectada, podeu celebrar l'assemblea en híbrid: muntem un punt de votació assistit a la vostra seu sobre el mateix registre, de manera que aquests socis voten amb ajuda i ningú no vota dues vegades."
+          },
+          {
+            "question": "Qui respon de què?",
+            "answer": "Nosaltres responem de la plataforma, de la configuració tècnica, de la integritat i la verificabilitat de cada vot emès, de la monitoració durant la finestra de votació i del recompte, els informes i les evidències en tancar. Vosaltres responeu de l'exactitud del registre de socis a la data de tall, del dret de vot i de les decisions de procediment que corresponen a la vostra junta. Cap proveïdor no pot prendre aquestes decisions per vosaltres, i convé desconfiar de qui s'ofereixi a fer-ho."
+          },
+          {
+            "question": "On s'allotgen les dades dels nostres socis?",
+            "answer": "A la UE, sota un contracte d'encàrrec de tractament signat, utilitzades només per executar la vostra votació i eliminades segons el calendari que fixeu. El registre es minimitza a un identificador més un canal de contacte. Qui consta al vostre registre de socis, i si va votar o no, és informació sensible. La tractem com a tal."
+          },
+          {
+            "question": "S'ha impugnat mai un resultat celebrat amb Vocdoni?",
+            "answer": "No. Cap procés de votació organitzat per Vocdoni no ha estat impugnat. Uns quants s'han auditat i revisat, per la mateixa organització i per tercers, i tot va sortir correcte sempre. Preferim que tampoc això no ho accepteu per fe: cada votació tanca amb els documents que permeten a una altra persona comprovar el recompte pel seu compte."
+          },
+          {
+            "question": "Podem mantenir els resultats amagats fins que tanqui la votació?",
+            "answer": "Sí. En mode xifrat ningú no veu cap resultat mentre la votació és oberta, nosaltres tampoc, i el recompte es publica automàticament en tancar. L'alternativa és un recompte en directe, que encaixa en una consulta interna però rarament en unes eleccions a la junta o en una modificació estatutària."
+          },
+          {
+            "question": "Som una associació de voluntaris. És assumible, i dona molta feina?",
+            "answer": "Hi ha un pla gratuït sense límit de temps, i els plans de pagament es tarifen per nombre de socis, així que una associació petita paga poc o res. Sobre la feina, compareu-ho amb l'assemblea que celebreu avui: la sala, la impressió, el franqueig, les delegacions revisades a mà i la tarda dedicada a comptar. Una persona munta una votació en una tarda i, l'any que ve, reobre la configuració d'enguany en comptes de refer-la de memòria."
+          }
+        ]
+      },
+      "closing": {
+        "title": "Porteu-nos els vostres estatuts",
+        "description": "La primera conversa més útil no és una demo. Envieu-nos els vostres estatuts i us direm què és configurable tal com estan escrits, què necessita una decisió de la junta i què requeriria una modificació a la propera assemblea. Si la resposta és que encara no hauríeu de portar aquesta votació al format digital, us ho direm.",
+        "cta_primary": "Munta una votació de prova",
+        "cta_secondary": "Parla amb un expert electoral",
+        "note": "Compte gratuït, sense targeta. Sense argumentari de vendes, només respostes."
+      },
+      "resources": {
+        "eyebrow": "abans de decidir",
+        "title": "Llegiu això primer",
+        "intro": "Guies, explicacions i casos d'èxit que responen la pregunta que probablement us fareu tot seguit.",
+        "items": [
+          {
+            "kind": "cas d'èxit",
+            "title": "Com celebra Òmnium Cultural les assemblees estatutàries en línia",
+            "description": "Una gran associació de socis, vots secrets i assemblees celebrades amb les garanties que exigeixen els seus estatuts."
+          },
+          {
+            "kind": "guia",
+            "title": "Què significa el quòrum en una votació en línia",
+            "description": "Com es calcula i se segueix el quòrum quan els socis voten en remot."
+          },
+          {
+            "kind": "guia",
+            "title": "Com celebrar una assemblea general en línia legalment vàlida",
+            "description": "Una llista de comprovació pràctica per a una assemblea general digital o híbrida."
+          },
+          {
+            "kind": "explicació",
+            "title": "El vot anònim, explicat",
+            "description": "Com continua sent secret un vot davant de qui executa la votació, nosaltres inclosos."
+          },
+          {
+            "kind": "explicació",
+            "title": "El vot verificable, explicat",
+            "description": "Per què qualsevol pot comprovar un resultat sense haver-se de fiar de la plataforma."
+          },
+          {
+            "kind": "guia",
+            "title": "Requisits del RGPD en el vot digital",
+            "description": "Què espera la normativa de protecció de dades quan portes una votació al format digital."
+          }
+        ]
+      },
+      "timeline": {
+        "eyebrow": "el compte enrere",
+        "title": "Què passa entre avui i l'assemblea",
+        "intro": "Una assemblea estatutària es planifica cap enrere des d'una data que marquen els vostres estatuts. Aquesta és la forma que té.",
+        "steps": [
+          {
+            "when": "4 setmanes abans",
+            "title": "Llegim els vostres estatuts",
+            "description": "Ens envieu els vostres estatuts i qualsevol reglament electoral. Us responem amb què podem executar tal com estan i què necessita una decisió vostra.",
+            "owner": "Vosaltres i nosaltres"
+          },
+          {
+            "when": "3 setmanes abans",
+            "title": "La junta aprova",
+            "description": "Elegibilitat, data de tall, quòrum, majories i finestra de votació es posen per escrit i s'aproven abans de construir res.",
+            "owner": "La vostra junta"
+          },
+          {
+            "when": "2 setmanes abans",
+            "title": "Es carrega i es revisa el registre",
+            "description": "La vostra base de dades de socis es converteix en registre de votació, validada amb els vostres propis criteris. Aquí apareixen els mòbils que falten i les baixes no tramitades, quan encara hi ha temps.",
+            "owner": "Nosaltres"
+          },
+          {
+            "when": "1 setmana abans",
+            "title": "Un simulacre complet",
+            "description": "La configuració real amb votants de prova. La vostra junta recorre el procés i qui l'hagi d'executar practica amb la consola abans de convidar un sol soci.",
+            "owner": "Els dos equips"
+          },
+          {
+            "when": "Dia de l'assemblea",
+            "title": "Obrir, vigilar, tancar",
+            "description": "Participació en directe davant el quòrum per a la junta, un canal de suport per als socis i el recompte publicat en tancar la finestra. Els documents i la certificació arriben el mateix dia.",
+            "owner": "Nosaltres, de guàrdia"
+          }
+        ],
+        "footnote": "Una consulta interna senzilla pot estar en marxa la mateixa setmana. Aquest calendari és per a una assemblea estatutària amb els vostres propis terminis de convocatòria, i la major part són les vostres aprovacions, no la nostra configuració."
+      },
+      "sizes": {
+        "eyebrow": "de la mida que sigueu",
+        "title": "D'una associació local a una federació d'entitats",
+        "intro": "La plataforma és la mateixa a qualsevol mida. El que canvia és quanta necessiteu i quant fem nosaltres amb vosaltres.",
+        "tiers": [
+          {
+            "size": "Fins a uns 1.000 socis",
+            "title": "Una associació local que ho resol en una tarda",
+            "description": "No necessiteu un projecte ni una partida pressupostària. Una persona crea la votació, puja el registre i envia l'enllaç, amb el pla gratuït o una subscripció petita.",
+            "points": [
+              "En marxa la mateixa setmana",
+              "Tots els mètodes de vot, inclosos el ponderat i el delegat",
+              "Gratis per començar, i gratis per quedar-s'hi si sou prou petits"
+            ]
+          },
+          {
+            "size": "Uns quants milers de socis",
+            "title": "Una associació d'àmbit estatal amb assemblea estatutària",
+            "description": "La forma que tenen la majoria d'associacions de socis. Autoservei o gestionat segons el que necessiteu: quant vulgueu personalitzar, quins serveis addicionals voleu o simplement quines parts preferiu deixar a les nostres mans.",
+            "points": [
+              "Registre importat des de la vostra base de dades de socis",
+              "Simulacre complet abans de l'assemblea estatutària",
+              "Subscripció tarifada per nombre de socis, la feina gestionada pressupostada a part"
+            ]
+          },
+          {
+            "size": "Una federació",
+            "title": "Entitats membre, cadascuna amb el seu pes",
+            "description": "Quan els membres són al seu torn associacions, el vot ha de portar el pes que els vostres estatuts donen a cadascuna, i qui l'emet han de ser els compromissaris correctes. Això és configuració, no una edició especial del producte.",
+            "points": [
+              "Vot ponderat i censos de compromissaris, tal com els defineixen els vostres estatuts",
+              "Registre sincronitzat per API en lloc de pujat",
+              "Gestionat de cap a cap, amb el nostre equip present el dia de l'assemblea"
+            ]
+          }
+        ]
+      },
+      "board": {
+        "eyebrow": "per a qui heu de convèncer",
+        "title": "Les parts que val la pena reenviar",
+        "intro": "Això no ho decidireu sols. Cadascuna d'aquestes respostes va dirigida a una persona de la sala, i cadascuna té el seu propi enllaç per enviar-l'hi.",
+        "links": [
+          {
+            "label": "Per al vostre advocat",
+            "description": "Què regeix la votació, i què produïm davant de cada exigència.",
+            "anchor": "legal-validity"
+          },
+          {
+            "label": "Per a la vostra junta",
+            "description": "Què pot veure el dia de l'assemblea, i contra què certifica en tancar.",
+            "anchor": "proof"
+          },
+          {
+            "label": "Per al vostre tresorer",
+            "description": "Quant costa, i en què es diferencien les dues formes de treballar amb nosaltres.",
+            "anchor": "engagement"
+          },
+          {
+            "label": "Per a l'escèptic de la sala",
+            "description": "Com es compara això amb l'assemblea que celebreu avui, línia per línia.",
+            "anchor": "comparison"
+          }
+        ]
+      }
     },
     "companies_agm": {
       "challenge": {
@@ -3322,8 +3686,8 @@
     },
     "solutions": {
       "associations": {
-        "description": "Organitzeu eleccions de junta, votacions estatutàries i consultes als socis en línia. Vot secret, resultats verificables i traçabilitat legalment defensable.",
-        "title": "Vot en línia per a associacions i eleccions de junta | Vocdoni"
+        "description": "Eleccions de junta, votacions estatutàries i assemblees generals per a associacions i federacions. Assoliu el quòrum amb socis que voten des d'on siguin, vot secret i un resultat que qualsevol soci pot comprovar.",
+        "title": "Vot en línia per a associacions i federacions | Vocdoni"
       },
       "companies_agm": {
         "description": "Celebreu juntes generals i votacions d'accionistes de manera digital. Vot ponderat i delegacions, registre d'auditoria complet i resultats verificables que satisfan els auditors.",

@@ -890,120 +890,484 @@
   },
   "solutions": {
     "associations": {
-      "challenge": {
-        "intro": "Für einen Verein ist jede satzungsrelevante Abstimmung ein Test der Legitimität. Geringe Beteiligung, angefochtene Ergebnisse oder eine Verletzung des Stimmgeheimnisses können das Vertrauen jahrelang beschädigen.",
-        "title": "Warum Mitgliederabstimmungen so schwer richtig umzusetzen sind"
-      },
-      "cta_primary": "Kostenlos starten",
-      "cta_secondary": "Mit unserem Team sprechen",
-      "eyebrow": "Für Vereine & Verbände",
-      "faq": {
-        "items": [
-          {
-            "answer": "Ja. Wenn deine Satzung Fern- oder elektronische Abstimmungen erlaubt oder nicht ausschließt, ist eine Vocdoni-Abstimmung rechtlich gültig. Wir bieten eine vollständige Prüfspur und überprüfbare Nachweise, damit das Ergebnis im Streitfall Bestand hat. Viele Vereine passen ihre Satzung an und erlauben digitale Abstimmungen ausdrücklich.",
-            "question": "Ist Online-Abstimmung für unsere Organisation rechtlich gültig?"
-          },
-          {
-            "answer": "Ja, und genau das ist der Kern von Vocdoni. Zero-Knowledge-Kryptografie trennt die Identität eines Mitglieds von der Stimme, sodass niemand, weder dein Vorstand noch Vocdoni, eine Stimme einer Person zuordnen kann. Gleichzeitig kann jede Person prüfen, dass alle gültigen Stimmen korrekt gezählt wurden.",
-            "question": "Können wir geheim abstimmen und das Ergebnis trotzdem verifizieren?"
-          },
-          {
-            "answer": "Von wenigen bis zu Hunderttausenden. Du kannst bis zu 100 Mitglieder kostenlos abstimmen lassen, und kostenpflichtige Tarife skalieren auch für sehr große Verbände ohne Performanceprobleme.",
-            "question": "Wie viele Mitglieder können abstimmen?"
-          },
-          {
-            "answer": "Die Nutzererfahrung ist so einfach wie möglich und funktioniert auf jedem Gerät ohne Installation. Wir orientieren uns an den WCAG-Richtlinien für Barrierefreiheit, und für Mitglieder, die nicht online abstimmen können, kannst du digitale und Vor-Ort-Abstimmung kombinieren.",
-            "question": "Was ist, wenn ein Mitglied sich mit Technik nicht wohlfühlt?"
-          },
-          {
-            "answer": "Die Ergebnisse werden automatisch ausgezählt, sobald das Abstimmungsfenster schließt. Keine manuelle Zählung, also erhältst du präzise, überprüfbare Ergebnisse in Sekunden statt in Stunden oder Tagen.",
-            "question": "Wie schnell liegen die Ergebnisse vor?"
-          },
-          {
-            "answer": "Nein. Wenn du eine E-Mail senden und ein Formular ausfüllen kannst, kannst du eine Abstimmung durchführen. Vorlagen, geführte Einrichtung und optionaler Expertensupport sorgen dafür, dass du bei einer wichtigen Entscheidung nie allein bist.",
-            "question": "Braucht man technisches Wissen, um eine Abstimmung durchzuführen?"
-          }
-        ],
-        "title": "Mitgliederabstimmungen: häufig gestellte Fragen"
-      },
-      "features": [
-        {
-          "description": "Erstelle eine Abstimmung aus einer Vorlage, lade deine Mitgliederliste hoch und leg los. Kein IT-Team und keine Schulung nötig.",
-          "title": "In wenigen Minuten eingerichtet"
-        },
-        {
-          "description": "Kryptografie sorgt dafür, dass jede Stimme privat bleibt, sogar vor Vocdoni und deinen eigenen Administratoren.",
-          "title": "Geheime Abstimmung standardmäßig"
-        },
-        {
-          "description": "Mitglieder stimmen von Smartphone, Tablet oder Computer aus, überall auf der Welt, ohne etwas installieren zu müssen.",
-          "title": "Von jedem Gerät aus abstimmen"
-        },
-        {
-          "description": "Die Ergebnisse werden automatisch ausgezählt, sobald die Abstimmung endet, mit einem Nachweis, den jeder prüfen kann.",
-          "title": "Sofort überprüfbare Ergebnisse"
-        },
-        {
-          "description": "Konfiguriere Beschlussfähigkeit, Stimmberechtigung, gewichtete Stimmen, mehrere Fragen und Abstimmungsfenster passend zu deiner Satzung.",
-          "title": "Deine Regeln, automatisch umgesetzt"
-        },
-        {
-          "description": "Füge dein Logo, deine Farben und deine Sprache hinzu, damit sich das Erlebnis wie deine Organisation anfühlt und nicht wie ein generisches Tool.",
-          "title": "Im Look deiner Organisation"
-        }
-      ],
+      "eyebrow": "für Vereine und Verbände",
       "hero": {
-        "subtitle": "Führe sichere, überprüfbare Vorstandswahlen, Satzungsabstimmungen und Mitgliederbefragungen online durch. Mehr Beteiligung, geheime Stimmabgabe und Ergebnisse, denen deine Mitglieder vertrauen können - ohne Papier- oder Portokosten.",
-        "title": "Abstimmungsplattform für Vorstandswahlen und Mitgliederabstimmungen"
-      },
-      "pains": [
-        "Abstimmungen per Post oder vor Ort sind teuer, langsam und senken die Beteiligung.",
-        "Mitglieder fürchten, dass ihre Stimme nicht wirklich geheim ist, und enthalten sich deshalb.",
-        "Ein knappes oder umstrittenes Ergebnis kann angefochten werden, wenn es keinen unabhängigen Nachweis gibt.",
-        "Mit Tabellen und E-Mails werden Quorum und Satzungsregeln leicht missachtet.",
-        "Entfernte und internationale Mitglieder sind faktisch von Entscheidungen ausgeschlossen.",
-        "Die manuelle Auszählung verzögert die Ergebnisse und führt leicht zu Fehlern."
-      ],
-      "proof": {
-        "author": "Òmnium Cultural",
-        "case_study_label": "Lies die Fallstudie zu Òmnium Cultural",
-        "organizations_label": "Organisationen, die mit Vocdoni abstimmen",
-        "quote": "Wir brauchten eine Abstimmung, die unsere Mitglieder ohne Weiteres akzeptieren würden. Vocdoni gab uns geheime Stimmabgaben, sofortige Ergebnisse und einen Nachweis, den niemand anzweifeln konnte.",
-        "role": "Mitgliederorganisation, Katalonien",
-        "title": "Vertraut von Verbänden und Föderationen"
-      },
-      "solution": {
-        "intro": "Vocdoni verwandelt einen komplexen Governance-Prozess in wenige geführte Schritte, sodass jeder Vorstand oder jede Geschäftsstelle eine Abstimmung ohne technisches Fachwissen durchführen kann.",
-        "title": "Alles, was deine Organisation braucht, um online zu entscheiden"
+        "title": "Versammlungen, die beschlussfähig sind, und Beschlüsse, die halten",
+        "subtitle": "Vorstandswahlen, Satzungsabstimmungen und Mitgliederversammlungen für Vereine und Verbände. Aus Ihrer eigenen Satzung konfiguriert, virtuell oder hybrid durchgeführt und mit dem Protokoll abgeschlossen, das zeigt, wie das Ergebnis zustande kam.",
+        "cta_primary": "Testabstimmung einrichten",
+        "cta_secondary": "Mit einer Wahlexpertin sprechen",
+        "risk_reversal": "Kostenloses Konto, ohne Kreditkarte."
       },
       "trust": {
-        "intro": "Privatsphäre, Prüfbarkeit und rechtliche Belastbarkeit sind keine Extras. Sie bilden die Grundlage jeder Abstimmung, die du mit Vocdoni durchführst.",
-        "title": "Ergebnisse, die jeder Prüfung standhalten"
+        "logos_label": "Vereine und Verbände, die mit Vocdoni abstimmen",
+        "badges": [
+          "Beschlussfähigkeit live, nach Ihrer eigenen Regel",
+          "Geheime Stimmabgabe von Grund auf",
+          "Vollständig virtuell, oder hybrid mit Saal",
+          "DSGVO, Hosting in der EU"
+        ],
+        "stats": [
+          {
+            "value": "200.000+",
+            "label": "Stimmen über die Infrastruktur von Vocdoni verarbeitet",
+            "source": "Zahlen der Vocdoni-Plattform"
+          },
+          {
+            "value": "500+",
+            "label": "Abstimmungsverfahren mit Vocdoni-Technologie durchgeführt",
+            "source": "Projekthistorie von Vocdoni"
+          },
+          {
+            "value": "Seit 2018",
+            "label": "Satzungsgemäße und öffentliche Wahlen im Produktivbetrieb",
+            "source": "quelloffen, öffentlich einsehbar"
+          }
+        ]
       },
-      "trust_badges": [
-        "DSGVO-konform",
-        "Durchgängig verifizierbar",
-        "Geheime Abstimmung",
-        "Open source"
-      ],
-      "trust_points": [
-        {
-          "description": "Jede wählende Person kann bestätigen, dass ihre Stimme gezählt wurde, und jede Person kann das Endergebnis prüfen - du musst der Plattform nicht vertrauen.",
-          "title": "Durchgängig verifizierbar"
+      "stakes": {
+        "eyebrow": "die Lage, in der Sie tatsächlich sind",
+        "title": "Eine Versammlung, die gerade so beschlussfähig war, und ein Beschluss, den jemand noch kippen kann",
+        "intro": "Die Beschlüsse eines Vereins sind nur so belastbar wie die Beteiligung dahinter. Wenn eine Versammlung ihre Beschlussfähigkeit erst mit einem Stapel Vollmachten erreicht, ist alles dort Beschlossene angreifbar — und angegriffen wird es von Ihren eigenen Mitgliedern.",
+        "items": [
+          {
+            "title": "Die Beschlussfähigkeit",
+            "description": "Die Mitglieder sind über das ganze Land verteilt, die Versammlung liegt auf einem Samstagvormittag, und im Saal sitzen dieselben vierzig Personen wie im Vorjahr. Entweder Sie werden mit Vollmachten beschlussfähig, oder Sie vertagen und laden erneut ein.",
+            "answer": "Mitglieder stimmen in zwei Minuten ab, von wo sie gerade sind. Die Beschlussfähigkeit entsteht aus Mitgliedern, die entschieden haben, nicht aus Formularen, die jemand eingesammelt hat."
+          },
+          {
+            "title": "Die Vollmachten",
+            "description": "Vollmachten kommen per E-Mail, werden von Hand geprüft, und am Ende trägt eine einzige Person zwanzig Stimmen. Das ist zulässig, es steht in Ihrer Satzung, und es ist das Erste, worauf ein unzufriedenes Mitglied zeigt.",
+            "answer": "Jedes Mitglied stimmt selbst ab, und wo Ihre Satzung Vertretung zulässt, setzt die Plattform die Grenzen durch, statt dass ein Ehrenamtlicher Unterschriften zählt."
+          },
+          {
+            "title": "Das Protokoll",
+            "description": "Monate später fragt jemand, wie die Auszählung zustande kam. Die ehrliche Antwort ist eine Tabelle, eine eingescannte Anwesenheitsliste und die Erinnerung derer, die dabei waren.",
+            "answer": "Die Auszählung wird zusammen mit dem Protokoll veröffentlicht, aus dem sie berechnet wurde. Ihr Vorstand zeigt auf Nachweise statt auf Erinnerungen."
+          }
+        ],
+        "answer_label": "Was sich mit Vocdoni ändert"
+      },
+      "legal": {
+        "eyebrow": "vor allem anderen",
+        "title": "Lässt unsere Satzung das zu, und was legen wir einem Mitglied vor, das widerspricht?",
+        "intro": "Die zwei Fragen, die darüber entscheiden, ob das bis in Ihren Vorstand gelangt. Ihre Satzung steht über allem, was folgt: bei einem Verein ist sie nicht eine Grundlage unter mehreren, sie ist das Instrument.",
+        "jurisdiction_label": "Rechtsrahmen für Deutschland",
+        "response_label": "Was Sie dagegen in der Hand haben",
+        "requirement_label": "Was der Rahmen verlangt",
+        "frameworks": [
+          {
+            "name": "Vereinsrecht: §§ 21 ff. BGB und Ihre Satzung",
+            "summary": "Das BGB regelt den Verein und überlässt der Satzung die Ausgestaltung. Für die Versammlung ist § 32 BGB die maßgebliche Norm, und er ist ungewöhnlich deutlich: Absatz 2 erlaubt ausdrücklich hybride Versammlungen, und die Mitglieder können beschließen, dass künftige Versammlungen auch rein virtuell einberufen werden.",
+            "response": [
+              "Wir lesen Ihre Satzung, bevor wir etwas konfigurieren, und sagen Ihnen, was sie so, wie sie geschrieben ist, bereits trägt",
+              "Wählbarkeit, Stichtag, Beschlussfähigkeit, Mehrheiten und Abstimmungszeitraum werden vor der Öffnung schriftlich festgehalten",
+              "Wenn zuerst ein Beschluss oder eine Satzungsänderung nötig ist, hören Sie das im ersten Gespräch"
+            ]
+          },
+          {
+            "name": "Eine belegbare Beschlussfähigkeit",
+            "summary": "Die Beschlussfähigkeit ist die meistdiskutierte Zahl im Vereinsjahr. Sie muss so berechnet werden, wie Ihre Satzung sie definiert, und für den Moment der Beschlussfassung belegt sein.",
+            "response": [
+              "Berechnet aus Ihrer eigenen Definition, einschließlich Mitgliedsarten, die anders oder gar nicht zählen",
+              "Ihr Vorstand verfolgt sie in Echtzeit und weiß vor Schließung, ob der Beschluss trägt",
+              "Das Beteiligungsprotokoll ist mit Zeitstempel versehen und geht in die Abschlussakte ein"
+            ]
+          },
+          {
+            "name": "Die geheime Stimmabgabe",
+            "summary": "Ein Mitglied muss gegen den amtierenden Vorstand stimmen können, ohne dass es jemand erfährt — auch nicht die Ehrenamtlichen, die den Verein führen und sonst alles sehen.",
+            "response": [
+              "Identität und Stimme trennt das System selbst, nicht eine Nutzungsregel",
+              "Keine einzelne Stelle — weder Ihre Geschäftsstelle noch Ihr Vorstand noch Vocdoni — hält, was zur Rekonstruktion einer Stimme nötig wäre",
+              "Die Stimme kann bis zur Schließung geändert werden, sodass niemand zum Nachweis seiner Wahl gedrängt werden kann"
+            ]
+          },
+          {
+            "name": "DSGVO und BDSG",
+            "summary": "Das Mitgliederverzeichnis ist ein Personendatenbestand, und eine Auszählung, die niemand von außen prüfen kann, ist eine Auszählung, die man glauben muss.",
+            "response": [
+              "Auftragsverarbeitungsvertrag inklusive, Hosting in der EU, dokumentierte Aufbewahrung",
+              "Minimiertes Verzeichnis: eine Kennung und ein Kontaktkanal",
+              "Der Ablauf ist von Anfang bis Ende überprüfbar, und jedes Mitglied kann bestätigen, dass seine Stimme enthalten ist, ohne preiszugeben, wie es gestimmt hat"
+            ]
+          }
+        ],
+        "evidence": {
+          "title": "Was Sie bei Schließung der Abstimmung erhalten",
+          "intro": "Der gesamte Ablauf ist von Anfang bis Ende überprüfbar, und noch am Tag der Schließung erhalten Sie die Akte, die das belegt. Sie enthält die unterzeichnete Konfiguration, eine versiegelte Kopie des Mitgliederverzeichnisses zum Stichtag, das Beteiligungsprotokoll gemessen an Ihrer Regel zur Beschlussfähigkeit, die veröffentlichte Auszählung und die Anleitung zu ihrer Überprüfung, dazu einen Bericht und eine Bescheinigung des Verfahrens für Ihr Protokoll. Sie ist für jemanden gebaut, der mit dem Ergebnis unzufrieden ist: ein Mitglied, eine Prüferin oder deren Beraterin kann jeden Teil prüfen, ohne etwas von Ihnen oder von uns zu benötigen."
         },
-        {
-          "description": "Kryptografischer Schutz trennt Identität und Stimmabgabe, sodass die Stimme geheim bleibt und nicht gekauft oder erzwungen werden kann.",
-          "title": "Geheim und ohne Zwang"
-        },
-        {
-          "description": "Von Grund auf DSGVO-konform, mit vollständiger Prüfhistorie und Belegpaket, das Anfechtungen standhält.",
-          "title": "Rechtlich belastbar"
-        },
-        {
-          "description": "Unser Abstimmungsprotokoll ist vollständig Open Source, sodass die Sicherheit aus öffentlicher Prüfung entsteht und nicht aus Versprechen des Anbieters.",
-          "title": "Open Source und prüfbar"
+        "counsel_note": "Wir stellen den Rahmen so dar, wie wir ihn verstehen, und liefern die Nachweise oben; die rechtliche Auslegung Ihrer eigenen Satzung liegt bei Ihrer Rechtsberatung.",
+        "cta_secondary": "Mit einer Wahlexpertin sprechen"
+      },
+      "proof": {
+        "eyebrow": "ein Verein wie Ihrer",
+        "title": "Ein Kulturverein, der seine Mitgliederversammlungen online gebracht hat",
+        "intro": "Òmnium Cultural führt seine satzungsgemäßen Versammlungen mit Vocdoni durch: Stimmen, die geheim bleiben, Mitglieder, die von überall teilnehmen, und ein Ergebnis, das prüfbar ist statt behauptet.",
+        "org": "Òmnium Cultural",
+        "org_meta": "Mitgliederverein, Katalonien, satzungsgemäße Versammlungen",
+        "stats": [
+          {
+            "value": "Geheim",
+            "label": "die Stimme, vom System selbst von der Identität getrennt"
+          },
+          {
+            "value": "Überprüfbar",
+            "label": "das Ergebnis, von jedem Mitglied oder Prüfer nachrechenbar"
+          },
+          {
+            "value": "Jedes Gerät",
+            "label": "keine App zu installieren, nichts für ein Mitglied einzurichten"
+          },
+          {
+            "value": "Satzungsgemäß",
+            "label": "Versammlungen mit den Garantien, die die Satzung verlangt"
+          }
+        ],
+        "case_study_label": "Die Fallstudie zu Òmnium Cultural lesen",
+        "blog_label": "Wie ein Verein mit Mitgliedern in vier Staaten abstimmt",
+        "cta_primary": "Testabstimmung einrichten"
+      },
+      "how": {
+        "eyebrow": "wie es abläuft",
+        "title": "Aus Ihrer Satzung konfiguriert, nicht aus einer Vorlage",
+        "intro": "Das sind die Funktionen, die zitiert werden, wenn ein Beschluss in Frage gestellt wird, und die Erfahrung, die sie beim Mitglied erzeugen.",
+        "features": [
+          {
+            "title": "Aus Ihrer Satzung konfiguriert",
+            "description": "Ämter, Mitgliedsarten, Wählbarkeitsregeln, Beschlussfähigkeit und Stichentscheide folgen Ihrem eigenen Text. Wir lesen ihn, bevor wir irgendetwas konfigurieren."
+          },
+          {
+            "title": "Das Verzeichnis wird vor der Abstimmung versiegelt",
+            "description": "Zum Stichtag wird Ihr Mitgliederverzeichnis gesperrt und mit einem kurzen Code versiegelt, der sich ändert, sobald ein einziger Name hinzukommt oder wegfällt. Ein Streit darüber, wer stimmberechtigt war, ist in einer Minute geklärt."
+          },
+          {
+            "title": "Beschlussfähigkeit in Echtzeit",
+            "description": "Ihr Vorstand sieht die Beteiligung gemessen an Ihrer eigenen Regel, während sie entsteht, und weiß vor Schließung, ob die Versammlung trägt. Zu keinem Zeitpunkt Zugriff auf einzelne Stimmen."
+          },
+          {
+            "title": "Gewichtete Stimmen und Vertretung",
+            "description": "Bei einem Verband, dessen Mitglieder selbst Organisationen sind, trägt jede Stimme das Gewicht, das Ihre Satzung ihr gibt. Wo die Satzung Vertretung zulässt, wendet die Plattform die Grenzen an, statt dass jemand Formulare prüft."
+          },
+          {
+            "title": "Virtuell, oder virtuell und vor Ort",
+            "description": "Die meisten Vereine führen die gesamte Abstimmung virtuell durch. Wenn Sie zusätzlich einen Saal wollen, können Mitglieder an einer betreuten Station auf demselben Verzeichnis abstimmen, sodass niemand zweimal wählt und beide Wege ein Ergebnis ergeben."
+          },
+          {
+            "title": "Geheim, auch vor Ihnen",
+            "description": "Identität und Stimme hält das System selbst auseinander, nicht ein Versprechen, das jemand brechen könnte. Niemand kann sie wieder zusammenführen: weder Ihre Mitarbeitenden noch Ihr Vorstand noch Vocdoni."
+          }
+        ],
+        "media_caption": "Die eigene Ansicht des Vorstands während der Versammlung: die Beteiligung gemessen an der Beschlussfähigkeit, und kein Zugriff auf eine einzige Stimme.",
+        "steps_title": "Und was ein Mitglied tatsächlich tut",
+        "steps": [
+          {
+            "title": "Es erhält die Einladung",
+            "description": "E-Mail oder SMS im Erscheinungsbild Ihres eigenen Vereins, mit Tagesordnung, Anträgen und dem genauen Zeitfenster, in dem die Abstimmung geöffnet ist."
+          },
+          {
+            "title": "Es weist sich aus, es registriert sich nicht",
+            "description": "Ein Einmalcode per SMS oder E-Mail bestätigt, dass es das Mitglied aus dem Verzeichnis ist. Kein Konto anzulegen, keine App zu installieren, keine Mitgliedsnummer nachzuschlagen."
+          },
+          {
+            "title": "Es stimmt ab",
+            "description": "Vorstandsämter, Satzungsänderungen und die Jahresrechnung, jeweils mit eigener Mehrheitsregel, auf einem Bildschirm und mit den beigefügten Unterlagen."
+          },
+          {
+            "title": "Es kann die eigene Stimme prüfen",
+            "description": "Es behält einen Beleg, den sonst niemand hat, und kann nach Schließung bestätigen, dass seine Stimme im veröffentlichten Ergebnis enthalten ist."
+          }
+        ],
+        "steps_media_caption": "Was ein Mitglied auf dem Telefon sieht, von der Einladung bis zum Beleg.",
+        "footnote": "Die meisten Mitglieder sind in weniger als zwei Minuten fertig, im Browser, den sie ohnehin offen haben. Wenn ein Teil Ihrer Mitgliedschaft tatsächlich offline ist, läuft die betreute Station auf demselben Verzeichnis, also wird niemand ausgeschlossen und niemand stimmt zweimal ab. Das Hindernis ist fast nie das Mitglied: es ist eine fehlende Mobilnummer in einem Verzeichnis, das seit Jahren niemand bereinigt hat. Deshalb prüfen wir Ihre Kontaktdaten, bevor irgendetwas öffnet."
+      },
+      "comparison": {
+        "eyebrow": "gegenüber den Alternativen",
+        "title": "Verglichen mit der Versammlung, die Sie heute abhalten, und mit den anderen Plattformen",
+        "intro": "Gegenüber dem, was Ihre letzte Versammlung an Aufwand und Beteiligung tatsächlich gekostet hat, und gegenüber dem, was ein kommerzieller Anbieter Ihnen am Ende aushändigt. Wir nennen niemanden beim Namen: so sieht die Kategorie aus.",
+        "criterion_label": "Die Frage",
+        "traditional_label": "Im Saal, mit Vollmachten",
+        "digital_label": "Ein üblicher Online-Anbieter",
+        "vocdoni_label": "Vocdoni",
+        "rows": [
+          {
+            "criterion": "Wie die Beschlussfähigkeit zustande kommt",
+            "traditional": "Anwesenheit plus ein Stapel Vollmachten, am Morgen von Hand geprüft",
+            "digital": "Mehr Mitglieder können abstimmen, aber die Zahl ist, was das System meldet",
+            "vocdoni": "Mitglieder, die selbst abstimmen, live gemessen an Ihrer eigenen Regel"
+          },
+          {
+            "criterion": "Wer das Ergebnis überprüfen kann",
+            "traditional": "Die Personen, die beim Auszählen im Raum waren",
+            "digital": "Der Anbieter, und wem er den Bericht zeigt",
+            "vocdoni": "Jede und jeder: Ihr Vorstand, ein Mitglied, eine Prüferin, ein Gericht"
+          },
+          {
+            "criterion": "Lässt sich die Auszählung unabhängig wiederholen",
+            "traditional": "Nur wenn die Zettel aufbewahrt wurden, und das wurden sie meist nicht",
+            "digital": "Meist nicht. Das Ergebnis ist, was das System meldet",
+            "vocdoni": "Ja. Jede und jeder kann die Auszählung aus dem veröffentlichten Protokoll wiederholen"
+          },
+          {
+            "criterion": "Wer eine Stimme einem Mitglied zuordnen könnte",
+            "traditional": "Niemand, beim Stimmzettel. Der ganze Saal, beim Handzeichen",
+            "digital": "Meist der Anbieter, weil Identität und Stimme in einem System liegen",
+            "vocdoni": "Niemand. Identität und Stimme trennt das System selbst"
+          },
+          {
+            "criterion": "Vertretene Stimmen",
+            "traditional": "Papierformulare, von Ehrenamtlichen gezählt, Grenzen von Hand angewendet",
+            "digital": "Oft nicht vorgesehen, oder ohne die Grenzen Ihrer Satzung",
+            "vocdoni": "So angewendet, wie Ihre Satzung sie definiert, samt Gewicht jeder Mitgliedsorganisation"
+          },
+          {
+            "criterion": "Was der Vorstand während der Abstimmung sieht",
+            "traditional": "Den Saal, und nichts über die, die nicht gekommen sind",
+            "digital": "Ein Dashboard, falls Ihr Vorstand Zugang erhält",
+            "vocdoni": "Beteiligung in Echtzeit gegen die Beschlussfähigkeit, ohne Zugriff auf eine Stimme"
+          },
+          {
+            "criterion": "Nachweise, wenn ein Mitglied widerspricht",
+            "traditional": "Das Protokoll, die Anwesenheitsliste und das Wort der Anwesenden",
+            "digital": "Ein Bericht des Anbieters, den Sie ihm glauben müssen",
+            "vocdoni": "Ein reproduzierbarer Nachweis und die Prüfunterlagen am selben Tag"
+          },
+          {
+            "criterion": "Mitglieder im Ausland, krank oder an dem Tag im Dienst",
+            "traditional": "Eine Vollmacht, wenn sie daran denken, sie zu schicken",
+            "digital": "Sie stimmen von überall ab",
+            "vocdoni": "Sie stimmen von überall ab, oder an einer betreuten Station, wenn Sie eine anbieten"
+          },
+          {
+            "criterion": "Nächstes Jahr",
+            "traditional": "Aus dem Gedächtnis und dem Ordner des Vorjahres neu gebaut",
+            "digital": "Erneut mit dem Anbieter aufgesetzt",
+            "vocdoni": "Dieselbe Konfiguration, erneut geöffnet"
+          }
+        ]
+      },
+      "engagement": {
+        "eyebrow": "wer es durchführt",
+        "title": "Sie führen es selbst durch, oder wir tun es mit Ihnen",
+        "intro": "Dieselbe Plattform, dieselben Garantien, dieselben Nachweise am Ende. Die meisten Vereine führen Befragungen und Ausschussabstimmungen das Jahr über selbst durch und nehmen den betreuten Dienst für die Mitgliederversammlung.",
+        "options": [
+          {
+            "badge": "Selbstbedienung",
+            "title": "Sie führen es durch, mit Ihrem eigenen Abonnement",
+            "description": "Sie erstellen, konfigurieren, starten und schließen Ihre Abstimmungen, wann immer Sie sie brauchen. Eine Person, ein Nachmittag, kein IT-Team und keine Vorkenntnisse, mit Schulung und einem Supportkanal im Rücken.",
+            "points": [
+              "In derselben Woche einsatzbereit",
+              "Alle Abstimmungsverfahren, gewichtete Stimmen und Vertretung eingeschlossen",
+              "Öffentliche Preise, ohne Vertriebsgespräch"
+            ],
+            "cta": "Testabstimmung einrichten"
+          },
+          {
+            "badge": "betreute Wahlen",
+            "title": "Wir führen es mit Ihnen durch, von Anfang bis Ende",
+            "description": "Wir lesen Ihre Satzung, konfigurieren das Verfahren, laden und prüfen das Verzeichnis, führen einen vollständigen Probelauf mit Testwählenden durch, begleiten die Versammlung und liefern die Ergebnisse, die Berichte und das Nachweispaket. Sie genehmigen, wir betreiben.",
+            "points": [
+              "Eine namentlich benannte Ansprechperson während des gesamten Abstimmungszeitraums",
+              "Ein vollständiger Probelauf vor der echten Versammlung",
+              "Wenn Ihre Satzung etwas Ungewöhnliches verlangt, übernehmen wir das selbst"
+            ],
+            "cta": "Mit einer Wahlexpertin sprechen"
+          }
+        ],
+        "pricing": {
+          "title": "Was es kostet",
+          "description": "Es gibt einen kostenlosen Tarif ohne Zeitbegrenzung und ohne Karte, und die kostenpflichtigen Tarife richten sich nach der Zahl der Mitglieder. Diese Preise sind veröffentlicht, sodass ein ehrenamtlicher Kassenwart dem Vorstand eine Zahl vorlegen kann, ohne einen Termin zu vereinbaren. Betreute Versammlungen, Anpassungen und alles Weitere werden je Abstimmung angeboten, nach Größe Ihres Verzeichnisses und Umfang des Verfahrens.",
+          "link_label": "Sehen, wo die Preise beginnen"
         }
-      ]
+      },
+      "faq": {
+        "eyebrow": "die harten Fragen",
+        "title": "Was Vereine uns fragen, bevor sie sich festlegen",
+        "intro": "Die Fragen, die Ihr Vorstand stellen wird, hier beantwortet, damit Sie die Antwort schon vorher haben.",
+        "items": [
+          {
+            "question": "Unsere Satzung erwähnt elektronische Abstimmungen nicht. Können wir das trotzdem tun?",
+            "answer": "Hier steht das deutsche Vereinsrecht günstiger als in vielen anderen Ländern. § 32 Abs. 2 BGB erlaubt ausdrücklich, bei der Einberufung eine hybride Versammlung vorzusehen, und die Mitglieder können beschließen, dass künftige Versammlungen auch rein virtuell einberufen werden. Ein Beschluss ganz ohne Versammlung ist dagegen nach Absatz 3 nur gültig, wenn alle Mitglieder in Textform zustimmen — das ist keine allgemeine Fernabstimmung. Schicken Sie uns Ihre Satzung, und wir sagen Ihnen, was sie so bereits trägt und wofür ein Beschluss oder eine Änderung nötig ist."
+          },
+          {
+            "question": "Können wir Vollmachten und Stimmübertragungen weiter zulassen?",
+            "answer": "Ja, soweit Ihre Satzung sie vorsieht, und die Grenzen sind dann keine Handprüfung mehr. Darf ein Mitglied höchstens drei übertragene Stimmen führen, setzt die Plattform das durch; gibt Ihr Verband einer Mitgliedsorganisation ein Gewicht nach ihrer eigenen Mitgliederzahl, trägt die Stimme dieses Gewicht. Was sich ändert: die Grenzen gelten so, wie sie geschrieben sind, statt am Versammlungsmorgen aus einem Stapel Formulare rekonstruiert zu werden."
+          },
+          {
+            "question": "Woher wissen wir, ob die Versammlung wirklich beschlussfähig war?",
+            "answer": "Die Beschlussfähigkeit wird aus Ihrer eigenen Definition berechnet, einschließlich Mitgliedsarten, die anders oder gar nicht zählen, und Ihr Vorstand verfolgt sie in Echtzeit, statt es am Ende zu erfahren. Das Beteiligungsprotokoll ist mit Zeitstempel versehen und geht in die Akte, sodass die Antwort auf „war die Versammlung beschlussfähig, als dieser Antrag angenommen wurde\" ein Dokument ist und keine Erinnerung."
+          },
+          {
+            "question": "Einige unserer Mitglieder sind über siebzig und nutzen keine Apps.",
+            "answer": "Es gibt keine App zu installieren. Es ist eine Webseite auf jedem Gerät, mit einer Supportleitung, die während des gesamten Abstimmungszeitraums besetzt ist. Wenn ein Teil Ihrer Mitgliedschaft tatsächlich offline ist, können Sie die Versammlung hybrid durchführen: Wir richten in Ihren Räumen eine betreute Station auf demselben Verzeichnis ein, sodass diese Mitglieder mit Hilfe abstimmen und trotzdem niemand zweimal wählt."
+          },
+          {
+            "question": "Wer ist wofür verantwortlich?",
+            "answer": "Wir verantworten die Plattform, die technische Konfiguration, die Integrität und Überprüfbarkeit jeder abgegebenen Stimme, die Begleitung während des Abstimmungszeitraums sowie Auszählung, Berichte und Nachweise bei Schließung. Sie verantworten die Richtigkeit des Mitgliederverzeichnisses zum Stichtag, die Stimmberechtigung und die Verfahrensentscheidungen, die Ihrem Vorstand zustehen. Kein Anbieter kann diese Entscheidungen für Sie treffen, und bei einem, der es anbietet, ist Vorsicht geboten."
+          },
+          {
+            "question": "Wo liegen die Daten unserer Mitglieder?",
+            "answer": "In der EU, unter einem unterzeichneten Auftragsverarbeitungsvertrag, ausschließlich zur Durchführung Ihrer Abstimmung genutzt und nach dem von Ihnen festgelegten Zeitplan gelöscht. Das Verzeichnis wird auf eine Kennung plus einen Kontaktkanal reduziert. Wer in Ihrem Mitgliederverzeichnis steht und ob diese Person abgestimmt hat, ist eine sensible Information. Wir behandeln sie entsprechend."
+          },
+          {
+            "question": "Wurde ein mit Vocdoni durchgeführtes Ergebnis jemals angefochten?",
+            "answer": "Nein. Kein von Vocdoni organisiertes Abstimmungsverfahren ist angefochten worden. Mehrere wurden geprüft und kontrolliert, von der Organisation selbst und von Dritten, und jedes Mal war alles in Ordnung. Auch das sollen Sie uns nicht einfach glauben: Jede Abstimmung endet mit den Unterlagen, mit denen eine andere Person die Auszählung selbst nachprüfen kann."
+          },
+          {
+            "question": "Können wir die Ergebnisse bis zur Schließung verborgen halten?",
+            "answer": "Ja. Im verschlüsselten Modus sieht niemand ein Ergebnis, solange die Abstimmung geöffnet ist, wir eingeschlossen, und die Auszählung wird bei Schließung automatisch veröffentlicht. Die Alternative ist eine laufende Auszählung in Echtzeit, die zu einer internen Befragung passt, aber selten zu einer Vorstandswahl oder einer Satzungsänderung."
+          },
+          {
+            "question": "Wir sind ein ehrenamtlich geführter Verein. Ist das bezahlbar, und ist es viel Arbeit?",
+            "answer": "Es gibt einen kostenlosen Tarif ohne Zeitbegrenzung, und die kostenpflichtigen Tarife richten sich nach der Mitgliederzahl, ein kleiner Verein zahlt also wenig oder nichts. Zum Aufwand: Vergleichen Sie es mit der Versammlung, die Sie heute abhalten — den Saal, den Druck, das Porto, die von Hand geprüften Vollmachten und den Abend mit dem Auszählen. Eine Person richtet eine Abstimmung an einem Nachmittag ein, und im nächsten Jahr öffnen Sie die diesjährige Konfiguration erneut, statt sie aus dem Gedächtnis neu zu bauen."
+          }
+        ]
+      },
+      "closing": {
+        "title": "Bringen Sie uns Ihre Satzung",
+        "description": "Das nützlichste erste Gespräch ist keine Demo. Schicken Sie uns Ihre Satzung, und wir sagen Ihnen, was sich so konfigurieren lässt, wie es dort steht, was einen Vorstandsbeschluss braucht und was eine Satzungsänderung auf der nächsten Versammlung erfordern würde. Wenn die Antwort lautet, dass Sie diese Abstimmung noch nicht online bringen sollten, sagen wir das.",
+        "cta_primary": "Testabstimmung einrichten",
+        "cta_secondary": "Mit einer Wahlexpertin sprechen",
+        "note": "Kostenloses Konto, ohne Kreditkarte. Kein Verkaufsgespräch, nur Antworten."
+      },
+      "resources": {
+        "eyebrow": "bevor Sie entscheiden",
+        "title": "Lesen Sie zuerst das hier",
+        "intro": "Leitfäden, Erklärungen und Fallstudien, die genau die Frage beantworten, die Sie vermutlich gleich stellen.",
+        "items": [
+          {
+            "kind": "Fallstudie",
+            "title": "Wie Òmnium Cultural seine Mitgliederversammlungen online durchführt",
+            "description": "Ein großer Mitgliederverein, geheime Stimmabgabe und Versammlungen mit den Garantien, die seine Satzung verlangt."
+          },
+          {
+            "kind": "Leitfaden",
+            "title": "Was Beschlussfähigkeit bei einer Onlineabstimmung bedeutet",
+            "description": "Wie die Beschlussfähigkeit berechnet und verfolgt wird, wenn Mitglieder aus der Ferne abstimmen."
+          },
+          {
+            "kind": "Leitfaden",
+            "title": "Wie Sie eine rechtsgültige Mitgliederversammlung online durchführen",
+            "description": "Eine praktische Checkliste für eine digitale oder hybride Mitgliederversammlung."
+          },
+          {
+            "kind": "Erklärung",
+            "title": "Anonymes Wählen, erklärt",
+            "description": "Wie eine Stimme vor denen geheim bleibt, die die Abstimmung durchführen, uns eingeschlossen."
+          },
+          {
+            "kind": "Erklärung",
+            "title": "Überprüfbares Wählen, erklärt",
+            "description": "Warum jede und jeder ein Ergebnis prüfen kann, ohne der Plattform vertrauen zu müssen."
+          },
+          {
+            "kind": "Leitfaden",
+            "title": "DSGVO-Anforderungen an digitale Abstimmungen",
+            "description": "Was das Datenschutzrecht erwartet, wenn Sie eine Abstimmung digital durchführen."
+          }
+        ]
+      },
+      "timeline": {
+        "eyebrow": "der Countdown",
+        "title": "Was zwischen heute und der Versammlung passiert",
+        "intro": "Eine satzungsgemäße Versammlung wird rückwärts von einem Datum geplant, das Ihre Satzung vorgibt. So sieht das aus.",
+        "steps": [
+          {
+            "when": "4 Wochen vorher",
+            "title": "Wir lesen Ihre Satzung",
+            "description": "Sie schicken uns Ihre Satzung und etwaige Wahlordnungen. Wir melden zurück, was wir so durchführen können, wie sie geschrieben sind, und was eine Entscheidung von Ihnen braucht.",
+            "owner": "Sie und wir"
+          },
+          {
+            "when": "3 Wochen vorher",
+            "title": "Der Vorstand genehmigt",
+            "description": "Wählbarkeit, Stichtag, Beschlussfähigkeit, Mehrheitsregeln und Abstimmungszeitraum werden schriftlich festgehalten und freigegeben, bevor irgendetwas gebaut wird.",
+            "owner": "Ihr Vorstand"
+          },
+          {
+            "when": "2 Wochen vorher",
+            "title": "Das Verzeichnis wird geladen und geprüft",
+            "description": "Ihre Mitgliederdatenbank wird zum Abstimmungsverzeichnis, geprüft an Ihren eigenen Kriterien. Hier fallen fehlende Mobilnummern und nicht ausgetragene Austritte auf, solange noch Zeit ist.",
+            "owner": "Wir"
+          },
+          {
+            "when": "1 Woche vorher",
+            "title": "Ein vollständiger Probelauf",
+            "description": "Die echte Konfiguration mit Testwählenden. Ihr Vorstand geht das Verfahren durch, und wer es später führt, übt an der Konsole, bevor ein einziges Mitglied eingeladen wird.",
+            "owner": "Beide Teams"
+          },
+          {
+            "when": "Tag der Versammlung",
+            "title": "Öffnen, begleiten, schließen",
+            "description": "Beteiligung in Echtzeit gegen die Beschlussfähigkeit für den Vorstand, eine Supportleitung für die Mitglieder und die Auszählung, veröffentlicht mit Schließung des Zeitfensters. Die Unterlagen und die Bescheinigung folgen am selben Tag.",
+            "owner": "Wir, in Rufbereitschaft"
+          }
+        ],
+        "footnote": "Eine einfache interne Befragung kann in derselben Woche laufen. Dieser Zeitplan gilt für eine satzungsgemäße Versammlung mit Ihren eigenen Einladungsfristen, und der größte Teil davon sind Ihre Freigaben, nicht unsere Konfiguration."
+      },
+      "sizes": {
+        "eyebrow": "welche Größe Sie auch haben",
+        "title": "Vom Ortsverein bis zum Dachverband",
+        "intro": "Die Plattform ist bei jeder Größe dieselbe. Was sich ändert, ist, wie viel davon Sie brauchen und wie viel wir gemeinsam mit Ihnen tun.",
+        "tiers": [
+          {
+            "size": "Bis etwa 1.000 Mitglieder",
+            "title": "Ein Ortsverein, der es an einem Nachmittag erledigt",
+            "description": "Sie brauchen kein Projekt und keinen Haushaltsposten. Eine Person legt die Abstimmung an, lädt das Verzeichnis hoch und verschickt den Link, im kostenlosen Tarif oder mit einem kleinen Abonnement.",
+            "points": [
+              "In derselben Woche einsatzbereit",
+              "Alle Abstimmungsverfahren, gewichtete Stimmen und Vertretung eingeschlossen",
+              "Kostenlos zum Start, und kostenlos auf Dauer, wenn Sie klein genug sind"
+            ]
+          },
+          {
+            "size": "Einige tausend Mitglieder",
+            "title": "Ein bundesweiter Verein mit satzungsgemäßer Versammlung",
+            "description": "Die Gestalt, die die meisten Mitgliedervereine haben. Selbstbedienung oder betreut, je nachdem, was Sie brauchen: wie viel Sie anpassen wollen, welche Zusatzleistungen Sie möchten oder schlicht, welche Teile Sie lieber an uns abgeben.",
+            "points": [
+              "Verzeichnis aus Ihrer Mitgliederdatenbank importiert",
+              "Vollständiger Probelauf vor der satzungsgemäßen Versammlung",
+              "Abonnement nach Mitgliederzahl, betreute Arbeit zusätzlich angeboten"
+            ]
+          },
+          {
+            "size": "Ein Dachverband",
+            "title": "Mitgliedsorganisationen, jede mit eigenem Gewicht",
+            "description": "Wo die Mitglieder selbst Vereine sind, muss die Stimme das Gewicht tragen, das Ihre Satzung jedem von ihnen gibt, und abgeben müssen sie die richtigen Delegierten. Das ist Konfiguration, keine Sonderausgabe des Produkts.",
+            "points": [
+              "Gewichtete Stimmen und Delegiertenverzeichnisse, wie Ihre Satzung sie definiert",
+              "Verzeichnis per API synchronisiert statt hochgeladen",
+              "Von Anfang bis Ende betreut, mit unserem Team am Versammlungstag"
+            ]
+          }
+        ]
+      },
+      "board": {
+        "eyebrow": "für die Menschen, die Sie überzeugen müssen",
+        "title": "Die Teile, die sich zu weiterleiten lohnen",
+        "intro": "Sie entscheiden das nicht allein. Jede dieser Antworten richtet sich an eine Person im Raum, und jede hat ihren eigenen Link, den Sie ihr schicken können.",
+        "links": [
+          {
+            "label": "Für Ihre Juristin",
+            "description": "Was die Abstimmung regelt, und was wir zu jeder Anforderung liefern.",
+            "anchor": "legal-validity"
+          },
+          {
+            "label": "Für Ihren Vorstand",
+            "description": "Was er am Tag der Versammlung sehen kann, und woran er bei Schließung anknüpft.",
+            "anchor": "proof"
+          },
+          {
+            "label": "Für Ihre Kassenwartin",
+            "description": "Was es kostet, und worin sich die beiden Arten der Zusammenarbeit unterscheiden.",
+            "anchor": "engagement"
+          },
+          {
+            "label": "Für die Skeptikerin im Raum",
+            "description": "Wie sich das mit der Versammlung vergleicht, die Sie heute abhalten, Zeile für Zeile.",
+            "anchor": "comparison"
+          }
+        ]
+      }
     },
     "companies_agm": {
       "challenge": {
@@ -3322,8 +3686,8 @@
     },
     "solutions": {
       "associations": {
-        "description": "Führe Vorstandswahlen, satzungsgemäße Abstimmungen und Mitgliederbefragungen online durch. Geheime Stimmabgabe, überprüfbare Ergebnisse, lückenlose Nachweise.",
-        "title": "Online-Abstimmungen für Verbände und Vorstandswahlen | Vocdoni"
+        "description": "Vorstandswahlen, Satzungsabstimmungen und Mitgliederversammlungen für Vereine und Verbände. Beschlussfähig werden mit Mitgliedern, die von überall abstimmen, geheime Stimmabgabe und ein Ergebnis, das jedes Mitglied prüfen kann.",
+        "title": "Onlineabstimmungen für Vereine und Verbände | Vocdoni"
       },
       "companies_agm": {
         "description": "Führe Hauptversammlungen und Aktionärsabstimmungen digital durch. Gewichtete Stimmen und Vollmachten, ein lückenloser Prüfpfad und überprüfbare Ergebnisse, die auch Prüfer überzeugen.",
