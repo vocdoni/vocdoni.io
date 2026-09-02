@@ -40,7 +40,7 @@
           ]
         }
       ],
-      "solution_label": "See voting for municipalities",
+      "solution_label": "See voting for city councils",
       "stats": [
         {
           "description": "At residents' convenience",
@@ -101,7 +101,7 @@
           ]
         }
       ],
-      "solution_label": "See voting for professional colleges",
+      "solution_label": "See voting for professional associations",
       "stats": [
         {
           "description": "Per member",
@@ -318,7 +318,7 @@
       "coib": {
         "industry": "Professional association",
         "org": "COIB",
-        "summary": "The nurses' college ran its 2025 AGM online with 2FA, hybrid access and instant results."
+        "summary": "The nurses' professional association ran its 2025 AGM online with 2FA, hybrid access and instant results."
       },
       "esquerra_republicana": {
         "industry": "Political party",
@@ -337,7 +337,7 @@
       }
     },
     "eyebrow": "Case studies",
-    "subtitle": "Real elections, real stakes. See how professional bodies, political parties, municipalities, civic movements and associations ran secure, verifiable votes with Vocdoni.",
+    "subtitle": "Real elections, real stakes. See how professional bodies, political parties, city councils, civic movements and associations ran secure, verifiable votes with Vocdoni.",
     "title": "Organizations that vote with Vocdoni"
   },
   "learn": {
@@ -1230,7 +1230,7 @@
       },
       "cta_primary": "Start free",
       "cta_secondary": "Talk to our team",
-      "eyebrow": "For municipalities & public administration",
+      "eyebrow": "For city councils & public administration",
       "faq": {
         "items": [
           {
@@ -1299,7 +1299,7 @@
         "case_study_label": "Read the Bellpuig case study",
         "organizations_label": "Organizations that vote with Vocdoni",
         "quote": "We held a municipal referendum online with full guarantees. Residents could vote from home and verify the result, which gave the decision real legitimacy.",
-        "role": "Municipality, Catalonia",
+        "role": "City council, Catalonia",
         "title": "Trusted by local governments"
       },
       "solution": {
@@ -1561,17 +1561,17 @@
     },
     "professional_colleges": {
       "challenge": {
-        "intro": "Professional colleges run elections on a tight legal framework. The process has to be impeccable, fully documented and accessible to every member, or it can be challenged.",
+        "intro": "Professional associations run elections on a tight legal framework. The process has to be impeccable, fully documented and accessible to every member, or it can be challenged.",
         "title": "Compliance and turnout, without the overhead"
       },
       "cta_primary": "Start free",
       "cta_secondary": "Talk to our team",
-      "eyebrow": "For professional colleges & bodies",
+      "eyebrow": "For professional associations & regulated bodies",
       "faq": {
         "items": [
           {
             "answer": "Yes, when your statutes permit electronic or remote voting, or do not prohibit it. Vocdoni provides a complete audit trail and verifiable evidence, so the result is defensible if it is ever challenged.",
-            "question": "Is online voting legally valid for a professional college?"
+            "question": "Is online voting legally valid for a professional association?"
           },
           {
             "answer": "Yes. You can configure quorum, eligibility, electoral rolls, multiple seats and voting windows so the process follows your regulations precisely.",
@@ -1590,7 +1590,7 @@
             "question": "Can we keep the ballot secret and still audit the result?"
           }
         ],
-        "title": "Professional college voting: frequently asked questions"
+        "title": "Professional association voting: frequently asked questions"
       },
       "features": [
         {
@@ -2016,7 +2016,7 @@
       },
       "municipalities": {
         "description": "Local referendums, participatory budgeting and citizen consultations, publicly auditable.",
-        "title": "Municipalities"
+        "title": "City councils"
       },
       "ngos": {
         "description": "Private, verifiable decisions across borders, free to start.",
@@ -2028,7 +2028,7 @@
       },
       "professional_colleges": {
         "description": "Compliant, auditable statutory elections and AGMs for professional bodies.",
-        "title": "Professional colleges"
+        "title": "Professional associations"
       },
       "sports_clubs": {
         "description": "Presidential and board elections at any scale, from local clubs to 100k+ members.",
@@ -2742,9 +2742,9 @@
       "associations": "Associations & federations",
       "companies_agm": "Companies & AGMs",
       "cooperatives": "Cooperatives",
-      "municipalities": "Municipalities",
+      "municipalities": "City councils",
       "political_parties": "Political parties",
-      "professional_colleges": "Professional colleges",
+      "professional_colleges": "Professional associations",
       "title": "Solutions",
       "view_all": "View all solutions"
     }
@@ -2768,17 +2768,14 @@
     "voted_just_now": "voted just now"
   },
   "hero": {
+    "all_solutions": "All solutions",
     "cta_primary": "Start for free",
     "cta_secondary": "Talk to an expert",
-    "dynamic_words": [
-      "easy",
-      "secure",
-      "simple"
-    ],
     "headline": "Run secure, verifiable elections for your organization",
-    "subtitle": "Run secure, verifiable elections from any device, with legal evidence and audit trails.",
-    "title": "Making decisions has never been this",
-    "trusted_by": "Trusted by organizations of all sizes"
+    "subtitle": "Vocdoni combines legal compliance, voter privacy, and results that you and your members can check independently.",
+    "subtitle_lead": "Take your voting processes online without taking on the risk.",
+    "trusted_by": "Trusted by organizations of all sizes",
+    "verticals_label": "Built for"
   },
   "landing": {
     "portfolio": {
@@ -2822,7 +2819,7 @@
       "title": "Vocdoni blog - insights on secure digital voting"
     },
     "case_studies_index": {
-      "description": "Real online voting case studies: professional colleges, political parties, municipalities, civic movements and associations that ran secure, verifiable elections with Vocdoni.",
+      "description": "Real online voting case studies: professional associations, political parties, city councils, civic movements and associations that ran secure, verifiable elections with Vocdoni.",
       "title": "Online voting case studies | Vocdoni"
     },
     "case_studies": {
@@ -2952,7 +2949,7 @@
       "title": "Privacy policy - Vocdoni"
     },
     "solutions_index": {
-      "description": "Secure, verifiable online voting tailored to your organization: associations, cooperatives, professional colleges, political parties, municipalities, sports clubs, NGOs, universities, companies and unions.",
+      "description": "Secure, verifiable online voting tailored to your organization: associations, cooperatives, professional associations, political parties, city councils, sports clubs, NGOs, universities, companies and unions.",
       "title": "Online voting solutions by organization type | Vocdoni"
     },
     "solutions": {
@@ -2981,7 +2978,7 @@
         "title": "Political party voting software for primaries | Vocdoni"
       },
       "professional_colleges": {
-        "description": "Compliant, auditable online voting for professional colleges and bodies. Run statutory elections and AGMs with a full audit trail and instant, verifiable results.",
+        "description": "Compliant, auditable online voting for professional associations and regulated bodies. Run statutory elections and AGMs with a full audit trail and instant, verifiable results.",
         "title": "Professional association voting software | Vocdoni"
       },
       "sports_clubs": {
@@ -3053,9 +3050,9 @@
       "associations": "Associations & federations",
       "companies_agm": "Companies & AGMs",
       "cooperatives": "Cooperatives",
-      "municipalities": "Municipalities",
+      "municipalities": "City councils",
       "political_parties": "Political parties",
-      "professional_colleges": "Professional colleges"
+      "professional_colleges": "Professional associations"
     },
     "solutions": "Solutions",
     "solutions_by_type_header": "By organization type",
@@ -3285,7 +3282,7 @@
           "value": "~30+"
         }
       ],
-      "subtitle": "From city councils to sports clubs, from professional colleges to political parties - see how organizations across Europe use Vocdoni to run secure, verifiable elections. Results any member can independently check. Set up in an afternoon.",
+      "subtitle": "From city councils to sports clubs, from professional associations to political parties - see how organizations across Europe use Vocdoni to run secure, verifiable elections. Results any member can independently check. Set up in an afternoon.",
       "title": "How organizations run elections their members can trust"
     },
     "success_stories": {
@@ -3460,7 +3457,7 @@
         "first_nations": "First nations",
         "ngos": "NGOs & foundations",
         "political_orgs": "Political organizations and parties",
-        "professional_colleges": "Professional colleges",
+        "professional_colleges": "Professional associations",
         "public": "Public administration",
         "sports": "Sports clubs"
       },

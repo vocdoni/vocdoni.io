@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next'
 import { CalBookingDialog } from '@/components/CalBookingDialog'
 import { Link } from '@/components/Link'
 import { DEVELOPERS_DASHBOARD_URL, isDevelopersPath } from '@/lib/developers'
+import { getSolutionVertical } from '@/lib/solution-verticals'
 import { usePageContext } from 'vike-react/usePageContext'
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
 import { Button } from '@/components/ui/button'
@@ -90,15 +91,27 @@ const buildResourcesItems = (t: TFunction): ResourceItem[] => [
 ]
 
 const buildSolutionVerticals = (t: TFunction) => [
-  { title: t('navbar.solution_links.associations', 'Associations & federations'), href: '/solutions/associations' },
-  { title: t('navbar.solution_links.cooperatives', 'Cooperatives'), href: '/solutions/cooperatives' },
   {
-    title: t('navbar.solution_links.professional_colleges', 'Professional colleges'),
-    href: '/solutions/professional-colleges',
+    title: t('navbar.solution_links.associations', 'Associations & federations'),
+    href: getSolutionVertical('associations').href,
   },
-  { title: t('navbar.solution_links.political_parties', 'Political parties'), href: '/solutions/political-parties' },
-  { title: t('navbar.solution_links.municipalities', 'Municipalities'), href: '/solutions/municipalities' },
-  { title: t('navbar.solution_links.companies_agm', 'Companies & AGMs'), href: '/solutions/companies-agm' },
+  { title: t('navbar.solution_links.cooperatives', 'Cooperatives'), href: getSolutionVertical('cooperatives').href },
+  {
+    title: t('navbar.solution_links.professional_colleges', 'Professional associations'),
+    href: getSolutionVertical('professional_colleges').href,
+  },
+  {
+    title: t('navbar.solution_links.political_parties', 'Political parties'),
+    href: getSolutionVertical('political_parties').href,
+  },
+  {
+    title: t('navbar.solution_links.municipalities', 'City councils'),
+    href: getSolutionVertical('municipalities').href,
+  },
+  {
+    title: t('navbar.solution_links.companies_agm', 'Companies & AGMs'),
+    href: getSolutionVertical('companies_agm').href,
+  },
 ]
 
 /* Two-part dropdown panel: a tinted intro column on the left introduces the

@@ -20,6 +20,7 @@ const linkVariants = cva('transition-colors', {
       heroBadge:
         'inline-flex items-center gap-2 sm:gap-3 p-1 rounded-3xl border border-border/40 bg-muted/20 text-xs transition-colors hover:bg-muted/30 group cursor-pointer max-w-full shadow-sm',
       inlineIcon: 'inline-flex items-center gap-2',
+      pill: 'inline-flex items-center gap-2 rounded-full border border-border bg-background px-3 py-1.5 text-sm font-medium text-foreground transition-colors hover:bg-muted/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2',
       dropdownItem:
         'relative flex w-full items-center justify-between px-3 py-2 rounded-md transition-colors cursor-pointer',
       card: 'block h-full overflow-hidden rounded-md',

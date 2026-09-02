@@ -10,7 +10,7 @@ export default function TargetUsersV3() {
 
   const targets = [
     {
-      label: t('vocdoni_app.target_users.list.professional_colleges', 'Professional colleges'),
+      label: t('vocdoni_app.target_users.list.professional_colleges', 'Professional associations'),
       icon: <BuildingIcon className='size-5' />,
     },
     {

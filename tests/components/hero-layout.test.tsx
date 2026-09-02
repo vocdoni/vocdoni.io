@@ -6,14 +6,11 @@ import Hero from '@/components/Hero'
 
 vi.mock('react-i18next', () => ({
   useTranslation: () => ({
-    t: (key: string, options?: { returnObjects?: boolean }) => {
-      if (key === 'hero.dynamic_words' && options?.returnObjects) {
-        return ['fast']
-      }
+    t: (key: string, defaultValue?: string) => {
       if (key === 'hero.headline') {
         return 'Run secure, verifiable elections for your organization'
       }
-      return key
+      return typeof defaultValue === 'string' ? defaultValue : key
     },
   }),
 }))
@@ -50,5 +47,28 @@ describe('Hero layout spacing', () => {
     expect(html).toContain('Run secure, verifiable elections for your organization')
     expect(html.match(/data-hero-cta="primary"/g) ?? []).toHaveLength(1)
     expect(html.indexOf('<h1')).toBeLessThan(html.indexOf('data-hero-cta="primary"'))
+  })
+
+  it('links the highlighted verticals and the solutions hub', () => {
+    const html = renderToStaticMarkup(<Hero />)
+
+    for (const slug of ['professional-colleges', 'associations', 'political-parties', 'municipalities']) {
+      expect(html).toContain(`href="/en/solutions/${slug}"`)
+    }
+    for (const label of [
+      'Professional associations',
+      'Associations &amp; federations',
+      'Political parties',
+      'City councils',
+      'Built for',
+      'All solutions',
+    ]) {
+      expect(html).toContain(label)
+    }
+    expect(html).toContain('href="/en/solutions"')
+
+    const primaryIndex = html.indexOf('data-hero-cta="primary"')
+    expect(primaryIndex).toBeGreaterThan(-1)
+    expect(primaryIndex).toBeLessThan(html.indexOf('/en/solutions/associations'))
   })
 })
