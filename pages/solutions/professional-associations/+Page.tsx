@@ -19,13 +19,8 @@ import imageCoib from '@/assets/images/success/coib_experience.webp'
  * The `type` is what joins a click here to a signup there, so it is also sent
  * as an event property, and the vertical is repeated in every `ctaId` below -
  * hence the `pro_associations` prefix.
- *
- * The host is pinned to app-dev rather than taken from `APP_URL`: this vertical's
- * signup flow is being exercised there. It is deliberately a separate constant
- * from `APP_URL` so that switching this landing back to production is one line.
  */
-const APP_HOST = 'https://app-dev.vocdoni.io'
-const APP_SIGNUP_URL = `${APP_HOST}/account/signin?type=professional-associations`
+const APP_SIGNUP_URL = `${APP_URL}/account/signin?type=professional-associations`
 const PRICING_URL = `${APP_URL}/plans`
 
 const CASE_STUDY_HREF = '/case-studies/coib'

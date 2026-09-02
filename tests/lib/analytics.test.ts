@@ -164,13 +164,13 @@ describe('trackAppCtaClick', () => {
 
     trackAppCtaClick({
       ctaId: 'pro_associations_hero',
-      destinationUrl: 'https://app-dev.vocdoni.io/account/signin?type=professional-associations',
+      destinationUrl: 'https://app.vocdoni.io/account/signin?type=professional-associations',
     })
 
     expect(gtag).toHaveBeenCalledWith('event', 'app_cta_click', {
       cta_id: 'pro_associations_hero',
       source_path: '/en/solutions/professional-associations',
-      destination_host: 'app-dev.vocdoni.io',
+      destination_host: 'app.vocdoni.io',
       destination_path: '/account/signin',
       signup_type: 'professional-associations',
     })
