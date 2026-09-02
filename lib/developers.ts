@@ -23,7 +23,7 @@ export const DEVELOPERS_SDK_URL = 'https://github.com/vocdoni/integrator-sdk'
 // (e.g. vocdoni/integrator-sdk) and aggregated here - the site links out to it rather
 // than hosting copies.
 export const DEVELOPERS_SKILLS_URL = 'https://github.com/vocdoni/skills'
-export const DEVELOPERS_SDK_DOCS_URL = 'https://vocdoni.io/developers'
+export const DEVELOPERS_SDK_DOCS_URL = 'https://vocdoni.io/en/developers'
 export const DEVELOPERS_GITHUB_URL = 'https://github.com/vocdoni'
 export const DEVELOPERS_PROTOCOL_URL = 'https://davinci.vote'
 export const DEVELOPERS_SWAGGER_URL = 'https://vocdoni.github.io/saas-backend/swagger.yaml'
