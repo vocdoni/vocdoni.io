@@ -1631,21 +1631,21 @@
             "response": [
               "Die Konfiguration wird Klausel für Klausel gegen Ihren Text geprüft, bevor irgendetwas öffnet",
               "Wahlberechtigung, Stichtag, Quorum, Mehrheitsregeln und Wahlzeitraum werden festgeschrieben",
-              "Das abschließende Nachweispaket verknüpft jede Garantie mit der Klausel, die sie erfüllt"
+              "Das abschließende Nachweispaket ordnet jede Garantie der Klausel zu, auf die sie sich bezieht, damit Ihre Rechtsberatung das prüfen kann"
             ]
           },
           {
-            "name": "Das Kammergesetz Ihres Landes",
-            "summary": "Berufskammern sind Körperschaften des öffentlichen Rechts. Ihre Wahlen richten sich nach dem jeweiligen Landeskammergesetz, etwa den Heilberufsgesetzen der Länder, und nach der Wahlordnung der Kammer selbst.",
+            "name": "Ihr Kammerrecht: Bundes- oder Landesgesetz",
+            "summary": "Berufskammern sind Körperschaften des öffentlichen Rechts, und welches Gesetz Ihre Wahl trägt, hängt von der Kammer ab: bundesrechtlich die BRAO, das IHKG oder das Steuerberatungsgesetz, landesrechtlich die Heilberufe-, Architekten- und Ingenieurkammergesetze der Länder. Die elektronische Wahl ist ausdrücklich vorgesehen — § 64 Abs. 1 BRAO nennt sie beim Namen.",
             "response": [
               "Wir konfigurieren aus Ihrer Wahlordnung, nicht aus einer Vorlage",
-              "Zusätzliche landesrechtliche Vorgaben werden in der Konfiguration abgebildet",
+              "Das Wahlcomputer-Urteil des Bundesverfassungsgerichts von 2009 betrifft politische Wahlen nach Art. 38 GG, nicht Kammerwahlen — an seinem Öffentlichkeitsgrundsatz lassen wir uns dennoch messen",
               "Jede dieser Entscheidungen wird dokumentiert, bevor die Wahl öffnet"
             ]
           },
           {
-            "name": "DSGVO und BDSG",
-            "summary": "Das Wählerverzeichnis ist ein Personendatenbestand. Datenminimierung, Löschfristen, ein Auftragsverarbeitungsvertrag und eine Rechtsgrundlage sind erforderlich.",
+            "name": "DSGVO, Landesdatenschutzgesetz und BDSG",
+            "summary": "Das Wählerverzeichnis ist ein Personendatenbestand. Datenminimierung, Löschfristen, ein Auftragsverarbeitungsvertrag und eine Rechtsgrundlage sind erforderlich. Als Körperschaft unter Landesaufsicht sind Sie in der Regel öffentliche Stelle des Landes (§ 2 Abs. 2 BDSG): dann gilt neben der DSGVO das Datenschutzgesetz Ihres Landes, bei bundesunmittelbaren Kammern das BDSG.",
             "response": [
               "Auftragsverarbeitungsvertrag inklusive, Hosting in der EU, dokumentierte Aufbewahrung",
               "Minimiertes Verzeichnis: eine Kennung und ein Kontaktkanal",
@@ -1654,7 +1654,7 @@
           },
           {
             "name": "Der Rechtsweg",
-            "summary": "Wahlakte einer Körperschaft des öffentlichen Rechts können vor dem Verwaltungsgericht landen, Monate nach der Abstimmung.",
+            "summary": "Wahlakte einer Körperschaft des öffentlichen Rechts sind gerichtlich überprüfbar: je nach Kammer vor dem Verwaltungsgericht oder, bei den Rechtsanwaltskammern, vor dem Anwaltsgerichtshof nach §§ 112a, 112f BRAO. Die Anfechtungsfrist ist kurz, die Entscheidung fällt oft Monate nach der Abstimmung.",
             "response": [
               "Datiertes Konfigurationsprotokoll und Prüfsumme des Verzeichnisses zum Stichtag",
               "Beteiligungsprotokoll und veröffentlichte Auszählung",
@@ -1666,6 +1666,7 @@
           "title": "Was Sie bei Schließung der Wahl erhalten",
           "intro": "Der gesamte Ablauf ist von Anfang bis Ende überprüfbar, und noch am Tag der Schließung erhalten Sie die Akte, die das belegt. Sie enthält die unterzeichnete Konfiguration, eine versiegelte Kopie des Mitgliederverzeichnisses zum Stichtag, das Beteiligungsprotokoll, die veröffentlichte Auszählung und die Anleitung zu ihrer Überprüfung, dazu einen Bericht und eine Bescheinigung des Verfahrens für Ihr Protokoll. Sie ist für jemanden gebaut, der dem Ergebnis feindlich gegenübersteht: eine Prüferin, ein unterlegener Kandidat oder dessen Beraterin kann jeden Teil davon prüfen, ohne etwas von Ihnen oder von uns zu benötigen."
         },
+        "counsel_note": "Wir stellen den Rahmen so dar, wie wir ihn verstehen, und liefern die Nachweise oben; die rechtliche Auslegung Ihrer eigenen Satzung liegt bei Ihrer Rechtsberatung.",
         "cta_secondary": "Mit einer Wahlexpertin sprechen"
       },
       "proof": {

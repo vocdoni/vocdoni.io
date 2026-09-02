@@ -83,6 +83,9 @@ export interface VerticalContent {
     response_label: string
     frameworks: VerticalFramework[]
     evidence: { title: string; intro: string }
+    /** One line at the foot of the ledger: who states the framework, and where
+     *  the legal reading belongs. Not the long disclaimer that preceded it. */
+    counsel_note?: string
     cta_secondary: string
   }
   proof: {

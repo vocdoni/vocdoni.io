@@ -1631,12 +1631,12 @@
             "response": [
               "La configuration est confrontée à votre texte clause par clause avant toute ouverture",
               "Éligibilité, date d'arrêté, quorum, règles de majorité et fenêtre de vote, verrouillées",
-              "Le dossier final relie chaque garantie à la clause qu'elle satisfait"
+              "Le dossier final associe chaque garantie à la clause qu'elle vise, pour que votre conseil puisse le vérifier"
             ]
           },
           {
             "name": "Le texte qui régit votre profession",
-            "summary": "Les ordres professionnels sont régis par le code propre à leur profession et par leur propre règlement électoral, avec des exigences qui varient d'une profession à l'autre.",
+            "summary": "Les ordres professionnels sont régis par le code propre à leur profession et par leur propre règlement électoral. Pour les professions médicales, le décret n° 2026-361 du 7 mai 2026 encadre expressément le vote par voie électronique (art. D. 4125-25-1 à D. 4125-25-8 du code de la santé publique) : règlement adopté après avis de la CNIL, bulletin chiffré dès le terminal, expert indépendant auprès de la commission de contrôle. Les exigences varient d'une profession à l'autre.",
             "response": [
               "Nous configurons à partir de votre règlement, pas d'un modèle",
               "Les obligations supplémentaires propres à votre profession sont traitées dans la configuration",
@@ -1666,6 +1666,7 @@
           "title": "Ce que vous recevez à la clôture du vote",
           "intro": "L'ensemble du processus est vérifiable de bout en bout et, le jour même de la clôture, vous recevez le dossier qui le prouve. Il contient la configuration signée, une copie scellée de la liste électorale à la date d'arrêté, le registre de participation, le dépouillement publié et les instructions pour le vérifier, ainsi qu'un rapport et une attestation du processus pour votre procès-verbal. Il est conçu pour quelqu'un d'hostile au résultat : un auditeur, un candidat battu ou son conseil peuvent en vérifier chaque partie sans rien attendre de vous ni de nous."
         },
+        "counsel_note": "Nous exposons le cadre tel que nous le comprenons et produisons les preuves ci-dessus ; la lecture juridique de vos propres statuts appartient à votre conseil.",
         "cta_secondary": "Parler à un expert électoral"
       },
       "proof": {

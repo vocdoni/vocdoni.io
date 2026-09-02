@@ -1631,12 +1631,12 @@
             "response": [
               "A configuração é confrontada cláusula por cláusula com seu texto antes de abrir qualquer coisa",
               "Elegibilidade, data de corte, quórum, regras de maioria e janela de votação, travadas",
-              "O dossiê final vincula cada garantia à cláusula que ela satisfaz"
+              "O dossiê final associa cada garantia à cláusula a que responde, para que seu jurídico possa conferir"
             ]
           },
           {
             "name": "A lei que criou seu conselho",
-            "summary": "Conselhos e ordens profissionais são autarquias federais criadas por lei própria, como a Lei 8.906/1994 no caso da OAB. As eleições seguem essa lei e o regimento eleitoral do próprio conselho.",
+            "summary": "Conselhos profissionais são, em regra, autarquias federais criadas por lei própria. A OAB é o caso à parte: o STF (ADI 3.026/DF) definiu-a como serviço público independente, fora da administração indireta. Em qualquer dos casos a eleição segue a lei que criou o conselho — a Lei 8.906/1994, no caso da OAB — e as normas eleitorais editadas pelo próprio conselho.",
             "response": [
               "Configuramos a partir do seu regimento, não de um modelo",
               "As exigências próprias do seu conselho são resolvidas na configuração",
@@ -1647,14 +1647,14 @@
             "name": "LGPD, Lei 13.709/2018",
             "summary": "A lista de eleitores é tratamento de dados pessoais. Exigem-se minimização, prazos de retenção, contrato com o operador e base legal.",
             "response": [
-              "Contrato de tratamento incluído, hospedagem na União Europeia, retenção documentada",
+              "Contrato de tratamento incluído; hospedagem na UE amparada nas cláusulas-padrão contratuais da ANPD (Resolução CD/ANPD n.º 19/2024); retenção documentada",
               "Lista minimizada: um identificador e um canal de contato",
               "O voto fica criptograficamente desvinculado da identidade de quem vota"
             ]
           },
           {
             "name": "A via de impugnação",
-            "summary": "Os atos eleitorais de uma autarquia podem acabar no Judiciário, meses depois da votação.",
+            "summary": "Os atos eleitorais de um conselho profissional podem acabar no Judiciário, meses depois da votação.",
             "response": [
               "Registro de configuração datado e impressão digital da lista na data de corte",
               "Registro de participação e apuração publicada",
@@ -1666,6 +1666,7 @@
           "title": "O que vocês recebem quando a votação encerra",
           "intro": "Todo o processo é verificável de ponta a ponta e, no mesmo dia em que a votação encerra, vocês recebem o dossiê que comprova isso. Ele contém a configuração assinada, uma cópia lacrada da lista de eleitores na data de corte, o registro de participação, a apuração publicada e as instruções para conferi-la, junto com um relatório e uma certificação do processo para a ata. Foi feito para alguém hostil ao resultado: um auditor, um candidato derrotado ou o advogado dele conseguem conferir cada parte sem precisar de nada de vocês nem de nós."
         },
+        "counsel_note": "Nós expomos o quadro como o entendemos e produzimos as provas acima; a leitura jurídica do seu próprio estatuto cabe ao seu jurídico.",
         "cta_secondary": "Fale com um especialista eleitoral"
       },
       "proof": {
