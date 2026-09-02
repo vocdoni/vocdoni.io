@@ -1560,68 +1560,70 @@
       ]
     },
     "professional_associations": {
-      "eyebrow": "elkargo profesional eta korporazioentzat",
+      "eyebrow": "elkargo profesionalentzat",
       "hero": {
-        "title": "Zuen hauteskunde batzordeak egiazta ditzakeen hauteskundeak",
-        "subtitle": "Gobernu batzordeko hauteskundeak, estatutu bozketak eta batzar orokorrak elkargo profesionalentzat. Zenbaketa kalkulatzeko erabili den erregistroarekin batera argitaratzen da, beraz inork ez du hornitzaile baten hitza sinetsi behar.",
+        "title": "Digitalizatu zuen hauteskundeak bermerik bat ere galdu gabe",
+        "subtitle": "Gobernu batzordeko hauteskundeak, estatutu bozketak eta batzar orokorrak elkargo profesionalentzat. Zuen hauteskunde araudiatik konfiguratuta, urrunetik edo modu hibridoan eginda, eta emaitza egiaztatzen duten dokumentu eta ziurtagiriarekin itxita.",
         "cta_primary": "Prestatu probako bozketa bat",
         "cta_secondary": "Hitz egin hauteskunde aditu batekin",
-        "risk_reversal": "Doako kontua, txartelik gabe. Zuen probako bozketa benetakoa da, ez erakustaldi bat.",
-        "proof_line": "COIBek 2025eko batzar orokorra Vocdonirekin egin zuen.",
-        "proof_link_label": "Ikusi nola"
+        "risk_reversal": "Doako kontua, txartelik gabe."
       },
       "trust": {
         "logos_label": "Vocdonirekin bozkatzen duten elkargo profesionalak",
         "badges": [
           "Frogen espedientea hauteskunde batzordearentzat",
           "Boto sekretua eraikuntzaz",
-          "Hibridoa: urrunetik eta aurrez aurre",
+          "Erabat urrunetik, edo hibridoa aretoarekin",
           "DBEO, Europar Batasunean ostatatua"
         ],
         "stats": [
           {
             "value": "200.000+",
-            "label": "boto prozesatu Vocdoniren azpiegituran",
+            "label": "boto prozesatuta Vocdoniren azpiegituran",
             "source": "Vocdoni plataformaren datuak"
           },
           {
             "value": "500+",
-            "label": "bozketa prozesu Vocdoni teknologiarekin eginak",
+            "label": "bozketa prozesu eginda Vocdoni teknologiarekin",
             "source": "Vocdoniren proiektuen historia"
           },
           {
             "value": "2018tik",
-            "label": "estatutu eta hauteskunde publikoak produkzioan egiten",
-            "source": "kode irekia, publikoki ikuskagarria"
+            "label": "estatutu eta hauteskunde publikoak ekoizpenean",
+            "source": "kode irekia, publikoki azter daitekeena"
           }
         ]
       },
       "stakes": {
         "eyebrow": "benetan zauden egoera",
-        "title": "Zuen hauteskunde batzordeak egin ez duen zenbaketa bat sinatzen du",
-        "intro": "Elkargo profesional bat zuzenbide publikoko korporazio bat da. Bere hauteskunde erabakiak errekurritu daitezke, lehenik barnean eta gero administrazioarekiko auzien jurisdikzioan. Horrek aldatzen du bozketa sistema batek amaieran zer sortu behar duen.",
+        "title": "Parte hartze eskasa, kostu handia eta inork inpugna dezakeen emaitza",
+        "intro": "Gobernu batzordeko hauteskunde bat bi aldiz epaitzen da: parte hartu duten edo hartu ez duten elkargokideek, eta, norbaitek inpugnatzen badu, epaitegi batek. Bi epaiak mahai berean amaitzen dute. Faktura ere bai.",
         "items": [
           {
+            "title": "Parte hartzea",
+            "description": "Bi orduko bidera jarduten duen elkargokide bat ez da bi orduko batzar batera joango. Parte hartzea baxu geratzen da, eta erroldaren zati txiki batek hautatutako batzorde batek aurka eraikitako argudio batekin gobernatzen du.",
+            "answer": "Bozkatzeak bi minutu behar ditu edozein gailutatik, eta beraz inoiz mugitzen ez ziren elkargokideek orain parte hartzen dute."
+          },
+          {
             "title": "Ziurtapena",
-            "description": "Hautagai batek hauteskunde batzordeari galdetzen badio nola dakien zifra zuzena dela, gaur egungo erantzun zintzoa da hornitzaileak hala esan duela. Sinatzeko posizio deserosoa da."
+            "description": "Hautagai batek hauteskunde batzordeari galdetzen dio nola dakien kopurua zuzena dela. Gaur erantzun zintzoa da hornitzaileak hala esan duela. Inork ez du hori bere izenarekin sinatu nahi.",
+            "answer": "Zenbaketa kalkulatzeko erabili den erregistroarekin batera argitaratzen da, eta beraz zuen batzordeak sinatu aurretik egiaztatzen du, eta ez ondoren."
           },
           {
-            "title": "Hauteskunde errolda",
-            "description": "Zorretan dauden elkargokideak, alta berriak, jardunean ez daudenak. Nork zuen bozkatzeko eskubidea, eta zein mugarri datatan, edozein estatutu prozesutan eztabaidatuena den gertaera da."
-          },
-          {
-            "title": "Parte hartzearen argudioa",
-            "description": "Bi orduko bidean jarduten duen elkargokide bat ez da bi orduko batzar batera joango. Parte hartzea baxu geratzen da, eta parte hartze baxua mandatuaren beraren aurkako argudio bihurtzen da."
+            "title": "Faktura",
+            "description": "Inprimaketa, frankeoa, aretoa, langileen orduak eta gauerdia pasatzen duen zenbaketa bat. Ziklo bakoitzean, eta hurrengoan ere bai.",
+            "answer": "Horren zati bat, eta hurrengoan aurtengo konfigurazioa berrirekiko duzue, memoriaz berregin beharrean."
           }
         ],
-        "turn": "Zenbaketa kalkulatzeko erabili den erregistroarekin batera argitaratzen da. Zuen batzordeak ez du gure hitza sinetsi behar zifrari buruz. Emaitzarekin ados ez dagoenak ere ez."
+        "answer_label": "Zer aldatzen den Vocdonirekin"
       },
       "legal": {
         "eyebrow": "beste ezer baino lehen",
-        "title": "Baliozkoa da guretzat, eta zer ematen diogu inpugnatzen duenari?",
-        "intro": "Bi galdera horiek erabakitzen dute hau zuen gobernu batzordera iristen den. Zuen Estatutuak eta Hauteskunde Araudia jarraian datorren guztiaren gainetik daude: haietatik konfiguratzen dugu.",
+        "title": "Hau baliozkoa da guretzat, eta zer ematen diogu inpugnatzen duenari?",
+        "intro": "Hau zuen gobernu batzordera iritsiko den erabakitzen duten bi galderak. Zuen Estatutuak eta zuen Hauteskunde Araudia jarraian datorren guztiaren gainetik daude: haietatik konfiguratzen dugu.",
         "jurisdiction_label": "Espainian eta Euskadin aplikatzen den esparrua",
         "response_label": "Zer lortzen duzun horren aurrean",
+        "requirement_label": "Zer eskatzen duen esparruak",
         "frameworks": [
           {
             "name": "Zuen Estatutuak eta Hauteskunde Araudia",
@@ -1661,35 +1663,33 @@
           }
         ],
         "evidence": {
-          "title": "Zer ematen diozun benetan inpugnatzen duenari",
-          "intro": "Esportagarria den frogen espediente bat, bozketa ixten den egun berean: sinatutako konfigurazioa, erroldaren aztarna digitala estatutuek ezarritako mugarri datan, parte hartze erregistroa, argitaratutako zenbaketa, egiaztatze jarraibideak eta prozesuaren ziurtagiri teknikoa aktarako. Emaitzaren aurkakoa den norbaitek zuengandik edo gugandik ezer behar izan gabe egiaztatu ahal izateko diseinatuta dago."
+          "title": "Zer jasotzen duzuen bozketa ixten denean",
+          "intro": "Prozesu osoa muturretik muturrera egiaztagarria da eta, bozketa ixten den egun berean, hori frogatzen duen espedientea jasotzen duzue. Sinatutako konfigurazioa, hauteskunde erroldaren kopia zigilatua mozte datan, parte hartze erregistroa, argitaratutako zenbaketa eta hura egiaztatzeko argibideak ditu, aktarako prozesuaren txosten eta ziurtagiri batekin batera. Emaitzaren aurkako norbaitentzat pentsatuta dago: auditore batek, hautagai galtzaile batek edo haren aholkulariak zati bakoitza egiazta dezake zuengandik edo gugandik ezer behar izan gabe."
         },
-        "disclaimer": "Hau informazio orokorra da, ez aholkularitza juridikoa, eta azken hitza zuen estatutuek eta zuen aholkulari legalak dute. Konpromisoa hartzen dugu goiko frogekin, eta lehen elkarrizketan argi esateko ezer egin aurretik estatutu aldaketa bat behar duzuela uste badugu.",
-        "cta_secondary": "Bidali iezaguzu zuen hauteskunde araudia",
-        "cta_note": "Irakurri egingo dugu eta esango dizuegu zer den konfiguragarria dagoen bezala, zerk behar duen hauteskunde batzordearen erabaki bat eta zerk eskatuko lukeen estatutu aldaketa bat. Salmenta hitzaldirik gabe."
+        "cta_secondary": "Hitz egin hauteskunde aditu batekin"
       },
       "proof": {
         "eyebrow": "zuena bezalako elkargo bat",
-        "title": "Batzar orokorra formatu digitalera eraman zuen erizaintza elkargo bat",
-        "intro": "COIBek, Bartzelonako Erizainen Elkargo Ofizialak, 2025eko batzar orokorra egin zuen bi faktoreko identifikazioarekin, sarbide hibridoarekin eta itxieran berehalako zenbaketarekin.",
+        "title": "Batzar orokorra sarera eraman zuen erizaintza elkargo bat",
+        "intro": "COIBek, Bartzelonako Erizainen Elkargo Ofizialak, 2025eko batzar orokorra egin zuen boto bakoitzean erabilera bakarreko kode batekin, elkargokideak aretotik eta etxetik bozkatuz, eta zenbaketa ixtean argitaratuta.",
         "org": "COIB, Col·legi Oficial d'Infermeres i Infermers de Barcelona",
         "org_meta": "Elkargo profesionala, Bartzelona, 2025, batzar orokor hibridoa",
         "stats": [
           {
             "value": "50 € arte",
-            "label": "bidaia aurreztuta bertaratutako elkargokide bakoitzeko"
+            "label": "joan-etorrian aurreztuta bertaratutako elkargokide bakoitzeko"
           },
           {
-            "value": "2FA",
-            "label": "SMS edo posta bidez boto bakoitzean"
+            "value": "Erabilera bakarreko kodea",
+            "label": "SMS edo posta bidez bidalita boto bakoitzean, inork bi aldiz edo beste baten izenean bozka ez dezan"
           },
           {
             "value": "Hibridoa",
             "label": "aretoan eta urrunetik, errolda bakarra"
           },
           {
-            "value": "Berehalakoa",
-            "label": "zenbaketa itxieran argitaratuta"
+            "value": "Berehala",
+            "label": "zenbaketa ixtean argitaratuta"
           }
         ],
         "case_study_label": "Irakurri COIBen kasu arrakastatsua",
@@ -1703,35 +1703,35 @@
         "features": [
           {
             "title": "Zuen araudiatik konfiguratuta",
-            "description": "Karguak, atalak, hautagarritasun arauak, mugarri datak eta berdinketak zuen testura egokitzen dira. Ezer konfiguratu aurretik irakurtzen dugu."
+            "description": "Karguak, sailak, hautagarritasun arauak, mozte datak eta berdinketak zuen testuari jarraitzen diote. Ezer konfiguratu aurretik irakurtzen dugu."
           },
           {
-            "title": "Errolda izoztuta eta aztarna digitalarekin",
-            "description": "Errolda estatutuek ezarritako mugarri datan blokeatzen da eta aztarna digital bat kalkulatzen zaio, gero inork ezin izan dezan eztabaidatu nor zegoen barruan."
+            "title": "Errolda mozte datan zigilatzen da",
+            "description": "Estatutuetako mozte datan hauteskunde errolda blokeatu eta kode labur batekin zigilatzen da, izen bakar bat gehitu edo kentzen bada aldatzen dena. Nork bozkatzeko eskubidea zuen eztabaida minutu batean ebazten da."
           },
           {
             "title": "Kontsola bat hauteskunde batzordearentzat",
-            "description": "Batzordeak parte hartzea denbora errealean ikusten du eta esportazio ziurtatua zuzenean jasotzen du, botorik ikusi gabe eta idazkaritzaren hitzaren mende egon gabe."
+            "description": "Hauteskunde batzordeak parte hartzea denbora errealean ikusten du eta esportazio ziurtatua zuzenean jasotzen du. Boto indibidualetarako sarbiderik gabe, eta inork ezin du esan kopuruak lehenik zuen idazkaritzatik pasatu direnik."
           },
           {
-            "title": "Hibridoa, errolda bakar baten gainean",
-            "description": "Aurrez aurre bozkatu nahi duten elkargokideek hala egiten jarrai dezakete, zuen egoitzako puntu lagundu batean. Bi kanalak errolda bakar batetik elikatzen dira, beraz boto bikoitza egiturazkoki ezinezkoa da."
+            "title": "Urrunetik, edo urrunetik eta aurrez aurre",
+            "description": "Elkargo gehienek hauteskunde osoa urrunetik egiten dute. Aretoa ere nahi baduzue, elkargokideek egun berean zuen egoitzako gune lagunduan bozka dezakete. Bi bideek hauteskunde errolda bera erabiltzen dute, beraz inork ez du bi aldiz bozkatzen."
           },
           {
             "title": "Sekretua zuentzat ere",
-            "description": "Kriptografiak identitatea eta botoa bereizten ditu. Ez zuen langileek, ez hauteskunde batzordeak, ez Vocdonik ezin dute berreraiki elkargokide batek nola bozkatu zuen."
+            "description": "Identitatea eta botoa sistemak berak banatzen ditu, ez inork hauts dezakeen promesa batek. Inork ezin ditu berriro elkartu: ez zuen langileek, ez hauteskunde batzordeak, ez Vocdonik."
           },
           {
             "title": "Hurrengo zikloan berrerabilgarria",
-            "description": "Konfigurazioa gorde eta hurrengo hauteskundeetarako berriro irekitzen da, memoriatik eta aurreko zikloko karpetatik berregin beharrean."
+            "description": "Konfigurazioa gorde eta hurrengo hauteskundeetarako berrirekitzen da, memoriaz eta aurreko zikloko karpetatik berregin beharrean."
           }
         ],
-        "media_caption": "Hauteskunde batzordearen ikuspegia bozketa egunean: parte hartzea zuzenean, eta botorik batere ikusi gabe.",
+        "media_caption": "Hauteskunde batzordearen ikuspegia bozketa egunean: parte hartzea zuzenean, eta boto bakar baterako sarbiderik ez.",
         "steps_title": "Eta zer egiten duen benetan elkargokide batek",
         "steps": [
           {
             "title": "Deialdia jasotzen du",
-            "description": "Posta edo SMS elkargoaren beraren irudiarekin, gai zerrendarekin, hautagaitzekin eta bozketa irekita dagoen leiho zehatzarekin."
+            "description": "Posta edo SMS elkargoaren beraren irudiarekin, gai zerrenda, hautagaitzak eta bozketa zabalik dagoen leiho zehatza."
           },
           {
             "title": "Identifikatu egiten da, ez erregistratu",
@@ -1739,7 +1739,7 @@
           },
           {
             "title": "Bozkatu egiten du",
-            "description": "Gobernu batzordeko karguak, estatutu aldaketak eta aurrekontuen onarpena, bakoitza bere gehiengo arauarekin, pantaila bakar batean eta dokumentazioa erantsita."
+            "description": "Gobernu batzordeko karguak, estatutu aldaketak eta aurrekontuen onarpena, bakoitza bere gehiengo arauarekin, pantaila bakarrean eta dokumentazioa erantsita."
           },
           {
             "title": "Bere botoa egiaztatu dezake",
@@ -1747,60 +1747,85 @@
           }
         ],
         "steps_media_caption": "Elkargokide batek mugikorrean ikusten duena, deialditik egiaztagirira.",
-        "footnote": "Elkargokide gehienek bi minutu baino gutxiagoan amaitzen dute, dagoeneko irekita duten nabigatzailearekin. Benetan konektatu gabe dagoen erroldaren zatirako, aurrez aurreko puntu lagunduak hauteskunde errolda beraren gainean funtzionatzen du, beraz inor ez da baztertzen eta inork ez du birritan bozkatzen. Praktikan oztopoa zuen datu basean falta den mugikor zenbaki bat izan ohi da, eta ez elkargokidea, horregatik ireki aurretik harremanetarako estaldura auditatzen dugu."
+        "footnote": "Elkargokide gehienek bi minutu baino gutxiagoan amaitzen dute, dagoeneko irekita duten nabigatzailean. Erroldaren zati bat benetan konexiorik gabe badago, gune lagunduak hauteskunde errolda beraren gainean funtzionatzen du, beraz inor ez da kanpoan geratzen eta inork ez du bi aldiz bozkatzen. Oztopoa ia inoiz ez da elkargokidea: zuen datu basean falta den mugikor zenbaki bat da. Horregatik zuen harremanetarako datuak berrikusten ditugu ezer ireki aurretik."
       },
       "comparison": {
-        "eyebrow": "gaur egiten duzuenaren aurrean",
-        "title": "Zuen gaur egungo posta edo aurrez aurreko prozesuarekin alderatuta",
-        "intro": "Ez beste plataforma baten aurrean. Zuen azken hauteskunde zikloak benetan kostatu zizuenaren aurrean, eta gero eskuan utzi zizuenaren aurrean.",
+        "eyebrow": "alternatiben aurrean",
+        "title": "Paperarekin alderatuta, eta beste plataformekin",
+        "intro": "Zuen azken hauteskunde zikloak benetan kostatu zizuenaren aurrean, eta hornitzaile komertzial batek amaieran eskuan uzten dizuenaren aurrean. Ez dugu inor izendatzen: kategoriaren forma da.",
         "criterion_label": "Auzia",
         "traditional_label": "Posta edo aurrez aurre",
+        "digital_label": "Ohiko lineako plataforma bat",
         "vocdoni_label": "Vocdoni",
         "rows": [
           {
             "criterion": "Nork egiazta dezakeen emaitza",
             "traditional": "Zenbaketa aretoan zeudenek",
+            "digital": "Hornitzaileak, eta txostena erakusten dionak",
             "vocdoni": "Edonork: zuen batzordeak, elkargokide batek, hautagai batek, epaitegi batek"
+          },
+          {
+            "criterion": "Zenbaketa modu independentean berregin daitekeen",
+            "traditional": "Bai, gutun azalak berriro zenbatuz, oraindik zigilatuta badaude",
+            "digital": "Normalean ez. Emaitza sistemak dioena da",
+            "vocdoni": "Bai. Edonork berregin dezake zenbaketa argitaratutako erregistrotik"
+          },
+          {
+            "criterion": "Nork lotu lezakeen boto bat elkargokide batekin",
+            "traditional": "Inork ez, paperezko boto txartelarekin. Areto osoak, eskua altxatuz bozkatuz gero",
+            "digital": "Normalean hornitzaileak, identitatea eta botoa sistema berean daudelako",
+            "vocdoni": "Inork ez. Identitatea eta botoa sistemak berak banatzen ditu"
           },
           {
             "criterion": "Zer ikusten duen hauteskunde batzordeak bozketan zehar",
             "traditional": "Ezer ez zenbaketara arte",
-            "vocdoni": "Parte hartzea zuzenean, botorik ikusi gabe"
-          },
-          {
-            "criterion": "Noiz agertzen den erroldako akats bat",
-            "traditional": "Zenbaketan, berandu denean",
-            "vocdoni": "Ireki aurretik, zuen irizpideekin alderatuta"
+            "digital": "Panel bat, zuen batzordeari sarbidea ematen badiozue",
+            "vocdoni": "Parte hartzea zuzenean, boto baterako sarbiderik gabe"
           },
           {
             "criterion": "Frogak emaitza inpugnatzen bada",
             "traditional": "Akta eta bertaratutakoen hitza",
-            "vocdoni": "Froga erreproduzigarri bat eta espediente bat egun berean"
+            "digital": "Hornitzailearen txosten bat, konfiantzaz onartu behar dena",
+            "vocdoni": "Froga erreproduzigarri bat eta auditoretza dokumentuak egun berean"
+          },
+          {
+            "criterion": "Noiz agertzen den erroldako akats bat",
+            "traditional": "Zenbaketan, jada berandu denean",
+            "digital": "Hornitzaileari errolda balioztatzea egokitzen zaionean",
+            "vocdoni": "Ireki aurretik, zuen irizpideekin alderatuta"
+          },
+          {
+            "criterion": "Zer kostatzen zaion elkargokide bati parte hartzea",
+            "traditional": "Zuen barrutiko edozein lekutik joatea, goiz bat bere denboratik, eta bidaiak kostatzen diona",
+            "digital": "Ezer ez dagoeneko duen gailuaz gain",
+            "vocdoni": "Ezer ez dagoeneko duen gailuaz gain"
           },
           {
             "criterion": "Atzerrian edo kanpoan jarduten duten elkargokideak",
-            "traditional": "Praktikan baztertuta",
-            "vocdoni": "Edonondik bozkatzen dute, edo puntu lagundu batean"
+            "traditional": "Postaz eskaintzen duzuen tokietan, edo ordezkaritzaz, horrek dakartzan paperak eta epeekin",
+            "digital": "Edozein lekutatik bozkatzen dute",
+            "vocdoni": "Edozein lekutatik bozkatzen dute, edo gune lagundu batean antolatzen baduzue"
           },
           {
             "criterion": "Hurrengo zikloa",
-            "traditional": "Memoriatik berregina",
-            "vocdoni": "Konfigurazio bera, berriro irekita"
+            "traditional": "Memoriaz berreginda",
+            "digital": "Berriro muntatuta hornitzailearekin",
+            "vocdoni": "Konfigurazio bera, berrirekita"
           }
         ]
       },
       "engagement": {
-        "eyebrow": "nork exekutatzen duen",
+        "eyebrow": "nork egiten duen",
         "title": "Zuek egiten duzue, edo zuekin egiten dugu",
-        "intro": "Plataforma bera, berme berak eta froga berak amaieran. Elkargo gehienek zerbitzu kudeatua kontratatzen dute estatutu prozesurako eta harpidetza bera erabiltzen dute beren kabuz urtean zehar beste guztirako.",
+        "intro": "Plataforma bera, berme berak, froga berak amaieran. Elkargo gehienek zerbitzu kudeatua kontratatzen dute estatutu prozesurako eta harpidetza bera erabiltzen dute beren kabuz urtean zeharreko gainerako guztirako.",
         "options": [
           {
             "badge": "autozerbitzua",
             "title": "Zuek egiten duzue, zuen harpidetzarekin",
-            "description": "Zuen bozketak sortu, konfiguratu, abiarazi eta ixten dituzue behar dituzuenean. Pertsona bat, arratsalde bat, talde teknikorik gabe, prestakuntzarekin eta laguntza kanal batekin atzean.",
+            "description": "Zuen bozketak sortu, konfiguratu, abiarazi eta ixten dituzue behar dituzuenean. Pertsona bat, arratsalde bat, talde teknikorik gabe, prestakuntza eta laguntza kanal batekin atzean.",
             "points": [
-              "Astean bertan martxan",
-              "Kontsultak, batzordeen bozketak eta barne inkestak urte osoan",
+              "Martxan aste berean",
+              "Urrunetik edo hibridoan, kontsultetarako eta batzordeen bozketetarako urte osoan",
               "Prezio publikoak, dei komertzialik gabe"
             ],
             "cta": "Prestatu probako bozketa bat"
@@ -1808,94 +1833,94 @@
           {
             "badge": "hauteskunde kudeatuak",
             "title": "Zuekin egiten dugu, hasieratik amaierara",
-            "description": "Zuen hauteskunde araudia irakurtzen dugu, prozesua konfiguratzen dugu, errolda kargatu eta balidatzen dugu, proba bozkatzaileekin entsegu oso bat egiten dugu, bozketa eguna monitorizatzen dugu eta emaitzak, txostenak eta frogen espedientea entregatzen ditugu. Zuek onartzen duzue, guk operatzen dugu.",
+            "description": "Zuen hauteskunde araudia irakurtzen dugu, prozesua konfiguratzen dugu, errolda kargatu eta balioztatzen dugu, proba osoa egiten dugu probako botoemaileekin, bozketa eguna zaintzen dugu eta emaitzak, txostenak eta frogen espedientea entregatzen ditugu. Zuek onartzen duzue, guk operatzen dugu.",
             "points": [
-              "Izena duen kontaktu bat bozketa leiho osoan",
-              "Entsegu oso bat benetako hauteskundeen aurretik",
-              "Aplikazioak berez egiten ez duena, hala ere zuentzat egin dezakegu"
+              "Izen-abizenekiko harremanetarako pertsona bat bozketa leiho osoan",
+              "Proba oso bat benetako hauteskundeak baino lehen",
+              "Zuen araudiak ohikoa ez den zerbait eskatzen badu, guk geuk hartzen dugu bere gain"
             ],
             "cta": "Hitz egin hauteskunde aditu batekin"
           }
         ],
-        "recommendation": {
-          "title": "Zer gomendatuko genizuekeen",
-          "description": "Hauteskunde batzorde baten pean dauden gobernu batzordeko hauteskundeetarako, kontratatu zerbitzu kudeatua. Estatutu prozesu bat ez da elkargo batek konfigurazio xehetasun bat aurkitu nahi duen lekua. Probatu hala ere aplikazioa doan aurretik, zer erosten ari zareten zehatz jakiteko, eta gorde harpidetza bera barne kontsultetarako eta batzordeen bozketetarako."
-        },
         "pricing": {
           "title": "Zenbat balio duen",
-          "description": "Denbora mugarik eta txartelik gabeko doako plan bat dago, eta ordainpeko planak kide kopuruaren arabera tarifikatzen dira. Prezioak publikoak dira, beraz zifra bat jar dezakezue zuen gobernu batzordearen aurrean deirik hitzartu gabe. Hauteskunde kudeatuak prozesuka aurrekontatzen dira, erroldaren tamainaren eta konplexutasunaren arabera.",
-          "link_label": "ikusi planak"
+          "description": "Denbora mugarik eta txartelik gabeko doako plan bat dago, eta ordainpeko planak kide kopuruaren arabera tarifatzen dira. Prezio horiek publikoak dira, beraz nondik hasten den ikus dezakezue deirik hitzartu gabe. Hauteskunde kudeatuak, pertsonalizazioa eta gainetik behar duzuen beste edozer prozesuka aurrekontatzen dira, erroldaren tamainaren eta prozesuak dakarrenaren arabera.",
+          "link_label": "Ikusi non hasten diren prezioak"
         }
       },
       "faq": {
         "eyebrow": "galdera zailak",
         "title": "Elkargoek erabaki aurretik galdetzen digutena",
-        "intro": "Zuen gobernu batzordeak planteatuko dituen galderak, hemen erantzunda erantzuna eska diezazueten aurretik izan dezazuen.",
+        "intro": "Zuen gobernu batzordeak planteatuko dituen galderak, hemen erantzunda, eskatu aurretik erantzuna izan dezazuen.",
         "items": [
           {
-            "question": "Gure estatutuek ez dute boto elektronikoa aipatzen. Hala ere egin dezakegu?",
-            "answer": "Normalean bai, baina egiaztatu idazkera konpromisoa hartu aurretik. Elkargo askoren estatutuek bozketa batek eskaini behar dituen bermeak deskribatzen dituzte eta ez erabiltzen duen bitartekoa, eta horrek boto elektronikoa erabilgarri uzten du. Beste batzuek berariazko aldaketa bat edo gobernu batzordearen erabaki bat eskatzen dute. Bidali iezaguzu zuen testua eta esango dizuegu bi kasuetatik zeinetan zaudeten, erantzuna aurretik estatutu aldaketa bat behar duzuela denean barne. Nahiago dugu orain esan, gero baliogabetuta amaituko den prozesu bat exekutatu baino."
+            "question": "Gure estatutuek ez dute boto elektronikoa aipatzen. Egin dezakegu hala ere?",
+            "answer": "Normalean bai, baina egiaztatu idazkera konpromisoa hartu aurretik. Elkargo askoren estatutuek bozketa batek eskaini behar dituen bermeak deskribatzen dituzte eta ez erabiltzen duen bitartekoa, eta horrek boto elektronikoa erabilgarri uzten du. Beste batzuek berariazko aldaketa edo gobernu batzordearen erabakia eskatzen dute. Bidali iezaguzue zuen testua eta esango dizuegu bi kasuetatik zeinetan zaudeten, erantzuna lehenik estatutu aldaketa bat behar duzuela denean ere. Nahiago dugu orain esan, gero baliogabetuko den prozesu bat egitea baino."
           },
           {
             "question": "Gure elkargokide batzuek hirurogeita hamar urte dituzte eta ez dituzte aplikazioak erabiltzen.",
-            "answer": "Ez dago aplikaziorik. Web orri bat da edozein gailutan, bozketa leiho osoan zehar artatutako laguntza kanal batekin. Erroldaren zati bat benetan konektatu gabe dagoenean, hauteskunde errolda beraren gainean funtzionatzen duen aurrez aurreko bozketa puntu lagundu bat prestatzen dugu, beraz elkargokide horiek laguntzarekin bozkatzen dute eta boto bikoitza ezinezkoa izaten jarraitzen du."
+            "answer": "Ez dago instalatzeko aplikaziorik. Edozein gailutan dagoen web orri bat da, bozketa leiho osoan zehar artatutako laguntza kanal batekin. Erroldaren zati bat benetan konexiorik gabe badago, hauteskundeak modu hibridoan egin ditzakezue: bozketa gune lagundu bat prestatzen dugu zuen egoitzan hauteskunde errolda beraren gainean, eta horrela elkargokide horiek laguntzarekin bozkatzen dute eta inork ez du bi aldiz bozkatzen."
           },
           {
-            "question": "Nork erantzuten du zeren gainean?",
-            "answer": "Guk plataformaren, konfigurazio teknikoaren, emandako boto bakoitzaren osotasun eta egiaztagarritasunaren, bozketa leihoan zeharreko monitorizazioaren eta itxierako zenbaketa, txosten eta frogen gainean erantzuten dugu. Zuek erroldaren zehaztasunaren gainean erantzuten duzue estatutuek ezarritako mugarri datan, boto eskubidearen gainean eta zuen hauteskunde batzordeari dagozkion hauteskunde prozedurako erabakien gainean. Hornitzaile batek ere ezin ditu erabaki horiek zuen ordez hartu, eta hala egitea eskaintzen duenaz mesfidati izan behar da."
+            "question": "Nork erantzuten du zeri?",
+            "answer": "Guk plataformari, konfigurazio teknikoari, emandako boto bakoitzaren osotasunari eta egiaztagarritasunari, bozketa leihoan zehar egindako zaintzari eta ixtean egindako zenbaketa, txosten eta frogei erantzuten diegu. Zuek erroldaren zehaztasunari estatutuetako mozte datan, botoa emateko eskubideari eta zuen hauteskunde batzordeari dagozkion prozedura erabakiei erantzuten diezue. Hornitzaile batek ere ezin ditu erabaki horiek zuen ordez hartu, eta komeni da hori egitea eskaintzen duenaz mesfidatzea."
           },
           {
-            "question": "Zenbat denbora behar dugu bozketa egunaren aurretik?",
-            "answer": "Bozketa sinple bat astean bertan egon daiteke martxan. Zerbitzu kudeatuarekin egindako estatutu hauteskunde oso bat lau eta sei aste arteko epearekin planifikatzen da normalean, batez ere hauteskunde batzordearen onarpenari, entseguari eta elkargokideei egindako komunikazioari lekua uzteko, eta ez konfigurazioak hainbeste irauten duelako."
+            "question": "Zenbat denbora behar dugu bozketa eguna baino lehen?",
+            "answer": "Bozketa sinple bat aste berean egon daiteke martxan. Zerbitzu kudeatuarekin egindako estatutu hauteskunde oso bat normalean lau eta sei aste arteko tartearekin planifikatzen da, batez ere hauteskunde batzordearen onarpenari, probari eta elkargokideei egindako komunikazioari lekua uzteko, eta ez konfigurazioak hainbeste irauten duelako."
           },
           {
             "question": "Non ostatatzen dira gure elkargokideen datuak?",
-            "answer": "Europar Batasunean, sinatutako tratamendu enkarguko kontratu baten pean, zuen bozketa exekutatzeko soilik erabilita eta zuek ezarritako egutegiaren arabera ezabatuta. Errolda identifikatzaile batera gehi harremanetarako kanal batera minimizatzen da. Elkargo profesional batekoa izatea gehi hauteskunde jokabidea da hain zuzen datuen babeserako araudiak sentikortzat jotzen duen konbinazioa, eta horrela kudeatzen da."
+            "answer": "Europar Batasunean, sinatutako tratamendu enkarguko kontratu baten pean, zuen bozketa egiteko soilik erabilita eta zuek ezarritako egutegiaren arabera ezabatuta. Errolda identifikatzaile batera eta harremanetarako kanal batera murrizten da. Nor dagoen zuen hauteskunde erroldan, eta bozkatu duen ala ez, informazio sentikorra da. Horrela tratatzen dugu."
           },
           {
-            "question": "Vocdonirekin egindako emaitzaren bat baliogabetu al da inoiz?",
-            "answer": "Ez zaigu horrelakorik agertu. 2018tik hauteskundeak egiten ditugu produkzioan eta plataforman exekutatutako emaitzarik ez da arrakastaz inpugnatu bere osotasunagatik. Nahiago dugu fedez ez sinestea: sinesteko arrazoia da emaitza bakoitza zuek zeuek egiazta dezakezuen erregistro publiko batean geratzen dela."
+            "question": "Inoiz inpugnatu al da Vocdonirekin egindako emaitzarik?",
+            "answer": "Ez. Vocdonik antolatutako bozketa prozesu bat ere ez da inpugnatu. Hainbat auditatu eta egiaztatu dira, erakundeak berak eta hirugarrenek, eta dena beti zuzena atera da. Nahiago dugu hau ere fedez ez onartzea: hauteskunde bakoitza beste norbaitek zenbaketa bere kabuz egiaztatzeko aukera ematen duten dokumentuekin ixten da."
           },
           {
             "question": "Emaitzak ezkutuan manten ditzakegu bozketa itxi arte?",
-            "answer": "Bai. Modu zifratuan inork ez du emaitzarik ikusten bozketa irekita dagoen bitartean, guk ere ez, eta zenbaketa automatikoki argitaratzen da itxieran. Alternatiba zuzeneko zenbaketa bat da, barne kontsulta batean egokitzen dena baina gutxitan batzordeko hauteskundeetan."
+            "answer": "Bai. Modu zifratuan inork ez du emaitzarik ikusten bozketa zabalik dagoen bitartean, guk ere ez, eta zenbaketa automatikoki argitaratzen da ixtean. Alternatiba zuzeneko zenbaketa da, barne kontsulta batean ondo datorrena baina gutxitan batzordeko hauteskundeetan."
           },
           {
-            "question": "Garestia dirudi denari begiratuta.",
-            "answer": "Alderatu inpugnatutako prozesu bakar batekin, ez lizentzia batekin. Inpugnazio bakar batek kanpoko abokatutza esan nahi du, presiopean bildutako gobernu organo bat, mandatuko hilabeteak zalantzan eta, askotan, bozketa osoa errepikatzea, bigarren aldiz eskrutinio publikoaren pean eta parte hartze txikiagoarekin. Gero alderatu lizentzia prozesuak gaur egun kostatzen dizuenarekin: inprimaketa, frankeoa, aretoa, langileen orduak eta gauerdia baino harago luzatzen den zenbaketa bat."
+            "question": "Garestia dirudi denerako.",
+            "answer": "Alderatu inpugnatutako prozesu bakar batekin, ez lizentzia batekin. Inpugnazio bakar batek kanpoko abokatutza esan nahi du, presiopean bildutako gobernu organo bat, agintaldiko hilabeteak zalantzan eta, askotan, bozketa osoa errepikatzea, bigarren aldian eskrutinio publikopean eta parte hartze txikiagoarekin. Ondoren alderatu lizentzia prozesuak gaur egun jada kostatzen dizuenarekin: inprimaketa, frankeoa, aretoa, langileen orduak eta gauerdia pasatzen duen zenbaketa bat."
+          },
+          {
+            "question": "Nork egiten du benetan egiaztapena?",
+            "answer": "Praktikan, zuen auditoreak, trebetasun tekniko pixka bat duen elkargokide batek edo emaitza eztabaidatzen duenaren aholkulariak. Ixtean ematen dizuegun espedienteak auditoretzak behar dituen dokumentu eta kopuru guztiak ditu, baita zenbaketa berregiteko urratsez urratseko argibideak ere. Horietako ezerk ez du gure laguntza, gure baimena edo gure inplikazioak jarraitzea behar. Zuen hauteskunde batzordeak ez du egiaztapena berak egin behar: egin dezakeen norbait seinalatzeko gai izan behar du."
           }
         ]
       },
       "closing": {
         "title": "Ekarri iezaguzue zuen hauteskunde araudia",
-        "description": "Lehen elkarrizketa baliagarriena ez da erakustaldi bat. Bidali iezaguzue zuen hauteskunde araudia eta esango dizuegu zer den konfiguragarria dagoen bezala, zerk behar duen hauteskunde batzordearen erabaki bat eta zerk eskatuko lukeen estatutu aldaketa bat. Erantzuna hauteskunde hau oraindik formatu digitalera eraman behar ez zenuketela bada, esango dizuegu.",
+        "description": "Lehen elkarrizketa baliagarriena ez da demo bat. Bidali iezaguzue zuen hauteskunde araudia eta esango dizuegu zer den konfiguragarria idatzita dagoen moduan, zerk behar duen hauteskunde batzordearen erabakia eta zerk eskatuko lukeen estatutu aldaketa bat. Erantzuna hauteskunde hau oraindik ez zenutela digitalera eraman behar bada, esango dizuegu.",
         "cta_primary": "Prestatu probako bozketa bat",
         "cta_secondary": "Hitz egin hauteskunde aditu batekin",
         "note": "Doako kontua, txartelik gabe. Salmenta hitzaldirik gabe, erantzunak besterik ez."
       },
       "resources": {
         "eyebrow": "erabaki aurretik",
-        "title": "Irakurri erabaki aurretik",
-        "intro": "Gidak, azalpenak eta kasu arrakastatsuak, ziurrenik ondoren egingo duzuen galderari erantzuten diotenak.",
+        "title": "Irakurri hau lehenengo",
+        "intro": "Ziurrenik egingo duzuen galderari erantzuten dioten gidak, azalpenak eta kasu arrakastatsuak.",
         "items": [
           {
             "kind": "kasu arrakastatsua",
             "title": "Nola egin zuen COIBek 2025eko batzar orokorra sarean",
-            "description": "Erizaintza elkargo bat, bi faktoreko identifikazioa, sarbide hibridoa eta bidaia kostuak kenduta."
+            "description": "Erizaintza elkargo bat, erabilera bakarreko kode bat boto bakoitzean, elkargokideak etxetik edo aretotik bozkatzen, eta joan-etorriko kostuak kenduta."
           },
           {
             "kind": "gida",
-            "title": "Nola egin legez baliozkoa den batzar orokor bat sarean",
+            "title": "Nola egin lege aldetik baliozkoa den batzar orokor bat sarean",
             "description": "Egiaztapen zerrenda praktiko bat batzar orokor digital edo hibrido baterako."
           },
           {
             "kind": "gida",
             "title": "DBEOren betekizunak boto digitalean",
-            "description": "Zer espero duen datuen babeserako araudiak bozketa bat formatu digitalera eramaten duzunean."
+            "description": "Zer espero duen datuen babeserako araudiak bozketa bat digitalera eramaten duzuenean."
           },
           {
             "kind": "gida",
-            "title": "Zer esan nahi duen quorumak sareko bozketa batean",
+            "title": "Zer esan nahi duen quorumak lineako bozketa batean",
             "description": "Nola kalkulatzen eta jarraitzen den quoruma kideek urrunetik bozkatzen dutenean."
           },
           {
@@ -1905,8 +1930,110 @@
           },
           {
             "kind": "gida",
-            "title": "Nola saihestu hauteskunde iruzurra sareko botoan",
-            "description": "Urrutiko bozketa baten benetako arriskuak, eta haiei erantzuten dieten babesak."
+            "title": "Nola saihestu hauteskunde iruzurra sarean",
+            "description": "Urrunetik egindako bozketa baten benetako arriskuak, eta haiei erantzuten dieten defentsak."
+          }
+        ]
+      },
+      "timeline": {
+        "eyebrow": "atzerako kontaketa",
+        "title": "Zer gertatzen den gaurtik bozketa egunera arte",
+        "intro": "Estatutu hauteskunde bat kontrolatzen ez duzuen data batetik atzerantz planifikatzen da. Hau da duen forma.",
+        "steps": [
+          {
+            "when": "6 aste lehenago",
+            "title": "Zuen araudia irakurtzen dugu",
+            "description": "Zuen estatutuak eta hauteskunde araudia bidaltzen dizkiguzue. Zuen araua dagoen moduan zer egin dezakegun eta zerk behar duen zuen erabaki bat erantzuten dizuegu.",
+            "owner": "Zuek eta gu"
+          },
+          {
+            "when": "4 aste lehenago",
+            "title": "Hauteskunde batzordeak onartzen du",
+            "description": "Hautagarritasuna, mozte data, quoruma, gehiengoak eta bozketa leihoa idatziz jasotzen eta onartzen dira ezer eraiki aurretik.",
+            "owner": "Zuen hauteskunde batzordea"
+          },
+          {
+            "when": "3 aste lehenago",
+            "title": "Errolda kargatu eta berrikusten da",
+            "description": "Zuen elkargokideen datu basea hauteskunde errolda bihurtzen da, zuen irizpideekin balioztatuta. Hemen agertzen dira falta diren mugikor zenbakiak, oraindik denbora dagoenean.",
+            "owner": "Gu"
+          },
+          {
+            "when": "2 aste lehenago",
+            "title": "Proba oso bat",
+            "description": "Benetako konfigurazioa probako botoemaileekin. Zuen hauteskunde batzordeak prozesua zeharkatzen du eta zuen langileek kontsolan praktikatzen dute elkargokide bakar bat gonbidatu aurretik.",
+            "owner": "Bi taldeek"
+          },
+          {
+            "when": "Bozketa eguna",
+            "title": "Ireki, zaindu, itxi",
+            "description": "Parte hartzea zuzenean hauteskunde batzordearentzat, laguntza kanal bat elkargokideentzat eta zenbaketa argitaratuta leihoa ixtean. Dokumentuak eta ziurtagiria egun berean iristen dira.",
+            "owner": "Gu, guardian"
+          }
+        ],
+        "footnote": "Barne bozketa sinple bat aste berean egon daiteke martxan. Egutegi hau hauteskunde batzorde baten pean egiten den estatutu hauteskunde baterako da, eta zatirik handiena zuen onarpenak dira, ez gure konfigurazioa."
+      },
+      "sizes": {
+        "eyebrow": "duzuen tamaina duzuela",
+        "title": "Ehunka elkargokidetatik hamarnaka milaraino",
+        "intro": "Plataforma bera da tamaina guztietan. Aldatzen dena zenbat behar duzuen eta zenbat egiten dugun guk zuekin da.",
+        "tiers": [
+          {
+            "size": "1.000 ingurura arte",
+            "title": "Arratsalde batean ebazten duen tokiko elkargo bat",
+            "description": "Ez duzue proiekturik behar. Pertsona batek bozketa sortzen du, errolda igotzen du eta esteka bidaltzen du, doako planarekin edo harpidetza txiki batekin.",
+            "points": [
+              "Martxan aste berean",
+              "Bozketa metodo guztiak, boto haztatua eta ordezkaritza bidezkoa barne",
+              "Doan hasteko, eta doan jarraitzeko nahikoa txikiak bazarete"
+            ]
+          },
+          {
+            "size": "Milaka batzuk",
+            "title": "Estatutu hauteskundeak dituen lurralde elkargo bat",
+            "description": "Elkargo profesional gehienek duten forma. Autozerbitzua edo kudeatua behar duzuenaren arabera: zenbat pertsonalizatu nahi duzuen, zer zerbitzu gehigarri nahi dituzuen, edo, besterik gabe, zer zati nahiago duzuen gure esku uztea.",
+            "points": [
+              "Errolda zuen elkargokideen datu basetik inportatuta",
+              "Proba osoa estatutu bozketa baino lehen",
+              "Harpidetza kide kopuruaren arabera tarifatuta, lan kudeatua aparte aurrekontatuta"
+            ]
+          },
+          {
+            "size": "Hamarnaka mila",
+            "title": "Sailak eta konpromisarioak dituen kontseilu nagusi bat",
+            "description": "Plataforma elkargo txikiek erabiltzen duten bera da. Tamaina honetan aldatzen dena zenbat nahi duzuen guk gure gain hartzea da: pertsonalizazioa, prozesua zuen ordez egitea, eta jendea aretoan bozketa egunean.",
+            "points": [
+              "Pertsonalizazioa, zuen araudiak eskatzen duen arte",
+              "Errolda API bidez sinkronizatuta, igo beharrean",
+              "Hasieratik amaierara kudeatuta, gure taldea bozketa egunean bertan dela"
+            ]
+          }
+        ]
+      },
+      "board": {
+        "eyebrow": "konbentzitu behar dituzuenentzat",
+        "title": "Birbidaltzea merezi duten zatiak",
+        "intro": "Ez duzue hau bakarrik erabakiko. Erantzun hauetako bakoitza aretoko pertsona bati zuzentzen zaio, eta bakoitzak bere esteka du hari bidaltzeko.",
+        "links": [
+          {
+            "label": "Zuen abokatuarentzat",
+            "description": "Zerk arautzen duen hauteskundea, eta zer sortzen dugun eskakizun bakoitzaren aurrean.",
+            "anchor": "legal-validity"
+          },
+          {
+            "label": "Zuen hauteskunde batzordearentzat",
+            "description": "Zer ikus dezakeen bozketa egunean, eta zeren aurrean ziurtatzen duen ixtean.",
+            "anchor": "proof"
+          },
+          {
+            "label": "Zuen diruzainarentzat",
+            "description": "Zenbat balio duen, eta zertan bereizten diren gurekin lan egiteko bi moduak.",
+            "anchor": "engagement"
+          },
+          {
+            "label": "Batzordeko eszeptikoarentzat",
+            "description": "Nola alderatzen den hau gaur egiten duzuen prozesuarekin, lerroz lerro.",
+            "anchor": "comparison"
           }
         ]
       }

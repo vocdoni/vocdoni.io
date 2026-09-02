@@ -1560,34 +1560,32 @@
       ]
     },
     "professional_associations": {
-      "eyebrow": "pour les ordres et organisations professionnels",
+      "eyebrow": "pour les organisations professionnelles",
       "hero": {
-        "title": "Des élections que votre commission électorale peut vérifier",
-        "subtitle": "Élections au conseil, votes statutaires et assemblées générales pour les ordres professionnels. Le décompte est publié avec le registre à partir duquel il a été calculé, donc personne n'a à croire un prestataire sur parole.",
+        "title": "Numérisez vos élections sans renoncer à la moindre garantie",
+        "subtitle": "Élections du conseil, votes statutaires et assemblées générales pour les ordres et organisations professionnels. Configurés à partir de votre propre règlement électoral, menés à distance ou en hybride, et clôturés avec les documents et l'attestation qui prouvent le résultat.",
         "cta_primary": "Créer un vote de test",
         "cta_secondary": "Parler à un expert électoral",
-        "risk_reversal": "Compte gratuit, sans carte. Votre vote de test est réel, ce n'est pas une démo.",
-        "proof_line": "Le COIB a tenu son assemblée générale 2025 avec Vocdoni.",
-        "proof_link_label": "Voir comment"
+        "risk_reversal": "Compte gratuit, sans carte bancaire."
       },
       "trust": {
         "logos_label": "Ordres professionnels qui votent avec Vocdoni",
         "badges": [
           "Dossier de preuves pour votre commission électorale",
           "Vote secret par conception",
-          "Hybride : à distance et en présentiel",
+          "Entièrement à distance, ou hybride avec une salle",
           "RGPD, hébergement dans l'Union européenne"
         ],
         "stats": [
           {
             "value": "200 000+",
-            "label": "votes traités sur l'infrastructure Vocdoni",
+            "label": "voix traitées sur l'infrastructure de Vocdoni",
             "source": "chiffres de la plateforme Vocdoni"
           },
           {
             "value": "500+",
             "label": "processus de vote menés avec la technologie Vocdoni",
-            "source": "historique des projets Vocdoni"
+            "source": "historique des projets de Vocdoni"
           },
           {
             "value": "Depuis 2018",
@@ -1598,30 +1596,34 @@
       },
       "stakes": {
         "eyebrow": "la position dans laquelle vous êtes vraiment",
-        "title": "Votre commission électorale signe un décompte qu'elle n'a pas effectué",
-        "intro": "Un ordre professionnel exerce une mission de service public. Ses décisions électorales sont contestables, d'abord en interne puis devant le juge. Cela change ce qu'un système de vote doit produire à la fin.",
+        "title": "Peu de participation, un coût élevé et un résultat contestable",
+        "intro": "Une élection du conseil est jugée deux fois : par les membres qui ont participé ou non, et, si quelqu'un conteste, par un tribunal. Les deux jugements atterrissent sur le même bureau. La facture aussi.",
         "items": [
           {
+            "title": "La participation",
+            "description": "Un membre qui exerce à deux heures de route ne se déplacera pas pour une assemblée de deux heures. La participation reste faible, et un conseil élu par une petite fraction de la liste électorale gouverne avec un argument déjà construit contre lui.",
+            "answer": "Voter prend deux minutes depuis n'importe quel appareil, et les membres qui ne se déplaçaient jamais participent enfin."
+          },
+          {
             "title": "La certification",
-            "description": "Si un candidat demande à la commission électorale comment elle sait que le chiffre est juste, la réponse honnête aujourd'hui est que le prestataire l'a dit. C'est une position inconfortable pour signer."
+            "description": "Un candidat demande à votre commission électorale comment elle sait que le chiffre est juste. Aujourd'hui, la réponse honnête est que le prestataire l'affirme. Personne ne veut signer cela de son nom.",
+            "answer": "Le dépouillement est publié avec le registre à partir duquel il a été calculé : votre commission le vérifie avant de signer, et non après."
           },
           {
-            "title": "La liste électorale",
-            "description": "Membres en retard de cotisation, inscriptions récentes, membres non exerçants. Qui avait le droit de voter, et à quelle date d'arrêté, est le fait le plus contesté de tout scrutin statutaire."
-          },
-          {
-            "title": "L'argument de la participation",
-            "description": "Un membre qui exerce à deux heures de route ne se déplacera pas pour une assemblée de deux heures. La participation reste faible, et une faible participation devient elle-même un argument contre le mandat."
+            "title": "La facture",
+            "description": "L'impression, l'affranchissement, la salle, les heures de personnel et un dépouillement qui se prolonge après minuit. À chaque cycle, et au suivant encore.",
+            "answer": "Une fraction de tout cela, et la prochaine fois vous rouvrez la configuration de cette année au lieu de la refaire de mémoire."
           }
         ],
-        "turn": "Le décompte est publié avec le registre à partir duquel il a été calculé. Votre commission n'a pas à nous croire sur parole. Ceux qui contestent le résultat non plus."
+        "answer_label": "Ce qui change avec Vocdoni"
       },
       "legal": {
         "eyebrow": "avant toute chose",
-        "title": "Est-ce valable pour nous, et que remettons-nous à celui qui conteste ?",
-        "intro": "Les deux questions qui décident si le sujet arrive jusqu'à votre conseil. Vos statuts et votre règlement électoral priment sur tout ce qui suit : ce sont les documents à partir desquels nous configurons.",
+        "title": "Est-ce valable pour nous, et que remettons-nous à qui conteste ?",
+        "intro": "Les deux questions qui décident si cela parvient à votre conseil d'administration. Vos statuts et votre règlement électoral priment sur tout ce qui suit : ce sont les documents à partir desquels nous configurons.",
         "jurisdiction_label": "Cadre applicable en France",
         "response_label": "Ce que vous obtenez en face",
+        "requirement_label": "Ce que le cadre exige",
         "frameworks": [
           {
             "name": "Vos statuts et votre règlement électoral",
@@ -1661,237 +1663,260 @@
           }
         ],
         "evidence": {
-          "title": "Ce que vous remettez réellement à celui qui conteste",
-          "intro": "Un dossier de preuves exportable, le jour même de la clôture : la configuration signée, l'empreinte de la liste électorale à la date statutaire d'arrêté, le registre de participation, le décompte publié, les instructions de vérification et une attestation technique du processus pour votre procès-verbal. Il est conçu pour que quelqu'un d'hostile au résultat puisse le vérifier sans avoir besoin de quoi que ce soit de votre part ni de la nôtre."
+          "title": "Ce que vous recevez à la clôture du vote",
+          "intro": "L'ensemble du processus est vérifiable de bout en bout et, le jour même de la clôture, vous recevez le dossier qui le prouve. Il contient la configuration signée, une copie scellée de la liste électorale à la date d'arrêté, le registre de participation, le dépouillement publié et les instructions pour le vérifier, ainsi qu'un rapport et une attestation du processus pour votre procès-verbal. Il est conçu pour quelqu'un d'hostile au résultat : un auditeur, un candidat battu ou son conseil peuvent en vérifier chaque partie sans rien attendre de vous ni de nous."
         },
-        "disclaimer": "Ce sont des informations générales et non un conseil juridique : vos statuts et votre propre conseil juridique ont le dernier mot. Ce sur quoi nous nous engageons, ce sont les preuves ci-dessus, et le fait de vous dire clairement dès le premier échange si nous estimons qu'une modification statutaire est nécessaire au préalable.",
-        "cta_secondary": "Envoyez-nous votre règlement électoral",
-        "cta_note": "Nous le lisons et vous disons ce qui est configurable tel quel, ce qui demande une décision de la commission électorale et ce qui exigerait une modification statutaire. Sans argumentaire commercial."
+        "cta_secondary": "Parler à un expert électoral"
       },
       "proof": {
         "eyebrow": "un ordre comme le vôtre",
-        "title": "Un ordre infirmier qui a basculé son assemblée générale en ligne",
-        "intro": "Le COIB, ordre officiel des infirmières et infirmiers de Barcelone, a tenu son assemblée générale 2025 avec identification à deux facteurs, accès hybride et décompte immédiat à la clôture.",
+        "title": "Un ordre infirmier qui a fait passer son assemblée générale en ligne",
+        "intro": "Le COIB, l'ordre officiel des infirmières et infirmiers de Barcelone, a tenu son assemblée générale 2025 avec un code à usage unique à chaque vote, des membres votant depuis la salle et depuis chez eux, et le dépouillement publié à la clôture.",
         "org": "COIB, Col·legi Oficial d'Infermeres i Infermers de Barcelona",
         "org_meta": "Ordre professionnel, Barcelone, 2025, assemblée générale hybride",
         "stats": [
           {
             "value": "jusqu'à 50 €",
-            "label": "de déplacement économisé par membre présent"
+            "label": "de déplacement économisés par membre présent"
           },
           {
-            "value": "2FA",
-            "label": "par SMS ou e-mail sur chaque vote"
+            "value": "Code à usage unique",
+            "label": "envoyé par SMS ou courriel à chaque vote, pour que personne ne vote deux fois ni au nom d'un autre"
           },
           {
             "value": "Hybride",
-            "label": "en salle et à distance, une seule liste"
+            "label": "en salle et à distance, une seule liste électorale"
           },
           {
             "value": "Immédiat",
-            "label": "décompte publié à la clôture"
+            "label": "dépouillement publié à la clôture"
           }
         ],
-        "case_study_label": "Lire l'étude de cas COIB",
+        "case_study_label": "Lire l'étude de cas du COIB",
         "blog_label": "L'histoire complète sur le blog",
         "cta_primary": "Créer un vote de test"
       },
       "how": {
         "eyebrow": "comment ça se passe",
         "title": "Configuré à partir de votre règlement électoral, pas d'un modèle",
-        "intro": "Voici les fonctions qui finissent citées quand un scrutin est contesté, et l'expérience qu'elles produisent pour vos membres.",
+        "intro": "Voici les fonctionnalités que l'on finit par citer lorsqu'un processus est contesté, et l'expérience qu'elles produisent chez le membre.",
         "features": [
           {
             "title": "Configuré à partir de votre règlement",
-            "description": "Sièges, sections, règles d'éligibilité, dates d'arrêté et départages suivent votre propre texte. Nous le lisons avant de configurer quoi que ce soit."
+            "description": "Les sièges, les sections, les règles d'éligibilité, les dates d'arrêté et les départages suivent votre propre texte. Nous le lisons avant de configurer quoi que ce soit."
           },
           {
-            "title": "Liste figée et empreintée",
-            "description": "La liste est verrouillée à la date statutaire d'arrêté et reçoit une empreinte, de sorte que personne ne puisse ensuite contester qui y figurait."
+            "title": "La liste électorale est scellée à la date d'arrêté",
+            "description": "À la date d'arrêté prévue par les statuts, la liste électorale est verrouillée et scellée par un code court qui change si un seul nom est ajouté ou retiré. Un litige sur le droit de vote se règle en une minute."
           },
           {
             "title": "Une console pour votre commission électorale",
-            "description": "La commission voit la participation en temps réel et reçoit directement l'export certifié, sans accès à aucun vote et sans dépendre de la parole du secrétariat."
+            "description": "La commission électorale voit la participation en temps réel et reçoit directement l'export certifié. Aucun accès aux votes individuels, et personne ne peut dire que les chiffres sont d'abord passés par votre secrétariat."
           },
           {
-            "title": "Hybride, sur une seule liste",
-            "description": "Les membres qui préfèrent voter en présentiel peuvent continuer à le faire, sur un point assisté dans vos locaux. Les deux canaux puisent dans une seule liste, le double vote est donc structurellement impossible."
+            "title": "À distance, ou à distance et en présentiel",
+            "description": "La plupart des ordres mènent toute l'élection à distance. Si vous voulez aussi une salle, les membres peuvent voter à un point assisté dans vos locaux le même jour. Les deux voies s'appuient sur la même liste électorale, donc personne ne vote deux fois."
           },
           {
             "title": "Secret, même pour vous",
-            "description": "La cryptographie sépare identité et bulletin. Ni vos équipes, ni la commission électorale, ni Vocdoni ne peuvent reconstituer le vote d'un membre."
+            "description": "L'identité et le bulletin sont tenus à l'écart l'un de l'autre par le système lui-même, et non par une promesse que quelqu'un pourrait rompre. Personne ne peut les réunir : ni votre personnel, ni la commission électorale, ni Vocdoni."
           },
           {
             "title": "Réutilisable au cycle suivant",
-            "description": "La configuration est enregistrée et rouverte pour le scrutin suivant, au lieu d'être refaite de mémoire à partir du dossier du cycle précédent."
+            "description": "La configuration est enregistrée et rouverte pour l'élection suivante, au lieu d'être refaite de mémoire et à partir du dossier du cycle précédent."
           }
         ],
-        "media_caption": "La vue propre à la commission électorale le jour du scrutin : la participation en direct, et aucun accès au moindre bulletin.",
+        "media_caption": "La vue propre à la commission électorale le jour du vote : la participation en direct, et aucun accès à un seul bulletin.",
         "steps_title": "Et ce que fait réellement un membre",
         "steps": [
           {
             "title": "Il reçoit la convocation",
-            "description": "E-mail ou SMS aux couleurs de votre ordre, avec l'ordre du jour, les candidatures et la fenêtre exacte pendant laquelle le vote est ouvert."
+            "description": "Courriel ou SMS aux couleurs de votre ordre, avec l'ordre du jour, les candidatures et la fenêtre exacte pendant laquelle le vote est ouvert."
           },
           {
             "title": "Il s'identifie, il ne s'inscrit pas",
-            "description": "Un code à usage unique par SMS ou e-mail confirme qu'il s'agit bien du membre figurant sur la liste. Aucun compte à créer, aucune application à installer, aucun numéro d'inscription à retrouver."
+            "description": "Un code à usage unique par SMS ou courriel confirme qu'il s'agit bien du membre inscrit sur la liste. Aucun compte à créer, aucune application à installer, aucun numéro d'inscription à retrouver."
           },
           {
             "title": "Il vote",
-            "description": "Sièges au conseil, modifications statutaires et approbation des comptes, chacun avec sa règle de majorité, sur un seul écran et avec les documents joints."
+            "description": "Sièges au conseil, modifications statutaires et approbations budgétaires, chacun avec sa propre règle de majorité, sur un seul écran et avec les documents joints."
           },
           {
             "title": "Il peut vérifier son propre vote",
-            "description": "Il conserve un justificatif que lui seul détient et, une fois le scrutin clos, il peut confirmer que son vote figure dans le résultat publié."
+            "description": "Il conserve un reçu que personne d'autre ne détient et, à la clôture, il peut confirmer que son vote figure bien dans le résultat publié."
           }
         ],
-        "steps_media_caption": "Ce qu'un membre voit sur son téléphone, de la convocation au justificatif.",
-        "footnote": "La plupart des membres terminent en moins de deux minutes, dans le navigateur qu'ils ont déjà ouvert. Pour la part de la liste réellement hors ligne, le point assisté en présentiel fonctionne sur la même liste électorale, de sorte que personne n'est exclu et que personne ne vote deux fois. Dans les faits, l'obstacle est le plus souvent un numéro de mobile manquant dans votre base plutôt que le membre lui-même, c'est pourquoi nous auditons la couverture des contacts avant l'ouverture."
+        "steps_media_caption": "Ce qu'un membre voit sur son téléphone, de la convocation au reçu.",
+        "footnote": "La plupart des membres terminent en moins de deux minutes, dans le navigateur qu'ils ont déjà ouvert. Si une partie de votre liste est réellement hors ligne, le point assisté fonctionne sur la même liste électorale : personne n'est exclu et personne ne vote deux fois. L'obstacle n'est presque jamais le membre : c'est un numéro de portable manquant dans votre base de données. C'est pourquoi nous vérifions vos coordonnées avant toute ouverture."
       },
       "comparison": {
-        "eyebrow": "face à ce que vous faites aujourd'hui",
-        "title": "Comparé à votre processus postal ou présentiel actuel",
-        "intro": "Pas face à une autre plateforme. Face à ce que votre dernier cycle électoral vous a réellement coûté, et à ce qu'il vous a laissé entre les mains ensuite.",
+        "eyebrow": "face aux alternatives",
+        "title": "Comparé au papier, et aux autres plateformes",
+        "intro": "Face à ce que votre dernier cycle électoral vous a réellement coûté, et face à ce qu'un prestataire commercial vous remet à la fin. Nous ne nommons personne : c'est la forme de la catégorie.",
         "criterion_label": "La question",
         "traditional_label": "Postal ou présentiel",
+        "digital_label": "Une plateforme en ligne classique",
         "vocdoni_label": "Vocdoni",
         "rows": [
           {
             "criterion": "Qui peut vérifier le résultat",
-            "traditional": "Ceux qui étaient dans la salle de dépouillement",
-            "vocdoni": "N'importe qui : votre commission, un membre, un candidat, un juge"
+            "traditional": "Les personnes présentes dans la salle de dépouillement",
+            "digital": "Le prestataire, et ceux à qui il montre son rapport",
+            "vocdoni": "N'importe qui : votre commission, un membre, un candidat, un tribunal"
           },
           {
-            "criterion": "Ce que voit la commission pendant le scrutin",
+            "criterion": "Le dépouillement peut-il être refait de façon indépendante",
+            "traditional": "Oui, en recomptant les bulletins, s'ils sont encore scellés",
+            "digital": "Généralement non. Le résultat est celui que le système annonce",
+            "vocdoni": "Oui. N'importe qui peut refaire le dépouillement à partir du registre publié"
+          },
+          {
+            "criterion": "Qui pourrait relier un vote à un membre",
+            "traditional": "Personne, avec un bulletin papier. Toute la salle, à main levée",
+            "digital": "Généralement le prestataire, car identité et bulletin vivent dans un même système",
+            "vocdoni": "Personne. L'identité et le bulletin sont séparés par le système lui-même"
+          },
+          {
+            "criterion": "Ce que voit la commission électorale pendant le vote",
             "traditional": "Rien jusqu'au dépouillement",
+            "digital": "Un tableau de bord, si votre commission y a accès",
             "vocdoni": "La participation en direct, sans accès à aucun bulletin"
+          },
+          {
+            "criterion": "Les preuves si le résultat est contesté",
+            "traditional": "Le procès-verbal et la parole des présents",
+            "digital": "Un rapport du prestataire, qu'il faut croire sur parole",
+            "vocdoni": "Une preuve reproductible et les documents d'audit le jour même"
           },
           {
             "criterion": "Quand une erreur de liste apparaît",
             "traditional": "Au dépouillement, quand il est trop tard",
-            "vocdoni": "Avant l'ouverture, confrontée à vos propres critères"
+            "digital": "Quand le prestataire se trouve valider la liste",
+            "vocdoni": "Avant l'ouverture, contrôlée selon vos propres critères"
           },
           {
-            "criterion": "Preuves en cas de contestation",
-            "traditional": "Le procès-verbal et la parole des présents",
-            "vocdoni": "Une preuve reproductible et un dossier le jour même"
+            "criterion": "Ce que participer coûte à un membre",
+            "traditional": "Un déplacement depuis n'importe où dans votre ressort, une matinée de son temps, et ce que le trajet lui coûte",
+            "digital": "Rien de plus que l'appareil qu'il possède déjà",
+            "vocdoni": "Rien de plus que l'appareil qu'il possède déjà"
           },
           {
-            "criterion": "Membres à l'étranger ou exerçant loin",
-            "traditional": "Exclus en pratique",
-            "vocdoni": "Votent de partout, ou sur un point assisté"
+            "criterion": "Les membres à l'étranger ou exerçant hors zone",
+            "traditional": "Par courrier là où vous le proposez, ou par procuration, avec les formalités et les délais que cela suppose",
+            "digital": "Ils votent de n'importe où",
+            "vocdoni": "Ils votent de n'importe où, ou à un point assisté si vous en ouvrez un"
           },
           {
             "criterion": "Le cycle suivant",
             "traditional": "Refait de mémoire",
+            "digital": "Reparamétré à nouveau avec le prestataire",
             "vocdoni": "La même configuration, rouverte"
           }
         ]
       },
       "engagement": {
-        "eyebrow": "qui l'organise",
-        "title": "Vous l'organisez, ou nous l'organisons avec vous",
-        "intro": "Même plateforme, mêmes garanties, mêmes preuves à la fin. La plupart des ordres prennent le service géré pour le scrutin statutaire et utilisent le même abonnement en autonomie pour tout le reste de l'année.",
+        "eyebrow": "qui l'exécute",
+        "title": "Vous le faites vous-mêmes, ou nous le faisons avec vous",
+        "intro": "La même plateforme, les mêmes garanties, les mêmes preuves à la fin. La plupart des ordres prennent le service géré pour l'élection statutaire et utilisent le même abonnement en autonomie pour tout le reste de l'année.",
         "options": [
           {
             "badge": "autonomie",
-            "title": "Vous l'organisez, avec votre propre abonnement",
-            "description": "Vous créez, configurez, lancez et clôturez vos votes quand vous en avez besoin. Une personne, un après-midi, sans équipe technique, avec une formation et un canal de support derrière vous.",
+            "title": "Vous le faites, avec votre propre abonnement",
+            "description": "Vous créez, configurez, lancez et clôturez vos propres votes quand vous en avez besoin. Une personne, un après-midi, sans équipe technique, avec une formation et un canal de support derrière vous.",
             "points": [
-              "Opérationnel la même semaine",
-              "Consultations, votes de commission et sondages internes toute l'année",
+              "Opérationnel dans la semaine",
+              "À distance ou en hybride, pour des consultations et des votes de commission toute l'année",
               "Tarifs publics, sans appel commercial"
             ],
             "cta": "Créer un vote de test"
           },
           {
             "badge": "élections gérées",
-            "title": "Nous l'organisons avec vous, de bout en bout",
-            "description": "Nous lisons votre règlement électoral, configurons le scrutin, chargeons et validons la liste, réalisons une répétition complète avec des votants de test, surveillons le jour du vote et livrons les résultats, les rapports et le dossier de preuves. Vous validez, nous opérons.",
+            "title": "Nous le faisons avec vous, de bout en bout",
+            "description": "Nous lisons votre règlement électoral, configurons le processus, chargeons et validons la liste, réalisons une répétition complète avec des votants de test, surveillons le jour du vote et livrons les résultats, les rapports et le dossier de preuves. Vous approuvez, nous opérons.",
             "points": [
-              "Un interlocuteur identifié pendant toute la fenêtre de vote",
-              "Une répétition complète avant le scrutin réel",
-              "Ce que l'application ne fait pas seule, nous pouvons quand même le faire pour vous"
+              "Un interlocuteur nommé pendant toute la fenêtre de vote",
+              "Une répétition complète avant l'élection réelle",
+              "Si votre règlement exige quelque chose d'inhabituel, nous nous en chargeons"
             ],
             "cta": "Parler à un expert électoral"
           }
         ],
-        "recommendation": {
-          "title": "Ce que nous vous conseillerions",
-          "description": "Pour une élection au conseil sous l'autorité d'une commission électorale, prenez le service géré. Un scrutin statutaire n'est pas l'endroit où un ordre souhaite découvrir un détail de configuration. Essayez tout de même l'application gratuitement avant, pour savoir exactement ce que vous achetez, et gardez le même abonnement pour vos consultations internes et vos votes de commission."
-        },
         "pricing": {
           "title": "Ce que cela coûte",
-          "description": "Il existe une formule gratuite sans limite de durée et sans carte, et les formules payantes sont tarifées au nombre de membres. Les tarifs sont publics, vous pouvez donc présenter un chiffre à votre conseil sans réserver le moindre rendez-vous. Les élections gérées sont chiffrées au scrutin, selon la taille de la liste et la complexité.",
-          "link_label": "voir les formules"
+          "description": "Il existe une formule gratuite sans limite de durée et sans carte, et les formules payantes sont tarifées selon le nombre de membres. Ces tarifs sont publics : vous voyez donc où cela commence sans avoir à réserver un appel. Les élections gérées, la personnalisation et tout ce dont vous auriez besoin en plus sont devisés par élection, selon la taille de votre liste et ce que le processus implique.",
+          "link_label": "Voir où commencent les tarifs"
         }
       },
       "faq": {
-        "eyebrow": "les questions qui fâchent",
-        "title": "Ce que les ordres nous demandent avant de se décider",
-        "intro": "Les questions que posera votre conseil, avec la réponse déjà prête avant qu'on vous la demande.",
+        "eyebrow": "les questions difficiles",
+        "title": "Ce que les ordres professionnels nous demandent avant de s'engager",
+        "intro": "Les questions que soulèvera votre conseil d'administration, traitées ici pour que vous ayez la réponse avant qu'elles ne soient posées.",
         "items": [
           {
-            "question": "Nos statuts ne mentionnent pas le vote électronique. Peut-on quand même le faire ?",
-            "answer": "En général oui, mais vérifiez la rédaction avant de vous engager. Beaucoup de statuts décrivent les garanties qu'un scrutin doit offrir plutôt que le moyen employé, ce qui laisse le vote électronique disponible. D'autres exigent une modification expresse ou une délibération du conseil. Envoyez-nous votre texte et nous vous dirons dans lequel des deux cas vous êtes, y compris lorsque la réponse est qu'une modification statutaire est nécessaire au préalable. Nous préférons vous le dire maintenant plutôt que d'organiser un scrutin qui finit annulé."
+            "question": "Nos statuts ne mentionnent pas le vote électronique. Pouvons-nous quand même le faire ?",
+            "answer": "En général oui, mais vérifiez la rédaction avant de vous engager. Beaucoup de statuts décrivent les garanties qu'un vote doit offrir plutôt que le support qu'il utilise, ce qui laisse le vote électronique accessible. D'autres exigent une modification expresse ou une délibération du conseil. Envoyez-nous votre texte et nous vous dirons dans lequel des deux cas vous êtes, y compris lorsque la réponse est qu'il vous faut d'abord une modification statutaire. Nous préférons vous le dire maintenant plutôt que de mener un processus qui finira annulé."
           },
           {
-            "question": "Certains de nos membres ont soixante-dix ans et n'utilisent pas d'applications.",
-            "answer": "Il n'y a aucune application. C'est une page web sur n'importe quel appareil, avec un canal de support assuré pendant toute la fenêtre de vote. Là où une partie de la liste est réellement hors ligne, nous installons un point de vote assisté en présentiel qui fonctionne sur la même liste électorale : ces membres votent avec de l'aide et le double vote reste impossible."
+            "question": "Certains de nos membres ont soixante-dix ans passés et n'utilisent pas d'applications.",
+            "answer": "Il n'y a aucune application à installer. C'est une page web sur n'importe quel appareil, avec une ligne d'assistance ouverte pendant toute la fenêtre de vote. Si une partie de votre liste est réellement hors ligne, vous pouvez organiser l'élection en hybride : nous installons un point de vote assisté dans vos locaux sur la même liste électorale, de sorte que ces membres votent avec de l'aide et que personne ne vote deux fois."
           },
           {
             "question": "Qui est responsable de quoi ?",
-            "answer": "Nous répondons de la plateforme, de la configuration technique, de l'intégrité et de la vérifiabilité de chaque vote exprimé, de la surveillance pendant la fenêtre de vote, ainsi que du décompte, des rapports et des preuves à la clôture. Vous répondez de l'exactitude de la liste électorale à la date statutaire d'arrêté, du droit de vote et des décisions de procédure qui relèvent de votre commission électorale. Aucun prestataire ne peut prendre ces décisions à votre place, et il faut se méfier de celui qui propose de le faire."
+            "answer": "Nous répondons de la plateforme, de la configuration technique, de l'intégrité et de la vérifiabilité de chaque vote exprimé, de la surveillance pendant la fenêtre de vote, ainsi que du dépouillement, des rapports et des preuves à la clôture. Vous répondez de l'exactitude de la liste électorale à la date d'arrêté statutaire, du droit de vote et des décisions de procédure qui relèvent de votre commission électorale. Aucun prestataire ne peut prendre ces décisions à votre place, et il faut se méfier de celui qui propose de le faire."
           },
           {
             "question": "De combien de temps avons-nous besoin avant le jour du vote ?",
-            "answer": "Un vote simple peut être en ligne la même semaine. Un scrutin statutaire complet en service géré se planifie normalement quatre à six semaines à l'avance, surtout pour laisser la place à la validation de la commission électorale, à la répétition et à la communication aux membres, et non parce que la configuration prendrait ce temps."
+            "answer": "Un vote simple peut être opérationnel dans la semaine. Une élection statutaire complète avec service géré se planifie normalement quatre à six semaines à l'avance, surtout pour laisser de la place à l'approbation de la commission électorale, à la répétition et à la communication aux membres, et non parce que la configuration prendrait ce temps-là."
           },
           {
             "question": "Où sont hébergées les données de nos membres ?",
-            "answer": "Dans l'Union européenne, sous contrat de sous-traitance signé, utilisées uniquement pour organiser votre scrutin et supprimées selon le calendrier que vous fixez. La liste est réduite à un identifiant et un canal de contact. L'appartenance à un ordre professionnel combinée au comportement électoral est exactement la combinaison que le droit de la protection des données traite comme sensible, et elle est traitée comme telle."
+            "answer": "Dans l'Union européenne, sous un contrat de sous-traitance signé, utilisées uniquement pour mener votre vote et supprimées selon le calendrier que vous fixez. La liste est réduite à un identifiant et un canal de contact. Qui figure sur votre liste électorale, et si cette personne a voté, est une information sensible. Nous la traitons comme telle."
           },
           {
-            "question": "Un résultat obtenu avec Vocdoni a-t-il déjà été annulé ?",
-            "answer": "Pas à notre connaissance. Nous organisons des scrutins en production depuis 2018 et aucun résultat obtenu sur la plateforme n'a été contesté avec succès sur son intégrité. Nous préférons que vous ne nous croyiez pas sur parole : la raison d'y croire, c'est que chaque résultat aboutit dans un registre public que vous pouvez vérifier vous-même."
+            "question": "Un résultat obtenu avec Vocdoni a-t-il déjà été contesté ?",
+            "answer": "Non. Aucun processus de vote organisé par Vocdoni n'a été contesté. Plusieurs ont été audités et contrôlés, par l'organisation elle-même et par des tiers, et tout s'est révélé conforme à chaque fois. Nous préférons que vous ne le preniez pas non plus pour argent comptant : chaque élection se clôt avec les documents qui permettent à quelqu'un d'autre de vérifier le dépouillement par lui-même."
           },
           {
-            "question": "Peut-on garder les résultats cachés jusqu'à la clôture ?",
-            "answer": "Oui. En mode chiffré, personne ne voit de résultat tant que le scrutin est ouvert, nous compris, et le décompte est publié automatiquement à la clôture. L'alternative est un décompte en direct, qui convient à une consultation interne mais rarement à une élection au conseil."
+            "question": "Pouvons-nous garder les résultats cachés jusqu'à la clôture ?",
+            "answer": "Oui. En mode chiffré, personne ne voit de résultat tant que le vote est ouvert, nous compris, et le dépouillement est publié automatiquement à la clôture. L'autre option est un décompte en direct, qui convient à une consultation interne mais rarement à une élection du conseil."
           },
           {
             "question": "Cela paraît cher pour ce que c'est.",
-            "answer": "Comparez avec un seul scrutin contesté, pas avec une licence. Une seule contestation, c'est un avocat externe, une instance réunie sous pression, des mois de mandat en suspens et souvent la répétition complète du vote, la deuxième fois sous le regard du public et avec une participation plus faible. Comparez ensuite la licence à ce que le scrutin vous coûte déjà : impression, affranchissement, salle, heures de personnel et un dépouillement qui se prolonge après minuit."
+            "answer": "Comparez-le à un seul processus contesté, pas à une licence. Une seule contestation, ce sont des avocats externes, un organe de gouvernance réuni sous pression, des mois de mandat remis en cause et souvent la reprise de tout le vote, la deuxième fois sous le regard du public et avec une participation plus faible. Comparez ensuite la licence à ce que le processus vous coûte déjà aujourd'hui : impression, affranchissement, salle, heures de personnel et un dépouillement qui se prolonge après minuit."
+          },
+          {
+            "question": "Qui effectue réellement la vérification ?",
+            "answer": "En pratique, votre auditeur, un membre à l'aise techniquement, ou le conseil de celui qui conteste le résultat. Le dossier que nous vous remettons à la clôture contient tous les documents et tous les chiffres nécessaires à l'audit, ainsi que les instructions pas à pas pour refaire le dépouillement. Rien de tout cela ne nécessite notre aide, notre autorisation ni notre implication continue. Votre commission électorale n'a pas à effectuer elle-même la vérification : elle doit pouvoir désigner quelqu'un capable de la faire."
           }
         ]
       },
       "closing": {
         "title": "Envoyez-nous votre règlement électoral",
-        "description": "La première conversation la plus utile n'est pas une démo. Envoyez-nous votre règlement électoral et nous vous dirons ce qui est configurable tel quel, ce qui demande une décision de la commission électorale et ce qui exigerait une modification statutaire. Si la réponse est que ce scrutin ne devrait pas encore passer en ligne, nous vous le dirons.",
+        "description": "La première conversation la plus utile n'est pas une démonstration. Envoyez-nous votre règlement électoral et nous vous dirons ce qui est configurable tel qu'il est rédigé, ce qui demande une décision de la commission électorale et ce qui exigerait une modification statutaire. Si la réponse est que vous ne devriez pas encore passer cette élection en ligne, nous vous le dirons.",
         "cta_primary": "Créer un vote de test",
         "cta_secondary": "Parler à un expert électoral",
-        "note": "Compte gratuit, sans carte. Pas d'argumentaire commercial, seulement des réponses."
+        "note": "Compte gratuit, sans carte bancaire. Aucun argumentaire de vente, seulement des réponses."
       },
       "resources": {
         "eyebrow": "avant de décider",
         "title": "À lire avant de décider",
-        "intro": "Guides, explications et études de cas qui répondent à la question que vous vous poserez juste après.",
+        "intro": "Des guides, des explications et des études de cas qui répondent à la question que vous vous apprêtez sans doute à poser.",
         "items": [
           {
             "kind": "étude de cas",
-            "title": "Comment le COIB a tenu son assemblée 2025 en ligne",
-            "description": "Un ordre infirmier, identification à deux facteurs, accès hybride et frais de déplacement supprimés."
+            "title": "Comment le COIB a tenu son assemblée générale 2025 en ligne",
+            "description": "Un ordre infirmier, un code à usage unique à chaque vote, des membres votant de chez eux ou depuis la salle, et des frais de déplacement supprimés."
           },
           {
             "kind": "guide",
             "title": "Comment tenir une assemblée générale en ligne juridiquement valable",
-            "description": "Une liste de vérification pratique pour une assemblée générale numérique ou hybride."
+            "description": "Une liste de contrôle pratique pour une assemblée générale numérique ou hybride."
           },
           {
             "kind": "guide",
-            "title": "Exigences du RGPD pour le vote numérique",
-            "description": "Ce que la réglementation sur les données attend lorsque vous passez un scrutin au numérique."
+            "title": "Les exigences du RGPD pour le vote numérique",
+            "description": "Ce que la réglementation sur la protection des données attend quand vous passez un vote au numérique."
           },
           {
             "kind": "guide",
@@ -1906,7 +1931,109 @@
           {
             "kind": "guide",
             "title": "Comment prévenir la fraude électorale en ligne",
-            "description": "Les risques réels d'un scrutin à distance, et les défenses qui y répondent."
+            "description": "Les risques réels d'un vote à distance, et les défenses qui y répondent."
+          }
+        ]
+      },
+      "timeline": {
+        "eyebrow": "le compte à rebours",
+        "title": "Ce qui se passe entre aujourd'hui et le jour du vote",
+        "intro": "Une élection statutaire se planifie à rebours depuis une date que vous ne maîtrisez pas. Voici à quoi cela ressemble.",
+        "steps": [
+          {
+            "when": "6 semaines avant",
+            "title": "Nous lisons votre règlement",
+            "description": "Vous nous envoyez vos statuts et votre règlement électoral. Nous revenons vers vous avec ce que nous pouvons mener tel que vos règles sont écrites, et ce qui demande une décision de votre part.",
+            "owner": "Vous et nous"
+          },
+          {
+            "when": "4 semaines avant",
+            "title": "La commission électorale approuve",
+            "description": "Éligibilité, date d'arrêté, quorum, règles de majorité et fenêtre de vote sont consignées par écrit et validées avant que quoi que ce soit ne soit construit.",
+            "owner": "Votre commission électorale"
+          },
+          {
+            "when": "3 semaines avant",
+            "title": "La liste est chargée et contrôlée",
+            "description": "Votre base de membres devient une liste électorale, validée selon vos propres critères. C'est là que les numéros de portable manquants apparaissent, quand il reste encore du temps.",
+            "owner": "Nous"
+          },
+          {
+            "when": "2 semaines avant",
+            "title": "Une répétition complète",
+            "description": "La configuration réelle avec des votants de test. Votre commission électorale parcourt le processus et votre personnel s'exerce sur la console avant qu'un seul membre ne soit invité.",
+            "owner": "Les deux équipes"
+          },
+          {
+            "when": "Jour du vote",
+            "title": "Ouvrir, surveiller, clôturer",
+            "description": "Participation en direct pour la commission électorale, une ligne d'assistance pour les membres, et le dépouillement publié à la fermeture de la fenêtre. Les documents et l'attestation suivent le jour même.",
+            "owner": "Nous, d'astreinte"
+          }
+        ],
+        "footnote": "Un vote interne simple peut être opérationnel dans la semaine. Ce calendrier vaut pour une élection statutaire sous l'autorité d'une commission électorale, et l'essentiel tient à vos validations plutôt qu'à notre configuration."
+      },
+      "sizes": {
+        "eyebrow": "quelle que soit votre taille",
+        "title": "De quelques centaines de membres à quelques dizaines de milliers",
+        "intro": "La plateforme est la même à toutes les tailles. Ce qui change, c'est la part dont vous avez besoin et la part que nous prenons avec vous.",
+        "tiers": [
+          {
+            "size": "Jusqu'à environ 1 000",
+            "title": "Une organisation locale qui règle cela en un après-midi",
+            "description": "Vous n'avez pas besoin d'un projet. Une personne crée le vote, importe la liste et envoie le lien, sur la formule gratuite ou un petit abonnement.",
+            "points": [
+              "Opérationnel dans la semaine",
+              "Toutes les méthodes de vote, vote pondéré et délégation compris",
+              "Gratuit pour commencer, et gratuit pour rester si vous êtes assez petits"
+            ]
+          },
+          {
+            "size": "Quelques milliers",
+            "title": "Un ordre régional avec une élection statutaire",
+            "description": "La forme qu'ont la plupart des organisations professionnelles. En autonomie ou en géré selon vos besoins : ce que vous voulez personnaliser, les services supplémentaires que vous souhaitez, ou simplement les parties que vous préférez nous confier.",
+            "points": [
+              "Liste importée depuis votre base de membres",
+              "Répétition complète avant le vote statutaire",
+              "Abonnement tarifé au nombre de membres, prestation gérée devisée en plus"
+            ]
+          },
+          {
+            "size": "Dizaines de milliers",
+            "title": "Un ordre national avec des sections et des délégués",
+            "description": "La plateforme est celle qu'utilisent les plus petites structures. Ce qui change à cette taille, c'est ce que vous voulez nous confier : la personnalisation, la conduite du processus à votre place, et des personnes sur place le jour du vote.",
+            "points": [
+              "Personnalisation, à hauteur de ce qu'exige votre règlement",
+              "Liste synchronisée par API plutôt qu'importée",
+              "Géré de bout en bout, avec notre équipe présente le jour du vote"
+            ]
+          }
+        ]
+      },
+      "board": {
+        "eyebrow": "pour celles et ceux qu'il vous faut convaincre",
+        "title": "Les parties qui méritent d'être transmises",
+        "intro": "Vous ne déciderez pas seul. Chacune de ces réponses s'adresse à une personne autour de la table, et chacune a son propre lien à lui envoyer.",
+        "links": [
+          {
+            "label": "Pour votre avocat",
+            "description": "Ce qui régit l'élection, et ce que nous produisons face à chaque exigence.",
+            "anchor": "legal-validity"
+          },
+          {
+            "label": "Pour votre commission électorale",
+            "description": "Ce qu'elle peut voir le jour du vote, et ce sur quoi elle certifie à la clôture.",
+            "anchor": "proof"
+          },
+          {
+            "label": "Pour votre trésorier",
+            "description": "Ce que cela coûte, et en quoi les deux façons de travailler avec nous diffèrent.",
+            "anchor": "engagement"
+          },
+          {
+            "label": "Pour le sceptique du conseil",
+            "description": "Comment cela se compare au processus que vous menez aujourd'hui, ligne à ligne.",
+            "anchor": "comparison"
           }
         ]
       }

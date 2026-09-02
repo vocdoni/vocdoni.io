@@ -97,10 +97,6 @@ export function VerticalLegal({ legal, pageId, appHref, ctaId }: VerticalLegalPr
           </div>
         </VerticalPanel>
 
-        {legal?.disclaimer && (
-          <p className='text-muted-foreground mt-6 max-w-3xl text-sm leading-relaxed'>{legal.disclaimer}</p>
-        )}
-
         {/* The highest-intent ask on the page gets a real button, not a grey link. */}
         <VerticalCtaPair
           className='mt-10'
@@ -108,7 +104,6 @@ export function VerticalLegal({ legal, pageId, appHref, ctaId }: VerticalLegalPr
           weight='equal'
           appHref={appHref}
           secondaryLabel={legal?.cta_secondary}
-          note={legal?.cta_note}
           ctaId={ctaId}
         />
       </Container>

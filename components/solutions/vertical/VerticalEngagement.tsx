@@ -76,15 +76,6 @@ export function VerticalEngagement({
           ))}
         </div>
 
-        {engagement?.recommendation?.title && (
-          <div className='bg-muted/50 rounded-card mt-8 border p-6 sm:p-8'>
-            <h3 className='font-semibold'>{engagement.recommendation.title}</h3>
-            <p className='text-muted-foreground mt-2 text-sm leading-relaxed'>
-              {engagement.recommendation.description}
-            </p>
-          </div>
-        )}
-
         {engagement?.pricing?.title && (
           <div className='mt-8 flex flex-col gap-2 border-t pt-8'>
             <h3 className='font-semibold'>{engagement.pricing.title}</h3>

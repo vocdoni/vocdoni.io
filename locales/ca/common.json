@@ -1560,22 +1560,20 @@
       ]
     },
     "professional_associations": {
-      "eyebrow": "per a col·legis professionals i corporacions",
+      "eyebrow": "per a col·legis professionals",
       "hero": {
-        "title": "Eleccions que la vostra junta electoral pot verificar",
-        "subtitle": "Eleccions a la junta de govern, votacions estatutàries i assemblees generals per a col·legis professionals. El recompte es publica juntament amb el registre amb què s'ha calculat, de manera que ningú no ha de creure's la paraula d'un proveïdor.",
+        "title": "Digitalitzeu les vostres eleccions sense renunciar a cap garantia",
+        "subtitle": "Eleccions a la junta de govern, votacions estatutàries i assemblees generals per a col·legis professionals. Configurades des del vostre propi reglament electoral, celebrades en remot o en híbrid, i tancades amb els documents i la certificació que acrediten el resultat.",
         "cta_primary": "Munta una votació de prova",
         "cta_secondary": "Parla amb un expert electoral",
-        "risk_reversal": "Compte gratuït, sense targeta. La vostra votació de prova és real, no una demo.",
-        "proof_line": "El COIB va celebrar la seva assemblea general del 2025 amb Vocdoni.",
-        "proof_link_label": "Mira com"
+        "risk_reversal": "Compte gratuït, sense targeta."
       },
       "trust": {
         "logos_label": "Col·legis professionals que voten amb Vocdoni",
         "badges": [
           "Expedient d'evidències per a la junta electoral",
           "Vot secret per construcció",
-          "Híbrid: remot i presencial",
+          "Totalment en remot, o híbrid amb sala",
           "RGPD, allotjament a la UE"
         ],
         "stats": [
@@ -1598,30 +1596,34 @@
       },
       "stakes": {
         "eyebrow": "la posició en què sou realment",
-        "title": "La vostra junta electoral signa un recompte que no ha fet",
-        "intro": "Un col·legi professional és una corporació de dret públic. Les seves decisions electorals són recurribles, primer internament i després davant la jurisdicció contenciosa administrativa. Això canvia el que un sistema de vot ha de produir al final.",
+        "title": "Poca participació, molt de cost i un resultat que algú pot impugnar",
+        "intro": "Unes eleccions a la junta es jutgen dues vegades: pels col·legiats que hi van participar o no, i, si algú impugna, per un jutjat. Els dos judicis acaben damunt de la mateixa taula. La factura, també.",
         "items": [
           {
+            "title": "La participació",
+            "description": "Un col·legiat que exerceix a dues hores no es desplaçarà per a una assemblea de dues hores. La participació es queda baixa, i una junta escollida per una fracció petita del cens governa amb un argument ja construït en contra seu.",
+            "answer": "Votar dura dos minuts des de qualsevol dispositiu, així que els col·legiats que no es desplaçaven mai ara hi participen."
+          },
+          {
             "title": "La certificació",
-            "description": "Si un candidat pregunta a la junta electoral com sap que la xifra és correcta, avui la resposta honesta és que ho diu el proveïdor. És una posició incòmoda des de la qual signar."
+            "description": "Un candidat pregunta a la junta electoral com sap que la xifra és correcta. Avui la resposta honesta és que ho diu el proveïdor. Ningú no vol signar això amb el seu nom.",
+            "answer": "El recompte es publica juntament amb el registre amb què s'ha calculat, així que la vostra junta el comprova abans de signar i no després."
           },
           {
-            "title": "El cens electoral",
-            "description": "Col·legiats morosos, altes recents, col·legiats no exercents. Qui tenia dret a votar, i a quina data de tall, és el fet més discutit en qualsevol procés estatutari."
-          },
-          {
-            "title": "L'argument de la participació",
-            "description": "Un col·legiat que exerceix a dues hores no es desplaçarà per a una assemblea de dues hores. La participació es manté baixa, i la baixa participació esdevé un argument contra el mandat mateix."
+            "title": "La factura",
+            "description": "Impressió, franqueig, la sala, les hores de personal i un recompte que s'allarga més enllà de mitjanit. Cada cicle, i el següent també.",
+            "answer": "Una fracció d'això, i la propera vegada reobriu la configuració d'enguany en lloc de refer-la de memòria."
           }
         ],
-        "turn": "El recompte es publica juntament amb el registre amb què s'ha calculat. La vostra junta no s'ha de refiar de la nostra paraula sobre la xifra. Tampoc qui discrepi del resultat."
+        "answer_label": "Què canvia amb Vocdoni"
       },
       "legal": {
-        "eyebrow": "abans que res",
+        "eyebrow": "abans que qualsevol altra cosa",
         "title": "Això és vàlid per a nosaltres, i què lliurem a qui ho impugni?",
         "intro": "Les dues preguntes que decideixen si això arriba a la vostra junta de govern. Els vostres Estatuts i el vostre Reglament Electoral estan per damunt de tot el que segueix: són el document des del qual configurem.",
         "jurisdiction_label": "Marc aplicable a Catalunya i a l'Estat espanyol",
         "response_label": "Què obteniu davant d'això",
+        "requirement_label": "Què exigeix el marc",
         "frameworks": [
           {
             "name": "Els vostres Estatuts i Reglament Electoral",
@@ -1661,17 +1663,15 @@
           }
         ],
         "evidence": {
-          "title": "Què lliureu realment a qui impugni el resultat",
-          "intro": "Un expedient d'evidències exportable, el mateix dia en què tanca la votació: la configuració signada, l'empremta digital del cens a la data estatutària de tall, el registre de participació, el recompte publicat, les instruccions de verificació i una certificació tècnica del procés per a l'acta. Està pensat perquè algú hostil al resultat pugui comprovar-lo sense necessitar res de vosaltres ni de nosaltres."
+          "title": "Què rebeu quan tanca la votació",
+          "intro": "Tot el procés és verificable de cap a cap i, el mateix dia en què tanca la votació, rebeu l'expedient que ho demostra. Conté la configuració signada, una còpia segellada del cens electoral a la data de tall, el registre de participació, el recompte publicat i les instruccions per comprovar-lo, juntament amb un informe i una certificació del procés per a l'acta. Està pensat per a algú hostil al resultat: un auditor, un candidat derrotat o el seu assessor poden comprovar-ne cada part sense necessitar res de vosaltres ni de nosaltres."
         },
-        "disclaimer": "Això és informació general, no assessorament jurídic, i l'última paraula la tenen els vostres estatuts i el vostre propi assessor legal. A allò a què sí que ens comprometem és a les evidències de dalt, i a dir-vos clarament en la primera conversa si creiem que necessiteu una modificació estatutària abans de celebrar res.",
-        "cta_secondary": "Envieu-nos el vostre reglament electoral",
-        "cta_note": "El llegim i us diem què és configurable tal com està escrit, què necessita una decisió de la junta electoral i què requeriria un canvi estatutari. Sense argumentari de vendes."
+        "cta_secondary": "Parla amb un expert electoral"
       },
       "proof": {
         "eyebrow": "un col·legi com el vostre",
         "title": "Un col·legi d'infermeria que va portar la seva assemblea general al format en línia",
-        "intro": "El COIB, Col·legi Oficial d'Infermeres i Infermers de Barcelona, va celebrar la seva assemblea general del 2025 amb identificació de doble factor, accés híbrid i recompte immediat al tancament.",
+        "intro": "El COIB, Col·legi Oficial d'Infermeres i Infermers de Barcelona, va celebrar la seva assemblea general del 2025 amb un codi d'un sol ús a cada vot, col·legiats votant des de la sala i des de casa, i el recompte publicat en tancar.",
         "org": "COIB, Col·legi Oficial d'Infermeres i Infermers de Barcelona",
         "org_meta": "Col·legi professional, Barcelona, 2025, assemblea general híbrida",
         "stats": [
@@ -1680,8 +1680,8 @@
             "label": "de desplaçament estalviat per col·legiat assistent"
           },
           {
-            "value": "2FA",
-            "label": "per SMS o correu en cada vot"
+            "value": "Codi d'un sol ús",
+            "label": "enviat per SMS o correu a cada vot, perquè ningú no voti dues vegades ni en nom d'altri"
           },
           {
             "value": "Híbrid",
@@ -1689,7 +1689,7 @@
           },
           {
             "value": "Immediat",
-            "label": "recompte publicat al tancament"
+            "label": "recompte publicat en tancar"
           }
         ],
         "case_study_label": "Llegeix el cas d'èxit del COIB",
@@ -1706,27 +1706,27 @@
             "description": "Càrrecs, seccions, regles d'elegibilitat, dates de tall i desempats s'ajusten al vostre text. El llegim abans de configurar res."
           },
           {
-            "title": "Cens congelat i amb empremta digital",
-            "description": "El cens es bloqueja a la data estatutària de tall i se li calcula una empremta digital, de manera que després ningú no pugui discutir qui hi era."
+            "title": "El cens es segella a la data de tall",
+            "description": "A la data estatutària de tall el cens electoral es bloqueja i se segella amb un codi curt que canvia si s'hi afegeix o se'n treu un sol nom. Una discussió sobre qui tenia dret a votar es resol en un minut."
           },
           {
             "title": "Una consola per a la junta electoral",
-            "description": "La junta veu la participació en temps real i rep directament l'exportació certificada, sense accés a cap vot i sense dependre de la paraula de la secretaria."
+            "description": "La junta electoral veu la participació en temps real i rep directament l'exportació certificada. Sense accés a cap vot individual, i sense que ningú pugui dir que les xifres van passar abans per la vostra secretaria."
           },
           {
-            "title": "Híbrid, sobre un únic cens",
-            "description": "Els col·legiats que prefereixin votar presencialment poden continuar fent-ho, en un punt assistit a la vostra seu. Tots dos canals es nodreixen d'un sol cens, així que el vot duplicat és estructuralment impossible."
+            "title": "En remot, o en remot i presencial",
+            "description": "La majoria de col·legis celebren tota l'elecció en remot. Si a més voleu sala, els col·legiats poden votar en un punt assistit a la vostra seu el mateix dia. Les dues vies fan servir el mateix cens electoral, així que ningú no vota dues vegades."
           },
           {
             "title": "Secret fins i tot per a vosaltres",
-            "description": "La criptografia separa identitat i vot. Ni el vostre personal, ni la junta electoral, ni Vocdoni poden reconstruir com va votar un col·legiat."
+            "description": "La identitat i el vot els manté separats el sistema mateix, no una promesa que algú pugui trencar. Ningú no els pot tornar a unir: ni el vostre personal, ni la junta electoral, ni Vocdoni."
           },
           {
             "title": "Reutilitzable el cicle següent",
             "description": "La configuració es desa i es reobre per a l'elecció següent, en comptes de refer-se de memòria i a partir de la carpeta del cicle anterior."
           }
         ],
-        "media_caption": "La vista pròpia de la junta electoral el dia de la votació: la participació en directe, i cap accés a cap vot.",
+        "media_caption": "La vista pròpia de la junta electoral el dia de la votació: la participació en directe, i cap accés a un sol vot.",
         "steps_title": "I què fa realment un col·legiat",
         "steps": [
           {
@@ -1735,7 +1735,7 @@
           },
           {
             "title": "S'identifica, no es registra",
-            "description": "Un codi d'un sol ús per SMS o correu confirma que és el col·legiat que consta al cens. No hi ha cap compte per crear, ni cap aplicació per instal·lar, ni número de col·legiat per buscar."
+            "description": "Un codi d'un sol ús per SMS o correu confirma que és el col·legiat que consta al cens. No hi ha compte per crear, ni aplicació per instal·lar, ni número de col·legiat per buscar."
           },
           {
             "title": "Vota",
@@ -1747,44 +1747,69 @@
           }
         ],
         "steps_media_caption": "El que veu un col·legiat al mòbil, des de la convocatòria fins al justificant.",
-        "footnote": "La majoria de col·legiats acaben en menys de dos minuts, amb el navegador que ja tenen obert. Per a la part del cens que està realment desconnectada, el punt presencial assistit funciona sobre el mateix cens electoral, de manera que ningú no queda exclòs i ningú no vota dues vegades. A la pràctica la barrera acostuma a ser un número de mòbil que falta a la vostra base de dades, i no el col·legiat, per això auditem la cobertura de contacte abans d'obrir."
+        "footnote": "La majoria de col·legiats acaben en menys de dos minuts, amb el navegador que ja tenen obert. Si una part del cens està realment desconnectada, el punt assistit funciona sobre el mateix cens electoral, així que ningú no queda exclòs i ningú no vota dues vegades. La barrera gairebé mai no és el col·legiat: és un número de mòbil que falta a la vostra base de dades. Per això revisem les vostres dades de contacte abans d'obrir res."
       },
       "comparison": {
-        "eyebrow": "davant del que feu avui",
-        "title": "Comparat amb el vostre procés postal o presencial actual",
-        "intro": "No davant d'una altra plataforma. Davant del que us va costar realment el vostre últim cicle electoral, i del que us va deixar a la mà després.",
+        "eyebrow": "davant de les alternatives",
+        "title": "Comparat amb el paper, i amb les altres plataformes",
+        "intro": "Davant del que us va costar de debò el vostre darrer cicle electoral, i davant del que un proveïdor comercial us deixa a la mà al final. No assenyalem ningú: així és la categoria.",
         "criterion_label": "La qüestió",
         "traditional_label": "Postal o presencial",
+        "digital_label": "Una plataforma en línia a l'ús",
         "vocdoni_label": "Vocdoni",
         "rows": [
           {
             "criterion": "Qui pot verificar el resultat",
             "traditional": "Els qui eren a la sala del recompte",
+            "digital": "El proveïdor, i aquell a qui ensenyi l'informe",
             "vocdoni": "Qualsevol: la vostra junta, un col·legiat, un candidat, un jutjat"
+          },
+          {
+            "criterion": "Es pot refer el recompte de manera independent",
+            "traditional": "Sí, recomptant els sobres, si encara són precintats",
+            "digital": "Normalment no. El resultat és el que digui el sistema",
+            "vocdoni": "Sí. Qualsevol pot refer el recompte des del registre publicat"
+          },
+          {
+            "criterion": "Qui podria vincular un vot amb un col·legiat",
+            "traditional": "Ningú, amb papereta. Tota la sala, si es vota a mà alçada",
+            "digital": "Normalment el proveïdor, perquè identitat i vot viuen al mateix sistema",
+            "vocdoni": "Ningú. La identitat i el vot els separa el sistema mateix"
           },
           {
             "criterion": "Què veu la junta electoral durant la votació",
             "traditional": "Res fins al recompte",
+            "digital": "Un tauler, si doneu accés a la vostra junta",
             "vocdoni": "Participació en directe, sense accés a cap vot"
-          },
-          {
-            "criterion": "Quan apareix un error del cens",
-            "traditional": "Al recompte, quan ja és tard",
-            "vocdoni": "Abans d'obrir, contrastat amb els vostres propis criteris"
           },
           {
             "criterion": "Proves si s'impugna el resultat",
             "traditional": "L'acta i la paraula dels presents",
-            "vocdoni": "Una prova reproduïble i un expedient el mateix dia"
+            "digital": "Un informe del proveïdor, que cal acceptar per confiança",
+            "vocdoni": "Una prova reproduïble i els documents d'auditoria el mateix dia"
+          },
+          {
+            "criterion": "Quan apareix un error del cens",
+            "traditional": "Al recompte, quan ja és tard",
+            "digital": "Quan al proveïdor li toqui validar el cens",
+            "vocdoni": "Abans d'obrir, contrastat amb els vostres propis criteris"
+          },
+          {
+            "criterion": "Què li costa participar a un col·legiat",
+            "traditional": "Desplaçar-se des d'on sigui de la vostra demarcació, un matí del seu temps i el que li costi el viatge",
+            "digital": "Res més enllà del dispositiu que ja té",
+            "vocdoni": "Res més enllà del dispositiu que ja té"
           },
           {
             "criterion": "Col·legiats a l'estranger o exercint fora",
-            "traditional": "Exclosos a la pràctica",
-            "vocdoni": "Voten des de qualsevol lloc, o en un punt assistit"
+            "traditional": "Per correu on l'oferiu, o per delegació, amb el paperam i els terminis que això comporta",
+            "digital": "Voten des de qualsevol lloc",
+            "vocdoni": "Voten des de qualsevol lloc, o en un punt assistit si en munteu"
           },
           {
             "criterion": "El cicle següent",
             "traditional": "Refet de memòria",
+            "digital": "Muntat una altra vegada amb el proveïdor",
             "vocdoni": "La mateixa configuració, reoberta"
           }
         ]
@@ -1800,31 +1825,27 @@
             "description": "Creeu, configureu, llanceu i tanqueu les vostres pròpies votacions quan les necessiteu. Una persona, una tarda, sense equip tècnic, amb formació i un canal de suport al darrere.",
             "points": [
               "En marxa la mateixa setmana",
-              "Consultes, votacions de comissions i enquestes internes durant tot l'any",
+              "En remot o híbrid, per a consultes i votacions de comissions tot l'any",
               "Preus públics, sense trucada comercial"
             ],
             "cta": "Munta una votació de prova"
           },
           {
             "badge": "eleccions gestionades",
-            "title": "Ho fem amb vosaltres, de principi a fi",
+            "title": "Ho fem amb vosaltres, de cap a cap",
             "description": "Llegim el vostre reglament electoral, configurem el procés, carreguem i validem el cens, fem un simulacre complet amb votants de prova, monitorem el dia de la votació i lliurem els resultats, els informes i l'expedient d'evidències. Vosaltres aproveu, nosaltres operem.",
             "points": [
               "Un contacte amb nom durant tota la finestra de votació",
               "Un simulacre complet abans de l'elecció real",
-              "Allò que l'aplicació no fa per si sola, ho podem fer igualment per vosaltres"
+              "Si el vostre reglament demana alguna cosa poc habitual, ens n'encarreguem nosaltres"
             ],
             "cta": "Parla amb un expert electoral"
           }
         ],
-        "recommendation": {
-          "title": "Què us recomanaríem",
-          "description": "Per a unes eleccions a la junta de govern sota una junta electoral, contracteu el servei gestionat. Un procés estatutari no és el lloc on un col·legi vol descobrir un detall de configuració. Proveu igualment l'aplicació de franc abans, per saber exactament què esteu comprant, i quedeu-vos la mateixa subscripció per a consultes internes i votacions de comissions."
-        },
         "pricing": {
           "title": "Quant costa",
-          "description": "Hi ha un pla gratuït sense límit de temps i sense targeta, i els plans de pagament es tarifiquen per nombre de membres. Els preus són públics, així que podeu posar una xifra davant de la vostra junta de govern sense concertar cap trucada. Les eleccions gestionades es pressuposten per procés, segons la mida del cens i la complexitat.",
-          "link_label": "consulta els plans"
+          "description": "Hi ha un pla gratuït sense límit de temps i sense targeta, i els plans de pagament es tarifen per nombre de membres. Aquests preus són públics, així que podeu veure on comença sense agendar cap trucada. Les eleccions gestionades, la personalització i qualsevol altra cosa que necessiteu al damunt es pressuposten per procés, segons la mida del cens i el que impliqui el procés.",
+          "link_label": "Mira on comencen els preus"
         }
       },
       "faq": {
@@ -1834,35 +1855,39 @@
         "items": [
           {
             "question": "Els nostres estatuts no esmenten el vot electrònic. Ho podem fer igualment?",
-            "answer": "Normalment sí, però comproveu la redacció abans de comprometre-us. Els estatuts de molts col·legis descriuen les garanties que ha d'oferir una votació i no el mitjà que utilitza, cosa que deixa disponible el vot electrònic. D'altres exigeixen una modificació expressa o un acord de la junta de govern. Envieu-nos el vostre text i us direm en quin dels dos casos sou, inclòs quan la resposta sigui que abans necessiteu un canvi estatutari. Preferim dir-vos-ho ara que no pas executar un procés que acabi anul·lat."
+            "answer": "Normalment sí, però comproveu la redacció abans de comprometre-us. Els estatuts de molts col·legis descriuen les garanties que ha d'oferir una votació i no el mitjà que utilitza, cosa que deixa disponible el vot electrònic. D'altres exigeixen una modificació expressa o un acord de la junta de govern. Envieu-nos el vostre text i us direm en quin dels dos casos sou, inclòs quan la resposta sigui que abans necessiteu un canvi estatutari. Preferim dir-vos-ho ara que executar un procés que acabi anul·lat."
           },
           {
             "question": "Alguns dels nostres col·legiats tenen setanta anys i no fan servir aplicacions.",
-            "answer": "No hi ha cap aplicació. És una pàgina web en qualsevol dispositiu, amb un canal de suport atès durant tota la finestra de votació. Quan una part del cens està realment desconnectada muntem un punt de votació presencial assistit que funciona sobre el mateix cens electoral, de manera que aquests col·legiats voten amb ajuda i el vot duplicat continua sent impossible."
+            "answer": "No hi ha cap aplicació per instal·lar. És una pàgina web en qualsevol dispositiu, amb un canal de suport atès durant tota la finestra de votació. Si una part del cens està realment desconnectada, podeu celebrar l'elecció en híbrid: muntem un punt de votació assistit a la vostra seu sobre el mateix cens electoral, de manera que aquests col·legiats voten amb ajuda i ningú no vota dues vegades."
           },
           {
             "question": "Qui respon de què?",
-            "answer": "Nosaltres responem de la plataforma, de la configuració tècnica, de la integritat i la verificabilitat de cada vot emès, del monitoratge durant la finestra de votació i del recompte, els informes i les evidències al tancament. Vosaltres responeu de l'exactitud del cens a la data estatutària de tall, del dret de vot i de les decisions de procediment electoral que corresponen a la vostra junta electoral. Cap proveïdor no pot prendre aquestes decisions per vosaltres, i convé desconfiar de qui s'ofereixi a fer-ho."
+            "answer": "Nosaltres responem de la plataforma, de la configuració tècnica, de la integritat i la verificabilitat de cada vot emès, de la monitoració durant la finestra de votació i del recompte, els informes i les evidències en tancar. Vosaltres responeu de l'exactitud del cens a la data estatutària de tall, del dret de vot i de les decisions de procediment que corresponen a la vostra junta electoral. Cap proveïdor no pot prendre aquestes decisions per vosaltres, i convé desconfiar de qui s'ofereixi a fer-ho."
           },
           {
-            "question": "Quant temps necessitem abans del dia de la votació?",
+            "question": "Quant de temps necessitem abans del dia de la votació?",
             "answer": "Una votació senzilla pot estar en marxa la mateixa setmana. Una elecció estatutària completa amb servei gestionat es planifica normalment amb quatre a sis setmanes de marge, sobretot per deixar espai a l'aprovació de la junta electoral, al simulacre i a la comunicació als col·legiats, i no perquè la configuració trigui tant."
           },
           {
             "question": "On s'allotgen les dades dels nostres col·legiats?",
-            "answer": "A la UE, sota un contracte d'encàrrec de tractament signat, utilitzades només per executar la vostra votació i eliminades segons el calendari que fixeu. El cens es minimitza a un identificador més un canal de contacte. La pertinença a un col·legi professional sumada al comportament electoral és exactament la combinació que la normativa de protecció de dades tracta com a sensible, i així es gestiona."
+            "answer": "A la UE, sota un contracte d'encàrrec de tractament signat, utilitzades només per executar la vostra votació i eliminades segons el calendari que fixeu. El cens es minimitza a un identificador més un canal de contacte. Qui consta al vostre cens electoral, i si va votar o no, és informació sensible. La tractem com a tal."
           },
           {
-            "question": "S'ha anul·lat mai un resultat celebrat amb Vocdoni?",
-            "answer": "No ens consta. Celebrem eleccions en producció des del 2018 i cap resultat executat a la plataforma no ha estat impugnat amb èxit per la seva integritat. Preferim que no us ho cregueu per fe: la raó per creure-ho és que cada resultat queda en un registre públic que podeu comprovar vosaltres mateixos."
+            "question": "S'ha impugnat mai un resultat celebrat amb Vocdoni?",
+            "answer": "No. Cap procés de votació organitzat per Vocdoni no ha estat impugnat. Uns quants s'han auditat i revisat, per la mateixa organització i per tercers, i tot va sortir correcte sempre. Preferim que tampoc això no ho accepteu per fe: cada elecció tanca amb els documents que permeten a una altra persona comprovar el recompte pel seu compte."
           },
           {
-            "question": "Podem mantenir els resultats ocults fins que tanqui la votació?",
-            "answer": "Sí. En mode xifrat ningú no veu cap resultat mentre la votació és oberta, tampoc nosaltres, i el recompte es publica automàticament al tancament. L'alternativa és un recompte en directe, que encaixa en una consulta interna però poques vegades en unes eleccions a la junta."
+            "question": "Podem mantenir els resultats amagats fins que tanqui la votació?",
+            "answer": "Sí. En mode xifrat ningú no veu cap resultat mentre la votació és oberta, nosaltres tampoc, i el recompte es publica automàticament en tancar. L'alternativa és un recompte en directe, que encaixa en una consulta interna però rarament en unes eleccions a la junta."
           },
           {
             "question": "Sembla car per al que és.",
             "answer": "Compareu-ho amb un sol procés impugnat, no amb una llicència. Una sola impugnació significa advocacia externa, un òrgan de govern reunit sota pressió, mesos de mandat en qüestió i, sovint, repetir tota la votació, la segona vegada sota escrutini públic i amb menys participació. Després compareu la llicència amb el que ja us costa avui el procés: impressió, franqueig, sala, hores de personal i un recompte que s'allarga més enllà de mitjanit."
+          },
+          {
+            "question": "Qui fa realment la comprovació?",
+            "answer": "A la pràctica, el vostre auditor, un col·legiat amb certa solvència tècnica o l'assessor de qui discuteixi el resultat. L'expedient que us lliurem en tancar conté tots els documents i totes les xifres que necessita l'auditoria, a més de les instruccions pas a pas per refer el recompte. Res d'això no necessita la nostra ajuda, el nostre permís ni que hi continuem implicats. La vostra junta electoral no ha de fer la comprovació ella mateixa: ha de poder assenyalar algú que pugui fer-la."
           }
         ]
       },
@@ -1875,13 +1900,13 @@
       },
       "resources": {
         "eyebrow": "abans de decidir",
-        "title": "Llegeix-ho abans de decidir",
+        "title": "Llegiu això primer",
         "intro": "Guies, explicacions i casos d'èxit que responen la pregunta que probablement us fareu tot seguit.",
         "items": [
           {
             "kind": "cas d'èxit",
             "title": "Com va celebrar el COIB la seva assemblea general del 2025 en línia",
-            "description": "Un col·legi d'infermeria, identificació de doble factor, accés híbrid i costos de desplaçament eliminats."
+            "description": "Un col·legi d'infermeria, un codi d'un sol ús a cada vot, col·legiats votant des de casa o des de la sala, i els costos de desplaçament eliminats."
           },
           {
             "kind": "guia",
@@ -1901,12 +1926,114 @@
           {
             "kind": "explicació",
             "title": "El vot verificable, explicat",
-            "description": "Per què qualsevol pot comprovar un resultat sense haver-se de refiar de la plataforma."
+            "description": "Per què qualsevol pot comprovar un resultat sense haver-se de fiar de la plataforma."
           },
           {
             "kind": "guia",
-            "title": "Com prevenir el frau electoral en el vot en línia",
-            "description": "Els riscos reals d'una votació remota, i les defenses que hi responen."
+            "title": "Com prevenir el frau electoral en línia",
+            "description": "Els riscos reals d'una votació en remot, i les defenses que hi responen."
+          }
+        ]
+      },
+      "timeline": {
+        "eyebrow": "el compte enrere",
+        "title": "Què passa entre avui i el dia de la votació",
+        "intro": "Una elecció estatutària es planifica cap enrere des d'una data que no controleu. Aquesta és la forma que té.",
+        "steps": [
+          {
+            "when": "6 setmanes abans",
+            "title": "Llegim el vostre reglament",
+            "description": "Ens envieu els vostres estatuts i el vostre reglament electoral. Us responem amb què podem executar tal com és la vostra norma, i què necessita una decisió vostra.",
+            "owner": "Vosaltres i nosaltres"
+          },
+          {
+            "when": "4 setmanes abans",
+            "title": "La junta electoral aprova",
+            "description": "Elegibilitat, data de tall, quòrum, majories i finestra de votació es posen per escrit i s'aproven abans de construir res.",
+            "owner": "La vostra junta electoral"
+          },
+          {
+            "when": "3 setmanes abans",
+            "title": "Es carrega i es revisa el cens",
+            "description": "La vostra base de dades de col·legiats es converteix en cens electoral, validada amb els vostres propis criteris. Aquí és on apareixen els números de mòbil que falten, quan encara hi ha temps.",
+            "owner": "Nosaltres"
+          },
+          {
+            "when": "2 setmanes abans",
+            "title": "Un simulacre complet",
+            "description": "La configuració real amb votants de prova. La vostra junta electoral recorre el procés i el vostre personal practica amb la consola abans de convidar un sol col·legiat.",
+            "owner": "Els dos equips"
+          },
+          {
+            "when": "Dia de la votació",
+            "title": "Obrir, vigilar, tancar",
+            "description": "Participació en directe per a la junta electoral, un canal de suport per als col·legiats i el recompte publicat en tancar la finestra. Els documents i la certificació arriben el mateix dia.",
+            "owner": "Nosaltres, de guàrdia"
+          }
+        ],
+        "footnote": "Una votació interna senzilla pot estar en marxa la mateixa setmana. Aquest calendari és per a una elecció estatutària sota junta electoral, i la major part són les vostres aprovacions, no la nostra configuració."
+      },
+      "sizes": {
+        "eyebrow": "de la mida que sigueu",
+        "title": "D'uns quants centenars de col·legiats a diverses desenes de milers",
+        "intro": "La plataforma és la mateixa a qualsevol mida. El que canvia és quanta en necessiteu i quant fem nosaltres amb vosaltres.",
+        "tiers": [
+          {
+            "size": "Fins a uns 1.000",
+            "title": "Un col·legi local que ho resol en una tarda",
+            "description": "No necessiteu un projecte. Una persona crea la votació, puja el cens i envia l'enllaç, amb el pla gratuït o una subscripció petita.",
+            "points": [
+              "En marxa la mateixa setmana",
+              "Tots els mètodes de vot, inclosos el vot ponderat i el delegat",
+              "Gratis per començar, i gratis per quedar-s'hi si sou prou petits"
+            ]
+          },
+          {
+            "size": "Uns quants milers",
+            "title": "Un col·legi territorial amb eleccions estatutàries",
+            "description": "La forma que tenen la majoria de col·legis professionals. Autoservei o gestionat segons el que necessiteu: quant vulgueu personalitzar, quins serveis addicionals voleu o simplement quines parts preferiu deixar a les nostres mans.",
+            "points": [
+              "Cens importat des de la vostra base de dades de col·legiats",
+              "Simulacre complet abans de la votació estatutària",
+              "Subscripció tarifada per nombre de membres, la feina gestionada pressupostada a part"
+            ]
+          },
+          {
+            "size": "Desenes de milers",
+            "title": "Un consell general amb seccions i compromissaris",
+            "description": "La plataforma és la mateixa que fan servir els col·legis petits. El que canvia en aquesta mida és quant voleu que assumim nosaltres: personalització, executar el procés per vosaltres i gent a la sala el dia de la votació.",
+            "points": [
+              "Personalització, fins on demani el vostre reglament",
+              "Cens sincronitzat per API en lloc de pujat",
+              "Gestionat de cap a cap, amb el nostre equip present el dia de la votació"
+            ]
+          }
+        ]
+      },
+      "board": {
+        "eyebrow": "per a qui heu de convèncer",
+        "title": "Les parts que val la pena reenviar",
+        "intro": "Això no ho decidireu sols. Cadascuna d'aquestes respostes va dirigida a una persona de la sala, i cadascuna té el seu propi enllaç per enviar-l'hi.",
+        "links": [
+          {
+            "label": "Per al vostre advocat",
+            "description": "Què regeix l'elecció, i què produïm davant de cada exigència.",
+            "anchor": "legal-validity"
+          },
+          {
+            "label": "Per a la vostra junta electoral",
+            "description": "Què pot veure el dia de la votació, i contra què certifica en tancar.",
+            "anchor": "proof"
+          },
+          {
+            "label": "Per al vostre tresorer",
+            "description": "Quant costa, i en què es diferencien les dues formes de treballar amb nosaltres.",
+            "anchor": "engagement"
+          },
+          {
+            "label": "Per a l'escèptic de la junta",
+            "description": "Com es compara això amb el procés que feu avui, línia per línia.",
+            "anchor": "comparison"
           }
         ]
       }

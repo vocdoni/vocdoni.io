@@ -71,11 +71,6 @@ export interface VerticalContent {
     items: VerticalStake[]
     /** Label over the answer half of each card, e.g. "what changes". */
     answer_label: string
-    /**
-     * Transitional: locales still on the older shape carry their answer as one
-     * closing paragraph instead of per card. Rendered only when present.
-     */
-    turn?: string
   }
   legal: {
     eyebrow: string
@@ -88,9 +83,7 @@ export interface VerticalContent {
     response_label: string
     frameworks: VerticalFramework[]
     evidence: { title: string; intro: string }
-    disclaimer: string
     cta_secondary: string
-    cta_note: string
   }
   proof: {
     eyebrow: string
@@ -131,7 +124,6 @@ export interface VerticalContent {
     title: string
     intro: string
     options: VerticalEngagementOption[]
-    recommendation: { title: string; description: string }
     pricing: { title: string; description: string; link_label: string }
   }
   timeline?: { eyebrow: string; title: string; intro: string; steps: VerticalTimelineStep[]; footnote: string }
