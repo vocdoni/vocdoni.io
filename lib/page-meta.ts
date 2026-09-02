@@ -30,6 +30,14 @@ export const metaDefaults = {
     'meta.privacy.description',
     'Learn how Vocdoni collects, uses, and protects your personal data and privacy.'
   ),
+  'meta.security_accessibility.title': t(
+    'meta.security_accessibility.title',
+    'Online voting audit trail and security evidence | Vocdoni'
+  ),
+  'meta.security_accessibility.description': t(
+    'meta.security_accessibility.description',
+    'Inspect Vocdoni online voting audit trail evidence, public result proofs, source code, privacy documents, accessibility evidence, and published gaps.'
+  ),
   'meta.terms.title': t('meta.terms.title', 'Terms & conditions - Vocdoni'),
   'meta.terms.description': t(
     'meta.terms.description',

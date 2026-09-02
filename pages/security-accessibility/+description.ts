@@ -1,3 +1,5 @@
-export default function description() {
-  return 'Inspect Vocdoni online voting audit trail evidence, public result proofs, source code, privacy documents, accessibility evidence, and published gaps.'
+import { getMetaByKey } from '@/lib/page-meta'
+
+export default function description(pageContext: Vike.PageContextServer) {
+  return getMetaByKey(pageContext, 'meta.security_accessibility.description')
 }
