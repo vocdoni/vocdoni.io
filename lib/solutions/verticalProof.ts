@@ -56,3 +56,26 @@ const PROFESSIONAL_ASSOCIATIONS_BY_LOCALE: Partial<Record<Locale, Partial<Vertic
 export function getProfessionalAssociationsProof(locale: Locale): VerticalProofConfig {
   return { ...DEFAULT_PROFESSIONAL_ASSOCIATIONS, ...(PROFESSIONAL_ASSOCIATIONS_BY_LOCALE[locale] ?? {}) }
 }
+
+/**
+ * Associations and federations. Òmnium is the anchor: the largest membership
+ * organisation on the list and the one with a case study, so it leads the band
+ * and carries the featured quote.
+ *
+ * No per-market overrides yet. Every reference here is Catalan, which is the
+ * same gap the professional bodies had before ATI: when an association or
+ * federation in another market goes on record, it belongs in an override rather
+ * than appended to the default.
+ */
+const DEFAULT_ASSOCIATIONS: VerticalProofConfig = {
+  logos: ['Omnium', 'CEC', 'Plataforma', 'AGUICAT', 'Arxivers'],
+  quotes: { stakes: 'CEC', how: 'Plataforma', proof: 'Omnium' },
+  caseStudy: 'Omnium',
+}
+
+const ASSOCIATIONS_BY_LOCALE: Partial<Record<Locale, Partial<VerticalProofConfig>>> = {}
+
+/** Resolve the proof set for a locale, falling back to the default market. */
+export function getAssociationsProof(locale: Locale): VerticalProofConfig {
+  return { ...DEFAULT_ASSOCIATIONS, ...(ASSOCIATIONS_BY_LOCALE[locale] ?? {}) }
+}
