@@ -890,120 +890,484 @@
   },
   "solutions": {
     "associations": {
-      "challenge": {
-        "intro": "Para uma associação, cada eleição ou votação estatutária é um teste de legitimidade. Baixa participação, resultados contestados ou um voto vazado podem prejudicar a confiança por anos.",
-        "title": "Por que é difícil acertar os votos dos membros"
-      },
-      "cta_primary": "Comece grátis",
-      "cta_secondary": "Fale com nossa equipe",
-      "eyebrow": "Para associações e federações",
-      "faq": {
-        "items": [
-          {
-            "answer": "Sim. Quando seus estatutos permitem votação remota ou eletrônica (ou não a proíbem), uma eleição da Vocdoni tem validade legal. Nós fornecemos um registro de auditoria completo e evidências verificáveis para que o resultado seja defensável caso seja contestado. Muitas associações atualizam seus estatutos para permitir explicitamente a votação digital.",
-            "question": "A votação online é legalmente válida para nossa associação?"
-          },
-          {
-            "answer": "Sim, e é nisso que a Vocdoni se concentra. A criptografia de conhecimento zero separa a identidade de um membro do respectivo voto, então ninguém (nem sua diretoria, nem a Vocdoni) consegue vincular um voto a uma pessoa. Ao mesmo tempo, qualquer pessoa pode verificar que todos os votos válidos foram contados corretamente.",
-            "question": "Dá para manter os votos em sigilo e ainda assim verificar o resultado?"
-          },
-          {
-            "answer": "De algumas pessoas a centenas de milhares. Você pode realizar uma votação gratuita para até 100 membros, e planos pagos escalam para federações muito grandes sem problemas de desempenho.",
-            "question": "Quantos membros podem votar?"
-          },
-          {
-            "answer": "A experiência do eleitor foi pensada para ser a mais simples possível e funciona em qualquer dispositivo, sem precisar instalar nada. Seguimos diretrizes de acessibilidade da WCAG e, para os membros que não conseguem votar online, você pode combinar votação digital e presencial.",
-            "question": "E se um membro não se sentir confortável com tecnologia?"
-          },
-          {
-            "answer": "Os resultados são contabilizados automaticamente assim que a janela de votação é encerrada. Não há contagem manual, então você obtém resultados precisos e verificáveis em segundos, e não em horas ou dias.",
-            "question": "Com que rapidez saem os resultados?"
-          },
-          {
-            "answer": "Não. Se você consegue enviar um e-mail e preencher um formulário, você consegue realizar uma votação. Modelos, configuração guiada e suporte especializado opcional fazem com que você nunca fique sem ajuda em uma decisão importante.",
-            "question": "Precisamos de conhecimento técnico para realizar uma votação?"
-          }
-        ],
-        "title": "Votação em associações: perguntas frequentes"
-      },
-      "features": [
-        {
-          "description": "Crie uma eleição a partir de um modelo, envie sua lista de membros e coloque no ar. Sem equipe de TI e sem treinamento necessário.",
-          "title": "Configure em minutos"
-        },
-        {
-          "description": "Votação anônima com criptografia mantém cada voto em sigilo, inclusive perante a Vocdoni e os seus próprios administradores.",
-          "title": "Voto secreto por design"
-        },
-        {
-          "description": "Membros votam pelo celular, tablet ou computador, em qualquer lugar do mundo, sem instalar nada.",
-          "title": "Vote de qualquer dispositivo"
-        },
-        {
-          "description": "Os resultados são contabilizados automaticamente no momento em que a votação é encerrada, com evidência para que qualquer pessoa possa conferir.",
-          "title": "Resultados instantâneos e verificáveis"
-        },
-        {
-          "description": "Configure quórum, elegibilidade, votos ponderados, múltiplas perguntas e janelas de votação para atender ao seu estatuto.",
-          "title": "Suas regras, aplicadas"
-        },
-        {
-          "description": "Adicione seu logo, cores e idioma para que a experiência pareça sua associação, e não uma ferramenta genérica.",
-          "title": "Com a identidade da sua organização"
-        }
-      ],
+      "eyebrow": "para associações e federações",
       "hero": {
-        "subtitle": "Realize eleições de diretoria seguras e verificáveis, votações estatutárias e consultas de membros online. Mais participação, cédulas secretas e resultados em que seus membros podem confiar - sem custos com papel ou correio.",
-        "title": "Plataforma de votação para associações, eleições de diretoria e votos dos membros"
-      },
-      "pains": [
-        "Votação postal e presencial é cara, lenta e reduz a participação.",
-        "Os membros ficam preocupados de que o voto não seja realmente secreto, então eles se abstêm.",
-        "Um resultado apertado ou contestado pode ser questionado quando não há prova independente.",
-        "Quórum e regras estatutárias são fáceis de contornar com planilhas e e-mail.",
-        "Membros remotos e internacionais são efetivamente excluídos das decisões.",
-        "A contagem manual atrasa os resultados e aumenta o risco de erro humano."
-      ],
-      "proof": {
-        "author": "Òmnium Cultural",
-        "case_study_label": "Leia o estudo de caso da Òmnium Cultural",
-        "organizations_label": "Organizações que votam com a Vocdoni",
-        "quote": "Precisávamos de uma votação que nossos membros aceitassem sem questionar. A Vocdoni nos deu cédulas secretas, resultados instantâneos e prova de que ninguém poderia contestar.",
-        "role": "Organização de membros, Catalunha",
-        "title": "Confiável para associações e federações"
-      },
-      "solution": {
-        "intro": "A Vocdoni transforma um processo complexo de governança em alguns passos guiados - para que qualquer diretoria ou secretaria possa realizar uma votação sem conhecimento técnico.",
-        "title": "Tudo o que sua associação precisa para decidir online"
+        "title": "Assembleias que atingem o quórum, e decisões que se sustentam",
+        "subtitle": "Eleições de diretoria, votações estatutárias e assembleias gerais para associações e federações. Configuradas a partir do seu próprio estatuto, realizadas de forma remota ou híbrida, e encerradas com o registro que mostra como se chegou ao resultado.",
+        "cta_primary": "Monte uma votação de teste",
+        "cta_secondary": "Fale com um especialista eleitoral",
+        "risk_reversal": "Conta gratuita, sem cartão."
       },
       "trust": {
-        "intro": "Privacidade, auditabilidade e defesa legal não são extras. Elas são a base de toda votação que você realiza com a Vocdoni.",
-        "title": "Construído para que os resultados resistam ao escrutínio"
+        "logos_label": "Associações e federações que votam com a Vocdoni",
+        "badges": [
+          "Quórum ao vivo, segundo a sua própria regra",
+          "Voto secreto por construção",
+          "Totalmente remoto, ou híbrido com sala",
+          "LGPD, hospedagem na União Europeia"
+        ],
+        "stats": [
+          {
+            "value": "200.000+",
+            "label": "votos processados na infraestrutura da Vocdoni",
+            "source": "dados da plataforma Vocdoni"
+          },
+          {
+            "value": "500+",
+            "label": "processos de votação realizados com tecnologia Vocdoni",
+            "source": "histórico de projetos da Vocdoni"
+          },
+          {
+            "value": "Desde 2018",
+            "label": "realizando eleições estatutárias e públicas em produção",
+            "source": "código aberto, inspecionável publicamente"
+          }
+        ]
       },
-      "trust_badges": [
-        "Compatível com a GDPR",
-        "Verificável de ponta a ponta",
-        "Voto secreto",
-        "Código aberto"
-      ],
-      "trust_points": [
-        {
-          "description": "Todo eleitor pode confirmar que o voto foi contabilizado, e qualquer pessoa pode verificar a apuração final - sem precisar confiar na plataforma.",
-          "title": "Verificável de ponta a ponta"
+      "stakes": {
+        "eyebrow": "a posição em que vocês realmente estão",
+        "title": "Uma assembleia que raspou no quórum, e uma decisão que alguém ainda pode desfazer",
+        "intro": "As decisões de uma associação valem o que vale a participação que as sustenta. Quando uma assembleia bate o quórum na base das procurações, tudo o que se vota ali é discutível, e quem discute é um associado de vocês.",
+        "items": [
+          {
+            "title": "O quórum",
+            "description": "Os associados estão espalhados pelo país, a assembleia é num sábado de manhã e na sala estão as mesmas quarenta pessoas do ano passado. Ou vocês chegam ao quórum com procurações, ou adiam e convocam de novo.",
+            "answer": "Os associados votam em dois minutos de onde estiverem, então o quórum é formado por associados que decidiram e não por formulários que alguém recolheu."
+          },
+          {
+            "title": "As procurações",
+            "description": "As procurações chegam por e-mail, são conferidas na mão e uma pessoa só acaba carregando vinte votos. É lícito, está no estatuto de vocês, e é a primeira coisa que um associado insatisfeito aponta.",
+            "answer": "Cada associado vota por si e, onde o estatuto permite representação, a plataforma aplica os limites em vez de um voluntário conferindo assinaturas."
+          },
+          {
+            "title": "O registro",
+            "description": "Meses depois alguém pergunta como se chegou à apuração. A resposta honesta é uma planilha, uma lista de presença digitalizada e a lembrança de quem estava lá.",
+            "answer": "A apuração é publicada junto com o registro a partir do qual foi calculada, então a diretoria aponta provas em vez de lembranças."
+          }
+        ],
+        "answer_label": "O que muda com a Vocdoni"
+      },
+      "legal": {
+        "eyebrow": "antes de qualquer outra coisa",
+        "title": "Nosso estatuto permite, e o que mostramos a um associado que impugna?",
+        "intro": "As duas perguntas que decidem se isto chega à sua diretoria. O seu estatuto está acima de tudo o que vem a seguir: numa associação ele não é mais um elemento, é o instrumento.",
+        "jurisdiction_label": "Enquadramento aplicável no Brasil",
+        "response_label": "O que vocês recebem diante disso",
+        "requirement_label": "O que o marco exige",
+        "frameworks": [
+          {
+            "name": "Código Civil, arts. 53 a 61, e o seu estatuto",
+            "summary": "O Código Civil trata das associações e manda que o estatuto defina os requisitos para a admissão e exclusão, os direitos dos associados e o modo de constituição e funcionamento dos órgãos deliberativos. Sobre o meio da votação nada diz, e é por isso que a resposta está no seu estatuto, não na lei.",
+            "response": [
+              "Lemos o seu estatuto antes de configurar qualquer coisa e dizemos se ele cobre o voto remoto do jeito que está escrito",
+              "Elegibilidade, data de corte, quórum, maiorias e janela de votação ficam por escrito antes de abrir",
+              "Se a resposta for que primeiro é preciso reformar o estatuto, vocês ouvem isso na primeira conversa"
+            ]
+          },
+          {
+            "name": "Um quórum que vocês conseguem comprovar",
+            "summary": "O quórum é o número mais discutido do ano associativo. Precisa ser calculado como o estatuto define e demonstrado atingido no momento em que a deliberação foi tomada.",
+            "response": [
+              "Calculado a partir da definição de vocês, incluindo categorias de associado que contam de forma diferente",
+              "A diretoria acompanha ao vivo e sabe antes do encerramento se a deliberação se sustenta",
+              "O registro de participação fica datado e entra no dossiê final"
+            ]
+          },
+          {
+            "name": "O voto secreto",
+            "summary": "Um associado precisa poder votar contra a diretoria que está saindo sem que ninguém fique sabendo, inclusive os voluntários que tocam a associação e enxergam todo o resto.",
+            "response": [
+              "Identidade e voto separados pelo próprio sistema, não por uma regra de uso",
+              "Nenhuma parte sozinha, nem a secretaria, nem a diretoria, nem a Vocdoni, tem o que seria preciso para reconstruir um voto",
+              "O voto pode ser trocado até o encerramento, então ninguém pode ser pressionado a provar em que votou"
+            ]
+          },
+          {
+            "name": "LGPD, Lei 13.709/2018",
+            "summary": "O quadro de associados é tratamento de dados pessoais, e uma apuração que ninguém de fora consegue conferir é uma apuração em que é preciso acreditar.",
+            "response": [
+              "Contrato de tratamento incluído; hospedagem na UE amparada nas cláusulas-padrão contratuais da ANPD (Resolução CD/ANPD n.º 19/2024); retenção documentada",
+              "Lista reduzida ao mínimo: um identificador e um canal de contato",
+              "O processo é verificável de ponta a ponta, e cada associado pode confirmar que o voto dele está lá sem revelar em que votou"
+            ]
+          }
+        ],
+        "evidence": {
+          "title": "O que vocês recebem quando a votação encerra",
+          "intro": "Todo o processo é verificável de ponta a ponta e, no mesmo dia em que a votação encerra, vocês recebem o dossiê que comprova isso. Ele contém a configuração assinada, uma cópia lacrada do quadro de associados na data de corte, o registro de participação diante da sua regra de quórum, a apuração publicada e as instruções para conferi-la, junto com um relatório e uma certificação do processo para a ata. Foi feito para alguém insatisfeito com o resultado: um associado, um auditor ou o advogado dele conseguem conferir cada parte sem precisar de nada de vocês nem de nós."
         },
-        {
-          "description": "A privacidade criptográfica separa a identidade do voto, então os votos permanecem secretos e não podem ser comprados ou coagidos.",
-          "title": "Anônima e à prova de coerção"
-        },
-        {
-          "description": "Compatível com o GDPR por design, com um histórico completo de auditoria e um pacote de evidências que resiste a desafios.",
-          "title": "Defensável legalmente"
-        },
-        {
-          "description": "Nosso protocolo de votação é totalmente de código aberto, então a segurança vem da análise pública, e não de promessas do fornecedor.",
-          "title": "Código aberto e auditável"
+        "counsel_note": "Nós expomos o quadro como o entendemos e produzimos as provas acima; a leitura jurídica do seu próprio estatuto cabe ao seu jurídico.",
+        "cta_secondary": "Fale com um especialista eleitoral"
+      },
+      "proof": {
+        "eyebrow": "uma associação como a sua",
+        "title": "Uma associação cultural que levou as assembleias estatutárias para o online",
+        "intro": "A Òmnium Cultural realiza suas assembleias estatutárias com a Vocdoni: votos que continuam secretos, associados participando de onde estiverem e um resultado verificável em vez de afirmado.",
+        "org": "Òmnium Cultural",
+        "org_meta": "Associação de associados, Catalunha, assembleias estatutárias",
+        "stats": [
+          {
+            "value": "Secreto",
+            "label": "o voto, separado da identidade pelo próprio sistema"
+          },
+          {
+            "value": "Verificável",
+            "label": "o resultado, conferível por qualquer associado ou auditor"
+          },
+          {
+            "value": "Qualquer dispositivo",
+            "label": "sem aplicativo para instalar nem nada para o associado configurar"
+          },
+          {
+            "value": "Estatutárias",
+            "label": "assembleias realizadas com as garantias que o estatuto exige"
+          }
+        ],
+        "case_study_label": "Leia o caso de sucesso da Òmnium Cultural",
+        "blog_label": "Como vota uma associação com associados em quatro países",
+        "cta_primary": "Monte uma votação de teste"
+      },
+      "how": {
+        "eyebrow": "como funciona",
+        "title": "Configurado a partir do seu estatuto, não de um modelo pronto",
+        "intro": "Estas são as funcionalidades que acabam sendo citadas quando uma deliberação é questionada, e a experiência que produzem no associado.",
+        "features": [
+          {
+            "title": "Configurado a partir do seu estatuto",
+            "description": "Cargos, categorias de associado, regras de elegibilidade, quórum e critérios de desempate seguem o seu texto. Lemos antes de configurar qualquer coisa."
+          },
+          {
+            "title": "O quadro de associados é lacrado antes da votação",
+            "description": "Na data de corte o quadro de associados é travado e lacrado com um código curto que muda se um único nome for incluído ou retirado. Uma discussão sobre quem tinha direito a votar se resolve em um minuto."
+          },
+          {
+            "title": "O quórum, ao vivo",
+            "description": "A diretoria vê a participação diante da sua própria regra de quórum conforme acontece, e sabe antes do encerramento se a assembleia se sustenta. Sem acesso a votos individuais em nenhum momento."
+          },
+          {
+            "title": "Voto ponderado e por representação",
+            "description": "Numa federação cujos membros são eles mesmos associações, cada voto leva o peso que o estatuto dá a ele. Onde o estatuto permite representação, a plataforma aplica os limites em vez de um voluntário conferindo formulários."
+          },
+          {
+            "title": "Remoto, ou remoto e presencial",
+            "description": "A maioria das associações faz toda a votação de forma remota. Se vocês também quiserem sala, os associados podem votar em um ponto assistido sobre o mesmo registro, então ninguém vota duas vezes e os dois caminhos produzem um só resultado."
+          },
+          {
+            "title": "Secreto até para vocês",
+            "description": "Identidade e voto são mantidos separados pelo próprio sistema, não por uma promessa que alguém possa quebrar. Ninguém consegue juntá-los de novo: nem a equipe de vocês, nem a diretoria, nem a Vocdoni."
+          }
+        ],
+        "media_caption": "A visão própria da diretoria durante a assembleia: a participação diante do quórum, e nenhum acesso a um único voto.",
+        "steps_title": "E o que um associado realmente faz",
+        "steps": [
+          {
+            "title": "Recebe a convocação",
+            "description": "E-mail ou SMS com a identidade visual da própria associação, a pauta, as propostas e a janela exata em que a votação está aberta."
+          },
+          {
+            "title": "Se identifica, não se cadastra",
+            "description": "Um código de uso único por SMS ou e-mail confirma que é o associado que está no registro. Não há conta para criar, nem aplicativo para instalar, nem número de associado para procurar."
+          },
+          {
+            "title": "Vota",
+            "description": "Cargos da diretoria, reformas estatutárias e aprovação de contas, cada um com sua regra de maioria, em uma única tela e com a documentação anexada."
+          },
+          {
+            "title": "Pode conferir o próprio voto",
+            "description": "Fica com um comprovante que só ele tem e, quando a votação encerra, pode confirmar que o voto dele está dentro do resultado publicado."
+          }
+        ],
+        "steps_media_caption": "O que um associado vê no celular, da convocação ao comprovante.",
+        "footnote": "A maioria dos associados termina em menos de dois minutos, no navegador que já está aberto. Se uma parte do quadro estiver realmente sem acesso, o ponto assistido funciona sobre o mesmo registro, então ninguém fica de fora e ninguém vota duas vezes. O obstáculo quase nunca é o associado: é um número de celular faltando num cadastro que ninguém limpa há anos. Por isso conferimos seus dados de contato antes de abrir qualquer coisa."
+      },
+      "comparison": {
+        "eyebrow": "diante das alternativas",
+        "title": "Comparado com a assembleia que vocês fazem hoje, e com as outras plataformas",
+        "intro": "Diante do que a última assembleia custou de verdade em esforço e presença, e diante do que um fornecedor comercial entrega na mão de vocês no final. Não citamos nomes: é assim que a categoria funciona.",
+        "criterion_label": "A questão",
+        "traditional_label": "Na sala, com procurações",
+        "digital_label": "Uma plataforma online comum",
+        "vocdoni_label": "Vocdoni",
+        "rows": [
+          {
+            "criterion": "Como se atinge o quórum",
+            "traditional": "Presença mais uma pilha de procurações, conferidas na mão na própria manhã",
+            "digital": "Mais gente vota, mas a contagem é a que o sistema informar",
+            "vocdoni": "Associados votando por si, acompanhados ao vivo diante da regra de vocês"
+          },
+          {
+            "criterion": "Quem pode verificar o resultado",
+            "traditional": "Quem estava na sala quando se contou",
+            "digital": "O fornecedor, e quem ele mostrar o relatório",
+            "vocdoni": "Qualquer um: a diretoria, um associado, um auditor, um juiz"
+          },
+          {
+            "criterion": "A apuração pode ser refeita de forma independente",
+            "traditional": "Só se as cédulas tiverem sido guardadas, e normalmente não foram",
+            "digital": "Normalmente não. O resultado é o que o sistema informar",
+            "vocdoni": "Sim. Qualquer um pode refazer a apuração a partir do registro publicado"
+          },
+          {
+            "criterion": "Quem poderia ligar um voto a um associado",
+            "traditional": "Ninguém, com cédula de papel. A sala inteira, se for por mão levantada",
+            "digital": "Normalmente o fornecedor, porque identidade e voto ficam no mesmo sistema",
+            "vocdoni": "Ninguém. Identidade e voto são separados pelo próprio sistema"
+          },
+          {
+            "criterion": "Os votos por representação",
+            "traditional": "Formulários em papel, contados por um voluntário, com os limites aplicados na mão",
+            "digital": "Muitas vezes não previstos, ou previstos sem os limites do estatuto de vocês",
+            "vocdoni": "Aplicados como o estatuto define, com o peso de cada associação membro"
+          },
+          {
+            "criterion": "O que a diretoria vê durante a votação",
+            "traditional": "A sala, e nada sobre quem não apareceu",
+            "digital": "Um painel, se vocês derem acesso à diretoria",
+            "vocdoni": "Participação ao vivo diante do quórum, sem acesso a nenhum voto"
+          },
+          {
+            "criterion": "Provas se um associado impugnar",
+            "traditional": "A ata, a lista de presença e a palavra dos presentes",
+            "digital": "Um relatório do fornecedor, que vocês têm de aceitar na confiança",
+            "vocdoni": "Uma prova reproduzível e os documentos de auditoria no mesmo dia"
+          },
+          {
+            "criterion": "Associados no exterior, doentes ou trabalhando naquele dia",
+            "traditional": "Uma procuração, se lembrarem de enviar",
+            "digital": "Votam de qualquer lugar",
+            "vocdoni": "Votam de qualquer lugar, ou em um ponto assistido se vocês montarem um"
+          },
+          {
+            "criterion": "No ano seguinte",
+            "traditional": "Refeito de memória e a partir da pasta do ano passado",
+            "digital": "Montado de novo com o fornecedor",
+            "vocdoni": "A mesma configuração, reaberta"
+          }
+        ]
+      },
+      "engagement": {
+        "eyebrow": "quem executa",
+        "title": "Vocês fazem, ou nós fazemos junto com vocês",
+        "intro": "A mesma plataforma, as mesmas garantias, as mesmas provas no final. A maioria das associações conduz sozinha as consultas e votações de comissões o ano todo, e contrata o serviço gerenciado para a assembleia estatutária.",
+        "options": [
+          {
+            "badge": "autosserviço",
+            "title": "Vocês fazem, com a assinatura de vocês",
+            "description": "Vocês criam, configuram, lançam e encerram suas próprias votações quando precisarem. Uma pessoa, uma tarde, sem equipe de TI e sem conhecimento prévio, com treinamento e um canal de suporte por trás.",
+            "points": [
+              "No ar na mesma semana",
+              "Todos os métodos de voto, incluindo voto ponderado e por representação",
+              "Preços públicos, sem ligação comercial"
+            ],
+            "cta": "Monte uma votação de teste"
+          },
+          {
+            "badge": "eleições gerenciadas",
+            "title": "Nós fazemos com vocês, de ponta a ponta",
+            "description": "Lemos o seu estatuto, configuramos o processo, carregamos e validamos o registro, fazemos um ensaio completo com eleitores de teste, acompanhamos a assembleia e entregamos os resultados, os relatórios e o dossiê de provas. Vocês aprovam, nós operamos.",
+            "points": [
+              "Um contato com nome durante toda a janela de votação",
+              "Um ensaio completo antes da assembleia real",
+              "Se o estatuto de vocês exigir algo fora do comum, nós cuidamos disso"
+            ],
+            "cta": "Fale com um especialista eleitoral"
+          }
+        ],
+        "pricing": {
+          "title": "Quanto custa",
+          "description": "Existe um plano gratuito sem limite de tempo e sem cartão, e os planos pagos são cobrados pelo número de associados. Esses preços são públicos, então um tesoureiro voluntário consegue colocar um número na frente da diretoria sem marcar nenhuma ligação. Assembleias gerenciadas, personalização e qualquer outra coisa de que precisem por cima são orçadas por votação, conforme o tamanho do registro e o que o processo envolver.",
+          "link_label": "Veja onde começam os preços"
         }
-      ]
+      },
+      "faq": {
+        "eyebrow": "as perguntas difíceis",
+        "title": "O que as associações nos perguntam antes de decidir",
+        "intro": "As perguntas que a sua diretoria vai levantar, respondidas aqui para que vocês tenham a resposta antes de serem cobrados.",
+        "items": [
+          {
+            "question": "Nosso estatuto não menciona voto eletrônico. Podemos fazer mesmo assim?",
+            "answer": "Às vezes sim, mas confiram a redação antes de se comprometerem, porque numa associação essa é toda a questão. O Código Civil trata de como as deliberações são tomadas e nada diz sobre o meio, então a decisão fica no estatuto de vocês. Alguns descrevem as garantias que uma votação precisa oferecer e não o meio, e sob esses o voto eletrônico está disponível. Outros só preveem voto presencial ou por procuração, e aí é preciso incluir antes. Mandem o texto e dizemos em qual dos dois casos vocês estão, inclusive quando a resposta for que precisam de uma reforma estatutária."
+          },
+          {
+            "question": "Podemos continuar aceitando procurações?",
+            "answer": "Sim, onde o estatuto de vocês as prevê, e os limites deixam de ser uma conferência manual. Se um associado só pode carregar três votos por representação, a plataforma aplica isso; se a sua federação dá a uma associação membro um peso proporcional ao próprio quadro dela, o voto leva esse peso. O que muda é que os limites valem do jeito que estão escritos, em vez de serem reconstruídos na mão na manhã da assembleia."
+          },
+          {
+            "question": "Como sabemos que a assembleia atingiu mesmo o quórum?",
+            "answer": "O quórum é calculado a partir da definição de vocês, incluindo categorias de associado que contam de forma diferente ou não contam, e a diretoria acompanha ao vivo em vez de descobrir no fim. O registro de participação fica datado e entra no dossiê, então a resposta para «havia quórum quando aquele ponto foi aprovado?» é um documento e não uma lembrança."
+          },
+          {
+            "question": "Alguns dos nossos associados têm setenta anos e não usam aplicativos.",
+            "answer": "Não há nenhum aplicativo para instalar. É uma página web em qualquer dispositivo, com uma linha de suporte atendida durante toda a janela de votação. Se uma parte do quadro estiver realmente sem acesso, vocês podem fazer a assembleia no formato híbrido: montamos um ponto de votação assistido na sede sobre o mesmo registro, de modo que esses associados votam com ajuda e ninguém vota duas vezes."
+          },
+          {
+            "question": "Quem responde pelo quê?",
+            "answer": "Nós respondemos pela plataforma, pela configuração técnica, pela integridade e pela verificabilidade de cada voto registrado, pelo acompanhamento durante a janela de votação e pela apuração, pelos relatórios e pelas provas no encerramento. Vocês respondem pela exatidão do quadro de associados na data de corte, por quem tem direito a votar e pelas decisões de procedimento que cabem à diretoria. Nenhum fornecedor pode tomar essas decisões por vocês, e vale desconfiar de quem se ofereça para isso."
+          },
+          {
+            "question": "Onde ficam os dados dos nossos associados?",
+            "answer": "Na União Europeia, sob um contrato de tratamento assinado e amparado nas cláusulas-padrão contratuais da ANPD, usados apenas para realizar a votação de vocês e excluídos no prazo que definirem. A lista é reduzida ao mínimo: um identificador mais um canal de contato. Quem está no quadro de associados, e se essa pessoa votou, é informação sensível. Tratamos assim."
+          },
+          {
+            "question": "Algum resultado feito com a Vocdoni já foi impugnado?",
+            "answer": "Não. Nenhum processo de votação organizado pela Vocdoni foi impugnado. Vários passaram por auditoria e verificação, pela própria organização e por terceiros, e deu tudo certo todas as vezes. Preferimos que vocês também não aceitem isso por fé: cada votação encerra com os documentos que permitem a outra pessoa conferir a apuração por conta própria."
+          },
+          {
+            "question": "Podemos manter os resultados ocultos até a votação encerrar?",
+            "answer": "Sim. No modo criptografado ninguém vê nenhum resultado enquanto a votação está aberta, nós inclusive, e a apuração é publicada automaticamente no encerramento. A alternativa é uma apuração ao vivo, que serve para uma consulta interna mas raramente para uma eleição de diretoria ou uma reforma estatutária."
+          },
+          {
+            "question": "Somos uma associação de voluntários. Cabe no bolso, e dá muito trabalho?",
+            "answer": "Existe um plano gratuito sem limite de tempo, e os planos pagos são cobrados pelo número de associados, então uma associação pequena paga pouco ou nada. Sobre o trabalho, comparem com a assembleia que fazem hoje: o salão, a impressão, a postagem, as procurações conferidas na mão e a tarde gasta contando. Uma pessoa monta uma votação numa tarde e, no ano seguinte, reabre a configuração deste ano em vez de refazê-la de memória."
+          }
+        ]
+      },
+      "closing": {
+        "title": "Tragam o estatuto de vocês",
+        "description": "A primeira conversa mais útil não é uma demonstração. Mandem o estatuto e dizemos o que é configurável do jeito que está escrito, o que precisa de uma decisão da diretoria e o que exigiria uma reforma na próxima assembleia. Se a resposta for que vocês ainda não deveriam levar esta votação para o digital, vamos dizer.",
+        "cta_primary": "Monte uma votação de teste",
+        "cta_secondary": "Fale com um especialista eleitoral",
+        "note": "Conta gratuita, sem cartão. Sem discurso de vendas, só respostas."
+      },
+      "resources": {
+        "eyebrow": "antes de decidir",
+        "title": "Leiam isto primeiro",
+        "intro": "Guias, explicações e casos de sucesso que respondem à pergunta que vocês provavelmente estão prestes a fazer.",
+        "items": [
+          {
+            "kind": "caso de sucesso",
+            "title": "Como a Òmnium Cultural realiza online suas assembleias estatutárias",
+            "description": "Uma grande associação de associados, votos secretos e assembleias realizadas com as garantias que o estatuto dela exige."
+          },
+          {
+            "kind": "guia",
+            "title": "O que significa quórum em uma votação online",
+            "description": "Como o quórum é calculado e acompanhado quando os associados votam remotamente."
+          },
+          {
+            "kind": "guia",
+            "title": "Como realizar uma assembleia geral online juridicamente válida",
+            "description": "Uma lista de verificação prática para uma assembleia geral digital ou híbrida."
+          },
+          {
+            "kind": "explicação",
+            "title": "Voto anônimo, explicado",
+            "description": "Como um voto continua secreto diante de quem conduz a votação, nós inclusive."
+          },
+          {
+            "kind": "explicação",
+            "title": "Voto verificável, explicado",
+            "description": "Por que qualquer pessoa pode conferir um resultado sem precisar confiar na plataforma."
+          },
+          {
+            "kind": "guia",
+            "title": "Requisitos de proteção de dados no voto digital",
+            "description": "O que a legislação de proteção de dados espera quando vocês levam uma votação para o digital."
+          }
+        ]
+      },
+      "timeline": {
+        "eyebrow": "a contagem regressiva",
+        "title": "O que acontece entre hoje e a assembleia",
+        "intro": "Uma assembleia estatutária é planejada de trás para frente a partir de uma data fixada pelo estatuto de vocês. Esta é a forma dela.",
+        "steps": [
+          {
+            "when": "4 semanas antes",
+            "title": "Lemos o estatuto de vocês",
+            "description": "Vocês mandam o estatuto e qualquer regimento eleitoral. Voltamos com o que dá para realizar do jeito que está, e o que precisa de uma decisão de vocês.",
+            "owner": "Vocês e nós"
+          },
+          {
+            "when": "3 semanas antes",
+            "title": "A diretoria aprova",
+            "description": "Elegibilidade, data de corte, quórum, regras de maioria e janela de votação ficam por escrito e são aprovadas antes de qualquer coisa ser construída.",
+            "owner": "A diretoria de vocês"
+          },
+          {
+            "when": "2 semanas antes",
+            "title": "O registro é carregado e conferido",
+            "description": "O cadastro de associados vira registro de votação, validado com os critérios de vocês. É aqui que aparecem os celulares faltando e as baixas nunca registradas, enquanto ainda dá tempo.",
+            "owner": "Nós"
+          },
+          {
+            "when": "1 semana antes",
+            "title": "Um ensaio completo",
+            "description": "A configuração real com eleitores de teste. A diretoria percorre o processo e quem for conduzir pratica no painel antes de um único associado ser convidado.",
+            "owner": "As duas equipes"
+          },
+          {
+            "when": "Dia da assembleia",
+            "title": "Abrir, acompanhar, encerrar",
+            "description": "Participação ao vivo diante do quórum para a diretoria, uma linha de suporte para os associados e a apuração publicada quando a janela fecha. Os documentos e a certificação saem no mesmo dia.",
+            "owner": "Nós, de plantão"
+          }
+        ],
+        "footnote": "Uma consulta interna simples pode estar no ar na mesma semana. Este cronograma é para uma assembleia estatutária com os prazos de convocação de vocês, e a maior parte dele são as aprovações de vocês, não a nossa configuração."
+      },
+      "sizes": {
+        "eyebrow": "seja qual for o tamanho de vocês",
+        "title": "Da associação local à federação de entidades",
+        "intro": "A plataforma é a mesma em qualquer tamanho. O que muda é quanto dela vocês precisam e quanto nós fazemos junto.",
+        "tiers": [
+          {
+            "size": "Até cerca de 1.000 associados",
+            "title": "Uma associação local que resolve numa tarde",
+            "description": "Vocês não precisam de um projeto nem de uma rubrica no orçamento. Uma pessoa cria a votação, sobe o registro e manda o link, no plano gratuito ou numa assinatura pequena.",
+            "points": [
+              "No ar na mesma semana",
+              "Todos os métodos de voto, incluindo voto ponderado e por representação",
+              "Grátis para começar, e grátis para ficar se vocês forem pequenos o bastante"
+            ]
+          },
+          {
+            "size": "Alguns milhares de associados",
+            "title": "Uma associação de âmbito nacional com assembleia estatutária",
+            "description": "O formato que a maioria das associações tem. Autosserviço ou gerenciado conforme a necessidade: quanto vocês querem personalizar, quais serviços extras querem, ou simplesmente quais partes preferem deixar com a gente.",
+            "points": [
+              "Registro importado do cadastro de associados de vocês",
+              "Ensaio completo antes da assembleia estatutária",
+              "Assinatura cobrada por número de associados, o trabalho gerenciado orçado à parte"
+            ]
+          },
+          {
+            "size": "Uma federação",
+            "title": "Entidades filiadas, cada uma com seu peso",
+            "description": "Quando os membros são eles mesmos associações, o voto precisa levar o peso que o estatuto dá a cada uma, e quem o exerce precisa ser o delegado certo. Isso é configuração, não uma edição especial do produto.",
+            "points": [
+              "Votos ponderados e listas de delegados, como o estatuto de vocês define",
+              "Registro sincronizado por API em vez de carregado",
+              "Gerenciado de ponta a ponta, com nossa equipe presente no dia da assembleia"
+            ]
+          }
+        ]
+      },
+      "board": {
+        "eyebrow": "para as pessoas que vocês precisam convencer",
+        "title": "As partes que valem o encaminhamento",
+        "intro": "Vocês não vão decidir sozinhos. Cada uma destas respostas fala com uma pessoa que está na sala, e cada uma tem o próprio link para mandar.",
+        "links": [
+          {
+            "label": "Para o advogado de vocês",
+            "description": "O que rege a votação, e o que produzimos diante de cada exigência.",
+            "anchor": "legal-validity"
+          },
+          {
+            "label": "Para a diretoria",
+            "description": "O que ela consegue ver no dia da assembleia, e no que se apoia no encerramento.",
+            "anchor": "proof"
+          },
+          {
+            "label": "Para o tesoureiro",
+            "description": "Quanto custa, e em que as duas formas de trabalhar com a gente se diferenciam.",
+            "anchor": "engagement"
+          },
+          {
+            "label": "Para o cético da sala",
+            "description": "Como isto se compara com a assembleia que vocês fazem hoje, linha por linha.",
+            "anchor": "comparison"
+          }
+        ]
+      }
     },
     "companies_agm": {
       "challenge": {
@@ -3322,8 +3686,8 @@
     },
     "solutions": {
       "associations": {
-        "description": "Realize online eleições de diretoria, votações estatutárias e consultas aos associados. Voto secreto, resultados verificáveis e trilha de auditoria defensável.",
-        "title": "Votação online para associações e eleições de diretoria | Vocdoni"
+        "description": "Eleições de diretoria, votações estatutárias e assembleias gerais para associações e federações. Atinjam o quórum com associados votando de onde estiverem, voto secreto e um resultado que qualquer associado pode conferir.",
+        "title": "Voto online para associações e federações | Vocdoni"
       },
       "companies_agm": {
         "description": "Realize assembleias gerais anuais e votações de acionistas de forma digital. Votos ponderados e procurações, uma trilha de auditoria completa e resultados verificáveis que atendem auditorias.",
