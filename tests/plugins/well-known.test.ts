@@ -70,6 +70,46 @@ describe('buildNetlifyHeaders', () => {
     expect(out).toContain('  Link: </.well-known/ai-catalog.json>; rel="ai-catalog"')
   })
 
+  it('emits the security headers on every deploy, indexable or not', () => {
+    for (const out of [buildNetlifyHeaders(), buildNetlifyHeaders(true)]) {
+      expect(out).toContain('  X-Frame-Options: DENY')
+      expect(out).toContain('  X-Content-Type-Options: nosniff')
+      expect(out).toContain('  Referrer-Policy: strict-origin-when-cross-origin')
+      expect(out).toContain('  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=()')
+      expect(out).toContain('  Cross-Origin-Opener-Policy: same-origin')
+      expect(out).toContain('  Cross-Origin-Resource-Policy: cross-origin')
+    }
+  })
+
+  it('emits one enforced CSP covering every integration the site loads', () => {
+    const out = buildNetlifyHeaders()
+    expect(out.match(/Content-Security-Policy/g)).toHaveLength(1)
+    const csp = out.split('\n').find((l) => l.startsWith('  Content-Security-Policy: '))
+    expect(csp).toBeDefined()
+    for (const fragment of [
+      "default-src 'self'",
+      'https://www.googletagmanager.com', // GTM
+      'https://plausible.io', // Plausible
+      'https://eu.i.posthog.com', // PostHog default host
+      'https://api.emailjs.com', // contact form
+      'https://www.google.com https://www.gstatic.com', // reCAPTCHA
+      'https://app.cal.com', // Cal.com booking embed
+      'https://www.youtube-nocookie.com', // video facade
+      'https://storage.googleapis.com', // blog-hotlinked images
+      "frame-ancestors 'none'",
+      "object-src 'none'",
+      "base-uri 'self'",
+    ]) {
+      expect(csp).toContain(fragment)
+    }
+  })
+
+  it('threads a custom PostHog host into the CSP connect-src', () => {
+    const out = buildNetlifyHeaders(false, 'https://ph.example.com')
+    expect(out).toContain("connect-src 'self' https://ph.example.com ")
+    expect(out).not.toContain('eu.i.posthog.com')
+  })
+
   it('is a well-formed _headers file: path lines flush left, header lines indented', () => {
     for (const out of [buildNetlifyHeaders(), buildNetlifyHeaders(true)]) {
       expect(out.endsWith('\n')).toBe(true)

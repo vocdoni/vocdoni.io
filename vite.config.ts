@@ -12,10 +12,13 @@ import { docsMarkdownPlugin } from './plugins/docs-markdown'
 import { keystaticApiPlugin } from './plugins/keystatic-api'
 import { legacyRedirectsPlugin } from './plugins/legacy-redirects'
 import { vikeSitemapPlugin } from './plugins/vike-sitemap'
-import { wellKnownPlugin } from './plugins/well-known'
+import { DEFAULT_POSTHOG_HOST, wellKnownPlugin } from './plugins/well-known'
 
 const viteconfig = ({ mode }: ConfigEnv) => {
   process.env = { ...process.env, ...loadEnv(mode, process.cwd(), '') }
+
+  // Shared by the POSTHOG_HOST define and the CSP connect-src in _headers, so they cannot drift.
+  const posthogHost = process.env.POSTHOG_HOST || DEFAULT_POSTHOG_HOST
 
   let commitSha = 'unknown'
   try {
@@ -58,6 +61,7 @@ const viteconfig = ({ mode }: ConfigEnv) => {
         defaultLocale: localeDefault,
         locales,
         noindex,
+        posthogHost,
       }),
       ardPlugin({
         hostname: siteUrl,
@@ -94,7 +98,7 @@ const viteconfig = ({ mode }: ConfigEnv) => {
       PLAUSIBLE_DOMAIN: JSON.stringify(process.env.PLAUSIBLE_DOMAIN || ''),
       GTM_ID: JSON.stringify(process.env.GTM_ID || ''),
       POSTHOG_PUBLIC_KEY: JSON.stringify(process.env.POSTHOG_PUBLIC_KEY || ''),
-      POSTHOG_HOST: JSON.stringify(process.env.POSTHOG_HOST || 'https://eu.i.posthog.com'),
+      POSTHOG_HOST: JSON.stringify(posthogHost),
       EMAILJS_PUBLIC_KEY: JSON.stringify(process.env.EMAILJS_PUBLIC_KEY || ''),
       EMAILJS_SERVICE_ID: JSON.stringify(process.env.EMAILJS_SERVICE_ID || ''),
       EMAILJS_TEMPLATE_ID: JSON.stringify(process.env.EMAILJS_TEMPLATE_ID || ''),
