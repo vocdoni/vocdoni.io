@@ -965,6 +965,11 @@
         "description": "What quorum means, how to calculate it, and how to document it for online or hybrid votes.",
         "title": "Quorum meaning for online voting"
       },
+      "security_accessibility": {
+        "category": "Evidence",
+        "description": "Inspect public result proof, source code, privacy documents, accessibility evidence, and the evidence not yet published.",
+        "title": "Online voting audit trail and security evidence"
+      },
       "verifiable_voting_explained": {
         "category": "Explainer",
         "description": "Why end-to-end verifiability lets anyone check a result without trusting the platform.",
@@ -2183,6 +2188,133 @@
     "subtitle": "Vocdoni adapts to how your organization decides. Choose your type to see how secure, verifiable online voting solves your specific challenges.",
     "title": "Online voting solutions for every kind of organization"
   },
+  "security_accessibility": {
+    "accessibility": {
+      "caption": "COIB ran its 2025 annual general meeting with remote and in-person participation. This is operational evidence, not a universal accessibility test.",
+      "eyebrow": "Accessibility evidence",
+      "image_alt": "COIB members taking part in a hybrid annual general meeting",
+      "lede": "The COIB case shows practical access across locations and devices. It does not replace a dated accessibility audit.",
+      "missing": {
+        "text": "The site does not link to a dated audit, test scope, assistive-technology matrix, or public conformance report.",
+        "title": "What is still missing"
+      },
+      "proven": {
+        "text": "Members used SMS or email authentication, joined remotely or in person, and voted from their own devices with live help available.",
+        "title": "What the case shows"
+      },
+      "title": "Operational access is not conformance proof"
+    },
+    "answer": {
+      "label": "Direct answer",
+      "paragraphs": {
+        "0": "Vocdoni provides public, cryptographic evidence for checking an election result. Voters can confirm inclusion, and observers can inspect the published tally evidence without asking Vocdoni to certify its own result.",
+        "1": "That evidence is an important part of an online voting audit trail. It is not the same as a complete administrative event log showing every login, configuration change, permission change, message, and export.",
+        "2": "The accurate answer is: the result proof is public and inspectable, while the full administrative evidence specification is not publicly documented on this website."
+      },
+      "title": "Does Vocdoni provide an online voting audit trail?"
+    },
+    "checklist": {
+      "eyebrow": "Buyer checklist",
+      "items": {
+        "0": "Ask which voter actions and administrator actions are recorded, and how long each record is retained.",
+        "1": "Request a sample result record, verification flow, and evidence export before the election begins.",
+        "2": "Confirm who can verify a ballot and the final tally without access to a private administrator account.",
+        "3": "Match voter authentication to the stakes, eligibility rules, and dispute process for your organization.",
+        "4": "Ask for recent accessibility test evidence that covers the devices and assistive technology your members use.",
+        "5": "Record any evidence gap in the procurement decision instead of treating all security claims as equivalent."
+      },
+      "lede": "Use these questions in procurement, a security review, or a board paper. Save the answers before the vote opens.",
+      "title": "Six checks before you approve a voting system"
+    },
+    "evidence": {
+      "eyebrow": "Evidence register",
+      "items": {
+        "accessibility": {
+          "limit": "Ask for current test evidence if accessibility conformance is a procurement requirement. Do not substitute a general product claim for that evidence.",
+          "source": "Contact the Vocdoni team",
+          "summary": "The public website does not currently link to a dated accessibility audit, a conformance report, or documented assistive-technology test results.",
+          "title": "Accessibility conformance evidence"
+        },
+        "admin_log": {
+          "limit": "Ask Vocdoni to show the exact records available for your plan before you treat the term audit trail as a complete evidence package.",
+          "source": "Ask about election evidence",
+          "summary": "The public website does not currently publish a field-level specification for administrative events, retention periods, or downloadable evidence exports.",
+          "title": "Administrative event log and evidence export"
+        },
+        "authentication": {
+          "limit": "This is evidence from one named deployment. Your authentication method should match the risk and rules of your election.",
+          "source": "Read the COIB case study",
+          "summary": "COIB used SMS or email two-factor authentication for its 2025 annual general meeting. Members could vote remotely or in person from their own devices.",
+          "title": "Voter authentication in practice"
+        },
+        "code": {
+          "limit": "Public code enables review. It does not replace a review of your election setup, access controls, and operating process.",
+          "source": "Inspect Vocdoni on GitHub",
+          "summary": "Vocdoni publishes its source code and protocol work. A technical reviewer can inspect the implementation instead of relying only on marketing statements.",
+          "title": "Protocol and source code"
+        },
+        "privacy": {
+          "limit": "These documents support a buyer review. They are not an independent legal opinion or a security certification.",
+          "source": "Read the privacy policy",
+          "summary": "Vocdoni publishes a privacy policy and a plain-language GDPR guide. They explain the voter census, ballot secrecy, data minimization, retention, and processor roles.",
+          "title": "Privacy and data handling"
+        },
+        "result": {
+          "limit": "This proves the recorded result can be checked. It is different from a complete log of every administrative action.",
+          "source": "Open the public vote explorer",
+          "summary": "Vocdoni publishes election records that voters and observers can inspect. The public explorer exposes election data and result evidence without requiring a private vendor report.",
+          "title": "Result and tally verification"
+        }
+      },
+      "lede": "Each row names the public evidence and its limit. This keeps a useful fact from becoming a broader claim than the source supports.",
+      "title": "What a buyer can inspect before procurement"
+    },
+    "hero": {
+      "cta": "Review the technical documentation",
+      "eyebrow": "Security and accessibility evidence",
+      "lede": "A buyer should be able to separate public proof from a vendor promise. This evidence page shows what you can verify today, what one named organization used, and what is not yet published.",
+      "panel": {
+        "case_text": "COIB used two-factor authentication and hybrid participation in 2025",
+        "case_title": "Named deployment",
+        "gaps_text": "Administrative event-log specification and dated accessibility conformance evidence",
+        "gaps_title": "Published evidence gaps",
+        "label": "Evidence index",
+        "public_text": "Explorer, source code, privacy policy, and technical documentation",
+        "public_title": "Public sources"
+      },
+      "reviewed": "Evidence reviewed 2 September 2026",
+      "title": "Online voting audit trails: what Vocdoni proves"
+    },
+    "sources": {
+      "eyebrow": "Related evidence",
+      "items": {
+        "coib": {
+          "text": "How one professional body ran a secure hybrid vote.",
+          "title": "COIB case study"
+        },
+        "gdpr": {
+          "text": "How voter data, ballot secrecy, and retention fit together.",
+          "title": "GDPR guide"
+        },
+        "secure": {
+          "text": "How authentication, secrecy, and tally proof work together.",
+          "title": "Security model"
+        },
+        "verify": {
+          "text": "How voters and observers check a published result.",
+          "title": "Verifiable voting"
+        }
+      },
+      "lede": "These pages explain the security model, the verification method, privacy responsibilities, and one named deployment.",
+      "read": "Read source",
+      "title": "Follow the proof, not a summary claim"
+    },
+    "status": {
+      "documented": "Publicly documented",
+      "not_published": "Evidence not published",
+      "operational": "Named deployment"
+    }
+  },
   "about_us": {
     "content_description": "Since 2018, Vocdoni (Esperanto for 'to give voice') has empowered organizations to run elections with mathematical integrity. We provide open, independently verifiable voting infrastructure, shifting trust from vendor promises to public proof.",
     "content_title": "Trust is not a promise. It is a structural property.",
@@ -3103,6 +3235,10 @@
     "privacy": {
       "description": "Learn how Vocdoni collects, uses, and protects your personal data and privacy.",
       "title": "Privacy policy - Vocdoni"
+    },
+    "security_accessibility": {
+      "description": "Inspect Vocdoni online voting audit trail evidence, public result proofs, source code, privacy documents, accessibility evidence, and published gaps.",
+      "title": "Online voting audit trail and security evidence | Vocdoni"
     },
     "solutions_index": {
       "description": "Secure, verifiable online voting tailored to your organization: associations, cooperatives, professional associations, political parties, city councils, sports clubs, NGOs, universities, companies and unions.",
