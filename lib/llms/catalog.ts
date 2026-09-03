@@ -65,6 +65,7 @@ export const CURATED_SECTIONS: CuratedSection[] = [
     id: 'products',
     blocks: [
       { type: 'route', route: '/app', titleKey: 'llms.titles.product_app', noteKey: 'llms.notes.products.app' },
+      { type: 'route', route: '/pricing', titleKey: 'meta.pricing.title', noteKey: 'llms.notes.products.pricing' },
       // TODO: repoint at /projects once that page ships (tracked as a separate change).
       {
         type: 'route',

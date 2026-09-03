@@ -267,6 +267,37 @@ describe('Head meta tags', () => {
     expect(html).toContain('"text":"Sí. Puedes ejecutar una votación gratis para hasta 100 miembros."')
   })
 
+  it('adds reviewed pricing offers for the Free, Essential, Premium, and Custom plans', () => {
+    const html = renderHead({
+      locale: 'en',
+      urlLogical: '/pricing',
+      config: {
+        title: 'Online voting pricing and plans | Vocdoni',
+        description: 'Compare current Vocdoni App plans.',
+      },
+    })
+
+    const app = node(html, 'SoftwareApplication')!
+    expect(app['@id']).toBe('https://vocdoni.io/#vocdoni-app')
+    expect(app.dateModified).toBe('2026-08-28')
+    expect(app.url).toBe('https://vocdoni.io/en/pricing')
+    expect(app.offers.map((offer: Record<string, unknown>) => offer.name)).toEqual([
+      'Free',
+      'Essential',
+      'Premium',
+      'Custom',
+    ])
+    expect(app.offers[1].priceSpecification).toMatchObject([
+      { price: '69', priceCurrency: 'EUR', unitText: 'MONTH', valueAddedTaxIncluded: false },
+      { price: '590', priceCurrency: 'EUR', unitText: 'YEAR', valueAddedTaxIncluded: false },
+    ])
+    expect(app.offers[2].priceSpecification).toMatchObject([
+      { price: '199', unitText: 'MONTH' },
+      { price: '1890', unitText: 'YEAR' },
+    ])
+    expect(app.offers[3].description).toBe('Price on request')
+  })
+
   it('advertises the single English llms.txt index from every locale', () => {
     for (const locale of ['en', 'es', 'ca']) {
       expect(renderHead({ locale, urlLogical: '/app', config: { title: 'Vocdoni' } })).toContain(

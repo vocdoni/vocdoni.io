@@ -270,6 +270,63 @@ const buildBlogPostingSchema = (post: BlogPostSeo, siteUrl: string, canonicalUrl
   }
 }
 
+const buildPricingSchema = (pageContext: PageContext, locale: string, siteUrl: string, canonicalUrl: string) => {
+  const localizedName = (key: string, fallback: string) => {
+    const value = getLocalizedValue(pageContext, locale, key)
+    return typeof value === 'string' && value.trim() ? value : fallback
+  }
+
+  const planUrl = `${APP_URL}/plans`
+  const recurringPrice = (price: string, unitText: 'MONTH' | 'YEAR') => ({
+    '@type': 'UnitPriceSpecification',
+    price,
+    priceCurrency: 'EUR',
+    unitText,
+    valueAddedTaxIncluded: false,
+  })
+
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'SoftwareApplication',
+    '@id': `${siteUrl}/#vocdoni-app`,
+    name: 'Vocdoni App',
+    applicationCategory: 'BusinessApplication',
+    operatingSystem: 'Web',
+    url: canonicalUrl,
+    inLanguage: locale,
+    dateModified: '2026-08-28',
+    isAccessibleForFree: true,
+    publisher: { '@id': `${siteUrl}/#organization` },
+    offers: [
+      {
+        '@type': 'Offer',
+        name: localizedName('pricing_page.free.name', 'Free'),
+        price: '0',
+        priceCurrency: 'EUR',
+        url: planUrl,
+      },
+      {
+        '@type': 'Offer',
+        name: localizedName('pricing_page.essential.name', 'Essential'),
+        url: planUrl,
+        priceSpecification: [recurringPrice('69', 'MONTH'), recurringPrice('590', 'YEAR')],
+      },
+      {
+        '@type': 'Offer',
+        name: localizedName('pricing_page.premium.name', 'Premium'),
+        url: planUrl,
+        priceSpecification: [recurringPrice('199', 'MONTH'), recurringPrice('1890', 'YEAR')],
+      },
+      {
+        '@type': 'Offer',
+        name: localizedName('pricing_page.custom.name', 'Custom'),
+        description: localizedName('pricing_page.custom.price', 'Price on request'),
+        url: planUrl,
+      },
+    ],
+  }
+}
+
 export function HeadTags(pageContext: PageContext) {
   const is404 = Boolean(pageContext.is404)
   const isCompatibilityRedirect = isCompatibilityRedirectPage(pageContext) && !is404
@@ -426,6 +483,9 @@ export function HeadTags(pageContext: PageContext) {
         }
       : null
 
+  const pricingSchema =
+    urlLogical === '/pricing' ? buildPricingSchema(pageContext, locale, siteUrl, canonicalUrl) : null
+
   const faqItemsKey = getFaqItemsKey(urlLogical)
 
   const schema = [
@@ -434,6 +494,7 @@ export function HeadTags(pageContext: PageContext) {
     pageSchema,
     buildBreadcrumbSchema(siteUrl, locale, urlLogical, title ?? undefined),
     appSchema,
+    pricingSchema,
     faqItemsKey ? buildFaqSchema(pageContext, locale, faqItemsKey) : null,
     buildArticleSchema(
       urlLogical,

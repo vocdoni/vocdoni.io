@@ -45,6 +45,11 @@ export const metaDefaults = {
     'meta.app.description',
     'Start free, import your member list, and publish results your members can verify. No credit card, set up in minutes.'
   ),
+  'meta.pricing.title': t('meta.pricing.title', 'Online voting pricing and plans | Vocdoni'),
+  'meta.pricing.description': t(
+    'meta.pricing.description',
+    'Compare Vocdoni App plans for up to 5,000 members, from Free to Premium. See current prices, vote limits, administrators and verification codes.'
+  ),
   'meta.solutions_index.title': t(
     'meta.solutions_index.title',
     'Online voting solutions by organization type | Vocdoni'
