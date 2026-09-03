@@ -193,10 +193,7 @@ export default function PricingPage() {
             </h2>
             <div>
               <p className='text-base leading-7 text-background/75'>
-                {t(
-                  'pricing_page.managed_intro',
-                  'Managed election services are scoped and quoted separately. They suit complex or high-stakes governance.'
-                )}
+                {t('pricing_page.managed_intro', 'Managed election services suit complex or high-stakes governance.')}
               </p>
               <Link
                 href='/contact'
