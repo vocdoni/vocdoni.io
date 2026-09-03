@@ -110,7 +110,7 @@ export function buildAiCatalogDocument(hostname: string, defaultLocale: string):
     specVersion: AI_CATALOG_SPEC_VERSION,
     host: {
       displayName: 'Vocdoni',
-      documentationUrl: `${host}/developers`,
+      documentationUrl: `${host}/${defaultLocale}/developers`,
       logoUrl: `${host}/images/vocdoni_logotype_full_blank.svg`,
     },
     entries: [
@@ -188,7 +188,7 @@ export function buildAiCatalogDocument(hostname: string, defaultLocale: string):
         identifier: urn('docs', 'developers'),
         displayName: 'Vocdoni developer documentation',
         type: 'text/html',
-        url: `${host}/developers/docs`,
+        url: `${host}/${defaultLocale}/developers/docs`,
         description:
           'Integration guides for the Vocdoni API and SDK, covering authentication, censuses, election setup, ballot types, anonymous voting and results.',
         tags: ['documentation', 'sdk', 'integration'],

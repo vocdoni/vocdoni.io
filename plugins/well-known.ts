@@ -53,14 +53,14 @@ interface Options {
 
 // RFC 9727 API catalog as an RFC 9264 linkset. Anchored at the API base URL with the
 // machine spec (service-desc), human docs (service-doc) and status endpoint.
-export function buildApiCatalog(hostname: string): string {
+export function buildApiCatalog(hostname: string, defaultLocale = 'en'): string {
   const host = stripSlash(hostname)
   const doc = {
     linkset: [
       {
         anchor: DEVELOPERS_API_BASE_URL,
         'service-desc': [{ href: DEVELOPERS_SWAGGER_URL, type: 'application/yaml' }],
-        'service-doc': [{ href: `${host}/developers/docs`, type: 'text/html' }],
+        'service-doc': [{ href: `${host}/${defaultLocale}/developers/docs`, type: 'text/html' }],
         status: [{ href: DEVELOPERS_STATUS_URL, type: 'text/html' }],
       },
     ],
@@ -146,10 +146,10 @@ const securityHeaders = (posthogHost: string) => [
 
 // Link headers mirroring the <link rel> tags in lib/seo-head.tsx, so the RFC 8288 header check
 // passes on every Netlify deploy.
-export function buildNetlifyHeaders(noindex = false, posthogHost = DEFAULT_POSTHOG_HOST): string {
+export function buildNetlifyHeaders(noindex = false, posthogHost = DEFAULT_POSTHOG_HOST, defaultLocale = 'en'): string {
   const links = [
     '</.well-known/api-catalog>; rel="api-catalog"',
-    '</developers/docs>; rel="service-doc"',
+    `</${defaultLocale}/developers/docs>; rel="service-doc"`,
     `<${DEVELOPERS_SWAGGER_URL}>; rel="service-desc"`,
     `<${DEVELOPERS_SKILLS_URL}>; rel="related"`,
     '</llms.txt>; rel="alternate"; type="text/plain"',
@@ -216,7 +216,7 @@ export function artifactsFor(options: Options): Artifact[] {
       file: '.well-known/api-catalog',
       contentType: API_CATALOG_TYPE,
       devServable: true,
-      build: () => buildApiCatalog(host),
+      build: () => buildApiCatalog(host, options.defaultLocale),
     },
     ...localesToEmit.map((locale) => ({
       file: llmsFileName(locale, options.defaultLocale),
@@ -234,7 +234,7 @@ export function artifactsFor(options: Options): Artifact[] {
       file: '_headers',
       contentType: TEXT,
       devServable: false,
-      build: () => buildNetlifyHeaders(options.noindex, options.posthogHost),
+      build: () => buildNetlifyHeaders(options.noindex, options.posthogHost, options.defaultLocale),
     },
   ]
 }
