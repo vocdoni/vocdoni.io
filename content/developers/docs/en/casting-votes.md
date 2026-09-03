@@ -233,12 +233,13 @@ const votes = signatures
   .filter((s) => s.signature)
   .map((s) => ({
     txPayload: buildVoteTransaction({
-      processId: s.upstreamId, chainId, choices: [1],
+      processId: s.upstreamId, // the question's on-chain election id, not the SaaS processId
+      chainId, choices: [1],
       signer: signers.get(s.upstreamId)!, cspSignature: s.signature!, cspWeight: s.weight!,
     }),
   }))
 const { jobId } = await client.elections.voteBatch({ votes })
-const job = await client.jobs.waitFor(jobId)
+await client.jobs.waitFor(jobId)
 ```
 
 > [!NOTE] Relay what was signed, even on partial failure
@@ -335,7 +336,8 @@ const votes = results
   .filter((r) => r.signature)
   .map((r) => ({
     txPayload: buildVoteTransaction({
-      processId: r.upstreamId, chainId, choices: [1],
+      processId: r.upstreamId, // the question's on-chain election id, not the SaaS processId
+      chainId, choices: [1],
       signer: signers.get(r.upstreamId)!,
       cspSignature: r.signature!, // 96-byte blind signature, not the usual 65
       cspWeight: r.weight!,       // pass back verbatim - it is bound into the signature
