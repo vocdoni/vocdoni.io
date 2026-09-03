@@ -1,11 +1,18 @@
 export type AgmPlatform = {
   name: string
+  nameHref?: string
   model: string
   summary: string
   price: string
+  priceLinks?: readonly InlineLink[]
   check: string
   detailsHref: string
   priceHref: string
+}
+
+export type InlineLink = {
+  label: string
+  href: string
 }
 
 export const agmPlatformGuideContent = {
@@ -36,6 +43,7 @@ export const agmPlatformGuideContent = {
   optionsIntro:
     'These are not product scores. Each option fits a different operating model, ballot need, and budget process.',
   votingOptionsTitle: 'Ballot and live-voting platforms',
+  votingOptionsHref: '/compare/online-voting-software',
   suiteOptionsTitle: 'Full AGM meeting suites',
   priceLabel: 'Published price path',
   checkLabel: 'Check before buying',
@@ -55,6 +63,7 @@ export const agmPlatformGuideContent = {
   fitTitle: 'When Vocdoni is the right fit',
   fitIntro:
     'Vocdoni is a ballot-focused option for organizations that value verifiable results. It does not replace a full AGM meeting suite.',
+  fitIntroLinks: [{ href: '/solutions/companies-agm', label: 'Vocdoni is a ballot-focused option' }],
   fitYesTitle: 'Choose Vocdoni when',
   fitYes: [
     'Your existing meeting stack already covers broadcast, discussion, attendance, and minutes.',
@@ -70,15 +79,6 @@ export const agmPlatformGuideContent = {
   methodTitle: 'How this guide was checked',
   methodText:
     "We checked each vendor's official AGM, product, and pricing pages. Published prices can change. Confirm the final quote and service scope before purchase.",
-  relatedTitle: 'Continue the AGM buying path',
-  relatedIntro: 'Use these guides to compare costs, software models, and Vocdoni alternatives.',
-  relatedLinks: [
-    { href: '/solutions/companies-agm', label: 'AGM voting for companies' },
-    { href: '/pricing', label: 'Vocdoni pricing' },
-    { href: '/compare/online-voting-software', label: 'Online voting software guide' },
-    { href: '/alternatives/electionbuddy-alternatives', label: 'ElectionBuddy alternatives' },
-    { href: '/agm-voting/free-vs-paid', label: 'Free versus paid AGM voting' },
-  ],
 } as const
 
 export const votingPlatforms: AgmPlatform[] = [
@@ -89,6 +89,10 @@ export const votingPlatforms: AgmPlatform[] = [
       'A self-service voting app for single-choice or multiple-choice motions, equal or weighted voting, and independently verifiable results. Managed election projects are available separately.',
     price:
       'Starts at €0. Paid self-service plans use monthly or yearly pricing. Vocdoni quotes managed projects separately.',
+    priceLinks: [
+      { href: '/pricing', label: 'Starts at €0.' },
+      { href: '/agm-voting/free-vs-paid', label: 'Paid self-service plans use monthly or yearly pricing.' },
+    ],
     check:
       'Vocdoni does not provide the broadcast, live question, attendance, or meeting-production layer of a full AGM suite.',
     detailsHref: 'https://vocdoni.io/en/app',
@@ -96,6 +100,7 @@ export const votingPlatforms: AgmPlatform[] = [
   },
   {
     name: 'ElectionBuddy',
+    nameHref: '/alternatives/electionbuddy-alternatives',
     model: 'Meeting-vote and election software',
     summary:
       'MeetingVote handles motions during in-person, remote, or hybrid meetings. ElectionBuddy also offers setup review and managed voting support.',

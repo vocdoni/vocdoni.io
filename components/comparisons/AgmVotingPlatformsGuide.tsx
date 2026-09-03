@@ -6,6 +6,7 @@ import {
   MonitorPlayIcon,
   VoteIcon,
 } from 'lucide-react'
+import type { ReactNode } from 'react'
 
 import createVoteImage from '@/assets/images/app/create_vote.webp'
 import { Container } from '@/components/Container'
@@ -18,8 +19,32 @@ import {
   agmPlatformGuideContent,
   meetingSuites,
   type AgmPlatform,
+  type InlineLink,
   votingPlatforms,
 } from '@/lib/content/agm-voting-platforms'
+
+const inlineLinkClass = 'decoration-primary/50 underline underline-offset-4 hover:decoration-current'
+
+function LinkedText({ text, links = [] }: { text: string; links?: readonly InlineLink[] }) {
+  const nodes: ReactNode[] = []
+  let cursor = 0
+
+  for (const link of links) {
+    const start = text.indexOf(link.label, cursor)
+    if (start === -1) continue
+
+    nodes.push(text.slice(cursor, start))
+    nodes.push(
+      <Link key={link.href} href={link.href} variant='unstyled' className={inlineLinkClass}>
+        {link.label}
+      </Link>
+    )
+    cursor = start + link.label.length
+  }
+
+  nodes.push(text.slice(cursor))
+  return nodes
+}
 
 function PlatformCard({ platform, featured = false }: { platform: AgmPlatform; featured?: boolean }) {
   const content = agmPlatformGuideContent
@@ -31,12 +56,22 @@ function PlatformCard({ platform, featured = false }: { platform: AgmPlatform; f
       }
     >
       <p className='text-primary text-sm font-semibold'>{platform.model}</p>
-      <h3 className='mt-2 text-3xl'>{platform.name}</h3>
+      <h3 className='mt-2 text-3xl'>
+        {platform.nameHref ? (
+          <Link href={platform.nameHref} variant='unstyled' className={inlineLinkClass}>
+            {platform.name}
+          </Link>
+        ) : (
+          platform.name
+        )}
+      </h3>
       <p className='text-muted-foreground mt-4 max-w-[64ch] leading-7 text-pretty'>{platform.summary}</p>
       <dl className='mt-6 grid gap-5 border-t pt-6 sm:grid-cols-2'>
         <div>
           <dt className='font-mono text-xs uppercase tracking-[0.14em]'>{content.priceLabel}</dt>
-          <dd className='text-muted-foreground mt-2 leading-7 text-pretty'>{platform.price}</dd>
+          <dd className='text-muted-foreground mt-2 leading-7 text-pretty'>
+            <LinkedText text={platform.price} links={platform.priceLinks} />
+          </dd>
         </div>
         <div>
           <dt className='font-mono text-xs uppercase tracking-[0.14em]'>{content.checkLabel}</dt>
@@ -178,7 +213,11 @@ export function AgmVotingPlatformsGuide() {
             <div>
               <div className='mb-5 flex items-center gap-3'>
                 <VoteIcon className='text-primary size-5' aria-hidden='true' />
-                <h3 className='text-xl font-semibold'>{content.votingOptionsTitle}</h3>
+                <h3 className='text-xl font-semibold'>
+                  <Link href={content.votingOptionsHref} variant='unstyled' className={inlineLinkClass}>
+                    {content.votingOptionsTitle}
+                  </Link>
+                </h3>
               </div>
               <div className='space-y-5'>
                 {votingPlatforms.map((platform, index) => (
@@ -228,7 +267,7 @@ export function AgmVotingPlatformsGuide() {
         <Container className='max-w-6xl'>
           <SectionHeader
             title={content.fitTitle}
-            lede={content.fitIntro}
+            lede={<LinkedText text={content.fitIntro} links={content.fitIntroLinks} />}
             align='left'
             titleClassName='max-w-3xl text-3xl sm:text-4xl lg:text-5xl'
           />
@@ -261,33 +300,6 @@ export function AgmVotingPlatformsGuide() {
             <h3 className='text-2xl'>{content.methodTitle}</h3>
             <p className='text-muted-foreground mt-4 max-w-[76ch] leading-7 text-pretty'>{content.methodText}</p>
           </aside>
-        </Container>
-      </section>
-
-      <section className='bg-muted/45 border-y py-16 sm:py-20'>
-        <Container className='max-w-6xl'>
-          <SectionHeader
-            title={content.relatedTitle}
-            lede={content.relatedIntro}
-            align='left'
-            titleClassName='text-3xl sm:text-4xl'
-          />
-          <div className='mt-8 grid gap-px overflow-hidden rounded-2xl border bg-border sm:grid-cols-2 lg:grid-cols-3'>
-            {content.relatedLinks.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                variant='unstyled'
-                className='group bg-background hover:bg-accent flex min-h-28 items-center justify-between gap-4 p-6 font-medium'
-              >
-                {item.label}
-                <ArrowRightIcon
-                  className='text-primary size-4 shrink-0 transition-transform group-hover:translate-x-1'
-                  aria-hidden='true'
-                />
-              </Link>
-            ))}
-          </div>
         </Container>
       </section>
     </>
