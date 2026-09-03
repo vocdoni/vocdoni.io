@@ -42,6 +42,14 @@ const buildCompanyLinks = (t: TFunction): FooterLink[] => [
   { label: t('footer.company.about', 'About us'), href: '/about-us' },
   { label: t('footer.company.use_cases', 'Use cases'), href: '/use-cases' },
   { label: t('footer.company.case_studies', 'Case studies'), href: '/case-studies' },
+  {
+    label: t('footer.company.online_voting_software', 'Online voting software guide'),
+    href: '/compare/online-voting-software',
+  },
+  {
+    label: t('footer.company.electionbuddy_alternatives', 'ElectionBuddy alternatives'),
+    href: '/alternatives/electionbuddy-alternatives',
+  },
   { label: t('footer.company.learn', 'Learn'), href: '/learn' },
   { label: t('footer.company.blog', 'Blog'), href: '/blog' },
   { label: t('footer.company.contact', 'Contact'), href: '/contact' },
@@ -209,8 +217,13 @@ export default function Footer() {
           <div className='flex flex-col gap-1 items-center md:items-start order-2 md:order-1'>
             <div className='flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-xs text-muted-foreground md:justify-start'>
               <p>{t('footer.copyright', { year: new Date().getFullYear() })}</p>
-              <Link href='https://tin.computer' variant='footerLegal' className='inline-flex items-center gap-1.5'>
-                <svg className='h-[1em] w-[1em]' viewBox='0 0 32 32' aria-hidden='true'>
+              <Link
+                href='https://tin.computer'
+                target='_blank'
+                variant='footerLegal'
+                className='inline-flex items-center gap-1'
+              >
+                <svg viewBox='0 0 32 32' className='size-[1em] shrink-0' aria-hidden='true'>
                   <rect width='32' height='32' fill='#66DC9D' />
                 </svg>
                 {t('footer.tin_credit', 'Growth by Tin')}

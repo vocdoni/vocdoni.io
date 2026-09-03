@@ -50,6 +50,14 @@ export const metaDefaults = {
     'meta.pricing.description',
     'Compare Vocdoni App plans for up to 5,000 members, from Free to Premium. See current prices, vote limits, administrators and verification codes.'
   ),
+  'meta.compare.online_voting_software.title': t(
+    'meta.compare.online_voting_software.title',
+    'Online voting software guide: compare by organization fit | Vocdoni'
+  ),
+  'meta.compare.online_voting_software.description': t(
+    'meta.compare.online_voting_software.description',
+    'Compare online voting software by service model, ballot needs, support, and organization fit. See when Vocdoni, ElectionBuddy, Simply Voting, OpaVote, or an AGM suite fits.'
+  ),
   'meta.solutions_index.title': t(
     'meta.solutions_index.title',
     'Online voting solutions by organization type | Vocdoni'
