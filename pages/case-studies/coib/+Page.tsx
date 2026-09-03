@@ -14,7 +14,7 @@ export default function Page() {
       logo={logoCoib}
       image={imageCoib}
       blogHref='https://blog.vocdoni.io/how-coib-a-professional-body-of-nurses-ran-its-2025-annual-general-meeting-vote-online-securely-and-with-instant-results/'
-      solutionHref='/solutions/professional-colleges'
+      solutionHref='/solutions/professional-associations'
     />
   )
 }

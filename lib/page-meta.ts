@@ -69,13 +69,13 @@ export const metaDefaults = {
     'meta.solutions.cooperatives.description',
     'Run cooperative general assemblies and board elections online. One member one vote or weighted votes, secret ballots, higher participation and verifiable results.'
   ),
-  'meta.solutions.professional_colleges.title': t(
-    'meta.solutions.professional_colleges.title',
-    'Professional association voting software | Vocdoni'
+  'meta.solutions.professional_associations.title': t(
+    'meta.solutions.professional_associations.title',
+    'Online voting for professional associations | Vocdoni'
   ),
-  'meta.solutions.professional_colleges.description': t(
-    'meta.solutions.professional_colleges.description',
-    'Compliant, auditable online voting for professional associations and regulated bodies. Run statutory elections and AGMs with a full audit trail and instant, verifiable results.'
+  'meta.solutions.professional_associations.description': t(
+    'meta.solutions.professional_associations.description',
+    'Board elections and AGMs for professional associations and statutory bodies. Take them online without giving up a single guarantee, with the documents and the certificate that prove the result.'
   ),
   'meta.solutions.political_parties.title': t(
     'meta.solutions.political_parties.title',
