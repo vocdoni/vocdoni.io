@@ -1012,6 +1012,54 @@
       },
       "cta_primary": "Start free",
       "cta_secondary": "Talk to our team",
+      "decision_guide": {
+        "boundary": {
+          "answer": "Vocdoni can combine digital votes from remote members with in-person voting controls. It does not replace meeting registration, agendas, Q&A or streaming.",
+          "link_href": "/blog/vocdoni-app-2-3-adds-hybrid-voting-support-weighted-voting-vote-delegation-and-more",
+          "link_label": "See the hybrid voting release notes",
+          "title": "Voting layer, not a meeting suite"
+        },
+        "intro": "Vocdoni handles the online ballot and verifiable tally. Your team remains responsible for meeting rules, attendance and legal records.",
+        "items": [
+          {
+            "answer": "Import the approved member or shareholder list before voting opens. Vocdoni uses this census to control ballot access. Your organization remains responsible for the list.",
+            "link_href": "/app",
+            "link_label": "See the self-service workflow",
+            "title": "1. Set who is eligible"
+          },
+          {
+            "answer": "Choose equal or weighted voting power in the current builder. Your team must enter the correct weight for each voter.",
+            "link_href": "/app",
+            "link_label": "See the current vote builder",
+            "title": "2. Apply voting weight"
+          },
+          {
+            "answer": "Decide whether each motion needs a secret ballot. Confirm that anonymous voting is available in the process and plan you will use.",
+            "link_href": "/learn/anonymous-voting-explained",
+            "link_label": "Learn how ballot secrecy works",
+            "title": "3. Choose ballot privacy"
+          },
+          {
+            "answer": "Choose whether results appear live or only after voting ends. Published proof lets voters and observers check the final tally.",
+            "link_href": "/learn/verifiable-voting-explained",
+            "link_label": "Learn how results are verified",
+            "title": "4. Set result timing"
+          },
+          {
+            "answer": "Keep the notice, agenda, eligibility list, attendance, quorum record, minutes and final tally. Vocdoni does not replace these statutory records.",
+            "link_href": "/learn/how-to-run-a-legally-valid-agm-online",
+            "link_label": "Use the AGM record guide",
+            "title": "5. Keep the AGM record"
+          },
+          {
+            "answer": "Online voting is valid only when your bylaws and applicable law permit it. Get legal advice for rules in your jurisdiction.",
+            "link_href": "/learn/how-to-run-a-legally-valid-agm-online",
+            "link_label": "Review the legal AGM checklist",
+            "title": "6. Check law and bylaws"
+          }
+        ],
+        "title": "What Vocdoni handles in an AGM vote"
+      },
       "eyebrow": "For companies & shareholder meetings",
       "faq": {
         "items": [
@@ -1077,6 +1125,7 @@
         "Confidentiality of the ballot must be guaranteed."
       ],
       "proof": {
+        "case_study_label": "Read the COIB AGM case study",
         "organizations_label": "Organizations that vote with Vocdoni",
         "statement": "Companies use Vocdoni to modernize the AGM: weighted shareholder voting and proxies handled automatically, results in seconds, and a verifiable record that satisfies auditors and regulators.",
         "title": "Modern governance for shareholder meetings"
@@ -2747,7 +2796,8 @@
       "professional_colleges": "Professional associations",
       "title": "Solutions",
       "view_all": "View all solutions"
-    }
+    },
+    "tin_credit": "Growth by Tin"
   },
   "hero_cards": {
     "abstain": "Abstain",

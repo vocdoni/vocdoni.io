@@ -18,6 +18,12 @@ import { MotionPreset } from '@/components/ui/motion-preset'
 export type SolutionFeature = { title: string; description: string }
 export type SolutionFaqItem = { question: string; answer: string }
 export type SolutionLogo = { src: string; alt: string }
+export type SolutionDecisionItem = {
+  title: string
+  answer: string
+  link_label?: string
+  link_href?: string
+}
 
 export interface SolutionContent {
   eyebrow: string
@@ -29,6 +35,12 @@ export interface SolutionContent {
   pains: string[]
   solution: { title: string; intro: string }
   features: SolutionFeature[]
+  decision_guide?: {
+    title: string
+    intro: string
+    boundary?: SolutionDecisionItem
+    items: SolutionDecisionItem[]
+  }
   trust: { title: string; intro: string }
   trust_points: SolutionFeature[]
   proof: {
@@ -61,6 +73,7 @@ export function SolutionPage({ icon: Icon, content, logos, caseStudyHref }: Solu
   const trustBadges = asArray<string>(content.trust_badges)
   const pains = asArray<string>(content.pains)
   const features = asArray<SolutionFeature>(content.features)
+  const decisionItems = asArray<SolutionDecisionItem>(content.decision_guide?.items)
   const trustPoints = asArray<SolutionFeature>(content.trust_points)
   const faqItems = asArray<SolutionFaqItem>(content.faq?.items)
 
@@ -181,6 +194,49 @@ export function SolutionPage({ icon: Icon, content, logos, caseStudyHref }: Solu
               </Card>
             ))}
           </div>
+
+          {content.decision_guide && decisionItems.length > 0 && (
+            <div className='mt-16 grid gap-10 border-t pt-16 lg:mt-24 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:gap-16 lg:pt-20'>
+              <div className='lg:sticky lg:top-24 lg:self-start'>
+                <h2 className='text-3xl text-balance sm:text-4xl'>{content.decision_guide.title}</h2>
+                <p className='text-muted-foreground mt-4 max-w-xl text-lg leading-8'>{content.decision_guide.intro}</p>
+
+                {content.decision_guide.boundary && (
+                  <div className='bg-muted/60 mt-8 rounded-2xl border p-6'>
+                    <h3 className='font-semibold'>{content.decision_guide.boundary.title}</h3>
+                    <p className='text-muted-foreground mt-2 text-sm leading-6'>
+                      {content.decision_guide.boundary.answer}
+                    </p>
+                    {content.decision_guide.boundary.link_href && content.decision_guide.boundary.link_label && (
+                      <Link
+                        href={content.decision_guide.boundary.link_href}
+                        variant='inlineIcon'
+                        className='mt-4 text-sm font-medium'
+                      >
+                        {content.decision_guide.boundary.link_label}
+                        <ArrowRightIcon className='size-4' />
+                      </Link>
+                    )}
+                  </div>
+                )}
+              </div>
+
+              <ol className='divide-border border-border divide-y border-y'>
+                {decisionItems.map((item) => (
+                  <li key={item.title} className='py-6 first:pt-0 last:pb-0 sm:py-8'>
+                    <h3 className='text-lg font-semibold sm:text-xl'>{item.title}</h3>
+                    <p className='text-muted-foreground mt-2 max-w-2xl leading-7'>{item.answer}</p>
+                    {item.link_href && item.link_label && (
+                      <Link href={item.link_href} variant='inlineIcon' className='mt-3 text-sm font-medium'>
+                        {item.link_label}
+                        <ArrowRightIcon className='size-4' />
+                      </Link>
+                    )}
+                  </li>
+                ))}
+              </ol>
+            </div>
+          )}
         </Container>
       </section>
 
