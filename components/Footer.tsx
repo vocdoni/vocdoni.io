@@ -226,7 +226,7 @@ export default function Footer() {
                 <svg viewBox='0 0 32 32' className='size-[1em] shrink-0' aria-hidden='true'>
                   <rect width='32' height='32' fill='#66DC9D' />
                 </svg>
-                {t('footer.tin_credit', 'Growth by Tin')}
+                {t('footer.growth_by_tin', 'Growth by Tin')}
               </Link>
             </div>
             <p className='text-[10px] text-muted-foreground'>{t('footer.rights')}</p>
