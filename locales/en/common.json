@@ -2944,6 +2944,10 @@
         "title": "Verifiable voting explained | Vocdoni"
       }
     },
+    "pricing": {
+      "description": "Compare Vocdoni App plans for up to 5,000 members, from Free to Premium. See current prices, vote limits, administrators and verification codes.",
+      "title": "Online voting pricing and plans | Vocdoni"
+    },
     "privacy": {
       "description": "Learn how Vocdoni collects, uses, and protects your personal data and privacy.",
       "title": "Privacy policy - Vocdoni"
@@ -3079,6 +3083,60 @@
       "option_a": "Option a",
       "option_b": "Option b"
     }
+  },
+  "pricing_page": {
+    "agm_link": "Online voting for AGMs",
+    "associations_link": "Online voting for associations",
+    "codes_note": "Verification credits are used only when a voter requests a code. Extra codes cost €0.015 each as sent.",
+    "cta": "Start with the Free plan",
+    "custom": {
+      "name": "Custom",
+      "price": "Price on request",
+      "summary": "For higher member limits, more administrators, or app features that need an individual assessment."
+    },
+    "essential": {
+      "admins": "2 administrators",
+      "annual": "Or €590 billed annually (€49.17/month equivalent) + VAT",
+      "codes": "1,000 email and 1,000 SMS verification codes",
+      "members": "Up to 1,000 members",
+      "name": "Essential",
+      "price": "€69/month + VAT",
+      "summary": "For organizations with regular member votes and two administrators.",
+      "votes": "20 counted votes per year"
+    },
+    "explore_title": "See how organizations use Vocdoni",
+    "eyebrow": "Vocdoni App pricing",
+    "free": {
+      "admins": "1 administrator",
+      "codes": "100 email verification codes",
+      "members": "Up to 100 members",
+      "name": "Free",
+      "price": "€0/month + VAT",
+      "summary": "For small organizations that want to run real votes at no cost.",
+      "votes": "5 counted votes per year"
+    },
+    "intro": "Start free. Upgrade when you need more members, votes, administrators, or verification codes.",
+    "managed_intro": "Managed election services are scoped and quoted separately. They suit complex or high-stakes governance.",
+    "managed_link": "Discuss a managed election",
+    "managed_title": "Need us to run the election with you?",
+    "plans_intro": "These plans cover elections that your team configures and runs in the Vocdoni App.",
+    "plans_title": "Self-service plans",
+    "premium": {
+      "admins": "5 administrators",
+      "annual": "Or €1,890 billed annually (€157.50/month equivalent) + VAT",
+      "codes": "5,000 email and 5,000 SMS verification codes",
+      "members": "Up to 5,000 members",
+      "name": "Premium",
+      "price": "€199/month + VAT",
+      "summary": "For larger organizations with frequent votes and more administrators.",
+      "votes": "50 counted votes per year"
+    },
+    "reviewed": "Prices and limits reviewed on 28 August 2026.",
+    "screenshot_alt": "Vocdoni App election setup screen",
+    "source": "Check the current plans and billing options",
+    "source_aria": "Check current prices in the Vocdoni App (opens in new tab)",
+    "title": "Choose the plan that fits your elections",
+    "votes_note": "Votes with fewer than 10 participants are treated as tests and do not count toward plan limits."
   },
   "steps_section": {
     "label": "Setup a vote in under 10 minutes",
