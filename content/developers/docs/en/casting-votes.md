@@ -1,6 +1,6 @@
 ---
 title: Casting votes
-lead: How a voter actually votes - authenticate once against the process census, get the credential service to blind-sign a ballot per question, then relay the signed envelope. The SDK's voting package does the signing for you; the SaaS forwards the ballot without ever decoding it.
+lead: How a voter actually votes - authenticate once against the process census, get the credential service to sign a ballot per question, then relay the signed envelope. The SDK's voting package does the signing for you; the SaaS forwards the ballot without ever decoding it.
 group: core_concepts
 order: 45
 skill: integrator-sdk
@@ -21,7 +21,7 @@ process, then **signs and relays a ballot per question** they are eligible for.
 1. **Authenticate once** - the voter presents whatever the census requires: identity `authFields`
    and/or a one-time code sent to their `email`/`phone` (a 2FA census needs no auth fields). Success
    yields a token bound to the process.
-2. **Blind-sign per question** - for each question, the credential service (CSP) blind-signs the
+2. **Sign per question** - for each question, the credential service (CSP) signs the
    voter's ephemeral voting address for **that question's election**. It refuses unless the voter is
    in the question's [eligibility subset](/developers/docs/census#per-question-eligibility). Signatures
    are salted per election, so one cannot be replayed on another question.
@@ -32,6 +32,10 @@ process, then **signs and relays a ballot per question** they are eligible for.
 
 Steps 1 and 2 are plain REST calls, wrapped by the API client as `client.processes`; steps 3 and 4
 are the cryptography `@vocdoni/api-voting` implements.
+
+On a census created with [`anonymous: true`](/developers/docs/census#anonymous-voting), step 2 is
+replaced by a two-round **blind**-signature exchange, so the CSP cannot link its signature to the
+final ballot - see [Anonymous voting with blind signatures](#anonymous-voting-with-blind-signatures).
 
 The voter-facing endpoints are **public** - they carry no API key. The voter only needs the
 `apiUrl`, the `processId` and the Vochain `chainId`. The
@@ -119,8 +123,8 @@ read its tally from [Results](/developers/docs/results).
 > recommended path is the [batch flow below](#casting-a-multi-question-process-in-one-batch): one
 > `sign-batch` call signs every ballot under the auth token, and one `POST /votes` call relays the
 > envelopes together - the batch is accepted or rejected as a unit, and the job then reports each
-> vote individually. The SDK client does not wrap these two endpoints yet, so they are plain REST
-> calls.
+> vote individually. The SDK wraps both: `client.processes.signBatch()` and
+> `client.elections.voteBatch()`.
 
 > [!NOTE] 2FA censuses
 > When the census verifies voters by `email`/`phone`, step 0 sends a one-time code and returns a
@@ -208,7 +212,57 @@ question, each on its own vote.
 
 A multi-question process is one on-chain election per question, so the voter holds one ballot per
 question. Two public endpoints take them together, so a rejected batch never leaves the voter
-half-voted:
+half-voted.
+
+With the SDK, batch-sign first, then build each envelope and relay them together:
+
+```ts
+import { JobFailedError } from '@vocdoni/api-client'
+import { EphemeralSigner, buildVoteTransaction } from '@vocdoni/api-voting'
+
+// One fresh ephemeral signer per question, then one sign call for all of them.
+const votable = questions.filter((q) => q.canVote && !q.hasVoted)
+const signers = new Map(votable.map((q) => [q.upstreamId!, new EphemeralSigner()]))
+const { signatures } = await client.processes.signBatch(processId, {
+  authToken,
+  ballots: votable.map((q) => ({ upstreamId: q.upstreamId!, address: signers.get(q.upstreamId!)!.address })),
+})
+
+// Build one envelope per signed entry - match by upstreamId, never by position -
+// then relay them together and poll the single relay_votes job.
+const votes = signatures
+  .filter((s) => s.signature)
+  .map((s) => ({
+    txPayload: buildVoteTransaction({
+      processId: s.upstreamId, // the question's on-chain election id, not the SaaS processId
+      chainId, choices: [1],
+      signer: signers.get(s.upstreamId)!, cspSignature: s.signature!, cspWeight: s.weight!,
+    }),
+  }))
+if (!votes.length) throw new Error('no ballot was signed - nothing to relay')
+
+// A partially failed relay settles the job as failed, but the job still
+// reports every vote - read the outcomes off the error instead of losing the
+// nullifier/voteID of the ballots that did land.
+const { jobId } = await client.elections.voteBatch({ votes })
+try {
+  await client.jobs.waitFor(jobId)
+} catch (err) {
+  if (!(err instanceof JobFailedError)) throw err
+  console.log(err.job.result?.votes) // per-vote voteID, or the reason it failed
+}
+```
+
+> [!NOTE] Relay what was signed, even on partial failure
+> A CSP signature is **one-shot**: if some entries come back with an inline `error` instead of a
+> `signature`, still relay the ballots that did sign - discarding them would strand those questions
+> (re-signing one that already succeeded gets `already_consumed`, whatever address it is asked
+> for). Report the failed questions to the voter instead of retrying the whole batch blindly. The
+> React providers implement exactly this:
+> `useElectionAuth().signBatch()` and the provider's `vote()` batch natively and surface per-question
+> refusals via `PartialVoteError`.
+
+Under the hood these are two public endpoints, callable from any client:
 
 **1. Sign every ballot in one call.** `POST /processes/{processId}/sign-batch` is the batch form of
 `/sign`: one verified `authToken`, one entry per question. Each ballot names its question by the
@@ -264,6 +318,120 @@ curl -s "$B/jobs/<jobId>"
 #          { "processId": "<upstreamId 2>", "nullifier": "<hex>", "voteID": "<hex>", "status": "completed" } ] } }
 ```
 
+## Anonymous voting with blind signatures
+
+When the census was created with [`anonymous: true`](/developers/docs/census#anonymous-voting), the
+CSP signs each ballot **blind** - it signs a message it cannot read, so it cannot link the
+authorization to the vote that lands on chain. Authentication (`auth/0`, `auth/1`, resend) and the
+relay (`POST /votes`) are exactly the same as above; only the signing step differs. The two flows
+never mix: `sign` and `sign-batch` return `400` on an anonymous process, and the blind endpoints
+return `400` on a plain one.
+
+With the SDK, `signBlindCspBallots()` from `@vocdoni/api-voting` runs the whole exchange - both
+rounds plus the blinding and unblinding - and returns the same result shape as a plain batch sign,
+so the rest of the flow (build, relay) is unchanged:
+
+```ts
+import {
+  signBlindCspBallots, EphemeralSigner, buildVoteTransaction, ProofCA_Type,
+} from '@vocdoni/api-voting'
+
+const signers = new Map(votable.map((q) => [q.upstreamId!, new EphemeralSigner()]))
+const results = await signBlindCspBallots({
+  processId, // the process id - the blind endpoints are process-scoped
+  authToken,
+  client,
+  ballots: votable.map((q) => ({ upstreamId: q.upstreamId!, address: signers.get(q.upstreamId!)!.address })),
+})
+
+const votes = results
+  .filter((r) => r.signature)
+  .map((r) => ({
+    txPayload: buildVoteTransaction({
+      processId: r.upstreamId, // the question's on-chain election id, not the SaaS processId
+      chainId, choices: [1],
+      signer: signers.get(r.upstreamId)!,
+      cspSignature: r.signature!, // 96-byte blind signature, not the usual 65
+      cspWeight: r.weight!,       // pass back verbatim - it is bound into the signature
+      proofType: ProofCA_Type.ECDSA_BLIND_PIDSALTED,
+    }),
+  }))
+const { jobId } = await client.elections.voteBatch({ votes })
+```
+
+React apps need nothing at all: `useElectionAuth().signBatch()` picks the plain or blind flow from
+`census.anonymous` by itself - an anonymous process votes anonymously.
+
+### The two rounds
+
+Without the SDK, the exchange is two batch-only endpoints (there is no single-election blind
+endpoint - authorization is checked once per batch, under the same rules as `sign-batch`):
+
+- **POST** `/processes/{processId}/blind-point`
+- **POST** `/processes/{processId}/blind-sign`
+
+**Round 1** requests one blind point per election. It is atomic and **idempotent** - repeating it
+returns the same point, so a crashed client can resume safely:
+
+```bash
+curl -X POST "$B/processes/$PROCESS/blind-point" \
+  -H "Content-Type: application/json" \
+  -d '{ "authToken": "<authToken>", "electionIds": [ "<upstreamId 1>", "<upstreamId 2>" ] }'
+# -> { "points": [
+#       { "upstreamId": "<upstreamId 1>", "tokenR": "<hex point>", "weight": "01" },
+#       { "upstreamId": "<upstreamId 2>", "tokenR": "<hex point>", "weight": "01" } ] }
+```
+
+Only the batch **authorization** is all-or-nothing: round 1 also reports **per-election issuance
+failures inline**, as an entry carrying a `code` instead of `tokenR`/`weight` - so match points by
+`upstreamId` and check both fields are present before blinding.
+
+The client then **blinds locally**: for each ballot, hash the CA bundle (the election id, the
+ephemeral voter address, and the `weight` returned above, verbatim) and blind that hash with the
+election's `tokenR`. **Round 2** sends the blinded messages for signing:
+
+```bash
+curl -X POST "$B/processes/$PROCESS/blind-sign" \
+  -H "Content-Type: application/json" \
+  -d '{ "authToken": "<authToken>", "ballots": [
+        { "upstreamId": "<upstreamId 1>", "blindedMessage": "<hex>" },
+        { "upstreamId": "<upstreamId 2>", "blindedMessage": "<hex>" } ] }'
+# -> { "signatures": [
+#       { "upstreamId": "<upstreamId 1>", "signature": "<blind signature>", "weight": "01" },
+#       { "upstreamId": "<upstreamId 2>", "error": "...", "code": "already_consumed" } ] }
+```
+
+Per-entry failures come back inline with stable codes - the address-free subset of the `sign-batch`
+codes (`already_consumed`, `auth_invalid`, `sign_failed`) plus two blind-only ones:
+`blind_request_missing` (no round 1 for that election) and `invalid_blinded_message`. The client
+unblinds each signature, assembles the CA proof, and relays through the
+[batch flow](#casting-a-multi-question-process-in-one-batch) as usual.
+
+> [!WARNING] What is safe to retry
+> An entry **reported as failed** in round 2 never consumed its one-time signing nonce - but
+> nonce-safe does not mean worth retrying. Retry only `sign_failed` as-is, and
+> `invalid_blinded_message` after re-blinding against the **same** round-1 point (round 1 is
+> idempotent and returns it again). `already_consumed` is terminal, `auth_invalid` means
+> authenticate again, and `blind_request_missing` means run round 1 for that election first. The
+> plain flow's address-based codes never appear here: the credential service is not sent an address
+> in this flow, and it claims the nonce atomically, so neither `address_mismatch` nor
+> `already_signing` is reachable. An entry that came back **signed** is one-shot: its nonce is
+> spent, and a rerun blinds under a fresh secret - the signature you already hold is the only
+> usable one. A **lost round-2 response** is an unknown
+> outcome, not a retryable one: check the voter's [`sign-info`](#voter-status) state instead of
+> re-signing blind.
+
+For readers cross-referencing the chain: an anonymous process publishes under census origin
+`OFF_CHAIN_CA_V2` and its ballots carry `ECDSA_BLIND_PIDSALTED` proofs. The blinding math mirrors
+`go-blindsecp256k1` byte for byte; the [voting package source]({{SDK_URL}}) is the reference
+implementation, and its primitives (`blind`, `unblind`, `decompressBlindPoint`,
+`serializeBlindSignature`) are exported for custom flows.
+
+> [!NOTE] No receipts survive the session
+> For an anonymous census, `sign-info` omits `address` and `nullifier` - the CSP never learns them,
+> which is the point. Vote ids exist only in the session that cast them, so persist the nullifiers
+> client-side if the voter needs a [verifiable receipt](#verifying-a-vote-on-chain) after a reload.
+
 ## Verifying a vote on chain
 
 The nullifier is the voter's receipt, and `POST /votes/verify` (public) turns it into an on-chain
@@ -299,7 +467,9 @@ voter by their verified `authToken`:
   Ineligibility is `belongsToProcess: false` with a `200`, not an error.
 - **POST** `/processes/{processId}/weight` (`client.processes.weight`) - the voter's vote weight.
 - **POST** `/processes/{processId}/sign-info` (`client.processes.signInfo`) - the voter's receipts:
-  per **voted** question its `{ questionId, upstreamId, address, nullifier, at }`.
+  per **voted** question its `{ questionId, upstreamId, address, nullifier, at }`. On an
+  [anonymous census](/developers/docs/census#anonymous-voting) the entries omit `address` and
+  `nullifier` - the CSP never learns them.
 
 ```bash
 curl -X POST "$B/processes/$PROCESS/check" -d '{ "authToken": "<authToken>" }'
@@ -338,7 +508,7 @@ curl -X POST "$B/processes/$PROCESS/auth/1" \
   -H "Content-Type: application/json" \
   -d '{ "authToken": "<authToken>", "authData": ["123456"] }'
 
-# b) CSP blind-signs the ephemeral address for one question's election (electionId = its upstreamId).
+# b) The CSP signs the ephemeral address for one question's election (electionId = its upstreamId).
 #    Refused unless the voter is in that question's eligibility subset.
 curl -X POST "$B/processes/$PROCESS/sign" \
   -H "Content-Type: application/json" \

@@ -21,7 +21,7 @@ import { llmsFileName, stripSlash } from '../lib/llms/routes'
  *   /.well-known/api-catalog   RFC 9727 linkset+json
  *   /llms.txt                  curated llmstxt.org index (English; see Options.llmsLocales)
  *   /llms-full.txt             complete enumeration of routes and markdown mirrors
- *   /_headers                  Netlify Link: headers (plus X-Robots-Tag on non-production deploys)
+ *   /_headers                  Netlify Link: + security headers (X-Robots-Tag on non-production deploys)
  *
  * Agent skills are NOT hosted here: they live in vocdoni/integrator-sdk and are
  * published via the vocdoni/skills marketplace, which the discovery links point to
@@ -45,6 +45,8 @@ interface Options {
   llmsLocales?: readonly string[]
   /** Non-production deploy: ship `X-Robots-Tag: noindex, nofollow` so it never gets indexed. */
   noindex?: boolean
+  /** PostHog ingestion origin, allowlisted in the CSP connect-src. Defaults to the EU cluster. */
+  posthogHost?: string
 }
 
 // --- pure builders (unit-tested) --------------------------------------------
@@ -85,9 +87,66 @@ const RAW_MARKDOWN_PATHS = ['/*/developers/docs.md', '/*/developers/docs/*.md', 
 // markdown URLs that the later blocks also match.
 const block = (path: string, headers: string[]) => [path, ...headers].join('\n')
 
+// --- security headers (ISO 27001 A.8.23 / A.8.26) ---------------------------
+// Netlify itself only sends `Strict-Transport-Security: max-age=31536000`; every other security
+// header is absent unless emitted here. Three deliberate omissions:
+//  - HSTS stays Netlify's default: `includeSubDomains`/`preload` would bind every *.vocdoni.io
+//    subdomain (app, APIs, ...) to HTTPS ~forever, an infra-wide decision that is not this repo's
+//    to take alone.
+//  - Cross-Origin-Embedder-Policy: `require-corp` would break the YouTube and Cal.com iframes.
+//  - Cross-Origin-Resource-Policy is `cross-origin` on purpose: og:images, the raw-markdown
+//    mirrors, llms.txt and the ARD manifests exist precisely to be fetched from other origins.
+
+export const DEFAULT_POSTHOG_HOST = 'https://eu.i.posthog.com'
+
+// Enforced, not report-only: the site is fully prerendered with a finite set of integrations, and
+// every origin below is traced to the code that loads it. `'unsafe-inline'` in script-src is
+// unavoidable - Vike injects the hydration payload as an inline <script>, and hashes cannot work
+// because this file is emitted at closeBundle, before prerender writes the HTML. Corollary:
+// anything GTM is later configured to inject must be allowlisted here first, or it will not load.
+function buildContentSecurityPolicy(posthogHost: string): string {
+  const googleAnalytics = 'https://www.googletagmanager.com https://*.google-analytics.com'
+  return [
+    "default-src 'self'",
+    // GTM (lib/cookieConsent.ts), Plausible (lib/seo-head.tsx), reCAPTCHA on the contact form
+    // (api.js chain-loads its payload from www.gstatic.com) and the Cal.com embed snippet.
+    "script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://plausible.io https://www.google.com https://www.gstatic.com https://app.cal.com",
+    // Tailwind ships real stylesheets, but Radix/embla set style attributes at runtime.
+    "style-src 'self' 'unsafe-inline'",
+    // YouTube posters (components/ui/youtube-facade.tsx), images hotlinked in blog posts,
+    // GA4/GTM pixels.
+    `img-src 'self' data: blob: https://i.ytimg.com https://img.youtube.com https://storage.googleapis.com ${googleAnalytics}`,
+    // Self-hosted under public/fonts (scripts/copy-fonts.mjs).
+    "font-src 'self'",
+    // PostHog beacons (lib/posthog.ts), Plausible events, GA4 hits, the contact form
+    // (@emailjs/browser) and the Cal.com embed's data fetches.
+    `connect-src 'self' ${posthogHost} https://plausible.io https://api.emailjs.com ${googleAnalytics} https://*.analytics.google.com https://app.cal.com`,
+    // YouTube embeds (the facade uses -nocookie), the Cal.com booking dialog, the reCAPTCHA
+    // widget and GTM's noscript pixel.
+    'frame-src https://www.youtube-nocookie.com https://www.youtube.com https://www.google.com https://www.googletagmanager.com https://app.cal.com https://cal.com',
+    "object-src 'none'",
+    "base-uri 'self'",
+    // The contact form submits via fetch; there is no <form action> anywhere.
+    "form-action 'self'",
+    // Mirrored by X-Frame-Options for older parsers.
+    "frame-ancestors 'none'",
+    'upgrade-insecure-requests',
+  ].join('; ')
+}
+
+const securityHeaders = (posthogHost: string) => [
+  `  Content-Security-Policy: ${buildContentSecurityPolicy(posthogHost)}`,
+  '  X-Frame-Options: DENY',
+  '  X-Content-Type-Options: nosniff',
+  '  Referrer-Policy: strict-origin-when-cross-origin',
+  '  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=()',
+  '  Cross-Origin-Opener-Policy: same-origin',
+  '  Cross-Origin-Resource-Policy: cross-origin',
+]
+
 // Link headers mirroring the <link rel> tags in lib/seo-head.tsx, so the RFC 8288 header check
 // passes on every Netlify deploy.
-export function buildNetlifyHeaders(noindex = false): string {
+export function buildNetlifyHeaders(noindex = false, posthogHost = DEFAULT_POSTHOG_HOST): string {
   const links = [
     '</.well-known/api-catalog>; rel="api-catalog"',
     '</developers/docs>; rel="service-doc"',
@@ -100,7 +159,7 @@ export function buildNetlifyHeaders(noindex = false): string {
     '</.well-known/ard.json>; rel="ard"',
     '</.well-known/ai-catalog.json>; rel="ai-catalog"',
   ]
-  const headers = links.map((l) => `  Link: ${l}`)
+  const headers = [...links.map((l) => `  Link: ${l}`), ...securityHeaders(posthogHost)]
   // Dev and preview deploys are production deploys of their own Netlify site, so Netlify does not
   // add this for us. Only the production branch is indexable.
   if (noindex) headers.unshift('  X-Robots-Tag: noindex, nofollow')
@@ -175,7 +234,7 @@ export function artifactsFor(options: Options): Artifact[] {
       file: '_headers',
       contentType: TEXT,
       devServable: false,
-      build: () => buildNetlifyHeaders(options.noindex),
+      build: () => buildNetlifyHeaders(options.noindex, options.posthogHost),
     },
   ]
 }
