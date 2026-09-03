@@ -256,8 +256,9 @@ try {
 > [!NOTE] Relay what was signed, even on partial failure
 > A CSP signature is **one-shot**: if some entries come back with an inline `error` instead of a
 > `signature`, still relay the ballots that did sign - discarding them would strand those questions
-> (a retry signs a fresh address and gets `already_consumed`). Report the failed questions to the
-> voter instead of retrying the whole batch blindly. The React providers implement exactly this:
+> (re-signing one that already succeeded gets `already_consumed`, whatever address it is asked
+> for). Report the failed questions to the voter instead of retrying the whole batch blindly. The
+> React providers implement exactly this:
 > `useElectionAuth().signBatch()` and the provider's `vote()` batch natively and surface per-question
 > refusals via `PartialVoteError`.
 
@@ -400,20 +401,23 @@ curl -X POST "$B/processes/$PROCESS/blind-sign" \
 #       { "upstreamId": "<upstreamId 2>", "error": "...", "code": "already_consumed" } ] }
 ```
 
-Per-entry failures come back inline with the same stable codes as `sign-batch`, plus two blind-only
-ones: `blind_request_missing` (no round 1 for that election) and `invalid_blinded_message`. The
-client unblinds each signature, assembles the CA proof, and relays through the
+Per-entry failures come back inline with stable codes - the address-free subset of the `sign-batch`
+codes (`already_consumed`, `auth_invalid`, `sign_failed`) plus two blind-only ones:
+`blind_request_missing` (no round 1 for that election) and `invalid_blinded_message`. The client
+unblinds each signature, assembles the CA proof, and relays through the
 [batch flow](#casting-a-multi-question-process-in-one-batch) as usual.
 
 > [!WARNING] What is safe to retry
 > An entry **reported as failed** in round 2 never consumed its one-time signing nonce - but
-> nonce-safe does not mean worth retrying. Retry only the retryable codes: `already_signing` and
-> `sign_failed` as-is, and `invalid_blinded_message` after re-blinding against the **same**
-> round-1 point (round 1 is idempotent and returns it again). `already_consumed` and
-> `address_mismatch` are terminal, `auth_invalid` means authenticate again, and
-> `blind_request_missing` means run round 1 for that election first. An entry that came back
-> **signed** is one-shot: its nonce is spent, and a rerun blinds under a fresh secret - the
-> signature you already hold is the only usable one. A **lost round-2 response** is an unknown
+> nonce-safe does not mean worth retrying. Retry only `sign_failed` as-is, and
+> `invalid_blinded_message` after re-blinding against the **same** round-1 point (round 1 is
+> idempotent and returns it again). `already_consumed` is terminal, `auth_invalid` means
+> authenticate again, and `blind_request_missing` means run round 1 for that election first. The
+> plain flow's address-based codes never appear here: the credential service is not sent an address
+> in this flow, and it claims the nonce atomically, so neither `address_mismatch` nor
+> `already_signing` is reachable. An entry that came back **signed** is one-shot: its nonce is
+> spent, and a rerun blinds under a fresh secret - the signature you already hold is the only
+> usable one. A **lost round-2 response** is an unknown
 > outcome, not a retryable one: check the voter's [`sign-info`](#voter-status) state instead of
 > re-signing blind.
 

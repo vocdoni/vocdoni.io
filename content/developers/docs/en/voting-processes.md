@@ -252,14 +252,15 @@ curl "${auth[@]}" -X PUT "$B/processes/$PROCESS/census" -d '{"memberIds":["<id1>
 ```
 
 ```jsonc
-{ "added": 2, "errors": [], "jobId": "e5f6a7..." }   // poll /jobs/{jobId} for the resize
+{ "added": 2, "jobId": "e5f6a7..." }   // poll /jobs/{jobId} for the resize
 ```
 
 ### Removing members from the census
 
 The reverse of growing: remove members from the process census **and from every question
 eligibility list built on it**, so the credential service stops signing for them. An id naming a
-member who is no longer in the census is skipped as a no-op rather than refused.
+member who is no longer in the census is skipped as a no-op rather than refused. At most 1000 ids
+per request - page through a larger removal.
 
 - **DELETE** `/processes/{processId}/census`
 
@@ -268,8 +269,8 @@ curl "${auth[@]}" -X DELETE "$B/processes/$PROCESS/census" -d '{"memberIds":["<i
 ```
 
 ```jsonc
-{ "removed": 2, "errors": [] }                       // 200 - removed
-{ "removed": 2, "errors": [], "jobId": "a7b8c9..." } // 202 - resize enqueued, poll /jobs/{jobId}
+{ "removed": 2 }                       // 200 - removed
+{ "removed": 2, "jobId": "a7b8c9..." } // 202 - resize enqueued, poll /jobs/{jobId}
 ```
 
 Removing a member the CSP has **already signed for**, while a question of the process is still
@@ -278,7 +279,8 @@ voting closes on those questions the removal succeeds. This is the same protecti
 [memberbase removals](/developers/docs/census#kept-in-sync-with-the-memberbase). Pruning a
 question's eligibility list to empty [opens it to the whole census](#changing-a-questions-eligibility),
 so a `maxCensusSize` increase may be enqueued as an async [job](/developers/docs/jobs) - the `202`
-case above.
+case above. Both endpoints omit `errors` unless something went wrong; on `PUT` it lists the ids that
+could not be added, on `DELETE` the questions whose resize could not be enqueued.
 
 ### Changing a question's eligibility
 
