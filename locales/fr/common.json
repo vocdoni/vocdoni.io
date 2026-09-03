@@ -1,4 +1,91 @@
 {
+  "alternatives": {
+    "electionbuddy": {
+      "alternatives": [
+        {
+          "description": "Vocdoni est un logiciel de vote en ligne open source pour les associations et autres organisations de membres. Son application en libre-service prend en charge les questions à choix unique ou multiple, le vote pondéré, les démarrages programmés et les résultats en direct ou en fin de scrutin.",
+          "fit": "Pour le vote open source en libre-service avec bulletins pondérés",
+          "name": "Vocdoni",
+          "pricing": "L'offre gratuite accepte jusqu'à 100 membres. Des offres publiques supérieures sont proposées."
+        },
+        {
+          "description": "OpaVote prend en charge le vote préférentiel, STV, Condorcet, Borda, l'approbation et les cases à cocher. Il propose aussi des élections, sondages publics et dépouillements.",
+          "fit": "Pour le vote préférentiel avec un tarif simple à l'usage",
+          "name": "OpaVote",
+          "pricing": "L'offre est gratuite jusqu'à 25 votants et 10 candidats. Le tarif commence à 10 dollars par 125 votants ou 20 candidats."
+        },
+        {
+          "description": "Simply Voting propose des élections en libre-service ou accompagnées. Le web, le téléphone, le papier et l'authentification existante sont aussi pris en charge.",
+          "fit": "Pour associer libre-service et accompagnement",
+          "name": "Simply Voting",
+          "pricing": "Les tests avec 10 votants admissibles ou moins sont gratuits. Contactez les ventes pour les événements supérieurs."
+        },
+        {
+          "description": "POLYAS sépare le vote en ligne entre les offres Standard, Verifiable et Certified. Les acheteurs peuvent ajouter la gestion de l'élection.",
+          "fit": "Pour des offres de vote vérifiables ou certifiées",
+          "name": "POLYAS",
+          "pricing": "Standard est gratuit jusqu'à 50 votants. Verifiable et Certified commencent à 50 euros avant les options."
+        }
+      ],
+      "baseline_points": [
+        "L'offre gratuite couvre jusqu'à 20 votants admissibles.",
+        "Les offres ElectionVote payantes dépendent des fonctions et du nombre de votants.",
+        "Les modes de scrutin, avis par e-mail, SMS ou courrier et services experts varient selon l'offre."
+      ],
+      "baseline_text": "ElectionBuddy couvre déjà de nombreuses élections d'organisation. Comparez si un autre achat, scrutin ou modèle de preuve compte davantage.",
+      "baseline_title": "Ce que couvre déjà ElectionBuddy",
+      "criteria": [
+        {
+          "text": "Décidez si les votants et observateurs doivent vérifier le décompte sans faire confiance à un fournisseur.",
+          "title": "Vérification"
+        },
+        {
+          "text": "Listez chaque méthode de décompte, vote pondéré, réponse libre et groupe exigé par vos règles.",
+          "title": "Bulletin"
+        },
+        {
+          "text": "Vérifiez les besoins en e-mail, codes, connexion unique, papier, téléphone et assistance.",
+          "title": "Accès des votants"
+        },
+        {
+          "text": "Comparez votants, élections répétées, stockage, installation et assistance dans un coût total.",
+          "title": "Modèle d'achat"
+        }
+      ],
+      "criteria_eyebrow": "Comment choisir",
+      "criteria_intro": "Commencez par vos règles électorales. Comparez ensuite le produit, le service et le prix.",
+      "criteria_title": "Fixez quatre exigences avant votre sélection",
+      "electionbuddy_features": "Fonctions ElectionBuddy",
+      "eyebrow": "Guide des logiciels électoraux",
+      "image_alt": "Le créateur de vote Vocdoni affiche la configuration d'une élection",
+      "image_caption": "Une élection préparée dans Vocdoni",
+      "intro": "Le bon choix dépend du décompte, de la vérification, du service et du prix. Ces informations ont été vérifiées en août 2026.",
+      "official_source": "Voir la source officielle",
+      "primary_cta": "Découvrir l'app Vocdoni",
+      "primary_cta_aria": "Découvrir l'application de vote en ligne Vocdoni",
+      "proof_eyebrow": "Utilisé par des organisations de membres",
+      "proof_link": "Lire l'étude de cas Òmnium Cultural",
+      "proof_logo_alt": "Logo de Òmnium Cultural",
+      "proof_text": "Òmnium Cultural fait l'objet d'une étude de cas Vocdoni publiée sur les assemblées statutaires. Consultez la source pour voir comment une organisation de membres a utilisé le service.",
+      "proof_title": "Utilisez des preuves d'élections réelles pour comparer les outils",
+      "related_intro": "Consultez le produit, le cas associatif, une vraie élection et le modèle de sécurité.",
+      "related_links": {
+        "agm": "Entreprises et assemblées générales",
+        "app": "Découvrir l'app Vocdoni",
+        "associations": "Vote en ligne pour associations",
+        "home": "Page d'accueil de Vocdoni",
+        "omnium": "Étude de cas Òmnium Cultural",
+        "pricing": "Tarifs",
+        "secure_voting": "Fonctionnement du vote en ligne sécurisé",
+        "software_guide": "Guide des logiciels de vote en ligne"
+      },
+      "related_title": "Poursuivez votre évaluation",
+      "shortlist_eyebrow": "Quatre options",
+      "shortlist_intro": "Chaque fournisseur suit une voie différente. Confirmez les informations actuelles avec sa source officielle.",
+      "shortlist_title": "Adaptez la plateforme à votre exigence principale",
+      "title": "4 alternatives à ElectionBuddy pour les votes d'organisation"
+    }
+  },
   "case_studies": {
     "bellpuig": {
       "author": "Jordi Estiarte",
@@ -2708,6 +2795,7 @@
     },
     "copyright": "© {{year}} Vocdoni. Fait avec ❤️ à Barcelone.",
     "gdpr": "Conforme au RGPD",
+    "growth_by_tin": "Growth by Tin",
     "legal": {
       "cookies": "Paramètres des cookies",
       "privacy": "Politique de confidentialité",
@@ -2812,6 +2900,12 @@
     "about_us": {
       "description": "Découvrez l'équipe qui construit une infrastructure de vote numérique vérifiable et open source pour les organisations qui ont besoin de décisions fiables.",
       "title": "À propos de Vocdoni - infrastructure de vote en ligne open source"
+    },
+    "alternatives": {
+      "electionbuddy": {
+        "description": "Comparez Vocdoni, OpaVote, Simply Voting et POLYAS selon le scrutin, la vérification, le service et le prix.",
+        "title": "4 alternatives à ElectionBuddy pour les organisations | Vocdoni"
+      }
     },
     "app": {
       "description": "Commencez gratuitement, importez votre liste de membres et publiez des résultats que vos membres peuvent vérifier. Sans carte bancaire, en quelques minutes.",
