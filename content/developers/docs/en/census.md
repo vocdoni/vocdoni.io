@@ -160,6 +160,6 @@ processes:
   stops signing for them. If the CSP has **already signed** for the member on a question that is
   still `READY` or `PAUSED`, the removal is **refused** with a `409` (error code `40173`) and the
   offending ids in `data.signedMemberIds` - once voting closes it succeeds.
-- The census can also be edited directly on the process - adding members, or replacing a
-  question's eligibility list - see
+- The census can also be edited directly on the process - adding members, removing them, or
+  replacing a question's eligibility list - see
   [Managing a published census](/developers/docs/voting-processes#managing-a-published-census).

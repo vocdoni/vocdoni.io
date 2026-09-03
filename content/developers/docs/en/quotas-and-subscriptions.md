@@ -74,7 +74,9 @@ before you provision more.
 > authored - a raw `ballotProtocol` describing a ranked or cumulative ballot needs the same plan
 > entitlement as the named type. The same gating covers an
 > [anonymous census](/developers/docs/census#anonymous-voting): publishing with `anonymous: true`
-> needs the plan's `anonymous` feature.
+> needs the plan's `anonymous` feature. Unlike the voting-type gate, though, this one is not part
+> of the synchronous publish checks or the readiness dry-run - a disallowed anonymous census
+> surfaces as a **failed publish [job](/developers/docs/jobs)**, not a `400` at publish time.
 
 ## Tiers
 

@@ -231,9 +231,10 @@ On success each question gains its `upstreamId` and a `status` of `READY`, and t
 
 ## Managing a published census
 
-Publishing does not freeze the census. You can still grow the process census with new members, and
-replace a question's [eligibility subset](/developers/docs/census#per-question-eligibility) - even
-while voting is ongoing. Changes to the memberbase itself also cascade into live censuses - see
+Publishing does not freeze the census. You can still grow the process census with new members,
+remove members from it, and replace a question's
+[eligibility subset](/developers/docs/census#per-question-eligibility) - even while voting is
+ongoing. Changes to the memberbase itself also cascade into live censuses - see
 [Kept in sync with the memberbase](/developers/docs/census#kept-in-sync-with-the-memberbase).
 
 ### Growing the census
@@ -253,6 +254,31 @@ curl "${auth[@]}" -X PUT "$B/processes/$PROCESS/census" -d '{"memberIds":["<id1>
 ```jsonc
 { "added": 2, "errors": [], "jobId": "e5f6a7..." }   // poll /jobs/{jobId} for the resize
 ```
+
+### Removing members from the census
+
+The reverse of growing: remove members from the process census **and from every question
+eligibility list built on it**, so the credential service stops signing for them. An id naming a
+member who is no longer in the census is skipped as a no-op rather than refused.
+
+- **DELETE** `/processes/{processId}/census`
+
+```bash
+curl "${auth[@]}" -X DELETE "$B/processes/$PROCESS/census" -d '{"memberIds":["<id1>","<id2>"]}'
+```
+
+```jsonc
+{ "removed": 2, "errors": [] }                       // 200 - removed
+{ "removed": 2, "errors": [], "jobId": "a7b8c9..." } // 202 - resize enqueued, poll /jobs/{jobId}
+```
+
+Removing a member the CSP has **already signed for**, while a question of the process is still
+`READY` or `PAUSED`, is refused with `409` and the offending ids in `data.signedMemberIds` - once
+voting closes on those questions the removal succeeds. This is the same protection that guards
+[memberbase removals](/developers/docs/census#kept-in-sync-with-the-memberbase). Pruning a
+question's eligibility list to empty [opens it to the whole census](#changing-a-questions-eligibility),
+so a `maxCensusSize` increase may be enqueued as an async [job](/developers/docs/jobs) - the `202`
+case above.
 
 ### Changing a question's eligibility
 

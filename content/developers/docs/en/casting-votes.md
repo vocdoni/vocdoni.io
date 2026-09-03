@@ -217,6 +217,7 @@ half-voted.
 With the SDK, batch-sign first, then build each envelope and relay them together:
 
 ```ts
+import { JobFailedError } from '@vocdoni/api-client'
 import { EphemeralSigner, buildVoteTransaction } from '@vocdoni/api-voting'
 
 // One fresh ephemeral signer per question, then one sign call for all of them.
@@ -238,8 +239,18 @@ const votes = signatures
       signer: signers.get(s.upstreamId)!, cspSignature: s.signature!, cspWeight: s.weight!,
     }),
   }))
+if (!votes.length) throw new Error('no ballot was signed - nothing to relay')
+
+// A partially failed relay settles the job as failed, but the job still
+// reports every vote - read the outcomes off the error instead of losing the
+// nullifier/voteID of the ballots that did land.
 const { jobId } = await client.elections.voteBatch({ votes })
-await client.jobs.waitFor(jobId)
+try {
+  await client.jobs.waitFor(jobId)
+} catch (err) {
+  if (!(err instanceof JobFailedError)) throw err
+  console.log(err.job.result?.votes) // per-vote voteID, or the reason it failed
+}
 ```
 
 > [!NOTE] Relay what was signed, even on partial failure
@@ -370,6 +381,10 @@ curl -X POST "$B/processes/$PROCESS/blind-point" \
 #       { "upstreamId": "<upstreamId 2>", "tokenR": "<hex point>", "weight": "01" } ] }
 ```
 
+Only the batch **authorization** is all-or-nothing: round 1 also reports **per-election issuance
+failures inline**, as an entry carrying a `code` instead of `tokenR`/`weight` - so match points by
+`upstreamId` and check both fields are present before blinding.
+
 The client then **blinds locally**: for each ballot, hash the CA bundle (the election id, the
 ephemeral voter address, and the `weight` returned above, verbatim) and blind that hash with the
 election's `tokenR`. **Round 2** sends the blinded messages for signing:
@@ -391,11 +406,16 @@ client unblinds each signature, assembles the CA proof, and relays through the
 [batch flow](#casting-a-multi-question-process-in-one-batch) as usual.
 
 > [!WARNING] What is safe to retry
-> An entry **reported as failed** in round 2 never consumed its one-time signing nonce, so it is
-> safe to re-request (round 1 returns the same point). An entry that came back **signed** is
-> one-shot: its nonce is spent, and a rerun blinds under a fresh secret - the signature you already
-> hold is the only usable one. A **lost round-2 response** is an unknown outcome, not a retryable
-> one: check the voter's [`sign-info`](#voter-status) state instead of re-signing blind.
+> An entry **reported as failed** in round 2 never consumed its one-time signing nonce - but
+> nonce-safe does not mean worth retrying. Retry only the retryable codes: `already_signing` and
+> `sign_failed` as-is, and `invalid_blinded_message` after re-blinding against the **same**
+> round-1 point (round 1 is idempotent and returns it again). `already_consumed` and
+> `address_mismatch` are terminal, `auth_invalid` means authenticate again, and
+> `blind_request_missing` means run round 1 for that election first. An entry that came back
+> **signed** is one-shot: its nonce is spent, and a rerun blinds under a fresh secret - the
+> signature you already hold is the only usable one. A **lost round-2 response** is an unknown
+> outcome, not a retryable one: check the voter's [`sign-info`](#voter-status) state instead of
+> re-signing blind.
 
 For readers cross-referencing the chain: an anonymous process publishes under census origin
 `OFF_CHAIN_CA_V2` and its ballots carry `ECDSA_BLIND_PIDSALTED` proofs. The blinding math mirrors
