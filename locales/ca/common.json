@@ -1,4 +1,91 @@
 {
+  "alternatives": {
+    "electionbuddy": {
+      "alternatives": [
+        {
+          "description": "Vocdoni és programari de votació en línia de codi obert per a associacions i altres organitzacions de membres. L'app d'autoservei admet preguntes d'opció única i múltiple, vot ponderat, inicis programats i resultats en directe o només al final.",
+          "fit": "Per a votació d'autoservei de codi obert amb paperetes ponderades",
+          "name": "Vocdoni",
+          "pricing": "El pla gratuït admet fins a 100 membres. Hi ha plans públics per a organitzacions més grans."
+        },
+        {
+          "description": "OpaVote admet vot preferencial, STV, Condorcet, Borda, aprovació i selecció per caselles. També ofereix eleccions en línia, enquestes públiques i recompte de paperetes.",
+          "fit": "Per a paperetes preferencials amb preus senzills per ús",
+          "name": "OpaVote",
+          "pricing": "És gratuït fins a 25 votants i 10 candidats. Les eleccions de pagament comencen en 10 $ per 125 votants o 20 candidats."
+        },
+        {
+          "description": "Simply Voting ofereix eleccions d'autoservei i gestionades. També admet vot web, telefònic i en paper, a més de l'autenticació de l'organització.",
+          "fit": "Per combinar autoservei i gestió completa",
+          "name": "Simply Voting",
+          "pricing": "Les eleccions de prova amb 10 votants elegibles o menys són gratuïtes. Consulta vendes per a esdeveniments més grans."
+        },
+        {
+          "description": "POLYAS divideix el vot en línia en paquets Standard, Verifiable i Certified. Pots usar l'autoservei o afegir gestió electoral.",
+          "fit": "Per a paquets de vot verificable o certificat",
+          "name": "POLYAS",
+          "pricing": "Standard és gratuït fins a 50 votants. Verifiable i Certified parteixen de 50 € abans d'afegir funcions i serveis."
+        }
+      ],
+      "baseline_points": [
+        "El pla gratuït cobreix fins a 20 votants elegibles.",
+        "Els nivells ElectionVote de pagament depenen de les funcions i del cens elegible.",
+        "Els mètodes, avisos per correu electrònic, SMS o correu postal i els serveis experts varien segons el pla."
+      ],
+      "baseline_text": "ElectionBuddy ja cobreix moltes eleccions d'organitzacions. Compara alternatives quan importi més un altre preu, mètode de vot o model de verificació.",
+      "baseline_title": "El que ElectionBuddy ja cobreix",
+      "criteria": [
+        {
+          "text": "Decideix si votants i observadors han de comprovar el recompte sense confiar en un sol proveïdor.",
+          "title": "Verificació"
+        },
+        {
+          "text": "Enumera cada mètode de recompte, vot ponderat, opció lliure i grup electoral que exigeixin les teves normes.",
+          "title": "Disseny de la papereta"
+        },
+        {
+          "text": "Comprova les necessitats de correu, codis, inici únic, paper, telèfon i vot assistit.",
+          "title": "Accés dels votants"
+        },
+        {
+          "text": "Compara cens, eleccions recurrents, emmagatzematge, ajuda de configuració i suport com un únic cost.",
+          "title": "Model de compra"
+        }
+      ],
+      "criteria_eyebrow": "Com triar",
+      "criteria_intro": "Comença per les teves normes electorals. Després compara el producte, el servei i el preu que les envolten.",
+      "criteria_title": "Defineix quatre requisits abans de seleccionar eines",
+      "eyebrow": "Guia de programari electoral",
+      "electionbuddy_features": "Funcions d'ElectionBuddy",
+      "image_alt": "Constructor de votacions de Vocdoni amb una pantalla de configuració electoral",
+      "image_caption": "Preparació d'una votació a Vocdoni",
+      "intro": "L'opció adequada depèn del recompte, la verificació, el suport i el preu. Aquestes quatre opcions usen informació pública revisada l'agost de 2026.",
+      "official_source": "Veure la font oficial",
+      "primary_cta": "Explorar l'app de Vocdoni",
+      "primary_cta_aria": "Explorar l'aplicació de vot en línia de Vocdoni",
+      "proof_eyebrow": "Usat per organitzacions de membres",
+      "proof_link": "Llegir el cas d'Òmnium Cultural",
+      "proof_logo_alt": "Logotip d'Òmnium Cultural",
+      "proof_text": "Òmnium Cultural és un cas d'estudi publicat de Vocdoni sobre assemblees estatutàries. Consulta la font per veure com una organització de membres va usar el servei.",
+      "proof_title": "Usa proves d'eleccions reals quan comparis eines",
+      "related_intro": "Consulta el producte, el cas associatiu, una elecció real i el model de seguretat.",
+      "related_links": {
+        "agm": "Empreses i AGMs",
+        "app": "Explorar l'app de Vocdoni",
+        "associations": "Vot en línia per a associacions",
+        "home": "Pàgina d'inici de Vocdoni",
+        "omnium": "Cas d'Òmnium Cultural",
+        "pricing": "Preus",
+        "secure_voting": "Com funciona el vot en línia segur",
+        "software_guide": "Guia de programari de votació en línia"
+      },
+      "related_title": "Continua la teva avaluació",
+      "shortlist_eyebrow": "Quatre opcions",
+      "shortlist_intro": "Cada proveïdor segueix una via diferent. Usa la font oficial de cada opció per confirmar les dades actuals.",
+      "shortlist_title": "Ajusta la plataforma al teu requisit més difícil",
+      "title": "4 alternatives a ElectionBuddy per a votacions d'organitzacions"
+    }
+  },
   "case_studies": {
     "bellpuig": {
       "author": "Jordi Estiarte",
@@ -2047,6 +2134,9 @@
     "subtitle": "Vocdoni s'adapta a com decideix la vostra organització. Trieu el vostre tipus per veure com el vot en línia segur i verificable resol els vostres reptes concrets.",
     "title": "Solucions de vot en línia per a cada tipus d'organització"
   },
+  "security_accessibility": {
+    "content_language": "Anglès"
+  },
   "about_us": {
     "content_description": "Des del 2018, Vocdoni ('donar veu' en esperanto) ha empoderat les organitzacions per celebrar eleccions amb integritat matemàtica. Oferim infraestructura de votació oberta i verificable de manera independent, traslladant la confiança de les promeses del proveïdor a la prova pública.",
     "content_title": "La confiança no és una promesa. És una propietat estructural.",
@@ -2700,12 +2790,15 @@
       "blog": "Blog",
       "case_studies": "Casos d'èxit",
       "contact": "Contacte",
+      "electionbuddy_alternatives": "Alternatives a ElectionBuddy",
       "learn": "Aprenentatge",
+      "online_voting_software": "Guia de programari de votació en línia",
       "title": "Empresa",
       "use_cases": "Casos d'ús"
     },
     "copyright": "© {{year}} Vocdoni. Fet amb ❤️ a Barcelona.",
     "gdpr": "Compleix el RGPD",
+    "growth_by_tin": "Growth by Tin",
     "legal": {
       "cookies": "Configuració de galetes",
       "privacy": "Política de privacitat",
@@ -2810,6 +2903,12 @@
       "description": "Coneixeu l'equip que construeix infraestructura de votació digital verificable i de codi obert per a organitzacions que necessiten decisions fiables.",
       "title": "Sobre Vocdoni - infraestructura de votació online de codi obert"
     },
+    "alternatives": {
+      "electionbuddy": {
+        "description": "Compara quatre alternatives a ElectionBuddy per a vot verificable, paperetes preferencials, eleccions gestionades i vot certificat.",
+        "title": "Alternatives a ElectionBuddy per a organitzacions | Vocdoni"
+      }
+    },
     "app": {
       "description": "Comenceu gratis, importeu la vostra llista de socis i publiqueu resultats que els vostres membres poden verificar. Sense targeta de crèdit, configureu en minuts.",
       "title": "Programari de vot en línia gratuït per a organitzacions | Vocdoni"
@@ -2844,9 +2943,19 @@
         "title": "Cas Òmnium Cultural: assemblees estatutàries | Vocdoni"
       }
     },
+    "compare": {
+      "online_voting_software": {
+        "description": "Compara programari de votació en línia segons el model de servei, les necessitats de la papereta, el suport i el tipus d'organització. Descobreix quan encaixa Vocdoni, ElectionBuddy, Simply Voting, OpaVote o una suite d'assemblees.",
+        "title": "Guia de programari de votació en línia: compara segons la teva organització | Vocdoni"
+      }
+    },
     "contact": {
       "description": "Parleu amb Vocdoni sobre votació online segura, eleccions verificables, preus, demostracions i projectes personalitzats de governança digital.",
       "title": "Contacte - Vocdoni"
+    },
+    "customers_and_deployments": {
+      "description": "Consulta registres datats i basats en fonts d'organitzacions que han utilitzat Vocdoni, amb dades electorals, funcions del producte i proves primàries directes.",
+      "title": "Clients i desplegaments de votació verificats | Vocdoni"
     },
     "developers_index": {
       "description": "Integreu eleccions segures, anònimes i verificables de punta a punta dins el vostre programari amb la Vocdoni API. Inici ràpid, guies i la referència completa de l'API per a integradors.",
@@ -2944,9 +3053,17 @@
         "title": "El vot verificable, explicat | Vocdoni"
       }
     },
+    "pricing": {
+      "description": "Compara els plans de Vocdoni App per a un màxim de 5.000 membres, de Gratuït a Premium. Consulta preus, límits de votacions, administradors i codis de verificació.",
+      "title": "Preus i plans de votació en línia | Vocdoni"
+    },
     "privacy": {
       "description": "Descobriu com Vocdoni recopila, utilitza i protegeix les vostres dades personals i la vostra privacitat.",
       "title": "Política de privacitat - Vocdoni"
+    },
+    "security_accessibility": {
+      "description": "Consulta les proves del registre d’auditoria de votació en línia de Vocdoni, les proves públiques de resultats, el codi font, els documents de privacitat, les proves d’accessibilitat i les mancances publicades.",
+      "title": "Registre d’auditoria de votació en línia i proves de seguretat | Vocdoni"
     },
     "solutions_index": {
       "description": "Vot en línia segur i verificable a mida de la vostra organització: associacions, cooperatives, col·legis professionals, partits, ajuntaments, clubs esportius, ONG, universitats, empreses i sindicats.",
@@ -3001,6 +3118,10 @@
     "use_cases": {
       "description": "Descobriu casos d'ús reals de votació i governança impulsats per la tecnologia segura i transparent de Vocdoni.",
       "title": "Casos d'ús de vot en línia per tipus d'organització | Vocdoni"
+    },
+    "voting_verification_checklist": {
+      "description": "Comproveu com els votants, observadors, revisors del recompte i auditors poden verificar un vot de Vocdoni mitjançant rebuts públics, registres de resultats, documentació i codi.",
+      "title": "Llista de verificació del vot per a votants i auditors | Vocdoni"
     }
   },
   "navbar": {
@@ -3079,6 +3200,60 @@
       "option_a": "Opció a",
       "option_b": "Opció b"
     }
+  },
+  "pricing_page": {
+    "agm_link": "Votació en línia per a juntes generals",
+    "associations_link": "Votació en línia per a associacions",
+    "codes_note": "Els crèdits de verificació només s'utilitzen quan un votant demana un codi. Els codis addicionals costen 0,015 € cadascun quan s'envien.",
+    "cta": "Comença amb el pla Gratuït",
+    "custom": {
+      "name": "Personalitzat",
+      "price": "Preu a consultar",
+      "summary": "Per a límits de membres més alts, més administradors o funcions de l'aplicació que requereixen una avaluació individual."
+    },
+    "essential": {
+      "admins": "2 administradors",
+      "annual": "O 590 € facturats anualment (equivalent a 49,17 €/mes) + IVA",
+      "codes": "1.000 codis de verificació per correu i 1.000 per SMS",
+      "members": "Fins a 1.000 membres",
+      "name": "Essencial",
+      "price": "69 €/mes + IVA",
+      "summary": "Per a organitzacions amb votacions regulars de membres i dos administradors.",
+      "votes": "20 votacions comptades a l'any"
+    },
+    "explore_title": "Descobreix com les organitzacions utilitzen Vocdoni",
+    "eyebrow": "Preus de Vocdoni App",
+    "free": {
+      "admins": "1 administrador",
+      "codes": "100 codis de verificació per correu",
+      "members": "Fins a 100 membres",
+      "name": "Gratuït",
+      "price": "0 €/mes + IVA",
+      "summary": "Per a organitzacions petites que volen fer votacions reals sense cost.",
+      "votes": "5 votacions comptades a l'any"
+    },
+    "intro": "Comença gratis. Amplia el pla quan necessitis més membres, votacions, administradors o codis de verificació.",
+    "managed_intro": "Els serveis de votació gestionada són adequats per a processos complexos o d'alt risc.",
+    "managed_link": "Parla'ns d'una votació gestionada",
+    "managed_title": "Vols que gestionem la votació amb tu?",
+    "plans_intro": "Aquests plans cobreixen les votacions que el teu equip configura i gestiona a Vocdoni App.",
+    "plans_title": "Plans d'autoservei",
+    "premium": {
+      "admins": "5 administradors",
+      "annual": "O 1.890 € facturats anualment (equivalent a 157,50 €/mes) + IVA",
+      "codes": "5.000 codis de verificació per correu i 5.000 per SMS",
+      "members": "Fins a 5.000 membres",
+      "name": "Premium",
+      "price": "199 €/mes + IVA",
+      "summary": "Per a organitzacions grans amb votacions freqüents i més administradors.",
+      "votes": "50 votacions comptades a l'any"
+    },
+    "reviewed": "Preus i límits revisats el 28 d'agost de 2026.",
+    "screenshot_alt": "Pantalla de configuració d'una votació a Vocdoni App",
+    "source": "Consulta els plans i les opcions de facturació actuals",
+    "source_aria": "Consulta els preus actuals a Vocdoni App (s'obre en una pestanya nova)",
+    "title": "Tria el pla que s'adapta a les teves votacions",
+    "votes_note": "Les votacions amb menys de 10 participants es consideren proves i no compten per als límits del pla."
   },
   "steps_section": {
     "label": "Configureu una votació en menys de 10 minuts",

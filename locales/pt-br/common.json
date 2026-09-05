@@ -1,4 +1,91 @@
 {
+  "alternatives": {
+    "electionbuddy": {
+      "alternatives": [
+        {
+          "description": "Vocdoni é um software de votação online de código aberto para associações e outras organizações de membros. O aplicativo de autoatendimento aceita perguntas de escolha única e múltipla, voto ponderado, início agendado e resultados ao vivo ou somente no final.",
+          "fit": "Para votação de autoatendimento e código aberto com cédulas ponderadas",
+          "name": "Vocdoni",
+          "pricing": "O plano gratuito atende até 100 membros. Há planos públicos para grupos maiores."
+        },
+        {
+          "description": "A OpaVote aceita voto preferencial, STV, Condorcet, Borda, aprovação e seleção múltipla. Também oferece eleições, enquetes públicas e apuração.",
+          "fit": "Para votos preferenciais com preço simples por uso",
+          "name": "OpaVote",
+          "pricing": "É grátis até 25 eleitores e 10 candidatos. Eleições pagas começam em US$ 10 por 125 eleitores ou 20 candidatos."
+        },
+        {
+          "description": "A Simply Voting oferece eleições autônomas e gerenciadas. Também aceita votação pela web, telefone e papel, além da autenticação existente.",
+          "fit": "Para combinar autonomia e gestão assistida",
+          "name": "Simply Voting",
+          "pricing": "Testes com 10 eleitores aptos ou menos são grátis. Eventos maiores exigem contato comercial."
+        },
+        {
+          "description": "A POLYAS divide a votação online nos pacotes Standard, Verifiable e Certified. O cliente pode adicionar gestão eleitoral.",
+          "fit": "Para pacotes de votação verificáveis ou certificados",
+          "name": "POLYAS",
+          "pricing": "O Standard é grátis até 50 eleitores. Verifiable e Certified começam em 50 euros antes das opções."
+        }
+      ],
+      "baseline_points": [
+        "O plano gratuito cobre até 20 eleitores aptos.",
+        "Os planos ElectionVote pagos dependem dos recursos e do número de eleitores.",
+        "Métodos, avisos por e-mail, SMS ou correio e serviços especializados variam por plano."
+      ],
+      "baseline_text": "A ElectionBuddy já cobre muitas eleições de organizações. Compare alternativas se outro modelo de compra, voto ou prova for mais importante.",
+      "baseline_title": "O que a ElectionBuddy já oferece",
+      "criteria": [
+        {
+          "text": "Decida se eleitores e observadores devem verificar a apuração sem confiar em um único fornecedor.",
+          "title": "Verificação"
+        },
+        {
+          "text": "Liste cada método de apuração, voto ponderado, resposta aberta e grupo exigido pelas regras.",
+          "title": "Cédula"
+        },
+        {
+          "text": "Confirme necessidades de e-mail, códigos, acesso único, papel, telefone e voto assistido.",
+          "title": "Acesso do eleitor"
+        },
+        {
+          "text": "Compare eleitores, eleições repetidas, arquivo, configuração e suporte como custo total.",
+          "title": "Modelo de compra"
+        }
+      ],
+      "criteria_eyebrow": "Como escolher",
+      "criteria_intro": "Comece pelas regras da eleição. Depois compare produto, serviço e preço.",
+      "criteria_title": "Defina quatro requisitos antes da seleção",
+      "electionbuddy_features": "Recursos da ElectionBuddy",
+      "eyebrow": "Guia de software eleitoral",
+      "image_alt": "O criador de votos da Vocdoni mostra a configuração de uma eleição",
+      "image_caption": "Um voto sendo preparado na Vocdoni",
+      "intro": "A escolha depende da apuração, verificação, suporte e preço. Estes dados foram verificados em agosto de 2026.",
+      "official_source": "Ver fonte oficial",
+      "primary_cta": "Explorar o app Vocdoni",
+      "primary_cta_aria": "Explorar o aplicativo de votação online Vocdoni",
+      "proof_eyebrow": "Usado por organizações associativas",
+      "proof_link": "Ler o caso da Òmnium Cultural",
+      "proof_logo_alt": "Logotipo da Òmnium Cultural",
+      "proof_text": "A Òmnium Cultural é um estudo de caso publicado da Vocdoni sobre assembleias estatutárias. Consulte a fonte para ver como uma organização de membros usou o serviço.",
+      "proof_title": "Use provas de eleições reais ao comparar ferramentas",
+      "related_intro": "Veja o produto, o caso associativo, uma eleição real e o modelo de segurança.",
+      "related_links": {
+        "agm": "Empresas e AGMs",
+        "app": "Explorar o app Vocdoni",
+        "associations": "Votação online para associações",
+        "home": "Página inicial da Vocdoni",
+        "omnium": "Caso da Òmnium Cultural",
+        "pricing": "Preços",
+        "secure_voting": "Como funciona a votação online segura",
+        "software_guide": "Guia de software de votação online"
+      },
+      "related_title": "Continue sua avaliação",
+      "shortlist_eyebrow": "Quatro opções",
+      "shortlist_intro": "Cada fornecedor segue uma linha diferente. Confirme os dados atuais na fonte oficial.",
+      "shortlist_title": "Combine a plataforma com seu requisito mais difícil",
+      "title": "4 alternativas à ElectionBuddy para votações de organizações"
+    }
+  },
   "case_studies": {
     "bellpuig": {
       "author": "Jordi Estiarte",
@@ -2047,6 +2134,9 @@
     "subtitle": "A Vocdoni se adapta ao modo como a sua organização decide. Escolha seu tipo para ver como a votação online segura e verificável resolve seus desafios específicos.",
     "title": "Soluções de votação online para todo tipo de organização"
   },
+  "security_accessibility": {
+    "content_language": "Inglês"
+  },
   "about_us": {
     "content_description": "Desde 2018, a Vocdoni (\"dar voz\" em esperanto) capacita organizações a realizar eleições com integridade matemática. Oferecemos o sistema de votação mais auditável do mundo, transferindo a confiança das promessas do fornecedor para uma prova pública verificável.",
     "content_title": "A confiança não é uma promessa. É uma propriedade estrutural.",
@@ -2700,12 +2790,15 @@
       "blog": "Blog",
       "case_studies": "Estudos de caso",
       "contact": "Contato",
+      "electionbuddy_alternatives": "Alternativas à ElectionBuddy",
       "learn": "Saiba mais",
+      "online_voting_software": "Guia de software de votação online",
       "title": "Empresa",
       "use_cases": "Casos de uso"
     },
     "copyright": "© {{year}} Vocdoni. Feito com ❤️ em Barcelona.",
     "gdpr": "Em conformidade com o GDPR",
+    "growth_by_tin": "Growth by Tin",
     "legal": {
       "cookies": "Configurações de cookies",
       "privacy": "Política de privacidade",
@@ -2810,6 +2903,12 @@
       "description": "Conheça a equipe que constrói uma infraestrutura de votação digital verificável e de código aberto para organizações que precisam de decisões confiáveis.",
       "title": "Sobre a Vocdoni - infraestrutura de votação online de código aberto"
     },
+    "alternatives": {
+      "electionbuddy": {
+        "description": "Compare Vocdoni, OpaVote, Simply Voting e POLYAS por método de voto, verificação, serviço e preço.",
+        "title": "4 alternativas à ElectionBuddy para organizações | Vocdoni"
+      }
+    },
     "app": {
       "description": "Comece grátis, importe sua lista de associados e publique resultados que seus membros podem verificar. Sem cartão de crédito, configuração em minutos.",
       "title": "Software de votação online gratuito para organizações | Vocdoni"
@@ -2844,9 +2943,19 @@
         "title": "Estudo de caso da Òmnium Cultural: assembleias estatutárias | Vocdoni"
       }
     },
+    "compare": {
+      "online_voting_software": {
+        "description": "Compare softwares de votação online por modelo de serviço, necessidades da cédula, suporte e perfil da organização. Veja quando escolher Vocdoni, ElectionBuddy, Simply Voting, OpaVote ou uma plataforma completa de assembleias.",
+        "title": "Guia de software de votação online: compare por organização | Vocdoni"
+      }
+    },
     "contact": {
       "description": "Fale com a Vocdoni sobre votação online segura, eleições verificáveis, preços, demonstrações e projetos personalizados de governança digital.",
       "title": "Contato - Vocdoni"
+    },
+    "customers_and_deployments": {
+      "description": "Veja registros datados e documentados de organizações que usaram a Vocdoni, com dados da votação, função do produto e provas primárias diretas.",
+      "title": "Clientes e operações de votação verificadas | Vocdoni"
     },
     "developers_index": {
       "description": "Crie eleições seguras, anônimas e verificáveis de ponta a ponta dentro do seu software com a Vocdoni API. Guia rápido, tutoriais e referência completa da API para integradores.",
@@ -2944,9 +3053,17 @@
         "title": "Votação verificável - explicada | Vocdoni"
       }
     },
+    "pricing": {
+      "description": "Compare os planos Vocdoni App para até 5.000 membros. Consulte preços, limites de votação, administradores e códigos de verificação.",
+      "title": "Preços e planos de votação online | Vocdoni"
+    },
     "privacy": {
       "description": "Saiba como a Vocdoni coleta, usa e protege seus dados pessoais e sua privacidade.",
       "title": "Política de privacidade - Vocdoni"
+    },
+    "security_accessibility": {
+      "description": "Consulte as evidências do registro de auditoria de votação on-line da Vocdoni, as provas públicas de resultados, o código-fonte, os documentos de privacidade, as evidências de acessibilidade e as lacunas publicadas.",
+      "title": "Registro de auditoria de votação on-line e evidências de segurança | Vocdoni"
     },
     "solutions_index": {
       "description": "Votação online segura e verificável sob medida para sua organização: associações, cooperativas, conselhos profissionais, partidos políticos, prefeituras, clubes esportivos, ONGs, universidades, empresas e sindicatos.",
@@ -3001,6 +3118,10 @@
     "use_cases": {
       "description": "Descubra casos de uso reais de votação e governança impulsionados pela tecnologia segura e transparente da Vocdoni.",
       "title": "Casos de uso de votação online para organizações - Vocdoni"
+    },
+    "voting_verification_checklist": {
+      "description": "Veja como eleitores, observadores, revisores da apuração e auditores podem verificar uma votação Vocdoni com recibos públicos, registros de resultados, documentação e código.",
+      "title": "Lista de verificação do voto para eleitores e auditores | Vocdoni"
     }
   },
   "navbar": {
@@ -3079,6 +3200,60 @@
       "option_a": "Opção a",
       "option_b": "Opção b"
     }
+  },
+  "pricing_page": {
+    "agm_link": "Votação online para assembleias gerais",
+    "associations_link": "Votação online para associações",
+    "codes_note": "Os créditos de verificação só são usados quando um eleitor pede um código. Cada código adicional custa 0,015 € no envio.",
+    "cta": "Comece com o plano Gratuito",
+    "custom": {
+      "name": "Personalizado",
+      "price": "Preço sob consulta",
+      "summary": "Para limites de membros mais altos, mais administradores ou funções da aplicação que exigem avaliação individual."
+    },
+    "essential": {
+      "admins": "2 administradores",
+      "annual": "Ou 590 € faturados anualmente (equivalente a 49,17 €/mês) + IVA",
+      "codes": "1.000 códigos de verificação por e-mail e 1.000 por SMS",
+      "members": "Até 1.000 membros",
+      "name": "Essencial",
+      "price": "69 €/mês + IVA",
+      "summary": "Para organizações com votações regulares de membros e dois administradores.",
+      "votes": "20 votações contabilizadas por ano"
+    },
+    "explore_title": "Veja como as organizações usam a Vocdoni",
+    "eyebrow": "Preços da Vocdoni App",
+    "free": {
+      "admins": "1 administrador",
+      "codes": "100 códigos de verificação por e-mail",
+      "members": "Até 100 membros",
+      "name": "Gratuito",
+      "price": "0 €/mês + IVA",
+      "summary": "Para pequenas organizações que querem realizar votações reais sem custos.",
+      "votes": "5 votações contabilizadas por ano"
+    },
+    "intro": "Comece grátis. Mude de plano quando precisar de mais membros, votações, administradores ou códigos.",
+    "managed_intro": "Os serviços de votação gerida servem processos complexos ou de alto risco.",
+    "managed_link": "Falar sobre uma votação gerida",
+    "managed_title": "Quer que façamos a votação consigo?",
+    "plans_intro": "Estes planos abrangem as votações que a sua equipa configura e gere na Vocdoni App.",
+    "plans_title": "Planos de autosserviço",
+    "premium": {
+      "admins": "5 administradores",
+      "annual": "Ou 1.890 € faturados anualmente (equivalente a 157,50 €/mês) + IVA",
+      "codes": "5.000 códigos de verificação por e-mail e 5.000 por SMS",
+      "members": "Até 5.000 membros",
+      "name": "Premium",
+      "price": "199 €/mês + IVA",
+      "summary": "Para organizações maiores com votações frequentes e mais administradores.",
+      "votes": "50 votações contabilizadas por ano"
+    },
+    "reviewed": "Preços e limites verificados em 28 de agosto de 2026.",
+    "screenshot_alt": "Ecrã de configuração de uma votação na Vocdoni App",
+    "source": "Consulte os planos e opções de faturação atuais",
+    "source_aria": "Consulte os preços atuais na Vocdoni App (abre num novo separador)",
+    "title": "Escolha o plano certo para as suas votações",
+    "votes_note": "As votações com menos de 10 participantes são testes e não contam para os limites do plano."
   },
   "steps_section": {
     "label": "Configure uma votação em menos de 10 minutos",

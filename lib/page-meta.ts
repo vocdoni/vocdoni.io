@@ -30,6 +30,30 @@ export const metaDefaults = {
     'meta.privacy.description',
     'Learn how Vocdoni collects, uses, and protects your personal data and privacy.'
   ),
+  'meta.security_accessibility.title': t(
+    'meta.security_accessibility.title',
+    'Online voting audit trail and security evidence | Vocdoni'
+  ),
+  'meta.security_accessibility.description': t(
+    'meta.security_accessibility.description',
+    'Inspect Vocdoni online voting audit trail evidence, public result proofs, source code, privacy documents, accessibility evidence, and published gaps.'
+  ),
+  'meta.voting_verification_checklist.title': t(
+    'meta.voting_verification_checklist.title',
+    'Voting verification checklist for voters and auditors | Vocdoni'
+  ),
+  'meta.voting_verification_checklist.description': t(
+    'meta.voting_verification_checklist.description',
+    'Check how voters, observers, tally reviewers, and auditors can verify a Vocdoni vote using public receipts, result records, documentation, and code.'
+  ),
+  'meta.customers_and_deployments.title': t(
+    'meta.customers_and_deployments.title',
+    'Verified customers and voting deployments | Vocdoni'
+  ),
+  'meta.customers_and_deployments.description': t(
+    'meta.customers_and_deployments.description',
+    'See dated, source-backed records of organizations that used Vocdoni, with election facts, product roles, and direct primary evidence.'
+  ),
   'meta.terms.title': t('meta.terms.title', 'Terms & conditions - Vocdoni'),
   'meta.terms.description': t(
     'meta.terms.description',
@@ -44,6 +68,19 @@ export const metaDefaults = {
   'meta.app.description': t(
     'meta.app.description',
     'Start free, import your member list, and publish results your members can verify. No credit card, set up in minutes.'
+  ),
+  'meta.pricing.title': t('meta.pricing.title', 'Online voting pricing and plans | Vocdoni'),
+  'meta.pricing.description': t(
+    'meta.pricing.description',
+    'Compare Vocdoni App plans for up to 5,000 members, from Free to Premium. See current prices, vote limits, administrators and verification codes.'
+  ),
+  'meta.compare.online_voting_software.title': t(
+    'meta.compare.online_voting_software.title',
+    'Online voting software guide: compare by organization fit | Vocdoni'
+  ),
+  'meta.compare.online_voting_software.description': t(
+    'meta.compare.online_voting_software.description',
+    'Compare online voting software by service model, ballot needs, support, and organization fit. See when Vocdoni, ElectionBuddy, Simply Voting, OpaVote, or an AGM suite fits.'
   ),
   'meta.solutions_index.title': t(
     'meta.solutions_index.title',
@@ -198,6 +235,14 @@ export const metaDefaults = {
   'meta.learn.how_to_prevent_election_fraud_online.description': t(
     'meta.learn.how_to_prevent_election_fraud_online.description',
     'The real risks in online voting and how to prevent fraud: voter authentication, ballot secrecy, verifiable tallies, audit trails and open-source scrutiny.'
+  ),
+  'meta.alternatives.electionbuddy.title': t(
+    'meta.alternatives.electionbuddy.title',
+    'ElectionBuddy alternatives for organization voting | Vocdoni'
+  ),
+  'meta.alternatives.electionbuddy.description': t(
+    'meta.alternatives.electionbuddy.description',
+    'Compare four ElectionBuddy alternatives for verifiable voting, ranked ballots, managed elections, and certified online voting.'
   ),
   'meta.case_studies_index.title': t('meta.case_studies_index.title', 'Online voting case studies | Vocdoni'),
   'meta.case_studies_index.description': t(
