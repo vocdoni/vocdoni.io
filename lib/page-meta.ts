@@ -38,6 +38,14 @@ export const metaDefaults = {
     'meta.security_accessibility.description',
     'Inspect Vocdoni online voting audit trail evidence, public result proofs, source code, privacy documents, accessibility evidence, and published gaps.'
   ),
+  'meta.customers_and_deployments.title': t(
+    'meta.customers_and_deployments.title',
+    'Verified customers and voting deployments | Vocdoni'
+  ),
+  'meta.customers_and_deployments.description': t(
+    'meta.customers_and_deployments.description',
+    'See dated, source-backed records of organizations that used Vocdoni, with election facts, product roles, and direct primary evidence.'
+  ),
   'meta.terms.title': t('meta.terms.title', 'Terms & conditions - Vocdoni'),
   'meta.terms.description': t(
     'meta.terms.description',
