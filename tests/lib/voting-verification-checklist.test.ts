@@ -31,4 +31,12 @@ describe('voting verification checklist', () => {
     expect(votingVerificationChecklistContent.boundaryText).toMatch(/does not document every login/i)
     expect(votingVerificationChecklistContent.boundarySource.href).toBe('/security-accessibility')
   })
+
+  it('returns buyers to the software selection guide', () => {
+    expect(votingVerificationChecklistContent.answerParagraphs).toContainEqual(
+      expect.objectContaining({
+        links: expect.arrayContaining([expect.objectContaining({ href: '/compare/online-voting-software' })]),
+      })
+    )
+  })
 })

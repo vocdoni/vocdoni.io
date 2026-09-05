@@ -50,5 +50,7 @@ describe('AGM voting platforms guide', () => {
     expect(html).toContain('href="/compare/online-voting-software"')
     expect(html).toContain('href="/alternatives/electionbuddy-alternatives"')
     expect(html).toContain('href="/agm-voting/free-vs-paid"')
+    expect(html).toContain('href="/customers-and-deployments"')
+    expect(html).toContain('href="/voting-verification-checklist"')
   })
 })

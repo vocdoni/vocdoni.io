@@ -15,6 +15,11 @@ export type InlineLink = {
   href: string
 }
 
+export type LinkedTextContent = {
+  text: string
+  links?: readonly InlineLink[]
+}
+
 export const agmPlatformGuideContent = {
   eyebrow: 'AGM platform guide',
   title: 'Choose the AGM job before you choose the platform',
@@ -53,17 +58,28 @@ export const agmPlatformGuideContent = {
   checklistTitle: 'Ask six questions before you book a demo',
   checklistIntro: 'Get each answer in writing. Your bylaws and local law still control the final workflow.',
   checklist: [
-    'Does the platform run only voting, or registration, questions, broadcast, and attendance too?',
-    'Can it model your motions, voter groups, voting weights, and result-release rules?',
-    'How will you establish quorum and combine remote, in-room, and pre-meeting participation?',
-    'Who checks the eligible voter list and supports participants on meeting day?',
-    'What can voters, observers, and auditors verify after voting closes?',
-    'What is included in the price, and which support or event services cost more?',
-  ],
+    { text: 'Does the platform run only voting, or registration, questions, broadcast, and attendance too?' },
+    { text: 'Can it model your motions, voter groups, voting weights, and result-release rules?' },
+    { text: 'How will you establish quorum and combine remote, in-room, and pre-meeting participation?' },
+    { text: 'Who checks the eligible voter list and supports participants on meeting day?' },
+    {
+      text: 'What can voters, observers, and auditors verify after voting closes?',
+      links: [
+        {
+          href: '/voting-verification-checklist',
+          label: 'voters, observers, and auditors verify after voting closes',
+        },
+      ],
+    },
+    { text: 'What is included in the price, and which support or event services cost more?' },
+  ] satisfies LinkedTextContent[],
   fitTitle: 'When Vocdoni is the right fit',
   fitIntro:
-    'Vocdoni is a ballot-focused option for organizations that value verifiable results. It does not replace a full AGM meeting suite.',
-  fitIntroLinks: [{ href: '/solutions/companies-agm', label: 'Vocdoni is a ballot-focused option' }],
+    'Vocdoni is a ballot-focused option for organizations that value verifiable results. Review named customer and deployment records before you shortlist it. It does not replace a full AGM meeting suite.',
+  fitIntroLinks: [
+    { href: '/solutions/companies-agm', label: 'Vocdoni is a ballot-focused option' },
+    { href: '/customers-and-deployments', label: 'customer and deployment records' },
+  ],
   fitYesTitle: 'Choose Vocdoni when',
   fitYes: [
     'Your existing meeting stack already covers broadcast, discussion, attendance, and minutes.',

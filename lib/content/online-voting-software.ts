@@ -1,5 +1,8 @@
 import type { OnlineVotingSoftwareContent } from '@/components/comparisons/OnlineVotingSoftwareGuide'
 
+const verificationChecklistHref = '/voting-verification-checklist'
+const deploymentRegistryHref = '/customers-and-deployments'
+
 export const onlineVotingSoftwareContent = {
   eyebrow: 'Voting software guide',
   title: 'How to choose online voting software',
@@ -77,16 +80,25 @@ export const onlineVotingSoftwareContent = {
   checklist_title: 'Ask these six questions before a demo',
   checklist_intro: 'A short written answer to each question makes vendor calls easier to compare.',
   checklist: [
-    'Which ballot methods do our bylaws require?',
-    'Do votes have equal weight, or does each voter carry a different weight?',
-    'Who imports and checks the eligible voter list?',
-    'Who supports voters before and during the election?',
-    'What evidence can voters, observers, and auditors verify after the result?',
-    'Do we need only the ballot, or registration, broadcast, questions, and minutes too?',
+    { text: 'Which ballot methods do our bylaws require?' },
+    { text: 'Do votes have equal weight, or does each voter carry a different weight?' },
+    { text: 'Who imports and checks the eligible voter list?' },
+    { text: 'Who supports voters before and during the election?' },
+    {
+      text: 'What evidence can voters, observers, and auditors verify after the result?',
+      links: [
+        {
+          href: verificationChecklistHref,
+          label: 'evidence can voters, observers, and auditors verify after the result',
+        },
+      ],
+    },
+    { text: 'Do we need only the ballot, or registration, broadcast, questions, and minutes too?' },
   ],
   fit_title: 'When Vocdoni is the right path',
   fit_intro:
-    'Vocdoni is a strong option for transparent organizational voting. It is not the answer to every election format or meeting workflow.',
+    'Vocdoni is a strong option for transparent organizational voting. Review the named customer and deployment records before you shortlist it. It is not the answer to every election format or meeting workflow.',
+  fit_intro_links: [{ href: deploymentRegistryHref, label: 'customer and deployment records' }],
   fit_yes_title: 'Strong fit',
   fit_yes: [
     'Your organization runs single-choice or multiple-choice votes with equal or weighted voting.',

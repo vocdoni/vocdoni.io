@@ -26,4 +26,8 @@ describe('customers and deployments evidence registry', () => {
     expect(serialized).not.toContain('Decidim')
     expect(serialized).not.toContain('FC Barcelona')
   })
+
+  it('returns buyers to the software selection guide', () => {
+    expect(customersAndDeploymentsContent.relatedLink).toBe('Read the online voting software guide')
+  })
 })

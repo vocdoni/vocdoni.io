@@ -9,6 +9,7 @@ import {
   ReceiptTextIcon,
   ShieldCheckIcon,
 } from 'lucide-react'
+import type { ReactNode } from 'react'
 
 import resultsImage from '@/assets/product/results.webp'
 import { Container } from '@/components/Container'
@@ -19,6 +20,7 @@ import { Button } from '@/components/ui/button'
 import { MotionPreset } from '@/components/ui/motion-preset'
 import type {
   VerificationRole,
+  VerificationInlineLink,
   VerificationSource,
   VotingVerificationChecklistContent,
 } from '@/lib/content/voting-verification-checklist'
@@ -28,6 +30,27 @@ const roleIcons: Record<VerificationRole['id'], LucideIcon> = {
   observer: EyeIcon,
   tally: ChartNoAxesColumnIncreasingIcon,
   auditor: Code2Icon,
+}
+
+function LinkedText({ text, links = [] }: { text: string; links?: VerificationInlineLink[] }) {
+  const nodes: ReactNode[] = []
+  let cursor = 0
+
+  for (const link of links) {
+    const start = text.indexOf(link.label, cursor)
+    if (start === -1) continue
+
+    nodes.push(text.slice(cursor, start))
+    nodes.push(
+      <Link key={link.href} href={link.href}>
+        {link.label}
+      </Link>
+    )
+    cursor = start + link.label.length
+  }
+
+  nodes.push(text.slice(cursor))
+  return nodes
 }
 
 function EvidenceLink({ source, compact = false }: { source: VerificationSource; compact?: boolean }) {
@@ -179,14 +202,14 @@ export function VotingVerificationChecklistPage({ content }: { content: VotingVe
               <div className='space-y-5 text-lg leading-8 text-muted-foreground'>
                 {content.answerParagraphs.map((paragraph, index) => (
                   <p
-                    key={paragraph}
+                    key={paragraph.text}
                     className={
                       index === content.answerParagraphs.length - 1
                         ? 'border-l-2 border-primary pl-5 text-foreground'
                         : undefined
                     }
                   >
-                    {paragraph}
+                    <LinkedText text={paragraph.text} links={paragraph.links} />
                   </p>
                 ))}
               </div>

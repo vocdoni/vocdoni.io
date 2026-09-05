@@ -253,9 +253,11 @@ export function AgmVotingPlatformsGuide() {
             </div>
             <ol className='grid gap-px overflow-hidden rounded-2xl border bg-border sm:grid-cols-2'>
               {content.checklist.map((item, index) => (
-                <li key={item} className='bg-background flex min-h-32 gap-4 p-7 leading-7'>
+                <li key={item.text} className='bg-background flex min-h-32 gap-4 p-7 leading-7'>
                   <span className='text-primary font-mono text-xs tabular-nums'>0{index + 1}</span>
-                  <span>{item}</span>
+                  <span>
+                    <LinkedText text={item.text} links={item.links} />
+                  </span>
                 </li>
               ))}
             </ol>

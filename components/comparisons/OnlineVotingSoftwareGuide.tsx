@@ -1,4 +1,5 @@
 import { ArrowRightIcon, CheckCircle2Icon, ExternalLinkIcon, ScaleIcon, ShieldCheckIcon, VideoIcon } from 'lucide-react'
+import type { ReactNode } from 'react'
 
 import createVoteImage from '@/assets/images/app/create_vote.webp'
 import { Container } from '@/components/Container'
@@ -18,6 +19,16 @@ type Vendor = {
   model: string
   best_for: string
   check: string
+}
+
+type InlineLink = {
+  label: string
+  href: string
+}
+
+type LinkedTextContent = {
+  text: string
+  links?: readonly InlineLink[]
 }
 
 export interface OnlineVotingSoftwareContent {
@@ -46,9 +57,10 @@ export interface OnlineVotingSoftwareContent {
   meeting_source: string
   checklist_title: string
   checklist_intro: string
-  checklist: string[]
+  checklist: LinkedTextContent[]
   fit_title: string
   fit_intro: string
+  fit_intro_links?: readonly InlineLink[]
   fit_yes_title: string
   fit_yes: string[]
   fit_no_title: string
@@ -81,10 +93,31 @@ const VENDOR_SOURCES: Record<string, { details: string; scope: string }> = {
 const MODEL_ICONS = [ShieldCheckIcon, ScaleIcon, VideoIcon]
 const asArray = <T,>(value: unknown): T[] => (Array.isArray(value) ? (value as T[]) : [])
 
+function LinkedText({ text, links = [] }: { text: string; links?: readonly InlineLink[] }) {
+  const nodes: ReactNode[] = []
+  let cursor = 0
+
+  for (const link of links) {
+    const start = text.indexOf(link.label, cursor)
+    if (start === -1) continue
+
+    nodes.push(text.slice(cursor, start))
+    nodes.push(
+      <Link key={link.href} href={link.href}>
+        {link.label}
+      </Link>
+    )
+    cursor = start + link.label.length
+  }
+
+  nodes.push(text.slice(cursor))
+  return nodes
+}
+
 export function OnlineVotingSoftwareGuide({ content }: { content: OnlineVotingSoftwareContent }) {
   const models = asArray<ServiceModel>(content.models)
   const vendors = asArray<Vendor>(content.vendors)
-  const checklist = asArray<string>(content.checklist)
+  const checklist = asArray<LinkedTextContent>(content.checklist)
   const fitYes = asArray<string>(content.fit_yes)
   const fitNo = asArray<string>(content.fit_no)
 
@@ -291,9 +324,11 @@ export function OnlineVotingSoftwareGuide({ content }: { content: OnlineVotingSo
             </div>
             <ol className='grid gap-px overflow-hidden rounded-2xl border bg-border sm:grid-cols-2'>
               {checklist.map((item, index) => (
-                <li key={item} className='bg-background flex min-h-28 gap-4 p-6 leading-7'>
+                <li key={item.text} className='bg-background flex min-h-28 gap-4 p-6 leading-7'>
                   <span className='text-primary font-mono text-xs tabular-nums'>0{index + 1}</span>
-                  <span>{item}</span>
+                  <span>
+                    <LinkedText text={item.text} links={item.links} />
+                  </span>
                 </li>
               ))}
             </ol>
@@ -305,7 +340,7 @@ export function OnlineVotingSoftwareGuide({ content }: { content: OnlineVotingSo
         <Container className='max-w-6xl'>
           <SectionHeader
             title={content.fit_title}
-            lede={content.fit_intro}
+            lede={<LinkedText text={content.fit_intro} links={content.fit_intro_links} />}
             align='left'
             titleClassName='max-w-3xl text-3xl sm:text-4xl lg:text-5xl'
           />

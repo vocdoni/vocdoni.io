@@ -53,5 +53,7 @@ describe('Online voting software guide', () => {
     expect(html).toContain('href="/solutions/companies-agm"')
     expect(html).toContain('href="/pricing"')
     expect(html).toContain('href="/alternatives/electionbuddy-alternatives"')
+    expect(html).toContain('href="/customers-and-deployments"')
+    expect(html).toContain('href="/voting-verification-checklist"')
   })
 })

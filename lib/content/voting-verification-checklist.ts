@@ -4,6 +4,16 @@ export type VerificationSource = {
   supports: string
 }
 
+export type VerificationInlineLink = {
+  label: string
+  href: string
+}
+
+export type VerificationLinkedText = {
+  text: string
+  links?: VerificationInlineLink[]
+}
+
 export type VerificationRole = {
   id: 'voter' | 'observer' | 'tally' | 'auditor'
   number: string
@@ -24,7 +34,7 @@ export type VotingVerificationChecklistContent = {
   panelFooter: string
   answerEyebrow: string
   answerTitle: string
-  answerParagraphs: string[]
+  answerParagraphs: VerificationLinkedText[]
   answerSources: VerificationSource[]
   rolesEyebrow: string
   rolesTitle: string
@@ -56,9 +66,16 @@ export const votingVerificationChecklistContent = {
   answerEyebrow: 'Direct answer',
   answerTitle: 'What does the public audit trail prove?',
   answerParagraphs: [
-    'A voter can use a receipt to check whether the chain recorded their vote. An observer can read a published process and its results without an administrator account.',
-    'A tally reviewer can inspect vote counts, eligibility totals, result matrices, and the live or final state for each question.',
-    'A technical auditor can repeat those public reads and inspect the open-source implementation. These checks cover the recorded result, not every administrative action.',
+    {
+      text: 'A voter can use a receipt to check whether the chain recorded their vote. An observer can read a published process and its results without an administrator account.',
+    },
+    {
+      text: 'A tally reviewer can inspect vote counts, eligibility totals, result matrices, and the live or final state for each question.',
+    },
+    {
+      text: "A technical auditor can repeat those public reads and inspect the open-source implementation. These checks cover the recorded result, not every administrative action. Use the online voting software guide when you compare this proof with each vendor's scope.",
+      links: [{ href: '/compare/online-voting-software', label: 'online voting software guide' }],
+    },
   ],
   answerSources: [
     {
