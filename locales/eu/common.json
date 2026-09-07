@@ -1591,10 +1591,10 @@
       "eyebrow": "Decidim erabiltzen duten taldeentzat",
       "hero": {
         "title": "Decidimek parte-hartzea antolatzen du. Honek bozketa antolatzen du.",
-        "subtitle": "decidim-secure_elections moduluak hauteskunde seguruen osagai bat gehitzen dio edozein partaidetza-guneri. Botoak bozkatzen duenaren nabigatzailean zifratzen eta sinatzen dira, beraz zure Decidim zerbitzariak ez du inoiz bat ere ikusten, eta edonork egiazta dezake zenbaketa zure instalazioan fidatu gabe.",
-        "cta_primary": "Hitz egin dezagun zure instantziaz",
+        "subtitle": "decidim-secure_elections moduluak hauteskunde seguruen osagai bat gehitzen dio edozein partaidetza-guneri. Botoak bozkatzen duenaren nabigatzailean zifratzen eta sinatzen dira, beraz zuen Decidim zerbitzariak ez du inoiz bat ere ikusten, eta edonork egiazta dezake zenbaketa zuen instalazioan fidatu gabe.",
+        "cta_primary": "Hitz egin dezagun zuen instantziaz",
         "cta_secondary": "Ikusi kodea GitHuben",
-        "risk_reversal": "AGPL-3.0. Instalatu zeuk, edo zurekin batera jarriko dugu martxan."
+        "risk_reversal": "AGPL-3.0. Instalatu zeuek, edo zuekin batera jarriko dugu martxan."
       },
       "trust": {
         "logos_label": "Vocdoniren azpiegituran dagoeneko bozkatzen duten erakundeak",
@@ -1617,7 +1617,7 @@
           },
           {
             "value": "0",
-            "label": "zure Rails prozesura iristen diren botoak",
+            "label": "zuen Rails prozesura iristen diren botoak",
             "source": "diseinuz, ez barne-arauz"
           }
         ],
@@ -1632,12 +1632,12 @@
           {
             "title": "Proposamen bat ez da boto sekretu bat",
             "description": "Proposamenek eta inkestek nork zer aukeratu duen erregistratzen dute, eta edozein administratzailek irakur dezake. Zuzendaritza-hauteskunde batean edo estatutu-mozio batean hori ez da prozedura-xehetasun bat, objekzio osoa baizik.",
-            "answer": "Boto bakoitza bozkatzen duenaren nabigatzailean kodetzen eta sinatzen da. Ez da aukerarik, ez boto-gakorik, ez boto irekirik Railsera iristen. Zure zerbitzariak ikasten duen bakarra sareak dagoeneko argitaratzen duena da: zenbat boto eman diren."
+            "answer": "Boto bakoitza bozkatzen duenaren nabigatzailean kodetzen eta sinatzen da. Ez da aukerarik, ez boto-gakorik, ez boto irekirik Railsera iristen. Zuen zerbitzariak ikasten duen bakarra sareak dagoeneko argitaratzen duena da: zenbat boto eman diren."
           },
           {
-            "title": "Zenbaketa zure datu-basean bizi da",
-            "description": "Galtzaile geratu den hautagaitza batek emaitza nola sortu den galdetzen badu, erantzun zintzoa da zure administratzaileek beraiek idatz dezaketen taula batetik atera dela. Kanpotik inork ezin du egiaztatu.",
-            "answer": "Zenbaketak Vocdoni sarean argitaratzen dira. Zure instantziak gordetzen duena cache-kopia bat da, eta edonork egin dezake zenbaketa berriro argitaratutako datuetatik edo CSV eta JSON esportaziotik, instalazio honetan fidatu gabe."
+            "title": "Zenbaketa zuen datu-basean bizi da",
+            "description": "Galtzaile geratu den hautagaitza batek emaitza nola sortu den galdetzen badu, erantzun zintzoa da zuen administratzaileek beraiek idatz dezaketen taula batetik atera dela. Kanpotik inork ezin du egiaztatu.",
+            "answer": "Zenbaketak Vocdoni sarean argitaratzen dira. Zuen instantziak gordetzen duena cache-kopia bat da, eta edonork egin dezake zenbaketa berriro argitaratutako datuetatik edo CSV eta JSON esportaziotik, instalazio honetan fidatu gabe."
           },
           {
             "title": "Kideak kanpoko tresna batera bidaltzeak haria hausten du",
@@ -1650,7 +1650,7 @@
         "eyebrow": "bermeak",
         "title": "Zer bermatzen den benetan, eta alde bakoitzak zer jakiten duen",
         "intro": "Konfiantza-eredua da lehenengo irakurri beharrekoa. Ez dira gure asmoei buruzko promesak, kodea non exekutatzen den horren propietateak baizik.",
-        "jurisdiction_label": "EBn ostatatua, edo zure nodo propioan",
+        "jurisdiction_label": "EBn ostatatua, edo zuen nodo propioan",
         "requirement_label": "Bermea",
         "response_label": "Nola betetzen duen moduluak",
         "frameworks": [
@@ -1685,7 +1685,7 @@
             "name": "Konfigurazio okerrak ozen egiten du huts",
             "summary": "Ez dago API URL lehenetsirik, nahita. Konfiguratu gabeko instalazio batek errore bat jaurtitzen du, isilean benetako hauteskunde bat proba-kate baten kontra exekutatu beharrean.",
             "response": [
-              "Hiru ezarpen derrigorrezko balio lehenetsirik gabe, rake ataza bakar batekin egiaztagarriak",
+              "Derrigorrezko hiru ezarpen, balio lehenetsirik gabe, rake ataza bakar batekin egiaztagarriak",
               "Sareko dei bakoitza atzeko planoko lan gisa exekutatzen da bere ilaran, beraz dei geldo batek ez du posta ez indexazioa itotzen",
               "Zerbitzarian Node exekuziorik gabe: moduluak Rubytik zuzenean hitz egiten du APIarekin"
             ]
@@ -1733,12 +1733,12 @@
         ],
         "case_study_label": "Ireki proba-instantzia",
         "blog_label": "Ikusi kodea GitHuben",
-        "cta_primary": "Hitz egin dezagun zure instantziaz"
+        "cta_primary": "Hitz egin dezagun zuen instantziaz"
       },
       "how": {
         "eyebrow": "nola funtzionatzen duen",
         "title": "Osagai bat zuen gunean, hauteskunde bat sarean",
-        "intro": "Administratzaile batek hauteskundea morroi lineal batean eraikitzen du eta argitaratzen. Kideek beren nabigatzailean osorik exekutatzen den orri batetik bozkatzen dute. Zenbaketa sarearen bidez irakurtzen da berriro.",
+        "intro": "Administratzaile batek hauteskundea morroi lineal batean eraikitzen du eta argitaratzen. Kideek beren nabigatzailean osorik exekutatzen den orri batetik bozkatzen dute. Zenbaketa saretik irakurtzen da berriro.",
         "features": [
           {
             "title": "Decidimen egiaztapenekin egindako errolda",
@@ -1849,7 +1849,7 @@
       },
       "engagement": {
         "eyebrow": "nola hasi",
-        "title": "Zeuk kudeatu, edo zurekin batera ezarri",
+        "title": "Zeuek kudeatu, edo zuekin batera ezarri",
         "intro": "Modulua software librea da bi kasuetan. Aldatzen dena da nork egiten duen instalazioa, erroldaren mapaketa eta entsegua.",
         "options": [
           {
@@ -1907,7 +1907,7 @@
           {
             "when": "Irekiera",
             "title": "Argitaratu eta ireki",
-            "description": "Egiaztapen-zerrenda, eskuz idatzitako berrespen bat eta errolda igotzen, prozesua sortzen eta sarean argitaratzen duen lana, beste esku-hartzerik gabe.",
+            "description": "Egiaztapen-zerrenda, teklatuz idatzi beharreko berrespen bat eta errolda igotzen, prozesua sortzen eta sarean argitaratzen duen lana, beste esku-hartzerik gabe.",
             "owner": "Zuen zuzendaritza"
           },
           {
@@ -1992,7 +1992,7 @@
       "closing": {
         "title": "Esaguzue zuen Decidim bertsioa eta zuen errolda",
         "description": "Esan zein serietan zaudeten, zuen kideak gaur nola identifikatzen diren eta zer erabaki behar duzuen. Zintzotasunez esango dizuegu horretarako prest dagoen.",
-        "cta_primary": "Hitz egin dezagun zure instantziaz",
+        "cta_primary": "Hitz egin dezagun zuen instantziaz",
         "cta_secondary": "Ikusi kodea GitHuben",
         "note": "Izena eman gabe eta konpromisorik gabe. Erantzuna Decidim 0.33 itxarotea bada, hori esango dizuegu."
       },
@@ -2014,7 +2014,7 @@
           {
             "kind": "dokumentazioa",
             "title": "Vocdoniren APIaren eta SDKaren dokumentazioa",
-            "description": "Moduluak hitz egiten dituen interfazeak, nabigatzaileak benetan zer egiten duen ikusi nahi duenarentzat."
+            "description": "Moduluak erabiltzen dituen interfazeak, nabigatzaileak benetan zer egiten duen ikusi nahi duenarentzat."
           },
           {
             "kind": "azalpena",

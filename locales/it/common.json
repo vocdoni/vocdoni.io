@@ -1593,7 +1593,7 @@
         "title": "Decidim organizza la partecipazione. Questo organizza il voto.",
         "subtitle": "decidim-secure_elections aggiunge un componente di elezioni sicure a qualsiasi spazio partecipativo. Le schede vengono cifrate e firmate nel browser di chi vota, quindi il vostro server Decidim non ne vede mai una, e chiunque può controllare lo spoglio senza fidarsi della vostra installazione.",
         "cta_primary": "Parliamo della vostra istanza",
-        "cta_secondary": "Leggi il codice su GitHub",
+        "cta_secondary": "Leggete il codice su GitHub",
         "risk_reversal": "AGPL-3.0. Installatelo voi, oppure lo mettiamo in piedi insieme."
       },
       "trust": {
@@ -1607,7 +1607,7 @@
         "stats": [
           {
             "value": "AGPL-3.0",
-            "label": "software libero, verificabile e riutilizzabile",
+            "label": "software libero, auditabile e forkabile",
             "source": "o successiva, secondo il repository"
           },
           {
@@ -1705,7 +1705,7 @@
           "intro": "Il processo pubblicato sulla rete Vocdoni, lo spoglio per domanda leggibile indipendentemente dalla vostra istanza, l'esportazione in CSV e JSON con i suoi link di verifica, e la ricevuta che ogni votante già possiede. Niente di tutto ciò richiede di fidarsi della vostra installazione Decidim, ed è proprio questo il punto."
         },
         "counsel_note": "Queste sono proprietà del modulo e del protocollo che utilizza. Non sono una verifica di sicurezza del vostro deployment, del vostro hosting o della vostra procedura di elenco, né un parere legale sul fatto che una determinata votazione soddisfi il vostro statuto.",
-        "cta_secondary": "Chiedeteci della vostra configurazione"
+        "cta_secondary": "Parliamo della configurazione"
       },
       "proof": {
         "eyebrow": "cosa viene consegnato davvero",
@@ -1731,8 +1731,8 @@
             "label": "da un'elezione vuota alla pubblicazione"
           }
         ],
-        "case_study_label": "Apri l'istanza di prova",
-        "blog_label": "Leggi il codice su GitHub",
+        "case_study_label": "Aprite l'istanza di prova",
+        "blog_label": "Leggete il codice su GitHub",
         "cta_primary": "Parliamo della vostra istanza"
       },
       "how": {
@@ -1836,7 +1836,7 @@
           {
             "criterion": "Cosa succede se il fornitore sparisce",
             "traditional": "Non pertinente",
-            "digital": "La documentazione se ne va con lui",
+            "digital": "Il registro del voto se ne va con lui",
             "vocdoni": "Le elezioni restano sulla rete, e il modulo è AGPL, quindi il codice resta vostro"
           },
           {
@@ -1861,7 +1861,7 @@
               "Leggetelo tutto prima: il codice è pubblico sotto AGPL-3.0",
               "Vi servono una chiave API da integratore e un indirizzo di organizzazione, ed è questo che dovete chiederci"
             ],
-            "cta": "Richiedi le credenziali API"
+            "cta": "Richiedete le credenziali API"
           },
           {
             "badge": "realizzato con noi",
@@ -1878,7 +1878,7 @@
         "pricing": {
           "title": "Cosa è gratuito e cosa no",
           "description": "Il modulo in sé è software libero e continuerà a esserlo. Quello che si paga è l'infrastruttura Vocdoni con cui la vostra istanza parla, ed è lì che le elezioni vengono pubblicate e verificate.",
-          "link_label": "Vedi i piani"
+          "link_label": "Vedete i piani"
         }
       },
       "timeline": {
@@ -1901,13 +1901,13 @@
           {
             "when": "Settimana 3",
             "title": "Provare con persone vere",
-            "description": "Un'elezione completa con votanti di test, pubblicata sulla rete, votata e scrutinata dall'inizio alla fine. È qui che un campo sbagliato costa poco da correggere.",
+            "description": "Un'elezione completa con votanti di test, pubblicata sulla rete, votata e scrutinata dall'inizio alla fine. È qui che un campo dell'elenco sbagliato costa poco da correggere.",
             "owner": "Entrambi i team"
           },
           {
             "when": "Apertura",
             "title": "Pubblicare e aprire",
-            "description": "La lista di controllo, una conferma digitata a mano e il lavoro che carica l'elenco, crea il processo e lo pubblica sulla rete senza altro intervento.",
+            "description": "La lista di controllo, una conferma digitata e il lavoro che carica l'elenco, crea il processo e lo pubblica sulla rete senza altro intervento.",
             "owner": "Il vostro consiglio"
           },
           {
@@ -1963,8 +1963,8 @@
         ]
       },
       "board": {
-        "eyebrow": "condividi la parte giusta",
-        "title": "Per chi deve restare convinto",
+        "eyebrow": "condividete la parte giusta",
+        "title": "Per chi dovete convincere",
         "intro": "Quattro link alla sezione che risponde al dubbio di una persona precisa, invece di mandarle l'intera pagina.",
         "links": [
           {
@@ -1993,7 +1993,7 @@
         "title": "Raccontateci la vostra versione di Decidim e il vostro elenco",
         "description": "Diteci su quale serie siete, come sono identificati oggi i vostri soci e cosa dovete decidere. Vi diremo onestamente se è pronto per quello.",
         "cta_primary": "Parliamo della vostra istanza",
-        "cta_secondary": "Leggi il codice su GitHub",
+        "cta_secondary": "Leggete il codice su GitHub",
         "note": "Senza registrazione e senza impegno. Se la risposta è che conviene aspettare Decidim 0.33, ve lo diremo."
       },
       "resources": {

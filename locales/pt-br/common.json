@@ -1618,7 +1618,7 @@
           {
             "value": "0",
             "label": "cédulas que chegam ao seu processo Rails",
-            "source": "por projeto, não por política interna"
+            "source": "por design, não por política interna"
           }
         ],
         "trademark_note": "Decidim name and logo is a registered trademark of the Associació de Software Lliure Decidim."
@@ -1632,7 +1632,7 @@
           {
             "title": "Uma proposta não é um voto secreto",
             "description": "Propostas e enquetes registram quem escolheu o quê, e qualquer administradora consegue ler. Numa eleição de diretoria ou numa deliberação estatutária isso não é um detalhe de procedimento, é a objeção inteira.",
-            "answer": "Cada cédula é codificada e assinada no navegador de quem vota. Nenhuma escolha, nenhuma chave de voto e nenhuma cédula aberta chega ao Rails. A única coisa que o seu servidor fica sabendo é o que a rede já publica: quantos votos foram registrados."
+            "answer": "Cada cédula é codificada e assinada no navegador de quem vota. Nenhuma escolha, nenhuma chave de voto e nenhuma cédula aberta chega ao Rails. A única coisa que o seu servidor fica sabendo é o que a rede já publica: quantos votos foram depositados."
           },
           {
             "title": "A apuração mora no seu próprio banco de dados",
@@ -1652,7 +1652,7 @@
         "intro": "O modelo de confiança é a primeira coisa a ler. Não são promessas sobre nossas intenções, são propriedades do lugar onde o código roda.",
         "jurisdiction_label": "Hospedado na UE, ou no seu próprio nó",
         "requirement_label": "A garantia",
-        "response_label": "Como o módulo entrega",
+        "response_label": "Como o módulo cumpre",
         "frameworks": [
           {
             "name": "O servidor nunca vê uma cédula",
@@ -1665,7 +1665,7 @@
           },
           {
             "name": "Cada pessoa pode conferir o próprio voto sem revelá-lo",
-            "summary": "Cada voto registrado devolve um nullifier, exibido como código de recibo com link para o explorador público. Prova que um voto foi registrado. Não revela o que foi votado.",
+            "summary": "Cada voto depositado devolve um nullifier, exibido como código de recibo com link para o explorador público. Prova que um voto foi registrado. Não revela o que foi votado.",
             "response": [
               "Os recibos continuam recuperáveis depois em conferir meu recibo de voto, autenticando-se de novo",
               "Nada fica guardado na URL nem na sessão",
@@ -1790,7 +1790,7 @@
       },
       "comparison": {
         "eyebrow": "as três opções",
-        "title": "Entre o que quem administra um Decidim realmente escolhe",
+        "title": "O que quem administra um Decidim realmente escolhe",
         "intro": "Não entre votar on-line ou não, isso você já faz. A pergunta é o que sustenta uma decisão que depois vai precisar se manter de pé.",
         "criterion_label": "A pergunta",
         "traditional_label": "Uma proposta ou enquete",
@@ -1907,7 +1907,7 @@
           {
             "when": "Abertura",
             "title": "Publicar e abrir",
-            "description": "A lista de conferência, uma confirmação digitada na mão e o job que sobe a lista, cria o processo e publica na rede sem mais nenhuma intervenção.",
+            "description": "A lista de conferência, uma confirmação digitada e o job que sobe a lista, cria o processo e publica na rede sem mais nenhuma intervenção.",
             "owner": "Sua diretoria"
           },
           {
@@ -1946,11 +1946,11 @@
           },
           {
             "question": "O servidor Decidim consegue ver como alguém votou?",
-            "answer": "Não. O seu servidor guarda uma chave de API de integrador e executa apenas operações de organização, enquanto a autenticação na lista, a codificação da cédula e a assinatura acontecem no navegador. A única coisa que o servidor fica sabendo é o que a rede já publica, ou seja quantos votos foram registrados."
+            "answer": "Não. O seu servidor guarda uma chave de API de integrador e executa apenas operações de organização, enquanto a autenticação na lista, a codificação da cédula e a assinatura acontecem no navegador. A única coisa que o servidor fica sabendo é o que a rede já publica, ou seja quantos votos foram depositados."
           },
           {
             "question": "Como uma pessoa confere que o voto dela foi contado, sem revelá-lo?",
-            "answer": "Cada voto registrado devolve um nullifier, exibido como código de recibo com link para o explorador público. Ele prova que o voto foi registrado e não revela nada do conteúdo, e continua recuperável depois com uma nova autenticação, em vez de ficar guardado numa URL ou na sessão."
+            "answer": "Cada voto depositado devolve um nullifier, exibido como código de recibo com link para o explorador público. Ele prova que o voto foi registrado e não revela nada do conteúdo, e continua recuperável depois com uma nova autenticação, em vez de ficar guardado numa URL ou na sessão."
           },
           {
             "question": "Dá para restringir o voto a quem passou por uma verificação do Decidim?",
@@ -2028,7 +2028,7 @@
           },
           {
             "kind": "guia",
-            "title": "Requisitos da LGPD e do GDPR para voto digital",
+            "title": "Requisitos do GDPR para voto digital",
             "description": "O que uma encarregada de proteção de dados vai perguntar sobre uma lista de votantes, e como ficam as respostas quando as cédulas nunca chegam ao seu servidor."
           }
         ]

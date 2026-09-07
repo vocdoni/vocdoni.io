@@ -1607,7 +1607,7 @@
         "stats": [
           {
             "value": "AGPL-3.0",
-            "label": "logiciel libre, auditable et duplicable",
+            "label": "logiciel libre, auditable et forkable",
             "source": "ou ultérieure, selon le dépôt"
           },
           {
@@ -1692,7 +1692,7 @@
           },
           {
             "name": "N'importe qui peut lire le code",
-            "summary": "Le module est un logiciel libre sous AGPL-3.0 ou ultérieure, et le protocole auquel il parle est public. Rien ici ne repose sur le fait de nous croire sur parole.",
+            "summary": "Le module est un logiciel libre sous AGPL-3.0 ou ultérieure, et le protocole qu'il utilise est public. Rien ici ne repose sur le fait de nous croire sur parole.",
             "response": [
               "Tout le code sur GitHub, y compris la page de vote livrée à l'intérieur de la gem",
               "Les élections sont interrogeables via l'API GraphQL de Decidim ; la configuration de la liste, délibérément, non",
@@ -1705,11 +1705,11 @@
           "intro": "Le processus publié sur le réseau Vocdoni, le décompte par question lisible indépendamment de votre instance, l'export CSV et JSON avec ses liens de vérification, et le reçu que chaque votant détient déjà. Rien de tout cela n'exige de faire confiance à votre installation Decidim, et c'est précisément le but."
         },
         "counsel_note": "Ce sont des propriétés du module et du protocole qu'il utilise. Ce n'est ni un audit de sécurité de votre propre déploiement, de votre hébergement ou de votre procédure de liste électorale, ni un avis juridique sur la conformité d'un scrutin à vos statuts.",
-        "cta_secondary": "Parlez-nous de votre configuration"
+        "cta_secondary": "Parlons de votre configuration"
       },
       "proof": {
         "eyebrow": "ce qui est réellement livré",
-        "title": "Decidim a étudié le vote cryptographique, et a renvoyé ici",
+        "title": "Decidim a étudié le vote cryptographique, et a renvoyé ses lecteurs ici",
         "intro": "Dans les notes de version 0.31, l'équipe Decidim a écrit que son composant d'élections fonctionne \"sans la complexité qu'introduit une couche cryptographique\", et que \"pour les élections qui exigent des garanties supplémentaires, il existe un module communautaire intégrant le protocole Vocdoni\". C'est ce module, reconstruit pour le Decidim actuel.",
         "org": "decidim-secure_elections",
         "org_meta": "Module AGPL-3.0 pour Decidim 0.33.x, développé et maintenu par Vocdoni",
@@ -1790,7 +1790,7 @@
       },
       "comparison": {
         "eyebrow": "les trois options",
-        "title": "Ce entre quoi une administration Decidim choisit réellement",
+        "title": "Entre quoi une administration Decidim choisit réellement",
         "intro": "Pas entre voter en ligne ou non, vous le faites déjà. La question est de savoir ce qui soutient une décision qui devra tenir ensuite.",
         "criterion_label": "La question",
         "traditional_label": "Une proposition ou une enquête",
@@ -2014,7 +2014,7 @@
           {
             "kind": "documentation",
             "title": "Documentation de l'API et du SDK Vocdoni",
-            "description": "Les interfaces auxquelles le module parle, pour qui veut voir ce que fait réellement le navigateur."
+            "description": "Les interfaces que le module utilise, pour qui veut voir ce que fait réellement le navigateur."
           },
           {
             "kind": "explication",
