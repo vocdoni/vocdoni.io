@@ -426,6 +426,70 @@ export function HeadTags(pageContext: PageContext) {
         }
       : null
 
+  /**
+   * The Decidim module is distributed as source, not from RubyGems, so
+   * `SoftwareSourceCode` is the honest primary type and there is deliberately
+   * no `downloadUrl` pointing at a gem page that does not exist yet.
+   *
+   * The companion `SoftwareApplication` is here for entity clarity and for the
+   * answer engines that read it, not as a rich-result play: Google requires an
+   * `aggregateRating` or `review` for those, an open-source module has neither,
+   * and inventing them would be a policy violation.
+   *
+   * `isAccessibleForFree` and the zero-price offer describe the module, which
+   * is AGPL. The hosted Vocdoni network it talks to is a separate commercial
+   * relationship and is not modelled here, or the two claims would contradict.
+   */
+  const isDecidimModule = urlLogical === '/solutions/decidim'
+  const decidimRepo = 'https://github.com/vocdoni/decidim-secure_elections'
+
+  const moduleSourceSchema = isDecidimModule
+    ? {
+        '@context': 'https://schema.org',
+        '@type': 'SoftwareSourceCode',
+        '@id': `${siteUrl}/#decidim-secure-elections`,
+        name: 'decidim-secure_elections',
+        alternateName: 'Secure elections component for Decidim',
+        codeRepository: decidimRepo,
+        url: canonicalUrl,
+        inLanguage: locale,
+        programmingLanguage: [
+          { '@type': 'ComputerLanguage', name: 'Ruby' },
+          { '@type': 'ComputerLanguage', name: 'JavaScript' },
+        ],
+        runtimePlatform: 'Ruby on Rails',
+        license: 'https://spdx.org/licenses/AGPL-3.0-or-later.html',
+        targetProduct: {
+          '@type': 'SoftwareApplication',
+          name: 'Decidim',
+          url: 'https://decidim.org',
+          softwareVersion: '0.33',
+        },
+        maintainer: { '@id': `${siteUrl}/#organization` },
+        sameAs: [decidimRepo],
+        ...(description ? { description } : {}),
+      }
+    : null
+
+  const moduleAppSchema = isDecidimModule
+    ? {
+        '@context': 'https://schema.org',
+        '@type': 'SoftwareApplication',
+        '@id': `${siteUrl}/#decidim-secure-elections-app`,
+        name: 'Secure elections for Decidim',
+        applicationCategory: 'BusinessApplication',
+        operatingSystem: 'Linux, macOS',
+        isAccessibleForFree: true,
+        license: 'https://spdx.org/licenses/AGPL-3.0-or-later.html',
+        softwareRequirements:
+          'Decidim 0.33.x; Ruby ~> 3.4; PostgreSQL; Redis with a running ActiveJob worker; a Vocdoni account with an integrator API key',
+        softwareHelp: { '@type': 'CreativeWork', url: `${decidimRepo}#readme` },
+        isBasedOn: { '@id': `${siteUrl}/#decidim-secure-elections` },
+        publisher: { '@id': `${siteUrl}/#organization` },
+        offers: { '@type': 'Offer', price: '0', priceCurrency: 'EUR' },
+      }
+    : null
+
   const faqItemsKey = getFaqItemsKey(urlLogical)
 
   const schema = [
@@ -434,6 +498,8 @@ export function HeadTags(pageContext: PageContext) {
     pageSchema,
     buildBreadcrumbSchema(siteUrl, locale, urlLogical, title ?? undefined),
     appSchema,
+    moduleSourceSchema,
+    moduleAppSchema,
     faqItemsKey ? buildFaqSchema(pageContext, locale, faqItemsKey) : null,
     buildArticleSchema(
       urlLogical,

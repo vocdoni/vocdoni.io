@@ -64,7 +64,17 @@ export interface VerticalContent {
     cta_secondary: string
     risk_reversal: string
   }
-  trust: { logos_label: string; badges: string[]; stats: VerticalStat[] }
+  trust: {
+    logos_label: string
+    badges: string[]
+    stats: VerticalStat[]
+    /**
+     * Attribution required when a third-party mark appears in the logo row.
+     * Rendered directly under it, so it can never drift away from the logo it
+     * refers to.
+     */
+    trademark_note?: string
+  }
   stakes: {
     eyebrow: string
     title: string
@@ -150,6 +160,16 @@ export interface VerticalPageProps {
   content: VerticalContent
   /** Vertical-tagged signup URL, used by every primary CTA on the page. */
   appHref: string
+  /**
+   * Overrides the secondary CTA destination in the hero and the closing block,
+   * for a page whose primary ask is already `/contact` and whose secondary is
+   * therefore something else.
+   *
+   * Deliberately not threaded into the legal or engagement sections. Both also
+   * render a secondary, and for both `/contact` is the correct destination - a
+   * global override would silently hijack them.
+   */
+  secondaryHref?: string
   /**
    * Prefix for the analytics `ctaId` of every tracked link, e.g. `pro_bodies`.
    * The vertical has to live in the id because `trackAppCtaClick` records only

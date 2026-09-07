@@ -12,6 +12,7 @@ interface VerticalHeroProps {
   eyebrow: string
   hero: VerticalContent['hero']
   appHref: string
+  secondaryHref?: string
   ctaId: string
   /** Product visual. The slot holds its space whether or not the asset exists. */
   media?: VerticalMediaAsset
@@ -31,7 +32,16 @@ const ENTRANCE = { direction: 'up', offset: 12 } as const
  * adjectives above the fold is precisely what a buyer whose whole problem is
  * vendors asserting things will discount on sight.
  */
-export function VerticalHero({ icon: Icon, eyebrow, hero, appHref, ctaId, media, mediaCaption }: VerticalHeroProps) {
+export function VerticalHero({
+  icon: Icon,
+  eyebrow,
+  hero,
+  appHref,
+  secondaryHref,
+  ctaId,
+  media,
+  mediaCaption,
+}: VerticalHeroProps) {
   return (
     <section id='overview' className='scroll-mt-[3.25rem] pt-8 pb-12 sm:pt-12 sm:pb-16 lg:pt-14 xl:scroll-mt-[1.5rem]'>
       <Container>
@@ -78,6 +88,7 @@ export function VerticalHero({ icon: Icon, eyebrow, hero, appHref, ctaId, media,
                 align='left'
                 className='items-center lg:items-start'
                 appHref={appHref}
+                secondaryHref={secondaryHref}
                 primaryLabel={hero?.cta_primary}
                 secondaryLabel={hero?.cta_secondary}
                 note={hero?.risk_reversal}

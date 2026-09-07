@@ -132,7 +132,7 @@ const UseCasesGrid = () => {
         { src: logoBloock, alt: 'BLOOCK' },
         { src: logoDemocracy5, alt: 'Democracy OS' },
       ] as LogoEntry[],
-      caseStudy: { href: PLATFORM_URL },
+      caseStudy: { href: '/solutions/decidim' },
       title: t('use_cases_page.grid.items.integrators.title'),
       description: t('use_cases_page.grid.items.integrators.description'),
       features: t('use_cases_page.grid.items.integrators.features', { returnObjects: true }) as string[],

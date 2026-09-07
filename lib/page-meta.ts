@@ -69,6 +69,11 @@ export const metaDefaults = {
     'meta.solutions.cooperatives.description',
     'Run cooperative general assemblies and board elections online. One member one vote or weighted votes, secret ballots, higher participation and verifiable results.'
   ),
+  'meta.solutions.decidim.title': t('meta.solutions.decidim.title', 'Secure elections for Decidim | Vocdoni'),
+  'meta.solutions.decidim.description': t(
+    'meta.solutions.decidim.description',
+    "Add cryptographically secure, verifiable voting to Decidim. decidim-secure_elections is an AGPL-3.0 module: ballots are encrypted in the voter's browser, your server never sees one, and anyone can verify the result."
+  ),
   'meta.solutions.professional_associations.title': t(
     'meta.solutions.professional_associations.title',
     'Online voting for professional associations | Vocdoni'

@@ -4,6 +4,7 @@ import {
   BriefcaseIcon,
   GraduationCapIcon,
   HandshakeIcon,
+  PuzzleIcon,
   HeartHandshakeIcon,
   LandmarkIcon,
   type LucideIcon,
@@ -20,6 +21,11 @@ import {
 export const SOLUTION_VERTICALS = [
   { slug: 'associations', href: '/solutions/associations', icon: UsersIcon },
   { slug: 'cooperatives', href: '/solutions/cooperatives', icon: HandshakeIcon },
+  // Deliberately has no `solutions_index.cards.decidim` copy. The hub grid is
+  // organised by organization type and a software platform does not belong in
+  // it, so SolutionsIndex skips this entry (`if (!card) return null`) while the
+  // navbar still gets a compile-checked href. Do not "fix" the missing card.
+  { slug: 'decidim', href: '/solutions/decidim', icon: PuzzleIcon },
   { slug: 'professional_associations', href: '/solutions/professional-associations', icon: BriefcaseIcon },
   { slug: 'political_parties', href: '/solutions/political-parties', icon: Building2Icon },
   { slug: 'municipalities', href: '/solutions/municipalities', icon: LandmarkIcon },

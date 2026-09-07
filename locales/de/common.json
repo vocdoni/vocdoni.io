@@ -1587,6 +1587,453 @@
         }
       ]
     },
+    "decidim": {
+      "eyebrow": "für Teams, die Decidim betreiben",
+      "hero": {
+        "title": "Decidim organisiert die Beteiligung. Dies organisiert die Wahl.",
+        "subtitle": "decidim-secure_elections fügt jedem Beteiligungsraum eine Komponente für sichere Wahlen hinzu. Stimmzettel werden im Browser der wählenden Person verschlüsselt und signiert, Ihr Decidim-Server sieht also nie einen, und die Auszählung lässt sich von allen prüfen, ohne Ihrer Installation vertrauen zu müssen.",
+        "cta_primary": "Sprechen Sie mit uns über Ihre Instanz",
+        "cta_secondary": "Quellcode auf GitHub ansehen",
+        "risk_reversal": "AGPL-3.0. Selbst installieren, oder gemeinsam mit uns einrichten."
+      },
+      "trust": {
+        "logos_label": "Organisationen, die bereits über die Vocdoni-Infrastruktur abstimmen",
+        "badges": [
+          "offizieller Decidim-Partner",
+          "AGPL-3.0, Quellcode auf GitHub",
+          "der Server sieht nie einen Stimmzettel",
+          "gebaut für Decidim 0.33"
+        ],
+        "stats": [
+          {
+            "value": "AGPL-3.0",
+            "label": "freie Software, prüfbar und forkbar",
+            "source": "oder später, laut Repository"
+          },
+          {
+            "value": "200.000+",
+            "label": "Stimmen über die Vocdoni-Infrastruktur verarbeitet",
+            "source": "Zahlen der Vocdoni-Plattform"
+          },
+          {
+            "value": "0",
+            "label": "Stimmzettel, die Ihren Rails-Prozess erreichen",
+            "source": "durch Bauweise, nicht durch Richtlinie"
+          }
+        ],
+        "trademark_note": "Decidim name and logo is a registered trademark of the Associació de Software Lliure Decidim."
+      },
+      "stakes": {
+        "eyebrow": "die Lücke",
+        "title": "Die Beteiligung haben Sie schon. Unangenehm bleibt die verbindliche Abstimmung.",
+        "intro": "In Decidim debattieren, beantragen und treffen sich Ihre Mitglieder. Sobald eine Entscheidung geheim, verbindlich und anfechtungsfest sein muss, greifen die meisten Instanzen zu etwas, das dafür nie gebaut wurde.",
+        "answer_label": "Was das Modul daran ändert",
+        "items": [
+          {
+            "title": "Ein Antrag ist keine geheime Wahl",
+            "description": "Anträge und Umfragen halten fest, wer was gewählt hat, und jede Administratorin kann es lesen. Bei einer Vorstandswahl oder einem Satzungsbeschluss ist das kein Verfahrensdetail, sondern der ganze Einwand.",
+            "answer": "Jeder Stimmzettel wird im Browser der wählenden Person kodiert und signiert. Keine Auswahl, kein Wahlschlüssel und kein unverschlüsselter Stimmzettel erreicht Rails. Ihr Server erfährt nur, was das Netz ohnehin veröffentlicht: wie viele Stimmen abgegeben wurden."
+          },
+          {
+            "title": "Die Auszählung liegt in Ihrer eigenen Datenbank",
+            "description": "Fragt eine unterlegene Kandidatur, wie das Ergebnis zustande kam, lautet die ehrliche Antwort: aus einer Tabelle, in die Ihre eigenen Administratorinnen schreiben können. Von außen kann das niemand prüfen.",
+            "answer": "Die Auszählung wird im Vocdoni-Netz veröffentlicht. Was Ihre Instanz speichert, ist eine zwischengespeicherte Kopie, und jede Person kann aus den veröffentlichten Daten oder aus dem CSV- und JSON-Export neu auszählen, ohne dieser Installation zu vertrauen."
+          },
+          {
+            "title": "Mitglieder in ein externes Werkzeug zu schicken reißt den Faden ab",
+            "description": "Ein separates Wahlprodukt bedeutet einen zweiten Login, ein von Hand exportiertes und laufend abgeglichenes Verzeichnis und eine Entscheidung, die nicht mehr dort liegt, wo debattiert wurde.",
+            "answer": "Die Wahl ist eine Komponente in dem Beteiligungsraum, den Ihre Mitglieder ohnehin nutzen, und ihr Wahlverzeichnis kann aus den Decidim-Verifizierungen entstehen, die sie bereits haben."
+          }
+        ]
+      },
+      "legal": {
+        "eyebrow": "Garantien",
+        "title": "Was tatsächlich garantiert ist, und was jede Seite erfährt",
+        "intro": "Das Vertrauensmodell ist das, was man zuerst lesen sollte. Es sind keine Versprechen über unsere Absichten, sondern Eigenschaften des Orts, an dem der Code läuft.",
+        "jurisdiction_label": "In der EU gehostet, oder auf Ihrem eigenen Knoten",
+        "requirement_label": "Die Garantie",
+        "response_label": "Wie das Modul sie einlöst",
+        "frameworks": [
+          {
+            "name": "Der Server sieht nie einen Stimmzettel",
+            "summary": "Decidim hält einen Integrator-API-Schlüssel und führt nur organisatorische Operationen aus: einen Prozess anlegen, ihn veröffentlichen, den Status einer Frage ändern, die Auszählung lesen. Alles Übrige geschieht im Browser der wählenden Person.",
+            "response": [
+              "Authentifizierung am Wahlverzeichnis, Erzeugung flüchtiger Schlüssel, Kodierung des Stimmzettels, Signatur und Übertragung laufen clientseitig",
+              "Der API-Schlüssel wird niemals an den Browser gesendet",
+              "Kein Stimmzettel, keine Auswahl und kein Wahlschlüssel erreicht Rails"
+            ]
+          },
+          {
+            "name": "Jede Person kann ihre Stimme prüfen und verrät dabei nichts",
+            "summary": "Jede abgegebene Stimme liefert einen Nullifier zurück, angezeigt als Belegcode mit Link zum öffentlichen Explorer. Er belegt, dass eine Stimme erfasst wurde. Er verrät nicht, was gewählt wurde.",
+            "response": [
+              "Belege bleiben später über meinen Wahlbeleg prüfen abrufbar, durch erneute Authentifizierung",
+              "Nichts wird in der URL oder in einer Sitzung aufbewahrt",
+              "Eine bis zum Ende versiegelte Frage wartet auf die Veröffentlichung der Schlüssel und weicht nie auf eine unverschlüsselte Abgabe aus"
+            ]
+          },
+          {
+            "name": "Das Wahlverzeichnis steht vor der Öffnung fest, und Sie bestimmen es",
+            "summary": "Wählende werden über bis zu drei Mitgliedsfelder identifiziert, wahlweise mit zweitem Faktor. Ein Verzeichnis, das niemanden identifiziert, wird abgelehnt statt stillschweigend akzeptiert.",
+            "response": [
+              "Von Hand aufbauen, aus einer CSV-Vorlage mit genau den Spalten dieser Wahl, oder aus den Decidim-Verifizierungen, die eine Person bereits hat",
+              "Fehlgeschlagene CSV-Zeilen werden mit Zeilennummer und Grund gemeldet, der Rest wird trotzdem importiert",
+              "Die Veröffentlichung stoppt, bevor irgendetwas das Netz erreicht, wenn jemandem ein Pflichtfeld fehlt, und benennt genau wem"
+            ]
+          },
+          {
+            "name": "Fehlkonfiguration scheitert laut",
+            "summary": "Es gibt bewusst keine voreingestellte API-URL. Eine nicht konfigurierte Installation wirft einen Fehler, statt stillschweigend eine echte Wahl gegen eine Testkette laufen zu lassen.",
+            "response": [
+              "Drei Pflichteinstellungen ohne Vorgabewerte, prüfbar mit einer einzigen Rake-Aufgabe",
+              "Jeder Netzaufruf läuft als Hintergrundjob in einer eigenen Warteschlange, ein langsamer Aufruf blockiert also weder Mail noch Suchindizierung",
+              "Keine Node-Laufzeit auf dem Server: das Modul spricht direkt aus Ruby mit der API"
+            ]
+          },
+          {
+            "name": "Jede Person kann den Code lesen",
+            "summary": "Das Modul ist freie Software unter AGPL-3.0 oder später, und das Protokoll, mit dem es spricht, ist öffentlich. Nichts hier verlangt, uns beim Wort zu nehmen.",
+            "response": [
+              "Vollständiger Quellcode auf GitHub, einschließlich der im Gem ausgelieferten Wahlseite",
+              "Wahlen sind über die GraphQL-Schnittstelle von Decidim abfragbar; die Konfiguration des Wahlverzeichnisses bewusst nicht",
+              "Wahlen, die bereits im Netz liegen, bleiben von einem Update unberührt, weil sie im Netz leben"
+            ]
+          }
+        ],
+        "evidence": {
+          "title": "Was Sie einer Prüfung übergeben können",
+          "intro": "Den im Vocdoni-Netz veröffentlichten Prozess, die je Frage unabhängig von Ihrer Instanz lesbare Auszählung, den CSV- und JSON-Export mit seinen Prüflinks und den Beleg, den jede wählende Person ohnehin hat. Nichts davon setzt Vertrauen in Ihre Decidim-Installation voraus, und genau darum geht es."
+        },
+        "counsel_note": "Dies sind Eigenschaften des Moduls und des verwendeten Protokolls. Sie sind keine Sicherheitsprüfung Ihrer eigenen Installation, Ihres Hostings oder Ihres Verzeichnisverfahrens und keine Rechtsberatung dazu, ob eine bestimmte Abstimmung Ihrer Satzung genügt.",
+        "cta_secondary": "Fragen Sie uns zu Ihrem Aufbau"
+      },
+      "proof": {
+        "eyebrow": "was tatsächlich ausgeliefert wird",
+        "title": "Decidim hat kryptografisches Wählen geprüft, und hierher verwiesen",
+        "intro": "In den Anmerkungen zur Version 0.31 schrieb das Decidim-Team, seine Wahlkomponente laufe \"ohne die Komplexität, die eine kryptografische Schicht mit sich bringt\", und dass es \"für Wahlen, die zusätzliche Garantien brauchen, ein Community-Modul gibt, das das Vocdoni-Protokoll integriert\". Dies ist dieses Modul, neu gebaut für das aktuelle Decidim.",
+        "org": "decidim-secure_elections",
+        "org_meta": "AGPL-3.0-Modul für Decidim 0.33.x, entwickelt und gepflegt von Vocdoni",
+        "stats": [
+          {
+            "value": "AGPL-3.0",
+            "label": "oder später, Quellcode öffentlich"
+          },
+          {
+            "value": "0.33.x",
+            "label": "die Decidim-Reihe, auf die es zielt"
+          },
+          {
+            "value": "clientseitig",
+            "label": "wo Verschlüsselung und Signatur geschehen"
+          },
+          {
+            "value": "5 Schritte",
+            "label": "von der leeren Wahl bis zur Veröffentlichung"
+          }
+        ],
+        "case_study_label": "Die Testinstanz öffnen",
+        "blog_label": "Quellcode auf GitHub ansehen",
+        "cta_primary": "Sprechen Sie mit uns über Ihre Instanz"
+      },
+      "how": {
+        "eyebrow": "wie es läuft",
+        "title": "Eine Komponente in Ihrem Raum, eine Wahl im Netz",
+        "intro": "Eine Administratorin baut die Wahl in einem linearen Assistenten auf und veröffentlicht sie. Die Mitglieder wählen von einer Seite aus, die vollständig in ihrem eigenen Browser läuft. Die Auszählung wird aus dem Netz zurückgelesen.",
+        "features": [
+          {
+            "title": "Ein Wahlverzeichnis aus Decidim-Verifizierungen",
+            "description": "Holen Sie die Personen herein, die in Ihrer Instanz bereits eine bestimmte Verifizierung besitzen. Das ist das Einzige, was die Vocdoni-App nicht kann, und der Grund, warum es dieses Modul gibt."
+          },
+          {
+            "title": "Ein Stimmzettel, der auf einem Bildschirm entsteht",
+            "description": "Fragen und ihre Optionen werden ohne Neuladen hinzugefügt, entfernt und umsortiert und in einem Zug gespeichert. Vorlagen für Mitgliederversammlung, Wahl und Bürgerhaushalt füllen einen Startstimmzettel, angeboten nur solange er noch leer ist."
+          },
+          {
+            "title": "Ergebnisse live, oder bis zum Ende versiegelt",
+            "description": "Je Frage. Eine versiegelte Frage wartet auf die Veröffentlichung der Schlüssel, bevor überhaupt gezählt werden kann."
+          },
+          {
+            "title": "Eine Identität, so stark wie die Wahl es verlangt",
+            "description": "Bis zu drei Mitgliedsfelder, wahlweise mit Einmalcode per E-Mail. Eine Anzeige bewertet das Ergebnis während der Konfiguration als schwach, mittel oder stark."
+          },
+          {
+            "title": "Eine Überwachung, deren Aufruf nichts kostet",
+            "description": "Status, Beteiligung, Ergebnisse je Frage und die Schalter, die eine Abstimmung pausieren, fortsetzen, beenden oder abbrechen. Alles wird aus lokalen Spalten gelesen, eine viel besuchte Seite löst also nie externe Anfragen aus."
+          },
+          {
+            "title": "Wahllinks, die Sie per E-Mail verschicken können",
+            "description": "Der Link zur Wahlseite packt API, Prozess und Sprache in einen kurzen Wert, er passt also in eine Zeile einer E-Mail. Er ist eine Abkürzung, kein Geheimnis."
+          }
+        ],
+        "media_caption": "Die Überwachung: Status, Beteiligung und Ergebnisse je Frage, aus lokalen Spalten gelesen.",
+        "steps_title": "Was ein Mitglied tatsächlich tut",
+        "steps": [
+          {
+            "title": "Ausweisen",
+            "description": "Die wählende Person füllt die Verzeichnisfelder aus, die die Verwaltung gewählt hat. Sie gehen direkt an die Vocdoni-API. Decidim speichert sie nie."
+          },
+          {
+            "title": "Mit Einmalcode bestätigen",
+            "description": "Per E-Mail gesendet, wenn die Wahl einen zweiten Faktor nutzt. Wahlen ohne zweiten Faktor überspringen diesen Schritt vollständig."
+          },
+          {
+            "title": "Wählen und prüfen",
+            "description": "Ein Bildschirm je Frage, mit laufend geprüften Auswahlgrenzen. Gesendet wurde noch nichts, und jede Antwort lässt sich noch ändern."
+          },
+          {
+            "title": "Abgeben und den Beleg behalten",
+            "description": "Der Browser erzeugt je Frage einen frischen Schlüssel, lässt ihn vom Verzeichnis signieren, kodiert den Stimmzettel und überträgt die Stimme. Jede liefert einen Belegcode mit Link zum öffentlichen Explorer."
+          }
+        ],
+        "steps_media_caption": "Die Wahlseite: eine in sich geschlossene, direkt von der Festplatte ausgelieferte Seite, auf der die Kryptografie stattfindet.",
+        "footnote": "Die Installation besteht aus einem Gem, einer Migration, drei Umgebungsvariablen ohne Vorgabewerte, einem Worker für die vocdoni-Warteschlange und einem Asset-Build. Es gibt kein npm-Paket, keinen Shakapacker-Einstiegspunkt, keinen Kopierschritt und keine Node-Laufzeit auf dem Server."
+      },
+      "comparison": {
+        "eyebrow": "die drei Möglichkeiten",
+        "title": "Wozwischen eine Decidim-Betreiberin tatsächlich wählt",
+        "intro": "Nicht ob online abgestimmt wird, das tun Sie bereits. Die Frage ist, was eine Entscheidung trägt, die hinterher standhalten muss.",
+        "criterion_label": "Die Frage",
+        "traditional_label": "Ein Antrag oder eine Umfrage",
+        "digital_label": "Ein externes Wahlwerkzeug",
+        "vocdoni_label": "Decidim mit sicheren Wahlen",
+        "rows": [
+          {
+            "criterion": "Wer einen einzelnen Stimmzettel lesen kann",
+            "traditional": "Ihre Verwaltung, aus der Datenbank",
+            "digital": "Der Anbieter, und wem er vertraut",
+            "vocdoni": "Niemand. Er wird im Browser kodiert und erreicht Ihren Server nie"
+          },
+          {
+            "criterion": "Wohin die wählende Person geht",
+            "traditional": "Bleibt im Raum",
+            "digital": "Geht zu einem zweiten Produkt und einem zweiten Login",
+            "vocdoni": "Bleibt im Raum, auf einer von Ihrer eigenen Instanz ausgelieferten Seite"
+          },
+          {
+            "criterion": "Wer das Ergebnis prüfen kann",
+            "traditional": "Niemand außerhalb Ihrer Verwaltung",
+            "digital": "Meist nur der Anbieter",
+            "vocdoni": "Alle, aus der veröffentlichten Auszählung oder dem Export, ohne Ihrer Installation zu vertrauen"
+          },
+          {
+            "criterion": "Woraus das Wahlverzeichnis entsteht",
+            "traditional": "Wer sich anmelden kann",
+            "digital": "Eine von Hand exportierte und abgeglichene Liste",
+            "vocdoni": "Decidim-Verifizierungen, eine CSV-Datei oder Handeingabe"
+          },
+          {
+            "criterion": "Was eine wählende Person danach hat",
+            "traditional": "Nichts",
+            "digital": "Bestenfalls eine Bestätigungsmail",
+            "vocdoni": "Einen Beleg, der die Erfassung belegt und nichts über den Inhalt verrät"
+          },
+          {
+            "criterion": "Wo die Auszählung liegt",
+            "traditional": "Eine Zeile in Ihrer Datenbank",
+            "digital": "Die Datenbank des Anbieters",
+            "vocdoni": "Das Vocdoni-Netz. Ihre Kopie ist ein Zwischenspeicher"
+          },
+          {
+            "criterion": "Was passiert, wenn der Anbieter verschwindet",
+            "traditional": "Nicht zutreffend",
+            "digital": "Der Nachweis geht mit ihm",
+            "vocdoni": "Die Wahlen bleiben im Netz, und das Modul ist AGPL, der Code bleibt also Ihrer"
+          },
+          {
+            "criterion": "Was Sie installieren und pflegen",
+            "traditional": "Nichts Neues",
+            "digital": "Eine Anbindung, oder gar nichts, wenn Sie das Silo hinnehmen",
+            "vocdoni": "Ein Gem, eine Migration, drei Einstellungen und eine Warteschlange"
+          }
+        ]
+      },
+      "engagement": {
+        "eyebrow": "wie Sie anfangen",
+        "title": "Selbst betreiben, oder gemeinsam mit uns einführen",
+        "intro": "Das Modul ist in beiden Fällen freie Software. Unterschiedlich ist, wer Installation, Verzeichnisabbildung und Probelauf übernimmt.",
+        "options": [
+          {
+            "badge": "selbst gehostet",
+            "title": "Ihr Team installiert es",
+            "description": "Für Instanzen mit eigenen Entwicklerinnen. Alles läuft auf Ihrer Infrastruktur, gegen Ihre Datenbank und Ihren Worker.",
+            "points": [
+              "Ein Gem, eine Migration, drei Umgebungsvariablen und eine Warteschlange, die Ihr Worker abarbeitet",
+              "Lesen Sie vorher alles: der Quellcode ist öffentlich unter AGPL-3.0",
+              "Sie brauchen einen Integrator-API-Schlüssel und eine Organisationsadresse, und genau danach fragen Sie uns"
+            ],
+            "cta": "API-Zugangsdaten anfragen"
+          },
+          {
+            "badge": "gemeinsam eingeführt",
+            "title": "Wir führen es mit Ihnen ein",
+            "description": "Für Organisationen ohne eigene Decidim-Entwicklung und für die Integratoren und Beratungshäuser, die Instanzen für sie umsetzen.",
+            "points": [
+              "Installation und Konfiguration auf Ihrer Instanz oder der Ihrer Kundschaft, samt Abbildung des Verzeichnisses auf bestehende Verifizierungen",
+              "Eine Probewahl mit Testwählenden vor der Wahl, die zählt",
+              "Begleitung am Wahltag, und Partnerkonditionen, wenn Sie Decidim beruflich umsetzen"
+            ],
+            "cta": "Über ein Projekt sprechen"
+          }
+        ],
+        "pricing": {
+          "title": "Was kostenlos ist und was nicht",
+          "description": "Das Modul selbst ist freie Software und bleibt es. Bezahlt wird die Vocdoni-Infrastruktur, mit der Ihre Instanz spricht und in der die Wahlen veröffentlicht und geprüft werden.",
+          "link_label": "Die Tarife ansehen"
+        }
+      },
+      "timeline": {
+        "eyebrow": "der Weg dorthin",
+        "title": "Von der Testinstallation zu einem Ergebnis, das alle prüfen können",
+        "intro": "Ein realistischer Ablauf für eine erste Wahl. Eine Instanz mit eigenen Entwicklerinnen ist schneller; der Probelauf ist der Schritt, den niemand auslassen sollte.",
+        "steps": [
+          {
+            "when": "Woche 1",
+            "title": "Auf der Testumgebung installieren",
+            "description": "Das Gem, die Migration, die drei Einstellungen und die Warteschlange. Die Diagnoseaufgabe bestätigt die Konfiguration, bevor darauf aufgebaut wird.",
+            "owner": "Ihre Entwicklung"
+          },
+          {
+            "when": "Woche 2",
+            "title": "Das Verzeichnis abbilden",
+            "description": "Festlegen, welche Mitgliedsfelder eine wählende Person identifizieren, und ob das Verzeichnis aus einer Decidim-Verifizierung, aus einer CSV-Datei oder aus beidem entsteht.",
+            "owner": "Sie und wir"
+          },
+          {
+            "when": "Woche 3",
+            "title": "Mit echten Menschen proben",
+            "description": "Eine vollständige Wahl mit Testwählenden, im Netz veröffentlicht, abgestimmt und ausgezählt. Hier ist ein falsch gewähltes Verzeichnisfeld billig zu korrigieren.",
+            "owner": "Beide Teams"
+          },
+          {
+            "when": "Öffnung",
+            "title": "Veröffentlichen und öffnen",
+            "description": "Die Prüfliste, eine getippte Bestätigung und der Job, der das Verzeichnis hochlädt, den Prozess anlegt und ihn ohne weiteres Zutun im Netz veröffentlicht.",
+            "owner": "Ihr Vorstand"
+          },
+          {
+            "when": "Nach dem Schluss",
+            "title": "Die Nachweise veröffentlichen",
+            "description": "Die Auszählung, den Export mit seinen Prüflinks und die Belege, die Ihre Mitglieder bereits halten. Alle können neu auszählen, ohne Sie um etwas zu bitten.",
+            "owner": "Alle"
+          }
+        ],
+        "footnote": "Wahlen, die bereits im Netz liegen, überstehen ein Update des Moduls, weil sie im Netz leben und nicht in Ihrer Datenbank."
+      },
+      "faq": {
+        "eyebrow": "Fragen",
+        "title": "Was gefragt wird, bevor installiert wird",
+        "intro": "Einschließlich der Fragen mit unbequemer Antwort.",
+        "items": [
+          {
+            "question": "Das Bulletin Board von Decidim wird nicht mehr gepflegt. Womit verschlüsselt man jetzt Wahlen?",
+            "answer": "Mit diesem Modul. Das alte decidim-bulletin-board wurde in die Archivorganisation von Decidim verschoben und hat seit Februar 2024 keinen Commit mehr, und die ElectionGuard-Anbindung, auf der es aufsetzte, ist seit 2021 schreibgeschützt archiviert. decidim-secure_elections ist die kryptografische Option, die auf eine aktuelle Decidim-Reihe zielt."
+          },
+          {
+            "question": "Verschlüsselt die mitgelieferte Wahlkomponente von Decidim die Stimmzettel?",
+            "answer": "Nein, und das Decidim-Team sagt das selbst deutlich. Die Anmerkungen zur Version 0.31 beschreiben eine Komponente, die \"ohne die Komplexität, die eine kryptografische Schicht mit sich bringt\" läuft, und verweisen alle, die mehr brauchen, auf das Vocdoni-Modul. Die mitgelieferte Komponente passt gut zu Abstimmungen ohne Geheimhaltungs- oder Prüfbedarf."
+          },
+          {
+            "question": "Was ist decidim-secure_elections?",
+            "answer": "Es ist ein Ruby-Gem unter AGPL-3.0 oder später, das jedem Decidim-Beteiligungsraum eine Komponente für sichere Wahlen hinzufügt. Die Verwaltung baut die Wahl in einem fünfstufigen Assistenten und veröffentlicht sie im Vocdoni-Netz; die Mitglieder wählen von einer Seite aus, die vollständig in ihrem Browser läuft."
+          },
+          {
+            "question": "Worin unterscheidet es sich vom älteren decidim-module-vocdoni?",
+            "answer": "Es löst es ab. Das ältere Modul ist auf unter Decidim 0.29 festgelegt, hat seit November 2024 keinen Commit mehr, und sein eigenes README bittet darum, vor der Nutzung die Autoren zu kontaktieren. Dies ist ein Neubau auf der aktuellen Decidim-Architektur, dessen Wahlverzeichnis sich auf die Verifizierungen von Decidim selbst stützen kann."
+          },
+          {
+            "question": "Welche Decidim- und Ruby-Versionen sind nötig?",
+            "answer": "Decidim 0.33.x und Ruby 3.4, dazu PostgreSQL, Redis und ein Worker, der die vocdoni-Warteschlange abarbeitet. Decidim 0.33 ist noch nicht erschienen, das Modul wird heute also über eine git-Referenz aus dem Quellcode installiert und nicht über RubyGems. Wenn Sie auf 0.32 oder älter sind, sprechen Sie mit uns über den Zeitplan."
+          },
+          {
+            "question": "Kann der Decidim-Server sehen, wie jemand gewählt hat?",
+            "answer": "Nein. Ihr Server hält einen Integrator-API-Schlüssel und führt nur organisatorische Operationen aus, während Authentifizierung am Verzeichnis, Kodierung des Stimmzettels und Signatur im Browser geschehen. Der Server erfährt nur, was das Netz ohnehin veröffentlicht, nämlich wie viele Stimmen abgegeben wurden."
+          },
+          {
+            "question": "Wie prüft eine Person, dass ihre Stimme gezählt wurde, ohne sie preiszugeben?",
+            "answer": "Jede abgegebene Stimme liefert einen Nullifier zurück, angezeigt als Belegcode mit Link zum öffentlichen Explorer. Er belegt die Erfassung und verrät nichts über den Inhalt, und er bleibt später durch erneute Authentifizierung abrufbar, statt in einer URL oder Sitzung zu liegen."
+          },
+          {
+            "question": "Können wir die Wahl auf Personen mit bestandener Decidim-Verifizierung beschränken?",
+            "answer": "Ja, und das ist der Hauptgrund, dieses Modul zu nutzen statt außerhalb von Decidim abzustimmen. Das Verzeichnis lässt sich aus den Personen füllen, die in Ihrer Instanz eine bestimmte Verifizierung besitzen, ergänzt um CSV-Import und Handeingabe."
+          },
+          {
+            "question": "Ist es wirklich freie und quelloffene Software?",
+            "answer": "Das Modul ja, unter AGPL-3.0 oder später, und der Quellcode ist öffentlich. Beim Rest lohnt Genauigkeit: das Modul spricht über einen Integrator-API-Schlüssel mit dem Vocdoni-Netz, und diese gehostete Infrastruktur ist ein kostenpflichtiger Dienst. Der Code ist also frei, das Netz, in dem er veröffentlicht, nicht."
+          }
+        ]
+      },
+      "board": {
+        "eyebrow": "den passenden Teil weitergeben",
+        "title": "Für die Person, die überzeugt werden muss",
+        "intro": "Vier Links auf den Abschnitt, der die Frage einer bestimmten Person beantwortet, statt ihr die ganze Seite zu schicken.",
+        "links": [
+          {
+            "label": "Für Ihre Entwicklung",
+            "description": "Was installiert wird, was wo läuft, und was die Warteschlange abarbeiten muss.",
+            "anchor": "how-it-runs"
+          },
+          {
+            "label": "Für Ihre Datenschutzbeauftragte",
+            "description": "Was jede Seite weiß, was gespeichert wird und was Ihren Server nie erreicht.",
+            "anchor": "legal-validity"
+          },
+          {
+            "label": "Für die entscheidende Person",
+            "description": "Wie sich das mit einer Umfrage in Decidim und mit einem externen Werkzeug vergleicht.",
+            "anchor": "comparison"
+          },
+          {
+            "label": "Für die zahlende Stelle",
+            "description": "Was freie Software ist, was ein kostenpflichtiger Dienst, und die zwei Wege zum Betrieb.",
+            "anchor": "engagement"
+          }
+        ]
+      },
+      "closing": {
+        "title": "Nennen Sie uns Ihre Decidim-Version und Ihr Wahlverzeichnis",
+        "description": "Sagen Sie uns, auf welcher Reihe Sie sind, wie Ihre Mitglieder heute identifiziert werden und worüber entschieden werden soll. Wir sagen Ihnen ehrlich, ob das dafür bereit ist.",
+        "cta_primary": "Sprechen Sie mit uns über Ihre Instanz",
+        "cta_secondary": "Quellcode auf GitHub ansehen",
+        "note": "Ohne Registrierung und ohne Verpflichtung. Wenn die Antwort lautet, auf Decidim 0.33 zu warten, sagen wir das."
+      },
+      "resources": {
+        "eyebrow": "weiterlesen",
+        "title": "Der Quellcode, die Testinstanz und der Hintergrund",
+        "intro": "Alles hier ist entweder der Code selbst oder eine Erklärung, die Sie ohne Zugangsdaten weiterleiten können.",
+        "items": [
+          {
+            "kind": "Quellcode",
+            "title": "decidim-secure_elections auf GitHub",
+            "description": "Das Modul selbst, AGPL-3.0 oder später, mit Vertrauensmodell, vollständiger Konfigurationstabelle und Installationsschritten."
+          },
+          {
+            "kind": "Testumgebung",
+            "title": "Eine Decidim-Instanz mit installiertem Modul",
+            "description": "Eine Testumgebung mit laufender Komponente. Sie trägt die Beispielinhalte, die Decidim standardmäßig mitbringt, und keine echte Installation, Organisationsname und Beispielprozess sind also Platzhalter."
+          },
+          {
+            "kind": "Dokumentation",
+            "title": "Dokumentation der Vocdoni-API und des SDK",
+            "description": "Die Schnittstellen, mit denen das Modul spricht, für alle, die sehen wollen, was der Browser tatsächlich tut."
+          },
+          {
+            "kind": "Erklärung",
+            "title": "Überprüfbares Wählen, erklärt",
+            "description": "Was es bedeutet, dass Außenstehende ein Ergebnis prüfen können, und was es nicht bedeutet."
+          },
+          {
+            "kind": "Erklärung",
+            "title": "Anonymes Wählen, erklärt",
+            "description": "Wie ein Stimmzettel gezählt werden und trotzdem geheim bleiben kann, ohne dass jemand darauf vertrauen muss."
+          },
+          {
+            "kind": "Leitfaden",
+            "title": "DSGVO-Anforderungen an digitales Wählen",
+            "description": "Was eine Datenschutzbeauftragte zu einem Wahlverzeichnis fragen wird, und wie die Antworten aussehen, wenn Stimmzettel Ihren Server nie erreichen."
+          }
+        ]
+      }
+    },
     "municipalities": {
       "challenge": {
         "intro": "Wenn eine Kommune abstimmt, gehört das Ergebnis allen. Transparenz, Einbindung und Nachvollziehbarkeit sind keine Nice-to-haves - sie machen das Ergebnis legitim.",
@@ -3454,6 +3901,7 @@
     },
     "product": {
       "custom_projects": "Maßgeschneiderte Projekte",
+      "decidim": "Decidim-Modul",
       "documentation": "Dokumentation",
       "pricing": "Preise",
       "sdk_api": "SDK und API",
@@ -3697,6 +4145,10 @@
         "description": "Führe Generalversammlungen und Vorstandswahlen von Genossenschaften online durch. Ein Mitglied, eine Stimme oder gewichtete Stimmen, geheime Abstimmungen, mehr Beteiligung und überprüfbare Ergebnisse.",
         "title": "Abstimmungssoftware für Genossenschaften | Vocdoni"
       },
+      "decidim": {
+        "description": "Ergänzen Sie Decidim um kryptografisch sichere, überprüfbare Abstimmungen. decidim-secure_elections ist ein AGPL-3.0-Modul: Stimmzettel werden im Browser verschlüsselt, Ihr Server sieht nie einen, und alle können das Ergebnis prüfen.",
+        "title": "Sichere Wahlen für Decidim | Vocdoni"
+      },
       "municipalities": {
         "description": "Führe lokale Referenden, Bürgerhaushalte und Bürgerbefragungen mit öffentlicher Nachprüfbarkeit, Barrierefreiheit für alle Einwohnerinnen und Einwohner und überprüfbaren Ergebnissen durch.",
         "title": "Abstimmungssoftware für Kommunen für Bürgerabstimmungen | Vocdoni"
@@ -3745,6 +4197,10 @@
       "custom_projects": {
         "description": "Maßgeschneiderte Governance-Lösungen für spezifische Anforderungen.",
         "title": "Maßgeschneiderte Projekte"
+      },
+      "decidim": {
+        "description": "Sichere, überprüfbare Wahlen in der Decidim-Plattform, die Sie bereits betreiben.",
+        "title": "Decidim-Modul"
       },
       "digital_voting_platform": {
         "description": "Sicheres, transparentes und verifizierbares digitales Wahlsystem für jede Organisation.",
