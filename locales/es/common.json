@@ -2515,7 +2515,13 @@
         "title": "Documentación"
       },
       "version": {
+        "badge": "Vista previa de {{version}}",
+        "error": "No se ha podido cargar el contenido de {{version}}. Se muestra la versión publicada.",
+        "error_not_found": "La rama {{version}} no tiene documentación. Se muestra la versión publicada.",
         "label": "Versión",
+        "loading": "Cargando el contenido de {{version}}",
+        "new_page": "Nueva",
+        "new_page_hint": "Aún no publicada",
         "production": "Producción",
         "stage": "Preproducción"
       }

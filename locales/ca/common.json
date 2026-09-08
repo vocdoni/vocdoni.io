@@ -2515,7 +2515,13 @@
         "title": "Documentació"
       },
       "version": {
+        "badge": "Vista prèvia de {{version}}",
+        "error": "No s'ha pogut carregar el contingut de {{version}}. Es mostra la versió publicada.",
+        "error_not_found": "La branca {{version}} no té documentació. Es mostra la versió publicada.",
         "label": "Versió",
+        "loading": "S'està carregant el contingut de {{version}}",
+        "new_page": "Nova",
+        "new_page_hint": "Encara no publicada",
         "production": "Producció",
         "stage": "Preproducció"
       }
