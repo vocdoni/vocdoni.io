@@ -2729,6 +2729,341 @@
           "title": "Infraestructura de código abierto"
         }
       ]
+    },
+    "decidim": {
+      "eyebrow": "Socio oficial de Decidim",
+      "hero": {
+        "title": "Organiza votaciones seguras, anónimas y verificables dentro de Decidim",
+        "subtitle": "Decidim Secure Elections añade voto anónimo y criptográficamente seguro al Decidim que tus miembros ya usan. Las papeletas se sellan en el navegador de quien vota, nadie puede vincular un voto a una persona y cualquiera puede comprobar el resultado. Software libre, y listo para instalar hoy.",
+        "cta_primary": "Habla con nosotros",
+        "cta_secondary": "Consulta el código en GitHub"
+      },
+      "partner": {
+        "eyebrow": "Socio oficial de Decidim",
+        "title": "El módulo que Decidim recomienda para votaciones que necesitan garantías reales",
+        "description": "En las notas de la versión 0.31, el equipo de Decidim explicó que su componente de elecciones funciona sin capa criptográfica, y que las organizaciones que necesiten garantías más fuertes deberían fijarse en el módulo comunitario construido sobre el protocolo de Vocdoni. Es el caso de la mayoría de votaciones vinculantes que celebran cooperativas, ayuntamientos, partidos políticos, asociaciones y federaciones, que tienen que cumplir la normativa estatal y autonómica además de sus propios estatutos. Decidim Secure Elections es ese módulo.",
+        "points": [
+          "Software libre bajo AGPL-3.0",
+          "Hecho para Decidim 0.33",
+          "Mantenido por Vocdoni"
+        ],
+        "cta": "Lee las notas de la versión 0.31 de Decidim"
+      },
+      "trust": {
+        "logos_label": "organizaciones que ya votan con la infraestructura de Vocdoni",
+        "badges": [
+          "AGPL-3.0, código en GitHub",
+          "el servidor nunca ve una papeleta",
+          "hecho para Decidim 0.33"
+        ],
+        "stats": [
+          {
+            "value": "AGPL-3.0",
+            "label": "licenciado como software libre, bifurcable y auditable",
+            "source": "o posterior, según el repositorio"
+          },
+          {
+            "value": "350.000+",
+            "label": "votos procesados en la infraestructura de Vocdoni"
+          },
+          {
+            "value": "de principio a fin",
+            "label": "verificable, desde la papeleta sellada hasta el recuento publicado"
+          }
+        ]
+      },
+      "guarantees": {
+        "eyebrow": "lo que añade el módulo",
+        "title": "Tres garantías que Decidim no puede dar a un voto por sí solo",
+        "intro": "La gente propone, debate y se reúne en Decidim. Cuando una decisión tiene que ser anónima, vinculante y defendible después, usar un módulo de votación con garantías criptográficas es la única solución.",
+        "items": [
+          {
+            "title": "Anonimato",
+            "description": "Cada papeleta se sella en el navegador de quien vota antes de enviarse. Nadie puede vincular un voto a una persona, ni tus administradores ni Vocdoni, y el recuento se produce a partir de papeletas que no nombran a nadie."
+          },
+          {
+            "title": "Verificabilidad de principio a fin",
+            "description": "Cada votante recibe un código de recibo que demuestra que su voto se registró sin revelarlo, y cualquiera puede rehacer el recuento a partir del resultado publicado y de la exportación, sin confiar en tu instalación."
+          },
+          {
+            "title": "Protección de datos desde el diseño",
+            "description": "Tu Decidim no guarda ninguna papeleta ni ninguna identidad del censo, y Vocdoni solo guarda credenciales en forma de hash que no pueden convertirse de nuevo en nombres, así que una fuga no revela nada sobre el voto de nadie."
+          }
+        ]
+      },
+      "comparison": {
+        "eyebrow": "las garantías",
+        "title": "Qué puede garantizar Decidim, con y sin Decidim Secure Elections",
+        "intro": "Decidim, tal como se distribuye, está hecho para la participación, no para el voto secreto: no puede garantizar el anonimato, no permite que alguien de fuera verifique un recuento y guarda los votos como datos personales en tu base de datos. Con el módulo, cada una de esas tres cosas pasa a ser una garantía que puedes señalar.",
+        "criterion_label": "La cuestión",
+        "traditional_label": "Decidim tal como es hoy: propuestas, encuestas, elecciones integradas",
+        "vocdoni_label": "Decidim con Decidim Secure Elections",
+        "rows": [
+          {
+            "criterion": "Anonimato",
+            "traditional": "Las opciones quedan en filas legibles. Un administrador puede leer quién eligió qué.",
+            "traditional_status": "negative",
+            "vocdoni": "Se sella en el navegador de quien vota. Nadie puede leer una papeleta, tampoco Vocdoni.",
+            "vocdoni_status": "positive"
+          },
+          {
+            "criterion": "Dónde acaban los datos personales (RGPD)",
+            "traditional": "Los votos son datos personales guardados en tu base de datos y vinculados a las cuentas de tus miembros.",
+            "traditional_status": "negative",
+            "vocdoni": "Tu Decidim no guarda ninguna papeleta ni ninguna identidad del censo. La red guarda papeletas selladas que no nombran a nadie.",
+            "vocdoni_status": "positive"
+          },
+          {
+            "criterion": "Qué expone una brecha de datos",
+            "traditional": "Quién votó y qué votó, en un solo volcado.",
+            "traditional_status": "negative",
+            "vocdoni": "Nada sobre ningún voto. En tu servidor no hay ninguna papeleta, ninguna clave ni ninguna identidad que filtrar.",
+            "vocdoni_status": "positive"
+          },
+          {
+            "criterion": "Quién puede verificar el recuento",
+            "traditional": "Solo tus administradores, desde una tabla en la que pueden escribir.",
+            "traditional_status": "negative",
+            "vocdoni": "Cualquiera, desde el recuento publicado y la exportación en CSV y JSON, sin confiar en tu instancia.",
+            "vocdoni_status": "positive"
+          },
+          {
+            "criterion": "Qué entregas a quien audita",
+            "traditional": "Una exportación hecha por un administrador, que ese mismo administrador puede editar.",
+            "traditional_status": "negative",
+            "vocdoni": "Una elección publicada, una exportación que se puede recontar y el recibo de cada votante.",
+            "vocdoni_status": "positive"
+          },
+          {
+            "criterion": "Qué se lleva quien vota",
+            "traditional": "Nada.",
+            "traditional_status": "negative",
+            "vocdoni": "Un código de recibo que demuestra que el voto quedó registrado, sin revelar nada de su contenido.",
+            "vocdoni_status": "positive"
+          },
+          {
+            "criterion": "Quién puede votar",
+            "traditional": "Quien pueda iniciar sesión.",
+            "traditional_status": "negative",
+            "vocdoni": "Un censo congelado antes de publicar, construido con verificaciones de Decidim, un CSV o a mano, con un código de un solo uso opcional por correo o SMS.",
+            "vocdoni_status": "positive"
+          },
+          {
+            "criterion": "Elecciones de junta, asambleas, cambios estatutarios",
+            "traditional": "Suficiente para consultas. Flojo allí donde tus estatutos exigen voto secreto.",
+            "traditional_status": "negative",
+            "vocdoni": "Diseñado para votaciones secretas, verificables y vinculantes.",
+            "vocdoni_status": "positive"
+          },
+          {
+            "criterion": "Un resultado impugnado",
+            "traditional": "Tu palabra contra la suya.",
+            "traditional_status": "negative",
+            "vocdoni": "Evidencias que cualquier tercero puede comprobar por su cuenta.",
+            "vocdoni_status": "positive"
+          },
+          {
+            "criterion": "Dónde vota la gente",
+            "traditional": "En Decidim.",
+            "traditional_status": "positive",
+            "vocdoni": "En Decidim, en una página de votación servida por tu propia instancia.",
+            "vocdoni_status": "positive"
+          },
+          {
+            "criterion": "Software libre",
+            "traditional": "Decidim es software libre.",
+            "traditional_status": "positive",
+            "vocdoni": "El módulo también, bajo AGPL-3.0 y sobre un protocolo abierto. Las elecciones sobreviven a cualquier contrato.",
+            "vocdoni_status": "positive"
+          },
+          {
+            "criterion": "Qué mantiene tu equipo técnico",
+            "traditional": "Nada nuevo.",
+            "traditional_status": "neutral",
+            "vocdoni": "Una gema, una migración, tres ajustes y el nombre de una cola.",
+            "vocdoni_status": "neutral"
+          }
+        ]
+      },
+      "how": {
+        "eyebrow": "cómo funciona",
+        "title": "El módulo habla el protocolo de votación de Vocdoni. Los organizadores solo ven un módulo de Decidim.",
+        "intro": "Un administrador construye la elección en cinco pasos dentro de Decidim y la publica. Los votos se sellan en el navegador de cada miembro, los procesa la infraestructura de Vocdoni y se cuentan donde cualquiera puede comprobar el resultado. Nadie tiene que aprender una segunda herramienta.",
+        "features": [
+          {
+            "title": "Un censo hecho con las verificaciones de Decidim",
+            "description": "Incorpora a las personas que ya tienen una verificación concreta en tu instancia, importa un CSV o añade votantes a mano. El censo se congela al publicar la elección."
+          },
+          {
+            "title": "Métodos de votación a la medida de la decisión",
+            "description": "Opción única, opción múltiple con límites de selección, y una o varias preguntas por elección, montadas y reordenadas en una sola pantalla."
+          },
+          {
+            "title": "Resultados en directo, o sellados hasta el final",
+            "description": "Se decide pregunta a pregunta. Una pregunta sellada no la puede recontar nadie, tampoco nosotros, hasta que se cierra la votación y se publican las claves."
+          },
+          {
+            "title": "Una segunda capa de seguridad cuando la quieras",
+            "description": "Quien vota se identifica con los campos de persona socia que tú elijas. Opcionalmente, un código de un solo uso por correo o SMS añade una segunda capa antes de emitir la papeleta."
+          },
+          {
+            "title": "Un panel para la mesa electoral",
+            "description": "Estado, participación y resultados por pregunta según van llegando, con los controles para pausar, reanudar, terminar o cancelar la votación."
+          },
+          {
+            "title": "Un recibo para cada votante",
+            "description": "Cada voto devuelve un código de recibo con enlace al explorador público. Cada persona puede recuperar el suyo más tarde y confirmar que su voto se contó, sin revelarlo y sin que nadie pueda vincularlo a ella."
+          }
+        ],
+        "media_caption": "El panel de administración: estado, participación y resultados por pregunta."
+      },
+      "legal": {
+        "eyebrow": "garantías y protección de datos",
+        "title": "Qué se garantiza de verdad, y qué llega a saber cada parte",
+        "intro": "Esta es la parte que conviene leer antes que ninguna otra, y la que hay que reenviar a tu delegada de protección de datos. No son promesas sobre nuestras intenciones. Son propiedades de dónde se ejecuta el código.",
+        "jurisdiction_label": "Alojado en la UE, o en tu propio nodo",
+        "requirement_label": "La garantía",
+        "response_label": "Cómo la cumple el módulo",
+        "frameworks": [
+          {
+            "name": "Tu servidor nunca ve una papeleta",
+            "summary": "Tu Decidim guarda una única clave de API y solo hace operaciones propias del organizador: crear la elección, publicarla, abrir o cerrar una pregunta, leer el recuento. Los votos se sellan en el navegador de quien vota y los procesa la infraestructura de Vocdoni. Nada de ningún voto pasa por tu servidor.",
+            "response": [
+              "La comprobación del censo, la generación de claves, el sellado y el envío de la papeleta se ejecutan en el navegador",
+              "La clave de API nunca se envía al navegador",
+              "Ninguna papeleta, ninguna opción y ninguna clave de voto llega a tu servidor, y ningún voto puede vincularse a quien lo emitió"
+            ]
+          },
+          {
+            "name": "Cada votante puede comprobar su voto sin revelar nada",
+            "summary": "Cada voto devuelve un código de recibo con enlace al explorador público. Demuestra que el voto quedó registrado. No revela qué se votó.",
+            "response": [
+              "Los recibos se pueden recuperar más tarde desde la página de votación, identificándose de nuevo",
+              "No se guarda nada en la URL ni en la sesión del navegador",
+              "Una pregunta sellada hasta el final espera a que se publiquen las claves, y nunca recurre a contar en abierto"
+            ]
+          },
+          {
+            "name": "El censo se decide antes de abrir la votación, y lo decides tú",
+            "summary": "A quien vota se le identifica con los campos de persona socia que tú elijas, opcionalmente con un código de un solo uso por correo o SMS. Una vez publicada la elección no se puede añadir ni cambiar nada.",
+            "response": [
+              "Constrúyelo a partir de las verificaciones de Decidim que tus miembros ya tienen, a partir de un CSV con una plantilla hecha para esta elección concreta, o a mano",
+              "Las filas del CSV que fallan se reportan con su número de línea y el motivo, y el resto se importa igual",
+              "La publicación se detiene antes de que nada llegue a la red si a alguien le falta un campo obligatorio, y dice a quién"
+            ]
+          },
+          {
+            "name": "Quién sabe qué, en una línea cada uno",
+            "summary": "Las preguntas de protección de datos se reducen a quién guarda qué. La respuesta es corta porque el diseño lo es.",
+            "response": [
+              "Tu Decidim: la configuración de la elección y una copia en caché del recuento. Ninguna identidad del censo, ninguna papeleta.",
+              "Vocdoni: credenciales en forma de hash que no pueden convertirse de nuevo en nombres ni identificadores, y las papeletas selladas. Nunca qué ha votado nadie.",
+              "La red pública: papeletas selladas y el recuento. Sin nombres, sin opciones legibles y sin ningún vínculo entre un voto y una persona."
+            ]
+          },
+          {
+            "name": "Nada depende de que nos creas",
+            "summary": "El módulo es software libre bajo AGPL-3.0 o posterior, y el protocolo con el que habla es público. Cualquiera puede leer el código y rehacer el recuento.",
+            "response": [
+              "Todo el código en GitHub, incluida la página de votación que viaja dentro del propio módulo",
+              "Los resultados se consultan desde la propia API de Decidim; la configuración del censo, deliberadamente, no",
+              "Las elecciones ya publicadas no se ven afectadas por una actualización, porque viven en la red"
+            ]
+          }
+        ],
+        "evidence": {
+          "title": "Qué puedes entregar a quien audite o impugne",
+          "intro": "La elección publicada en la red de Vocdoni, el recuento por pregunta legible con independencia de tu instancia, la exportación en CSV y JSON con sus enlaces de verificación, y el recibo que ya tiene cada votante. Puedes rehacer el recuento sin confiar en Vocdoni ni en tu propia instalación, que es justamente la idea."
+        },
+        "counsel_note": "Estas son propiedades del módulo y del protocolo que utiliza. No son una revisión de seguridad de tu despliegue, tu alojamiento o tu proceso censal, ni asesoramiento jurídico sobre si una votación concreta cumple tus estatutos.",
+        "cta_secondary": "Pregúntanos por tu configuración"
+      },
+      "engagement": {
+        "eyebrow": "quién hace qué",
+        "title": "Para organizaciones con Decidim, y para quienes lo implantan",
+        "intro": "El módulo es software libre en cualquiera de los dos casos. Lo que añadimos es el acompañamiento: las claves de API para la infraestructura de Vocdoni, ayuda con el censo, un simulacro y alguien al otro lado del teléfono el día que la votación cuenta.",
+        "options": [
+          {
+            "badge": "tu organización usa Decidim",
+            "title": "Instálalo en tu instancia, con nosotros al lado",
+            "description": "Para cooperativas, federaciones, ayuntamientos y asociaciones que ya usan Decidim, con un proveedor informático o una integradora que lo mantiene.",
+            "points": [
+              "Un rato de trabajo para quien ya mantiene tu Decidim, y nosotros le acompañamos",
+              "Un censo mapeado a las verificaciones que tus miembros ya tienen",
+              "Una elección de ensayo con votantes de prueba antes de la que cuenta",
+              "Soporte el día de la votación, y un resultado que puedes entregar a quien lo pida"
+            ],
+            "cta": "Habla con nosotros"
+          },
+          {
+            "badge": "implantas Decidim para clientes",
+            "title": "Ofrece voto verificable a todos tus clientes",
+            "description": "Para las agencias y consultoras que implantan y mantienen Decidim para cooperativas, administraciones, asociaciones y universidades. Tú sigues operando las instancias. Nosotros te ayudamos a usar el módulo.",
+            "points": [
+              "Las claves de API que las instancias de tus clientes necesitan para usar el módulo con la infraestructura de Vocdoni",
+              "Una persona de contacto y una llamada de incorporación para tu equipo",
+              "Ayuda para mapear los campos del censo a las verificaciones de tu cliente",
+              "Una elección de ensayo antes de la primera votación real de tu cliente",
+              "Condiciones de socio por escrito, acordadas en conversación"
+            ],
+            "cta": "Hazte socio"
+          }
+        ]
+      },
+      "faq": {
+        "eyebrow": "preguntas",
+        "title": "Lo que la gente pregunta antes de instalarlo",
+        "intro": "Incluidas las preguntas con respuestas incómodas.",
+        "items": [
+          {
+            "question": "¿Qué es Decidim Secure Elections?",
+            "answer": "Un módulo de software libre, con licencia AGPL-3.0 o posterior, que añade un componente de elecciones seguras a cualquier espacio participativo de Decidim. La administración construye la elección en cinco pasos y la publica en la red de Vocdoni. Tus miembros votan desde una página que se ejecuta entera en su propio navegador, y cualquiera puede comprobar el resultado."
+          },
+          {
+            "question": "¿El componente de elecciones que trae Decidim de serie, sin este módulo, cifra las papeletas?",
+            "answer": "No, y aquí es donde se confunden los dos. El componente de elecciones que viene con Decidim funciona sin capa criptográfica, como dicen sus propias notas de la versión 0.31, y esas notas remiten al módulo de Vocdoni a quien necesite más. El componente integrado encaja bien en votaciones que no necesitan anonimato ni verificabilidad externa. Decidim Secure Elections es para las que sí."
+          },
+          {
+            "question": "El bulletin board de Decidim ya no se mantiene. ¿Qué uso ahora para votar cifrado?",
+            "answer": "Este módulo. El antiguo decidim-bulletin-board se movió a la organización de archivo de Decidim y no recibe ningún commit desde febrero de 2024, y la integración con ElectionGuard de la que dependía está archivada desde 2021. El anterior decidim-module-vocdoni está fijado por debajo de Decidim 0.29 y queda sustituido por Decidim Secure Elections, que es una reconstrucción sobre la arquitectura actual de Decidim."
+          },
+          {
+            "question": "¿Qué versiones de Decidim y Ruby necesita?",
+            "answer": "Decidim 0.33.x y Ruby 3.4, además de PostgreSQL, Redis y un worker en segundo plano que procese la cola vocdoni. Decidim 0.33 todavía no se ha publicado, así que hoy el módulo se instala desde el código fuente con una referencia de git y no desde RubyGems. Si estás en la 0.32 o anterior, háblanos de tus plazos y te daremos una fecha realista."
+          },
+          {
+            "question": "¿Pueden nuestros administradores, o Vocdoni, ver qué ha votado alguien?",
+            "answer": "No. Tu servidor guarda una clave de API y solo hace operaciones propias del organizador, mientras que las papeletas se sellan en el navegador de quien vota antes de llegar a la infraestructura de Vocdoni. Vocdoni solo guarda credenciales en forma de hash que no pueden convertirse de nuevo en nombres, y papeletas selladas que no puede abrir. Lo único que se sabe es lo que la red ya publica: cuántos votos se han emitido y el recuento una vez cerrada la elección."
+          },
+          {
+            "question": "¿Cómo comprueba una persona que su voto se contó sin revelarlo?",
+            "answer": "Cada voto emitido devuelve un código de recibo con enlace al explorador público. Demuestra que el voto quedó registrado y no revela nada de su contenido. Se puede recuperar más tarde desde la página de votación, identificándose de nuevo, en lugar de quedarse en una URL o en una sesión."
+          },
+          {
+            "question": "¿Podemos limitar el voto a quienes han pasado una verificación de Decidim?",
+            "answer": "Sí, y es la razón principal para usar este módulo en lugar de votar fuera de Decidim. El censo se puede rellenar con las personas que tienen una verificación concreta en tu instancia, además de con una importación de CSV y con entradas manuales."
+          },
+          {
+            "question": "¿Qué necesita saber nuestra delegada de protección de datos?",
+            "answer": "Tu Decidim guarda la configuración de la elección y una copia en caché del recuento, nunca identidades del censo ni papeletas. Vocdoni guarda credenciales en forma de hash que no pueden convertirse de nuevo en nombres ni identificadores, además de las papeletas selladas, y nunca sabe qué ha votado nadie. La red pública guarda papeletas selladas y el recuento, sin nombres y sin opciones legibles. La infraestructura de Vocdoni está alojada en la UE, y el contrato de encargo del tratamiento forma parte de la conversación."
+          },
+          {
+            "question": "¿Es realmente software libre y de código abierto?",
+            "answer": "El módulo sí, bajo AGPL-3.0 o posterior, y su código es público. Conviene ser precisos con el resto: el módulo habla con la red de Vocdoni a través de una clave de API, y esa infraestructura alojada es un servicio que acordamos contigo. El código es libre; la red en la que publica es un servicio."
+          },
+          {
+            "question": "¿Qué segunda capa de seguridad podemos usar?",
+            "answer": "Cualquiera de las dos. Se puede exigir un código de un solo uso por correo o por SMS antes de emitir la papeleta, además de los campos de persona socia que identifican a quien vota. Elige la que tus miembros reciban con más fiabilidad. Las dos funcionan con el mismo censo."
+          }
+        ]
+      },
+      "closing": {
+        "title": "Ofrece voto verificable a tus clientes de Decidim",
+        "description": "Si implantas o mantienes Decidim para otras organizaciones, habla con nosotros. Te acompañamos en el uso del módulo: las claves de API para la infraestructura de Vocdoni, el censo, un ensayo y alguien al otro lado del teléfono durante la primera elección de tu cliente.",
+        "cta_primary": "Habla con nosotros",
+        "cta_secondary": "Consulta el código en GitHub",
+        "note": "Software libre, sin compromiso. Si el Decidim de tu cliente aún no está en 0.33, te diremos la fecha realista."
+      }
     }
   },
   "solutions_index": {
@@ -3465,6 +3800,7 @@
     },
     "product": {
       "custom_projects": "Proyectos a medida",
+      "decidim": "Decidim Secure Elections",
       "documentation": "Documentación",
       "pricing": "Precios",
       "sdk_api": "SDK y API",
@@ -3708,6 +4044,10 @@
         "description": "Organiza asambleas generales y elecciones de consejo en línea. Un socio un voto o voto ponderado, voto secreto, más participación y resultados verificables.",
         "title": "Software de voto para cooperativas y asambleas | Vocdoni"
       },
+      "decidim": {
+        "description": "Voto secreto y verificable dentro de Decidim. Decidim Secure Elections es el módulo AGPL-3.0 de Vocdoni, socio oficial de Decidim: las papeletas se sellan en el navegador de quien vota, tu servidor no ve ninguna y cualquiera puede comprobar el resultado.",
+        "title": "Decidim Secure Elections | Vocdoni"
+      },
       "municipalities": {
         "description": "Organiza referéndums locales, presupuestos participativos y consultas ciudadanas con auditabilidad pública, accesibilidad para todos los residentes y resultados verificables.",
         "title": "Software de voto municipal para consultas ciudadanas | Vocdoni"
@@ -3756,6 +4096,10 @@
       "custom_projects": {
         "description": "Soluciones de gobernanza personalizadas para necesidades específicas.",
         "title": "Proyectos a medida"
+      },
+      "decidim": {
+        "description": "Voto secreto y verificable dentro de la plataforma Decidim que ya utilizas.",
+        "title": "Decidim Secure Elections"
       },
       "digital_voting_platform": {
         "description": "Sistema de votación digital seguro, transparente y verificable para cualquier organización.",

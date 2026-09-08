@@ -2729,6 +2729,341 @@
           "title": "Azpiegitura kode irekikoa"
         }
       ]
+    },
+    "decidim": {
+      "eyebrow": "Decidimen bazkide ofiziala",
+      "hero": {
+        "title": "Antolatu bozketa seguru, anonimo eta egiaztagarriak Decidimen barruan",
+        "subtitle": "Decidim Secure Elections moduluak bozketa anonimoa eta kriptografikoki segurua gehitzen dio zuen kideek dagoeneko erabiltzen duten Decidimi. Botoak bozkatzen duenaren nabigatzailean zigilatzen dira, inork ezin du boto bat pertsona batekin lotu, eta edonork egiazta dezake emaitza. Kode irekikoa, eta gaur bertan instalatzeko prest.",
+        "cta_primary": "Hitz egin dezagun",
+        "cta_secondary": "Ikusi kodea GitHuben"
+      },
+      "partner": {
+        "eyebrow": "Decidimen bazkide ofiziala",
+        "title": "Decidimek benetako bermeak behar dituzten bozketetarako gomendatzen duen modulua",
+        "description": "0.31 bertsioaren oharretan, Decidimen taldeak azaldu zuen bere hauteskunde-osagaia geruza kriptografikorik gabe dabilela, eta berme sendoagoak behar dituzten erakundeek Vocdoni protokoloaren gainean eraikitako komunitate-modulua begiratu beharko luketela. Hori da kooperatibek, udalek, alderdi politikoek, elkarteek eta federazioek egiten dituzten bozketa lotesle gehienen kasua, estatuko eta eskualdeko araudia ez ezik beren estatutuak ere bete behar baitituzte. Decidim Secure Elections modulu hori da.",
+        "points": [
+          "Software librea AGPL-3.0 lizentziapean",
+          "Decidim 0.33rako egina",
+          "Vocdonik mantendua"
+        ],
+        "cta": "Irakurri Decidimen 0.31 bertsioaren oharrak"
+      },
+      "trust": {
+        "logos_label": "Vocdoniren azpiegituran dagoeneko bozkatzen duten erakundeak",
+        "badges": [
+          "AGPL-3.0, kodea GitHuben",
+          "zerbitzariak ez du inoiz boto bat ikusten",
+          "Decidim 0.33rako egina"
+        ],
+        "stats": [
+          {
+            "value": "AGPL-3.0",
+            "label": "software libre gisa lizentziatua, birbanagarria eta auditagarria",
+            "source": "edo berriagoa, biltegiaren arabera"
+          },
+          {
+            "value": "350.000+",
+            "label": "Vocdoniren azpiegituran prozesatutako botoak"
+          },
+          {
+            "value": "muturretik muturrera",
+            "label": "egiaztagarria, zigilatutako botoetik argitaratutako zenbaketara"
+          }
+        ]
+      },
+      "guarantees": {
+        "eyebrow": "moduluak zer gehitzen duen",
+        "title": "Decidimek bakarrik boto bati eman ezin dizkion hiru berme",
+        "intro": "Jendeak Decidimen proposatzen, eztabaidatzen eta biltzen du. Erabakia anonimoa, loteslea eta gero defendagarria izan behar denean, berme kriptografikoak dituen bozketa-modulu bat erabiltzea da irtenbide bakarra.",
+        "items": [
+          {
+            "title": "Anonimotasuna",
+            "description": "Boto bakoitza bozkatzen duenaren nabigatzailean zigilatzen da bidali aurretik. Inork ezin du boto bat pertsona batekin lotu, ez zuen administratzaileek ez Vocdonik, eta zenbaketa inor izendatzen ez duten botoetatik ateratzen da."
+          },
+          {
+            "title": "Muturretik muturrerako egiaztagarritasuna",
+            "description": "Bozkatzaile bakoitzak agiri-kode bat jasotzen du, bere botoa erregistratu dela frogatzen duena hura agerian utzi gabe, eta edonork egin dezake zenbaketa berriro argitaratutako emaitzatik eta esportaziotik, zuen instalazioan fidatu gabe."
+          },
+          {
+            "title": "Datuen babesa diseinutik",
+            "description": "Zuen Decidimek ez du botorik ez errolda-identitaterik gordetzen, eta Vocdonik izenetara itzuli ezin diren hash egindako kredentzialak baino ez ditu gordetzen, beraz ihes batek ez du agerian uzten inork nola bozkatu duen."
+          }
+        ]
+      },
+      "comparison": {
+        "eyebrow": "bermeak",
+        "title": "Zer berma dezakeen Decidimek, Decidim Secure Elections moduluarekin eta gabe",
+        "intro": "Decidim, dagoen bezala, partaidetzarako eraikita dago, ez boto sekreturako: ezin du anonimotasuna bermatu, ezin dio kanpoko bati zenbaketa egiaztatzen utzi, eta botoak datu pertsonal gisa gordetzen ditu zuen datu-basean. Moduluarekin, horietako bakoitza erakuts dezakezuen berme bihurtzen da.",
+        "criterion_label": "Galdera",
+        "traditional_label": "Gaurko Decidim: proposamenak, inkestak, berezko hauteskundeak",
+        "vocdoni_label": "Decidim Secure Elections duen Decidim",
+        "rows": [
+          {
+            "criterion": "Anonimotasuna",
+            "traditional": "Aukerak lerro irekitan daude. Administratzaile batek irakur dezake nork zer aukeratu duen.",
+            "traditional_status": "negative",
+            "vocdoni": "Bozkatzen duenaren nabigatzailean zigilatua. Inork ezin du boto bat irakurri, ezta Vocdonik ere.",
+            "vocdoni_status": "positive"
+          },
+          {
+            "criterion": "Datu pertsonalak nora doazen (GDPR)",
+            "traditional": "Botoak datu pertsonalak dira, zuen datu-basean eta kide-kontuei lotuta.",
+            "traditional_status": "negative",
+            "vocdoni": "Zuen Decidimek ez du botorik ez errolda-identitaterik gordetzen. Sareak inor izendatzen ez duten boto zigilatuak ditu.",
+            "vocdoni_status": "positive"
+          },
+          {
+            "criterion": "Datu-ihes batek zer agerian uzten duen",
+            "traditional": "Nork bozkatu duen eta nola, isuri bakar batean.",
+            "traditional_status": "negative",
+            "vocdoni": "Ezer ez inongo botori buruz. Ez dago botorik, ez gakorik, ez identitaterik zuen zerbitzarian ihes egin dezakeenik.",
+            "vocdoni_status": "positive"
+          },
+          {
+            "criterion": "Nork egiazta dezakeen zenbaketa",
+            "traditional": "Zuen administratzaileek bakarrik, idatz dezaketen taula batetik.",
+            "traditional_status": "negative",
+            "vocdoni": "Edonork, argitaratutako zenbaketatik eta CSV eta JSON esportaziotik, zuen instantzian fidatu gabe.",
+            "vocdoni_status": "positive"
+          },
+          {
+            "criterion": "Auditore bati zer ematen diozuen",
+            "traditional": "Administratzaile baten esportazioa, administratzaile horrek berak editagarria.",
+            "traditional_status": "negative",
+            "vocdoni": "Argitaratutako hauteskunde bat, berriro zenbatu daitekeen esportazio bat eta bozkatzaile bakoitzaren agiria.",
+            "vocdoni_status": "positive"
+          },
+          {
+            "criterion": "Bozkatzen duenak gero zer jasotzen duen",
+            "traditional": "Ezer ez.",
+            "traditional_status": "negative",
+            "vocdoni": "Botoa erregistratu dela frogatzen duen agiri-kode bat, hari buruz ezer agertu gabe.",
+            "vocdoni_status": "positive"
+          },
+          {
+            "criterion": "Nork bozka dezakeen",
+            "traditional": "Saioa has dezakeen edonork.",
+            "traditional_status": "negative",
+            "vocdoni": "Argitaratu aurretik izoztutako errolda bat, Decidim egiaztapenetatik, CSV batetik edo eskuz eraikia, posta elektronikoz edo SMS bidez bidalitako aukerako behin-behineko kodearekin.",
+            "vocdoni_status": "positive"
+          },
+          {
+            "criterion": "Zuzendaritza-hauteskundeak, batzarrak, estatutu-aldaketak",
+            "traditional": "Kontsultetarako egokia. Ahula zuen estatutuek boto sekretua eskatzen duten lekuan.",
+            "traditional_status": "negative",
+            "vocdoni": "Boto sekretu, egiaztagarri eta lotesleetarako diseinatua.",
+            "vocdoni_status": "positive"
+          },
+          {
+            "criterion": "Emaitza eztabaidatu bat",
+            "traditional": "Zuen hitza haienaren aurka.",
+            "traditional_status": "negative",
+            "vocdoni": "Edozein hirugarrenek berak egiazta dezakeen froga.",
+            "vocdoni_status": "positive"
+          },
+          {
+            "criterion": "Kideek non bozkatzen duten",
+            "traditional": "Decidimen.",
+            "traditional_status": "positive",
+            "vocdoni": "Decidimen, zuen instantziak berak zerbitzatzen duen bozketa-orri batean.",
+            "vocdoni_status": "positive"
+          },
+          {
+            "criterion": "Kode irekia",
+            "traditional": "Decidim software librea da.",
+            "traditional_status": "positive",
+            "vocdoni": "Modulua ere bai, AGPL-3.0 pean eta protokolo ireki baten gainean. Hauteskundeek edozein kontraturi irauten diote.",
+            "vocdoni_status": "positive"
+          },
+          {
+            "criterion": "Zuen garatzaileek zer mantentzen duten",
+            "traditional": "Ezer berririk ez.",
+            "traditional_status": "neutral",
+            "vocdoni": "Gem bat, migrazio bat, hiru ezarpen eta ilara-izen bat.",
+            "vocdoni_status": "neutral"
+          }
+        ]
+      },
+      "how": {
+        "eyebrow": "nola funtzionatzen duen",
+        "title": "Moduluak Vocdoniren bozketa-protokoloa hitz egiten du. Antolatzaileek Decidim modulu bat baino ez dute ikusten.",
+        "intro": "Administratzaile batek hauteskundea bost urratsetan eraikitzen du Decidimen barruan eta argitaratzen du. Botoak kidearen nabigatzailean zigilatzen dira, Vocdoniren azpiegiturak prozesatzen ditu, eta edonork emaitza egiazta dezakeen tokian zenbatzen dira. Inork ez du bigarren tresna bat ikasi behar.",
+        "features": [
+          {
+            "title": "Errolda Decidim egiaztapenetatik",
+            "description": "Ekarri zuen instantzian egiaztapen jakin bat duten kideak, inportatu CSV bat, edo gehitu bozkatzaileak eskuz. Errolda hauteskundea argitaratzean izozten da."
+          },
+          {
+            "title": "Erabakiari egokitzen zaizkion bozketa-metodoak",
+            "description": "Aukera bakarra, aukera anitza hautaketa-mugekin, eta galdera bat edo batzuk hauteskunde bakoitzeko, pantaila bakarrean eraiki eta berrantolatuak."
+          },
+          {
+            "title": "Emaitzak zuzenean, edo amaierara arte zigilatuta",
+            "description": "Galderaz galdera. Zigilatutako galdera bat ezin du inork zenbatu, ezta guk ere, bozketa itxi eta gakoak argitaratu arte."
+          },
+          {
+            "title": "Bigarren segurtasun-geruza bat, nahi duzuenean",
+            "description": "Bozkatzaileek zuek aukeratutako kide-eremuekin identifikatzen dute beren burua. Aukeran, posta elektronikoz edo SMS bidez bidalitako behin-behineko kode batek bigarren geruza bat gehitzen du botoa eman aurretik."
+          },
+          {
+            "title": "Hauteskunde-mahairako jarraipen-panela",
+            "description": "Egoera, parte-hartzea eta galderakako emaitzak iristen diren heinean, bozketa eteteko, berrekiteko, amaitzeko edo bertan behera uzteko kontrolekin."
+          },
+          {
+            "title": "Agiri bat bozkatzaile bakoitzarentzat",
+            "description": "Boto bakoitzak esploratzaile publikora daraman agiri-kode bat itzultzen du. Kideek geroago berreskura dezakete eta beren botoa zenbatu dela baiezta dezakete, agertu gabe eta harekin lotuak izan gabe."
+          }
+        ],
+        "media_caption": "Administrazioko jarraipen-panela: egoera, parte-hartzea eta galderakako emaitzak."
+      },
+      "legal": {
+        "eyebrow": "bermeak eta datuen babesa",
+        "title": "Zer bermatzen den benetan, eta nork zer jakiten duen",
+        "intro": "Hau da beste ezer baino lehen irakurtzea merezi duen zatia, eta zuen datuen babeserako arduradunari bidali beharrekoa. Ez dira gure asmoei buruzko promesak. Kodea non exekutatzen den horren propietateak dira.",
+        "jurisdiction_label": "EBn ostatatua, edo zuen nodo propioan",
+        "requirement_label": "Bermea",
+        "response_label": "Nola betetzen duen moduluak",
+        "frameworks": [
+          {
+            "name": "Zuen zerbitzariak ez du inoiz boto bat ikusten",
+            "summary": "Zuen Decidimek API gako bat gordetzen du eta antolaketa-eragiketak baino ez ditu egiten: hauteskundea sortu, argitaratu, galdera bat ireki edo itxi, zenbaketa irakurri. Botoak bozkatzen duenaren nabigatzailean zigilatzen dira eta Vocdoniren azpiegiturak prozesatzen ditu. Boto bati buruzko ezer ez da zuen zerbitzaritik pasatzen.",
+            "response": [
+              "Errolda-egiaztapena, gakoen sorrera, botoaren zigilatzea eta bidalketa nabigatzailean exekutatzen dira",
+              "API gakoa ez da inoiz nabigatzailera bidaltzen",
+              "Ez da botorik, ez aukerarik, ez boto-gakorik zuen zerbitzarira iristen, eta ezin da botorik bozkatzaile batekin lotu"
+            ]
+          },
+          {
+            "name": "Bozkatzaile bakoitzak bere botoa egiazta dezake, ezer agertu gabe",
+            "summary": "Boto bakoitzak agiri-kode bat itzultzen du, esploratzaile publikorako esteka batekin. Botoa erregistratu dela frogatzen du. Ez du zer bozkatu den agertzen.",
+            "response": [
+              "Agiriak geroago berreskura daitezke bozketa-orritik, berriro identifikatuz",
+              "Ez da ezer URL batean ez nabigatzailearen saioan gordetzen",
+              "Amaierara arte zigilatutako galdera batek gakoak argitaratu arte itxaroten du, eta ez du inoiz irekian zenbatzera jotzen"
+            ]
+          },
+          {
+            "name": "Errolda bozketa ireki aurretik erabakitzen da, eta zuek erabakitzen duzue",
+            "summary": "Bozkatzaileak zuek aukeratutako kide-eremuekin identifikatzen dira, aukeran posta elektronikoz edo SMS bidez bidalitako behin-behineko kode batekin. Hauteskundea argitaratu ondoren ezin da ezer gehitu edo aldatu.",
+            "response": [
+              "Eraiki kideek dagoeneko dituzten Decidim egiaztapenetatik, hauteskunde honetarako propio egindako txantiloia duen CSV batetik, edo eskuz",
+              "Huts egiten duten CSV lerroak lerro-zenbakiarekin eta arrazoiarekin jakinarazten dira, eta gainerakoak berdin inportatzen dira",
+              "Argitalpena gelditu egiten da ezer sarera iritsi aurretik bozkatzaile bati derrigorrezko eremu bat falta bazaio, eta nori falta zaion esaten du"
+            ]
+          },
+          {
+            "name": "Nork zer dakien, lerro banatan",
+            "summary": "Datuen babesari buruzko galderak nork zer duen jakitera mugatzen dira. Erantzuna laburra da diseinua ere laburra delako.",
+            "response": [
+              "Zuen Decidimek: hauteskundearen konfigurazioa eta zenbaketaren cache-kopia bat. Errolda-identitaterik ez, botorik ez.",
+              "Vocdonik: izenetara edo identifikatzaileetara itzuli ezin diren hash egindako kredentzialak, eta boto zigilatuak. Inoiz ez nork zer bozkatu duen.",
+              "Sare publikoak: boto zigilatuak eta zenbaketa. Izenik ez, aukera irakurgarririk ez, eta boto baten eta pertsona baten arteko loturarik ez."
+            ]
+          },
+          {
+            "name": "Ezerk ez du gure hitzean fidatzea eskatzen",
+            "summary": "Modulua software librea da AGPL-3.0 edo berriagoaren pean, eta hitz egiten duen protokoloa publikoa da. Edonork irakur dezake kodea eta berriro zenbatu emaitza.",
+            "response": [
+              "Kode osoa GitHuben, moduluaren barruan bidaltzen den bozketa-orria barne",
+              "Emaitzak Decidimen APItik beretik kontsulta daitezke. Erroldaren konfigurazioa, nahita, ez",
+              "Dagoeneko argitaratutako hauteskundeei ez die eguneratze batek eragiten, sarean bizi direlako"
+            ]
+          }
+        ],
+        "evidence": {
+          "title": "Zer eman diezaiokezuen auditore bati edo emaitza zalantzan jartzen duen bati",
+          "intro": "Vocdoni sarean argitaratutako hauteskundea, zuen instantziatik at irakur daitekeen galderakako zenbaketa, egiaztapen-estekak dituen CSV eta JSON esportazioa, eta bozkatzaile bakoitzak duen agiria. Zenbaketa berriro egin dezakezue ez Vocdonin ez zuen instalazioan fidatu gabe, eta hori da hain zuzen kontua."
+        },
+        "counsel_note": "Hauek moduluaren eta erabiltzen duen protokoloaren propietateak dira. Ez dira zuen instalazioaren, zuen ostatatzearen edo zuen errolda-prozeduraren segurtasun-berrikuspena, ezta bozketa jakin batek zuen estatutuak betetzen dituen ala ez esateko aholku juridikoa ere.",
+        "cta_secondary": "Galdetu zuen konfigurazioaz"
+      },
+      "engagement": {
+        "eyebrow": "nork zer egiten duen",
+        "title": "Decidim erabiltzen duten erakundeentzat, eta haiei zerbitzua ematen dieten integratzaileentzat",
+        "intro": "Modulua software librea da bi kasuetan. Guk gehitzen duguna laguntza da: Vocdoniren azpiegiturarako API gakoak, laguntza erroldarekin, entsegu bat, eta norbait telefonoaren beste aldean bozketak balio duen egunean.",
+        "options": [
+          {
+            "badge": "zuen erakundeak Decidim darabil",
+            "title": "Instalatu zuen instantzian, gu ondoan ditugula",
+            "description": "Dagoeneko Decidim darabilten kooperatiba, federazio, udal eta elkarteentzat, IT hornitzaile batek edo integratzaile batek mantenduta.",
+            "points": [
+              "Zuen Decidim dagoeneko mantentzen duenarentzat lan labur bat, eta guk laguntzen diogu",
+              "Zuen kideek dagoeneko dituzten egiaztapenetara mapatutako errolda bat",
+              "Entsegu-hauteskunde bat proba-bozkatzaileekin, benetakoa iritsi aurretik",
+              "Laguntza bozketa-egunean, eta galdetzen duen edonori eman diezaiokezuen emaitza bat"
+            ],
+            "cta": "Hitz egin dezagun"
+          },
+          {
+            "badge": "zuek Decidim entregatzen duzue bezeroentzat",
+            "title": "Eskaini bozketa egiaztagarria zerbitzatzen duzuen bezero bakoitzari",
+            "description": "Kooperatiba, administrazio, elkarte eta unibertsitateentzat Decidim inplementatu eta mantentzen duten agentzia eta aholkularitzentzat. Zuek instantziak kudeatzen jarraitzen duzue. Guk modulua erabiltzen laguntzen dizuegu.",
+            "points": [
+              "Zuen bezeroen instantziek modulua Vocdoniren azpiegiturarekin erabiltzeko behar dituzten API gakoak",
+              "Kontaktu-pertsona jakin bat eta harrera-dei bat zuen taldearentzat",
+              "Laguntza errolda-eremuak zuen bezeroaren egiaztapenetara mapatzeko",
+              "Entsegu-hauteskunde bat zuen bezeroaren lehen benetako bozketaren aurretik",
+              "Bazkide-baldintza idatziak, elkarrizketan adostuak"
+            ],
+            "cta": "Bihurtu bazkide"
+          }
+        ]
+      },
+      "faq": {
+        "eyebrow": "galderak",
+        "title": "Instalatu aurretik jendeak galdetzen duena",
+        "intro": "Erantzun deserosoa dutenak barne.",
+        "items": [
+          {
+            "question": "Zer da Decidim Secure Elections?",
+            "answer": "Software libreko modulu bat, AGPL-3.0 edo berriagoaren lizentziapean, edozein Decidim partaidetza-guneri hauteskunde seguruen osagai bat gehitzen diona. Administratzaileek hauteskundea bost urratsetan eraiki eta Vocdoni sarean argitaratzen dute. Kideek beren nabigatzailean osorik exekutatzen den orri batetik bozkatzen dute, eta edonork egiazta dezake emaitza."
+          },
+          {
+            "question": "Decidimen berezko hauteskunde-osagaiak, modulu hau gabe, botoak zifratzen ditu?",
+            "answer": "Ez, eta hementxe nahasten dira biak. Decidimekin batera datorren hauteskunde-osagaia geruza kriptografikorik gabe dabil, bere 0.31 bertsioaren oharrek dioten bezala, eta ohar horiek gehiago behar duena Vocdoniren modulura bidaltzen dute. Berezko osagaia egokia da anonimotasunik edo kanpo-egiaztagarritasunik behar ez duten bozketetarako. Decidim Secure Elections behar dutenentzat da."
+          },
+          {
+            "question": "Decidimen bulletin board ez da jada mantentzen. Zer erabiltzen dut orain boto zifraturako?",
+            "answer": "Modulu hau. Aurreko decidim-bulletin-board Decidimen artxibo-erakundera eraman zuten eta ez du commit-ik jaso 2024ko otsailetik, eta oinarritzen zen ElectionGuard lotura 2021etik dago artxibatuta. Aurreko decidim-module-vocdoni Decidim 0.29tik behera dago finkatuta, eta Decidim Secure Elections-ek ordezkatzen du, egungo Decidim arkitekturaren gainean berreraikia baita."
+          },
+          {
+            "question": "Zein Decidim eta Ruby bertsio behar ditu?",
+            "answer": "Decidim 0.33.x eta Ruby 3.4, baita PostgreSQL, Redis eta vocdoni ilara prozesatzen duen atzeko planoko langile bat ere. Decidim 0.33 ez da oraindik kaleratu, beraz gaur modulua iturburutik instalatzen da git erreferentzia batekin eta ez RubyGems-etik. 0.32an edo zaharragoan bazaudete, hitz egin gurekin epeez eta data errealista bat emango dizuegu."
+          },
+          {
+            "question": "Gure administratzaileek, edo Vocdonik, ikus dezakete norbaitek nola bozkatu duen?",
+            "answer": "Ez. Zuen zerbitzariak API gako bat gordetzen du eta antolaketa-eragiketak baino ez ditu egiten, eta botoak bozkatzen duenaren nabigatzailean zigilatzen dira Vocdoniren azpiegiturara iritsi aurretik. Vocdonik izenetara itzuli ezin diren hash egindako kredentzialak baino ez ditu gordetzen, eta ireki ezin dituen boto zigilatuak. Edonork ikasten duen bakarra sareak dagoeneko argitaratzen duena da: zenbat boto eman diren, eta zenbaketa hauteskundea itxi ondoren."
+          },
+          {
+            "question": "Nola egiaztatzen du bozkatzaile batek bere botoa zenbatu dela, agertu gabe?",
+            "answer": "Emandako boto bakoitzak agiri-kode bat itzultzen du, esploratzaile publikorako esteka batekin. Botoa erregistratu dela frogatzen du eta ez du bere edukiari buruz ezer agertzen. Geroago berreskuragarri jarraitzen du bozketa-orritik, berriro identifikatuz, URL batean edo saio batean gorde beharrean."
+          },
+          {
+            "question": "Bozketa Decidim egiaztapen bat gainditu duten kideetara muga dezakegu?",
+            "answer": "Bai, eta hori da modulu hau Decidimetik kanpo bozkatu beharrean erabiltzeko arrazoi nagusia. Errolda zuen instantzian egiaztapen jakin bat duten kideetatik bete daiteke, CSV inportazioaz eta eskuzko sarreraz gain."
+          },
+          {
+            "question": "Zer jakin behar du gure datuen babeserako arduradunak?",
+            "answer": "Zuen Decidimek hauteskundearen konfigurazioa eta zenbaketaren cache-kopia bat gordetzen ditu, inoiz ez errolda-identitaterik ez botorik. Vocdonik izenetara edo identifikatzaileetara itzuli ezin diren hash egindako kredentzialak gordetzen ditu, boto zigilatuekin batera, eta ez du inoiz jakiten nork zer bozkatu duen. Sare publikoak boto zigilatuak eta zenbaketa ditu, izenik eta aukera irakurgarririk gabe. Vocdoniren azpiegitura EBn ostatatuta dago, eta datuak tratatzeko hitzarmen bat elkarrizketaren parte da."
+          },
+          {
+            "question": "Benetan librea eta kode irekikoa da?",
+            "answer": "Modulua bai, AGPL-3.0 edo berriagoaren pean, eta iturburua publikoa da. Gainerakoan zehatza izatea komeni da: moduluak API gako baten bidez hitz egiten du Vocdoni sarearekin, eta ostatatutako azpiegitura hori zuekin adosten dugun zerbitzu bat da. Kodea librea da; argitaratzen duen sarea zerbitzu bat da."
+          },
+          {
+            "question": "Zein bigarren segurtasun-geruza erabil dezakegu?",
+            "answer": "Edozein. Posta elektronikoz edo SMS bidez bidalitako behin-behineko kode bat eska daiteke botoa eman aurretik, bozkatzailea identifikatzen duten kide-eremuen gainetik. Aukeratu zuen kideek fidagarrien jasotzen dutena. Biek errolda berarekin funtzionatzen dute."
+          }
+        ]
+      },
+      "closing": {
+        "title": "Eskaini bozketa egiaztagarria zuen Decidim bezeroei",
+        "description": "Beste erakunde batzuentzat Decidim inplementatu edo mantentzen baduzue, hitz egin dezagun. Modulua erabiltzen laguntzen dizuegu: Vocdoniren azpiegiturarako API gakoak, errolda, entsegu bat, eta norbait telefonoaren beste aldean zuen bezeroaren lehen hauteskundean.",
+        "cta_primary": "Hitz egin dezagun",
+        "cta_secondary": "Ikusi kodea GitHuben",
+        "note": "Software librea, konpromisorik gabe. Zuen bezeroaren Decidim oraindik 0.33n ez badago, data errealista esango dizuegu."
+      }
     }
   },
   "solutions_index": {
@@ -3465,6 +3800,7 @@
     },
     "product": {
       "custom_projects": "Proiektu pertsonalizatuak",
+      "decidim": "Decidim Secure Elections",
       "documentation": "Dokumentazioa",
       "pricing": "Prezioak",
       "sdk_api": "SDKa & APIa",
@@ -3708,6 +4044,10 @@
         "description": "Antolatu kooperatiben batzar orokorrak eta zuzendaritza-hauteskundeak online. Kide bakoitzak boto bat edo boto ponderatuak, boto sekretuak, parte-hartze handiagoa eta emaitza egiaztagarriak.",
         "title": "Kooperatiben batzarrentzako bozketa-softwarea | Vocdoni"
       },
+      "decidim": {
+        "description": "Boto sekretu eta egiaztagarriak Decidimen barruan. Decidim Secure Elections Vocdoniren AGPL-3.0 modulua da, Decidimen bazkide ofiziala: botoak bozkatzen duenaren nabigatzailean zigilatzen dira, zuen zerbitzariak ez du inoiz bat ikusten, eta edonork egiazta dezake emaitza.",
+        "title": "Decidim Secure Elections: boto sekretua | Vocdoni"
+      },
       "municipalities": {
         "description": "Antolatu tokiko erreferendumak, aurrekontu parte-hartzaileak eta herritarren kontsultak, auditagarritasun publikoa, bizilagun guztientzako irisgarritasuna eta emaitza egiaztagarriak bermatuta.",
         "title": "Herritarren kontsultetarako udal-botazio softwarea | Vocdoni"
@@ -3756,6 +4096,10 @@
       "custom_projects": {
         "description": "Zure behar eta eskakizun zehatzetarako gobernantza-soluzio pertsonalizatuak.",
         "title": "Proiektu pertsonalizatuak"
+      },
+      "decidim": {
+        "description": "Boto sekretu eta egiaztagarriak dagoeneko darabilzuen Decidim plataformaren barruan.",
+        "title": "Decidim Secure Elections"
       },
       "digital_voting_platform": {
         "description": "Organizazio guztientzako boto-emate digital segurua, gardena eta egiaztagarria.",
