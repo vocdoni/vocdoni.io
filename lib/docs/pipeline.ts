@@ -1,4 +1,4 @@
-import matter from 'gray-matter'
+import { load as loadYaml } from 'js-yaml'
 import rehypeHighlight from 'rehype-highlight'
 import rehypeSlug from 'rehype-slug'
 import rehypeStringify from 'rehype-stringify'
@@ -23,7 +23,10 @@ export { resolveTokens, tokenMap } from '@/lib/docs/tokens'
 // This module is deliberately free of `import.meta.glob` and of Node-only
 // modules, so it can be imported from the browser bundle as well: every source
 // of markdown (the build-time content glob in lib/docs/markdown.ts, or docs
-// fetched at runtime) is passed in as a `DocFileMap`. Compilation is sync and
+// fetched at runtime) is passed in as a `DocFileMap`. That is also why
+// frontmatter is parsed by `parseFrontmatter` below instead of gray-matter,
+// which casts every input through `Buffer.from()` and therefore throws
+// `ReferenceError: Buffer is not defined` in a browser. Compilation is sync and
 // self-contained; the only client-side behaviour the output relies on is the
 // code copy button (a tiny vanilla script in the docs layout) which keys off
 // `[data-copy]`.
@@ -743,6 +746,64 @@ export interface DocReference {
   items: DocReferenceItem[]
 }
 
+// --- Frontmatter ------------------------------------------------------------
+
+// Browser-safe replacement for `gray-matter`, which cannot run here: it casts
+// every input through `Buffer.from()` (lib/utils.js `toBuffer`), a Node global
+// that does not exist in a browser and that Vite does not polyfill. js-yaml is
+// pure JS and `load()` matches the safe schema gray-matter itself used.
+//
+// The delimiter handling mirrors gray-matter for the shapes this repo authors
+// (see also `stripFrontmatter` in lib/docs/tokens.ts, which strips the same
+// block from the raw `.md` served to LLMs): an opening `---` on the first line,
+// a closing `\n---`, CRLF tolerated, and a BOM stripped up front.
+
+const FRONTMATTER_OPEN = '---'
+const FRONTMATTER_CLOSE = '\n---'
+
+export interface ParsedFrontmatter {
+  data: Record<string, unknown>
+  content: string
+}
+
+export function parseFrontmatter(source: string): ParsedFrontmatter {
+  const str = source.replace(/^﻿/, '')
+  if (!str.startsWith(FRONTMATTER_OPEN)) return { data: {}, content: str }
+  // `----` (or longer) is a horizontal rule, not an opening delimiter.
+  if (str.charAt(FRONTMATTER_OPEN.length) === '-') return { data: {}, content: str }
+
+  let rest = str.slice(FRONTMATTER_OPEN.length)
+
+  // An explicit language tag right after the delimiter (`---yaml`). Unused in
+  // this repo, but recognised so such a file is not parsed as YAML body text.
+  const languageRaw = rest.slice(0, rest.search(/\r?\n/))
+  if (languageRaw.trim()) rest = rest.slice(languageRaw.length)
+
+  const closeIndex = rest.indexOf(FRONTMATTER_CLOSE)
+  // No closing delimiter: the whole remainder is the block and there is no body.
+  const block = closeIndex === -1 ? rest : rest.slice(0, closeIndex)
+  let content = closeIndex === -1 ? '' : rest.slice(closeIndex + FRONTMATTER_CLOSE.length)
+  if (content.startsWith('\r')) content = content.slice(1)
+  if (content.startsWith('\n')) content = content.slice(1)
+
+  // A block holding nothing but comments carries no data.
+  if (block.replace(/^\s*#[^\n]+/gm, '').trim() === '') return { data: {}, content }
+
+  let parsed: unknown
+  try {
+    parsed = loadYaml(block)
+  } catch {
+    // Malformed YAML must not take the page down: the body still renders, the
+    // caller just falls back to its defaults (title = slug, no nav group).
+    return { data: {}, content }
+  }
+
+  // Scalar or sequence frontmatter has no fields to read; treat it as empty
+  // rather than handing callers something they would index into.
+  if (!parsed || typeof parsed !== 'object' || Array.isArray(parsed)) return { data: {}, content }
+  return { data: parsed as Record<string, unknown>, content }
+}
+
 export interface DocFrontmatter {
   title: string
   lead?: string
@@ -832,7 +893,7 @@ export function loadDoc(slug: string, locale: Locale, files: DocFileMap): Loaded
   const source = localized ?? byLocale.get(localeDefault)?.get(slug)
   if (source === undefined) return null
 
-  const { data, content } = matter(source)
+  const { data, content } = parseFrontmatter(source)
   const frontmatter: DocFrontmatter = {
     title: typeof data.title === 'string' ? data.title : slug,
     lead: typeof data.lead === 'string' ? data.lead : undefined,
@@ -883,7 +944,7 @@ export function listDocsMeta(files: DocFileMap): DocMeta[] {
     for (const [locale, slugMap] of byLocale.entries()) {
       const source = slugMap.get(slug)
       if (source === undefined) continue
-      const { data } = matter(source)
+      const { data } = parseFrontmatter(source)
       if (typeof data.title === 'string') titles[locale] = data.title
       if (locale === localeDefault) {
         group = typeof data.group === 'string' ? data.group : ''

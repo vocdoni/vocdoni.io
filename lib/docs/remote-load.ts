@@ -7,7 +7,7 @@ import type { Locale } from '@/locales'
 // Lazy entry point for branch-backed documentation versions.
 //
 // This is the ONLY client-reachable module that pulls in the markdown pipeline
-// (unified/remark/rehype/gray-matter), so it must never be imported statically
+// (unified/remark/rehype/js-yaml), so it must never be imported statically
 // from a component: `hooks/useDocsData.ts` reaches it through a dynamic
 // `import()` and Rollup keeps the whole machinery in a lazy chunk that a reader
 // on the baked (production) version never downloads.
