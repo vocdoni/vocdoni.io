@@ -9,6 +9,7 @@ import { useTranslation } from 'react-i18next'
 import { useData } from 'vike-react/useData'
 import { usePageContext } from 'vike-react/usePageContext'
 
+import { DocsVersionSelector } from './DocsVersionSelector'
 import { navGroupLabels } from './docs-nav'
 
 const normalize = (value: string) => {
@@ -25,6 +26,7 @@ function NavTree({ onNavigate }: { onNavigate?: () => void }) {
 
   return (
     <nav className='space-y-7' aria-label={t('developers.docs.nav.aria_label', 'Documentation')}>
+      <DocsVersionSelector />
       {nav.map((group) => (
         <div key={group.id}>
           <p className='mb-2 px-3 text-xs font-semibold uppercase tracking-wide text-muted-foreground/80'>

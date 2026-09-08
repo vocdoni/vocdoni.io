@@ -1,5 +1,6 @@
 import { DocsSidebar } from '@/components/developers/DocsSidebar'
 import { DocsTOC } from '@/components/developers/DocsTOC'
+import { DocsVersionProvider } from '@/hooks/useDocsVersion'
 import * as React from 'react'
 import { useTranslation } from 'react-i18next'
 
@@ -153,12 +154,14 @@ export default function DocsLayout({ children }: { children: React.ReactNode }) 
   useCodeTabs()
 
   return (
-    <div className='mx-auto w-full max-w-[1440px] px-4 py-6 sm:px-6 lg:px-8 lg:py-10'>
-      <div className='lg:grid lg:grid-cols-[15rem_minmax(0,1fr)] lg:gap-10 xl:grid-cols-[15rem_minmax(0,1fr)_14rem] xl:gap-12'>
-        <DocsSidebar />
-        <div className='min-w-0 pt-5 lg:pt-0'>{children}</div>
-        <DocsTOC />
+    <DocsVersionProvider>
+      <div className='mx-auto w-full max-w-[1440px] px-4 py-6 sm:px-6 lg:px-8 lg:py-10'>
+        <div className='lg:grid lg:grid-cols-[15rem_minmax(0,1fr)] lg:gap-10 xl:grid-cols-[15rem_minmax(0,1fr)_14rem] xl:gap-12'>
+          <DocsSidebar />
+          <div className='min-w-0 pt-5 lg:pt-0'>{children}</div>
+          <DocsTOC />
+        </div>
       </div>
-    </div>
+    </DocsVersionProvider>
   )
 }
