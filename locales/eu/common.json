@@ -2513,6 +2513,17 @@
           "integrator_platform": "Kontua eta plataforma"
         },
         "title": "Dokumentazioa"
+      },
+      "version": {
+        "badge": "{{version}} aurrebista",
+        "error": "Ezin izan da {{version}} edukia kargatu. Argitaratutako bertsioa erakusten da.",
+        "error_not_found": "{{version}} adarrak ez du dokumentaziorik. Argitaratutako bertsioa erakusten da.",
+        "label": "Bertsioa",
+        "loading": "{{version}} edukia kargatzen",
+        "new_page": "Berria",
+        "new_page_hint": "Oraindik argitaratu gabe",
+        "production": "Ekoizpena",
+        "stage": "Proba"
       }
     },
     "landing": {

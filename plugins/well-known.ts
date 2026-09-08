@@ -119,8 +119,9 @@ function buildContentSecurityPolicy(posthogHost: string): string {
     // Self-hosted under public/fonts (scripts/copy-fonts.mjs).
     "font-src 'self'",
     // PostHog beacons (lib/posthog.ts), Plausible events, GA4 hits, the contact form
-    // (@emailjs/browser) and the Cal.com embed's data fetches.
-    `connect-src 'self' ${posthogHost} https://plausible.io https://api.emailjs.com ${googleAnalytics} https://*.analytics.google.com https://app.cal.com`,
+    // (@emailjs/browser), the Cal.com embed's data fetches, and the developer-docs version
+    // selector's dynamic stage-content fetching (raw.githubusercontent.com and api.github.com).
+    `connect-src 'self' ${posthogHost} https://plausible.io https://api.emailjs.com ${googleAnalytics} https://*.analytics.google.com https://app.cal.com https://raw.githubusercontent.com https://api.github.com`,
     // YouTube embeds (the facade uses -nocookie), the Cal.com booking dialog, the reCAPTCHA
     // widget and GTM's noscript pixel.
     'frame-src https://www.youtube-nocookie.com https://www.youtube.com https://www.google.com https://www.googletagmanager.com https://app.cal.com https://cal.com',

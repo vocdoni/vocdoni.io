@@ -2513,6 +2513,17 @@
           "integrator_platform": "Conta e plataforma"
         },
         "title": "Documentação"
+      },
+      "version": {
+        "badge": "Prévia de {{version}}",
+        "error": "Não foi possível carregar o conteúdo de {{version}}. A versão publicada está sendo exibida.",
+        "error_not_found": "A branch {{version}} não tem documentação. A versão publicada está sendo exibida.",
+        "label": "Versão",
+        "loading": "Carregando o conteúdo de {{version}}",
+        "new_page": "Nova",
+        "new_page_hint": "Ainda não publicada",
+        "production": "Produção",
+        "stage": "Pré-produção"
       }
     },
     "landing": {

@@ -96,6 +96,8 @@ describe('buildNetlifyHeaders', () => {
       'https://app.cal.com', // Cal.com booking embed
       'https://www.youtube-nocookie.com', // video facade
       'https://storage.googleapis.com', // blog-hotlinked images
+      'https://raw.githubusercontent.com', // developer-docs version selector
+      'https://api.github.com', // developer-docs version selector
       "frame-ancestors 'none'",
       "object-src 'none'",
       "base-uri 'self'",

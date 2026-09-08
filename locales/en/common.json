@@ -2513,6 +2513,17 @@
           "integrator_platform": "Account & platform"
         },
         "title": "Documentation"
+      },
+      "version": {
+        "badge": "{{version}} preview",
+        "error": "Could not load the {{version}} content. Showing the published version instead.",
+        "error_not_found": "The {{version}} branch has no documentation. Showing the published version instead.",
+        "label": "Version",
+        "loading": "Loading {{version}} content",
+        "new_page": "New",
+        "new_page_hint": "Not published yet",
+        "production": "Production",
+        "stage": "Stage"
       }
     },
     "landing": {

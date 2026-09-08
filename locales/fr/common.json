@@ -2513,6 +2513,17 @@
           "integrator_platform": "Compte et plateforme"
         },
         "title": "Documentation"
+      },
+      "version": {
+        "badge": "Aperçu {{version}}",
+        "error": "Impossible de charger le contenu {{version}}. La version publiée est affichée.",
+        "error_not_found": "La branche {{version}} ne contient aucune documentation. La version publiée est affichée.",
+        "label": "Version",
+        "loading": "Chargement du contenu {{version}}",
+        "new_page": "Nouveau",
+        "new_page_hint": "Pas encore publiée",
+        "production": "Production",
+        "stage": "Préproduction"
       }
     },
     "landing": {

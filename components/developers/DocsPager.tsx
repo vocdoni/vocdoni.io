@@ -1,9 +1,8 @@
 import { Link } from '@/components/Link'
-import type { DocsPageData } from '@/lib/docs/nav'
+import { useDocsData } from '@/hooks/useDocsData'
 import { cn } from '@/lib/utils'
 import { ArrowLeft, ArrowRight } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
-import { useData } from 'vike-react/useData'
 
 import { flattenDocsNav } from './docs-nav'
 
@@ -14,8 +13,10 @@ interface DocsPagerProps {
 // Previous / next navigation derived from the flattened reading order.
 export function DocsPager({ slug }: DocsPagerProps) {
   const { t } = useTranslation()
-  const { nav } = useData<DocsPageData>()
-  const flat = flattenDocsNav(nav)
+  const { nav, bakedSlugs } = useDocsData()
+  // A remote version can list pages this build never prerendered; stepping into
+  // one would 404, so they are skipped in the reading order (see DocsSidebar).
+  const flat = flattenDocsNav(nav).filter((item) => bakedSlugs.has(item.slug))
   const index = flat.findIndex((item) => item.slug === slug)
   if (index === -1) return null
 
