@@ -105,6 +105,15 @@ Security headers (an enforced Content-Security-Policy, `X-Frame-Options`, `X-Con
 
 `NOINDEX=true` makes the build emit `X-Robots-Tag: noindex, nofollow` in `_headers`, drop the `Sitemap:` line from `robots.txt`, and add a `robots` meta tag. Never set it for a production build.
 
+### Documentation versions
+
+`/developers/docs` pages ship with the markdown baked in at build time, but the sidebar has a version selector (`lib/docs/versions.ts`). Every version other than `production` names a **branch** of the public repo, and picking one makes the browser fetch that branch's `content/developers/docs/**/*.md` from the GitHub tree API plus raw.githubusercontent.com and compile it client-side (`lib/docs/remote.ts` -> `lib/docs/remote-load.ts` -> `hooks/useDocsData.ts`). Both origins are in the CSP `connect-src`; a new one needs `buildContentSecurityPolicy` updated first.
+
+- **No deploy ever runs from `stage`.** It is a content branch: writers merge markdown into it and reload any deploy (production, dev, a preview) with the stage version selected. The turnaround is a page reload plus the ~5 minute GitHub raw CDN/session cache, not a build.
+- **Only the markdown comes from the branch.** The compiler, the `{{TOKEN}}` values (`lib/docs/tokens.ts`), the nav taxonomy and every bit of UI come from the deployed build, so a stage page that uses a token or a `:::` directive added on the branch renders with this build's behaviour. Ship pipeline changes to `main` before relying on them in stage content.
+- **Stage-only pages are not navigable yet.** A slug that exists on the branch but was never prerendered here has no route, so the sidebar renders it as an inert entry with a "new" badge and the pager skips it. Phase 2 is a Netlify rewrite that serves those URLs from the docs shell; until it lands, a new page is only readable once it reaches `main`.
+- The markdown pipeline is lazy: `lib/docs/remote-load.ts` is the only client-reachable module importing `lib/docs/pipeline.ts`, and it is reached through a dynamic `import()`. Readers on the baked version never download it. Never import `@/lib/docs/markdown` or `@/lib/docs/nav` for values from client code - both hold an eager glob of every doc.
+
 Netlify edge functions live in `netlify/edge-functions/` and are declared to the CLI by `netlify.toml`. The workflow uploads with `netlify deploy --no-build`, which bundles them; that is why the deploy runs through the Netlify CLI rather than a deploy action. Keep edge functions as a thin shell over a pure, unit-tested module in `lib/`, and keep `netlify.toml` free of redirect and header rules - those are generated into `dist/client` and toml rules would silently take precedence.
 
 ## Agent-Specific Instructions
