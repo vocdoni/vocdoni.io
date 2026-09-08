@@ -1,8 +1,7 @@
 import { Link } from '@/components/Link'
-import type { DocsPageData } from '@/lib/docs/nav'
+import { useDocsData } from '@/hooks/useDocsData'
 import { ChevronRight } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
-import { useData } from 'vike-react/useData'
 
 import { navGroupLabels } from './docs-nav'
 
@@ -13,7 +12,7 @@ interface DocsBreadcrumbsProps {
 // Documentation > {group} > {page}. The overview page only shows the root crumb.
 export function DocsBreadcrumbs({ slug }: DocsBreadcrumbsProps) {
   const { t } = useTranslation()
-  const { nav } = useData<DocsPageData>()
+  const { nav } = useDocsData()
   const groupLabels = navGroupLabels(t)
   const group = nav.find((candidate) => candidate.items.some((item) => item.slug === slug))
   const item = group?.items.find((candidate) => candidate.slug === slug)

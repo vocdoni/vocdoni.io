@@ -1,5 +1,6 @@
 import { DocsSidebar } from '@/components/developers/DocsSidebar'
 import { DocsTOC } from '@/components/developers/DocsTOC'
+import { DocsDataProvider, useDocsData } from '@/hooks/useDocsData'
 import { DocsVersionProvider } from '@/hooks/useDocsVersion'
 import * as React from 'react'
 import { useTranslation } from 'react-i18next'
@@ -146,22 +147,34 @@ function useCodeTabs() {
   })
 }
 
+// Both effects above deliberately run on every render so they re-bind whenever
+// the article HTML is replaced. That only works if the component holding them
+// re-renders on a version swap, which the layout itself does not - it renders
+// the provider rather than consuming it. Subscribing here is what keeps the
+// copy buttons and code tabs alive after remote content is swapped in.
+function DocsInteractions() {
+  useDocsData()
+  useCodeCopyButtons()
+  useCodeTabs()
+  return null
+}
+
 // Nested layout: renders inside the global Navbar + Footer layout and adds the
 // documentation sidebar (left) and on-this-page rail (right). The landing at
 // /developers does not use this layout - only /developers/docs/* pages do.
 export default function DocsLayout({ children }: { children: React.ReactNode }) {
-  useCodeCopyButtons()
-  useCodeTabs()
-
   return (
     <DocsVersionProvider>
-      <div className='mx-auto w-full max-w-[1440px] px-4 py-6 sm:px-6 lg:px-8 lg:py-10'>
-        <div className='lg:grid lg:grid-cols-[15rem_minmax(0,1fr)] lg:gap-10 xl:grid-cols-[15rem_minmax(0,1fr)_14rem] xl:gap-12'>
-          <DocsSidebar />
-          <div className='min-w-0 pt-5 lg:pt-0'>{children}</div>
-          <DocsTOC />
+      <DocsDataProvider>
+        <div className='mx-auto w-full max-w-[1440px] px-4 py-6 sm:px-6 lg:px-8 lg:py-10'>
+          <div className='lg:grid lg:grid-cols-[15rem_minmax(0,1fr)] lg:gap-10 xl:grid-cols-[15rem_minmax(0,1fr)_14rem] xl:gap-12'>
+            <DocsSidebar />
+            <div className='min-w-0 pt-5 lg:pt-0'>{children}</div>
+            <DocsTOC />
+          </div>
         </div>
-      </div>
+        <DocsInteractions />
+      </DocsDataProvider>
     </DocsVersionProvider>
   )
 }

@@ -1,3 +1,4 @@
+import { useDocsData } from '@/hooks/useDocsData'
 import { cn } from '@/lib/utils'
 import * as React from 'react'
 import { useTranslation } from 'react-i18next'
@@ -19,6 +20,10 @@ export function DocsTOC() {
   const { t } = useTranslation()
   const pageContext = usePageContext() as any
   const urlLogical = pageContext.urlLogical as string
+  const { doc, version } = useDocsData()
+  // The article body also changes without a navigation when a remote version is
+  // swapped in, so the scan is keyed on the rendered doc identity as well.
+  const docKey = `${version.id}/${doc.slug}/${doc.usedLocale}`
   const [headings, setHeadings] = React.useState<Heading[]>([])
   const [activeId, setActiveId] = React.useState<string>('')
 
@@ -79,7 +84,7 @@ export function DocsTOC() {
       window.removeEventListener('resize', onScroll)
       if (frame) window.cancelAnimationFrame(frame)
     }
-  }, [urlLogical])
+  }, [urlLogical, docKey])
 
   if (headings.length < 2) return <div className='hidden xl:block' />
 
