@@ -47,7 +47,14 @@ export interface DocsData {
   loading: boolean
   /** Set when the remote load failed; the baked content stays on screen. */
   error: DocsRemoteErrorKind | null
+  /** A remote version is selected. It may still be loading, failed, or absent. */
   isRemote: boolean
+  /**
+   * The article on screen really is the remote one. `isRemote` is the reader's
+   * intent; this is the fact, and it is what the version badge must key off so
+   * it never claims preview content while the baked page is showing.
+   */
+  showingRemote: boolean
   version: DocsVersion
   /**
    * Slugs this build actually prerendered. A remote branch can introduce pages
@@ -89,6 +96,10 @@ function useDocsDataValue(): DocsData {
       })
       .catch((error: unknown) => {
         if (cancelled) return
+        // The reader only ever sees "could not load"; without this the actual
+        // cause (a CSP block, a Node global the pipeline should not touch, a
+        // rate-limited API) is swallowed and has to be rediscovered by hand.
+        console.error('[docs-version] failed to load remote docs', { branch, slug, locale }, error)
         setState({ key, loading: false, data: null, error: docsRemoteErrorKind(error) })
       })
 
@@ -116,6 +127,7 @@ function useDocsDataValue(): DocsData {
       loading: remote?.loading ?? false,
       error: remote?.error ?? null,
       isRemote,
+      showingRemote: Boolean(remote?.data?.doc),
       version,
       bakedSlugs,
     }),
