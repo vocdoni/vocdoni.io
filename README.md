@@ -127,7 +127,7 @@ Under this flow `lts` carries no commits of its own, so the merge normally fast-
 
 ### Documentation staging
 
-The `stage` branch is a content-only holding branch for `/developers/docs` markdown - it is **not** a deployment environment. No workflow deploys from it, so it has no GitHub environment, no secrets and no Netlify site of its own. Merging docs into `stage` makes them readable within minutes on any live site (production, dev, or a PR preview) that has the docs version selector set to "Stage" - the browser fetches `content/developers/docs/**` from that branch at runtime, not at build time. See [AGENTS.md](AGENTS.md#documentation-versions) for how that fetch works.
+The `stage` branch is a content-only holding branch for `/developers/docs` markdown - it is **not** a deployment environment. No workflow deploys from it, so it has no GitHub environment, no secrets and no Netlify site of its own. Merging docs into `stage` makes them readable within minutes on any live site (production, dev, or a PR preview) that has the docs version selector set to "Stage" (or is opened with `?version=stage` in the URL, which is how you share a link to it) - the browser fetches `content/developers/docs/**` from that branch at runtime, not at build time. See [AGENTS.md](AGENTS.md#documentation-versions) for how that fetch works.
 
 To ship stage content for real, promote it through the release flow above: merge it into `main`, then `main` into `lts`.
 
