@@ -2764,15 +2764,15 @@
         "items": [
           {
             "title": "Anonimato",
-            "description": "Cada cédula é lacrada no navegador de quem vota antes de ser enviada. Ninguém consegue vincular um voto a uma pessoa, nem as suas administradoras nem a Vocdoni, e a apuração é produzida a partir de cédulas que não nomeiam ninguém."
+            "description": "Com o módulo Decidim Secure Elections, cada cédula é lacrada no navegador de quem vota antes de ser enviada. Ninguém consegue vincular um voto a uma pessoa, nem as suas administradoras nem a Vocdoni, e a apuração é produzida a partir de cédulas que não nomeiam ninguém."
           },
           {
             "title": "Verificabilidade ponta a ponta",
-            "description": "Cada votante recebe um código de recibo que prova que o seu voto foi registrado sem revelá-lo, e qualquer pessoa pode refazer a contagem a partir do resultado publicado e da exportação, sem confiar na sua instalação."
+            "description": "Com o módulo Decidim Secure Elections, cada votante recebe um código de recibo que prova que o seu voto foi registrado sem revelá-lo, e qualquer pessoa pode refazer a contagem a partir do resultado publicado e da exportação, sem confiar na sua instalação."
           },
           {
             "title": "Proteção de dados desde a concepção",
-            "description": "O seu Decidim não guarda nenhuma cédula nem nenhuma identidade da lista de votantes, e a Vocdoni guarda apenas credenciais com hash que não podem ser transformadas de volta em nomes, então um vazamento não revela nada sobre como alguém votou."
+            "description": "Com o módulo Decidim Secure Elections, o seu Decidim não guarda nenhuma cédula nem nenhuma identidade da lista de votantes, e a Vocdoni guarda apenas credenciais com hash que não podem ser transformadas de volta em nomes, então um vazamento não revela nada sobre como alguém votou."
           }
         ]
       },
@@ -2872,8 +2872,8 @@
       },
       "how": {
         "eyebrow": "como funciona",
-        "title": "O módulo fala o protocolo de votação da Vocdoni. Quem organiza só vê um módulo do Decidim.",
-        "intro": "Uma administradora monta a eleição em cinco passos dentro do Decidim e publica. Os votos são lacrados no navegador do associado, processados pela infraestrutura da Vocdoni e apurados onde qualquer pessoa pode conferir o resultado. Ninguém precisa aprender uma segunda ferramenta.",
+        "title": "A eleição roda sobre o protocolo de votação da Vocdoni. Para quem organiza, é um componente do Decidim como qualquer outro.",
+        "intro": "Uma administradora monta a eleição em minutos dentro do Decidim e publica. Os votos são lacrados no navegador do associado, processados pela infraestrutura da Vocdoni e apurados onde qualquer pessoa pode conferir o resultado. Ninguém precisa aprender uma segunda ferramenta.",
         "features": [
           {
             "title": "Uma lista de votantes montada com as verificações do Decidim",

@@ -2764,15 +2764,15 @@
         "items": [
           {
             "title": "Anonimato",
-            "description": "Ogni scheda viene sigillata nel browser di chi vota prima di essere inviata. Nessuno può collegare un voto a una persona, né i vostri amministratori né Vocdoni, e lo spoglio viene prodotto da schede che non nominano nessuno."
+            "description": "Con il modulo Decidim Secure Elections, ogni scheda viene sigillata nel browser di chi vota prima di essere inviata. Nessuno può collegare un voto a una persona, né i vostri amministratori né Vocdoni, e lo spoglio viene prodotto da schede che non nominano nessuno."
           },
           {
             "title": "Verificabilità end-to-end",
-            "description": "Ogni votante riceve un codice di ricevuta che dimostra che il suo voto è stato registrato senza rivelarlo, e chiunque può ricontare a partire dal risultato pubblicato e dall'esportazione, senza dover dare fiducia alla vostra installazione."
+            "description": "Con il modulo Decidim Secure Elections, ogni votante riceve un codice di ricevuta che dimostra che il suo voto è stato registrato senza rivelarlo, e chiunque può ricontare a partire dal risultato pubblicato e dall'esportazione, senza dover dare fiducia alla vostra installazione."
           },
           {
             "title": "Protezione dei dati fin dalla progettazione",
-            "description": "Il vostro Decidim non conserva né schede né identità dell'elenco elettorale, e Vocdoni custodisce soltanto credenziali in forma di hash, che non si possono riconvertire in nomi, quindi una fuga di dati non rivela nulla sul voto di nessuno."
+            "description": "Con il modulo Decidim Secure Elections, il vostro Decidim non conserva né schede né identità dell'elenco elettorale, e Vocdoni custodisce soltanto credenziali in forma di hash, che non si possono riconvertire in nomi, quindi una fuga di dati non rivela nulla sul voto di nessuno."
           }
         ]
       },
@@ -2872,8 +2872,8 @@
       },
       "how": {
         "eyebrow": "come funziona",
-        "title": "Il modulo parla il protocollo di voto Vocdoni. Chi organizza vede semplicemente un modulo Decidim.",
-        "intro": "Un amministratore costruisce l'elezione in cinque passaggi dentro Decidim e la pubblica. I voti vengono sigillati nel browser del membro, elaborati dall'infrastruttura Vocdoni e conteggiati dove chiunque può verificare il risultato. Nessuno deve imparare un secondo strumento.",
+        "title": "L'elezione funziona con il protocollo di voto Vocdoni. Per chi organizza è un componente Decidim come qualsiasi altro.",
+        "intro": "Un amministratore costruisce l'elezione in pochi minuti dentro Decidim e la pubblica. I voti vengono sigillati nel browser del membro, elaborati dall'infrastruttura Vocdoni e conteggiati dove chiunque può verificare il risultato. Nessuno deve imparare un secondo strumento.",
         "features": [
           {
             "title": "Un elenco elettorale dalle verifiche Decidim",

@@ -2764,15 +2764,15 @@
         "items": [
           {
             "title": "Anonymat",
-            "description": "Chaque bulletin est scellé dans le navigateur du votant avant d'être envoyé. Personne ne peut relier un vote à une personne, ni vos administrateurs ni Vocdoni, et le dépouillement est produit à partir de bulletins qui ne nomment personne."
+            "description": "Avec le module Decidim Secure Elections, chaque bulletin est scellé dans le navigateur du votant avant d'être envoyé. Personne ne peut relier un vote à une personne, ni vos administrateurs ni Vocdoni, et le dépouillement est produit à partir de bulletins qui ne nomment personne."
           },
           {
             "title": "Vérifiabilité de bout en bout",
-            "description": "Chaque votant reçoit un code de reçu qui prouve que son vote a bien été enregistré sans le révéler, et n'importe qui peut recompter à partir du résultat publié et de l'export, sans faire confiance à votre installation."
+            "description": "Avec le module Decidim Secure Elections, chaque votant reçoit un code de reçu qui prouve que son vote a bien été enregistré sans le révéler, et n'importe qui peut recompter à partir du résultat publié et de l'export, sans faire confiance à votre installation."
           },
           {
             "title": "Protection des données dès la conception",
-            "description": "Votre Decidim ne stocke ni bulletin ni identité du corps électoral, et Vocdoni ne détient que des identifiants hachés, impossibles à retransformer en noms : une fuite ne révèle donc rien sur le vote de qui que ce soit."
+            "description": "Avec le module Decidim Secure Elections, votre Decidim ne stocke ni bulletin ni identité du corps électoral, et Vocdoni ne détient que des identifiants hachés, impossibles à retransformer en noms : une fuite ne révèle donc rien sur le vote de qui que ce soit."
           }
         ]
       },
@@ -2872,8 +2872,8 @@
       },
       "how": {
         "eyebrow": "comment ça marche",
-        "title": "Le module parle le protocole de vote Vocdoni. Les organisateurs, eux, ne voient qu'un module Decidim.",
-        "intro": "Un administrateur construit l'élection en cinq étapes dans Decidim et la publie. Les votes sont scellés dans le navigateur du membre, traités par l'infrastructure Vocdoni, et dépouillés là où chacun peut vérifier le résultat. Personne n'a de second outil à apprendre.",
+        "title": "L'élection fonctionne avec le protocole de vote Vocdoni. Pour les organisateurs, c'est un composant Decidim comme un autre.",
+        "intro": "Un administrateur construit l'élection en quelques minutes dans Decidim et la publie. Les votes sont scellés dans le navigateur du membre, traités par l'infrastructure Vocdoni, et dépouillés là où chacun peut vérifier le résultat. Personne n'a de second outil à apprendre.",
         "features": [
           {
             "title": "Un corps électoral issu des vérifications Decidim",

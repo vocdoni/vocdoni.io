@@ -2764,15 +2764,15 @@
         "items": [
           {
             "title": "Anonymität",
-            "description": "Jeder Stimmzettel wird im Browser der wählenden Person versiegelt, bevor er abgeschickt wird. Niemand kann eine Stimme einer Person zuordnen, weder Ihre Administratorinnen noch Vocdoni, und die Auszählung entsteht aus Stimmzetteln, die niemanden benennen."
+            "description": "Mit dem Modul Decidim Secure Elections wird jeder Stimmzettel im Browser der wählenden Person versiegelt, bevor er abgeschickt wird. Niemand kann eine Stimme einer Person zuordnen, weder Ihre Administratorinnen noch Vocdoni, und die Auszählung entsteht aus Stimmzetteln, die niemanden benennen."
           },
           {
             "title": "Durchgängige Überprüfbarkeit",
-            "description": "Jede wählende Person erhält einen Quittungscode, der belegt, dass ihre Stimme erfasst wurde, ohne sie zu verraten, und alle können aus dem veröffentlichten Ergebnis und dem Export nachzählen, ohne Ihrer Installation vertrauen zu müssen."
+            "description": "Mit dem Modul Decidim Secure Elections erhält jede wählende Person einen Quittungscode, der belegt, dass ihre Stimme erfasst wurde, ohne sie zu verraten, und alle können aus dem veröffentlichten Ergebnis und dem Export nachzählen, ohne Ihrer Installation vertrauen zu müssen."
           },
           {
             "title": "Datenschutz durch Technikgestaltung",
-            "description": "Ihr Decidim speichert weder Stimmzettel noch Identitäten aus dem Wählerverzeichnis, und Vocdoni hält nur gehashte Zugangsdaten, die sich nicht in Namen zurückverwandeln lassen. Ein Leck verrät also nichts darüber, wie jemand abgestimmt hat."
+            "description": "Mit dem Modul Decidim Secure Elections speichert Ihr Decidim weder Stimmzettel noch Identitäten aus dem Wählerverzeichnis, und Vocdoni hält nur gehashte Zugangsdaten, die sich nicht in Namen zurückverwandeln lassen. Ein Leck verrät also nichts darüber, wie jemand abgestimmt hat."
           }
         ]
       },
@@ -2872,8 +2872,8 @@
       },
       "how": {
         "eyebrow": "wie es funktioniert",
-        "title": "Das Modul spricht das Vocdoni-Wahlprotokoll. Wer die Wahl organisiert, sieht nur ein Decidim-Modul.",
-        "intro": "Eine Administratorin baut die Wahl in fünf Schritten innerhalb von Decidim auf und veröffentlicht sie. Die Stimmen werden im Browser des Mitglieds versiegelt, von der Vocdoni-Infrastruktur verarbeitet und dort ausgezählt, wo alle das Ergebnis prüfen können. Niemand muss ein zweites Werkzeug lernen.",
+        "title": "Die Wahl läuft über das Vocdoni-Wahlprotokoll. Wer sie organisiert, arbeitet mit einer Decidim-Komponente wie mit jeder anderen.",
+        "intro": "Eine Administratorin baut die Wahl in wenigen Minuten innerhalb von Decidim auf und veröffentlicht sie. Die Stimmen werden im Browser des Mitglieds versiegelt, von der Vocdoni-Infrastruktur verarbeitet und dort ausgezählt, wo alle das Ergebnis prüfen können. Niemand muss ein zweites Werkzeug lernen.",
         "features": [
           {
             "title": "Ein Wählerverzeichnis aus Decidim-Verifizierungen",

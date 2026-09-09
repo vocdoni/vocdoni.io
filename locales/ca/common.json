@@ -2764,15 +2764,15 @@
         "items": [
           {
             "title": "Anonimat",
-            "description": "Cada papereta es segella al navegador de qui vota abans d'enviar-se. Ningú no pot vincular un vot a una persona, ni els vostres administradors ni Vocdoni, i el recompte es produeix a partir de paperetes que no anomenen ningú."
+            "description": "Amb el mòdul Decidim Secure Elections, cada papereta es segella al navegador de qui vota abans d'enviar-se. Ningú no pot vincular un vot a una persona, ni els vostres administradors ni Vocdoni, i el recompte es produeix a partir de paperetes que no anomenen ningú."
           },
           {
             "title": "Verificabilitat de punta a punta",
-            "description": "Cada votant rep un codi de rebut que demostra que el seu vot s'ha registrat sense revelar-lo, i qualsevol pot refer el recompte a partir del resultat publicat i de l'exportació, sense confiar en la vostra instal·lació."
+            "description": "Amb el mòdul Decidim Secure Elections, cada votant rep un codi de rebut que demostra que el seu vot s'ha registrat sense revelar-lo, i qualsevol pot refer el recompte a partir del resultat publicat i de l'exportació, sense confiar en la vostra instal·lació."
           },
           {
             "title": "Protecció de dades des del disseny",
-            "description": "El vostre Decidim no desa cap papereta ni cap identitat del cens, i Vocdoni només guarda credencials en forma de hash que no es poden convertir de nou en noms, de manera que una fuita no revela res sobre el vot de ningú."
+            "description": "Amb el mòdul Decidim Secure Elections, el vostre Decidim no desa cap papereta ni cap identitat del cens, i Vocdoni només guarda credencials en forma de hash que no es poden convertir de nou en noms, de manera que una fuita no revela res sobre el vot de ningú."
           }
         ]
       },
@@ -2872,8 +2872,8 @@
       },
       "how": {
         "eyebrow": "com funciona",
-        "title": "El mòdul parla el protocol de votació de Vocdoni. Els organitzadors només veuen un mòdul de Decidim.",
-        "intro": "Un administrador construeix l'elecció en cinc passos dins de Decidim i la publica. Els vots es segellen al navegador de cada membre, els processa la infraestructura de Vocdoni i es compten allà on qualsevol pot comprovar el resultat. Ningú no ha d'aprendre una segona eina.",
+        "title": "L'elecció funciona amb el protocol de votació de Vocdoni. Per als organitzadors és un component de Decidim com qualsevol altre.",
+        "intro": "Un administrador construeix l'elecció en minuts dins de Decidim i la publica. Els vots es segellen al navegador de cada membre, els processa la infraestructura de Vocdoni i es compten allà on qualsevol pot comprovar el resultat. Ningú no ha d'aprendre una segona eina.",
         "features": [
           {
             "title": "Un cens fet amb les verificacions de Decidim",

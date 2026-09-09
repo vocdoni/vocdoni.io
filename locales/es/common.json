@@ -2764,15 +2764,15 @@
         "items": [
           {
             "title": "Anonimato",
-            "description": "Cada papeleta se sella en el navegador de quien vota antes de enviarse. Nadie puede vincular un voto a una persona, ni tus administradores ni Vocdoni, y el recuento se produce a partir de papeletas que no nombran a nadie."
+            "description": "Con el módulo Decidim Secure Elections, cada papeleta se sella en el navegador de quien vota antes de enviarse. Nadie puede vincular un voto a una persona, ni tus administradores ni Vocdoni, y el recuento se produce a partir de papeletas que no nombran a nadie."
           },
           {
             "title": "Verificabilidad de principio a fin",
-            "description": "Cada votante recibe un código de recibo que demuestra que su voto se registró sin revelarlo, y cualquiera puede rehacer el recuento a partir del resultado publicado y de la exportación, sin confiar en tu instalación."
+            "description": "Con el módulo Decidim Secure Elections, cada votante recibe un código de recibo que demuestra que su voto se registró sin revelarlo, y cualquiera puede rehacer el recuento a partir del resultado publicado y de la exportación, sin confiar en tu instalación."
           },
           {
             "title": "Protección de datos desde el diseño",
-            "description": "Tu Decidim no guarda ninguna papeleta ni ninguna identidad del censo, y Vocdoni solo guarda credenciales en forma de hash que no pueden convertirse de nuevo en nombres, así que una fuga no revela nada sobre el voto de nadie."
+            "description": "Con el módulo Decidim Secure Elections, tu Decidim no guarda ninguna papeleta ni ninguna identidad del censo, y Vocdoni solo guarda credenciales en forma de hash que no pueden convertirse de nuevo en nombres, así que una fuga no revela nada sobre el voto de nadie."
           }
         ]
       },
@@ -2872,8 +2872,8 @@
       },
       "how": {
         "eyebrow": "cómo funciona",
-        "title": "El módulo habla el protocolo de votación de Vocdoni. Los organizadores solo ven un módulo de Decidim.",
-        "intro": "Un administrador construye la elección en cinco pasos dentro de Decidim y la publica. Los votos se sellan en el navegador de cada miembro, los procesa la infraestructura de Vocdoni y se cuentan donde cualquiera puede comprobar el resultado. Nadie tiene que aprender una segunda herramienta.",
+        "title": "La elección funciona con el protocolo de votación de Vocdoni. Para los organizadores es un componente de Decidim como cualquier otro.",
+        "intro": "Un administrador construye la elección en minutos dentro de Decidim y la publica. Los votos se sellan en el navegador de cada miembro, los procesa la infraestructura de Vocdoni y se cuentan donde cualquiera puede comprobar el resultado. Nadie tiene que aprender una segunda herramienta.",
         "features": [
           {
             "title": "Un censo hecho con las verificaciones de Decidim",

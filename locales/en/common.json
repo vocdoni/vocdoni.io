@@ -2765,15 +2765,15 @@
         "items": [
           {
             "title": "Anonymity",
-            "description": "Each ballot is sealed in the voter's browser before it is sent. Nobody can link a vote to a person, not your administrators and not Vocdoni, and the count is produced from ballots that name nobody."
+            "description": "With the Decidim Secure Elections module, each ballot is sealed in the voter's browser before it is sent. Nobody can link a vote to a person, not your administrators and not Vocdoni, and the count is produced from ballots that name nobody."
           },
           {
             "title": "End-to-end verifiability",
-            "description": "Every voter gets a receipt code that proves their vote was recorded without revealing it, and anyone can recount from the published result and the export without trusting your installation."
+            "description": "With the Decidim Secure Elections module, every voter gets a receipt code that proves their vote was recorded without revealing it, and anyone can recount from the published result and the export without trusting your installation."
           },
           {
             "title": "Data protection by design",
-            "description": "Your Decidim stores no ballot and no census identity, and Vocdoni holds only hashed credentials that cannot be turned back into names, so a leak reveals nothing about how anyone voted."
+            "description": "With the Decidim Secure Elections module, your Decidim stores no ballot and no census identity, and Vocdoni holds only hashed credentials that cannot be turned back into names, so a leak reveals nothing about how anyone voted."
           }
         ]
       },
@@ -2873,8 +2873,8 @@
       },
       "how": {
         "eyebrow": "how it works",
-        "title": "The module speaks the Vocdoni voting protocol. Organizers just see a Decidim module.",
-        "intro": "An administrator builds the election in five steps inside Decidim and publishes it. Votes are sealed in the member's browser, processed by the Vocdoni infrastructure, and counted where anyone can check the result. Nobody has to learn a second tool.",
+        "title": "The election runs on the Vocdoni voting protocol. Organizers work with it like any other Decidim component.",
+        "intro": "An administrator builds the election in minutes inside Decidim and publishes it. Votes are sealed in the member's browser, processed by the Vocdoni infrastructure, and counted where anyone can check the result. Nobody has to learn a second tool.",
         "features": [
           {
             "title": "A census from Decidim verifications",
