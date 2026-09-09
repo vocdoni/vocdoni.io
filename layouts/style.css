@@ -11,10 +11,10 @@ a {
 }
 
 /* Reset */
-html,
 body {
-  /* clip (not hidden) prevents horizontal overflow without turning the root
-     into a scroll container, which would disable position: sticky. */
+  /* clip (not hidden) keeps horizontal overflow away without turning body into a scroll container.
+     Never put this on html: a non-visible overflow there stops body's overflow from propagating to the
+     viewport, and a Radix scroll lock (overflow: hidden on body) then unsticks every sticky element. */
   overflow-x: clip;
 }
 html {
