@@ -11,10 +11,19 @@ a {
 }
 
 /* Reset */
-html,
 body {
   /* clip (not hidden) prevents horizontal overflow without turning the root
-     into a scroll container, which would disable position: sticky. */
+     into a scroll container, which would disable position: sticky.
+
+     Only body carries it, never html. While html keeps overflow: visible on
+     both axes, body's overflow propagates to the viewport, so this clip lands
+     on the viewport and the viewport stays the scroll container that sticky
+     elements (navbar, docs sidebar) attach to. Putting any non-visible
+     overflow on html stops that propagation: body then becomes a box with its
+     own overflow, and the moment a Radix modal (Select, Dialog, Sheet) locks
+     scrolling by setting overflow: hidden on body, body turns into a scroll
+     container of its own and every sticky element loses the viewport and
+     scrolls away. tests/layouts/style-overflow.test.ts guards this. */
   overflow-x: clip;
 }
 html {
