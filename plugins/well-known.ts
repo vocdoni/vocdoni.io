@@ -115,7 +115,7 @@ function buildContentSecurityPolicy(posthogHost: string): string {
     "style-src 'self' 'unsafe-inline'",
     // YouTube posters (components/ui/youtube-facade.tsx), images hotlinked in blog posts,
     // GA4/GTM pixels.
-    `img-src 'self' data: blob: https://i.ytimg.com https://img.youtube.com https://storage.googleapis.com ${googleAnalytics}`,
+    `img-src 'self' data: blob: https://spacerrapps.com https://i.ytimg.com https://img.youtube.com https://storage.googleapis.com ${googleAnalytics}`,
     // Self-hosted under public/fonts (scripts/copy-fonts.mjs).
     "font-src 'self'",
     // PostHog beacons (lib/posthog.ts), Plausible events, GA4 hits, the contact form

@@ -207,7 +207,13 @@ export default function Footer() {
         {/* Bottom Bar: Security & Copyright */}
         <div className='flex flex-col md:flex-row justify-between items-center gap-8'>
           <div className='flex flex-col gap-1 items-center md:items-start order-2 md:order-1'>
-            <p className='text-xs text-muted-foreground'>{t('footer.copyright', { year: new Date().getFullYear() })}</p>
+            <p className='text-xs text-muted-foreground'>
+              {t('footer.copyright', { year: new Date().getFullYear() })}{' '}
+              <a href='https://tin.computer' className='inline-flex items-center gap-1'>
+                <span aria-hidden='true' className='inline-block h-[1em] w-[1em] bg-[#66DC9D]' />
+                {t('footer.tin_credit', 'Growth by Tin')}
+              </a>
+            </p>
             <p className='text-[10px] text-muted-foreground'>{t('footer.rights')}</p>
           </div>
 
@@ -221,7 +227,21 @@ export default function Footer() {
               </div>
             </div>
 
-            {/* Removed SECURE ARCHITECTURE badge */}
+            <a
+              href='https://spacerrapps.com/apps/vocdoni?utm_source=badge&utm_medium=referral&utm_campaign=featured'
+              target='_blank'
+              rel='noopener noreferrer'
+              className='inline-flex shrink-0 rounded focus-visible:outline-2 focus-visible:outline-offset-4'
+            >
+              <img
+                src='https://spacerrapps.com/badge/vocdoni.svg?v=2'
+                alt={t('footer.spacerr_badge', 'Vocdoni is featured on Spacerr')}
+                width={192}
+                height={54}
+                className='h-[54px] w-[192px]'
+                loading='lazy'
+              />
+            </a>
           </div>
         </div>
       </div>
