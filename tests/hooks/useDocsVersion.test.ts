@@ -3,6 +3,7 @@ import {
   getStoredDocsVersionId,
   resolveDocsVersionId,
   setStoredDocsVersionId,
+  withDocsVersionParam,
 } from '@/hooks/useDocsVersion'
 import { DOCS_VERSION_DEFAULT } from '@/lib/docs/versions'
 import { afterEach, describe, expect, it, vi } from 'vitest'
@@ -44,6 +45,29 @@ describe('getQueryDocsVersionId', () => {
 
   it('returns null when the param is absent', () => {
     expect(getQueryDocsVersionId('?foo=bar')).toBeNull()
+  })
+})
+
+describe('withDocsVersionParam', () => {
+  it('adds the param for a non-default version', () => {
+    expect(withDocsVersionParam('', 'stage')).toBe('?version=stage')
+    expect(withDocsVersionParam('?foo=bar', 'stage')).toBe('?foo=bar&version=stage')
+  })
+
+  it('replaces a stale value instead of appending a second one', () => {
+    expect(withDocsVersionParam('?version=other', 'stage')).toBe('?version=stage')
+  })
+
+  it('drops the param for the default version so the shared URL stays clean', () => {
+    expect(withDocsVersionParam('?version=stage', DOCS_VERSION_DEFAULT.id)).toBe('')
+    expect(withDocsVersionParam('?foo=bar&version=stage', DOCS_VERSION_DEFAULT.id)).toBe('?foo=bar')
+    expect(withDocsVersionParam(`?version=${DOCS_VERSION_DEFAULT.id}`, DOCS_VERSION_DEFAULT.id)).toBe('')
+  })
+
+  it('returns the input untouched when it already matches, preserving other params verbatim', () => {
+    expect(withDocsVersionParam('?q=a%20b&version=stage', 'stage')).toBe('?q=a%20b&version=stage')
+    expect(withDocsVersionParam('?q=a%20b', DOCS_VERSION_DEFAULT.id)).toBe('?q=a%20b')
+    expect(withDocsVersionParam('', DOCS_VERSION_DEFAULT.id)).toBe('')
   })
 })
 

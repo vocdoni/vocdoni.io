@@ -1,5 +1,6 @@
 import { DOCS_VERSION_DEFAULT, DocsVersion, getDocsVersion } from '@/lib/docs/versions'
 import * as React from 'react'
+import { usePageContext } from 'vike-react/usePageContext'
 
 // Persists the selected docs version id across visits, mirroring the
 // try/catch style used for `docs-code-lang` in pages/developers/docs/+Layout.tsx -
@@ -46,6 +47,22 @@ export function getQueryDocsVersionId(search: string): string | null {
 }
 
 /**
+ * Returns `search` with the `?version=` param set to `id`, or removed when `id`
+ * is the default version - a shared URL without the param already means the
+ * default. The input is returned untouched when it already says the right
+ * thing, so unrelated params keep their original encoding.
+ */
+export function withDocsVersionParam(search: string, id: string): string {
+  const params = new URLSearchParams(search)
+  const wanted = id === DOCS_VERSION_DEFAULT.id ? null : id
+  if (params.get(QUERY_PARAM) === wanted) return search
+  if (wanted) params.set(QUERY_PARAM, wanted)
+  else params.delete(QUERY_PARAM)
+  const next = params.toString()
+  return next ? `?${next}` : ''
+}
+
+/**
  * Resolves a candidate id (from a query param or localStorage) to a known
  * docs version id, falling back to the default when the candidate is
  * missing or unknown.
@@ -67,23 +84,45 @@ const DocsVersionContext = React.createContext<DocsVersionContextValue | undefin
  * during SSR and initial hydration (to avoid a mismatch), then reconciles
  * with the `?version=` query param (which wins and is persisted) or the
  * stored preference in an effect.
+ *
+ * Once reconciled it keeps the address bar in sync the other way too: a
+ * non-default version is written back as `?version=<id>` (and the param is
+ * dropped for the default) so the URL can be copied and shared as-is. This
+ * re-runs on every client-side navigation because Vike's pushState carries
+ * only the link's own href, which would otherwise silently lose the param.
  */
 export function DocsVersionProvider({ children }: { children: React.ReactNode }) {
   const [versionId, setVersionIdState] = React.useState<string>(DOCS_VERSION_DEFAULT.id)
+  // The URL is only written once the initial read above has settled - before
+  // that the state still says "default" and the sync would strip the very
+  // param it is about to honour.
+  const [resolved, setResolved] = React.useState(false)
+  const { urlPathname } = usePageContext()
 
   React.useEffect(() => {
     const queryId = getQueryDocsVersionId(window.location.search)
     if (queryId && getDocsVersion(queryId)) {
       setStoredDocsVersionId(queryId)
       setVersionIdState(queryId)
-      return
+    } else {
+      const storedId = getStoredDocsVersionId()
+      if (storedId && getDocsVersion(storedId)) {
+        setVersionIdState(storedId)
+      }
     }
-
-    const storedId = getStoredDocsVersionId()
-    if (storedId && getDocsVersion(storedId)) {
-      setVersionIdState(storedId)
-    }
+    setResolved(true)
   }, [])
+
+  React.useEffect(() => {
+    if (!resolved) return
+    const { pathname, search, hash } = window.location
+    const next = withDocsVersionParam(search, versionId)
+    if (next === search) return
+    // replaceState, not pushState: this is a correction of the current entry,
+    // not a navigation, so Back must not land on the param-less URL. Passing
+    // the existing state through keeps Vike's scroll bookkeeping on it.
+    window.history.replaceState(window.history.state, '', `${pathname}${next}${hash}`)
+  }, [resolved, versionId, urlPathname])
 
   const setVersionId = React.useCallback((id: string) => {
     if (!getDocsVersion(id)) return
