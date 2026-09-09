@@ -2,22 +2,9 @@ import { readFileSync } from 'node:fs'
 import path from 'node:path'
 import { describe, expect, it } from 'vitest'
 
-// Guards the overflow contract of layouts/style.css.
-//
-// Sticky elements (the navbar, the docs sidebar) attach to the nearest scroll
-// container, which must stay the viewport. That only holds while `html` keeps
-// `overflow: visible` on both axes: it is what lets body's overflow propagate
-// to the viewport. With any non-visible overflow on `html` (the site used to
-// put `overflow-x: clip` on `html, body`), body stops propagating and keeps
-// its overflow for itself. It is harmless until a Radix modal (the docs
-// version Select, a Dialog, a Sheet) locks scrolling with an inline
-// `overflow: hidden` on body: body then becomes a scroll container, every
-// sticky element re-attaches to it and scrolls away with the page. On the docs
-// pages that showed as the sidebar jumping to the top (with the Select popover
-// following it off screen) or vanishing whenever the version selector was
-// opened after scrolling.
-//
-// Vitest runs without a layout engine, so this checks the stylesheet itself.
+// Guards the overflow contract of layouts/style.css: html must keep overflow visible so body's overflow
+// propagates to the viewport. Otherwise a Radix scroll lock (overflow: hidden on body) turns body into a
+// scroll container and every sticky element scrolls away. Vitest has no layout engine, so we check the CSS.
 
 const STYLESHEET = path.resolve(__dirname, '../../layouts/style.css')
 const OVERFLOW_PROPERTIES = ['overflow', 'overflow-x', 'overflow-y', 'overflow-block', 'overflow-inline']
