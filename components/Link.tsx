@@ -1,5 +1,5 @@
 import { ensureLeadingSlash, getLocalizedPath } from '@/lib/localized-path'
-import { trackAppCtaClick } from '@/lib/analytics'
+import { trackCtaClick } from '@/lib/analytics'
 import { cn } from '@/lib/utils'
 import { Locale } from '@/locales'
 import { cva, type VariantProps } from 'class-variance-authority'
@@ -73,7 +73,7 @@ export const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
         {...externalProps}
         {...props}
         onClick={(event) => {
-          if (ctaId) trackAppCtaClick({ ctaId, destinationUrl: fullHref })
+          if (ctaId) trackCtaClick(ctaId, fullHref, normalizedLogical)
           onClick?.(event)
         }}
       >
