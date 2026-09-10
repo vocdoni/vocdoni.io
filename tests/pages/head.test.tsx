@@ -275,6 +275,12 @@ describe('Head meta tags', () => {
     }
   })
 
+  it('points machine-readable service discovery at the canonical English docs route', () => {
+    const html = renderHead({ locale: 'es', urlLogical: '/app', config: { title: 'Vocdoni' } })
+    expect(html).toContain('rel="service-doc" href="https://vocdoni.io/en/developers/docs"')
+    expect(html).not.toContain('rel="service-doc" href="https://vocdoni.io/developers/docs"')
+  })
+
   it('keeps the Organization logo stable when a page has its own social image', () => {
     const branded = renderHead({ locale: 'en', urlLogical: '/', config: { title: 'Vocdoni' } })
     const caseStudy = renderHead({

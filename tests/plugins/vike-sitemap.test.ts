@@ -26,6 +26,22 @@ describe('vike sitemap plugin', () => {
       '<xhtml:link rel="alternate" hreflang="x-default" href="https://vocdoni.io/ca/blog/only-catalan" />'
     )
   })
+
+  it('uses real content dates when available and omits unknown dates', () => {
+    const xml = buildSitemapXml(
+      'https://vocdoni.io',
+      [
+        { baseRoute: '/app', locales: ['en'] },
+        { baseRoute: '/blog/dated-post', locales: ['en', 'es'], lastModified: '2026-03-24' },
+      ],
+      'en'
+    )
+
+    const appBlock = xml.split('<loc>https://vocdoni.io/en/app</loc>')[1].split('</url>')[0]
+    expect(appBlock).not.toContain('<lastmod>')
+    expect(xml.match(/<lastmod>2026-03-24<\/lastmod>/g)).toHaveLength(2)
+    expect(xml).not.toMatch(/<lastmod>\d{4}-\d{2}-\d{2}T/)
+  })
 })
 
 describe('buildRobotsTxt', () => {

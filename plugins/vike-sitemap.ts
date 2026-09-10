@@ -20,6 +20,8 @@ type Options = {
 export interface SitemapRoute {
   baseRoute: string
   locales: string[]
+  /** A real content date, never the build time. Omit when the route has no reliable date. */
+  lastModified?: string
 }
 
 function withLocalePrefix(locale: string, route: string) {
@@ -28,13 +30,12 @@ function withLocalePrefix(locale: string, route: string) {
 
 export function buildSitemapXml(hostname: string, routes: SitemapRoute[], defaultLocale: string) {
   const host = hostname.replace(/\/+$/, '')
-  const lastmod = new Date().toISOString()
 
   // One <url> per (route, locale) it exists in, each carrying reciprocal hreflang
   // alternates limited to that route's own locales so we never advertise a
   // fallback URL as a canonical alternate.
   const blocks: { loc: string; xml: string }[] = []
-  for (const { baseRoute, locales } of routes) {
+  for (const { baseRoute, locales, lastModified } of routes) {
     if (!locales.length) continue
     const canonicalLocale = locales.includes(defaultLocale) ? defaultLocale : locales[0]
     const alternates = [
@@ -48,9 +49,13 @@ export function buildSitemapXml(hostname: string, routes: SitemapRoute[], defaul
       const loc = `${host}${withLocalePrefix(locale, baseRoute)}`
       blocks.push({
         loc,
-        xml: ['  <url>', `    <loc>${loc}</loc>`, ...alternates, `    <lastmod>${lastmod}</lastmod>`, '  </url>'].join(
-          '\n'
-        ),
+        xml: [
+          '  <url>',
+          `    <loc>${loc}</loc>`,
+          ...alternates,
+          ...(lastModified ? [`    <lastmod>${lastModified}</lastmod>`] : []),
+          '  </url>',
+        ].join('\n'),
       })
     }
   }
@@ -87,7 +92,11 @@ async function discoverBlogRoutes(resolvedRoot: string, allLocales: string[]): P
     discoverBlogCategories(resolvedRoot, allLocales),
   ])
   return [
-    ...posts.map((post) => ({ baseRoute: `/blog/${post.slug}`, locales: post.locales })),
+    ...posts.map((post) => ({
+      baseRoute: `/blog/${post.slug}`,
+      locales: post.locales,
+      lastModified: post.updatedDate || post.date || undefined,
+    })),
     ...categories.map((category) => ({ baseRoute: `/blog/category/${category}`, locales: allLocales })),
   ]
 }

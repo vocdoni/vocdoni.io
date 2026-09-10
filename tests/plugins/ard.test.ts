@@ -86,9 +86,9 @@ describe('buildAiCatalogDocument', () => {
     expect(urls).toContain('https://vocdoni.io/.well-known/api-catalog')
     expect(urls).toContain('https://vocdoni.io/llms.txt')
     expect(urls).toContain('https://vocdoni.io/.well-known/agent-skills/index.json')
-    expect(urls).toContain('https://vocdoni.io/developers/docs')
+    expect(urls).toContain('https://vocdoni.io/en/developers/docs')
     expect(urls).toContain('https://vocdoni.io/blog/rss.xml')
-    expect(doc.host.documentationUrl).toBe('https://vocdoni.io/developers')
+    expect(doc.host.documentationUrl).toBe('https://vocdoni.io/en/developers')
   })
 
   it('points the raw markdown docs entry at the default locale', () => {
