@@ -8,6 +8,7 @@ import {
   LegalPageContainer,
   LegalSection,
   LegalSubsection,
+  LegalTable,
 } from '@/components/ui/legal-document'
 import { Heading, Paragraph } from '@/components/ui/typography'
 
@@ -64,8 +65,10 @@ export function PrivacyPolicyEN() {
           for its correct operation and analytics purposes.
         </Paragraph>
         <Paragraph variant='legal'>
-          We use Google Analytics (with anonymized IP addresses) and Plausible.io for aggregated, non-identifiable
-          analytics.
+          We use Google Analytics (with anonymized IP addresses), Plausible.io and PostHog for analytics. Google
+          Analytics and Plausible.io produce aggregated statistics. PostHog uses a randomly generated identifier which
+          is pseudonymous rather than anonymous, and which we therefore treat as personal data. Google Analytics and
+          PostHog are loaded only after you accept the cookie banner.
         </Paragraph>
         <Paragraph variant='legal'>
           No personal data is collected for marketing purposes, and no profiling is performed.
@@ -85,7 +88,8 @@ export function PrivacyPolicyEN() {
           </LegalListItem>
           <LegalListItem>
             <strong>(c) Technical data:</strong> device, browser, and IP may be processed for security monitoring and
-            non-identifiable analytics.
+            fraud prevention, on the basis of our legitimate interest. Analytics are not covered by this item: they rely
+            on your consent, as described in sections 3 and 9.
           </LegalListItem>
         </LegalList>
         <Paragraph variant='legal'>
@@ -100,7 +104,10 @@ export function PrivacyPolicyEN() {
         <Paragraph variant='legal'>The processing of your data is legitimated on the basis of:</Paragraph>
         <LegalList>
           <LegalListItem>Contractual necessity (Art. 6(1)(b) GDPR)</LegalListItem>
-          <LegalListItem>Explicit consent (Art. 6(1)(a) GDPR) for optional features</LegalListItem>
+          <LegalListItem>
+            Explicit consent (Art. 6(1)(a) GDPR) for optional features, including all analytics that store information
+            on your device and the session recording described in section 9
+          </LegalListItem>
           <LegalListItem>Legitimate interest (Art. 6(1)(f) GDPR) for security and fraud prevention</LegalListItem>
         </LegalList>
       </LegalSection>
@@ -122,6 +129,13 @@ export function PrivacyPolicyEN() {
           <LegalListItem>
             Voters are obfuscated and stored on the blockchain in an immutable and permanent way, without any link to
             personal data.
+          </LegalListItem>
+          <LegalListItem>
+            Analytics events are kept for 12 months. This period allows us to compare one year against the previous one,
+            which is the purpose for which the data is collected.
+          </LegalListItem>
+          <LegalListItem>
+            Session recordings in the Vocdoni App are kept for 30 days and are then deleted.
           </LegalListItem>
         </LegalList>
         <Paragraph variant='legal'>
@@ -151,10 +165,33 @@ export function PrivacyPolicyEN() {
             non-identifiable statistics about visits and usage patterns.
           </Paragraph>
           <Paragraph variant='legal'>
-            Data is processed in an anonymized manner and used exclusively for internal analytical purposes.
+            Data is processed in an aggregated and pseudonymized manner and used exclusively for internal analytical
+            purposes.
           </Paragraph>
           <Paragraph variant='legal'>
-            These cookies are limited to analytical purposes and do not track users across websites.
+            The website also uses PostHog, provided by PostHog, Inc., to obtain aggregated statistics about visits,
+            navigation, and how visitors move from the website to the Vocdoni App. Data is hosted in the European Union
+            (PostHog EU Cloud, with storage in Germany) and PostHog acts as a data processor under Article 28(3) GDPR.
+            Collection of IP addresses is disabled. PostHog is loaded only after you accept the cookie banner; if you
+            reject it, no PostHog cookie is set and no data is transmitted.
+          </Paragraph>
+          <Paragraph variant='legal'>
+            PostHog, Inc. is established in the United States. Although the data is stored in the European Union,
+            PostHog may access and process it from outside the European Economic Area, including the United States, for
+            support, maintenance and security purposes. This transfer is covered both by PostHog, Inc.'s certification
+            under the EU-U.S. Data Privacy Framework and by the Standard Contractual Clauses approved by the European
+            Commission, which apply in addition to that certification under the data processing agreement we have
+            entered into. You may request a copy of these safeguards at{' '}
+            <Link href='mailto:dpo@vocdoni.org'>dpo@vocdoni.org</Link>.
+          </Paragraph>
+          <Paragraph variant='legal'>
+            These cookies are limited to analytical purposes. They are not used for advertising or for building
+            profiles. The PostHog identifier described in section 9 is shared between vocdoni.io and app.vocdoni.io -
+            both operated by Synergize S.L. - solely so that we can measure the transition between our website and our
+            own service. It is a pseudonymous identifier and we treat it as personal data. It is not shared with any
+            third party. Google Analytics is a third-party service operated by Google, which sets its own cookies under
+            its own privacy policy; if you prefer that no third-party analytics cookie is set, you can reject cookies in
+            the banner.
           </Paragraph>
         </LegalSubsection>
 
@@ -162,7 +199,9 @@ export function PrivacyPolicyEN() {
           <Heading.H3 variant='legal'>Application (app.vocdoni.io):</Heading.H3>
           <Paragraph variant='legal'>
             In the Vocdoni App, analytics are performed using Plausible, a privacy-first analytics platform that does
-            not use cookies or collect personal identifiers.
+            not use cookies or collect personal identifiers, and - for administrators and other registered users who
+            have accepted the cookie banner - using PostHog, which does set a cookie and does use a pseudonymous
+            identifier.
           </Paragraph>
           <Paragraph variant='legal'>
             Additionally, certain services involve external providers acting as processors under GDPR Article 28(3):
@@ -170,9 +209,20 @@ export function PrivacyPolicyEN() {
           <LegalList variant='none'>
             <LegalListItem>Stripe Payments Europe, Ltd. – payment processing.</LegalListItem>
             <LegalListItem>Twilio, Inc. – SMS and email delivery to users.</LegalListItem>
+            <LegalListItem>
+              PostHog, Inc. – product analytics, hosted in the European Union, with access from outside the European
+              Economic Area as described above.
+            </LegalListItem>
           </LegalList>
           <Paragraph variant='legal'>
-            Both providers process personal data solely for these purposes and under contractual guarantees of data
+            PostHog is used in the App only for administrators and registered users who have accepted the cookie banner,
+            in order to understand how the service is used and improve it. For those same users PostHog also records the
+            session, with all text and all form fields masked, as described in section 9. It is never active during
+            voting: PostHog is not loaded on voting pages, so no event is generated or transmitted from them and no
+            session is recorded there. Voters are not subject to any analytics processing.
+          </Paragraph>
+          <Paragraph variant='legal'>
+            These providers process personal data solely for these purposes and under contractual guarantees of data
             protection.
           </Paragraph>
         </LegalSubsection>
@@ -251,11 +301,10 @@ export function PrivacyPolicyEN() {
           <br />
           E-mail: <Link href='mailto:dpo@vocdoni.org'>dpo@vocdoni.org</Link>
         </Paragraph>
-        <Paragraph variant='legal'>Consult our privacy-policy / Consult our cookies-policy</Paragraph>
       </LegalSection>
 
       <LegalSection>
-        <Heading.H2 variant='legal'>7. SECURITY MEASURES</Heading.H2>
+        <Heading.H2 variant='legal'>7. Security measures</Heading.H2>
         <Paragraph variant='legal'>
           In accordance with the provisions of the current regulations on the protection of personal data, the
           CONTROLLER is complying with all the provisions of the GDPR and LOPDGDD regulations for processing the
@@ -286,8 +335,8 @@ export function PrivacyPolicyEN() {
           </LegalListItem>
         </LegalList>
         <Paragraph variant='legal'>
-          This Privacy Policy was released on September 26, 2025 and is effective as of that date. For more information
-          on the guarantees of your privacy, you can contact Synergize SL at{' '}
+          This Privacy Policy was released on 28 August 2026 and is effective as of that date. For more information on
+          the guarantees of your privacy, you can contact Synergize SL at{' '}
           <Link href='mailto:dpo@vocdoni.org'>dpo@vocdoni.org</Link>.
         </Paragraph>
       </LegalSection>
@@ -309,21 +358,86 @@ export function PrivacyPolicyEN() {
         </Paragraph>
       </LegalSection>
 
-      <LegalSection>
+      <LegalSection id='cookies'>
         <Heading.H2 variant='legal'>9. Cookies and Tracking Technologies</Heading.H2>
         <Paragraph variant='legal'>
           Our website (vocdoni.io) and App (app.vocdoni.io) use a minimal number of cookies and tracking technologies:
         </Paragraph>
         <Paragraph variant='legal'>
-          <strong>Google Analytics</strong> – Used on vocdoni.io to collect anonymous, aggregated statistics about
-          website visits and usage. IP addresses are anonymized before storage.
+          <strong>Google Analytics</strong> – Used on vocdoni.io to collect aggregated statistics about website visits
+          and usage. IP addresses are anonymized before storage. Google Analytics is provided by a third party, which
+          sets its own cookies under its own privacy policy. It is loaded only after you accept the cookie banner.
         </Paragraph>
         <Paragraph variant='legal'>
           <strong>Plausible.io</strong> – Used for privacy-friendly, cookie-free analytics on both the website and the
           App.
         </Paragraph>
+        <Paragraph variant='legal'>
+          <strong>PostHog</strong> – Used on both vocdoni.io and app.vocdoni.io, and only after you accept the cookie
+          banner. PostHog stores a randomly generated identifier in a cookie scoped to the vocdoni.io domain and its
+          subdomains. Because the website and the App read the same identifier, we can tell that a visit to vocdoni.io
+          and a later use of app.vocdoni.io come from the same visitor, which allows us to measure how people move
+          between our website and our service. This identifier is pseudonymous: it does not identify you by name, but we
+          treat it as personal data. It is not shared with any other website or third party. It is stored for 12 months.
+          Data is hosted in the European Union and IP addresses are not collected.
+        </Paragraph>
+        <Paragraph variant='legal'>
+          <strong>Session recording</strong> – In the Vocdoni App only, and only for administrators and other
+          authenticated users who have accepted the cookie banner, PostHog also records the session: the pages visited,
+          clicks and movement on screen. All text and all form fields are masked. Masking is applied in your own
+          browser, which means the masked content is never transmitted to PostHog and never leaves your device. The
+          purpose is to identify and fix usability problems. Recordings are kept for 30 days and are then deleted; if a
+          recording documents a specific problem it may exceptionally be kept while that problem is resolved, and in no
+          case for longer than one year. Session recording is never active on the website vocdoni.io, is never active on
+          voting pages, and voters are never recorded.
+        </Paragraph>
+        <Paragraph variant='legal'>
+          <strong>Consent record</strong> – A cookie named vocdoni-cookie-consent stores your choice on this banner. It
+          is scoped to the vocdoni.io domain and its subdomains, so that a decision you make on the website applies in
+          the App as well and you are not asked twice. It is stored for 12 months and records your choice, the date on
+          which you made it, and the version of this policy in force at that time, identified by its revision date.
+        </Paragraph>
+        <Paragraph variant='legal'>
+          You can change or withdraw your choice at any time, with immediate effect on both vocdoni.io and
+          app.vocdoni.io, through the Cookie settings link in the footer of every page, which reopens the banner.
+          Withdrawing consent is as easy as giving it and does not affect the lawfulness of processing carried out
+          beforehand.
+        </Paragraph>
+        <Paragraph variant='legal'>Cookies used:</Paragraph>
+        <LegalTable
+          headers={['Cookie', 'Provider', 'Purpose', 'Duration']}
+          rows={[
+            [
+              'ph_[project_key]_posthog',
+              'PostHog, Inc.',
+              'Randomly generated analytics identifier, shared between vocdoni.io and app.vocdoni.io.',
+              '12 months',
+            ],
+            [
+              'vocdoni-cookie-consent',
+              'Synergize S.L.',
+              'Records your cookie choice, its date and the policy version in force.',
+              '12 months',
+            ],
+            [
+              '_ga, _ga_[id]',
+              'Google',
+              'Aggregated website statistics, with IP anonymization enabled.',
+              'Up to 2 years',
+            ],
+            ['(no cookie)', 'Plausible.io', 'Cookie-free analytics; no information is stored on your device.', 'n/a'],
+          ]}
+        />
+        <Paragraph variant='legal'>
+          Where the user support chat service is enabled, it sets additional cookies, which are described in section
+          9.1.
+        </Paragraph>
         <Paragraph variant='legal'>No marketing, profiling, or advertising cookies are used.</Paragraph>
-        <Paragraph variant='legal'>You may disable cookies through your browser settings at any time.</Paragraph>
+        <Paragraph variant='legal'>
+          You may also disable cookies through your browser settings at any time, although the Cookie settings link
+          described above is the more reliable way to withdraw consent, because it applies to both vocdoni.io and
+          app.vocdoni.io.
+        </Paragraph>
 
         <LegalSubsection>
           <Heading.H3 variant='legal'>9.1 Third-Party Cookies – Chat Service (Optional)</Heading.H3>
@@ -379,7 +493,12 @@ export function PrivacyPolicyEN() {
           Each version of the Policy will include its <strong>revision date</strong> and <strong>effective date</strong>
           .
         </Paragraph>
-        <LegalLastUpdated>The current version was last reviewed on April 15, 2026.</LegalLastUpdated>
+        <Paragraph variant='legal'>
+          Because this version introduces a new purpose - measuring the transition between our website and our service
+          using a shared identifier - any cookie consent given before that date no longer covers all of the processing
+          described here and has been invalidated. You will be asked for your choice again the next time you visit.
+        </Paragraph>
+        <LegalLastUpdated>The current version was last reviewed on 28 August 2026.</LegalLastUpdated>
       </LegalSection>
     </LegalPageContainer>
   )
