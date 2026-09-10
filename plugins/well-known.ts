@@ -118,7 +118,7 @@ function buildContentSecurityPolicy(posthogHost: string): string {
     `img-src 'self' data: blob: https://i.ytimg.com https://img.youtube.com https://storage.googleapis.com ${googleAnalytics}`,
     // Self-hosted under public/fonts (scripts/copy-fonts.mjs).
     "font-src 'self'",
-    // PostHog beacons (lib/posthog.ts), Plausible events, GA4 hits, the contact form
+    // PostHog ingestion (lib/analytics.ts), Plausible events, GA4 hits, the contact form
     // (@emailjs/browser), the Cal.com embed's data fetches, and the developer-docs version
     // selector's dynamic stage-content fetching (raw.githubusercontent.com and api.github.com).
     `connect-src 'self' ${posthogHost} https://plausible.io https://api.emailjs.com ${googleAnalytics} https://*.analytics.google.com https://app.cal.com https://raw.githubusercontent.com https://api.github.com`,
