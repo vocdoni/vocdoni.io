@@ -10,7 +10,6 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
 import { buildEmailJsParams, getContactFormConfigError, type ContactFormValues } from '@/lib/contactForm'
-import { setCookieConsent } from '@/lib/cookieConsent'
 import { useIsClient } from '@/lib/useIsClient'
 import { send } from '@emailjs/browser'
 
@@ -105,7 +104,6 @@ const ContactForm = () => {
       return
     }
 
-    setCookieConsent(true)
     setFormData(data)
     setShowRecaptcha(true)
     setStatus('loading')
@@ -267,6 +265,11 @@ const ContactForm = () => {
         </div>
       )}
 
+      {/*
+        Mounted only once the visitor has pressed submit, and deliberately not gated on the cookie
+        banner: reCAPTCHA is strictly necessary to deliver the submission the visitor just asked
+        for, so it does not run on the analytics consent and must never write one.
+      */}
       {RECAPTCHA_SITE_KEY && isClient && showRecaptcha && (
         <div>
           <ReCAPTCHA ref={recaptchaRef} sitekey={RECAPTCHA_SITE_KEY} onChange={onRecaptchaChange} />
