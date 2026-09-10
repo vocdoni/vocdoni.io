@@ -10,7 +10,9 @@ vi.mock('@calcom/embed-react', () => ({
 describe('CalBookingDialog', () => {
   it('renders a cal trigger button with the official event attributes', () => {
     const html = renderToStaticMarkup(
-      <CalBookingDialog triggerAriaLabel='Open booking'>Schedule a call</CalBookingDialog>
+      <CalBookingDialog triggerAriaLabel='Open booking' location='contact_page'>
+        Schedule a call
+      </CalBookingDialog>
     )
 
     expect(html).toContain('data-cal-namespace="first"')

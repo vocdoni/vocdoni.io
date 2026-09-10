@@ -86,6 +86,7 @@ const ContactUs = () => {
 
                       {/* Cal.com Schedule Button */}
                       <CalBookingDialog
+                        location='contact_page'
                         className='inline-flex h-11 w-full items-center justify-start gap-4 rounded-md bg-secondary px-8 text-sm font-medium text-secondary-foreground transition-colors hover:bg-secondary/80'
                         triggerAriaLabel='Open schedule a call booking'
                       >
