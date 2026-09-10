@@ -3,13 +3,13 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
 describe('PostHog website pageviews', () => {
   beforeEach(() => {
-    ;(globalThis as any).POSTHOG_PUBLIC_KEY = 'test-public-key'
+    ;(globalThis as any).POSTHOG_KEY = 'test-public-key'
     ;(globalThis as any).POSTHOG_HOST = 'https://eu.i.posthog.com'
   })
 
   afterEach(() => {
     vi.unstubAllGlobals()
-    delete (globalThis as any).POSTHOG_PUBLIC_KEY
+    delete (globalThis as any).POSTHOG_KEY
     delete (globalThis as any).POSTHOG_HOST
   })
 
