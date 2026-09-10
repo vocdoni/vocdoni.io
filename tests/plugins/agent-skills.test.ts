@@ -35,25 +35,25 @@ describe('parseGithubSource', () => {
   })
 
   it('resolves an absolute github source to its repo root', () => {
-    expect(parseGithubSource('https://github.com/vocdoni/integrator-sdk', BASE)).toEqual({
+    expect(parseGithubSource('https://github.com/vocdoni/vocdoni-integrator-sdk', BASE)).toEqual({
       owner: 'vocdoni',
-      repo: 'integrator-sdk',
+      repo: 'vocdoni-integrator-sdk',
       subpath: '',
     })
   })
 
   it('resolves the object source form used by the marketplace', () => {
-    expect(parseGithubSource({ source: 'github', repo: 'vocdoni/integrator-sdk' }, BASE)).toEqual({
+    expect(parseGithubSource({ source: 'github', repo: 'vocdoni/vocdoni-integrator-sdk' }, BASE)).toEqual({
       owner: 'vocdoni',
-      repo: 'integrator-sdk',
+      repo: 'vocdoni-integrator-sdk',
       subpath: '',
     })
   })
 
   it('narrows an object source to its path when one is given', () => {
-    expect(parseGithubSource({ source: 'github', repo: 'vocdoni/integrator-sdk', path: './plugins/x/' }, BASE)).toEqual(
-      { owner: 'vocdoni', repo: 'integrator-sdk', subpath: 'plugins/x' }
-    )
+    expect(
+      parseGithubSource({ source: 'github', repo: 'vocdoni/vocdoni-integrator-sdk', path: './plugins/x/' }, BASE)
+    ).toEqual({ owner: 'vocdoni', repo: 'vocdoni-integrator-sdk', subpath: 'plugins/x' })
   })
 
   it('returns null for unsupported sources', () => {
@@ -64,10 +64,10 @@ describe('parseGithubSource', () => {
     const malformed: unknown[] = [
       {},
       { source: 'github' },
-      { source: 'gitlab', repo: 'vocdoni/integrator-sdk' },
-      { source: 'github', repo: 'integrator-sdk' },
-      { source: 'github', repo: 'vocdoni/integrator-sdk/extra' },
-      { source: 'github', repo: 'vocdoni/integrator-sdk', path: '../escape' },
+      { source: 'gitlab', repo: 'vocdoni/vocdoni-integrator-sdk' },
+      { source: 'github', repo: 'vocdoni-integrator-sdk' },
+      { source: 'github', repo: 'vocdoni/vocdoni-integrator-sdk/extra' },
+      { source: 'github', repo: 'vocdoni/vocdoni-integrator-sdk', path: '../escape' },
       { source: 'github', repo: 42 },
       null,
       undefined,
@@ -82,14 +82,18 @@ describe('parseGithubSource', () => {
   it('resolves every source form in a mixed marketplace list, nulling only the bad entry', () => {
     const plugins = [
       { name: 'vocdoni-sdk', source: './plugins/vocdoni-sdk', category: 'sdk' },
-      { name: 'vocdoni-integrator-sdk', source: { source: 'github', repo: 'vocdoni/integrator-sdk' }, category: 'sdk' },
+      {
+        name: 'vocdoni-integrator-sdk',
+        source: { source: 'github', repo: 'vocdoni/vocdoni-integrator-sdk' },
+        category: 'sdk',
+      },
       { name: 'broken', source: { source: 'svn', repo: 'vocdoni/nope' }, category: 'sdk' },
       { name: 'vocdoni-go', source: './plugins/vocdoni-go', category: 'engineering' },
     ]
     const resolved = selectIncludedPlugins(plugins).map((p) => [p.name, parseGithubSource(p.source, BASE)] as const)
     expect(resolved).toEqual([
       ['vocdoni-sdk', { owner: 'vocdoni', repo: 'skills', subpath: 'plugins/vocdoni-sdk' }],
-      ['vocdoni-integrator-sdk', { owner: 'vocdoni', repo: 'integrator-sdk', subpath: '' }],
+      ['vocdoni-integrator-sdk', { owner: 'vocdoni', repo: 'vocdoni-integrator-sdk', subpath: '' }],
       ['broken', null],
     ])
   })

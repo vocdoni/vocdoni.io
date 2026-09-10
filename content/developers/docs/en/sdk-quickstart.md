@@ -3,7 +3,7 @@ title: SDK quickstart
 lead: Install the TypeScript SDK, initialize the API client, and cast your first vote. The SDK talks only to the Vocdoni SaaS API - never the blockchain directly.
 group: get_started
 order: 35
-skill: integrator-sdk
+skill: vocdoni-integrator-sdk
 reference:
   title: Where to go next
   columns: 3
@@ -131,15 +131,15 @@ console.log('voteID:', job.result?.voteID)
 
 If you build with an AI coding agent, Vocdoni publishes [Agent Skills](https://github.com/vocdoni/skills) - focused guides the agent loads on demand so it writes correct Vocdoni code without guessing the API shapes. The ones most relevant to the SDK:
 
-- **integrator-sdk** - the SaaS-first flow: API client, CSP auth, vote relay, job polling and React providers. Currently in the [integrator SDK repo]({{SDK_URL}}/tree/main/skills/integrator-sdk), soon in the marketplace.
+- **vocdoni-integrator-sdk** - the SaaS-first flow: API client, CSP auth, vote relay, job polling and React providers. Authored in the [integrator SDK repo]({{SDK_URL}}/tree/main/skills).
 - **vocdoni-ballot-protocol** - how a ballot encodes and how the results matrix aggregates per [voting type](/developers/docs/voting-types).
 
 They are packaged as a Claude Code plugin marketplace, and installable via `npx` for any client that reads a skills directory (Cursor, Cline, Zed and similar):
 
 ```sh
-# Claude Code: add the marketplace, then install integrator-sdk once it lands
+# Claude Code: add the marketplace, then install the plugin
 claude plugin marketplace add vocdoni/skills
-claude plugin install integrator-sdk@vocdoni
+claude plugin install vocdoni-integrator-sdk@vocdoni
 
 # Any skills-directory client
 npx @vocdoni/skills install

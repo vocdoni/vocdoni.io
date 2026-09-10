@@ -23,7 +23,7 @@ import { llmsFileName, stripSlash } from '../lib/llms/routes'
  *   /llms-full.txt             complete enumeration of routes and markdown mirrors
  *   /_headers                  Netlify Link: + security headers (X-Robots-Tag on non-production deploys)
  *
- * Agent skills are NOT hosted here: they live in vocdoni/integrator-sdk and are
+ * Agent skills are NOT hosted here: they live in vocdoni/vocdoni-integrator-sdk and are
  * published via the vocdoni/skills marketplace, which the discovery links point to
  * (see lib/seo-head.tsx and the docs skill link) rather than vendoring a copy.
  *

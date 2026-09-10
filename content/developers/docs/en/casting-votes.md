@@ -3,7 +3,7 @@ title: Casting votes
 lead: How a voter actually votes - authenticate once against the process census, get the credential service to sign a ballot per question, then relay the signed envelope. The SDK's voting package does the signing for you; the SaaS forwards the ballot without ever decoding it.
 group: core_concepts
 order: 45
-skill: integrator-sdk
+skill: vocdoni-integrator-sdk
 ---
 
 Casting a vote is the only step with client-side cryptography. Everything else in the API is a plain

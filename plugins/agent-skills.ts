@@ -13,7 +13,7 @@ import matter from 'gray-matter'
  * https://github.com/cloudflare/agent-skills-discovery-rfc).
  *
  * Vocdoni does not vendor its skills in this repo: they live in the vocdoni/skills
- * marketplace (and the external source repos it references, e.g. vocdoni/integrator-sdk).
+ * marketplace (and the external source repos it references, e.g. vocdoni/vocdoni-integrator-sdk).
  * This plugin derives the index from that marketplace at build time so it can never
  * drift: it reads marketplace.json, keeps the SDK-category plugins (the Vocdoni-domain
  * skills, not the generic Go / tooling ones), discovers each plugin's SKILL.md files,

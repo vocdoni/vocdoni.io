@@ -18,9 +18,9 @@ export const DEVELOPERS_DASHBOARD_URL =
 export const DEVELOPERS_API_BASE_URL = 'https://saas-api-stg.vocdoni.net'
 
 // External developer resources.
-export const DEVELOPERS_SDK_URL = 'https://github.com/vocdoni/integrator-sdk'
+export const DEVELOPERS_SDK_URL = 'https://github.com/vocdoni/vocdoni-integrator-sdk'
 // Agent-skills marketplace (Claude plugin). Skills are authored in their own repos
-// (e.g. vocdoni/integrator-sdk) and aggregated here - the site links out to it rather
+// (e.g. vocdoni/vocdoni-integrator-sdk) and aggregated here - the site links out to it rather
 // than hosting copies.
 export const DEVELOPERS_SKILLS_URL = 'https://github.com/vocdoni/skills'
 export const DEVELOPERS_SDK_DOCS_URL = 'https://vocdoni.io/developers'
