@@ -1,6 +1,6 @@
 import gdprLogo from '@/assets/gdpr.webp'
 import { Link } from '@/components/Link'
-import { Icon } from '@iconify/react'
+import { BlueskyIcon, DiscordIcon, GitHubIcon, XIcon } from '@/components/ui/brand-icons'
 import type { TFunction } from 'i18next'
 import { Globe, Send } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
@@ -93,7 +93,7 @@ export default function Footer() {
                 variant='footerLegal'
                 aria-label={t('footer.social.github', 'Vocdoni on GitHub (opens in new tab)')}
               >
-                <Icon icon='simple-icons:github' className='h-5 w-5' aria-hidden='true' />
+                <GitHubIcon className='h-5 w-5' aria-hidden='true' />
               </Link>
               <Link
                 href='https://twitter.com/vocdoni'
@@ -101,7 +101,7 @@ export default function Footer() {
                 variant='footerLegal'
                 aria-label={t('footer.social.twitter', 'Vocdoni on X / Twitter (opens in new tab)')}
               >
-                <Icon icon='simple-icons:x' className='h-5 w-5' aria-hidden='true' />
+                <XIcon className='h-5 w-5' aria-hidden='true' />
               </Link>
               <Link
                 href='https://bsky.app/profile/vocdoni.io'
@@ -109,7 +109,7 @@ export default function Footer() {
                 variant='footerLegal'
                 aria-label={t('footer.social.bluesky', 'Vocdoni on Bluesky (opens in new tab)')}
               >
-                <Icon icon='simple-icons:bluesky' className='h-5 w-5' aria-hidden='true' />
+                <BlueskyIcon className='h-5 w-5' aria-hidden='true' />
               </Link>
               <Link
                 href='https://chat.vocdoni.io'
@@ -117,7 +117,7 @@ export default function Footer() {
                 variant='footerLegal'
                 aria-label={t('footer.social.discord', 'Vocdoni on Discord (opens in new tab)')}
               >
-                <Icon icon='ic:baseline-discord' className='h-5 w-5' aria-hidden='true' />
+                <DiscordIcon className='h-5 w-5' aria-hidden='true' />
               </Link>
               <Link
                 href='https://t.me/vocdoni'
