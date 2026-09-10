@@ -49,7 +49,9 @@ const CASE_STUDIES: Record<string, { logo: string; image?: string; href: string;
 
 export default function Page() {
   const { t } = useTranslation()
-  const { locale } = usePageContext() as unknown as { locale: Locale }
+  const pageContext = usePageContext()
+  const locale = ((pageContext as { locale?: Locale }).locale ?? 'en') as Locale
+
   const content = t('solutions.associations', { returnObjects: true }) as VerticalContent
   const testimonials = getTestimonialsData(t)
   const proof = getAssociationsProof(locale)
@@ -61,6 +63,13 @@ export default function Page() {
     return testimonials.find((item) => item.platformName === platformName)
   }
 
+  // Skip rather than throw: a market override naming an organization this page
+  // has no art for should cost one logo, not blank the whole prerendered page.
+  const logos = proof.logos
+    .map((org) => ORGANIZATIONS[org])
+    .filter(Boolean)
+    .map(({ logo, alt }) => ({ src: logo, alt }))
+
   return (
     <VerticalPage
       icon={UsersIcon}
@@ -68,7 +77,7 @@ export default function Page() {
       appHref={APP_SIGNUP_URL}
       pricingHref={PRICING_URL}
       ctaPrefix='associations'
-      logos={proof.logos.map((org) => ({ src: ORGANIZATIONS[org].logo, alt: ORGANIZATIONS[org].alt }))}
+      logos={logos}
       caseStudy={CASE_STUDIES[proof.caseStudy] ?? CASE_STUDIES.Omnium}
       quotes={{
         stakes: quoteFor(proof.quotes.stakes),
