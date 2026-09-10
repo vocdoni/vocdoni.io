@@ -37,11 +37,11 @@ function sendPostHogPayload(payload: string): boolean {
 }
 
 export function capturePostHogEvent(event: '$pageview' | 'app_cta_click', properties: PostHogProperties): boolean {
-  if (!POSTHOG_PUBLIC_KEY || !POSTHOG_HOST || !isProductionWebsite() || !hasAcceptedCookies()) return false
+  if (!POSTHOG_KEY || !POSTHOG_HOST || !isProductionWebsite() || !hasAcceptedCookies()) return false
 
   return sendPostHogPayload(
     JSON.stringify({
-      api_key: POSTHOG_PUBLIC_KEY,
+      api_key: POSTHOG_KEY,
       event,
       properties: {
         ...properties,

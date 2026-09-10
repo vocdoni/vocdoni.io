@@ -10,7 +10,7 @@ name: Deploy to Netlify
 # Each environment must define:
 #   secret    NETLIFY_SITE_ID
 #   variables NETLIFY_SITE_NAME, SITE_URL, GTM_ID, PLAUSIBLE_DOMAIN, RECAPTCHA_SITE_KEY
-#   variables POSTHOG_PUBLIC_KEY (production only), POSTHOG_HOST (optional)
+#   variables POSTHOG_KEY (production only), POSTHOG_HOST (optional)
 # NETLIFY_AUTH_TOKEN and the EMAILJS_* variables are repository-wide.
 
 on:
@@ -105,7 +105,7 @@ jobs:
           PLAUSIBLE_DOMAIN: ${{ vars.PLAUSIBLE_DOMAIN }}
           # Public browser-ingestion key. Leaving it unset disables PostHog entirely, which is what
           # you want outside production. POSTHOG_HOST is optional and defaults to the EU cluster.
-          POSTHOG_PUBLIC_KEY: ${{ vars.POSTHOG_PUBLIC_KEY }}
+          POSTHOG_KEY: ${{ vars.POSTHOG_KEY }}
           POSTHOG_HOST: ${{ vars.POSTHOG_HOST }}
           RECAPTCHA_SITE_KEY: ${{ vars.RECAPTCHA_SITE_KEY }}
           SITE_URL: ${{ steps.netlify_url.outputs.site_url }}
