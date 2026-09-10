@@ -11,6 +11,7 @@ import {
   LegalTable,
 } from '@/components/ui/legal-document'
 import { Heading, Paragraph } from '@/components/ui/typography'
+import { formatPolicyRevisionDate } from '@/lib/privacyPolicy'
 
 export function PrivacyPolicyEN() {
   return (
@@ -335,8 +336,8 @@ export function PrivacyPolicyEN() {
           </LegalListItem>
         </LegalList>
         <Paragraph variant='legal'>
-          This Privacy Policy was released on 28 August 2026 and is effective as of that date. For more information on
-          the guarantees of your privacy, you can contact Synergize SL at{' '}
+          This Privacy Policy was released on {formatPolicyRevisionDate('en')} and is effective as of that date. For
+          more information on the guarantees of your privacy, you can contact Synergize SL at{' '}
           <Link href='mailto:dpo@vocdoni.org'>dpo@vocdoni.org</Link>.
         </Paragraph>
       </LegalSection>
@@ -498,7 +499,7 @@ export function PrivacyPolicyEN() {
           using a shared identifier - any cookie consent given before that date no longer covers all of the processing
           described here and has been invalidated. You will be asked for your choice again the next time you visit.
         </Paragraph>
-        <LegalLastUpdated>The current version was last reviewed on 28 August 2026.</LegalLastUpdated>
+        <LegalLastUpdated>The current version was last reviewed on {formatPolicyRevisionDate('en')}.</LegalLastUpdated>
       </LegalSection>
     </LegalPageContainer>
   )

@@ -7,7 +7,7 @@ import * as React from 'react'
 import { useTranslation } from 'react-i18next'
 import { usePageContext } from 'vike-react/usePageContext'
 
-const linkVariants = cva('transition-colors', {
+export const linkVariants = cva('transition-colors', {
   variants: {
     variant: {
       default: 'text-foreground hover:text-primary underline-offset-4 hover:underline',

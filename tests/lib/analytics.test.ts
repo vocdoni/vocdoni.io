@@ -1,5 +1,11 @@
 import { trackAppCtaClick } from '@/lib/analytics'
+import { serializeConsentRecord } from '@/lib/cookieConsent'
+import { PRIVACY_POLICY_REVISION_DATE } from '@/lib/privacyPolicy'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
+
+const acceptedConsentCookie = `vocdoni-cookie-consent=${encodeURIComponent(
+  serializeConsentRecord({ choice: 'accepted', date: '2026-09-01T08:00:00.000Z', policy: PRIVACY_POLICY_REVISION_DATE })
+)}`
 
 describe('trackAppCtaClick', () => {
   beforeEach(() => {
@@ -39,9 +45,9 @@ describe('trackAppCtaClick', () => {
   it('sends the same privacy-safe event to PostHog on the production website', async () => {
     const gtag = vi.fn()
     const sendBeacon = vi.fn((_url: string, _data?: BodyInit | null) => true)
-    vi.stubGlobal('localStorage', { getItem: vi.fn(() => 'accepted') })
     vi.stubGlobal('navigator', { sendBeacon })
     vi.stubGlobal('crypto', { randomUUID: vi.fn(() => 'marked-test-session') })
+    vi.stubGlobal('document', { title: 'Secure online voting', cookie: acceptedConsentCookie })
     vi.stubGlobal('window', {
       location: {
         href: 'https://vocdoni.io/en?email=private@example.com',

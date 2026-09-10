@@ -1,3 +1,4 @@
+import { X } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
@@ -6,6 +7,7 @@ import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
 import { Button } from '@/components/ui/button'
 import {
   CONSENT_CHANGE_EVENT,
+  CONSENT_REOPEN_EVENT,
   getCookieConsent,
   hasCookieConsent,
   initializeGTM,
@@ -17,6 +19,9 @@ export function CookieConsent() {
   const { t } = useTranslation()
   const [open, setOpen] = useState(false)
   const [mounted, setMounted] = useState(false)
+  // A banner reopened over a choice that still stands can be dismissed without
+  // answering; the first-visit one cannot, because nothing is on record yet.
+  const [dismissable, setDismissable] = useState(false)
 
   useEffect(() => {
     setMounted(true)
@@ -58,14 +63,23 @@ export function CookieConsent() {
       }
     }
 
-    // Register both event listeners
+    // The "Cookie settings" control in the footer asks for the banner back so
+    // an existing choice can be changed or withdrawn.
+    const handleReopen = () => {
+      setDismissable(hasCookieConsent())
+      setOpen(true)
+    }
+
+    // Register the event listeners
     window.addEventListener('storage', handleStorageChange)
     window.addEventListener(CONSENT_CHANGE_EVENT, handleConsentChange)
+    window.addEventListener(CONSENT_REOPEN_EVENT, handleReopen)
 
     // Clean up on unmount
     return () => {
       window.removeEventListener('storage', handleStorageChange)
       window.removeEventListener(CONSENT_CHANGE_EVENT, handleConsentChange)
+      window.removeEventListener(CONSENT_REOPEN_EVENT, handleReopen)
     }
   }, [])
 
@@ -93,7 +107,18 @@ export function CookieConsent() {
       role='dialog'
       aria-label={t('cookies.aria_label', 'Cookies consent banner')}
     >
-      <Alert className='bg-background shadow-xl border-2'>
+      <Alert className='relative bg-background shadow-xl border-2'>
+        {dismissable && (
+          <Button
+            variant='ghost'
+            size='icon'
+            onClick={() => setOpen(false)}
+            className='absolute right-2 top-2 h-7 w-7 text-muted-foreground'
+            aria-label={t('cookies.close', 'Close without changing your choice')}
+          >
+            <X className='h-4 w-4' aria-hidden='true' />
+          </Button>
+        )}
         <div className='flex flex-col lg:flex-row lg:items-center gap-4'>
           <div className='flex-1 space-y-2'>
             <AlertTitle className='text-base font-semibold'>{t('cookies.title', 'Cookie consent')}</AlertTitle>

@@ -1,5 +1,11 @@
+import { serializeConsentRecord } from '@/lib/cookieConsent'
 import { capturePostHogPageview } from '@/lib/posthog'
+import { PRIVACY_POLICY_REVISION_DATE } from '@/lib/privacyPolicy'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
+
+const acceptedConsentCookie = `vocdoni-cookie-consent=${encodeURIComponent(
+  serializeConsentRecord({ choice: 'accepted', date: '2026-09-01T08:00:00.000Z', policy: PRIVACY_POLICY_REVISION_DATE })
+)}`
 
 describe('PostHog website pageviews', () => {
   beforeEach(() => {
@@ -15,10 +21,9 @@ describe('PostHog website pageviews', () => {
 
   it('captures a production pageview without query parameters or person profiles', async () => {
     const sendBeacon = vi.fn((_url: string, _data?: BodyInit | null) => true)
-    vi.stubGlobal('localStorage', { getItem: vi.fn(() => 'accepted') })
     vi.stubGlobal('navigator', { sendBeacon })
     vi.stubGlobal('crypto', { randomUUID: vi.fn(() => 'pageview-test-session') })
-    vi.stubGlobal('document', { title: 'Secure online voting' })
+    vi.stubGlobal('document', { title: 'Secure online voting', cookie: acceptedConsentCookie })
     vi.stubGlobal('window', {
       location: {
         origin: 'https://vocdoni.io',
@@ -43,7 +48,7 @@ describe('PostHog website pageviews', () => {
     const sendBeacon = vi.fn((_url: string, _data?: BodyInit | null) => true)
     vi.stubGlobal('localStorage', { getItem: vi.fn(() => null) })
     vi.stubGlobal('navigator', { sendBeacon })
-    vi.stubGlobal('document', { title: 'Secure online voting' })
+    vi.stubGlobal('document', { title: 'Secure online voting', cookie: '' })
     vi.stubGlobal('window', {
       location: {
         origin: 'https://vocdoni.io',
@@ -59,9 +64,9 @@ describe('PostHog website pageviews', () => {
 
   it('does not let event properties override privacy controls', async () => {
     const sendBeacon = vi.fn((_url: string, _data?: BodyInit | null) => true)
-    vi.stubGlobal('localStorage', { getItem: vi.fn(() => 'accepted') })
     vi.stubGlobal('navigator', { sendBeacon })
     vi.stubGlobal('crypto', { randomUUID: vi.fn(() => 'protected-session') })
+    vi.stubGlobal('document', { title: 'Secure online voting', cookie: acceptedConsentCookie })
     vi.stubGlobal('window', {
       location: {
         hostname: 'vocdoni.io',

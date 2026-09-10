@@ -11,6 +11,7 @@ import {
   LegalTable,
 } from '@/components/ui/legal-document'
 import { Heading, Paragraph } from '@/components/ui/typography'
+import { formatPolicyRevisionDate } from '@/lib/privacyPolicy'
 
 export function PrivacyPolicyCA() {
   return (
@@ -338,8 +339,8 @@ export function PrivacyPolicyCA() {
           </LegalListItem>
         </LegalList>
         <Paragraph variant='legal'>
-          Aquesta Política de Privacitat va ser publicada el 28 d'agost de 2026 i és efectiva a partir d'aquesta data.
-          Per a més informació sobre les garanties de la teva privacitat, pots contactar Synergize SL a{' '}
+          Aquesta Política de Privacitat va ser publicada el {formatPolicyRevisionDate('ca')} i és efectiva a partir
+          d'aquesta data. Per a més informació sobre les garanties de la teva privacitat, pots contactar Synergize SL a{' '}
           <Link href='mailto:dpo@vocdoni.org'>dpo@vocdoni.org</Link>.
         </Paragraph>
       </LegalSection>
@@ -518,7 +519,9 @@ export function PrivacyPolicyCA() {
           d'aquesta data ja no cobreix la totalitat dels tractaments aquí descrits i ha quedat invalidat. Se't tornarà a
           demanar la teva elecció en la propera visita.
         </Paragraph>
-        <LegalLastUpdated>L'última revisió d'aquesta política és del 28 d'agost de 2026.</LegalLastUpdated>
+        <LegalLastUpdated>
+          L'última revisió d'aquesta política és del {formatPolicyRevisionDate('ca')}.
+        </LegalLastUpdated>
       </LegalSection>
     </LegalPageContainer>
   )

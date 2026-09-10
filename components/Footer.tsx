@@ -1,11 +1,13 @@
 import gdprLogo from '@/assets/gdpr.webp'
-import { Link } from '@/components/Link'
+import { Link, linkVariants } from '@/components/Link'
 import { Icon } from '@iconify/react'
 import type { TFunction } from 'i18next'
 import { Globe, Send } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 
+import { reopenCookieConsent } from '@/lib/cookieConsent'
 import { getSolutionVertical } from '@/lib/solution-verticals'
+import { cn } from '@/lib/utils'
 import VocdoniLogo from './Logo'
 
 type FooterLink = { label: string; href: string; external?: boolean; highlight?: boolean }
@@ -196,9 +198,17 @@ export default function Footer() {
           <Link variant='footerLegal' href='/privacy'>
             {t('footer.legal.privacy')}
           </Link>
-          <Link variant='footerLegal' href='/privacy#cookies'>
+          {/* A control, not a link: section 9 of the privacy policy promises this
+              reopens the banner, which is where a choice is changed or withdrawn.
+              The policy's own cookies section stays reachable at /privacy#cookies. */}
+          <button
+            type='button'
+            onClick={() => reopenCookieConsent()}
+            aria-haspopup='dialog'
+            className={cn(linkVariants({ variant: 'footerLegal' }), 'cursor-pointer')}
+          >
             {t('footer.legal.cookies')}
-          </Link>
+          </button>
         </div>
 
         {/* Separator */}
