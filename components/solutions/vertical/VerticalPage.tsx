@@ -38,6 +38,7 @@ export function VerticalPage({
   icon,
   content,
   appHref,
+  secondaryHref,
   ctaPrefix,
   logos,
   caseStudy,
@@ -74,6 +75,7 @@ export function VerticalPage({
         eyebrow={content?.eyebrow}
         hero={content?.hero}
         appHref={appHref}
+        secondaryHref={secondaryHref}
         ctaId={`${ctaPrefix}_hero`}
         media={media?.console}
         mediaCaption={content?.how?.media_caption}
@@ -123,6 +125,7 @@ export function VerticalPage({
         closing={content?.closing}
         pageId={ctaPrefix}
         appHref={appHref}
+        secondaryHref={secondaryHref}
         ctaId={`${ctaPrefix}_closing`}
       />
 

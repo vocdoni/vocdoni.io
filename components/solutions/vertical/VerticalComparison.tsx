@@ -1,7 +1,14 @@
+import { CircleCheckIcon, CircleMinusIcon, CircleXIcon, type LucideIcon } from 'lucide-react'
+
 import { Container } from '@/components/Container'
 import { SectionHeader } from '@/components/SectionHeader'
 import { VerticalSection } from '@/components/solutions/vertical/VerticalSection'
-import { asArray, type VerticalComparisonRow, type VerticalContent } from '@/components/solutions/vertical/types'
+import {
+  asArray,
+  type VerticalComparisonRow,
+  type VerticalComparisonStatus,
+  type VerticalContent,
+} from '@/components/solutions/vertical/types'
 import { cn } from '@/lib/utils'
 
 interface VerticalComparisonProps {
@@ -9,13 +16,41 @@ interface VerticalComparisonProps {
   pageId: string
 }
 
+const STATUS_ICONS: Record<VerticalComparisonStatus, { icon: LucideIcon; className: string }> = {
+  positive: { icon: CircleCheckIcon, className: 'text-success' },
+  negative: { icon: CircleXIcon, className: 'text-destructive' },
+  neutral: { icon: CircleMinusIcon, className: 'text-muted-foreground' },
+}
+
 /**
- * Three ways of running the same election side by side: paper, a typical
- * commercial provider, and this one.
+ * A cell's text, with a signal icon in front of it when the row carries one.
+ *
+ * The icon is decorative: the copy in a statused row already reads as a loss or
+ * a gain on its own, and the status is the same word in every locale, so it
+ * needs no translated label. A cell without a status renders exactly as before.
+ */
+function CellValue({ text, status }: { text?: string; status?: VerticalComparisonStatus }) {
+  if (!status) return <>{text}</>
+  const { icon: Icon, className } = STATUS_ICONS[status]
+  return (
+    <span className='flex gap-2' data-status={status}>
+      <Icon className={cn('mt-0.5 size-4 shrink-0', className)} aria-hidden='true' />
+      <span>{text}</span>
+    </span>
+  )
+}
+
+/**
+ * Two or three ways of running the same election side by side: the way it is
+ * done today, optionally a typical commercial provider, and this one.
  *
  * The provider column is optional. A vertical whose content has no `digital`
  * copy falls back to the two-way comparison rather than rendering an empty
  * column, so the section degrades instead of breaking.
+ *
+ * Rows may carry a status per cell, which adds a check, cross or dash in front
+ * of the text so the two columns read as a form next to an election even when
+ * skimmed.
  *
  * Built as an ARIA grid rather than a `<table>`: a multi-column table pushes the
  * Vocdoni column off a narrow viewport behind a horizontal scroll, which leaves
@@ -35,8 +70,20 @@ export function VerticalComparison({ comparison, pageId }: VerticalComparisonPro
   const tableUp = withProvider ? 'lg' : 'md'
 
   const comparedColumns = [
-    { label: comparison?.traditional_label, get: (row: VerticalComparisonRow) => row.traditional },
-    ...(withProvider ? [{ label: comparison?.digital_label, get: (row: VerticalComparisonRow) => row.digital }] : []),
+    {
+      label: comparison?.traditional_label,
+      get: (row: VerticalComparisonRow) => row.traditional,
+      getStatus: (row: VerticalComparisonRow) => row.traditional_status,
+    },
+    ...(withProvider
+      ? [
+          {
+            label: comparison?.digital_label,
+            get: (row: VerticalComparisonRow) => row.digital,
+            getStatus: (row: VerticalComparisonRow) => row.digital_status,
+          },
+        ]
+      : []),
   ]
 
   return (
@@ -58,9 +105,9 @@ export function VerticalComparison({ comparison, pageId }: VerticalComparisonPro
               row carries its own inline labels, so no cell is ever unlabelled. */}
           <div role='rowgroup' className={cn('hidden', tableUp === 'lg' ? 'lg:block' : 'md:block')}>
             <div role='row' className={cn('grid items-stretch', columns)}>
-              {[comparison?.criterion_label, ...comparedColumns.map((c) => c.label)].map((label, index) => (
+              {[comparison?.criterion_label, ...comparedColumns.map((c) => c.label)].map((label) => (
                 <span
-                  key={index}
+                  key={label}
                   role='columnheader'
                   className='text-muted-foreground px-6 pt-6 pb-4 text-xs font-semibold tracking-wider uppercase'
                 >
@@ -97,9 +144,9 @@ export function VerticalComparison({ comparison, pageId }: VerticalComparisonPro
                   {row.criterion}
                 </span>
 
-                {comparedColumns.map((column, columnIndex) => (
+                {comparedColumns.map((column) => (
                   <span
-                    key={columnIndex}
+                    key={column.label}
                     role='cell'
                     className={cn(
                       'text-muted-foreground text-sm leading-relaxed',
@@ -114,7 +161,7 @@ export function VerticalComparison({ comparison, pageId }: VerticalComparisonPro
                     >
                       {column.label}
                     </span>
-                    {column.get(row)}
+                    <CellValue text={column.get(row)} status={column.getStatus(row)} />
                   </span>
                 ))}
 
@@ -138,7 +185,7 @@ export function VerticalComparison({ comparison, pageId }: VerticalComparisonPro
                   >
                     {comparison?.vocdoni_label}
                   </span>
-                  {row.vocdoni}
+                  <CellValue text={row.vocdoni} status={row.vocdoni_status} />
                 </span>
               </div>
             ))}

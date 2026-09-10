@@ -20,6 +20,12 @@ export type VerticalFramework = { name: string; summary: string; response: strin
 
 export type VerticalFaqItem = { question: string; answer: string }
 
+/**
+ * Signal shown beside a comparison cell. Absent means plain text, which is what
+ * every vertical shipped with, so no existing locale has to change.
+ */
+export type VerticalComparisonStatus = 'positive' | 'negative' | 'neutral'
+
 export type VerticalComparisonRow = {
   criterion: string
   traditional: string
@@ -27,6 +33,22 @@ export type VerticalComparisonRow = {
    *  vertical without this copy falls back to the two-column comparison. */
   digital?: string
   vocdoni: string
+  traditional_status?: VerticalComparisonStatus
+  digital_status?: VerticalComparisonStatus
+  vocdoni_status?: VerticalComparisonStatus
+}
+
+/**
+ * A third-party mark with its attribution, for a page whose subject is built
+ * with or for another platform. It never sits in the customer logo row, where
+ * it would read as a customer reference.
+ */
+export type VerticalPartner = {
+  eyebrow: string
+  title: string
+  description: string
+  points?: string[]
+  cta: string
 }
 
 export type VerticalResourceItem = { kind: string; title: string; description: string }
@@ -62,10 +84,28 @@ export interface VerticalContent {
     subtitle: string
     cta_primary: string
     cta_secondary: string
-    risk_reversal: string
+    /** Reassurance line under the buttons. Optional: a page can run without one. */
+    risk_reversal?: string
   }
-  trust: { logos_label: string; badges: string[]; stats: VerticalStat[] }
-  stakes: {
+  trust: {
+    logos_label: string
+    badges: string[]
+    /** Headline figures under the badges. Optional: a page whose badges already
+     *  carry the claims renders the band without a figure strip. */
+    stats?: VerticalStat[]
+    /**
+     * Attribution required when a third-party mark appears in the logo row.
+     * Rendered directly under it, so it can never drift away from the logo it
+     * refers to.
+     */
+    trademark_note?: string
+  }
+  /**
+   * Rendered by VerticalGuarantees, for a page that states what it adds rather
+   * than pairing each problem with its answer.
+   */
+  guarantees?: { eyebrow: string; title: string; intro: string; items: VerticalItem[] }
+  stakes?: {
     eyebrow: string
     title: string
     intro: string
@@ -89,7 +129,9 @@ export interface VerticalContent {
     counsel_note?: string
     cta_secondary: string
   }
-  proof: {
+  /** Rendered by VerticalPartnerBand; pages that compose the kit directly opt in. */
+  partner?: VerticalPartner
+  proof?: {
     eyebrow: string
     title: string
     intro: string
@@ -107,11 +149,14 @@ export interface VerticalContent {
     features: VerticalItem[]
     /** Caption for the electoral board console screenshot. */
     media_caption: string
-    steps_title: string
-    steps: VerticalItem[]
+    /** The member's own steps. Optional: a page whose mechanism is already
+     *  covered by the feature grid leaves them out, and the section skips the
+     *  whole block including the footnote. */
+    steps_title?: string
+    steps?: VerticalItem[]
     /** Caption for the member ballot screenshot. */
-    steps_media_caption: string
-    footnote: string
+    steps_media_caption?: string
+    footnote?: string
   }
   comparison: {
     eyebrow: string
@@ -150,6 +195,16 @@ export interface VerticalPageProps {
   content: VerticalContent
   /** Vertical-tagged signup URL, used by every primary CTA on the page. */
   appHref: string
+  /**
+   * Overrides the secondary CTA destination in the hero and the closing block,
+   * for a page whose primary ask is already `/contact` and whose secondary is
+   * therefore something else.
+   *
+   * Deliberately not threaded into the legal or engagement sections. Both also
+   * render a secondary, and for both `/contact` is the correct destination - a
+   * global override would silently hijack them.
+   */
+  secondaryHref?: string
   /**
    * Prefix for the analytics `ctaId` of every tracked link, e.g. `pro_bodies`.
    * The vertical has to live in the id because `trackAppCtaClick` records only

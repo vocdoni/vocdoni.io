@@ -49,6 +49,9 @@ export function VerticalTrustBand({ trust, logos }: VerticalTrustBandProps) {
                 </li>
               ))}
             </ul>
+            {trust?.trademark_note && (
+              <p className='text-faint max-w-2xl text-center text-xs leading-relaxed'>{trust.trademark_note}</p>
+            )}
           </div>
         )}
 

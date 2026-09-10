@@ -7,11 +7,12 @@ interface VerticalClosingCtaProps {
   closing: VerticalContent['closing']
   pageId: string
   appHref: string
+  secondaryHref?: string
   ctaId: string
 }
 
 /** One ask, restated, with the reassurance line kept beside the button. */
-export function VerticalClosingCta({ closing, pageId, appHref, ctaId }: VerticalClosingCtaProps) {
+export function VerticalClosingCta({ closing, pageId, appHref, secondaryHref, ctaId }: VerticalClosingCtaProps) {
   return (
     <VerticalSection sectionId='closing' pageId={pageId} className='bg-surface-dark text-surface-dark-foreground'>
       <Container className='max-w-3xl text-center'>
@@ -21,6 +22,7 @@ export function VerticalClosingCta({ closing, pageId, appHref, ctaId }: Vertical
           className='mt-10'
           tone='onDark'
           appHref={appHref}
+          secondaryHref={secondaryHref}
           primaryLabel={closing?.cta_primary}
           secondaryLabel={closing?.cta_secondary}
           note={closing?.note}

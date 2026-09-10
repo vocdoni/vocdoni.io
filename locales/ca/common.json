@@ -2729,6 +2729,324 @@
           "title": "Infraestructura de codi obert"
         }
       ]
+    },
+    "decidim": {
+      "eyebrow": "Soci oficial de Decidim",
+      "hero": {
+        "title": "Organitzeu votacions segures, anònimes i verificables dins de Decidim",
+        "subtitle": "Decidim Secure Elections afegeix vot anònim i criptogràficament segur al Decidim que els vostres membres ja fan servir. Les paperetes es segellen al navegador de qui vota, ningú no pot vincular un vot a una persona i qualsevol pot comprovar el resultat. Programari lliure, i a punt per instal·lar avui.",
+        "cta_primary": "Parleu amb nosaltres",
+        "cta_secondary": "Consulteu el codi a GitHub"
+      },
+      "partner": {
+        "eyebrow": "Soci oficial de Decidim",
+        "title": "El mòdul que Decidim recomana per a votacions que necessiten garanties reals",
+        "description": "A les notes de la versió 0.31, l'equip de Decidim va explicar que el seu component d'eleccions funciona sense capa criptogràfica, i que les organitzacions que necessitin garanties més fortes s'haurien de fixar en el mòdul comunitari construït sobre el protocol de Vocdoni. És el cas de la majoria de votacions vinculants que fan cooperatives, ajuntaments, partits polítics, associacions i federacions, que han de complir la normativa estatal i autonòmica a més dels seus propis estatuts. Decidim Secure Elections és aquest mòdul.",
+        "points": [
+          "Programari lliure sota AGPL-3.0",
+          "Fet per a Decidim 0.33",
+          "Mantingut per Vocdoni"
+        ],
+        "cta": "Llegiu les notes de la versió 0.31 de Decidim"
+      },
+      "trust": {
+        "logos_label": "organitzacions que ja voten amb la infraestructura de Vocdoni",
+        "badges": [
+          "programari de codi obert",
+          "vot verificable de punta a punta",
+          "fet per a Decidim 0.33"
+        ]
+      },
+      "guarantees": {
+        "eyebrow": "el que hi afegeix el mòdul",
+        "title": "Tres garanties que Decidim no pot donar a un vot tot sol",
+        "intro": "La gent proposa, debat i es reuneix a Decidim. Quan una decisió ha de ser anònima, vinculant i defensable després, fer servir un mòdul de votació amb garanties criptogràfiques és l'única solució.",
+        "items": [
+          {
+            "title": "Anonimat",
+            "description": "Amb el mòdul Decidim Secure Elections, cada papereta es segella al navegador de qui vota abans d'enviar-se. Ningú no pot vincular un vot a una persona, ni els vostres administradors ni Vocdoni, i el recompte es produeix a partir de paperetes que no anomenen ningú."
+          },
+          {
+            "title": "Verificabilitat de punta a punta",
+            "description": "Amb el mòdul Decidim Secure Elections, cada votant rep un codi de rebut que demostra que el seu vot s'ha registrat sense revelar-lo, i qualsevol pot refer el recompte a partir del resultat publicat i de l'exportació, sense confiar en la vostra instal·lació."
+          },
+          {
+            "title": "Protecció de dades des del disseny",
+            "description": "Amb el mòdul Decidim Secure Elections, el vostre Decidim no desa cap papereta ni cap identitat del cens, i Vocdoni només guarda credencials en forma de hash que no es poden convertir de nou en noms, de manera que una fuita no revela res sobre el vot de ningú."
+          }
+        ]
+      },
+      "comparison": {
+        "eyebrow": "les garanties",
+        "title": "Què pot garantir Decidim, amb i sense Decidim Secure Elections",
+        "intro": "Decidim, tal com es distribueix, està fet per a la participació, no per al vot secret: no pot garantir l'anonimat, no permet que algú de fora verifiqui un recompte i desa els vots com a dades personals a la vostra base de dades. Amb el mòdul, cadascuna d'aquestes tres coses passa a ser una garantia que podeu assenyalar.",
+        "criterion_label": "La qüestió",
+        "traditional_label": "Decidim tal com és avui: propostes, enquestes, eleccions integrades",
+        "vocdoni_label": "Decidim amb Decidim Secure Elections",
+        "rows": [
+          {
+            "criterion": "Anonimat",
+            "traditional": "Les opcions queden en files llegibles. Un administrador pot llegir qui ha triat què.",
+            "traditional_status": "negative",
+            "vocdoni": "Es segella al navegador de qui vota. Ningú no pot llegir una papereta, tampoc Vocdoni.",
+            "vocdoni_status": "positive"
+          },
+          {
+            "criterion": "On van a parar les dades personals (RGPD)",
+            "traditional": "Els vots són dades personals desades a la vostra base de dades i vinculades als comptes dels vostres membres.",
+            "traditional_status": "negative",
+            "vocdoni": "El vostre Decidim no desa cap papereta ni cap identitat del cens. La xarxa guarda paperetes segellades que no anomenen ningú.",
+            "vocdoni_status": "positive"
+          },
+          {
+            "criterion": "Què exposa una fuita de dades",
+            "traditional": "Qui ha votat i què ha votat, en un sol bolcat.",
+            "traditional_status": "negative",
+            "vocdoni": "Res de cap vot. Al vostre servidor no hi ha cap papereta, cap clau ni cap identitat per filtrar.",
+            "vocdoni_status": "positive"
+          },
+          {
+            "criterion": "Qui pot verificar el recompte",
+            "traditional": "Només els vostres administradors, des d'una taula on poden escriure.",
+            "traditional_status": "negative",
+            "vocdoni": "Qualsevol, des del recompte publicat i l'exportació en CSV i JSON, sense confiar en la vostra instància.",
+            "vocdoni_status": "positive"
+          },
+          {
+            "criterion": "Què lliureu a qui audita",
+            "traditional": "Una exportació feta per un administrador, que aquest mateix administrador pot editar.",
+            "traditional_status": "negative",
+            "vocdoni": "Una elecció publicada, una exportació que es pot recomptar i el rebut de cada votant.",
+            "vocdoni_status": "positive"
+          },
+          {
+            "criterion": "Què s'emporta qui vota",
+            "traditional": "Res.",
+            "traditional_status": "negative",
+            "vocdoni": "Un codi de rebut que demostra que el vot ha quedat registrat, sense revelar-ne res.",
+            "vocdoni_status": "positive"
+          },
+          {
+            "criterion": "Qui pot votar",
+            "traditional": "Qui pugui iniciar sessió.",
+            "traditional_status": "negative",
+            "vocdoni": "Un cens congelat abans de publicar, construït amb verificacions de Decidim, un CSV o a mà, amb un codi d'un sol ús opcional per correu o SMS.",
+            "vocdoni_status": "positive"
+          },
+          {
+            "criterion": "Eleccions de junta, assemblees, canvis estatutaris",
+            "traditional": "Prou per a consultes. Fluix allà on els vostres estatuts exigeixen vot secret.",
+            "traditional_status": "negative",
+            "vocdoni": "Dissenyat per a votacions secretes, verificables i vinculants.",
+            "vocdoni_status": "positive"
+          },
+          {
+            "criterion": "Un resultat impugnat",
+            "traditional": "La vostra paraula contra la seva.",
+            "traditional_status": "negative",
+            "vocdoni": "Evidències que qualsevol tercer pot comprovar pel seu compte.",
+            "vocdoni_status": "positive"
+          },
+          {
+            "criterion": "On vota la gent",
+            "traditional": "A Decidim.",
+            "traditional_status": "positive",
+            "vocdoni": "A Decidim, en una pàgina de votació servida per la vostra pròpia instància.",
+            "vocdoni_status": "positive"
+          },
+          {
+            "criterion": "Programari lliure",
+            "traditional": "Decidim és programari lliure.",
+            "traditional_status": "positive",
+            "vocdoni": "El mòdul també, sota AGPL-3.0 i sobre un protocol obert. Les eleccions sobreviuen a qualsevol contracte.",
+            "vocdoni_status": "positive"
+          },
+          {
+            "criterion": "Què manté el vostre equip tècnic",
+            "traditional": "Res de nou.",
+            "traditional_status": "neutral",
+            "vocdoni": "Una gemma, una migració, tres paràmetres i el nom d'una cua.",
+            "vocdoni_status": "neutral"
+          }
+        ]
+      },
+      "how": {
+        "eyebrow": "com funciona",
+        "title": "L'elecció funciona amb el protocol de votació de Vocdoni. Per als organitzadors és un component de Decidim com qualsevol altre.",
+        "intro": "Un administrador construeix l'elecció en minuts dins de Decidim i la publica. Els vots es segellen al navegador de cada membre, els processa la infraestructura de Vocdoni i es compten allà on qualsevol pot comprovar el resultat. Ningú no ha d'aprendre una segona eina.",
+        "features": [
+          {
+            "title": "Un cens fet amb les verificacions de Decidim",
+            "description": "Incorporeu les persones que ja tenen una verificació concreta a la vostra instància, importeu un CSV o afegiu votants a mà. El cens es congela quan es publica l'elecció."
+          },
+          {
+            "title": "Mètodes de votació a mida de la decisió",
+            "description": "Opció única, opció múltiple amb límits de selecció, i una o diverses preguntes per elecció, muntades i reordenades en una sola pantalla."
+          },
+          {
+            "title": "Resultats en directe, o segellats fins al final",
+            "description": "Es decideix pregunta a pregunta. Una pregunta segellada no la pot recomptar ningú, tampoc nosaltres, fins que es tanca la votació i es publiquen les claus."
+          },
+          {
+            "title": "Una segona capa de seguretat quan la vulgueu",
+            "description": "Qui vota s'identifica amb els camps de persona sòcia que trieu. Opcionalment, un codi d'un sol ús per correu o SMS afegeix una segona capa abans d'emetre la papereta."
+          },
+          {
+            "title": "Un panell per a la mesa electoral",
+            "description": "Estat, participació i resultats per pregunta a mesura que arriben, amb els controls per pausar, reprendre, acabar o cancel·lar la votació."
+          },
+          {
+            "title": "Un rebut per a cada votant",
+            "description": "Cada vot retorna un codi de rebut amb enllaç a l'explorador públic. Cada persona pot recuperar el seu més tard i confirmar que el seu vot s'ha comptat, sense revelar-lo i sense que ningú el pugui vincular a ella."
+          }
+        ],
+        "media_caption": "El panell d'administració: estat, participació i resultats per pregunta."
+      },
+      "legal": {
+        "eyebrow": "garanties i protecció de dades",
+        "title": "Què es garanteix de debò, i què arriba a saber cada part",
+        "intro": "Aquesta és la part que convé llegir abans que cap altra, i la que cal reenviar a la vostra delegada de protecció de dades. No són promeses sobre les nostres intencions. Són propietats d'on s'executa el codi.",
+        "jurisdiction_label": "Allotjat a la UE, o al vostre propi node",
+        "requirement_label": "La garantia",
+        "response_label": "Com la compleix el mòdul",
+        "frameworks": [
+          {
+            "name": "El vostre servidor no veu mai una papereta",
+            "summary": "El vostre Decidim guarda una única clau d'API i només fa operacions pròpies de l'organitzador: crear l'elecció, publicar-la, obrir o tancar una pregunta, llegir el recompte. Els vots es segellen al navegador de qui vota i els processa la infraestructura de Vocdoni. Res de cap vot no passa pel vostre servidor.",
+            "response": [
+              "La comprovació del cens, la generació de claus, el segellat i l'enviament de la papereta s'executen al navegador",
+              "La clau d'API no s'envia mai al navegador",
+              "Cap papereta, cap opció i cap clau de vot no arriba al vostre servidor, i cap vot no es pot vincular a qui l'ha emès"
+            ]
+          },
+          {
+            "name": "Cada votant pot comprovar el seu vot sense revelar-ne res",
+            "summary": "Cada vot retorna un codi de rebut amb enllaç a l'explorador públic. Demostra que el vot ha quedat registrat. No revela què s'ha votat.",
+            "response": [
+              "Els rebuts es poden recuperar més tard des de la pàgina de votació, identificant-se de nou",
+              "No es desa res a l'URL ni a la sessió del navegador",
+              "Una pregunta segellada fins al final espera que es publiquin les claus, i mai no recorre a comptar en obert"
+            ]
+          },
+          {
+            "name": "El cens es decideix abans d'obrir la votació, i el decidiu vosaltres",
+            "summary": "Qui vota s'identifica amb els camps de persona sòcia que trieu, opcionalment amb un codi d'un sol ús per correu o SMS. Un cop publicada l'elecció no s'hi pot afegir ni canviar res.",
+            "response": [
+              "Construïu-lo a partir de les verificacions de Decidim que els vostres membres ja tenen, a partir d'un CSV amb una plantilla feta per a aquesta elecció concreta, o a mà",
+              "Les files del CSV que fallen es reporten amb el número de línia i el motiu, i la resta s'importa igualment",
+              "La publicació s'atura abans que res arribi a la xarxa si a algú li falta un camp obligatori, i diu a qui"
+            ]
+          },
+          {
+            "name": "Qui sap què, en una línia cadascú",
+            "summary": "Les preguntes de protecció de dades es redueixen a qui guarda què. La resposta és curta perquè el disseny ho és.",
+            "response": [
+              "El vostre Decidim: la configuració de l'elecció i una còpia en memòria cau del recompte. Cap identitat del cens, cap papereta.",
+              "Vocdoni: credencials en forma de hash que no es poden convertir de nou en noms ni identificadors, i les paperetes segellades. Mai què ha votat ningú.",
+              "La xarxa pública: paperetes segellades i el recompte. Sense noms, sense opcions llegibles i sense cap vincle entre un vot i una persona."
+            ]
+          },
+          {
+            "name": "Res no depèn que ens cregueu",
+            "summary": "El mòdul és programari lliure sota AGPL-3.0 o posterior, i el protocol amb què parla és públic. Qualsevol pot llegir el codi i refer el recompte.",
+            "response": [
+              "Tot el codi a GitHub, inclosa la pàgina de votació que viatja dins el mòdul mateix",
+              "Els resultats es consulten des de la mateixa API de Decidim; la configuració del cens, deliberadament, no",
+              "Les eleccions ja publicades no es veuen afectades per una actualització, perquè viuen a la xarxa"
+            ]
+          }
+        ],
+        "evidence": {
+          "title": "Què podeu lliurar a qui auditi o impugni",
+          "intro": "L'elecció publicada a la xarxa de Vocdoni, el recompte per pregunta llegible amb independència de la vostra instància, l'exportació en CSV i JSON amb els seus enllaços de verificació, i el rebut que ja té cada votant. Podeu refer el recompte sense confiar en Vocdoni ni en la vostra pròpia instal·lació, que és justament la idea."
+        },
+        "counsel_note": "Aquestes són propietats del mòdul i del protocol que utilitza. No són una revisió de seguretat del vostre desplegament, del vostre allotjament o del vostre procés censal, ni assessorament jurídic sobre si una votació concreta compleix els vostres estatuts.",
+        "cta_secondary": "Pregunteu-nos pel vostre cas"
+      },
+      "engagement": {
+        "eyebrow": "qui fa què",
+        "title": "Per a organitzacions amb Decidim, i per a qui l'implanta",
+        "intro": "El mòdul és programari lliure en tots dos casos. El que hi afegim és l'acompanyament: les claus d'API per a la infraestructura de Vocdoni, ajuda amb el cens, un assaig i algú a l'altra banda del telèfon el dia que la votació compta.",
+        "options": [
+          {
+            "badge": "la vostra organització fa servir Decidim",
+            "title": "Instal·leu-lo a la vostra instància, amb nosaltres al costat",
+            "description": "Per a cooperatives, federacions, ajuntaments i associacions que ja fan servir Decidim, amb un proveïdor informàtic o una integradora que el manté.",
+            "points": [
+              "Una estona de feina per a qui ja manté el vostre Decidim, i nosaltres l'acompanyem",
+              "Una elecció d'assaig amb votants de prova abans de la que compta",
+              "Suport el dia de la votació, i un resultat que podeu lliurar a qui el demani"
+            ],
+            "cta": "Parleu amb nosaltres"
+          },
+          {
+            "badge": "implanteu Decidim per a clients",
+            "title": "Oferiu vot verificable a tots els clients que serviu",
+            "description": "Per a les agències i consultores que implanten i mantenen Decidim per a cooperatives, administracions, associacions i universitats. Vosaltres continueu operant les instàncies. Nosaltres us ajudem a fer servir el mòdul.",
+            "points": [
+              "Les claus d'API que les instàncies dels vostres clients necessiten per fer servir el mòdul amb la infraestructura de Vocdoni",
+              "Una persona de contacte i una trucada d'incorporació per al vostre equip",
+              "Una elecció d'assaig abans de la primera votació real del vostre client",
+              "Condicions de soci per escrit, acordades en conversa"
+            ],
+            "cta": "Feu-vos socis"
+          }
+        ]
+      },
+      "faq": {
+        "eyebrow": "preguntes",
+        "title": "Les coses que es pregunten abans d'instal·lar-lo",
+        "intro": "Incloses les preguntes amb respostes incòmodes.",
+        "items": [
+          {
+            "question": "Què és Decidim Secure Elections?",
+            "answer": "Un mòdul de programari lliure, amb llicència AGPL-3.0 o posterior, que afegeix un component d'eleccions segures a qualsevol espai participatiu de Decidim. L'administració construeix l'elecció en cinc passos i la publica a la xarxa de Vocdoni. Els vostres membres voten des d'una pàgina que s'executa sencera al seu propi navegador, i qualsevol pot comprovar el resultat."
+          },
+          {
+            "question": "El component d'eleccions que porta Decidim de sèrie, sense aquest mòdul, xifra les paperetes?",
+            "answer": "No, i aquí és on es confonen tots dos. El component d'eleccions que ve amb Decidim funciona sense capa criptogràfica, com diuen les seves pròpies notes de la versió 0.31, i aquestes notes remeten al mòdul de Vocdoni qui necessiti més. El component integrat encaixa bé en votacions que no necessiten anonimat ni verificabilitat externa. Decidim Secure Elections és per a les que sí."
+          },
+          {
+            "question": "El bulletin board de Decidim ja no es manté. Què faig servir ara per votar xifrat?",
+            "answer": "Aquest mòdul. L'antic decidim-bulletin-board es va moure a l'organització d'arxiu de Decidim i no rep cap commit des del febrer del 2024, i la integració amb ElectionGuard de què depenia està arxivada des del 2021. L'anterior decidim-module-vocdoni està fixat per sota de Decidim 0.29 i queda substituït per Decidim Secure Elections, que és una reconstrucció sobre l'arquitectura actual de Decidim."
+          },
+          {
+            "question": "Quines versions de Decidim i Ruby necessita?",
+            "answer": "Decidim 0.33.x i Ruby 3.4, a més de PostgreSQL, Redis i un worker en segon pla que processi la cua vocdoni. Decidim 0.33 encara no s'ha publicat, així que avui el mòdul s'instal·la des del codi font amb una referència de git i no des de RubyGems. Si sou a la 0.32 o anterior, parleu-nos dels vostres terminis i us donarem una data realista."
+          },
+          {
+            "question": "Els nostres administradors, o Vocdoni, poden veure què ha votat algú?",
+            "answer": "No. El vostre servidor guarda una clau d'API i només fa operacions pròpies de l'organitzador, mentre que les paperetes es segellen al navegador de qui vota abans d'arribar a la infraestructura de Vocdoni. Vocdoni només guarda credencials en forma de hash que no es poden convertir de nou en noms, i paperetes segellades que no pot obrir. L'única cosa que se sap és el que la xarxa ja publica: quants vots s'han emès i el recompte un cop tancada l'elecció."
+          },
+          {
+            "question": "Com comprova una persona que el seu vot s'ha comptat sense revelar-lo?",
+            "answer": "Cada vot emès retorna un codi de rebut amb enllaç a l'explorador públic. Demostra que el vot ha quedat registrat i no revela res del seu contingut. Es pot recuperar més tard des de la pàgina de votació, identificant-se de nou, en lloc de quedar-se en un URL o en una sessió."
+          },
+          {
+            "question": "Podem limitar el vot a qui ha passat una verificació de Decidim?",
+            "answer": "Sí, i és la raó principal per fer servir aquest mòdul en lloc de votar fora de Decidim. El cens es pot omplir amb les persones que tenen una verificació concreta a la vostra instància, a més d'una importació de CSV i d'entrades manuals."
+          },
+          {
+            "question": "Què necessita saber la nostra delegada de protecció de dades?",
+            "answer": "El vostre Decidim desa la configuració de l'elecció i una còpia en memòria cau del recompte, mai identitats del cens ni paperetes. Vocdoni guarda credencials en forma de hash que no es poden convertir de nou en noms ni identificadors, a més de les paperetes segellades, i mai no sap què ha votat ningú. La xarxa pública guarda paperetes segellades i el recompte, sense noms i sense opcions llegibles. La infraestructura de Vocdoni està allotjada a la UE, i el contracte d'encàrrec del tractament forma part de la conversa."
+          },
+          {
+            "question": "És realment programari lliure i de codi obert?",
+            "answer": "El mòdul sí, sota AGPL-3.0 o posterior, i el seu codi és públic. Convé ser precisos amb la resta: el mòdul parla amb la xarxa de Vocdoni a través d'una clau d'API, i aquesta infraestructura allotjada és un servei que acordem amb vosaltres. El codi és lliure; la xarxa on publica és un servei."
+          },
+          {
+            "question": "Quina segona capa de seguretat podem fer servir?",
+            "answer": "Qualsevol de les dues. Es pot exigir un codi d'un sol ús per correu o per SMS abans d'emetre la papereta, a més dels camps de persona sòcia que identifiquen qui vota. Trieu la que els vostres membres rebin amb més fiabilitat. Totes dues funcionen amb el mateix cens."
+          }
+        ]
+      },
+      "closing": {
+        "title": "Oferiu vot verificable als vostres clients de Decidim",
+        "description": "Si implanteu o manteniu Decidim per a altres organitzacions, parleu amb nosaltres. Us acompanyem en l'ús del mòdul: les claus d'API per a la infraestructura de Vocdoni, el cens, un assaig i algú a l'altra banda del telèfon durant la primera elecció del vostre client.",
+        "cta_primary": "Parleu amb nosaltres",
+        "cta_secondary": "Consulteu el codi a GitHub",
+        "note": "Programari lliure, sense compromís. Si el Decidim del vostre client encara no és a la 0.33, us direm la data realista."
+      }
     }
   },
   "solutions_index": {
@@ -3465,6 +3783,7 @@
     },
     "product": {
       "custom_projects": "Projectes a mida",
+      "decidim": "Decidim Secure Elections",
       "documentation": "Documentació",
       "pricing": "Preus",
       "sdk_api": "SDK i API",
@@ -3708,6 +4027,10 @@
         "description": "Organitzeu assemblees generals i eleccions de consell en línia. Un soci un vot o vot ponderat, vot secret, més participació i resultats verificables.",
         "title": "Programari de vot per a cooperatives i assemblees | Vocdoni"
       },
+      "decidim": {
+        "description": "Vot secret i verificable dins de Decidim. Decidim Secure Elections és el mòdul AGPL-3.0 de Vocdoni, soci oficial de Decidim: les paperetes es segellen al navegador de qui vota, el vostre servidor no en veu cap i qualsevol pot comprovar el resultat.",
+        "title": "Decidim Secure Elections | Vocdoni"
+      },
       "municipalities": {
         "description": "Organitzeu referèndums locals, pressupostos participatius i consultes ciutadanes amb auditabilitat pública, accessibilitat per a tots els residents i resultats verificables.",
         "title": "Programari de vot municipal per a consultes ciutadanes | Vocdoni"
@@ -3756,6 +4079,10 @@
       "custom_projects": {
         "description": "Solucions de governança personalitzades per a necessitats específiques.",
         "title": "Projectes a mida"
+      },
+      "decidim": {
+        "description": "Vot secret i verificable dins de la plataforma Decidim que ja feu servir.",
+        "title": "Decidim Secure Elections"
       },
       "digital_voting_platform": {
         "description": "Sistema de votació digital segur, transparent i verificable per a qualsevol organització.",
