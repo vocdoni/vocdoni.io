@@ -16,9 +16,17 @@ export function VerticalSectionIndex({ items }: { items: VerticalIndexItem[] }) 
   const listRef = React.useRef<HTMLOListElement>(null)
   const linkRefs = React.useRef(new Map<string, HTMLAnchorElement>())
 
+  // The effect only ever looks sections up by id, and the caller rebuilds
+  // `items` on every render (its labels come from a `returnObjects` translation
+  // call, which never returns a stable reference). Keying on the ids instead of
+  // the array identity is what keeps the listeners from being torn down and
+  // re-registered on each render.
+  const itemIds = items.map((item) => item.id).join('|')
+
   React.useEffect(() => {
-    const sections = items
-      .map((item) => document.getElementById(item.id))
+    const sections = itemIds
+      .split('|')
+      .map((id) => document.getElementById(id))
       .filter((section): section is HTMLElement => section !== null)
 
     if (sections.length === 0) return
@@ -55,7 +63,7 @@ export function VerticalSectionIndex({ items }: { items: VerticalIndexItem[] }) 
       window.removeEventListener('resize', scheduleUpdate)
       if (frame) window.cancelAnimationFrame(frame)
     }
-  }, [items])
+  }, [itemIds])
 
   React.useEffect(() => {
     const list = listRef.current
@@ -77,10 +85,17 @@ export function VerticalSectionIndex({ items }: { items: VerticalIndexItem[] }) 
     const header = document.querySelector('header')
     const headerBottom = header?.getBoundingClientRect().bottom ?? 0
     const navBottom = nav?.getBoundingClientRect().bottom ?? headerBottom
-    const offset = nav && getComputedStyle(nav).position === 'sticky' ? navBottom + 18 : headerBottom + 24
+    // Below xl the index is a bar stacked under the header, so it is the bar,
+    // not the header, that would cover the heading we are scrolling to. At xl it
+    // is a side rail and clears the top entirely. Same breakpoint the
+    // activation line uses above.
+    const stacked = Boolean(nav) && !window.matchMedia('(min-width: 1280px)').matches
+    const offset = stacked ? navBottom + 18 : headerBottom + 24
     const top = section.getBoundingClientRect().top + window.scrollY - offset
     window.scrollTo({ top, behavior: reducedMotion ? 'auto' : 'smooth' })
-    window.history.pushState(null, '', `#${id}`)
+    // Carry the existing history state: Vike keeps its scroll-restoration state
+    // there, and replacing it with `null` loses the reader's place on Back.
+    window.history.pushState(window.history.state, '', `#${id}`)
     setActiveId(id)
   }
 

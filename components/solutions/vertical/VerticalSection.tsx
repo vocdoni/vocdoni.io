@@ -12,7 +12,8 @@ interface VerticalSectionProps extends React.HTMLAttributes<HTMLElement> {
 }
 
 /**
- * A page section that reports itself once it is half in view. The legal section
+ * A page section that reports itself once it reaches the middle of the screen.
+ * The legal section
  * is the one worth watching: what share of readers reach it, and what share
  * reach it and keep going, is readable at low traffic where an A/B test is not.
  *
@@ -34,7 +35,12 @@ export function VerticalSection({ sectionId, pageId, children, className, ...pro
           observer.disconnect()
         }
       },
-      { threshold: 0.5 }
+      // Not `threshold: 0.5`: a section taller than twice the viewport can never
+      // reach that ratio, which on a phone is every long section on this page -
+      // legal validity and the comparison table included, the two the event
+      // exists to measure. Collapsing the root to its horizontal midline
+      // reports a section once it crosses the middle of the screen, at any height.
+      { threshold: 0, rootMargin: '-50% 0px -50% 0px' }
     )
 
     observer.observe(node)

@@ -27,7 +27,14 @@ const CASE_STUDY_HREF = '/case-studies/coib'
 const BLOG_HREF =
   '/blog/how-coib-a-professional-body-of-nurses-ran-its-2025-annual-general-meeting-vote-online-securely-and-with-instant-results'
 
-/** Logo art and the `platformName` each organization uses in the testimonials data. */
+/**
+ * Logo art and the `platformName` each organization uses in the testimonials data.
+ *
+ * Careful with `platformName`: a few entries in `lib/testimonials-data.ts` build
+ * theirs through `t(...)` (COEIC is one), so the literal below only matches in
+ * English and `quoteFor` silently finds nothing in the other ten locales. Only
+ * name an organization in `quotes` whose `platformName` is a fixed string.
+ */
 const ORGANIZATIONS: Record<string, { logo: string; alt: string; platformName: string }> = {
   COIB: { logo: logoCoib, alt: 'COIB', platformName: 'COIB' },
   COEIC: {
@@ -65,6 +72,13 @@ export default function Page() {
     return testimonials.find((item) => item.platformName === platformName)
   }
 
+  // Skip rather than throw: a market override naming an organization this page
+  // has no art for should cost one logo, not blank the whole prerendered page.
+  const logos = proof.logos
+    .map((org) => ORGANIZATIONS[org])
+    .filter(Boolean)
+    .map(({ logo, alt }) => ({ src: logo, alt }))
+
   return (
     <VerticalPage
       icon={BriefcaseIcon}
@@ -72,7 +86,7 @@ export default function Page() {
       appHref={APP_SIGNUP_URL}
       pricingHref={PRICING_URL}
       ctaPrefix='pro_associations'
-      logos={proof.logos.map((org) => ({ src: ORGANIZATIONS[org].logo, alt: ORGANIZATIONS[org].alt }))}
+      logos={logos}
       caseStudy={CASE_STUDIES[proof.caseStudy] ?? CASE_STUDIES.COIB}
       quotes={{
         stakes: quoteFor(proof.quotes.stakes),

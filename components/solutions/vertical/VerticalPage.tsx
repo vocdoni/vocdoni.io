@@ -46,6 +46,10 @@ export function VerticalPage({
   resourceLinks,
   media,
 }: Props) {
+  // Rebuilt every render on purpose: `content` comes from a
+  // `t(..., { returnObjects: true })` call, which hands back a fresh object each
+  // time, so there is no dependency stable enough to memoise on here.
+  // `VerticalSectionIndex` keys its listeners off the ids instead.
   const indexItems: VerticalIndexItem[] = [
     { id: 'overview', label: content?.eyebrow },
     { id: 'stakes', label: content?.stakes?.eyebrow },

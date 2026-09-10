@@ -103,7 +103,7 @@ export function VerticalProof({ proof, pageId, caseStudy, quote, appHref, ctaId,
                 </Link>
               </Button>
               <Button variant='ghost' className='w-full sm:w-auto' asChild>
-                <Link href={caseStudy.blogHref} variant='inlineIcon'>
+                <Link href={caseStudy.blogHref} variant='inlineIcon' ctaId={`${caseStudyCtaId}_blog`}>
                   {proof?.blog_label}
                   <ExternalLinkIcon className='size-4' />
                 </Link>

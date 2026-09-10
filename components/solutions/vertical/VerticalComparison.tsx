@@ -58,9 +58,9 @@ export function VerticalComparison({ comparison, pageId }: VerticalComparisonPro
               row carries its own inline labels, so no cell is ever unlabelled. */}
           <div role='rowgroup' className={cn('hidden', tableUp === 'lg' ? 'lg:block' : 'md:block')}>
             <div role='row' className={cn('grid items-stretch', columns)}>
-              {[comparison?.criterion_label, ...comparedColumns.map((c) => c.label)].map((label) => (
+              {[comparison?.criterion_label, ...comparedColumns.map((c) => c.label)].map((label, index) => (
                 <span
-                  key={label}
+                  key={index}
                   role='columnheader'
                   className='text-muted-foreground px-6 pt-6 pb-4 text-xs font-semibold tracking-wider uppercase'
                 >
@@ -97,9 +97,9 @@ export function VerticalComparison({ comparison, pageId }: VerticalComparisonPro
                   {row.criterion}
                 </span>
 
-                {comparedColumns.map((column) => (
+                {comparedColumns.map((column, columnIndex) => (
                   <span
-                    key={column.label}
+                    key={columnIndex}
                     role='cell'
                     className={cn(
                       'text-muted-foreground text-sm leading-relaxed',
