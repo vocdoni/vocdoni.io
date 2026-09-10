@@ -31,9 +31,13 @@ const REAL_URLS = new Set(
   REAL_BASE_ROUTES.flatMap((r) => [r, ...locales.map((l) => (r === '/' ? `/${l}` : `/${l}${r}`))])
 )
 
+// Matches any configured locale, not just two-letter ones: `pt-br` is a real locale
+// and renamed-route redirects target every locale the old URL was served in.
 const stripLocale = (url: string) => {
-  const match = url.match(/^\/([a-z]{2})(\/.*|$)/)
-  if (match && (locales as readonly string[]).includes(match[1])) return match[2] || '/'
+  for (const locale of locales) {
+    if (url === `/${locale}`) return '/'
+    if (url.startsWith(`/${locale}/`)) return url.slice(locale.length + 1)
+  }
   return null
 }
 

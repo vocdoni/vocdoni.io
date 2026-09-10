@@ -97,8 +97,8 @@ const buildSolutionVerticals = (t: TFunction) => [
   },
   { title: t('navbar.solution_links.cooperatives', 'Cooperatives'), href: getSolutionVertical('cooperatives').href },
   {
-    title: t('navbar.solution_links.professional_colleges', 'Professional associations'),
-    href: getSolutionVertical('professional_colleges').href,
+    title: t('navbar.solution_links.professional_associations', 'Professional associations'),
+    href: getSolutionVertical('professional_associations').href,
   },
   {
     title: t('navbar.solution_links.political_parties', 'Political parties'),

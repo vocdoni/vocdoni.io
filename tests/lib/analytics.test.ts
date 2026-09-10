@@ -151,4 +151,47 @@ describe('trackAppCtaClick', () => {
     expect(() => trackAppCtaClick({ ctaId: 'broken', destinationUrl: 'http://' })).not.toThrow()
     expect(gtag).not.toHaveBeenCalled()
   })
+
+  it('carries the vertical signup type, which is what joins this click to the app signup', () => {
+    const gtag = vi.fn()
+    vi.stubGlobal('window', {
+      location: {
+        href: 'https://vocdoni.io/en/solutions/professional-associations',
+        pathname: '/en/solutions/professional-associations',
+      },
+      gtag,
+    })
+
+    trackAppCtaClick({
+      ctaId: 'pro_associations_hero',
+      destinationUrl: 'https://app.vocdoni.io/account/signin?type=professional-associations',
+    })
+
+    expect(gtag).toHaveBeenCalledWith('event', 'app_cta_click', {
+      cta_id: 'pro_associations_hero',
+      source_path: '/en/solutions/professional-associations',
+      destination_host: 'app.vocdoni.io',
+      destination_path: '/account/signin',
+      signup_type: 'professional-associations',
+    })
+  })
+
+  it('drops a signup type that is not one of ours, so a destination cannot smuggle content into the event', () => {
+    const gtag = vi.fn()
+    vi.stubGlobal('window', {
+      location: { href: 'https://vocdoni.io/en', pathname: '/en' },
+      gtag,
+    })
+
+    trackAppCtaClick({
+      ctaId: 'app_hero_start',
+      destinationUrl: 'https://app.vocdoni.io/account/signin?type=someone%40example.com',
+    })
+
+    expect(gtag).toHaveBeenCalledWith(
+      'event',
+      'app_cta_click',
+      expect.not.objectContaining({ signup_type: expect.anything() })
+    )
+  })
 })

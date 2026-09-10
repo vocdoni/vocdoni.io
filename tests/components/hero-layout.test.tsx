@@ -52,7 +52,7 @@ describe('Hero layout spacing', () => {
   it('links the highlighted verticals and the solutions hub', () => {
     const html = renderToStaticMarkup(<Hero />)
 
-    for (const slug of ['professional-colleges', 'associations', 'political-parties', 'municipalities']) {
+    for (const slug of ['professional-associations', 'associations', 'political-parties', 'municipalities']) {
       expect(html).toContain(`href="/en/solutions/${slug}"`)
     }
     for (const label of [
