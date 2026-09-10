@@ -30,7 +30,7 @@ process, then **signs and relays a ballot per question** they are eligible for.
 4. **Relay** - the signed envelope is relayed (asynchronously) to the protocol, which returns a vote
    receipt (nullifier).
 
-Steps 1 and 2 are plain REST calls, wrapped by the API client as `client.processes`; steps 3 and 4
+Steps 1 and 2 are plain REST calls, wrapped by the API client as `client.elections`; steps 3 and 4
 are the cryptography `@vocdoni/api-voting` implements.
 
 On a census created with [`anonymous: true`](/developers/docs/census#anonymous-voting), step 2 is
@@ -61,7 +61,7 @@ yarn add @vocdoni/api-client @vocdoni/api-voting
 ```
 :::
 
-`client.processes` covers the voter-facing calls (authenticate, check eligibility, get the CSP
+`client.elections` covers the voter-facing calls (authenticate, check eligibility, get the CSP
 signature) and `VotingClient` does the rest - one call builds the envelope, signs it with the
 ephemeral key and relays it:
 
@@ -79,11 +79,11 @@ const chainId = '<chainId>'
 // 1. Authenticate once - send exactly the fields the census requires. An
 //    auth-only census (like this one) returns a verified token right away; a
 //    2FA census confirms a one-time code first (see the note below).
-const { authToken } = await client.processes.authStep0(processId, { memberNumber: 'A-101' })
+const { authToken } = await client.elections.authStep0(processId, { memberNumber: 'A-101' })
 
 // 2. Check where the voter stands - census membership plus, per question,
 //    eligibility and that question's on-chain election id (upstreamId).
-const { belongsToProcess, questions } = await client.processes.check(processId, { authToken })
+const { belongsToProcess, questions } = await client.elections.check(processId, { authToken })
 const question = questions.find((q) => q.canVote && !q.hasVoted)
 if (!belongsToProcess || !question?.upstreamId) throw new Error('nothing to vote on')
 
@@ -91,7 +91,7 @@ if (!belongsToProcess || !question?.upstreamId) throw new Error('nothing to vote
 //    question's election. Refused unless the voter is in the question's
 //    eligibility subset.
 const signer = new EphemeralSigner()
-const { signature, weight } = await client.processes.sign(processId, {
+const { signature, weight } = await client.elections.sign(processId, {
   authToken,
   electionId: question.upstreamId,
   payload: signer.address,
@@ -123,14 +123,13 @@ read its tally from [Results](/developers/docs/results).
 > recommended path is the [batch flow below](#casting-a-multi-question-process-in-one-batch): one
 > `sign-batch` call signs every ballot under the auth token, and one `POST /votes` call relays the
 > envelopes together - the batch is accepted or rejected as a unit, and the job then reports each
-> vote individually. The SDK wraps both: `client.processes.signBatch()` and
-> `client.elections.voteBatch()`.
+> vote individually. The SDK wraps both on `client.elections`: `signBatch()` and `voteBatch()`.
 
 > [!NOTE] 2FA censuses
 > When the census verifies voters by `email`/`phone`, step 0 sends a one-time code and returns a
 > pending token. Confirm it before signing:
-> `client.processes.authStep1(processId, { authToken, authData: ['123456'] })`. Need a new code?
-> `client.processes.resend(processId, { authToken })`.
+> `client.elections.authStep1(processId, { authToken, authData: ['123456'] })`. Need a new code?
+> `client.elections.resend(processId, { authToken })`.
 
 ### Encrypted questions
 
@@ -140,7 +139,7 @@ A question created with `secretUntilTheEnd` keeps its ballots sealed until it en
 the ballot is sealed automatically:
 
 ```ts
-const { encryptionKeys } = await client.processes.getQuestion(processId, question.questionId)
+const { encryptionKeys } = await client.elections.getQuestion(processId, question.questionId)
 
 const jobId = await voting.vote({
   // ...same options as above, plus:
@@ -159,7 +158,7 @@ picks it can attach a free-text **memo** to their ballot. The flag is on the pub
 the voter app finds the open choice and renders a text input for it without authenticating:
 
 ```ts
-const { choices } = await client.processes.getQuestion(processId, question.questionId)
+const { choices } = await client.elections.getQuestion(processId, question.questionId)
 // `openValue` is sent by the API but not yet in the SDK's Choice type; cast until it lands
 const openChoice = choices.find((c) => (c as { openValue?: boolean }).openValue)
 if (!openChoice) return // this question has no open-value choice
@@ -223,7 +222,7 @@ import { EphemeralSigner, buildVoteTransaction } from '@vocdoni/api-voting'
 // One fresh ephemeral signer per question, then one sign call for all of them.
 const votable = questions.filter((q) => q.canVote && !q.hasVoted)
 const signers = new Map(votable.map((q) => [q.upstreamId!, new EphemeralSigner()]))
-const { signatures } = await client.processes.signBatch(processId, {
+const { signatures } = await client.elections.signBatch(processId, {
   authToken,
   ballots: votable.map((q) => ({ upstreamId: q.upstreamId!, address: signers.get(q.upstreamId!)!.address })),
 })
@@ -462,11 +461,11 @@ poll the [job](/developers/docs/jobs) first and verify once it completes.
 Public helpers let a UI show a voter where they stand without casting anything. Each identifies the
 voter by their verified `authToken`:
 
-- **POST** `/processes/{processId}/check` (`client.processes.check`) - voter status:
+- **POST** `/processes/{processId}/check` (`client.elections.check`) - voter status:
   `belongsToProcess`, `weight`, and per question `{ questionId, upstreamId, canVote, hasVoted }`.
   Ineligibility is `belongsToProcess: false` with a `200`, not an error.
-- **POST** `/processes/{processId}/weight` (`client.processes.weight`) - the voter's vote weight.
-- **POST** `/processes/{processId}/sign-info` (`client.processes.signInfo`) - the voter's receipts:
+- **POST** `/processes/{processId}/weight` (`client.elections.weight`) - the voter's vote weight.
+- **POST** `/processes/{processId}/sign-info` (`client.elections.signInfo`) - the voter's receipts:
   per **voted** question its `{ questionId, upstreamId, address, nullifier, at }`. On an
   [anonymous census](/developers/docs/census#anonymous-voting) the entries omit `address` and
   `nullifier` - the CSP never learns them.

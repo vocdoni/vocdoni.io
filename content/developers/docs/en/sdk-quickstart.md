@@ -68,8 +68,17 @@ import { VocdoniApiClient } from '@vocdoni/api-client'
 const client = new VocdoniApiClient({ apiUrl: '{{API_BASE_URL}}' })
 ```
 
-The client exposes typed sub-clients for each part of the API - `client.processes`,
-`client.organizations`, `client.elections`, `client.jobs` and `client.auth`.
+The client exposes typed sub-clients for each part of the API - `client.elections`,
+`client.organizations`, `client.jobs` and `client.auth`. `client.elections` covers the whole
+`/processes` resource: the public process and question reads, the authoring writes, the voter CSP
+flow and the vote relay.
+
+> [!NOTE] `client.processes` is now `client.elections`
+> Earlier releases exposed a second `client.processes` sub-client for the voter CSP calls. Both
+> wrapped the same `/processes/{id}` endpoints with the same auth behaviour, so they were merged
+> into `client.elections`. `client.processes` still resolves to the very same instance as a
+> deprecated alias and is removed in the next major: migrating is a find and replace of
+> `client.processes.` for `client.elections.`, with no signature changes.
 
 ## Cast a vote
 
@@ -91,17 +100,17 @@ const processId = '<processId>'
 const chainId = '<chainId>'
 
 // 1. Authenticate once against the process census (auth-only census - no 2FA step)
-const { authToken } = await client.processes.authStep0(processId, { memberNumber: '42' })
+const { authToken } = await client.elections.authStep0(processId, { memberNumber: '42' })
 
 // 2. Check the voter's standing - census membership plus, per question,
 //    eligibility and that question's on-chain election id (upstreamId)
-const { belongsToProcess, questions } = await client.processes.check(processId, { authToken })
+const { belongsToProcess, questions } = await client.elections.check(processId, { authToken })
 const question = questions.find((q) => q.canVote && !q.hasVoted)
 if (!belongsToProcess || !question?.upstreamId) throw new Error('Cannot vote')
 
 // 3. Get a CSP signature over a fresh ephemeral address for that question's election
 const signer = new EphemeralSigner()
-const { signature, weight } = await client.processes.sign(processId, {
+const { signature, weight } = await client.elections.sign(processId, {
   authToken,
   electionId: question.upstreamId,
   payload: signer.address,
