@@ -55,11 +55,11 @@ export const metaDefaults = {
   ),
   'meta.solutions.associations.title': t(
     'meta.solutions.associations.title',
-    'Online voting for associations and board elections | Vocdoni'
+    'Online voting for associations and federations | Vocdoni'
   ),
   'meta.solutions.associations.description': t(
     'meta.solutions.associations.description',
-    'Run association board elections, statutory votes and member consultations online. Secret ballots, verifiable results and a legally defensible audit trail.'
+    'Board elections, statutory votes and general assemblies for associations and federations. Reach quorum with members voting from anywhere, secret ballots, and a result any member can check.'
   ),
   'meta.solutions.cooperatives.title': t(
     'meta.solutions.cooperatives.title',
