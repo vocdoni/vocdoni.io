@@ -7,6 +7,12 @@ import { cn } from '@/lib/utils'
 interface VerticalCtaPairProps {
   /** Vertical-tagged signup URL. */
   appHref: string
+  /**
+   * Where the secondary link goes. Defaults to `/contact`, which is correct
+   * everywhere the kit is used today - so leaving it unset preserves the
+   * existing behaviour of every vertical exactly.
+   */
+  secondaryHref?: string
   primaryLabel?: string
   secondaryLabel?: string
   /** Analytics id prefix, e.g. `pro_bodies_hero`. Both links are tracked. */
@@ -35,6 +41,7 @@ interface VerticalCtaPairProps {
  */
 export function VerticalCtaPair({
   appHref,
+  secondaryHref = '/contact',
   primaryLabel,
   secondaryLabel,
   ctaId,
@@ -65,13 +72,13 @@ export function VerticalCtaPair({
         {secondaryLabel &&
           (weight === 'equal' ? (
             <Button size='lg' variant='outline' className='w-full sm:w-auto' asChild>
-              <Link href='/contact' variant='unstyled' ctaId={`${ctaId}_contact`}>
+              <Link href={secondaryHref} variant='unstyled' ctaId={`${ctaId}_contact`}>
                 {secondaryLabel}
               </Link>
             </Button>
           ) : (
             <Link
-              href='/contact'
+              href={secondaryHref}
               variant='inlineIcon'
               ctaId={`${ctaId}_contact`}
               className={cn(
