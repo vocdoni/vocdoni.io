@@ -15,10 +15,10 @@ describe('PostHog website pageviews', () => {
 
   it('captures a production pageview without query parameters or person profiles', async () => {
     const sendBeacon = vi.fn((_url: string, _data?: BodyInit | null) => true)
-    vi.stubGlobal('localStorage', { getItem: vi.fn(() => 'accepted') })
+    vi.stubGlobal('localStorage', { getItem: vi.fn(() => null), setItem: vi.fn() })
     vi.stubGlobal('navigator', { sendBeacon })
     vi.stubGlobal('crypto', { randomUUID: vi.fn(() => 'pageview-test-session') })
-    vi.stubGlobal('document', { title: 'Secure online voting' })
+    vi.stubGlobal('document', { title: 'Secure online voting', cookie: 'vocdoni-cookie-consent=accepted' })
     vi.stubGlobal('window', {
       location: {
         origin: 'https://vocdoni.io',
@@ -41,9 +41,9 @@ describe('PostHog website pageviews', () => {
 
   it('does not capture before analytics consent', () => {
     const sendBeacon = vi.fn((_url: string, _data?: BodyInit | null) => true)
-    vi.stubGlobal('localStorage', { getItem: vi.fn(() => null) })
+    vi.stubGlobal('localStorage', { getItem: vi.fn(() => null), setItem: vi.fn() })
     vi.stubGlobal('navigator', { sendBeacon })
-    vi.stubGlobal('document', { title: 'Secure online voting' })
+    vi.stubGlobal('document', { title: 'Secure online voting', cookie: '' })
     vi.stubGlobal('window', {
       location: {
         origin: 'https://vocdoni.io',
@@ -59,9 +59,10 @@ describe('PostHog website pageviews', () => {
 
   it('does not let event properties override privacy controls', async () => {
     const sendBeacon = vi.fn((_url: string, _data?: BodyInit | null) => true)
-    vi.stubGlobal('localStorage', { getItem: vi.fn(() => 'accepted') })
+    vi.stubGlobal('localStorage', { getItem: vi.fn(() => null), setItem: vi.fn() })
     vi.stubGlobal('navigator', { sendBeacon })
     vi.stubGlobal('crypto', { randomUUID: vi.fn(() => 'protected-session') })
+    vi.stubGlobal('document', { cookie: 'vocdoni-cookie-consent=accepted' })
     vi.stubGlobal('window', {
       location: {
         hostname: 'vocdoni.io',
