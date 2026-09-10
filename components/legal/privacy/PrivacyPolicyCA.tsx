@@ -8,6 +8,7 @@ import {
   LegalPageContainer,
   LegalSection,
   LegalSubsection,
+  LegalTable,
 } from '@/components/ui/legal-document'
 import { Heading, Paragraph } from '@/components/ui/typography'
 
@@ -65,8 +66,10 @@ export function PrivacyPolicyCA() {
           tipus de dispositiu) necessàries per al seu correcte funcionament i per a finalitats analítiques.
         </Paragraph>
         <Paragraph variant='legal'>
-          Utilitzem Google Analytics (amb adreces IP anonimitzades) i Plausible.io per obtenir estadístiques agrupades i
-          no identificables.
+          Utilitzem Google Analytics (amb adreces IP anonimitzades), Plausible.io i PostHog amb finalitats analítiques.
+          Google Analytics i Plausible.io produeixen estadístiques agregades. PostHog utilitza un identificador generat
+          aleatòriament que és pseudonimitzat i no anònim, per la qual cosa el tractem com a dada personal. Google
+          Analytics i PostHog només es carreguen després que acceptis el bàner de galetes.
         </Paragraph>
         <Paragraph variant='legal'>
           No es recullen dades personals amb finalitats de màrqueting ni es duu a terme cap perfilat dels usuaris.
@@ -87,7 +90,8 @@ export function PrivacyPolicyCA() {
           </LegalListItem>
           <LegalListItem>
             <strong>(c) Dades tècniques:</strong> el dispositiu, el navegador i la IP poden processar-se per monitoratge
-            de seguretat i anàlisi no identificables.
+            de seguretat i prevenció del frau, sobre la base del nostre interès legítim. L'analítica no està coberta per
+            aquest apartat: es basa en el teu consentiment, tal com es descriu a les seccions 3 i 9.
           </LegalListItem>
         </LegalList>
         <Paragraph variant='legal'>
@@ -102,7 +106,10 @@ export function PrivacyPolicyCA() {
         <Paragraph variant='legal'>El processament de les teves dades està legitimat sobre la base de:</Paragraph>
         <LegalList>
           <LegalListItem>Necessitat contractual (Art. 6(1)(b) RGPD)</LegalListItem>
-          <LegalListItem>Consentiment explícit (Art. 6(1)(a) RGPD) per a funcions opcionals</LegalListItem>
+          <LegalListItem>
+            Consentiment explícit (Art. 6(1)(a) RGPD) per a funcions opcionals, inclosa tota l'analítica que emmagatzema
+            informació al teu dispositiu i l'enregistrament de sessions descrit a la secció 9
+          </LegalListItem>
           <LegalListItem>Interès legítim (Art. 6(1)(f) RGPD) per a seguretat i prevenció de frau</LegalListItem>
         </LegalList>
       </LegalSection>
@@ -124,6 +131,13 @@ export function PrivacyPolicyCA() {
           <LegalListItem>
             Els votants estan ofuscats i emmagatzemats a la blockchain de manera immutable i permanent, sense cap vincle
             amb dades personals.
+          </LegalListItem>
+          <LegalListItem>
+            Els esdeveniments d'analítica es conserven durant 12 mesos. Aquest termini permet comparar un any amb
+            l'anterior, que és la finalitat per a la qual es recullen les dades.
+          </LegalListItem>
+          <LegalListItem>
+            Els enregistraments de sessió a l'Aplicació Vocdoni es conserven durant 30 dies i després s'eliminen.
           </LegalListItem>
         </LegalList>
         <Paragraph variant='legal'>
@@ -153,24 +167,62 @@ export function PrivacyPolicyCA() {
             agregades i no identificables sobre les visites i patrons d'ús.
           </Paragraph>
           <Paragraph variant='legal'>
-            Les dades es processen de manera anonimitzada i només amb finalitats analítiques internes.
+            Les dades es tracten de manera agregada i pseudonimitzada i s'utilitzen exclusivament amb finalitats
+            analítiques internes.
           </Paragraph>
           <Paragraph variant='legal'>
-            Aquestes galetes estan limitades a propòsits d'anàlisi i no fan seguiment entre diferents llocs web.
+            El lloc web també utilitza PostHog, proporcionat per PostHog, Inc., per obtenir estadístiques agregades
+            sobre les visites, la navegació i la manera com els visitants passen del lloc web a l'Aplicació Vocdoni. Les
+            dades s'allotgen a la Unió Europea (PostHog EU Cloud, amb emmagatzematge a Alemanya) i PostHog actua com a
+            encarregat del tractament d'acord amb l'article 28.3 del RGPD. La recollida d'adreces IP està desactivada.
+            PostHog només es carrega després que acceptis el bàner de galetes; si el rebutges, no s'instal·la cap galeta
+            de PostHog ni es transmet cap dada.
+          </Paragraph>
+          <Paragraph variant='legal'>
+            PostHog, Inc. està establerta als Estats Units. Tot i que les dades s'emmagatzemen a la Unió Europea,
+            PostHog hi pot accedir i tractar-les des de fora de l'Espai Econòmic Europeu, inclosos els Estats Units, amb
+            finalitats de suport, manteniment i seguretat. Aquesta transferència està emparada tant per la certificació
+            de PostHog, Inc. en el Marc de Privadesa de Dades UE-EUA com per les Clàusules Contractuals Tipus aprovades
+            per la Comissió Europea, que s'apliquen de manera addicional a aquesta certificació d'acord amb el contracte
+            d'encàrrec del tractament subscrit. Pots sol·licitar una còpia d'aquestes garanties a{' '}
+            <Link href='mailto:dpo@vocdoni.org'>dpo@vocdoni.org</Link>.
+          </Paragraph>
+          <Paragraph variant='legal'>
+            Aquestes galetes es limiten a finalitats analítiques. No s'utilitzen amb finalitats publicitàries ni per
+            elaborar perfils. L'identificador de PostHog descrit a la secció 9 es comparteix entre vocdoni.io i
+            app.vocdoni.io - tots dos operats per Synergize S.L. - amb l'única finalitat de mesurar la transició entre
+            el nostre lloc web i el nostre propi servei. Es tracta d'un identificador pseudonimitzat i el tractem com a
+            dada personal. No es comparteix amb tercers. Google Analytics és un servei d'un tercer, Google, que
+            instal·la les seves pròpies galetes d'acord amb la seva pròpia política de privadesa; si prefereixes que no
+            s'instal·li cap galeta analítica de tercers, pots rebutjar les galetes al bàner.
           </Paragraph>
         </LegalSubsection>
 
         <LegalSubsection>
           <Heading.H3 variant='legal'>Aplicació (app.vocdoni.io):</Heading.H3>
           <Paragraph variant='legal'>
-            L'aplicació Vocdoni utilitza Plausible, una plataforma d'analítica respectuosa amb la privacitat, sense
-            galetes ni identificadors personals.
+            A l'Aplicació Vocdoni l'analítica es fa mitjançant Plausible, una plataforma que no utilitza galetes ni
+            recull identificadors personals, i - per als administradors i altres usuaris registrats que hagin acceptat
+            el bàner de galetes - mitjançant PostHog, que sí que instal·la una galeta i sí que utilitza un identificador
+            pseudonimitzat.
           </Paragraph>
           <Paragraph variant='legal'>Altres encarregats del tractament sota l'article 28(3) del RGPD:</Paragraph>
           <LegalList variant='none'>
             <LegalListItem>Stripe Payments Europe, Ltd. – Processament de pagaments.</LegalListItem>
             <LegalListItem>Twilio, Inc. – Enviament d'SMS i correus electrònics.</LegalListItem>
+            <LegalListItem>
+              PostHog, Inc. – Analítica de producte, allotjada a la Unió Europea, amb accés des de fora de l'Espai
+              Econòmic Europeu tal com s'ha descrit anteriorment.
+            </LegalListItem>
           </LegalList>
+          <Paragraph variant='legal'>
+            PostHog s'utilitza a l'Aplicació únicament per a administradors i usuaris registrats que hagin acceptat el
+            bàner de galetes, amb la finalitat d'entendre com s'utilitza el servei i millorar-lo. Per a aquests mateixos
+            usuaris PostHog enregistra a més la sessió, amb tot el text i tots els camps de formulari emmascarats, tal
+            com es descriu a la secció 9. Mai no està actiu durant la votació: PostHog no es carrega a les pàgines de
+            votació, per la qual cosa no es genera ni es transmet cap esdeveniment des d'aquestes ni s'enregistra cap
+            sessió. Els votants no són objecte de cap tractament analític.
+          </Paragraph>
           <Paragraph variant='legal'>
             Aquests proveïdors tracten les dades únicament per a les finalitats contractades i sota garanties de
             protecció de dades adequades.
@@ -252,13 +304,10 @@ export function PrivacyPolicyCA() {
           <br />
           E-mail: <Link href='mailto:dpo@vocdoni.org'>dpo@vocdoni.org</Link>
         </Paragraph>
-        <Paragraph variant='legal'>
-          Consulta la nostra política de privacitat / Consulta la nostra política de galetes
-        </Paragraph>
       </LegalSection>
 
       <LegalSection>
-        <Heading.H2 variant='legal'>7. MESURES DE SEGURETAT</Heading.H2>
+        <Heading.H2 variant='legal'>7. Mesures de seguretat</Heading.H2>
         <Paragraph variant='legal'>
           D'acord amb les disposicions de les regulacions actuals sobre protecció de dades personals, el RESPONSABLE
           compleix amb totes les disposicions de les regulacions RGPD i LOPDGDD per al processament de les dades
@@ -289,8 +338,8 @@ export function PrivacyPolicyCA() {
           </LegalListItem>
         </LegalList>
         <Paragraph variant='legal'>
-          Aquesta Política de Privacitat va ser publicada el 26 de setembre de 2025 i és efectiva a partir d'aquesta
-          data. Per a més informació sobre les garanties de la teva privacitat, pots contactar Synergize SL a{' '}
+          Aquesta Política de Privacitat va ser publicada el 28 d'agost de 2026 i és efectiva a partir d'aquesta data.
+          Per a més informació sobre les garanties de la teva privacitat, pots contactar Synergize SL a{' '}
           <Link href='mailto:dpo@vocdoni.org'>dpo@vocdoni.org</Link>.
         </Paragraph>
       </LegalSection>
@@ -316,25 +365,96 @@ export function PrivacyPolicyCA() {
         </Paragraph>
       </LegalSection>
 
-      <LegalSection>
+      <LegalSection id='cookies'>
         <Heading.H2 variant='legal'>9. Galetes i tecnologies de seguiment</Heading.H2>
         <Paragraph variant='legal'>
           El lloc web (vocdoni.io) i l'aplicació (app.vocdoni.io) utilitzen un nombre mínim de galetes i tecnologies de
           seguiment:
         </Paragraph>
         <Paragraph variant='legal'>
-          <strong>Google Analytics</strong> – Utilitzat a vocdoni.io per obtenir estadístiques anònimes i agregades
-          sobre visites i ús. Les adreces IP s'anonimitzen abans de l'emmagatzematge.
+          <strong>Google Analytics</strong> – S'utilitza a vocdoni.io per recopilar estadístiques agregades sobre les
+          visites i l'ús del lloc web. Les adreces IP s'anonimitzen abans del seu emmagatzematge. Google Analytics és un
+          servei prestat per un tercer, que instal·la les seves pròpies galetes d'acord amb la seva pròpia política de
+          privadesa. Només es carrega després que acceptis el bàner de galetes.
         </Paragraph>
         <Paragraph variant='legal'>
           <strong>Plausible.io</strong> – Utilitzat per a una analítica respectuosa amb la privacitat, sense galetes ni
           identificadors personals, tant al lloc web com a l'aplicació.
         </Paragraph>
         <Paragraph variant='legal'>
+          <strong>PostHog</strong> – S'utilitza tant a vocdoni.io com a app.vocdoni.io, i únicament després que acceptis
+          el bàner de galetes. PostHog emmagatzema un identificador generat aleatòriament en una galeta associada al
+          domini vocdoni.io i els seus subdominis. Com que el lloc web i l'Aplicació llegeixen el mateix identificador,
+          podem saber que una visita a vocdoni.io i un ús posterior d'app.vocdoni.io corresponen al mateix visitant,
+          cosa que ens permet mesurar com les persones passen del nostre lloc web al nostre servei. Aquest identificador
+          és pseudonimitzat: no t'identifica pel teu nom, però el tractem com a dada personal. No es comparteix amb cap
+          altre lloc web ni amb tercers. Es conserva durant 12 mesos. Les dades s'allotgen a la Unió Europea i no es
+          recullen adreces IP.
+        </Paragraph>
+        <Paragraph variant='legal'>
+          <strong>Enregistrament de sessions</strong> – Únicament a l'Aplicació Vocdoni, i només pel que fa als
+          administradors i altres usuaris autenticats que hagin acceptat el bàner de galetes, PostHog enregistra a més
+          la sessió: les pàgines visitades, els clics i el moviment en pantalla. Tot el text i tots els camps de
+          formulari estan emmascarats. L'emmascarament s'aplica al teu propi navegador, de manera que el contingut
+          emmascarat mai no es transmet a PostHog ni surt del teu dispositiu. La finalitat és detectar i corregir
+          problemes d'usabilitat. Els enregistraments es conserven durant 30 dies i després s'eliminen; si un
+          enregistrament documenta un problema concret, es pot conservar excepcionalment mentre es resol aquest
+          problema, i en cap cas més d'un any. L'enregistrament de sessions mai no està actiu al lloc web vocdoni.io,
+          mai no està actiu a les pàgines de votació i els votants no són mai enregistrats.
+        </Paragraph>
+        <Paragraph variant='legal'>
+          <strong>Registre de consentiment</strong> – Una galeta anomenada vocdoni-cookie-consent emmagatzema la teva
+          elecció en aquest bàner. Està associada al domini vocdoni.io i els seus subdominis, de manera que la decisió
+          que prenguis al lloc web s'apliqui igualment a l'Aplicació i no se't pregunti dues vegades. Es conserva durant
+          12 mesos i registra la teva elecció, la data en què la vas fer i la versió d'aquesta política vigent en aquell
+          moment, identificada per la seva data de revisió.
+        </Paragraph>
+        <Paragraph variant='legal'>
+          Pots modificar o retirar la teva elecció en qualsevol moment, amb efecte immediat tant a vocdoni.io com a
+          app.vocdoni.io, mitjançant l'enllaç Configuració de galetes disponible al peu de totes les pàgines, que torna
+          a obrir el bàner. Retirar el consentiment és tan senzill com donar-lo i no afecta la licitud del tractament
+          dut a terme amb anterioritat.
+        </Paragraph>
+        <Paragraph variant='legal'>Galetes utilitzades:</Paragraph>
+        <LegalTable
+          headers={['Galeta', 'Proveïdor', 'Finalitat', 'Durada']}
+          rows={[
+            [
+              'ph_[project_key]_posthog',
+              'PostHog, Inc.',
+              'Identificador analític generat aleatòriament, compartit entre vocdoni.io i app.vocdoni.io.',
+              '12 mesos',
+            ],
+            [
+              'vocdoni-cookie-consent',
+              'Synergize S.L.',
+              'Registra la teva elecció sobre galetes, la data i la versió de la política vigent.',
+              '12 mesos',
+            ],
+            [
+              '_ga, _ga_[id]',
+              'Google',
+              "Estadístiques agregades del lloc web, amb l'anonimització d'IP activada.",
+              'Fins a 2 anys',
+            ],
+            [
+              '(cap galeta)',
+              'Plausible.io',
+              "Analítica sense galetes; no s'emmagatzema informació al teu dispositiu.",
+              'n/a',
+            ],
+          ]}
+        />
+        <Paragraph variant='legal'>
+          Quan el servei de xat de suport està activat, aquest instal·la galetes addicionals, descrites a la secció 9.1.
+        </Paragraph>
+        <Paragraph variant='legal'>
           No s'utilitzen galetes amb finalitats de màrqueting, perfilat o publicitat.
         </Paragraph>
         <Paragraph variant='legal'>
-          Pots desactivar les galetes en qualsevol moment mitjançant la configuració del teu navegador.
+          També pots desactivar les galetes a través de la configuració del teu navegador en qualsevol moment, si bé
+          l'enllaç Configuració de galetes descrit anteriorment és la manera més fiable de retirar el consentiment,
+          perquè s'aplica tant a vocdoni.io com a app.vocdoni.io.
         </Paragraph>
 
         <LegalSubsection>
@@ -392,7 +512,13 @@ export function PrivacyPolicyCA() {
           Cada versió de la política inclourà la seva <strong>data de revisió</strong> i{' '}
           <strong>data d'entrada en vigor</strong>.
         </Paragraph>
-        <LegalLastUpdated>L'última revisió d'aquesta política és del 15 d'abril de 2026.</LegalLastUpdated>
+        <Paragraph variant='legal'>
+          Atès que aquesta versió introdueix una nova finalitat - mesurar la transició entre el nostre lloc web i el
+          nostre servei mitjançant un identificador compartit -, qualsevol consentiment de galetes prestat abans
+          d'aquesta data ja no cobreix la totalitat dels tractaments aquí descrits i ha quedat invalidat. Se't tornarà a
+          demanar la teva elecció en la propera visita.
+        </Paragraph>
+        <LegalLastUpdated>L'última revisió d'aquesta política és del 28 d'agost de 2026.</LegalLastUpdated>
       </LegalSection>
     </LegalPageContainer>
   )

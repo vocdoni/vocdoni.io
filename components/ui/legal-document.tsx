@@ -1,6 +1,7 @@
 import { cva, type VariantProps } from 'class-variance-authority'
 import * as React from 'react'
 
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import { cn } from '@/lib/utils'
 
 const legalPageContainerVariants = cva('mx-auto px-4 pt-6 pb-12 sm:pt-10 md:pb-16 lg:pt-12 lg:pb-20', {
@@ -83,4 +84,46 @@ export function LegalDivider({ className, ...props }: React.HTMLAttributes<HTMLH
 
 export function LegalLastUpdated({ className, ...props }: React.HTMLAttributes<HTMLParagraphElement>) {
   return <p className={cn('text-sm text-muted-foreground italic mt-8', className)} {...props} />
+}
+
+export interface LegalTableProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'children'> {
+  headers: string[]
+  rows: string[][]
+}
+
+/**
+ * A table for legal documents, e.g. the cookie inventory in the privacy policy.
+ *
+ * Cells are plain strings so that each language file supplies its own copy through the
+ * same call site. The shadcn `Table` already provides an overflow container, and the
+ * `min-w-` below keeps narrow viewports scrolling the table instead of crushing the
+ * columns.
+ */
+export function LegalTable({ headers, rows, className, ...props }: LegalTableProps) {
+  return (
+    <div className={cn('mb-4', className)} {...props}>
+      <Table className='min-w-[40rem] border border-border'>
+        <TableHeader>
+          <TableRow>
+            {headers.map((header) => (
+              <TableHead key={header} className='align-top font-semibold text-foreground'>
+                {header}
+              </TableHead>
+            ))}
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          {rows.map((row) => (
+            <TableRow key={row[0]}>
+              {row.map((cell, index) => (
+                <TableCell key={index} className='align-top leading-relaxed text-foreground/90'>
+                  {cell}
+                </TableCell>
+              ))}
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </div>
+  )
 }
