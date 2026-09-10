@@ -1,4 +1,4 @@
-import { capturePostHogEvent } from '@/lib/posthog'
+import { AnalyticsEvents, trackAnalyticsEvent } from '@/lib/analytics'
 
 /**
  * Sections already reported, keyed by the path they were reported from.
@@ -21,5 +21,6 @@ export function reportSectionView(sectionId: string, pageId: string): boolean {
   if (reported.has(key)) return false
 
   reported.add(key)
-  return capturePostHogEvent('section_view', { section_id: sectionId, page_id: pageId })
+  trackAnalyticsEvent({ name: AnalyticsEvents.SectionViewed, props: { section_id: sectionId, page_id: pageId } })
+  return true
 }
