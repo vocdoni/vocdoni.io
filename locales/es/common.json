@@ -3320,7 +3320,7 @@
           "title": "Empieza en minutos"
         },
         {
-          "description": "Los miembros votan desde cualquier dispositivo, en su propio momento, con un enlace simple.",
+          "description": "Los miembros votan desde cualquier dispositivo, cuando les va bien y en su propio idioma, con un enlace sencillo.",
           "title": "Aumenta la participación"
         },
         {
@@ -3490,7 +3490,7 @@
         "cost": "Coste por voto 10x menor",
         "name": "Vocdoni",
         "privacySecurity": "Voto anónimo e integridad de todo el proceso",
-        "remoteAccessibility": "Vota desde cualquier lugar y dispositivo",
+        "remoteAccessibility": "Vota desde cualquier lugar y dispositivo, en cualquier idioma",
         "scalability": "Escalabilidad ilimitada, alcance global",
         "sustainability": "Sin papel y ecológico",
         "transparency": "Código abierto y auditoría universal"
@@ -3723,6 +3723,10 @@
       "legal": {
         "answer": "Vocdoni genera un rastro de auditoría completo e independientemente verificable, además de un documento de resultados certificado para cada elección. Para la mayoría de colegios profesionales, asociaciones y cooperativas en Europa, esto cumple con los requisitos técnicos para una elección online válida. Si tu organización tiene requisitos estatutarios específicos, consúltalo con tu asesor legal; y contáctanos si necesitas documentación.",
         "question": "¿Son legalmente válidos los resultados electorales?"
+      },
+      "multilingual": {
+        "answer": "Sí. La interfaz de votación está disponible en varios idiomas y la papeleta también puede ser multilingüe: puedes escribir el título, la descripción, las preguntas y las opciones en todos los idiomas que necesites, y cada votante los lee en su propio idioma. Todo el mundo participa en la misma votación, con un único resultado verificable.",
+        "question": "¿Puedo organizar una votación en varios idiomas?"
       },
       "open_source": {
         "answer": "Sí. Nuestro código es público y puede ser inspeccionado por cualquier persona, lo que garantiza una transparencia total en cómo el protocolo de votación gestiona tus datos.",

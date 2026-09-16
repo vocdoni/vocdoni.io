@@ -19,6 +19,13 @@ export default function HomeFAQ() {
     { question: t('faq.items.techsavvy.question'), answer: t('faq.items.techsavvy.answer') },
     { question: t('faq.items.voters_app.question'), answer: t('faq.items.voters_app.answer') },
     { question: t('faq.items.vote_types.question'), answer: t('faq.items.vote_types.answer') },
+    {
+      question: t('faq.items.multilingual.question', 'Can I run a vote in several languages?'),
+      answer: t(
+        'faq.items.multilingual.answer',
+        'Yes. The voting interface is available in several languages, and the ballot itself can be multilingual: you can write the title, description, questions, and options in as many languages as you need, and each voter reads them in their own language. Everyone still takes part in the same election, with one verifiable result.'
+      ),
+    },
     { question: t('faq.items.hybrid.question'), answer: t('faq.items.hybrid.answer') },
     { question: t('faq.items.census.question'), answer: t('faq.items.census.answer') },
     { question: t('faq.items.open_source.question'), answer: t('faq.items.open_source.answer') },

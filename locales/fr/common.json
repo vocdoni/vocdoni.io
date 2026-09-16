@@ -3320,7 +3320,7 @@
           "title": "Démarrez en quelques minutes"
         },
         {
-          "description": "Les membres votent depuis n'importe quel appareil, à leur rythme, avec un simple lien.",
+          "description": "Les membres votent depuis n'importe quel appareil, à leur rythme et dans leur propre langue, avec un simple lien.",
           "title": "Augmentez la participation"
         },
         {
@@ -3490,7 +3490,7 @@
         "cost": "Jusqu'à 10 fois plus économique",
         "name": "Vocdoni",
         "privacySecurity": "Vote anonyme et intégrité de tout le processus",
-        "remoteAccessibility": "Votez de n'importe où, depuis n'importe quel appareil",
+        "remoteAccessibility": "Votez de partout, sur tout appareil, dans votre langue",
         "scalability": "Échelle illimitée, portée mondiale",
         "sustainability": "Sans papier et respectueux de l'environnement",
         "transparency": "Open source et auditable par tous"
@@ -3723,6 +3723,10 @@
       "legal": {
         "answer": "Vocdoni produit, pour chaque élection, une piste d'audit complète et vérifiable de manière indépendante, ainsi qu'un document de résultats certifié. Pour la plupart des ordres professionnels, associations et coopératives en Europe, cela répond aux exigences techniques d'une élection en ligne valide. Si votre organisation a des exigences statutaires spécifiques, vérifiez-les avec votre conseiller juridique - et contactez-nous si vous avez besoin de documentation.",
         "question": "Les résultats électoraux sont-ils juridiquement valides ?"
+      },
+      "multilingual": {
+        "answer": "Oui. L'interface de vote est disponible en plusieurs langues et le bulletin lui-même peut être multilingue : vous pouvez rédiger le titre, la description, les questions et les options dans autant de langues que nécessaire, et chaque électeur les lit dans sa propre langue. Tout le monde participe au même vote, avec un seul résultat vérifiable.",
+        "question": "Puis-je organiser un vote en plusieurs langues ?"
       },
       "open_source": {
         "answer": "Oui. Notre code est public et peut être inspecté par n'importe qui, ce qui garantit une transparence totale sur la manière dont le protocole de vote traite vos données.",

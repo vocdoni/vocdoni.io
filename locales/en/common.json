@@ -3321,7 +3321,7 @@
           "title": "Start in minutes"
         },
         {
-          "description": "Members vote from any device, in their own time, with a simple link.",
+          "description": "Members vote from any device, in their own time and in their own language, with a simple link.",
           "title": "Increase participation"
         },
         {
@@ -3491,7 +3491,7 @@
         "cost": "10x lower cost per vote",
         "name": "Vocdoni",
         "privacySecurity": "Anonymous voting & full process integrity",
-        "remoteAccessibility": "Vote from anywhere, any device",
+        "remoteAccessibility": "Vote from anywhere, any device, any language",
         "scalability": "Unlimited scale, global reach",
         "sustainability": "Paperless & eco-friendly",
         "transparency": "Open-source & universally auditable"
@@ -3724,6 +3724,10 @@
       "legal": {
         "answer": "Vocdoni produces a full, independently verifiable audit trail and a certified results document for every election. For most professional bodies, associations, and cooperatives across Europe, this meets the technical requirements for a valid online election. If your organization has specific statutory requirements, check with your legal adviser - and contact us if you need documentation.",
         "question": "Are election results legally valid?"
+      },
+      "multilingual": {
+        "answer": "Yes. The voting interface is available in several languages, and the ballot itself can be multilingual: you can write the title, description, questions, and options in as many languages as you need, and each voter reads them in their own language. Everyone still takes part in the same election, with one verifiable result.",
+        "question": "Can I run a vote in several languages?"
       },
       "open_source": {
         "answer": "Yes. Our code is public and can be inspected by anyone, ensuring full transparency in how the voting protocol handles your data.",

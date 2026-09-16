@@ -3320,7 +3320,7 @@
           "title": "Comenceu en minuts"
         },
         {
-          "description": "Els membres voten des de qualsevol dispositiu, quan els va bé, amb un enllaç simple.",
+          "description": "Els membres voten des de qualsevol dispositiu, quan els va bé i en la seva llengua, amb un enllaç simple.",
           "title": "Augmenteu la participació"
         },
         {
@@ -3490,7 +3490,7 @@
         "cost": "Fins a 10 vegades més econòmic",
         "name": "Vocdoni",
         "privacySecurity": "Vot anònim i integritat de tot el procés",
-        "remoteAccessibility": "Voteu des de qualsevol lloc i dispositiu",
+        "remoteAccessibility": "Voteu des de qualsevol lloc i dispositiu, en qualsevol llengua",
         "scalability": "Escalabilitat il·limitada i abast global",
         "sustainability": "Sense paper i respectuós amb el medi",
         "transparency": "Codi obert i auditoria universal"
@@ -3723,6 +3723,10 @@
       "legal": {
         "answer": "Vocdoni genera un rastre d'auditoria complet i verificable de manera independent, a més d'un document de resultats certificat per a cada elecció. Per a la majoria de col·legis professionals, associacions i cooperatives d'Europa, això compleix els requisits tècnics d'una elecció en línia vàlida. Si la vostra organització té requisits estatutaris específics, consulteu-ho amb l'assessoria legal i contacteu amb nosaltres si necessiteu documentació.",
         "question": "Els resultats electorals són legalment vàlids?"
+      },
+      "multilingual": {
+        "answer": "Sí. La interfície de votació està disponible en diverses llengües i la papereta també pot ser multilingüe: podeu escriure el títol, la descripció, les preguntes i les opcions en totes les llengües que necessiteu, i cada votant els llegeix en la seva llengua. Tothom participa en la mateixa votació, amb un únic resultat verificable.",
+        "question": "Puc organitzar una votació en diverses llengües?"
       },
       "open_source": {
         "answer": "Sí. El nostre codi és públic i qualsevol persona el pot inspeccionar, cosa que garanteix la transparència total en la manera com el protocol de votació gestiona les vostres dades.",
