@@ -3320,7 +3320,7 @@
           "title": "Comece em minutos"
         },
         {
-          "description": "Os membros votam a partir de qualquer dispositivo, no seu próprio tempo, com um link simples.",
+          "description": "Os membros votam a partir de qualquer dispositivo, ao seu ritmo e na sua própria língua, com um link simples.",
           "title": "Aumente a participação"
         },
         {
@@ -3490,7 +3490,7 @@
         "cost": "Custo por voto 10x inferior",
         "name": "Vocdoni",
         "privacySecurity": "Voto anónimo e integridade de todo o processo",
-        "remoteAccessibility": "Vote de qualquer lugar, em qualquer dispositivo",
+        "remoteAccessibility": "Vote de qualquer lugar e dispositivo, em qualquer língua",
         "scalability": "Escala ilimitada, alcance global",
         "sustainability": "Sem papel e amiga do ambiente",
         "transparency": "Código aberto e auditável por todos"
@@ -3723,6 +3723,10 @@
       "legal": {
         "answer": "A Vocdoni produz um registo de auditoria completo e verificável de forma independente, além de um documento de resultados certificado para cada eleição. Para a maioria das ordens profissionais, associações e cooperativas na Europa, isto cumpre os requisitos técnicos para uma eleição em linha válida. Se a sua organização tiver requisitos estatutários específicos, valide-os com o seu consultor jurídico - e contacte-nos se precisar de documentação.",
         "question": "Os resultados eleitorais são legalmente válidos?"
+      },
+      "multilingual": {
+        "answer": "Sim. A interface de votação está disponível em várias línguas e o próprio boletim de voto pode ser multilingue: pode escrever o título, a descrição, as perguntas e as opções em todas as línguas de que precisar, e cada eleitor lê-os na sua própria língua. Todos participam na mesma votação, com um único resultado verificável.",
+        "question": "Posso realizar uma votação em várias línguas?"
       },
       "open_source": {
         "answer": "Sim. O nosso código é público e pode ser inspecionado por qualquer pessoa, garantindo total transparência sobre como o protocolo de votação trata os seus dados.",
