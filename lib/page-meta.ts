@@ -45,6 +45,11 @@ export const metaDefaults = {
     'meta.app.description',
     'Start free, import your member list, and publish results your members can verify. No credit card, set up in minutes.'
   ),
+  'meta.app_changelog.title': t('meta.app_changelog.title', "Vocdoni App changelog - what's new | Vocdoni"),
+  'meta.app_changelog.description': t(
+    'meta.app_changelog.description',
+    'Follow every Vocdoni App release: new features, improvements, and fixes across all versions.'
+  ),
   'meta.solutions_index.title': t(
     'meta.solutions_index.title',
     'Online voting solutions by organization type | Vocdoni'
