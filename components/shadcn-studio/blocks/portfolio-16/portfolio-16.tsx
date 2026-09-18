@@ -62,6 +62,7 @@ const Portfolio = ({ portfolioItems }: PortfolioProps) => {
             >
               {project.type === 'booking' ? (
                 <CalBookingDialog
+                  location='use_cases_booking'
                   triggerAriaLabel={`Book meeting for ${project.title}`}
                   className='flex h-full w-full text-left'
                 >
