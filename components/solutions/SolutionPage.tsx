@@ -10,6 +10,7 @@ import {
 
 import { Container } from '@/components/Container'
 import { Link } from '@/components/Link'
+import { useAppAuthUrl } from '@/hooks/useAppAuthUrl'
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
@@ -58,6 +59,7 @@ const TRUST_ICONS: LucideIcon[] = [ShieldCheckIcon, EyeIcon, ScaleIcon, FileChec
 const asArray = <T,>(value: unknown): T[] => (Array.isArray(value) ? (value as T[]) : [])
 
 export function SolutionPage({ icon: Icon, content, logos, caseStudyHref }: SolutionPageProps) {
+  const appSignupUrl = useAppAuthUrl()
   const trustBadges = asArray<string>(content.trust_badges)
   const pains = asArray<string>(content.pains)
   const features = asArray<SolutionFeature>(content.features)
@@ -115,7 +117,7 @@ export function SolutionPage({ icon: Icon, content, logos, caseStudyHref }: Solu
               transition={{ duration: 0.5 }}
             >
               <Button size='lg' className='has-[>svg]:px-6' asChild>
-                <Link href={APP_URL} variant='inlineIcon' ctaId='solution_hero_start'>
+                <Link href={appSignupUrl} variant='inlineIcon' ctaId='solution_hero_start'>
                   {content.cta_primary}
                   <ArrowRightIcon className='size-5' />
                 </Link>

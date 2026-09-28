@@ -3,11 +3,13 @@ import { useTranslation } from 'react-i18next'
 
 import { Container } from '@/components/Container'
 import { Link } from '@/components/Link'
+import { useAppAuthUrl } from '@/hooks/useAppAuthUrl'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 
 export default function Services() {
   const { t } = useTranslation()
+  const appSignupUrl = useAppAuthUrl()
 
   const bullets = [
     t('app_landing.cta.free', 'Free vote for up to 100 members'),
@@ -35,7 +37,7 @@ export default function Services() {
               </p>
               <div className='mt-8 flex flex-col gap-3 sm:flex-row sm:items-center'>
                 <Button asChild size='lg' className='has-[>svg]:px-6'>
-                  <Link href={APP_URL} variant='inlineIcon' ctaId='app_services_start'>
+                  <Link href={appSignupUrl} variant='inlineIcon' ctaId='app_services_start'>
                     {t('app_landing.cta.primary', 'Start for free')}
                     <ArrowRightIcon />
                   </Link>

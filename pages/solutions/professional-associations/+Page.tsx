@@ -2,6 +2,7 @@ import { BriefcaseIcon } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import { usePageContext } from 'vike-react/usePageContext'
 
+import { useAppAuthUrl } from '@/hooks/useAppAuthUrl'
 import { VerticalPage } from '@/components/solutions/vertical/VerticalPage'
 import type { VerticalContent } from '@/components/solutions/vertical/types'
 import { getProfessionalAssociationsProof } from '@/lib/solutions/verticalProof'
@@ -20,7 +21,7 @@ import imageCoib from '@/assets/images/success/coib_experience.webp'
  * as an event property, and the vertical is repeated in every `ctaId` below -
  * hence the `pro_associations` prefix.
  */
-const APP_SIGNUP_URL = `${APP_URL}/account/signin?type=professional-associations`
+const APP_SIGNUP_TYPE = 'professional-associations'
 const PRICING_URL = `${APP_URL}/plans`
 
 const CASE_STUDY_HREF = '/case-studies/coib'
@@ -59,6 +60,7 @@ const CASE_STUDIES: Record<string, { logo: string; image?: string; href: string;
 export default function Page() {
   const { t } = useTranslation()
   const pageContext = usePageContext()
+  const appSignupUrl = useAppAuthUrl('signup', APP_SIGNUP_TYPE)
   const locale = ((pageContext as { locale?: Locale }).locale ?? 'en') as Locale
 
   const content = t('solutions.professional_associations', { returnObjects: true }) as VerticalContent
@@ -83,7 +85,7 @@ export default function Page() {
     <VerticalPage
       icon={BriefcaseIcon}
       content={content}
-      appHref={APP_SIGNUP_URL}
+      appHref={appSignupUrl}
       pricingHref={PRICING_URL}
       ctaPrefix='pro_associations'
       logos={logos}
