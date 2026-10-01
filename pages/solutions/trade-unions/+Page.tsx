@@ -7,5 +7,5 @@ export default function Page() {
   const { t } = useTranslation()
   const content = t('solutions.trade_unions', { returnObjects: true }) as SolutionContent
 
-  return <SolutionPage icon={MegaphoneIcon} content={content} logos={[]} />
+  return <SolutionPage icon={MegaphoneIcon} content={content} logos={[]} signupType='trade-unions' />
 }

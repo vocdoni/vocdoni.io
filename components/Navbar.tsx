@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next'
 
 import { CalBookingDialog } from '@/components/CalBookingDialog'
 import { Link } from '@/components/Link'
+import { useAppAuthUrl } from '@/hooks/useAppAuthUrl'
 import { DEVELOPERS_DASHBOARD_URL, isDevelopersPath } from '@/lib/developers'
 import { getSolutionVertical } from '@/lib/solution-verticals'
 import { usePageContext } from 'vike-react/usePageContext'
@@ -156,10 +157,12 @@ export function Navbar() {
   const reducedMotion = useReducedMotion()
 
   // Inside the developers section the primary CTA points integrators to the API
-  // Dashboard instead of the voting app.
+  // Dashboard instead of the voting app. Elsewhere it is the site's sign-in link
+  // (every "Start" CTA goes to sign-up), so it opens sign-in explicitly.
   const pageContext = usePageContext() as any
   const inDevelopers = isDevelopersPath(pageContext.urlLogical)
-  const ctaHref = inDevelopers ? DEVELOPERS_DASHBOARD_URL : APP_URL
+  const appSigninUrl = useAppAuthUrl('signin')
+  const ctaHref = inDevelopers ? DEVELOPERS_DASHBOARD_URL : appSigninUrl
   const ctaLabel = inDevelopers ? t('navbar.dashboard_button', 'API Dashboard') : t('navbar.app_button')
 
   const productFeatures = React.useMemo(() => buildProductFeatures(t), [t])
@@ -491,7 +494,7 @@ export function Navbar() {
                         target='_blank'
                         rel='noopener noreferrer'
                         variant='unstyled'
-                        ctaId={inDevelopers ? undefined : 'navbar_mobile_start'}
+                        ctaId={inDevelopers ? undefined : 'navbar_mobile_signin'}
                         onClick={() => setIsOpen(false)}
                       >
                         {ctaLabel}
@@ -511,7 +514,7 @@ export function Navbar() {
                 target='_blank'
                 rel='noopener noreferrer'
                 variant='unstyled'
-                ctaId={inDevelopers ? undefined : 'navbar_desktop_start'}
+                ctaId={inDevelopers ? undefined : 'navbar_desktop_signin'}
               >
                 {ctaLabel}
               </Link>

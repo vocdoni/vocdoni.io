@@ -1,6 +1,7 @@
 import { CensusCard, ResultsCard, VotingCard } from '@/components/HeroCards'
 import HeroVerticals from '@/components/HeroVerticals'
 import { Link } from '@/components/Link'
+import { useAppAuthUrl } from '@/hooks/useAppAuthUrl'
 import MobileHeroScroll from '@/components/MobileHeroScroll'
 import { Button } from '@/components/ui/button'
 import { MotionPreset } from '@/components/ui/motion-preset'
@@ -12,6 +13,7 @@ import TrustedBySection from '@/components/TrustedBySection'
 
 const Hero = () => {
   const { t } = useTranslation()
+  const appSignupUrl = useAppAuthUrl()
   const reducedMotion = useReducedMotion()
 
   return (
@@ -55,7 +57,7 @@ const Hero = () => {
               {/* Row layout: the expert link sits beside the CTA and wraps below it when space runs out. */}
               <div className='flex flex-wrap items-center gap-x-4 gap-y-3'>
                 <Button variant='dark' size='lg' className='group text-base has-[>svg]:px-6' asChild>
-                  <Link href={APP_URL} variant='inlineIcon' ctaId='home_hero_start' data-hero-cta='primary'>
+                  <Link href={appSignupUrl} variant='inlineIcon' ctaId='home_hero_start' data-hero-cta='primary'>
                     {t('hero.cta_primary', 'Start for free')}
                     <ArrowRight
                       className='h-5 w-5 transition-transform duration-200 group-hover:translate-x-0.5'

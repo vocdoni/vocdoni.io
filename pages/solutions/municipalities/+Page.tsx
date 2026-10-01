@@ -22,6 +22,7 @@ export default function Page() {
         { src: logoBcn, alt: 'Barcelona' },
       ]}
       caseStudyHref='/case-studies/bellpuig'
+      signupType='municipalities'
     />
   )
 }

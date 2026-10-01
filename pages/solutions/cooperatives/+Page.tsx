@@ -7,5 +7,5 @@ export default function Page() {
   const { t } = useTranslation()
   const content = t('solutions.cooperatives', { returnObjects: true }) as SolutionContent
 
-  return <SolutionPage icon={HandshakeIcon} content={content} logos={[]} />
+  return <SolutionPage icon={HandshakeIcon} content={content} logos={[]} signupType='cooperatives' />
 }

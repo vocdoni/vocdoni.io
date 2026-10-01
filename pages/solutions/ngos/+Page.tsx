@@ -18,6 +18,7 @@ export default function Page() {
         { src: logoOmnium, alt: 'Omnium Cultural' },
       ]}
       caseStudyHref='/case-studies/new-belarus'
+      signupType='ngos'
     />
   )
 }

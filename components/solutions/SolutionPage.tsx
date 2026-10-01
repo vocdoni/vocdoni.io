@@ -10,6 +10,7 @@ import {
 
 import { Container } from '@/components/Container'
 import { Link } from '@/components/Link'
+import { useAppAuthUrl } from '@/hooks/useAppAuthUrl'
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
@@ -50,6 +51,8 @@ export interface SolutionPageProps {
   content: SolutionContent
   logos: SolutionLogo[]
   caseStudyHref?: string
+  /** Vertical slug the app reads from `?type=` to tailor sign-up; omit when the app has none for this page. */
+  signupType?: string
 }
 
 // Semantic icons for the trust band, cycled by index.
@@ -57,7 +60,8 @@ const TRUST_ICONS: LucideIcon[] = [ShieldCheckIcon, EyeIcon, ScaleIcon, FileChec
 
 const asArray = <T,>(value: unknown): T[] => (Array.isArray(value) ? (value as T[]) : [])
 
-export function SolutionPage({ icon: Icon, content, logos, caseStudyHref }: SolutionPageProps) {
+export function SolutionPage({ icon: Icon, content, logos, caseStudyHref, signupType }: SolutionPageProps) {
+  const appSignupUrl = useAppAuthUrl('signup', signupType)
   const trustBadges = asArray<string>(content.trust_badges)
   const pains = asArray<string>(content.pains)
   const features = asArray<SolutionFeature>(content.features)
@@ -115,7 +119,7 @@ export function SolutionPage({ icon: Icon, content, logos, caseStudyHref }: Solu
               transition={{ duration: 0.5 }}
             >
               <Button size='lg' className='has-[>svg]:px-6' asChild>
-                <Link href={APP_URL} variant='inlineIcon' ctaId='solution_hero_start'>
+                <Link href={appSignupUrl} variant='inlineIcon' ctaId='solution_hero_start'>
                   {content.cta_primary}
                   <ArrowRightIcon className='size-5' />
                 </Link>

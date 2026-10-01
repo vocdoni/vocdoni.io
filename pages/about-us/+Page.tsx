@@ -1,6 +1,7 @@
 import AvatarGroupTooltip from '@/components/shadcn-studio/avatar/avatar-16'
 import AboutUs from '@/components/shadcn-studio/blocks/about-us-page-03/about-us-page-03'
 import { Link } from '@/components/Link'
+import { useAppAuthUrl } from '@/hooks/useAppAuthUrl'
 import { Button } from '@/components/ui/button'
 import { MotionPreset } from '@/components/ui/motion-preset'
 import { ArrowRight } from 'lucide-react'
@@ -8,6 +9,7 @@ import { useTranslation } from 'react-i18next'
 
 export default function AboutUsPage() {
   const { t } = useTranslation()
+  const appSignupUrl = useAppAuthUrl()
   const trustCards = [
     {
       title: t('about_us.trust_section.cards.open_source.title', 'Open source by default'),
@@ -152,7 +154,7 @@ export default function AboutUsPage() {
               </dl>
 
               <Button asChild size='lg' className='group w-full sm:w-auto'>
-                <Link href={APP_URL} variant='inlineIcon' ctaId='about_identity_start'>
+                <Link href={appSignupUrl} variant='inlineIcon' ctaId='about_identity_start'>
                   {t('about_us.identity.cta', 'Start a free election')}
                   <ArrowRight
                     className='transition-transform duration-150 group-hover:translate-x-0.5'

@@ -7,5 +7,5 @@ export default function Page() {
   const { t } = useTranslation()
   const content = t('solutions.universities', { returnObjects: true }) as SolutionContent
 
-  return <SolutionPage icon={GraduationCapIcon} content={content} logos={[]} />
+  return <SolutionPage icon={GraduationCapIcon} content={content} logos={[]} signupType='universities' />
 }

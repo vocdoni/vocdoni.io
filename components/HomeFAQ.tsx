@@ -1,5 +1,6 @@
 import { Container } from '@/components/Container'
 import { Link } from '@/components/Link'
+import { useAppAuthUrl } from '@/hooks/useAppAuthUrl'
 import { SectionHeader } from '@/components/SectionHeader'
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
 import { Button } from '@/components/ui/button'
@@ -7,6 +8,7 @@ import { useTranslation } from 'react-i18next'
 
 export default function HomeFAQ() {
   const { t } = useTranslation()
+  const appSignupUrl = useAppAuthUrl()
   const faqs = [
     { question: t('faq.items.legal.question'), answer: t('faq.items.legal.answer') },
     { question: t('faq.items.anonymity.question'), answer: t('faq.items.anonymity.answer') },
@@ -67,7 +69,7 @@ export default function HomeFAQ() {
         <div className='mt-20 text-center bg-background p-10 rounded-3xl border border-border/70 shadow-sm'>
           <h3 className='text-2xl font-bold mb-4'>{t('faq.cta_title', 'Ready to see it for yourself?')}</h3>
           <Button asChild size='lg' className='rounded-full px-8 h-12 text-base'>
-            <Link href={APP_URL} target='_blank' rel='noreferrer' variant='unstyled' ctaId='home_faq_start'>
+            <Link href={appSignupUrl} target='_blank' rel='noreferrer' variant='unstyled' ctaId='home_faq_start'>
               {t('faq.cta_button', 'Start for free')}
             </Link>
           </Button>

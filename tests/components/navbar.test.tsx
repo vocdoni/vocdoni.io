@@ -76,4 +76,10 @@ describe('Navbar', () => {
     expect(html).not.toContain('href="/en/about/mission"')
     expect(html).toContain('Open custom project booking')
   })
+
+  it('points the sign-in button at the app sign-in page in the page language', () => {
+    const html = renderToStaticMarkup(<Navbar />)
+
+    expect(html).toContain(`href="${APP_URL}/en/account/signin?ref=navbar_desktop_signin"`)
+  })
 })

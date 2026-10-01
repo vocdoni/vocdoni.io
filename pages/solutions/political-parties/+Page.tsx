@@ -18,6 +18,7 @@ export default function Page() {
         { src: logoAlhora, alt: 'Alhora' },
       ]}
       caseStudyHref='/case-studies/esquerra-republicana'
+      signupType='political-parties'
     />
   )
 }

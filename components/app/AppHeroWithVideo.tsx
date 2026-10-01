@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next'
 import CleanYoutubePlayer from '@/components/app/CleanYoutubePlayer'
 import { Container } from '@/components/Container'
 import { Link } from '@/components/Link'
+import { useAppAuthUrl } from '@/hooks/useAppAuthUrl'
 import { Button } from '@/components/ui/button'
 import { MotionPreset } from '@/components/ui/motion-preset'
 
@@ -12,6 +13,7 @@ const THUMBNAIL_URL = `https://img.youtube.com/vi/${VIDEO_ID}/maxresdefault.jpg`
 
 export default function AppHeroWithVideo() {
   const { t } = useTranslation()
+  const appSignupUrl = useAppAuthUrl()
 
   return (
     <section className='relative w-full pt-6 pb-16 sm:pt-10 sm:pb-20 lg:pt-12 lg:pb-24'>
@@ -54,7 +56,7 @@ export default function AppHeroWithVideo() {
             >
               <Button size='lg' className='group text-base has-[>svg]:px-6 w-full sm:w-auto' asChild>
                 <Link
-                  href={APP_URL}
+                  href={appSignupUrl}
                   target='_blank'
                   rel='noopener noreferrer'
                   variant='inlineIcon'

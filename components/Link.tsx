@@ -1,3 +1,4 @@
+import { withAppCtaRef } from '@/lib/app-links'
 import { ensureLeadingSlash, getLocalizedPath } from '@/lib/localized-path'
 import { trackCtaClick } from '@/lib/analytics'
 import { cn } from '@/lib/utils'
@@ -48,7 +49,7 @@ export const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
     const isExternal =
       href.startsWith('http://') || href.startsWith('https://') || href.startsWith('mailto:') || href.startsWith('tel:')
 
-    const fullHref = isExternal ? href : getLocalizedPath(href, locale)
+    const fullHref = isExternal ? withAppCtaRef(href, ctaId) : getLocalizedPath(href, locale)
 
     const urlLogical = (pageContext as any).urlLogical || '/'
     const normalizedLogical = ensureLeadingSlash(urlLogical)
