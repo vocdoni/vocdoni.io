@@ -17,6 +17,7 @@ export default function Page() {
         { src: logoFcb, alt: 'FC Barcelona' },
         { src: logoCec, alt: 'Centre Excursionista de Catalunya' },
       ]}
+      signupType='sports-clubs'
     />
   )
 }

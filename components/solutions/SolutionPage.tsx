@@ -51,6 +51,8 @@ export interface SolutionPageProps {
   content: SolutionContent
   logos: SolutionLogo[]
   caseStudyHref?: string
+  /** Vertical slug the app reads from `?type=` to tailor sign-up; omit when the app has none for this page. */
+  signupType?: string
 }
 
 // Semantic icons for the trust band, cycled by index.
@@ -58,8 +60,8 @@ const TRUST_ICONS: LucideIcon[] = [ShieldCheckIcon, EyeIcon, ScaleIcon, FileChec
 
 const asArray = <T,>(value: unknown): T[] => (Array.isArray(value) ? (value as T[]) : [])
 
-export function SolutionPage({ icon: Icon, content, logos, caseStudyHref }: SolutionPageProps) {
-  const appSignupUrl = useAppAuthUrl()
+export function SolutionPage({ icon: Icon, content, logos, caseStudyHref, signupType }: SolutionPageProps) {
+  const appSignupUrl = useAppAuthUrl('signup', signupType)
   const trustBadges = asArray<string>(content.trust_badges)
   const pains = asArray<string>(content.pains)
   const features = asArray<SolutionFeature>(content.features)
