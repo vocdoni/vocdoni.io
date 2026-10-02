@@ -1,0 +1,414 @@
+<!doctype html>
+<!--
+  Blog cover template (1685x920). Rendered by render.sh; everything comes from the query string:
+    variant  stripes | stat | pitch | ballot   (default stripes)
+    partner  path to the partner logo, relative to this file (required)
+    eyebrow  small label (default "Success stories"; "" hides it)
+    title    display headline (default "Success stories"; "" hides it)
+    stat     big figure for the stat variant (default "84%")
+    c1, c2   partner brand colours as hex (default blaugrana #004D98 / #A50044)
+    photo    optional background photo for stripes/stat, darkened
+-->
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <style>
+      @font-face {
+        font-family: 'Hanken Grotesk';
+        font-weight: 100 900;
+        src: url(../../public/fonts/files/hanken-grotesk-latin-wght-normal.woff2) format('woff2-variations');
+      }
+      @font-face {
+        font-family: 'Fraunces';
+        font-weight: 100 900;
+        src: url(../../public/fonts/files/fraunces-latin-full-normal.woff2) format('woff2-variations');
+      }
+
+      :root {
+        --bg: oklch(0.17 0.012 106);
+        --ink: oklch(0.96 0.012 97);
+        --muted: oklch(0.96 0.012 97 / 0.6);
+        --cream: oklch(0.988 0.011 97);
+        --green: oklch(0.62 0.09 158);
+        --c1: #004d98;
+        --c2: #a50044;
+      }
+
+      * {
+        margin: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        width: 1685px;
+        height: 920px;
+        overflow: hidden;
+      }
+      body {
+        position: relative;
+        background: var(--bg);
+        color: var(--ink);
+        font-family: 'Hanken Grotesk', sans-serif;
+      }
+      .layer {
+        position: absolute;
+        inset: 0;
+      }
+      .photo {
+        background-size: cover;
+        background-position: center;
+        filter: grayscale(0.4) brightness(0.45);
+      }
+      .grain {
+        background-image: radial-gradient(oklch(1 0 0 / 0.06) 1px, transparent 1px);
+        background-size: 6px 6px;
+        opacity: 0.5;
+      }
+
+      /* ---- shared lockup: small, clean logos ---- */
+      .lockup {
+        position: absolute;
+        display: flex;
+        align-items: center;
+        gap: 28px;
+      }
+      .lockup .logo {
+        height: 64px;
+        display: flex;
+        align-items: center;
+      }
+      .lockup .logo img {
+        height: 100%;
+      }
+      .lockup .vocdoni img {
+        height: 56px;
+      }
+      .lockup .partner {
+        height: 84px;
+        width: 84px;
+        border-radius: 50%;
+        background: var(--cream);
+        display: grid;
+        place-items: center;
+        padding: 12px;
+      }
+      .lockup .partner img {
+        max-height: 100%;
+        max-width: 100%;
+        object-fit: contain;
+        mix-blend-mode: multiply;
+      }
+      .lockup .x {
+        font-size: 34px;
+        font-weight: 300;
+        color: var(--muted);
+      }
+
+      .eyebrow {
+        position: absolute;
+        display: inline-flex;
+        align-items: center;
+        gap: 14px;
+        font-size: 28px;
+        font-weight: 600;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--muted);
+      }
+      .eyebrow::before {
+        content: '';
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background: var(--green);
+      }
+      .eyebrow:empty,
+      .title:empty {
+        display: none;
+      }
+      .title {
+        position: absolute;
+        font-family: 'Fraunces', serif;
+        font-weight: 500;
+        font-size: 150px;
+        line-height: 0.95;
+        letter-spacing: -0.03em;
+        max-width: 900px;
+      }
+      .url {
+        position: absolute;
+        right: 80px;
+        bottom: 64px;
+        font-size: 26px;
+        font-weight: 500;
+        color: var(--muted);
+      }
+
+      /* ---- variant: stripes (blaugrana band bleeding in from the right) ---- */
+      .v-stripes .band {
+        position: absolute;
+        top: -200px;
+        bottom: -200px;
+        right: -260px;
+        width: 760px;
+        transform: skewX(-14deg);
+        background: repeating-linear-gradient(90deg, var(--c1) 0 95px, var(--c2) 95px 190px);
+        mask-image: linear-gradient(90deg, transparent, black 35%);
+      }
+      .v-stripes .band::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(180deg, oklch(0 0 0 / 0.25), transparent 40%, oklch(0 0 0 / 0.35));
+      }
+      .v-stripes .eyebrow {
+        left: 96px;
+        top: 96px;
+      }
+      .v-stripes .title {
+        left: 92px;
+        top: 300px;
+      }
+      .v-stripes .lockup {
+        left: 96px;
+        bottom: 72px;
+      }
+
+      /* ---- variant: stat (one huge figure) ---- */
+      .v-stat .glow {
+        background:
+          radial-gradient(900px 600px at 75% 60%, color-mix(in oklch, var(--c2) 55%, transparent), transparent 65%),
+          radial-gradient(700px 500px at 90% 10%, color-mix(in oklch, var(--c1) 60%, transparent), transparent 60%);
+      }
+      .v-stat .eyebrow {
+        left: 96px;
+        top: 96px;
+      }
+      .v-stat .stat {
+        position: absolute;
+        left: 80px;
+        top: 160px;
+        font-family: 'Fraunces', serif;
+        font-weight: 400;
+        font-size: 520px;
+        line-height: 1;
+        letter-spacing: -0.06em;
+        color: var(--cream);
+      }
+      .v-stat .stat small {
+        display: block;
+        font-family: 'Hanken Grotesk', sans-serif;
+        font-size: 40px;
+        letter-spacing: 0;
+        color: var(--muted);
+        margin-top: -20px;
+        margin-left: 20px;
+      }
+      .v-stat .lockup {
+        right: 96px;
+        bottom: 72px;
+      }
+      .v-stat .url {
+        display: none;
+      }
+
+      /* ---- variant: pitch (stylised football pitch, top-down) ---- */
+      .v-pitch {
+        background: radial-gradient(1200px 900px at 50% 120%, oklch(0.32 0.07 155), var(--bg) 70%);
+      }
+      .v-pitch .pitch {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        width: 1400px;
+        height: 900px;
+        transform: translate(-50%, -32%) perspective(1400px) rotateX(48deg);
+        border: 3px solid oklch(1 0 0 / 0.22);
+        border-radius: 6px;
+        background:
+          repeating-linear-gradient(90deg, oklch(1 0 0 / 0.025) 0 140px, transparent 140px 280px),
+          linear-gradient(90deg, transparent 49.8%, oklch(1 0 0 / 0.22) 49.8% 50.2%, transparent 50.2%);
+      }
+      .v-pitch .pitch::before {
+        content: '';
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        width: 280px;
+        height: 280px;
+        border: 3px solid oklch(1 0 0 / 0.22);
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+      }
+      .v-pitch .pitch::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background:
+          linear-gradient(90deg, oklch(1 0 0 / 0.22) 3px, transparent 3px) 0 0 / 100% 100% no-repeat,
+          linear-gradient(90deg, transparent calc(100% - 3px), oklch(1 0 0 / 0.22) 3px) 0 0 / 100% 100% no-repeat;
+        mask-image: linear-gradient(180deg, transparent 26%, black 26% 74%, transparent 74%);
+        background-size: 240px 100%;
+        background-position:
+          left center,
+          right center;
+      }
+      .v-pitch .eyebrow {
+        left: 50%;
+        top: 110px;
+        transform: translateX(-50%);
+      }
+      .v-pitch .title {
+        left: 50%;
+        top: 190px;
+        transform: translateX(-50%);
+        text-align: center;
+        max-width: none;
+        white-space: nowrap;
+        font-size: 128px;
+      }
+      .v-pitch .lockup {
+        left: 50%;
+        bottom: 84px;
+        transform: translateX(-50%);
+      }
+      .v-pitch .url {
+        display: none;
+      }
+
+      /* ---- variant: ballot (tilted ballot card) ---- */
+      .v-ballot .glow {
+        background: radial-gradient(1000px 700px at 80% 50%, color-mix(in oklch, var(--c1) 45%, transparent), transparent 65%);
+      }
+      .v-ballot .card {
+        position: absolute;
+        right: 150px;
+        top: 150px;
+        width: 560px;
+        height: 700px;
+        background: var(--cream);
+        border-radius: 28px;
+        transform: rotate(7deg);
+        box-shadow: 0 60px 100px -30px oklch(0 0 0 / 0.7);
+        overflow: hidden;
+        color: oklch(0.24 0.013 106);
+        padding: 56px;
+      }
+      .v-ballot .card::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 26px;
+        background: repeating-linear-gradient(180deg, var(--c1) 0 70px, var(--c2) 70px 140px);
+      }
+      .v-ballot .card .crest {
+        height: 150px;
+        margin-left: 20px;
+      }
+      .v-ballot .card .crest img {
+        height: 100%;
+        mix-blend-mode: multiply;
+      }
+      .v-ballot .row {
+        display: flex;
+        align-items: center;
+        gap: 24px;
+        margin: 36px 0 0 20px;
+      }
+      .v-ballot .row .box {
+        width: 56px;
+        height: 56px;
+        border: 4px solid oklch(0.24 0.013 106 / 0.35);
+        border-radius: 12px;
+        flex: none;
+      }
+      .v-ballot .row .line {
+        height: 18px;
+        border-radius: 9px;
+        background: oklch(0.24 0.013 106 / 0.14);
+        flex: 1;
+      }
+      .v-ballot .row.checked .box {
+        border-color: var(--green);
+        background: var(--green);
+        position: relative;
+      }
+      .v-ballot .row.checked .box::after {
+        content: '';
+        position: absolute;
+        left: 16px;
+        top: 6px;
+        width: 14px;
+        height: 28px;
+        border: solid var(--cream);
+        border-width: 0 6px 6px 0;
+        transform: rotate(45deg);
+      }
+      .v-ballot .url {
+        display: none;
+      }
+      .v-ballot .eyebrow {
+        left: 96px;
+        top: 96px;
+      }
+      .v-ballot .title {
+        left: 92px;
+        top: 300px;
+        max-width: 760px;
+      }
+      .v-ballot .lockup {
+        left: 96px;
+        bottom: 72px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="layer photo" hidden></div>
+    <div class="layer glow"></div>
+    <div class="band"></div>
+    <div class="pitch"></div>
+    <div class="layer grain"></div>
+
+    <div class="card">
+      <div class="crest"><img class="partner-img" alt="" /></div>
+      <div class="row"><div class="box"></div><div class="line"></div></div>
+      <div class="row checked"><div class="box"></div><div class="line"></div></div>
+      <div class="row"><div class="box"></div><div class="line"></div></div>
+    </div>
+
+    <div class="eyebrow"></div>
+    <div class="title"></div>
+    <div class="stat"></div>
+    <div class="lockup">
+      <div class="logo vocdoni"><img src="../../public/images/vocdoni_logotype_full_blank.svg" alt="" /></div>
+      <div class="x">×</div>
+      <div class="logo partner"><img class="partner-img" alt="" /></div>
+    </div>
+    <div class="url">vocdoni.io</div>
+
+    <script>
+      const p = new URLSearchParams(location.search)
+      const variant = p.get('variant') || 'stripes'
+      document.body.classList.add('v-' + variant)
+      const get = (k, d) => (p.has(k) ? p.get(k) : d)
+      document.querySelector('.eyebrow').textContent = get('eyebrow', 'Success stories')
+      document.querySelector('.title').textContent = variant === 'stat' ? '' : get('title', 'Success stories')
+      document.querySelector('.stat').innerHTML = variant === 'stat' ? `${get('stat', '84%')}<small>turnout</small>` : ''
+      document.querySelectorAll('.partner-img').forEach((i) => (i.src = p.get('partner') || ''))
+      if (p.get('c1')) document.documentElement.style.setProperty('--c1', p.get('c1'))
+      if (p.get('c2')) document.documentElement.style.setProperty('--c2', p.get('c2'))
+      for (const sel of ['.band', '.pitch', '.card']) {
+        const want = { '.band': 'stripes', '.pitch': 'pitch', '.card': 'ballot' }[sel]
+        document.querySelector(sel).hidden = variant !== want
+      }
+      const photo = p.get('photo')
+      if (photo) {
+        const el = document.querySelector('.photo')
+        el.hidden = false
+        el.style.backgroundImage = `url("${photo}")`
+      }
+    </script>
+  </body>
+</html>
