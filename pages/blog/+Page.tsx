@@ -15,9 +15,10 @@ export default function BlogIndexPage() {
   const { locale } = usePageContext() as { locale: string }
   const { t } = useTranslation()
 
-  // Lead story + "latest posts" rail on top, the rest in the grid below.
+  // Lead story + "latest posts" rail on top. The grid below still lists every
+  // non-featured post, so the newest ones are not confined to the compact rail.
   const sidebarPosts = posts.slice(0, 4)
-  const gridPosts = posts.slice(4)
+  const gridPosts = posts
 
   return (
     <div className='pb-24'>
