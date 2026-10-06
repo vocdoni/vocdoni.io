@@ -2,6 +2,7 @@ import { toString } from 'mdast-util-to-string'
 import { readdirSync, readFileSync } from 'node:fs'
 import path from 'node:path'
 import remarkDirective from 'remark-directive'
+import remarkGfm from 'remark-gfm'
 import remarkParse from 'remark-parse'
 import { unified } from 'unified'
 import { SKIP, visit } from 'unist-util-visit'
@@ -47,8 +48,12 @@ type Code = { type: 'code'; lang?: string | null; value: string }
 const isCurl = (node: Code) => CURL_FENCES.includes(node.lang ?? '') && /\bcurl\b/.test(node.value)
 const isTs = (node: Code) => TS_FENCES.includes(node.lang ?? '')
 
-// Parsed with the same remark stack as lib/docs/pipeline.ts, so fences, headings and directives follow it.
-const parser = unified().use(remarkParse).use(remarkDirective)
+// Parsed with the syntax plugins of lib/docs/pipeline.ts (its other remark plugins only transform the tree),
+// so fences, headings, tables and directives read the same way.
+const parser = unified().use(remarkParse).use(remarkGfm).use(remarkDirective)
+
+// Response samples may sit between a cURL block and the note that covers it.
+const SAMPLE_FENCES = ['json', 'jsonc']
 
 const sectionsOf = (file: string, markdown: string): Section[] => {
   const sections: Section[] = []
@@ -56,29 +61,33 @@ const sectionsOf = (file: string, markdown: string): Section[] => {
   const section = (key: string): Section => ({ key, curl: 0, tabbed: 0, excused: 0, strayNotes: 0 })
   let current = section(`${file}#`)
   sections.push(current)
-  // Untabbed cURL blocks in the current section that no note has covered yet.
-  let uncovered = 0
+  // Whether the last block was an untabbed cURL example (or a response sample right after one) that a
+  // "does not wrap" note may still cover. Anything else in between ends it, so a note only covers the
+  // cURL block it sits right after.
+  let awaitingNote = false
   visit(parser.parse(parseFrontmatter(markdown).content), (node) => {
     if (node.type === 'heading' && node.depth >= 2) {
       current = section(`${file}#${toString(node).trim()}`)
       sections.push(current)
-      uncovered = 0
+      awaitingNote = false
     } else if (node.type === 'containerDirective' && node.name === 'code-tabs') {
       const codes = node.children.filter((c): c is Code => c.type === 'code')
       const curls = codes.filter(isCurl).length
       current.curl += curls
       if (codes.some(isTs)) current.tabbed += curls
-      else uncovered += curls
+      awaitingNote = curls > 0 && !codes.some(isTs)
       return SKIP
-    } else if (node.type === 'code' && isCurl(node)) {
-      current.curl++
-      uncovered++
+    } else if (node.type === 'code') {
+      if (isCurl(node)) {
+        current.curl++
+        awaitingNote = true
+      } else if (!SAMPLE_FENCES.includes(node.lang ?? '')) awaitingNote = false
     } else if (node.type === 'paragraph' && NOT_WRAPPED.test(toString(node))) {
-      // A note covers the one untabbed cURL block before it, for the endpoint it describes.
-      if (uncovered > 0) {
-        current.excused++
-        uncovered--
-      } else current.strayNotes++
+      if (awaitingNote) current.excused++
+      else current.strayNotes++
+      awaitingNote = false
+    } else if (node.type === 'paragraph' || node.type === 'table' || node.type === 'list') {
+      awaitingNote = false
     }
   })
   return sections
@@ -143,6 +152,25 @@ describe('developer docs SDK examples', () => {
       'The SDK does not wrap this endpoint yet.',
       '',
       'The SDK does not wrap this endpoint either.',
+      '## D',
+      '```bash',
+      'curl -X POST $B/processes',
+      '```',
+      '```jsonc',
+      '{ "processId": "..." }',
+      '```',
+      'An unrelated paragraph.',
+      '',
+      'The SDK does not wrap this endpoint yet.',
+      '## E',
+      '```bash',
+      'curl -X DELETE $B/processes/x/census',
+      '```',
+      '```jsonc',
+      '{ "removed": 2 }',
+      '```',
+      '> [!NOTE] Not in the SDK yet',
+      '> The SDK does not wrap this endpoint yet.',
       '   ## C',
       '',
       '    ```bash',
@@ -156,8 +184,11 @@ describe('developer docs SDK examples', () => {
       { key: 'f.md#', curl: 1, tabbed: 0, excused: 0, strayNotes: 0 },
       // a quoted fence still counts, untabbed
       { key: 'f.md#A', curl: 2, tabbed: 1, excused: 0, strayNotes: 0 },
-      // a TypeScript block outside the group does not pair it; one note covers it, a second one is stray
-      { key: 'f.md#B', curl: 1, tabbed: 0, excused: 1, strayNotes: 1 },
+      // a TypeScript block outside the group does not pair it, and the notes after it are not adjacent
+      { key: 'f.md#B', curl: 1, tabbed: 0, excused: 0, strayNotes: 2 },
+      // a note only covers the cURL block it sits right after (response samples may come between)
+      { key: 'f.md#D', curl: 1, tabbed: 0, excused: 0, strayNotes: 1 },
+      { key: 'f.md#E', curl: 1, tabbed: 0, excused: 1, strayNotes: 0 },
       // an indented heading still splits; indented code is not a fence; an unclosed fence runs to the end
       { key: 'f.md#C', curl: 1, tabbed: 0, excused: 0, strayNotes: 0 },
     ])
