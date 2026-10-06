@@ -24,29 +24,35 @@ const ALLOWED: Record<string, string> = {
 
 const NOT_WRAPPED = /does not wrap this endpoint/
 
+// Fence languages the docs pipeline renders as cURL and TypeScript tabs (TAB_LABELS in lib/docs/pipeline.ts).
+const CURL_FENCES = ['bash', 'sh', 'shell', 'curl']
+const TS_FENCES = ['ts', 'typescript']
+
 type Section = { key: string; curl: boolean; ts: boolean; notWrapped: boolean }
 
 const sectionsOf = (file: string, markdown: string): Section[] => {
   const sections: Section[] = []
-  let current: Section | undefined
+  // Anything before the first heading counts as its own section.
+  let current: Section = { key: `${file}#`, curl: false, ts: false, notWrapped: false }
+  sections.push(current)
   let fence: string | undefined
   for (const line of markdown.split('\n')) {
     const open = line.match(/^```(\w*)/)
     if (fence === undefined && open) {
       fence = open[1]
-      if (current && fence === 'ts') current.ts = true
+      if (TS_FENCES.includes(fence)) current.ts = true
       continue
     }
     if (fence !== undefined) {
       if (line.startsWith('```')) fence = undefined
-      else if (current && ['bash', 'sh'].includes(fence) && /\bcurl\b/.test(line)) current.curl = true
+      else if (CURL_FENCES.includes(fence) && /\bcurl\b/.test(line)) current.curl = true
       continue
     }
     const heading = line.match(/^#{2,6}\s+(.*)$/)
     if (heading) {
       current = { key: `${file}#${heading[1].trim()}`, curl: false, ts: false, notWrapped: false }
       sections.push(current)
-    } else if (current && NOT_WRAPPED.test(line)) {
+    } else if (NOT_WRAPPED.test(line)) {
       current.notWrapped = true
     }
   }
@@ -70,9 +76,23 @@ describe('developer docs SDK examples', () => {
     expect(stale).toEqual([])
   })
 
-  it('splits sections on headings outside code fences only', () => {
-    const md = ['## A', '```bash', '# not a heading', 'curl x', '```', '## B', '```ts', 'client.x()', '```'].join('\n')
+  it('splits sections on headings outside code fences, counting every cURL and TypeScript fence', () => {
+    const md = [
+      '```shell',
+      'curl y',
+      '```',
+      '## A',
+      '```bash',
+      '# not a heading',
+      'curl x',
+      '```',
+      '## B',
+      '```typescript',
+      'client.x()',
+      '```',
+    ].join('\n')
     expect(sectionsOf('f.md', md)).toEqual([
+      { key: 'f.md#', curl: true, ts: false, notWrapped: false },
       { key: 'f.md#A', curl: true, ts: false, notWrapped: false },
       { key: 'f.md#B', curl: false, ts: true, notWrapped: false },
     ])
