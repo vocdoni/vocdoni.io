@@ -44,8 +44,10 @@ JOB=$(curl -s "${auth[@]}" -X POST "$B/organizations/$ORG/members?async=true" -d
 
 # poll the members-job until done
 # a members-job never fails: a row that cannot be stored leaves it pending, so poll with a deadline
-for _ in $(seq 120); do
-  [ "$(curl -s "${auth[@]}" "$B/jobs/$JOB" | jq -r .status)" = "completed" ] && break; sleep 1
+for i in $(seq 120); do
+  [ "$(curl -s "${auth[@]}" "$B/jobs/$JOB" | jq -r .status)" = "completed" ] && break
+  [ "$i" = 120 ] && { echo "members-job $JOB did not complete" >&2; exit 1; }
+  sleep 1
 done
 ```
 
@@ -73,8 +75,12 @@ if (jobId) await client.jobs.waitFor(jobId, { timeoutMs: 10 * 60_000 })
 var job = (await Post($"/organizations/{org}/members?async=true",
     new { members = new[] { new { name = "Alice", memberNumber = "A-101", weight = "1" } } }))
     .GetProperty("jobId").GetString();
-for (var i = 0; i < 120 && (await Get($"/jobs/{job}")).GetProperty("status").GetString() != "completed"; i++)
-    await Task.Delay(1000); // completes at progress 100; a failed row keeps it pending, hence the deadline
+// completes at progress 100; a failed row keeps it pending, hence the deadline
+for (var i = 0; (await Get($"/jobs/{job}")).GetProperty("status").GetString() != "completed"; i++)
+{
+    if (i == 120) throw new Exception($"members-job {job} did not complete");
+    await Task.Delay(1000);
+}
 ```
 ```python
 job = post(f"/organizations/{org}/members?async=true",
@@ -83,6 +89,8 @@ for _ in range(120):  # completes at progress 100; a failed row keeps it pending
     if get(f"/jobs/{job}").json()["status"] == "completed":
         break
     time.sleep(1)
+else:
+    raise RuntimeError(f"members-job {job} did not complete")
 ```
 :::
 

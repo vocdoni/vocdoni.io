@@ -61,8 +61,10 @@ JOB=$(curl -s "${auth[@]}" -X POST "$B/organizations/$ORG/members?async=true" -d
   ]
 }' | jq -r .jobId)
 # a members-job never fails: a row that cannot be stored leaves it pending, so poll with a deadline
-for _ in $(seq 120); do
-  [ "$(curl -s "${auth[@]}" "$B/jobs/$JOB" | jq -r .status)" = "completed" ] && break; sleep 1
+for i in $(seq 120); do
+  [ "$(curl -s "${auth[@]}" "$B/jobs/$JOB" | jq -r .status)" = "completed" ] && break
+  [ "$i" = 120 ] && { echo "members-job $JOB did not complete" >&2; exit 1; }
+  sleep 1
 done
 ```
 
@@ -111,7 +113,12 @@ completes. Voters then cast ballots client-side - see [Casting votes](/developer
 
 ```bash
 PJOB=$(curl -s "${auth[@]}" -X POST "$B/processes/$PROCESS/publish" | jq -r .jobId)
-until [ "$(curl -s "$B/jobs/$PJOB" | jq -r .status)" = "completed" ]; do sleep 2; done
+for i in $(seq 150); do
+  S=$(curl -s "$B/jobs/$PJOB" | jq -r .status)
+  [ "$S" = "completed" ] && break
+  if [ "$S" = "failed" ] || [ "$i" = 150 ]; then echo "publish job $PJOB: $S" >&2; exit 1; fi
+  sleep 2
+done
 ```
 
 ## Read the results
@@ -232,8 +239,12 @@ var org = (await Post("/integrator/organizations",
 var job = (await Post($"/organizations/{org}/members?async=true",
     new { members = new[] { new { name = "Alice", memberNumber = "A-101",
                                   email = "alice@example.org", weight = "1" } } })).GetProperty("jobId").GetString();
-for (var i = 0; i < 120 && (await Get($"/jobs/{job}")).GetProperty("status").GetString() != "completed"; i++)
-    await Task.Delay(1000); // completes at progress 100; a failed row keeps it pending, hence the deadline
+// completes at progress 100; a failed row keeps it pending, hence the deadline
+for (var i = 0; (await Get($"/jobs/{job}")).GetProperty("status").GetString() != "completed"; i++)
+{
+    if (i == 120) throw new Exception($"members-job {job} did not complete");
+    await Task.Delay(1000);
+}
 
 // 3. all-members group
 var group = (await Post($"/organizations/{org}/groups",
@@ -255,9 +266,13 @@ var process = (await Post("/processes", new {
 
 // 5. publish (async) -> wait for the job
 var pjob = (await Post($"/processes/{process}/publish", null)).GetProperty("jobId").GetString();
-JsonElement j;
-do { await Task.Delay(2000); j = await Get($"/jobs/{pjob}"); }
-while (j.GetProperty("status").GetString() != "completed");
+for (var i = 0; ; i++)
+{
+    await Task.Delay(2000);
+    var status = (await Get($"/jobs/{pjob}")).GetProperty("status").GetString();
+    if (status == "completed") break;
+    if (status == "failed" || i == 150) throw new Exception($"publish job {pjob}: {status}");
+}
 
 // 6. results - one tally per question
 Console.WriteLine(await Get($"/processes/{process}/results"));
@@ -275,6 +290,8 @@ for _ in range(120):  # completes at progress 100; a failed row keeps it pending
     if get(f"/jobs/{job}").json()["status"] == "completed":
         break
     time.sleep(1)
+else:
+    raise RuntimeError(f"members-job {job} did not complete")
 
 # 3. all-members group
 group = post(f"/organizations/{org}/groups",
@@ -294,8 +311,15 @@ process = post("/processes", {
 
 # 5. publish (async) -> wait for the job
 pjob = post(f"/processes/{process}/publish").json()["jobId"]
-while get(f"/jobs/{pjob}").json()["status"] != "completed":
+for _ in range(150):
+    status = get(f"/jobs/{pjob}").json()["status"]
+    if status == "completed":
+        break
+    if status == "failed":
+        raise RuntimeError(f"publish job {pjob} failed")
     time.sleep(2)
+else:
+    raise RuntimeError(f"publish job {pjob} did not complete")
 
 # 6. results - one tally per question
 print(get(f"/processes/{process}/results").json())

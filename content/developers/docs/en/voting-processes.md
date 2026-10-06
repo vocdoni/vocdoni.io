@@ -265,7 +265,12 @@ Either all questions publish or none do.
 
 ```bash
 PJOB=$(curl -s "${auth[@]}" -X POST "$B/processes/$PROCESS/publish" | jq -r .jobId)
-until [ "$(curl -s "$B/jobs/$PJOB" | jq -r .status)" = "completed" ]; do sleep 2; done
+for i in $(seq 150); do
+  S=$(curl -s "$B/jobs/$PJOB" | jq -r .status)
+  [ "$S" = "completed" ] && break
+  if [ "$S" = "failed" ] || [ "$i" = 150 ]; then echo "publish job $PJOB: $S" >&2; exit 1; fi
+  sleep 2
+done
 ```
 
 ```ts
