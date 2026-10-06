@@ -288,9 +288,9 @@ projections** marked `legacy: true`. `GET /processes?orgAddress=...` lists them 
 processes (`pagination.totalItems` counts them), and `GET /processes/{processId}` accepts either a
 `processId` or the election's 64-hex on-chain id. Their questions may share one `upstreamId` (one
 election held the whole ballot). When the election's ballot parameters map onto its single questions,
-each question carries the `ballotProtocol` read from the chain, plus `type`/`typeSetup` when that
-protocol matches a named type, so its results read the same way as any other question's; otherwise
-those fields are absent. The `results` object is always there, but its inner `results` matrix is left
+each question carries the `ballotProtocol` read from the chain, and a `type` when that protocol matches
+a named type, so its results read the same way as any other question's; otherwise `ballotProtocol` is
+absent and `type` is empty. `typeSetup` may be filled from the election metadata even without a `type`. The `results` object is always there, but its inner `results` matrix is left
 out when the tally cannot be split per question. They
 cannot be edited or published through `/processes`. The SDK types do not carry the `legacy` flag yet.
 
