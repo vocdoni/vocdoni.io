@@ -168,8 +168,12 @@ var http = new HttpClient { BaseAddress = new Uri("{{API_BASE_URL}}") };
 http.DefaultRequestHeaders.Authorization =
     new("Bearer", Environment.GetEnvironmentVariable("VOCDONI_API_TOKEN"));
 
-async Task<JsonElement> Post(string path, object? body) =>
-    await (await http.PostAsJsonAsync(path, body)).Content.ReadFromJsonAsync<JsonElement>();
+async Task<JsonElement> Post(string path, object? body)
+{
+    var res = await http.PostAsJsonAsync(path, body);
+    res.EnsureSuccessStatusCode(); // fail on an API error, like GetFromJsonAsync and raise_for_status
+    return await res.Content.ReadFromJsonAsync<JsonElement>();
+}
 async Task<JsonElement> Get(string path) => await http.GetFromJsonAsync<JsonElement>(path);
 ```
 ```python
@@ -270,7 +274,7 @@ var process = (await Post("/processes", new {
     }}})).GetProperty("processId").GetString();
 
 // 5. publish (async) -> wait for the job
-// no jobId: the process was already published
+// no jobId on a 200: the process was already published (an API error throws in Post)
 if ((await Post($"/processes/{process}/publish", null)).TryGetProperty("jobId", out var pj))
 {
     var pjob = pj.GetString();
