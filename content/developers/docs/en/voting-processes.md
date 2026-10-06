@@ -133,16 +133,17 @@ at publish:
 - **Members missing the data to log in** - an empty or whitespace-only `authFields` value, or no
   channel at all for the `twoFaFields` - could never authenticate, so they are **left out** of the
   census and their member ids come back in `missingData`. The draft is still created; fix their data
-  and update the draft (or, once published, [grow the census](#growing-the-census)), or ignore them. `missingData` is absent when nobody was
-  left out.
+  and update the draft (or, once published, [grow the census](#growing-the-census)), or ignore them.
+  `missingData` is absent when nobody was left out.
 - **Members the census cannot tell apart** - the same login data as another member, including values
   that differ only by case, or as a participant already in the census - are refused: the request
   fails with `400` (error code `40037`) and their ids in `data.duplicates`, and nothing is created.
 
 > [!NOTE] Not in the SDK yet
-> `client.elections.create()` resolves to the `processId` alone and drops `missingData`. Check the
-> census with [`validateCensus()`](/developers/docs/census#validating-a-census) first if you need to
-> know who would be left out.
+> `client.elections.create()` resolves to the `processId` alone and `client.elections.update()` to
+> nothing, so both drop `missingData`. Check the census with
+> [`validateCensus()`](/developers/docs/census#validating-a-census) first if you need to know who would
+> be left out.
 
 > [!WARNING] Not on your integrator organization
 > Your integrator's own top-level organization cannot own processes - creating one there fails with
@@ -272,7 +273,8 @@ moment its election actually stopped accepting votes. The process carries an `en
 of its questions', but only once every published question has one. Both are absent while voting is open
 and when a question ran to its scheduled end, so display the close time as `endedAt ?? endDate`.
 The values are stored, so the list carries them too - except for an older vote ended early, which gets
-them only once its detail `GET /processes/{processId}` has been read.
+them only once its detail (`GET /processes/{processId}`) or one of its questions
+(`GET /processes/{processId}/questions/{questionId}`) has been read.
 
 The `census` object also carries response-only **`size`** (eligible-voter count, on every read) and
 **`totalWeight`** (the sum of members' weights - equals `size` for a non-weighted census), the
@@ -285,9 +287,11 @@ Elections created before the `/processes` API also show up in these reads, as **
 projections** marked `legacy: true`. `GET /processes?orgAddress=...` lists them after the stored
 processes (`pagination.totalItems` counts them), and `GET /processes/{processId}` accepts either a
 `processId` or the election's 64-hex on-chain id. Their questions may share one `upstreamId` (one
-election held the whole ballot). Each question carries the `ballotProtocol` read from the chain, plus
-`type`/`typeSetup` when that protocol maps exactly to a named type, so its results read the same way as
-any other question's - though they are left out when the tally cannot be split per question. They
+election held the whole ballot). When the election's ballot parameters map onto its single questions,
+each question carries the `ballotProtocol` read from the chain, plus `type`/`typeSetup` when that
+protocol matches a named type, so its results read the same way as any other question's; otherwise
+those fields are absent. The `results` object is always there, but its inner `results` matrix is left
+out when the tally cannot be split per question. They
 cannot be edited or published through `/processes`. The SDK types do not carry the `legacy` flag yet.
 
 ## Checking readiness

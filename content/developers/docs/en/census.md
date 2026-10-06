@@ -67,11 +67,12 @@ combined with any of them:
 > [!WARNING] Every voter needs complete, unique login data
 > Whatever identifies a voter - the `authFields` values, plus the `email`/`phone` used for the code -
 > must be **unique** across the members you include. Members the census cannot tell apart (equal data,
-> including values that differ only by case) make `POST`/`PUT /processes` fail with `400` (error code
-> `40037`) and their ids in `data.duplicates`. Members missing the data instead - an empty or
-> whitespace-only auth field, or no 2FA channel - are **left out** of the census and listed in the
-> response's `missingData`; they cannot log in and do not count toward the census size. See [Creating a process](/developers/docs/voting-processes#creating-a-process),
-> and [validate the census](#validating-a-census) first to catch both.
+> including values that differ only by case) make `POST /processes` and `PUT /processes/{processId}`
+> fail with `400` (error code `40037`) and their ids in `data.duplicates`. Members missing the data
+> instead - an empty or whitespace-only auth field, or no 2FA channel - are **left out** of the census
+> and listed in the response's `missingData`; they cannot log in and do not count toward the census
+> size. See [Creating a process](/developers/docs/voting-processes#creating-a-process), and
+> [validate the census](#validating-a-census) first to catch both.
 
 > [!NOTE] Weighted voting
 > Set `"weighted": true` to make each member's `weight` count as their vote weight - use it for
@@ -159,8 +160,10 @@ await client.elections.validateCensus({
 
 A usable census answers a bare `200`; an unusable one is a `400` (error code `40037`) whose `data`
 lists the offending member ids in `duplicates`, `missingData` and, for an explicit `memberIds` list,
-`notFound`. The dry-run is stricter than creating the process: members with missing data fail it,
-while `POST /processes` leaves them out of the census and goes ahead.
+`notFound`. The same code also answers a malformed request - a census with neither `authFields` nor
+`twoFaFields`, an unknown group or a malformed member id - and then `data` carries no lists, so check
+for them before reading them. The dry-run is stricter than creating the process: members with missing
+data fail it, while `POST /processes` leaves them out of the census and goes ahead.
 
 ## Kept in sync with the memberbase
 

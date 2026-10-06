@@ -20,8 +20,8 @@ process, then **signs and relays a ballot per question** they are eligible for.
 
 1. **Authenticate once** - the voter presents whatever the census requires: identity `authFields`
    and/or a one-time code sent to their `email`/`phone` (a 2FA census needs no auth fields). Success
-   yields a token bound to the process. Leaving a required auth field empty is refused with `400`
-   (error code `40005`).
+   yields a token bound to the process. Leaving a required auth field or the contact for the code
+   empty is refused with `400` (error code `40005`).
 2. **Sign per question** - for each question, the credential service (CSP) signs the
    voter's ephemeral voting address for **that question's election**. It refuses unless the voter is
    in the question's [eligibility subset](/developers/docs/census#per-question-eligibility). Signatures
@@ -489,8 +489,9 @@ const receipts = await client.elections.signInfo(processId, { authToken })
 Looking up whether specific members voted is an admin task, not a voter one:
 
 - **GET** `/processes/{processId}/participants` (`client.elections.participants()`) - requires a
-  manager/admin of the owning organization, or a `voting:write` API key. Matches organization members by one field (`email`,
-  `phone`, `memberNumber` or `nationalId`) and reports each match's per-question voted status.
+  manager/admin of the owning organization, or a `voting:write` API key. Matches organization
+  members by one field (`email`, `phone`, `memberNumber` or `nationalId`) and reports each match's
+  per-question voted status.
 - **GET** `/processes/{processId}/participants/{participantId}` - public, but a placeholder for
   now: it validates the ids and always returns `null`.
 

@@ -125,9 +125,9 @@ const { members, pagination } = await client.organizations.listMembers(org, 1)
 
 The list is ordered by `name` ascending unless you pass `sortBy` (`name`, `surname`, `email` or
 `memberNumber`) and `sortOrder` (`asc` or `desc`); an unknown value is a `400` (error code `40010`).
-Ordering ignores case and accents and compares digit runs as numbers (`63` before `273`). Ties are broken by the member id
-(after the other name field, when sorting by `name` or `surname`), so pages stay stable while you walk
-them. `search` narrows the list to members whose fields match a term.
+Ordering ignores case and accents and compares digit runs as numbers (`63` before `273`). Ties are
+broken by the member id (after the other name field, when sorting by `name` or `surname`), so pages
+stay stable while you walk them. `search` narrows the list to members whose fields match a term.
 
 ```bash
 curl "${auth[@]}" "$B/organizations/$ORG/members?sortBy=memberNumber&sortOrder=desc&limit=100"
