@@ -154,26 +154,36 @@ Update a single member, or delete members by id. Note the delete path is **plura
 - **PUT** `/organizations/{address}/members`
 - **DELETE** `/organizations/{address}/members`
 
-Resend the member's current `weight` with every update. Older API versions reset a weight left out of
-the update to `1`, which changes the member's vote in a weighted census; newer ones keep the stored
-value and reset it only when you send `""`. Sending the current weight is right on both.
+The `PUT` is an upsert: send the `id` of an existing member to update it. An empty or unknown `id`
+creates a new member instead, holding only the fields you sent and weight `1`, and that member joins
+the live censuses built from the all-members group.
+
+An update merges what you send onto the stored member:
+
+- A field left out, or sent as `null`, keeps its stored value.
+- A field sent as `""` clears it. For `weight`, `""` resets it to the default `1`, so leave `weight`
+  out to keep the member's vote in a weighted census unchanged.
+- `other` is replaced as a whole: send every custom field you want to keep, `{}` to clear them all, or
+  leave `other` out to keep them.
+- Phone numbers are never returned in plaintext, so leave `phone` out unless you are changing it.
+- The whole member is normalized again on every update (names and ids trimmed, email lowercased), so
+  fields you did not send can change format.
+
+Clearing a field that a live census authenticates with (for example `email` or `memberNumber`) still
+succeeds, but leaves that member unable to authenticate in the census.
 
 :::code-tabs
 
 ```bash
 curl "${auth[@]}" -X PUT "$B/organizations/$ORG/members" \
-  -d '{"id":"<memberId>","memberNumber":"A-101","email":"alice@example.org","weight":"1"}'
+  -d '{"id":"<memberId>","memberNumber":"A-101","email":"alice@example.org"}'
 curl "${auth[@]}" -X DELETE "$B/organizations/$ORG/members" -d '{"ids":["<memberId>"]}'
 ```
 ```ts
-// Resend the member's current weight (older API versions reset a missing one to 1). The API wants a
-// string, while the SDK types it as a number, so cast until the SDK type is fixed.
-await client.organizations.upsertMember(org, {
-  id: memberId,
-  memberNumber: 'A-101',
-  email: 'alice@example.org',
-  weight: '1' as unknown as number,
-})
+// Fields left out, weight included, keep their stored values. To change the weight, send a string: the
+// SDK types it as a number, and a number fails with 400, so cast ('2' as unknown as number) until the SDK
+// type is fixed.
+await client.organizations.upsertMember(org, { id: memberId, memberNumber: 'A-101', email: 'alice@example.org' })
 await client.organizations.deleteMembers(org, { ids: [memberId] })
 ```
 :::
