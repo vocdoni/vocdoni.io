@@ -1,5 +1,10 @@
+import { toString } from 'mdast-util-to-string'
 import { readdirSync, readFileSync } from 'node:fs'
 import path from 'node:path'
+import remarkDirective from 'remark-directive'
+import remarkParse from 'remark-parse'
+import { unified } from 'unified'
+import { visit } from 'unist-util-visit'
 import { describe, expect, it } from 'vitest'
 
 // Every cURL example in the developer docs should come with its TypeScript
@@ -33,41 +38,26 @@ const TS_FENCES = ['ts', 'typescript']
 // `curl` and `ts` count the cURL and TypeScript code blocks in the section.
 type Section = { key: string; curl: number; ts: number; notWrapped: boolean }
 
+// Parsed with the same remark stack as lib/docs/pipeline.ts, so fences and headings follow CommonMark.
+const parser = unified().use(remarkParse).use(remarkDirective)
+
 const sectionsOf = (file: string, markdown: string): Section[] => {
   const sections: Section[] = []
   // Anything before the first heading counts as its own section.
   let current: Section = { key: `${file}#`, curl: 0, ts: 0, notWrapped: false }
   sections.push(current)
-  let fence: { marker: string; lang: string; curl: boolean } | undefined
-  for (const line of markdown.split('\n')) {
-    // Fences may sit inside blockquotes, admonitions or list items.
-    const body = line.replace(/^(\s*>)*\s*/, '')
-    if (fence === undefined) {
-      const open = body.match(/^(`{3,}|~{3,})(\w*)/)
-      if (open) {
-        fence = { marker: open[1], lang: open[2], curl: false }
-        if (TS_FENCES.includes(fence.lang)) current.ts++
-        continue
-      }
-    } else {
-      // A closing fence repeats the opening character at least as many times.
-      const close = body.match(/^(`{3,}|~{3,})\s*$/)
-      if (close && close[1][0] === fence.marker[0] && close[1].length >= fence.marker.length) {
-        if (fence.curl) current.curl++
-        fence = undefined
-      } else if (CURL_FENCES.includes(fence.lang) && /\bcurl\b/.test(body)) {
-        fence.curl = true
-      }
-      continue
-    }
-    const heading = line.match(/^#{2,6}\s+(.*)$/)
-    if (heading) {
-      current = { key: `${file}#${heading[1].trim()}`, curl: 0, ts: 0, notWrapped: false }
+  const tree = parser.parse(markdown.replace(/^---\n[\s\S]*?\n---\n/, ''))
+  visit(tree, (node) => {
+    if (node.type === 'heading' && node.depth >= 2) {
+      current = { key: `${file}#${toString(node).trim()}`, curl: 0, ts: 0, notWrapped: false }
       sections.push(current)
-    } else if (NOT_WRAPPED.test(line)) {
+    } else if (node.type === 'code') {
+      if (TS_FENCES.includes(node.lang ?? '')) current.ts++
+      else if (CURL_FENCES.includes(node.lang ?? '') && /\bcurl\b/.test(node.value)) current.curl++
+    } else if (node.type === 'paragraph' && NOT_WRAPPED.test(toString(node))) {
       current.notWrapped = true
     }
-  }
+  })
   return sections
 }
 
@@ -86,12 +76,12 @@ describe('developer docs SDK examples', () => {
   it('keeps the allowlist current', () => {
     const stale = Object.keys(ALLOWED).filter((key) => {
       const section = sections.find((s) => s.key === key)
-      return !section || section.ts >= section.curl
+      return !section || section.ts + (section.notWrapped ? 1 : 0) >= section.curl
     })
     expect(stale).toEqual([])
   })
 
-  it('splits sections on headings outside code fences, counting every cURL and TypeScript fence', () => {
+  it('splits sections on CommonMark headings, counting every cURL and TypeScript code block', () => {
     const md = [
       '```shell',
       'curl y',
@@ -118,6 +108,14 @@ describe('developer docs SDK examples', () => {
       'curl v',
       '````',
       '## D',
+      '   ## E',
+      '',
+      '    ```bash',
+      '    curl u',
+      '    ```',
+      '',
+      '```bash',
+      'curl t',
     ].join('\n')
     expect(sectionsOf('f.md', md)).toEqual([
       { key: 'f.md#', curl: 1, ts: 0, notWrapped: false },
@@ -125,6 +123,8 @@ describe('developer docs SDK examples', () => {
       { key: 'f.md#B', curl: 1, ts: 1, notWrapped: true },
       { key: 'f.md#C', curl: 1, ts: 0, notWrapped: false },
       { key: 'f.md#D', curl: 0, ts: 0, notWrapped: false },
+      // an indented heading still splits; indented code is not a fence; an unclosed fence runs to the end
+      { key: 'f.md#E', curl: 1, ts: 0, notWrapped: false },
     ])
   })
 })
