@@ -52,10 +52,10 @@ ORG=$(curl -s "${auth[@]}" -X POST "$B/integrator/organizations" \
 
 ## Add a member
 
-Bulk member writes are asynchronous: the call returns a `jobId` you poll until `progress: 100`.
+With `?async=true` bulk member writes run as a job: the call returns a `jobId` you poll until `progress: 100`.
 
 ```bash
-JOB=$(curl -s "${auth[@]}" -X POST "$B/organizations/$ORG/members" -d '{
+JOB=$(curl -s "${auth[@]}" -X POST "$B/organizations/$ORG/members?async=true" -d '{
   "members": [
     { "name": "Alice", "memberNumber": "A-101", "email": "alice@example.org", "weight": "1" }
   ]
@@ -84,8 +84,8 @@ PROCESS=$(curl -s "${auth[@]}" -X POST "$B/processes" -d @- <<JSON | jq -r .proc
   "census": { "authFields": ["memberNumber"], "groupId": "$GROUP" },
   "title": { "default": "Repaint the fence?" },
   "description": { "default": "Annual maintenance vote" },
-  "startDate": "2026-07-01T09:00:00Z",
-  "endDate": "2026-07-08T09:00:00Z",
+  "startDate": "2027-07-01T09:00:00Z",
+  "endDate": "2027-07-08T09:00:00Z",
   "questions": [
     {
       "title": { "default": "Repaint the fence?" },
@@ -182,7 +182,7 @@ const { address: org } = await client.organizations.createManaged({
 // 2. member (async) -> wait for the members-job
 const { jobId } = await client.organizations.addMembers(
   org,
-  [{ name: 'Alice', memberNumber: 'A-101', email: 'alice@example.org', weight: 1 }],
+  [{ name: 'Alice', memberNumber: 'A-101', email: 'alice@example.org' }], // weight defaults to 1
   { async: true },
 )
 if (jobId) await client.jobs.waitFor(jobId)
@@ -199,8 +199,8 @@ const processId = await client.elections.create({
   census: { authFields: ['memberNumber'], groupId: group },
   title: 'Repaint the fence?',
   description: 'Annual maintenance vote',
-  startDate: '2026-07-01T09:00:00Z',
-  endDate: '2026-07-08T09:00:00Z',
+  startDate: '2027-07-01T09:00:00Z',
+  endDate: '2027-07-08T09:00:00Z',
   questions: [
     {
       title: 'Repaint the fence?',
@@ -225,7 +225,7 @@ var org = (await Post("/integrator/organizations",
     new { type = "association", meta = new { name = "Maple Street HOA" } })).GetProperty("address").GetString();
 
 // 2. member (async) -> poll the members-job until progress == 100
-var job = (await Post($"/organizations/{org}/members",
+var job = (await Post($"/organizations/{org}/members?async=true",
     new { members = new[] { new { name = "Alice", memberNumber = "A-101",
                                   email = "alice@example.org", weight = "1" } } })).GetProperty("jobId").GetString();
 while ((await Get($"/jobs/{job}")).GetProperty("result").GetProperty("progress").GetInt32() < 100)
@@ -241,7 +241,7 @@ var process = (await Post("/processes", new {
     census = new { authFields = new[] { "memberNumber" }, groupId = group },
     title = new { @default = "Repaint the fence?" },
     description = new { @default = "Annual maintenance vote" },
-    startDate = "2026-07-01T09:00:00Z", endDate = "2026-07-08T09:00:00Z",
+    startDate = "2027-07-01T09:00:00Z", endDate = "2027-07-08T09:00:00Z",
     questions = new[] { new {
         title = new { @default = "Repaint the fence?" },
         choices = new[] { new { title = new { @default = "Yes" }, value = 0 },
@@ -264,7 +264,7 @@ org = post("/integrator/organizations",
            {"type": "association", "meta": {"name": "Maple Street HOA"}}).json()["address"]
 
 # 2. member (async) -> poll the members-job
-job = post(f"/organizations/{org}/members",
+job = post(f"/organizations/{org}/members?async=true",
            {"members": [{"name": "Alice", "memberNumber": "A-101",
                          "email": "alice@example.org", "weight": "1"}]}).json()["jobId"]
 while get(f"/jobs/{job}").json()["result"]["progress"] < 100:
@@ -280,7 +280,7 @@ process = post("/processes", {
     "census": {"authFields": ["memberNumber"], "groupId": group},
     "title": {"default": "Repaint the fence?"},
     "description": {"default": "Annual maintenance vote"},
-    "startDate": "2026-07-01T09:00:00Z", "endDate": "2026-07-08T09:00:00Z",
+    "startDate": "2027-07-01T09:00:00Z", "endDate": "2027-07-08T09:00:00Z",
     "questions": [{"title": {"default": "Repaint the fence?"},
                    "choices": [{"title": {"default": "Yes"}, "value": 0},
                                {"title": {"default": "No"}, "value": 1}],

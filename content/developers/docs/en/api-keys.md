@@ -63,19 +63,26 @@ explicitly.
 ## Managing keys
 
 Review and revoke keys in the [API Dashboard](https://platform.vocdoni.io). The same operations are
-available programmatically for multi-tenant provisioning:
+available programmatically for multi-tenant provisioning. They are **session-only**: an API key cannot
+manage keys, so authenticate as an admin user (`POST /auth/login`) and send that session token instead
+of a `vsk_` key.
 
 - **GET** `/integrator/organizations/{address}/apikeys`
 - **DELETE** `/integrator/organizations/{address}/apikeys/{keyID}`
 
 ```bash
-curl "${auth[@]}" "$B/integrator/organizations/$ORG/apikeys"                  # list
-curl "${auth[@]}" -X DELETE "$B/integrator/organizations/$ORG/apikeys/$KEYID" # revoke
+# $SESSION: the token returned by POST /auth/login for an admin user
+curl -H "Authorization: Bearer $SESSION" "$B/integrator/organizations/$ORG/apikeys"                  # list
+curl -H "Authorization: Bearer $SESSION" -X DELETE "$B/integrator/organizations/$ORG/apikeys/$KEYID" # revoke
 ```
 
 ```ts
-const keys = await client.organizations.listApiKeys(org) // list
-await client.organizations.revokeApiKey(org, keyId)       // revoke
+// A client authenticated with an admin's session token, not an API key
+const admin = new VocdoniApiClient({ apiUrl: '{{API_BASE_URL}}' })
+admin.setAuthToken((await admin.auth.login(email, password)).token)
+
+const keys = await admin.organizations.listApiKeys(org) // list
+await admin.organizations.revokeApiKey(org, keyId)      // revoke
 ```
 
 Listing returns only metadata (id, prefix, scopes, timestamps) - never the secret.

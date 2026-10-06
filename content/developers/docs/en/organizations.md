@@ -30,6 +30,11 @@ Create an organization with a few descriptive fields. The response returns the f
 including the `address` you use to scope later requests. To provision an organization on behalf of a
 customer, use the integrator flow in [Managed organizations](/developers/docs/managed-organizations).
 
+> [!NOTE] Session-only
+> Creating and updating an organization are not open to API keys - a `vsk_` key gets `403`. Call them
+> with a logged-in user's session token (`POST /auth/login`, or `client.auth.login()` in the SDK). As an
+> integrator, provision customers with [managed organizations](/developers/docs/managed-organizations).
+
 - **POST** `/organizations`
 
 | Field | Type | Description |
@@ -93,7 +98,7 @@ name = org["meta"]["name"]
 ## Updating organization info
 
 Update the descriptive metadata (name, type, and other `meta` fields). The on-chain identity - the
-`address` - never changes.
+`address` - never changes. Like creation, this needs a user session token, not an API key.
 
 ```bash
 curl "${auth[@]}" -X PUT "$B/organizations/$ORG" \

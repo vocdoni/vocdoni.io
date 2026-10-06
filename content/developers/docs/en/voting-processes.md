@@ -54,8 +54,8 @@ PROCESS=$(curl -s "${auth[@]}" -X POST "$B/processes" -d @- <<JSON | jq -r .proc
   "census": { "authFields": ["memberNumber"] },
   "title": { "default": "Board election 2026" },
   "description": { "default": "Elect the new board" },
-  "startDate": "2026-07-01T09:00:00Z",
-  "endDate": "2026-07-03T18:00:00Z",
+  "startDate": "2027-07-01T09:00:00Z",
+  "endDate": "2027-07-03T18:00:00Z",
   "questions": [
     {
       "title": { "default": "Who should chair the board?" },
@@ -84,8 +84,8 @@ const processId = await client.elections.create({
   census: { authFields: ['memberNumber'] },
   title: 'Board election 2026', // plain strings become { default: ... }
   description: 'Elect the new board',
-  startDate: '2026-07-01T09:00:00Z',
-  endDate: '2026-07-03T18:00:00Z',
+  startDate: '2027-07-01T09:00:00Z',
+  endDate: '2027-07-03T18:00:00Z',
   questions: [
     {
       title: 'Who should chair the board?',
@@ -103,7 +103,7 @@ var processId = (await Post("/processes", new {
     orgAddress = org,
     census = new { authFields = new[] { "memberNumber" } },
     title = new { @default = "Board election 2026" },
-    startDate = "2026-07-01T09:00:00Z", endDate = "2026-07-03T18:00:00Z",
+    startDate = "2027-07-01T09:00:00Z", endDate = "2027-07-03T18:00:00Z",
     questions = new[] { new {
         title = new { @default = "Who should chair the board?" },
         choices = new[] { new { title = new { @default = "Ada Lovelace" }, value = 0 },
@@ -116,7 +116,7 @@ processId = post("/processes", {
     "orgAddress": org,
     "census": {"authFields": ["memberNumber"]},
     "title": {"default": "Board election 2026"},
-    "startDate": "2026-07-01T09:00:00Z", "endDate": "2026-07-03T18:00:00Z",
+    "startDate": "2027-07-01T09:00:00Z", "endDate": "2027-07-03T18:00:00Z",
     "questions": [{
         "title": {"default": "Who should chair the board?"},
         "choices": [{"title": {"default": "Ada Lovelace"}, "value": 0},
@@ -201,7 +201,7 @@ const { processes } = await client.elections.list({ orgAddress: org, status: 'RE
   "id": "6a1f...", "orgAddress": "0x...", "published": true,
   "census": { "authFields": ["memberNumber"], "size": 500, "totalWeight": 500 },
   "title": { "default": "Board election 2026" },
-  "startDate": "2026-07-01T09:00:00Z", "endDate": "2026-07-03T18:00:00Z",
+  "startDate": "2027-07-01T09:00:00Z", "endDate": "2027-07-03T18:00:00Z",
   "questions": [{
     "id": "b2c3...", "upstreamId": "a1b2...64hex...", "parentProcessId": "6a1f...",
     "status": "READY", "type": "singlechoice",

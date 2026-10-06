@@ -28,13 +28,14 @@ fields. Provide whatever your authentication strategy needs; you do not have to 
 
 ## Adding members
 
-Member imports are **bulk and asynchronous**: the call returns a `jobId`, and you poll a members-job
-until it reports `progress: 100`.
+Member imports are **bulk**. Add `?async=true` (`{ async: true }` in the SDK) to run them as a job: the
+call returns a `jobId`, and you poll a members-job until it reports `progress: 100`. Without it the call
+imports synchronously and answers `{ "added": N }` with no `jobId`.
 
 - **POST** `/organizations/{address}/members`
 
 ```bash
-JOB=$(curl -s "${auth[@]}" -X POST "$B/organizations/$ORG/members" -d '{
+JOB=$(curl -s "${auth[@]}" -X POST "$B/organizations/$ORG/members?async=true" -d '{
   "members": [
     { "name": "Alice", "surname": "Doe", "email": "alice@example.org",
       "memberNumber": "A-101", "weight": "1" }
@@ -56,21 +57,22 @@ until [ "$(curl -s "${auth[@]}" "$B/jobs/$JOB" | jq -r .result.progress)" = "100
 ```ts
 const { jobId } = await client.organizations.addMembers(
   org,
-  [{ name: 'Alice', surname: 'Doe', email: 'alice@example.org', memberNumber: 'A-101', weight: 1 }],
+  [{ name: 'Alice', surname: 'Doe', email: 'alice@example.org', memberNumber: 'A-101' }], // weight defaults to 1
   { async: true },
 )
-// Resolves once the members-job completes; throws JobFailedError if it fails.
-if (jobId) await client.jobs.waitFor(jobId)
+// Polls the members-job: throws JobFailedError if it fails, or times out after 60s by default -
+// raise timeoutMs for large imports.
+if (jobId) await client.jobs.waitFor(jobId, { timeoutMs: 10 * 60_000 })
 ```
 ```csharp
-var job = (await Post($"/organizations/{org}/members",
+var job = (await Post($"/organizations/{org}/members?async=true",
     new { members = new[] { new { name = "Alice", memberNumber = "A-101", weight = "1" } } }))
     .GetProperty("jobId").GetString();
 while ((await Get($"/jobs/{job}")).GetProperty("result").GetProperty("progress").GetInt32() < 100)
     await Task.Delay(1000);
 ```
 ```python
-job = post(f"/organizations/{org}/members",
+job = post(f"/organizations/{org}/members?async=true",
            {"members": [{"name": "Alice", "memberNumber": "A-101", "weight": "1"}]}).json()["jobId"]
 while get(f"/jobs/{job}").json()["result"]["progress"] < 100:
     time.sleep(1)
