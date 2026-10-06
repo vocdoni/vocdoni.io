@@ -61,11 +61,13 @@ JOB=$(curl -s "${auth[@]}" -X POST "$B/organizations/$ORG/members?async=true" -d
   ]
 }' | jq -r .jobId)
 # a members-job never fails: a row that cannot be stored leaves it pending, so poll with a deadline
-for i in $(seq 120); do
-  [ "$(curl -s "${auth[@]}" "$B/jobs/$JOB" | jq -r .status)" = "completed" ] && break
-  [ "$i" = 120 ] && { echo "members-job $JOB did not complete" >&2; exit 1; }
-  sleep 1
-done
+if [ "$JOB" = "null" ]; then echo "no jobId - check the import response" >&2; else
+  for i in $(seq 120); do
+    [ "$(curl -s "${auth[@]}" "$B/jobs/$JOB" | jq -r .status)" = "completed" ] && break
+    [ "$i" = 120 ] && echo "members-job $JOB did not complete - do not build the census yet" >&2
+    sleep 1
+  done
+fi
 ```
 
 ## Create an all-members group
@@ -113,12 +115,15 @@ completes. Voters then cast ballots client-side - see [Casting votes](/developer
 
 ```bash
 PJOB=$(curl -s "${auth[@]}" -X POST "$B/processes/$PROCESS/publish" | jq -r .jobId)
-for i in $(seq 150); do
-  S=$(curl -s "$B/jobs/$PJOB" | jq -r .status)
-  [ "$S" = "completed" ] && break
-  if [ "$S" = "failed" ] || [ "$i" = 150 ]; then echo "publish job $PJOB: $S" >&2; exit 1; fi
-  sleep 2
-done
+# no jobId: the process was already published, or the publish was rejected
+if [ "$PJOB" = "null" ]; then echo "no jobId - check the publish response" >&2; else
+  for i in $(seq 150); do
+    S=$(curl -s "$B/jobs/$PJOB" | jq -r .status)
+    [ "$S" = "completed" ] && break
+    if [ "$S" = "failed" ] || [ "$i" = 150 ]; then echo "publish job $PJOB: $S" >&2; break; fi
+    sleep 2
+  done
+fi
 ```
 
 ## Read the results

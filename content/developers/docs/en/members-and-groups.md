@@ -46,11 +46,13 @@ JOB=$(curl -s "${auth[@]}" -X POST "$B/organizations/$ORG/members?async=true" -d
 
 # poll the members-job until done
 # a members-job never fails: a row that cannot be stored leaves it pending, so poll with a deadline
-for i in $(seq 120); do
-  [ "$(curl -s "${auth[@]}" "$B/jobs/$JOB" | jq -r .status)" = "completed" ] && break
-  [ "$i" = 120 ] && { echo "members-job $JOB did not complete" >&2; exit 1; }
-  sleep 1
-done
+if [ "$JOB" = "null" ]; then echo "no jobId - check the import response" >&2; else
+  for i in $(seq 120); do
+    [ "$(curl -s "${auth[@]}" "$B/jobs/$JOB" | jq -r .status)" = "completed" ] && break
+    [ "$i" = 120 ] && echo "members-job $JOB did not complete - do not build the census yet" >&2
+    sleep 1
+  done
+fi
 ```
 ```ts
 const { jobId } = await client.organizations.addMembers(

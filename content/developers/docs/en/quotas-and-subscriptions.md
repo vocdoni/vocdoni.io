@@ -26,7 +26,8 @@ curl "${auth[@]}" "$B/integrator"
 ```
 ```ts
 const { limits, usage } = await client.organizations.getIntegratorInfo()
-const orgsLeft = limits.maxManagedOrgs - usage.managedOrgs
+// limits is absent when the organization is not an integrator
+const orgsLeft = limits ? limits.maxManagedOrgs - usage.managedOrgs : 0
 ```
 ```csharp
 var q = await Get("/integrator");

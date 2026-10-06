@@ -85,15 +85,16 @@ curl "${auth[@]}" "$B/organizations/$ORG"
 ```
 ```ts
 const info = await client.organizations.get(org)
-const name = info.name?.default // a locale map, like meta.name
+const name = info.name?.default // a locale map, absent when the org has no name
 ```
 ```csharp
 var info = await Get($"/organizations/{org}");
-var name = info.GetProperty("name").GetProperty("default").GetString(); // a locale map
+// a locale map, absent when the org has no name
+var name = info.TryGetProperty("name", out var n) && n.TryGetProperty("default", out var d) ? d.GetString() : null;
 ```
 ```python
 info = get(f"/organizations/{org}").json()
-name = info["name"]["default"]  # a locale map, like meta.name
+name = info.get("name", {}).get("default")  # a locale map, absent when the org has no name
 ```
 :::
 

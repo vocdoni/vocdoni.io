@@ -274,12 +274,15 @@ Either all questions publish or none do.
 
 ```bash
 PJOB=$(curl -s "${auth[@]}" -X POST "$B/processes/$PROCESS/publish" | jq -r .jobId)
-for i in $(seq 150); do
-  S=$(curl -s "$B/jobs/$PJOB" | jq -r .status)
-  [ "$S" = "completed" ] && break
-  if [ "$S" = "failed" ] || [ "$i" = 150 ]; then echo "publish job $PJOB: $S" >&2; exit 1; fi
-  sleep 2
-done
+# no jobId: the process was already published, or the publish was rejected
+if [ "$PJOB" = "null" ]; then echo "no jobId - check the publish response" >&2; else
+  for i in $(seq 150); do
+    S=$(curl -s "$B/jobs/$PJOB" | jq -r .status)
+    [ "$S" = "completed" ] && break
+    if [ "$S" = "failed" ] || [ "$i" = 150 ]; then echo "publish job $PJOB: $S" >&2; break; fi
+    sleep 2
+  done
+fi
 ```
 ```ts
 // Publishes and polls the job; throws JobFailedError if the publish fails.
@@ -419,6 +422,7 @@ JSON
 ```ts
 // one question
 const { jobId } = await client.elections.setQuestionStatus(processId, questionId, 'ENDED')
+await client.jobs.waitFor(jobId)
 
 // many questions (omit "questions" to target all published questions)
 const bulk = await client.elections.bulkSetQuestionStatus(processId, {
