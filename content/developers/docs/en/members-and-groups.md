@@ -123,6 +123,20 @@ const { members, pagination } = await client.organizations.listMembers(org, 1)
   "pagination": { "currentPage": 1, "lastPage": 1, "totalItems": 1 } }
 ```
 
+The list is ordered by `name` ascending unless you pass `sortBy` (`name`, `surname`, `email` or
+`memberNumber`) and `sortOrder` (`asc` or `desc`); an unknown value is a `400` (error code `40010`).
+Ordering ignores case and accents and compares digit runs as numbers (`63` before `273`). Ties are
+broken by the member id (after the other name field, when sorting by `name` or `surname`), so pages
+stay stable while you walk them. `search` narrows the list to members whose fields match a term.
+
+```bash
+curl "${auth[@]}" "$B/organizations/$ORG/members?sortBy=memberNumber&sortOrder=desc&limit=100"
+```
+
+> [!NOTE] Not in the SDK yet
+> `client.organizations.listMembers()` sends only the page: the SDK does not wrap this endpoint's
+> `limit`, `search`, `sortBy` or `sortOrder` parameters yet.
+
 :::code-tabs[walk every page]
 
 ```python
@@ -207,12 +221,13 @@ Malformed or unknown ids in the delete body are ignored rather than failing the 
 
 A group is a named subset of members. The common case is an **all-members group**, which a process
 [census](/developers/docs/census) can reference by `groupId` to include everyone. You can also build a
-group from explicit member ids, and validate that its members carry the fields a census will require.
+group from explicit member ids. To check that a group's members carry the fields a census will
+require, [validate the census](/developers/docs/census#validating-a-census) with its `groupId` - the
+per-group validation endpoint of earlier API versions is gone.
 
 - **GET** `/organizations/{address}/groups`
 - **POST** `/organizations/{address}/groups`
 - **PUT** `/organizations/{address}/groups/{groupID}`
-- **POST** `/organizations/{address}/groups/{groupID}/validate`
 
 :::code-tabs[create an all-members group]
 

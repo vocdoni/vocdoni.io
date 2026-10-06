@@ -64,10 +64,15 @@ combined with any of them:
 - `authFields` options: `name`, `surname`, `memberNumber`, `nationalId`, `birthDate`.
 - `twoFaFields` options: `email`, `phone`.
 
-> [!WARNING] The identifying field must be unique
-> Whatever field identifies a voter - an `authFields` value like `memberNumber` on an auth-only census,
-> or the `email`/`phone` used for the code - must be **unique** across the members you include;
-> duplicates fail the publish [readiness check](/developers/docs/voting-processes#checking-readiness).
+> [!WARNING] Every voter needs complete, unique login data
+> Whatever identifies a voter - the `authFields` values, plus the `email`/`phone` used for the code -
+> must be **unique** across the members you include. Members the census cannot tell apart (equal data,
+> including values that differ only by case) make `POST /processes` and `PUT /processes/{processId}`
+> fail with `400` (error code `40037`) and their ids in `data.duplicates`. Members missing the data
+> instead - an empty or whitespace-only auth field, or no 2FA channel - are **left out** of the census
+> and listed in the response's `missingData`; they cannot log in and do not count toward the census
+> size. See [Creating a process](/developers/docs/voting-processes#creating-a-process), and
+> [validate the census](#validating-a-census) first to catch both.
 
 > [!NOTE] Weighted voting
 > Set `"weighted": true` to make each member's `weight` count as their vote weight - use it for
@@ -97,8 +102,7 @@ for the voter flow.
 
 One consequence to plan for: the CSP never learns the voter's address or nullifier, so
 [`sign-info`](/developers/docs/casting-votes#voter-status) cannot return them - a vote receipt exists
-only in the session that cast it. Anonymous voting is gated by your plan's `anonymous` feature - see
-[Quotas and subscriptions](/developers/docs/quotas-and-subscriptions).
+only in the session that cast it. Anonymous voting through the blind CSP is available on every plan.
 
 ## Per-question eligibility
 
@@ -128,7 +132,10 @@ building multiple censuses.
 ## Validating a census
 
 Dry-run a census spec before you create the process. It flags the common problems - duplicate or
-missing auth-field data across the members it resolves - without creating anything.
+missing auth-field data across the members it resolves - without creating anything. A field that is
+empty or only whitespace counts as missing, and a member with missing data is reported in
+`missingData`, never in `duplicates`. It also replaces the per-group validation endpoint of earlier API
+versions: to check a group, pass its `groupId`.
 
 - **POST** `/processes/census/validation`
 
@@ -151,8 +158,12 @@ await client.elections.validateCensus({
 ```
 :::
 
-A usable census answers a bare `200`; an unusable one is a `400` whose `data` carries the offending
-member ids.
+A usable census answers a bare `200`; an unusable one is a `400` (error code `40037`) whose `data`
+lists the offending member ids in `duplicates`, `missingData` and, for an explicit `memberIds` list,
+`notFound`. The same code also answers a malformed request - a census with neither `authFields` nor
+`twoFaFields`, an unknown group or a malformed member id - and then `data` carries no lists, so check
+for them before reading them. The dry-run is stricter than creating the process: members with missing
+data fail it, while `POST /processes` leaves them out of the census and goes ahead.
 
 ## Kept in sync with the memberbase
 

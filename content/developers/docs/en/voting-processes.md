@@ -31,6 +31,7 @@ descriptions are [multilanguage strings](/developers/docs/api-conventions#multil
 | `endDate` (required) | string (ISO 8601) | When voting closes. |
 | `header` | string | Optional banner image URL. |
 | `streamUri` | string | Optional live-stream URL. |
+| `initialStatus` | string | On-chain status the questions publish with: `READY` (the default, voting opens at `startDate`) or `PAUSED` (voting stays closed until you set each question to `READY`). See [Publishing paused](#publishing-paused). |
 | `questions` (required) | array | 1..N questions (see below). Each becomes one on-chain election. |
 
 Each **question** shapes one ballot:
@@ -123,7 +124,31 @@ processId = post("/processes", {
 
 ```jsonc
 { "processId": "6a1f..." }   // 200 - carry forward
+{ "processId": "6a1f...", "missingData": ["665f...", "6660..."] }   // some members left out
 ```
+
+The census is built when the draft is created, and two kinds of member are handled there rather than
+at publish:
+
+- **Members missing the data to log in** - an empty or whitespace-only `authFields` value, or no
+  channel at all for the `twoFaFields` - could never authenticate, so they are **left out** of the
+  census and their member ids come back in `missingData`. The draft is still created; fix their data
+  and update the draft (or, once published, [grow the census](#growing-the-census)), or ignore them.
+  `missingData` is absent when nobody was left out.
+- **Members the census cannot tell apart** - the same login data as another member, including values
+  that differ only by case, or as a participant already in the census - are refused: the request
+  fails with `400` (error code `40037`) and their ids in `data.duplicates`, and nothing is created.
+
+> [!NOTE] Not in the SDK yet
+> `client.elections.create()` resolves to the `processId` alone and `client.elections.update()` to
+> nothing, so both drop `missingData`. Check the census with
+> [`validateCensus()`](/developers/docs/census#validating-a-census) first if you need to know who would
+> be left out.
+
+> [!WARNING] Not on your integrator organization
+> Your integrator's own top-level organization cannot own processes - creating one there fails with
+> `403` (error code `40174`). Create processes inside a
+> [managed organization](/developers/docs/managed-organizations) instead.
 
 > [!NOTE] Collecting a free-text answer
 > To give a question an "Other" free-text option, mark one of its choices `"openValue": true`. See
@@ -134,7 +159,13 @@ processId = post("/processes", {
 ## Editing a draft
 
 While a process is unpublished you can replace its fields with the same body. Once published it is
-immutable - the update returns `409`.
+immutable - the update returns `409`. The census is rebuilt as on create, so the response carries the
+same `{ processId, missingData }` shape and refuses indistinguishable members the same way.
+
+To stop two editors overwriting each other, send the `updatedAt` you read from
+`GET /processes/{processId}` in the body: the update is then rejected with `409` (error code `40171`) if
+anything wrote the process in between. Without it the last write wins. The SDK types do not carry
+`updatedAt` yet.
 
 - **PUT** `/processes/{processId}`
 
@@ -166,7 +197,8 @@ await client.elections.delete(processId)
 
 `GET /processes/{processId}` returns the process with every question **fully hydrated** (`upstreamId`,
 synced `status`, and live per-question results). `GET /processes` lists them paginated, filterable by
-`orgAddress` and question `status`.
+`orgAddress`, question `status`, and `published` (`true` for published processes only, `false` for
+drafts only, which needs a manager/admin).
 
 These reads are **public for published processes** - anyone can read them, no API key. Three things are
 gated to a **manager/admin** of the org (or a `voting:write` API key acting as one):
@@ -236,10 +268,32 @@ is absent only for a **draft** (no election yet). A published question with no v
 `memos` array inside this object; it is absent for everyone else. The `GET /processes` **list** does
 not resolve results. See [Results](/developers/docs/results).
 
+A question that was **ended early** - set to `ENDED` before its `endDate` - carries **`endedAt`**, the
+moment its election actually stopped accepting votes. The process carries an `endedAt` too, the latest
+of its questions', but only once every published question has one. Both are absent while voting is open
+and when a question ran to its scheduled end, so display the close time as `endedAt ?? endDate`.
+The values are stored, so the list carries them too - except for an older vote ended early, which gets
+them only once its detail (`GET /processes/{processId}`) or one of its questions
+(`GET /processes/{processId}/questions/{questionId}`) has been read.
+
 The `census` object also carries response-only **`size`** (eligible-voter count, on every read) and
 **`totalWeight`** (the sum of members' weights - equals `size` for a non-weighted census), the
 denominator for turning weighted results into percentages. `totalWeight` is resolved only on the
 **detail read** `GET /processes/{processId}` (not the list) and is absent when it cannot be computed.
+
+### Elections from the previous API
+
+Elections created before the `/processes` API also show up in these reads, as **read-only
+projections** marked `legacy: true`. `GET /processes?orgAddress=...` lists them after the stored
+processes (`pagination.totalItems` counts them), and `GET /processes/{processId}` accepts either a
+`processId` or the election's 64-hex on-chain id. Their questions may share one `upstreamId` (one
+election held the whole ballot). When the election's ballot parameters map onto its single questions,
+each question carries the `ballotProtocol` read from the chain, and a `type` when that protocol matches
+a named type, so its results read the same way as any other question's; with no named type, a
+`typeSetup` may still be filled from the election metadata. When the parameters do not map,
+`ballotProtocol` is absent, `type` is empty and `typeSetup` is zeroed. The `results` object is always there, but its inner
+`results` matrix is left out when the tally cannot be split per question. They cannot be edited or
+published through `/processes`. The SDK types do not carry the `legacy` flag yet.
 
 ## Checking readiness
 
@@ -291,8 +345,39 @@ await client.elections.publishAndWait(processId, { timeoutMs: 5 * 60_000 })
 ```
 :::
 
-On success each question gains its `upstreamId` and a `status` of `READY`, and the process flips to
-`published: true`. Re-read the process to get the `upstreamId`s that voters sign against.
+On success each question gains its `upstreamId` and a `status` of `READY` (or `PAUSED`, see below),
+and the process flips to `published: true`. Re-read the process to get the `upstreamId`s that voters
+sign against.
+
+### Publishing paused
+
+Set `"initialStatus": "PAUSED"` on the draft to publish every question **paused**: the elections exist
+on chain, but voting does not open - not even at `startDate` - until you set each question to `READY`
+with a [status change](#changing-status). Use it when an organizer must open the vote by hand. Only
+`READY` (the default) and `PAUSED` are accepted; anything else is a `400`. Reads echo the value as
+`initialStatus` (absent for the default); it records how the process was published, not the questions'
+current status.
+
+:::code-tabs[publish paused, open later]
+
+```bash
+# the draft is created (or updated) with "initialStatus": "PAUSED" alongside the usual fields
+curl "${auth[@]}" -X PUT "$B/processes/$PROCESS" -d '{ ...same shape as create..., "initialStatus": "PAUSED" }'
+# publish as usual: every question lands PAUSED
+curl "${auth[@]}" -X POST "$B/processes/$PROCESS/publish"
+# later, open the vote on every published question
+curl "${auth[@]}" -X PUT "$B/processes/$PROCESS/questions/status" -d '{"status":"READY"}'
+```
+```ts
+// draft: the same shape you passed to create. initialStatus is not in the SDK types yet, so cast;
+// the client sends it through as is
+await client.elections.update(processId, { ...draft, initialStatus: 'PAUSED' } as typeof draft)
+await client.elections.publishAndWait(processId, { timeoutMs: 5 * 60_000 })
+// later, open the vote on every published question
+const { jobId } = await client.elections.bulkSetQuestionStatus(processId, { status: 'READY' })
+await client.jobs.waitFor(jobId)
+```
+:::
 
 ## Managing a published census
 

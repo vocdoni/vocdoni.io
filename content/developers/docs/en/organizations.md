@@ -23,6 +23,7 @@ update it; creating and deleting managed organizations is covered in
 | `address` | hex string | The organization's on-chain account. It identifies the org in every path and is the value you carry forward after creation. See [Identifiers](/developers/docs/api-conventions#identifiers). |
 | `type` | string | A free-form classification, for example `association`, `company` or `cooperative`. |
 | `meta` | object | A free-form metadata map - at minimum a `name`. Display values are [multilanguage strings](/developers/docs/api-conventions#multilanguage-strings). |
+| `defaultLang` | string | Language of the emails and SMS sent on the organization's behalf, such as voter one-time codes. See [Notification language](#notification-language). |
 
 ## Creating an organization
 
@@ -45,6 +46,7 @@ customer, use the integrator flow in [Managed organizations](/developers/docs/ma
 | `country` | string | Country code for the organization. |
 | `timezone` | string | Default timezone used for election scheduling. |
 | `website` | string | Public website URL. |
+| `defaultLang` | string | [Notification language](#notification-language). Defaults to `en`. |
 
 :::code-tabs
 
@@ -112,15 +114,43 @@ Update the descriptive metadata (name, type, and other `meta` fields). The on-ch
 
 ```bash
 curl -H "Authorization: Bearer $SESSION" -H "Content-Type: application/json" -X PUT "$B/organizations/$ORG" \
-  -d '{"type":"association","meta":{"name":"Maple Street HOA","city":"Springfield"}}'
+  -d '{"type":"association","defaultLang":"es","meta":{"name":"Maple Street HOA","city":"Springfield"}}'
 ```
 ```ts
 await session.organizations.update(org, { // the user-session client from above
   type: 'association',
+  defaultLang: 'es',
   meta: { name: 'Maple Street HOA', city: 'Springfield' },
-})
+} as Parameters<typeof session.organizations.update>[1]) // defaultLang is not in the SDK types yet
 ```
 :::
+
+## Notification language
+
+Every organization has a `defaultLang`: the language of the emails and SMS sent on its behalf, such
+as the one-time codes voters receive and member import reports. It defaults to `en` at creation; set
+another one on create or update (sending it empty on update leaves it unchanged, it cannot be
+cleared). An unsupported value is a `400`. `GET /organizations/languages` lists the supported
+languages and the fallback default, and needs no authentication.
+
+- **GET** `/organizations/languages`
+
+```bash
+curl "$B/organizations/languages"
+```
+
+```jsonc
+{ "languages": ["en", "es", "ca"], "default": "en" }
+```
+
+> [!NOTE] Not in the SDK yet
+> `@vocdoni/api-client` does not wrap this endpoint yet, and its organization types do not carry
+> `defaultLang`: pass it on create or update with a cast, as the client sends the body through as is.
+
+On the **public** endpoints, where the caller is the person being notified - a voter requesting a
+one-time code, for example - a supported `?lang=` query parameter wins over `defaultLang`, so the
+code arrives in the language of the voting UI. The SDK sends it for you when the client is created
+with a `lang` option. On authenticated endpoints, `defaultLang` always wins.
 
 ## The integrator relationship
 
