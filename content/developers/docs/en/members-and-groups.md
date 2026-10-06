@@ -34,6 +34,8 @@ imports synchronously and answers `{ "added": N }` with no `jobId`.
 
 - **POST** `/organizations/{address}/members`
 
+:::code-tabs[add members (async)]
+
 ```bash
 JOB=$(curl -s "${auth[@]}" -X POST "$B/organizations/$ORG/members?async=true" -d '{
   "members": [
@@ -50,15 +52,6 @@ for i in $(seq 120); do
   sleep 1
 done
 ```
-
-```jsonc
-// GET /jobs/{jobId}
-{ "type": "org_members", "status": "completed",
-  "result": { "added": 1, "total": 1, "progress": 100 } }   // errors omitempty: absent when empty
-```
-
-:::code-tabs[add members (async)]
-
 ```ts
 const { jobId } = await client.organizations.addMembers(
   org,
@@ -94,6 +87,12 @@ else:
 ```
 :::
 
+```jsonc
+// GET /jobs/{jobId}
+{ "type": "org_members", "status": "completed",
+  "result": { "added": 1, "total": 1, "progress": 100 } }   // errors omitempty: absent when empty
+```
+
 > [!WARNING] Wait for the import job
 > Don't build the census until the members-job reaches `progress: 100` - the participants won't be
 > there yet. A members-job never reports `failed`: when a row cannot be stored the job stays `pending`
@@ -106,16 +105,23 @@ The list is **paginated** (default `limit` is small) - see
 [Pagination](/developers/docs/api-conventions#pagination). Walk every page so large memberbases aren't
 silently truncated.
 
+:::code-tabs
+
 ```bash
 curl "${auth[@]}" "$B/organizations/$ORG/members?page=1&limit=100"
 ```
+```ts
+// the SDK sends only the page; the backend default page size applies
+const { members, pagination } = await client.organizations.listMembers(org, 1)
+```
+:::
 
 ```jsonc
 { "members": [ { "id": "...", "memberNumber": "A-101", "name": "Alice" } ],
   "pagination": { "currentPage": 1, "lastPage": 1, "totalItems": 1 } }
 ```
 
-**Python · walk every page**
+:::code-tabs[walk every page]
 
 ```python
 members, page = [], 1
@@ -127,9 +133,6 @@ while True:
         break
     page += 1
 ```
-
-**TypeScript · walk every page**
-
 ```ts
 const members = []
 for (let page = 1; ; page++) {
@@ -139,6 +142,7 @@ for (let page = 1; ; page++) {
   if (!r.members.length || !p || p.currentPage >= p.lastPage) break
 }
 ```
+:::
 
 ## Updating and deleting members
 
@@ -151,12 +155,13 @@ Update a single member, or delete members by id. Note the delete path is **plura
 An update rewrites `weight` too: leave it out and the member's weight resets to `1`, which changes
 their vote in a weighted census. Always resend the member's current weight.
 
+:::code-tabs
+
 ```bash
 curl "${auth[@]}" -X PUT "$B/organizations/$ORG/members" \
   -d '{"id":"<memberId>","memberNumber":"A-101","email":"alice@example.org","weight":"1"}'
 curl "${auth[@]}" -X DELETE "$B/organizations/$ORG/members" -d '{"ids":["<memberId>"]}'
 ```
-
 ```ts
 // Resend the current weight: an update without it resets the member to 1. The API wants a string,
 // while the SDK types it as a number, so cast until the SDK type is fixed.
@@ -168,6 +173,7 @@ await client.organizations.upsertMember(org, {
 })
 await client.organizations.deleteMembers(org, { ids: [memberId] })
 ```
+:::
 
 Member and group changes **cascade to the censuses of ongoing processes** - the memberbase is the
 source of truth (see [Census](/developers/docs/census#kept-in-sync-with-the-memberbase)). Two
@@ -195,17 +201,12 @@ group from explicit member ids, and validate that its members carry the fields a
 - **PUT** `/organizations/{address}/groups/{groupID}`
 - **POST** `/organizations/{address}/groups/{groupID}/validate`
 
+:::code-tabs[create an all-members group]
+
 ```bash
 GROUP=$(curl -s "${auth[@]}" -X POST "$B/organizations/$ORG/groups" \
   -d '{"title":"All voters","includeAllMembers":true}' | jq -r .id)
 ```
-
-```jsonc
-{ "id": "665f..." }   // carry forward: group id
-```
-
-:::code-tabs[create an all-members group]
-
 ```ts
 const { id: group } = await client.organizations.createGroup(org, {
   title: 'All voters',
@@ -221,6 +222,10 @@ group = post(f"/organizations/{org}/groups",
              {"title": "All voters", "includeAllMembers": True}).json()["id"]
 ```
 :::
+
+```jsonc
+{ "id": "665f..." }   // carry forward: group id
+```
 
 ## Gotchas
 

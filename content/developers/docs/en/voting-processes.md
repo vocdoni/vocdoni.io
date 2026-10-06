@@ -46,6 +46,8 @@ Each **question** shapes one ballot:
 | `census` | object | Optional eligibility subset (`groupId`/`memberIds`) within the process census. Omit to include all census members. |
 | `secretUntilTheEnd` | boolean | Keep this question's tally encrypted until it ends. |
 
+:::code-tabs[create a process]
+
 ```bash
 # draft created, published:false
 PROCESS=$(curl -s "${auth[@]}" -X POST "$B/processes" -d @- <<JSON | jq -r .processId
@@ -70,13 +72,6 @@ PROCESS=$(curl -s "${auth[@]}" -X POST "$B/processes" -d @- <<JSON | jq -r .proc
 JSON
 )
 ```
-
-```jsonc
-{ "processId": "6a1f..." }   // 200 - carry forward
-```
-
-:::code-tabs[create a process]
-
 ```ts
 // draft created, published:false - resolves to the processId
 const processId = await client.elections.create({
@@ -126,6 +121,10 @@ processId = post("/processes", {
 ```
 :::
 
+```jsonc
+{ "processId": "6a1f..." }   // 200 - carry forward
+```
+
 > [!NOTE] Collecting a free-text answer
 > To give a question an "Other" free-text option, mark one of its choices `"openValue": true`. See
 > [Open-value choices](/developers/docs/voting-types#open-value-choices) for which types allow it and
@@ -139,25 +138,29 @@ immutable - the update returns `409`.
 
 - **PUT** `/processes/{processId}`
 
+:::code-tabs
+
 ```bash
 curl "${auth[@]}" -X PUT "$B/processes/$PROCESS" -d '{ ...same shape as create... }'
 ```
-
 ```ts
 await client.elections.update(processId, draft) // draft: the same shape you passed to create
 ```
+:::
 
 Delete a draft you no longer need (allowed only while unpublished):
 
 - **DELETE** `/processes/{processId}`
 
+:::code-tabs
+
 ```bash
 curl "${auth[@]}" -X DELETE "$B/processes/$PROCESS"
 ```
-
 ```ts
 await client.elections.delete(processId)
 ```
+:::
 
 ## Reading a process
 
@@ -181,13 +184,14 @@ gated to a **manager/admin** of the org (or a `voting:write` API key acting as o
 - **GET** `/processes`
 - **GET** `/processes/{processId}/questions/{questionId}`
 
+:::code-tabs
+
 ```bash
 # public read of a published process (no auth)
 curl -s "$B/processes/$PROCESS"
 # a manager (or voting:write key) also sees drafts and eligibleMemberIds
 curl -s "${auth[@]}" "$B/processes?orgAddress=$ORG&status=READY&page=1"
 ```
-
 ```ts
 // public read of a published process (no authToken)
 const anon = new VocdoniApiClient({ apiUrl: '{{API_BASE_URL}}' })
@@ -196,6 +200,7 @@ const question = await anon.elections.getQuestion(processId, questions[0].id)
 // a manager (or voting:write key) also sees drafts and eligibleMemberIds
 const { processes } = await client.elections.list({ orgAddress: org, status: 'READY', page: 1 })
 ```
+:::
 
 ```jsonc
 {
@@ -243,13 +248,15 @@ missing (dates, choices, a resolvable census, ballot params within your plan).
 
 - **GET** `/processes/{processId}/validation`
 
+:::code-tabs
+
 ```bash
 curl "${auth[@]}" "$B/processes/$PROCESS/validation"
 ```
-
 ```ts
 const { valid, errors } = await client.elections.validate(processId)
 ```
+:::
 
 ```jsonc
 { "valid": true, "errors": [] }
@@ -263,6 +270,8 @@ Either all questions publish or none do.
 
 - **POST** `/processes/{processId}/publish`
 
+:::code-tabs
+
 ```bash
 PJOB=$(curl -s "${auth[@]}" -X POST "$B/processes/$PROCESS/publish" | jq -r .jobId)
 for i in $(seq 150); do
@@ -272,12 +281,12 @@ for i in $(seq 150); do
   sleep 2
 done
 ```
-
 ```ts
 // Publishes and polls the job; throws JobFailedError if the publish fails.
 // The wait gives up after 60s by default while the publish carries on; allow longer.
 await client.elections.publishAndWait(processId, { timeoutMs: 5 * 60_000 })
 ```
+:::
 
 On success each question gains its `upstreamId` and a `status` of `READY`, and the process flips to
 `published: true`. Re-read the process to get the `upstreamId`s that voters sign against.
@@ -300,17 +309,19 @@ unaffected.
 
 - **PUT** `/processes/{processId}/census`
 
+:::code-tabs
+
 ```bash
 curl "${auth[@]}" -X PUT "$B/processes/$PROCESS/census" -d '{"memberIds":["<id1>","<id2>"]}'
 ```
-
-```jsonc
-{ "added": 2, "jobId": "e5f6a7..." }   // poll /jobs/{jobId} for the resize
-```
-
 ```ts
 const { added, jobId } = await client.elections.addCensusMembers(processId, ['<id1>', '<id2>'])
 if (jobId) await client.jobs.waitFor(jobId) // the on-chain resize
+```
+:::
+
+```jsonc
+{ "added": 2, "jobId": "e5f6a7..." }   // poll /jobs/{jobId} for the resize
 ```
 
 ### Removing members from the census
@@ -391,6 +402,8 @@ question has been tallied - a terminal state you observe but cannot set.
 - **PUT** `/processes/{processId}/questions/{questionId}/status`
 - **PUT** `/processes/{processId}/questions/status`
 
+:::code-tabs
+
 ```bash
 # one question
 curl "${auth[@]}" -X PUT "$B/processes/$PROCESS/questions/$QID/status" -d '{"status":"ENDED"}'
@@ -403,11 +416,6 @@ curl "${auth[@]}" -X PUT "$B/processes/$PROCESS/questions/status" -d @- <<JSON
 }
 JSON
 ```
-
-```jsonc
-{ "jobId": "d4e5f6..." }   // 202 - poll /jobs/{jobId}
-```
-
 ```ts
 // one question
 const { jobId } = await client.elections.setQuestionStatus(processId, questionId, 'ENDED')
@@ -418,6 +426,11 @@ const bulk = await client.elections.bulkSetQuestionStatus(processId, {
   questions: [{ id: questionId }],
 })
 await client.jobs.waitFor(bulk.jobId)
+```
+:::
+
+```jsonc
+{ "jobId": "d4e5f6..." }   // 202 - poll /jobs/{jobId}
 ```
 
 > [!TIP] Reading results

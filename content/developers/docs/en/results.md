@@ -28,9 +28,24 @@ value). Per-question status and dates are not returned here - read those from th
 
 - **GET** `/processes/{processId}/results`
 
+:::code-tabs[read results]
+
 ```bash
 curl -s "$B/processes/$PROCESS/results"
 ```
+```ts
+const r = await client.elections.getResults(processId)
+const votes = r.questions[0].voteCount
+```
+```csharp
+var r = await Get($"/processes/{process}/results");
+int votes = r.GetProperty("questions")[0].GetProperty("voteCount").GetInt32();
+```
+```python
+r = get(f"/processes/{process}/results").json()
+votes = r["questions"][0]["voteCount"]
+```
+:::
 
 ```jsonc
 {
@@ -69,22 +84,6 @@ curl -s "$B/processes/$PROCESS/results"
 > vs final. The object is absent only for a draft. The `GET /processes` **list** endpoint does not
 > resolve it, so an absent `results` in a list response means "not resolved here", not "not final".
 
-:::code-tabs[read results]
-
-```ts
-const r = await client.elections.getResults(processId)
-const votes = r.questions[0].voteCount
-```
-```csharp
-var r = await Get($"/processes/{process}/results");
-int votes = r.GetProperty("questions")[0].GetProperty("voteCount").GetInt32();
-```
-```python
-r = get(f"/processes/{process}/results").json()
-votes = r["questions"][0]["voteCount"]
-```
-:::
-
 > [!NOTE] Live versus final results
 > While a question is running, results reflect votes counted so far unless it was set
 > `secretUntilTheEnd`. Once it ends, `finalResults` becomes true and the tally no longer changes.
@@ -111,18 +110,20 @@ same `200` with `memos` simply absent, never a `401`, so an anonymous client can
 open-value question from an ordinary one by its results. This is the
 [optional authentication](/developers/docs/api-conventions#optional-authentication) pattern.
 
+:::code-tabs
+
 ```bash
 # same URL, two answers: no key -> no memos; manager key -> memos
 curl -s "$B/processes/$PROCESS/results"
 curl -s -H "Authorization: Bearer $TOKEN" "$B/processes/$PROCESS/results"
 ```
-
 ```ts
 // same call, two answers: a client without authToken gets no memos; a manager key gets them
 const { questions } = await client.elections.getResults(processId)
 // memos is not in the SDK's result types yet; it is absent unless the caller is a manager
 const memos = (questions[0] as { memos?: string[] }).memos ?? []
 ```
+:::
 
 ```jsonc
 {

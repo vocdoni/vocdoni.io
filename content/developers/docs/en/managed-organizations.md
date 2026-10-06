@@ -32,18 +32,12 @@ Requires the `managed:write` [scope](/developers/docs/api-keys).
 
 - **POST** `/integrator/organizations`
 
+:::code-tabs[create a managed org]
+
 ```bash
 ORG=$(curl -s "${auth[@]}" -X POST "$B/integrator/organizations" \
   -d '{"type":"association","meta":{"name":"Maple Street HOA"}}' | jq -r .address)
 ```
-
-```jsonc
-// carry forward: address (hex string)
-{ "address": "0x4a3b...", "type": "association", "meta": { "name": "Maple Street HOA" } }
-```
-
-:::code-tabs[create a managed org]
-
 ```ts
 const { address: org } = await client.organizations.createManaged({
   name: 'Maple Street HOA',
@@ -60,6 +54,12 @@ org = post("/integrator/organizations",
 ```
 :::
 
+```jsonc
+// carry forward: address (hex string)
+{ "address": "0x4a3b...", "type": "association", "name": { "default": "Maple Street HOA" },
+  "meta": { "name": { "default": "Maple Street HOA" } } }
+```
+
 ## Listing managed organizations
 
 Paginated (see [Pagination](/developers/docs/api-conventions#pagination)); requires the `managed:read`
@@ -67,17 +67,20 @@ scope.
 
 - **GET** `/integrator/organizations`
 
+:::code-tabs
+
 ```bash
 curl "${auth[@]}" "$B/integrator/organizations?page=1&limit=10"
 ```
-
-```jsonc
-{ "organizations": [ { "address": "0x4a3b...", "meta": { "name": "Maple Street HOA" } } ],
-  "pagination": { "currentPage": 1, "lastPage": 1, "totalItems": 1 } }
-```
-
 ```ts
 const { organizations, pagination } = await client.organizations.listManaged(1)
+```
+:::
+
+```jsonc
+{ "organizations": [ { "address": "0x4a3b...", "name": { "default": "Maple Street HOA" },
+  "meta": { "name": { "default": "Maple Street HOA" } } } ],
+  "pagination": { "currentPage": 1, "lastPage": 1, "totalItems": 1 } }
 ```
 
 ## Deleting a managed organization
@@ -87,16 +90,18 @@ processes, CSP tokens, jobs, invites) and rolls back your usage counters, freein
 
 - **DELETE** `/integrator/organizations/{orgAddress}`
 
+:::code-tabs
+
 ```bash
 curl "${auth[@]}" -X DELETE "$B/integrator/organizations/$ORG"
 ```
+```ts
+await client.organizations.deleteManaged(org)
+```
+:::
 
 ```jsonc
 { "address": "0x4a3b..." }   // 200 OK
-```
-
-```ts
-await client.organizations.deleteManaged(org)
 ```
 
 > [!WARNING] 409 if questions are still active

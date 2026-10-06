@@ -472,16 +472,18 @@ voter by their verified `authToken`:
   [anonymous census](/developers/docs/census#anonymous-voting) the entries omit `address` and
   `nullifier` - the CSP never learns them.
 
+:::code-tabs
+
 ```bash
 curl -X POST "$B/processes/$PROCESS/check" -d '{ "authToken": "<authToken>" }'
 # -> { "belongsToProcess": true, "weight": "1",
 #      "questions": [ { "questionId": "...", "upstreamId": "...", "canVote": true, "hasVoted": false } ] }
 ```
-
 ```ts
 const { belongsToProcess, weight, questions } = await client.elections.check(processId, { authToken })
 const receipts = await client.elections.signInfo(processId, { authToken })
 ```
+:::
 
 Looking up whether specific members voted is an admin task, not a voter one:
 

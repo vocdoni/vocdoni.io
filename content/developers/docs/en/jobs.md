@@ -18,9 +18,15 @@ dashboard session) - scoped API keys are treated as anonymous on this endpoint.
 
 - **GET** `/jobs/{jobId}`
 
+:::code-tabs
+
 ```bash
 curl -s "$B/jobs/$JOBID"     # public: status + counters (per-row errors only for a manager session)
 ```
+```ts
+const job = await client.jobs.get(jobId) // a single poll; see below to poll to completion
+```
+:::
 
 ```jsonc
 { "jobId": "a1b2c3...",
@@ -100,14 +106,16 @@ A bulk member add is an `org_members` job - poll the same generic `GET /jobs/{jo
 carries the import counters (`added`, `total`, `progress`); top-level `errors` carries any per-row
 failures:
 
+:::code-tabs
+
 ```bash
 curl -s "${auth[@]}" "$B/jobs/$JOBID"
 ```
-
 ```ts
 const job = await client.jobs.get(jobId) // a single poll; jobs.waitFor(jobId) polls to completion
 const { added, total, progress } = job.result ?? {}
 ```
+:::
 
 ```jsonc
 { "type": "org_members", "status": "pending",

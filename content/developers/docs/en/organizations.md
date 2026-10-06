@@ -46,6 +46,8 @@ customer, use the integrator flow in [Managed organizations](/developers/docs/ma
 | `timezone` | string | Default timezone used for election scheduling. |
 | `website` | string | Public website URL. |
 
+:::code-tabs
+
 ```bash
 # $SESSION: the token returned by POST /auth/login - an API key gets 403 here
 curl -H "Authorization: Bearer $SESSION" -H "Content-Type: application/json" -X POST "$B/organizations" \
@@ -58,7 +60,6 @@ curl -H "Authorization: Bearer $SESSION" -H "Content-Type: application/json" -X 
     "website": "https://example.org"
   }'
 ```
-
 ```ts
 // A client authenticated as a user (an API key gets 403 here)
 const session = new VocdoniApiClient({ apiUrl: '{{API_BASE_URL}}' })
@@ -73,49 +74,52 @@ const { address: org } = await session.organizations.create({
   website: 'https://example.org',
 })
 ```
+:::
 
 ## Reading an organization
+
+:::code-tabs[read an organization]
 
 ```bash
 curl "${auth[@]}" "$B/organizations/$ORG"
 ```
-
-```jsonc
-{ "address": "0x4a3b...", "type": "association", "meta": { "name": "Maple Street HOA" } }
-```
-
-:::code-tabs[read an organization]
-
 ```ts
 const info = await client.organizations.get(org)
-const name = info.meta?.name
+const name = info.name?.default // a locale map, like meta.name
 ```
 ```csharp
 var info = await Get($"/organizations/{org}");
-var name = info.GetProperty("meta").GetProperty("name").GetString();
+var name = info.GetProperty("name").GetProperty("default").GetString(); // a locale map
 ```
 ```python
 info = get(f"/organizations/{org}").json()
-name = info["meta"]["name"]
+name = info["name"]["default"]  # a locale map, like meta.name
 ```
 :::
+
+```jsonc
+{ "address": "0x4a3b...", "type": "association", "name": { "default": "Maple Street HOA" },
+  "meta": { "name": { "default": "Maple Street HOA" } } }
+```
 
 ## Updating organization info
 
 Update the descriptive metadata (name, type, and other `meta` fields). The on-chain identity - the
 `address` - never changes. Like creation, this needs a user session token, not an API key.
 
+:::code-tabs
+
 ```bash
 curl -H "Authorization: Bearer $SESSION" -H "Content-Type: application/json" -X PUT "$B/organizations/$ORG" \
   -d '{"type":"association","meta":{"name":"Maple Street HOA","city":"Springfield"}}'
 ```
-
 ```ts
 await session.organizations.update(org, { // the user-session client from above
   type: 'association',
   meta: { name: 'Maple Street HOA', city: 'Springfield' },
 })
 ```
+:::
 
 ## The integrator relationship
 

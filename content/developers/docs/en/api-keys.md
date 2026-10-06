@@ -21,12 +21,13 @@ Send the key as a bearer token on every request, exactly like a session token - 
 every call in this documentation. The plaintext secret is prefixed `vsk_`; the prefix (e.g. `vsk_ab12`)
 is safe to log for identification, the full secret is not.
 
+:::code-tabs
+
 ```bash
 # GET /integrator needs the quota:read scope
 curl "{{API_BASE_URL}}/integrator" \
   -H "Authorization: Bearer vsk_your_api_key"
 ```
-
 ```ts
 import { VocdoniApiClient } from '@vocdoni/api-client'
 
@@ -34,6 +35,7 @@ import { VocdoniApiClient } from '@vocdoni/api-client'
 const client = new VocdoniApiClient({ apiUrl: '{{API_BASE_URL}}', authToken: 'vsk_your_api_key' })
 const { limits, usage } = await client.organizations.getIntegratorInfo() // needs quota:read
 ```
+:::
 
 A key works only on endpoints its scopes allow, and only on the organization that owns it.
 
@@ -71,12 +73,13 @@ of a `vsk_` key.
 - **GET** `/integrator/organizations/{address}/apikeys`
 - **DELETE** `/integrator/organizations/{address}/apikeys/{keyID}`
 
+:::code-tabs
+
 ```bash
 # $SESSION: the token returned by POST /auth/login for an admin user
 curl -H "Authorization: Bearer $SESSION" "$B/integrator/organizations/$ORG/apikeys"                  # list
 curl -H "Authorization: Bearer $SESSION" -X DELETE "$B/integrator/organizations/$ORG/apikeys/$KEYID" # revoke
 ```
-
 ```ts
 // A client authenticated with an admin's session token, not an API key
 const admin = new VocdoniApiClient({ apiUrl: '{{API_BASE_URL}}' })
@@ -85,6 +88,7 @@ admin.setAuthToken((await admin.auth.login(email, password)).token)
 const keys = await admin.organizations.listApiKeys(org) // list
 await admin.organizations.revokeApiKey(org, keyId)      // revoke
 ```
+:::
 
 Listing returns only metadata (id, prefix, scopes, timestamps) - never the secret.
 

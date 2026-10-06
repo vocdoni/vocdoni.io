@@ -20,12 +20,13 @@ The SaaS API runs in two independent environments. Use the base URL for the one 
 
 API keys are scoped to a single environment: create your key in the [API Dashboard](https://platform.vocdoni.io) for the environment you are calling, and a staging key will not authenticate against production.
 
+:::code-tabs
+
 ```bash
 # Authenticated request (GET /integrator needs the quota:read scope)
 curl {{API_BASE_URL}}/integrator \
   -H "Authorization: Bearer vsk_your_api_key"
 ```
-
 ```ts
 // Authenticated request with the TypeScript SDK
 import { VocdoniApiClient } from '@vocdoni/api-client'
@@ -33,6 +34,7 @@ import { VocdoniApiClient } from '@vocdoni/api-client'
 const client = new VocdoniApiClient({ apiUrl: '{{API_BASE_URL}}', authToken: 'vsk_your_api_key' })
 const { limits, usage } = await client.organizations.getIntegratorInfo()
 ```
+:::
 
 > [!TIP] Start on staging
 > While the API is in alpha, build against staging first and switch to production once your flow is stable.
