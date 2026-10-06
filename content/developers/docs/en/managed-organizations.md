@@ -24,10 +24,17 @@ The election lifecycle inside a managed org ([members](/developers/docs/members-
 [census](/developers/docs/census), [processes](/developers/docs/voting-processes)) is authorized
 by your key acting as that org's admin - no extra scope beyond having created it.
 
+> [!WARNING] Run elections in managed orgs only
+> Your integrator organization is a management shell: it cannot own processes. Creating one there
+> fails with `403` (error code `40174`), so every election - including your own tests - goes in a
+> managed organization, where it counts against your [quota](#quota-and-usage).
+
 ## Creating a managed organization
 
 The on-chain account is provisioned eagerly; carry forward the returned `address`. The optional
-`ownerEmail` assigns an existing user as the managed org's admin (it defaults to your key's user).
+`ownerEmail` assigns an existing user as the managed org's admin (it defaults to your key's user), and
+the optional `defaultLang` sets the language of the codes and emails its voters receive (see
+[Notification language](/developers/docs/organizations#notification-language)).
 Requires the `managed:write` [scope](/developers/docs/api-keys).
 
 - **POST** `/integrator/organizations`
