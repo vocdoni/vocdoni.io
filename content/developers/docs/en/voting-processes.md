@@ -275,7 +275,7 @@ Either all questions publish or none do.
 ```bash
 PJOB=$(curl -s "${auth[@]}" -X POST "$B/processes/$PROCESS/publish" | jq -r .jobId)
 # no jobId: the process was already published, or the publish was rejected
-if [ "$PJOB" = "null" ]; then echo "no jobId - check the publish response" >&2; else
+if [ -z "$PJOB" ] || [ "$PJOB" = "null" ]; then echo "no jobId - check the publish response" >&2; else
   for i in $(seq 150); do
     S=$(curl -s "$B/jobs/$PJOB" | jq -r .status)
     [ "$S" = "completed" ] && break

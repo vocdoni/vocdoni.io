@@ -46,7 +46,7 @@ JOB=$(curl -s "${auth[@]}" -X POST "$B/organizations/$ORG/members?async=true" -d
 
 # poll the members-job until done
 # a members-job never fails: a row that cannot be stored leaves it pending, so poll with a deadline
-if [ "$JOB" = "null" ]; then echo "no jobId - check the import response" >&2; else
+if [ -z "$JOB" ] || [ "$JOB" = "null" ]; then echo "no jobId - check the import response" >&2; else
   for i in $(seq 120); do
     [ "$(curl -s "${auth[@]}" "$B/jobs/$JOB" | jq -r .status)" = "completed" ] && break
     [ "$i" = 120 ] && echo "members-job $JOB did not complete - do not build the census yet" >&2
@@ -71,7 +71,7 @@ var job = (await Post($"/organizations/{org}/members?async=true",
     new { members = new[] { new { name = "Alice", memberNumber = "A-101", weight = "1" } } }))
     .GetProperty("jobId").GetString();
 // completes at progress 100; a failed row keeps it pending, hence the deadline
-for (var i = 0; (await Get($"/jobs/{job}")).GetProperty("status").GetString() != "completed"; i++)
+for (var i = 1; (await Get($"/jobs/{job}")).GetProperty("status").GetString() != "completed"; i++)
 {
     if (i == 120) throw new Exception($"members-job {job} did not complete");
     await Task.Delay(1000);
@@ -154,8 +154,9 @@ Update a single member, or delete members by id. Note the delete path is **plura
 - **PUT** `/organizations/{address}/members`
 - **DELETE** `/organizations/{address}/members`
 
-An update rewrites `weight` too: leave it out and the member's weight resets to `1`, which changes
-their vote in a weighted census. Always resend the member's current weight.
+Resend the member's current `weight` with every update. Older API versions reset a weight left out of
+the update to `1`, which changes the member's vote in a weighted census; newer ones keep the stored
+value and reset it only when you send `""`. Sending the current weight is right on both.
 
 :::code-tabs
 
@@ -165,8 +166,8 @@ curl "${auth[@]}" -X PUT "$B/organizations/$ORG/members" \
 curl "${auth[@]}" -X DELETE "$B/organizations/$ORG/members" -d '{"ids":["<memberId>"]}'
 ```
 ```ts
-// Resend the current weight: an update without it resets the member to 1. The API wants a string,
-// while the SDK types it as a number, so cast until the SDK type is fixed.
+// Resend the member's current weight (older API versions reset a missing one to 1). The API wants a
+// string, while the SDK types it as a number, so cast until the SDK type is fixed.
 await client.organizations.upsertMember(org, {
   id: memberId,
   memberNumber: 'A-101',
