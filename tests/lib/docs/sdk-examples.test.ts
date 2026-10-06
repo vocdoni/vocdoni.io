@@ -33,6 +33,8 @@ const ALLOWED: Record<string, string> = {
 }
 
 const NOT_WRAPPED = /does not wrap this endpoint/
+// A paragraph holding only an admonition marker line, like `[!NOTE] Not in the SDK yet`.
+const ADMONITION_TITLE = /^\[![A-Z]+\][^\n]*$/
 
 // Fence languages the docs pipeline renders as cURL and TypeScript tabs.
 const fencesLabelled = (label: string) => Object.keys(TAB_LABELS).filter((lang) => TAB_LABELS[lang] === label)
@@ -61,33 +63,36 @@ const sectionsOf = (file: string, markdown: string): Section[] => {
   const section = (key: string): Section => ({ key, curl: 0, tabbed: 0, excused: 0, strayNotes: 0 })
   let current = section(`${file}#`)
   sections.push(current)
-  // Whether the last block was an untabbed cURL example (or a response sample right after one) that a
-  // "does not wrap" note may still cover. Anything else in between ends it, so a note only covers the
-  // cURL block it sits right after.
-  let awaitingNote = false
+  // Untabbed cURL blocks right before this point (response samples may follow them) that "does not wrap"
+  // notes may still cover, one block per note. Any other content in between ends it, so a note only covers
+  // the cURL block it sits right after.
+  let awaitingNotes = 0
   visit(parser.parse(parseFrontmatter(markdown).content), (node) => {
     if (node.type === 'heading' && node.depth >= 2) {
       current = section(`${file}#${toString(node).trim()}`)
       sections.push(current)
-      awaitingNote = false
+      awaitingNotes = 0
     } else if (node.type === 'containerDirective' && node.name === 'code-tabs') {
       const codes = node.children.filter((c): c is Code => c.type === 'code')
       const curls = codes.filter(isCurl).length
       current.curl += curls
       if (codes.some(isTs)) current.tabbed += curls
-      awaitingNote = curls > 0 && !codes.some(isTs)
+      awaitingNotes = codes.some(isTs) ? 0 : curls
       return SKIP
     } else if (node.type === 'code') {
       if (isCurl(node)) {
         current.curl++
-        awaitingNote = true
-      } else if (!SAMPLE_FENCES.includes(node.lang ?? '')) awaitingNote = false
+        awaitingNotes = 1
+      } else if (!SAMPLE_FENCES.includes(node.lang ?? '')) awaitingNotes = 0
     } else if (node.type === 'paragraph' && NOT_WRAPPED.test(toString(node))) {
-      if (awaitingNote) current.excused++
-      else current.strayNotes++
-      awaitingNote = false
-    } else if (node.type === 'paragraph' || node.type === 'table' || node.type === 'list') {
-      awaitingNote = false
+      if (awaitingNotes > 0) {
+        current.excused++
+        awaitingNotes--
+      } else current.strayNotes++
+    } else if (node.type === 'paragraph' && ADMONITION_TITLE.test(toString(node))) {
+      // the title line of an admonition whose body holds the note
+    } else if (['paragraph', 'table', 'list', 'thematicBreak', 'html'].includes(node.type)) {
+      awaitingNotes = 0
     }
   })
   return sections
@@ -171,6 +176,40 @@ describe('developer docs SDK examples', () => {
       '```',
       '> [!NOTE] Not in the SDK yet',
       '> The SDK does not wrap this endpoint yet.',
+      '## F',
+      '```bash',
+      'curl f',
+      '```',
+      '---',
+      'The SDK does not wrap this endpoint yet.',
+      '## G',
+      '```bash',
+      'curl g',
+      '```',
+      '',
+      '<!-- unrelated -->',
+      '',
+      'The SDK does not wrap this endpoint yet.',
+      '## H',
+      '```bash',
+      'curl h',
+      '```',
+      '> [!NOTE] Not in the SDK yet',
+      '>',
+      '> The SDK does not wrap this endpoint yet.',
+      '## I',
+      ':::code-tabs',
+      '```bash',
+      'curl i1',
+      '```',
+      '```sh',
+      'curl i2',
+      '```',
+      ':::',
+      '',
+      'The SDK does not wrap this endpoint yet.',
+      '',
+      'The SDK does not wrap this endpoint (the second one) either.',
       '   ## C',
       '',
       '    ```bash',
@@ -189,6 +228,13 @@ describe('developer docs SDK examples', () => {
       // a note only covers the cURL block it sits right after (response samples may come between)
       { key: 'f.md#D', curl: 1, tabbed: 0, excused: 0, strayNotes: 1 },
       { key: 'f.md#E', curl: 1, tabbed: 0, excused: 1, strayNotes: 0 },
+      // a thematic break or raw HTML in between also breaks adjacency
+      { key: 'f.md#F', curl: 1, tabbed: 0, excused: 0, strayNotes: 1 },
+      { key: 'f.md#G', curl: 1, tabbed: 0, excused: 0, strayNotes: 1 },
+      // an admonition title on its own line does not
+      { key: 'f.md#H', curl: 1, tabbed: 0, excused: 1, strayNotes: 0 },
+      // a group of several untabbed cURL blocks takes one note per block
+      { key: 'f.md#I', curl: 2, tabbed: 0, excused: 2, strayNotes: 0 },
       // an indented heading still splits; indented code is not a fence; an unclosed fence runs to the end
       { key: 'f.md#C', curl: 1, tabbed: 0, excused: 0, strayNotes: 0 },
     ])
