@@ -34,6 +34,7 @@ customer, use the integrator flow in [Managed organizations](/developers/docs/ma
 
 | Field | Type | Description |
 | --- | --- | --- |
+| `name` | multilang | Display name. Shorthand for `meta.name`: a plain string is stored as `{ "default": ... }`. |
 | `type` | string | Organization category, for example association or company. |
 | `size` | string | Approximate membership size band. |
 | `country` | string | Country code for the organization. |
@@ -43,12 +44,24 @@ customer, use the integrator flow in [Managed organizations](/developers/docs/ma
 ```bash
 curl "${auth[@]}" -X POST "$B/organizations" \
   -d '{
+    "name": "Maple Street HOA",
     "type": "association",
     "size": "500",
     "country": "ES",
     "timezone": "Europe/Madrid",
     "website": "https://example.org"
   }'
+```
+
+```ts
+const { address: org } = await client.organizations.create({
+  name: 'Maple Street HOA',
+  type: 'association',
+  size: '500',
+  country: 'ES',
+  timezone: 'Europe/Madrid',
+  website: 'https://example.org',
+})
 ```
 
 ## Reading an organization
@@ -85,6 +98,13 @@ Update the descriptive metadata (name, type, and other `meta` fields). The on-ch
 ```bash
 curl "${auth[@]}" -X PUT "$B/organizations/$ORG" \
   -d '{"type":"association","meta":{"name":"Maple Street HOA","city":"Springfield"}}'
+```
+
+```ts
+await client.organizations.update(org, {
+  type: 'association',
+  meta: { name: 'Maple Street HOA', city: 'Springfield' },
+})
 ```
 
 ## The integrator relationship

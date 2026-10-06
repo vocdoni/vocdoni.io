@@ -26,6 +26,14 @@ curl {{API_BASE_URL}}/organizations/$ORG \
   -H "Authorization: Bearer vsk_your_api_key"
 ```
 
+```ts
+// Authenticated request with the TypeScript SDK
+import { VocdoniApiClient } from '@vocdoni/api-client'
+
+const client = new VocdoniApiClient({ apiUrl: '{{API_BASE_URL}}', authToken: 'vsk_your_api_key' })
+const org = await client.organizations.get(address)
+```
+
 > [!TIP] Start on staging
 > While the API is in alpha, build against staging first and switch to production once your flow is stable.
 

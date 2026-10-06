@@ -453,6 +453,8 @@ curl -X POST "$B/votes/verify" \
 ] }
 ```
 
+`@vocdoni/api-client` does not wrap this endpoint yet - call it with any HTTP client; it needs no key.
+
 `verified: false` means the chain has no vote with that nullifier (yet) - right after relaying,
 poll the [job](/developers/docs/jobs) first and verify once it completes.
 
@@ -474,6 +476,11 @@ voter by their verified `authToken`:
 curl -X POST "$B/processes/$PROCESS/check" -d '{ "authToken": "<authToken>" }'
 # -> { "belongsToProcess": true, "weight": "1",
 #      "questions": [ { "questionId": "...", "upstreamId": "...", "canVote": true, "hasVoted": false } ] }
+```
+
+```ts
+const { belongsToProcess, weight, questions } = await client.elections.check(processId, { authToken })
+const receipts = await client.elections.signInfo(processId, { authToken })
 ```
 
 Looking up whether specific members voted is an admin task, not a voter one:

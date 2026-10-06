@@ -77,6 +77,27 @@ JSON
 
 :::code-tabs[create a process]
 
+```ts
+// draft created, published:false - resolves to the processId
+const processId = await client.elections.create({
+  orgAddress: org,
+  census: { authFields: ['memberNumber'] },
+  title: 'Board election 2026', // plain strings become { default: ... }
+  description: 'Elect the new board',
+  startDate: '2026-07-01T09:00:00Z',
+  endDate: '2026-07-03T18:00:00Z',
+  questions: [
+    {
+      title: 'Who should chair the board?',
+      choices: [
+        { title: 'Ada Lovelace', value: 0 },
+        { title: 'Alan Turing', value: 1 },
+      ],
+      type: 'singlechoice',
+    },
+  ],
+})
+```
 ```csharp
 var processId = (await Post("/processes", new {
     orgAddress = org,
@@ -122,12 +143,20 @@ immutable - the update returns `409`.
 curl "${auth[@]}" -X PUT "$B/processes/$PROCESS" -d '{ ...same shape as create... }'
 ```
 
+```ts
+await client.elections.update(processId, draft) // draft: the same shape you passed to create
+```
+
 Delete a draft you no longer need (allowed only while unpublished):
 
 - **DELETE** `/processes/{processId}`
 
 ```bash
 curl "${auth[@]}" -X DELETE "$B/processes/$PROCESS"
+```
+
+```ts
+await client.elections.delete(processId)
 ```
 
 ## Reading a process
@@ -157,6 +186,14 @@ gated to a **manager/admin** of the org (or a `voting:write` API key acting as o
 curl -s "$B/processes/$PROCESS"
 # a manager (or voting:write key) also sees drafts and eligibleMemberIds
 curl -s "${auth[@]}" "$B/processes?orgAddress=$ORG&status=READY&page=1"
+```
+
+```ts
+// public read of a published process (a client without authToken)
+const { questions } = await client.elections.get(processId)
+const question = await client.elections.getQuestion(processId, questions[0].id)
+// a manager (or voting:write key) also sees drafts and eligibleMemberIds
+const { processes } = await client.elections.list({ orgAddress: org, status: 'READY', page: 1 })
 ```
 
 ```jsonc
@@ -209,6 +246,10 @@ missing (dates, choices, a resolvable census, ballot params within your plan).
 curl "${auth[@]}" "$B/processes/$PROCESS/validation"
 ```
 
+```ts
+const { valid, errors } = await client.elections.validate(processId)
+```
+
 ```jsonc
 { "valid": true, "errors": [] }
 ```
@@ -224,6 +265,11 @@ Either all questions publish or none do.
 ```bash
 PJOB=$(curl -s "${auth[@]}" -X POST "$B/processes/$PROCESS/publish" | jq -r .jobId)
 until [ "$(curl -s "$B/jobs/$PJOB" | jq -r .status)" = "completed" ]; do sleep 2; done
+```
+
+```ts
+// Publishes and polls the job; throws JobFailedError if the publish fails.
+await client.elections.publishAndWait(processId)
 ```
 
 On success each question gains its `upstreamId` and a `status` of `READY`, and the process flips to
@@ -255,6 +301,11 @@ curl "${auth[@]}" -X PUT "$B/processes/$PROCESS/census" -d '{"memberIds":["<id1>
 { "added": 2, "jobId": "e5f6a7..." }   // poll /jobs/{jobId} for the resize
 ```
 
+```ts
+const { added, jobId } = await client.elections.addCensusMembers(processId, ['<id1>', '<id2>'])
+if (jobId) await client.jobs.waitFor(jobId) // the on-chain resize
+```
+
 ### Removing members from the census
 
 The reverse of growing: remove members from the process census **and from every question
@@ -272,6 +323,10 @@ curl "${auth[@]}" -X DELETE "$B/processes/$PROCESS/census" -d '{"memberIds":["<i
 { "removed": 2 }                       // 200 - removed
 { "removed": 2, "jobId": "a7b8c9..." } // 202 - resize enqueued, poll /jobs/{jobId}
 ```
+
+> [!NOTE] Not in the SDK yet
+> `@vocdoni/api-client` does not wrap this endpoint yet. Call it with any HTTP client, sending your
+> key as the bearer token.
 
 Removing a member the CSP has **already signed for**, while a question of the process is still
 `READY` or `PAUSED`, is refused with `409` and the offending ids in `data.signedMemberIds` - once
@@ -301,6 +356,10 @@ curl "${auth[@]}" -X PUT "$B/processes/$PROCESS/questions/$QID/census" \
 { "eligible": 2 }        // 200 - updated, no on-chain resize needed
 { "eligible": 9, "jobId": "f6a7b8..." }   // 202 - resize enqueued, poll /jobs/{jobId}
 ```
+
+> [!NOTE] Not in the SDK yet
+> `@vocdoni/api-client` does not wrap this endpoint yet. Call it with any HTTP client, sending your
+> key as the bearer token.
 
 > [!NOTE] An empty list means "no restriction", not "nobody"
 > Sending `{"memberIds": []}` **reopens the question to every member of the process census**. A
@@ -340,6 +399,18 @@ JSON
 
 ```jsonc
 { "jobId": "d4e5f6..." }   // 202 - poll /jobs/{jobId}
+```
+
+```ts
+// one question
+const { jobId } = await client.elections.setQuestionStatus(processId, questionId, 'ENDED')
+
+// many questions (omit "questions" to target all published questions)
+const bulk = await client.elections.bulkSetQuestionStatus(processId, {
+  status: 'ENDED',
+  questions: [{ id: questionId }],
+})
+await client.jobs.waitFor(bulk.jobId)
 ```
 
 > [!TIP] Reading results

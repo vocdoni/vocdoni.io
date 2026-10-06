@@ -22,8 +22,16 @@ every call in this documentation. The plaintext secret is prefixed `vsk_`; the p
 is safe to log for identification, the full secret is not.
 
 ```bash
-curl "{{API_BASE_URL}}/organizations/$ORG/processes" \
+curl "{{API_BASE_URL}}/processes?orgAddress=$ORG" \
   -H "Authorization: Bearer vsk_your_api_key"
+```
+
+```ts
+import { VocdoniApiClient } from '@vocdoni/api-client'
+
+// The SDK sends the key as the bearer token on every request.
+const client = new VocdoniApiClient({ apiUrl: '{{API_BASE_URL}}', authToken: 'vsk_your_api_key' })
+const { processes } = await client.elections.list({ orgAddress: org })
 ```
 
 A key works only on endpoints its scopes allow, and only on the organization that owns it.
@@ -57,12 +65,17 @@ explicitly.
 Review and revoke keys in the [API Dashboard](https://platform.vocdoni.io). The same operations are
 available programmatically for multi-tenant provisioning:
 
-- **GET** `/organizations/{address}/apikeys`
-- **DELETE** `/organizations/{address}/apikeys/{keyID}`
+- **GET** `/integrator/organizations/{address}/apikeys`
+- **DELETE** `/integrator/organizations/{address}/apikeys/{keyID}`
 
 ```bash
-curl "${auth[@]}" "$B/organizations/$ORG/apikeys"                  # list
-curl "${auth[@]}" -X DELETE "$B/organizations/$ORG/apikeys/$KEYID" # revoke
+curl "${auth[@]}" "$B/integrator/organizations/$ORG/apikeys"                  # list
+curl "${auth[@]}" -X DELETE "$B/integrator/organizations/$ORG/apikeys/$KEYID" # revoke
+```
+
+```ts
+const keys = await client.organizations.listApiKeys(org) // list
+await client.organizations.revokeApiKey(org, keyId)       // revoke
 ```
 
 Listing returns only metadata (id, prefix, scopes, timestamps) - never the secret.

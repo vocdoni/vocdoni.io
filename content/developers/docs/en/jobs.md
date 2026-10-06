@@ -104,6 +104,11 @@ failures:
 curl -s "${auth[@]}" "$B/jobs/$JOBID"
 ```
 
+```ts
+const job = await client.jobs.get(jobId) // a single poll; jobs.waitFor(jobId) polls to completion
+const { added, total, progress } = job.result ?? {}
+```
+
 ```jsonc
 { "type": "org_members", "status": "pending",
   "result": { "added": 120, "total": 200, "progress": 60 } }   // errors omitempty: absent when empty

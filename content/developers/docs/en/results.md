@@ -71,6 +71,10 @@ curl -s "$B/processes/$PROCESS/results"
 
 :::code-tabs[read results]
 
+```ts
+const r = await client.elections.getResults(processId)
+const votes = r.questions[0].voteCount
+```
 ```csharp
 var r = await Get($"/processes/{process}/results");
 int votes = r.GetProperty("questions")[0].GetProperty("voteCount").GetInt32();
@@ -111,6 +115,13 @@ open-value question from an ordinary one by its results. This is the
 # same URL, two answers: no key -> no memos; manager key -> memos
 curl -s "$B/processes/$PROCESS/results"
 curl -s -H "Authorization: Bearer $TOKEN" "$B/processes/$PROCESS/results"
+```
+
+```ts
+// same call, two answers: a client without authToken gets no memos; a manager key gets them
+const { questions } = await client.elections.getResults(processId)
+// memos is not in the SDK's result types yet; it is absent unless the caller is a manager
+const memos = (questions[0] as { memos?: string[] }).memos ?? []
 ```
 
 ```jsonc

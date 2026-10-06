@@ -46,6 +46,7 @@ ORG=$(curl -s "${auth[@]}" -X POST "$B/integrator/organizations" \
 
 ```ts
 const { address: org } = await client.organizations.createManaged({
+  name: 'Maple Street HOA',
   type: 'association',
 })
 ```
@@ -75,6 +76,10 @@ curl "${auth[@]}" "$B/integrator/organizations?page=1&limit=10"
   "pagination": { "currentPage": 1, "lastPage": 1, "totalItems": 1 } }
 ```
 
+```ts
+const { organizations, pagination } = await client.organizations.listManaged(1)
+```
+
 ## Deleting a managed organization
 
 Deletion **cascades**: it removes the managed org and all its off-chain data (members, groups,
@@ -88,6 +93,10 @@ curl "${auth[@]}" -X DELETE "$B/integrator/organizations/$ORG"
 
 ```jsonc
 { "address": "0x4a3b..." }   // 200 OK
+```
+
+```ts
+await client.organizations.deleteManaged(org)
 ```
 
 > [!WARNING] 409 if questions are still active

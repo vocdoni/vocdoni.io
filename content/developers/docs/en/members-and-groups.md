@@ -54,10 +54,13 @@ until [ "$(curl -s "${auth[@]}" "$B/jobs/$JOB" | jq -r .result.progress)" = "100
 :::code-tabs[add members (async)]
 
 ```ts
-const { jobId } = await client.organizations.addMembers(org, [
-  { name: 'Alice', memberNumber: 'A-101', weight: 1 },
-])
-if (jobId) await client.organizations.waitForMembersJob(org, jobId)
+const { jobId } = await client.organizations.addMembers(
+  org,
+  [{ name: 'Alice', surname: 'Doe', email: 'alice@example.org', memberNumber: 'A-101', weight: 1 }],
+  { async: true },
+)
+// Resolves once the members-job completes; throws JobFailedError if it fails.
+if (jobId) await client.jobs.waitFor(jobId)
 ```
 ```csharp
 var job = (await Post($"/organizations/{org}/members",
@@ -106,6 +109,18 @@ while True:
     page += 1
 ```
 
+**TypeScript · walk every page**
+
+```ts
+const members = []
+for (let page = 1; ; page++) {
+  const r = await client.organizations.listMembers(org, page)
+  members.push(...r.members)
+  const p = r.pagination
+  if (!r.members.length || !p || p.currentPage >= p.lastPage) break
+}
+```
+
 ## Updating and deleting members
 
 Update a single member, or delete members by id. Note the delete path is **plural** with a body of
@@ -115,7 +130,14 @@ Update a single member, or delete members by id. Note the delete path is **plura
 - **DELETE** `/organizations/{address}/members`
 
 ```bash
+curl "${auth[@]}" -X PUT "$B/organizations/$ORG/members" \
+  -d '{"id":"<memberId>","memberNumber":"A-101","email":"alice@example.org"}'
 curl "${auth[@]}" -X DELETE "$B/organizations/$ORG/members" -d '{"ids":["<memberId>"]}'
+```
+
+```ts
+await client.organizations.upsertMember(org, { id: memberId, memberNumber: 'A-101', email: 'alice@example.org' })
+await client.organizations.deleteMembers(org, { ids: [memberId] })
 ```
 
 Member and group changes **cascade to the censuses of ongoing processes** - the memberbase is the
