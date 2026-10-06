@@ -31,7 +31,7 @@ curl {{API_BASE_URL}}/organizations/$ORG \
 import { VocdoniApiClient } from '@vocdoni/api-client'
 
 const client = new VocdoniApiClient({ apiUrl: '{{API_BASE_URL}}', authToken: 'vsk_your_api_key' })
-const org = await client.organizations.get(address)
+const info = await client.organizations.get(org)
 ```
 
 > [!TIP] Start on staging

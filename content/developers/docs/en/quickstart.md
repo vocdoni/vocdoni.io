@@ -214,7 +214,8 @@ const processId = await client.elections.create({
 })
 
 // 5. publish (async) -> wait for the job
-await client.elections.publishAndWait(processId)
+// The wait gives up after 60s by default while the publish carries on; allow longer.
+await client.elections.publishAndWait(processId, { timeoutMs: 5 * 60_000 })
 
 // 6. results - one tally per question
 console.log(await client.elections.getResults(processId))

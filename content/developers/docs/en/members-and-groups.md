@@ -197,7 +197,7 @@ group = post(f"/organizations/{org}/groups",
 
 ## Gotchas
 
-- Adding members is a **job** - wait for `progress: 100` before building a census.
+- Adding members with `?async=true` is a **job** - wait for `progress: 100` before building a census.
 - Listing is **paginated** - walk the pages.
 - Delete is `DELETE /organizations/{addr}/members` (**plural**), with `{ "ids": [...] }`.
 - For an **auth-only** census, each `memberNumber` must be **unique** - it becomes the voting

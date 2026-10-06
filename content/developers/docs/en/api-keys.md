@@ -22,7 +22,7 @@ every call in this documentation. The plaintext secret is prefixed `vsk_`; the p
 is safe to log for identification, the full secret is not.
 
 ```bash
-curl "{{API_BASE_URL}}/processes?orgAddress=$ORG" \
+curl "{{API_BASE_URL}}/integrator" \
   -H "Authorization: Bearer vsk_your_api_key"
 ```
 
@@ -31,7 +31,7 @@ import { VocdoniApiClient } from '@vocdoni/api-client'
 
 // The SDK sends the key as the bearer token on every request.
 const client = new VocdoniApiClient({ apiUrl: '{{API_BASE_URL}}', authToken: 'vsk_your_api_key' })
-const { processes } = await client.elections.list({ orgAddress: org })
+const { limits, usage } = await client.organizations.getIntegratorInfo() // needs quota:read
 ```
 
 A key works only on endpoints its scopes allow, and only on the organization that owns it.

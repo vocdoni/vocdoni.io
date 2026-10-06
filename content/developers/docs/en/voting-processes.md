@@ -189,9 +189,10 @@ curl -s "${auth[@]}" "$B/processes?orgAddress=$ORG&status=READY&page=1"
 ```
 
 ```ts
-// public read of a published process (a client without authToken)
-const { questions } = await client.elections.get(processId)
-const question = await client.elections.getQuestion(processId, questions[0].id)
+// public read of a published process (no authToken)
+const anon = new VocdoniApiClient({ apiUrl: '{{API_BASE_URL}}' })
+const { questions } = await anon.elections.get(processId)
+const question = await anon.elections.getQuestion(processId, questions[0].id)
 // a manager (or voting:write key) also sees drafts and eligibleMemberIds
 const { processes } = await client.elections.list({ orgAddress: org, status: 'READY', page: 1 })
 ```
@@ -269,7 +270,8 @@ until [ "$(curl -s "$B/jobs/$PJOB" | jq -r .status)" = "completed" ]; do sleep 2
 
 ```ts
 // Publishes and polls the job; throws JobFailedError if the publish fails.
-await client.elections.publishAndWait(processId)
+// The wait gives up after 60s by default while the publish carries on; allow longer.
+await client.elections.publishAndWait(processId, { timeoutMs: 5 * 60_000 })
 ```
 
 On success each question gains its `upstreamId` and a `status` of `READY`, and the process flips to

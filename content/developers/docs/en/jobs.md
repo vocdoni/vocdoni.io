@@ -6,7 +6,7 @@ order: 60
 ---
 
 Anything that touches the chain - publishing a process, changing its status, relaying a vote - and
-bulk member imports run **asynchronously**. The write returns a **`jobId`**, and you poll one endpoint
+bulk member imports sent with `?async=true` run **asynchronously**. The write returns a **`jobId`**, and you poll one endpoint
 to learn the outcome. This is the async spine of the API.
 
 ## Polling a job
