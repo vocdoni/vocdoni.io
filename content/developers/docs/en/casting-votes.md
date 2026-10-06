@@ -488,7 +488,7 @@ const receipts = await client.elections.signInfo(processId, { authToken })
 Looking up whether specific members voted is an admin task, not a voter one:
 
 - **GET** `/processes/{processId}/participants` (`client.elections.participants()`) - requires a
-  manager/admin of the owning organization. Matches organization members by one field (`email`,
+  manager/admin of the owning organization, or a `voting:write` API key. Matches organization members by one field (`email`,
   `phone`, `memberNumber` or `nationalId`) and reports each match's per-question voted status.
 - **GET** `/processes/{processId}/participants/{participantId}` - public, but a placeholder for
   now: it validates the ids and always returns `null`.
