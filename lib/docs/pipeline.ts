@@ -510,7 +510,7 @@ function rehypeTables(requiredLabel: string) {
 
 // Language class (`language-xxx`) -> human tab label. Labels are technical
 // proper nouns, so they stay out of i18n (like the code identifiers themselves).
-const TAB_LABELS: Record<string, string> = {
+export const TAB_LABELS: Record<string, string> = {
   bash: 'cURL',
   sh: 'cURL',
   shell: 'cURL',

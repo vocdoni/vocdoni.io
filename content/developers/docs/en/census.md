@@ -132,6 +132,8 @@ missing auth-field data across the members it resolves - without creating anythi
 
 - **POST** `/processes/census/validation`
 
+:::code-tabs[validate a census]
+
 ```bash
 curl "${auth[@]}" -X POST "$B/processes/census/validation" -d @- <<JSON
 {
@@ -140,10 +142,17 @@ curl "${auth[@]}" -X POST "$B/processes/census/validation" -d @- <<JSON
 }
 JSON
 ```
-
-```jsonc
-{ "valid": true, "errors": [] }   // errors may carry the offending member ids
+```ts
+// Resolves when the census is usable; throws a VocdoniApiError (400) listing the offending members otherwise.
+await client.elections.validateCensus({
+  orgAddress: org,
+  census: { authFields: ['memberNumber'], groupId: group },
+})
 ```
+:::
+
+A usable census answers a bare `200`; an unusable one is a `400` whose `data` carries the offending
+member ids.
 
 ## Kept in sync with the memberbase
 

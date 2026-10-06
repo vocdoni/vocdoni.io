@@ -1,12 +1,12 @@
 ---
 title: Jobs
-lead: Some operations take longer than a single request should wait - bulk imports, process publishing and status changes. These return a job id you poll until the work finishes.
+lead: Some operations take longer than a single request should wait - process publishing and status changes, and bulk member imports sent with ?async=true. These return a job id you poll until the work finishes.
 group: core_concepts
 order: 60
 ---
 
 Anything that touches the chain - publishing a process, changing its status, relaying a vote - and
-bulk member imports run **asynchronously**. The write returns a **`jobId`**, and you poll one endpoint
+bulk member imports sent with `?async=true` run **asynchronously**. The write returns a **`jobId`**, and you poll one endpoint
 to learn the outcome. This is the async spine of the API.
 
 ## Polling a job
@@ -18,9 +18,15 @@ dashboard session) - scoped API keys are treated as anonymous on this endpoint.
 
 - **GET** `/jobs/{jobId}`
 
+:::code-tabs
+
 ```bash
 curl -s "$B/jobs/$JOBID"     # public: status + counters (per-row errors only for a manager session)
 ```
+```ts
+const job = await client.jobs.get(jobId) // a single poll; see below to poll to completion
+```
+:::
 
 ```jsonc
 { "jobId": "a1b2c3...",
@@ -100,9 +106,16 @@ A bulk member add is an `org_members` job - poll the same generic `GET /jobs/{jo
 carries the import counters (`added`, `total`, `progress`); top-level `errors` carries any per-row
 failures:
 
+:::code-tabs
+
 ```bash
 curl -s "${auth[@]}" "$B/jobs/$JOBID"
 ```
+```ts
+const job = await client.jobs.get(jobId) // a single poll; jobs.waitFor(jobId) polls to completion
+const { added, total, progress } = job.result ?? {}
+```
+:::
 
 ```jsonc
 { "type": "org_members", "status": "pending",

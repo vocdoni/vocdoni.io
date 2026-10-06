@@ -58,8 +58,8 @@ Most integrations follow the same path. Each step maps to a small group of endpo
 - **Results** - live or final tallies, one per question, that anyone can verify against the protocol.
 
 > [!TIP] Heavy work runs asynchronously
-> Bulk member imports, process publishing and status changes can take time, so they return a job id you
-> poll until completion. See [Jobs](/developers/docs/jobs) for the pattern.
+> Process publishing, status changes and bulk member imports (with `?async=true`) can take time, so they
+> return a job id you poll until completion. See [Jobs](/developers/docs/jobs) for the pattern.
 
 ## Two ways to integrate
 

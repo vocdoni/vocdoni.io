@@ -28,13 +28,16 @@ fields. Provide whatever your authentication strategy needs; you do not have to 
 
 ## Adding members
 
-Member imports are **bulk and asynchronous**: the call returns a `jobId`, and you poll a members-job
-until it reports `progress: 100`.
+Member imports are **bulk**. Add `?async=true` (`{ async: true }` in the SDK) to run them as a job: the
+call returns a `jobId`, and you poll a members-job until it reports `progress: 100`. Without it the call
+imports synchronously and answers `{ "added": N }` with no `jobId`.
 
 - **POST** `/organizations/{address}/members`
 
+:::code-tabs[add members (async)]
+
 ```bash
-JOB=$(curl -s "${auth[@]}" -X POST "$B/organizations/$ORG/members" -d '{
+JOB=$(curl -s "${auth[@]}" -X POST "$B/organizations/$ORG/members?async=true" -d '{
   "members": [
     { "name": "Alice", "surname": "Doe", "email": "alice@example.org",
       "memberNumber": "A-101", "weight": "1" }
@@ -42,8 +45,49 @@ JOB=$(curl -s "${auth[@]}" -X POST "$B/organizations/$ORG/members" -d '{
 }' | jq -r .jobId)
 
 # poll the members-job until done
-until [ "$(curl -s "${auth[@]}" "$B/jobs/$JOB" | jq -r .result.progress)" = "100" ]; do sleep 1; done
+# a members-job never fails: a row that cannot be stored leaves it pending, so poll with a deadline
+if [ -z "$JOB" ] || [ "$JOB" = "null" ]; then echo "no jobId - check the import response" >&2; else
+  for i in $(seq 120); do
+    [ "$(curl -s "${auth[@]}" "$B/jobs/$JOB" | jq -r .status)" = "completed" ] && break
+    [ "$i" = 120 ] && echo "members-job $JOB did not complete - do not build the census yet" >&2
+    sleep 1
+  done
+fi
 ```
+```ts
+const { jobId } = await client.organizations.addMembers(
+  org,
+  // weight defaults to 1. The API expects it as a string ("2"); the SDK types it as a number, and
+  // sending a number fails with 400 - omit it or cast a string until the SDK type is fixed.
+  [{ name: 'Alice', surname: 'Doe', email: 'alice@example.org', memberNumber: 'A-101' }],
+  { async: true },
+)
+// Polls the members-job until progress 100. A members-job never reports `failed`: if a row cannot be
+// stored it stays pending below 100, so this times out (60s by default - raise timeoutMs for large imports).
+if (jobId) await client.jobs.waitFor(jobId, { timeoutMs: 10 * 60_000 })
+```
+```csharp
+var job = (await Post($"/organizations/{org}/members?async=true",
+    new { members = new[] { new { name = "Alice", memberNumber = "A-101", weight = "1" } } }))
+    .GetProperty("jobId").GetString();
+// completes at progress 100; a failed row keeps it pending, hence the deadline
+for (var i = 1; (await Get($"/jobs/{job}")).GetProperty("status").GetString() != "completed"; i++)
+{
+    if (i == 120) throw new Exception($"members-job {job} did not complete");
+    await Task.Delay(1000);
+}
+```
+```python
+job = post(f"/organizations/{org}/members?async=true",
+           {"members": [{"name": "Alice", "memberNumber": "A-101", "weight": "1"}]}).json()["jobId"]
+for _ in range(120):  # completes at progress 100; a failed row keeps it pending, hence the deadline
+    if get(f"/jobs/{job}").json()["status"] == "completed":
+        break
+    time.sleep(1)
+else:
+    raise RuntimeError(f"members-job {job} did not complete")
+```
+:::
 
 ```jsonc
 // GET /jobs/{jobId}
@@ -51,32 +95,11 @@ until [ "$(curl -s "${auth[@]}" "$B/jobs/$JOB" | jq -r .result.progress)" = "100
   "result": { "added": 1, "total": 1, "progress": 100 } }   // errors omitempty: absent when empty
 ```
 
-:::code-tabs[add members (async)]
-
-```ts
-const { jobId } = await client.organizations.addMembers(org, [
-  { name: 'Alice', memberNumber: 'A-101', weight: 1 },
-])
-if (jobId) await client.organizations.waitForMembersJob(org, jobId)
-```
-```csharp
-var job = (await Post($"/organizations/{org}/members",
-    new { members = new[] { new { name = "Alice", memberNumber = "A-101", weight = "1" } } }))
-    .GetProperty("jobId").GetString();
-while ((await Get($"/jobs/{job}")).GetProperty("result").GetProperty("progress").GetInt32() < 100)
-    await Task.Delay(1000);
-```
-```python
-job = post(f"/organizations/{org}/members",
-           {"members": [{"name": "Alice", "memberNumber": "A-101", "weight": "1"}]}).json()["jobId"]
-while get(f"/jobs/{job}").json()["result"]["progress"] < 100:
-    time.sleep(1)
-```
-:::
-
 > [!WARNING] Wait for the import job
 > Don't build the census until the members-job reaches `progress: 100` - the participants won't be
-> there yet. See [Jobs](/developers/docs/jobs) for the full job model.
+> there yet. A members-job never reports `failed`: when a row cannot be stored the job stays `pending`
+> with `progress` below 100 (or absent), so give your poll loop a deadline instead of waiting forever.
+> See [Jobs](/developers/docs/jobs) for the full job model.
 
 ## Listing members
 
@@ -84,16 +107,23 @@ The list is **paginated** (default `limit` is small) - see
 [Pagination](/developers/docs/api-conventions#pagination). Walk every page so large memberbases aren't
 silently truncated.
 
+:::code-tabs
+
 ```bash
 curl "${auth[@]}" "$B/organizations/$ORG/members?page=1&limit=100"
 ```
+```ts
+// the SDK sends only the page; the backend default page size applies
+const { members, pagination } = await client.organizations.listMembers(org, 1)
+```
+:::
 
 ```jsonc
 { "members": [ { "id": "...", "memberNumber": "A-101", "name": "Alice" } ],
   "pagination": { "currentPage": 1, "lastPage": 1, "totalItems": 1 } }
 ```
 
-**Python · walk every page**
+:::code-tabs[walk every page]
 
 ```python
 members, page = [], 1
@@ -105,6 +135,16 @@ while True:
         break
     page += 1
 ```
+```ts
+const members = []
+for (let page = 1; ; page++) {
+  const r = await client.organizations.listMembers(org, page)
+  members.push(...r.members)
+  const p = r.pagination
+  if (!r.members.length || !p || p.currentPage >= p.lastPage) break
+}
+```
+:::
 
 ## Updating and deleting members
 
@@ -114,9 +154,29 @@ Update a single member, or delete members by id. Note the delete path is **plura
 - **PUT** `/organizations/{address}/members`
 - **DELETE** `/organizations/{address}/members`
 
+Resend the member's current `weight` with every update. Older API versions reset a weight left out of
+the update to `1`, which changes the member's vote in a weighted census; newer ones keep the stored
+value and reset it only when you send `""`. Sending the current weight is right on both.
+
+:::code-tabs
+
 ```bash
+curl "${auth[@]}" -X PUT "$B/organizations/$ORG/members" \
+  -d '{"id":"<memberId>","memberNumber":"A-101","email":"alice@example.org","weight":"1"}'
 curl "${auth[@]}" -X DELETE "$B/organizations/$ORG/members" -d '{"ids":["<memberId>"]}'
 ```
+```ts
+// Resend the member's current weight (older API versions reset a missing one to 1). The API wants a
+// string, while the SDK types it as a number, so cast until the SDK type is fixed.
+await client.organizations.upsertMember(org, {
+  id: memberId,
+  memberNumber: 'A-101',
+  email: 'alice@example.org',
+  weight: '1' as unknown as number,
+})
+await client.organizations.deleteMembers(org, { ids: [memberId] })
+```
+:::
 
 Member and group changes **cascade to the censuses of ongoing processes** - the memberbase is the
 source of truth (see [Census](/developers/docs/census#kept-in-sync-with-the-memberbase)). Two
@@ -144,17 +204,12 @@ group from explicit member ids, and validate that its members carry the fields a
 - **PUT** `/organizations/{address}/groups/{groupID}`
 - **POST** `/organizations/{address}/groups/{groupID}/validate`
 
+:::code-tabs[create an all-members group]
+
 ```bash
 GROUP=$(curl -s "${auth[@]}" -X POST "$B/organizations/$ORG/groups" \
   -d '{"title":"All voters","includeAllMembers":true}' | jq -r .id)
 ```
-
-```jsonc
-{ "id": "665f..." }   // carry forward: group id
-```
-
-:::code-tabs[create an all-members group]
-
 ```ts
 const { id: group } = await client.organizations.createGroup(org, {
   title: 'All voters',
@@ -171,9 +226,13 @@ group = post(f"/organizations/{org}/groups",
 ```
 :::
 
+```jsonc
+{ "id": "665f..." }   // carry forward: group id
+```
+
 ## Gotchas
 
-- Adding members is a **job** - wait for `progress: 100` before building a census.
+- Adding members with `?async=true` is a **job** - wait for `progress: 100` before building a census.
 - Listing is **paginated** - walk the pages.
 - Delete is `DELETE /organizations/{addr}/members` (**plural**), with `{ "ids": [...] }`.
 - For an **auth-only** census, each `memberNumber` must be **unique** - it becomes the voting

@@ -19,23 +19,15 @@ to avoid hitting a wall mid-flow.
 
 - **GET** `/integrator`
 
+:::code-tabs[read your quota]
+
 ```bash
 curl "${auth[@]}" "$B/integrator"
 ```
-
-```jsonc
-{ "enabled": true,
-  "limits": { "maxManagedOrgs": 1, "maxManagedProcesses": 10, "maxVotes": 1000,
-              "maxEmails": 500, "maxSMS": 200 },
-  "usage":  { "managedOrgs": 1, "managedProcesses": 2, "sentVotes": 134,
-              "sentEmails": 87, "sentSMS": 12 } }
-```
-
-:::code-tabs[read your quota]
-
 ```ts
 const { limits, usage } = await client.organizations.getIntegratorInfo()
-const orgsLeft = limits.maxManagedOrgs - usage.managedOrgs
+// limits is absent when the organization is not an integrator
+const orgsLeft = limits ? limits.maxManagedOrgs - usage.managedOrgs : 0
 ```
 ```csharp
 var q = await Get("/integrator");
@@ -48,6 +40,14 @@ q = get("/integrator").json()
 orgs_left = q["limits"]["maxManagedOrgs"] - q["usage"]["managedOrgs"]
 ```
 :::
+
+```jsonc
+{ "enabled": true,
+  "limits": { "maxManagedOrgs": 1, "maxManagedProcesses": 10, "maxVotes": 1000,
+              "maxEmails": 500, "maxSMS": 200 },
+  "usage":  { "managedOrgs": 1, "managedProcesses": 2, "sentVotes": 134,
+              "sentEmails": 87, "sentSMS": 12 } }
+```
 
 ## Limits and usage
 
