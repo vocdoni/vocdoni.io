@@ -4,16 +4,16 @@ import path from 'node:path'
 import remarkDirective from 'remark-directive'
 import remarkParse from 'remark-parse'
 import { unified } from 'unified'
-import { visit } from 'unist-util-visit'
+import { SKIP, visit } from 'unist-util-visit'
 import { describe, expect, it } from 'vitest'
 
-// Every cURL example in the developer docs should come with its TypeScript
-// integrator SDK equivalent in the same section, or say the SDK does not wrap
-// that endpoint yet.
+// Every cURL example in the developer docs should sit in a `:::code-tabs` group
+// with its TypeScript integrator SDK equivalent, so readers can switch between
+// them, or say the SDK does not wrap that endpoint yet.
 
 const DOCS_DIR = path.resolve(__dirname, '../../../content/developers/docs/en')
 
-// Sections whose cURL blocks deliberately outnumber the SDK snippets beside them.
+// Sections whose cURL blocks are deliberately not tabbed with an SDK snippet.
 const ALLOWED: Record<string, string> = {
   'quickstart.md#Create a managed organization':
     'the SDK variant lives in "The same flow with TypeScript, C# and Python"',
@@ -35,25 +35,34 @@ const NOT_WRAPPED = /does not wrap this endpoint/
 const CURL_FENCES = ['bash', 'sh', 'shell', 'curl']
 const TS_FENCES = ['ts', 'typescript']
 
-// `curl` and `ts` count the cURL and TypeScript code blocks in the section.
-type Section = { key: string; curl: number; ts: number; notWrapped: boolean }
+// `curl` counts the cURL code blocks in the section, `tabbed` those sharing a tab group with a TypeScript tab.
+type Section = { key: string; curl: number; tabbed: number; notWrapped: boolean }
 
-// Parsed with the same remark stack as lib/docs/pipeline.ts, so fences and headings follow CommonMark.
+type Code = { type: 'code'; lang?: string | null; value: string }
+const isCurl = (node: Code) => CURL_FENCES.includes(node.lang ?? '') && /\bcurl\b/.test(node.value)
+const isTs = (node: Code) => TS_FENCES.includes(node.lang ?? '')
+
+// Parsed with the same remark stack as lib/docs/pipeline.ts, so fences, headings and directives follow it.
 const parser = unified().use(remarkParse).use(remarkDirective)
 
 const sectionsOf = (file: string, markdown: string): Section[] => {
   const sections: Section[] = []
   // Anything before the first heading counts as its own section.
-  let current: Section = { key: `${file}#`, curl: 0, ts: 0, notWrapped: false }
+  let current: Section = { key: `${file}#`, curl: 0, tabbed: 0, notWrapped: false }
   sections.push(current)
   const tree = parser.parse(markdown.replace(/^---\n[\s\S]*?\n---\n/, ''))
   visit(tree, (node) => {
     if (node.type === 'heading' && node.depth >= 2) {
-      current = { key: `${file}#${toString(node).trim()}`, curl: 0, ts: 0, notWrapped: false }
+      current = { key: `${file}#${toString(node).trim()}`, curl: 0, tabbed: 0, notWrapped: false }
       sections.push(current)
-    } else if (node.type === 'code') {
-      if (TS_FENCES.includes(node.lang ?? '')) current.ts++
-      else if (CURL_FENCES.includes(node.lang ?? '') && /\bcurl\b/.test(node.value)) current.curl++
+    } else if (node.type === 'containerDirective' && node.name === 'code-tabs') {
+      const codes = node.children.filter((c): c is Code => c.type === 'code')
+      const curls = codes.filter(isCurl).length
+      current.curl += curls
+      if (codes.some(isTs)) current.tabbed += curls
+      return SKIP
+    } else if (node.type === 'code' && isCurl(node)) {
+      current.curl++
     } else if (node.type === 'paragraph' && NOT_WRAPPED.test(toString(node))) {
       current.notWrapped = true
     }
@@ -61,54 +70,58 @@ const sectionsOf = (file: string, markdown: string): Section[] => {
   return sections
 }
 
+// A "does not wrap" note covers a single endpoint, so it stands in for exactly one cURL block.
+const unpaired = (s: Section) => s.curl - s.tabbed - (s.notWrapped ? 1 : 0)
+
 const docs = readdirSync(DOCS_DIR).filter((f) => f.endsWith('.md'))
 const sections = docs.flatMap((f) => sectionsOf(f, readFileSync(path.join(DOCS_DIR, f), 'utf8')))
 
 describe('developer docs SDK examples', () => {
-  it('pairs every cURL example with a TypeScript SDK example', () => {
-    // One SDK snippet per cURL block; a "does not wrap" note stands in for exactly one of them.
-    const missing = sections
-      .filter((s) => s.ts + (s.notWrapped ? 1 : 0) < s.curl && !(s.key in ALLOWED))
-      .map((s) => s.key)
+  it('tabs every cURL example with a TypeScript SDK example', () => {
+    const missing = sections.filter((s) => unpaired(s) > 0 && !(s.key in ALLOWED)).map((s) => s.key)
     expect(missing).toEqual([])
   })
 
   it('keeps the allowlist current', () => {
     const stale = Object.keys(ALLOWED).filter((key) => {
       const section = sections.find((s) => s.key === key)
-      return !section || section.ts + (section.notWrapped ? 1 : 0) >= section.curl
+      return !section || unpaired(section) <= 0
     })
     expect(stale).toEqual([])
   })
 
-  it('splits sections on CommonMark headings, counting every cURL and TypeScript code block', () => {
+  it('splits sections on CommonMark headings, counting cURL blocks tabbed with TypeScript', () => {
     const md = [
       '```shell',
       'curl y',
       '```',
       '## A',
+      ':::code-tabs',
       '```bash',
       '# not a heading',
       'curl x',
       '```',
+      '```ts',
+      'client.x()',
+      '```',
+      ':::',
       '> ```bash',
       '> curl z',
       '> ```',
       '## B',
-      '~~~typescript',
-      'client.x()',
-      '~~~',
-      '````sh',
-      '```',
-      'curl w',
-      '````',
-      'The SDK does not wrap this endpoint yet.',
-      '## C',
+      ':::code-tabs[label]',
       '```bash',
-      'curl v',
-      '````',
-      '## D',
-      '   ## E',
+      'curl w',
+      '```',
+      '```python',
+      'post()',
+      '```',
+      ':::',
+      '```ts',
+      'client.y()',
+      '```',
+      'The SDK does not wrap this endpoint yet.',
+      '   ## C',
       '',
       '    ```bash',
       '    curl u',
@@ -118,13 +131,13 @@ describe('developer docs SDK examples', () => {
       'curl t',
     ].join('\n')
     expect(sectionsOf('f.md', md)).toEqual([
-      { key: 'f.md#', curl: 1, ts: 0, notWrapped: false },
-      { key: 'f.md#A', curl: 2, ts: 0, notWrapped: false },
-      { key: 'f.md#B', curl: 1, ts: 1, notWrapped: true },
-      { key: 'f.md#C', curl: 1, ts: 0, notWrapped: false },
-      { key: 'f.md#D', curl: 0, ts: 0, notWrapped: false },
+      { key: 'f.md#', curl: 1, tabbed: 0, notWrapped: false },
+      // a quoted fence still counts, untabbed
+      { key: 'f.md#A', curl: 2, tabbed: 1, notWrapped: false },
+      // a TypeScript block outside the group does not pair it
+      { key: 'f.md#B', curl: 1, tabbed: 0, notWrapped: true },
       // an indented heading still splits; indented code is not a fence; an unclosed fence runs to the end
-      { key: 'f.md#E', curl: 1, ts: 0, notWrapped: false },
+      { key: 'f.md#C', curl: 1, tabbed: 0, notWrapped: false },
     ])
   })
 })
