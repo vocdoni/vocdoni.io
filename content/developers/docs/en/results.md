@@ -17,7 +17,8 @@ order: 50
 Results are **public** (no auth) and available both while a process runs (a live tally) and after it
 ends (final). Because each question is its own election, results come back **per question**. The one
 exception is the free-text [memos](#voter-memos) on an open-value question, which are returned to a
-manager/admin only.
+manager/admin only. A question ended before its `endDate` reports when it actually closed in
+`endedAt` - see [Reading a process](/developers/docs/voting-processes#reading-a-process).
 
 ## Reading results
 

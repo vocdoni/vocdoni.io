@@ -271,6 +271,8 @@ A question that was **ended early** - set to `ENDED` before its `endDate` - carr
 moment its election actually stopped accepting votes. The process carries an `endedAt` too, the latest
 of its questions', but only once every published question has one. Both are absent while voting is open
 and when a question ran to its scheduled end, so display the close time as `endedAt ?? endDate`.
+The values are stored, so the list carries them too - except for an older vote ended early, which gets
+them only once its detail `GET /processes/{processId}` has been read.
 
 The `census` object also carries response-only **`size`** (eligible-voter count, on every read) and
 **`totalWeight`** (the sum of members' weights - equals `size` for a non-weighted census), the
@@ -281,9 +283,11 @@ denominator for turning weighted results into percentages. `totalWeight` is reso
 
 Elections created before the `/processes` API also show up in these reads, as **read-only
 projections** marked `legacy: true`. `GET /processes?orgAddress=...` lists them after the stored
-processes, and `GET /processes/{processId}` accepts either a `processId` or the election's 64-hex
-on-chain id. Their questions may share one `upstreamId` (one election held the whole ballot), they omit
-`ballotProtocol`, and their `results` are left out when the tally cannot be split per question. They
+processes (`pagination.totalItems` counts them), and `GET /processes/{processId}` accepts either a
+`processId` or the election's 64-hex on-chain id. Their questions may share one `upstreamId` (one
+election held the whole ballot). Each question carries the `ballotProtocol` read from the chain, plus
+`type`/`typeSetup` when that protocol maps exactly to a named type, so its results read the same way as
+any other question's - though they are left out when the tally cannot be split per question. They
 cannot be edited or published through `/processes`. The SDK types do not carry the `legacy` flag yet.
 
 ## Checking readiness

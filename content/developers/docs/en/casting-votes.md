@@ -20,7 +20,8 @@ process, then **signs and relays a ballot per question** they are eligible for.
 
 1. **Authenticate once** - the voter presents whatever the census requires: identity `authFields`
    and/or a one-time code sent to their `email`/`phone` (a 2FA census needs no auth fields). Success
-   yields a token bound to the process.
+   yields a token bound to the process. Leaving a required auth field empty is refused with `400`
+   (error code `40005`).
 2. **Sign per question** - for each question, the credential service (CSP) signs the
    voter's ephemeral voting address for **that question's election**. It refuses unless the voter is
    in the question's [eligibility subset](/developers/docs/census#per-question-eligibility). Signatures

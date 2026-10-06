@@ -70,7 +70,7 @@ combined with any of them:
 > including values that differ only by case) make `POST`/`PUT /processes` fail with `400` (error code
 > `40037`) and their ids in `data.duplicates`. Members missing the data instead - an empty or
 > whitespace-only auth field, or no 2FA channel - are **left out** of the census and listed in the
-> response's `missingData`. See [Creating a process](/developers/docs/voting-processes#creating-a-process),
+> response's `missingData`; they cannot log in and do not count toward the census size. See [Creating a process](/developers/docs/voting-processes#creating-a-process),
 > and [validate the census](#validating-a-census) first to catch both.
 
 > [!NOTE] Weighted voting
