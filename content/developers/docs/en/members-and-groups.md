@@ -57,11 +57,13 @@ until [ "$(curl -s "${auth[@]}" "$B/jobs/$JOB" | jq -r .result.progress)" = "100
 ```ts
 const { jobId } = await client.organizations.addMembers(
   org,
-  [{ name: 'Alice', surname: 'Doe', email: 'alice@example.org', memberNumber: 'A-101' }], // weight defaults to 1
+  // weight defaults to 1. The API expects it as a string ("2"); the SDK types it as a number, and
+  // sending a number fails with 400 - omit it or cast a string until the SDK type is fixed.
+  [{ name: 'Alice', surname: 'Doe', email: 'alice@example.org', memberNumber: 'A-101' }],
   { async: true },
 )
-// Polls the members-job: throws JobFailedError if it fails, or times out after 60s by default -
-// raise timeoutMs for large imports.
+// Polls the members-job until progress 100. A members-job never reports `failed`: if a row cannot be
+// stored it stays pending below 100, so this times out (60s by default - raise timeoutMs for large imports).
 if (jobId) await client.jobs.waitFor(jobId, { timeoutMs: 10 * 60_000 })
 ```
 ```csharp
@@ -81,7 +83,9 @@ while get(f"/jobs/{job}").json()["result"]["progress"] < 100:
 
 > [!WARNING] Wait for the import job
 > Don't build the census until the members-job reaches `progress: 100` - the participants won't be
-> there yet. See [Jobs](/developers/docs/jobs) for the full job model.
+> there yet. A members-job never reports `failed`: when a row cannot be stored the job stays `pending`
+> with `progress` below 100 (or absent), so give your poll loop a deadline instead of waiting forever.
+> See [Jobs](/developers/docs/jobs) for the full job model.
 
 ## Listing members
 

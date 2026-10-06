@@ -47,7 +47,8 @@ customer, use the integrator flow in [Managed organizations](/developers/docs/ma
 | `website` | string | Public website URL. |
 
 ```bash
-curl "${auth[@]}" -X POST "$B/organizations" \
+# $SESSION: the token returned by POST /auth/login - an API key gets 403 here
+curl -H "Authorization: Bearer $SESSION" -H "Content-Type: application/json" -X POST "$B/organizations" \
   -d '{
     "name": "Maple Street HOA",
     "type": "association",
@@ -59,7 +60,11 @@ curl "${auth[@]}" -X POST "$B/organizations" \
 ```
 
 ```ts
-const { address: org } = await client.organizations.create({
+// A client authenticated as a user (an API key gets 403 here)
+const session = new VocdoniApiClient({ apiUrl: '{{API_BASE_URL}}' })
+session.setAuthToken((await session.auth.login(email, password)).token)
+
+const { address: org } = await session.organizations.create({
   name: 'Maple Street HOA',
   type: 'association',
   size: '500',
@@ -82,8 +87,8 @@ curl "${auth[@]}" "$B/organizations/$ORG"
 :::code-tabs[read an organization]
 
 ```ts
-const org = await client.organizations.get(address)
-const name = org.meta.name
+const info = await client.organizations.get(org)
+const name = info.meta?.name
 ```
 ```csharp
 var org = await Get($"/organizations/{address}");
@@ -101,12 +106,12 @@ Update the descriptive metadata (name, type, and other `meta` fields). The on-ch
 `address` - never changes. Like creation, this needs a user session token, not an API key.
 
 ```bash
-curl "${auth[@]}" -X PUT "$B/organizations/$ORG" \
+curl -H "Authorization: Bearer $SESSION" -H "Content-Type: application/json" -X PUT "$B/organizations/$ORG" \
   -d '{"type":"association","meta":{"name":"Maple Street HOA","city":"Springfield"}}'
 ```
 
 ```ts
-await client.organizations.update(org, {
+await session.organizations.update(org, { // the user-session client from above
   type: 'association',
   meta: { name: 'Maple Street HOA', city: 'Springfield' },
 })
