@@ -22,6 +22,7 @@ every call in this documentation. The plaintext secret is prefixed `vsk_`; the p
 is safe to log for identification, the full secret is not.
 
 ```bash
+# GET /integrator needs the quota:read scope
 curl "{{API_BASE_URL}}/integrator" \
   -H "Authorization: Bearer vsk_your_api_key"
 ```

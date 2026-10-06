@@ -21,8 +21,8 @@ The SaaS API runs in two independent environments. Use the base URL for the one 
 API keys are scoped to a single environment: create your key in the [API Dashboard](https://platform.vocdoni.io) for the environment you are calling, and a staging key will not authenticate against production.
 
 ```bash
-# Authenticated request
-curl {{API_BASE_URL}}/organizations/$ORG \
+# Authenticated request (GET /integrator needs the quota:read scope)
+curl {{API_BASE_URL}}/integrator \
   -H "Authorization: Bearer vsk_your_api_key"
 ```
 
@@ -31,7 +31,7 @@ curl {{API_BASE_URL}}/organizations/$ORG \
 import { VocdoniApiClient } from '@vocdoni/api-client'
 
 const client = new VocdoniApiClient({ apiUrl: '{{API_BASE_URL}}', authToken: 'vsk_your_api_key' })
-const info = await client.organizations.get(org)
+const { limits, usage } = await client.organizations.getIntegratorInfo()
 ```
 
 > [!TIP] Start on staging
@@ -59,7 +59,7 @@ it does not exist. Send your key when you need the manager view.
 
 ## Asynchronous operations
 
-Some operations take longer than a single request should wait - bulk imports, process publishing and status changes, and relaying a vote. These return `202 Accepted` with a `{ "jobId": "..." }` body. Poll the job until it finishes, then read the outcome from `result`. See [Jobs](/developers/docs/jobs) for the full model.
+Some operations take longer than a single request should wait - process publishing and status changes, relaying a vote, and bulk member imports sent with `?async=true`. These return a `{ "jobId": "..." }` body (`202 Accepted`, or `200` for a member import). Poll the job until it finishes, then read the outcome from `result`. See [Jobs](/developers/docs/jobs) for the full model.
 
 ## Pagination
 

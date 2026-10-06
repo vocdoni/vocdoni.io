@@ -43,7 +43,10 @@ JOB=$(curl -s "${auth[@]}" -X POST "$B/organizations/$ORG/members?async=true" -d
 }' | jq -r .jobId)
 
 # poll the members-job until done
-until [ "$(curl -s "${auth[@]}" "$B/jobs/$JOB" | jq -r .result.progress)" = "100" ]; do sleep 1; done
+# a members-job never fails: a row that cannot be stored leaves it pending, so poll with a deadline
+for _ in $(seq 120); do
+  [ "$(curl -s "${auth[@]}" "$B/jobs/$JOB" | jq -r .status)" = "completed" ] && break; sleep 1
+done
 ```
 
 ```jsonc
@@ -70,13 +73,15 @@ if (jobId) await client.jobs.waitFor(jobId, { timeoutMs: 10 * 60_000 })
 var job = (await Post($"/organizations/{org}/members?async=true",
     new { members = new[] { new { name = "Alice", memberNumber = "A-101", weight = "1" } } }))
     .GetProperty("jobId").GetString();
-while ((await Get($"/jobs/{job}")).GetProperty("result").GetProperty("progress").GetInt32() < 100)
-    await Task.Delay(1000);
+for (var i = 0; i < 120 && (await Get($"/jobs/{job}")).GetProperty("status").GetString() != "completed"; i++)
+    await Task.Delay(1000); // completes at progress 100; a failed row keeps it pending, hence the deadline
 ```
 ```python
 job = post(f"/organizations/{org}/members?async=true",
            {"members": [{"name": "Alice", "memberNumber": "A-101", "weight": "1"}]}).json()["jobId"]
-while get(f"/jobs/{job}").json()["result"]["progress"] < 100:
+for _ in range(120):  # completes at progress 100; a failed row keeps it pending, hence the deadline
+    if get(f"/jobs/{job}").json()["status"] == "completed":
+        break
     time.sleep(1)
 ```
 :::
@@ -135,14 +140,24 @@ Update a single member, or delete members by id. Note the delete path is **plura
 - **PUT** `/organizations/{address}/members`
 - **DELETE** `/organizations/{address}/members`
 
+An update rewrites `weight` too: leave it out and the member's weight resets to `1`, which changes
+their vote in a weighted census. Always resend the member's current weight.
+
 ```bash
 curl "${auth[@]}" -X PUT "$B/organizations/$ORG/members" \
-  -d '{"id":"<memberId>","memberNumber":"A-101","email":"alice@example.org"}'
+  -d '{"id":"<memberId>","memberNumber":"A-101","email":"alice@example.org","weight":"1"}'
 curl "${auth[@]}" -X DELETE "$B/organizations/$ORG/members" -d '{"ids":["<memberId>"]}'
 ```
 
 ```ts
-await client.organizations.upsertMember(org, { id: memberId, memberNumber: 'A-101', email: 'alice@example.org' })
+// Resend the current weight: an update without it resets the member to 1. The API wants a string,
+// while the SDK types it as a number, so cast until the SDK type is fixed.
+await client.organizations.upsertMember(org, {
+  id: memberId,
+  memberNumber: 'A-101',
+  email: 'alice@example.org',
+  weight: '1' as unknown as number,
+})
 await client.organizations.deleteMembers(org, { ids: [memberId] })
 ```
 

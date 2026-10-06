@@ -60,7 +60,10 @@ JOB=$(curl -s "${auth[@]}" -X POST "$B/organizations/$ORG/members?async=true" -d
     { "name": "Alice", "memberNumber": "A-101", "email": "alice@example.org", "weight": "1" }
   ]
 }' | jq -r .jobId)
-until [ "$(curl -s "${auth[@]}" "$B/jobs/$JOB" | jq -r .result.progress)" = "100" ]; do sleep 1; done
+# a members-job never fails: a row that cannot be stored leaves it pending, so poll with a deadline
+for _ in $(seq 120); do
+  [ "$(curl -s "${auth[@]}" "$B/jobs/$JOB" | jq -r .status)" = "completed" ] && break; sleep 1
+done
 ```
 
 ## Create an all-members group
@@ -229,8 +232,8 @@ var org = (await Post("/integrator/organizations",
 var job = (await Post($"/organizations/{org}/members?async=true",
     new { members = new[] { new { name = "Alice", memberNumber = "A-101",
                                   email = "alice@example.org", weight = "1" } } })).GetProperty("jobId").GetString();
-while ((await Get($"/jobs/{job}")).GetProperty("result").GetProperty("progress").GetInt32() < 100)
-    await Task.Delay(1000);
+for (var i = 0; i < 120 && (await Get($"/jobs/{job}")).GetProperty("status").GetString() != "completed"; i++)
+    await Task.Delay(1000); // completes at progress 100; a failed row keeps it pending, hence the deadline
 
 // 3. all-members group
 var group = (await Post($"/organizations/{org}/groups",
@@ -268,7 +271,9 @@ org = post("/integrator/organizations",
 job = post(f"/organizations/{org}/members?async=true",
            {"members": [{"name": "Alice", "memberNumber": "A-101",
                          "email": "alice@example.org", "weight": "1"}]}).json()["jobId"]
-while get(f"/jobs/{job}").json()["result"]["progress"] < 100:
+for _ in range(120):  # completes at progress 100; a failed row keeps it pending, hence the deadline
+    if get(f"/jobs/{job}").json()["status"] == "completed":
+        break
     time.sleep(1)
 
 # 3. all-members group

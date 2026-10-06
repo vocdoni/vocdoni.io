@@ -91,12 +91,12 @@ const info = await client.organizations.get(org)
 const name = info.meta?.name
 ```
 ```csharp
-var org = await Get($"/organizations/{address}");
-var name = org.GetProperty("meta").GetProperty("name").GetString();
+var info = await Get($"/organizations/{org}");
+var name = info.GetProperty("meta").GetProperty("name").GetString();
 ```
 ```python
-org = get(f"/organizations/{address}").json()
-name = org["meta"]["name"]
+info = get(f"/organizations/{org}").json()
+name = info["meta"]["name"]
 ```
 :::
 

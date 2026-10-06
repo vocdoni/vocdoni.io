@@ -1,6 +1,6 @@
 ---
 title: Jobs
-lead: Some operations take longer than a single request should wait - bulk imports, process publishing and status changes. These return a job id you poll until the work finishes.
+lead: Some operations take longer than a single request should wait - process publishing and status changes, and bulk member imports sent with ?async=true. These return a job id you poll until the work finishes.
 group: core_concepts
 order: 60
 ---
