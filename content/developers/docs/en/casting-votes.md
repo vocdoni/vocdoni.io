@@ -225,10 +225,12 @@ a voter can be holding an outdated ballot by the time they vote.
 - With the SDK, pass the question's `metadataHash` to `vote()` / `buildVoteTransaction()`, taken from
   the same read you render the ballot from. `@vocdoni/react-providers` does it automatically. A
   `@vocdoni/sdk` client attests it as well.
-- `POST /vote` and `POST /votes` check the hash before relaying anything. A vote attesting an outdated
-  version is refused with **`409`** and code **`40904`** ("ballot metadata changed, reload the process
-  and vote again"); in a batch, nothing is relayed. The API client throws a `StaleMetadataError` for
-  it, and `isStaleMetadataError()` also recognizes the chain's rejection on a failed vote job.
+- `POST /vote` and `POST /votes` check the hash before relaying anything. A vote attesting a version
+  that is **definitely outdated** is refused with **`409`** and code **`40904`** ("ballot metadata
+  changed, reload the process and vote again"); in a batch, nothing is relayed. While a metadata edit
+  is still pending, a vote attesting either the current or the pending version is relayed and the chain
+  decides, so a vote can also fail on chain with a stale-metadata error on its job. The API client
+  throws a `StaleMetadataError` for the `409`, and `isStaleMetadataError()` recognizes both cases.
 - On that error, **reload the process, show the voter the updated ballot, and let them vote again**.
   Do not resubmit silently with the new hash - the voter must see what they are voting on.
 

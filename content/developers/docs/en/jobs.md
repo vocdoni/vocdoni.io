@@ -103,7 +103,8 @@ A `set_process_metadata` job lists in `result.questions` one entry per question 
 metadata the edit changes, in process order: the `questionId`, its on-chain election id
 (`processId`), the `metadataURL` and `metadataHash` its transaction commits, and its own `status`.
 On `completed` that version is what the question now serves and every vote must attest; on `failed`
-the question kept its previous version - send the same edit again to retry just the failed ones:
+(rejected, or dropped by the chain without being mined) the question kept its previous version, which
+stays valid - send the same edit again to retry just the failed ones:
 
 ```jsonc
 { "jobId": "c7d8e9...", "type": "set_process_metadata", "status": "completed",

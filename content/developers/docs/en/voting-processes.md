@@ -279,12 +279,11 @@ call is a `400`.
 What happens next depends on the process:
 
 - **Draft** - the text is stored right away: `200`.
-- **Published, nothing changed** - an edit that leaves every text as stored answers `200` without
-  touching the chain.
+- **Published, nothing changed** - an edit that leaves every text exactly as stored answers `200`
+  without touching the chain. This is the only case of a published process that does not create a job.
 - **Published, text changed** - every question whose text changes (or **every** question, when the
   process `title`, `description`, `header` or `streamUri` change, since they travel in each question's
-  document) gets a new metadata
-  document at a new `metadataURL`, committed on chain with one `SET_PROCESS_METADATA` transaction per
+  document) gets a new metadata document at a new `metadataURL`, committed on chain with one `SET_PROCESS_METADATA` transaction per
   question. The call answers `202` with a `jobId` to poll - a `set_process_metadata`
   [job](/developers/docs/jobs#job-types) whose result lists each affected question with the
   `metadataURL`/`metadataHash` its transaction commits and its own status.
@@ -294,10 +293,16 @@ What happens next depends on the process:
 ```
 
 A question's stored text, `metadataURL` and `metadataHash` change only **once its transaction is
-mined**, so what the API serves always matches what its election commits to on chain. The process's own
-fields are stored only when every question succeeded; if some failed, send the same edit again - the
-questions already updated are skipped. Earlier documents stay served at their old URLs, so what a voter
-was shown at any time remains checkable.
+mined**, so what the API serves always matches what its election commits to on chain. A transaction can
+also never be mined - the chain may drop it, for example when the organization's balance is
+insufficient or the election is no longer `READY` or `PAUSED`. That question then ends as `failed` in the
+job and **keeps its previous version**, which stays valid for voting. If some questions failed, send the
+same edit again - the questions already updated are skipped. Earlier documents stay served at their old
+URLs, so what a voter was shown at any time remains checkable.
+
+Only one edit per process is in flight at a time: a second `PUT` is refused with `409` (`40905`) until
+the previous edit is final - every transaction mined or dropped, which takes at most about ten minutes.
+Poll its job, then edit again.
 
 The chain accepts a metadata update only while the election is `READY` or `PAUSED`. The `PUT` returns
 `409` with one of these codes:
@@ -305,13 +310,15 @@ The chain accepts a metadata update only while the election is `READY` or `PAUSE
 | Code | When |
 | --- | --- |
 | `40903` | A publish of the process is in progress. |
-| `40905` | A previous metadata edit of the process is still being put on chain - poll its job, then edit again. |
+| `40905` | A previous metadata edit of the process is not final yet (mined or dropped) - poll its job, then edit again. |
 | `40906` | A question whose metadata would change is no longer `READY` or `PAUSED` (ended, canceled, results). |
 
 > [!WARNING] Voters holding the old ballot must reload
-> A vote attests the `metadataHash` of the ballot the voter was shown. Once a question's update is
-> mined, a vote built against the previous hash is refused with `409` code `40904` - the voter app must
-> reload the process and show the updated ballot before letting them vote. See
+> A vote attests the `metadataHash` of the ballot the voter was shown. While an edit is pending, votes
+> attesting either the current or the pending version are relayed and the chain decides which one it
+> accepts. Once a version is definitely outdated - the update replacing it is mined - a vote built
+> against it is refused with `409` code `40904`, and the voter app must reload the process and show the
+> updated ballot before letting them vote. See
 > [Casting votes](/developers/docs/casting-votes#the-ballot-metadata-hash). Edit a live process only
 > when the correction is worth that interruption.
 
