@@ -76,11 +76,12 @@ while True:
 ## Job types
 
 - `org_members` - bulk member import.
-- `publish_voting_process` - publishing a process (its census and one election per question, in one batch).
+- `publish_voting_process` - publishing a process (its census, its metadata-only parent election and
+  one election per question, in one batch).
 - `set_process_status` - changing a question's status.
-- `set_process_metadata` - editing the text of a published process (one `SET_PROCESS_METADATA`
-  transaction per affected question). See
-  [Editing the text of a published process](/developers/docs/voting-processes#editing-the-text-of-a-published-process).
+- `set_process_metadata` - editing the content of a published process (one `SET_PROCESS_METADATA`
+  transaction per affected election: the parent and/or the questions). See
+  [Editing the content of a published process](/developers/docs/voting-processes#editing-the-content-of-a-published-process).
 - `relay_vote` - relaying a single vote to the protocol.
 - `relay_votes` - relaying a batch of votes (`POST /votes`) to the protocol.
 
@@ -99,18 +100,23 @@ accepted:
       { "processId": "c015...", "nullifier": "33fa...", "status": "failed", "error": "vote already exists" } ] } }
 ```
 
-A `set_process_metadata` job lists in `result.questions` one entry per question whose election
-metadata the edit changes, in process order: the `questionId`, its on-chain election id
-(`processId`), the `metadataURL` and `metadataHash` its transaction commits, and its own `status`.
-On `completed` that version is what the question now serves and every vote must attest; on `failed`
-(rejected, or dropped by the chain without being mined) the question kept its previous version, which
-stays valid - send the same edit again to retry just the failed ones:
+A `set_process_metadata` job reports every election whose metadata the edit changes: a `parent`
+entry when the process's own title, description, header or streamUri changed, and in `questions` one
+entry per changed question, in process order. Each carries the on-chain election id (`processId`), the
+`metadataURL` and `metadataHash` its transaction commits and its own `status`; question entries also
+carry their `questionId`. On `completed` that version is what the election now serves and every vote
+must attest. An entry stays `pending` until its transaction is final, and on `failed` (rejected, or
+dropped by the chain without being mined) the election kept its previous version, which stays valid -
+send the same edit again to retry just the failed ones:
 
 ```jsonc
 { "jobId": "c7d8e9...", "type": "set_process_metadata", "status": "completed",
-  "result": { "questions": [
-    { "questionId": "b2c3...", "processId": "a1b2...", "status": "completed",
-      "metadataURL": "https://.../storage/8e31....json", "metadataHash": "2c26..." } ] } }
+  "result": {
+    "parent": { "processId": "e4f5...", "status": "completed",
+      "metadataURL": "https://.../storage/91d0....json", "metadataHash": "7b3e..." },
+    "questions": [
+      { "questionId": "b2c3...", "processId": "a1b2...", "status": "completed",
+        "metadataURL": "https://.../storage/8e31....json", "metadataHash": "2c26..." } ] } }
 ```
 
 ## The members-job
