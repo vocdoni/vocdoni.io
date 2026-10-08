@@ -113,8 +113,9 @@ processId = post("/processes", {
 
 ## Editing a draft
 
-While a process is unpublished you can replace its fields with the same body. Once published it is
-immutable - the update returns `409`.
+While a process is unpublished you can replace its fields with the same body. Once published this
+update returns `409`: the ballot, dates and census are fixed, and only the text can still change,
+through [`PUT /processes/{processId}/metadata`](#editing-the-text-of-a-published-process).
 
 - **PUT** `/processes/{processId}`
 
@@ -168,6 +169,7 @@ curl -s "${auth[@]}" "$B/processes?orgAddress=$ORG&status=READY&page=1"
   "questions": [{
     "id": "b2c3...", "upstreamId": "a1b2...64hex...", "parentProcessId": "6a1f...",
     "status": "READY", "type": "singlechoice",
+    "metadataURL": "https://.../storage/4f2a....json", "metadataHash": "9f86d081...64hex...",
     "title": { "default": "Who should chair the board?" },
     "choices": [ /* ... */ ],
     "results": { "voteCount": 12, "maxVoters": 500, "finalResults": false, "results": [ ["7", "5"] ] }
@@ -192,6 +194,13 @@ is absent only for a **draft** (no election yet). A published question with no v
 [open-value](/developers/docs/voting-types#open-value-choices) question a manager/admin also gets a
 `memos` array inside this object; it is absent for everyone else. The `GET /processes` **list** does
 not resolve results. See [Results](/developers/docs/results).
+
+Each published question also carries **`metadataURL`** - where the metadata document its election
+points to on chain is served - and **`metadataHash`**, the SHA-256 (hex) of the exact bytes served at
+that URL, as committed on chain. Every vote must attest the current `metadataHash`, so a voter app reads
+it from the same response it renders the ballot from - see
+[Casting votes](/developers/docs/casting-votes#the-ballot-metadata-hash) - and anyone can use the pair to
+[verify the ballot](#verifying-the-ballot-metadata). Both are absent on a draft.
 
 The `census` object also carries response-only **`size`** (eligible-voter count, on every read) and
 **`totalWeight`** (the sum of members' weights - equals `size` for a non-weighted census), the
@@ -228,6 +237,139 @@ until [ "$(curl -s "$B/jobs/$PJOB" | jq -r .status)" = "completed" ]; do sleep 2
 
 On success each question gains its `upstreamId` and a `status` of `READY`, and the process flips to
 `published: true`. Re-read the process to get the `upstreamId`s that voters sign against.
+
+## Editing the text of a published process
+
+The text of a process stays editable after publishing - to fix a typo or a translation, or swap the
+header image. A dedicated endpoint pair reads and writes only that text: the process `title`,
+`description`, `header` and `streamUri`, and each question's `title`, `description` and choice titles.
+Nothing structural can change: the body has no field for a question's type, setup, choice values or
+ballot protocol, nor for dates or census.
+
+- **GET** `/processes/{processId}/metadata`
+- **PUT** `/processes/{processId}/metadata`
+
+The read is public for a published process; a draft is visible only to a manager/admin of the org (or a
+`voting:write` API key) and is a `404` for everyone else. The write requires a manager/admin, or a
+`voting:write` API key. Both use the same shape, so read it, change the text, and send it back:
+
+```bash
+curl -s "$B/processes/$PROCESS/metadata" > meta.json
+# edit meta.json, keeping every question and choice in place
+curl "${auth[@]}" -X PUT "$B/processes/$PROCESS/metadata" -d @meta.json
+```
+
+```jsonc
+{
+  "title": { "default": "Board election 2026" },
+  "description": { "default": "Elect the new board" },
+  "header": "https://.../storage/1c9e....png",
+  "streamUri": "https://www.youtube.com/watch?v=...",
+  "questions": [{
+    "title": { "default": "Who should chair the board?" },
+    "choices": [ { "title": { "default": "Ada Lovelace" } }, { "title": { "default": "Alan Turing" } } ]
+  }]
+}
+```
+
+Questions and choices carry no ids: they are **matched by position**, so the body must keep the order
+the read returned and the **same number** of questions, and of choices in each question - otherwise the
+call is a `400`.
+
+What happens next depends on the process:
+
+- **Draft** - the text is stored right away: `200`.
+- **Published, nothing changed** - an edit that leaves every text as stored answers `200` without
+  touching the chain.
+- **Published, text changed** - every question whose text changes (or **every** question, when the
+  process `title`, `description`, `header` or `streamUri` change, since they travel in each question's
+  document) gets a new metadata
+  document at a new `metadataURL`, committed on chain with one `SET_PROCESS_METADATA` transaction per
+  question. The call answers `202` with a `jobId` to poll - a `set_process_metadata`
+  [job](/developers/docs/jobs#job-types) whose result lists each affected question with the
+  `metadataURL`/`metadataHash` its transaction commits and its own status.
+
+```jsonc
+{ "jobId": "c7d8e9..." }   // 202 - poll /jobs/{jobId}
+```
+
+A question's stored text, `metadataURL` and `metadataHash` change only **once its transaction is
+mined**, so what the API serves always matches what its election commits to on chain. The process's own
+fields are stored only when every question succeeded; if some failed, send the same edit again - the
+questions already updated are skipped. Earlier documents stay served at their old URLs, so what a voter
+was shown at any time remains checkable.
+
+The chain accepts a metadata update only while the election is `READY` or `PAUSED`. The `PUT` returns
+`409` with one of these codes:
+
+| Code | When |
+| --- | --- |
+| `40903` | A publish of the process is in progress. |
+| `40905` | A previous metadata edit of the process is still being put on chain - poll its job, then edit again. |
+| `40906` | A question whose metadata would change is no longer `READY` or `PAUSED` (ended, canceled, results). |
+
+> [!WARNING] Voters holding the old ballot must reload
+> A vote attests the `metadataHash` of the ballot the voter was shown. Once a question's update is
+> mined, a vote built against the previous hash is refused with `409` code `40904` - the voter app must
+> reload the process and show the updated ballot before letting them vote. See
+> [Casting votes](/developers/docs/casting-votes#the-ballot-metadata-hash). Edit a live process only
+> when the correction is worth that interruption.
+
+## Verifying the ballot metadata
+
+The text and media a voter is shown are not stored on chain - only a pointer to them is. Each
+question's election commits two things: the `metadataURL` of its metadata document, and the
+`metadataHash`, the SHA-256 of the exact bytes served there. Anyone can fetch the document and check
+it, without trusting the SaaS:
+
+```bash
+Q=$(curl -s "$B/processes/$PROCESS" | jq '.questions[0]')
+URL=$(jq -r .metadataURL <<<"$Q"); HASH=$(jq -r .metadataHash <<<"$Q")
+curl -s "$URL" | sha256sum   # must equal $HASH
+```
+
+Besides the question's own text and choices, the document carries the process-level text voters see
+as the page heading, in `meta.process` (`title` and, when set, `description`), so the hash covers it
+too. It also pins the **media** it references: `meta.mediaHashes` maps each media URL (the
+`header` image, the `streamUri`) that is stored in the SaaS object storage to the lowercase hex SHA-256
+of its bytes:
+
+```jsonc
+{
+  "title": { "default": "Who should chair the board?" },
+  "media": { "header": "https://.../storage/1c9e....png" },
+  "meta": {
+    "process": {
+      "title": { "default": "Board election 2026" },
+      "description": { "default": "Elect the new board" }
+    },
+    "mediaHashes": { "https://.../storage/1c9e....png": "3a7bd3e2...64hex..." }
+  },
+  "questions": [ /* ... */ ]
+}
+```
+
+External URLs - an image hosted elsewhere, a YouTube stream - are **not listed**, since their content
+can change without the SaaS knowing: treat a media URL missing from `mediaHashes` as not verifiable.
+The key is absent altogether when no media is hashable.
+
+To check against the chain itself rather than the SaaS response, read the question's election from a
+Vochain API node by its `upstreamId`: `GET /v2/elections/{upstreamId}` reports the current
+`metadataURL` and `metadataHash`, and `GET /v2/elections/{upstreamId}/metadata/history` lists every
+version the election has had, oldest first - the one it was published with and each
+[later edit](#editing-the-text-of-a-published-process) - with the block, transaction and time that set
+it:
+
+```jsonc
+{ "versions": [
+  { "metadataURL": "https://.../storage/4f2a....json", "metadataHash": "9f86...",
+    "blockHeight": 123400, "txIndex": 0, "txHash": "a1b2...", "timestamp": "2026-07-01T08:59:12Z" },
+  { "metadataURL": "https://.../storage/8e31....json", "metadataHash": "2c26...",
+    "blockHeight": 124010, "txIndex": 3, "txHash": "c3d4...", "timestamp": "2026-07-01T10:14:40Z" }
+] }
+```
+
+Fetch each `metadataURL` and hash it to confirm what every voter saw at any point of the vote.
 
 ## Managing a published census
 
@@ -348,8 +490,10 @@ JSON
 
 ## Gotchas
 
-- A process is a **draft** until you publish it; edits are allowed only while `published: false`.
-- Publish and status changes are **jobs** - read the outcome from `/jobs/{jobId}`, not the POST body.
+- A process is a **draft** until you publish it; full edits are allowed only while `published: false`.
+  After publishing only the text can change, through `PUT /processes/{processId}/metadata`.
+- Publish, status changes and metadata edits of a published process are **jobs** - read the outcome
+  from `/jobs/{jobId}`, not the POST body.
 - Address the process by its **`processId`** everywhere server-side. A question's **`upstreamId`** is
   only needed client-side, when a voter signs a ballot for that question.
 - The inline census id is internal - you never send or receive it. See [Census](/developers/docs/census).

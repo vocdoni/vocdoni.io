@@ -51,7 +51,7 @@ it does not exist. Send your key when you need the manager view.
 
 ## Asynchronous operations
 
-Some operations take longer than a single request should wait - bulk imports, process publishing and status changes, and relaying a vote. These return `202 Accepted` with a `{ "jobId": "..." }` body. Poll the job until it finishes, then read the outcome from `result`. See [Jobs](/developers/docs/jobs) for the full model.
+Some operations take longer than a single request should wait - bulk imports, process publishing and status changes, metadata edits of a published process, and relaying a vote. These return `202 Accepted` with a `{ "jobId": "..." }` body. Poll the job until it finishes, then read the outcome from `result`. See [Jobs](/developers/docs/jobs) for the full model.
 
 ## Pagination
 
