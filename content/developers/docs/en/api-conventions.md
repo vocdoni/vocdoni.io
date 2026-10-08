@@ -47,11 +47,11 @@ it does not exist. Send your key when you need the manager view.
 ## Identifiers
 
 - **Addresses and ids are hex strings** - for example `0x1234...` for an organization address.
-- **A process and its questions have different ids, do not mix them.** A `processId` identifies a process (a draft until published) and addresses it everywhere server-side. Each question's `upstreamId` is the 64-hex on-chain election id, assigned at publish; voters need it to sign a ballot, but you never address the process by it.
+- **A process and its questions have different ids, do not mix them.** A `processId` identifies a process (a draft until published) and addresses it everywhere server-side. Each question's `upstreamId` is the 64-hex on-chain election id, assigned at publish; voters need it to sign a ballot, but you never address the process by it. A published process also has its own `upstreamId`: its metadata-only parent election, which is never voted on.
 
 ## Asynchronous operations
 
-Some operations take longer than a single request should wait - bulk imports, process publishing and status changes, and relaying a vote. These return `202 Accepted` with a `{ "jobId": "..." }` body. Poll the job until it finishes, then read the outcome from `result`. See [Jobs](/developers/docs/jobs) for the full model.
+Some operations take longer than a single request should wait - bulk imports, process publishing and status changes, metadata edits of a published process, and relaying a vote. These return `202 Accepted` with a `{ "jobId": "..." }` body. Poll the job until it finishes, then read the outcome from `result`. See [Jobs](/developers/docs/jobs) for the full model.
 
 ## Pagination
 

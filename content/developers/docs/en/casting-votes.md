@@ -25,8 +25,8 @@ process, then **signs and relays a ballot per question** they are eligible for.
    voter's ephemeral voting address for **that question's election**. It refuses unless the voter is
    in the question's [eligibility subset](/developers/docs/census#per-question-eligibility). Signatures
    are salted per election, so one cannot be replayed on another question.
-3. **Build and sign** - the voter builds the protobuf vote envelope and signs it locally with the
-   ephemeral key.
+3. **Build and sign** - the voter builds the protobuf vote envelope, attesting the question's
+   and the process's [metadata hashes](#the-ballot-metadata-hashes), and signs it locally with the ephemeral key.
 4. **Relay** - the signed envelope is relayed (asynchronously) to the protocol, which returns a vote
    receipt (nullifier).
 
@@ -87,6 +87,10 @@ const { belongsToProcess, questions } = await client.processes.check(processId, 
 const question = questions.find((q) => q.canVote && !q.hasVoted)
 if (!belongsToProcess || !question?.upstreamId) throw new Error('nothing to vote on')
 
+// The ballot you render, and the metadata hashes the vote attests, come from the same read.
+const process = await client.processes.get(processId)
+const { metadataHash } = process.questions.find((q) => q.upstreamId === question.upstreamId)!
+
 // 3. Fresh ephemeral key per ballot; the CSP signs its address for this
 //    question's election. Refused unless the voter is in the question's
 //    eligibility subset.
@@ -105,6 +109,8 @@ const jobId = await voting.vote({
   signer,
   cspSignature: signature,
   cspWeight: weight,
+  metadataHash, // the question the voter was shown - see "The ballot metadata hashes"
+  parentMetadataHash: process.metadataHash, // the process title, description and media
   // memo: 'Grace Hopper',   // only for an open-value choice - see below
 })
 const job = await client.jobs.waitFor(jobId)
@@ -208,6 +214,39 @@ question, each on its own vote.
 > it. See the [SDK repository]({{SDK_URL}}) and the
 > [SDK quickstart](/developers/docs/sdk-quickstart).
 
+## The ballot metadata hashes
+
+The text and images the voter is shown are committed on chain as hashes: each question's election
+commits the SHA-256 of its metadata document (the question's **`metadataHash`**), and the process's
+metadata-only parent election commits the SHA-256 of the process title, description and media (the
+process's **`metadataHash`**). Both are in the
+[process read](/developers/docs/voting-processes#reading-a-process). A vote envelope must carry **both**:
+the question's in `metadataHash` and the process's in `parentMetadataHash`. They attest which version of
+the ballot the voter saw, and the chain **rejects any vote whose hashes differ from the elections'
+current ones**. Because the content of a published process
+[can be edited](/developers/docs/voting-processes#editing-the-content-of-a-published-process), a voter
+can be holding an outdated ballot by the time they vote.
+
+- With the SDK, pass `metadataHash` and `parentMetadataHash` to `vote()` / `buildVoteTransaction()`,
+  taken from the same read you render the ballot from. `@vocdoni/react-providers` does it
+  automatically.
+- `POST /vote` and `POST /votes` check both hashes before relaying anything. While a metadata edit is
+  pending, a vote attesting either the current or the pending version is relayed and the chain decides,
+  so a vote can also fail on chain with a stale-metadata error on its job. A vote attesting any other
+  version is refused with **`409`** and code **`40904`** ("ballot metadata changed, reload the process
+  and vote again"); in a batch, nothing is relayed. The API client throws a `StaleMetadataError` for
+  the `409`, and `isStaleMetadataError()` recognizes both cases.
+- On that error, **reload the process, show the voter the updated ballot, and let them vote again**.
+  Do not resubmit silently with the new hashes - the voter must see what they are voting on.
+
+The CSP signature covers the election, the ephemeral address and the weight, not the metadata: keep
+the same ephemeral signer and CSP signature, and only build the envelope again with the new hashes.
+Asking the CSP to sign again would get `already_consumed`.
+
+Because the chain enforces both hashes through the vote itself, a voter app needs no Vochain API to
+trust the ballot. Auditors who want to check the documents and their history can - see
+[The on-chain metadata](/developers/docs/voting-processes#the-on-chain-metadata).
+
 ## Casting a multi-question process in one batch
 
 A multi-question process is one on-chain election per question, so the voter holds one ballot per
@@ -222,6 +261,10 @@ import { EphemeralSigner, buildVoteTransaction } from '@vocdoni/api-voting'
 
 // One fresh ephemeral signer per question, then one sign call for all of them.
 const votable = questions.filter((q) => q.canVote && !q.hasVoted)
+// metadataHash per election (and the process's, for every vote), from the same process read
+// the ballots are rendered from
+const process = await client.processes.get(processId)
+const hashes = new Map(process.questions.map((q) => [q.upstreamId, q.metadataHash]))
 const signers = new Map(votable.map((q) => [q.upstreamId!, new EphemeralSigner()]))
 const { signatures } = await client.processes.signBatch(processId, {
   authToken,
@@ -237,6 +280,7 @@ const votes = signatures
       processId: s.upstreamId, // the question's on-chain election id, not the SaaS processId
       chainId, choices: [1],
       signer: signers.get(s.upstreamId)!, cspSignature: s.signature!, cspWeight: s.weight!,
+      metadataHash: hashes.get(s.upstreamId), parentMetadataHash: process.metadataHash,
     }),
   }))
 if (!votes.length) throw new Error('no ballot was signed - nothing to relay')
@@ -301,8 +345,9 @@ curl -X POST "$B/votes" \
 # -> 202 Accepted   { "jobId": "<jobId>" }
 ```
 
-The batch is validated synchronously and **enqueued all or nothing** - one undecodable envelope, a
-batch spanning two organizations, or a queue without room for all of them rejects the call with
+The batch is validated synchronously and **enqueued all or nothing** - one undecodable envelope, one
+attesting an [outdated metadata hash](#the-ballot-metadata-hashes) (`409`, code `40904`), a batch
+spanning two organizations, or a queue without room for all of them rejects the call with
 nothing relayed (at most 100 votes per call; each envelope's body is capped at 8 KiB). The single
 `jobId` covers the whole batch as a `relay_votes` [job](/developers/docs/jobs) whose result reports
 every envelope in request order - each entry carries its `processId` and `nullifier` (known while
@@ -354,6 +399,8 @@ const votes = results
       cspSignature: r.signature!, // 96-byte blind signature, not the usual 65
       cspWeight: r.weight!,       // pass back verbatim - it is bound into the signature
       proofType: ProofCA_Type.ECDSA_BLIND_PIDSALTED,
+      metadataHash: hashes.get(r.upstreamId), // as in the plain batch above
+      parentMetadataHash: process.metadataHash,
     }),
   }))
 const { jobId } = await client.elections.voteBatch({ votes })
@@ -515,7 +562,9 @@ curl -X POST "$B/processes/$PROCESS/sign" \
   -d '{ "authToken": "<authToken>", "electionId": "<upstreamId>", "payload": "<hex ephemeral address>" }'
 # -> { "signature": "<csp-signature>", "weight": "1" }
 
-# c) Build + sign the protobuf Vote envelope locally, hex-encode the SignedTx, then relay it (async).
+# c) Build + sign the protobuf Vote envelope locally (metadataHash = the question's metadataHash,
+#    parentMetadataHash = the process's), hex-encode the SignedTx, then relay it (async).
+#    409 code 40904: the ballot changed.
 curl -X POST "$B/vote" \
   -H "Content-Type: application/json" \
   -d '{ "txPayload": "<hex of the signed Vote envelope>" }'
@@ -540,6 +589,11 @@ the questions are signed under a single authorization and relayed all or nothing
 > The vote package inside the envelope is `{"votes":[<choice>]}` - for example `{"votes":[1]}`. Building
 > and signing the envelope is exactly what the SDK does for you above. See
 > [Voting types](/developers/docs/voting-types) for how the choices array is shaped per ballot type.
+>
+> The envelope's `metadataHash` and `parentMetadataHash` fields (`VoteEnvelope`, from `@vocdoni/proto`
+> 1.18.0 on - not released yet) carry the raw 32 bytes of the question's and the process's
+> [`metadataHash`](#the-ballot-metadata-hashes). The chain rejects a vote unless both are byte-equal to
+> the question election's and its parent election's current ones.
 >
 > A memo for an [open-value choice](#open-value-choices) is the envelope's own `memo` field
 > (`VoteEnvelope.memo`, from `@vocdoni/proto` 1.15.13 on) - a sibling of the vote package, not part of

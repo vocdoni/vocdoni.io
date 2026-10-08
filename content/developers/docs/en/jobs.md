@@ -1,11 +1,12 @@
 ---
 title: Jobs
-lead: Some operations take longer than a single request should wait - bulk imports, process publishing and status changes. These return a job id you poll until the work finishes.
+lead: Some operations take longer than a single request should wait - bulk imports, process publishing, status changes and metadata edits. These return a job id you poll until the work finishes.
 group: core_concepts
 order: 60
 ---
 
-Anything that touches the chain - publishing a process, changing its status, relaying a vote - and
+Anything that touches the chain - publishing a process, changing its status, editing its published
+text, relaying a vote - and
 bulk member imports run **asynchronously**. The write returns a **`jobId`**, and you poll one endpoint
 to learn the outcome. This is the async spine of the API.
 
@@ -25,7 +26,8 @@ curl -s "$B/jobs/$JOBID"     # public: status + counters (per-row errors only fo
 ```jsonc
 { "jobId": "a1b2c3...",
   "type": "publish_voting_process",   // org_members | publish_voting_process |
-                                      //   set_process_status | relay_vote | relay_votes
+                                      //   set_process_status | set_process_metadata |
+                                      //   relay_vote | relay_votes
   "status": "completed",              // pending | completed | failed
   "result": { "status": "READY",      // on status change: the new status
               "processId": "",        // on relay_vote: the target on-chain election id (the
@@ -74,8 +76,12 @@ while True:
 ## Job types
 
 - `org_members` - bulk member import.
-- `publish_voting_process` - publishing a process (its census and one election per question, in one batch).
+- `publish_voting_process` - publishing a process (its census, its metadata-only parent election and
+  one election per question, in one batch).
 - `set_process_status` - changing a question's status.
+- `set_process_metadata` - editing the content of a published process (one `SET_PROCESS_METADATA`
+  transaction per affected election: the parent and/or the questions). See
+  [Editing the content of a published process](/developers/docs/voting-processes#editing-the-content-of-a-published-process).
 - `relay_vote` - relaying a single vote to the protocol.
 - `relay_votes` - relaying a batch of votes (`POST /votes`) to the protocol.
 
@@ -92,6 +98,25 @@ accepted:
       { "processId": "9d3f...", "nullifier": "7ac1...", "voteID": "7ac1...", "status": "completed" },
       { "processId": "4e77...", "nullifier": "b209...", "voteID": "b209...", "status": "completed" },
       { "processId": "c015...", "nullifier": "33fa...", "status": "failed", "error": "vote already exists" } ] } }
+```
+
+A `set_process_metadata` job reports every election whose metadata the edit changes: a `parent`
+entry when the process's own title, description, header or streamUri changed, and in `questions` one
+entry per changed question, in process order. Each carries the on-chain election id (`processId`), the
+`metadataURL` and `metadataHash` its transaction commits and its own `status`; question entries also
+carry their `questionId`. On `completed` that version is what the election now serves and every vote
+must attest. An entry stays `pending` until its transaction is final, and on `failed` (rejected, or
+dropped by the chain without being mined) the election kept its previous version, which stays valid -
+send the same edit again to retry just the failed ones:
+
+```jsonc
+{ "jobId": "c7d8e9...", "type": "set_process_metadata", "status": "completed",
+  "result": {
+    "parent": { "processId": "e4f5...", "status": "completed",
+      "metadataURL": "https://.../storage/91d0....json", "metadataHash": "7b3e..." },
+    "questions": [
+      { "questionId": "b2c3...", "processId": "a1b2...", "status": "completed",
+        "metadataURL": "https://.../storage/8e31....json", "metadataHash": "2c26..." } ] } }
 ```
 
 ## The members-job
