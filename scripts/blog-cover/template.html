@@ -1,13 +1,19 @@
 <!doctype html>
 <!--
   Blog cover template (1685x920). Rendered by render.sh; everything comes from the query string:
-    variant  stripes | stat | pitch | ballot   (default stripes)
+    variant  stripes | stat | pitch | ballot | centered   (default stripes; centered is the pitch layout without the pitch)
     partner  path to the partner logo, relative to this file (required)
     eyebrow  small label (default "Success stories"; "" hides it)
     title    display headline (default "Success stories"; "" hides it)
     stat     big figure for the stat variant (default "84%")
-    c1, c2   partner brand colours as hex (default blaugrana #004D98 / #A50044)
-    photo    optional background photo for stripes/stat, darkened
+    label    caption under the stat figure (default "turnout")
+    c1, c2   partner brand colours as hex (default blaugrana #004D98 / #A50044; centered glows with c2, dots with c1)
+    photo    optional background photo for stripes/stat/centered, darkened
+    filter   CSS filter applied to the photo (default "grayscale(0.4) brightness(0.45)"; "none" keeps a pre-treated photo as is)
+    fit      centered only: full | panel | band | stage   (default full; where the photo sits: full bleed, rounded panel,
+             edge-to-edge band, or a receding plane in the pitch's perspective)
+    motif    centered only: rows | rings | none   (drawing behind the text; default rows, or none with a full or stage photo)
+    badge    ring | none   (default ring; none drops the cream circle for a partner logo that is already a disc)
 -->
 <html>
   <head>
@@ -102,6 +108,21 @@
         font-size: 34px;
         font-weight: 300;
         color: var(--muted);
+      }
+      /* badge=none: the partner logo is already a disc, so show it as is instead of inside the cream ring */
+      .badge-none .lockup .partner {
+        height: 76px;
+        width: 76px;
+        padding: 0;
+        background: none;
+        overflow: hidden;
+      }
+      .badge-none .lockup .partner img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 50%;
+        mix-blend-mode: normal;
       }
 
       .eyebrow {
@@ -276,6 +297,108 @@
         display: none;
       }
 
+      /* ---- variant: centered (the pitch layout without the pitch; a motif or a photo behind) ---- */
+      .v-centered {
+        background: radial-gradient(1200px 900px at 50% 120%, color-mix(in oklch, var(--c2) 55%, var(--bg)), var(--bg) 70%);
+      }
+      .v-centered .motif {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        width: 2200px;
+        height: 1500px;
+        transform: translate(-50%, -42%) perspective(1400px) rotateX(58deg);
+        opacity: 0.5;
+      }
+      /* rows: the seats of an assembly seen from the back of the room, a few of them in the partner colour */
+      .motif-rows .motif {
+        background-image:
+          radial-gradient(var(--c1) 6px, transparent 7px),
+          radial-gradient(var(--c1) 6px, transparent 7px),
+          radial-gradient(oklch(1 0 0 / 0.4) 6px, transparent 7px);
+        background-size:
+          392px 392px,
+          392px 392px,
+          56px 56px;
+        background-position:
+          84px 140px,
+          280px 364px,
+          28px 28px;
+        mask-image:
+          radial-gradient(50% 60% at 50% 60%, black 30%, transparent 100%),
+          linear-gradient(180deg, transparent 20%, black 60%);
+        mask-composite: intersect;
+      }
+      /* the front of the room: a thin line the rows face */
+      .motif-rows .motif::before {
+        content: '';
+        position: absolute;
+        left: 12%;
+        right: 12%;
+        top: 30%;
+        height: 3px;
+        background: oklch(1 0 0 / 0.6);
+      }
+      /* rings: an assembly in the round, the lockup at its centre */
+      .motif-rings .motif {
+        background: repeating-radial-gradient(circle at 50% 78%, transparent 0 147px, oklch(1 0 0 / 0.4) 147px 150px);
+        mask-image: radial-gradient(45% 55% at 50% 78%, black 20%, transparent 100%);
+      }
+      .v-centered .veil {
+        background: linear-gradient(180deg, var(--bg) 0%, oklch(0.17 0.012 106 / 0.6) 32%, oklch(0.17 0.012 106 / 0.35) 62%, var(--bg) 100%);
+      }
+      /* stage: the photo is the receding plane the pitch variant draws, fading into the dark at the far end */
+      .v-centered.fit-stage .photo {
+        inset: auto;
+        left: 50%;
+        top: 50%;
+        width: 1400px;
+        height: 620px;
+        transform: translate(-50%, -46%) perspective(1400px) rotateX(52deg);
+        border-radius: 6px;
+        box-shadow: inset 0 0 0 3px oklch(1 0 0 / 0.22);
+        mask-image: linear-gradient(180deg, transparent 0%, black 38%);
+      }
+      .v-centered.fit-panel .photo,
+      .v-centered.fit-band .photo {
+        inset: auto;
+        top: 376px;
+        height: 328px;
+        box-shadow: inset 0 0 0 1px oklch(1 0 0 / 0.14);
+      }
+      .v-centered.fit-panel .photo {
+        left: 50%;
+        width: 1200px;
+        transform: translateX(-50%);
+        border-radius: 24px;
+      }
+      .v-centered.fit-band .photo {
+        left: 0;
+        right: 0;
+      }
+      .v-centered .eyebrow {
+        left: 50%;
+        top: 110px;
+        transform: translateX(-50%);
+      }
+      .v-centered .title {
+        left: 50%;
+        top: 190px;
+        transform: translateX(-50%);
+        text-align: center;
+        max-width: none;
+        white-space: nowrap;
+        font-size: 128px;
+      }
+      .v-centered .lockup {
+        left: 50%;
+        bottom: 84px;
+        transform: translateX(-50%);
+      }
+      .v-centered .url {
+        display: none;
+      }
+
       /* ---- variant: ballot (tilted ballot card) ---- */
       .v-ballot .glow {
         background: radial-gradient(1000px 700px at 80% 50%, color-mix(in oklch, var(--c1) 45%, transparent), transparent 65%);
@@ -366,9 +489,11 @@
   </head>
   <body>
     <div class="layer photo" hidden></div>
+    <div class="layer veil" hidden></div>
     <div class="layer glow"></div>
     <div class="band"></div>
     <div class="pitch"></div>
+    <div class="motif"></div>
     <div class="layer grain"></div>
 
     <div class="card">
@@ -395,7 +520,7 @@
       const get = (k, d) => (p.has(k) ? p.get(k) : d)
       document.querySelector('.eyebrow').textContent = get('eyebrow', 'Success stories')
       document.querySelector('.title').textContent = variant === 'stat' ? '' : get('title', 'Success stories')
-      document.querySelector('.stat').innerHTML = variant === 'stat' ? `${get('stat', '84%')}<small>turnout</small>` : ''
+      document.querySelector('.stat').innerHTML = variant === 'stat' ? `${get('stat', '84%')}<small>${get('label', 'turnout')}</small>` : ''
       document.querySelectorAll('.partner-img').forEach((i) => (i.src = p.get('partner') || ''))
       if (p.get('c1')) document.documentElement.style.setProperty('--c1', p.get('c1'))
       if (p.get('c2')) document.documentElement.style.setProperty('--c2', p.get('c2'))
@@ -404,11 +529,18 @@
         document.querySelector(sel).hidden = variant !== want
       }
       const photo = p.get('photo')
+      const fit = get('fit', 'full')
+      document.body.classList.add('fit-' + fit, 'badge-' + get('badge', 'ring'))
       if (photo) {
         const el = document.querySelector('.photo')
         el.hidden = false
         el.style.backgroundImage = `url("${photo}")`
+        if (p.has('filter')) el.style.filter = p.get('filter')
       }
+      const motif = get('motif', photo && (fit === 'full' || fit === 'stage') ? 'none' : 'rows')
+      document.body.classList.add('motif-' + motif)
+      document.querySelector('.motif').hidden = variant !== 'centered' || motif === 'none'
+      document.querySelector('.veil').hidden = !(variant === 'centered' && photo && fit === 'full')
     </script>
   </body>
 </html>
