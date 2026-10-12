@@ -84,14 +84,17 @@ The flag is orthogonal to everything else in the census: combine it with any `au
 channel, and with `weighted` (the authorized weight is cryptographically bound into the signature,
 so a voter cannot claim a different one).
 
-> [!NOTE] A blind signature, not zero-knowledge
-> This is **not** zk voting: the on-chain envelope type stays non-anonymous, and anonymity comes
-> from the blind signature rather than a zero-knowledge membership proof. Anyone can still verify
-> that every ballot was authorized by the CSP - just not for whom.
+> [!NOTE] Blind-signature anonymity
+> The on-chain ballot uses a standard vote envelope; voter unlinkability comes entirely from the
+> CSP's blind signature. The CSP can confirm every ballot was authorized and weighted correctly, but
+> cannot link the authorization to any specific ballot on chain.
 
 Under the hood, an anonymous process publishes with the CSP's **blind public key** as its census
-root, and ballots carry blind-signature proofs. Voter authentication is unchanged; only the signing
-step differs - a two-round blind exchange instead of a plain sign. See
+root (census origin `OFF_CHAIN_CA_V2`), and ballots carry blind-signature proofs. A non-anonymous
+process uses the CSP's standard signing key (`OFF_CHAIN_CA`). All processes authenticate voters
+exclusively through the CSP - no tree-based or token-weighted census origins are used. Voter
+authentication is unchanged between the two modes; only the signing step differs - a two-round blind
+exchange instead of a plain sign. See
 [Anonymous voting with blind signatures](/developers/docs/casting-votes#anonymous-voting-with-blind-signatures)
 for the voter flow.
 
