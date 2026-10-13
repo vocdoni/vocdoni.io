@@ -2971,23 +2971,23 @@
         "steps_title": "E o que um associado realmente faz",
         "steps": [
           {
-            "title": "Ele abre a eleição no Decidim",
-            "description": "A eleição fica no espaço participativo que ele já usa, com as perguntas e o período de votação. Quando a votação abre, o botão de voto o leva à página de votação servida pela sua própria instância."
+            "title": "Abre a eleição no Decidim",
+            "description": "A eleição fica no espaço participativo que ele já usa, com as perguntas e o período de votação. Quando a votação abre, o botão Voto o leva à página de votação servida pela sua própria instância."
           },
           {
-            "title": "Ele se identifica, não se cadastra",
-            "description": "Ele prova que está no censo com os campos que vocês escolheram: número de registro, e-mail, documento. Se vocês exigirem, um código de uso único por e-mail ou SMS confirma que é ele. Esses dados vão para a rede de votação, nunca para o seu banco de dados."
+            "title": "Se identifica, não se cadastra",
+            "description": "Ele prova que está na lista de votantes com os campos que você escolheu: número de registro, e-mail, documento. Se você exigir, um código de uso único por e-mail ou SMS confirma que é ele. Esses dados vão para a rede de votação, nunca para o seu banco de dados."
           },
           {
-            "title": "Ele vota",
+            "title": "Vota",
             "description": "Uma pergunta por tela, uma revisão das respostas, e a cédula é lacrada no navegador dele antes de sair. Nada do voto passa pelo seu Decidim."
           },
           {
-            "title": "Ele fica com um comprovante",
-            "description": "Cada pergunta devolve um código de comprovante que prova que o voto foi registrado sem revelá-lo. Ele pode voltar à eleição, se identificar de novo e vê-lo quando quiser."
+            "title": "Fica com um recibo",
+            "description": "Cada pergunta devolve um código de recibo que prova que o voto foi registrado sem revelá-lo. Ele pode voltar à eleição, se identificar de novo e vê-lo quando quiser."
           }
         ],
-        "steps_media_caption": "O que um associado vê no celular, da página da eleição no Decidim ao comprovante.",
+        "steps_media_caption": "O que um associado vê no celular, da página da eleição no Decidim ao recibo.",
         "footnote": "Os associados nunca saem do seu Decidim nem criam uma segunda conta: a página de votação é servida pela sua própria instância, e toda a votação acontece no navegador que eles já têm aberto."
       },
       "legal": {
@@ -3235,12 +3235,12 @@
         "processes": "Processos",
         "progress_choose": "Escolher",
         "progress_identify": "Identificar",
-        "progress_receipt": "Comprovante",
+        "progress_receipt": "Recibo",
         "progress_review": "Revisar",
         "question_counter": "Pergunta {{current}} de {{total}}",
-        "receipt_body": "Cada comprovante abaixo prova que um voto foi registrado na rede de votação. Ele não revela o que você votou.",
-        "receipt_code": "Código do comprovante",
-        "receipt_return_note": "Você pode ver esses comprovantes de novo quando quiser: volte a esta eleição e identifique-se novamente.",
+        "receipt_body": "Cada recibo abaixo prova que um voto foi registrado na rede de votação. Ele não revela o que você votou.",
+        "receipt_code": "Código do recibo",
+        "receipt_return_note": "Você pode ver esses recibos de novo quando quiser: volte a esta eleição e identifique-se novamente.",
         "results": "Resultados",
         "results_after_end": "Resultados disponíveis após o término da eleição",
         "results_published_at": "Resultados publicados em",

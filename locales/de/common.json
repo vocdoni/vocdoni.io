@@ -2967,7 +2967,7 @@
           }
         ],
         "media_caption": "Der Admin-Monitor: Status, Wahlbeteiligung und Ergebnisse pro Frage.",
-        "results_media_caption": "Die Seite der Wahl nach Schluss der Abstimmung: das veröffentlichte Ergebnis jeder Frage, für alle lesbar, ohne die Verwaltung.",
+        "results_media_caption": "Die Seite der Wahl nach Schluss der Abstimmung: das veröffentlichte Ergebnis jeder Frage, für alle lesbar, ohne Zugang zur Verwaltung.",
         "steps_title": "Und was ein Mitglied tatsächlich tut",
         "steps": [
           {
@@ -2983,11 +2983,11 @@
             "description": "Eine Frage pro Bildschirm, eine Prüfung der Antworten, und der Stimmzettel wird im Browser versiegelt, bevor er ihn verlässt. Nichts von der Stimme läuft über Ihr Decidim."
           },
           {
-            "title": "Es behält einen Beleg",
-            "description": "Jede Frage liefert einen Belegcode, der nachweist, dass die Stimme erfasst wurde, ohne sie preiszugeben. Das Mitglied kann zur Wahl zurückkehren, sich erneut ausweisen und ihn jederzeit einsehen."
+            "title": "Es behält eine Quittung",
+            "description": "Jede Frage liefert einen Quittungscode, der nachweist, dass die Stimme erfasst wurde, ohne sie preiszugeben. Das Mitglied kann zur Wahl zurückkehren, sich erneut ausweisen und ihn jederzeit einsehen."
           }
         ],
-        "steps_media_caption": "Was ein Mitglied auf dem Telefon sieht, von der Wahlseite in Decidim bis zum Beleg.",
+        "steps_media_caption": "Was ein Mitglied auf dem Telefon sieht, von der Wahlseite in Decidim bis zur Quittung.",
         "footnote": "Mitglieder verlassen Ihr Decidim nie und legen kein zweites Konto an: Die Abstimmungsseite liefert Ihre eigene Instanz aus, und die ganze Abstimmung läuft in dem Browser, den sie ohnehin geöffnet haben."
       },
       "legal": {
@@ -3235,12 +3235,12 @@
         "processes": "Prozesse",
         "progress_choose": "Wählen",
         "progress_identify": "Ausweisen",
-        "progress_receipt": "Beleg",
+        "progress_receipt": "Quittung",
         "progress_review": "Prüfen",
         "question_counter": "Frage {{current}} von {{total}}",
-        "receipt_body": "Jeder Beleg unten weist nach, dass eine Stimme im Abstimmungsnetz erfasst wurde. Er verrät nicht, was Sie gewählt haben.",
-        "receipt_code": "Belegcode",
-        "receipt_return_note": "Sie können diese Belege jederzeit wieder aufrufen: Kehren Sie zu dieser Wahl zurück und weisen Sie sich erneut aus.",
+        "receipt_body": "Jede Quittung unten weist nach, dass eine Stimme im Abstimmungsnetz erfasst wurde. Sie verrät nicht, was Sie gewählt haben.",
+        "receipt_code": "Quittungscode",
+        "receipt_return_note": "Sie können diese Quittungen jederzeit wieder aufrufen: Kehren Sie zu dieser Wahl zurück und weisen Sie sich erneut aus.",
         "results": "Resultate",
         "results_after_end": "Ergebnisse verfügbar nach Ende der Wahl",
         "results_published_at": "Ergebnisse veröffentlicht am",
