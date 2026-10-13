@@ -33,6 +33,8 @@ export interface MockupFigures {
   results: number[][]
   /** Which choice of the first question the member has picked on the phone. */
   selectedChoice: number
+  /** The credential the member types in, as the organization's roll holds it. */
+  memberNumber: string
   /** The six digits of the one-time code. */
   code: string
   /** Shortened identifiers, as the app abbreviates them. */

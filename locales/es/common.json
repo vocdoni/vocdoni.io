@@ -1066,7 +1066,7 @@
           },
           {
             "title": "Se identifica, no se registra",
-            "description": "Un código de un solo uso por SMS o correo confirma que es el socio que está en el registro. No hay cuenta que crear, ni aplicación que instalar, ni número de socio que buscar."
+            "description": "Se identifica con las credenciales que decide la asociación: número de socio, DNI, correo o cualquier campo del registro. Si lo queréis, un código de un solo uso por SMS o correo confirma que es ese socio. No hay cuenta que crear, ni aplicación que instalar."
           },
           {
             "title": "Vota",
@@ -2133,7 +2133,7 @@
           },
           {
             "title": "Se identifica, no se registra",
-            "description": "Un código de un solo uso por SMS o correo confirma que es el colegiado que está en el censo. No hay cuenta que crear, ni aplicación que instalar, ni número de colegiado que buscar."
+            "description": "Se identifica con las credenciales que decide el colegio: número de colegiado, DNI, correo o cualquier campo del censo. Si lo queréis, un código de un solo uso por SMS o correo confirma que es ese colegiado. No hay cuenta que crear, ni aplicación que instalar."
           },
           {
             "title": "Vota",
@@ -3129,6 +3129,7 @@
         "enter_code": "Introduce el código de verificación",
         "hidden_until_end": "Ocultos hasta el final",
         "identify": "Identificarse",
+        "member_number": "Número de miembro",
         "not_voted": "No ha votado",
         "ongoing": "En curso",
         "process_id": "ID del proceso",

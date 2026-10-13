@@ -1066,7 +1066,7 @@
           },
           {
             "title": "Identifikatu egiten da, ez erregistratu",
-            "description": "SMS edo posta bidezko erabilera bakarreko kode batek berresten du erregistroan dagoen bazkidea dela. Ez dago konturik sortzeko, ez aplikaziorik instalatzeko, ez bazkide zenbakirik bilatzeko."
+            "description": "Elkarteak erabakitako kredentzialekin identifikatzen da: bazkide-zenbakia, NAN, posta elektronikoa edo erregistroko edozein eremu. Nahi baduzue, SMS edo posta bidezko erabilera bakarreko kode batek berresten du bazkide hori dela. Ez dago konturik sortu beharrik, ez aplikaziorik instalatu beharrik."
           },
           {
             "title": "Bozkatu egiten du",
@@ -2133,7 +2133,7 @@
           },
           {
             "title": "Identifikatu egiten da, ez erregistratu",
-            "description": "SMS edo posta bidezko erabilera bakarreko kode batek berresten du erroldan dagoen elkargokidea dela. Ez dago konturik sortzeko, ez aplikaziorik instalatzeko, ez elkargokide zenbakirik bilatzeko."
+            "description": "Elkargoak erabakitako kredentzialekin identifikatzen da: elkargokide-zenbakia, NAN, posta elektronikoa edo erroldako edozein eremu. Nahi baduzue, SMS edo posta bidezko erabilera bakarreko kode batek berresten du elkargokide hori dela. Ez dago konturik sortu beharrik, ez aplikaziorik instalatu beharrik."
           },
           {
             "title": "Bozkatu egiten du",
@@ -3129,6 +3129,7 @@
         "enter_code": "Sartu egiaztapen-kodea",
         "hidden_until_end": "Ezkutatuta amaitu arte",
         "identify": "Identifikatu",
+        "member_number": "Kide-zenbakia",
         "not_voted": "Botoa eman gabe",
         "ongoing": "Abian",
         "process_id": "Prozesuaren IDa",

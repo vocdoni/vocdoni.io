@@ -1066,7 +1066,7 @@
           },
           {
             "title": "S'identifica, no es registra",
-            "description": "Un codi d'un sol ús per SMS o correu confirma que és el soci que consta al registre. No hi ha compte per crear, ni aplicació per instal·lar, ni número de soci per buscar."
+            "description": "S'identifica amb les credencials que decideix l'associació: número de soci, DNI, correu o qualsevol camp del registre. Si ho voleu, un codi d'un sol ús per SMS o correu confirma que és aquell soci. No hi ha compte per crear, ni aplicació per instal·lar."
           },
           {
             "title": "Vota",
@@ -2133,7 +2133,7 @@
           },
           {
             "title": "S'identifica, no es registra",
-            "description": "Un codi d'un sol ús per SMS o correu confirma que és el col·legiat que consta al cens. No hi ha compte per crear, ni aplicació per instal·lar, ni número de col·legiat per buscar."
+            "description": "S'identifica amb les credencials que decideix el col·legi: número de col·legiat, DNI, correu o qualsevol camp del cens. Si ho voleu, un codi d'un sol ús per SMS o correu confirma que és aquell col·legiat. No hi ha compte per crear, ni aplicació per instal·lar."
           },
           {
             "title": "Vota",
@@ -3129,6 +3129,7 @@
         "enter_code": "Introdueix el codi de verificació",
         "hidden_until_end": "Ocults fins al final",
         "identify": "Identifica't",
+        "member_number": "Número de membre",
         "not_voted": "No ha votat",
         "ongoing": "En curs",
         "process_id": "ID del procés",

@@ -76,6 +76,7 @@ const FIGURES: MockupFigures = {
     [3862, 1016, 226],
   ],
   selectedChoice: 1,
+  memberNumber: '4812',
   code: '482913',
   processId: '0x8c4f…e41a',
   voteId: '0x3f9a…c91e',
