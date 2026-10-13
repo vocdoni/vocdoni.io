@@ -38,6 +38,8 @@ export interface MockupFigures {
   /** Shortened identifiers, as the app abbreviates them. */
   processId: string
   voteId: string
+  /** The voting link in the notice, shortened. */
+  noticeLink: string
 }
 
 export const turnoutPercent = (votes: number, census: number) => Math.round((votes / census) * 10000) / 100

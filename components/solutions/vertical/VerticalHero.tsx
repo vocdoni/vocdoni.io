@@ -57,7 +57,7 @@ export function VerticalHero({
   return (
     <section id='overview' className='scroll-mt-[3.25rem] pt-8 pb-12 sm:pt-12 sm:pb-16 lg:pt-14 xl:scroll-mt-[1.5rem]'>
       <Container>
-        <div className={cn('grid items-center gap-10', !centered && 'lg:grid-cols-[1.1fr_1fr] lg:gap-16')}>
+        <div className={cn('grid items-center gap-10', !centered && 'lg:grid-cols-2 lg:gap-12')}>
           <div className={cn('mx-auto max-w-2xl text-center', !centered && 'lg:mx-0 lg:text-left')}>
             <MotionPreset
               fade
