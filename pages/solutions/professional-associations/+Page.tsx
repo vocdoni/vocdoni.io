@@ -79,7 +79,6 @@ const FIGURES: MockupFigures = {
   code: '482913',
   processId: '0x8c4f…e41a',
   voteId: '0x3f9a…c91e',
-  noticeLink: 'app.vocdoni.io/v/8c4f',
 }
 
 export default function Page() {
