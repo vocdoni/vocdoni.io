@@ -20,8 +20,9 @@ into `main` that you are willing to release next.
 
 Redirect rules are emitted as a `_redirects` file inside `dist/client` at build time by `plugins/legacy-redirects.ts`
 (never committed), from the single source of truth in `lib/legacyRedirects.ts`. To add, change or remove a redirect,
-edit that file only. A route renamed now goes in `RENAMED_ROUTES` (one entry per served locale plus the unprefixed
-path); update every internal link too so navigation does not take a 301 hop.
+edit that file only. A renamed route goes in `RENAMED_ROUTES` as one unprefixed `old -> new` entry (`'/solutions/old': '/solutions/new'`):
+`buildRedirects` expands it to the unprefixed path and every served locale, so never add locale-prefixed entries. Update
+every internal link too so navigation does not take a 301 hop.
 
 ## Security headers and the CSP
 
