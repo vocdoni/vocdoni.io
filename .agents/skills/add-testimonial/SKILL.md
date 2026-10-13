@@ -41,10 +41,10 @@ Use the bundled script (needs ImageMagick 7 and cwebp: `brew install imagemagick
 
 ```bash
 # source already a disc or a square avatar: cover-crop it into the circle
-.claude/skills/add-testimonial/make-round-logo.sh --src ~/Downloads/org-avatar.png --out assets/logos/logo_<org>_round.webp
+.agents/skills/add-testimonial/make-round-logo.sh --src ~/Downloads/org-avatar.png --out assets/logos/logo_<org>_round.webp
 
 # source is a symbol on a transparent (or, with --key-white, white) background: centre it on a brand-colour disc
-.claude/skills/add-testimonial/make-round-logo.sh --src ~/Downloads/org-symbol.png --out assets/logos/logo_<org>_round.webp \
+.agents/skills/add-testimonial/make-round-logo.sh --src ~/Downloads/org-symbol.png --out assets/logos/logo_<org>_round.webp \
   --bg '#A50044' --scale 0.62 [--key-white]
 ```
 

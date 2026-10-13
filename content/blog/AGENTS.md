@@ -4,7 +4,7 @@ This is the authoring reference for the Vocdoni blog. It is policy, not backgrou
 it when creating, translating, or editing posts. For general repo rules (copy style, i18n,
 component placement, commits) see the root [`AGENTS.md`](../../AGENTS.md).
 The step-by-step workflow (write, cover, translate, cross-link, ship) is the `add-blog-post` skill in
-`.claude/skills/`; the home-page quote that often comes with a success story is the `add-testimonial` skill.
+`.agents/skills/`; the home-page quote that often comes with a success story is the `add-testimonial` skill.
 
 ## How the blog works
 

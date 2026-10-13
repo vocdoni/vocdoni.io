@@ -1,7 +1,7 @@
 # Repository Guidelines
 
 Policy for everyone (people and agents) working on vocdoni.io. Keep it short: details live in `docs/`, repeatable
-procedures in `.claude/skills/`.
+procedures in `.agents/skills/` (symlinked from `.claude/skills/`).
 
 ## Project structure
 
@@ -61,8 +61,8 @@ procedures in `.claude/skills/`.
 
 ## Skills (recurring tasks)
 
-- `.claude/skills/add-blog-post/`: write a post, render its cover, translate it into all locales, cross-link and ship.
-- `.claude/skills/add-testimonial/`: the 325x325 round logo, the data entry and the locale keys in all 11 languages.
+- `.agents/skills/add-blog-post/`: write a post, render its cover, translate it into all locales, cross-link and ship.
+- `.agents/skills/add-testimonial/`: the 325x325 round logo, the data entry and the locale keys in all 11 languages.
 
 ## Commits and pull requests
 
