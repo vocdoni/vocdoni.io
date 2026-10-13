@@ -79,11 +79,11 @@ export function AppChoice({
     >
       <span
         className={cn(
-          'flex size-[1.1em] shrink-0 items-center justify-center rounded-full border-2',
-          selected ? 'border-app-fg' : 'border-app-faint'
+          'flex size-[1.35em] shrink-0 items-center justify-center rounded-full border',
+          selected ? 'border-app-fg' : 'border-app-range'
         )}
       >
-        {selected && <span className='bg-app-fg size-[0.5em] rounded-full' />}
+        {selected && <span className='bg-app-fg size-[0.65em] rounded-full' />}
       </span>
       <span className={cn('truncate text-[0.8em]', selected && 'font-medium')}>{label}</span>
     </div>

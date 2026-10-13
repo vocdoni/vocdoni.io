@@ -163,6 +163,16 @@ function PhoneScreen({
         <p className='text-app-faint mt-[1em] text-[1.3em] leading-tight font-medium opacity-40'>{copy.title}</p>
         <div className='bg-app-bg border-app-border mt-[1.4em] flex flex-col gap-[0.9em] rounded-[0.8em] border p-[1em] shadow-xl'>
           <p className='text-[1em] font-medium'>{t('solutions.mockups.app.authentication', 'Authentication')}</p>
+          {/* The credential the organization chose, already filled in, then
+              the one-time code it decided to add on top. */}
+          <div className='flex flex-col gap-[0.3em]'>
+            <span className='text-[0.7em] font-medium'>
+              {t('solutions.mockups.app.member_number', 'Member number')}
+            </span>
+            <span className='border-app-border flex h-[2.3em] items-center rounded-[0.4em] border px-[0.7em] text-[0.8em] tabular-nums'>
+              {figures.memberNumber}
+            </span>
+          </div>
           <p className='text-app-fg-muted text-[0.75em] leading-snug'>
             {t('solutions.mockups.app.enter_code', 'Enter the verification code')}
           </p>
