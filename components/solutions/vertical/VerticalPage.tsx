@@ -6,7 +6,7 @@ import { VerticalFitBySize } from '@/components/solutions/vertical/VerticalFitBy
 import { VerticalForYourBoard } from '@/components/solutions/vertical/VerticalForYourBoard'
 import { VerticalHero } from '@/components/solutions/vertical/VerticalHero'
 import { VerticalHowItRuns } from '@/components/solutions/vertical/VerticalHowItRuns'
-import type { VerticalMediaAsset } from '@/components/solutions/vertical/VerticalMedia'
+import type { VerticalMediaSlot } from '@/components/solutions/vertical/VerticalMedia'
 import { VerticalLegal } from '@/components/solutions/vertical/VerticalLegal'
 import { VerticalProof } from '@/components/solutions/vertical/VerticalProof'
 import { VerticalResources } from '@/components/solutions/vertical/VerticalResources'
@@ -17,8 +17,12 @@ import { VerticalTrustBand } from '@/components/solutions/vertical/VerticalTrust
 import type { VerticalPageProps } from '@/components/solutions/vertical/types'
 
 interface Props extends VerticalPageProps {
-  /** Product visuals; slots hold their space whether or not the assets exist. */
-  media?: { console?: VerticalMediaAsset; ballot?: VerticalMediaAsset }
+  /**
+   * Product visuals, screenshots or drawn mockups. `console` is the board's view
+   * on voting day (hero), `results` the same console after close, `ballot` the
+   * member's phone. Slots hold their space whether or not a visual exists.
+   */
+  media?: { console?: VerticalMediaSlot; results?: VerticalMediaSlot; ballot?: VerticalMediaSlot }
 }
 
 /**
@@ -100,7 +104,12 @@ export function VerticalPage({
 
       <VerticalLegal legal={content?.legal} pageId={ctaPrefix} appHref={appHref} ctaId={`${ctaPrefix}_legal`} />
 
-      <VerticalHowItRuns how={content?.how} pageId={ctaPrefix} quote={quotes?.how} media={{ ballot: media?.ballot }} />
+      <VerticalHowItRuns
+        how={content?.how}
+        pageId={ctaPrefix}
+        quote={quotes?.how}
+        media={{ results: media?.results, ballot: media?.ballot }}
+      />
 
       <VerticalTimeline timeline={content?.timeline} pageId={ctaPrefix} />
 

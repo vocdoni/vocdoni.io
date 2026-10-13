@@ -11,7 +11,7 @@ import {
 import { Container } from '@/components/Container'
 import { SectionHeader } from '@/components/SectionHeader'
 import { Card, CardContent } from '@/components/ui/card'
-import { VerticalMedia, type VerticalMediaAsset } from '@/components/solutions/vertical/VerticalMedia'
+import { splitMediaSlot, VerticalMedia, type VerticalMediaSlot } from '@/components/solutions/vertical/VerticalMedia'
 import { VerticalQuote } from '@/components/solutions/vertical/VerticalQuote'
 import { VerticalSection } from '@/components/solutions/vertical/VerticalSection'
 import { asArray, type VerticalContent, type VerticalItem } from '@/components/solutions/vertical/types'
@@ -32,10 +32,11 @@ interface VerticalHowItRunsProps {
   pageId: string
   quote?: Testimonial
   /**
-   * Product screenshots. Both slots hold their space whether or not the asset
-   * exists yet, so the layout does not move when the real ones land.
+   * Product visuals: the console after close, and the member's phone. Both
+   * slots hold their space whether or not the visual exists yet, so the layout
+   * does not move when one lands.
    */
-  media?: { console?: VerticalMediaAsset; ballot?: VerticalMediaAsset }
+  media?: { results?: VerticalMediaSlot; ballot?: VerticalMediaSlot }
 }
 
 /**
@@ -50,6 +51,8 @@ interface VerticalHowItRunsProps {
 export function VerticalHowItRuns({ how, pageId, quote, media }: VerticalHowItRunsProps) {
   const features = asArray<VerticalItem>(how?.features)
   const steps = asArray<VerticalItem>(how?.steps)
+  const results = splitMediaSlot(media?.results)
+  const ballot = splitMediaSlot(media?.ballot)
 
   return (
     <VerticalSection sectionId='how-it-runs' pageId={pageId}>
@@ -73,14 +76,17 @@ export function VerticalHowItRuns({ how, pageId, quote, media }: VerticalHowItRu
           })}
         </div>
 
-        {/* The electoral board's own view: the screen that answers "what do we
-            see on the day, and can we see any ballots?" */}
+        {/* The electoral board's console once voting has closed: the screen that
+            answers "what do we hand to the minutes, and can anyone check it?".
+            The hero already showed voting day. */}
         <VerticalMedia
           className='mx-auto mt-12 max-w-4xl sm:mt-16'
-          asset={media?.console}
-          caption={how?.media_caption}
+          asset={results.asset}
+          caption={how?.results_media_caption ?? how?.media_caption}
           ratio='wide'
-        />
+        >
+          {results.node}
+        </VerticalMedia>
 
         {steps.length > 0 && (
           <div className='mt-16 grid gap-10 sm:mt-20 lg:grid-cols-[3fr_2fr] lg:items-start lg:gap-14'>
@@ -108,10 +114,12 @@ export function VerticalHowItRuns({ how, pageId, quote, media }: VerticalHowItRu
             {/* What the member holds in their hand, beside what they do with it. */}
             <VerticalMedia
               className='mx-auto w-full max-w-[14rem] sm:max-w-xs lg:mx-0 lg:max-w-[16rem]'
-              asset={media?.ballot}
+              asset={ballot.asset}
               caption={how?.steps_media_caption}
               ratio='portrait'
-            />
+            >
+              {ballot.node}
+            </VerticalMedia>
           </div>
         )}
 

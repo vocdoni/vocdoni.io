@@ -1078,7 +1078,8 @@
           }
         ],
         "steps_media_caption": "Was ein Mitglied auf dem Telefon sieht, von der Einladung bis zum Beleg.",
-        "footnote": "Die meisten Mitglieder sind in weniger als zwei Minuten fertig, im Browser, den sie ohnehin offen haben. Wenn ein Teil Ihrer Mitgliedschaft tatsächlich offline ist, läuft die betreute Station auf demselben Verzeichnis, also wird niemand ausgeschlossen und niemand stimmt zweimal ab. Das Hindernis ist fast nie das Mitglied: es ist eine fehlende Mobilnummer in einem Verzeichnis, das seit Jahren niemand bereinigt hat. Deshalb prüfen wir Ihre Kontaktdaten, bevor irgendetwas öffnet."
+        "footnote": "Die meisten Mitglieder sind in weniger als zwei Minuten fertig, im Browser, den sie ohnehin offen haben. Wenn ein Teil Ihrer Mitgliedschaft tatsächlich offline ist, läuft die betreute Station auf demselben Verzeichnis, also wird niemand ausgeschlossen und niemand stimmt zweimal ab. Das Hindernis ist fast nie das Mitglied: es ist eine fehlende Mobilnummer in einem Verzeichnis, das seit Jahren niemand bereinigt hat. Deshalb prüfen wir Ihre Kontaktdaten, bevor irgendetwas öffnet.",
+        "results_media_caption": "Nach Schluss der Versammlung: das Ergebnis jedes Antrags, der Wahlbericht und der Link zum Explorer, fertig für das Protokoll."
       },
       "comparison": {
         "eyebrow": "gegenüber den Alternativen",
@@ -1365,6 +1366,38 @@
             "label": "Für die Skeptikerin im Raum",
             "description": "Wie sich das mit der Versammlung vergleicht, die Sie heute abhalten, Zeile für Zeile.",
             "anchor": "comparison"
+          }
+        ]
+      },
+      "mockups": {
+        "organization": "Ateneu del Vallès",
+        "title": "Ordentliche Mitgliederversammlung 2026",
+        "questions": [
+          {
+            "title": "Genehmigung des Jahresabschlusses 2025",
+            "choices": [
+              "Ja",
+              "Nein",
+              "Enthaltung"
+            ]
+          },
+          {
+            "title": "Neuwahl des Vorstands: Vorsitz",
+            "choices": [
+              "Laia Soler Grau",
+              "Marc Puig Font",
+              "Leerer Stimmzettel"
+            ]
+          }
+        ],
+        "participants": [
+          {
+            "name": "Clara Bosch Vila",
+            "credential": "Nr. 931"
+          },
+          {
+            "name": "Oriol Camps Riu",
+            "credential": "Nr. 1540"
           }
         ]
       }
@@ -2112,7 +2145,8 @@
           }
         ],
         "steps_media_caption": "Was ein Mitglied auf dem Telefon sieht, von der Einladung bis zum Beleg.",
-        "footnote": "Die meisten Mitglieder sind in weniger als zwei Minuten fertig, im Browser, den sie ohnehin offen haben. Wenn ein Teil Ihres Verzeichnisses tatsächlich offline ist, läuft die betreute Station auf demselben Mitgliederverzeichnis, also wird niemand ausgeschlossen und niemand wählt zweimal. Das Hindernis ist fast nie das Mitglied: es ist eine fehlende Mobilnummer in Ihrer Datenbank. Deshalb prüfen wir Ihre Kontaktdaten, bevor irgendetwas öffnet."
+        "footnote": "Die meisten Mitglieder sind in weniger als zwei Minuten fertig, im Browser, den sie ohnehin offen haben. Wenn ein Teil Ihres Verzeichnisses tatsächlich offline ist, läuft die betreute Station auf demselben Mitgliederverzeichnis, also wird niemand ausgeschlossen und niemand wählt zweimal. Das Hindernis ist fast nie das Mitglied: es ist eine fehlende Mobilnummer in Ihrer Datenbank. Deshalb prüfen wir Ihre Kontaktdaten, bevor irgendetwas öffnet.",
+        "results_media_caption": "Nach Schluss der Abstimmung: das Ergebnis für jedes Amt, der Wahlbericht und der Link zum Explorer, fertig für das Protokoll."
       },
       "comparison": {
         "eyebrow": "gegenüber den Alternativen",
@@ -2399,6 +2433,38 @@
             "label": "Für die Skeptikerin im Vorstand",
             "description": "Wie sich das mit dem Verfahren vergleicht, das Sie heute durchführen, Zeile für Zeile.",
             "anchor": "comparison"
+          }
+        ]
+      },
+      "mockups": {
+        "organization": "Kammer der Bauingenieure",
+        "title": "Wahl des Vorstands 2026",
+        "questions": [
+          {
+            "title": "Präsidentin oder Präsident der Kammer, Amtszeit 2026-2030",
+            "choices": [
+              "Marta Vidal Puig",
+              "Jordi Serra Camps",
+              "Leerer Stimmzettel"
+            ]
+          },
+          {
+            "title": "Änderung der Wahlordnung",
+            "choices": [
+              "Ja",
+              "Nein",
+              "Enthaltung"
+            ]
+          }
+        ],
+        "participants": [
+          {
+            "name": "Núria Ferrer Solà",
+            "credential": "Nr. 4812"
+          },
+          {
+            "name": "Pau Riera Mas",
+            "credential": "Nr. 2207"
           }
         ]
       }
@@ -3046,6 +3112,45 @@
         "cta_primary": "Sprechen Sie mit uns",
         "cta_secondary": "Quellcode auf GitHub ansehen",
         "note": "Freie Software, ohne Verpflichtung. Läuft das Decidim Ihrer Kundschaft noch nicht auf 0.33, nennen wir Ihnen den realistischen Termin."
+      }
+    },
+    "mockups": {
+      "app": {
+        "additional_actions": "Weitere Aktionen",
+        "anonymous": "Anonym",
+        "awaiting_results": "Ergebnisse ausstehend",
+        "census_size": "Teilnehmerzahl",
+        "check_participants": "Teilnehmer prüfen",
+        "code_sent": "Bestätigungscode gesendet",
+        "election_report": "Wahlbericht (PDF)",
+        "end_date": "Enddatum",
+        "end_time": "Endzeit",
+        "hidden_until_end": "Verborgen bis zum Ende",
+        "not_voted": "Nicht abgestimmt",
+        "ongoing": "Laufend",
+        "process_id": "Prozess-ID",
+        "questions": "Fragen",
+        "questions_and_results": "Fragen und Ergebnisse",
+        "results": "Ergebnisse",
+        "results_available": "Ergebnisse verfügbar",
+        "results_status": "Ergebnisse",
+        "results_visibility": "Sichtbarkeit der Ergebnisse",
+        "schedule": "Zeitplan",
+        "schedule_range": "Abstimmung vom {{ begin }} bis zum {{ end }}",
+        "search_census": "Teilnehmerliste durchsuchen…",
+        "start_date": "Startdatum",
+        "start_time": "Startzeit",
+        "total_votes": "Stimmen gesamt",
+        "turnout": "Beteiligung",
+        "verify_hint": "Zur Überprüfung deiner Stimme kannst du diese eindeutige Kennung verwenden: {{ id }}",
+        "view_in_explorer": "Im Explorer anzeigen",
+        "vote": "Abstimmen",
+        "vote_cast": "Deine Stimme wurde erfolgreich abgegeben!",
+        "voted": "Abgestimmt",
+        "voter_anonymity": "Anonymität der Wählenden",
+        "votes_row": "{{votes}} Stimmen ({{ percent }})",
+        "voting_settings": "Abstimmungseinstellungen",
+        "voting_status": "Abstimmungsstatus"
       }
     }
   },

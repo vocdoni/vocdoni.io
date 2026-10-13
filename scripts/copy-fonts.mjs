@@ -18,12 +18,16 @@ const filesDir = resolve(outDir, 'files')
 // Fraunces ships a Devanagari subset, so without it `hi` falls back to whatever
 // the OS happens to have. Its latin subsets never load in practice because
 // Hanken Grotesk comes first in --font-sans and already covers those ranges.
+// Inter (variable weight, upright only) is what Vocdoni App itself is set in; the
+// site uses it solely inside product mockups (`--font-app`), so its subsets are
+// only fetched on a page that renders one.
 const sources = [
   '@fontsource-variable/hanken-grotesk/wght.css',
   '@fontsource-variable/hanken-grotesk/wght-italic.css',
   '@fontsource-variable/fraunces/full.css',
   '@fontsource-variable/fraunces/full-italic.css',
   '@fontsource-variable/jetbrains-mono/wght.css',
+  '@fontsource-variable/inter/wght.css',
   '@fontsource-variable/noto-sans-devanagari/wght.css',
 ]
 

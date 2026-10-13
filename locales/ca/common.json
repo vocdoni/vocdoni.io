@@ -1078,7 +1078,8 @@
           }
         ],
         "steps_media_caption": "El que veu un soci al mòbil, des de la convocatòria fins al justificant.",
-        "footnote": "La majoria de socis acaben en menys de dos minuts, amb el navegador que ja tenen obert. Si una part de la vostra massa social està realment desconnectada, el punt assistit funciona sobre el mateix registre, així que ningú no queda exclòs i ningú no vota dues vegades. La barrera gairebé mai no és el soci: és un número de mòbil que falta en un registre que ningú no ha netejat en anys. Per això revisem les vostres dades de contacte abans d'obrir res."
+        "footnote": "La majoria de socis acaben en menys de dos minuts, amb el navegador que ja tenen obert. Si una part de la vostra massa social està realment desconnectada, el punt assistit funciona sobre el mateix registre, així que ningú no queda exclòs i ningú no vota dues vegades. La barrera gairebé mai no és el soci: és un número de mòbil que falta en un registre que ningú no ha netejat en anys. Per això revisem les vostres dades de contacte abans d'obrir res.",
+        "results_media_caption": "Quan es tanca l'assemblea: el resultat de cada punt, l'informe electoral i l'enllaç a l'explorador, a punt per a l'acta."
       },
       "comparison": {
         "eyebrow": "davant de les alternatives",
@@ -1365,6 +1366,38 @@
             "label": "Per a l'escèptic de la sala",
             "description": "Com es compara això amb l'assemblea que celebreu avui, línia per línia.",
             "anchor": "comparison"
+          }
+        ]
+      },
+      "mockups": {
+        "organization": "Ateneu del Vallès",
+        "title": "Assemblea general ordinària 2026",
+        "questions": [
+          {
+            "title": "Aprovació dels comptes anuals 2025",
+            "choices": [
+              "Sí",
+              "No",
+              "Abstenció"
+            ]
+          },
+          {
+            "title": "Renovació de la junta: presidència",
+            "choices": [
+              "Laia Soler Grau",
+              "Marc Puig Font",
+              "Vot en blanc"
+            ]
+          }
+        ],
+        "participants": [
+          {
+            "name": "Clara Bosch Vila",
+            "credential": "Núm. 931"
+          },
+          {
+            "name": "Oriol Camps Riu",
+            "credential": "Núm. 1540"
           }
         ]
       }
@@ -2112,7 +2145,8 @@
           }
         ],
         "steps_media_caption": "El que veu un col·legiat al mòbil, des de la convocatòria fins al justificant.",
-        "footnote": "La majoria de col·legiats acaben en menys de dos minuts, amb el navegador que ja tenen obert. Si una part del cens està realment desconnectada, el punt assistit funciona sobre el mateix cens electoral, així que ningú no queda exclòs i ningú no vota dues vegades. La barrera gairebé mai no és el col·legiat: és un número de mòbil que falta a la vostra base de dades. Per això revisem les vostres dades de contacte abans d'obrir res."
+        "footnote": "La majoria de col·legiats acaben en menys de dos minuts, amb el navegador que ja tenen obert. Si una part del cens està realment desconnectada, el punt assistit funciona sobre el mateix cens electoral, així que ningú no queda exclòs i ningú no vota dues vegades. La barrera gairebé mai no és el col·legiat: és un número de mòbil que falta a la vostra base de dades. Per això revisem les vostres dades de contacte abans d'obrir res.",
+        "results_media_caption": "Quan es tanca la votació: el resultat de cada càrrec, l'informe electoral i l'enllaç a l'explorador, a punt per a l'acta."
       },
       "comparison": {
         "eyebrow": "davant de les alternatives",
@@ -2399,6 +2433,38 @@
             "label": "Per a l'escèptic de la junta",
             "description": "Com es compara això amb el procés que feu avui, línia per línia.",
             "anchor": "comparison"
+          }
+        ]
+      },
+      "mockups": {
+        "organization": "Col·legi d'Enginyers Civils",
+        "title": "Eleccions a la junta de govern 2026",
+        "questions": [
+          {
+            "title": "Degà o degana del col·legi, mandat 2026-2030",
+            "choices": [
+              "Marta Vidal Puig",
+              "Jordi Serra Camps",
+              "Vot en blanc"
+            ]
+          },
+          {
+            "title": "Modificació del reglament electoral",
+            "choices": [
+              "Sí",
+              "No",
+              "Abstenció"
+            ]
+          }
+        ],
+        "participants": [
+          {
+            "name": "Núria Ferrer Solà",
+            "credential": "Núm. 4812"
+          },
+          {
+            "name": "Pau Riera Mas",
+            "credential": "Núm. 2207"
           }
         ]
       }
@@ -3046,6 +3112,45 @@
         "cta_primary": "Parleu amb nosaltres",
         "cta_secondary": "Consulteu el codi a GitHub",
         "note": "Programari lliure, sense compromís. Si el Decidim del vostre client encara no és a la 0.33, us direm la data realista."
+      }
+    },
+    "mockups": {
+      "app": {
+        "additional_actions": "Accions addicionals",
+        "anonymous": "Anònim",
+        "awaiting_results": "Resultats pendents",
+        "census_size": "Mida del cens",
+        "check_participants": "Comprova els participants",
+        "code_sent": "Codi de verificació enviat",
+        "election_report": "Informe electoral (PDF)",
+        "end_date": "Data de finalització",
+        "end_time": "Hora de finalització",
+        "hidden_until_end": "Ocults fins al final",
+        "not_voted": "No ha votat",
+        "ongoing": "En curs",
+        "process_id": "ID del procés",
+        "questions": "Preguntes",
+        "questions_and_results": "Preguntes i resultats",
+        "results": "Resultats",
+        "results_available": "Resultats disponibles",
+        "results_status": "Resultats",
+        "results_visibility": "Visibilitat dels resultats",
+        "schedule": "Calendari",
+        "schedule_range": "Votació del {{ begin }} al {{ end }}",
+        "search_census": "Cerca al cens…",
+        "start_date": "Data d'inici",
+        "start_time": "Hora d'inici",
+        "total_votes": "Total de vots",
+        "turnout": "Participació",
+        "verify_hint": "Per verificar el teu vot, pots utilitzar aquesta identificació única: {{ id }}",
+        "view_in_explorer": "Mostra a l'explorador",
+        "vote": "Vota",
+        "vote_cast": "El teu vot s'ha registrat amb èxit!",
+        "voted": "Ha votat",
+        "voter_anonymity": "Anonimat del votant",
+        "votes_row": "{{ votes }} vots ({{ percent }})",
+        "voting_settings": "Configuració de la votació",
+        "voting_status": "Estat de la votació"
       }
     }
   },
