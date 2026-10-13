@@ -117,21 +117,40 @@ function PhoneScreen({
   const question = copy.questions[0]
 
   if (screen === 'notice') {
-    // The notice, as it lands: the organization's name, the title, the window,
-    // and the one link. Drawn as the message itself rather than as the app.
+    // The public voting page as the link in the notice opens it: nothing
+    // marked yet, and the "Identify" ask where the vote button will be.
     return (
-      <div className='flex h-full flex-col gap-[0.8em] px-[1.1em] pt-[3em] pb-[1em]'>
-        <div className='bg-app-muted flex flex-col gap-[0.4em] rounded-[0.8em] p-[0.9em]'>
-          <div className='flex items-center gap-[0.5em]'>
-            <Logo className='size-[1.6em] shrink-0' />
-            <span className='truncate text-[0.75em] font-medium'>{copy.organization}</span>
-          </div>
-          <p className='text-[1em] leading-snug font-medium text-balance'>{copy.title}</p>
-          <p className='text-app-fg-muted text-[0.7em] leading-snug'>{scheduleText}</p>
-          <span className='text-app-blue-fg mt-[0.2em] truncate text-[0.7em] underline'>{figures.noticeLink}</span>
+      <div className='flex h-full flex-col gap-[0.7em] px-[1.1em] pt-[2.8em] pb-[0.9em]'>
+        <PhoneHeader organization={copy.organization} />
+        <p className='mt-[0.3em] text-[1.3em] leading-tight font-medium text-balance'>{copy.title}</p>
+        <div className='flex items-center gap-[0.6em]'>
+          <AppTag tone='green'>{t('solutions.mockups.app.ongoing', 'Ongoing')}</AppTag>
+          <span className='text-app-faint truncate text-[0.65em] font-medium italic'>{scheduleText}</span>
         </div>
-        <div className='bg-app-muted h-[2.2em] w-[70%] rounded-[0.8em]' />
-        <div className='bg-app-muted h-[2.2em] w-[55%] rounded-[0.8em]' />
+        <AppTabs active='questions' className='w-full *:flex-1 *:text-center' />
+        {question && (
+          <div className='border-app-border flex flex-col gap-[0.6em] rounded-[0.6em] border p-[0.8em]'>
+            <p className='text-[0.85em] leading-snug font-medium'>{question.title}</p>
+            {question.choices.slice(0, 2).map((choice) => (
+              <AppChoice key={choice} label={choice} />
+            ))}
+          </div>
+        )}
+        <div className='border-app-border mt-auto flex flex-col gap-[0.6em] rounded-[0.6em] border p-[0.8em]'>
+          <div className='border-app-border flex flex-col items-center gap-[0.2em] rounded-[0.5em] border py-[0.6em]'>
+            <span className='text-[0.65em] font-medium tracking-wide uppercase'>
+              {t('solutions.mockups.app.voting_in_progress', 'Voting in progress')}
+            </span>
+            <span className='text-[0.8em]'>
+              {t('solutions.mockups.app.voters', '{{votes}} voters', {
+                votes: new Intl.NumberFormat(i18n.language).format(figures.liveVotes),
+              })}
+            </span>
+          </div>
+          <div className='bg-app-solid text-app-solid-fg flex h-[2.6em] items-center justify-center rounded-[0.5em] text-[0.9em] font-medium'>
+            {t('solutions.mockups.app.identify', 'Identify')}
+          </div>
+        </div>
       </div>
     )
   }

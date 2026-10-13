@@ -70,7 +70,6 @@ const FIGURES: MockupFigures = {
   code: '730256',
   processId: '0x5b17…a9d3',
   voteId: '0x9e2c…47f0',
-  noticeLink: 'app.vocdoni.io/v/5b17',
 }
 
 export default function Page() {
