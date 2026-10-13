@@ -27,6 +27,7 @@ import logoErcRound from '@/assets/logos/logo_erc_round.webp'
 import logoGranollersRound from '@/assets/logos/logo_primaries_granollers_round.webp'
 import logoIntersindicalRound from '@/assets/logos/logo_intersindical_round.webp'
 import logoUstecRound from '@/assets/logos/logo_ustec_round.webp'
+import logoFoodcoopRound from '@/assets/logos/logo_foodcoop_round.webp'
 
 export type Testimonial = {
   name: string
@@ -254,6 +255,19 @@ export function getTestimonialsData(t: TFunction): Testimonial[] {
       platformName: 'USTEC·STEs (IAC)',
       platformImage: logoUstecRound,
       logo: logoUstecRound,
+    },
+    {
+      name: 'Gerard Palou',
+      handle: t('testimonials_marquee.items.16.handle', 'Member of the Consell Rector · Foodcoop BCN'),
+      rating: 5,
+      title: t('testimonials_marquee.items.16.title', 'Hybrid voting that kept every member in the assembly'),
+      content: t(
+        'testimonials_marquee.items.16.content',
+        "Many FoodcoopBCN members can't always make it to the assembly, because of work, care duties or because they live far away. With hybrid voting, 30 members followed the assembly by livestream and voted securely from home. Those are voices an in-person-only assembly would have left out."
+      ),
+      platformName: 'Foodcoop BCN',
+      platformImage: logoFoodcoopRound,
+      logo: logoFoodcoopRound,
     },
   ]
 }
