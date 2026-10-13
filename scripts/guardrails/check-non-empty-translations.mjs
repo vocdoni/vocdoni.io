@@ -29,7 +29,7 @@ if (violations.length > 0) {
   }
   console.error('')
   console.error(
-    'Do not keep extractor-created keys as empty strings. Add copy or remove the key until it is translated.'
+    'Do not keep extractor-created keys as empty strings. Translate the value: removing the key fails the parity check.'
   )
   process.exit(1)
 }

@@ -10,7 +10,7 @@ import {
 } from '../../scripts/guardrails/lib.mjs'
 
 describe('getInvalidComponentDirectories', () => {
-  it('accepts approved buckets, domain folders, and documented legacy exceptions', () => {
+  it('accepts approved buckets and domain folders', () => {
     expect(
       getInvalidComponentDirectories([
         'components/ui',
@@ -26,6 +26,13 @@ describe('getInvalidComponentDirectories', () => {
     expect(
       getInvalidComponentDirectories(['components/FooV3', 'components/new-home', 'components/legacy-home'])
     ).toEqual(['components/FooV3', 'components/legacy-home', 'components/new-home'])
+  })
+
+  it('rejects the former VocdoniApp legacy bucket', () => {
+    expect(getInvalidComponentDirectories(['components/VocdoniApp', 'components/VocdoniAppV3'])).toEqual([
+      'components/VocdoniApp',
+      'components/VocdoniAppV3',
+    ])
   })
 })
 
