@@ -1,123 +1,87 @@
 # Repository Guidelines
 
-## Project Structure & Module Organization
+Policy for everyone (people and agents) working on vocdoni.io. Keep it short: details live in `docs/`, repeatable
+procedures in `.claude/skills/`.
 
-- `pages/`: Vike routes and page entry points (`+Page.tsx`, `+config.ts`, etc.).
-- `components/`: shared UI building blocks (shadcn/ui components live under `components/ui/`).
-- `layouts/`: page-level layout wrappers.
-- `hooks/`, `lib/`: reusable hooks and utilities.
-- `content/`: Markdoc (`.mdoc`) content - the blog lives under `content/blog/`.
-- `locales/`: i18n resources; the served locale set is defined in `locales/index.ts`.
-- `assets/` and `public/`: static assets; `public/` is copied as-is.
-- `tests/`: Vitest unit tests, organized by `components/`, `pages/`, and `lib/`.
+## Project structure
 
-## Build, Test, and Development Commands
+- `pages/`: Vike routes (`+Page.tsx`, `+config.ts`). `layouts/`: page wrappers. `hooks/`, `lib/`: reusable logic.
+- `components/`: `ui/` holds shadcn primitives only, `shadcn-studio/` imported or adapted studio blocks only, and custom
+  sections live in stable domain folders (`app/`, `home/`, `solutions/`, `blog/`, `case-studies/`, ...).
+- `content/`: Markdoc content. The blog is `content/blog/`, the developer docs `content/developers/docs/`.
+- `locales/<lang>/common.json`: i18n resources; the served locales are defined in `locales/index.ts`.
+- `assets/` (imported, hashed) and `public/` (copied as-is). `scripts/`: maintenance, guardrails, the blog cover
+  template. `tests/`: Vitest, mirroring source domains.
 
-- `pnpm dev`: run the local dev server via Vike.
-- `pnpm build`: production build.
-- `pnpm preview`: preview the production build locally.
-- `pnpm test`: run Vitest in CI mode.
-- `pnpm lint`: check formatting with Prettier.
-- `pnpm translations`: extract i18n keys with i18next-cli.
-- `pnpm prerender`: generate static output when needed.
-- `pnpm shadcn add <component>`: add a shadcn/ui component.
+## Commands
 
-## Coding Style & Naming Conventions
+- `pnpm dev`, `pnpm build`, `pnpm preview`, `pnpm prerender`.
+- `pnpm validate` = `pnpm lint` (tsc + Prettier) + `pnpm test` (Vitest) + `pnpm guardrails`. Run it before pushing; CI
+  runs the same.
+- `pnpm translations` extracts i18n keys and sorts the locale files. `pnpm shadcn add <component>` adds a shadcn/ui component.
 
-- Indentation: 2 spaces (see `.editorconfig`).
-- Formatting: Prettier with single quotes, no semicolons, 120-char line width (`.prettierrc`).
-- Files: Vike `+` files use Vike conventions (e.g., `pages/+config.ts`).
-- React components use PascalCase; hooks use `useX`.
+## Code style
 
-## Copy & Typography Content Guidelines
+- Prettier: 2 spaces, single quotes, no semicolons, 120 columns. Components in PascalCase, hooks as `useX`, Vike `+`
+  files per Vike conventions.
+- Prefer reusable components with variants over repeated Tailwind blocks; readable call sites such as
+  `<Button variant='ghost' size='sm'>`.
+- UI decision tree: reuse a shadcn-studio block, then adapt one, then build a custom domain component. Use the
+  shadcn-studio MCP when it is available.
+- Never create revision folders or files (`*V2`, `*V3`, `new-*`, `legacy-*`). `components/app/ValuePropsV3.tsx` is a
+  temporary exception to merge later.
+- Visual language and tokens: `DESIGN.md` and `docs/design-system.md`.
 
-- strictly use **sentence case** everywhere on the site (only the first word of any string/title is capitalized) unless the word is a proper noun, an acronym (e.g. GDPR, SDK), or the brand "Vocdoni". Do not use title case for component titles, menus, or features.
-- **Never use an em dash character**. Substitute with a normal spaced dash (`-`) or structure the sentence differently.
+## Copy
 
-## Component Reusability & Variants
+- Sentence case everywhere: only the first word, proper nouns, acronyms (GDPR, SDK) and "Vocdoni" are capitalized.
+- Never an em dash character; use a spaced `-` or restructure the sentence.
+- User-facing copy in `pages/` and `components/` goes through `react-i18next` with an English default:
+  `t('about_us.title', 'About us')`. Keys are `snake_case`, nested by domain.
 
-- Prefer reusable components with clear variants (e.g., size, tone, layout) over repeated Tailwind class blocks.
-- When Tailwind verbosity grows, extract a component or add a variant prop instead of duplicating markup.
-- Aim for readable call sites: `Button variant="ghost" size="sm"` is preferred over inline class repetition.
-- UI building blocks come from both shadcn/ui and shadcn-studio; prioritize existing shadcn components before inventing new ones.
-- If the shadcn-studio MCP is available in your environment, use it to source sections/blocks before rolling custom layouts.
-- `components/ui/` is only for reusable UI primitives.
-- `components/shadcn-studio/` is only for imported or adapted shadcn-studio blocks.
-- Custom sections must live in stable domain folders such as `components/app/`, `components/home/`, or `components/use-cases/`.
-- Do not create new revision or migration folders such as `*V2`, `*V3`, `new-*`, or `legacy-*`. The existing `VocdoniApp` and `VocdoniAppV3` folders are temporary exceptions to be merged later.
-- Decision tree: reuse a studio block first, adapt a studio block second, and build a custom domain component only when studio blocks do not fit.
+## i18n
 
-## Testing Guidelines
+- `i18next` and `react-i18next` only. Every locale holds every key `en` holds, with a real translation: no empty values,
+  no English copied verbatim.
+- `pnpm guardrails` enforces extraction, locale parity, non-empty values, no copied English, static keys and no
+  hardcoded copy. Intentional English (brands, proper nouns, cognates) is allowlisted in
+  `scripts/guardrails/untranslated-copy-allowlist.json`. Rationale and the one shape exception: [`docs/i18n.md`](docs/i18n.md).
 
-- Framework: Vitest.
-- Tests live under `tests/` and mirror source domains.
-- Naming: `*.test.ts` or `*.test.tsx` (see `tests/components/LanguageSwitcher.test.tsx`).
-- Run: `pnpm test` or target files with `vitest <path>`.
-- Only add tests for functional or non-trivial logic; UI-only or config-only behavior generally does not need tests.
-- Examples of what to skip: checking static `+config.ts` titles, or snapshotting simple presentational components without logic.
+## Testing
 
-## Internationalization (i18n)
+- Vitest, `tests/**/*.test.ts(x)` mirroring source. Test functional or non-trivial logic only; skip static config
+  titles and snapshots of presentational components.
 
-- We use `i18next` and `react-i18next`; do not introduce new translation systems.
-- Translation files live under `locales/<lang>/common.json`; active locales are defined in `locales/index.ts`
-- Key format is `snake_case`, nested by domain to avoid ambiguity (e.g., `about_us.title`, `about_us.feature_cards.accessibility.title`).
-- Run `pnpm translations` to extract keys when adding new strings.
-- Translations are always defined with a default value e.g. `t('sections.terms.title', 'Terms and Conditions')`
-- User-facing copy in `pages/` and `components/` must go through `t(...)` with a default value. Do not add hardcoded JSX copy unless it is an explicitly documented exception.
-- `pnpm guardrails:translations` must pass without modifying locale files.
-- Every locale must hold the keys `en` holds. `pnpm guardrails:translations:parity` compares the key sets and fails on a missing or stale one. It is the only check that catches this: the extractor sees flat `t()` calls, and the other locale checks only inspect keys that exist, so a page reading a whole subtree with `returnObjects` renders a dropped key as an empty section rather than falling back to English. The one deliberate exception is `solutions.*.legal.frameworks`, which names the statutes of the country the language is read in, so each locale fills it with its own; the check requires the section but not its shape.
-- Non-English locales must not contain copy pasted verbatim from English. `pnpm guardrails:translations:no-copy` diffs every in-progress locale (`de`, `el`, `eu`, `fr`, `hi`, `it`, `pt`, `pt-br`) against `en` and fails on any value identical to the English source. The complete reference locales (`es`, `ca`) tell real copy apart from proper nouns/brands/acronyms: a key is only flagged when at least one reference renders it differently from English. Do not leave a value as an empty string either: `pnpm guardrails:translations:non-empty` runs first and rejects empty leaves in every locale, and `getMetaByKey` treats empty as missing and falls back to English. Translate the value or leave the key out until you can. Values that are intentionally identical to English (brand/product names, proper nouns not shared across the references, and genuine cross-language cognates) are listed in `scripts/guardrails/untranslated-copy-allowlist.json`.
+## Blog
 
-## Blog Content
+- Posts are `.mdoc` files at `content/blog/<locale>/<slug>.mdoc` (the slug is the filename, the body is plain Markdown),
+  rendered by `lib/blog/`. Keep locale parity. Images live in `public/blog/images/YYYY/MM/*.webp`; covers are rendered
+  from the `scripts/blog-cover/` template, never made by hand.
+- Schema and conventions: [`content/blog/AGENTS.md`](content/blog/AGENTS.md). Workflow: the `add-blog-post` skill.
 
-- Posts are `.mdoc` files (YAML frontmatter + plain Markdown body) at `content/blog/<locale>/<slug>.mdoc`, authored via **Keystatic** (`/keystatic`) and rendered at build time by `lib/blog/`. Posts do not use custom Markdoc tags.
-- The **slug is the filename** (`my-post.mdoc` → `/blog/my-post`), not a frontmatter field.
-- Translate a post by creating a file with the **same filename** in another locale dir; only frontmatter values and body prose change. Keep locale parity across the served locales in `locales/index.ts`.
-- Store images under `public/blog/images/YYYY/MM/` as `.webp`, referenced web-absolute (`/blog/images/...`, no `public/` prefix).
-- Blog UI copy (not post prose) goes through `react-i18next` under `blog.*` keys with English defaults.
-- Full authoring reference: [`content/blog/AGENTS.md`](content/blog/AGENTS.md).
+## Skills (recurring tasks)
 
-## Commit & Pull Request Guidelines
+- `.claude/skills/add-blog-post/`: write a post, render its cover, translate it into all locales, cross-link and ship.
+- `.claude/skills/add-testimonial/`: the 325x325 round logo, the data entry and the locale keys in all 11 languages.
 
-- Commit style follows conventional-ish prefixes and scopes (e.g., `feat(i18n): ...`, `chore(ui): ...`, `refactor: ...`).
-- Keep commits small and descriptive.
-- PRs should include: a concise summary, testing notes, and screenshots for UI changes.
-- Before pushing, run `pnpm validate`.
+## Commits and pull requests
 
-## Migration Notes (Temporary Constraints)
+- Conventional commits with a scope (`feat(i18n): ...`, `fix(blog): ...`); header and body lines up to 120 characters
+  (commitlint). Small, descriptive commits.
+- PRs follow `.github/pull_request_template.md`: summary, validation checklist, screenshots for UI changes.
+  `pnpm validate` must pass first.
 
-- The site now runs on a single Vike codebase, but some pages still mix older custom sections with newer shadcn-studio blocks.
+## Deployment and release
 
-## Deployment
+- Netlify, one workflow: a push to `lts` deploys production (`vocdoni.io`, the only indexable deploy), a push to `main`
+  deploys the dev site with `NOINDEX=true`, and pull requests get noindexed previews. `main` is the development branch;
+  a release is a merge of `main` into `lts`, so only merge into `main` what you are willing to release next.
+- Redirects: edit `lib/legacyRedirects.ts` only; a renamed route needs an entry or indexed URLs 404.
+- The CSP is an allowlist: any new third-party origin must be added to `buildContentSecurityPolicy` in
+  `plugins/well-known.ts` first, or the browser silently blocks it.
+- Environments, headers, `NOINDEX`, edge functions, the docs version selector and the content-only `stage` branch:
+  [`docs/deployment.md`](docs/deployment.md) and the [README](README.md#deployment).
 
-Everything deploys to Netlify from one workflow (`.github/workflows/deploy-netlify.yml`). The site and all build-time values come from the GitHub environment the trigger selects:
+## Keep this file current
 
-- push to `lts` → `production` environment → `vocdoni.io`. The only indexable deploy.
-- push to `main` → `develop` environment → the dev site, built with `NOINDEX=true`.
-- pull request → `pull request` environment → `deploy-preview-<n>` alias, also `NOINDEX=true`.
-
-`main` is the development branch. A release is a merge of `main` into `lts`: the resulting push to `lts` is what triggers the production deploy, so everything merged into `main` since the last release ships together. Only merge work into `main` that you are willing to release next.
-
-The per-environment secret and variable list is in [README.md](README.md#deployment).
-
-Redirect rules are emitted as a `_redirects` file inside `dist/client` at build time by `plugins/legacy-redirects.ts` (never committed), from the single source of truth in **`lib/legacyRedirects.ts`**. To add, change, or remove a redirect, edit that file only.
-
-Security headers (an enforced Content-Security-Policy, `X-Frame-Options`, `X-Content-Type-Options`, `Referrer-Policy`, `Permissions-Policy`, `Cross-Origin-Opener-Policy`, `Cross-Origin-Resource-Policy`) are emitted into `_headers` by `buildNetlifyHeaders` in `plugins/well-known.ts`. The CSP is an allowlist where every origin is traced to the integration that loads it, so **any new third-party origin - a script, an iframe embed, a hotlinked image host, an API endpoint, or a tag added through the GTM container - must be added to `buildContentSecurityPolicy` first, or the browser silently blocks it** (console CSP violation, no page error). Two deliberate omissions, explained in that file: HSTS stays at Netlify's default because `includeSubDomains`/`preload` would bind every `*.vocdoni.io` subdomain (infra-wide decision), and COEP would break the YouTube/Cal.com iframes. The dev server never applies `_headers`, so verify header changes on a Netlify deploy preview, not locally.
-
-`NOINDEX=true` makes the build emit `X-Robots-Tag: noindex, nofollow` in `_headers`, drop the `Sitemap:` line from `robots.txt`, and add a `robots` meta tag. Never set it for a production build.
-
-### Documentation versions
-
-`/developers/docs` pages ship with the markdown baked in at build time, but the sidebar has a version selector (`lib/docs/versions.ts`). Every version other than `production` names a **branch** of the public repo, and picking one makes the browser fetch that branch's `content/developers/docs/**/*.md` from the GitHub tree API plus raw.githubusercontent.com and compile it client-side (`lib/docs/remote.ts` -> `lib/docs/remote-load.ts` -> `hooks/useDocsData.ts`). Both origins are in the CSP `connect-src`; a new one needs `buildContentSecurityPolicy` updated first.
-
-- **No deploy ever runs from `stage`.** It is a content branch: writers merge markdown into it and reload any deploy (production, dev, a preview) with the stage version selected. The turnaround is a page reload plus the ~5 minute GitHub raw CDN/session cache, not a build.
-- **The selection lives in the URL as `?version=<id>`** (for example `/developers/docs/quickstart?version=stage`), so a link to a specific version can be shared. Opening such a link selects and persists that version; picking one in the selector writes the param back to the address bar (and drops it for the default), and it survives client-side navigation. The resolution order is query param, then the `docs-version` localStorage entry, then the default (`hooks/useDocsVersion.ts`).
-- **Only the markdown comes from the branch.** The compiler, the `{{TOKEN}}` values (`lib/docs/tokens.ts`), the nav taxonomy and every bit of UI come from the deployed build, so a stage page that uses a token or a `:::` directive added on the branch renders with this build's behaviour. Ship pipeline changes to `main` before relying on them in stage content.
-- **Stage-only pages are not navigable yet.** A slug that exists on the branch but was never prerendered here has no route, so the sidebar renders it as an inert entry with a "new" badge and the pager skips it. Phase 2 is a Netlify rewrite that serves those URLs from the docs shell; until it lands, a new page is only readable once it reaches `main`.
-- The markdown pipeline is lazy: `lib/docs/remote-load.ts` is the only client-reachable module importing `lib/docs/pipeline.ts`, and it is reached through a dynamic `import()`. Readers on the baked version never download it. Never import `@/lib/docs/markdown` or `@/lib/docs/nav` for values from client code - both hold an eager glob of every doc.
-
-Netlify edge functions live in `netlify/edge-functions/` and are declared to the CLI by `netlify.toml`. The workflow uploads with `netlify deploy --no-build`, which bundles them; that is why the deploy runs through the Netlify CLI rather than a deploy action. Keep edge functions as a thin shell over a pure, unit-tested module in `lib/`, and keep `netlify.toml` free of redirect and header rules - those are generated into `dist/client` and toml rules would silently take precedence.
-
-## Agent-Specific Instructions
-
-- This repo expects an `AGENTS.md` contributor guide; keep it updated as workflows change.
+This file is policy. When a workflow changes, update it, and the doc or skill it points to, in the same PR.

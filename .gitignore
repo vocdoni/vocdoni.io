@@ -151,7 +151,8 @@ cdk.out
 
 # AI stuff
 .agents
-.claude
+.claude/*
+!.claude/skills/
 .context
 
 context

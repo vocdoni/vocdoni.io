@@ -3,6 +3,8 @@
 This is the authoring reference for the Vocdoni blog. It is policy, not background context - follow
 it when creating, translating, or editing posts. For general repo rules (copy style, i18n,
 component placement, commits) see the root [`AGENTS.md`](../../AGENTS.md).
+The step-by-step workflow (write, cover, translate, cross-link, ship) is the `add-blog-post` skill in
+`.claude/skills/`; the home-page quote that often comes with a success story is the `add-testimonial` skill.
 
 ## How the blog works
 
@@ -98,6 +100,11 @@ Served locales (`locales/index.ts`): `en` (default), `es`, `ca`, `de`, `el`, `eu
 - Store cover and inline images under `public/blog/images/YYYY/MM/` and reference them
   **web-absolute, without the `public/` prefix**: `/blog/images/2026/03/foo.webp`.
 - Use `.webp`. Author avatars live in `public/blog/authors/` (`/blog/authors/<slug>.webp`).
+- **Covers are rendered from a template**, never hand-made: `scripts/blog-cover/render.sh` screenshots
+  `scripts/blog-cover/template.html` with headless Chrome and writes a 1685x920 `.webp` to
+  `public/blog/images/YYYY/MM/header_vocdoni_<org>.webp`. `--partner` is the organization's colour mark on a
+  transparent background, `--eyebrow` is `<Org> · <year>`, `--variant` picks the layout; the script header lists the
+  current options. The blog card crops the cover to 16:10 and the post header to 16:9, so keep the lockup centred.
 
 ## Copy & i18n
 
