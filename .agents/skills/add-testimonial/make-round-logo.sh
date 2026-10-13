@@ -22,7 +22,8 @@ while [ $# -gt 0 ]; do
   esac
 done
 [ -n "$src" ] && [ -n "$out" ] || { echo "usage: $0 --src <image> --out <file.webp> [--bg '#hex'] [--scale 0.62] [--key-white]" >&2; exit 1; }
-[[ "$scale" =~ ^(0?\.[0-9]+|1(\.0*)?)$ ]] || { echo "--scale must be a number between 0 and 1, got: $scale" >&2; exit 1; }
+[[ "$scale" =~ ^(0?\.[0-9]*[1-9][0-9]*|1(\.0*)?)$ ]] || { echo "--scale must be a number above 0 and up to 1, got: $scale" >&2; exit 1; }
+[[ "$out" == *.webp ]] || { echo "--out must be a .webp file, got: $out" >&2; exit 1; }
 command -v magick >/dev/null || { echo "ImageMagick 7 (magick) is required" >&2; exit 1; }
 
 size=325
@@ -35,7 +36,8 @@ trap 'rm -rf "$tmp"' EXIT
 read_src=(-background none -density 600 "$src")
 key=()
 # A white 1px frame connects every edge, so one flood fill from a corner clears the whole surrounding background.
-[ "$keywhite" = 1 ] && key=(-bordercolor white -border 1 -fuzz 6% -fill none -draw 'color 0,0 floodfill' -shave 1x1)
+# -compose Copy keeps -border from flattening transparent pixels onto white before the fill.
+[ "$keywhite" = 1 ] && key=(-compose Copy -bordercolor white -border 1 -fuzz 6% -fill none -draw 'color 0,0 floodfill' -shave 1x1)
 
 if [ -z "$bg" ]; then
   # cover-crop the source into the circle
