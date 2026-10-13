@@ -260,7 +260,7 @@ export function getTestimonialsData(t: TFunction): Testimonial[] {
       name: 'Gerard Palou',
       handle: t('testimonials_marquee.items.16.handle', 'Member of the Consell Rector · Foodcoop BCN'),
       rating: 5,
-      title: t('testimonials_marquee.items.16.title', 'Hybrid voting that kept every member in the assembly'),
+      title: t('testimonials_marquee.items.16.title', 'Hybrid voting so no member is left out of the assembly'),
       content: t(
         'testimonials_marquee.items.16.content',
         "Many FoodcoopBCN members can't always make it to the assembly, because of work, care duties or because they live far away. With hybrid voting, 30 members followed the assembly by livestream and voted securely from home. Those are voices an in-person-only assembly would have left out."
