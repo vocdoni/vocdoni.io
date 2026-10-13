@@ -93,7 +93,7 @@ Served locales (`locales/index.ts`): `en` (default), `es`, `ca`, `de`, `el`, `eu
 - URLs are `/<lang>/blog/<slug>`; the slug is identical in every language.
 - Missing translations fall back to English, then to any locale that has the post (`resolveSource`
   in `lib/blog/content.ts`), so a missing translation never hides content - but **keep locale
-  parity**: every locale currently has every post.
+  parity**: every new post ships in every locale.
 
 ## Images
 

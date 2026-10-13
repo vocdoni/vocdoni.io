@@ -104,17 +104,16 @@ truth for this checkout.
   better than a wide wordmark.
 - Eyebrow: `<Org> · <year of the vote>` (rendered uppercase). Title: leave "Success stories" for success stories,
   otherwise a two or three word label.
-- Variant: always pass `--variant`, since `render.sh` falls back to `pitch`. `stripes` (brand-colour band), `stat` (one
+- Variant: `--variant` is required. `stripes` (brand-colour band), `stat` (one
   huge figure, when the number is the story; pass `--label` with what it counts, the caption defaults to "turnout"),
   `ballot` (a ballot card, announcements and product posts), `pitch` (a football pitch, sports clubs only), `centered`
   with `--photo` (the organization's own photo behind the lockup; tuned with `--filter`, `--fit`, `--motif`, `--badge`).
-- `--c1` / `--c2`: always pass the organization's brand colours; without them the template falls back to FC
-  Barcelona's blaugrana. `--photo`: a path inside the repo (paths are relative to the repo root); keep raw photos out of
+- `--c1` / `--c2`: the organization's brand colours, required. `--photo`: a path inside the repo (paths are relative to the repo root); keep raw photos out of
   git unless they are used in the post.
 - Output: `public/blog/images/YYYY/MM/header_vocdoni_<org>.webp`, `YYYY/MM` being the publication month.
 
 ```bash
-scripts/blog-cover/render.sh --partner assets/images/fcb-colour.webp --variant pitch \
+scripts/blog-cover/render.sh --partner assets/images/fcb-colour.webp --variant pitch --c1 '#004d98' --c2 '#a50044' \
   --eyebrow 'FC Barcelona · 2022' --out public/blog/images/2026/10/header_vocdoni_fcbarcelona.webp
 
 scripts/blog-cover/render.sh --partner assets/images/<org>-colour.webp --variant stat --stat '1,160' \
@@ -124,8 +123,8 @@ scripts/blog-cover/render.sh --partner assets/images/<org>-colour.webp --variant
 Then open the output with the Read tool and check: the lockup is centred and legible, the partner symbol is whole
 inside its circle, no text is clipped, and nothing important lives in the outer ~110px on each side (the blog card
 crops to 16:10, the post header to 16:9). Iterate on variant, eyebrow and colours until it reads well. Needs Chrome and
-`cwebp` (the `webp` package in Homebrew, apt or pacman). The default Chrome path is the macOS one; elsewhere set it, for
-example `CHROME=google-chrome` or `CHROME=chromium`, or the script exits 127 without a message.
+`cwebp` (`webp` in Homebrew and apt, `libwebp-utils` in pacman). The script looks for Chrome or Chromium on the PATH and in
+the macOS app folder; set `CHROME=<path>` if it lives elsewhere.
 
 Inline images go to the same `public/blog/images/YYYY/MM/` folder as `.webp`, referenced web-absolute.
 

@@ -102,7 +102,8 @@ Locales (`locales/index.ts`): `ca`, `de`, `el`, `en`, `es`, `eu`, `fr`, `hi`, `i
 
 - `en` values must be byte-identical to the defaults in the data file.
 - The source-language locale gets the original quote verbatim. Every other locale is a real translation: no English left
-  behind (the `no-copy` guardrail fails on it) and no empty strings (the `non-empty` guardrail fails on those).
+  behind (the `no-copy` guardrail fails on it, except in `es` and `ca`, which it uses as references and you
+  check yourself) and no empty strings (the `non-empty` guardrail fails on those).
 - Translate the role, keep the organization name, keep figures. Read two neighbouring items in that locale first and
   match their register (ca and es are informal). Hindi is Devanagari with Latin brand names.
 - Run `pnpm translations` (it sorts the files and must change nothing else), then `pnpm guardrails`.

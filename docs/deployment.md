@@ -3,19 +3,6 @@
 The operational detail behind the rules in [`AGENTS.md`](../AGENTS.md#deployment-and-release). The environment, secret
 and variable list, and the release flow, are in the [README](../README.md#deployment).
 
-## Environments
-
-Everything deploys to Netlify from one workflow (`.github/workflows/deploy-netlify.yml`). The site and all build-time
-values come from the GitHub environment the trigger selects:
-
-- push to `lts` → `production` environment → `vocdoni.io`. The only indexable deploy.
-- push to `main` → `develop` environment → the dev site, built with `NOINDEX=true`.
-- pull request → `pull request` environment → `deploy-preview-<n>` alias, also `NOINDEX=true`.
-
-`main` is the development branch. A release is a merge of `main` into `lts`: the resulting push to `lts` is what
-triggers the production deploy, so everything merged into `main` since the last release ships together. Only merge work
-into `main` that you are willing to release next.
-
 ## Redirects
 
 Redirect rules are emitted as a `_redirects` file inside `dist/client` at build time by `plugins/legacy-redirects.ts`

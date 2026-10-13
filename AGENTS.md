@@ -6,7 +6,7 @@ procedures in `.agents/skills/` (symlinked from `.claude/skills/`).
 ## Project structure
 
 - `pages/`: Vike routes (`+Page.tsx`, `+config.ts`). `layouts/`: page wrappers. `hooks/`, `lib/`: reusable logic.
-- `components/`: `ui/` holds shadcn primitives only, `shadcn-studio/` imported or adapted studio blocks only, and custom
+- `components/`: `ui/` holds shadcn primitives and other shared, domain-free UI primitives, `shadcn-studio/` imported or adapted studio blocks only, and custom
   sections live in stable domain folders (`app/`, `home/`, `solutions/`, `blog/`, `case-studies/`, ...).
 - `content/`: Markdoc content. The blog is `content/blog/`, the developer docs `content/developers/docs/`.
 - `locales/<lang>/common.json`: i18n resources; the served locales are defined in `locales/index.ts`.
@@ -43,8 +43,8 @@ procedures in `.agents/skills/` (symlinked from `.claude/skills/`).
 
 - `i18next` and `react-i18next` only. Every locale holds every key `en` holds, with a real translation: no empty values,
   no English copied verbatim.
-- `pnpm guardrails` enforces extraction, locale parity, non-empty values, no copied English, static keys and no
-  hardcoded copy. Intentional English (brands, proper nouns, cognates) is allowlisted in
+- `pnpm guardrails` enforces extraction, locale parity, non-empty values, no copied English (in every locale but the
+  `es` and `ca` references, which you check by hand), static keys and no hardcoded copy. Intentional English (brands, proper nouns, cognates) is allowlisted in
   `scripts/guardrails/untranslated-copy-allowlist.json`. Rationale and the one shape exception: [`docs/i18n.md`](docs/i18n.md).
 
 ## Testing
@@ -63,6 +63,8 @@ procedures in `.agents/skills/` (symlinked from `.claude/skills/`).
 
 - `.agents/skills/add-blog-post/`: write a post, render its cover, translate it into all locales, cross-link and ship.
 - `.agents/skills/add-testimonial/`: the 325x325 round logo, the data entry and the locale keys in all 11 languages.
+- A new skill also needs its own un-ignore lines in `.gitignore` (and its `.claude/skills/` symlink); the skill folders
+  are otherwise ignored so locally installed skills stay out of git.
 
 ## Commits and pull requests
 
