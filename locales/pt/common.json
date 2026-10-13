@@ -2966,7 +2966,29 @@
             "description": "Cada voto devolve um código de recibo que liga ao explorador público. Os associados podem recuperá-lo mais tarde e confirmar que o seu voto foi contado, sem o revelar nem ficarem ligados a ele."
           }
         ],
-        "media_caption": "O painel de administração: estado, participação e resultados por pergunta."
+        "media_caption": "O painel de administração: estado, participação e resultados por pergunta.",
+        "results_media_caption": "A página da eleição quando a votação encerra: o resultado publicado de cada pergunta, legível por qualquer pessoa sem passar pela administração.",
+        "steps_title": "E o que faz realmente um membro",
+        "steps": [
+          {
+            "title": "Abre a eleição no Decidim",
+            "description": "A eleição está no espaço participativo que já usa, com as perguntas e o período de votação. Quando a votação abre, o botão Votar leva-o à página de votação servida pela vossa própria instância."
+          },
+          {
+            "title": "Identifica-se, não se regista",
+            "description": "Prova que está no censo com os campos que escolheram: número de membro, email, documento de identificação. Se o exigirem, um código de utilização única por email ou SMS confirma que é ele. Esses dados vão para a rede de votação, nunca para a vossa base de dados."
+          },
+          {
+            "title": "Vota",
+            "description": "Uma pergunta por ecrã, uma revisão das respostas, e o boletim é selado no seu navegador antes de sair dele. Nada do voto passa pelo vosso Decidim."
+          },
+          {
+            "title": "Fica com um comprovativo",
+            "description": "Cada pergunta devolve um código de comprovativo que prova que o voto foi registado sem o revelar. Pode voltar à eleição, identificar-se de novo e vê-lo quando quiser."
+          }
+        ],
+        "steps_media_caption": "O que um membro vê no telemóvel, desde a página da eleição no Decidim até ao comprovativo.",
+        "footnote": "Os membros nunca saem do vosso Decidim nem criam uma segunda conta: a página de votação é servida pela vossa própria instância, e toda a votação decorre no navegador que já têm aberto."
       },
       "legal": {
         "eyebrow": "garantias e proteção de dados",
@@ -3112,6 +3134,30 @@
         "cta_primary": "Falem connosco",
         "cta_secondary": "Consultar o código no GitHub",
         "note": "Software livre, sem compromisso. Se o Decidim do vosso cliente ainda não estiver na 0.33, dir-vos-emos a data realista."
+      },
+      "mockups": {
+        "organization": "Cooperativa Les Fonts",
+        "process": "Assembleia geral 2026",
+        "title": "Eleição do conselho de administração 2026-2030",
+        "description": "Eleição do conselho de administração para o mandato 2026-2030 e aprovação das contas anuais de 2025.",
+        "questions": [
+          {
+            "title": "Conselho de administração, mandato 2026-2030",
+            "choices": [
+              "Laia Bosch Vila",
+              "Oriol Mas Puig",
+              "Voto em branco"
+            ]
+          },
+          {
+            "title": "Aprovação das contas anuais de 2025",
+            "choices": [
+              "Sim",
+              "Não",
+              "Abstenção"
+            ]
+          }
+        ]
       }
     },
     "mockups": {
@@ -3157,6 +3203,67 @@
         "voting_in_progress": "Votação em curso",
         "voting_settings": "Definições de votação",
         "voting_status": "Estado da votação"
+      },
+      "decidim": {
+        "active_voting_until": "Votação ativa até: {{end_date}}",
+        "answers": "Respostas",
+        "back_to_election": "Voltar à eleição",
+        "calendar": "Calendário",
+        "cancel": "Cancelar",
+        "census_label": "Censo:",
+        "census_size": "Atualmente há {{people}} pessoas com direito a voto nesta eleição (isto pode mudar num censo dinâmico).",
+        "census_type": "Participantes registados (dinâmico)",
+        "components": "Componentes",
+        "continue": "Continuar",
+        "copy": "Copiar",
+        "dark_theme": "Tema escuro",
+        "edit_election": "Editar eleição",
+        "election_questions": "Questões da eleição",
+        "election_status": "Estado da eleição",
+        "elections": "Eleições",
+        "email_address": "Endereço de email",
+        "end_election": "Terminar eleição",
+        "end_time": "Hora de fim:",
+        "home": "Início",
+        "identify_body": "Para abrir o seu boletim, temos de verificar que está no censo desta eleição. Estes dados são enviados para a rede de votação; este site nunca os guarda.",
+        "identify_title": "Identifique-se",
+        "membership_number": "Número de membro",
+        "next": "Seguinte",
+        "percentage": "Percentagem",
+        "pick_one": "Escolha uma opção.",
+        "privacy_note": "A sua identidade serve apenas para provar que pode votar. Nunca é ligada ao seu boletim.",
+        "processes": "Processos",
+        "progress_choose": "Escolher",
+        "progress_identify": "Identificar",
+        "progress_receipt": "Comprovativo",
+        "progress_review": "Rever",
+        "question_counter": "Pergunta {{current}} de {{total}}",
+        "receipt_body": "Cada comprovativo abaixo prova que um voto ficou registado na rede de votação. Não revela o que votou.",
+        "receipt_code": "Código do comprovativo",
+        "receipt_return_note": "Pode voltar a ver estes comprovativos quando quiser: volte a esta eleição e identifique-se de novo.",
+        "results": "Resultado",
+        "results_after_end": "Resultados disponíveis após o fim da eleição",
+        "results_published_at": "Resultados publicados em",
+        "results_real_time": "Resultados disponíveis em tempo real",
+        "results_shown_automatically": "Os resultados são mostrados automaticamente durante a eleição.",
+        "results_subtitle_after_end": "A eleição terminou. Já pode ver os resultados.",
+        "see_election": "Ver eleição",
+        "send_code_legend": "Para onde enviamos o seu código?",
+        "start_time": "Hora de início:",
+        "status_finished": "Terminado",
+        "status_ongoing": "Em andamento",
+        "tab_census": "Censo",
+        "tab_dashboard": "Painel de controlo",
+        "tab_main": "Principal",
+        "tab_questions": "Perguntas",
+        "tab_security": "Segurança",
+        "total": "Total",
+        "total_label": "TOTAL:",
+        "vote": "Votar",
+        "vote_recorded": "O seu voto ficou registado",
+        "votes": "Votos",
+        "votes_count": "{{votes}} votos",
+        "voting_began": "A votação começou em: {{start_date}}"
       }
     }
   },

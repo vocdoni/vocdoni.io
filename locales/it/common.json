@@ -2966,7 +2966,29 @@
             "description": "Ogni voto restituisce un codice di ricevuta che rimanda all'explorer pubblico. I membri possono recuperarla in seguito e confermare che il loro voto è stato conteggiato, senza rivelarlo e senza esservi collegati."
           }
         ],
-        "media_caption": "Il monitor di amministrazione: stato, affluenza e risultati domanda per domanda."
+        "media_caption": "Il monitor di amministrazione: stato, affluenza e risultati domanda per domanda.",
+        "results_media_caption": "La pagina dell'elezione a votazione chiusa: il risultato pubblicato di ogni domanda, leggibile da chiunque senza passare dall'amministrazione.",
+        "steps_title": "E cosa fa davvero un socio",
+        "steps": [
+          {
+            "title": "Apre l'elezione in Decidim",
+            "description": "L'elezione sta nello spazio partecipativo che già usa, con le domande e il periodo di voto. All'apertura del voto, il pulsante Vota lo porta alla pagina di voto servita dalla vostra stessa istanza."
+          },
+          {
+            "title": "Si identifica, non si registra",
+            "description": "Dimostra di essere nel censimento con i campi che avete scelto: numero di iscrizione, email, documento. Se lo richiedete, un codice monouso via email o SMS conferma che è proprio lui. Quei dati vanno alla rete di voto, mai nel vostro database."
+          },
+          {
+            "title": "Vota",
+            "description": "Una domanda per schermata, una revisione delle risposte, e la scheda viene sigillata nel suo browser prima di uscirne. Niente del voto passa dal vostro Decidim."
+          },
+          {
+            "title": "Conserva una ricevuta",
+            "description": "Ogni domanda restituisce un codice di ricevuta che dimostra che il voto è stato registrato senza rivelarlo. Può tornare all'elezione, identificarsi di nuovo e vederlo quando vuole."
+          }
+        ],
+        "steps_media_caption": "Quello che vede un socio sul telefono, dalla pagina dell'elezione in Decidim alla ricevuta.",
+        "footnote": "I soci non escono mai dal vostro Decidim e non creano un secondo account: la pagina di voto la serve la vostra stessa istanza, e tutto il voto avviene nel browser che hanno già aperto."
       },
       "legal": {
         "eyebrow": "garanzie e protezione dei dati",
@@ -3112,6 +3134,30 @@
         "cta_primary": "Parliamone insieme",
         "cta_secondary": "Vedi il codice su GitHub",
         "note": "Software libero, nessun impegno. Se il Decidim del vostro cliente non è ancora alla 0.33, vi diremo la data realistica."
+      },
+      "mockups": {
+        "organization": "Cooperativa Les Fonts",
+        "process": "Assemblea generale 2026",
+        "title": "Elezione del consiglio di amministrazione 2026-2030",
+        "description": "Elezione del consiglio di amministrazione per il mandato 2026-2030 e approvazione del bilancio 2025.",
+        "questions": [
+          {
+            "title": "Consiglio di amministrazione, mandato 2026-2030",
+            "choices": [
+              "Laia Bosch Vila",
+              "Oriol Mas Puig",
+              "Scheda bianca"
+            ]
+          },
+          {
+            "title": "Approvazione del bilancio 2025",
+            "choices": [
+              "Sì",
+              "No",
+              "Astensione"
+            ]
+          }
+        ]
       }
     },
     "mockups": {
@@ -3157,6 +3203,67 @@
         "voting_in_progress": "Votazione in corso",
         "voting_settings": "Impostazioni di voto",
         "voting_status": "Stato del voto"
+      },
+      "decidim": {
+        "active_voting_until": "Votazione attiva fino a: {{end_date}}",
+        "answers": "Risposte",
+        "back_to_election": "Torna all'elezione",
+        "calendar": "Calendario",
+        "cancel": "Annulla",
+        "census_label": "Censimento:",
+        "census_size": "Attualmente {{people}} persone hanno diritto di voto in questa elezione (può cambiare con un censimento dinamico).",
+        "census_type": "Partecipanti registrati (dinamico)",
+        "components": "Componenti",
+        "continue": "Continua",
+        "copy": "Copia",
+        "dark_theme": "Tema scuro",
+        "edit_election": "Modifica elezione",
+        "election_questions": "Domande elettorali",
+        "election_status": "Stato elettorale",
+        "elections": "Elezioni",
+        "email_address": "Indirizzo email",
+        "end_election": "Termina elezione",
+        "end_time": "Ora di fine:",
+        "home": "Home",
+        "identify_body": "Per aprire la tua scheda dobbiamo verificare che tu sia nel censimento di questa elezione. Questi dati vengono inviati alla rete di voto; questo sito non li conserva mai.",
+        "identify_title": "Identificati",
+        "membership_number": "Numero di iscrizione",
+        "next": "Avanti",
+        "percentage": "Percentuale",
+        "pick_one": "Scegli un'opzione.",
+        "privacy_note": "La tua identità serve solo a dimostrare che puoi votare. Non viene mai collegata alla tua scheda.",
+        "processes": "Processi",
+        "progress_choose": "Scegli",
+        "progress_identify": "Identificati",
+        "progress_receipt": "Ricevuta",
+        "progress_review": "Rivedi",
+        "question_counter": "Domanda {{current}} di {{total}}",
+        "receipt_body": "Ogni ricevuta qui sotto dimostra che un voto è stato registrato sulla rete di voto. Non rivela cosa hai votato.",
+        "receipt_code": "Codice della ricevuta",
+        "receipt_return_note": "Puoi rivedere queste ricevute in qualsiasi momento: torna a questa elezione e identificati di nuovo.",
+        "results": "Risultati",
+        "results_after_end": "Risultati disponibili dopo la fine dell'elezione",
+        "results_published_at": "Risultati pubblicati il",
+        "results_real_time": "Risultati disponibili in tempo reale",
+        "results_shown_automatically": "I risultati vengono mostrati automaticamente durante l'elezione.",
+        "results_subtitle_after_end": "L'elezione è terminata. Ora puoi vedere i risultati.",
+        "see_election": "Vedi elezione",
+        "send_code_legend": "Dove ti inviamo il codice?",
+        "start_time": "Ora di inizio:",
+        "status_finished": "Completata",
+        "status_ongoing": "In corso",
+        "tab_census": "Censimento",
+        "tab_dashboard": "Pannello di controllo",
+        "tab_main": "Principale",
+        "tab_questions": "Quesiti",
+        "tab_security": "Sicurezza",
+        "total": "Totale",
+        "total_label": "TOTALE:",
+        "vote": "Vota",
+        "vote_recorded": "Il tuo voto è stato registrato",
+        "votes": "Voti",
+        "votes_count": "{{votes}} voti",
+        "voting_began": "La votazione è iniziata il: {{start_date}}"
       }
     }
   },
