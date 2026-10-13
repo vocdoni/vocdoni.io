@@ -1,12 +1,9 @@
 import { CircleCheckIcon, MenuIcon } from 'lucide-react'
-import { AnimatePresence, motion, useReducedMotion } from 'motion/react'
-import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import Logo from '@/components/illustrations/logo'
-import { AppMockupFrame } from '@/components/solutions/mockups/AppMockupFrame'
-import { useMemberJourney } from '@/components/solutions/mockups/journey-context'
 import { AppChoice, AppSolidButton, AppTabs, AppTag, formatSchedule } from '@/components/solutions/mockups/parts'
+import { PhoneJourney } from '@/components/solutions/mockups/PhoneJourney'
 import type { MockupFigures, VerticalMockupCopy } from '@/components/solutions/mockups/types'
 import { cn } from '@/lib/utils'
 
@@ -15,9 +12,6 @@ export type MemberScreen = 'notice' | 'code' | 'ballot' | 'receipt'
 
 export const SCREENS: MemberScreen[] = ['notice', 'code', 'ballot', 'receipt']
 export const MEMBER_SCREEN_COUNT = SCREENS.length
-
-/** Long enough to read a screen, short enough that the fourth is reached in one scroll pause. */
-const DWELL_MS = 3200
 
 interface MemberJourneyMockupProps {
   copy?: VerticalMockupCopy
@@ -31,80 +25,21 @@ interface MemberJourneyMockupProps {
  * The member's phone, cycling through the four screens the member actually
  * sees: the notice, the one-time code, the ballot and the receipt. One screen
  * per step of the list beside it, so the picture and the prose advance
- * together. Auto-advances unless the reader prefers reduced motion; the dots
- * under the phone let a reader pick a screen, but not when a journey drives it.
+ * together; `PhoneJourney` does the cycling. Under reduced motion it rests on
+ * the ballot, the one screen that stands on its own.
  */
 export function MemberJourneyMockup({ copy, figures, label, className }: MemberJourneyMockupProps) {
-  const reducedMotion = useReducedMotion()
-  const journey = useMemberJourney()
-  // Starts on the first screen so the prerendered HTML matches the first client render;
-  // reduced-motion readers jump to the ballot once mounted.
-  const [ownIndex, setOwnIndex] = useState(0)
-  const [paused, setPaused] = useState(false)
-  const controlled = journey !== null
-  const index = controlled ? journey.index : ownIndex
-  const setIndex = controlled ? journey.setIndex : setOwnIndex
-
-  useEffect(() => {
-    if (reducedMotion) setOwnIndex(2)
-  }, [reducedMotion])
-
-  useEffect(() => {
-    if (controlled || reducedMotion || paused) return
-    const id = window.setInterval(() => setOwnIndex((current) => (current + 1) % SCREENS.length), DWELL_MS)
-    return () => window.clearInterval(id)
-  }, [controlled, reducedMotion, paused])
-
   if (!copy) return null
-  const screen = SCREENS[index % SCREENS.length]
-
   return (
-    <div
-      className={cn('flex flex-col items-center gap-4', className)}
-      onMouseEnter={() => setPaused(true)}
-      onMouseLeave={() => setPaused(false)}
-    >
-      <AppMockupFrame variant='phone' label={label}>
-        <AnimatePresence initial={false} mode='wait'>
-          <motion.div
-            key={screen}
-            className='absolute inset-0'
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: reducedMotion ? 0 : 0.3 }}
-          >
-            <PhoneScreen screen={screen} copy={copy} figures={figures} />
-          </motion.div>
-        </AnimatePresence>
-      </AppMockupFrame>
-
-      {/* Step dots, only when the phone is on its own: a driving section has
-          the steps themselves as controls. */}
-      {!controlled && (
-        <div className='flex gap-2' role='tablist'>
-          {SCREENS.map((item, i) => (
-            <button
-              key={item}
-              type='button'
-              role='tab'
-              aria-selected={i === index}
-              aria-label={String(i + 1)}
-              onClick={() => {
-                setIndex(i)
-                setPaused(true)
-              }}
-              className={cn(
-                'flex size-7 items-center justify-center rounded-full text-xs font-semibold tabular-nums transition-colors',
-                i === index ? 'bg-primary text-primary-foreground' : 'bg-primary/10 text-primary hover:bg-primary/20'
-              )}
-            >
-              {i + 1}
-            </button>
-          ))}
-        </div>
-      )}
-    </div>
+    <PhoneJourney
+      label={label}
+      className={className}
+      restIndex={2}
+      screens={SCREENS.map((screen) => ({
+        id: screen,
+        render: () => <PhoneScreen screen={screen} copy={copy} figures={figures} />,
+      }))}
+    />
   )
 }
 
