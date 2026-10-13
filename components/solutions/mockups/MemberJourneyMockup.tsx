@@ -131,7 +131,7 @@ function PhoneScreen({
         {question && (
           <div className='border-app-border flex flex-col gap-[0.6em] rounded-[0.6em] border p-[0.8em]'>
             <p className='text-[0.85em] leading-snug font-medium'>{question.title}</p>
-            {question.choices.slice(0, 2).map((choice) => (
+            {question.choices.map((choice) => (
               <AppChoice key={choice} label={choice} />
             ))}
           </div>
