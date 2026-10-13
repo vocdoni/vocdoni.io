@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next'
 
 import Logo from '@/components/illustrations/logo'
 import { AppMockupFrame } from '@/components/solutions/mockups/AppMockupFrame'
+import { useMemberJourney } from '@/components/solutions/mockups/journey-context'
 import { AppChoice, AppTabs, AppTag, formatSchedule } from '@/components/solutions/mockups/parts'
 import type { MockupFigures, VerticalMockupCopy } from '@/components/solutions/mockups/types'
 import { cn } from '@/lib/utils'
@@ -12,7 +13,8 @@ import { cn } from '@/lib/utils'
 /** The four moments of a member's vote, in the order of the page's four steps. */
 export type MemberScreen = 'notice' | 'code' | 'ballot' | 'receipt'
 
-const SCREENS: MemberScreen[] = ['notice', 'code', 'ballot', 'receipt']
+export const SCREENS: MemberScreen[] = ['notice', 'code', 'ballot', 'receipt']
+export const MEMBER_SCREEN_COUNT = SCREENS.length
 
 /** Long enough to read a screen, short enough that the fourth is reached in one scroll pause. */
 const DWELL_MS = 3200
@@ -34,17 +36,21 @@ interface MemberJourneyMockupProps {
  */
 export function MemberJourneyMockup({ copy, figures, label, className }: MemberJourneyMockupProps) {
   const reducedMotion = useReducedMotion()
-  const [index, setIndex] = useState(reducedMotion ? 2 : 0)
+  const journey = useMemberJourney()
+  const [ownIndex, setOwnIndex] = useState(reducedMotion ? 2 : 0)
   const [paused, setPaused] = useState(false)
+  const controlled = journey !== null
+  const index = controlled ? journey.index : ownIndex
+  const setIndex = controlled ? journey.setIndex : setOwnIndex
 
   useEffect(() => {
-    if (reducedMotion || paused) return
-    const id = window.setInterval(() => setIndex((current) => (current + 1) % SCREENS.length), DWELL_MS)
+    if (controlled || reducedMotion || paused) return
+    const id = window.setInterval(() => setOwnIndex((current) => (current + 1) % SCREENS.length), DWELL_MS)
     return () => window.clearInterval(id)
-  }, [reducedMotion, paused])
+  }, [controlled, reducedMotion, paused])
 
   if (!copy) return null
-  const screen = SCREENS[index]
+  const screen = SCREENS[index % SCREENS.length]
 
   return (
     <div
@@ -67,28 +73,31 @@ export function MemberJourneyMockup({ copy, figures, label, className }: MemberJ
         </AnimatePresence>
       </AppMockupFrame>
 
-      {/* Step dots: numbered like the list beside the phone. */}
-      <div className='flex gap-2' role='tablist'>
-        {SCREENS.map((item, i) => (
-          <button
-            key={item}
-            type='button'
-            role='tab'
-            aria-selected={i === index}
-            aria-label={String(i + 1)}
-            onClick={() => {
-              setIndex(i)
-              setPaused(true)
-            }}
-            className={cn(
-              'flex size-7 items-center justify-center rounded-full text-xs font-semibold tabular-nums transition-colors',
-              i === index ? 'bg-primary text-primary-foreground' : 'bg-primary/10 text-primary hover:bg-primary/20'
-            )}
-          >
-            {i + 1}
-          </button>
-        ))}
-      </div>
+      {/* Step dots, only when the phone is on its own: a driving section has
+          the steps themselves as controls. */}
+      {!controlled && (
+        <div className='flex gap-2' role='tablist'>
+          {SCREENS.map((item, i) => (
+            <button
+              key={item}
+              type='button'
+              role='tab'
+              aria-selected={i === index}
+              aria-label={String(i + 1)}
+              onClick={() => {
+                setIndex(i)
+                setPaused(true)
+              }}
+              className={cn(
+                'flex size-7 items-center justify-center rounded-full text-xs font-semibold tabular-nums transition-colors',
+                i === index ? 'bg-primary text-primary-foreground' : 'bg-primary/10 text-primary hover:bg-primary/20'
+              )}
+            >
+              {i + 1}
+            </button>
+          ))}
+        </div>
+      )}
     </div>
   )
 }

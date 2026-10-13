@@ -82,7 +82,6 @@ export function VerticalPage({
         secondaryHref={secondaryHref}
         ctaId={`${ctaPrefix}_hero`}
         media={media?.console}
-        mediaCaption={content?.how?.media_caption}
       />
 
       <VerticalTrustBand trust={content?.trust} logos={logos} />
