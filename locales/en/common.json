@@ -1078,7 +1078,8 @@
           }
         ],
         "steps_media_caption": "What a member sees on their phone, from the notice to the receipt.",
-        "footnote": "Most members finish in under two minutes, in the browser they already have open. If part of your membership is genuinely offline, the assisted point runs on the same register, so nobody is excluded and nobody votes twice. The obstacle is almost never the member: it is a missing mobile number in a register nobody has cleaned in years. So we check your contact details before anything opens."
+        "footnote": "Most members finish in under two minutes, in the browser they already have open. If part of your membership is genuinely offline, the assisted point runs on the same register, so nobody is excluded and nobody votes twice. The obstacle is almost never the member: it is a missing mobile number in a register nobody has cleaned in years. So we check your contact details before anything opens.",
+        "results_media_caption": "When the assembly closes: the result of every motion, the election report and the explorer link, ready for the minutes."
       },
       "comparison": {
         "eyebrow": "against the alternatives",
@@ -1365,6 +1366,38 @@
             "label": "For the sceptic in the room",
             "description": "How this compares with the assembly you hold today, line by line.",
             "anchor": "comparison"
+          }
+        ]
+      },
+      "mockups": {
+        "organization": "Ateneu del Vallès",
+        "title": "Annual general assembly 2026",
+        "questions": [
+          {
+            "title": "Approval of the 2025 annual accounts",
+            "choices": [
+              "Yes",
+              "No",
+              "Abstention"
+            ]
+          },
+          {
+            "title": "Renewal of the board: presidency",
+            "choices": [
+              "Laia Soler Grau",
+              "Marc Puig Font",
+              "Blank vote"
+            ]
+          }
+        ],
+        "participants": [
+          {
+            "name": "Clara Bosch Vila",
+            "credential": "No. 931"
+          },
+          {
+            "name": "Oriol Camps Riu",
+            "credential": "No. 1540"
           }
         ]
       }
@@ -2113,7 +2146,8 @@
           }
         ],
         "steps_media_caption": "What a member sees on their phone, from the notice to the receipt.",
-        "footnote": "Most members finish in under two minutes, in the browser they already have open. If part of your roll is genuinely offline, the assisted point runs on the same electoral roll, so nobody is excluded and nobody votes twice. The obstacle is almost never the member: it is a missing mobile number in your database. So we check your contact details before anything opens."
+        "footnote": "Most members finish in under two minutes, in the browser they already have open. If part of your roll is genuinely offline, the assisted point runs on the same electoral roll, so nobody is excluded and nobody votes twice. The obstacle is almost never the member: it is a missing mobile number in your database. So we check your contact details before anything opens.",
+        "results_media_caption": "When voting closes: the result for every seat, the election report and the explorer link, ready for the minutes."
       },
       "comparison": {
         "eyebrow": "against the alternatives",
@@ -2400,6 +2434,38 @@
             "label": "For the sceptic on the board",
             "description": "How this compares with the process you run today, line by line.",
             "anchor": "comparison"
+          }
+        ]
+      },
+      "mockups": {
+        "organization": "College of Civil Engineers",
+        "title": "Governing board election 2026",
+        "questions": [
+          {
+            "title": "Dean of the college, 2026-2030 term",
+            "choices": [
+              "Marta Vidal Puig",
+              "Jordi Serra Camps",
+              "Blank vote"
+            ]
+          },
+          {
+            "title": "Amendment of the electoral regulations",
+            "choices": [
+              "Yes",
+              "No",
+              "Abstention"
+            ]
+          }
+        ],
+        "participants": [
+          {
+            "name": "Núria Ferrer Solà",
+            "credential": "No. 4812"
+          },
+          {
+            "name": "Pau Riera Mas",
+            "credential": "No. 2207"
           }
         ]
       }
@@ -3047,6 +3113,45 @@
         "cta_primary": "Talk with us",
         "cta_secondary": "View the code on GitHub",
         "note": "Free software, no obligation. If your client's Decidim is not on 0.33 yet, we will tell you the realistic date."
+      }
+    },
+    "mockups": {
+      "app": {
+        "additional_actions": "Additional actions",
+        "anonymous": "Anonymous",
+        "awaiting_results": "Awaiting results",
+        "census_size": "Census size",
+        "check_participants": "Check participants",
+        "code_sent": "Verification code sent",
+        "election_report": "Election report (PDF)",
+        "end_date": "End date",
+        "end_time": "End time",
+        "hidden_until_end": "Hidden until the end",
+        "not_voted": "Not voted",
+        "ongoing": "Ongoing",
+        "process_id": "Process ID",
+        "questions": "Questions",
+        "questions_and_results": "Questions and results",
+        "results": "Results",
+        "results_available": "Results available",
+        "results_status": "Results",
+        "results_visibility": "Results visibility",
+        "schedule": "Schedule",
+        "schedule_range": "Voting from {{begin}} to {{end}}",
+        "search_census": "Search census…",
+        "start_date": "Start date",
+        "start_time": "Start time",
+        "total_votes": "Total votes",
+        "turnout": "Turnout",
+        "verify_hint": "To verify your vote, you can use this unique identifier: {{id}}",
+        "view_in_explorer": "View in explorer",
+        "vote": "Vote",
+        "vote_cast": "Your vote was successfully cast!",
+        "voted": "Voted",
+        "voter_anonymity": "Voter anonymity",
+        "votes_row": "{{votes}} votes ({{percent}})",
+        "voting_settings": "Voting settings",
+        "voting_status": "Voting status"
       }
     }
   },

@@ -5,7 +5,7 @@ import { Eyebrow } from '@/components/Eyebrow'
 import { MotionPreset } from '@/components/ui/motion-preset'
 import { cn } from '@/lib/utils'
 import { VerticalCtaPair } from '@/components/solutions/vertical/VerticalCtaPair'
-import { VerticalMedia, type VerticalMediaAsset } from '@/components/solutions/vertical/VerticalMedia'
+import { splitMediaSlot, VerticalMedia, type VerticalMediaSlot } from '@/components/solutions/vertical/VerticalMedia'
 import type { VerticalContent } from '@/components/solutions/vertical/types'
 
 interface VerticalHeroProps {
@@ -16,7 +16,7 @@ interface VerticalHeroProps {
   secondaryHref?: string
   ctaId: string
   /** Product visual. The slot holds its space whether or not the asset exists. */
-  media?: VerticalMediaAsset
+  media?: VerticalMediaSlot
   mediaCaption?: string
   /**
    * `split` reserves the second column for the product visual even before the
@@ -52,6 +52,7 @@ export function VerticalHero({
   layout = 'split',
 }: VerticalHeroProps) {
   const centered = layout === 'centered'
+  const { asset, node } = splitMediaSlot(media)
 
   return (
     <section id='overview' className='scroll-mt-[3.25rem] pt-8 pb-12 sm:pt-12 sm:pb-16 lg:pt-14 xl:scroll-mt-[1.5rem]'>
@@ -115,7 +116,9 @@ export function VerticalHero({
               its space where a real screenshot is coming. */}
           {!centered && (
             <MotionPreset fade slide={{ direction: 'up', offset: 16 }} delay={0.3} transition={{ duration: 0.5 }}>
-              <VerticalMedia asset={media} caption={mediaCaption} ratio='wide' />
+              <VerticalMedia asset={asset} caption={mediaCaption} ratio='wide'>
+                {node}
+              </VerticalMedia>
             </MotionPreset>
           )}
         </div>

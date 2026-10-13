@@ -1,5 +1,6 @@
 import { type LucideIcon } from 'lucide-react'
 
+import type { VerticalMockupCopy } from '@/components/solutions/mockups/types'
 import type { Testimonial } from '@/lib/testimonials-data'
 
 /** A headline figure with the source that backs it. */
@@ -147,8 +148,11 @@ export interface VerticalContent {
     title: string
     intro: string
     features: VerticalItem[]
-    /** Caption for the electoral board console screenshot. */
+    /** Caption for the electoral board console on voting day (hero visual). */
     media_caption: string
+    /** Caption for the console after close: results, report, explorer. Falls
+     *  back to `media_caption` for a vertical that has not written one. */
+    results_media_caption?: string
     /** The member's own steps. Optional: a page whose mechanism is already
      *  covered by the feature grid leaves them out, and the section skips the
      *  whole block including the footnote. */
@@ -182,6 +186,8 @@ export interface VerticalContent {
   board?: { eyebrow: string; title: string; intro: string; links: VerticalBoardLink[] }
   closing: { title: string; description: string; cta_primary: string; cta_secondary: string; note: string }
   resources: { eyebrow: string; title: string; intro: string; items: VerticalResourceItem[] }
+  /** The one election the product mockups picture, in this vertical's words. */
+  mockups?: VerticalMockupCopy
 }
 
 export type VerticalLogo = { src: string; alt: string }

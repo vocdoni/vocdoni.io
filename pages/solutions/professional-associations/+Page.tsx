@@ -3,6 +3,9 @@ import { useTranslation } from 'react-i18next'
 import { usePageContext } from 'vike-react/usePageContext'
 
 import { useAppAuthUrl } from '@/hooks/useAppAuthUrl'
+import { MemberBallotMockup } from '@/components/solutions/mockups/MemberBallotMockup'
+import { ProcessConsoleMockup } from '@/components/solutions/mockups/ProcessConsoleMockup'
+import type { MockupFigures } from '@/components/solutions/mockups/types'
 import { VerticalPage } from '@/components/solutions/vertical/VerticalPage'
 import type { VerticalContent } from '@/components/solutions/vertical/types'
 import { getProfessionalAssociationsProof } from '@/lib/solutions/verticalProof'
@@ -57,6 +60,27 @@ const CASE_STUDIES: Record<string, { logo: string; image?: string; href: string;
   COIB: { logo: logoCoib, image: imageCoib, href: CASE_STUDY_HREF, blogHref: BLOG_HREF },
 }
 
+/**
+ * The election the product mockups picture: a governing board election of a
+ * body of a few thousand members, three days of voting, three quarters turnout
+ * at close. Numbers live here, words in `solutions.professional_associations.mockups`.
+ */
+const FIGURES: MockupFigures = {
+  census: 6732,
+  liveVotes: 2418,
+  finalVotes: 5104,
+  start: new Date(2026, 4, 12, 9, 0),
+  end: new Date(2026, 4, 14, 18, 0),
+  results: [
+    [2714, 2093, 297],
+    [3862, 1016, 226],
+  ],
+  selectedChoice: 1,
+  code: '482913',
+  processId: '0x8c4f…e41a',
+  voteId: '0x3f9a…c91e',
+}
+
 export default function Page() {
   const { t } = useTranslation()
   const pageContext = usePageContext()
@@ -94,6 +118,27 @@ export default function Page() {
         stakes: quoteFor(proof.quotes.stakes),
         how: quoteFor(proof.quotes.how),
         proof: quoteFor(proof.quotes.proof),
+      }}
+      media={{
+        console: (
+          <ProcessConsoleMockup
+            state='live'
+            copy={content?.mockups}
+            figures={FIGURES}
+            label={content?.how?.media_caption}
+          />
+        ),
+        results: (
+          <ProcessConsoleMockup
+            state='results'
+            copy={content?.mockups}
+            figures={FIGURES}
+            label={content?.how?.results_media_caption ?? content?.how?.media_caption}
+          />
+        ),
+        ballot: (
+          <MemberBallotMockup copy={content?.mockups} figures={FIGURES} label={content?.how?.steps_media_caption} />
+        ),
       }}
       resourceLinks={[
         { href: CASE_STUDY_HREF },

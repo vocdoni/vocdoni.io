@@ -1078,7 +1078,8 @@
           }
         ],
         "steps_media_caption": "Ce qu'un adhérent voit sur son téléphone, de la convocation au reçu.",
-        "footnote": "La plupart des adhérents terminent en moins de deux minutes, dans le navigateur qu'ils ont déjà ouvert. Si une partie de vos adhérents est réellement hors ligne, le point assisté fonctionne sur le même fichier : personne n'est exclu et personne ne vote deux fois. L'obstacle n'est presque jamais l'adhérent : c'est un numéro de portable manquant dans un fichier que personne n'a nettoyé depuis des années. C'est pourquoi nous vérifions vos coordonnées avant toute ouverture."
+        "footnote": "La plupart des adhérents terminent en moins de deux minutes, dans le navigateur qu'ils ont déjà ouvert. Si une partie de vos adhérents est réellement hors ligne, le point assisté fonctionne sur le même fichier : personne n'est exclu et personne ne vote deux fois. L'obstacle n'est presque jamais l'adhérent : c'est un numéro de portable manquant dans un fichier que personne n'a nettoyé depuis des années. C'est pourquoi nous vérifions vos coordonnées avant toute ouverture.",
+        "results_media_caption": "À la clôture de l'assemblée : le résultat de chaque motion, le rapport électoral et le lien vers l'explorateur, prêts pour le procès-verbal."
       },
       "comparison": {
         "eyebrow": "face aux alternatives",
@@ -1365,6 +1366,38 @@
             "label": "Pour le sceptique autour de la table",
             "description": "Comment cela se compare à l'assemblée que vous tenez aujourd'hui, ligne à ligne.",
             "anchor": "comparison"
+          }
+        ]
+      },
+      "mockups": {
+        "organization": "Ateneu del Vallès",
+        "title": "Assemblée générale ordinaire 2026",
+        "questions": [
+          {
+            "title": "Approbation des comptes annuels 2025",
+            "choices": [
+              "Oui",
+              "Non",
+              "Abstention"
+            ]
+          },
+          {
+            "title": "Renouvellement du bureau : présidence",
+            "choices": [
+              "Laia Soler Grau",
+              "Marc Puig Font",
+              "Vote blanc"
+            ]
+          }
+        ],
+        "participants": [
+          {
+            "name": "Clara Bosch Vila",
+            "credential": "N° 931"
+          },
+          {
+            "name": "Oriol Camps Riu",
+            "credential": "N° 1540"
           }
         ]
       }
@@ -2112,7 +2145,8 @@
           }
         ],
         "steps_media_caption": "Ce qu'un membre voit sur son téléphone, de la convocation au reçu.",
-        "footnote": "La plupart des membres terminent en moins de deux minutes, dans le navigateur qu'ils ont déjà ouvert. Si une partie de votre liste est réellement hors ligne, le point assisté fonctionne sur la même liste électorale : personne n'est exclu et personne ne vote deux fois. L'obstacle n'est presque jamais le membre : c'est un numéro de portable manquant dans votre base de données. C'est pourquoi nous vérifions vos coordonnées avant toute ouverture."
+        "footnote": "La plupart des membres terminent en moins de deux minutes, dans le navigateur qu'ils ont déjà ouvert. Si une partie de votre liste est réellement hors ligne, le point assisté fonctionne sur la même liste électorale : personne n'est exclu et personne ne vote deux fois. L'obstacle n'est presque jamais le membre : c'est un numéro de portable manquant dans votre base de données. C'est pourquoi nous vérifions vos coordonnées avant toute ouverture.",
+        "results_media_caption": "À la clôture du vote : le résultat pour chaque poste, le rapport électoral et le lien vers l'explorateur, prêts pour le procès-verbal."
       },
       "comparison": {
         "eyebrow": "face aux alternatives",
@@ -2399,6 +2433,38 @@
             "label": "Pour le sceptique du conseil",
             "description": "Comment cela se compare au processus que vous menez aujourd'hui, ligne à ligne.",
             "anchor": "comparison"
+          }
+        ]
+      },
+      "mockups": {
+        "organization": "Ordre des ingénieurs civils",
+        "title": "Élection du conseil 2026",
+        "questions": [
+          {
+            "title": "Doyenne ou doyen de l'ordre, mandat 2026-2030",
+            "choices": [
+              "Marta Vidal Puig",
+              "Jordi Serra Camps",
+              "Vote blanc"
+            ]
+          },
+          {
+            "title": "Modification du règlement électoral",
+            "choices": [
+              "Oui",
+              "Non",
+              "Abstention"
+            ]
+          }
+        ],
+        "participants": [
+          {
+            "name": "Núria Ferrer Solà",
+            "credential": "N° 4812"
+          },
+          {
+            "name": "Pau Riera Mas",
+            "credential": "N° 2207"
           }
         ]
       }
@@ -3046,6 +3112,45 @@
         "cta_primary": "Échanger avec nous",
         "cta_secondary": "Voir le code sur GitHub",
         "note": "Logiciel libre, sans engagement. Si le Decidim de votre client n'est pas encore en 0.33, nous vous dirons la date réaliste."
+      }
+    },
+    "mockups": {
+      "app": {
+        "additional_actions": "Actions supplémentaires",
+        "anonymous": "Anonyme",
+        "awaiting_results": "En attente des résultats",
+        "census_size": "Nombre d'inscrits",
+        "check_participants": "Vérifier les participants",
+        "code_sent": "Code de vérification envoyé",
+        "election_report": "Rapport électoral (PDF)",
+        "end_date": "Date de fin",
+        "end_time": "Heure de fin",
+        "hidden_until_end": "Masqués jusqu'à la fin",
+        "not_voted": "N'a pas voté",
+        "ongoing": "En cours",
+        "process_id": "Identifiant du processus",
+        "questions": "Questions",
+        "questions_and_results": "Questions et résultats",
+        "results": "Résultats",
+        "results_available": "Résultats disponibles",
+        "results_status": "Résultats",
+        "results_visibility": "Visibilité des résultats",
+        "schedule": "Calendrier",
+        "schedule_range": "Vote du {{ begin }} au {{ end }}",
+        "search_census": "Rechercher dans la liste électorale…",
+        "start_date": "Date de début",
+        "start_time": "Heure de début",
+        "total_votes": "Total des votes",
+        "turnout": "Participation",
+        "verify_hint": "Pour vérifier votre vote, vous pouvez utiliser cet identifiant unique : {{ id }}",
+        "view_in_explorer": "Voir dans l'explorateur",
+        "vote": "Voter",
+        "vote_cast": "Votre vote a été enregistré avec succès !",
+        "voted": "A voté",
+        "voter_anonymity": "Anonymat des électeurs",
+        "votes_row": "{{votes}} voix ({{ percent }})",
+        "voting_settings": "Paramètres de vote",
+        "voting_status": "Statut du vote"
       }
     }
   },

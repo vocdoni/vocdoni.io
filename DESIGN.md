@@ -49,6 +49,10 @@ Primary green on cream is 6.3:1 (AA). Focus rings (`--ring`) use the primary gre
 - `--chart-1` through `--chart-5`: muted blue/orange ramp for data viz.
 - `--brand-whatsapp` (`text-whatsapp`): WhatsApp brand references only.
 
+### Product mockups (Vocdoni App palette)
+
+Drawn screens of Vocdoni App (`components/solutions/mockups/`) deliberately break the cream rule: the product is white, Inter, Chakra gray, with black solid buttons and green/yellow/blue/orange status tags. Those values live in a scoped block, `.app-mockup` (with a `.dark .app-mockup` mirror), exposed as `bg-app-*` / `text-app-*` and `font-app`, and mirror `vocdoni-app/src/theme`. They exist so a faked screen reads as the product and not as the website; never use them for site UI, and never show in a mockup something the app does not actually display.
+
 ### Dark mode
 
 A complete `.dark` palette mirrors the same recipe (ink and cream swap roles, primary lightens). It is defined and kept coherent, but **there is currently no theme toggle** - the site ships light-only. Keep the dark values in sync when adding tokens.

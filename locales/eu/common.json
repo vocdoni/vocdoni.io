@@ -1078,7 +1078,8 @@
           }
         ],
         "steps_media_caption": "Bazkide batek mugikorrean ikusten duena, deialditik egiaztagirira.",
-        "footnote": "Bazkide gehienek bi minutu baino gutxiagoan amaitzen dute, dagoeneko irekita duten nabigatzailean. Zuen bazkide multzoaren zati bat benetan konexiorik gabe badago, gune lagunduak erregistro beraren gainean funtzionatzen du, beraz inor ez da kanpoan geratzen eta inork ez du bi aldiz bozkatzen. Oztopoa ia inoiz ez da bazkidea: urteetan inork garbitu ez duen erregistro batean falta den mugikor zenbaki bat da. Horregatik zuen harremanetarako datuak berrikusten ditugu ezer ireki aurretik."
+        "footnote": "Bazkide gehienek bi minutu baino gutxiagoan amaitzen dute, dagoeneko irekita duten nabigatzailean. Zuen bazkide multzoaren zati bat benetan konexiorik gabe badago, gune lagunduak erregistro beraren gainean funtzionatzen du, beraz inor ez da kanpoan geratzen eta inork ez du bi aldiz bozkatzen. Oztopoa ia inoiz ez da bazkidea: urteetan inork garbitu ez duen erregistro batean falta den mugikor zenbaki bat da. Horregatik zuen harremanetarako datuak berrikusten ditugu ezer ireki aurretik.",
+        "results_media_caption": "Batzarra ixten denean: mozio bakoitzaren emaitza, hauteskunde-txostena eta esploratzailerako esteka, aktarako prest."
       },
       "comparison": {
         "eyebrow": "alternatiben aurrean",
@@ -1365,6 +1366,38 @@
             "label": "Aretoko eszeptikoarentzat",
             "description": "Nola alderatzen den hau gaur egiten duzuen batzarrarekin, lerroz lerro.",
             "anchor": "comparison"
+          }
+        ]
+      },
+      "mockups": {
+        "organization": "Ateneu del Vallès",
+        "title": "Ohiko batzar nagusia 2026",
+        "questions": [
+          {
+            "title": "2025eko urteko kontuen onarpena",
+            "choices": [
+              "Bai",
+              "Ez",
+              "Abstentzioa"
+            ]
+          },
+          {
+            "title": "Zuzendaritzaren berritzea: lehendakaritza",
+            "choices": [
+              "Laia Soler Grau",
+              "Marc Puig Font",
+              "Boto zuria"
+            ]
+          }
+        ],
+        "participants": [
+          {
+            "name": "Clara Bosch Vila",
+            "credential": "931. zk."
+          },
+          {
+            "name": "Oriol Camps Riu",
+            "credential": "1540. zk."
           }
         ]
       }
@@ -2112,7 +2145,8 @@
           }
         ],
         "steps_media_caption": "Elkargokide batek mugikorrean ikusten duena, deialditik egiaztagirira.",
-        "footnote": "Elkargokide gehienek bi minutu baino gutxiagoan amaitzen dute, dagoeneko irekita duten nabigatzailean. Erroldaren zati bat benetan konexiorik gabe badago, gune lagunduak hauteskunde errolda beraren gainean funtzionatzen du, beraz inor ez da kanpoan geratzen eta inork ez du bi aldiz bozkatzen. Oztopoa ia inoiz ez da elkargokidea: zuen datu basean falta den mugikor zenbaki bat da. Horregatik zuen harremanetarako datuak berrikusten ditugu ezer ireki aurretik."
+        "footnote": "Elkargokide gehienek bi minutu baino gutxiagoan amaitzen dute, dagoeneko irekita duten nabigatzailean. Erroldaren zati bat benetan konexiorik gabe badago, gune lagunduak hauteskunde errolda beraren gainean funtzionatzen du, beraz inor ez da kanpoan geratzen eta inork ez du bi aldiz bozkatzen. Oztopoa ia inoiz ez da elkargokidea: zuen datu basean falta den mugikor zenbaki bat da. Horregatik zuen harremanetarako datuak berrikusten ditugu ezer ireki aurretik.",
+        "results_media_caption": "Bozketa ixten denean: kargu bakoitzaren emaitza, hauteskunde-txostena eta esploratzailerako esteka, aktarako prest."
       },
       "comparison": {
         "eyebrow": "alternatiben aurrean",
@@ -2399,6 +2433,38 @@
             "label": "Batzordeko eszeptikoarentzat",
             "description": "Nola alderatzen den hau gaur egiten duzuen prozesuarekin, lerroz lerro.",
             "anchor": "comparison"
+          }
+        ]
+      },
+      "mockups": {
+        "organization": "Ingeniari Zibilen Elkargoa",
+        "title": "Gobernu batzordeko hauteskundeak 2026",
+        "questions": [
+          {
+            "title": "Elkargoko dekanoa, 2026-2030 agintaldia",
+            "choices": [
+              "Marta Vidal Puig",
+              "Jordi Serra Camps",
+              "Boto zuria"
+            ]
+          },
+          {
+            "title": "Hauteskunde-araudiaren aldaketa",
+            "choices": [
+              "Bai",
+              "Ez",
+              "Abstentzioa"
+            ]
+          }
+        ],
+        "participants": [
+          {
+            "name": "Núria Ferrer Solà",
+            "credential": "4812. zk."
+          },
+          {
+            "name": "Pau Riera Mas",
+            "credential": "2207. zk."
           }
         ]
       }
@@ -3046,6 +3112,45 @@
         "cta_primary": "Hitz egin dezagun",
         "cta_secondary": "Ikusi kodea GitHuben",
         "note": "Software librea, konpromisorik gabe. Zuen bezeroaren Decidim oraindik 0.33n ez badago, data errealista esango dizuegu."
+      }
+    },
+    "mockups": {
+      "app": {
+        "additional_actions": "Ekintza osagarriak",
+        "anonymous": "Anonimoa",
+        "awaiting_results": "Emaitzen zain",
+        "census_size": "Erroldaren tamaina",
+        "check_participants": "Egiaztatu parte-hartzaileak",
+        "code_sent": "Egiaztapen-kodea bidali da",
+        "election_report": "Hauteskundeen txostena (PDF)",
+        "end_date": "Amaiera-data",
+        "end_time": "Amaiera-ordua",
+        "hidden_until_end": "Ezkutatuta amaitu arte",
+        "not_voted": "Botoa eman gabe",
+        "ongoing": "Abian",
+        "process_id": "Prozesuaren IDa",
+        "questions": "Galderak",
+        "questions_and_results": "Galderak eta emaitzak",
+        "results": "Emaitzak",
+        "results_available": "Emaitzak eskuragarri",
+        "results_status": "Emaitzak",
+        "results_visibility": "Emaitzen ikusgaitasuna",
+        "schedule": "Egutegia",
+        "schedule_range": "Bozketa: {{ begin }}etik {{ end }}era",
+        "search_census": "Bilatu erroldean…",
+        "start_date": "Hasiera-data",
+        "start_time": "Hasiera-ordua",
+        "total_votes": "Boto guztira",
+        "turnout": "Parte-hartzea",
+        "verify_hint": "Zure botoa egiaztatzeko, identifikatzaile bakar hau erabil dezakezu: {{ id }}",
+        "view_in_explorer": "Ikusi esploratzailean",
+        "vote": "Bozkatu",
+        "vote_cast": "Zure botoa behar bezala eman da!",
+        "voted": "Botoa emana",
+        "voter_anonymity": "Boto-emaileen anonimotasuna",
+        "votes_row": "{{votes}} boto ({{ percent }})",
+        "voting_settings": "Bozketa-ezarpenak",
+        "voting_status": "Bozketaren egoera"
       }
     }
   },
