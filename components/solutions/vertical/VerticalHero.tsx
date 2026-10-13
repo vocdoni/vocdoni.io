@@ -17,6 +17,7 @@ interface VerticalHeroProps {
   ctaId: string
   /** Product visual. The slot holds its space whether or not the asset exists. */
   media?: VerticalMediaSlot
+  /** Optional: the hero visual usually speaks for itself, so no caption by default. */
   mediaCaption?: string
   /**
    * `split` reserves the second column for the product visual even before the
