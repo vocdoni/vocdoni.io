@@ -37,7 +37,7 @@ corners, the symbol centred, no padding ring (PR #110 replaced a padded badge fo
 `logo_coib_round.webp`, `logo_ustec_round.webp`, `logo_foodcoop_round.webp`. Do not hand-crop in another tool and do
 not ship a different size.
 
-Use the bundled script (needs ImageMagick 7 and cwebp: `brew install imagemagick webp`):
+Use the bundled script (needs ImageMagick 7 built with WebP support, e.g. `brew install imagemagick`):
 
 ```bash
 # source already a disc or a square avatar: cover-crop it into the circle
