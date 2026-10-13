@@ -48,14 +48,13 @@ export function VerticalMemberJourney({ title, steps, footnote, phone }: Vertica
         <div>
           {title && <h3 className='text-2xl text-balance sm:text-3xl'>{title}</h3>}
 
-          <ol className='relative mt-8 flex flex-col gap-2' role='tablist' aria-orientation='vertical'>
-            {/* Connector behind the step numbers. */}
-            <span className='bg-border absolute top-5 bottom-5 left-[1.125rem] w-px' aria-hidden='true' />
+          <ol className='mt-8 flex flex-col' role='tablist' aria-orientation='vertical'>
             {steps.map((step, i) => {
               const active = i === index
               const done = i < index
+              const last = i === steps.length - 1
               return (
-                <li key={step.title} className='relative'>
+                <li key={step.title}>
                   <button
                     type='button'
                     role='tab'
@@ -65,22 +64,28 @@ export function VerticalMemberJourney({ title, steps, footnote, phone }: Vertica
                       setPaused(true)
                     }}
                     className={cn(
-                      'flex w-full items-start gap-4 rounded-xl p-3 text-left transition-colors sm:p-4',
-                      active ? 'bg-background shadow-sm' : 'hover:bg-background/60'
+                      'grid w-full grid-cols-[2.25rem_1fr] gap-x-4 rounded-xl px-3 pt-3 text-left transition-colors sm:px-4 sm:pt-4',
+                      active ? 'bg-background shadow-sm' : 'hover:bg-background/60',
+                      last ? 'pb-3 sm:pb-4' : 'pb-1'
                     )}
                   >
-                    <span
-                      className={cn(
-                        'relative flex size-9 shrink-0 items-center justify-center rounded-full text-sm font-semibold tabular-nums transition-colors',
-                        active && 'bg-primary text-primary-foreground',
-                        done && 'bg-primary/15 text-primary',
-                        !active && !done && 'bg-background text-muted-foreground border'
-                      )}
-                      aria-hidden='true'
-                    >
-                      {i + 1}
+                    {/* Number, and the connector running from it to the next
+                        number. The connector lives in the same column as the
+                        circle, so it is centred under it whatever the padding. */}
+                    <span className='flex flex-col items-center gap-1.5' aria-hidden='true'>
+                      <span
+                        className={cn(
+                          'flex size-9 shrink-0 items-center justify-center rounded-full text-sm font-semibold tabular-nums transition-colors',
+                          active && 'bg-primary text-primary-foreground',
+                          done && 'bg-primary/15 text-primary',
+                          !active && !done && 'bg-background text-muted-foreground border'
+                        )}
+                      >
+                        {i + 1}
+                      </span>
+                      {!last && <span className={cn('w-px grow rounded-full', done ? 'bg-primary/30' : 'bg-border')} />}
                     </span>
-                    <span className='min-w-0 pt-1.5'>
+                    <span className={cn('min-w-0 pt-1.5', last ? 'pb-0' : 'pb-4')}>
                       <span className={cn('block font-semibold', !active && 'text-muted-foreground')}>
                         {step.title}
                       </span>
