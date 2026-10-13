@@ -44,10 +44,13 @@ categories:
 featured: false
 draft: false
 seo:
-  metaTitle: '<Org> <what> | Vocdoni'
+  metaTitle: "<Org> <what> | Vocdoni"
   metaDescription: "Up to 160 characters, with the figure and the method."
 ---
 ```
+
+Double-quote every free-text value: an apostrophe inside single quotes ("supporters' clubs", "l'assemblea") breaks
+the YAML and the blog build.
 
 `featured: true` only for the one flagship post of the moment (it takes the hero of `/blog`). `draft: true` hides the
 post on the live site but not in `pnpm dev`.
@@ -101,26 +104,28 @@ truth for this checkout.
   better than a wide wordmark.
 - Eyebrow: `<Org> · <year of the vote>` (rendered uppercase). Title: leave "Success stories" for success stories,
   otherwise a two or three word label.
-- Variant: `stripes` (brand-colour band, the default), `stat` (one huge figure, when the number is the story),
-  `ballot` (a ballot card, announcements and product posts), `pitch` (a football pitch, sports clubs only),
-  `centered` with `--photo` (the organization's own photo behind the lockup; PR #237 adds this variant together with
-  `--label`, `--filter`, `--fit`, `--motif` and `--badge`).
-- `--c1` / `--c2`: the organization's brand colours. `--photo`: a path inside the repo (paths are relative to the repo
-  root); keep raw photos out of git unless they are used in the post.
+- Variant: always pass `--variant`, since `render.sh` falls back to `pitch`. `stripes` (brand-colour band), `stat` (one
+  huge figure, when the number is the story; pass `--label` with what it counts, the caption defaults to "turnout"),
+  `ballot` (a ballot card, announcements and product posts), `pitch` (a football pitch, sports clubs only), `centered`
+  with `--photo` (the organization's own photo behind the lockup; tuned with `--filter`, `--fit`, `--motif`, `--badge`).
+- `--c1` / `--c2`: always pass the organization's brand colours; without them the template falls back to FC
+  Barcelona's blaugrana. `--photo`: a path inside the repo (paths are relative to the repo root); keep raw photos out of
+  git unless they are used in the post.
 - Output: `public/blog/images/YYYY/MM/header_vocdoni_<org>.webp`, `YYYY/MM` being the publication month.
 
 ```bash
 scripts/blog-cover/render.sh --partner assets/images/fcb-colour.webp --variant pitch \
   --eyebrow 'FC Barcelona · 2022' --out public/blog/images/2026/10/header_vocdoni_fcbarcelona.webp
 
-scripts/blog-cover/render.sh --partner assets/images/<org>-colour.webp --variant stat --stat '84%' \
-  --eyebrow '<Org> · 2026' --c1 '#004d98' --c2 '#a50044' --out public/blog/images/2026/11/header_vocdoni_<org>.webp
+scripts/blog-cover/render.sh --partner assets/images/<org>-colour.webp --variant stat --stat '1,160' \
+  --label clubs --eyebrow '<Org> · 2026' --c1 '<#hex>' --c2 '<#hex>' --out public/blog/images/2026/11/header_vocdoni_<org>.webp
 ```
 
 Then open the output with the Read tool and check: the lockup is centred and legible, the partner symbol is whole
 inside its circle, no text is clipped, and nothing important lives in the outer ~110px on each side (the blog card
-crops to 16:10, the post header to 16:9). Iterate on variant, eyebrow and colours until it reads well. Needs Google
-Chrome at its default path (or `CHROME=...`) and `cwebp` (`brew install webp`).
+crops to 16:10, the post header to 16:9). Iterate on variant, eyebrow and colours until it reads well. Needs Chrome and
+`cwebp` (the `webp` package in Homebrew, apt or pacman). The default Chrome path is the macOS one; elsewhere set it, for
+example `CHROME=google-chrome` or `CHROME=chromium`, or the script exits 127 without a message.
 
 Inline images go to the same `public/blog/images/YYYY/MM/` folder as `.webp`, referenced web-absolute.
 
@@ -158,8 +163,9 @@ when the Agent tool is available.
 - `draft: false` when the PR will merge on or after the publication date (a merge to `main` then a release to `lts`
   publishes it). Use `draft: true` only when the PR must land earlier, and drop the flag in a follow-up commit
   ("publish the <org> story on merge").
-- Commit: `feat(blog): <Org> <what> success story`. PR body: Summary, Editorial notes (vocabulary choices, where each
-  figure comes from, logo origin), Testing (`pnpm validate`, locale-qa, dev render), and the exact cover command used.
+- Commit: `feat(blog): <Org> <what> success story`. PR body: follow `.github/pull_request_template.md` (Summary,
+  Validation, Visuals with the cover attached). Under Summary add the editorial notes (vocabulary choices, where each
+  figure comes from, logo origin), locale-qa and the exact cover command used.
 - After the release reaches `lts`: `pnpm indexnow https://vocdoni.io/en/blog/<slug>` (optional, see `scripts/indexnow.ts`).
 
 ## Checklist
