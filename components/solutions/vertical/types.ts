@@ -77,8 +77,11 @@ export type VerticalEngagementOption = {
  * read in one `t(..., { returnObjects: true })` call, so a locale can swap the
  * whole narrative - including the jurisdiction-specific legal section, which is
  * the point of the exercise rather than a side effect.
+ *
+ * `Mockups` is the shape of the product mockups' copy: the app's by default, or
+ * Decidim's for the page whose screens are Decidim's.
  */
-export interface VerticalContent {
+export interface VerticalContent<Mockups = VerticalMockupCopy> {
   eyebrow: string
   hero: {
     title: string
@@ -187,7 +190,7 @@ export interface VerticalContent {
   closing: { title: string; description: string; cta_primary: string; cta_secondary: string; note: string }
   resources: { eyebrow: string; title: string; intro: string; items: VerticalResourceItem[] }
   /** The one election the product mockups picture, in this vertical's words. */
-  mockups?: VerticalMockupCopy
+  mockups?: Mockups
 }
 
 export type VerticalLogo = { src: string; alt: string }

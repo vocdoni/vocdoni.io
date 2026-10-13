@@ -53,6 +53,8 @@ Primary green on cream is 6.3:1 (AA). Focus rings (`--ring`) use the primary gre
 
 Drawn screens of Vocdoni App (`components/solutions/mockups/`) deliberately break the cream rule: the product is white, Inter, Chakra gray, with black solid buttons and green/yellow/blue/orange status tags. Those values live in a scoped block, `.app-mockup` (with a `.dark .app-mockup` mirror), exposed as `bg-app-*` / `text-app-*` and `font-app`, and mirror `vocdoni-app/src/theme`. They exist so a faked screen reads as the product and not as the website; never use them for site UI, and never show in a mockup something the app does not actually display.
 
+The Decidim screens on the Decidim landing follow the same rule with Decidim's own tokens: white pages, Source Sans, black and `gray-2` text, 4px and 8px radii, the AA-safe label pairs, and the admin's fixed slate-and-blue palette. They live in a sibling block, `.decidim-mockup` (with its `.dark` mirror), exposed as `bg-decidim-*` / `text-decidim-*` / `border-decidim-*` and `font-decidim`. Decidim's brand colours are per-organization, so the public screens use the historical defaults still in core rather than any one customer's. Same discipline: nothing in a Decidim mockup that Decidim or the Decidim Secure Elections module does not actually render.
+
 ### Dark mode
 
 A complete `.dark` palette mirrors the same recipe (ink and cream swap roles, primary lightens). It is defined and kept coherent, but **there is currently no theme toggle** - the site ships light-only. Keep the dark values in sync when adding tokens.

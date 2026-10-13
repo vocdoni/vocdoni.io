@@ -11,6 +11,8 @@ vi.mock('react-i18next', () => ({
       if (value === undefined) return typeof options === 'string' ? options : key
       return value
     },
+    // The mockups format figures and dates for the active language.
+    i18n: { language: 'en' },
   }),
 }))
 
@@ -52,7 +54,6 @@ describe('Decidim solutions page', () => {
     expect(html).toContain('/erc-full.webp')
     expect(html).toContain('/bcn-full.webp')
     expect(html).not.toContain('id="timeline"')
-    expect(html).not.toContain('What a member actually does')
     expect(html).not.toContain('id="for-your-board"')
     expect(html).not.toContain('id="resources"')
     expect(html).toContain('https://decidim.org/blog/2025-11-20-new-version-0-31-0/')
@@ -76,6 +77,15 @@ describe('Decidim solutions page', () => {
     const positions = order.map((id) => html.indexOf(`id="${id}"`))
     expect(positions.every((position) => position > 0)).toBe(true)
     expect([...positions].sort((a, b) => a - b)).toEqual(positions)
+  })
+
+  it('draws the Decidim screens: the admin dashboard with the Security tab, and the member journey', () => {
+    expect(html).toContain('decidim-mockup')
+    // The one tab the module adds to decidim-elections' admin.
+    expect(html).toContain('Security')
+    expect(html).toContain('And what a member actually does')
+    // The phone renders its first screen on the server; the election's title is on every screen.
+    expect(html).toContain(en.solutions.decidim.mockups.title)
   })
 
   it('carries no pricing ask, since commercial terms are agreed in conversation', () => {

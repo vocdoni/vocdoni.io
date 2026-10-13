@@ -2966,7 +2966,29 @@
             "description": "Boto bakoitzak esploratzaile publikora daraman agiri-kode bat itzultzen du. Kideek geroago berreskura dezakete eta beren botoa zenbatu dela baiezta dezakete, agertu gabe eta harekin lotuak izan gabe."
           }
         ],
-        "media_caption": "Administrazioko jarraipen-panela: egoera, parte-hartzea eta galderakako emaitzak."
+        "media_caption": "Administrazioko jarraipen-panela: egoera, parte-hartzea eta galderakako emaitzak.",
+        "results_media_caption": "Hauteskundearen orria bozketa ixten denean: galdera bakoitzaren emaitza argitaratua, edonork irakur dezakeena administrazioan sartu gabe.",
+        "steps_title": "Eta zer egiten duen benetan bazkide batek",
+        "steps": [
+          {
+            "title": "Hauteskundea Decidimen irekitzen du",
+            "description": "Hauteskundea dagoeneko erabiltzen duen partaidetza-espazioan dago, galderekin eta bozketa-epearekin. Bozketa irekitzen denean, Bozkatu botoiak zuen instantziak berak zerbitzatzen duen bozketa-orrira eramaten du."
+          },
+          {
+            "title": "Identifikatu egiten da, ez erregistratu",
+            "description": "Erroldan dagoela frogatzen du zuek aukeratutako eremuekin: bazkide-zenbakia, posta elektronikoa, NAN. Eskatzen baduzue, posta edo SMS bidezko erabilera bakarreko kode batek berresten du bera dela. Datu horiek bozketa-sarera doaz, inoiz ez zuen datu-basera."
+          },
+          {
+            "title": "Bozkatu egiten du",
+            "description": "Galdera bat pantaila bakoitzeko, erantzunen berrikuspen bat, eta boto-papera bere nabigatzailean zigilatzen da irten aurretik. Botoaren ezer ez da zuen Decidimetik pasatzen."
+          },
+          {
+            "title": "Egiaztagiri bat gordetzen du",
+            "description": "Galdera bakoitzak egiaztagiri-kode bat itzultzen du, botoa erregistratu dela frogatzen duena, agertu gabe. Hauteskundera itzul daiteke, berriro identifikatu eta nahi duenean ikusi."
+          }
+        ],
+        "steps_media_caption": "Bazkide batek mugikorrean ikusten duena, Decidimeko hauteskunde-orritik egiaztagirira.",
+        "footnote": "Bazkideak ez dira inoiz zuen Decidimetik irteten eta ez dute bigarren konturik sortzen: bozketa-orria zuen instantziak berak zerbitzatzen du, eta bozketa osoa dagoeneko irekita duten nabigatzailean gertatzen da."
       },
       "legal": {
         "eyebrow": "bermeak eta datuen babesa",
@@ -3112,6 +3134,30 @@
         "cta_primary": "Hitz egin dezagun",
         "cta_secondary": "Ikusi kodea GitHuben",
         "note": "Software librea, konpromisorik gabe. Zuen bezeroaren Decidim oraindik 0.33n ez badago, data errealista esango dizuegu."
+      },
+      "mockups": {
+        "organization": "Les Fonts kooperatiba",
+        "process": "Batzar nagusia 2026",
+        "title": "Kontseilu errektorearen hauteskundea 2026-2030",
+        "description": "Kontseilu errektorearen hauteskundea 2026-2030 agintaldirako, eta 2025eko urteko kontuen onarpena.",
+        "questions": [
+          {
+            "title": "Kontseilu errektorea, 2026-2030 agintaldia",
+            "choices": [
+              "Laia Bosch Vila",
+              "Oriol Mas Puig",
+              "Boto zuria"
+            ]
+          },
+          {
+            "title": "2025eko urteko kontuen onarpena",
+            "choices": [
+              "Bai",
+              "Ez",
+              "Abstentzioa"
+            ]
+          }
+        ]
       }
     },
     "mockups": {
@@ -3157,6 +3203,67 @@
         "voting_in_progress": "Bozketa abian",
         "voting_settings": "Bozketa-ezarpenak",
         "voting_status": "Bozketaren egoera"
+      },
+      "decidim": {
+        "active_voting_until": "Bozketa aktibo {{end_date}} arte",
+        "answers": "Erantzunak",
+        "back_to_election": "Itzuli hauteskundera",
+        "calendar": "Egutegia",
+        "cancel": "Utzi",
+        "census_label": "Errolda:",
+        "census_size": "Gaur egun {{people}} pertsonak dute botoa emateko eskubidea hauteskunde honetan (errolda dinamiko batean alda daiteke).",
+        "census_type": "Parte-hartzaile erregistratuak (dinamikoa)",
+        "components": "Osagaiak",
+        "continue": "Jarraitu",
+        "copy": "Kopiatu",
+        "dark_theme": "Gai iluna",
+        "edit_election": "Editatu hauteskundea",
+        "election_questions": "Aukeraketaren galderak",
+        "election_status": "Aukeraren egoera",
+        "elections": "Hauteskundeak",
+        "email_address": "Helbide elektronikoa",
+        "end_election": "Bozketaren amaiera",
+        "end_time": "Amaiera-ordua:",
+        "home": "Hasiera",
+        "identify_body": "Zure boto-papera irekitzeko, hauteskunde honetako erroldan zaudela egiaztatu behar dugu. Datu hauek bozketa-sarera bidaltzen dira; webgune honek ez ditu inoiz gordetzen.",
+        "identify_title": "Identifikatu zaitez",
+        "membership_number": "Bazkide-zenbakia",
+        "next": "Hurrengoa",
+        "percentage": "Ehunekoa",
+        "pick_one": "Aukeratu aukera bat.",
+        "privacy_note": "Zure nortasuna botoa eman dezakezula frogatzeko bakarrik erabiltzen da. Ez da inoiz zure boto-paperarekin lotzen.",
+        "processes": "Prozesuak",
+        "progress_choose": "Aukeratu",
+        "progress_identify": "Identifikatu",
+        "progress_receipt": "Egiaztagiria",
+        "progress_review": "Berrikusi",
+        "question_counter": "{{current}}. galdera {{total}}etik",
+        "receipt_body": "Beheko egiaztagiri bakoitzak frogatzen du boto bat bozketa-sarean erregistratu dela. Ez du erakusten zer bozkatu duzun.",
+        "receipt_code": "Egiaztagiri-kodea",
+        "receipt_return_note": "Egiaztagiri hauek nahi duzunean ikus ditzakezu berriro: itzuli hauteskunde honetara eta identifikatu zaitez berriro.",
+        "results": "Emaitzak",
+        "results_after_end": "Emaitzak eskuragarri bozketak amaitu ondoren",
+        "results_published_at": "Emaitzak noiz argitaratuak",
+        "results_real_time": "Emaitzak eskuragarri denbora errealean",
+        "results_shown_automatically": "Emaitzak automatikoki erakusten dira bozketa bitartean.",
+        "results_subtitle_after_end": "Aukeraketa amaitu egin da. Emaitzak ikus ditzakezu.",
+        "see_election": "Ikusi hauteskundeak",
+        "send_code_legend": "Nora bidali behar dizugu kodea?",
+        "start_time": "Hasiera-ordua:",
+        "status_finished": "Amaituta",
+        "status_ongoing": "Bidean",
+        "tab_census": "Errolda",
+        "tab_dashboard": "Kontrol-panela",
+        "tab_main": "Nagusia",
+        "tab_questions": "Galderak",
+        "tab_security": "Segurtasuna",
+        "total": "Guztira",
+        "total_label": "GUZTIRA:",
+        "vote": "Bozkatu",
+        "vote_recorded": "Zure botoa erregistratu da",
+        "votes": "Botoak",
+        "votes_count": "{{votes}} boto",
+        "voting_began": "Bozketa hasi zen: {{start_date}}"
       }
     }
   },

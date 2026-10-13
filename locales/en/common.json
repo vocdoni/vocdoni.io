@@ -2967,7 +2967,29 @@
             "description": "Each vote returns a receipt code that links to the public explorer. Members can retrieve theirs later and confirm their vote was counted, without revealing it or being linked to it."
           }
         ],
-        "media_caption": "The admin monitor: status, turnout and per-question results."
+        "media_caption": "The admin monitor: status, turnout and per-question results.",
+        "results_media_caption": "The election page once voting closes: the published result for every question, readable by anyone without the admin.",
+        "steps_title": "And what a member actually does",
+        "steps": [
+          {
+            "title": "They open the election in Decidim",
+            "description": "The election sits in the participatory space they already use, with the questions and the voting window. When voting opens, the Vote button takes them to the voting page served by your own instance."
+          },
+          {
+            "title": "They identify, they do not register",
+            "description": "They prove they are on the census with the fields you chose: membership number, email, national ID. If you require it, a one-time code by email or SMS confirms it is them. Those details go to the voting network, never to your database."
+          },
+          {
+            "title": "They vote",
+            "description": "One question per screen, a review of their answers, and the ballot is sealed in their browser before it leaves. Nothing about the vote passes through your Decidim."
+          },
+          {
+            "title": "They keep a receipt",
+            "description": "Each question returns a receipt code that proves the vote was recorded without revealing it. They can come back to the election, identify again and see it whenever they want."
+          }
+        ],
+        "steps_media_caption": "What a member sees on their phone, from the election page in Decidim to the receipt.",
+        "footnote": "Members never leave your Decidim and never create a second account: the voting page is served by your own instance, and the whole vote runs in the browser they already have open."
       },
       "legal": {
         "eyebrow": "guarantees and data protection",
@@ -3113,6 +3135,30 @@
         "cta_primary": "Talk with us",
         "cta_secondary": "View the code on GitHub",
         "note": "Free software, no obligation. If your client's Decidim is not on 0.33 yet, we will tell you the realistic date."
+      },
+      "mockups": {
+        "organization": "Les Fonts cooperative",
+        "process": "General assembly 2026",
+        "title": "Governing council election 2026-2030",
+        "description": "Election of the governing council for the 2026-2030 term, and approval of the 2025 annual accounts.",
+        "questions": [
+          {
+            "title": "Governing council, 2026-2030 term",
+            "choices": [
+              "Laia Bosch Vila",
+              "Oriol Mas Puig",
+              "Blank vote"
+            ]
+          },
+          {
+            "title": "Approval of the 2025 annual accounts",
+            "choices": [
+              "Yes",
+              "No",
+              "Abstention"
+            ]
+          }
+        ]
       }
     },
     "mockups": {
@@ -3158,6 +3204,67 @@
         "voting_in_progress": "Voting in progress",
         "voting_settings": "Voting settings",
         "voting_status": "Voting status"
+      },
+      "decidim": {
+        "active_voting_until": "Active voting until: {{end_date}}",
+        "answers": "Answers",
+        "back_to_election": "Back to the election",
+        "calendar": "Calendar",
+        "cancel": "Cancel",
+        "census_label": "Census:",
+        "census_size": "There are currently {{people}} people eligible for voting in this election (this might change on a dynamic census).",
+        "census_type": "Registered participants (dynamic)",
+        "components": "Components",
+        "continue": "Continue",
+        "copy": "Copy",
+        "dark_theme": "Dark theme",
+        "edit_election": "Edit election",
+        "election_questions": "Election questions",
+        "election_status": "Election status",
+        "elections": "Elections",
+        "email_address": "Email address",
+        "end_election": "End election",
+        "end_time": "End time:",
+        "home": "Home",
+        "identify_body": "To open your ballot we need to check that you are on the census for this election. These details are sent to the voting network, never stored by this website.",
+        "identify_title": "Identify yourself",
+        "membership_number": "Membership number",
+        "next": "Next",
+        "percentage": "Percentage",
+        "pick_one": "Pick one option.",
+        "privacy_note": "Your identity is used only to prove you may vote. It is never linked to your ballot.",
+        "processes": "Processes",
+        "progress_choose": "Choose",
+        "progress_identify": "Identify",
+        "progress_receipt": "Receipt",
+        "progress_review": "Review",
+        "question_counter": "Question {{current}} of {{total}}",
+        "receipt_body": "Each receipt below proves a vote was recorded on the voting network. It does not reveal what you voted.",
+        "receipt_code": "Receipt code",
+        "receipt_return_note": "You can see these receipts again at any time by coming back to this election and identifying yourself.",
+        "results": "Results",
+        "results_after_end": "Results available after the election ends",
+        "results_published_at": "Results published at",
+        "results_real_time": "Results available in real time",
+        "results_shown_automatically": "Results are displayed automatically during the election.",
+        "results_subtitle_after_end": "The election has ended. You can now see the results.",
+        "see_election": "See election",
+        "send_code_legend": "Where should we send your code?",
+        "start_time": "Start time:",
+        "status_finished": "Finished",
+        "status_ongoing": "Ongoing",
+        "tab_census": "Census",
+        "tab_dashboard": "Dashboard",
+        "tab_main": "Main",
+        "tab_questions": "Questions",
+        "tab_security": "Security",
+        "total": "Total",
+        "total_label": "TOTAL:",
+        "vote": "Vote",
+        "vote_recorded": "Your vote was recorded",
+        "votes": "Votes",
+        "votes_count": "{{votes}} votes",
+        "voting_began": "Voting began on: {{start_date}}"
       }
     }
   },
