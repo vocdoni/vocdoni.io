@@ -150,8 +150,16 @@ cdk.out
 .DS_Store
 
 # AI stuff
-.agents
-.claude
+**/.agents/*
+!/.agents/skills/
+/.agents/skills/*
+!/.agents/skills/add-blog-post/
+!/.agents/skills/add-testimonial/
+**/.claude/*
+!/.claude/skills/
+/.claude/skills/*
+!/.claude/skills/add-blog-post
+!/.claude/skills/add-testimonial
 .context
 
 context

@@ -2,18 +2,19 @@
 # Renders a 1685x920 blog cover from template.html with headless Chrome and saves it as .webp.
 #
 #   scripts/blog-cover/render.sh --partner assets/images/fcb.webp \
-#     --out public/blog/images/2026/10/header_vocdoni_fcbarcelona.webp [--variant stripes|stat|pitch|ballot|centered] \
-#     [--eyebrow ...] [--title ...] [--stat 84%] [--label turnout] [--c1 #hex --c2 #hex] [--photo ...] \
+#     --out public/blog/images/2026/10/header_vocdoni_fcbarcelona.webp --variant stripes|stat|pitch|ballot|centered \
+#     --c1 '#004d98' --c2 '#a50044' [--eyebrow ...] [--title ...] [--stat 84%] [--label turnout] [--photo ...] \
 #     [--filter 'grayscale(1) brightness(0.5)'] [--fit full|panel|band|stage] [--motif rows|rings|none] [--badge ring|none]
 #
 # --filter is the CSS filter applied to the photo ("none" keeps a pre-treated photo as is). --fit, --motif and --badge
 # only apply to the centered variant (photo placement, background drawing, partner badge): see template.html.
-# Paths are relative to the repo root. Needs Google Chrome (override with CHROME=...) and cwebp.
+# --variant, --c1 and --c2 are required: the template's own fallbacks are FC Barcelona's pitch and blaugrana.
+# Paths are relative to the repo root. Needs Google Chrome or Chromium (found on PATH or in the macOS app folder,
+# override with CHROME=...) and cwebp.
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
-CHROME="${CHROME:-/Applications/Google Chrome.app/Contents/MacOS/Google Chrome}"
-partner='' out='' eyebrow='Success stories' photo='' variant='pitch' title='Success stories' stat='84%' label='turnout' c1='' c2='' filter='' fit='' motif='' badge=''
+partner='' out='' eyebrow='Success stories' photo='' variant='' title='Success stories' stat='84%' label='turnout' c1='' c2='' filter='' fit='' motif='' badge=''
 
 while [ $# -gt 0 ]; do
   case "$1" in
@@ -34,13 +35,19 @@ while [ $# -gt 0 ]; do
     *) echo "unknown option: $1" >&2; exit 1 ;;
   esac
 done
-[ -n "$partner" ] && [ -n "$out" ] || { echo "usage: $0 --partner <logo> --out <file.webp> [--variant ...] [--eyebrow ...] [--title ...] [--stat ...] [--label ...] [--c1 ... --c2 ...] [--photo ...] [--filter ...] [--fit ...] [--motif ...] [--badge ...]" >&2; exit 1; }
+[ -n "$partner" ] && [ -n "$out" ] && [ -n "$variant" ] && [ -n "$c1" ] && [ -n "$c2" ] || { echo "usage: $0 --partner <logo> --out <file.webp> --variant <variant> --c1 <#hex> --c2 <#hex> [--eyebrow ...] [--title ...] [--stat ...] [--label ...] [--photo ...] [--filter ...] [--fit ...] [--motif ...] [--badge ...]" >&2; exit 1; }
+
+if [ -z "${CHROME:-}" ]; then
+  for candidate in google-chrome google-chrome-stable chromium chromium-browser '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome'; do
+    if command -v "$candidate" >/dev/null 2>&1; then CHROME="$candidate"; break; fi
+  done
+fi
+[ -n "${CHROME:-}" ] || { echo "Google Chrome or Chromium not found, set CHROME=<path>" >&2; exit 1; }
+command -v cwebp >/dev/null || { echo "cwebp is required (libwebp)" >&2; exit 1; }
 
 urlencode() { python3 -c 'import sys, urllib.parse; print(urllib.parse.quote(sys.argv[1]))' "$1"; }
 
-query="variant=$variant&partner=$(urlencode "../../$partner")&eyebrow=$(urlencode "$eyebrow")&title=$(urlencode "$title")&stat=$(urlencode "$stat")&label=$(urlencode "$label")"
-[ -n "$c1" ] && query="$query&c1=$(urlencode "$c1")"
-[ -n "$c2" ] && query="$query&c2=$(urlencode "$c2")"
+query="variant=$variant&partner=$(urlencode "../../$partner")&eyebrow=$(urlencode "$eyebrow")&title=$(urlencode "$title")&stat=$(urlencode "$stat")&label=$(urlencode "$label")&c1=$(urlencode "$c1")&c2=$(urlencode "$c2")"
 [ -n "$photo" ] && query="$query&photo=$(urlencode "../../$photo")"
 [ -n "$filter" ] && query="$query&filter=$(urlencode "$filter")"
 [ -n "$fit" ] && query="$query&fit=$(urlencode "$fit")"
@@ -52,7 +59,9 @@ trap 'rm -rf "$tmp"' EXIT
 
 "$CHROME" --headless=new --disable-gpu --hide-scrollbars --force-device-scale-factor=1 \
   --allow-file-access-from-files --virtual-time-budget=3000 --window-size=1685,920 \
-  --screenshot="$tmp/cover.png" "file://$ROOT/scripts/blog-cover/template.html?$query" >/dev/null 2>&1
+  --screenshot="$tmp/cover.png" "file://$ROOT/scripts/blog-cover/template.html?$query" >"$tmp/chrome.log" 2>&1 ||
+  { cat "$tmp/chrome.log" >&2; echo "$CHROME failed" >&2; exit 1; }
+[ -s "$tmp/cover.png" ] || { cat "$tmp/chrome.log" >&2; echo "$CHROME wrote no screenshot" >&2; exit 1; }
 
 case "$out" in /*) dest="$out" ;; *) dest="$ROOT/$out" ;; esac
 mkdir -p "$(dirname "$dest")"
