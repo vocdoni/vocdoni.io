@@ -18,7 +18,7 @@ if (invalidDirectories.length > 0) {
     console.error(`- ${directory}`)
   }
   console.error('')
-  console.error('Use stable domain folders such as components/app or components/use-cases.')
+  console.error('Use stable domain folders such as components/app or components/solutions.')
   console.error('Reserve components/shadcn-studio for studio-derived blocks and components/ui for primitives.')
   process.exit(1)
 }

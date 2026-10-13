@@ -1,7 +1,6 @@
 import ts from 'typescript'
 
 const ALLOWED_COMPONENT_BUCKETS = new Set(['ui', 'shadcn-studio', 'legal', 'features', 'illustrations'])
-const ALLOWED_LEGACY_COMPONENT_BUCKETS = new Set(['VocdoniApp', 'VocdoniAppV3'])
 const USER_FACING_ATTRIBUTE_NAMES = new Set(['alt', 'aria-label', 'placeholder', 'title'])
 const CODE_LIKE_ELEMENTS = new Set(['code', 'kbd', 'pre', 'samp'])
 
@@ -27,7 +26,6 @@ export function getInvalidComponentDirectories(directoryPaths) {
       const [, topLevel] = path.split('/')
       if (!topLevel) return false
       if (ALLOWED_COMPONENT_BUCKETS.has(topLevel)) return false
-      if (ALLOWED_LEGACY_COMPONENT_BUCKETS.has(topLevel)) return false
       return !isApprovedDomainFolder(topLevel)
     })
     .sort()
@@ -142,7 +140,9 @@ export function getConfiguredLocales(source) {
       node.initializer &&
       ts.isArrayLiteralExpression(node.initializer)
     ) {
-      locales = node.initializer.elements.filter((element) => ts.isStringLiteral(element)).map((element) => element.text)
+      locales = node.initializer.elements
+        .filter((element) => ts.isStringLiteral(element))
+        .map((element) => element.text)
     }
 
     ts.forEachChild(node, visit)
