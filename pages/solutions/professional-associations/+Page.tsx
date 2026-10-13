@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { usePageContext } from 'vike-react/usePageContext'
 
 import { useAppAuthUrl } from '@/hooks/useAppAuthUrl'
-import { MemberBallotMockup } from '@/components/solutions/mockups/MemberBallotMockup'
+import { MemberJourneyMockup } from '@/components/solutions/mockups/MemberJourneyMockup'
 import { ProcessConsoleMockup } from '@/components/solutions/mockups/ProcessConsoleMockup'
 import type { MockupFigures } from '@/components/solutions/mockups/types'
 import { VerticalPage } from '@/components/solutions/vertical/VerticalPage'
@@ -79,6 +79,7 @@ const FIGURES: MockupFigures = {
   code: '482913',
   processId: '0x8c4f…e41a',
   voteId: '0x3f9a…c91e',
+  noticeLink: 'app.vocdoni.io/v/8c4f',
 }
 
 export default function Page() {
@@ -123,6 +124,7 @@ export default function Page() {
         console: (
           <ProcessConsoleMockup
             state='live'
+            density='close'
             copy={content?.mockups}
             figures={FIGURES}
             label={content?.how?.media_caption}
@@ -137,7 +139,7 @@ export default function Page() {
           />
         ),
         ballot: (
-          <MemberBallotMockup copy={content?.mockups} figures={FIGURES} label={content?.how?.steps_media_caption} />
+          <MemberJourneyMockup copy={content?.mockups} figures={FIGURES} label={content?.how?.steps_media_caption} />
         ),
       }}
       resourceLinks={[

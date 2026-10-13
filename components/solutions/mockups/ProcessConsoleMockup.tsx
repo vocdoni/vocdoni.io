@@ -34,6 +34,11 @@ interface ProcessConsoleMockupProps {
   figures: MockupFigures
   /** Accessible name of the picture; pass the figure caption. */
   label?: string
+  /**
+   * `close` is for the hero column: no menu rail, no settings block, larger
+   * type, so the turnout and the questions read at a glance from half a page.
+   */
+  density?: 'full' | 'close'
   className?: string
 }
 
@@ -46,12 +51,20 @@ interface ProcessConsoleMockupProps {
  * Nothing here is invented: every card, label and state exists in the app. In
  * particular there is no census hash, because the product does not show one.
  */
-export function ProcessConsoleMockup({ state, copy, figures, label, className }: ProcessConsoleMockupProps) {
+export function ProcessConsoleMockup({
+  state,
+  copy,
+  figures,
+  label,
+  density = 'full',
+  className,
+}: ProcessConsoleMockupProps) {
   const { t, i18n } = useTranslation()
   if (!copy) return null
 
   const number = new Intl.NumberFormat(i18n.language)
   const live = state === 'live'
+  const close = density === 'close'
   const votes = live ? figures.liveVotes : figures.finalVotes
   const turnout = turnoutPercent(votes, figures.census)
   const schedule = formatSchedule(i18n.language, figures.start, figures.end)
@@ -60,20 +73,22 @@ export function ProcessConsoleMockup({ state, copy, figures, label, className }:
     new Intl.NumberFormat(i18n.language, { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(turnout) + '%'
 
   return (
-    <AppMockupFrame variant='window' label={label} className={className}>
+    <AppMockupFrame variant='window' label={label} scale={close ? 'close' : 'default'} className={className}>
       {/* Menu rail: logo, "New vote", Platform items with Voting processes current, Help, profile. */}
-      <aside className='bg-app-menu border-app-border flex w-[3.4em] shrink-0 flex-col items-center gap-[0.9em] border-r py-[0.9em]'>
-        <Logo className='size-[1.5em]' />
-        <span className='bg-app-solid text-app-solid-fg flex size-[1.8em] items-center justify-center rounded-[0.4em]'>
-          <PlusIcon className='size-[1em]' strokeWidth={2.5} />
-        </span>
-        <RailItem icon={<HouseIcon className='size-[1em]' />} />
-        <RailItem icon={<VoteIcon className='size-[1em]' />} current />
-        <RailItem icon={<UsersIcon className='size-[1em]' />} />
-        <RailItem icon={<SettingsIcon className='size-[1em]' />} />
-        <RailItem icon={<LifeBuoyIcon className='size-[1em]' />} className='mt-[0.6em]' />
-        <span className='bg-app-muted border-app-border mt-auto size-[1.7em] rounded-full border' />
-      </aside>
+      {!close && (
+        <aside className='bg-app-menu border-app-border flex w-[3.4em] shrink-0 flex-col items-center gap-[0.9em] border-r py-[0.9em]'>
+          <Logo className='size-[1.5em]' />
+          <span className='bg-app-solid text-app-solid-fg flex size-[1.8em] items-center justify-center rounded-[0.4em]'>
+            <PlusIcon className='size-[1em]' strokeWidth={2.5} />
+          </span>
+          <RailItem icon={<HouseIcon className='size-[1em]' />} />
+          <RailItem icon={<VoteIcon className='size-[1em]' />} current />
+          <RailItem icon={<UsersIcon className='size-[1em]' />} />
+          <RailItem icon={<SettingsIcon className='size-[1em]' />} />
+          <RailItem icon={<LifeBuoyIcon className='size-[1em]' />} className='mt-[0.6em]' />
+          <span className='bg-app-muted border-app-border mt-auto size-[1.7em] rounded-full border' />
+        </aside>
+      )}
 
       {/* Main column */}
       <div className='flex min-w-0 flex-1 flex-col gap-[0.9em] overflow-hidden p-[1.2em]'>
@@ -164,7 +179,12 @@ export function ProcessConsoleMockup({ state, copy, figures, label, className }:
       </div>
 
       {/* Right sidebar: vote information */}
-      <aside className='border-app-border flex w-[33%] shrink-0 flex-col gap-[0.8em] overflow-hidden border-l p-[1em]'>
+      <aside
+        className={cn(
+          'border-app-border flex shrink-0 flex-col gap-[0.8em] overflow-hidden border-l p-[1em]',
+          close ? 'w-[36%]' : 'w-[33%]'
+        )}
+      >
         <AppBox className='flex flex-col gap-[0.7em]'>
           <p className='text-[0.8em] font-medium'>{t('solutions.mockups.app.voting_status', 'Voting status')}</p>
           <Row
@@ -229,17 +249,19 @@ export function ProcessConsoleMockup({ state, copy, figures, label, className }:
           </div>
         )}
 
-        <div className='flex flex-col gap-[0.5em]'>
-          <p className='text-[0.8em] font-medium'>{t('solutions.mockups.app.voting_settings', 'Voting settings')}</p>
-          <Setting
-            label={t('solutions.mockups.app.results_visibility', 'Results visibility')}
-            value={t('solutions.mockups.app.hidden_until_end', 'Hidden until the end')}
-          />
-          <Setting
-            label={t('solutions.mockups.app.voter_anonymity', 'Voter anonymity')}
-            value={t('solutions.mockups.app.anonymous', 'Anonymous')}
-          />
-        </div>
+        {!close && (
+          <div className='flex flex-col gap-[0.5em]'>
+            <p className='text-[0.8em] font-medium'>{t('solutions.mockups.app.voting_settings', 'Voting settings')}</p>
+            <Setting
+              label={t('solutions.mockups.app.results_visibility', 'Results visibility')}
+              value={t('solutions.mockups.app.hidden_until_end', 'Hidden until the end')}
+            />
+            <Setting
+              label={t('solutions.mockups.app.voter_anonymity', 'Voter anonymity')}
+              value={t('solutions.mockups.app.anonymous', 'Anonymous')}
+            />
+          </div>
+        )}
       </aside>
     </AppMockupFrame>
   )

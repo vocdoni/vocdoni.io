@@ -7,6 +7,8 @@ interface AppMockupFrameProps {
   variant: 'window' | 'phone'
   /** What the picture shows, for assistive technology. Usually the figure caption. */
   label?: string
+  /** `close` draws the window's contents larger, for a narrow slot such as the hero column. */
+  scale?: 'default' | 'close'
   className?: string
   children: ReactNode
 }
@@ -26,7 +28,7 @@ const APP_HOST = 'app.vocdoni.io'
  * through a container-query font size, so one component serves a 550px hero
  * column and an 900px full-width slot without two layouts.
  */
-export function AppMockupFrame({ variant, label, className, children }: AppMockupFrameProps) {
+export function AppMockupFrame({ variant, label, scale = 'default', className, children }: AppMockupFrameProps) {
   if (variant === 'phone') {
     return (
       <div
@@ -50,7 +52,8 @@ export function AppMockupFrame({ variant, label, className, children }: AppMocku
       role='img'
       aria-label={label}
       className={cn(
-        'app-mockup font-app @container image-outline rounded-card bg-app-bg text-app-fg pointer-events-none flex aspect-[16/10] w-full flex-col overflow-hidden text-[clamp(6px,1.5cqw,13px)] select-none',
+        'app-mockup font-app @container image-outline rounded-card bg-app-bg text-app-fg pointer-events-none flex aspect-[16/10] w-full flex-col overflow-hidden select-none',
+        scale === 'close' ? 'text-[clamp(7px,2.05cqw,14px)]' : 'text-[clamp(6px,1.5cqw,13px)]',
         className
       )}
     >
