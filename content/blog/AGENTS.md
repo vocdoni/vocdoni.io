@@ -102,9 +102,10 @@ Served locales (`locales/index.ts`): `en` (default), `es`, `ca`, `de`, `el`, `eu
 - Use `.webp`. Author avatars live in `public/blog/authors/` (`/blog/authors/<slug>.webp`).
 - **Covers are rendered from a template**, never hand-made: `scripts/blog-cover/render.sh` screenshots
   `scripts/blog-cover/template.html` with headless Chrome and writes a 1685x920 `.webp` to
-  `public/blog/images/YYYY/MM/header_vocdoni_<org>.webp`. `--partner` is the organization's colour mark on a
-  transparent background, `--eyebrow` is `<Org> · <year>`, `--variant` picks the layout; the script header lists the
-  current options. The blog card crops the cover to 16:10 and the post header to 16:9, so keep the lockup centred.
+  `public/blog/images/YYYY/MM/header_vocdoni_<org>.webp`. `--partner` is the organization's brand disc
+  (`assets/logos/logo_<org>_round.webp`, filling its circle), `--eyebrow` is `<Org> · <year>`, `--variant` picks the
+  layout; the script header lists the current options. The blog card crops the cover to 16:10 and the post header to
+  16:9, so keep the lockup centred.
 
 ## Copy & i18n
 

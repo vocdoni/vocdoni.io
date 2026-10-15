@@ -2,18 +2,23 @@
 <!--
   Blog cover template (1685x920). Rendered by render.sh; everything comes from the query string:
     variant  stripes | stat | pitch | ballot | centered   (default stripes; centered is the pitch layout without the pitch)
-    partner  path to the partner logo, relative to this file (required)
+    partner  path to the partner logo, relative to this file (required; repeat it for several organizations, the
+             ballot crest shows the first)
     eyebrow  small label (default "Success stories"; "" hides it)
     title    display headline (default "Success stories"; "" hides it)
     stat     big figure for the stat variant (default "84%")
     label    caption under the stat figure (default "turnout")
     c1, c2   partner brand colours as hex (default blaugrana #004D98 / #A50044; centered glows with c2, dots with c1)
-    photo    optional background photo for stripes/stat/centered, darkened
-    filter   CSS filter applied to the photo (default "grayscale(0.4) brightness(0.45)"; "none" keeps a pre-treated photo as is)
+    highlight  a figure of the vote, "<figure> <label>" ("84% turnout", "1,160 penyes"): the figure is set large with
+             its label under it; repeat it for two (by default voters and turnout, or another figure if turnout is low)
+    photo    optional background photo for stripes/stat/centered, darkened; 1685px wide or more, or it goes soft
+    filter   CSS filter applied to the photo (default "grayscale(0.2) contrast(1.08) brightness(0.72)"; "none" keeps a
+             pre-treated photo as is)
     fit      centered only: full | panel | band | stage   (default full; where the photo sits: full bleed, rounded panel,
              edge-to-edge band, or a receding plane in the pitch's perspective)
     motif    centered only: rows | rings | none   (drawing behind the text; default rows, or none with a full or stage photo)
-    badge    ring | none   (default ring; none drops the cream circle for a partner logo that is already a disc)
+    badge    none | ring   (default none: the partner's brand disc fills the circle; ring puts a bare transparent mark
+             inside a cream circle)
 -->
 <html>
   <head>
@@ -63,23 +68,64 @@
       .photo {
         background-size: cover;
         background-position: center;
-        filter: grayscale(0.4) brightness(0.45);
+        filter: grayscale(0.2) contrast(1.08) brightness(0.72);
       }
       .grain {
         background-image: radial-gradient(oklch(1 0 0 / 0.06) 1px, transparent 1px);
         background-size: 6px 6px;
         opacity: 0.5;
       }
+      /* the dot grain turns a photo to mush once the cover is shrunk to a blog card */
+      .has-photo .grain {
+        display: none;
+      }
 
-      /* ---- shared lockup: small, clean logos ---- */
+      /* ---- highlights: the vote's figures ("84% turnout"), the number big and its label under it. The blog card shows
+         the cover at about a fifth of its size, so anything meant to be read there has to be this large ---- */
+      .highlights {
+        position: absolute;
+        display: flex;
+        --hl: 190px;
+        --hl-label: 50px;
+      }
+      .highlights:empty {
+        display: none;
+      }
+      .highlights .hl {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 0 72px;
+        white-space: nowrap;
+        text-shadow: 0 4px 40px oklch(0 0 0 / 0.6);
+      }
+      .highlights .hl + .hl {
+        border-left: 3px solid oklch(1 0 0 / 0.28);
+      }
+      .highlights b {
+        font-family: 'Fraunces', serif;
+        font-weight: 500;
+        font-size: var(--hl);
+        line-height: 0.9;
+        letter-spacing: -0.04em;
+        color: var(--cream);
+      }
+      .highlights small {
+        margin-top: -6px;
+        font-size: var(--hl-label);
+        font-weight: 600;
+        color: var(--ink);
+      }
+
+      /* ---- shared lockup: both logos large enough to read on a blog card ---- */
       .lockup {
         position: absolute;
         display: flex;
         align-items: center;
-        gap: 28px;
+        gap: 48px;
       }
       .lockup .logo {
-        height: 64px;
+        height: 120px;
         display: flex;
         align-items: center;
       }
@@ -87,59 +133,60 @@
         height: 100%;
       }
       .lockup .vocdoni img {
-        height: 56px;
+        height: 112px;
+      }
+      /* the partner logo is the organization's own brand disc (assets/logos/logo_<org>_round.webp) filling the circle */
+      .lockup .partners {
+        display: flex;
+        gap: 28px;
       }
       .lockup .partner {
-        height: 84px;
-        width: 84px;
+        height: 172px;
+        width: 172px;
         border-radius: 50%;
+        overflow: hidden;
+      }
+      .lockup .partner img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      .lockup .x {
+        font-size: 60px;
+        font-weight: 300;
+        color: var(--muted);
+      }
+      /* badge=ring: a bare mark on a transparent background, shown inside a cream ring instead */
+      .badge-ring .lockup .partner {
         background: var(--cream);
         display: grid;
         place-items: center;
-        padding: 12px;
+        padding: 20px;
       }
-      .lockup .partner img {
+      .badge-ring .lockup .partner img {
+        width: auto;
+        height: auto;
         max-height: 100%;
         max-width: 100%;
         object-fit: contain;
         mix-blend-mode: multiply;
-      }
-      .lockup .x {
-        font-size: 34px;
-        font-weight: 300;
-        color: var(--muted);
-      }
-      /* badge=none: the partner logo is already a disc, so show it as is instead of inside the cream ring */
-      .badge-none .lockup .partner {
-        height: 76px;
-        width: 76px;
-        padding: 0;
-        background: none;
-        overflow: hidden;
-      }
-      .badge-none .lockup .partner img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        border-radius: 50%;
-        mix-blend-mode: normal;
       }
 
       .eyebrow {
         position: absolute;
         display: inline-flex;
         align-items: center;
-        gap: 14px;
-        font-size: 28px;
+        gap: 16px;
+        font-size: 38px;
         font-weight: 600;
-        letter-spacing: 0.12em;
+        letter-spacing: 0.1em;
         text-transform: uppercase;
         color: var(--muted);
       }
       .eyebrow::before {
         content: '';
-        width: 12px;
-        height: 12px;
+        width: 16px;
+        height: 16px;
         border-radius: 50%;
         background: var(--green);
       }
@@ -183,15 +230,15 @@
         background: linear-gradient(180deg, oklch(0 0 0 / 0.25), transparent 40%, oklch(0 0 0 / 0.35));
       }
       .v-stripes .eyebrow {
-        left: 96px;
+        left: 128px;
         top: 96px;
       }
       .v-stripes .title {
-        left: 92px;
+        left: 124px;
         top: 300px;
       }
       .v-stripes .lockup {
-        left: 96px;
+        left: 128px;
         bottom: 72px;
       }
 
@@ -202,12 +249,12 @@
           radial-gradient(700px 500px at 90% 10%, color-mix(in oklch, var(--c1) 60%, transparent), transparent 60%);
       }
       .v-stat .eyebrow {
-        left: 96px;
+        left: 128px;
         top: 96px;
       }
       .v-stat .stat {
         position: absolute;
-        left: 80px;
+        left: 112px;
         top: 160px;
         font-family: 'Fraunces', serif;
         font-weight: 400;
@@ -226,8 +273,54 @@
         margin-left: 20px;
       }
       .v-stat .lockup {
-        right: 96px;
+        right: 128px;
         bottom: 72px;
+      }
+      /* stat, stripes and ballot: smaller figures, left-aligned */
+      .v-stat .highlights,
+      .v-stripes .highlights,
+      .v-ballot .highlights {
+        left: 128px;
+        --hl: 110px;
+        --hl-label: 40px;
+      }
+      .v-stat .highlights .hl,
+      .v-stripes .highlights .hl,
+      .v-ballot .highlights .hl {
+        align-items: flex-start;
+        padding: 0 56px;
+      }
+      .v-stat .highlights .hl:first-child,
+      .v-stripes .highlights .hl:first-child,
+      .v-ballot .highlights .hl:first-child {
+        padding-left: 0;
+      }
+      .v-stat .highlights {
+        bottom: 72px;
+      }
+      .v-stripes .highlights,
+      .v-ballot .highlights {
+        bottom: 300px;
+      }
+      /* pitch and centered: the figures are the centre of the cover; the eyebrow and title move up to make room */
+      .v-pitch .highlights,
+      .v-centered .highlights {
+        left: 50%;
+        top: 282px;
+        transform: translateX(-50%);
+      }
+      .has-highlights.v-pitch .eyebrow,
+      .has-highlights.v-centered .eyebrow {
+        top: 60px;
+      }
+      .has-highlights.v-pitch .title,
+      .has-highlights.v-centered .title {
+        top: 122px;
+        font-size: 104px;
+      }
+      .has-highlights.v-pitch .lockup,
+      .has-highlights.v-centered .lockup {
+        bottom: 60px;
       }
       .v-stat .url {
         display: none;
@@ -344,8 +437,15 @@
         background: repeating-radial-gradient(circle at 50% 78%, transparent 0 147px, oklch(1 0 0 / 0.4) 147px 150px);
         mask-image: radial-gradient(45% 55% at 50% 78%, black 20%, transparent 100%);
       }
+      /* dark only behind the title and the lockup, so the middle of the photo keeps its detail */
       .v-centered .veil {
-        background: linear-gradient(180deg, var(--bg) 0%, oklch(0.17 0.012 106 / 0.6) 32%, oklch(0.17 0.012 106 / 0.35) 62%, var(--bg) 100%);
+        background: linear-gradient(
+          180deg,
+          oklch(0.17 0.012 106 / 0.85) 0%,
+          oklch(0.17 0.012 106 / 0.55) 35%,
+          oklch(0.17 0.012 106 / 0.4) 60%,
+          oklch(0.17 0.012 106 / 0.85) 100%
+        );
       }
       /* stage: the photo is the receding plane the pitch variant draws, fading into the dark at the far end */
       .v-centered.fit-stage .photo {
@@ -473,16 +573,16 @@
         display: none;
       }
       .v-ballot .eyebrow {
-        left: 96px;
+        left: 128px;
         top: 96px;
       }
       .v-ballot .title {
-        left: 92px;
+        left: 124px;
         top: 300px;
         max-width: 760px;
       }
       .v-ballot .lockup {
-        left: 96px;
+        left: 128px;
         bottom: 72px;
       }
     </style>
@@ -506,10 +606,11 @@
     <div class="eyebrow"></div>
     <div class="title"></div>
     <div class="stat"></div>
+    <div class="highlights"></div>
     <div class="lockup">
       <div class="logo vocdoni"><img src="../../public/images/vocdoni_logotype_full_blank.svg" alt="" /></div>
       <div class="x">×</div>
-      <div class="logo partner"><img class="partner-img" alt="" /></div>
+      <div class="partners"><div class="logo partner"><img class="partner-img" alt="" /></div></div>
     </div>
     <div class="url">vocdoni.io</div>
 
@@ -521,7 +622,14 @@
       document.querySelector('.eyebrow').textContent = get('eyebrow', 'Success stories')
       document.querySelector('.title').textContent = variant === 'stat' ? '' : get('title', 'Success stories')
       document.querySelector('.stat').innerHTML = variant === 'stat' ? `${get('stat', '84%')}<small>${get('label', 'turnout')}</small>` : ''
-      document.querySelectorAll('.partner-img').forEach((i) => (i.src = p.get('partner') || ''))
+      // one disc per partner in the lockup; the ballot crest shows the first
+      const partners = p.getAll('partner')
+      document.querySelector('.crest img').src = partners[0] || ''
+      const disc = document.querySelector('.lockup .partner')
+      partners.forEach((src, n) => {
+        const el = n ? disc.parentNode.appendChild(disc.cloneNode(true)) : disc
+        el.querySelector('img').src = src
+      })
       if (p.get('c1')) document.documentElement.style.setProperty('--c1', p.get('c1'))
       if (p.get('c2')) document.documentElement.style.setProperty('--c2', p.get('c2'))
       for (const sel of ['.band', '.pitch', '.card']) {
@@ -530,8 +638,19 @@
       }
       const photo = p.get('photo')
       const fit = get('fit', 'full')
-      document.body.classList.add('fit-' + fit, 'badge-' + get('badge', 'ring'))
+      document.body.classList.add('fit-' + fit, 'badge-' + get('badge', 'none'))
+      // "84% turnout": the first word is the figure, the rest its label
+      for (const text of p.getAll('highlight')) {
+        const [figure, ...label] = text.split(' ')
+        const hl = document.createElement('div')
+        hl.className = 'hl'
+        hl.append(Object.assign(document.createElement('b'), { textContent: figure }))
+        hl.append(Object.assign(document.createElement('small'), { textContent: label.join(' ') }))
+        document.querySelector('.highlights').append(hl)
+        document.body.classList.add('has-highlights')
+      }
       if (photo) {
+        document.body.classList.add('has-photo')
         const el = document.querySelector('.photo')
         el.hidden = false
         el.style.backgroundImage = `url("${photo}")`
