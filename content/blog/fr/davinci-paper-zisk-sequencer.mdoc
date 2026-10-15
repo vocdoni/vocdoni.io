@@ -1,0 +1,135 @@
+---
+title: 'Point sur DAVINCI : l''article scientifique est publié, et le séquenceur tourne désormais sur ZisK'
+publishedDate: '2026-10-15'
+excerpt: 'L''article scientifique de DAVINCI est disponible sur l''IACR ePrint Archive. Les bulletins sont prouvés dans le navigateur du téléphone, le séquenceur est désormais un programme Rust pour la zkVM ZisK, nous avons apporté un précompilé BabyJubJub au projet ZisK, et un seul GPU règle environ 6 votes par seconde.'
+coverImage: /blog/images/2026/10/header_davinci_paper_zisk.webp
+coverAlt: 'Point sur DAVINCI : l''article scientifique est publié, et le séquenceur tourne désormais sur ZisK'
+authors:
+  - pau
+categories:
+  - davinci
+  - technology
+featured: false
+draft: false
+seo:
+  metaTitle: 'Article DAVINCI et séquenceur ZisK | Vocdoni'
+  metaDescription: 'L''article DAVINCI est publié : bulletins prouvés dans le navigateur, séquenceur zkVM ZisK à 6 votes/s sur un GPU, environ 0,15 centime par vote sur Ethereum.'
+---
+
+Nous venons de publier l'article scientifique de DAVINCI sur l'IACR Cryptology ePrint Archive : [eprint.iacr.org/2026/2282](https://eprint.iacr.org/2026/2282). C'est la première fois que l'ensemble du protocole est décrit en un seul endroit, avec l'analyse de sécurité aux côtés d'une implémentation fonctionnelle et des chiffres réels qui en sont issus. Pau Escrich l'a rédigé avec Marta Bellés-Muñoz (Universitat Pompeu Fabra), Roger Baig (Universitat Politècnica de Catalunya) et Jordi Piñana (Vocdoni).
+
+Si vous suivez [ce blog](/blog/davinci-universal-voting-protocol), vous connaissez l'idée : une élection est un rollup ZK. Les votants chiffrent leurs bulletins, n'importe qui peut faire tourner un séquenceur qui les regroupe en lots et prouve que chaque lot a été traité selon les règles, et Ethereum n'accepte le nouvel état de l'élection que si la preuve est valide. Pas de preuve, pas de mise à jour de l'état, pas de faux résultat.
+
+Ce que l'article apporte de nouveau, c'est l'ingénierie. Ce billet porte sur cette partie : comment un vote est prouvé dans le navigateur d'un téléphone, comment le séquenceur a été réécrit sous la forme d'un programme pour la zkVM [ZisK](https://github.com/0xPolygonHermez/zisk), le précompilé que nous avons apporté au projet ZisK pour que tout cela soit rapide, et ce que l'ensemble coûte.
+
+## Deux prouveurs, un protocole
+
+DAVINCI doit produire deux types de preuves très différents, et utilise donc deux prouveurs très différents.
+
+**La tâche du votant est légère et doit pouvoir s'exécuter partout.** Le circuit de bulletin est écrit en Circom, et la preuve est générée dans le navigateur avec snarkjs, sous la forme d'une preuve Groth16 sur BN254. Le circuit vérifie que le bulletin est un choix valide pour l'élection (dans la plage des valeurs autorisées, dans les limites du budget, avec des options uniques si l'élection l'exige), qu'il est correctement chiffré et que l'identifiant de vote est correctement dérivé. Il compte environ 65K contraintes et gère jusqu'à 16 champs chiffrés, ce qui suffit pour encoder des bulletins à choix unique, à choix multiples, par approbation, par classement et quadratiques.
+
+Pour cette partie, nous restons délibérément sur Circom et snarkjs. snarkjs tourne en WebAssembly dans n'importe quel navigateur moderne, se parallélise sur plusieurs web workers, et c'est le prouveur Groth16 pour navigateur le plus mature que nous ayons trouvé. Le tout fonctionne comme une simple page web statique : personne n'a à installer de prouveur natif, et personne n'a à envoyer son vote en clair à un service de génération de preuves. Pour une application de vote, cela compte davantage que de gagner une seconde sur la preuve.
+
+Prouver un bulletin prend environ **3 secondes** sur un ordinateur portable (AMD Ryzen AI 5 340, Brave) et environ **6,4 secondes** sur un Google Pixel 7a sous Chrome, après un téléchargement unique de la clé de preuve de 35,5 MiB et du générateur de témoin de 6,5 MiB. Sur un téléphone, c'est une barre de progression, pas un problème.
+
+**La tâche du séquenceur est lourde et s'exécute sur un serveur.** Il doit vérifier tout un lot de ces preuves Groth16, contrôler que chaque votant figure sur la liste électorale et a signé avec sa clé, re-chiffrer chaque bulletin, mettre à jour l'arbre d'état, mettre à jour le dépouillement chiffré, et lier le tout aux données de blob qu'il publie. C'est là qu'intervient ZisK.
+
+## Pourquoi nous avons migré le séquenceur vers ZisK
+
+Jusqu'ici, la logique du séquenceur vivait dans des circuits écrits à la main. Les circuits excellent dans leur rôle et sont très pénibles à modifier : chaque ajustement d'une règle oblige à redériver les contraintes, à relancer les configurations de confiance et à refaire les audits. Pour un protocole que nous comptons continuer à faire évoluer, c'est une taxe sur chaque amélioration.
+
+ZisK est une zkVM développée par l'équipe Polygon Hermez. On écrit du Rust ordinaire, on le compile en RISC-V, et ZisK produit une preuve STARK attestant que le programme s'est exécuté correctement sur les entrées fournies. Une preuve STARK ne nécessite aucune configuration de confiance et se génère rapidement, au prix d'une taille importante. La transition d'état de DAVINCI est désormais un unique programme Rust qui implémente chaque règle du protocole, et les mesures de l'article ont été réalisées sur ZisK v1.3.0-alpha.
+
+Ce qui rend cette approche praticable, ce sont les précompilés de ZisK. Une zkVM paie chaque instruction qu'elle prouve, et la cryptographie est très gourmande en instructions. ZisK traite donc les primitives coûteuses dans des circuits dédiés et spécialisés : SHA-256, Keccak, le couplage BN254, secp256k1, l'arithmétique modulaire sur 256 bits et, depuis cette version, BabyJubJub. Le programme de transition s'appuie sur tous sauf Keccak, et nous verrons plus loin pourquoi Keccak compte malgré tout. Les preuves Groth16 générées dans le navigateur, par exemple, ne sont pas vérifiées une par une : le programme agrège tout le lot en une seule vérification de couplage, pondérée par des coefficients aléatoires qu'il dérive des preuves elles-mêmes, en s'appuyant sur le précompilé de couplage BN254 de ZisK.
+
+La preuve STARK est trop volumineuse pour être envoyée directement sur Ethereum. ZisK la compresse de manière récursive et enveloppe le résultat dans une preuve PLONK sur BN254, que le contrat de règlement vérifie avec les précompilés de couplage dont Ethereum dispose depuis Byzantium. Seule cette preuve finale est publiée, et elle est à divulgation nulle de connaissance : elle cache donc le témoin du séquenceur. La preuve STARK ne nécessite aucune configuration de confiance ; l'enveloppe PLONK utilise les powers-of-tau universels de Hermez. La seule cérémonie propre à un circuit qui subsiste dans tout le système est celle du circuit de bulletin exécuté dans le navigateur, et elle est réutilisée d'une élection à l'autre.
+
+Il y a un bonus que nous apprécions beaucoup. Le circuit d'enveloppe PLONK est défini par ZisK ; notre programme n'y entre que sous la forme d'un engagement sur le code, que le contrat de règlement fixe. Mettre à jour le programme de transition revient à modifier un seul engagement stocké, sans déployer de nouveau vérifieur ni lancer de nouvelle configuration de confiance. La mécanique en chaîne reste en place pendant que le protocole s'améliore.
+
+## Nous avons apporté un précompilé BabyJubJub à ZisK
+
+DAVINCI chiffre les bulletins avec ElGamal sur BabyJubJub, la courbe de circomlib. C'est le choix naturel côté navigateur : le corps de base de BabyJubJub est le corps des scalaires de BN254, si bien que le chiffrement se fait en arithmétique native dans un circuit Circom.
+
+Le séquenceur doit effectuer bien plus d'arithmétique BabyJubJub que le votant. Re-chiffrer un bulletin demande une multiplication scalaire par texte chiffré, soit une longue chaîne d'additions de points, et le dépouillement chiffré est une grande somme cumulée de textes chiffrés. Prouver tout cela sous forme d'instructions RISC-V ordinaires constituait le goulot d'étranglement.
+
+Nous avons donc écrit un précompilé. La [PR #1152](https://github.com/0xPolygonHermez/zisk/pull/1152) ajoute l'addition complète de points en coordonnées affines sur BabyJubJub (la même formule gère le doublement) comme primitive dédiée de ZisK, compatible avec les paramètres de courbe de circomlib. L'équipe ZisK l'a relue, l'a adaptée à ses conventions internes et l'a fusionnée le 27 août. Le précompilé a été livré dans [ZisK v1.3.0-alpha](https://github.com/0xPolygonHermez/zisk/releases/tag/v1.3.0-alpha) le 21 septembre, et les notes de version le décrivent comme « a dedicated BabyJubJub point-add precompile compatible with circomlib ». Merci à Héctor Masip et au reste de l'équipe ZisK de l'avoir intégré au projet principal plutôt que de nous laisser sur un fork.
+
+C'est la pièce qui permet aux deux moitiés de DAVINCI de parler la même cryptographie. Le navigateur chiffre sur BabyJubJub dans un circuit Circom ; le séquenceur re-chiffre et accumule sur BabyJubJub dans ZisK ; et les preuves Groth16 qui relient les deux sont vérifiées avec le couplage BN254 de ZisK. Rien n'a besoin d'être converti d'une courbe à l'autre, et quiconque s'appuie sur la courbe de circomlib dispose gratuitement de la même primitive.
+
+## Le dividende Ethereum : secp256k1 et Keccak
+
+Commençons par secp256k1. Les votants de DAVINCI signent leur identifiant de vote avec la même clé ECDSA que celle qui se trouve derrière leur adresse Ethereum. ZisK vérifie cette signature nativement : l'éligibilité se ramène donc à une preuve de Merkle sur de simples adresses Ethereum, et le portefeuille du votant lui tient lieu de justificatif, sans clé d'enregistrement supplémentaire.
+
+Keccak est celui qui nous enthousiasme le plus. Les systèmes de vote ZK, DAVINCI compris, ont construit leurs arbres de Merkle de liste électorale avec Poseidon, parce que Poseidon est peu coûteux à prouver et que Keccak ne l'était pas. Le prix se paie en chaîne : un hachage Poseidon en Solidity coûte de nombreuses fois plus cher que `keccak256`, qui tient en un seul opcode. Les projets qui maintiennent des arbres Poseidon en chaîne supportent ce coût à chaque insertion, et la plupart des registres, des instantanés de détenteurs de tokens et des listes de membres de multisig qui existent déjà sur Ethereum utilisent Keccak comme fonction de hachage : jusqu'ici, une liste électorale de vote ZK ne pouvait donc pas les exploiter sans étape de conversion. Maintenant que ZisK prouve Keccak nativement, le séquenceur peut vérifier l'appartenance à un arbre Keccak sans le coût qui l'excluait auparavant. Une DAO pourrait tenir son registre de votants en chaîne avec le hachage qu'elle utilise déjà, et DAVINCI pourrait l'exploiter directement.
+
+Le prototype de l'article utilise encore un arbre de Merkle Poseidon pour la liste électorale et SHA-256 pour l'arbre d'état : considérez donc les listes électorales Keccak comme la prochaine étape, et non comme la configuration mesurée. Mais le changement est moins coûteux qu'il n'y paraît : la preuve d'inscription sur la liste électorale est vérifiée par le séquenceur, pas par le circuit de bulletin, donc passer à une liste électorale Keccak est une modification du programme Rust, pas du circuit du navigateur ni de sa cérémonie.
+
+## Les chiffres
+
+Tous les chiffres du séquenceur proviennent d'une seule machine : une NVIDIA RTX 5090 (32 GiB) avec un AMD Ryzen 9 9950X3D à 16 cœurs et 64 GiB de RAM. Le temps mesuré correspond au chemin critique du séquenceur, de la soumission de la tâche jusqu'à une preuve PLONK vérifiée, récursion, enveloppement et vérification par le prouveur lui-même compris. La génération de la preuve du votant se fait sur l'appareil du votant et n'est pas incluse.
+
+Deux facteurs déterminent le coût : la taille du lot et `n`, le nombre de champs de bulletin actifs dans le mode de bulletin de l'élection. Un choix unique entre deux options correspond à `n = 2` ; un bulletin par classement ou quadratique comportant de nombreuses options peut utiliser les 16. Chaque lot du tableau comprend aussi un rafraîchissement silencieux par bulletin (nous y reviendrons plus bas) : ce sont donc des chiffres en régime établi, pas un cas idéal.
+
+| Lot | n = 2, temps | n = 2, votes/s | n = 2, blobs | n = 16, temps | n = 16, votes/s | n = 16, blobs |
+| --- | --- | --- | --- | --- | --- | --- |
+| 2 | 15,6 s | 0,1 | 1 | 15,7 s | 0,1 | 1 |
+| 64 | 22,5 s | 2,8 | 1 | 30,3 s | 2,1 | 2 |
+| 128 | 30,1 s | 4,3 | 1 | 45,7 s | 2,8 | 3 |
+| 256 | 46,2 s | 5,5 | 1 | 76,7 s | 3,3 | 5 |
+| 512 | 84,3 s | 6,1 | 2 | 164,3 s | 3,1 | 9 |
+| 1024 | 171,2 s | 6,0 | 3 | 363,9 s | 2,8 | 17 |
+
+Comment le lire : il y a un coût fixe d'environ 16 secondes par lot, presque entièrement dû à la récursion, à l'enveloppement et à la vérification. À cela s'ajoutent environ 0,11 s par bulletin à `n = 2` et 0,23 s à `n = 16`. Les lots plus grands amortissent le coût fixe, d'où un débit qui monte à environ **6 votes par seconde** à 512 bulletins pour les bulletins simples, et à **3,3 votes par seconde** à 256 bulletins pour ceux à 16 champs. Au-delà, les preuves d'inscription sur la liste électorale deviennent plus profondes et, au-dessus de 512 bulletins, le prouveur sacrifie quelques pour cent de vitesse pour économiser de la RAM ; 1024 est le plafond de l'implémentation, imposé par la mémoire de l'hôte (environ 41 GB à cette taille), ce qui explique que le tableau s'arrête là.
+
+![Temps de preuve du séquenceur par lot : la courbe à deux champs monte de 15,6 s à 2 bulletins jusqu'à 171 s à 1024 ; la courbe à seize champs, de 15,7 s à 364 s ; toutes deux reposent sur un coût fixe de 16 secondes.](/blog/images/2026/10/davinci-proving-time.webp)
+
+![Débit d'un séquenceur : les votes par seconde augmentent avec la taille du lot et culminent à 6,1 pour les bulletins à deux champs (512) et à 3,3 pour les bulletins à seize champs (256) ; les points à seize champs à 512 et 1024 sont creux, car ils dépassent six blobs.](/blog/images/2026/10/davinci-throughput.webp)
+
+Six votes par seconde sur un seul GPU grand public, c'est plus de 21 000 votes par heure pour un seul séquenceur. Au sein d'une élection, les lots forment une chaîne de racines d'état et le contrat les règle dans l'ordre : si deux séquenceurs travaillent en concurrence sur la même racine, l'un d'eux a gaspillé sa preuve. Ces chiffres s'entendent donc par élection et par séquenceur. D'une élection à l'autre, les séquenceurs sont sans permission et indépendants, si bien que la capacité augmente avec les machines que chacun met à disposition.
+
+La colonne des blobs traduit la contrainte d'Ethereum. Chaque mise à jour d'emplacement est publiée dans des blobs EIP-4844 pour que chacun puisse reconstruire l'état, et EIP-7594 plafonne une transaction à six blobs. Les deux dernières lignes des colonnes `n = 16` (9 et 17 blobs) dépassent largement ce plafond : ce sont donc uniquement des chiffres de génération de preuve. Un séquenceur qui règle sur le mainnet choisit la taille de son lot en fonction de `n`, et les configurations optimales en débit tiennent largement dans la limite.
+
+![Blobs par transition selon la taille du lot : les lots à deux champs nécessitent de 1 à 3 blobs ; les lots à seize champs en nécessitent 1, 2, 3, 5, 9 et 17, les deux derniers au-dessus de la ligne pointillée des six blobs.](/blog/images/2026/10/davinci-blobs-per-batch.webp)
+
+### Ce que coûte un vote en chaîne
+
+Régler un lot coûte environ **498K de gaz avec un blob, plus environ 56K par blob supplémentaire**, quelle que soit la taille du lot. Vérifier la preuve PLONK représente le même travail, que le lot contienne 2 bulletins ou 1024 : le coût par vote est donc le coût du lot divisé par sa taille. Les grands lots coûtent moins cher par vote ; davantage de champs de bulletin signifie davantage de blobs et un lot un peu plus cher.
+
+Le tableau ci-dessous chiffre chaque configuration mesurée qui peut être réglée en chaîne, à **1 gwei et 2 500 USD par ETH** pour le mainnet, une hypothèse délibérément prudente : la moyenne d'Etherscan le jour où nous avons écrit ces lignes était de 0,12 gwei, et la médiane sur l'année écoulée de 0,74 gwei. Pour Gnosis Chain, nous utilisons sa médiane de 5,2 gwei, payée en xDAI à 1 USD. Le coût évolue linéairement avec le prix du gaz : au prix actuel de 0,12 gwei, divisez la colonne mainnet par huit, et lors d'un pic à 5 gwei, multipliez-la par cinq.
+
+| Champs de bulletin | Lot | Blobs | Gaz par lot | Mainnet, par lot | Mainnet, par vote | Gnosis, par vote |
+| --- | --- | --- | --- | --- | --- | --- |
+| 2 | 64 | 1 | 498K | 1,25 USD | 1,9 centime | 0,004 centime |
+| 2 | 128 | 1 | 498K | 1,25 USD | 1,0 centime | 0,002 centime |
+| 2 | 256 | 1 | 498K | 1,25 USD | 0,5 centime | 0,001 centime |
+| 2 | 512 | 2 | 554K | 1,39 USD | 0,27 centime | 0,0006 centime |
+| 2 | 1024 | 3 | 612K | 1,53 USD | 0,15 centime | sans objet (voir ci-dessous) |
+| 16 | 64 | 2 | 554K | 1,39 USD | 2,2 centimes | 0,0045 centime |
+| 16 | 128 | 3 | 612K | 1,53 USD | 1,2 centime | sans objet (voir ci-dessous) |
+| 16 | 256 | 5 | ~722K | ~1,80 USD | 0,7 centime | sans objet (voir ci-dessous) |
+
+![Coût de règlement par vote sur une échelle logarithmique : sur le mainnet à 1 gwei, il va de 1,9 centime (64 bulletins) à 0,15 centime (1024 bulletins) ; Gnosis Chain est environ 500 fois moins cher, de 0,004 centime à 0,0006 centime, pour les lots qui respectent sa limite de deux blobs.](/blog/images/2026/10/davinci-cost-per-vote.webp)
+
+Autrement dit : sur le mainnet Ethereum à 1 gwei, **un million de votes à bulletin simple se règlent pour environ 1 500 USD** en lots de 1024 bulletins, et pour moins de 200 USD au prix actuel du gaz. Les chiffres de règlement mesurés dans l'article vont jusqu'à quatre blobs ; la ligne à cinq blobs est extrapolée avec le même pas de 56K.
+
+Sur Gnosis Chain, la même vérification coûte environ 500 fois moins cher, car le gaz y est payé dans un token indexé sur le dollar, à des prix qui ramènent le coût d'un lot entier à environ un quart de centime. La contrainte y est différente : un bloc Gnosis contient au plus deux blobs, ce qui plafonne une transition à 744 bulletins pour les élections à deux champs et à 121 pour celles à seize champs. Dans ces limites, **un million de votes à bulletin simple se règlent sur Gnosis pour moins de 5 USD**, soit environ 0,0004 centime chacun. Pour la plupart des organisations, le coût de règlement sur Gnosis n'est qu'une erreur d'arrondi à côté du temps GPU.
+
+Les frais de blob relèvent d'un marché distinct et ne figurent pas dans le tableau ; sur le mainnet, ils étaient bien inférieurs au coût de vérification pendant notre période de mesure, et sur Gnosis, le plancher de 1 gwei des frais de blob ajoute environ 0,0001 USD par blob.
+
+## Le revote silencieux, puisqu'il figure dans les chiffres
+
+Ces mesures incluent des rafraîchissements parce que DAVINCI paie la résistance à la coercition à chaque lot, et nous voulions mesurer le coût réel plutôt que le coût flatteur.
+
+Le mécanisme : un votant peut revoter à tout moment, et le bulletin le plus récent remplace l'ancien. Mais l'emplacement d'un votant dans l'arbre d'état est public : un observateur qui surveille les blobs pourrait voir cet emplacement changer et en déduire qu'un revote a eu lieu. Pour le masquer, chaque transition d'état re-randomise aussi un ensemble aléatoire d'autres bulletins stockés. Un bulletin re-randomisé paraît complètement différent en chaîne, mais une fois déchiffré, il donne le même vote. Les écrasements et les rafraîchissements sont publiés dans le même format, triés, sans aucune étiquette. Un observateur voit un lot d'emplacements changer et ne peut pas déterminer, à partir des données publiées, lesquels sont des revotes.
+
+Dans le tableau, cela coûte environ 1,6 seconde par lot de 128 bulletins à `n = 2` et environ 5 secondes à `n = 16`. En échange, un acheteur de votes ne peut pas confirmer que le vote qu'il a payé est resté en place. Nous estimons que c'est une bonne affaire.
+
+## Lisez-le, lancez-le, cassez-le
+
+L'article est disponible sur [eprint.iacr.org/2026/2282](https://eprint.iacr.org/2026/2282). La section 6 détaille l'implémentation et les mesures ; la section 5 contient l'analyse de sécurité, y compris l'énoncé formel de ce que le revote silencieux permet de masquer.
+
+Le code est ouvert :
+
+- [davinci-circom](https://github.com/vocdoni/davinci-circom) : le circuit de bulletin Circom et le prouveur pour navigateur, avec une application web de test que vous pouvez essayer dans votre propre navigateur.
+- [davinci-zkvm](https://github.com/vocdoni/davinci-zkvm) : le programme de transition ZisK et le séquenceur.
+- [ZisK PR #1152](https://github.com/0xPolygonHermez/zisk/pull/1152) : le précompilé BabyJubJub.

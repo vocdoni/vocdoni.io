@@ -1,0 +1,135 @@
+---
+title: 'Novetats de DAVINCI: l''article ja és públic i el sequencer ara funciona sobre ZisK'
+publishedDate: '2026-10-15'
+excerpt: 'L''article de DAVINCI ja és a l''IACR ePrint Archive. Les proves de les paperetes es generen al navegador del mòbil, el sequencer ara és un programa en Rust per a la zkVM ZisK, hem aportat un precompilat de BabyJubJub al projecte original i una sola GPU liquida uns 6 vots per segon.'
+coverImage: /blog/images/2026/10/header_davinci_paper_zisk.webp
+coverAlt: 'Novetats de DAVINCI: l''article ja és públic i el sequencer ara funciona sobre ZisK'
+authors:
+  - pau
+categories:
+  - davinci
+  - technology
+featured: false
+draft: false
+seo:
+  metaTitle: 'Article de DAVINCI i sequencer sobre ZisK | Vocdoni'
+  metaDescription: 'Ja és públic l''article de DAVINCI: proves de vot al navegador, un sequencer amb la zkVM ZisK a 6 vots/s amb una GPU i uns 0,15 cèntims per vot a Ethereum.'
+---
+
+Acabem de publicar l'article de DAVINCI a l'IACR Cryptology ePrint Archive: [eprint.iacr.org/2026/2282](https://eprint.iacr.org/2026/2282). És la primera vegada que tot el protocol queda escrit en un sol lloc, amb l'anàlisi de seguretat al costat d'una implementació que funciona i de les xifres reals que n'hem obtingut. L'ha escrit Pau Escrich juntament amb Marta Bellés-Muñoz (Universitat Pompeu Fabra), Roger Baig (Universitat Politècnica de Catalunya) i Jordi Piñana (Vocdoni).
+
+Si has seguit [aquest blog](/blog/davinci-universal-voting-protocol), ja coneixes la idea: una elecció és un rollup ZK. Els votants xifren les seves paperetes, qualsevol pot fer funcionar un sequencer que les agrupa en lots i demostra que el lot s'ha processat segons les regles, i Ethereum només accepta el nou estat de l'elecció si la prova és vàlida. Sense prova, no hi ha actualització d'estat ni resultat fals.
+
+El que és nou a l'article és l'enginyeria. Aquesta entrada tracta d'aquesta part: com es genera la prova d'un vot al navegador d'un mòbil, com s'ha reescrit el sequencer com a programa per a la zkVM [ZisK](https://github.com/0xPolygonHermez/zisk), el precompilat que hem aportat al projecte original perquè això vagi ràpid i quant costa tot plegat.
+
+## Dos provadors, un protocol
+
+DAVINCI ha de generar dos tipus de proves molt diferents, així que fa servir dos provadors molt diferents.
+
+**La feina del votant és petita i ha de funcionar a qualsevol lloc.** El circuit de la papereta està escrit en Circom, i la prova es genera al navegador amb snarkjs, com a prova Groth16 sobre BN254. El circuit comprova que la papereta és una opció vàlida per a l'elecció (dins dels valors permesos, dins del pressupost i amb opcions úniques si l'elecció ho exigeix), que està ben xifrada i que l'identificador del vot s'ha derivat correctament. Té unes 65K restriccions i admet fins a 16 camps xifrats, prou per codificar paperetes d'opció única, d'opció múltiple, d'aprovació, per ordre de preferència i quadràtiques.
+
+Per a aquesta part ens quedem amb Circom i snarkjs expressament. snarkjs funciona sobre WebAssembly en qualsevol navegador modern, reparteix la feina entre web workers i és el provador de Groth16 per a navegador més madur que hem trobat. Tot funciona com una pàgina web estàtica: ningú no ha d'instal·lar un provador natiu i ningú no ha d'enviar el seu vot en clar a un servei de generació de proves. En una aplicació de votació, això importa més que guanyar un segon en la prova.
+
+Generar la prova d'una papereta triga uns **3 segons** en un portàtil (AMD Ryzen AI 5 340, Brave) i uns **6,4 segons** en un Google Pixel 7a amb Chrome, després de descarregar un sol cop la clau del provador, de 35,5 MiB, i el generador del testimoni, de 6,5 MiB. En un mòbil, això és una barra de progrés, no un problema.
+
+**La feina del sequencer és gran i s'executa en un servidor.** Ha de verificar tot un lot d'aquestes proves Groth16, comprovar que cada votant és al cens i que ha signat amb la seva clau, tornar a xifrar cada papereta, actualitzar l'arbre d'estat, actualitzar el recompte xifrat i vincular-ho tot a les dades dels blobs que publica. Aquí és on entra ZisK.
+
+## Per què hem passat el sequencer a ZisK
+
+Fins ara, la lògica del sequencer vivia en circuits escrits a mà. Els circuits són excel·lents en el que fan i pèssims a l'hora de canviar-los: cada ajust d'una regla vol dir tornar a derivar restriccions, tornar a fer el setup i tornar a auditar. En un protocol que esperem que continuï evolucionant, això encareix cada millora.
+
+ZisK és una zkVM desenvolupada per l'equip de Polygon Hermez. Escrius Rust normal i corrent, el compiles a RISC-V i ZisK genera una prova STARK que el programa s'ha executat correctament amb les entrades donades. Un STARK és un tipus de prova que no necessita cap trusted setup i es genera de pressa, a canvi de ser gran. La transició d'estat de DAVINCI és ara un únic programa en Rust que implementa totes les regles del protocol, i les mesures de rendiment de l'article s'han fet sobre ZisK v1.3.0-alpha.
+
+El que ho fa viable a la pràctica són els precompilats de ZisK. Una zkVM paga per cada instrucció que prova, i la criptografia necessita moltes instruccions. Per això ZisK resol les primitives cares amb circuits dedicats i especialitzats: SHA-256, Keccak, l'aparellament de BN254, secp256k1, l'aritmètica modular de 256 bits i, des d'aquesta versió, BabyJubJub. El programa de transició es recolza en tots ells excepte Keccak, i més endavant explicarem per què Keccak importa igualment. Les proves Groth16 generades al navegador, per exemple, no es verifiquen una per una: el programa condensa tot el lot en una sola comprovació d'aparellament, ponderada amb coeficients aleatoris que deriva de les proves mateixes, sobre el precompilat d'aparellament BN254 de ZisK.
+
+El STARK és massa gran per enviar-lo directament a Ethereum. ZisK el comprimeix de manera recursiva i embolcalla el resultat en una prova PLONK sobre BN254, que el contracte de liquidació verifica amb els precompilats d'aparellament que Ethereum té des de Byzantium. Només es publica aquesta prova final, i és de coneixement zero, de manera que amaga el testimoni del sequencer. El STARK no necessita cap trusted setup; l'embolcall PLONK fa servir el powers-of-tau universal d'Hermez. L'única cerimònia específica d'un circuit que queda en tot el sistema és la del circuit de la papereta del navegador, i es reutilitza entre eleccions.
+
+Hi ha un avantatge afegit que ens agrada molt. El circuit embolcall PLONK el defineix ZisK; el nostre programa hi entra només com un compromís del codi que el contracte de liquidació té fixat. Actualitzar el programa de transició vol dir actualitzar un compromís emmagatzemat, no desplegar un verificador nou ni fer un setup nou. La maquinària onchain no es mou mentre el protocol millora.
+
+## Hem aportat un precompilat de BabyJubJub a ZisK
+
+DAVINCI xifra les paperetes amb ElGamal sobre BabyJubJub, la corba de circomlib. És l'opció natural a la banda del navegador: el cos base de BabyJubJub és el cos dels escalars de BN254, de manera que el xifratge és aritmètica nativa dins d'un circuit Circom.
+
+El sequencer ha de fer molta més aritmètica de BabyJubJub que el votant. Tornar a xifrar una papereta és una multiplicació escalar per cada text xifrat, és a dir, una llarga cadena de sumes de punts, i el recompte xifrat és una gran suma acumulada de textos xifrats. Provar tot això com a instruccions RISC-V normals era el coll d'ampolla.
+
+Així que vam escriure un precompilat. La [PR #1152](https://github.com/0xPolygonHermez/zisk/pull/1152) afegeix la suma afí completa de punts sobre BabyJubJub (la mateixa fórmula serveix per al doblament) com a primitiva dedicada de ZisK, compatible amb els paràmetres de corba de circomlib. L'equip de ZisK la va revisar, la va adaptar a les seves convencions internes i la va integrar el 27 d'agost. Va sortir a [ZisK v1.3.0-alpha](https://github.com/0xPolygonHermez/zisk/releases/tag/v1.3.0-alpha) el 21 de setembre, i les notes de la versió la descriuen com «a dedicated BabyJubJub point-add precompile compatible with circomlib». Gràcies a Héctor Masip i a la resta de l'equip de ZisK per incorporar-la al projecte original en lloc de deixar-nos amb un fork.
+
+Aquesta és la peça que permet que les dues meitats de DAVINCI parlin la mateixa criptografia. El navegador xifra sobre BabyJubJub dins d'un circuit Circom; el sequencer torna a xifrar i acumula sobre BabyJubJub dins de ZisK; i les proves Groth16 que les connecten es verifiquen amb l'aparellament BN254 de ZisK. No cal traduir res entre corbes, i qualsevol altre projecte que es basi en la corba de circomlib obté la mateixa primitiva de franc.
+
+## El dividend d'Ethereum: secp256k1 i Keccak
+
+Primer, secp256k1. Els votants de DAVINCI signen l'identificador del vot amb la mateixa clau ECDSA que hi ha darrere de la seva adreça d'Ethereum. ZisK verifica aquesta signatura de manera nativa, així que l'elegibilitat és una prova de Merkle sobre adreces d'Ethereum normals i el wallet del votant és la seva credencial, sense cap clau de registre addicional.
+
+Keccak és el que més ens entusiasma. Els sistemes de votació ZK, DAVINCI inclòs, han construït els arbres de Merkle del cens amb Poseidon, perquè Poseidon és barat de provar i Keccak no ho era. El preu es paga onchain: un hash Poseidon en Solidity és moltes vegades més car que `keccak256`, que és un únic opcode. Els projectes que mantenen arbres Poseidon onchain assumeixen aquest cost a cada inserció. A més, la majoria dels registres, snapshots de tokens i llistes de membres de multisig que ja existeixen a Ethereum calculen els hash amb Keccak, així que fins ara un cens de votació ZK no els podia aprofitar sense un pas de conversió. Ara que ZisK prova Keccak de manera nativa, el sequencer pot verificar la pertinença a un arbre Keccak sense el cost que abans ho descartava. Una DAO podria mantenir el seu registre de votants onchain amb el hash que ja fa servir, i DAVINCI el podria consumir directament.
+
+El prototip de l'article encara fa servir un arbre de Merkle Poseidon per al cens i SHA-256 per a l'arbre d'estat, així que considera els censos Keccak el pas següent i no el que s'ha mesurat. Però el canvi és més barat del que sembla: la prova del cens la comprova el sequencer, no el circuit de la papereta, de manera que un cens Keccak és un canvi al programa en Rust, no al circuit del navegador ni a la seva cerimònia.
+
+## Les xifres
+
+Totes les xifres del sequencer surten d'una sola màquina: una NVIDIA RTX 5090 (32 GiB) amb un AMD Ryzen 9 9950X3D de 16 nuclis i 64 GiB de RAM. El temps mesurat és el camí crític del sequencer, des que s'envia la tasca fins que es té una prova PLONK verificada, incloent-hi la recursió, l'embolcall i la verificació que fa el mateix provador. La generació de proves del votant passa al dispositiu del votant i no s'hi inclou.
+
+El cost depèn de dues coses: la mida del lot i `n`, el nombre de camps actius de la papereta en el mode de papereta de l'elecció. Una opció única entre dues alternatives és `n = 2`; una papereta per ordre de preferència o quadràtica amb moltes opcions pot fer servir els 16. Cada lot de la taula inclou, a més, una actualització silenciosa per papereta (en parlem més avall), així que són xifres en règim estable, no el millor cas.
+
+| Lot | Temps n = 2 | Vots/s n = 2 | Blobs n = 2 | Temps n = 16 | Vots/s n = 16 | Blobs n = 16 |
+| --- | --- | --- | --- | --- | --- | --- |
+| 2 | 15,6 s | 0,1 | 1 | 15,7 s | 0,1 | 1 |
+| 64 | 22,5 s | 2,8 | 1 | 30,3 s | 2,1 | 2 |
+| 128 | 30,1 s | 4,3 | 1 | 45,7 s | 2,8 | 3 |
+| 256 | 46,2 s | 5,5 | 1 | 76,7 s | 3,3 | 5 |
+| 512 | 84,3 s | 6,1 | 2 | 164,3 s | 3,1 | 9 |
+| 1024 | 171,2 s | 6,0 | 3 | 363,9 s | 2,8 | 17 |
+
+Com es llegeix: hi ha un cost fix d'uns 16 segons per lot, gairebé tot de recursió, embolcall i verificació. A més d'això, cada papereta costa uns 0,11 s amb `n = 2` i 0,23 s amb `n = 16`. Els lots més grans amortitzen el cost fix, i per això el rendiment puja fins a uns **6 vots per segon** amb 512 paperetes en el cas de les paperetes simples i fins a **3,3 vots per segon** amb 256 paperetes en el cas de les de 16 camps. A partir d'aquí, les proves del cens són més profundes i, per sobre de 512 paperetes, el provador sacrifica un petit percentatge de velocitat per estalviar RAM; 1024 és el límit de la implementació, fixat per la memòria de la màquina (uns 41 GB amb aquesta mida), i per això la taula s'atura aquí.
+
+![Temps de generació de proves del sequencer per lot: la corba de dos camps puja de 15,6 s amb 2 paperetes a 171 s amb 1024; la de setze camps, de 15,7 s a 364 s; totes dues parteixen d'un cost fix de 16 segons.](/blog/images/2026/10/davinci-proving-time.webp)
+
+![Rendiment d'un sequencer: els vots per segon augmenten amb la mida del lot i arriben al màxim de 6,1 en paperetes de dos camps (512) i de 3,3 en paperetes de setze camps (256); els punts de setze camps amb 512 i 1024 són buits perquè superen els sis blobs.](/blog/images/2026/10/davinci-throughput.webp)
+
+Sis vots per segon amb una sola GPU de consum són més de 21.000 vots per hora des d'un únic sequencer. Dins d'una elecció, els lots formen una cadena d'arrels d'estat i el contracte els liquida en ordre, de manera que si dos sequencers competeixen sobre la mateixa arrel, un dels dos haurà malbaratat la seva prova; són xifres per elecció i per sequencer. Entre eleccions diferents, els sequencers són oberts a tothom i independents, així que la capacitat creix amb les màquines que s'hi connectin.
+
+La columna dels blobs és la restricció d'Ethereum. Cada actualització de posició es publica en blobs EIP-4844 perquè qualsevol pugui reconstruir l'estat, i l'EIP-7594 limita cada transacció a sis blobs. Les dues últimes files de les columnes `n = 16` (9 i 17 blobs) superen aquest límit, així que només valen com a xifres de generació de proves; un sequencer que liquida a la mainnet tria la mida del lot en funció de `n`, i les configuracions òptimes en rendiment hi caben de sobres.
+
+![Blobs per transició segons la mida del lot: els lots de dos camps necessiten d'1 a 3 blobs; els de setze camps en necessiten 1, 2, 3, 5, 9 i 17, i els dos últims queden per sobre de la línia discontínua dels sis blobs.](/blog/images/2026/10/davinci-blobs-per-batch.webp)
+
+### Quant costa un vot onchain
+
+Liquidar un lot costa uns **498K de gas amb un blob, més uns 56K per cada blob addicional**, sigui quina sigui la mida del lot. Verificar la prova PLONK representa la mateixa feina tant si el lot té 2 paperetes com si en té 1024, així que el cost per vot és el cost del lot dividit per la seva mida. Els lots més grans surten més barats per vot; més camps a la papereta volen dir més blobs i un lot una mica més car.
+
+La taula següent calcula el preu de cada configuració liquidable de les mesures a **1 gwei i 2.500 USD per ETH** per a la mainnet, una hipòtesi conservadora a propòsit: la mitjana d'Etherscan el dia que vam escriure això era de 0,12 gwei, i la mediana de l'últim any, de 0,74 gwei. Per a Gnosis Chain fem servir la seva mediana de 5,2 gwei, pagada en xDAI a 1 USD. El cost escala linealment amb el preu del gas, així que, amb els 0,12 gwei d'avui, divideix la columna de la mainnet per vuit, i en un pic de 5 gwei, multiplica-la per cinc.
+
+| Camps de la papereta | Lot | Blobs | Gas per lot | Mainnet, per lot | Mainnet, per vot | Gnosis, per vot |
+| --- | --- | --- | --- | --- | --- | --- |
+| 2 | 64 | 1 | 498K | 1,25 USD | 1,9 cèntims | 0,004 cèntims |
+| 2 | 128 | 1 | 498K | 1,25 USD | 1,0 cèntim | 0,002 cèntims |
+| 2 | 256 | 1 | 498K | 1,25 USD | 0,5 cèntims | 0,001 cèntims |
+| 2 | 512 | 2 | 554K | 1,39 USD | 0,27 cèntims | 0,0006 cèntims |
+| 2 | 1024 | 3 | 612K | 1,53 USD | 0,15 cèntims | n/d (mira més avall) |
+| 16 | 64 | 2 | 554K | 1,39 USD | 2,2 cèntims | 0,0045 cèntims |
+| 16 | 128 | 3 | 612K | 1,53 USD | 1,2 cèntims | n/d (mira més avall) |
+| 16 | 256 | 5 | ~722K | ~1,80 USD | 0,7 cèntims | n/d (mira més avall) |
+
+![Cost de liquidació per vot en escala logarítmica: a la mainnet amb 1 gwei va d'1,9 cèntims (64 paperetes) a 0,15 cèntims (1024 paperetes); Gnosis Chain és unes 500 vegades més barata, de 0,004 a 0,0006 cèntims, per als lots que caben dins el seu límit de dos blobs.](/blog/images/2026/10/davinci-cost-per-vote.webp)
+
+Dit d'una altra manera: a la mainnet d'Ethereum amb 1 gwei, **un milió de vots de papereta simple es liquiden per uns 1.500 USD** en lots de 1024 paperetes, i amb el preu del gas d'avui, per menys de 200 USD. Les xifres de liquidació mesurades a l'article arriben fins a quatre blobs; la fila de cinc blobs s'extrapola amb el mateix increment de 56K.
+
+A Gnosis Chain, la mateixa verificació és unes 500 vegades més barata, perquè el gas es paga amb un token vinculat al dòlar a uns preus que fan que un lot sencer costi aproximadament un quart de cèntim. Allà la restricció és diferent: un bloc de Gnosis porta com a màxim dos blobs, cosa que limita una transició a 744 paperetes en eleccions de dos camps i a 121 en les de setze. Dins d'aquests límits, **un milió de vots de papereta simple es liquiden a Gnosis per menys de 5 USD**, uns 0,0004 cèntims cadascun. Per a la majoria d'organitzacions, el cost de liquidació a Gnosis és un error d'arrodoniment al costat del temps de GPU.
+
+Les comissions dels blobs són un mercat a part i no surten a la taula; a la mainnet van ser molt inferiors al cost de verificació durant el període de mesura, i a Gnosis el mínim d'1 gwei de la comissió de blob afegeix uns 0,0001 USD per blob.
+
+## Tornar a votar en silenci, ja que surt a les xifres
+
+Aquestes mesures inclouen actualitzacions silencioses perquè DAVINCI paga la resistència a la coerció a cada lot, i volíem mesurar el cost real, no el bonic.
+
+El mecanisme és aquest: un votant pot tornar a votar en qualsevol moment, i la papereta més recent substitueix l'anterior. Però la posició d'un votant a l'arbre d'estat és pública, de manera que un observador que vigili els blobs podria veure que aquesta posició canvia i saber que algú ha tornat a votar. Per amagar-ho, cada transició d'estat també realeatoritza un conjunt aleatori d'altres paperetes emmagatzemades. Una papereta realeatoritzada sembla completament diferent onchain, però es desxifra en el mateix vot. Les sobreescriptures i les actualitzacions silencioses es publiquen en el mateix format, ordenades i sense etiquetes. Un observador veu un lot de posicions que canvien i, a partir de les dades publicades, no pot saber quines corresponen a algú que ha tornat a votar.
+
+A la taula, això costa uns 1,6 segons per lot de 128 paperetes amb `n = 2` i uns 5 segons amb `n = 16`. A canvi, qui compra un vot no pot confirmar que el vot que ha pagat s'ha quedat on era. Creiem que és una ganga.
+
+## Llegeix-ho, executa-ho, trenca-ho
+
+L'article és a [eprint.iacr.org/2026/2282](https://eprint.iacr.org/2026/2282). La secció 6 conté els detalls de la implementació i les mesures de rendiment; la secció 5 conté l'anàlisi de seguretat, inclòs l'enunciat formal del que amaga el fet de tornar a votar en silenci.
+
+El codi és obert:
+
+- [davinci-circom](https://github.com/vocdoni/davinci-circom): el circuit de la papereta en Circom i el provador per a navegador, amb una aplicació web de prova que pots fer servir al teu propi navegador.
+- [davinci-zkvm](https://github.com/vocdoni/davinci-zkvm): el programa de transició per a ZisK i el sequencer.
+- [ZisK PR #1152](https://github.com/0xPolygonHermez/zisk/pull/1152): el precompilat de BabyJubJub.
