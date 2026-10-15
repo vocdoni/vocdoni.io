@@ -11,7 +11,8 @@ import {
 import { Container } from '@/components/Container'
 import { SectionHeader } from '@/components/SectionHeader'
 import { Card, CardContent } from '@/components/ui/card'
-import { VerticalMedia, type VerticalMediaAsset } from '@/components/solutions/vertical/VerticalMedia'
+import { splitMediaSlot, VerticalMedia, type VerticalMediaSlot } from '@/components/solutions/vertical/VerticalMedia'
+import { VerticalMemberJourney } from '@/components/solutions/vertical/VerticalMemberJourney'
 import { VerticalQuote } from '@/components/solutions/vertical/VerticalQuote'
 import { VerticalSection } from '@/components/solutions/vertical/VerticalSection'
 import { asArray, type VerticalContent, type VerticalItem } from '@/components/solutions/vertical/types'
@@ -32,10 +33,11 @@ interface VerticalHowItRunsProps {
   pageId: string
   quote?: Testimonial
   /**
-   * Product screenshots. Both slots hold their space whether or not the asset
-   * exists yet, so the layout does not move when the real ones land.
+   * Product visuals: the console after close, and the member's phone. Both
+   * slots hold their space whether or not the visual exists yet, so the layout
+   * does not move when one lands.
    */
-  media?: { console?: VerticalMediaAsset; ballot?: VerticalMediaAsset }
+  media?: { results?: VerticalMediaSlot; ballot?: VerticalMediaSlot }
 }
 
 /**
@@ -50,6 +52,8 @@ interface VerticalHowItRunsProps {
 export function VerticalHowItRuns({ how, pageId, quote, media }: VerticalHowItRunsProps) {
   const features = asArray<VerticalItem>(how?.features)
   const steps = asArray<VerticalItem>(how?.steps)
+  const results = splitMediaSlot(media?.results)
+  const ballot = splitMediaSlot(media?.ballot)
 
   return (
     <VerticalSection sectionId='how-it-runs' pageId={pageId}>
@@ -73,46 +77,54 @@ export function VerticalHowItRuns({ how, pageId, quote, media }: VerticalHowItRu
           })}
         </div>
 
-        {/* The electoral board's own view: the screen that answers "what do we
-            see on the day, and can we see any ballots?" */}
+        {/* The electoral board's console once voting has closed: the screen that
+            answers "what do we hand to the minutes, and can anyone check it?".
+            The hero already showed voting day. */}
         <VerticalMedia
           className='mx-auto mt-12 max-w-4xl sm:mt-16'
-          asset={media?.console}
-          caption={how?.media_caption}
+          asset={results.asset}
+          caption={how?.results_media_caption ?? how?.media_caption}
           ratio='wide'
-        />
+        >
+          {results.node}
+        </VerticalMedia>
 
-        {steps.length > 0 && (
-          <div className='mt-16 grid gap-10 sm:mt-20 lg:grid-cols-[3fr_2fr] lg:items-start lg:gap-14'>
-            <div>
-              <h3 className='text-2xl text-balance sm:text-3xl'>{how?.steps_title}</h3>
-              <ol className='bg-border rounded-card mt-8 grid gap-px overflow-hidden border'>
-                {steps.map((step, index) => (
-                  <li key={step.title} className='bg-background flex flex-col gap-3 p-6 sm:flex-row sm:gap-6 sm:p-8'>
-                    <span
-                      className='bg-primary/10 text-primary flex size-9 shrink-0 items-center justify-center rounded-full text-sm font-semibold tabular-nums'
-                      aria-hidden='true'
-                    >
-                      {index + 1}
-                    </span>
-                    <div className='sm:pt-1'>
-                      <h4 className='font-semibold'>{step.title}</h4>
-                      <p className='text-muted-foreground mt-1.5 text-sm leading-relaxed'>{step.description}</p>
-                    </div>
-                  </li>
-                ))}
-              </ol>
-              {how?.footnote && <p className='text-muted-foreground mt-6 text-sm leading-relaxed'>{how.footnote}</p>}
+        {/* The member's own steps and the phone that shows each of them. A
+            screenshot asset, if one ever replaces the drawn phone, sits beside
+            the steps without the synchronised stepper. */}
+        {ballot.node ? (
+          <VerticalMemberJourney title={how?.steps_title} steps={steps} footnote={how?.footnote} phone={ballot.node} />
+        ) : (
+          steps.length > 0 && (
+            <div className='mt-16 grid gap-10 sm:mt-20 lg:grid-cols-[3fr_2fr] lg:items-start lg:gap-14'>
+              <div>
+                <h3 className='text-2xl text-balance sm:text-3xl'>{how?.steps_title}</h3>
+                <ol className='bg-border rounded-card mt-8 grid gap-px overflow-hidden border'>
+                  {steps.map((step, index) => (
+                    <li key={step.title} className='bg-background flex flex-col gap-3 p-6 sm:flex-row sm:gap-6 sm:p-8'>
+                      <span
+                        className='bg-primary/10 text-primary flex size-9 shrink-0 items-center justify-center rounded-full text-sm font-semibold tabular-nums'
+                        aria-hidden='true'
+                      >
+                        {index + 1}
+                      </span>
+                      <div className='sm:pt-1'>
+                        <h4 className='font-semibold'>{step.title}</h4>
+                        <p className='text-muted-foreground mt-1.5 text-sm leading-relaxed'>{step.description}</p>
+                      </div>
+                    </li>
+                  ))}
+                </ol>
+                {how?.footnote && <p className='text-muted-foreground mt-6 text-sm leading-relaxed'>{how.footnote}</p>}
+              </div>
+              <VerticalMedia
+                className='mx-auto w-full max-w-[14rem] sm:max-w-xs lg:mx-0 lg:max-w-[16rem]'
+                asset={ballot.asset}
+                caption={how?.steps_media_caption}
+                ratio='portrait'
+              />
             </div>
-
-            {/* What the member holds in their hand, beside what they do with it. */}
-            <VerticalMedia
-              className='mx-auto w-full max-w-[14rem] sm:max-w-xs lg:mx-0 lg:max-w-[16rem]'
-              asset={media?.ballot}
-              caption={how?.steps_media_caption}
-              ratio='portrait'
-            />
-          </div>
+          )
         )}
 
         <VerticalQuote testimonial={quote} />
