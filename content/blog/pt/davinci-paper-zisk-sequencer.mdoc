@@ -16,59 +16,127 @@ seo:
   metaDescription: 'O artigo do DAVINCI saiu: boletins provados no navegador, um sequencer na zkVM ZisK a 6 votos por segundo numa GPU e uns 0,15 cêntimos por voto no Ethereum.'
 ---
 
-Acabámos de publicar o artigo do DAVINCI no IACR Cryptology ePrint Archive: [eprint.iacr.org/2026/2282](https://eprint.iacr.org/2026/2282). É a primeira vez que o protocolo completo fica descrito num só lugar, com a análise de segurança lado a lado com uma implementação funcional e números reais obtidos a partir dela. Foi escrito por Pau Escrich em conjunto com Marta Bellés-Muñoz (Universitat Pompeu Fabra), Roger Baig (Universitat Politècnica de Catalunya) e Jordi Piñana (Vocdoni).
+Acabámos de publicar o artigo do DAVINCI no IACR Cryptology ePrint Archive: [eprint.iacr.org/2026/2282](https://eprint.iacr.org/2026/2282). **É a primeira vez que o protocolo completo fica descrito num só lugar**, com a análise de segurança lado a lado com uma implementação funcional e números reais obtidos a partir dela. Foi escrito por Pau Escrich em conjunto com Marta Bellés-Muñoz (Universitat Pompeu Fabra), Roger Baig (Universitat Politècnica de Catalunya) e Jordi Piñana (Vocdoni).
 
-Quem tem acompanhado [este blog](/blog/davinci-universal-voting-protocol) já conhece a ideia: uma eleição é um rollup ZK. Os eleitores encriptam os seus boletins, qualquer pessoa pode operar um sequencer que os agrupa em lotes e prova que cada lote foi processado segundo as regras, e o Ethereum só aceita o novo estado da eleição se a prova for válida. Sem prova não há atualização de estado nem resultado falso.
+Quem tem acompanhado [este blog](/blog/davinci-universal-voting-protocol) já conhece a ideia: **uma eleição é um rollup ZK**. Os eleitores encriptam os seus boletins, qualquer pessoa pode operar um sequencer que os agrupa em lotes e prova que cada lote foi processado segundo as regras, e o Ethereum só aceita o novo estado da eleição se a prova for válida. Sem prova não há atualização de estado nem resultado falso.
 
-A novidade do artigo está na engenharia. É disso que trata esta publicação: como se prova um voto no navegador de um telemóvel, como o sequencer foi reescrito como um programa para a zkVM [ZisK](https://github.com/0xPolygonHermez/zisk), o pré-compilado que o torna rápido e com que contribuímos para o projeto original, e quanto custa tudo isto.
+A novidade do artigo está na engenharia. É disso que trata esta publicação: como se prova um voto no navegador de um telemóvel, como o sequencer foi reescrito como um programa para a zkVM [ZisK](https://zisk.technology), o pré-compilado que o torna rápido e com que contribuímos para o projeto original, e quanto custa tudo isto.
+
+## Em resumo
+
+- O artigo do DAVINCI está publicado em [eprint.iacr.org/2026/2282](https://eprint.iacr.org/2026/2282).
+- Um boletim é provado no navegador em **cerca de 3 segundos num portátil e 6,4 segundos num telemóvel**.
+- O sequencer é agora **um único programa em Rust provado pela zkVM ZisK**, em vez de circuitos escritos à mão.
+- Contribuímos com um **pré-compilado BabyJubJub para o ZisK**, integrado no projeto original e lançado na v1.3.0-alpha.
+- Uma GPU de consumo liquida **cerca de 6 votos por segundo**, mais de 21.000 votos por hora.
+- Na mainnet do Ethereum a 1 gwei, um voto custa **cerca de 0,15 cêntimos**; na Gnosis Chain, cerca de 0,0004 cêntimos.
 
 ## Dois provadores, um protocolo
 
 O DAVINCI tem duas tarefas de prova muito diferentes, por isso usa dois provadores muito diferentes.
 
-**A tarefa do eleitor é pequena e tem de correr em qualquer lado.** O circuito do boletim está escrito em Circom e a prova é gerada no navegador com snarkjs, como uma prova Groth16 sobre BN254. O circuito verifica que o boletim é uma escolha válida para a eleição (dentro dos valores permitidos, dentro do orçamento, sem opções repetidas se a eleição o exigir), que está corretamente encriptado e que o identificador do voto é derivado como deve ser. Tem cerca de 65K restrições e suporta até 16 campos encriptados, o que chega para codificar boletins de escolha única, escolha múltipla, aprovação, ordenação e quadráticos.
+### O eleitor prova no navegador
 
-Mantemos o Circom e o snarkjs nesta parte de propósito. O snarkjs corre em WebAssembly em qualquer navegador moderno, reparte o trabalho por vários web workers e é o provador Groth16 para navegador mais maduro que encontrámos. Tudo funciona como uma página web estática: ninguém tem de instalar um provador nativo nem enviar o seu voto em claro a um serviço de prova. Numa aplicação de votação, isso pesa mais do que poupar um segundo na prova.
+**A tarefa do eleitor é pequena e tem de correr em qualquer lado.** O circuito do boletim está escrito em Circom e a prova é gerada no navegador com snarkjs, como uma prova Groth16 sobre BN254. O circuito verifica que:
+
+- o boletim é uma escolha válida para a eleição (dentro dos valores permitidos, dentro do orçamento, sem opções repetidas se a eleição o exigir),
+- está corretamente encriptado,
+- o identificador do voto é derivado como deve ser.
+
+Tem cerca de **65K restrições** e suporta até 16 campos encriptados, o que chega para codificar boletins de escolha única, escolha múltipla, aprovação, ordenação e quadráticos.
+
+Mantemos o Circom e o snarkjs nesta parte de propósito. O snarkjs corre em WebAssembly em qualquer navegador moderno, reparte o trabalho por vários web workers e é o provador Groth16 para navegador mais maduro que encontrámos. Tudo funciona como uma página web estática: **ninguém tem de instalar um provador nativo nem enviar o seu voto em claro a um serviço de prova.** Numa aplicação de votação, isso pesa mais do que poupar um segundo na prova.
 
 Provar um boletim demora cerca de **3 segundos** num portátil (AMD Ryzen AI 5 340, Brave) e cerca de **6,4 segundos** num Google Pixel 7a com Chrome, depois de uma única transferência da chave de prova de 35,5 MiB e do gerador de testemunhas de 6,5 MiB. Num telemóvel, isto é uma barra de progresso, não um problema.
 
-**A tarefa do sequencer é grande e corre num servidor.** Tem de verificar um lote inteiro dessas provas Groth16, confirmar que cada eleitor está no caderno eleitoral e assinou com a sua chave, reencriptar cada boletim, atualizar a árvore de estado, atualizar o escrutínio encriptado e vincular tudo aos dados de blob que publica. É aqui que entra o ZisK.
+### O sequencer prova num servidor
+
+**A tarefa do sequencer é grande e corre num servidor.** Para cada lote, tem de:
+
+- verificar o lote inteiro de provas Groth16 geradas no navegador,
+- confirmar que cada eleitor está no caderno eleitoral e assinou com a sua chave,
+- reencriptar cada boletim,
+- atualizar a árvore de estado,
+- atualizar o escrutínio encriptado,
+- vincular tudo aos dados de blob que publica.
+
+É aqui que entra o ZisK.
 
 ## Porque passámos o sequencer para o ZisK
 
-Até agora, a lógica do sequencer vivia em circuitos escritos à mão. Os circuitos são ótimos no que fazem e péssimos quando é preciso alterá-los: cada ajuste a uma regra obriga a derivar de novo as restrições, a repetir as configurações e a voltar a auditar. Para um protocolo que esperamos que continue a evoluir, isso é um imposto sobre cada melhoria.
+### Os circuitos são difíceis de alterar
 
-O ZisK é uma zkVM desenvolvida pela equipa Polygon Hermez. Escreve-se Rust normal, compila-se para RISC-V e o ZisK produz uma prova STARK de que o programa correu corretamente com os dados de entrada fornecidos. Uma STARK é o tipo de prova que não precisa de configuração de confiança e se gera depressa, à custa de ser grande. A transição de estado do DAVINCI é agora um único programa em Rust que implementa todas as regras do protocolo, e as medições de desempenho do artigo correm no ZisK v1.3.0-alpha.
+Até agora, a lógica do sequencer vivia em circuitos escritos à mão. Os circuitos são ótimos no que fazem e péssimos quando é preciso alterá-los: cada ajuste a uma regra obriga a derivar de novo as restrições, a repetir as configurações e a voltar a auditar. Para um protocolo que esperamos que continue a evoluir, **isso é um imposto sobre cada melhoria.**
 
-O que torna isto viável são os pré-compilados do ZisK. Uma zkVM paga por cada instrução que prova, e a criptografia exige muitas instruções. Por isso, o ZisK trata as primitivas mais caras em circuitos dedicados e especializados: SHA-256, Keccak, emparelhamento BN254, secp256k1, aritmética modular de 256 bits e, a partir desta versão, BabyJubJub. O programa de transição apoia-se em todos eles exceto no Keccak, e mais adiante voltaremos à razão por que o Keccak importa na mesma. As provas Groth16 geradas no navegador, por exemplo, não são verificadas uma a uma: o programa junta o lote inteiro numa única verificação de emparelhamento, ponderada por coeficientes aleatórios que deriva das próprias provas, assente no pré-compilado de emparelhamento BN254 do ZisK.
+### O que é o ZisK
 
-A STARK é demasiado grande para ir diretamente para o Ethereum. O ZisK comprime-a recursivamente e encapsula o resultado numa prova PLONK sobre BN254, que o contrato de liquidação verifica com os pré-compilados de emparelhamento que o Ethereum tem desde a Byzantium. Só essa prova final é publicada, e é de conhecimento zero, pelo que esconde a testemunha do sequencer. A STARK não precisa de configuração de confiança; o encapsulamento PLONK usa o powers-of-tau universal do Hermez. A única cerimónia específica de um circuito que resta em todo o sistema é a do circuito do boletim no navegador, e é reutilizada de eleição para eleição.
+O [ZisK](https://zisk.technology) é uma zkVM de código aberto, uma máquina virtual de conhecimento zero construída para tornar a geração de provas mais rápida e mais barata. Escrevem-se programas em Rust (ou noutras linguagens de alto nível, como C++ ou Go) sem ser preciso um conhecimento profundo de criptografia, e a arquitetura aponta a baixa latência e baixo custo com 128 bits de segurança. Começou como um projeto da Polygon Labs, construído pela equipa por trás da zkEVM da Polygon; em junho de 2025 essa equipa continuou-o de forma independente, e hoje é mantido como um projeto de código aberto orientado pela comunidade pela SilentSig.
 
-Há um bónus de que gostamos muito. O circuito de encapsulamento PLONK é definido pelo ZisK; o nosso programa só entra nele como um compromisso de código que o contrato de liquidação fixa. Atualizar o programa de transição significa atualizar um compromisso guardado, não implantar um novo verificador nem realizar uma nova configuração. A maquinaria on-chain fica onde está enquanto o protocolo melhora.
+![Logótipo da zkVM ZisK: a marca "ZisK VM" a branco sobre um cartão escuro](/blog/images/2026/10/zisk-logo.webp)
+
+Para nós funciona assim: escreve-se Rust normal, compila-se para RISC-V e o ZisK produz uma prova STARK de que o programa correu corretamente com os dados de entrada fornecidos. Uma STARK é o tipo de prova que não precisa de configuração de confiança e se gera depressa, à custa de ser grande. **A transição de estado do DAVINCI é agora um único programa em Rust que implementa todas as regras do protocolo**, e as medições de desempenho do artigo correm no ZisK v1.3.0-alpha.
+
+### Os pré-compilados fazem a criptografia pesada
+
+O que torna isto viável são os pré-compilados do ZisK. Uma zkVM paga por cada instrução que prova, e a criptografia exige muitas instruções. Por isso, o ZisK trata as primitivas mais caras em circuitos dedicados e especializados:
+
+- SHA-256
+- Keccak
+- emparelhamento BN254
+- secp256k1
+- aritmética modular de 256 bits
+- e, a partir desta versão, BabyJubJub
+
+O programa de transição apoia-se em todos eles exceto no Keccak, e mais adiante voltaremos à razão por que o Keccak importa na mesma. As provas Groth16 geradas no navegador, por exemplo, não são verificadas uma a uma: **o programa junta o lote inteiro numa única verificação de emparelhamento**, ponderada por coeficientes aleatórios que deriva das próprias provas, assente no pré-compilado de emparelhamento BN254 do ZisK.
+
+### Da STARK a uma prova que o Ethereum consegue verificar
+
+A STARK é demasiado grande para ir diretamente para o Ethereum. O ZisK comprime-a recursivamente e encapsula o resultado numa prova PLONK sobre BN254, que o contrato de liquidação verifica com os pré-compilados de emparelhamento que o Ethereum tem desde a Byzantium. Só essa prova final é publicada, e é de conhecimento zero, pelo que esconde a testemunha do sequencer.
+
+A STARK não precisa de configuração de confiança; o encapsulamento PLONK usa o powers-of-tau universal do Hermez. **A única cerimónia específica de um circuito que resta em todo o sistema é a do circuito do boletim no navegador**, e é reutilizada de eleição para eleição.
+
+### Atualizações sem um novo verificador
+
+Há um bónus de que gostamos muito. O circuito de encapsulamento PLONK é definido pelo ZisK; o nosso programa só entra nele como um compromisso de código que o contrato de liquidação fixa. **Atualizar o programa de transição significa atualizar um compromisso guardado**, não implantar um novo verificador nem realizar uma nova configuração. A maquinaria on-chain fica onde está enquanto o protocolo melhora.
 
 ## Contribuímos com um pré-compilado BabyJubJub para o ZisK
 
 O DAVINCI encripta os boletins com ElGamal sobre BabyJubJub, a curva do circomlib. É a escolha natural do lado do navegador: o corpo base da BabyJubJub é o corpo escalar da BN254, pelo que a encriptação é aritmética nativa dentro de um circuito Circom.
 
-O sequencer tem de fazer muito mais aritmética BabyJubJub do que o eleitor. Reencriptar um boletim implica uma multiplicação escalar por cada texto cifrado, ou seja, uma longa cadeia de adições de pontos, e o escrutínio encriptado é uma grande soma acumulada de textos cifrados. Provar tudo isso como instruções RISC-V comuns era o ponto de estrangulamento.
+O sequencer tem de fazer muito mais aritmética BabyJubJub do que o eleitor. Reencriptar um boletim implica uma multiplicação escalar por cada texto cifrado, ou seja, uma longa cadeia de adições de pontos, e o escrutínio encriptado é uma grande soma acumulada de textos cifrados. **Provar tudo isso como instruções RISC-V comuns era o ponto de estrangulamento.**
 
-Por isso, escrevemos um pré-compilado. O [PR #1152](https://github.com/0xPolygonHermez/zisk/pull/1152) acrescenta ao ZisK a adição completa de pontos em coordenadas afins sobre BabyJubJub (a mesma fórmula serve para a duplicação) como uma primitiva dedicada, compatível com os parâmetros da curva do circomlib. A equipa do ZisK reviu-o, adaptou-o às suas convenções internas e integrou-o a 27 de agosto. Foi lançado no [ZisK v1.3.0-alpha](https://github.com/0xPolygonHermez/zisk/releases/tag/v1.3.0-alpha) a 21 de setembro, descrito nas notas de versão como «a dedicated BabyJubJub point-add precompile compatible with circomlib». Agradecemos a Héctor Masip e ao resto da equipa do ZisK por o terem integrado no projeto original em vez de nos deixarem num fork.
+Por isso, escrevemos um pré-compilado. O [PR #1152](https://github.com/0xPolygonHermez/zisk/pull/1152) acrescenta ao ZisK a adição completa de pontos em coordenadas afins sobre BabyJubJub (a mesma fórmula serve para a duplicação) como uma primitiva dedicada, compatível com os parâmetros da curva do circomlib. A equipa do ZisK reviu-o, adaptou-o às suas convenções internas e **integrou-o a 27 de agosto**. Foi lançado no [ZisK v1.3.0-alpha](https://github.com/0xPolygonHermez/zisk/releases/tag/v1.3.0-alpha) a 21 de setembro, descrito nas notas de versão como «a dedicated BabyJubJub point-add precompile compatible with circomlib». Agradecemos a Héctor Masip e ao resto da equipa do ZisK por o terem integrado no projeto original em vez de nos deixarem num fork.
 
-É esta peça que permite às duas metades do DAVINCI falarem a mesma criptografia. O navegador encripta sobre BabyJubJub dentro de um circuito Circom; o sequencer reencripta e acumula sobre BabyJubJub dentro do ZisK; e as provas Groth16 que ligam as duas partes são verificadas com o emparelhamento BN254 do ZisK. Não é preciso traduzir nada entre curvas, e qualquer outra pessoa que construa sobre a curva do circomlib passa a ter a mesma primitiva sem custo.
+É esta peça que permite às duas metades do DAVINCI falarem a mesma criptografia. O navegador encripta sobre BabyJubJub dentro de um circuito Circom; o sequencer reencripta e acumula sobre BabyJubJub dentro do ZisK; e as provas Groth16 que ligam as duas partes são verificadas com o emparelhamento BN254 do ZisK. **Não é preciso traduzir nada entre curvas**, e qualquer outra pessoa que construa sobre a curva do circomlib passa a ter a mesma primitiva sem custo.
 
 ## O dividendo do Ethereum: secp256k1 e Keccak
 
-Primeiro, o secp256k1. Os eleitores do DAVINCI assinam o identificador do voto com a mesma chave ECDSA que está por trás do seu endereço Ethereum. O ZisK verifica essa assinatura nativamente, pelo que a elegibilidade é uma prova de Merkle sobre endereços Ethereum simples e a carteira do eleitor é a sua credencial, sem nenhuma chave de registo adicional.
+### secp256k1: a carteira é a credencial
 
-O Keccak é o que mais nos entusiasma. Os sistemas de votação ZK, incluindo o DAVINCI, têm construído as árvores de Merkle do caderno eleitoral com Poseidon, porque o Poseidon é barato de provar e o Keccak não era. O preço paga-se on-chain: um hash Poseidon em Solidity é muitas vezes mais caro do que o `keccak256`, que é um único opcode. Os projetos que mantêm árvores Poseidon on-chain suportam esse custo em cada inserção, e a maior parte dos registos, instantâneos de saldos de tokens e listas de membros de multisigs que já existem no Ethereum usam Keccak como hash, pelo que até agora um caderno eleitoral de votação ZK não os podia consumir sem um passo de conversão. Agora que o ZisK prova Keccak nativamente, o sequencer pode verificar a pertença a uma árvore Keccak sem o custo que antes a tornava inviável. Uma DAO poderia manter o seu registo de eleitores on-chain com o hash que já usa, e o DAVINCI poderia consumi-lo diretamente.
+Os eleitores do DAVINCI assinam o identificador do voto com a mesma chave ECDSA que está por trás do seu endereço Ethereum. O ZisK verifica essa assinatura nativamente, pelo que a elegibilidade é uma prova de Merkle sobre endereços Ethereum simples e **a carteira do eleitor é a sua credencial**, sem nenhuma chave de registo adicional.
 
-O protótipo do artigo ainda usa uma árvore de Merkle Poseidon para o caderno eleitoral e SHA-256 para a árvore de estado, por isso os cadernos eleitorais em Keccak devem ser vistos como o próximo passo e não como o que foi medido. Mas a mudança é mais barata do que parece: a prova de inclusão no caderno eleitoral é verificada pelo sequencer, não pelo circuito do boletim, pelo que um caderno eleitoral em Keccak é uma alteração ao programa em Rust, não ao circuito do navegador nem à sua cerimónia.
+### Keccak: cadernos eleitorais que o Ethereum já tem
+
+O Keccak é o que mais nos entusiasma. Os sistemas de votação ZK, incluindo o DAVINCI, têm construído as árvores de Merkle do caderno eleitoral com Poseidon, porque o Poseidon é barato de provar e o Keccak não era. O preço paga-se on-chain: um hash Poseidon em Solidity é muitas vezes mais caro do que o `keccak256`, que é um único opcode. Os projetos que mantêm árvores Poseidon on-chain suportam esse custo em cada inserção.
+
+A maior parte dos registos, instantâneos de saldos de tokens e listas de membros de multisigs que já existem no Ethereum usam Keccak como hash, pelo que até agora um caderno eleitoral de votação ZK não os podia consumir sem um passo de conversão. Agora que o ZisK prova Keccak nativamente, **o sequencer pode verificar a pertença a uma árvore Keccak** sem o custo que antes a tornava inviável. Uma DAO poderia manter o seu registo de eleitores on-chain com o hash que já usa, e o DAVINCI poderia consumi-lo diretamente.
+
+O protótipo do artigo ainda usa uma árvore de Merkle Poseidon para o caderno eleitoral e SHA-256 para a árvore de estado, por isso os cadernos eleitorais em Keccak devem ser vistos como o próximo passo e não como o que foi medido. Mas a mudança é mais barata do que parece: a prova de inclusão no caderno eleitoral é verificada pelo sequencer, não pelo circuito do boletim, pelo que **um caderno eleitoral em Keccak é uma alteração ao programa em Rust**, não ao circuito do navegador nem à sua cerimónia.
 
 ## Os números
 
-Todos os valores do sequencer vêm de uma única máquina: uma NVIDIA RTX 5090 (32 GiB) com um AMD Ryzen 9 9950X3D de 16 núcleos e 64 GiB de RAM. O tempo medido é o caminho crítico do sequencer, desde a submissão da tarefa até uma prova PLONK verificada, incluindo a recursão, o encapsulamento e a verificação feita pelo próprio provador. A geração de provas do eleitor acontece no dispositivo do eleitor e não está incluída.
+### A configuração
 
-Há dois fatores que determinam o custo: o tamanho do lote e `n`, o número de campos ativos do boletim no modo de boletim da eleição. Uma escolha única entre duas opções é `n = 2`; um boletim de ordenação ou quadrático com muitas opções pode usar os 16. Cada lote da tabela inclui também uma renovação silenciosa por boletim (já lá iremos), pelo que estes são valores em regime estacionário e não o melhor caso.
+Todos os valores do sequencer vêm de uma única máquina: uma **NVIDIA RTX 5090 (32 GiB)** com um AMD Ryzen 9 9950X3D de 16 núcleos e 64 GiB de RAM. O tempo medido é o caminho crítico do sequencer, desde a submissão da tarefa até uma prova PLONK verificada, incluindo a recursão, o encapsulamento e a verificação feita pelo próprio provador. A geração de provas do eleitor acontece no dispositivo do eleitor e não está incluída.
+
+Há dois fatores que determinam o custo:
+
+- **o tamanho do lote**, e
+- **`n`, o número de campos ativos do boletim** no modo de boletim da eleição. Uma escolha única entre duas opções é `n = 2`; um boletim de ordenação ou quadrático com muitas opções pode usar os 16.
+
+Cada lote da tabela inclui também uma renovação silenciosa por boletim (já lá iremos), pelo que estes são valores em regime estacionário e não o melhor caso.
+
+### Tempo de prova e débito
 
 | Lote | Tempo, n = 2 | Votos/s, n = 2 | Blobs, n = 2 | Tempo, n = 16 | Votos/s, n = 16 | Blobs, n = 16 |
 | --- | --- | --- | --- | --- | --- | --- |
@@ -79,21 +147,27 @@ Há dois fatores que determinam o custo: o tamanho do lote e `n`, o número de c
 | 512 | 84,3 s | 6,1 | 2 | 164,3 s | 3,1 | 9 |
 | 1024 | 171,2 s | 6,0 | 3 | 363,9 s | 2,8 | 17 |
 
-Como ler a tabela: há um custo fixo de cerca de 16 segundos por lote, quase todo em recursão, encapsulamento e verificação. A isso soma-se o custo de cada boletim, cerca de 0,11 s com `n = 2` e 0,23 s com `n = 16`. Lotes maiores amortizam o custo fixo, e é por isso que o débito sobe até cerca de **6 votos por segundo** com 512 boletins, no caso dos boletins simples, e **3,3 votos por segundo** com 256 boletins, no caso dos de 16 campos. A partir daí, as provas do caderno eleitoral ficam mais profundas e, acima de 512 boletins, o provador troca alguns por cento de velocidade por RAM; 1024 é o limite da implementação, imposto pela memória da máquina anfitriã (cerca de 41 GB nesse tamanho), e é por isso que a tabela termina aí.
+Como ler a tabela: há um **custo fixo de cerca de 16 segundos por lote**, quase todo em recursão, encapsulamento e verificação. A isso soma-se o custo de cada boletim, cerca de 0,11 s com `n = 2` e 0,23 s com `n = 16`.
+
+Lotes maiores amortizam o custo fixo, e é por isso que o débito sobe até cerca de **6 votos por segundo** com 512 boletins, no caso dos boletins simples, e **3,3 votos por segundo** com 256 boletins, no caso dos de 16 campos. A partir daí, as provas do caderno eleitoral ficam mais profundas e, acima de 512 boletins, o provador troca alguns por cento de velocidade por RAM; 1024 é o limite da implementação, imposto pela memória da máquina anfitriã (cerca de 41 GB nesse tamanho), e é por isso que a tabela termina aí.
 
 ![Tempo de prova do sequencer por lote: a curva de dois campos sobe de 15,6 s com 2 boletins para 171 s com 1024; a de dezasseis campos, de 15,7 s para 364 s; ambas assentam num custo fixo de 16 segundos.](/blog/images/2026/10/davinci-proving-time.webp)
 
 ![Débito de um sequencer: os votos por segundo sobem com o tamanho do lote e atingem o máximo de 6,1 nos boletins de dois campos (512) e de 3,3 nos de dezasseis campos (256); os pontos de dezasseis campos em 512 e 1024 aparecem sem preenchimento porque excedem seis blobs.](/blog/images/2026/10/davinci-throughput.webp)
 
-Seis votos por segundo numa única GPU de consumo são mais de 21.000 votos por hora a partir de um único sequencer. Dentro de uma eleição, os lotes formam uma cadeia de raízes de estado e o contrato liquida-os por ordem, pelo que, se dois sequencers competirem sobre a mesma raiz, um deles terá desperdiçado a sua prova; estes são números por eleição e por sequencer. Entre eleições diferentes, os sequencers não precisam de permissão e são independentes, por isso a capacidade cresce com as máquinas que as pessoas ligarem à rede.
+Seis votos por segundo numa única GPU de consumo são **mais de 21.000 votos por hora a partir de um único sequencer**. Dentro de uma eleição, os lotes formam uma cadeia de raízes de estado e o contrato liquida-os por ordem, pelo que, se dois sequencers competirem sobre a mesma raiz, um deles terá desperdiçado a sua prova; estes são números por eleição e por sequencer. Entre eleições diferentes, os sequencers não precisam de permissão e são independentes, por isso a capacidade cresce com as máquinas que as pessoas ligarem à rede.
 
-A coluna dos blobs é a restrição do Ethereum. Cada atualização de posição é publicada em blobs EIP-4844 para que qualquer pessoa possa reconstruir o estado, e a EIP-7594 limita uma transação a seis blobs. As duas últimas linhas das colunas de `n = 16` (9 e 17 blobs) ultrapassam largamente esse limite, pelo que só valem como medições de tempo de prova; um sequencer que liquida na mainnet escolhe o tamanho do lote em função de `n`, e as configurações com melhor débito cabem com folga.
+### Os blobs são a restrição do Ethereum
+
+Cada atualização de posição é publicada em blobs EIP-4844 para que qualquer pessoa possa reconstruir o estado, e **a EIP-7594 limita uma transação a seis blobs**. As duas últimas linhas das colunas de `n = 16` (9 e 17 blobs) ultrapassam largamente esse limite, pelo que só valem como medições de tempo de prova; um sequencer que liquida na mainnet escolhe o tamanho do lote em função de `n`, e as configurações com melhor débito cabem com folga.
 
 ![Blobs por transição consoante o tamanho do lote: os lotes de dois campos precisam de 1 a 3 blobs; os de dezasseis campos precisam de 1, 2, 3, 5, 9 e 17, com os dois últimos acima da linha tracejada dos seis blobs.](/blog/images/2026/10/davinci-blobs-per-batch.webp)
 
-### Quanto custa um voto on-chain
+## Quanto custa um voto on-chain
 
 Liquidar um lote custa cerca de **498K de gas com um blob, mais cerca de 56K por cada blob adicional**, seja qual for o tamanho do lote. Verificar a prova PLONK dá o mesmo trabalho quer o lote tenha 2 boletins, quer tenha 1024, por isso o custo por voto é o custo do lote a dividir pelo tamanho do lote. Lotes maiores ficam mais baratos por voto; mais campos no boletim significam mais blobs e um lote ligeiramente mais caro.
+
+### Os pressupostos de preço
 
 A tabela seguinte calcula o preço de cada configuração liquidável das medições a **1 gwei e 2.500 USD por ETH** na mainnet, o que é deliberadamente conservador: a média do Etherscan no dia em que escrevemos isto era de 0,12 gwei, e a mediana do último ano foi de 0,74 gwei. Para a Gnosis Chain usamos a sua mediana de 5,2 gwei, paga em xDAI a 1 USD. O custo escala linearmente com o preço do gas, por isso, aos 0,12 gwei de hoje, basta dividir a coluna da mainnet por oito e, num pico de 5 gwei, multiplicá-la por cinco.
 
@@ -110,19 +184,31 @@ A tabela seguinte calcula o preço de cada configuração liquidável das mediç
 
 ![Custo de liquidação por voto em escala logarítmica: na mainnet a 1 gwei, vai de 1,9 cêntimos (64 boletins) a 0,15 cêntimos (1024 boletins); a Gnosis Chain é cerca de 500 vezes mais barata, de 0,004 cêntimos a 0,0006 cêntimos, nos lotes que cabem no seu limite de dois blobs.](/blog/images/2026/10/davinci-cost-per-vote.webp)
 
-Dito de outra forma: na mainnet do Ethereum a 1 gwei, **um milhão de votos com boletins simples liquidam-se por cerca de 1.500 USD** em lotes de 1024 boletins e, ao preço do gas de hoje, por menos de 200 USD. Os valores de liquidação medidos no artigo vão até quatro blobs; a linha de cinco blobs é uma extrapolação com o mesmo incremento de 56K.
+### Mainnet do Ethereum
 
-Na Gnosis Chain, a mesma verificação é cerca de 500 vezes mais barata, porque o gas é pago num token indexado ao dólar, a preços que fazem com que um lote inteiro custe cerca de um quarto de cêntimo. Aí, a restrição é outra: um bloco da Gnosis leva no máximo dois blobs, o que limita uma transição a 744 boletins nas eleições de dois campos e a 121 nas de dezasseis campos. Dentro desses limites, **um milhão de votos com boletins simples liquidam-se na Gnosis por menos de 5 USD**, cerca de 0,0004 cêntimos cada um. Para a maioria das organizações, o custo de liquidação na Gnosis é um erro de arredondamento ao lado do tempo de GPU.
+A 1 gwei, **um milhão de votos com boletins simples liquidam-se por cerca de 1.500 USD** em lotes de 1024 boletins e, ao preço do gas de hoje, por menos de 200 USD. Os valores de liquidação medidos no artigo vão até quatro blobs; a linha de cinco blobs é uma extrapolação com o mesmo incremento de 56K.
+
+### Gnosis Chain
+
+Na Gnosis Chain, a mesma verificação é cerca de **500 vezes mais barata**, porque o gas é pago num token indexado ao dólar, a preços que fazem com que um lote inteiro custe cerca de um quarto de cêntimo. Aí, a restrição é outra: um bloco da Gnosis leva no máximo dois blobs, o que limita uma transição a 744 boletins nas eleições de dois campos e a 121 nas de dezasseis campos.
+
+Dentro desses limites, **um milhão de votos com boletins simples liquidam-se na Gnosis por menos de 5 USD**, cerca de 0,0004 cêntimos cada um. Para a maioria das organizações, o custo de liquidação na Gnosis é um erro de arredondamento ao lado do tempo de GPU.
 
 As taxas de blob são um mercado à parte e não estão incluídas na tabela; na mainnet ficaram muito abaixo do custo de verificação durante o nosso período de medição e, na Gnosis, o mínimo de 1 gwei da taxa de blob acrescenta cerca de 0,0001 USD por blob.
 
 ## A substituição silenciosa do voto, já que entra nos números
 
-Essas medições incluem renovações porque o DAVINCI paga a resistência à coerção em cada lote, e quisemos medir o custo real e não o custo bonito.
+Essas medições incluem renovações porque **o DAVINCI paga a resistência à coerção em cada lote**, e quisemos medir o custo real e não o custo bonito.
 
-O mecanismo: um eleitor pode voltar a votar a qualquer momento, e o boletim mais recente substitui o anterior. Mas a posição de um eleitor na árvore de estado é pública, por isso um observador atento aos blobs poderia ver essa posição mudar e saber que houve uma substituição do voto. Para o esconder, cada transição de estado também realeatoriza um conjunto aleatório de outros boletins guardados. Um boletim realeatorizado parece completamente diferente on-chain, mas, ao ser desencriptado, dá o mesmo voto. As substituições e as renovações são publicadas no mesmo formato, ordenadas e sem etiquetas. Um observador vê um lote de posições a mudar e não consegue saber, a partir dos dados publicados, quais são substituições do voto.
+### Como funciona
 
-Na tabela, isto custa cerca de 1,6 segundos por lote de 128 boletins com `n = 2` e cerca de 5 segundos com `n = 16`. Em troca, um comprador de votos não consegue confirmar que o voto que pagou continuou no lugar. Parece-nos uma pechincha.
+Um eleitor pode voltar a votar a qualquer momento, e o boletim mais recente substitui o anterior. Mas a posição de um eleitor na árvore de estado é pública, por isso um observador atento aos blobs poderia ver essa posição mudar e saber que houve uma substituição do voto.
+
+Para o esconder, **cada transição de estado também realeatoriza um conjunto aleatório de outros boletins guardados**. Um boletim realeatorizado parece completamente diferente on-chain, mas, ao ser desencriptado, dá o mesmo voto. As substituições e as renovações são publicadas no mesmo formato, ordenadas e sem etiquetas. Um observador vê um lote de posições a mudar e não consegue saber, a partir dos dados publicados, quais são substituições do voto.
+
+### Quanto custa
+
+Na tabela, isto custa cerca de **1,6 segundos por lote de 128 boletins com `n = 2`** e cerca de 5 segundos com `n = 16`. Em troca, um comprador de votos não consegue confirmar que o voto que pagou continuou no lugar. Parece-nos uma pechincha.
 
 ## Leia-o, execute-o, quebre-o
 

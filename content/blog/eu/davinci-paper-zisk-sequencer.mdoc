@@ -16,59 +16,127 @@ seo:
   metaDescription: 'DAVINCIren artikulua atera da: nabigatzailean frogatutako boto-txartelak, ZisK zkVM sekuentziatzailea, 6 boto/s GPU batean eta ~0,15 zentimo botoko Ethereumen.'
 ---
 
-DAVINCIren artikulua argitaratu berri dugu IACR Cryptology ePrint Archive-n: [eprint.iacr.org/2026/2282](https://eprint.iacr.org/2026/2282). Lehen aldiz, protokolo osoa leku bakarrean jaso da idatziz, segurtasun-analisia inplementazio funtzional baten ondoan eta hartatik ateratako benetako zenbakiekin. Pau Escrichek idatzi du, Marta Bellés-Muñoz (Universitat Pompeu Fabra), Roger Baig (Universitat Politècnica de Catalunya) eta Jordi Piñana (Vocdoni) egileekin batera.
+DAVINCIren artikulua argitaratu berri dugu IACR Cryptology ePrint Archive-n: [eprint.iacr.org/2026/2282](https://eprint.iacr.org/2026/2282). **Lehen aldiz, protokolo osoa leku bakarrean jaso da idatziz**, segurtasun-analisia inplementazio funtzional baten ondoan eta hartatik ateratako benetako zenbakiekin. Pau Escrichek idatzi du, Marta Bellés-Muñoz (Universitat Pompeu Fabra), Roger Baig (Universitat Politècnica de Catalunya) eta Jordi Piñana (Vocdoni) egileekin batera.
 
-[Blog honi](/blog/davinci-universal-voting-protocol) jarraitu badiozu, ideia ezagutzen duzu: hauteskunde bat ZK rollup bat da. Hautesleek beren boto-txartelak zifratzen dituzte. Edonork exekuta dezake sekuentziatzaile bat, boto-txartelak sortatan biltzeko eta sorta arauen arabera prozesatu dela frogatzeko, eta Ethereumek hauteskundearen egoera berria froga zuzena bada soilik onartzen du. Frogarik ez badago, ez dago egoera-eguneraketarik, eta ez dago emaitza faltsurik.
+[Blog honi](/blog/davinci-universal-voting-protocol) jarraitu badiozu, ideia ezagutzen duzu: **hauteskunde bat ZK rollup bat da**. Hautesleek beren boto-txartelak zifratzen dituzte. Edonork exekuta dezake sekuentziatzaile bat, boto-txartelak sortatan biltzeko eta sorta arauen arabera prozesatu dela frogatzeko, eta Ethereumek hauteskundearen egoera berria froga zuzena bada soilik onartzen du. Frogarik ez badago, ez dago egoera-eguneraketarik, eta ez dago emaitza faltsurik.
 
-Artikuluaren berritasuna ingeniaritza da. Testu honek zati horretaz dihardu: nola frogatzen den boto bat telefonoko nabigatzailean, nola berridatzi den sekuentziatzailea [ZisK](https://github.com/0xPolygonHermez/zisk) zkVMrako programa gisa, hori azkartzeko jatorrizko proiektuari eman diogun precompile-a, eta horrek guztiak zenbat kostatzen duen.
+Artikuluaren berritasuna ingeniaritza da. Testu honek zati horretaz dihardu: nola frogatzen den boto bat telefonoko nabigatzailean, nola berridatzi den sekuentziatzailea [ZisK](https://zisk.technology) zkVMrako programa gisa, hori azkartzeko jatorrizko proiektuari eman diogun precompile-a, eta horrek guztiak zenbat kostatzen duen.
+
+## Laburbilduz
+
+- DAVINCIren artikulua hemen argitaratu da: [eprint.iacr.org/2026/2282](https://eprint.iacr.org/2026/2282).
+- Boto-txartel bat nabigatzailean frogatzen da, **3 segundo inguruan ordenagailu eramangarri batean eta 6,4 segundoan telefono batean**.
+- Sekuentziatzailea orain **ZisK zkVMk frogatutako Rust programa bakarra da**, eskuz idatzitako zirkuituen ordez.
+- **BabyJubJub precompile bat eman diogu ZisKi**, jatorrizko proiektuan batu dute eta v1.3.0-alpha bertsioan argitaratu da.
+- Kontsumoko GPU batek **segundoko 6 boto inguru** likidatzen ditu, orduko 21.000 boto baino gehiago.
+- Ethereum mainnet-ean, 1 gwei-rekin, boto batek **0,15 zentimo inguru** kostatzen du; Gnosis Chainen, 0,0004 zentimo inguru.
 
 ## Bi frogatzaile, protokolo bakarra
 
 DAVINCIk bi frogatze-lan oso desberdin ditu; beraz, bi frogatzaile oso desberdin erabiltzen ditu.
 
-**Hautesleari dagokion lana txikia da, eta edonon exekutatzeko modukoa izan behar du.** Boto-txartelaren zirkuitua Circomen idatzita dago, eta froga nabigatzailean sortzen da snarkjs-ekin, BN254 gaineko Groth16 froga gisa. Zirkuituak egiaztatzen du boto-txartela hauteskunderako aukera baliozkoa dela (baimendutako balioen barruan, aurrekontuaren barruan, eta aukerak errepikatu gabe hauteskundeak hala eskatzen badu), behar bezala zifratuta dagoela eta boto-identifikatzailea behar bezala eratorri dela. 65K murrizketa inguru ditu, eta gehienez 16 eremu zifratu kudeatzen ditu; nahikoa da aukera bakarreko, aukera anitzeko, onespen bidezko, sailkatutako eta boto koadratikoko boto-txartelak kodetzeko.
+### Hautesleak nabigatzailean frogatzen du
 
-Zati honetarako Circom eta snarkjs mantentzen ditugu, nahita. snarkjs WebAssemblyn dabil edozein nabigatzaile modernotan, web worker-en artean paralelizatzen da, eta Groth16rako aurkitu dugun nabigatzailerako frogatzailerik helduena da. Dena web-orri estatiko gisa dabil: inork ez du frogatzaile natiborik instalatu behar, eta inork ez du bere botoa testu argian frogatze-zerbitzu batera bidali behar. Bozketa-aplikazio batean, hori garrantzitsuagoa da frogari segundo bat kentzea baino.
+**Hautesleari dagokion lana txikia da, eta edonon exekutatzeko modukoa izan behar du.** Boto-txartelaren zirkuitua Circomen idatzita dago, eta froga nabigatzailean sortzen da snarkjs-ekin, BN254 gaineko Groth16 froga gisa. Zirkuituak hau egiaztatzen du:
+
+- boto-txartela hauteskunderako aukera baliozkoa dela (baimendutako balioen barruan, aurrekontuaren barruan, eta aukerak errepikatu gabe hauteskundeak hala eskatzen badu),
+- behar bezala zifratuta dagoela,
+- boto-identifikatzailea behar bezala eratorri dela.
+
+**65K murrizketa** inguru ditu, eta gehienez 16 eremu zifratu kudeatzen ditu; nahikoa da aukera bakarreko, aukera anitzeko, onespen bidezko, sailkatutako eta boto koadratikoko boto-txartelak kodetzeko.
+
+Zati honetarako Circom eta snarkjs mantentzen ditugu, nahita. snarkjs WebAssemblyn dabil edozein nabigatzaile modernotan, web worker-en artean paralelizatzen da, eta Groth16rako aurkitu dugun nabigatzailerako frogatzailerik helduena da. Dena web-orri estatiko gisa dabil: **inork ez du frogatzaile natiborik instalatu behar, eta inork ez du bere botoa testu argian frogatze-zerbitzu batera bidali behar.** Bozketa-aplikazio batean, hori garrantzitsuagoa da frogari segundo bat kentzea baino.
 
 Boto-txartel bat frogatzeak **3 segundo** inguru behar ditu ordenagailu eramangarri batean (AMD Ryzen AI 5 340, Brave), eta **6,4 segundo** inguru Chrome darabilen Google Pixel 7a batean, 35,5 MiB-eko frogatze-gakoa eta 6,5 MiB-eko lekuko-sorgailua behin bakarrik deskargatu ondoren. Telefono batean, hori aurrerapen-barra bat da, ez arazo bat.
 
-**Sekuentziatzaileari dagokion lana handia da, eta zerbitzari batean exekutatzen da.** Groth16 froga horien sorta oso bat egiaztatu behar du, hautesle bakoitza erroldan dagoela eta bere gakoarekin sinatu duela egiaztatu, boto-txartel bakoitza berriro zifratu, egoera-zuhaitza eguneratu, zenbaketa zifratua eguneratu, eta hori guztia argitaratzen dituen blob-datuei lotu. Hemen sartzen da ZisK.
+### Sekuentziatzaileak zerbitzari batean frogatzen du
+
+**Sekuentziatzaileari dagokion lana handia da, eta zerbitzari batean exekutatzen da.** Sorta bakoitzeko, hau egin behar du:
+
+- nabigatzailean sortutako Groth16 frogen sorta osoa egiaztatu,
+- hautesle bakoitza erroldan dagoela eta bere gakoarekin sinatu duela egiaztatu,
+- boto-txartel bakoitza berriro zifratu,
+- egoera-zuhaitza eguneratu,
+- zenbaketa zifratua eguneratu,
+- hori guztia argitaratzen dituen blob-datuei lotu.
+
+Hemen sartzen da ZisK.
 
 ## Zergatik eraman dugun sekuentziatzailea ZisKera
 
-Orain arte, sekuentziatzailearen logika eskuz idatzitako zirkuituetan bizi zen. Zirkuituak bikainak dira beren lanean, baina izugarri txarrak aldatzeko orduan: arau-doikuntza bakoitzak murrizketak berriro eratortzea, ezarpenak berriro exekutatzea eta berriro auditatzea eskatzen du. Garatzen jarraituko duela espero dugun protokolo batean, hobekuntza bakoitzak ordaindu behar duen zerga da hori.
+### Zirkuituak aldatzea zaila da
 
-ZisK Polygon Hermez taldeak garatutako zkVM bat da. Rust arrunta idazten duzu, RISC-V-ra konpilatzen duzu, eta ZisKek STARK froga bat sortzen du, programa emandako sarreretan zuzen exekutatu dela frogatzen duena. STARK bat konfiantzazko ezarpenik behar ez duen eta azkar frogatzen den froga mota bat da, tamaina handia izatearen truke. DAVINCIren egoera-trantsizioa Rust programa bakarra da orain, protokoloaren arau guztiak inplementatzen dituena, eta artikuluko errendimendu-probak ZisK v1.3.0-alpha bertsioan exekutatzen dira.
+Orain arte, sekuentziatzailearen logika eskuz idatzitako zirkuituetan bizi zen. Zirkuituak bikainak dira beren lanean, baina izugarri txarrak aldatzeko orduan: arau-doikuntza bakoitzak murrizketak berriro eratortzea, ezarpenak berriro exekutatzea eta berriro auditatzea eskatzen du. Garatzen jarraituko duela espero dugun protokolo batean, **hobekuntza bakoitzak ordaindu behar duen zerga da hori.**
 
-Hori bideragarri egiten dutenak ZisKen precompile-ak dira. zkVM batek frogatzen duen instrukzio bakoitza ordaintzen du, eta kriptografiak instrukzio asko eskatzen ditu. ZisKek, horren ordez, primitibo garestiak berariazko zirkuitu espezializatuetan kudeatzen ditu: SHA-256, Keccak, BN254 pairing-a, secp256k1, 256 biteko aritmetika modularra eta, bertsio honetatik aurrera, BabyJubJub. Trantsizio-programak guztiak erabiltzen ditu, Keccak izan ezik, eta aurrerago azalduko dugu zergatik den Keccak garrantzitsua hala ere. Nabigatzailean sortutako Groth16 frogak, adibidez, ez dira banan-banan egiaztatzen: programak sorta osoa pairing-egiaztapen bakar batean tolesten du, frogetatik beretatik eratorritako ausazko koefizienteekin haztatuta, ZisKen BN254 pairing precompile-aren gainean.
+### Zer da ZisK
 
-STARKa handiegia da zuzenean Ethereumera bidaltzeko. ZisKek errekurtsiboki konprimitzen du, eta emaitza BN254 gaineko PLONK froga batean biltzen du; likidazio-kontratuak froga hori egiaztatzen du, Ethereumek Byzantiumetik dituen pairing precompile-ekin. Azken froga hori bakarrik argitaratzen da, eta ezagutza zerokoa da; beraz, sekuentziatzailearen lekukoa (witness) ezkutatzen du. STARKak ez du konfiantzazko ezarpenik behar; PLONK bilgarriak Hermezen powers-of-tau unibertsala erabiltzen du. Sistema osoan geratzen den zirkuitu jakin bati lotutako zeremonia bakarra nabigatzaileko boto-txartelaren zirkuituarena da, eta hauteskunde guztietan berrerabiltzen da.
+[ZisK](https://zisk.technology) kode irekiko zkVM bat da, froga-sorkuntza azkarrago eta merkeago egiteko eraikitako ezagutza zeroko makina birtual bat. Programak Rusten idazten dituzu (edo goi-mailako beste hizkuntza batzuetan, hala nola C++ edo Go), kriptografian aditu sakona izan beharrik gabe, eta arkitekturak latentzia txikia eta kostu txikia ditu helburu, 128 biteko segurtasunarekin. Polygon Labs-en proiektu gisa hasi zen, Polygon zkEVMaren atzean dagoen taldeak eraikia; 2025eko ekainean talde horrek modu independentean jarraitu zuen, eta orain SilentSig-ek zaintzen du, kode irekiko eta komunitateak gidatutako proiektu gisa.
 
-Asko gustatzen zaigun abantaila gehigarri bat dago. PLONK bilgarriaren zirkuitua ZisKek finkatzen du; gure programa likidazio-kontratuak finkatzen duen kode-konpromiso gisa baino ez da sartzen bertan. Trantsizio-programa eguneratzeak gordetako konpromiso bakar bat eguneratzea esan nahi du, ez egiaztatzaile berri bat hedatzea edo ezarpen berri bat egitea. Kate barruko makineria bere lekuan geratzen da, protokoloa hobetzen den bitartean.
+![ZisK zkVMren logoa: "ZisK VM" hitz-marka zuria txartel ilun baten gainean](/blog/images/2026/10/zisk-logo.webp)
+
+Guretzat, honela dabil: Rust arrunta idazten duzu, RISC-V-ra konpilatzen duzu, eta ZisKek STARK froga bat sortzen du, programa emandako sarreretan zuzen exekutatu dela frogatzen duena. STARK bat konfiantzazko ezarpenik behar ez duen eta azkar frogatzen den froga mota bat da, tamaina handia izatearen truke. **DAVINCIren egoera-trantsizioa Rust programa bakarra da orain, protokoloaren arau guztiak inplementatzen dituena**, eta artikuluko errendimendu-probak ZisK v1.3.0-alpha bertsioan exekutatzen dira.
+
+### Precompile-ek egiten dute kriptografia astuna
+
+Hori bideragarri egiten dutenak ZisKen precompile-ak dira. zkVM batek frogatzen duen instrukzio bakoitza ordaintzen du, eta kriptografiak instrukzio asko eskatzen ditu. ZisKek, horren ordez, primitibo garestiak berariazko zirkuitu espezializatuetan kudeatzen ditu:
+
+- SHA-256
+- Keccak
+- BN254 pairing-a
+- secp256k1
+- 256 biteko aritmetika modularra
+- eta, bertsio honetatik aurrera, BabyJubJub
+
+Trantsizio-programak guztiak erabiltzen ditu, Keccak izan ezik, eta aurrerago azalduko dugu zergatik den Keccak garrantzitsua hala ere. Nabigatzailean sortutako Groth16 frogak, adibidez, ez dira banan-banan egiaztatzen: **programak sorta osoa pairing-egiaztapen bakar batean tolesten du**, frogetatik beretatik eratorritako ausazko koefizienteekin haztatuta, ZisKen BN254 pairing precompile-aren gainean.
+
+### STARKetik Ethereumek egiazta dezakeen froga batera
+
+STARKa handiegia da zuzenean Ethereumera bidaltzeko. ZisKek errekurtsiboki konprimitzen du, eta emaitza BN254 gaineko PLONK froga batean biltzen du; likidazio-kontratuak froga hori egiaztatzen du, Ethereumek Byzantiumetik dituen pairing precompile-ekin. Azken froga hori bakarrik argitaratzen da, eta ezagutza zerokoa da; beraz, sekuentziatzailearen lekukoa (witness) ezkutatzen du.
+
+STARKak ez du konfiantzazko ezarpenik behar; PLONK bilgarriak Hermezen powers-of-tau unibertsala erabiltzen du. **Sistema osoan geratzen den zirkuitu jakin bati lotutako zeremonia bakarra nabigatzaileko boto-txartelaren zirkuituarena da**, eta hauteskunde guztietan berrerabiltzen da.
+
+### Eguneraketak egiaztatzaile berririk gabe
+
+Asko gustatzen zaigun abantaila gehigarri bat dago. PLONK bilgarriaren zirkuitua ZisKek finkatzen du; gure programa likidazio-kontratuak finkatzen duen kode-konpromiso gisa baino ez da sartzen bertan. **Trantsizio-programa eguneratzeak gordetako konpromiso bakar bat eguneratzea esan nahi du**, ez egiaztatzaile berri bat hedatzea edo ezarpen berri bat egitea. Kate barruko makineria bere lekuan geratzen da, protokoloa hobetzen den bitartean.
 
 ## BabyJubJub precompile bat eman diogu ZisKi
 
 DAVINCIk boto-txartelak ElGamalekin zifratzen ditu BabyJubJuben gainean, circomlib-en kurban. Nabigatzailearen aldetik, aukera naturala da: BabyJubJuben oinarri-eremua BN254ren eremu eskalarra da; beraz, zifratzea aritmetika natiboa da Circom zirkuitu baten barruan.
 
-Sekuentziatzaileak hautesleak baino BabyJubJub aritmetika askoz gehiago egin behar du. Boto-txartel bat berriro zifratzea testu zifratu bakoitzeko biderketa eskalar bat da, hau da, puntu-batuketen kate luze bat, eta zenbaketa zifratua testu zifratuen batura metatu handi bat da. Hori guztia RISC-V instrukzio arrunt gisa frogatzea zen botila-lepoa.
+Sekuentziatzaileak hautesleak baino BabyJubJub aritmetika askoz gehiago egin behar du. Boto-txartel bat berriro zifratzea testu zifratu bakoitzeko biderketa eskalar bat da, hau da, puntu-batuketen kate luze bat, eta zenbaketa zifratua testu zifratuen batura metatu handi bat da. **Hori guztia RISC-V instrukzio arrunt gisa frogatzea zen botila-lepoa.**
 
-Beraz, precompile bat idatzi genuen. [PR #1152](https://github.com/0xPolygonHermez/zisk/pull/1152) bidez, BabyJubJubeko puntu-batuketa afin osoa gehitzen da (formula berak bikoizketa ere kudeatzen du) ZisKen berariazko primitibo gisa, circomlib-en kurba-parametroekin bateragarria. ZisK taldeak berrikusi, bere barne-konbentzioetara egokitu eta abuztuaren 27an batu zuen. [ZisK v1.3.0-alpha](https://github.com/0xPolygonHermez/zisk/releases/tag/v1.3.0-alpha) bertsioan argitaratu zen irailaren 21ean, eta bertsio-oharretan honela ageri da: «a dedicated BabyJubJub point-add precompile compatible with circomlib». Eskerrik asko Héctor Masipi eta ZisK taldeko gainerakoei, precompile-a jatorrizko proiektuan sartzeagatik, gu fork batean utzi beharrean.
+Beraz, precompile bat idatzi genuen. [PR #1152](https://github.com/0xPolygonHermez/zisk/pull/1152) bidez, BabyJubJubeko puntu-batuketa afin osoa gehitzen da (formula berak bikoizketa ere kudeatzen du) ZisKen berariazko primitibo gisa, circomlib-en kurba-parametroekin bateragarria. ZisK taldeak berrikusi, bere barne-konbentzioetara egokitu eta **abuztuaren 27an batu zuen**. [ZisK v1.3.0-alpha](https://github.com/0xPolygonHermez/zisk/releases/tag/v1.3.0-alpha) bertsioan argitaratu zen irailaren 21ean, eta bertsio-oharretan honela ageri da: «a dedicated BabyJubJub point-add precompile compatible with circomlib». Eskerrik asko Héctor Masipi eta ZisK taldeko gainerakoei, precompile-a jatorrizko proiektuan sartzeagatik, gu fork batean utzi beharrean.
 
-Pieza honi esker, DAVINCIren bi erdiek kriptografia bera erabiltzen dute. Nabigatzaileak BabyJubJuben gainean zifratzen du Circom zirkuitu baten barruan; sekuentziatzaileak BabyJubJuben gainean berriro zifratu eta metatzen du ZisKen barruan; eta biak lotzen dituzten Groth16 frogak ZisKen BN254 pairing-arekin egiaztatzen dira. Ez da ezer kurba batetik bestera itzuli behar, eta circomlib-en kurbaren gainean eraikitzen duen beste edonork primitibo bera du doan.
+Pieza honi esker, DAVINCIren bi erdiek kriptografia bera erabiltzen dute. Nabigatzaileak BabyJubJuben gainean zifratzen du Circom zirkuitu baten barruan; sekuentziatzaileak BabyJubJuben gainean berriro zifratu eta metatzen du ZisKen barruan; eta biak lotzen dituzten Groth16 frogak ZisKen BN254 pairing-arekin egiaztatzen dira. **Ez da ezer kurba batetik bestera itzuli behar**, eta circomlib-en kurbaren gainean eraikitzen duen beste edonork primitibo bera du doan.
 
 ## Ethereumen dibidendua: secp256k1 eta Keccak
 
-Lehenik, secp256k1. DAVINCIko hautesleek beren boto-identifikatzailea sinatzen dute, beren Ethereum helbidearen atzean dagoen ECDSA gako berarekin. ZisKek sinadura hori natiboki egiaztatzen du; beraz, hautagarritasuna Ethereum helbide arrunten gaineko Merkle froga bat da, eta hauteslearen zorroa da haren kredentziala, erregistro-gako gehigarririk gabe.
+### secp256k1: zorroa da kredentziala
 
-Keccak da gehien pozten gaituena. ZK bozketa-sistemek, DAVINCI barne, Poseidonekin eraiki izan dituzte beren erroldaren Merkle zuhaitzak, Poseidon frogatzeko merkea delako eta Keccak ez zelako. Prezioa kate barruan ordaintzen da: Solidityn, Poseidon hash bat hainbat aldiz garestiagoa da `keccak256` baino, opcode bakarra baita hori. Poseidon zuhaitzak kate barruan mantentzen dituzten proiektuek kostu hori jasaten dute txertaketa bakoitzean, eta Ethereumen dagoeneko dauden erregistro, token-argazki (snapshot) eta multisig kide-zerrenda gehienek Keccakekin hashatzen dute. Beraz, orain arte ZK bozketa-errolda batek ezin zituen erabili bihurketa-urratsik gabe. ZisKek Keccak natiboki frogatzen duenez, sekuentziatzaileak Keccak zuhaitz bateko kidetasuna egiazta dezake, lehen aukera hori baztertzen zuen kosturik gabe. DAO batek bere hautesle-erregistroa kate barruan mantendu lezake, dagoeneko erabiltzen duen hasharekin, eta DAVINCIk zuzenean erabil lezake.
+DAVINCIko hautesleek beren boto-identifikatzailea sinatzen dute, beren Ethereum helbidearen atzean dagoen ECDSA gako berarekin. ZisKek sinadura hori natiboki egiaztatzen du; beraz, hautagarritasuna Ethereum helbide arrunten gaineko Merkle froga bat da, eta **hauteslearen zorroa da haren kredentziala**, erregistro-gako gehigarririk gabe.
 
-Artikuluko prototipoak Poseidon Merkle zuhaitza erabiltzen du oraindik erroldarako, eta SHA-256 egoera-zuhaitzerako; beraz, hartu Keccak erroldak hurrengo urrats gisa, ez errendimendu-probetan neurtutako urrats gisa. Baina aldaketa dirudiena baino merkeagoa da: errolda-froga sekuentziatzaileak egiaztatzen du, ez boto-txartelaren zirkuituak; beraz, Keccak errolda bat Rust programaren aldaketa bat da, ez nabigatzaileko zirkuituarena, ezta haren zeremoniarena ere.
+### Keccak: Ethereumek dagoeneko dituen erroldak
+
+Keccak da gehien pozten gaituena. ZK bozketa-sistemek, DAVINCI barne, Poseidonekin eraiki izan dituzte beren erroldaren Merkle zuhaitzak, Poseidon frogatzeko merkea delako eta Keccak ez zelako. Prezioa kate barruan ordaintzen da: Solidityn, Poseidon hash bat hainbat aldiz garestiagoa da `keccak256` baino, opcode bakarra baita hori. Poseidon zuhaitzak kate barruan mantentzen dituzten proiektuek kostu hori jasaten dute txertaketa bakoitzean.
+
+Ethereumen dagoeneko dauden erregistro, token-argazki (snapshot) eta multisig kide-zerrenda gehienek Keccakekin hashatzen dute; beraz, orain arte ZK bozketa-errolda batek ezin zituen erabili bihurketa-urratsik gabe. ZisKek Keccak natiboki frogatzen duenez, **sekuentziatzaileak Keccak zuhaitz bateko kidetasuna egiazta dezake**, lehen aukera hori baztertzen zuen kosturik gabe. DAO batek bere hautesle-erregistroa kate barruan mantendu lezake, dagoeneko erabiltzen duen hasharekin, eta DAVINCIk zuzenean erabil lezake.
+
+Artikuluko prototipoak Poseidon Merkle zuhaitza erabiltzen du oraindik erroldarako, eta SHA-256 egoera-zuhaitzerako; beraz, hartu Keccak erroldak hurrengo urrats gisa, ez errendimendu-probetan neurtutako urrats gisa. Baina aldaketa dirudiena baino merkeagoa da: errolda-froga sekuentziatzaileak egiaztatzen du, ez boto-txartelaren zirkuituak; beraz, **Keccak errolda bat Rust programaren aldaketa bat da**, ez nabigatzaileko zirkuituarena, ezta haren zeremoniarena ere.
 
 ## Zenbakiak
 
-Sekuentziatzailearen zifra guztiak makina bakar batetik datoz: NVIDIA RTX 5090 bat (32 GiB), 16 nukleoko AMD Ryzen 9 9950X3D batekin eta 64 GiB RAMekin. Neurtutako denbora sekuentziatzailearen bide kritikoa da, lana bidaltzen denetik PLONK froga egiaztatu bat lortu arte, errekurtsioa, PLONK bilgarrian biltzea eta frogatzaileak berak egiten duen egiaztapena barne. Hautesleen frogatzea hauteslearen gailuan gertatzen da, eta ez dago barne.
+### Konfigurazioa
 
-Bi faktorek baldintzatzen dute kostua: sortaren tamainak, eta `n`-k, hau da, hauteskundearen boto-txartel-moduan aktibo dauden boto-txarteleko eremuen kopuruak. Bi aukeren arteko hautapen bakarra `n = 2` da; aukera askoko boto-txartel sailkatu edo koadratiko batek 16ak erabil ditzake. Taulako sorta bakoitzak boto-txartel bakoitzeko berritze isil bat ere badarama (horretaz gehiago behean); beraz, egoera egonkorreko zifrak dira, ez kasu onenekoak.
+Sekuentziatzailearen zifra guztiak makina bakar batetik datoz: **NVIDIA RTX 5090 bat (32 GiB)**, 16 nukleoko AMD Ryzen 9 9950X3D batekin eta 64 GiB RAMekin. Neurtutako denbora sekuentziatzailearen bide kritikoa da, lana bidaltzen denetik PLONK froga egiaztatu bat lortu arte, errekurtsioa, PLONK bilgarrian biltzea eta frogatzaileak berak egiten duen egiaztapena barne. Hautesleen frogatzea hauteslearen gailuan gertatzen da, eta ez dago barne.
+
+Bi faktorek baldintzatzen dute kostua:
+
+- **sortaren tamainak**, eta
+- **`n`-k, hau da, aktibo dauden boto-txarteleko eremuen kopuruak** hauteskundearen boto-txartel-moduan. Bi aukeren arteko hautapen bakarra `n = 2` da; aukera askoko boto-txartel sailkatu edo koadratiko batek 16ak erabil ditzake.
+
+Taulako sorta bakoitzak boto-txartel bakoitzeko berritze isil bat ere badarama (horretaz gehiago behean); beraz, egoera egonkorreko zifrak dira, ez kasu onenekoak.
+
+### Frogatze-denbora eta prozesatze-abiadura
 
 | Sorta | n = 2 denbora | n = 2 boto/s | n = 2 blob-ak | n = 16 denbora | n = 16 boto/s | n = 16 blob-ak |
 | --- | --- | --- | --- | --- | --- | --- |
@@ -79,21 +147,27 @@ Bi faktorek baldintzatzen dute kostua: sortaren tamainak, eta `n`-k, hau da, hau
 | 512 | 84,3 s | 6,1 | 2 | 164,3 s | 3,1 | 9 |
 | 1024 | 171,2 s | 6,0 | 3 | 363,9 s | 2,8 | 17 |
 
-Nola irakurri: sorta bakoitzeko 16 segundo inguruko kostu finkoa dago, ia osorik errekurtsioa, PLONK bilgarrian biltzea eta egiaztapena. Horren gainean, boto-txartel bakoitzak 0,11 s inguru kostatzen du `n = 2` denean, eta 0,23 s `n = 16` denean. Sorta handiagoek kostu finkoa amortizatzen dute; horregatik igotzen da prozesatze-abiadura **segundoko 6 boto** ingurura 512 boto-txarteleko sortetan boto-txartel sinpleentzat, eta **segundoko 3,3 botora** 256 boto-txarteleko sortetan 16 eremukoentzat. Puntu horretatik aurrera errolda-frogak sakonagoak dira, eta, 512 boto-txarteletik gora, frogatzaileak abiaduraren ehuneko batzuk galtzen ditu RAMa aurrezteko; 1024 da inplementazioaren muga, ostalariaren memoriak ezarria (41 GB inguru tamaina horretan), eta horregatik amaitzen da taula hor.
+Nola irakurri: **sorta bakoitzeko 16 segundo inguruko kostu finkoa dago**, ia osorik errekurtsioa, PLONK bilgarrian biltzea eta egiaztapena. Horren gainean, boto-txartel bakoitzak 0,11 s inguru kostatzen du `n = 2` denean, eta 0,23 s `n = 16` denean.
+
+Sorta handiagoek kostu finkoa amortizatzen dute; horregatik igotzen da prozesatze-abiadura **segundoko 6 boto** ingurura 512 boto-txarteleko sortetan boto-txartel sinpleentzat, eta **segundoko 3,3 botora** 256 boto-txarteleko sortetan 16 eremukoentzat. Puntu horretatik aurrera errolda-frogak sakonagoak dira, eta, 512 boto-txarteletik gora, frogatzaileak abiaduraren ehuneko batzuk galtzen ditu RAMa aurrezteko; 1024 da inplementazioaren muga, ostalariaren memoriak ezarria (41 GB inguru tamaina horretan), eta horregatik amaitzen da taula hor.
 
 ![Sekuentziatzailearen frogatze-denbora sortako: bi eremuko kurba 15,6 s-tik (2 boto-txartel) 171 s-ra (1024) igotzen da; hamasei eremukoa 15,7 s-tik 364 s-ra; biak 16 segundoko kostu finkoaren gainean daude.](/blog/images/2026/10/davinci-proving-time.webp)
 
 ![Sekuentziatzaile baten prozesatze-abiadura: segundoko botoak sortaren tamainarekin batera hazten dira, eta gailurra 6,1ean dute bi eremuko boto-txarteletan (512) eta 3,3an hamasei eremukoetan (256); hamasei eremuko 512 eta 1024 puntuak hutsik daude, sei blob gainditzen dituztelako.](/blog/images/2026/10/davinci-throughput.webp)
 
-Kontsumoko GPU bakar batean segundoko sei boto, sekuentziatzaile bakar batetik orduko 21.000 boto baino gehiago dira. Hauteskunde baten barruan, sortak egoera-erroen kate bat dira, eta kontratuak hurrenez hurren likidatzen ditu; beraz, bi sekuentziatzaile erro berean lehian aritzen badira, horietako batek alferrik galduko du bere froga. Hauteskunde bakoitzeko eta sekuentziatzaile bakoitzeko zifrak dira hauek. Hauteskunde batetik bestera, berriz, sekuentziatzaileak baimenik gabeak eta independenteak dira; beraz, ahalmena jendeak konektatzen dituen makinekin batera hazten da.
+Kontsumoko GPU bakar batean segundoko sei boto, **sekuentziatzaile bakar batetik orduko 21.000 boto baino gehiago dira**. Hauteskunde baten barruan, sortak egoera-erroen kate bat dira, eta kontratuak hurrenez hurren likidatzen ditu; beraz, bi sekuentziatzaile erro berean lehian aritzen badira, horietako batek alferrik galduko du bere froga. Hauteskunde bakoitzeko eta sekuentziatzaile bakoitzeko zifrak dira hauek. Hauteskunde batetik bestera, berriz, sekuentziatzaileak baimenik gabeak eta independenteak dira; beraz, ahalmena jendeak konektatzen dituen makinekin batera hazten da.
 
-Blob zutabeak Ethereumen muga erakusten du. Zirrikitu-eguneraketa oro EIP-4844 blob-etan argitaratzen da, edonork egoera berreraiki dezan, eta EIP-7594k sei blob-era mugatzen du transakzio bat. `n = 16` zutabeetako azken bi errenkadek (9 eta 17 blob) muga hori gainditzen dute; beraz, frogatze-zifrak besterik ez dira. Mainnet-ean likidatzen duen sekuentziatzaile batek `n`-ren arabera aukeratzen du sortaren tamaina, eta prozesatze-abiadura optimoko konfigurazioak erraz sartzen dira mugaren barruan.
+### Blob-ak dira Ethereumen muga
+
+Zirrikitu-eguneraketa oro EIP-4844 blob-etan argitaratzen da, edonork egoera berreraiki dezan, eta **EIP-7594k sei blob-era mugatzen du transakzio bat**. `n = 16` zutabeetako azken bi errenkadek (9 eta 17 blob) muga hori gainditzen dute; beraz, frogatze-zifrak besterik ez dira. Mainnet-ean likidatzen duen sekuentziatzaile batek `n`-ren arabera aukeratzen du sortaren tamaina, eta prozesatze-abiadura optimoko konfigurazioak erraz sartzen dira mugaren barruan.
 
 ![Trantsizio bakoitzeko blob-ak sortaren tamainaren arabera: bi eremuko sortek 1etik 3ra blob behar dituzte; hamasei eremukoek 1, 2, 3, 5, 9 eta 17, eta azken biak sei blob-eko marra etenaren gainetik daude.](/blog/images/2026/10/davinci-blobs-per-batch.webp)
 
-### Zenbat kostatzen den boto bat kate barruan
+## Zenbat kostatzen den boto bat kate barruan
 
 Sorta bat likidatzeak **498K gas inguru kostatzen du blob batekin, gehi 56K inguru blob gehigarri bakoitzeko**, sortaren tamaina edozein dela ere. PLONK froga egiaztatzea lan bera da sortak 2 boto-txartel edo 1024 izan; beraz, botoko kostua sortaren kostua zati sortaren tamaina da. Sorta handiagoak merkeagoak dira botoko; boto-txarteleko eremu gehiagok blob gehiago eta sorta apur bat garestiagoa dakartzate.
+
+### Prezio-hipotesiak
 
 Beheko taulak errendimendu-probako konfigurazio likidagarri bakoitzaren prezioa kalkulatzen du mainnet-erako, **1 gwei eta 2.500 USD ETH bakoitzeko** erabilita, eta nahita hartu ditugu balio zuhurrak: idatzi genuen egunean Etherscanen batez bestekoa 0,12 gwei zen, eta azken urteko mediana 0,74 gwei. Gnosis Chainerako haren mediana erabiltzen dugu, 5,2 gwei, xDAItan ordainduta, 1 USD-ko balioarekin. Kostua gas-prezioarekiko lineala da; beraz, gaurko 0,12 gwei-rekin, zatitu mainnet zutabea zortziz, eta 5 gwei-ko gailur batean, biderkatu bostez.
 
@@ -110,19 +184,31 @@ Beheko taulak errendimendu-probako konfigurazio likidagarri bakoitzaren prezioa 
 
 ![Botoko likidazio-kostua eskala logaritmikoan: mainnet-ek 1 gwei-rekin 1,9 zentimotik (64 boto-txartel) 0,15 zentimora (1024 boto-txartel) egiten du behera; Gnosis Chain 500 aldiz merkeagoa da gutxi gorabehera, 0,004 zentimotik 0,0006 zentimora, bi blob-eko mugaren barruan sartzen diren sortetan.](/blog/images/2026/10/davinci-cost-per-vote.webp)
 
-Beste modu batera esanda: Ethereum mainnet-ean, 1 gwei-rekin, **boto-txartel sinpleko milioi bat boto 1.500 USD ingurutan likidatzen dira** 1024 boto-txarteleko sortetan, eta gaurko gas-prezioarekin 200 USD baino gutxiagoan. Artikuluan neurtutako likidazio-zifrak lau blob-era arte iristen dira; bost blob-eko errenkada 56K-ko urrats berarekin estrapolatuta dago.
+### Ethereum mainnet-a
 
-Gnosis Chainen egiaztapen bera 500 aldiz merkeagoa da gutxi gorabehera, gasa dolarrari lotutako token batean ordaintzen delako, sorta oso batek zentimo laurden bat inguru kostatzeko moduko prezioetan. Han muga bestelakoa da: Gnosis bloke batek gehienez bi blob darama, eta horrek trantsizio bakoitza 744 boto-txartelera mugatzen du bi eremuko hauteskundeetan, eta 121era hamasei eremukoetan. Muga horien barruan, **boto-txartel sinpleko milioi bat boto 5 USD baino gutxiagoan likidatzen dira Gnosisen**, 0,0004 zentimo inguru bakoitza. Erakunde gehienentzat, Gnosiseko likidazio-kostua hutsaren hurrengoa da GPU denboraren aldean.
+1 gwei-rekin, **boto-txartel sinpleko milioi bat boto 1.500 USD ingurutan likidatzen dira** 1024 boto-txarteleko sortetan, eta gaurko gas-prezioarekin 200 USD baino gutxiagoan. Artikuluan neurtutako likidazio-zifrak lau blob-era arte iristen dira; bost blob-eko errenkada 56K-ko urrats berarekin estrapolatuta dago.
+
+### Gnosis Chain
+
+Gnosis Chainen egiaztapen bera **500 aldiz merkeagoa** da gutxi gorabehera, gasa dolarrari lotutako token batean ordaintzen delako, sorta oso batek zentimo laurden bat inguru kostatzeko moduko prezioetan. Han muga bestelakoa da: Gnosis bloke batek gehienez bi blob darama, eta horrek trantsizio bakoitza 744 boto-txartelera mugatzen du bi eremuko hauteskundeetan, eta 121era hamasei eremukoetan.
+
+Muga horien barruan, **boto-txartel sinpleko milioi bat boto 5 USD baino gutxiagoan likidatzen dira Gnosisen**, 0,0004 zentimo inguru bakoitza. Erakunde gehienentzat, Gnosiseko likidazio-kostua hutsaren hurrengoa da GPU denboraren aldean.
 
 Blob-kuotak beste merkatu bat dira, eta ez daude taulan; mainnet-ean, egiaztapen-kostua baino askoz txikiagoak izan ziren gure neurketa-leihoan, eta Gnosisen 1 gwei-ko blob-kuotaren gutxienekoak 0,0001 USD inguru gehitzen du blob bakoitzeko.
 
 ## Berriro bozkatze isila, zenbakietan dagoenez
 
-Errendimendu-proba horiek berritzeak barne hartzen dituzte, DAVINCIk sorta bakoitzean ordaintzen duelako hertsapenarekiko erresistentzia, eta benetako kostua neurtu nahi genuelako, ez kostu polita.
+Errendimendu-proba horiek berritzeak barne hartzen dituzte, **DAVINCIk sorta bakoitzean ordaintzen duelako hertsapenarekiko erresistentzia**, eta benetako kostua neurtu nahi genuelako, ez kostu polita.
 
-Mekanismoa: hautesle batek edozein unetan bozka dezake berriro, eta boto-txartel berrienak zaharra ordezten du. Baina hautesle baten zirrikitua egoera-zuhaitzean publikoa da; beraz, blob-ak behatzen dituen batek zirrikitu hori aldatzen ikus lezake, eta jakin berriro bozkatu dela. Hori ezkutatzeko, egoera-trantsizio bakoitzak gordetako beste boto-txartel batzuen ausazko multzo bat ere berriro ausazkotzen du. Berriro ausazkotutako boto-txartel batek erabat bestelako itxura du kate barruan, baina boto berera deszifratzen da. Gainidazketak eta berritzeak formatu berean argitaratzen dira, ordenatuta eta etiketarik gabe. Behatzaile batek zirrikitu multzo bat aldatzen ikusten du, eta ezin du argitaratutako datuetatik jakin zein diren berriro bozkatzeak.
+### Nola dabilen
 
-Taulan, horrek 1,6 segundo inguru kostatzen du 128 boto-txarteleko sorta bakoitzeko `n = 2` denean, eta 5 segundo inguru `n = 16` denean. Horren truke lortzen dena da boto-erosle batek ezin duela baieztatu ordaindutako botoa bere lekuan geratu dela. Gure ustez, merke ateratzen da.
+Hautesle batek edozein unetan bozka dezake berriro, eta boto-txartel berrienak zaharra ordezten du. Baina hautesle baten zirrikitua egoera-zuhaitzean publikoa da; beraz, blob-ak behatzen dituen batek zirrikitu hori aldatzen ikus lezake, eta jakin berriro bozkatu dela.
+
+Hori ezkutatzeko, **egoera-trantsizio bakoitzak gordetako beste boto-txartel batzuen ausazko multzo bat ere berriro ausazkotzen du**. Berriro ausazkotutako boto-txartel batek erabat bestelako itxura du kate barruan, baina boto berera deszifratzen da. Gainidazketak eta berritzeak formatu berean argitaratzen dira, ordenatuta eta etiketarik gabe. Behatzaile batek zirrikitu multzo bat aldatzen ikusten du, eta ezin du argitaratutako datuetatik jakin zein diren berriro bozkatzeak.
+
+### Zenbat kostatzen den
+
+Taulan, horrek **1,6 segundo inguru kostatzen du 128 boto-txarteleko sorta bakoitzeko `n = 2` denean**, eta 5 segundo inguru `n = 16` denean. Horren truke lortzen dena da boto-erosle batek ezin duela baieztatu ordaindutako botoa bere lekuan geratu dela. Gure ustez, merke ateratzen da.
 
 ## Irakurri, exekutatu, hautsi
 
