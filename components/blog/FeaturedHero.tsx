@@ -26,7 +26,7 @@ export function FeaturedHero({ post, locale }: FeaturedHeroProps) {
             <img
               src={frontmatter.coverImage}
               alt={frontmatter.coverAlt || frontmatter.title}
-              className='image-outline size-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.02]'
+              className='image-outline size-full object-cover'
             />
           ) : (
             <div className='flex size-full items-center justify-center bg-gradient-to-br from-primary/10 to-accent/20 text-primary/40'>

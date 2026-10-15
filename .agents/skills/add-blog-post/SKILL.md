@@ -99,9 +99,9 @@ the blog looking like one publication (dark warm ink background, grain, green ey
 `vocdoni × <partner>` lockup). Read the header of `render.sh` first: the options grow over time and the header is the
 truth for this checkout.
 
-- Partner logo: the colour mark on a transparent background (key out white), roughly square, 400px or more, saved as
-  `assets/images/<org>-colour.webp` or reused from `assets/logos/`. It sits inside a cream circle, so the symbol works
-  better than a wide wordmark.
+- Partner logo: the organization's brand disc, `assets/logos/logo_<org>_round.webp` (the testimonial avatar; make one
+  with the `add-testimonial` recipe if it is missing). It fills its circle in the lockup, so `--c1` / `--c2` should be
+  picked from that disc. A bare mark on a transparent background still works with `--badge ring` (cream circle).
 - Eyebrow: `<Org> · <year of the vote>` (rendered uppercase). Title: leave "Success stories" for success stories,
   otherwise a two or three word label.
 - Variant: `--variant` is required. `stripes` (brand-colour band), `stat` (one
@@ -113,15 +113,15 @@ truth for this checkout.
 - Output: `public/blog/images/YYYY/MM/header_vocdoni_<org>.webp`, `YYYY/MM` being the publication month.
 
 ```bash
-scripts/blog-cover/render.sh --partner assets/images/fcb-colour.webp --variant pitch --c1 '#004d98' --c2 '#a50044' \
+scripts/blog-cover/render.sh --partner assets/logos/logo_fcb_round.webp --variant pitch --c1 '#004d98' --c2 '#a50044' \
   --eyebrow 'FC Barcelona · 2022' --out public/blog/images/2026/10/header_vocdoni_fcbarcelona.webp
 
-scripts/blog-cover/render.sh --partner assets/images/<org>-colour.webp --variant stat --stat '1,160' \
+scripts/blog-cover/render.sh --partner assets/logos/logo_<org>_round.webp --variant stat --stat '1,160' \
   --label clubs --eyebrow '<Org> · 2026' --c1 '<#hex>' --c2 '<#hex>' --out public/blog/images/2026/11/header_vocdoni_<org>.webp
 ```
 
-Then open the output with the Read tool and check: the lockup is centred and legible, the partner symbol is whole
-inside its circle, no text is clipped, and nothing important lives in the outer ~110px on each side (the blog card
+Then open the output with the Read tool and check: the lockup is centred and legible, the partner disc is whole
+and fills its circle, no text is clipped, and nothing important lives in the outer ~110px on each side (the blog card
 crops to 16:10, the post header to 16:9). Iterate on variant, eyebrow and colours until it reads well. Needs Chrome and
 `cwebp` (`webp` in Homebrew and apt, `libwebp-utils` in pacman). The script looks for Chrome or Chromium on the PATH and in
 the macOS app folder; set `CHROME=<path>` if it lives elsewhere.
