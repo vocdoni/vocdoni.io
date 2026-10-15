@@ -28,7 +28,7 @@ export function BlogCard({ post, locale, className }: BlogCardProps) {
               src={frontmatter.coverImage}
               alt={frontmatter.coverAlt || frontmatter.title}
               loading='lazy'
-              className='image-outline size-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.03]'
+              className='image-outline size-full object-cover'
             />
           ) : (
             <div className='flex size-full items-center justify-center bg-gradient-to-br from-primary/10 to-accent/20 text-primary/40'>
