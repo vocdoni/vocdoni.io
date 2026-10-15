@@ -100,7 +100,7 @@ export default config({
       schema: {
         name: fields.slug({ name: { label: 'Name', validation: { isRequired: true } } }),
         role: fields.text({ label: 'Role' }),
-        avatar: fields.image({ label: 'Avatar', directory: 'public/blog/authors', publicPath: '/blog/authors/' }),
+        avatar: fields.image({ label: 'Avatar', directory: 'assets/images/team', publicPath: '/assets/images/team/' }),
         website: fields.url({ label: 'Website' }),
         bio: fields.markdoc({ label: 'Bio' }),
       },
