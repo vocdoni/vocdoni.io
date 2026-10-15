@@ -101,6 +101,15 @@ const CATEGORY_FILES = import.meta.glob('/content/blog/categories/*.mdoc', {
   eager: true,
 }) as FileMap
 
+// Author avatars reuse the team photos (assets/images/team), the single source of
+// truth for people images. Frontmatter stores the source path and it resolves here
+// to the hashed build URL.
+const TEAM_IMAGES = import.meta.glob('/assets/images/team/*.webp', {
+  query: '?url',
+  import: 'default',
+  eager: true,
+}) as FileMap
+
 const POST_PREFIX = '/content/blog/'
 
 // key `/content/blog/en/my-post.mdoc` -> { locale:'en', slug:'my-post' }.
@@ -188,7 +197,7 @@ const authorIndex = (): Map<string, BlogAuthor> => {
       slug,
       name: typeof data.name === 'string' ? data.name : slug,
       role: typeof data.role === 'string' && data.role.trim() ? data.role : undefined,
-      avatar: typeof data.avatar === 'string' ? data.avatar : undefined,
+      avatar: typeof data.avatar === 'string' ? (TEAM_IMAGES[data.avatar] ?? data.avatar) : undefined,
       website: typeof data.website === 'string' ? data.website : undefined,
       bioHtml: content.trim() ? compile(content, { locale: localeDefault }) : undefined,
     })

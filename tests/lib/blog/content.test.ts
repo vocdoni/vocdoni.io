@@ -1,4 +1,4 @@
-import { allBlogSlugs, getCategory, listCategories, listPosts, loadPost } from '@/lib/blog/content'
+import { allBlogSlugs, getAuthor, getCategory, listCategories, listPosts, loadPost } from '@/lib/blog/content'
 import { describe, expect, it } from 'vitest'
 
 // Integration test over the committed content/blog files.
@@ -56,6 +56,12 @@ describe('blog content loader', () => {
     // Unknown slug has no locale entry and no English default: the slug itself is
     // the ultimate fallback (see lib/blog/category-names.ts).
     expect(getCategory('__missing__', 'es').name).toBe('__missing__')
+  })
+
+  it('resolves author avatars to the shared team photos', () => {
+    // Avatars must reuse assets/images/team, never a separate public copy.
+    expect(getAuthor('pau').avatar).toMatch(/\/assets\/images\/team\/pau_escrich.*\.webp$/)
+    expect(getAuthor('rica').avatar).toBeUndefined()
   })
 
   it('enumerates every published slug for prerendering', () => {

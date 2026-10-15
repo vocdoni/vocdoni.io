@@ -1,0 +1,221 @@
+---
+title: 'Aggiornamento su DAVINCI: il paper è uscito e il sequencer ora gira su ZisK'
+publishedDate: '2026-10-15'
+excerpt: 'Il paper di DAVINCI è sull''IACR ePrint Archive. Le prove delle schede si generano nel browser del telefono, il sequencer è ora un programma Rust per la zkVM ZisK, abbiamo contribuito a ZisK con un precompile per BabyJubJub e una sola GPU regola circa 6 voti al secondo.'
+coverImage: /blog/images/2026/10/header_davinci_paper_zisk.webp
+coverAlt: 'Aggiornamento su DAVINCI: il paper è uscito e il sequencer ora gira su ZisK'
+authors:
+  - pau
+categories:
+  - davinci
+  - technology
+featured: false
+draft: false
+seo:
+  metaTitle: 'Il paper di DAVINCI e il sequencer su ZisK | Vocdoni'
+  metaDescription: 'È uscito il paper di DAVINCI: prove delle schede nel browser, un sequencer sulla zkVM ZisK a 6 voti/s con una GPU e circa 0,15 centesimi a voto su Ethereum.'
+---
+
+Abbiamo appena pubblicato il paper di DAVINCI sull'IACR Cryptology ePrint Archive: [eprint.iacr.org/2026/2282](https://eprint.iacr.org/2026/2282). **È la prima volta che l'intero protocollo viene messo per iscritto in un unico posto**, con l'analisi di sicurezza accanto a un'implementazione funzionante e ai numeri reali che ne abbiamo ricavato. Pau Escrich l'ha scritto insieme a Marta Bellés-Muñoz (Universitat Pompeu Fabra), Roger Baig (Universitat Politècnica de Catalunya) e Jordi Piñana (Vocdoni).
+
+Se hai seguito [questo blog](/blog/davinci-universal-voting-protocol), conosci già l'idea: **un'elezione è uno ZK rollup**. I votanti cifrano le proprie schede, chiunque può far girare un sequencer che le raggruppa in batch e dimostra che il batch è stato elaborato secondo le regole, ed Ethereum accetta il nuovo stato dell'elezione solo se la prova è valida. Niente prova, niente aggiornamento dello stato, niente risultato falso.
+
+La novità del paper è l'ingegneria. Questo post parla di quella parte: come si genera la prova di un voto nel browser di un telefono, come il sequencer è stato riscritto come programma per la zkVM [ZisK](https://zisk.technology), il precompile con cui abbiamo contribuito a ZisK per renderlo veloce, e quanto costa tutto questo.
+
+## In breve
+
+- Il paper di DAVINCI è pubblicato su [eprint.iacr.org/2026/2282](https://eprint.iacr.org/2026/2282).
+- La prova di una scheda si genera nel browser in **circa 3 secondi su un portatile e 6,4 secondi su un telefono**.
+- Il sequencer è ora **un unico programma Rust dimostrato dalla zkVM ZisK**, al posto di circuiti scritti a mano.
+- Abbiamo contribuito a ZisK con un **precompile per BabyJubJub**, integrato nel progetto principale e uscito in v1.3.0-alpha.
+- Una sola GPU consumer regola **circa 6 voti al secondo**, oltre 21.000 voti all'ora.
+- Sulla mainnet di Ethereum a 1 gwei, un voto costa **circa 0,15 centesimi**; su Gnosis Chain, circa 0,0004 centesimi.
+
+## Due prover, un solo protocollo
+
+DAVINCI deve generare due tipi di prove molto diversi, quindi usa due prover molto diversi.
+
+### Il votante genera la prova nel browser
+
+**Il compito del votante è piccolo e deve funzionare ovunque.** Il circuito della scheda è scritto in Circom e la prova viene generata nel browser con snarkjs, come prova Groth16 su BN254. Il circuito verifica che:
+
+- la scheda sia una scelta valida per l'elezione (entro i valori ammessi, entro il budget, con opzioni non ripetute se l'elezione lo richiede),
+- sia cifrata correttamente,
+- l'identificativo del voto sia derivato nel modo giusto.
+
+Conta circa **65K vincoli** e gestisce fino a 16 campi cifrati, abbastanza per codificare schede a scelta singola, a scelta multipla, per approvazione, a preferenza ordinata e quadratiche.
+
+Per questa parte restiamo su Circom e snarkjs di proposito. snarkjs gira su WebAssembly in qualsiasi browser moderno, distribuisce il lavoro in parallelo tra i web worker ed è il prover Groth16 per browser più maturo che abbiamo trovato. Il tutto funziona come una pagina web statica: **nessuno deve installare un prover nativo e nessuno deve inviare il proprio voto in chiaro a un servizio esterno che generi la prova.** Per un'app di voto questo conta più che limare un secondo alla prova.
+
+Generare la prova di una scheda richiede circa **3 secondi** su un portatile (AMD Ryzen AI 5 340, Brave) e circa **6,4 secondi** su un Google Pixel 7a con Chrome, dopo aver scaricato una sola volta la proving key da 35,5 MiB e il generatore di witness da 6,5 MiB. Su un telefono è una barra di avanzamento, non un problema.
+
+### Il sequencer genera la prova su un server
+
+**Il compito del sequencer è grande e gira su un server.** Per ogni batch deve:
+
+- verificare l'intero batch di prove Groth16 generate nel browser,
+- controllare che ogni votante sia nel censimento e abbia firmato con la propria chiave,
+- ri-cifrare ogni scheda,
+- aggiornare l'albero di stato,
+- aggiornare il conteggio cifrato,
+- legare tutto ai dati dei blob che pubblica.
+
+È qui che entra in gioco ZisK.
+
+## Perché abbiamo spostato il sequencer su ZisK
+
+### I circuiti sono difficili da modificare
+
+Finora la logica del sequencer viveva in circuiti scritti a mano. I circuiti sono ottimi in ciò che fanno e pessimi quando si tratta di modificarli: ogni ritocco a una regola significa ricavare di nuovo i vincoli, ripetere i setup e rifare l'audit. Per un protocollo che prevediamo continui a evolversi, **è una tassa su ogni miglioramento.**
+
+### Che cos'è ZisK
+
+[ZisK](https://zisk.technology) è una zkVM open source, una macchina virtuale a conoscenza zero progettata per rendere la generazione delle prove più veloce ed economica. Si scrivono programmi in Rust (o in altri linguaggi di alto livello come C++ o Go) senza bisogno di competenze crittografiche approfondite, e l'architettura punta a bassa latenza e basso costo con 128 bit di sicurezza. È nata come progetto di Polygon Labs, costruita dal team dietro la zkEVM di Polygon; nel giugno 2025 quel team l'ha portata avanti in modo indipendente, e oggi è gestita come progetto open source guidato dalla comunità da SilentSig.
+
+![Logo della zkVM ZisK: la scritta bianca "ZisK VM" su una scheda scura](/blog/images/2026/10/zisk-logo.webp)
+
+Per noi funziona così: scrivi normale codice Rust, lo compili per RISC-V e ZisK produce una prova STARK che il programma è stato eseguito correttamente sugli input dati. Una STARK è un tipo di prova che non richiede trusted setup e si genera in fretta, ma in cambio è di grandi dimensioni. **La transizione di stato di DAVINCI è ora un unico programma Rust che implementa ogni regola del protocollo**, e i benchmark del paper girano su ZisK v1.3.0-alpha.
+
+### I precompile fanno la crittografia pesante
+
+Ciò che rende tutto questo praticabile sono i precompile di ZisK. Una zkVM paga per ogni istruzione che dimostra, e la crittografia richiede moltissime istruzioni. ZisK gestisce invece le primitive costose in circuiti dedicati e specializzati:
+
+- SHA-256
+- Keccak
+- pairing BN254
+- secp256k1
+- aritmetica modulare a 256 bit
+- e, a partire da questa versione, BabyJubJub
+
+Il programma di transizione li sfrutta tutti tranne Keccak, e più avanti vedremo perché Keccak conta comunque. Le prove Groth16 generate nel browser, per esempio, non vengono verificate una per una: **il programma condensa l'intero batch in un'unica verifica di pairing**, pesata con coefficienti casuali derivati dalle prove stesse, appoggiandosi al precompile di pairing BN254 di ZisK.
+
+### Dalla STARK a una prova che Ethereum può verificare
+
+La STARK è troppo grande per andare direttamente su Ethereum. ZisK la comprime in modo ricorsivo e incapsula il risultato in una prova PLONK su BN254, che il contratto di regolamento verifica con i precompile di pairing presenti in Ethereum da Byzantium. Viene pubblicata solo quella prova finale, ed è a conoscenza zero, quindi nasconde il witness del sequencer.
+
+La STARK non richiede trusted setup; l'incapsulamento PLONK usa le powers-of-tau universali di Hermez. **L'unica cerimonia specifica per un circuito rimasta in tutto il sistema è quella del circuito della scheda nel browser**, e viene riutilizzata da un'elezione all'altra.
+
+### Aggiornamenti senza un nuovo verificatore
+
+C'è un vantaggio in più che ci piace molto. Il circuito di incapsulamento PLONK è fissato da ZisK; il nostro programma vi entra solo come commitment del codice, che il contratto di regolamento tiene bloccato. **Aggiornare il programma di transizione significa aggiornare un solo commitment memorizzato**, non fare il deploy di un nuovo verificatore né eseguire un nuovo setup. Il meccanismo on-chain resta dov'è mentre il protocollo migliora.
+
+## Abbiamo contribuito a ZisK con un precompile per BabyJubJub
+
+DAVINCI cifra le schede con ElGamal su BabyJubJub, la curva di circomlib. Lato browser è la scelta naturale: il campo base di BabyJubJub è il campo scalare di BN254, quindi la cifratura è aritmetica nativa dentro un circuito Circom.
+
+Il sequencer deve fare molta più aritmetica su BabyJubJub del votante. Ri-cifrare una scheda richiede una moltiplicazione scalare per ogni testo cifrato, cioè una lunga catena di addizioni di punti, e il conteggio cifrato è un'unica grande somma progressiva di testi cifrati. **Dimostrare tutto questo come normali istruzioni RISC-V era il collo di bottiglia.**
+
+Così abbiamo scritto un precompile. La [PR #1152](https://github.com/0xPolygonHermez/zisk/pull/1152) aggiunge a ZisK, come primitiva dedicata, l'addizione completa di punti in coordinate affini su BabyJubJub (la stessa formula gestisce il raddoppio), compatibile con i parametri della curva di circomlib. Il team di ZisK l'ha revisionata, l'ha adattata alle proprie convenzioni interne e **l'ha integrata il 27 agosto**. È uscita in [ZisK v1.3.0-alpha](https://github.com/0xPolygonHermez/zisk/releases/tag/v1.3.0-alpha) il 21 settembre, citata nelle note di rilascio come «a dedicated BabyJubJub point-add precompile compatible with circomlib». Grazie a Héctor Masip e al resto del team di ZisK per averla accolta nel progetto principale invece di lasciarci su un fork.
+
+È il tassello che permette alle due metà di DAVINCI di parlare la stessa crittografia. Il browser cifra su BabyJubJub dentro un circuito Circom; il sequencer ri-cifra e accumula su BabyJubJub dentro ZisK; e le prove Groth16 che li collegano vengono verificate con il pairing BN254 di ZisK. **Non c'è nulla da tradurre da una curva all'altra**, e chiunque altro costruisca sulla curva di circomlib ottiene la stessa primitiva gratis.
+
+## Il dividendo di Ethereum: secp256k1 e Keccak
+
+### secp256k1: il wallet è la credenziale
+
+I votanti di DAVINCI firmano il proprio identificativo di voto con la stessa chiave ECDSA che sta dietro al loro indirizzo Ethereum. ZisK verifica quella firma in modo nativo, quindi l'idoneità è una prova di Merkle su semplici indirizzi Ethereum e **il wallet del votante è la sua credenziale**, senza alcuna chiave di registrazione aggiuntiva.
+
+### Keccak: i censimenti che Ethereum ha già
+
+Keccak è quello che ci entusiasma di più. I sistemi di voto ZK, DAVINCI compreso, hanno costruito i propri alberi di Merkle del censimento con Poseidon, perché Poseidon è economico da dimostrare e Keccak non lo era. Il prezzo si paga on-chain: un hash Poseidon in Solidity costa molte volte più di `keccak256`, che è un singolo opcode. I progetti che mantengono alberi Poseidon on-chain convivono con quel costo a ogni inserimento.
+
+La maggior parte dei registri, degli snapshot di token e degli elenchi di membri dei multisig che esistono già su Ethereum usa Keccak come hash, quindi finora un censimento per il voto ZK non poteva usarli senza un passaggio di conversione. Ora che ZisK dimostra Keccak in modo nativo, **il sequencer può verificare l'appartenenza a un albero Keccak** senza il costo che prima lo escludeva. Una DAO potrebbe mantenere on-chain il proprio registro dei votanti con l'hash che usa già, e DAVINCI potrebbe usarlo direttamente.
+
+Il prototipo del paper usa ancora un albero di Merkle Poseidon per il censimento e SHA-256 per l'albero di stato, quindi considera i censimenti Keccak il prossimo passo e non quello misurato nei benchmark. Ma il cambio costa meno di quanto sembri: la prova del censimento la verifica il sequencer, non il circuito della scheda, quindi **un censimento Keccak è una modifica al programma Rust**, non al circuito del browser né alla sua cerimonia.
+
+## I numeri
+
+### La configurazione
+
+Tutti i dati del sequencer provengono da una sola macchina: una **NVIDIA RTX 5090 (32 GiB)** con un AMD Ryzen 9 9950X3D a 16 core e 64 GiB di RAM. Il tempo misurato è il percorso critico del sequencer, dall'invio del job a una prova PLONK verificata, inclusi ricorsione, incapsulamento e la verifica fatta dal prover stesso. La generazione della prova del votante avviene sul suo dispositivo e non è inclusa.
+
+Due fattori determinano il costo:
+
+- **la dimensione del batch**, e
+- **`n`, il numero di campi attivi della scheda** nella modalità di scheda dell'elezione. Una scelta singola tra due opzioni è `n = 2`; una scheda a preferenza ordinata o quadratica con molte opzioni può usarli tutti e 16.
+
+Ogni batch della tabella include anche una ri-randomizzazione silenziosa per scheda (ne parliamo più avanti), quindi sono dati a regime, non il caso migliore.
+
+### Tempo di generazione della prova e throughput
+
+| Batch | n = 2, tempo | n = 2, voti/s | n = 2, blob | n = 16, tempo | n = 16, voti/s | n = 16, blob |
+| --- | --- | --- | --- | --- | --- | --- |
+| 2 | 15,6 s | 0,1 | 1 | 15,7 s | 0,1 | 1 |
+| 64 | 22,5 s | 2,8 | 1 | 30,3 s | 2,1 | 2 |
+| 128 | 30,1 s | 4,3 | 1 | 45,7 s | 2,8 | 3 |
+| 256 | 46,2 s | 5,5 | 1 | 76,7 s | 3,3 | 5 |
+| 512 | 84,3 s | 6,1 | 2 | 164,3 s | 3,1 | 9 |
+| 1024 | 171,2 s | 6,0 | 3 | 363,9 s | 2,8 | 17 |
+
+Come leggerla: c'è un **costo fisso di circa 16 secondi per batch**, quasi tutto dovuto a ricorsione, incapsulamento e verifica. A questo si aggiungono circa 0,11 s per scheda con `n = 2` e 0,23 s con `n = 16`.
+
+I batch più grandi ammortizzano il costo fisso, ed è per questo che il throughput sale a circa **6 voti al secondo** con 512 schede per le schede semplici e a **3,3 voti al secondo** con 256 schede per quelle a 16 campi. Oltre quel punto le prove del censimento diventano più profonde e, sopra le 512 schede, il prover sacrifica qualche punto percentuale di velocità per risparmiare RAM; 1024 è il limite dell'implementazione, fissato dalla memoria dell'host (circa 41 GB a quella dimensione), ed è per questo che la tabella si ferma lì.
+
+![Tempo di generazione della prova del sequencer per batch: la curva a due campi sale da 15,6 s con 2 schede a 171 s con 1024; quella a sedici campi da 15,7 s a 364 s; entrambe poggiano su un costo fisso di 16 secondi.](/blog/images/2026/10/davinci-proving-time.webp)
+
+![Throughput di un sequencer: i voti al secondo crescono con la dimensione del batch e toccano il massimo di 6,1 per le schede a due campi (512) e di 3,3 per quelle a sedici campi (256); i punti a sedici campi con 512 e 1024 sono vuoti perché superano i sei blob.](/blog/images/2026/10/davinci-throughput.webp)
+
+Sei voti al secondo su una sola GPU consumer sono **oltre 21.000 voti all'ora da un singolo sequencer**. All'interno di un'elezione, i batch formano una catena di state root e il contratto li regola in ordine, quindi se due sequencer competono sulla stessa root uno dei due ha sprecato la propria prova; questi sono numeri per elezione e per sequencer. Tra elezioni diverse, i sequencer sono permissionless e indipendenti, quindi la capacità cresce con le macchine che le persone collegano alla rete.
+
+### I blob sono il vincolo di Ethereum
+
+Ogni aggiornamento di slot viene pubblicato in blob EIP-4844 perché chiunque possa ricostruire lo stato, ed **EIP-7594 limita una transazione a sei blob**. Le ultime due righe delle colonne `n = 16` (9 e 17 blob) sforano quel limite, quindi valgono solo come tempi di generazione della prova; un sequencer che esegue il regolamento sulla mainnet sceglie la dimensione del batch in base a `n`, e le configurazioni con il throughput migliore ci stanno comodamente.
+
+![Blob per transizione in base alla dimensione del batch: i batch a due campi richiedono da 1 a 3 blob; quelli a sedici campi 1, 2, 3, 5, 9 e 17, con gli ultimi due sopra la linea tratteggiata dei sei blob.](/blog/images/2026/10/davinci-blobs-per-batch.webp)
+
+## Quanto costa un voto on-chain
+
+Regolare un batch costa circa **498K gas con un blob, più circa 56K per ogni blob aggiuntivo**, qualunque sia la dimensione del batch. Verificare la prova PLONK richiede lo stesso lavoro sia che il batch contenga 2 schede sia che ne contenga 1024, quindi il costo per voto è il costo del batch diviso per la sua dimensione. I batch più grandi costano meno per voto; più campi della scheda comportano più blob e un batch leggermente più caro.
+
+### Le ipotesi sui prezzi
+
+La tabella qui sotto calcola il prezzo di ogni configurazione del benchmark che rientra nei limiti per il regolamento on-chain, a **1 gwei e 2.500 USD per ETH** per la mainnet, un'ipotesi volutamente prudente: la media di Etherscan il giorno in cui abbiamo scritto questo post era 0,12 gwei, e la mediana dell'ultimo anno era 0,74 gwei. Per Gnosis Chain usiamo la sua mediana di 5,2 gwei, pagati in xDAI a 1 USD. Il costo scala linearmente con il prezzo del gas, quindi con gli 0,12 gwei di oggi dividi la colonna mainnet per otto, e con un picco a 5 gwei moltiplicala per cinque.
+
+| Campi della scheda | Batch | Blob | Gas per batch | Mainnet, per batch | Mainnet, per voto | Gnosis, per voto |
+| --- | --- | --- | --- | --- | --- | --- |
+| 2 | 64 | 1 | 498K | 1,25 USD | 1,9 centesimi | 0,004 centesimi |
+| 2 | 128 | 1 | 498K | 1,25 USD | 1,0 centesimo | 0,002 centesimi |
+| 2 | 256 | 1 | 498K | 1,25 USD | 0,5 centesimi | 0,001 centesimi |
+| 2 | 512 | 2 | 554K | 1,39 USD | 0,27 centesimi | 0,0006 centesimi |
+| 2 | 1024 | 3 | 612K | 1,53 USD | 0,15 centesimi | n.d. (vedi sotto) |
+| 16 | 64 | 2 | 554K | 1,39 USD | 2,2 centesimi | 0,0045 centesimi |
+| 16 | 128 | 3 | 612K | 1,53 USD | 1,2 centesimi | n.d. (vedi sotto) |
+| 16 | 256 | 5 | ~722K | ~1,80 USD | 0,7 centesimi | n.d. (vedi sotto) |
+
+![Costo di regolamento per voto in scala logaritmica: la mainnet a 1 gwei va da 1,9 centesimi (64 schede) a 0,15 centesimi (1024 schede); Gnosis Chain costa circa 500 volte meno, da 0,004 a 0,0006 centesimi, per i batch che rientrano nel suo limite di due blob.](/blog/images/2026/10/davinci-cost-per-vote.webp)
+
+### Mainnet di Ethereum
+
+A 1 gwei, **regolare un milione di voti con scheda semplice costa circa 1.500 USD** in batch da 1024 schede, e al prezzo del gas di oggi meno di 200 USD. I dati di regolamento misurati nel paper arrivano fino a quattro blob; la riga a cinque blob è un'estrapolazione con lo stesso passo di 56K.
+
+### Gnosis Chain
+
+Su Gnosis Chain la stessa verifica costa circa **500 volte meno**, perché il gas si paga in un token ancorato al dollaro a prezzi tali che un intero batch costa circa un quarto di centesimo. Lì il vincolo è un altro: un blocco di Gnosis trasporta al massimo due blob, il che limita una transizione a 744 schede per le elezioni a due campi e a 121 per quelle a sedici campi.
+
+Entro questi limiti, **regolare un milione di voti con scheda semplice su Gnosis costa meno di 5 USD**, circa 0,0004 centesimi ciascuno. Per la maggior parte delle organizzazioni, il costo di regolamento su Gnosis è trascurabile rispetto al costo del tempo di GPU.
+
+Le commissioni dei blob sono un mercato a parte e non compaiono nella tabella; sulla mainnet erano molto inferiori al costo di verifica durante la nostra finestra di misurazione, e su Gnosis la soglia minima di 1 gwei per le commissioni dei blob aggiunge circa 0,0001 USD per blob.
+
+## La sovrascrittura silenziosa del voto, visto che è nei numeri
+
+Quei benchmark includono le ri-randomizzazioni perché **DAVINCI paga la resistenza alla coercizione in ogni batch**, e volevamo misurare il costo reale, non quello di facciata.
+
+### Come funziona
+
+Un votante può votare di nuovo in qualsiasi momento, e la scheda più recente sostituisce quella precedente. Ma lo slot di un votante nell'albero di stato è pubblico, quindi chi osserva i blob potrebbe vedere quello slot cambiare e sapere che qualcuno ha votato di nuovo.
+
+Per nasconderlo, **ogni transizione di stato ri-randomizza anche un insieme casuale di altre schede memorizzate**. Una scheda ri-randomizzata appare completamente diversa on-chain, ma una volta decifrata corrisponde allo stesso voto. Sovrascritture e ri-randomizzazioni vengono pubblicate nello stesso formato, ordinate e senza etichette. Un osservatore vede un batch di slot che cambiano e, dai dati pubblicati, non può capire quali corrispondano a un voto ripetuto.
+
+### Quanto costa
+
+Nella tabella questo costa circa **1,6 secondi per batch da 128 schede con `n = 2`** e circa 5 secondi con `n = 16`. In cambio, chi compra un voto non può confermare che il voto pagato sia rimasto al suo posto. Secondo noi è un affare.
+
+## Leggilo, eseguilo, rompilo
+
+Il paper è su [eprint.iacr.org/2026/2282](https://eprint.iacr.org/2026/2282). La sezione 6 contiene i dettagli dell'implementazione e i benchmark; la sezione 5 contiene l'analisi di sicurezza, compreso l'enunciato formale di ciò che la sovrascrittura silenziosa del voto nasconde.
+
+Il codice è aperto:
+
+- [davinci-circom](https://github.com/vocdoni/davinci-circom): il circuito Circom della scheda e il prover per browser, con un'app web di prova che puoi usare nel tuo browser.
+- [davinci-zkvm](https://github.com/vocdoni/davinci-zkvm): il programma di transizione per ZisK e il sequencer.
+- [ZisK PR #1152](https://github.com/0xPolygonHermez/zisk/pull/1152): il precompile per BabyJubJub.

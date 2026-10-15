@@ -67,7 +67,8 @@ Files live in `content/blog/authors/*.mdoc`; the **filename is the slug** refere
 
 - `name` (required) - display name.
 - `role` - job title.
-- `avatar` - image path, e.g. `/blog/authors/pau.webp` (stored in `public/blog/authors/`).
+- `avatar` - team photo path, e.g. `/assets/images/team/pau_escrich.webp`. Author avatars reuse the team photos in
+  `assets/images/team/` (one image per person, also used by the about page); never add a separate copy.
 - `website` - URL.
 - `bio` - Markdown body after the frontmatter (rendered in the end-of-post author card when present).
 
@@ -99,7 +100,7 @@ Served locales (`locales/index.ts`): `en` (default), `es`, `ca`, `de`, `el`, `eu
 
 - Store cover and inline images under `public/blog/images/YYYY/MM/` and reference them
   **web-absolute, without the `public/` prefix**: `/blog/images/2026/03/foo.webp`.
-- Use `.webp`. Author avatars live in `public/blog/authors/` (`/blog/authors/<slug>.webp`).
+- Use `.webp`. Author avatars are the team photos in `assets/images/team/` (see Authors).
 - **Covers are rendered from a template**, never hand-made: `scripts/blog-cover/render.sh` screenshots
   `scripts/blog-cover/template.html` with headless Chrome and writes a 1685x920 `.webp` to
   `public/blog/images/YYYY/MM/header_vocdoni_<org>.webp`. `--partner` is the organization's colour mark on a

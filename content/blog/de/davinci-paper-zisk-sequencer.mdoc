@@ -1,0 +1,221 @@
+---
+title: 'DAVINCI-Update: Das Paper ist erschienen, und der Sequencer läuft jetzt auf ZisK'
+publishedDate: '2026-10-15'
+excerpt: 'Das DAVINCI-Paper ist im IACR ePrint Archive erschienen. Beweise für Stimmzettel entstehen im Smartphone-Browser, der Sequencer ist jetzt ein Rust-Programm für die ZisK-zkVM, wir haben ein BabyJubJub-Precompile zu ZisK beigesteuert, und eine einzige GPU wickelt etwa 6 Stimmen pro Sekunde ab.'
+coverImage: /blog/images/2026/10/header_davinci_paper_zisk.webp
+coverAlt: 'DAVINCI-Update: Das Paper ist erschienen, und der Sequencer läuft jetzt auf ZisK'
+authors:
+  - pau
+categories:
+  - davinci
+  - technology
+featured: false
+draft: false
+seo:
+  metaTitle: 'DAVINCI-Paper und ZisK-Sequencer | Vocdoni'
+  metaDescription: 'Das DAVINCI-Paper ist da: im Browser erzeugte Stimmzettel-Beweise, ZisK-zkVM-Sequencer mit 6 Stimmen/s auf einer GPU, etwa 0,15 Cent pro Stimme auf Ethereum.'
+---
+
+Wir haben gerade das DAVINCI-Paper im IACR Cryptology ePrint Archive veröffentlicht: [eprint.iacr.org/2026/2282](https://eprint.iacr.org/2026/2282). **Zum ersten Mal ist das gesamte Protokoll an einem Ort beschrieben**, mit der Sicherheitsanalyse neben einer funktionierenden Implementierung und echten Messwerten daraus. Pau Escrich hat es gemeinsam mit Marta Bellés-Muñoz (Universitat Pompeu Fabra), Roger Baig (Universitat Politècnica de Catalunya) und Jordi Piñana (Vocdoni) verfasst.
+
+Wenn Sie [diesen Blog](/blog/davinci-universal-voting-protocol) verfolgt haben, kennen Sie die Idee: **Eine Wahl ist ein ZK-Rollup**. Wählende verschlüsseln ihre Stimmzettel, jede Person kann einen Sequencer betreiben, der sie zu Batches bündelt und beweist, dass der Batch nach den Regeln verarbeitet wurde, und Ethereum akzeptiert den neuen Wahlzustand nur, wenn der Beweis stimmt. Kein Beweis, keine Zustandsaktualisierung, kein gefälschtes Ergebnis.
+
+Neu im Paper ist die technische Umsetzung. Um diesen Teil geht es in diesem Beitrag: wie der Beweis für eine Stimme im Smartphone-Browser entsteht, wie der Sequencer als Programm für die [ZisK](https://zisk.technology)-zkVM neu geschrieben wurde, welches Precompile wir zum Projekt beigesteuert haben, um das zu beschleunigen, und was das alles kostet.
+
+## Kurz gefasst
+
+- Das DAVINCI-Paper ist unter [eprint.iacr.org/2026/2282](https://eprint.iacr.org/2026/2282) veröffentlicht.
+- Der Beweis für einen Stimmzettel entsteht im Browser in **etwa 3 Sekunden auf einem Laptop und 6,4 Sekunden auf einem Smartphone**.
+- Der Sequencer ist jetzt **ein einziges Rust-Programm, das von der ZisK-zkVM bewiesen wird**, statt handgeschriebener Schaltkreise.
+- Wir haben ein **BabyJubJub-Precompile zu ZisK beigesteuert**, das ins Hauptprojekt übernommen und mit v1.3.0-alpha ausgeliefert wurde.
+- Eine einzige handelsübliche GPU wickelt **etwa 6 Stimmen pro Sekunde** ab, über 21.000 Stimmen pro Stunde.
+- Auf dem Ethereum-Mainnet kostet eine Stimme bei 1 gwei **etwa 0,15 Cent**; auf Gnosis Chain etwa 0,0004 Cent.
+
+## Zwei Prover, ein Protokoll
+
+DAVINCI hat zwei sehr unterschiedliche Beweisaufgaben, also nutzt es zwei sehr unterschiedliche Prover.
+
+### Die Wählenden beweisen im Browser
+
+**Die Aufgabe der Wählenden ist klein und muss überall laufen.** Der Stimmzettel-Schaltkreis ist in Circom geschrieben, und der Beweis wird im Browser mit snarkjs erzeugt, als Groth16-Beweis über BN254. Der Schaltkreis prüft, dass:
+
+- der Stimmzettel eine gültige Auswahl für die Wahl darstellt (innerhalb der erlaubten Werte, innerhalb des Budgets, mit jeder Option höchstens einmal, wenn die Wahl das verlangt),
+- er korrekt verschlüsselt ist,
+- die Stimmkennung richtig abgeleitet wurde.
+
+Er umfasst etwa **65K Constraints** und verarbeitet bis zu 16 verschlüsselte Felder. Das reicht, um Einfach- und Mehrfachauswahl, Zustimmungs- und Ranglistenwahl sowie quadratisches Abstimmen zu kodieren.
+
+Für diesen Teil bleiben wir bewusst bei Circom und snarkjs. snarkjs läuft auf WebAssembly in jedem modernen Browser, verteilt die Arbeit parallel auf Web Worker und ist der ausgereifteste Browser-Prover für Groth16, den wir gefunden haben. Das Ganze funktioniert als statische Webseite: **Niemand muss einen nativen Prover installieren, und niemand muss seine Stimme im Klartext an einen Beweisdienst schicken.** Für eine Abstimmungs-App zählt das mehr, als eine Sekunde bei der Beweiserzeugung einzusparen.
+
+Die Beweiserzeugung für einen Stimmzettel dauert auf einem Laptop (AMD Ryzen AI 5 340, Brave) etwa **3 Sekunden** und auf einem Google Pixel 7a mit Chrome etwa **6,4 Sekunden**, nach einem einmaligen Download des 35,5 MiB großen Proving Keys und des 6,5 MiB großen Witness-Generators. Auf einem Smartphone ist das ein Fortschrittsbalken, kein Problem.
+
+### Der Sequencer beweist auf einem Server
+
+**Die Aufgabe des Sequencers ist groß und läuft auf einem Server.** Für jeden Batch muss er:
+
+- den gesamten Batch der im Browser erzeugten Groth16-Beweise verifizieren,
+- prüfen, dass jede wählende Person im Zensus steht und mit ihrem Schlüssel signiert hat,
+- jeden Stimmzettel umverschlüsseln,
+- den Zustandsbaum aktualisieren,
+- die verschlüsselte Auszählung aktualisieren,
+- alles an die Blob-Daten binden, die er veröffentlicht.
+
+Hier kommt ZisK ins Spiel.
+
+## Warum wir den Sequencer auf ZisK umgestellt haben
+
+### Schaltkreise lassen sich schwer ändern
+
+Bisher steckte die Logik des Sequencers in handgeschriebenen Schaltkreisen. Schaltkreise sind hervorragend in dem, was sie tun, und furchtbar, wenn man sie ändern will: Jede Anpassung einer Regel bedeutet, Constraints neu herzuleiten, Setups neu auszuführen und neu zu auditieren. Für ein Protokoll, von dem wir erwarten, dass es sich laufend weiterentwickelt, **ist das eine Art Steuer auf jede Verbesserung.**
+
+### Was ZisK ist
+
+[ZisK](https://zisk.technology) ist eine Open-Source-zkVM, eine Zero-Knowledge-Virtual-Machine, die Beweiserzeugung schneller und günstiger machen soll. Man schreibt Programme in Rust (oder anderen Hochsprachen wie C++ oder Go), ohne tiefes kryptografisches Fachwissen zu brauchen, und die Architektur zielt auf niedrige Latenz und niedrige Kosten bei 128 Bit Sicherheit. Entstanden ist ZisK als Projekt bei Polygon Labs, gebaut vom Team hinter der Polygon zkEVM; im Juni 2025 hat dieses Team es unabhängig weitergeführt, und heute wird es als quelloffenes, von der Community getragenes Projekt von SilentSig betreut.
+
+![ZisK-zkVM-Logo: die weiße Wortmarke „ZisK VM“ auf einer dunklen Karte](/blog/images/2026/10/zisk-logo.webp)
+
+Für uns funktioniert das so: Man schreibt ganz normales Rust, kompiliert es nach RISC-V, und ZisK erzeugt einen STARK-Beweis dafür, dass das Programm mit den gegebenen Eingaben korrekt ausgeführt wurde. Ein STARK ist die Art von Beweis, die kein Trusted Setup braucht und sich schnell erzeugen lässt, dafür aber groß ist. **Der DAVINCI-Zustandsübergang ist jetzt ein einziges Rust-Programm, das jede Regel des Protokolls implementiert**, und die Benchmarks im Paper laufen auf ZisK v1.3.0-alpha.
+
+### Precompiles übernehmen die schwere Kryptografie
+
+Praxistauglich wird das durch die Precompiles von ZisK. Eine zkVM zahlt für jede Instruktion, die sie beweist, und Kryptografie braucht sehr viele Instruktionen. ZisK erledigt die teuren Primitive stattdessen in eigenen, spezialisierten Schaltkreisen:
+
+- SHA-256
+- Keccak
+- BN254-Pairing
+- secp256k1
+- modulare 256-Bit-Arithmetik
+- und seit dieser Version auch BabyJubJub
+
+Das Übergangsprogramm stützt sich auf alle davon außer Keccak, und wir kommen noch darauf zurück, warum Keccak trotzdem wichtig ist. Die im Browser erzeugten Groth16-Beweise etwa werden nicht einzeln verifiziert: **Das Programm faltet den ganzen Batch zu einer einzigen Pairing-Prüfung zusammen**, gewichtet mit Zufallskoeffizienten, die es aus den Beweisen selbst ableitet, und baut dabei auf dem BN254-Pairing-Precompile von ZisK auf.
+
+### Vom STARK zu einem Beweis, den Ethereum verifizieren kann
+
+Der STARK ist zu groß, um ihn direkt an Ethereum zu senden. ZisK komprimiert ihn rekursiv und verpackt das Ergebnis in einen PLONK-Beweis über BN254, den der Abwicklungs-Contract mit den Pairing-Precompiles verifiziert, die Ethereum seit Byzantium hat. Nur dieser finale Beweis wird veröffentlicht, und er ist Zero-Knowledge, verbirgt also den Witness des Sequencers.
+
+Der STARK braucht kein Trusted Setup; der PLONK-Wrapper nutzt die universellen Hermez-Powers-of-Tau. **Die einzige schaltkreisspezifische Zeremonie, die im gesamten System übrig bleibt, ist die für den Stimmzettel-Schaltkreis im Browser**, und sie wird für alle Wahlen wiederverwendet.
+
+### Upgrades ohne neuen Verifizierer
+
+Ein Bonus gefällt uns besonders. Der Schaltkreis des PLONK-Wrappers ist durch ZisK festgelegt; unser Programm geht darin nur als Code-Commitment ein, das der Abwicklungs-Contract fest hinterlegt. **Das Übergangsprogramm zu aktualisieren heißt, ein gespeichertes Commitment zu aktualisieren**, nicht einen neuen Verifizierer bereitzustellen oder ein neues Setup durchzuführen. Die On-Chain-Infrastruktur bleibt, wie sie ist, während das Protokoll besser wird.
+
+## Wir haben ein BabyJubJub-Precompile zu ZisK beigesteuert
+
+DAVINCI verschlüsselt Stimmzettel mit ElGamal auf BabyJubJub, der Kurve aus circomlib. Auf der Browserseite ist das die naheliegende Wahl: Der Basiskörper von BabyJubJub ist der Skalarkörper von BN254, sodass die Verschlüsselung in einem Circom-Schaltkreis native Arithmetik ist.
+
+Der Sequencer muss sehr viel mehr BabyJubJub-Arithmetik ausführen als eine wählende Person. Einen Stimmzettel umzuverschlüsseln kostet eine Skalarmultiplikation pro Chiffretext, also eine lange Kette von Punktadditionen, und die verschlüsselte Auszählung ist eine große laufende Summe von Chiffretexten. **All das als gewöhnliche RISC-V-Instruktionen zu beweisen, war der Engpass.**
+
+Also haben wir ein Precompile geschrieben. [PR #1152](https://github.com/0xPolygonHermez/zisk/pull/1152) fügt vollständige affine Punktaddition auf BabyJubJub (dieselbe Formel deckt auch die Verdopplung ab) als eigenes ZisK-Primitiv hinzu, kompatibel mit den Kurvenparametern von circomlib. Das ZisK-Team hat den PR geprüft, an seine internen Konventionen angepasst und **am 27. August zusammengeführt**. Am 21. September wurde das Precompile mit [ZisK v1.3.0-alpha](https://github.com/0xPolygonHermez/zisk/releases/tag/v1.3.0-alpha) ausgeliefert, in den Versionshinweisen aufgeführt als „a dedicated BabyJubJub point-add precompile compatible with circomlib“. Unser Dank geht an Héctor Masip und das übrige ZisK-Team dafür, dass sie es ins Hauptprojekt übernommen haben, statt uns auf einem Fork sitzen zu lassen.
+
+Dieser Baustein sorgt dafür, dass beide Hälften von DAVINCI dieselbe Kryptografie sprechen. Der Browser verschlüsselt auf BabyJubJub in einem Circom-Schaltkreis; der Sequencer verschlüsselt um und akkumuliert auf BabyJubJub in ZisK; und die Groth16-Beweise, die beides verbinden, werden mit dem BN254-Pairing von ZisK verifiziert. **Nichts muss zwischen Kurven übersetzt werden**, und wer sonst auf der Kurve von circomlib aufbaut, bekommt dasselbe Primitiv kostenlos dazu.
+
+## Die Ethereum-Dividende: secp256k1 und Keccak
+
+### secp256k1: Die Wallet ist der Berechtigungsnachweis
+
+Wählende signieren bei DAVINCI ihre Stimmkennung mit demselben ECDSA-Schlüssel, der hinter ihrer Ethereum-Adresse steht. ZisK verifiziert diese Signatur nativ. Die Stimmberechtigung ist damit ein Merkle-Beweis über ganz normale Ethereum-Adressen, und **die Wallet der wählenden Person ist ihr Berechtigungsnachweis**, ohne zusätzlichen Registrierungsschlüssel.
+
+### Keccak: Zensus, die Ethereum schon hat
+
+Auf Keccak freuen wir uns am meisten. ZK-Abstimmungssysteme, DAVINCI eingeschlossen, haben ihre Zensus-Merkle-Bäume mit Poseidon gebaut, weil Poseidon billig zu beweisen ist und Keccak es nicht war. Den Preis zahlt man on-chain: Ein Poseidon-Hash in Solidity ist um ein Vielfaches teurer als `keccak256`, das ein einzelner Opcode ist. Projekte, die Poseidon-Bäume on-chain führen, tragen diese Kosten bei jedem Einfügen.
+
+Die meisten Register, Token-Snapshots und Multisig-Mitgliederlisten, die es auf Ethereum bereits gibt, hashen mit Keccak. Bis jetzt konnte ein ZK-Abstimmungszensus sie deshalb nicht ohne Konvertierungsschritt nutzen. Da ZisK Keccak jetzt nativ beweist, **kann der Sequencer die Mitgliedschaft in einem Keccak-Baum verifizieren**, ohne die Kosten, die das früher ausgeschlossen haben. Eine DAO könnte ihr Wählerverzeichnis on-chain mit dem Hash führen, den sie ohnehin verwendet, und DAVINCI könnte es direkt nutzen.
+
+Der Prototyp im Paper verwendet für den Zensus noch einen Poseidon-Merkle-Baum und für den Zustandsbaum SHA-256. Betrachten Sie Keccak-Zensus also als den nächsten Schritt, nicht als den gemessenen. Der Wechsel ist aber günstiger, als er klingt: Der Zensus-Beweis wird vom Sequencer geprüft, nicht vom Stimmzettel-Schaltkreis. **Ein Keccak-Zensus ist also eine Änderung am Rust-Programm**, nicht am Browser-Schaltkreis oder an dessen Zeremonie.
+
+## Die Zahlen
+
+### Der Aufbau
+
+Alle Werte für den Sequencer stammen von einer einzigen Maschine: einer **NVIDIA RTX 5090 (32 GiB)** mit einem AMD Ryzen 9 9950X3D mit 16 Kernen und 64 GiB RAM. Gemessen wird der kritische Pfad des Sequencers, von der Übergabe des Auftrags bis zu einem verifizierten PLONK-Beweis, einschließlich Rekursion, Wrapping und der Verifikation durch den Prover selbst. Die Beweiserzeugung der Wählenden findet auf deren Gerät statt und ist nicht enthalten.
+
+Zwei Faktoren bestimmen die Kosten:
+
+- **die Batch-Größe** und
+- **`n`, die Zahl der aktiven Stimmzettelfelder** im Stimmzettelmodus der Wahl. Eine einfache Auswahl zwischen zwei Optionen ist `n = 2`; ein Stimmzettel für Ranglistenwahl oder quadratisches Abstimmen mit vielen Optionen kann alle 16 nutzen.
+
+Jeder Batch in der Tabelle enthält außerdem eine stille Auffrischung pro Stimmzettel (mehr dazu unten). Es sind also Werte im Dauerbetrieb, keine Bestwerte.
+
+### Beweiszeit und Durchsatz
+
+| Batch | n = 2 Zeit | n = 2 Stimmen/s | n = 2 Blobs | n = 16 Zeit | n = 16 Stimmen/s | n = 16 Blobs |
+| --- | --- | --- | --- | --- | --- | --- |
+| 2 | 15,6 s | 0,1 | 1 | 15,7 s | 0,1 | 1 |
+| 64 | 22,5 s | 2,8 | 1 | 30,3 s | 2,1 | 2 |
+| 128 | 30,1 s | 4,3 | 1 | 45,7 s | 2,8 | 3 |
+| 256 | 46,2 s | 5,5 | 1 | 76,7 s | 3,3 | 5 |
+| 512 | 84,3 s | 6,1 | 2 | 164,3 s | 3,1 | 9 |
+| 1024 | 171,2 s | 6,0 | 3 | 363,9 s | 2,8 | 17 |
+
+So liest man die Tabelle: Pro Batch fallen **fixe Kosten von etwa 16 Sekunden** an, fast vollständig für Rekursion, Wrapping und Verifikation. Hinzu kommen pro Stimmzettel etwa 0,11 s bei `n = 2` und 0,23 s bei `n = 16`.
+
+Größere Batches amortisieren die fixen Kosten, deshalb steigt der Durchsatz bei einfachen Stimmzetteln auf etwa **6 Stimmen pro Sekunde** bei 512 Stimmzetteln und bei Stimmzetteln mit 16 Feldern auf **3,3 Stimmen pro Sekunde** bei 256 Stimmzetteln. Danach werden die Zensus-Beweise tiefer, und oberhalb von 512 Stimmzetteln tauscht der Prover einige Prozent Geschwindigkeit gegen RAM; 1024 ist die Obergrenze der Implementierung, vorgegeben durch den Arbeitsspeicher des Hosts (bei dieser Größe etwa 41 GB), und deshalb endet die Tabelle dort.
+
+![Beweiszeit des Sequencers pro Batch: Die Kurve für zwei Felder steigt von 15,6 s bei 2 Stimmzetteln auf 171 s bei 1024, die Kurve für sechzehn Felder von 15,7 s auf 364 s; beide enthalten einen Fixkostenanteil von 16 Sekunden.](/blog/images/2026/10/davinci-proving-time.webp)
+
+![Durchsatz eines Sequencers: Die Stimmen pro Sekunde steigen mit der Batch-Größe und erreichen ihren Höchstwert bei 6,1 für Stimmzettel mit zwei Feldern (512) und bei 3,3 für Stimmzettel mit sechzehn Feldern (256); die Punkte für sechzehn Felder bei 512 und 1024 sind nicht ausgefüllt, weil sie sechs Blobs überschreiten.](/blog/images/2026/10/davinci-throughput.webp)
+
+Sechs Stimmen pro Sekunde auf einer einzigen handelsüblichen GPU sind **über 21.000 Stimmen pro Stunde von einem einzigen Sequencer**. Innerhalb einer Wahl bilden die Batches eine Kette von Zustandswurzeln, und der Contract wickelt sie der Reihe nach ab. Rechnen zwei Sequencer auf derselben Wurzel um die Wette, hat einer von beiden seinen Beweis also umsonst erzeugt; es sind Werte pro Wahl und pro Sequencer. Wahlübergreifend sind Sequencer erlaubnisfrei und unabhängig, die Kapazität wächst also mit den Maschinen, die Leute ans Netz bringen.
+
+### Blobs sind die Grenze, die Ethereum setzt
+
+Jede Slot-Aktualisierung wird in EIP-4844-Blobs veröffentlicht, damit jede Person den Zustand rekonstruieren kann, und **EIP-7594 begrenzt eine Transaktion auf sechs Blobs**. Die unteren beiden Zeilen der Spalten für `n = 16` (9 und 17 Blobs) sprengen diese Grenze, es sind also reine Werte für die Beweiserzeugung. Ein Sequencer, der auf dem Mainnet abwickelt, wählt seine Batch-Größe anhand von `n`, und die Konfigurationen mit optimalem Durchsatz passen bequem hinein.
+
+![Blobs pro Übergang nach Batch-Größe: Batches mit zwei Feldern brauchen 1 bis 3 Blobs; Batches mit sechzehn Feldern brauchen 1, 2, 3, 5, 9 und 17, wobei die letzten beiden über der gestrichelten Linie bei sechs Blobs liegen.](/blog/images/2026/10/davinci-blobs-per-batch.webp)
+
+## Was eine Stimme on-chain kostet
+
+Einen Batch abzuwickeln kostet etwa **498K Gas mit einem Blob, plus etwa 56K pro zusätzlichem Blob**, unabhängig von der Batch-Größe. Den PLONK-Beweis zu verifizieren ist derselbe Aufwand, ganz gleich, ob der Batch 2 oder 1024 Stimmzettel enthält. Die Kosten pro Stimme sind also die Batch-Kosten geteilt durch die Batch-Größe. Größere Batches sind pro Stimme günstiger; mehr Stimmzettelfelder bedeuten mehr Blobs und einen etwas teureren Batch.
+
+### Die Preisannahmen
+
+Die folgende Tabelle bepreist jede abwickelbare Konfiguration aus dem Benchmark für das Mainnet mit **1 gwei und 2.500 USD pro ETH**, was bewusst konservativ ist: Der Durchschnitt laut Etherscan lag an dem Tag, an dem wir dies geschrieben haben, bei 0,12 gwei, der Median des vergangenen Jahres bei 0,74 gwei. Für Gnosis Chain verwenden wir deren Median von 5,2 gwei, bezahlt in xDAI zu 1 USD. Die Kosten skalieren linear mit dem Gaspreis: Beim heutigen Wert von 0,12 gwei teilen Sie die Mainnet-Spalte durch acht, bei einer Spitze von 5 gwei multiplizieren Sie sie mit fünf.
+
+| Stimmzettelfelder | Batch | Blobs | Gas pro Batch | Mainnet, pro Batch | Mainnet, pro Stimme | Gnosis, pro Stimme |
+| --- | --- | --- | --- | --- | --- | --- |
+| 2 | 64 | 1 | 498K | 1,25 USD | 1,9 Cent | 0,004 Cent |
+| 2 | 128 | 1 | 498K | 1,25 USD | 1,0 Cent | 0,002 Cent |
+| 2 | 256 | 1 | 498K | 1,25 USD | 0,5 Cent | 0,001 Cent |
+| 2 | 512 | 2 | 554K | 1,39 USD | 0,27 Cent | 0,0006 Cent |
+| 2 | 1024 | 3 | 612K | 1,53 USD | 0,15 Cent | entfällt (siehe unten) |
+| 16 | 64 | 2 | 554K | 1,39 USD | 2,2 Cent | 0,0045 Cent |
+| 16 | 128 | 3 | 612K | 1,53 USD | 1,2 Cent | entfällt (siehe unten) |
+| 16 | 256 | 5 | ~722K | ~1,80 USD | 0,7 Cent | entfällt (siehe unten) |
+
+![Abwicklungskosten pro Stimme auf logarithmischer Skala: Das Mainnet bei 1 gwei reicht von 1,9 Cent (64 Stimmzettel) bis hinunter zu 0,15 Cent (1024 Stimmzettel); Gnosis Chain ist etwa 500-mal günstiger, von 0,004 Cent bis hinunter zu 0,0006 Cent, für die Batches, die in deren Limit von zwei Blobs passen.](/blog/images/2026/10/davinci-cost-per-vote.webp)
+
+### Ethereum-Mainnet
+
+Bei 1 gwei werden **eine Million Stimmen mit einfachen Stimmzetteln für etwa 1.500 USD abgewickelt**, in Batches zu 1024 Stimmzetteln, und zum heutigen Gaspreis für unter 200 USD. Die im Paper gemessenen Abwicklungswerte reichen bis zu vier Blobs; die Zeile mit fünf Blobs ist mit demselben Schritt von 56K extrapoliert.
+
+### Gnosis Chain
+
+Auf Gnosis Chain ist dieselbe Verifikation etwa **500-mal günstiger**, weil Gas in einem an den Dollar gekoppelten Token bezahlt wird, zu Preisen, bei denen ein ganzer Batch etwa einen Viertelcent kostet. Die Grenze ist dort eine andere: Ein Gnosis-Block trägt höchstens zwei Blobs, was einen Übergang auf 744 Stimmzettel bei Wahlen mit zwei Feldern und auf 121 bei Wahlen mit sechzehn Feldern begrenzt.
+
+Innerhalb dieser Grenzen werden **eine Million Stimmen mit einfachen Stimmzetteln auf Gnosis für unter 5 USD abgewickelt**, etwa 0,0004 Cent pro Stimme. Für die meisten Organisationen sind die Abwicklungskosten auf Gnosis neben der GPU-Zeit ein Rundungsfehler.
+
+Blob-Gebühren sind ein eigener Markt und nicht in der Tabelle enthalten; auf dem Mainnet lagen sie während unseres Messzeitraums weit unter den Verifikationskosten, und auf Gnosis kommt durch die Untergrenze von 1 gwei für Blob-Gebühren etwa 0,0001 USD pro Blob hinzu.
+
+## Stille erneute Stimmabgabe, weil sie in den Zahlen steckt
+
+Diese Benchmarks enthalten Auffrischungen, weil **DAVINCI in jedem Batch für die Resistenz gegen Nötigung bezahlt**, und wir wollten die echten Kosten messen, nicht die geschönten.
+
+### So funktioniert es
+
+Wählende können jederzeit erneut abstimmen, und der neueste Stimmzettel ersetzt den alten. Der Slot einer wählenden Person im Zustandsbaum ist aber öffentlich, sodass jemand, der die Blobs beobachtet, die Änderung dieses Slots sehen und daraus schließen könnte, dass eine erneute Stimmabgabe stattgefunden hat.
+
+Um das zu verbergen, **randomisiert jeder Zustandsübergang zusätzlich eine zufällige Auswahl anderer gespeicherter Stimmzettel neu**. Ein neu randomisierter Stimmzettel sieht on-chain völlig anders aus, wird aber zur selben Stimme entschlüsselt. Überschreibungen und Auffrischungen werden im selben Format veröffentlicht, sortiert und ohne Kennzeichnung. Wer beobachtet, sieht einen Batch sich ändernder Slots und kann an den veröffentlichten Daten nicht erkennen, welche davon erneute Stimmabgaben sind.
+
+### Was es kostet
+
+In der Tabelle kostet das etwa **1,6 Sekunden pro Batch mit 128 Stimmzetteln bei `n = 2`** und etwa 5 Sekunden bei `n = 16`. Dafür kann jemand, der Stimmen kauft, nicht bestätigen, dass die bezahlte Stimme bestehen geblieben ist. Wir halten das für ein gutes Geschäft.
+
+## Lesen, ausführen, knacken
+
+Das Paper finden Sie unter [eprint.iacr.org/2026/2282](https://eprint.iacr.org/2026/2282). Abschnitt 6 enthält die Implementierungsdetails und Benchmarks, Abschnitt 5 die Sicherheitsanalyse, einschließlich der formalen Aussage darüber, was die stille erneute Stimmabgabe verbirgt.
+
+Der Code ist offen:
+
+- [davinci-circom](https://github.com/vocdoni/davinci-circom): der Circom-Stimmzettel-Schaltkreis und der Browser-Prover, mit einer Test-Web-App, die Sie in Ihrem eigenen Browser ausprobieren können.
+- [davinci-zkvm](https://github.com/vocdoni/davinci-zkvm): das ZisK-Übergangsprogramm und der Sequencer.
+- [ZisK PR #1152](https://github.com/0xPolygonHermez/zisk/pull/1152): das BabyJubJub-Precompile.

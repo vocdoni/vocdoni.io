@@ -1,0 +1,221 @@
+---
+title: 'Atualização do DAVINCI: o artigo saiu, e o sequencer agora roda no ZisK'
+publishedDate: '2026-10-15'
+excerpt: 'O artigo do DAVINCI está no IACR ePrint Archive. As cédulas são provadas no navegador do celular, o sequencer agora é um programa em Rust para a zkVM ZisK, contribuímos com um pré-compilado de BabyJubJub para o projeto original e uma única GPU liquida cerca de 6 votos por segundo.'
+coverImage: /blog/images/2026/10/header_davinci_paper_zisk.webp
+coverAlt: 'Atualização do DAVINCI: o artigo saiu, e o sequencer agora roda no ZisK'
+authors:
+  - pau
+categories:
+  - davinci
+  - technology
+featured: false
+draft: false
+seo:
+  metaTitle: 'Artigo do DAVINCI e sequencer no ZisK | Vocdoni'
+  metaDescription: 'Saiu o artigo do DAVINCI: cédulas provadas no navegador, um sequencer na zkVM ZisK a 6 votos por segundo numa GPU e cerca de 0,15 centavo por voto no Ethereum.'
+---
+
+Acabamos de publicar o artigo do DAVINCI no IACR Cryptology ePrint Archive: [eprint.iacr.org/2026/2282](https://eprint.iacr.org/2026/2282). **É a primeira vez que o protocolo inteiro fica descrito em um só lugar**, com a análise de segurança ao lado de uma implementação que funciona e de números reais obtidos com ela. Pau Escrich o escreveu junto com Marta Bellés-Muñoz (Universitat Pompeu Fabra), Roger Baig (Universitat Politècnica de Catalunya) e Jordi Piñana (Vocdoni).
+
+Se você acompanha [este blog](/blog/davinci-universal-voting-protocol), já conhece a ideia: **uma eleição é um rollup ZK**. Os eleitores criptografam suas cédulas, qualquer pessoa pode rodar um sequencer que as agrupa em lotes e prova que cada lote foi processado segundo as regras, e o Ethereum só aceita o novo estado da eleição se a prova for válida. Sem prova, sem atualização de estado, sem resultado falso.
+
+A novidade do artigo está na engenharia. Este post trata dessa parte: como um voto é provado no navegador de um celular, como o sequencer foi reescrito como um programa para a zkVM [ZisK](https://zisk.technology), o pré-compilado que enviamos ao projeto original para deixar isso rápido e quanto tudo isso custa.
+
+## Em resumo
+
+- O artigo do DAVINCI está publicado em [eprint.iacr.org/2026/2282](https://eprint.iacr.org/2026/2282).
+- Uma cédula é provada no navegador em **cerca de 3 segundos em um notebook e 6,4 segundos em um celular**.
+- O sequencer agora é **um único programa em Rust provado pela zkVM ZisK**, em vez de circuitos escritos à mão.
+- Contribuímos com um **pré-compilado de BabyJubJub para o ZisK**, incorporado ao projeto original e lançado no v1.3.0-alpha.
+- Uma única GPU de consumo liquida **cerca de 6 votos por segundo**, mais de 21.000 votos por hora.
+- Na mainnet do Ethereum a 1 gwei, um voto custa **cerca de 0,15 centavo**; na Gnosis Chain, cerca de 0,0004 centavo.
+
+## Dois provadores, um protocolo
+
+O DAVINCI tem duas tarefas de prova muito diferentes, então usa dois provadores muito diferentes.
+
+### O eleitor prova no navegador
+
+**A tarefa do eleitor é pequena e precisa rodar em qualquer lugar.** O circuito da cédula é escrito em Circom, e a prova é gerada no navegador com snarkjs, como uma prova Groth16 sobre BN254. O circuito verifica se:
+
+- a cédula é uma escolha válida para a eleição (dentro dos valores permitidos, dentro do orçamento, com opções únicas se a eleição exigir),
+- ela está criptografada corretamente,
+- o identificador do voto foi derivado da forma certa.
+
+São cerca de **65K restrições**, com suporte a até 16 campos criptografados, o que basta para codificar cédulas de escolha única, múltipla escolha, aprovação, ranqueadas e quadráticas.
+
+Mantemos Circom e snarkjs nesta parte de propósito. O snarkjs roda em WebAssembly em qualquer navegador moderno, distribui o trabalho em paralelo entre web workers e é o provador Groth16 para navegador mais maduro que encontramos. Tudo funciona como uma página web estática: **ninguém precisa instalar um provador nativo nem enviar seu voto em texto claro para um serviço de prova.** Para um app de votação, isso importa mais do que ganhar um segundo na prova.
+
+Provar uma cédula leva cerca de **3 segundos** em um notebook (AMD Ryzen AI 5 340, Brave) e cerca de **6,4 segundos** em um Google Pixel 7a com Chrome, depois de baixar uma única vez a chave de prova de 35,5 MiB e o gerador de testemunha de 6,5 MiB. Em um celular, isso é uma barra de progresso, não um problema.
+
+### O sequencer prova em um servidor
+
+**A tarefa do sequencer é grande e roda em um servidor.** Para cada lote, ele precisa:
+
+- verificar o lote inteiro de provas Groth16 geradas no navegador,
+- conferir se cada eleitor está no censo e assinou com sua chave,
+- recriptografar cada cédula,
+- atualizar a árvore de estado,
+- atualizar a apuração criptografada,
+- vincular tudo aos dados de blob que publica.
+
+É aqui que entra o ZisK.
+
+## Por que levamos o sequencer para o ZisK
+
+### Circuitos são difíceis de mudar
+
+Até agora, a lógica do sequencer vivia em circuitos escritos à mão. Circuitos são ótimos no que fazem e péssimos na hora de mudar: cada ajuste de regra significa derivar as restrições de novo, refazer os setups e auditar tudo outra vez. Para um protocolo que esperamos que continue evoluindo, **isso é um pedágio cobrado a cada melhoria.**
+
+### O que é o ZisK
+
+O [ZisK](https://zisk.technology) é uma zkVM de código aberto, uma máquina virtual de conhecimento zero criada para tornar a geração de provas mais rápida e barata. Você escreve programas em Rust (ou em outras linguagens de alto nível, como C++ ou Go) sem precisar de conhecimento profundo de criptografia, e a arquitetura busca baixa latência e baixo custo com 128 bits de segurança. Começou como um projeto da Polygon Labs, construído pela equipe por trás da Polygon zkEVM; em junho de 2025, essa equipe passou a desenvolvê-lo de forma independente, e hoje ele é mantido pela SilentSig como um projeto de código aberto, dirigido pela comunidade.
+
+![Logo da zkVM ZisK: a marca "ZisK VM" em branco sobre um cartão escuro](/blog/images/2026/10/zisk-logo.webp)
+
+Para nós, funciona assim: você escreve Rust comum, compila para RISC-V, e o ZisK produz uma prova STARK de que o programa rodou corretamente com as entradas fornecidas. Um STARK é o tipo de prova que dispensa setup confiável e é rápida de gerar, ao custo de ser grande. **A transição de estado do DAVINCI agora é um único programa em Rust que implementa todas as regras do protocolo**, e os benchmarks do artigo rodam no ZisK v1.3.0-alpha.
+
+### Os pré-compilados fazem a criptografia pesada
+
+O que torna isso viável são os pré-compilados do ZisK. Uma zkVM paga por cada instrução que prova, e a criptografia consome muitas instruções. Em vez disso, o ZisK resolve as primitivas caras em circuitos dedicados e especializados:
+
+- SHA-256
+- Keccak
+- emparelhamento BN254
+- secp256k1
+- aritmética modular de 256 bits
+- e, a partir desta versão, BabyJubJub
+
+O programa de transição se apoia em todos eles, exceto o Keccak, e mais adiante voltamos ao motivo pelo qual o Keccak importa mesmo assim. As provas Groth16 geradas no navegador, por exemplo, não são verificadas uma a uma: **o programa condensa o lote inteiro em uma única verificação de emparelhamento**, ponderada por coeficientes aleatórios que ele deriva das próprias provas, em cima do pré-compilado de emparelhamento BN254 do ZisK.
+
+### Do STARK a uma prova que o Ethereum consegue verificar
+
+O STARK é grande demais para ir direto ao Ethereum. O ZisK o comprime de forma recursiva e encapsula o resultado em uma prova PLONK sobre BN254, que o contrato de liquidação verifica com os pré-compilados de emparelhamento que o Ethereum tem desde a Byzantium. Só essa prova final é publicada, e ela é de conhecimento zero, por isso oculta a testemunha do sequencer.
+
+O STARK não precisa de setup confiável; o encapsulamento PLONK usa o powers-of-tau universal do Hermez. **A única cerimônia específica de circuito que resta em todo o sistema é a do circuito da cédula no navegador**, e ela é reaproveitada entre eleições.
+
+### Atualizações sem um novo verificador
+
+Há um bônus de que gostamos muito. O circuito de encapsulamento PLONK é definido pelo ZisK; nosso programa entra nele apenas como um compromisso de código que o contrato de liquidação fixa. **Atualizar o programa de transição significa atualizar um compromisso armazenado**, e não implantar um novo verificador nem rodar um novo setup. A maquinaria on-chain fica onde está enquanto o protocolo melhora.
+
+## Contribuímos com um pré-compilado de BabyJubJub para o ZisK
+
+O DAVINCI criptografa as cédulas com ElGamal sobre BabyJubJub, a curva do circomlib. É a escolha natural do lado do navegador: o corpo base da BabyJubJub é o corpo escalar da BN254, então a criptografia é aritmética nativa dentro de um circuito Circom.
+
+O sequencer precisa fazer muito mais aritmética de BabyJubJub do que o eleitor. Recriptografar uma cédula custa uma multiplicação escalar por texto cifrado, que é uma longa cadeia de somas de pontos, e a apuração criptografada é uma grande soma acumulada de textos cifrados. **Provar tudo isso como instruções RISC-V comuns era o gargalo.**
+
+Então escrevemos um pré-compilado. O [PR #1152](https://github.com/0xPolygonHermez/zisk/pull/1152) adiciona a soma completa de pontos em coordenadas afins na BabyJubJub (a mesma fórmula cobre a duplicação) como uma primitiva dedicada do ZisK, compatível com os parâmetros de curva do circomlib. A equipe do ZisK revisou o código, adaptou-o às suas convenções internas e **fez o merge em 27 de agosto**. Ele saiu no [ZisK v1.3.0-alpha](https://github.com/0xPolygonHermez/zisk/releases/tag/v1.3.0-alpha) em 21 de setembro, listado nas notas de versão como "a dedicated BabyJubJub point-add precompile compatible with circomlib". Nosso agradecimento a Héctor Masip e ao resto da equipe do ZisK por incorporá-lo ao projeto original em vez de nos deixar em um fork.
+
+Esta é a peça que permite que as duas metades do DAVINCI falem a mesma criptografia. O navegador criptografa na BabyJubJub dentro de um circuito Circom; o sequencer recriptografa e acumula na BabyJubJub dentro do ZisK; e as provas Groth16 que ligam as duas pontas são verificadas com o emparelhamento BN254 do ZisK. **Nada precisa ser traduzido entre curvas**, e qualquer outro projeto construído sobre a curva do circomlib ganha a mesma primitiva de graça.
+
+## O dividendo do Ethereum: secp256k1 e Keccak
+
+### secp256k1: a carteira é a credencial
+
+Os eleitores do DAVINCI assinam o identificador do voto com a mesma chave ECDSA que está por trás do seu endereço Ethereum. O ZisK verifica essa assinatura nativamente, então a elegibilidade é uma prova de Merkle sobre endereços Ethereum comuns e **a carteira do eleitor é a sua credencial**, sem nenhuma chave de registro extra.
+
+### Keccak: censos que o Ethereum já tem
+
+O Keccak é o que mais nos anima. Os sistemas de votação ZK, incluindo o DAVINCI, vêm construindo suas árvores de Merkle de censo com Poseidon, porque o Poseidon é barato de provar e o Keccak não era. O preço é pago on-chain: um hash Poseidon em Solidity custa muitas vezes mais do que `keccak256`, que é um único opcode. Os projetos que mantêm árvores Poseidon on-chain convivem com esse custo a cada inserção.
+
+A maioria dos registros, snapshots de tokens e listas de membros de multisig que já existem no Ethereum usa hash Keccak; assim, até agora, um censo de votação ZK não conseguia aproveitá-los sem uma etapa de conversão. Agora que o ZisK prova Keccak nativamente, **o sequencer pode verificar a inclusão em uma árvore Keccak** sem o custo que antes tornava isso inviável. Uma DAO poderia manter seu registro de eleitores on-chain com o hash que já usa, e o DAVINCI poderia consumi-lo diretamente.
+
+O protótipo do artigo ainda usa uma árvore de Merkle Poseidon para o censo e SHA-256 para a árvore de estado, então considere os censos Keccak como o próximo passo, e não como o que foi medido nos benchmarks. Mas a troca é mais barata do que parece: a prova de censo é verificada pelo sequencer, não pelo circuito da cédula, de modo que **um censo Keccak é uma mudança no programa em Rust**, e não no circuito do navegador nem na sua cerimônia.
+
+## Os números
+
+### A configuração
+
+Todos os números do sequencer vêm de uma única máquina: uma **NVIDIA RTX 5090 (32 GiB)** com um AMD Ryzen 9 9950X3D de 16 núcleos e 64 GiB de RAM. O tempo medido é o caminho crítico do sequencer, do envio da tarefa até uma prova PLONK verificada, incluindo recursão, encapsulamento e a verificação feita pelo próprio provador. A prova do eleitor acontece no dispositivo dele e não está incluída.
+
+Duas coisas determinam o custo:
+
+- **o tamanho do lote**, e
+- **`n`, o número de campos ativos da cédula** no modo de cédula da eleição. Uma escolha única entre duas opções é `n = 2`; uma cédula ranqueada ou quadrática com muitas opções pode usar os 16.
+
+Cada lote da tabela também inclui uma renovação silenciosa por cédula (falamos disso mais abaixo), então estes são números de regime estável, não do melhor caso.
+
+### Tempo de prova e vazão
+
+| Lote | Tempo n = 2 | Votos/s n = 2 | Blobs n = 2 | Tempo n = 16 | Votos/s n = 16 | Blobs n = 16 |
+| --- | --- | --- | --- | --- | --- | --- |
+| 2 | 15,6 s | 0,1 | 1 | 15,7 s | 0,1 | 1 |
+| 64 | 22,5 s | 2,8 | 1 | 30,3 s | 2,1 | 2 |
+| 128 | 30,1 s | 4,3 | 1 | 45,7 s | 2,8 | 3 |
+| 256 | 46,2 s | 5,5 | 1 | 76,7 s | 3,3 | 5 |
+| 512 | 84,3 s | 6,1 | 2 | 164,3 s | 3,1 | 9 |
+| 1024 | 171,2 s | 6,0 | 3 | 363,9 s | 2,8 | 17 |
+
+Como ler a tabela: há um **custo fixo de cerca de 16 segundos por lote**, quase todo em recursão, encapsulamento e verificação. Além disso, cada cédula custa cerca de 0,11 s com `n = 2` e 0,23 s com `n = 16`.
+
+Lotes maiores diluem o custo fixo, e é por isso que a vazão sobe para cerca de **6 votos por segundo** com 512 cédulas, no caso das cédulas simples, e para **3,3 votos por segundo** com 256 cédulas, no caso das de 16 campos. A partir daí, as provas de censo ficam mais profundas e, acima de 512 cédulas, o provador abre mão de alguns por cento de velocidade para economizar RAM; 1024 é o limite da implementação, imposto pela memória do host (cerca de 41 GB nesse tamanho), e é por isso que a tabela para aí.
+
+![Tempo de prova do sequencer por lote: a curva de dois campos sobe de 15,6 s com 2 cédulas para 171 s com 1024; a curva de dezesseis campos, de 15,7 s para 364 s; as duas partem de um custo fixo de 16 segundos.](/blog/images/2026/10/davinci-proving-time.webp)
+
+![Vazão de um sequencer: os votos por segundo sobem com o tamanho do lote e chegam ao pico de 6,1 para cédulas de dois campos (512) e de 3,3 para cédulas de dezesseis campos (256); os pontos de dezesseis campos em 512 e 1024 aparecem vazados porque passam de seis blobs.](/blog/images/2026/10/davinci-throughput.webp)
+
+Seis votos por segundo em uma única GPU de consumo dão **mais de 21.000 votos por hora vindos de um só sequencer**. Dentro de uma eleição, os lotes formam uma cadeia de raízes de estado e o contrato os liquida em ordem, então dois sequencers disputando a mesma raiz significam que um deles desperdiçou a sua prova; estes são números por eleição e por sequencer. Entre eleições diferentes, os sequencers não exigem permissão e são independentes, por isso a capacidade cresce com as máquinas que as pessoas colocam para rodar.
+
+### Os blobs são a restrição do Ethereum
+
+Cada atualização de posição é publicada em blobs EIP-4844 para que qualquer pessoa possa reconstruir o estado, e **a EIP-7594 limita uma transação a seis blobs**. As duas últimas linhas das colunas `n = 16` (9 e 17 blobs) estouram esse limite, por isso valem apenas como números de prova; um sequencer que liquida na mainnet escolhe o tamanho do lote em função de `n`, e as configurações de vazão ótima cabem com folga.
+
+![Blobs por transição segundo o tamanho do lote: os lotes de dois campos precisam de 1 a 3 blobs; os de dezesseis campos precisam de 1, 2, 3, 5, 9 e 17, com os dois últimos acima da linha tracejada de seis blobs.](/blog/images/2026/10/davinci-blobs-per-batch.webp)
+
+## Quanto custa um voto on-chain
+
+Liquidar um lote custa cerca de **498K de gas com um blob, mais cerca de 56K por blob adicional**, seja qual for o tamanho do lote. Verificar a prova PLONK dá o mesmo trabalho com 2 cédulas ou com 1024 no lote; portanto, o custo por voto é o custo do lote dividido pelo seu tamanho. Lotes maiores saem mais baratos por voto; mais campos na cédula significam mais blobs e um lote um pouco mais caro.
+
+### As premissas de preço
+
+A tabela abaixo calcula o preço de cada configuração liquidável do benchmark a **1 gwei e 2.500 USD por ETH** na mainnet, o que é deliberadamente conservador: a média do Etherscan no dia em que escrevemos isto era de 0,12 gwei, e a mediana do último ano foi de 0,74 gwei. Para a Gnosis Chain, usamos a sua mediana de 5,2 gwei, paga em xDAI a 1 USD. O custo cresce linearmente com o preço do gas: aos 0,12 gwei de hoje, divida a coluna da mainnet por oito, e em um pico de 5 gwei, multiplique por cinco.
+
+| Campos da cédula | Lote | Blobs | Gas por lote | Mainnet, por lote | Mainnet, por voto | Gnosis, por voto |
+| --- | --- | --- | --- | --- | --- | --- |
+| 2 | 64 | 1 | 498K | 1,25 USD | 1,9 centavo | 0,004 centavo |
+| 2 | 128 | 1 | 498K | 1,25 USD | 1,0 centavo | 0,002 centavo |
+| 2 | 256 | 1 | 498K | 1,25 USD | 0,5 centavo | 0,001 centavo |
+| 2 | 512 | 2 | 554K | 1,39 USD | 0,27 centavo | 0,0006 centavo |
+| 2 | 1024 | 3 | 612K | 1,53 USD | 0,15 centavo | não se aplica (veja abaixo) |
+| 16 | 64 | 2 | 554K | 1,39 USD | 2,2 centavos | 0,0045 centavo |
+| 16 | 128 | 3 | 612K | 1,53 USD | 1,2 centavo | não se aplica (veja abaixo) |
+| 16 | 256 | 5 | ~722K | ~1,80 USD | 0,7 centavo | não se aplica (veja abaixo) |
+
+![Custo de liquidação por voto em escala logarítmica: na mainnet a 1 gwei, vai de 1,9 centavo (64 cédulas) até 0,15 centavo (1024 cédulas); a Gnosis Chain é cerca de 500 vezes mais barata, de 0,004 centavo até 0,0006 centavo, nos lotes que cabem no seu limite de dois blobs.](/blog/images/2026/10/davinci-cost-per-vote.webp)
+
+### Mainnet do Ethereum
+
+A 1 gwei, **um milhão de votos com cédula simples são liquidados por cerca de 1.500 USD** em lotes de 1024 cédulas, e por menos de 200 USD com o preço do gas de hoje. Os números de liquidação medidos no artigo vão até quatro blobs; a linha de cinco blobs é uma extrapolação com o mesmo passo de 56K.
+
+### Gnosis Chain
+
+Na Gnosis Chain, a mesma verificação é cerca de **500 vezes mais barata**, porque o gas é pago em um token atrelado ao dólar, a preços que fazem um lote inteiro custar cerca de um quarto de centavo. Lá a restrição é outra: um bloco da Gnosis carrega no máximo dois blobs, o que limita uma transição a 744 cédulas em eleições de dois campos e a 121 nas de dezesseis campos.
+
+Dentro desses limites, **um milhão de votos com cédula simples são liquidados na Gnosis por menos de 5 USD**, cerca de 0,0004 centavo cada. Para a maioria das organizações, o custo de liquidação na Gnosis é um erro de arredondamento perto do tempo de GPU.
+
+As taxas de blob são um mercado à parte e não estão na tabela; na mainnet, elas ficaram muito abaixo do custo de verificação durante nossa janela de medição, e na Gnosis o piso de 1 gwei da taxa de blob acrescenta cerca de 0,0001 USD por blob.
+
+## Revotação silenciosa, já que ela está nos números
+
+Esses benchmarks incluem renovações porque **o DAVINCI paga pela resistência à coerção em todo lote**, e quisemos medir o custo real, não o bonito.
+
+### Como funciona
+
+Um eleitor pode votar novamente a qualquer momento, e a cédula mais recente substitui a anterior. Mas a posição de um eleitor na árvore de estado é pública, então um observador que acompanhe os blobs poderia ver essa posição mudar e saber que houve uma revotação.
+
+Para esconder isso, **cada transição de estado também rerrandomiza um conjunto aleatório de outras cédulas armazenadas**. Uma cédula rerrandomizada fica completamente diferente on-chain, mas, ao ser descriptografada, revela o mesmo voto. Substituições e renovações são publicadas no mesmo formato, ordenadas e sem rótulos. Um observador vê um lote de posições mudando e não consegue dizer, a partir dos dados publicados, quais delas são revotações.
+
+### Quanto custa
+
+Na tabela, isso custa cerca de **1,6 segundo por lote de 128 cédulas com `n = 2`** e cerca de 5 segundos com `n = 16`. O que se ganha com isso é que um comprador de votos não consegue confirmar que o voto pelo qual pagou continuou no lugar. Para nós, é uma pechincha.
+
+## Leia, rode, quebre
+
+O artigo está em [eprint.iacr.org/2026/2282](https://eprint.iacr.org/2026/2282). A Seção 6 traz os detalhes da implementação e os benchmarks; a Seção 5 traz a análise de segurança, incluindo o enunciado formal do que a revotação silenciosa esconde.
+
+O código é aberto:
+
+- [davinci-circom](https://github.com/vocdoni/davinci-circom): o circuito de cédula em Circom e o provador do navegador, com um app web de teste que você pode experimentar no seu próprio navegador.
+- [davinci-zkvm](https://github.com/vocdoni/davinci-zkvm): o programa de transição para o ZisK e o sequencer.
+- [ZisK PR #1152](https://github.com/0xPolygonHermez/zisk/pull/1152): o pré-compilado de BabyJubJub.
