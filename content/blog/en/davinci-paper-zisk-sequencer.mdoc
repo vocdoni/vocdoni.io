@@ -1,0 +1,135 @@
+---
+title: 'DAVINCI update: the paper is out, and the sequencer now runs on ZisK'
+publishedDate: '2026-10-15'
+excerpt: 'The DAVINCI paper is on the IACR ePrint Archive. Ballots are proven in the phone browser, the sequencer is now a Rust program for the ZisK zkVM, we contributed a BabyJubJub precompile upstream, and one GPU settles about 6 votes per second.'
+coverImage: /blog/images/2026/10/header_davinci_paper_zisk.webp
+coverAlt: 'DAVINCI update: the paper is out, and the sequencer now runs on ZisK'
+authors:
+  - pau
+categories:
+  - davinci
+  - technology
+featured: false
+draft: false
+seo:
+  metaTitle: 'DAVINCI paper and ZisK sequencer | Vocdoni'
+  metaDescription: 'The DAVINCI paper is out: browser-proven ballots, a ZisK zkVM sequencer at 6 votes per second on one GPU, and about 0.15 cents per vote on Ethereum.'
+---
+
+We just published the DAVINCI paper on the IACR Cryptology ePrint Archive: [eprint.iacr.org/2026/2282](https://eprint.iacr.org/2026/2282). It is the first time the whole protocol is written down in one place, with the security analysis next to a working implementation and real numbers from it. Pau Escrich wrote it together with Marta Bellés-Muñoz (Pompeu Fabra University), Roger Baig (Polytechnic University of Catalonia) and Jordi Piñana (Vocdoni).
+
+If you have followed [this blog](/blog/davinci-universal-voting-protocol), you know the idea: an election is a ZK rollup. Voters encrypt their ballots, anyone can run a sequencer that batches them and proves the batch was processed by the rules, and Ethereum accepts the new election state only if the proof checks out. No proof, no state update, no fake result.
+
+What is new in the paper is the engineering. This post is about that part: how a vote gets proven in a phone browser, how the sequencer got rewritten as a program for the [ZisK](https://github.com/0xPolygonHermez/zisk) zkVM, the precompile we contributed upstream to make that fast, and what all of it costs.
+
+## Two provers, one protocol
+
+DAVINCI has two very different proving jobs, so it uses two very different provers.
+
+**The voter's job is small and has to run anywhere.** The ballot circuit is written in Circom, and the proof is generated in the browser with snarkjs, as a Groth16 proof over BN254. The circuit checks that the ballot is a valid choice for the election (within the allowed values, within the budget, unique options if the election demands it), that it is correctly encrypted, and that the vote identifier is derived properly. It is about 65K constraints and handles up to 16 encrypted fields, which is enough to encode single choice, multiple choice, approval, ranked and quadratic ballots.
+
+We stay with Circom and snarkjs for this part on purpose. snarkjs runs on WebAssembly in any modern browser, it parallelizes across web workers, and it is the most mature browser prover we have found for Groth16. The whole thing works as a static web page: nobody has to install a native prover and nobody has to ship their plaintext vote to a proving service. That matters more for a voting app than shaving a second off the proof.
+
+Proving a ballot takes about **3 seconds** on a laptop (AMD Ryzen AI 5 340, Brave) and about **6.4 seconds** on a Google Pixel 7a running Chrome, after a one-time download of the 35.5 MiB proving key and the 6.5 MiB witness generator. For a phone, that is a progress bar, not a problem.
+
+**The sequencer's job is large and runs on a server.** It has to verify a whole batch of those Groth16 proofs, check that every voter is in the census and signed with their key, re-encrypt every ballot, update the state tree, update the encrypted tally, and bind everything to the blob data it publishes. This is where ZisK comes in.
+
+## Why we moved the sequencer to ZisK
+
+Until now, the sequencer logic lived in hand-written circuits. Circuits are great at what they do and terrible at being changed: every rule tweak means re-deriving constraints, re-running setups, and re-auditing. For a protocol that we expect to keep evolving, that is a tax on every improvement.
+
+ZisK is a zkVM developed by the Polygon Hermez team. You write ordinary Rust, compile it to RISC-V, and ZisK produces a STARK proof that the program ran correctly on the given inputs. A STARK is the kind of proof that needs no trusted setup and proves fast, at the cost of being large. The DAVINCI state transition is now a single Rust program that implements every rule of the protocol, and the paper's benchmarks run on ZisK v1.3.0-alpha.
+
+The part that makes this practical is ZisK's precompiles. A zkVM pays for every instruction it proves, and cryptography is instruction-heavy. ZisK handles the expensive primitives in dedicated, specialized circuits instead: SHA-256, Keccak, BN254 pairing, secp256k1, 256-bit modular arithmetic, and as of this release, BabyJubJub. The transition program leans on all of them except Keccak, and we will come back to why Keccak matters anyway. The browser-generated Groth16 proofs, for example, are not verified one by one: the program folds the whole batch into a single pairing check, weighted by random coefficients it derives from the proofs themselves, on top of ZisK's BN254 pairing precompile.
+
+The STARK is too big to go to Ethereum directly. ZisK compresses it recursively and wraps the result in a PLONK proof over BN254, which the settlement contract verifies with the pairing precompiles Ethereum has had since Byzantium. Only that final proof is published, and it is zero-knowledge, so it hides the sequencer's witness. The STARK needs no trusted setup; the PLONK wrapper uses the universal Hermez powers-of-tau. The only circuit-specific ceremony left in the whole system is the one for the browser ballot circuit, and it is reused across elections.
+
+There is a bonus we like a lot. The PLONK wrapper circuit is fixed by ZisK; our program enters it only as a code commitment that the settlement contract pins. Upgrading the transition program means updating one stored commitment, not deploying a new verifier or running a new setup. The on-chain machinery stays put while the protocol improves.
+
+## We contributed a BabyJubJub precompile to ZisK
+
+DAVINCI encrypts ballots with ElGamal on BabyJubJub, the curve from circomlib. It is the natural choice on the browser side: BabyJubJub's base field is the BN254 scalar field, so encryption is native arithmetic inside a Circom circuit.
+
+The sequencer has to do a lot more BabyJubJub arithmetic than the voter. Re-encrypting a ballot is a scalar multiplication per ciphertext, which is a long chain of point additions, and the encrypted tally is one big running sum of ciphertexts. Proving all of that as ordinary RISC-V instructions was the bottleneck.
+
+So we wrote a precompile. [PR #1152](https://github.com/0xPolygonHermez/zisk/pull/1152) adds complete affine point addition on BabyJubJub (the same formula handles doubling) as a dedicated ZisK primitive, compatible with circomlib's curve parameters. The ZisK team reviewed it, adapted it to their internal conventions, and merged it on August 27. It shipped in [ZisK v1.3.0-alpha](https://github.com/0xPolygonHermez/zisk/releases/tag/v1.3.0-alpha) on September 21, listed in the release notes as "a dedicated BabyJubJub point-add precompile compatible with circomlib". Our thanks to Héctor Masip and the rest of the ZisK team for taking it upstream rather than leaving us on a fork.
+
+This is the piece that lets both halves of DAVINCI speak the same cryptography. The browser encrypts on BabyJubJub inside a Circom circuit; the sequencer re-encrypts and accumulates on BabyJubJub inside ZisK; and the Groth16 proofs that connect them are verified with ZisK's BN254 pairing. Nothing has to be translated between curves, and anyone else building on circomlib's curve gets the same primitive for free.
+
+## The Ethereum dividend: secp256k1 and Keccak
+
+secp256k1 first. DAVINCI voters sign their vote identifier with the same ECDSA key behind their Ethereum address. ZisK verifies that signature natively, so eligibility is a Merkle proof over plain Ethereum addresses and the voter's wallet is their credential, with no extra registration key.
+
+Keccak is the one we are most excited about. ZK voting systems, DAVINCI included, have built their census Merkle trees with Poseidon, because Poseidon is cheap to prove and Keccak was not. The price is paid on-chain: a Poseidon hash in Solidity is many times more expensive than `keccak256`, which is a single opcode. Projects that keep Poseidon trees on-chain live with that cost on every insert, and most of the registries, token snapshots and multisig member lists that already exist on Ethereum hash with Keccak, so until now a ZK voting census could not consume them without a conversion step. Now that ZisK proves Keccak natively, the sequencer can verify membership in a Keccak tree without the cost that used to rule it out. A DAO could maintain its voter registry on-chain with the hash it already uses, and DAVINCI could consume it directly.
+
+The prototype in the paper still uses a Poseidon Merkle tree for the census and SHA-256 for the state tree, so treat Keccak censuses as the next step rather than the benchmarked one. But the switch is cheaper than it sounds: the census proof is checked by the sequencer, not by the ballot circuit, so a Keccak census is a change to the Rust program, not to the browser circuit or its ceremony.
+
+## The numbers
+
+All sequencer figures come from one machine: an NVIDIA RTX 5090 (32 GiB) with a 16-core AMD Ryzen 9 9950X3D and 64 GiB of RAM. The time measured is the sequencer's critical path, from job submission to a verified PLONK proof, including recursion, wrapping and the prover's own verification. Voter proving happens on the voter's device and is not included.
+
+Two things drive the cost: the batch size, and `n`, the number of active ballot fields in the election's ballot mode. A single choice between two options is `n = 2`; a ranked or quadratic ballot with many options can use all 16. Each batch in the table also carries one silent refresh per ballot (more on that below), so these are steady-state figures, not best case.
+
+| Batch | n = 2 time | n = 2 votes/s | n = 2 blobs | n = 16 time | n = 16 votes/s | n = 16 blobs |
+| --- | --- | --- | --- | --- | --- | --- |
+| 2 | 15.6 s | 0.1 | 1 | 15.7 s | 0.1 | 1 |
+| 64 | 22.5 s | 2.8 | 1 | 30.3 s | 2.1 | 2 |
+| 128 | 30.1 s | 4.3 | 1 | 45.7 s | 2.8 | 3 |
+| 256 | 46.2 s | 5.5 | 1 | 76.7 s | 3.3 | 5 |
+| 512 | 84.3 s | 6.1 | 2 | 164.3 s | 3.1 | 9 |
+| 1024 | 171.2 s | 6.0 | 3 | 363.9 s | 2.8 | 17 |
+
+How to read it: there is a fixed cost of about 16 seconds per batch, almost all of it recursion, wrapping and verification. On top of that, each ballot costs about 0.11 s at `n = 2` and 0.23 s at `n = 16`. Bigger batches amortize the fixed cost, which is why throughput climbs to about **6 votes per second** at 512 ballots for simple ballots and **3.3 votes per second** at 256 ballots for 16-field ones. Past that point the census proofs get deeper and, above 512 ballots, the prover trades a few percent of speed for RAM; 1024 is the implementation's cap, set by host memory (about 41 GB at that size), which is why the table stops there.
+
+![Sequencer proving time per batch: the two-field curve climbs from 15.6 s at 2 ballots to 171 s at 1024; the sixteen-field curve from 15.7 s to 364 s; both sit on a 16-second fixed cost.](/blog/images/2026/10/davinci-proving-time.webp)
+
+![Throughput of one sequencer: votes per second rise with batch size and peak at 6.1 for two-field ballots (512) and 3.3 for sixteen-field ballots (256); the sixteen-field points at 512 and 1024 are hollow because they exceed six blobs.](/blog/images/2026/10/davinci-throughput.webp)
+
+Six votes per second on one consumer GPU is over 21,000 votes per hour from a single sequencer. Inside one election, batches are a chain of state roots and the contract settles them in order, so two sequencers racing on the same root means one of them wasted its proof; these are per-election, per-sequencer numbers. Across elections, sequencers are permissionless and independent, so capacity grows with the machines people plug in.
+
+The blob column is the Ethereum constraint. Every slot update is published in EIP-4844 blobs so anyone can rebuild the state, and EIP-7594 caps a transaction at six blobs. The bottom two rows of the `n = 16` columns (9 and 17 blobs) blow through that cap, so they are proving numbers only; a sequencer settling on mainnet picks its batch size from `n`, and the throughput-optimal configurations fit comfortably.
+
+![Blobs per transition by batch size: two-field batches need 1 to 3 blobs; sixteen-field batches need 1, 2, 3, 5, 9 and 17, with the last two above the dashed six-blob line.](/blog/images/2026/10/davinci-blobs-per-batch.webp)
+
+### What a vote costs on-chain
+
+Settling a batch costs about **498K gas with one blob, plus about 56K per additional blob**, whatever the batch size. Verifying the PLONK proof is the same work whether the batch holds 2 ballots or 1024, so the cost per vote is the batch cost divided by the batch size. Bigger batches are cheaper per vote; more ballot fields mean more blobs and a slightly more expensive batch.
+
+The table below prices each settleable configuration from the benchmark at **1 gwei and 2,500 USD per ETH** for mainnet, which is deliberately conservative: Etherscan's average on the day we wrote this was 0.12 gwei, and the median over the past year was 0.74 gwei. For Gnosis Chain we use its median of 5.2 gwei, paid in xDAI at 1 USD. Cost scales linearly with gas price, so at today's 0.12 gwei divide the mainnet column by eight, and at a 5 gwei spike multiply by five.
+
+| Ballot fields | Batch | Blobs | Gas per batch | Mainnet, per batch | Mainnet, per vote | Gnosis, per vote |
+| --- | --- | --- | --- | --- | --- | --- |
+| 2 | 64 | 1 | 498K | 1.25 USD | 1.9 cents | 0.004 cents |
+| 2 | 128 | 1 | 498K | 1.25 USD | 1.0 cent | 0.002 cents |
+| 2 | 256 | 1 | 498K | 1.25 USD | 0.5 cents | 0.001 cents |
+| 2 | 512 | 2 | 554K | 1.39 USD | 0.27 cents | 0.0006 cents |
+| 2 | 1024 | 3 | 612K | 1.53 USD | 0.15 cents | n/a (see below) |
+| 16 | 64 | 2 | 554K | 1.39 USD | 2.2 cents | 0.0045 cents |
+| 16 | 128 | 3 | 612K | 1.53 USD | 1.2 cents | n/a (see below) |
+| 16 | 256 | 5 | ~722K | ~1.80 USD | 0.7 cents | n/a (see below) |
+
+![Settlement cost per vote on a log scale: mainnet at 1 gwei runs from 1.9 cents (64 ballots) down to 0.15 cents (1024 ballots); Gnosis Chain is about 500 times cheaper, from 0.004 cents down to 0.0006 cents, for the batches that fit its two-blob limit.](/blog/images/2026/10/davinci-cost-per-vote.webp)
+
+Put differently: on Ethereum mainnet at 1 gwei, **a million simple-ballot votes settle for about 1,500 USD** in 1024-ballot batches, and at today's gas price for under 200 USD. The paper's measured settlement figures go up to four blobs; the five-blob row extrapolates by the same 56K step.
+
+On Gnosis Chain the same verification is roughly 500 times cheaper, because gas is paid in a dollar-pegged token at prices that make a whole batch cost about a quarter of a cent. The constraint there is different: a Gnosis block carries at most two blobs, which caps a transition at 744 ballots for two-field elections and 121 for sixteen-field ones. Within those limits, **a million simple-ballot votes settle on Gnosis for under 5 USD**, about 0.0004 cents each. For most organizations the settlement cost on Gnosis is a rounding error next to the GPU time.
+
+Blob fees are a separate market and are not in the table; on mainnet they were far below the verification cost during our measurement window, and on Gnosis the 1 gwei blob-fee floor adds about 0.0001 USD per blob.
+
+## Silent revoting, since it is in the numbers
+
+Those benchmarks include refreshes because DAVINCI pays for coercion resistance on every batch, and we wanted to measure the real cost rather than the pretty one.
+
+The mechanism: a voter can revote at any time, and the newest ballot replaces the old one. But a voter's slot in the state tree is public, so an observer watching the blobs could see that slot change and know a revote happened. To hide it, every state transition also re-randomizes a random set of other stored ballots. A re-randomized ballot looks completely different on-chain but decrypts to the same vote. Overwrites and refreshes are published in the same format, in sorted order, with no labels. An observer sees a batch of slots changing and cannot tell from the published data which ones are revotes.
+
+In the table, this costs about 1.6 seconds per 128-ballot batch at `n = 2` and about 5 seconds at `n = 16`. What it buys is that a vote buyer cannot confirm the vote they paid for stayed in place. We think that is a bargain.
+
+## Read it, run it, break it
+
+The paper is at [eprint.iacr.org/2026/2282](https://eprint.iacr.org/2026/2282). Section 6 has the implementation details and benchmarks; Section 5 has the security analysis, including the formal statement of what silent revoting hides.
+
+The code is open:
+
+- [davinci-circom](https://github.com/vocdoni/davinci-circom): the Circom ballot circuit and the browser prover, with a test web app you can try in your own browser.
+- [davinci-zkvm](https://github.com/vocdoni/davinci-zkvm): the ZisK transition program and sequencer.
+- [ZisK PR #1152](https://github.com/0xPolygonHermez/zisk/pull/1152): the BabyJubJub precompile.
