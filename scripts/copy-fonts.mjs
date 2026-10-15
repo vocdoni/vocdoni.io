@@ -20,7 +20,9 @@ const filesDir = resolve(outDir, 'files')
 // Hanken Grotesk comes first in --font-sans and already covers those ranges.
 // Inter (variable weight, upright only) is what Vocdoni App itself is set in; the
 // site uses it solely inside product mockups (`--font-app`), so its subsets are
-// only fetched on a page that renders one.
+// only fetched on a page that renders one. Source Sans 3 is the current cut of
+// Source Sans Pro, the face Decidim and its voting page are set in; it serves
+// the Decidim mockups the same way (`--font-decidim`), upright only.
 const sources = [
   '@fontsource-variable/hanken-grotesk/wght.css',
   '@fontsource-variable/hanken-grotesk/wght-italic.css',
@@ -28,6 +30,7 @@ const sources = [
   '@fontsource-variable/fraunces/full-italic.css',
   '@fontsource-variable/jetbrains-mono/wght.css',
   '@fontsource-variable/inter/wght.css',
+  '@fontsource-variable/source-sans-3/wght.css',
   '@fontsource-variable/noto-sans-devanagari/wght.css',
 ]
 

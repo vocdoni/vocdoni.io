@@ -188,6 +188,68 @@
   --app-teal: oklch(0.785 0.133 182);
 }
 
+/* Decidim palette, for the Decidim mockups only.
+   Neutrals and states are Decidim's own design tokens (black, gray-2, gray-3,
+   gray-5, background-2/3, the AA-safe label pairs), measured on a live instance
+   and mirrored by the voting page of decidim-secure_elections (`vote.css`).
+   Brand colours are per-organization in Decidim, so the public screens use the
+   historical defaults still in core (`$primary-rgb`, `$secondary-rgb` in
+   decidim-core's legacy variables); the admin screens use the admin's own fixed
+   palette. Scoped to `.decidim-mockup` and consumed as `bg-decidim-*` /
+   `text-decidim-*` / `border-decidim-*` inside `components/solutions/mockups/`.
+   Never use them for site UI. */
+.decidim-mockup {
+  --decidim-page: #ffffff;
+  --decidim-ink: #020203;
+  --decidim-ink-soft: #3e4c5c;
+  --decidim-panel: #f6f8fa;
+  --decidim-field: #fafbfc;
+  --decidim-rule: #e1e5ef;
+  --decidim-muted: #efefef;
+  --decidim-edge: rgb(107 114 128 / 0.8);
+  --decidim-primary: #ef604d;
+  --decidim-primary-ink: #020203;
+  --decidim-secondary: #39747f;
+  --decidim-success: #16592e;
+  --decidim-success-fill: #c4ecd0;
+  --decidim-warning: #ad4910;
+  --decidim-warning-fill: #ffeebd;
+  --decidim-admin-nav: #3e4c5c;
+  --decidim-admin-bar: #ebc34b;
+  --decidim-admin-accent: #155abf;
+  --decidim-admin-bg: #f3f4f7;
+  --decidim-admin-border: #e5e5e5;
+  --decidim-admin-table: rgb(228 238 255 / 0.6);
+  --decidim-admin-tab: #d4d4d4;
+}
+
+/* Decidim has no dark mode; these are the voting page's own derived dark
+   palette, with the admin tones inverted the same way. */
+.dark .decidim-mockup {
+  --decidim-page: #12161c;
+  --decidim-ink: #f2f4f8;
+  --decidim-ink-soft: #b8c1cf;
+  --decidim-panel: #1b212a;
+  --decidim-field: #191f27;
+  --decidim-rule: #2c343f;
+  --decidim-muted: #262d38;
+  --decidim-edge: rgb(150 161 176 / 0.85);
+  --decidim-primary: #ef604d;
+  --decidim-primary-ink: #020203;
+  --decidim-secondary: #7cb6c1;
+  --decidim-success: #8fd6a8;
+  --decidim-success-fill: #16321f;
+  --decidim-warning: #f0b475;
+  --decidim-warning-fill: #35200f;
+  --decidim-admin-nav: #2a3340;
+  --decidim-admin-bar: #ebc34b;
+  --decidim-admin-accent: #7fa7ea;
+  --decidim-admin-bg: #0f1319;
+  --decidim-admin-border: #2c343f;
+  --decidim-admin-table: rgb(44 52 63 / 0.8);
+  --decidim-admin-tab: #2c343f;
+}
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -249,12 +311,36 @@
   --color-app-orange-bg: var(--app-orange-bg);
   --color-app-orange-fg: var(--app-orange-fg);
   --color-app-teal: var(--app-teal);
+  --color-decidim-page: var(--decidim-page);
+  --color-decidim-ink: var(--decidim-ink);
+  --color-decidim-ink-soft: var(--decidim-ink-soft);
+  --color-decidim-panel: var(--decidim-panel);
+  --color-decidim-field: var(--decidim-field);
+  --color-decidim-rule: var(--decidim-rule);
+  --color-decidim-muted: var(--decidim-muted);
+  --color-decidim-edge: var(--decidim-edge);
+  --color-decidim-primary: var(--decidim-primary);
+  --color-decidim-primary-ink: var(--decidim-primary-ink);
+  --color-decidim-secondary: var(--decidim-secondary);
+  --color-decidim-success: var(--decidim-success);
+  --color-decidim-success-fill: var(--decidim-success-fill);
+  --color-decidim-warning: var(--decidim-warning);
+  --color-decidim-warning-fill: var(--decidim-warning-fill);
+  --color-decidim-admin-nav: var(--decidim-admin-nav);
+  --color-decidim-admin-bar: var(--decidim-admin-bar);
+  --color-decidim-admin-accent: var(--decidim-admin-accent);
+  --color-decidim-admin-bg: var(--decidim-admin-bg);
+  --color-decidim-admin-border: var(--decidim-admin-border);
+  --color-decidim-admin-table: var(--decidim-admin-table);
+  --color-decidim-admin-tab: var(--decidim-admin-tab);
 
   --font-sans: var(--font-sans);
   --font-mono: var(--font-mono);
   --font-serif: var(--font-serif);
   /* Vocdoni App is set in Inter; only product mockups use it. */
   --font-app: 'Inter Variable', system-ui, sans-serif;
+  /* Decidim and its voting page are set in Source Sans; only the Decidim mockups use it. */
+  --font-decidim: 'Source Sans 3 Variable', 'Source Sans Pro', system-ui, sans-serif;
 
   --radius-sm: calc(var(--radius) - 6px);
   --radius-md: calc(var(--radius) - 4px);
