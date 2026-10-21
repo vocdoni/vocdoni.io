@@ -7,7 +7,7 @@ import { send } from '@emailjs/browser'
 
 import { CalBookingDialog } from '@/components/CalBookingDialog'
 import { Link } from '@/components/Link'
-import { Button } from '@/components/ui/button'
+import { Button, buttonVariants } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
@@ -26,7 +26,7 @@ import {
 import { useIsClient } from '@/lib/useIsClient'
 import { cn } from '@/lib/utils'
 
-type SubmissionStatus = 'idle' | 'loading' | 'success' | 'error' | 'config_error' | 'captcha_error'
+type SubmissionStatus = 'idle' | 'loading' | 'success' | 'error' | 'captcha_error'
 
 type PricingRequestFormProps = {
   estimate: Estimate
@@ -85,6 +85,7 @@ export function PricingRequestForm({ estimate, locale, open, onSent }: PricingRe
     } catch (error) {
       console.error('[Pricing Request] EmailJS send error:', error)
       setStatus('error')
+      setShowRecaptcha(false)
       recaptchaRef.current?.reset()
     }
   }
@@ -108,14 +109,17 @@ export function PricingRequestForm({ estimate, locale, open, onSent }: PricingRe
       return
     }
 
-    if (configError) {
-      setStatus('config_error')
-      return
-    }
-
     const ref = buildReference()
     const pageUrl = window.location.href.split('#')[0] + '#pricing'
     const ctx: PricingRequestContext = { reference: ref, locale, pageUrl }
+
+    if (configError) {
+      setReference(ref)
+      setPendingContext(ctx)
+      setFormData(data)
+      setStatus('error')
+      return
+    }
 
     setCookieConsent(true)
     setReference(ref)
@@ -159,14 +163,13 @@ export function PricingRequestForm({ estimate, locale, open, onSent }: PricingRe
             <CalBookingDialog
               triggerAriaLabel={t('pricing.request.book_call', 'Book a call')}
               location='pricing_request'
+              className={cn(buttonVariants({ variant: 'outline', size: 'lg' }), 'w-full sm:w-auto')}
             >
-              <Button size='lg' variant='outline' className='w-full sm:w-auto'>
-                {t('pricing.request.book_call', 'Book a call')}
-              </Button>
+              {t('pricing.request.book_call', 'Book a call')}
             </CalBookingDialog>
             {estimate.zone === 'free' && (
               <Button size='lg' className='w-full sm:w-auto has-[>svg]:px-6' asChild>
-                <Link href={signupUrl} ctaId='pricing_request_signup' target='_blank'>
+                <Link href={signupUrl} ctaId='pricing_request_signup' target='_blank' variant='unstyled'>
                   {t('pricing.request.create_account', 'Create your free account')}
                 </Link>
               </Button>
@@ -352,15 +355,6 @@ export function PricingRequestForm({ estimate, locale, open, onSent }: PricingRe
             </p>
 
             {/* Inline status messages */}
-            {status === 'config_error' && (
-              <div className='rounded-md border border-border bg-secondary p-3 text-sm sm:col-span-2' role='alert'>
-                {t(
-                  'pricing.request.not_configured',
-                  'The request form is not configured yet. Send us an email instead.'
-                )}
-              </div>
-            )}
-
             {status === 'captcha_error' && (
               <div
                 className='rounded-md border border-border bg-secondary p-3 text-sm text-destructive sm:col-span-2'
