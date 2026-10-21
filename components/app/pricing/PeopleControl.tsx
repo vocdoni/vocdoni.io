@@ -18,11 +18,6 @@ interface PeopleControlProps {
   locale: string
 }
 
-/**
- * Voter values shown as tick marks. These are the band-edge stops from LADDER.
- * The last entry (50000) renders as "50,000+" at the right end.
- */
-const TICK_VOTER_VALUES = [50, 100, 500, 1000, 5000, 15000, 50000] as const
 /** Voter values visible only on sm and above (others are hidden below sm). */
 const TICK_VISIBLE_MOBILE = new Set([50, 1000, 15000, 50000])
 
@@ -73,6 +68,7 @@ export function PeopleControl({ state, locale }: PeopleControlProps) {
           })
 
   const inputId = 'pricing-people-input'
+  const helperId = 'pricing-people-helper'
 
   return (
     <div>
@@ -102,6 +98,7 @@ export function PeopleControl({ state, locale }: PeopleControlProps) {
           onChange={handleInputChange}
           onFocus={handleInputFocus}
           onBlur={handleInputBlur}
+          aria-describedby={helperId}
           className='h-11 w-[8.5rem] rounded-md border border-input bg-background text-center text-xl font-medium tabular-nums focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2'
         />
 
@@ -146,7 +143,7 @@ export function PeopleControl({ state, locale }: PeopleControlProps) {
             const voters = votersAtLadderIndex(tickIndex)
             const isLast = i === bandEdgeIndexes.length - 1
             const leftPercent = (tickIndex / (LADDER.length - 1)) * 100
-            const mobileHidden = !TICK_VISIBLE_MOBILE.has(TICK_VOTER_VALUES[i])
+            const mobileHidden = !TICK_VISIBLE_MOBILE.has(voters)
 
             return (
               <div
@@ -176,7 +173,7 @@ export function PeopleControl({ state, locale }: PeopleControlProps) {
       </div>
 
       {/* Helper text */}
-      <p className='mt-3 text-sm text-muted-foreground'>
+      <p id={helperId} className='mt-3 text-sm text-muted-foreground'>
         {t(
           'pricing.calculator.helper',
           'Might you add people to your list later? Count a few extra now, just in case.'

@@ -97,21 +97,18 @@ function AddonRow({ addonKey, checked, onCheckedChange, locale }: AddonRowProps)
   const isSms = addonKey === 'sms'
 
   return (
-    <label
-      className='grid min-h-12 cursor-pointer grid-cols-[auto_1fr_auto] items-start gap-x-3 gap-y-1 rounded-md border border-border bg-background p-4 transition-[background-color,border-color] duration-150 hover:bg-accent has-[[data-state=checked]]:border-foreground/20'
-      aria-label={undefined}
-    >
+    <label className='group grid min-h-12 cursor-pointer grid-cols-[auto_1fr_auto] items-start gap-x-3 gap-y-1 rounded-md border border-border bg-background p-4 transition-[background-color,border-color] duration-150 hover:bg-accent has-[[data-state=checked]]:border-foreground/20'>
       <Checkbox
         checked={checked}
         onCheckedChange={(value) => onCheckedChange(addonKey, value === true)}
-        className='mt-0.5'
+        className='mt-0.5 border-input data-[state=checked]:border-primary'
       />
 
       <span className='text-[15px] font-medium'>
         <AddonTitle addonKey={addonKey} />
       </span>
 
-      <span className='text-right text-sm tabular-nums text-muted-foreground has-[[data-state=checked]]:text-foreground'>
+      <span className='text-right text-sm tabular-nums text-muted-foreground group-has-[[data-state=checked]]:text-foreground'>
         <AddonPrice addonKey={addonKey} locale={locale} />
       </span>
 
