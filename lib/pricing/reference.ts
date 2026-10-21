@@ -1,6 +1,7 @@
 /**
  * Reference codes follow the pattern VOC-YYMM-XXXX where XXXX is four characters from a
- * 32-character Crockford-like alphabet (no 0, 1, I, L, O, U) to avoid visual ambiguity.
+ * 32-character alphabet without 0, 1, I and O, so a reference can be read down a phone line.
+ * 256 % 32 === 0, so masking a random byte with 31 is unbiased.
  */
 export const REFERENCE_PATTERN = /^VOC-\d{4}-[23456789A-HJ-NP-Z]{4}$/
 

@@ -26,7 +26,7 @@ function fmtEur(cents: number): string {
     maximumFractionDigits: 2,
   })
     .format(cents / 100)
-    .replace(/ | /g, ' ') // normalise non-breaking spaces to ASCII space for plain-text email
+    .replace(/[\u00a0\u202f]/g, ' ') // Intl emits a non-breaking space after the code; plain text wants ASCII
 }
 
 /** Formats an integer count with commas for use in the English sales email. */

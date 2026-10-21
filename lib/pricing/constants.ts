@@ -70,4 +70,9 @@ export const MAX_VOTERS = 1_000_000
 
 export const PRICING_CONTACT_EMAIL = 'contact@vocdoni.org'
 
-export const PRICING_LEGAL = { entityName: 'Vocdoni', vatId: '', dpaUrl: '' } as const
+/** Shown in the trust footnote. Empty values are hidden; the owner fills the VAT id and the DPA URL. */
+export const PRICING_LEGAL: { entityName: string; vatId: string; dpaUrl: string } = {
+  entityName: 'Vocdoni',
+  vatId: '',
+  dpaUrl: '',
+}

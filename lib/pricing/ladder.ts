@@ -84,8 +84,8 @@ export const votersAtLadderIndex = (index: number): number => {
 }
 
 /**
- * Returns the nearest band-edge index in the given direction (1 = forward / PageDown in UI,
- * -1 = backward / PageUp). Stays at the ends rather than wrapping.
+ * Returns the nearest band-edge index in the given direction (1 = towards more people, PageUp in
+ * the UI; -1 = towards fewer people, PageDown). Stays at the ends rather than wrapping.
  */
 export const nextBandEdgeIndex = (index: number, direction: 1 | -1): number => {
   if (direction === 1) {
