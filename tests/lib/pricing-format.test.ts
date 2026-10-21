@@ -46,6 +46,14 @@ describe('formatCurrency', () => {
     expect(result).toMatch(/109/)
     expect(result).not.toMatch(/[०-९]/)
   })
+
+  it('explicit decimals=0 overrides non-whole amount', () => {
+    expect(formatCurrency(10934, 'en', 0)).toBe('€109')
+  })
+
+  it('explicit decimals=2 overrides whole amount', () => {
+    expect(formatCurrency(10900, 'en', 2)).toBe('€109.00')
+  })
 })
 
 describe('formatRate', () => {
