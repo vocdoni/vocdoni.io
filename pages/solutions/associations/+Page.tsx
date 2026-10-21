@@ -21,7 +21,7 @@ import logoArxivers from '@/assets/logos/logo_arxivers_colour.webp'
  * `ctaId` below - hence the `associations` prefix.
  */
 const APP_SIGNUP_TYPE = 'associations'
-const PRICING_URL = `${APP_URL}/plans`
+const PRICING_URL = '/app#pricing'
 
 const CASE_STUDY_HREF = '/case-studies/omnium-cultural'
 const BLOG_HREF =

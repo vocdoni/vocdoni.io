@@ -22,7 +22,7 @@ import imageCoib from '@/assets/images/success/coib_experience.webp'
  * hence the `pro_associations` prefix.
  */
 const APP_SIGNUP_TYPE = 'professional-associations'
-const PRICING_URL = `${APP_URL}/plans`
+const PRICING_URL = '/app#pricing'
 
 const CASE_STUDY_HREF = '/case-studies/coib'
 const BLOG_HREF =
