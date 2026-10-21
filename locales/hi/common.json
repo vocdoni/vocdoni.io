@@ -4157,138 +4157,138 @@
   "pricing": {
     "addons": {
       "branding": {
-        "description": "",
-        "price": "",
-        "title": ""
+        "description": "आपकी ब्रांडिंग मतदान पृष्ठ और ईमेल पर, Vocdoni लोगो के बिना, हर भविष्य के मतदान के लिए।",
+        "price": "{{price}} एक बार",
+        "title": "आपका लोगो और रंग"
       },
       "certificate": {
-        "description": "",
-        "price": "",
-        "title": ""
+        "description": "एक PDF जो यह साबित करता है कि प्रकाशित परिणाम दर्ज किए गए वोटों से मेल खाते हैं, आपकी कार्यवाही में संलग्न करने के लिए।",
+        "price": "{{price}} प्रति मतदान",
+        "title": "हस्ताक्षरित परिणाम रिपोर्ट (PDF)"
       },
       "domain": {
-        "description": "",
-        "price": "",
-        "title": ""
+        "description": "लोग vote.yourorganisation.org जैसे पते पर मतदान देते हैं।",
+        "price": "{{price}} एक बार",
+        "title": "आपना वेब पता"
       },
-      "one_time_title": "",
-      "per_vote_title": "",
+      "one_time_title": "आपके संगठन के लिए एक बार चार्ज किया जाता है",
+      "per_vote_title": "इस मतदान में जोड़ें",
       "sms": {
-        "description": "",
-        "note": "",
-        "price": "",
-        "title": ""
+        "description": "ईमेल की जगह या साथ ही टेक्स्ट संदेश से कोड भेजें। ईमेल से कोड हमेशा शामिल होते हैं।",
+        "note": "यूरोप में अनुमानित लागत। टेक्स्ट संदेश की अंतिम लागत देश के अनुसार अलग हो सकती है।",
+        "price": "{{price}} आपकी सूची पर प्रति व्यक्ति",
+        "title": "टेक्स्ट संदेश से सत्यापन कोड"
       }
     },
     "bands": {
-      "above_limit": "",
-      "col_people": "",
-      "col_rate": "",
-      "col_total": "",
-      "current": "",
-      "each": "",
-      "range": "",
-      "title": ""
+      "above_limit": "{{limit}} से ज़्यादा लोग: हमें उद्धरण के लिए पूछें।",
+      "col_people": "मतदान दे सकते हैं इतने लोग",
+      "col_rate": "हर एक की कीमत",
+      "col_total": "इतने लोगों के साथ एक मतदान की लागत",
+      "current": "आपकी सूची इस सीमा में आती है",
+      "each": "हर एक {{rate}}",
+      "range": "{{from}} - {{to}}",
+      "title": "एक नज़र में कीमतें"
     },
     "calculator": {
-      "decrease": "",
-      "helper": "",
-      "increase": "",
-      "people_label": "",
-      "slider_label": "",
-      "slider_value": "",
-      "slider_value_free": "",
-      "slider_value_quote": "",
-      "tick_more": ""
+      "decrease": "कम लोग",
+      "helper": "क्या आप बाद में अपनी सूची में लोग जोड़ सकते हैं? अभी कुछ अतिरिक्त गिनें, बस सुरक्षा के लिए।",
+      "increase": "ज़्यादा लोग",
+      "people_label": "कितने लोग मतदान दे सकते हैं?",
+      "slider_label": "कितने लोग मतदान दे सकते हैं",
+      "slider_value": "{{people}} लोग, {{total}} जमा वैट",
+      "slider_value_free": "{{people}} लोग, मुफ़्त",
+      "slider_value_quote": "{{limit}} से ज़्यादा लोग, अनुरोध पर",
+      "tick_more": "{{limit}}+"
     },
     "cta": {
-      "create_account": "",
-      "no_commitment": "",
-      "repeat_hint": "",
-      "request_price": "",
-      "request_quote": "",
-      "talk": ""
+      "create_account": "एक मुफ़्त खाता बनाएँ",
+      "no_commitment": "कोई प्रतिबद्धता नहीं। हम एक कार्य दिवस के भीतर जवाब देते हैं।",
+      "repeat_hint": "इस साल कई मतदान चलाने हैं? हमें अनुरोध में बताएँ।",
+      "request_price": "इस कीमत का अनुरोध करें",
+      "request_quote": "उद्धरण का अनुरोध करें",
+      "talk": "हमसे बात करें"
     },
-    "eyebrow": "",
+    "eyebrow": "कीमत",
     "included": {
-      "item_1": "",
-      "item_2": "",
-      "item_3": "",
-      "item_4": "",
-      "item_5": "",
-      "item_6": "",
-      "title": ""
+      "item_1": "कोई भी मतपत्र को उस व्यक्ति से जोड़ नहीं सकता जिसने उसे डाला",
+      "item_2": "हर मतदाता जाँच सकता है कि उसका वोट गिना गया",
+      "item_3": "परिणाम कोई भी सत्यापित कर सकता है, सार्वजनिक रिकॉर्ड पर",
+      "item_4": "मतदाता ईमेल से भेजे गए कोड से खुद की पहचान करते हैं (कोई ऐप नहीं, कोई खाता नहीं)",
+      "item_5": "जितने सवाल चाहें, और लाइव परिणाम",
+      "item_6": "मतदान पृष्ठ आपके मतदाताओं की अपनी भाषा में",
+      "title": "सब कुछ शामिल है"
     },
-    "lede": "",
+    "lede": "कीमत उस बात पर निर्भर करती है कि कितने लोग मत दे सकते हैं, न कि कितने वास्तव में मत देते हैं। 50 तक लोगों के साथ मतदान मुफ़्त हैं, और अनाम, सत्यापन योग्य मतदान हमेशा शामिल रहता है।",
     "live": {
-      "free": "",
-      "quote": "",
-      "total": ""
+      "free": "यह मतदान मुफ़्त है।",
+      "quote": "{{limit}} से ज़्यादा लोग: अनुरोध पर।",
+      "total": "इस मतदान के लिए कुल: {{total}} जमा वैट। {{perPerson}} प्रति व्यक्ति।"
     },
     "panel": {
-      "band_line": "",
-      "free": "",
-      "how_text": "",
-      "how_title": "",
-      "line_branding": "",
-      "line_certificate": "",
-      "line_domain": "",
-      "line_sms": "",
-      "line_vote": "",
-      "on_request": "",
-      "one_time_note": "",
-      "one_time_title": "",
-      "per_person": "",
-      "title": "",
-      "vat_suffix": "",
-      "with_vat": ""
+      "band_line": "{{from}} - {{to}} पर {{rate}} हर एक",
+      "free": "मुफ़्त",
+      "how_text": "हर कीमत सिर्फ़ उस सीमा के अंदर के लोगों पर लागू होती है, इसलिए बड़ी सूचियों को प्रति व्यक्ति कम खर्च आता है।",
+      "how_title": "यह कैसे काम करता है",
+      "line_branding": "आपका लोगो और रंग",
+      "line_certificate": "हस्ताक्षरित परिणाम रिपोर्ट (PDF)",
+      "line_domain": "आपना वेब पता",
+      "line_sms": "टेक्स्ट संदेश कोड, {{people}} × {{unit}}",
+      "line_vote": "मतदान, {{people}} लोग",
+      "on_request": "अनुरोध पर",
+      "one_time_note": "एक बार भुगतान किया जाता है, हर मतदान के साथ नहीं।",
+      "one_time_title": "एकबारगी सेटअप",
+      "per_person": "मतदान दे सकते हैं इतने हर व्यक्ति के लिए {{price}}",
+      "title": "आपकी कीमत",
+      "vat_suffix": "+ वैट",
+      "with_vat": "≈ {{total}} जिसमें 21% वैट (स्पेन)"
     },
     "request": {
-      "book_call": "",
-      "captcha_error": "",
-      "chip_one_time": "",
-      "chip_people": "",
-      "chip_total": "",
-      "create_account": "",
-      "email": "",
-      "error_body": "",
-      "error_cta": "",
-      "error_title": "",
+      "book_call": "एक कॉल बुक करें",
+      "captcha_error": "reCAPTCHA सत्यापन विफल। कृपया फिर से कोशिश करें।",
+      "chip_one_time": "एकबारगी सेटअप {{total}}",
+      "chip_people": "{{people}} लोग",
+      "chip_total": "{{total}} + वैट",
+      "create_account": "अपना मुफ़्त खाता बनाएँ",
+      "email": "ईमेल",
+      "error_body": "इसे ईमेल से भेजें; हमने इसे आपके लिए भर दिया है।",
+      "error_cta": "ईमेल से भेजें",
+      "error_title": "हम यहाँ से आपका अनुरोध नहीं भेज सके",
       "errors": {
-        "email_invalid": "",
-        "email_required": "",
-        "name_required": "",
-        "organization_required": ""
+        "email_invalid": "एक वैध ईमेल पता दर्ज करें",
+        "email_required": "अपना ईमेल दर्ज करें",
+        "name_required": "अपना नाम दर्ज करें",
+        "organization_required": "अपना संगठन दर्ज करें"
       },
-      "intro": "",
-      "message": "",
-      "message_placeholder": "",
-      "name": "",
-      "organization": "",
-      "privacy": "",
-      "retry": "",
-      "sending": "",
-      "submit": "",
-      "success_reference": "",
-      "success_reply": "",
-      "success_title": "",
-      "title": "",
-      "title_quote": ""
+      "intro": "हमें बताएँ कि आप कौन हैं और हम एक लिखित अनुमान के साथ जवाब देते हैं, आम तौर पर एक कार्य दिवस के भीतर।",
+      "message": "कोई ऐसी चीज़ जो हमें पता होनी चाहिए (वैकल्पिक)",
+      "message_placeholder": "तारीखें, इस साल कई मतदान, आपकी सूची के बारे में सवाल...",
+      "name": "आपका नाम",
+      "organization": "संगठन",
+      "privacy": "Vocdoni इन विवरणों का उपयोग केवल आपके अनुमान को तैयार करने और आपके अनुरोध का उत्तर देने के लिए करता है। <plink>गोपनीयता नीति</plink>।",
+      "retry": "फिर से कोशिश करें",
+      "sending": "भेज रहे हैं...",
+      "submit": "अनुरोध भेजें",
+      "success_reference": "आपका संदर्भ: {{reference}}",
+      "success_reply": "Vocdoni टीम एक कार्य दिवस के भीतर {{email}} को लिखेगी।",
+      "success_title": "अनुरोध प्राप्त हुआ",
+      "title": "इस कीमत का अनुरोध करें",
+      "title_quote": "उद्धरण का अनुरोध करें"
     },
-    "title": "",
+    "title": "एक बार प्रति मतदान भुगतान करें। कोई सदस्यता नहीं।",
     "trust": {
-      "dpa": "",
-      "payment": "",
-      "prices": "",
-      "privacy": "",
-      "terms": "",
-      "vat_id": ""
+      "dpa": "डेटा प्रोसेसिंग समझौता",
+      "payment": "ऑनलाइन भुगतान रास्ते में है। अभी के लिए Vocdoni का एक व्यक्ति आपकी कीमत की पुष्टि करता है, फिर आप कार्ड या बैंक हस्तांतरण से चालान के साथ भुगतान करते हैं।",
+      "prices": "EUR में बिना वैट कीमतें। वैध वैट संख्या वाले EU व्यवसायों को रिवर्स चार्ज के तहत चालान दिया जाता है; EU के बाहर के ग्राहक कोई EU वैट का भुगतान नहीं करते।",
+      "privacy": "गोपनीयता नीति",
+      "terms": "शर्तें",
+      "vat_id": "वैट आईडी {{id}}"
     },
     "zones": {
-      "dedicated": "",
-      "dedicated_badge": "",
-      "free": "",
-      "quote": ""
+      "dedicated": "इस आकार का एक मतदान आमतौर पर बातचीत की ज़रूरत होती है। ऊपर दी गई कीमत रहती है, और आप एक समर्पित संपर्क प्राप्त करते हैं।",
+      "dedicated_badge": "बड़ा मतदान",
+      "free": "यह मतदान मुफ़्त है। 50 लोगों तक के मतदान हमेशा मुफ़्त होते हैं; 51 लोगों से पूरी सूची की कीमत होती है, जो 51 के लिए {{price}} है।",
+      "quote": "हमें बताएँ कि आपको क्या चाहिए और हम एक कार्य दिवस के भीतर एक आंकड़ा भेजते हैं।"
     }
   },
   "steps_section": {

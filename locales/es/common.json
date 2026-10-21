@@ -4157,138 +4157,138 @@
   "pricing": {
     "addons": {
       "branding": {
-        "description": "",
-        "price": "",
-        "title": ""
+        "description": "Tu marca en la página de votación y los correos, sin el logotipo de Vocdoni, para todas tus futuras votaciones.",
+        "price": "{{price}} una vez",
+        "title": "Tu logo y colores"
       },
       "certificate": {
-        "description": "",
-        "price": "",
-        "title": ""
+        "description": "Un PDF que certifica que el resultado publicado coincide con los votos registrados, para adjuntar al acta.",
+        "price": "{{price}} por votación",
+        "title": "Informe de resultados firmado (PDF)"
       },
       "domain": {
-        "description": "",
-        "price": "",
-        "title": ""
+        "description": "Las personas votan en una dirección como vote.yourorganisation.org.",
+        "price": "{{price}} una vez",
+        "title": "Tu propia dirección web"
       },
-      "one_time_title": "",
-      "per_vote_title": "",
+      "one_time_title": "Se cobra una vez para tu organización",
+      "per_vote_title": "Añadir a esta votación",
       "sms": {
-        "description": "",
-        "note": "",
-        "price": "",
-        "title": ""
+        "description": "Envía el código por SMS en lugar de, o además de, por correo electrónico. Los códigos por correo siempre están incluidos.",
+        "note": "Coste estimado en Europa. El coste final por SMS puede variar según el país.",
+        "price": "{{price}} por persona en tu lista",
+        "title": "Códigos de verificación por SMS"
       }
     },
     "bands": {
-      "above_limit": "",
-      "col_people": "",
-      "col_rate": "",
-      "col_total": "",
-      "current": "",
-      "each": "",
-      "range": "",
-      "title": ""
+      "above_limit": "Más de {{limit}} personas: pídenos presupuesto.",
+      "col_people": "Personas que pueden votar",
+      "col_rate": "Precio unitario",
+      "col_total": "Una votación con este número de personas cuesta",
+      "current": "Tu lista está en este tramo",
+      "each": "{{rate}} cada una",
+      "range": "{{from}} - {{to}}",
+      "title": "Precios de un vistazo"
     },
     "calculator": {
-      "decrease": "",
-      "helper": "",
-      "increase": "",
-      "people_label": "",
-      "slider_label": "",
-      "slider_value": "",
-      "slider_value_free": "",
-      "slider_value_quote": "",
-      "tick_more": ""
+      "decrease": "Menos personas",
+      "helper": "¿Podrías añadir personas a tu lista más adelante? Cuenta unas cuantas más ahora, por si acaso.",
+      "increase": "Más personas",
+      "people_label": "¿Cuántas personas pueden votar?",
+      "slider_label": "Cuántas personas pueden votar",
+      "slider_value": "{{people}} personas, {{total}} más IVA",
+      "slider_value_free": "{{people}} personas, gratis",
+      "slider_value_quote": "Más de {{limit}} personas, a consultar",
+      "tick_more": "{{limit}}+"
     },
     "cta": {
-      "create_account": "",
-      "no_commitment": "",
-      "repeat_hint": "",
-      "request_price": "",
-      "request_quote": "",
-      "talk": ""
+      "create_account": "Crea una cuenta gratuita",
+      "no_commitment": "Sin compromiso. Respondemos en un día hábil.",
+      "repeat_hint": "¿Vas a realizar varias votaciones este año? Cuéntanoslo en la solicitud.",
+      "request_price": "Solicita este precio",
+      "request_quote": "Pide presupuesto",
+      "talk": "Habla con nosotros"
     },
-    "eyebrow": "",
+    "eyebrow": "Precios",
     "included": {
-      "item_1": "",
-      "item_2": "",
-      "item_3": "",
-      "item_4": "",
-      "item_5": "",
-      "item_6": "",
-      "title": ""
+      "item_1": "Nadie puede vincular un voto a la persona que lo emitió",
+      "item_2": "Cada votante puede comprobar que su voto ha sido contabilizado",
+      "item_3": "Resultados que cualquiera puede verificar, en un registro público",
+      "item_4": "Los votantes se identifican con un código enviado por correo electrónico (sin app, sin cuenta)",
+      "item_5": "Tantas preguntas como necesites y resultados en directo",
+      "item_6": "La página de votación en el idioma de tus votantes",
+      "title": "Todo incluido"
     },
-    "lede": "",
+    "lede": "El precio depende de cuántas personas pueden votar, no de cuántas participan. Las votaciones de hasta 50 personas son gratis, y la votación anónima y verificable siempre está incluida.",
     "live": {
-      "free": "",
-      "quote": "",
-      "total": ""
+      "free": "Esta votación es gratuita.",
+      "quote": "Más de {{limit}} personas: a consultar.",
+      "total": "Total de esta votación: {{total}} más IVA. {{perPerson}} por persona."
     },
     "panel": {
-      "band_line": "",
-      "free": "",
-      "how_text": "",
-      "how_title": "",
-      "line_branding": "",
-      "line_certificate": "",
-      "line_domain": "",
-      "line_sms": "",
-      "line_vote": "",
-      "on_request": "",
-      "one_time_note": "",
-      "one_time_title": "",
-      "per_person": "",
-      "title": "",
-      "vat_suffix": "",
-      "with_vat": ""
+      "band_line": "{{from}} - {{to}} a {{rate}} cada una",
+      "free": "Gratis",
+      "how_text": "Cada precio se aplica solo a las personas dentro de ese tramo, por lo que las listas más grandes pagan menos por persona.",
+      "how_title": "Cómo se calcula",
+      "line_branding": "Tu logo y colores",
+      "line_certificate": "Informe de resultados firmado (PDF)",
+      "line_domain": "Tu propia dirección web",
+      "line_sms": "Códigos por SMS, {{people}} × {{unit}}",
+      "line_vote": "Votación, {{people}} personas",
+      "on_request": "A consultar",
+      "one_time_note": "Se paga una vez, no con cada votación.",
+      "one_time_title": "Configuración única",
+      "per_person": "{{price}} por persona que puede votar",
+      "title": "Tu precio",
+      "vat_suffix": "+ IVA",
+      "with_vat": "≈ {{total}} con IVA 21% (España)"
     },
     "request": {
-      "book_call": "",
-      "captcha_error": "",
-      "chip_one_time": "",
-      "chip_people": "",
-      "chip_total": "",
-      "create_account": "",
-      "email": "",
-      "error_body": "",
-      "error_cta": "",
-      "error_title": "",
+      "book_call": "Reservar una llamada",
+      "captcha_error": "La verificación reCAPTCHA ha fallado. Por favor, inténtalo de nuevo.",
+      "chip_one_time": "Configuración única {{total}}",
+      "chip_people": "{{people}} personas",
+      "chip_total": "{{total}} + IVA",
+      "create_account": "Crea tu cuenta gratuita",
+      "email": "Correo electrónico",
+      "error_body": "Envíalo por correo electrónico; ya lo hemos rellenado por ti.",
+      "error_cta": "Enviar por correo electrónico",
+      "error_title": "No hemos podido enviar tu solicitud desde aquí",
       "errors": {
-        "email_invalid": "",
-        "email_required": "",
-        "name_required": "",
-        "organization_required": ""
+        "email_invalid": "Introduce una dirección de correo válida",
+        "email_required": "Introduce tu correo electrónico",
+        "name_required": "Introduce tu nombre",
+        "organization_required": "Introduce tu organización"
       },
-      "intro": "",
-      "message": "",
-      "message_placeholder": "",
-      "name": "",
-      "organization": "",
-      "privacy": "",
-      "retry": "",
-      "sending": "",
-      "submit": "",
-      "success_reference": "",
-      "success_reply": "",
-      "success_title": "",
-      "title": "",
-      "title_quote": ""
+      "intro": "Dinos quién eres y te respondemos con un presupuesto por escrito, normalmente en un día hábil.",
+      "message": "Algo que debamos saber (opcional)",
+      "message_placeholder": "Fechas, varias votaciones este año, preguntas sobre tu lista...",
+      "name": "Tu nombre",
+      "organization": "Organización",
+      "privacy": "Vocdoni utiliza estos datos únicamente para preparar tu estimación y responder a tu solicitud. <plink>Política de privacidad</plink>.",
+      "retry": "Inténtalo de nuevo",
+      "sending": "Enviando...",
+      "submit": "Enviar solicitud",
+      "success_reference": "Tu referencia: {{reference}}",
+      "success_reply": "El equipo de Vocdoni escribirá a {{email}} en un día hábil.",
+      "success_title": "Solicitud recibida",
+      "title": "Solicita este precio",
+      "title_quote": "Pide presupuesto"
     },
-    "title": "",
+    "title": "Paga una vez por votación. Sin suscripción.",
     "trust": {
-      "dpa": "",
-      "payment": "",
-      "prices": "",
-      "privacy": "",
-      "terms": "",
-      "vat_id": ""
+      "dpa": "Acuerdo de tratamiento de datos",
+      "payment": "El pago en línea está en camino. Por ahora, alguien de Vocdoni confirma tu precio y pagas con tarjeta o transferencia bancaria con factura.",
+      "prices": "Precios en EUR sin IVA. Las empresas de la UE con un número de IVA válido reciben la factura con inversión del sujeto pasivo; los clientes fuera de la UE no pagan IVA europeo.",
+      "privacy": "Política de privacidad",
+      "terms": "Términos",
+      "vat_id": "Número de IVA {{id}}"
     },
     "zones": {
-      "dedicated": "",
-      "dedicated_badge": "",
-      "free": "",
-      "quote": ""
+      "dedicated": "Una votación de este tamaño normalmente requiere una conversación. El precio anterior se mantiene, y tendrás un contacto dedicado.",
+      "dedicated_badge": "Votación grande",
+      "free": "Esta votación es gratuita. Las votaciones con hasta 50 personas siempre son gratuitas; a partir de 51 personas se cobra toda la lista, lo que equivale a {{price}} para 51.",
+      "quote": "Cuéntanos qué necesitas y te enviamos un precio en un día hábil."
     }
   },
   "steps_section": {

@@ -4157,138 +4157,138 @@
   "pricing": {
     "addons": {
       "branding": {
-        "description": "",
-        "price": "",
-        "title": ""
+        "description": "El vostre branding a la pàgina de votació i als correus electrònics, sense el logotip de Vocdoni, per a cada votació futura.",
+        "price": "{{price}} un sol cop",
+        "title": "El vostre logotip i colors"
       },
       "certificate": {
-        "description": "",
-        "price": "",
-        "title": ""
+        "description": "Un PDF que acredita que el resultat publicat coincideix amb els vots registrats, per adjuntar a les actes.",
+        "price": "{{price}} per votació",
+        "title": "Informe de resultats signat (PDF)"
       },
       "domain": {
-        "description": "",
-        "price": "",
-        "title": ""
+        "description": "Les persones voten a una adreça com vote.vostraorganitzacio.org.",
+        "price": "{{price}} un sol cop",
+        "title": "La vostra pròpia adreça web"
       },
-      "one_time_title": "",
-      "per_vote_title": "",
+      "one_time_title": "Cobrat un sol cop per a la vostra organització",
+      "per_vote_title": "Afegiu a aquesta votació",
       "sms": {
-        "description": "",
-        "note": "",
-        "price": "",
-        "title": ""
+        "description": "Envieu el codi per SMS en comptes del correu electrònic, o a més d'ell. Els codis per correu electrònic sempre estan inclosos.",
+        "note": "Cost estimat a Europa. El cost final per SMS pot variar segons el país.",
+        "price": "{{price}} per persona de la vostra llista",
+        "title": "Codis de verificació per SMS"
       }
     },
     "bands": {
-      "above_limit": "",
-      "col_people": "",
-      "col_rate": "",
-      "col_total": "",
-      "current": "",
-      "each": "",
-      "range": "",
-      "title": ""
+      "above_limit": "Més de {{limit}} persones: demaneu-nos un pressupost.",
+      "col_people": "Persones que poden votar",
+      "col_rate": "Preu per persona",
+      "col_total": "El cost d'una votació amb aquest nombre de persones",
+      "current": "La vostra llista cau en aquest rang",
+      "each": "{{rate}} per persona",
+      "range": "{{from}} - {{to}}",
+      "title": "Preus d'un cop d'ull"
     },
     "calculator": {
-      "decrease": "",
-      "helper": "",
-      "increase": "",
-      "people_label": "",
-      "slider_label": "",
-      "slider_value": "",
-      "slider_value_free": "",
-      "slider_value_quote": "",
-      "tick_more": ""
+      "decrease": "Menys persones",
+      "helper": "Podríeu afegir persones a la vostra llista més endavant? Compteu unes quantes de més ara, per si de cas.",
+      "increase": "Més persones",
+      "people_label": "Quantes persones poden votar?",
+      "slider_label": "Quantes persones poden votar",
+      "slider_value": "{{people}} persones, {{total}} més IVA",
+      "slider_value_free": "{{people}} persones, gratuït",
+      "slider_value_quote": "Més de {{limit}} persones, a consultar",
+      "tick_more": "{{limit}}+"
     },
     "cta": {
-      "create_account": "",
-      "no_commitment": "",
-      "repeat_hint": "",
-      "request_price": "",
-      "request_quote": "",
-      "talk": ""
+      "create_account": "Creeu un compte gratuït",
+      "no_commitment": "Sense compromís. Responem en un dia hàbil.",
+      "repeat_hint": "Feu diverses votacions aquest any? Expliqueu-ho a la sol·licitud.",
+      "request_price": "Sol·liciteu aquest preu",
+      "request_quote": "Demaneu un pressupost",
+      "talk": "Parleu amb nosaltres"
     },
-    "eyebrow": "",
+    "eyebrow": "Preus",
     "included": {
-      "item_1": "",
-      "item_2": "",
-      "item_3": "",
-      "item_4": "",
-      "item_5": "",
-      "item_6": "",
-      "title": ""
+      "item_1": "Ningú pot vincular un vot a la persona que el va emetre",
+      "item_2": "Cada votant pot comprovar que el seu vot s'ha comptat",
+      "item_3": "Resultats que tothom pot verificar, en un registre públic",
+      "item_4": "Els votants s'identifiquen amb un codi enviat per correu electrònic (sense app, sense compte)",
+      "item_5": "Tantes preguntes com necessiteu, i resultats en directe",
+      "item_6": "La pàgina de votació en la llengua dels vostres votants",
+      "title": "Tot inclòs"
     },
-    "lede": "",
+    "lede": "El preu depèn de quantes persones poden votar, no de quantes hi participen. Les votacions fins a 50 persones són gratuïtes, i el vot anònim i verificable sempre està inclòs.",
     "live": {
-      "free": "",
-      "quote": "",
-      "total": ""
+      "free": "Aquesta votació és gratuïta.",
+      "quote": "Més de {{limit}} persones: a consultar.",
+      "total": "Total per a aquesta votació: {{total}} més IVA. {{perPerson}} per persona."
     },
     "panel": {
-      "band_line": "",
-      "free": "",
-      "how_text": "",
-      "how_title": "",
-      "line_branding": "",
-      "line_certificate": "",
-      "line_domain": "",
-      "line_sms": "",
-      "line_vote": "",
-      "on_request": "",
-      "one_time_note": "",
-      "one_time_title": "",
-      "per_person": "",
-      "title": "",
-      "vat_suffix": "",
-      "with_vat": ""
+      "band_line": "{{from}} - {{to}} a {{rate}} per persona",
+      "free": "Gratuït",
+      "how_text": "Cada preu s'aplica només a les persones dins d'aquest rang, de manera que les llistes més grans paguen menys per persona.",
+      "how_title": "Com es calcula",
+      "line_branding": "El vostre logotip i colors",
+      "line_certificate": "Informe de resultats signat (PDF)",
+      "line_domain": "La vostra pròpia adreça web",
+      "line_sms": "Codis per SMS, {{people}} × {{unit}}",
+      "line_vote": "Votació, {{people}} persones",
+      "on_request": "A consultar",
+      "one_time_note": "Es paga un sol cop, no amb cada votació.",
+      "one_time_title": "Configuració única",
+      "per_person": "{{price}} per persona que pot votar",
+      "title": "El vostre preu",
+      "vat_suffix": "+ IVA",
+      "with_vat": "≈ {{total}} amb el 21% d'IVA (Espanya)"
     },
     "request": {
-      "book_call": "",
-      "captcha_error": "",
-      "chip_one_time": "",
-      "chip_people": "",
-      "chip_total": "",
-      "create_account": "",
-      "email": "",
-      "error_body": "",
-      "error_cta": "",
-      "error_title": "",
+      "book_call": "Reserveu una trucada",
+      "captcha_error": "La verificació reCAPTCHA ha fallat. Si us plau, torneu-ho a intentar.",
+      "chip_one_time": "Configuració única {{total}}",
+      "chip_people": "{{people}} persones",
+      "chip_total": "{{total}} + IVA",
+      "create_account": "Creeu el vostre compte gratuït",
+      "email": "Correu electrònic",
+      "error_body": "Envieu-lo per correu electrònic; ja l'hem omplert per vosaltres.",
+      "error_cta": "Envieu-lo per correu electrònic",
+      "error_title": "No hem pogut enviar la vostra sol·licitud des d'aquí",
       "errors": {
-        "email_invalid": "",
-        "email_required": "",
-        "name_required": "",
-        "organization_required": ""
+        "email_invalid": "Adreça de correu electrònic no vàlida",
+        "email_required": "El correu electrònic és obligatori",
+        "name_required": "El nom és obligatori",
+        "organization_required": "L'organització és obligatòria"
       },
-      "intro": "",
-      "message": "",
-      "message_placeholder": "",
-      "name": "",
-      "organization": "",
-      "privacy": "",
-      "retry": "",
-      "sending": "",
-      "submit": "",
-      "success_reference": "",
-      "success_reply": "",
-      "success_title": "",
-      "title": "",
-      "title_quote": ""
+      "intro": "Digueu-nos qui sou i us respondrem amb un pressupost escrit, normalment en un dia hàbil.",
+      "message": "Qualsevol cosa que hàgim de saber (opcional)",
+      "message_placeholder": "Dates, diverses votacions aquest any, preguntes sobre la vostra llista...",
+      "name": "El vostre nom",
+      "organization": "Organització",
+      "privacy": "Vocdoni utilitza aquestes dades només per preparar el vostre pressupost i respondre a la vostra sol·licitud. <plink>Política de privadesa</plink>.",
+      "retry": "Torneu-ho a intentar",
+      "sending": "Enviant...",
+      "submit": "Envieu la sol·licitud",
+      "success_reference": "La vostra referència: {{reference}}",
+      "success_reply": "L'equip de Vocdoni escriurà a {{email}} en un dia hàbil.",
+      "success_title": "Sol·licitud rebuda",
+      "title": "Sol·liciteu aquest preu",
+      "title_quote": "Demaneu un pressupost"
     },
-    "title": "",
+    "title": "Pagueu un cop per votació. Sense subscripció.",
     "trust": {
-      "dpa": "",
-      "payment": "",
-      "prices": "",
-      "privacy": "",
-      "terms": "",
-      "vat_id": ""
+      "dpa": "Acord de tractament de dades",
+      "payment": "El pagament en línia és en camí. De moment, una persona de Vocdoni confirma el vostre preu i després pagueu amb targeta o transferència bancària amb factura.",
+      "prices": "Preus en EUR sense IVA. Les empreses de la UE amb un número d'IVA vàlid reben la factura amb inversió del subjecte passiu; els clients fora de la UE no paguen l'IVA de la UE.",
+      "privacy": "Política de privadesa",
+      "terms": "Condicions",
+      "vat_id": "NIF IVA: {{id}}"
     },
     "zones": {
-      "dedicated": "",
-      "dedicated_badge": "",
-      "free": "",
-      "quote": ""
+      "dedicated": "Una votació d'aquesta mida normalment requereix una conversa. El preu indicat és vàlid i tindreu un contacte dedicat.",
+      "dedicated_badge": "Votació gran",
+      "free": "Aquesta votació és gratuïta. Les votacions fins a 50 persones sempre són gratuïtes; a partir de 51 persones es preu tota la llista, que és {{price}} per a 51.",
+      "quote": "Digueu-nos què necessiteu i us enviem una xifra en un dia hàbil."
     }
   },
   "steps_section": {
