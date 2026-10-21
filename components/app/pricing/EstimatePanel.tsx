@@ -152,10 +152,12 @@ export function EstimatePanel({ state, locale, onRequest }: EstimatePanelProps) 
                 people: formatPeople(estimate.voters, locale),
               })}
             </span>
-            <span className='w-24 text-right tabular-nums'>
-              {zone === 'free' && voterPriceCents === 0
-                ? t('pricing.panel.free', 'Free')
-                : formatCurrency(voterPriceCents, locale)}
+            <span className='w-[5.5rem] shrink-0 text-right tabular-nums'>
+              {isQuote
+                ? '-'
+                : zone === 'free' && voterPriceCents === 0
+                  ? t('pricing.panel.free', 'Free')
+                  : formatCurrency(voterPriceCents, locale)}
             </span>
           </div>
 
@@ -164,7 +166,9 @@ export function EstimatePanel({ state, locale, onRequest }: EstimatePanelProps) 
             <div key={addon.key}>
               <div className='flex justify-between gap-4 text-sm'>
                 <span>{addonPanelLabel(addon.key, addon.quantity, addon.unitCents, locale, t)}</span>
-                <span className='w-24 text-right tabular-nums'>{formatCurrency(addon.subtotalCents, locale)}</span>
+                <span className='w-[5.5rem] shrink-0 text-right tabular-nums'>
+                  {formatCurrency(addon.subtotalCents, locale)}
+                </span>
               </div>
               {addon.key === 'sms' && (
                 <p className='mt-0.5 text-[13px] text-surface-dark-foreground/70'>
@@ -204,7 +208,7 @@ export function EstimatePanel({ state, locale, onRequest }: EstimatePanelProps) 
                         rate: formatRate(line.rateHundredthsOfCent, locale),
                       })}
                     </span>
-                    <span className='w-24 text-right tabular-nums'>
+                    <span className='w-[5.5rem] shrink-0 text-right tabular-nums'>
                       {formatCurrency(Math.round(line.subtotalHundredths / 100), locale)}
                     </span>
                   </div>
@@ -230,13 +234,20 @@ export function EstimatePanel({ state, locale, onRequest }: EstimatePanelProps) 
               {oneTimeAddons.map((addon) => (
                 <div key={addon.key} className='flex justify-between gap-4 text-sm'>
                   <span>{addonPanelLabel(addon.key, addon.quantity, addon.unitCents, locale, t)}</span>
-                  <span className='w-24 text-right tabular-nums'>{formatCurrency(addon.subtotalCents, locale)}</span>
+                  <span className='w-[5.5rem] shrink-0 text-right tabular-nums'>
+                    {formatCurrency(addon.subtotalCents, locale)}
+                  </span>
                 </div>
               ))}
-              <div className='flex justify-between gap-4 text-sm font-medium'>
-                <span>{t('pricing.panel.one_time_title', 'One-time setup')}</span>
-                <span className='w-24 text-right tabular-nums'>{formatCurrency(oneTimeCents, locale)}</span>
-              </div>
+              {/* A subtotal only earns its row when there is more than one line to add up. */}
+              {oneTimeAddons.length > 1 && (
+                <div className='flex justify-between gap-4 text-sm font-medium'>
+                  <span>{t('pricing.panel.one_time_title', 'One-time setup')}</span>
+                  <span className='w-[5.5rem] shrink-0 text-right tabular-nums'>
+                    {formatCurrency(oneTimeCents, locale)}
+                  </span>
+                </div>
+              )}
             </div>
             <p className='mt-2 text-sm text-surface-dark-foreground/70'>
               {t('pricing.panel.one_time_note', 'Paid once, not with every vote.')}

@@ -18,8 +18,10 @@ interface PeopleControlProps {
   locale: string
 }
 
-/** Voter values visible only on sm and above (others are hidden below sm). */
+/** Tick labels shown below sm; the rest keep their tick but drop the label on narrow tracks. */
 const TICK_VISIBLE_MOBILE = new Set([50, 1000, 15000, 50000])
+/** Band edges too close to a neighbour for a label at any width (50 and 100 are 2% of the track apart). */
+const TICK_LABEL_HIDDEN = new Set([100, 500])
 
 export function PeopleControl({ state, locale }: PeopleControlProps) {
   const { t } = useTranslation()
@@ -143,6 +145,7 @@ export function PeopleControl({ state, locale }: PeopleControlProps) {
             const voters = votersAtLadderIndex(tickIndex)
             const isLast = i === bandEdgeIndexes.length - 1
             const leftPercent = (tickIndex / (LADDER.length - 1)) * 100
+            const labelHidden = TICK_LABEL_HIDDEN.has(voters)
             const mobileHidden = !TICK_VISIBLE_MOBILE.has(voters)
 
             return (
@@ -155,7 +158,7 @@ export function PeopleControl({ state, locale }: PeopleControlProps) {
                 <span
                   className={[
                     'mt-0.5 text-[11px] font-semibold uppercase tracking-wider tabular-nums text-faint',
-                    mobileHidden ? 'hidden sm:block' : '',
+                    labelHidden ? 'hidden' : mobileHidden ? 'hidden sm:block' : '',
                   ]
                     .filter(Boolean)
                     .join(' ')}
