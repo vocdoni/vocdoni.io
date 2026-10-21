@@ -69,6 +69,11 @@ function stubGlobals() {
     }
   )
   Element.prototype.scrollIntoView = vi.fn()
+  // jsdom has no pointer capture; the Radix slider calls these on pointerdown and would throw
+  // an uncaught TypeError after the test, which vitest reports as an unhandled error.
+  Element.prototype.hasPointerCapture = () => false
+  Element.prototype.setPointerCapture = () => {}
+  Element.prototype.releasePointerCapture = () => {}
 }
 
 function setup() {
