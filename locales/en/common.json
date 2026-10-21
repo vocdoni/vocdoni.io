@@ -4155,6 +4155,143 @@
       "option_b": "Option b"
     }
   },
+  "pricing": {
+    "addons": {
+      "branding": {
+        "description": "Your branding on the voting page and emails, with no Vocdoni logo, for every future vote.",
+        "price": "{{price}} once",
+        "title": "Your logo and colours"
+      },
+      "certificate": {
+        "description": "A PDF that proves the published result matches the recorded votes, to attach to your minutes.",
+        "price": "{{price}} per vote",
+        "title": "Signed results report (PDF)"
+      },
+      "domain": {
+        "description": "People vote at an address like vote.yourorganisation.org.",
+        "price": "{{price}} once",
+        "title": "Your own web address"
+      },
+      "one_time_title": "Charged once for your organisation",
+      "per_vote_title": "Add to this vote",
+      "sms": {
+        "description": "Send the code by text message instead of, or as well as, by email. Codes by email are always included.",
+        "note": "Estimated cost in Europe. The final cost per text message can vary by country.",
+        "price": "{{price}} per person on your list",
+        "title": "Verification codes by text message"
+      }
+    },
+    "bands": {
+      "above_limit": "More than {{limit}} people: ask us for a quote.",
+      "col_people": "People who can vote",
+      "col_rate": "Price each",
+      "col_total": "A vote with this many people costs",
+      "current": "Your list falls in this range",
+      "each": "{{rate}} each",
+      "range": "{{from}} - {{to}}",
+      "title": "Prices at a glance"
+    },
+    "calculator": {
+      "decrease": "Fewer people",
+      "helper": "Might you add people to your list later? Count a few extra now, just in case.",
+      "increase": "More people",
+      "people_label": "How many people can vote?",
+      "slider_label": "How many people can vote",
+      "slider_value": "{{people}} people, {{total}} plus VAT",
+      "slider_value_free": "{{people}} people, free",
+      "slider_value_quote": "More than {{limit}} people, on request",
+      "tick_more": "{{limit}}+"
+    },
+    "cta": {
+      "create_account": "Create a free account",
+      "no_commitment": "No commitment. We reply within one business day.",
+      "repeat_hint": "Running several votes this year? Tell us in the request.",
+      "request_price": "Request this price",
+      "request_quote": "Request a quote",
+      "talk": "Talk to us"
+    },
+    "eyebrow": "Pricing",
+    "included": {
+      "item_1": "Nobody can link a ballot to the person who cast it",
+      "item_2": "Every voter can check their own vote was counted",
+      "item_3": "Results anyone can verify, on a public record",
+      "item_4": "Voters identify themselves with a code sent by email (no app, no account)",
+      "item_5": "As many questions as you need, and live results",
+      "item_6": "The voting page in your voters' own language",
+      "title": "Everything included"
+    },
+    "lede": "The price depends on how many people can vote, not on how many turn up. Votes with up to 50 people are free, and anonymous, verifiable voting is always included.",
+    "live": {
+      "free": "This vote is free.",
+      "quote": "More than {{limit}} people: on request.",
+      "total": "Total for this vote: {{total}} plus VAT. {{perPerson}} per person."
+    },
+    "panel": {
+      "band_line": "{{from}} - {{to}} at {{rate}} each",
+      "free": "Free",
+      "how_text": "Each price applies only to the people inside that range, so bigger lists pay less per person.",
+      "how_title": "How this is worked out",
+      "line_branding": "Your logo and colours",
+      "line_certificate": "Signed results report (PDF)",
+      "line_domain": "Your own web address",
+      "line_sms": "Text-message codes, {{people}} × {{unit}}",
+      "line_vote": "Vote, {{people}} people",
+      "on_request": "On request",
+      "one_time_note": "Paid once, not with every vote.",
+      "one_time_title": "One-time setup",
+      "per_person": "{{price}} per person who can vote",
+      "title": "Your price",
+      "vat_suffix": "+ VAT",
+      "with_vat": "≈ {{total}} with 21% VAT (Spain)"
+    },
+    "request": {
+      "book_call": "Book a call",
+      "captcha_error": "reCAPTCHA verification failed. Please try again.",
+      "chip_one_time": "One-time setup {{total}}",
+      "chip_people": "{{people}} people",
+      "chip_total": "{{total}} + VAT",
+      "create_account": "Create your free account",
+      "email": "Email",
+      "error_body": "Send it by email instead; we have filled it in for you.",
+      "error_cta": "Send it by email",
+      "error_title": "We could not send your request from here",
+      "errors": {
+        "email_invalid": "Enter a valid email address",
+        "email_required": "Enter your email",
+        "name_required": "Enter your name",
+        "organization_required": "Enter your organisation"
+      },
+      "intro": "Tell us who you are and we reply with a written estimate, usually within one business day.",
+      "message": "Anything we should know (optional)",
+      "message_placeholder": "Dates, several votes this year, questions about your list...",
+      "name": "Your name",
+      "organization": "Organisation",
+      "privacy": "Vocdoni uses these details only to prepare your estimate and answer your request. <plink>Privacy policy</plink>.",
+      "retry": "Try again",
+      "sending": "Sending...",
+      "submit": "Send request",
+      "success_reference": "Your reference: {{reference}}",
+      "success_reply": "The Vocdoni team will write to {{email}} within one business day.",
+      "success_title": "Request received",
+      "title": "Request this price",
+      "title_quote": "Request a quote"
+    },
+    "title": "Pay once per vote. No subscription.",
+    "trust": {
+      "dpa": "Data processing agreement",
+      "payment": "Paying online is on the way. For now a person at Vocdoni confirms your price, then you pay by card or bank transfer with an invoice.",
+      "prices": "Prices in EUR without VAT. EU businesses with a valid VAT number are invoiced under the reverse charge; customers outside the EU pay no EU VAT.",
+      "privacy": "Privacy policy",
+      "terms": "Terms",
+      "vat_id": "VAT ID {{id}}"
+    },
+    "zones": {
+      "dedicated": "A vote this size usually needs a conversation. The price above holds, and you get a dedicated contact.",
+      "dedicated_badge": "Large vote",
+      "free": "This vote is free. Votes with up to 50 people are always free; from 51 people the whole list is priced, which is {{price}} for 51.",
+      "quote": "Tell us what you need and we send a figure within one business day."
+    }
+  },
   "steps_section": {
     "label": "Setup a vote in under 10 minutes",
     "panel_description": "Vocdoni handles the security. You handle the questions.",
