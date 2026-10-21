@@ -13,7 +13,7 @@ export default function FAQ() {
   const items = (t('app_landing.faq.items', { returnObjects: true }) as FaqItem[]) || []
 
   return (
-    <section className='bg-muted/35 py-20 sm:py-24'>
+    <section className='bg-background py-20 sm:py-24'>
       <Container className='max-w-4xl'>
         <div className='mx-auto max-w-3xl text-center'>
           <p className='text-sm font-medium uppercase tracking-[0.2em] text-primary/80'>

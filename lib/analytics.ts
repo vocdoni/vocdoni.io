@@ -127,6 +127,9 @@ export const AnalyticsEvents = {
   DemoRequested: 'demo_requested',
   DemoBooked: 'demo_booked',
   SectionViewed: 'section_view',
+  PricingChanged: 'pricing_changed',
+  PricingRequestOpened: 'pricing_request_opened',
+  PricingRequestSent: 'pricing_request_sent',
 } as const
 
 export type AnalyticsEventName = (typeof AnalyticsEvents)[keyof typeof AnalyticsEvents]
