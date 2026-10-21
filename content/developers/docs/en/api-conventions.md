@@ -88,6 +88,30 @@ Errors return a consistent shape with an application code, the HTTP status and a
 }
 ```
 
+### Temporary unavailability (503)
+
+Some endpoints respond `503 Service Unavailable` with a `Retry-After` header when they are
+temporarily unable to handle a request. Back off for at least as many seconds as the header says,
+then retry.
+
+Specifically, **credential endpoints** - login, sign-up, OAuth login, password change and reset,
+and invitation accept - share a bounded pool of processing slots. When that pool is exhausted the
+service answers `503` with code `50302` and a `Retry-After: N` header rather than queuing requests
+indefinitely. Treat it as a transient condition and retry after the indicated delay.
+
+### Oversized bodies (413)
+
+The service enforces request body size limits. Sending a body larger than the allowed size returns
+`413 Request Entity Too Large`. The limits by endpoint group:
+
+| Endpoint group | Limit |
+| --- | --- |
+| Credential endpoints (login, sign-up, password change/reset) | 16 KiB |
+| Authenticated routes | 128 MiB |
+| Image uploads | 10 MiB per file, 40 MiB per request |
+
+An image upload with an empty file returns `400` rather than `413`.
+
 ## Multilanguage strings
 
 Every human-readable metadata string - election titles and descriptions, question titles, choice titles, and other display text - is a **multilanguage string**, not a plain string. It is an object keyed by [ISO 639-1](https://en.wikipedia.org/wiki/List_of_ISO_639_language_codes) language code, plus a special `default` key used as the fallback when the reader's language is missing.
