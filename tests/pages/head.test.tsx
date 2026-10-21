@@ -246,8 +246,9 @@ describe('Head meta tags', () => {
               faq: {
                 items: [
                   {
-                    question: '¿Puedo ejecutar una votación gratis?',
-                    answer: 'Sí. Puedes ejecutar una votación gratis para hasta 100 miembros.',
+                    question: '¿De verdad puedo organizar una votación gratis?',
+                    answer:
+                      'Sí. Toda votación con hasta 50 personas es gratuita, sin tarjeta. Por encima de eso pagas una vez por votación, en función del número de personas que pueden votar; la calculadora de esta página muestra la cifra exacta.',
                   },
                 ],
               },
@@ -263,8 +264,10 @@ describe('Head meta tags', () => {
     expect(app.isAccessibleForFree).toBe(true)
     expect(app.publisher).toEqual({ '@id': 'https://vocdoni.io/#organization' })
     expect(html).toContain('"@type":"FAQPage"')
-    expect(html).toContain('"name":"¿Puedo ejecutar una votación gratis?"')
-    expect(html).toContain('"text":"Sí. Puedes ejecutar una votación gratis para hasta 100 miembros."')
+    expect(html).toContain('"name":"¿De verdad puedo organizar una votación gratis?"')
+    expect(html).toContain(
+      '"text":"Sí. Toda votación con hasta 50 personas es gratuita, sin tarjeta. Por encima de eso pagas una vez por votación, en función del número de personas que pueden votar; la calculadora de esta página muestra la cifra exacta."'
+    )
   })
 
   it('advertises the single English llms.txt index from every locale', () => {
