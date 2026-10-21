@@ -60,7 +60,7 @@ export function PeopleControl({ state, locale }: PeopleControlProps) {
       ? t('pricing.calculator.slider_value_quote', 'More than {{limit}} people, on request', {
           limit: formatPeople(QUOTE_REQUIRED_ABOVE, locale),
         })
-      : estimate.totalThisVoteCents === 0
+      : estimate.zone === 'free' && estimate.totalThisVoteCents === 0
         ? t('pricing.calculator.slider_value_free', '{{people}} people, free', {
             people: formatPeople(state.voters, locale),
           })
@@ -87,7 +87,7 @@ export function PeopleControl({ state, locale }: PeopleControlProps) {
           className='press-scale shrink-0'
           onClick={stepDown}
         >
-          <MinusIcon size={16} />
+          <MinusIcon className='size-4' />
         </Button>
 
         <input
@@ -111,7 +111,7 @@ export function PeopleControl({ state, locale }: PeopleControlProps) {
           className='press-scale shrink-0'
           onClick={stepUp}
         >
-          <PlusIcon size={16} />
+          <PlusIcon className='size-4' />
         </Button>
       </div>
 
@@ -165,7 +165,7 @@ export function PeopleControl({ state, locale }: PeopleControlProps) {
                 >
                   {isLast
                     ? t('pricing.calculator.tick_more', '{{limit}}+', {
-                        limit: formatPeople(50000, locale),
+                        limit: formatPeople(QUOTE_REQUIRED_ABOVE, locale),
                       })
                     : formatPeople(voters, locale)}
                 </span>

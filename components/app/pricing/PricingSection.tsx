@@ -26,7 +26,9 @@ export default function PricingSection() {
   const { t } = useTranslation()
   const locale = (usePageContext().locale as string) ?? 'en'
   const state = usePricingEstimate()
-  const [requestOpen, setRequestOpen] = useState(false)
+  // Counted rather than boolean so a second click scrolls again and reopens a finished form.
+  const [requestOpenCount, setRequestOpenCount] = useState(0)
+  const requestOpen = requestOpenCount > 0
   const reduced = useReducedMotion()
   const sectionRef = useRef<HTMLElement>(null)
   const isFirstRender = useRef(true)
@@ -77,16 +79,16 @@ export default function PricingSection() {
 
   // Scroll to the request form after it becomes visible.
   useEffect(() => {
-    if (!requestOpen) return
+    if (requestOpenCount === 0) return
     if (typeof document === 'undefined') return
     const el = document.getElementById('pricing-request')
     if (el) {
       el.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'start' })
     }
-  }, [requestOpen, reduced])
+  }, [requestOpenCount, reduced])
 
   const handleRequest = () => {
-    setRequestOpen(true)
+    setRequestOpenCount((count) => count + 1)
     trackAnalyticsEvent({
       name: AnalyticsEvents.PricingRequestOpened,
       props: {
@@ -97,7 +99,7 @@ export default function PricingSection() {
     })
   }
 
-  const handleSent = ({ reference: _reference, hasMessage }: { reference: string; hasMessage: boolean }) => {
+  const handleSent = ({ hasMessage }: { reference: string; hasMessage: boolean }) => {
     trackAnalyticsEvent({
       name: AnalyticsEvents.PricingRequestSent,
       props: {
@@ -156,7 +158,13 @@ export default function PricingSection() {
         </div>
 
         <div className='mt-10'>
-          <PricingRequestForm estimate={estimate} locale={locale} open={requestOpen} onSent={handleSent} />
+          <PricingRequestForm
+            estimate={estimate}
+            locale={locale}
+            open={requestOpen}
+            openCount={requestOpenCount}
+            onSent={handleSent}
+          />
         </div>
       </Container>
     </Section>

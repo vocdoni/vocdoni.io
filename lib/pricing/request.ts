@@ -1,5 +1,6 @@
 import { PRICING_CONTACT_EMAIL, QUOTE_REQUIRED_ABOVE } from '@/lib/pricing/constants'
 import { type Estimate } from '@/lib/pricing/compute'
+import { QUOTE_STOP } from '@/lib/pricing/ladder'
 import { buildReference } from '@/lib/pricing/reference'
 
 export type PricingRequestValues = {
@@ -41,7 +42,14 @@ function fmtPeople(count: number): string {
 export const describeEstimate = (estimate: Estimate, context: PricingRequestContext): string => {
   const lines: string[] = []
   if (estimate.zone === 'quote') {
-    lines.push(`People who can vote: more than ${fmtPeople(QUOTE_REQUIRED_ABOVE)}`)
+    // Keep the typed count: it is the number sales needs to quote. The slider's terminal stop is a
+    // sentinel, not a count, so it reads as "more than 50,000".
+    const limit = fmtPeople(QUOTE_REQUIRED_ABOVE)
+    const people =
+      estimate.voters === QUOTE_STOP
+        ? `more than ${limit}`
+        : `${fmtPeople(estimate.voters)} (more than ${limit}: on request)`
+    lines.push(`People who can vote: ${people}`)
     lines.push('Zone: quote')
     lines.push('Add-ons: n/a')
     lines.push('Total for this vote: on request')

@@ -78,8 +78,7 @@ export function EstimatePanel({ state, locale, onRequest }: EstimatePanelProps) 
     } else {
       spring.set(cents)
     }
-    // spring reference is stable; mounted/reduced/cents are the real deps
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // The spring reference is stable; mounted, reduced and cents are the real dependencies.
   }, [cents, mounted, reduced])
 
   const isFreeNoCharge = zone === 'free' && cents === 0

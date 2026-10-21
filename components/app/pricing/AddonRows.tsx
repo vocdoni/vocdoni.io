@@ -95,16 +95,21 @@ function AddonDescription({ addonKey }: { addonKey: AddonKey }) {
 function AddonRow({ addonKey, checked, onCheckedChange, locale }: AddonRowProps) {
   const { t } = useTranslation()
   const isSms = addonKey === 'sms'
+  // The whole row is the label; the title names the checkbox and the description describes it.
+  const titleId = `pricing-addon-${addonKey}-title`
+  const descriptionId = `pricing-addon-${addonKey}-description`
 
   return (
     <label className='group grid min-h-12 cursor-pointer grid-cols-[auto_1fr_auto] items-start gap-x-3 gap-y-1 rounded-md border border-border bg-background p-4 transition-[background-color,border-color] duration-150 hover:bg-accent has-[[data-state=checked]]:border-foreground/20'>
       <Checkbox
         checked={checked}
         onCheckedChange={(value) => onCheckedChange(addonKey, value === true)}
+        aria-labelledby={titleId}
+        aria-describedby={descriptionId}
         className='mt-0.5 border-input data-[state=checked]:border-primary'
       />
 
-      <span className='text-[15px] font-medium'>
+      <span id={titleId} className='text-[15px] font-medium'>
         <AddonTitle addonKey={addonKey} />
       </span>
 
@@ -112,7 +117,7 @@ function AddonRow({ addonKey, checked, onCheckedChange, locale }: AddonRowProps)
         <AddonPrice addonKey={addonKey} locale={locale} />
       </span>
 
-      <span className='col-start-2 col-end-4 text-sm text-muted-foreground'>
+      <span id={descriptionId} className='col-start-2 col-end-4 text-sm text-muted-foreground'>
         <AddonDescription addonKey={addonKey} />
       </span>
 

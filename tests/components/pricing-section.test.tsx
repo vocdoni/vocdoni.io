@@ -149,7 +149,7 @@ describe('PricingSection', () => {
     await user.clear(input)
     // Input is focused and empty; voters still 200 → estimate unchanged
     expect(screen.getAllByText('€109').length).toBeGreaterThanOrEqual(1)
-    // Do not blur — the value resets only on blur
+    // Do not blur - the value resets only on blur
   })
 
   it('ticking SMS at 200 people shows €119 and two SMS note occurrences', async () => {
@@ -173,11 +173,19 @@ describe('PricingSection', () => {
     expect(screen.getAllByText('€109').length).toBeGreaterThanOrEqual(1)
   })
 
-  it('live region eventually contains Total for this vote after 400 ms debounce', async () => {
-    setup()
+  it('live region stays silent on load and announces the total after a change', async () => {
+    const { user } = setup()
+    expect(screen.getByRole('status')).toHaveTextContent('')
+    await user.click(screen.getByRole('button', { name: 'More people' }))
     await waitFor(() => expect(screen.getByRole('status')).toHaveTextContent(/Total for this vote/), {
       timeout: 1500,
     })
+  })
+
+  it('names the slider thumb and reads the estimate as its value text', () => {
+    setup()
+    const slider = screen.getByRole('slider', { name: 'How many people can vote' })
+    expect(slider).toHaveAttribute('aria-valuetext', '200 people, €109 plus VAT')
   })
 
   it('slider ArrowRight from 200 people changes voters to 210', async () => {
@@ -185,9 +193,7 @@ describe('PricingSection', () => {
     const slider = screen.getByRole('slider')
     await user.click(slider)
     await user.keyboard('{ArrowRight}')
-    // 210 people → 11,330 cents → €113.30 (targetDecimals=2 since 11330 % 100 = 30)
-    // Brief note: the delivery brief states "€114" but the computed value is €113.30;
-    // using the correct calculated value here.
+    // 210 people: 100 x 0.66 + 110 x 0.43 = 11,330 cents, shown with two decimals
     await waitFor(() => expect(screen.getAllByText('€113.30').length).toBeGreaterThanOrEqual(1), { timeout: 3000 })
   })
 

@@ -32,10 +32,12 @@ type PricingRequestFormProps = {
   estimate: Estimate
   locale: string
   open: boolean
+  /** Bumped by the section on every "request" click, so a finished form can be opened again. */
+  openCount?: number
   onSent?: (info: { reference: string; hasMessage: boolean }) => void
 }
 
-export function PricingRequestForm({ estimate, locale, open, onSent }: PricingRequestFormProps) {
+export function PricingRequestForm({ estimate, locale, open, openCount = 0, onSent }: PricingRequestFormProps) {
   const { t } = useTranslation()
   const [status, setStatus] = useState<SubmissionStatus>('idle')
   const [showRecaptcha, setShowRecaptcha] = useState(false)
@@ -64,10 +66,11 @@ export function PricingRequestForm({ estimate, locale, open, onSent }: PricingRe
   })
 
   useEffect(() => {
-    if (open) {
-      requestAnimationFrame(() => setFocus('name'))
-    }
-  }, [open, setFocus])
+    if (!open) return
+    // Opened again after a successful send: start a fresh request for the current configuration.
+    setStatus((current) => (current === 'success' ? 'idle' : current))
+    requestAnimationFrame(() => setFocus('name'))
+  }, [open, openCount, setFocus])
 
   const sendEmail = async (token: string) => {
     const data = formData

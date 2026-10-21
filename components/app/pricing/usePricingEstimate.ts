@@ -49,6 +49,8 @@ export function usePricingEstimate(initialVoters: number = DEFAULT_VOTERS): Pric
   }
 
   const stepUp = () => {
+    // Above the last stop there is nothing to step to; keep the typed count.
+    if (voters >= LADDER[LADDER.length - 1]) return
     const idx = ladderIndexFor(voters)
     // If the nearest stop is at or below current voters, move one step further up.
     const targetIdx = LADDER[idx] <= voters ? Math.min(idx + 1, LADDER.length - 1) : idx

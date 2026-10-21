@@ -54,8 +54,7 @@ describe('describeEstimate', () => {
     expect(output).toContain('People who can vote: 1,200')
     expect(output).toContain('Zone: standard')
     expect(output).toContain('Add-ons: sms, certificate')
-    // 38300 (voter) + 6000 (SMS) + 3900 (certificate) = 48200 cents = EUR 482.00
-    // Brief says 443.00 (VAT 93.03) which matches only SMS; certificate was omitted in the brief
+    // 38300 (vote) + 6000 (SMS) + 3900 (report) = 48200 cents
     expect(output).toContain('Total for this vote: EUR 482.00 + VAT')
     expect(output).toContain('VAT 21%: EUR 101.22')
     expect(output).toContain('One-time setup: EUR 0.00')
@@ -73,6 +72,17 @@ describe('describeEstimate', () => {
     const estimate = computeEstimate(1200)
     const output = describeEstimate(estimate, context)
     expect(output).toContain('Add-ons: none')
+  })
+})
+
+describe('describeEstimate in the quote zone', () => {
+  const context = { reference: 'VOC-2610-K7P3', locale: 'en', pageUrl: 'https://vocdoni.io/en/app#pricing' }
+
+  it('keeps the typed count and hides the slider sentinel', () => {
+    expect(describeEstimate(computeEstimate(80000), context)).toContain(
+      'People who can vote: 80,000 (more than 50,000: on request)'
+    )
+    expect(describeEstimate(computeEstimate(50001), context)).toContain('People who can vote: more than 50,000')
   })
 })
 

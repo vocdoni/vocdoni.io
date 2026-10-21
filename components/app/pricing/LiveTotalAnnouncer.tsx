@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { QUOTE_REQUIRED_ABOVE } from '@/lib/pricing/constants'
@@ -15,15 +15,21 @@ interface LiveTotalAnnouncerProps {
 export function LiveTotalAnnouncer({ estimate, locale }: LiveTotalAnnouncerProps) {
   const { t } = useTranslation()
   const [announcedText, setAnnouncedText] = useState('')
+  const isFirstRender = useRef(true)
 
   useEffect(() => {
+    if (isFirstRender.current) {
+      // The page has just loaded: announcing the default estimate unprompted is noise.
+      isFirstRender.current = false
+      return
+    }
     const timer = setTimeout(() => {
       let text: string
       if (estimate.zone === 'quote') {
         text = t('pricing.live.quote', 'More than {{limit}} people: on request.', {
           limit: formatPeople(QUOTE_REQUIRED_ABOVE, locale),
         })
-      } else if (estimate.totalThisVoteCents === 0) {
+      } else if (estimate.zone === 'free' && estimate.totalThisVoteCents === 0) {
         text = t('pricing.live.free', 'This vote is free.')
       } else {
         const total = formatCurrency(estimate.totalThisVoteCents, locale)
