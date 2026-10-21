@@ -8,11 +8,10 @@ import { Link } from '@/components/Link'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { useAppAuthUrl } from '@/hooks/useAppAuthUrl'
-import { computeEstimate } from '@/lib/pricing/compute'
+import { graduatedTotalCents } from '@/lib/pricing/compute'
 import { FREE_TIER, QUOTE_REQUIRED_ABOVE } from '@/lib/pricing/constants'
 import type { AddonKey } from '@/lib/pricing/constants'
 import { formatCurrency, formatPeople, formatRate } from '@/lib/pricing/format'
-import { graduatedTotalCents } from '@/lib/pricing/compute'
 import { cn } from '@/lib/utils'
 import { useIsClient } from '@/lib/useIsClient'
 import type { PricingEstimateState } from '@/components/app/pricing/usePricingEstimate'
@@ -32,9 +31,8 @@ function addonPanelLabel(
 ): string {
   switch (key) {
     case 'sms':
-      return t('pricing.panel.line_sms', 'Text-message codes, {{count}} × {{unit}}', {
-        // count is a pre-formatted string; cast to satisfy i18next's reserved-option type
-        count: formatPeople(quantity, locale) as unknown as number,
+      return t('pricing.panel.line_sms', 'Text-message codes, {{people}} × {{unit}}', {
+        people: formatPeople(quantity, locale),
         unit: formatCurrency(unitCents, locale),
       })
     case 'certificate':
@@ -61,6 +59,8 @@ export function EstimatePanel({ state, locale, onRequest }: EstimatePanelProps) 
   } = estimate
 
   const cents = totalThisVoteCents
+  // Lock decimals to the TARGET value so the figure width stays stable during the spring animation.
+  const targetDecimals: 0 | 2 = cents % 100 === 0 ? 0 : 2
 
   // Spring animation - initial state matches SSR exactly
   const [shown, setShown] = useState(cents)
@@ -115,7 +115,7 @@ export function EstimatePanel({ state, locale, onRequest }: EstimatePanelProps) 
           ) : (
             <>
               <span className='text-5xl font-medium leading-none tracking-[-0.02em] tabular-nums sm:text-6xl xl:text-7xl'>
-                {formatCurrency(shown, locale)}
+                {formatCurrency(shown, locale, targetDecimals)}
               </span>
               <span className='pb-1.5 text-xs font-semibold uppercase tracking-[0.11em] text-surface-dark-foreground/70'>
                 {t('pricing.panel.vat_suffix', '+ VAT')}

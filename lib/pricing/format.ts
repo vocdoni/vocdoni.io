@@ -22,15 +22,17 @@ export const formatLocale = (locale: string): string => {
 /**
  * Formats an integer amount in cents as a EUR currency string.
  * Whole euros (cents % 100 === 0) render without decimals ("EUR 109"); otherwise two decimals.
+ * Pass an explicit `decimals` override to lock the decimal count (useful when animating a spring
+ * value so the figure width stays stable during the transition).
  */
-export const formatCurrency = (cents: number, locale: string): string => {
-  const decimals = cents % 100 === 0 ? 0 : 2
-  const key = `currency:${formatLocale(locale)}:${decimals}`
+export const formatCurrency = (cents: number, locale: string, decimals?: 0 | 2): string => {
+  const d = decimals !== undefined ? decimals : cents % 100 === 0 ? 0 : 2
+  const key = `currency:${formatLocale(locale)}:${d}`
   const fmt = getFormatter(key, formatLocale(locale), {
     style: 'currency',
     currency: 'EUR',
-    minimumFractionDigits: decimals,
-    maximumFractionDigits: 2,
+    minimumFractionDigits: d,
+    maximumFractionDigits: d,
   })
   return fmt.format(cents / 100)
 }
