@@ -16,7 +16,7 @@ export function IncludedList() {
   return (
     <div>
       <h3 className='font-serif text-2xl font-normal'>{t('pricing.included.title', 'Everything included')}</h3>
-      <ul className='mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-1'>
+      <ul className='mt-4 grid gap-x-10 gap-y-3 sm:grid-cols-2 lg:grid-cols-3'>
         {items.map((item, i) => (
           <li key={i} className='flex gap-3 text-sm'>
             <CheckIcon className='mt-0.5 size-5 shrink-0 text-primary' aria-hidden />

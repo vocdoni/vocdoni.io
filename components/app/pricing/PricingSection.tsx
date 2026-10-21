@@ -11,7 +11,6 @@ import { SectionHeader } from '@/components/SectionHeader'
 import { Card } from '@/components/ui/card'
 import { MotionPreset } from '@/components/ui/motion-preset'
 import { AddonRows } from '@/components/app/pricing/AddonRows'
-import { BandTable } from '@/components/app/pricing/BandTable'
 import { EstimatePanel } from '@/components/app/pricing/EstimatePanel'
 import { IncludedList } from '@/components/app/pricing/IncludedList'
 import { LiveTotalAnnouncer } from '@/components/app/pricing/LiveTotalAnnouncer'
@@ -145,11 +144,8 @@ export default function PricingSection() {
         </MotionPreset>
 
         <MotionPreset fade slide={{ direction: 'up', offset: 24 }} delay={0.15} transition={{ duration: 0.5 }}>
-          <div className='mt-12 grid gap-10 lg:mt-16 lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)]'>
-            <BandTable voters={voters} locale={locale} />
-            <div className='lg:border-l lg:border-border lg:pl-10'>
-              <IncludedList />
-            </div>
+          <div className='mt-12 lg:mt-16'>
+            <IncludedList />
           </div>
         </MotionPreset>
 

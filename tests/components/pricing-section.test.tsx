@@ -205,18 +205,6 @@ describe('PricingSection', () => {
     await waitFor(() => expect(screen.getAllByText('€66').length).toBeGreaterThanOrEqual(1), { timeout: 3000 })
   })
 
-  it('band table row with aria-current contains 101 - 500 for 200 people', () => {
-    setup()
-    // Both the desktop <tr> and mobile <li> carry aria-current="true"
-    const currentEls = document.querySelectorAll('[aria-current="true"]')
-    expect(currentEls.length).toBeGreaterThanOrEqual(1)
-    const textContent = Array.from(currentEls)
-      .map((el) => el.textContent ?? '')
-      .join(' ')
-    expect(textContent).toMatch(/101/)
-    expect(textContent).toMatch(/500/)
-  })
-
   it('clicking Request this price reveals the form, focuses name field, and fires analytics', async () => {
     const { user } = setup()
     // In standard zone (200 people) the primary CTA is a Button
