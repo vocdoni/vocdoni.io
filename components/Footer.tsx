@@ -12,7 +12,7 @@ type FooterLink = { label: string; href: string; external?: boolean; highlight?:
 
 const buildProductLinks = (t: TFunction): FooterLink[] => [
   { label: t('footer.product.voting_platform', 'Voting platform'), href: APP_URL, external: true },
-  { label: t('footer.product.pricing', 'Pricing'), href: `${APP_URL}/plans`, external: true },
+  { label: t('footer.product.pricing', 'Pricing'), href: '/app#pricing' },
   { label: t('footer.product.sdk_api', 'SDK & API'), href: '/developers' },
   { label: t('footer.product.decidim', 'Decidim Secure Elections'), href: getSolutionVertical('decidim').href },
   { label: t('footer.product.documentation', 'Documentation'), href: '/developers/docs' },
