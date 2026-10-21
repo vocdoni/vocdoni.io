@@ -4157,138 +4157,138 @@
   "pricing": {
     "addons": {
       "branding": {
-        "description": "A tua marca na página de votação e nos emails, sem o logótipo Vocdoni, em todas as futuras votações.",
+        "description": "A sua marca na página de votação e nos emails, sem o logótipo da Vocdoni, em todas as votações futuras.",
         "price": "{{price}} uma vez",
-        "title": "O teu logótipo e cores"
+        "title": "O seu logótipo e cores"
       },
       "certificate": {
-        "description": "Um PDF com a prova criptográfica de que os resultados correspondem aos votos registados, para anexar à tua ata.",
+        "description": "Um PDF que prova que o resultado publicado corresponde aos votos registados, para anexar à sua ata.",
         "price": "{{price}} por votação",
         "title": "Relatório de resultados assinado (PDF)"
       },
       "domain": {
-        "description": "As pessoas votam numa morada como vote.yourorganisation.org.",
+        "description": "As pessoas votam num endereço como vote.yourorganisation.org.",
         "price": "{{price}} uma vez",
-        "title": "O teu próprio endereço web"
+        "title": "O seu próprio endereço web"
       },
-      "one_time_title": "Configuração única, paga uma vez",
+      "one_time_title": "Cobrado uma vez para a sua organização",
       "per_vote_title": "Adicionar a esta votação",
       "sms": {
-        "description": "Enviar o código por mensagem de texto em vez de, ou bem como, por email. Os códigos por email estão sempre incluídos.",
-        "note": "Custo estimado na Europa. O custo final por mensagem de texto pode variar consoante o país.",
-        "price": "{{price}} por pessoa da tua lista",
-        "title": "Códigos de verificação por mensagem de texto"
+        "description": "Envie o código por SMS em vez do email, ou em complemento a ele. Os códigos por email estão sempre incluídos.",
+        "note": "Custo estimado na Europa. O custo final por SMS pode variar consoante o país.",
+        "price": "{{price}} por pessoa da sua lista",
+        "title": "Códigos de verificação por SMS"
       }
     },
     "bands": {
-      "above_limit": "Mais de {{limit}} pessoas: pede-nos um orçamento.",
+      "above_limit": "Mais de {{limit}} pessoas: peça-nos um orçamento.",
       "col_people": "Pessoas que podem votar",
-      "col_rate": "Preço cada",
+      "col_rate": "Preço por pessoa",
       "col_total": "Uma votação com este número de pessoas custa",
-      "current": "A tua lista enquadra-se neste intervalo",
-      "each": "{{rate}} cada",
+      "current": "A sua lista está neste escalão",
+      "each": "{{rate}} por pessoa",
       "range": "{{from}} - {{to}}",
-      "title": "Preços num relance"
+      "title": "Preços em resumo"
     },
     "calculator": {
       "decrease": "Menos pessoas",
-      "helper": "É possível que adicione pessoas à tua lista mais tarde? Conta algumas a mais agora, por precaução.",
+      "helper": "Pode vir a adicionar pessoas à sua lista mais tarde? Conte algumas a mais agora, por precaução.",
       "increase": "Mais pessoas",
       "people_label": "Quantas pessoas podem votar?",
       "slider_label": "Quantas pessoas podem votar",
       "slider_value": "{{people}} pessoas, {{total}} mais IVA",
       "slider_value_free": "{{people}} pessoas, gratuito",
-      "slider_value_quote": "Mais de {{limit}} pessoas, a pedido",
+      "slider_value_quote": "Mais de {{limit}} pessoas, sob consulta",
       "tick_more": "{{limit}}+"
     },
     "cta": {
       "create_account": "Criar uma conta gratuita",
       "no_commitment": "Sem compromisso. Respondemos dentro de um dia útil.",
-      "repeat_hint": "A executar várias votações este ano? Diz-nos no pedido.",
+      "repeat_hint": "Vai realizar várias votações este ano? Diga-nos no pedido.",
       "request_price": "Pedir este preço",
       "request_quote": "Pedir um orçamento",
-      "talk": "Fala connosco"
+      "talk": "Fale connosco"
     },
     "eyebrow": "Preços",
     "included": {
-      "item_1": "Ninguém consegue ligar um boletim à pessoa que o votou",
-      "item_2": "Cada votante pode verificar que o seu voto foi contado",
-      "item_3": "Resultados que qualquer um consegue verificar, num registo público",
-      "item_4": "Os votantes identificam-se com um código enviado por email (sem app, sem conta)",
-      "item_5": "Quantas perguntas precisares, e resultados em direto",
-      "item_6": "A página de votação na linguagem dos teus votantes",
+      "item_1": "Ninguém consegue associar um boletim à pessoa que o emitiu",
+      "item_2": "Cada eleitor pode verificar que o seu voto foi contado",
+      "item_3": "Resultados que qualquer pessoa pode verificar, num registo público",
+      "item_4": "Os eleitores identificam-se com um código enviado por email (sem app, sem conta)",
+      "item_5": "Todas as perguntas de que precisar, e resultados em direto",
+      "item_6": "A página de votação na língua dos seus eleitores",
       "title": "Tudo incluído"
     },
-    "lede": "O preço depende de quantas pessoas podem votar, não de quantas aparecem. Votações com até 50 pessoas são gratuitas, e a votação anónima e verificável está sempre incluída.",
+    "lede": "O preço depende de quantas pessoas podem votar, não de quantas acabam por votar. Votações com até 50 pessoas são gratuitas, e a votação anónima e verificável está sempre incluída.",
     "live": {
       "free": "Esta votação é gratuita.",
-      "quote": "Mais de {{limit}} pessoas: a pedido.",
+      "quote": "Mais de {{limit}} pessoas: sob consulta.",
       "total": "Total para esta votação: {{total}} mais IVA. {{perPerson}} por pessoa."
     },
     "panel": {
-      "band_line": "{{from}} - {{to}} a {{rate}} cada",
+      "band_line": "{{from}} - {{to}} a {{rate}} por pessoa",
       "free": "Gratuito",
       "how_text": "Cada preço aplica-se apenas às pessoas nesse intervalo, portanto listas maiores pagam menos por pessoa.",
       "how_title": "Como é calculado",
-      "line_branding": "O teu logótipo e cores",
+      "line_branding": "O seu logótipo e cores",
       "line_certificate": "Relatório de resultados assinado (PDF)",
-      "line_domain": "O teu próprio endereço web",
-      "line_sms": "Códigos de texto, {{people}} × {{unit}}",
+      "line_domain": "O seu próprio endereço web",
+      "line_sms": "Códigos por SMS, {{people}} × {{unit}}",
       "line_vote": "Votação, {{people}} pessoas",
-      "on_request": "A pedido",
+      "on_request": "Sob consulta",
       "one_time_note": "Pago uma vez, não em cada votação.",
       "one_time_title": "Configuração única",
       "per_person": "{{price}} por pessoa que pode votar",
-      "title": "O teu preço",
+      "title": "O seu preço",
       "vat_suffix": "+ IVA",
-      "with_vat": "≈ {{total}} com IVA 21% (Espanha)"
+      "with_vat": "≈ {{total}} com 21% de IVA (Espanha)"
     },
     "request": {
       "book_call": "Marcar uma chamada",
-      "captcha_error": "Falha na verificação de reCAPTCHA. Tenta novamente.",
+      "captcha_error": "A verificação reCAPTCHA falhou. Tente novamente.",
       "chip_one_time": "Configuração única {{total}}",
       "chip_people": "{{people}} pessoas",
       "chip_total": "{{total}} + IVA",
-      "create_account": "Criar a tua conta gratuita",
+      "create_account": "Criar a sua conta gratuita",
       "email": "Email",
-      "error_body": "Envia por email em vez disso; já o preenchemos para ti.",
+      "error_body": "Envie-o por email; já o preenchemos por si.",
       "error_cta": "Enviar por email",
-      "error_title": "Não conseguimos enviar o teu pedido a partir daqui",
+      "error_title": "Não conseguimos enviar o seu pedido a partir daqui",
       "errors": {
-        "email_invalid": "Introduz um endereço de email válido",
-        "email_required": "Introduz o teu email",
-        "name_required": "Introduz o teu nome",
-        "organization_required": "Introduz a tua organização"
+        "email_invalid": "Introduza um endereço de email válido",
+        "email_required": "Introduza o seu email",
+        "name_required": "Introduza o seu nome",
+        "organization_required": "Introduza a sua organização"
       },
-      "intro": "Diz-nos quem és e respondemos com um orçamento escrito, geralmente dentro de um dia útil.",
-      "message": "Algo que devemos saber (opcional)",
-      "message_placeholder": "Datas, várias votações este ano, questões sobre a tua lista...",
-      "name": "O teu nome",
+      "intro": "Diga-nos quem é e respondemos com um orçamento escrito, normalmente dentro de um dia útil.",
+      "message": "Algo que devamos saber (opcional)",
+      "message_placeholder": "Datas, várias votações este ano, dúvidas sobre a sua lista...",
+      "name": "O seu nome",
       "organization": "Organização",
-      "privacy": "Vocdoni usa estes dados apenas para preparar o teu orçamento e responder ao teu pedido. <plink>Política de privacidade</plink>.",
-      "retry": "Tentar de novo",
+      "privacy": "A Vocdoni usa estes dados apenas para preparar o seu orçamento e responder ao seu pedido. <plink>Política de privacidade</plink>.",
+      "retry": "Tentar novamente",
       "sending": "A enviar...",
       "submit": "Enviar pedido",
-      "success_reference": "A tua referência: {{reference}}",
-      "success_reply": "A equipa Vocdoni escrever-te-á para {{email}} dentro de um dia útil.",
+      "success_reference": "A sua referência: {{reference}}",
+      "success_reply": "A equipa da Vocdoni vai escrever para {{email}} dentro de um dia útil.",
       "success_title": "Pedido recebido",
       "title": "Pedir este preço",
       "title_quote": "Pedir um orçamento"
     },
-    "title": "Paga uma vez por votação. Sem subscrição.",
+    "title": "Pague uma vez por votação. Sem subscrição.",
     "trust": {
       "dpa": "Acordo de tratamento de dados",
-      "payment": "O pagamento online está a chegar. Por enquanto uma pessoa na Vocdoni confirma o teu preço, depois pagas por cartão ou transferência bancária com fatura.",
-      "prices": "Preços em EUR, sem IVA. Empresas da UE com um número de IVA válido são faturadas sob inversão de carga; clientes fora da UE não pagam IVA UE.",
+      "payment": "O pagamento online está para breve. Por agora, uma pessoa da Vocdoni confirma o seu preço e depois paga por cartão ou transferência bancária, com fatura.",
+      "prices": "Preços em EUR, sem IVA. As empresas da UE com um número de IVA válido são faturadas em regime de autoliquidação do IVA (reverse charge); os clientes fora da UE não pagam IVA da UE.",
       "privacy": "Política de privacidade",
       "terms": "Termos",
-      "vat_id": "NIF {{id}}"
+      "vat_id": "N.º de IVA {{id}}"
     },
     "zones": {
-      "dedicated": "Uma votação deste tamanho geralmente precisa de uma conversa. O preço acima mantém-se, e recebes um contacto dedicado.",
+      "dedicated": "Uma votação desta dimensão normalmente precisa de uma conversa. O preço acima mantém-se e fica com um contacto dedicado.",
       "dedicated_badge": "Votação grande",
-      "free": "Esta votação é gratuita. Votações com até 50 pessoas são sempre gratuitas; a partir de 51 pessoas toda a lista é cobrada, que é {{price}} para 51.",
-      "quote": "Diz-nos o que precisas e enviamos um valor dentro de um dia útil."
+      "free": "Esta votação é gratuita. As votações com até 50 pessoas são sempre gratuitas; a partir de 51 pessoas é cobrada toda a lista, ou seja, {{price}} para 51 pessoas.",
+      "quote": "Diga-nos o que precisa e enviamos um valor dentro de um dia útil."
     }
   },
   "steps_section": {

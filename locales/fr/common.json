@@ -4157,8 +4157,8 @@
   "pricing": {
     "addons": {
       "branding": {
-        "description": "Votre image de marque sur la page de vote et les emails, sans logo Vocdoni, pour chaque futur vote.",
-        "price": "{{price}} une fois",
+        "description": "Votre image de marque sur la page de vote et dans les e-mails, sans logo Vocdoni, pour tous vos futurs votes.",
+        "price": "{{price}} une seule fois",
         "title": "Votre logo et vos couleurs"
       },
       "certificate": {
@@ -4167,14 +4167,14 @@
         "title": "Rapport de résultats signé (PDF)"
       },
       "domain": {
-        "description": "Les électeurs votent à une adresse comme vote.votreorganisation.org.",
-        "price": "{{price}} une fois",
+        "description": "Les électeurs votent sur une adresse du type vote.votreorganisation.org.",
+        "price": "{{price}} une seule fois",
         "title": "Votre propre adresse web"
       },
       "one_time_title": "Paiement unique pour votre organisation",
       "per_vote_title": "Ajouter à ce vote",
       "sms": {
-        "description": "Envoyez le code par SMS au lieu de, ou en plus de, l'email. Les codes par email sont toujours inclus.",
+        "description": "Envoyez le code par SMS, à la place de l'e-mail ou en complément. Les codes par e-mail sont toujours inclus.",
         "note": "Coût estimé en Europe. Le coût final par SMS peut varier selon le pays.",
         "price": "{{price}} par personne de votre liste",
         "title": "Codes de vérification par SMS"
@@ -4182,54 +4182,54 @@
     },
     "bands": {
       "above_limit": "Plus de {{limit}} personnes : demandez-nous un devis.",
-      "col_people": "Personnes qui peuvent voter",
-      "col_rate": "Prix chacun",
+      "col_people": "Personnes pouvant voter",
+      "col_rate": "Prix unitaire",
       "col_total": "Un vote avec ce nombre de personnes coûte",
-      "current": "Votre liste se situe dans cette plage",
-      "each": "{{rate}} chacun",
+      "current": "Votre liste se situe dans cette tranche",
+      "each": "{{rate}} par personne",
       "range": "{{from}} - {{to}}",
       "title": "Tarifs en un coup d'œil"
     },
     "calculator": {
       "decrease": "Moins de personnes",
-      "helper": "Pourriez-vous ajouter des personnes à votre liste plus tard ? Comptez-en quelques-unes de plus maintenant, par précaution.",
+      "helper": "Vous pourriez ajouter des personnes à votre liste plus tard ? Prévoyez-en quelques-unes de plus dès maintenant, au cas où.",
       "increase": "Plus de personnes",
       "people_label": "Combien de personnes peuvent voter ?",
       "slider_label": "Combien de personnes peuvent voter",
-      "slider_value": "{{people}} personnes, {{total}} TTC",
+      "slider_value": "{{people}} personnes, {{total}} hors TVA",
       "slider_value_free": "{{people}} personnes, gratuit",
       "slider_value_quote": "Plus de {{limit}} personnes, sur demande",
       "tick_more": "{{limit}}+"
     },
     "cta": {
       "create_account": "Créer un compte gratuit",
-      "no_commitment": "Sans engagement. Nous répondons dans un jour ouvrable.",
-      "repeat_hint": "Organiser plusieurs votes cette année ? Dites-le-nous dans la demande.",
+      "no_commitment": "Sans engagement. Nous répondons sous un jour ouvré.",
+      "repeat_hint": "Vous organisez plusieurs votes cette année ? Indiquez-le dans votre demande.",
       "request_price": "Demander ce tarif",
       "request_quote": "Demander un devis",
       "talk": "Parlons-en"
     },
     "eyebrow": "Tarifs",
     "included": {
-      "item_1": "Personne ne peut lier un bulletin à la personne qui l'a rempli",
+      "item_1": "Personne ne peut relier un bulletin à l'électeur qui l'a déposé",
       "item_2": "Chaque électeur peut vérifier que son vote a été comptabilisé",
       "item_3": "Résultats que chacun peut vérifier, sur un registre public",
-      "item_4": "Les électeurs s'identifient avec un code envoyé par email (pas d'appli, pas de compte)",
+      "item_4": "Les électeurs s'identifient avec un code envoyé par e-mail (sans application ni compte)",
       "item_5": "Autant de questions que vous le souhaitez, et résultats en direct",
-      "item_6": "La page de vote dans la langue des électeurs",
+      "item_6": "La page de vote dans la langue de vos électeurs",
       "title": "Tout est inclus"
     },
-    "lede": "Le prix dépend du nombre de personnes qui peuvent voter, pas du nombre de ceux qui votent vraiment. Les votes avec jusqu'à 50 personnes sont gratuits, et le vote anonyme et vérifiable est toujours inclus.",
+    "lede": "Le prix dépend du nombre de personnes qui peuvent voter, pas du nombre de personnes qui votent effectivement. Les votes jusqu'à 50 personnes sont gratuits, et le vote anonyme et vérifiable est toujours inclus.",
     "live": {
       "free": "Ce vote est gratuit.",
       "quote": "Plus de {{limit}} personnes : sur demande.",
-      "total": "Total pour ce vote : {{total}} TTC. {{perPerson}} par personne."
+      "total": "Total pour ce vote : {{total}} hors TVA. {{perPerson}} par personne."
     },
     "panel": {
-      "band_line": "{{from}} - {{to}} à {{rate}} chacun",
+      "band_line": "{{from}} - {{to}} à {{rate}} par personne",
       "free": "Gratuit",
-      "how_text": "Chaque prix ne s'applique qu'aux personnes dans cette plage, donc les listes plus grandes paient moins par personne.",
-      "how_title": "Comment cela fonctionne",
+      "how_text": "Chaque tarif ne s'applique qu'aux personnes de sa tranche : plus la liste est grande, moins vous payez par personne.",
+      "how_title": "Comment ce tarif est calculé",
       "line_branding": "Votre logo et vos couleurs",
       "line_certificate": "Rapport de résultats signé (PDF)",
       "line_domain": "Votre propre adresse web",
@@ -4237,58 +4237,58 @@
       "line_vote": "Vote, {{people}} personnes",
       "on_request": "Sur demande",
       "one_time_note": "Payé une fois, pas à chaque vote.",
-      "one_time_title": "Installation unique",
-      "per_person": "{{price}} par personne qui peut voter",
+      "one_time_title": "Frais uniques",
+      "per_person": "{{price}} par personne pouvant voter",
       "title": "Votre tarif",
       "vat_suffix": "+ TVA",
-      "with_vat": "≈ {{total}} avec 21 % TVA (Espagne)"
+      "with_vat": "≈ {{total}} avec 21 % de TVA (Espagne)"
     },
     "request": {
-      "book_call": "Réserver un appel",
+      "book_call": "Planifier un appel",
       "captcha_error": "La vérification reCAPTCHA a échoué. Veuillez réessayer.",
-      "chip_one_time": "Installation unique {{total}}",
+      "chip_one_time": "Frais uniques {{total}}",
       "chip_people": "{{people}} personnes",
       "chip_total": "{{total}} + TVA",
       "create_account": "Créer votre compte gratuit",
       "email": "E-mail",
-      "error_body": "Envoyez-le par email plutôt ; nous l'avons rempli pour vous.",
-      "error_cta": "L'envoyer par email",
-      "error_title": "Nous n'avons pas pu envoyer votre demande d'ici",
+      "error_body": "Envoyez-la plutôt par e-mail ; nous l'avons préremplie pour vous.",
+      "error_cta": "L'envoyer par e-mail",
+      "error_title": "Impossible d'envoyer votre demande depuis cette page",
       "errors": {
-        "email_invalid": "Entrez une adresse email valide",
-        "email_required": "Entrez votre email",
+        "email_invalid": "Entrez une adresse e-mail valide",
+        "email_required": "Entrez votre e-mail",
         "name_required": "Entrez votre nom",
         "organization_required": "Entrez votre organisation"
       },
-      "intro": "Dites-nous qui vous êtes et nous répondons avec un estimé écrit, généralement dans un jour ouvrable.",
-      "message": "Quelque chose que nous devrions savoir (optionnel)",
+      "intro": "Dites-nous qui vous êtes et nous vous répondons avec une estimation écrite, généralement sous un jour ouvré.",
+      "message": "Autre chose à nous signaler (facultatif)",
       "message_placeholder": "Dates, plusieurs votes cette année, questions sur votre liste...",
       "name": "Votre nom",
       "organization": "Organisation",
-      "privacy": "Vocdoni utilise ces détails uniquement pour préparer votre estimé et répondre à votre demande. <plink>Politique de confidentialité</plink>.",
+      "privacy": "Vocdoni utilise ces informations uniquement pour préparer votre estimation et répondre à votre demande. <plink>Politique de confidentialité</plink>.",
       "retry": "Réessayer",
       "sending": "Envoi en cours...",
       "submit": "Envoyer la demande",
       "success_reference": "Votre référence : {{reference}}",
-      "success_reply": "L'équipe Vocdoni vous écrira à {{email}} dans un jour ouvrable.",
+      "success_reply": "L'équipe Vocdoni vous écrira à {{email}} sous un jour ouvré.",
       "success_title": "Demande reçue",
       "title": "Demander ce tarif",
       "title_quote": "Demander un devis"
     },
     "title": "Payez une fois par vote. Pas d'abonnement.",
     "trust": {
-      "dpa": "Accord de traitement des données",
-      "payment": "Le paiement en ligne arrive bientôt. Pour l'instant, une personne chez Vocdoni confirme votre tarif, puis vous payez par carte ou virement bancaire avec une facture.",
-      "prices": "Tarifs en EUR, hors TVA. Les entreprises de l'UE ayant un numéro de TVA valide sont facturées en autoliquidation ; les clients en dehors de l'UE ne paient pas de TVA de l'UE.",
+      "dpa": "Contrat de sous-traitance",
+      "payment": "Le paiement en ligne arrive bientôt. Pour l'instant, une personne chez Vocdoni confirme votre tarif, puis vous payez par carte ou par virement bancaire, sur facture.",
+      "prices": "Tarifs en EUR, hors TVA. Les entreprises de l'UE disposant d'un numéro de TVA valide sont facturées en autoliquidation ; les clients hors UE ne paient pas la TVA européenne.",
       "privacy": "Politique de confidentialité",
-      "terms": "Conditions",
-      "vat_id": "ID TVA {{id}}"
+      "terms": "Conditions générales",
+      "vat_id": "N° TVA {{id}}"
     },
     "zones": {
-      "dedicated": "Un vote de cette taille nécessite généralement une conversation. Le tarif ci-dessus s'applique, et vous avez un contact dédié.",
-      "dedicated_badge": "Grand vote",
-      "free": "Ce vote est gratuit. Les votes avec jusqu'à 50 personnes sont toujours gratuits ; à partir de 51 personnes, la liste entière est facturée, ce qui coûte {{price}} pour 51.",
-      "quote": "Dites-nous ce dont vous avez besoin et nous enverrons un chiffre dans un jour ouvrable."
+      "dedicated": "Un vote de cette taille passe généralement par un échange. Le tarif ci-dessus reste valable, et vous disposez d'un contact dédié.",
+      "dedicated_badge": "Vote de grande taille",
+      "free": "Ce vote est gratuit. Les votes jusqu'à 50 personnes sont toujours gratuits ; à partir de 51 personnes, toute la liste est facturée, soit {{price}} pour 51.",
+      "quote": "Dites-nous ce dont vous avez besoin et nous vous envoyons un montant sous un jour ouvré."
     }
   },
   "steps_section": {

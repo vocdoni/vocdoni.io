@@ -4171,64 +4171,64 @@
         "price": "{{price}} einmalig",
         "title": "Deine eigene Webadresse"
       },
-      "one_time_title": "Einmalige Einrichtung, zahle einmal",
+      "one_time_title": "Einmalig für deine Organisation berechnet",
       "per_vote_title": "Zu dieser Abstimmung hinzufügen",
       "sms": {
-        "description": "Versende den Code per SMS statt oder zusätzlich per E-Mail. Codes per E-Mail sind immer inbegriffen.",
+        "description": "Schicke den Code per SMS, statt oder zusätzlich zur E-Mail. Codes per E-Mail sind immer inbegriffen.",
         "note": "Geschätzte Kosten in Europa. Die endgültigen Kosten pro SMS können je nach Land variieren.",
-        "price": "{{price}} pro Person in deiner Liste",
+        "price": "{{price}} pro Person auf deiner Liste",
         "title": "Bestätigungscodes per SMS"
       }
     },
     "bands": {
       "above_limit": "Mehr als {{limit}} Personen: Angebot anfragen.",
       "col_people": "Personen, die abstimmen können",
-      "col_rate": "Preis je Person",
-      "col_total": "Eine Abstimmung mit dieser Anzahl kostet",
-      "current": "Deine Liste fällt in diesen Bereich",
-      "each": "{{rate}} je Person",
+      "col_rate": "Preis pro Person",
+      "col_total": "Eine Abstimmung mit so vielen Personen kostet",
+      "current": "Deine Liste liegt in diesem Bereich",
+      "each": "{{rate}} pro Person",
       "range": "{{from}} - {{to}}",
       "title": "Preise auf einen Blick"
     },
     "calculator": {
       "decrease": "Weniger Personen",
-      "helper": "Wirst du deiner Liste später Personen hinzufügen? Zähle sicherheitshalber ein paar mehr.",
+      "helper": "Kommen später vielleicht noch Personen auf deine Liste? Rechne sicherheitshalber ein paar mehr ein.",
       "increase": "Mehr Personen",
       "people_label": "Wie viele Personen können abstimmen?",
       "slider_label": "Wie viele Personen können abstimmen",
-      "slider_value": "{{people}} Personen, {{total}} plus MwSt.",
+      "slider_value": "{{people}} Personen, {{total}} zzgl. MwSt.",
       "slider_value_free": "{{people}} Personen, kostenlos",
       "slider_value_quote": "Mehr als {{limit}} Personen, auf Anfrage",
       "tick_more": "{{limit}}+"
     },
     "cta": {
-      "create_account": "Erstelle ein kostenloses Konto",
+      "create_account": "Kostenloses Konto erstellen",
       "no_commitment": "Unverbindlich. Wir antworten innerhalb eines Geschäftstages.",
       "repeat_hint": "Führst du dieses Jahr mehrere Abstimmungen durch? Teile es uns in der Anfrage mit.",
       "request_price": "Diesen Preis anfragen",
       "request_quote": "Angebot anfragen",
       "talk": "Sprich mit uns"
     },
-    "eyebrow": "Preisgestaltung",
+    "eyebrow": "Preise",
     "included": {
       "item_1": "Niemand kann einen Stimmzettel mit der Person verknüpfen, die ihn abgegeben hat",
-      "item_2": "Jede wählende Person kann ihre Stimme überprüfen",
-      "item_3": "Ergebnisse, die jeder überprüfen kann, in einer öffentlichen Aufzeichnung",
+      "item_2": "Jede wählende Person kann prüfen, dass ihre Stimme gezählt wurde",
+      "item_3": "Ergebnisse, die jeder überprüfen kann, in einem öffentlichen Register",
       "item_4": "Wählende identifizieren sich mit einem Code, der per E-Mail gesendet wird (keine App, kein Konto)",
       "item_5": "So viele Fragen, wie du brauchst, und Live-Ergebnisse",
-      "item_6": "Die Abstimmungsseite in der Sprache der Wählenden",
+      "item_6": "Die Abstimmungsseite in der Sprache deiner Wählenden",
       "title": "Alles inbegriffen"
     },
-    "lede": "Der Preis richtet sich nach der Zahl der abstimmungsberechtigten Personen, nicht nach der Beteiligung. Abstimmungen mit bis zu 50 Personen sind kostenlos, und anonymes, verifizierbares Abstimmen ist immer inbegriffen.",
+    "lede": "Der Preis richtet sich nach der Zahl der stimmberechtigten Personen, nicht nach der Beteiligung. Abstimmungen mit bis zu 50 Personen sind kostenlos, und anonymes, verifizierbares Abstimmen ist immer inbegriffen.",
     "live": {
       "free": "Diese Abstimmung ist kostenlos.",
       "quote": "Mehr als {{limit}} Personen: auf Anfrage.",
-      "total": "Gesamtbetrag für diese Abstimmung: {{total}} plus MwSt. {{perPerson}} je Person."
+      "total": "Gesamtbetrag für diese Abstimmung: {{total}} zzgl. MwSt. {{perPerson}} pro Person."
     },
     "panel": {
-      "band_line": "{{from}} - {{to}} à {{rate}} je Person",
+      "band_line": "{{from}} - {{to}} à {{rate}} pro Person",
       "free": "Kostenlos",
-      "how_text": "Jeder Preis gilt nur für die Personen in diesem Bereich, daher zahlen größere Listen weniger je Person.",
+      "how_text": "Jeder Preis gilt nur für die Personen in diesem Bereich, daher zahlen größere Listen weniger pro Person.",
       "how_title": "So wird das berechnet",
       "line_branding": "Dein Logo und deine Farben",
       "line_certificate": "Signierter Ergebnisbericht (PDF)",
@@ -4236,22 +4236,22 @@
       "line_sms": "SMS-Codes, {{people}} × {{unit}}",
       "line_vote": "Abstimmung, {{people}} Personen",
       "on_request": "Auf Anfrage",
-      "one_time_note": "Einmalig bezahlt, nicht mit jeder Abstimmung.",
+      "one_time_note": "Wird einmal bezahlt, nicht bei jeder Abstimmung.",
       "one_time_title": "Einmalige Einrichtung",
-      "per_person": "{{price}} je Person, die abstimmen kann",
+      "per_person": "{{price}} pro Person, die abstimmen kann",
       "title": "Dein Preis",
       "vat_suffix": "+ MwSt.",
-      "with_vat": "≈ {{total}} mit 21 % MwSt. (Spanien)"
+      "with_vat": "≈ {{total}} mit 21 % MwSt. (Spanien)"
     },
     "request": {
       "book_call": "Gespräch vereinbaren",
-      "captcha_error": "reCAPTCHA-Verifizierung fehlgeschlagen. Bitte versuche es erneut.",
+      "captcha_error": "reCAPTCHA-Überprüfung fehlgeschlagen. Bitte versuch es erneut.",
       "chip_one_time": "Einmalige Einrichtung {{total}}",
       "chip_people": "{{people}} Personen",
       "chip_total": "{{total}} + MwSt.",
-      "create_account": "Erstelle dein kostenloses Konto",
+      "create_account": "Kostenloses Konto erstellen",
       "email": "E-Mail",
-      "error_body": "Versende es stattdessen per E-Mail; wir haben es bereits für dich ausgefüllt.",
+      "error_body": "Schicke sie stattdessen per E-Mail; wir haben alles schon für dich ausgefüllt.",
       "error_cta": "Per E-Mail senden",
       "error_title": "Wir konnten deine Anfrage von hier aus nicht senden",
       "errors": {
@@ -4260,35 +4260,35 @@
         "name_required": "Gib deinen Namen ein",
         "organization_required": "Gib deine Organisation ein"
       },
-      "intro": "Erzähle uns, wer du bist, und wir antworten mit einem schriftlichen Richtwert, normalerweise innerhalb eines Geschäftstages.",
-      "message": "Etwas, das wir wissen sollten (optional)",
-      "message_placeholder": "Termine, mehrere Abstimmungen in diesem Jahr, Fragen zu deiner Liste …",
+      "intro": "Sag uns, wer du bist, und wir antworten mit einem schriftlichen Angebot, normalerweise innerhalb eines Geschäftstages.",
+      "message": "Was wir sonst noch wissen sollten (optional)",
+      "message_placeholder": "Termine, mehrere Abstimmungen in diesem Jahr, Fragen zu deiner Liste...",
       "name": "Dein Name",
       "organization": "Organisation",
-      "privacy": "Vocdoni verwendet diese Angaben nur zur Vorbereitung deines Richtwerts und zur Beantwortung deiner Anfrage. <plink>Datenschutzrichtlinie</plink>.",
-      "retry": "Nochmal versuchen",
-      "sending": "Wird gesendet …",
+      "privacy": "Vocdoni verwendet diese Angaben nur, um dein Angebot zu erstellen und deine Anfrage zu beantworten. <plink>Datenschutzerklärung</plink>.",
+      "retry": "Erneut versuchen",
+      "sending": "Wird gesendet...",
       "submit": "Anfrage senden",
       "success_reference": "Deine Referenz: {{reference}}",
-      "success_reply": "Das Vocdoni-Team schreibt dir unter {{email}} innerhalb eines Geschäftstages.",
+      "success_reply": "Das Vocdoni-Team schreibt dir innerhalb eines Geschäftstages an {{email}}.",
       "success_title": "Anfrage eingegangen",
       "title": "Diesen Preis anfragen",
       "title_quote": "Angebot anfragen"
     },
-    "title": "Zahle pro Abstimmung. Kein Abo.",
+    "title": "Zahle einmal pro Abstimmung. Kein Abo.",
     "trust": {
-      "dpa": "Datenverarbeitungsvereinbarung",
-      "payment": "Online-Zahlung ist auf dem Weg. Im Moment bestätigt eine Person bei Vocdoni deinen Preis, dann zahlst du per Karte oder Banküberweisung mit einer Rechnung.",
-      "prices": "Preise in EUR ohne MwSt. EU-Unternehmen mit gültiger Umsatzsteuer-ID werden unter Reverse-Charge abgerechnet; Kunden außerhalb der EU zahlen keine EU-MwSt.",
-      "privacy": "Datenschutzrichtlinie",
-      "terms": "Nutzungsbedingungen",
-      "vat_id": "Umsatzsteuer-ID {{id}}"
+      "dpa": "Auftragsverarbeitungsvertrag",
+      "payment": "Online-Zahlung kommt bald. Bis dahin bestätigt jemand bei Vocdoni deinen Preis, dann zahlst du per Karte oder Überweisung und bekommst eine Rechnung.",
+      "prices": "Preise in EUR ohne MwSt. EU-Unternehmen mit gültiger USt-IdNr. werden im Reverse-Charge-Verfahren abgerechnet; Kunden außerhalb der EU zahlen keine EU-MwSt.",
+      "privacy": "Datenschutzerklärung",
+      "terms": "AGB",
+      "vat_id": "USt-IdNr. {{id}}"
     },
     "zones": {
-      "dedicated": "Eine Abstimmung dieser Größe braucht normalerweise ein Gespräch. Der obige Preis gilt, und du bekommst einen dedizierten Kontakt.",
+      "dedicated": "Eine Abstimmung dieser Größe braucht normalerweise ein Gespräch. Der Preis oben gilt weiterhin, und du bekommst eine feste Ansprechperson.",
       "dedicated_badge": "Große Abstimmung",
-      "free": "Diese Abstimmung ist kostenlos. Abstimmungen mit bis zu 50 Personen sind immer kostenlos; ab 51 Personen wird die ganze Liste berechnet, was {{price}} für 51 kostet.",
-      "quote": "Erzähle uns, was du brauchst, und wir senden einen Richtwert innerhalb eines Geschäftstages."
+      "free": "Diese Abstimmung ist kostenlos. Abstimmungen mit bis zu 50 Personen sind immer kostenlos; ab 51 Personen wird die ganze Liste berechnet, bei 51 sind das {{price}}.",
+      "quote": "Sag uns, was du brauchst, und wir schicken dir innerhalb eines Geschäftstages einen Preis."
     }
   },
   "steps_section": {

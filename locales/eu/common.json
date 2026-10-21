@@ -4157,85 +4157,85 @@
   "pricing": {
     "addons": {
       "branding": {
-        "description": "Zure markak bozketaren orrian eta emailetan, Vocdoni logorik gabe, etorkizuneko bozketa guztietarako.",
+        "description": "Zure marka bozketa-orrian eta e-postetan, Vocdoniren logorik gabe, etorkizuneko bozketa guztietarako.",
         "price": "{{price}} behin",
-        "title": "Zure logotipa eta koloreak"
+        "title": "Zure logoa eta koloreak"
       },
       "certificate": {
-        "description": "Emaitzak erregistratutako botoekin bat datozela frogatzen duen PDF bat, zure aktetan eransteko.",
+        "description": "Argitaratutako emaitza erregistratutako botoekin bat datorrela frogatzen duen PDF bat, zure aktei eransteko.",
         "price": "{{price}} bozketa bakoitzeko",
         "title": "Emaitzen txosten sinatua (PDF)"
       },
       "domain": {
-        "description": "Pertsonek vote.yourorganisation.org bezalako helbidean bozkatzen dute.",
+        "description": "Pertsonek vote.yourorganisation.org bezalako helbide batean bozkatzen dute.",
         "price": "{{price}} behin",
-        "title": "Zure webgunearentzat helbidea"
+        "title": "Zure web-helbide propioa"
       },
-      "one_time_title": "Hasierako konfigurazioa, behin ordaintzen dena",
-      "per_vote_title": "Gehitu bozketa honetan",
+      "one_time_title": "Zure erakundeari behin bakarrik kobratzen zaio",
+      "per_vote_title": "Gehitu bozketa honi",
       "sms": {
-        "description": "Testu-mezuen bidez kodea bidali, bestela edo postaz gainera. Postazko kodeak beti sartuta daude.",
-        "note": "Europan estimatutako kostua. SMS bakoitzeko azken kostua herrialdearen arabera alda daiteke.",
-        "price": "{{price}} zerrendako pertsonaren bakoitzeko",
-        "title": "Egiaztapen-kodeak testu-mezuaren bidez"
+        "description": "Bidali kodea SMS bidez, e-postaren ordez edo e-postarekin batera. E-postazko kodeak beti daude sartuta.",
+        "note": "Europarako kostu estimatua. SMS bakoitzaren azken kostua herrialdearen arabera alda daiteke.",
+        "price": "{{price}} zure zerrendako pertsona bakoitzeko",
+        "title": "Egiaztapen-kodeak SMS bidez"
       }
     },
     "bands": {
-      "above_limit": "Baino gehiago {{limit}} pertsona: eskatu aurrekontua.",
+      "above_limit": "{{limit}} pertsona baino gehiago: eskatu aurrekontua.",
       "col_people": "Bozka dezaketen pertsonak",
-      "col_rate": "Prezioa bakoitzeko",
-      "col_total": "Pertsona kopuru hau duen bozketa kostua",
-      "current": "Zure zerrenda barrutuan dago",
-      "each": "{{rate}} bakoitzeko",
+      "col_rate": "Pertsonako prezioa",
+      "col_total": "Hainbeste pertsonako bozketa baten kostua",
+      "current": "Zure zerrenda tarte honetan dago",
+      "each": "{{rate}} pertsonako",
       "range": "{{from}} - {{to}}",
-      "title": "Prezioaren begirada"
+      "title": "Prezioak begirada batean"
     },
     "calculator": {
       "decrease": "Pertsona gutxiago",
-      "helper": "Geroago pertsonak gehitu ahal dituzu zerrendara? Gehitu orain batzuk gehiago, kontuz.",
+      "helper": "Agian geroago pertsonak gehituko dituzu zerrendara? Zenbatu orain batzuk gehiago, badaezpada.",
       "increase": "Pertsona gehiago",
-      "people_label": "Zenbat pertsona bozka dezakete?",
-      "slider_label": "Zenbat pertsona bozka dezakete",
+      "people_label": "Zenbat pertsonak bozka dezakete?",
+      "slider_label": "Zenbat pertsonak bozka dezakete",
       "slider_value": "{{people}} pertsona, {{total}} gehi BEZ",
       "slider_value_free": "{{people}} pertsona, doan",
-      "slider_value_quote": "Baino gehiago {{limit}} pertsona, eskatu ahala",
+      "slider_value_quote": "{{limit}} pertsona baino gehiago, eskaera bidez",
       "tick_more": "{{limit}}+"
     },
     "cta": {
-      "create_account": "Sortu dohaineko kontua",
-      "no_commitment": "Ez dago konpromisorik. Negozio-egun batean erantzunen dizugu.",
-      "repeat_hint": "Bozketa batzuk aurten badituzu? Esan eskaeraren bidez.",
-      "request_price": "Eskatu prezioa",
+      "create_account": "Sortu doako kontu bat",
+      "no_commitment": "Konpromisorik gabe. Lanegun batean erantzungo dizugu.",
+      "repeat_hint": "Bozketa bat baino gehiago egingo dituzu aurten? Esan iezaguzu eskaeran.",
+      "request_price": "Eskatu prezio hau",
       "request_quote": "Eskatu aurrekontua",
       "talk": "Hitz egin gurekin"
     },
-    "eyebrow": "Prezioa",
+    "eyebrow": "Prezioak",
     "included": {
       "item_1": "Inork ezin du boto bat eman zuen pertsonarekin lotu",
-      "item_2": "Botagile bakoitzak bere botoa zenbatuta dagoela egiaztatu dezake",
+      "item_2": "Botogile bakoitzak bere botoa zenbatuta dagoela egiaztatu dezake",
       "item_3": "Edonork egiaztatu ditzakeen emaitzak, erregistro publikoan",
-      "item_4": "Botagileek emailez bidalitako kode batekin identifikatzen dira (ez aplikaziorik, ez konturik)",
-      "item_5": "Galdera bezain asko, eta zuzeneko emaitzak",
-      "item_6": "Bozkatze orria botagileen hizkuntzan",
-      "title": "Guztia sartuta dago"
+      "item_4": "Botogileek e-postaz bidalitako kode batekin identifikatzen dira (aplikaziorik eta konturik gabe)",
+      "item_5": "Behar dituzun galdera guztiak, eta zuzeneko emaitzak",
+      "item_6": "Bozketa-orria zure botogileen hizkuntzan",
+      "title": "Dena barne"
     },
-    "lede": "Prezioa bozka dezaketen pertsonak kopuruaren araberakoa da, ez partaidetzarenaren. 50 pertsonara bitarteko bozketa doanak dira, eta bozketa anonimoa eta egiaztagarria beti sartuta dago.",
+    "lede": "Prezioa bozka dezaketen pertsonen kopuruaren araberakoa da, ez benetan bozkatzen dutenen araberakoa. 50 pertsonara arteko bozketak doakoak dira, eta bozketa anonimoa eta egiaztagarria beti dago sartuta.",
     "live": {
       "free": "Bozketa hau doakoa da.",
-      "quote": "Baino gehiago {{limit}} pertsona: eskatu ahala.",
-      "total": "Bozketa honentzat guztira: {{total}} gehi BEZ. {{perPerson}} pertsona bakoitzeko."
+      "quote": "{{limit}} pertsona baino gehiago: eskaera bidez.",
+      "total": "Bozketa honen guztizkoa: {{total}} gehi BEZ. {{perPerson}} pertsona bakoitzeko."
     },
     "panel": {
-      "band_line": "{{from}} - {{to}} {{rate}}ko bakoitzeko",
+      "band_line": "{{from}} - {{to}}, {{rate}} pertsonako",
       "free": "Doan",
-      "how_text": "Bakoitzak prezioa barruti horretan dagoen pertsonentzat soilik aplikatzen da, beraz zerrenda handiagoak gutxiago ordaintzen du pertsona bakoitzeko.",
+      "how_text": "Prezio bakoitza tarte horretako pertsonei soilik aplikatzen zaie; beraz, zerrenda handiagoek gutxiago ordaintzen dute pertsona bakoitzeko.",
       "how_title": "Nola kalkulatzen da",
-      "line_branding": "Zure logotipa eta koloreak",
+      "line_branding": "Zure logoa eta koloreak",
       "line_certificate": "Emaitzen txosten sinatua (PDF)",
-      "line_domain": "Zure webgunearentzat helbidea",
-      "line_sms": "Testu-mezuko kodeak, {{people}} × {{unit}}",
+      "line_domain": "Zure web-helbide propioa",
+      "line_sms": "SMS kodeak, {{people}} × {{unit}}",
       "line_vote": "Bozketa, {{people}} pertsona",
-      "on_request": "Eskatu ahala",
+      "on_request": "Eskaera bidez",
       "one_time_note": "Behin ordaintzen da, ez bozketa bakoitzean.",
       "one_time_title": "Hasierako konfigurazioa",
       "per_person": "{{price}} bozka dezaketen pertsona bakoitzeko",
@@ -4244,51 +4244,51 @@
       "with_vat": "≈ {{total}} %21eko BEZarekin (Espainia)"
     },
     "request": {
-      "book_call": "Antolatu deiak",
-      "captcha_error": "reCAPTCHA egiaztapena huts egin du. Saiatu berriro.",
+      "book_call": "Antolatu dei bat",
+      "captcha_error": "reCAPTCHA egiaztapenak huts egin du. Saiatu berriro.",
       "chip_one_time": "Hasierako konfigurazioa {{total}}",
       "chip_people": "{{people}} pertsona",
       "chip_total": "{{total}} + BEZ",
-      "create_account": "Sortu zure dohaineko kontua",
-      "email": "Posta elektronikoa",
-      "error_body": "Bidali posta elektronikoan ordez; bete egin dugu zuentzat.",
-      "error_cta": "Bidali posta elektronikoz",
-      "error_title": "Ezin izan dugu zure eskaera hemenditik bidali",
+      "create_account": "Sortu zure doako kontua",
+      "email": "E-posta",
+      "error_body": "Bidali e-postaz, horren ordez; guk bete dugu zuretzat.",
+      "error_cta": "Bidali e-postaz",
+      "error_title": "Ezin izan dugu zure eskaera hemendik bidali",
       "errors": {
-        "email_invalid": "Sartu baliozko posta elektroniko helbide bat",
-        "email_required": "Sartu zure posta elektronikoa",
+        "email_invalid": "Sartu baliozko e-posta helbide bat",
+        "email_required": "Sartu zure e-posta",
         "name_required": "Sartu zure izena",
         "organization_required": "Sartu zure erakundea"
       },
-      "intro": "Esan iezaguzu nork zareten eta aurrekontu idatzi batekin erantzunen dizugu, gehienean negozio-egun baten barru.",
-      "message": "Badakigula zer beharko (aukerazkoa)",
-      "message_placeholder": "Datak, bozketa batzuk aurten, zure zerrenda gogoetarako...",
+      "intro": "Esan iezaguzu nor zaren eta aurrekontu idatzi bat bidaliko dizugu, normalean lanegun batean.",
+      "message": "Jakin beharko genukeen zerbait (aukerakoa)",
+      "message_placeholder": "Datak, bozketa bat baino gehiago aurten, zure zerrendari buruzko galderak...",
       "name": "Zure izena",
       "organization": "Erakundea",
       "privacy": "Vocdonik datu hauek soilik erabiltzen ditu zure aurrekontua prestatzeko eta eskaerari erantzuteko. <plink>Pribatutasun-politika</plink>.",
       "retry": "Saiatu berriro",
-      "sending": "Bidalten...",
+      "sending": "Bidaltzen...",
       "submit": "Bidali eskaera",
       "success_reference": "Zure erreferentzia: {{reference}}",
-      "success_reply": "Vocdoni taldeak {{email}}ra idatziko du negozio-egun baten barru.",
-      "success_title": "Eskaera jaso da",
-      "title": "Eskatu prezioa",
+      "success_reply": "Vocdoniko taldeak lanegun batean idatziko dizu {{email}} helbidera.",
+      "success_title": "Eskaera jaso dugu",
+      "title": "Eskatu prezio hau",
       "title_quote": "Eskatu aurrekontua"
     },
-    "title": "Ordainketa bat bozketa bakoitzeko. Ez dago harpidetzarik.",
+    "title": "Ordaindu behin bozketa bakoitzeko. Harpidetzarik gabe.",
     "trust": {
       "dpa": "Datuen tratamendu-akordioa",
-      "payment": "Ordainketa online-a abian da. Oraingoan Vocdoni pertsona batek zure prezioa berretsi behar du, gero txartel edo bankako transferentziaz ordaintzen duzu faktura sartuta.",
-      "prices": "Prezioak EUR-etan, BEZ gabe. EBko enpresak baliozko BEZ zenbakiarekin alderantzizko kargapean fakturatzen dira, BEZik gehitu gabe. EBtik kanpoko bezeroei ez zaie BEZ kobratzen.",
+      "payment": "Lineako ordainketa bidean da. Oraingoz, Vocdoniko pertsona batek zure prezioa berresten du, eta gero txartelez edo banku-transferentziaz ordaintzen duzu, fakturarekin.",
+      "prices": "Prezioak EUR-etan, BEZik gabe. Baliozko BEZ zenbakia duten EBko enpresei subjektu pasiboaren inbertsioarekin fakturatzen zaie; EBtik kanpoko bezeroek ez dute EBko BEZik ordaintzen.",
       "privacy": "Pribatutasun-politika",
       "terms": "Baldintzak",
-      "vat_id": "BEZ ID {{id}}"
+      "vat_id": "BEZ zenbakia: {{id}}"
     },
     "zones": {
-      "dedicated": "Tamaina honetako bozketa normalean elkarrizketa bat eskatzen du. Aurreko prezioa jarraitzen du, eta kontaktu dedikatua jasotzen duzu.",
+      "dedicated": "Tamaina honetako bozketa batek normalean elkarrizketa bat eskatzen du. Goiko prezioa mantentzen da, eta harremanetarako pertsona bat izango duzu zuretzat.",
       "dedicated_badge": "Bozketa handia",
-      "free": "Bozketa hau doakoa da. 50 pertsonara arteko bozketa beti doakoak dira; gehigarriak ohiko prezioan kobratzen dira, {{price}} 51 pertsonarentzat.",
-      "quote": "Esan zer behar duzun eta prezio bat bidaliko dizugu negozio-egun baten barru."
+      "free": "Bozketa hau doakoa da. 50 pertsonara arteko bozketak beti doakoak dira; 51 pertsonatik aurrera zerrenda osoa kobratzen da, hau da, {{price}} 51 pertsonarentzat.",
+      "quote": "Esan iezaguzu zer behar duzun eta lanegun batean prezio bat bidaliko dizugu."
     }
   },
   "steps_section": {
