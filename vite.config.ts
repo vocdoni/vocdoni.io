@@ -12,15 +12,18 @@ import { docsMarkdownPlugin } from './plugins/docs-markdown'
 import { keystaticApiPlugin } from './plugins/keystatic-api'
 import { legacyRedirectsPlugin } from './plugins/legacy-redirects'
 import { vikeSitemapPlugin } from './plugins/vike-sitemap'
-import { DEFAULT_POSTHOG_HOST, DEFAULT_PRICING_API_URL, wellKnownPlugin } from './plugins/well-known'
+import {
+  DEFAULT_POSTHOG_HOST,
+  DEFAULT_PRICING_API_URL,
+  DEV_PRICING_API_URL,
+  wellKnownPlugin,
+} from './plugins/well-known'
 
 const viteconfig = ({ mode }: ConfigEnv) => {
   process.env = { ...process.env, ...loadEnv(mode, process.cwd(), '') }
 
   // Shared by the POSTHOG_HOST define and the CSP connect-src in _headers, so they cannot drift.
   const posthogHost = process.env.POSTHOG_HOST || DEFAULT_POSTHOG_HOST
-  // Same for the pricing calculator's API (lib/pricing/api.ts): the define and the CSP share it.
-  const pricingApiUrl = process.env.PRICING_API_URL || DEFAULT_PRICING_API_URL
 
   let commitSha = 'unknown'
   try {
@@ -36,6 +39,11 @@ const viteconfig = ({ mode }: ConfigEnv) => {
   // Only the production deploy is indexable. The dev site and PR previews are production deploys of
   // their own Netlify site, so Netlify does not noindex them for us - the build has to.
   const noindex = process.env.NOINDEX === 'true'
+
+  // The pricing calculator's API (lib/pricing/api.ts): the define and the CSP share it. Only the
+  // production deploy (the indexable one) reads the production backend; the dev site and PR previews
+  // read the development backend, so they show what is about to ship. PRICING_API_URL overrides both.
+  const pricingApiUrl = process.env.PRICING_API_URL || (noindex ? DEV_PRICING_API_URL : DEFAULT_PRICING_API_URL)
 
   return defineConfig({
     plugins: [

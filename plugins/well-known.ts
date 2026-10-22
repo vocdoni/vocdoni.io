@@ -100,8 +100,10 @@ const block = (path: string, headers: string[]) => [path, ...headers].join('\n')
 //    mirrors, llms.txt and the ARD manifests exist precisely to be fetched from other origins.
 
 export const DEFAULT_POSTHOG_HOST = 'https://eu.i.posthog.com'
-/** Production SaaS backend; the pricing calculator always quotes production prices. */
+/** Production SaaS backend: the pricing calculator of the production deploy quotes its prices. */
 export const DEFAULT_PRICING_API_URL = 'https://saas-api-prod.vocdoni.net'
+/** Development SaaS backend: the dev site and PR previews (every non-indexed deploy) quote its prices. */
+export const DEV_PRICING_API_URL = 'https://saas-api-dev.vocdoni.net'
 
 // Enforced, not report-only: the site is fully prerendered with a finite set of integrations, and
 // every origin below is traced to the code that loads it. `'unsafe-inline'` in script-src is
