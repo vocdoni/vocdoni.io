@@ -4188,6 +4188,7 @@
       "slider_label": "Zenbat pertsonak bozka dezakete",
       "slider_value": "{{people}} pertsona, {{total}} gehi BEZ",
       "slider_value_free": "{{people}} pertsona, doan",
+      "slider_value_people": "{{people}} pertsona",
       "slider_value_quote": "{{limit}} pertsona baino gehiago, eskaera bidez",
       "tick_more": "{{limit}}+"
     },
@@ -4216,20 +4217,22 @@
       "total": "Bozketa honen guztizkoa: {{total}} gehi BEZ. {{perPerson}} pertsona bakoitzeko."
     },
     "panel": {
-      "band_line": "{{from}} - {{to}}, {{rate}} pertsonako",
       "free": "Doan",
-      "how_text": "Prezio bakoitza tarte horretako pertsonei soilik aplikatzen zaie; beraz, zerrenda handiagoek gutxiago ordaintzen dute pertsona bakoitzeko.",
-      "how_title": "Nola kalkulatzen den",
       "line_branding": "Zure logoa eta koloreak",
       "line_certificate": "Emaitzen txosten sinatua (PDF)",
       "line_domain": "Zure web-helbide propioa",
+      "line_minimum_charge": "Gutxieneko zenbatekoa",
       "line_sms": "SMS kodeak, {{people}} × {{unit}}",
       "line_vote": "Bozketa, {{people}} pertsona",
+      "loading": "Zure prezioa kalkulatzen",
+      "minimum_charge_note": "Kostua duen bozketa batek gutxienez {{minimum}} balio du.",
       "on_request": "Eskaera bidez",
       "one_time_note": "Behin ordaintzen da, ez bozketa bakoitzean.",
       "one_time_title": "Ordainketa bakarra",
       "per_person": "{{price}} bozka dezaketen pertsona bakoitzeko",
       "title": "Zure prezioa",
+      "unavailable": "Prezioa ez dago erabilgarri",
+      "unavailable_body": "Une honetan ezin dugu prezioa erakutsi. Eskatu, eta lanegun batean bidaliko dizugu zenbatekoa.",
       "vat_suffix": "+ BEZ",
       "with_vat": "≈ {{total}} %21eko BEZarekin (Espainia)"
     },
@@ -4277,7 +4280,7 @@
     "zones": {
       "dedicated": "Tamaina honetako bozketa batek normalean elkarrizketa bat eskatzen du. Goiko prezioa mantentzen da, eta harremanetarako pertsona bat izango duzu zuretzat.",
       "dedicated_badge": "Bozketa handia",
-      "free": "Bozketa hau doakoa da. 50 pertsonara arteko bozketak beti doakoak dira; 51 pertsonatik aurrera zerrenda osoa kobratzen da, hau da, {{price}} 51 pertsonarentzat.",
+      "free": "Bozketa hau doakoa da. 25 pertsonara arteko bozketak beti doakoak dira.",
       "quote": "Esan iezaguzu zer behar duzun eta lanegun baten barruan prezio bat bidaliko dizugu."
     }
   },

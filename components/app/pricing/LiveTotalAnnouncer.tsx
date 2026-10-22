@@ -1,31 +1,33 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { QUOTE_REQUIRED_ABOVE } from '@/lib/pricing/constants'
 import { type Estimate } from '@/lib/pricing/compute'
+import type { PricingStatus } from '@/components/app/pricing/usePricingEstimate'
 import { formatCurrency, formatPeople, formatRate } from '@/lib/pricing/format'
 
 interface LiveTotalAnnouncerProps {
-  estimate: Estimate
+  estimate: Estimate | null
+  status: PricingStatus
+  /** False until the visitor changes anything: announcing the default estimate unprompted is noise. */
+  touched: boolean
   locale: string
 }
 
-export function LiveTotalAnnouncer({ estimate, locale }: LiveTotalAnnouncerProps) {
+export function LiveTotalAnnouncer({ estimate, status, touched, locale }: LiveTotalAnnouncerProps) {
   const { t } = useTranslation()
   const [announcedText, setAnnouncedText] = useState('')
-  const isFirstRender = useRef(true)
 
   useEffect(() => {
-    if (isFirstRender.current) {
-      // The page has just loaded: announcing the default estimate unprompted is noise.
-      isFirstRender.current = false
-      return
-    }
+    // Nothing new to say while a price is on its way.
+    if (!touched || status === 'loading') return
     const timer = setTimeout(() => {
       let text: string
-      if (estimate.zone === 'quote') {
+      if (!estimate) {
+        text = t('pricing.panel.unavailable', 'Price unavailable')
+      } else if (estimate.zone === 'quote') {
         text = t('pricing.live.quote', 'More than {{limit}} people: on request.', {
           limit: formatPeople(QUOTE_REQUIRED_ABOVE, locale),
         })
@@ -43,7 +45,7 @@ export function LiveTotalAnnouncer({ estimate, locale }: LiveTotalAnnouncerProps
     }, 400)
 
     return () => clearTimeout(timer)
-  }, [estimate, locale, t])
+  }, [estimate, status, touched, locale, t])
 
   return (
     <div role='status' aria-live='polite' aria-atomic='true' className='sr-only'>

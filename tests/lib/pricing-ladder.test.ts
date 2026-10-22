@@ -1,5 +1,4 @@
 import { describe, expect, it } from 'vitest'
-import { FREE_TIER, VOTER_BANDS } from '@/lib/pricing/constants'
 import {
   bandEdgeIndexes,
   LADDER,
@@ -14,12 +13,12 @@ describe('LADDER', () => {
     expect(LADDER[0]).toBe(1)
   })
 
-  it('LADDER[49] is 50 (last stop of the 1-step segment)', () => {
-    expect(LADDER[49]).toBe(50)
+  it('LADDER[24] is 25 (last stop of the 1-step segment)', () => {
+    expect(LADDER[24]).toBe(25)
   })
 
-  it('LADDER[50] is 55 (first stop of the 5-step segment)', () => {
-    expect(LADDER[50]).toBe(55)
+  it('LADDER[25] is 30 (first stop of the 5-step segment)', () => {
+    expect(LADDER[25]).toBe(30)
   })
 
   it('second-to-last stop is 50000', () => {
@@ -36,13 +35,9 @@ describe('LADDER', () => {
     }
   })
 
-  it('contains FREE_TIER.maxVoters as a stop', () => {
-    expect(LADDER).toContain(FREE_TIER.maxVoters)
-  })
-
-  it('contains every VOTER_BANDS upTo as a stop', () => {
-    for (const band of VOTER_BANDS) {
-      expect(LADDER).toContain(band.upTo)
+  it('stops on every price-list edge', () => {
+    for (const edge of [25, 100, 500, 1000, 5000, 15000, 50000]) {
+      expect(LADDER).toContain(edge)
     }
   })
 })

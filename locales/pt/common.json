@@ -4188,6 +4188,7 @@
       "slider_label": "Quantas pessoas podem votar",
       "slider_value": "{{people}} pessoas, {{total}} mais IVA",
       "slider_value_free": "{{people}} pessoas, gratuito",
+      "slider_value_people": "{{people}} pessoas",
       "slider_value_quote": "Mais de {{limit}} pessoas, sob consulta",
       "tick_more": "{{limit}}+"
     },
@@ -4216,20 +4217,22 @@
       "total": "Total para esta votação: {{total}} mais IVA. {{perPerson}} por pessoa."
     },
     "panel": {
-      "band_line": "{{from}} - {{to}} a {{rate}} por pessoa",
       "free": "Gratuito",
-      "how_text": "Cada preço aplica-se apenas às pessoas nesse intervalo, portanto listas maiores pagam menos por pessoa.",
-      "how_title": "Como é calculado",
       "line_branding": "O seu logótipo e cores",
       "line_certificate": "Relatório de resultados assinado (PDF)",
       "line_domain": "O seu próprio endereço web",
+      "line_minimum_charge": "Valor mínimo",
       "line_sms": "Códigos por SMS, {{people}} × {{unit}}",
       "line_vote": "Votação, {{people}} pessoas",
+      "loading": "A calcular o seu preço",
+      "minimum_charge_note": "Uma votação paga custa no mínimo {{minimum}}.",
       "on_request": "Sob consulta",
       "one_time_note": "Pago uma vez, não em cada votação.",
       "one_time_title": "Configuração única",
       "per_person": "{{price}} por pessoa que pode votar",
       "title": "O seu preço",
+      "unavailable": "Preço indisponível",
+      "unavailable_body": "Neste momento não conseguimos mostrar o preço. Peça-o e enviamos o valor dentro de um dia útil.",
       "vat_suffix": "+ IVA",
       "with_vat": "≈ {{total}} com 21% de IVA (Espanha)"
     },
@@ -4277,7 +4280,7 @@
     "zones": {
       "dedicated": "Uma votação desta dimensão normalmente precisa de uma conversa. O preço acima mantém-se e fica com um contacto dedicado.",
       "dedicated_badge": "Votação grande",
-      "free": "Esta votação é gratuita. As votações com até 50 pessoas são sempre gratuitas; a partir de 51 pessoas é cobrada toda a lista, ou seja, {{price}} para 51 pessoas.",
+      "free": "Esta votação é gratuita. As votações com até 25 pessoas são sempre gratuitas.",
       "quote": "Diga-nos o que precisa e enviamos um valor dentro de um dia útil."
     }
   },

@@ -4188,6 +4188,7 @@
       "slider_label": "Quantes persones poden votar",
       "slider_value": "{{people}} persones, {{total}} més IVA",
       "slider_value_free": "{{people}} persones, gratuït",
+      "slider_value_people": "{{people}} persones",
       "slider_value_quote": "Més de {{limit}} persones, a consultar",
       "tick_more": "{{limit}}+"
     },
@@ -4216,20 +4217,22 @@
       "total": "Total per a aquesta votació: {{total}} més IVA. {{perPerson}} per persona."
     },
     "panel": {
-      "band_line": "{{from}} - {{to}} a {{rate}} per persona",
       "free": "Gratuït",
-      "how_text": "Cada preu s'aplica només a les persones d'aquest tram, de manera que les llistes més grans paguen menys per persona.",
-      "how_title": "Com es calcula",
       "line_branding": "El vostre logotip i colors",
       "line_certificate": "Informe de resultats signat (PDF)",
       "line_domain": "La vostra pròpia adreça web",
+      "line_minimum_charge": "Import mínim",
       "line_sms": "Codis per SMS, {{people}} × {{unit}}",
       "line_vote": "Votació, {{people}} persones",
+      "loading": "Calculant el vostre preu",
+      "minimum_charge_note": "Una votació amb cost té un import mínim de {{minimum}}.",
       "on_request": "A consultar",
       "one_time_note": "Es paga un sol cop, no amb cada votació.",
       "one_time_title": "Pagament únic",
       "per_person": "{{price}} per persona que pot votar",
       "title": "El vostre preu",
+      "unavailable": "Preu no disponible",
+      "unavailable_body": "Ara mateix no podem mostrar el preu. Demaneu-lo i us enviem la xifra en un dia hàbil.",
       "vat_suffix": "+ IVA",
       "with_vat": "≈ {{total}} amb el 21% d'IVA (Espanya)"
     },
@@ -4277,7 +4280,7 @@
     "zones": {
       "dedicated": "Una votació d'aquesta mida normalment necessita una conversa. El preu indicat es manté, i tindreu una persona de contacte dedicada.",
       "dedicated_badge": "Votació gran",
-      "free": "Aquesta votació és gratuïta. Les votacions fins a 50 persones sempre són gratuïtes; a partir de 51 persones es cobra tota la llista, que per a 51 són {{price}}.",
+      "free": "Aquesta votació és gratuïta. Les votacions fins a 25 persones sempre són gratuïtes.",
       "quote": "Digueu-nos què necessiteu i us enviem una xifra en un dia hàbil."
     }
   },

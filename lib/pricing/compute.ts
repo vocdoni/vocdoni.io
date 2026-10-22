@@ -1,57 +1,40 @@
+import { ADDON_API_KINDS, type PricingLineKind, type PricingQuote } from '@/lib/pricing/api'
 import {
-  ADDONS,
-  FREE_TIER,
   MAX_VOTERS,
-  QUOTE_RECOMMENDED_ABOVE,
-  QUOTE_REQUIRED_ABOVE,
+  ONE_TIME_ADDONS,
+  PER_VOTE_ADDONS,
   VAT_RATE,
-  VOTER_BANDS,
   type AddonKey,
   type PricingZone,
 } from '@/lib/pricing/constants'
 
 export type Addons = Partial<Record<AddonKey, boolean>>
 
-export type BandLine = {
-  from: number
-  to: number
-  people: number
-  rateHundredthsOfCent: number
-  /** people x rate, still in hundredths of a cent: summed before the single rounding. */
-  subtotalHundredths: number
-}
-
 export type AddonLine = {
   key: AddonKey
-  quantity: number
-  unitCents: number
   oneTime: boolean
   subtotalCents: number
 }
 
+/** What the calculator shows, mapped from one GET /pricing answer. Every amount comes from the backend. */
 export type Estimate = {
   voters: number
   zone: PricingZone
-  /** False above QUOTE_REQUIRED_ABOVE, where every figure below is 0 and the UI says "On request". */
+  /** False when the backend publishes no price: every figure below is 0 and the UI says "On request". */
   priceAvailable: boolean
-  bands: BandLine[]
-  /** The vote itself, without add-ons. */
+  /** The vote itself (the `base` line), without add-ons. */
   voterPriceCents: number
   addons: AddonLine[]
-  /** Vote + per-vote add-ons. What "Total for this vote" shows. */
+  /** The `minimumCharge` line that lifts a small paid vote to the minimum; 0 when it does not apply. */
+  minimumChargeCents: number
+  /** Everything billed with this vote. What "Total for this vote" shows. */
   totalThisVoteCents: number
   /** Setup add-ons, billed once per organisation. Never folded into the line above. */
   oneTimeCents: number
   /** totalThisVoteCents / voters, in hundredths of a cent, for the "x per person" line. */
   perPersonHundredthsOfCent: number
-  vatRate: number
   /** VAT on totalThisVoteCents. The secondary line under the vote total. */
   vatCents: number
-  totalThisVoteWithVatCents: number
-  /** Vote + setup. Used by the printed estimate, not by the summary card. */
-  grandTotalCents: number
-  grandVatCents: number
-  grandTotalWithVatCents: number
 }
 
 /**
@@ -90,100 +73,65 @@ export const clampVoters = (value: number | string): number => {
   return Math.min(whole, MAX_VOTERS)
 }
 
-export const pricingZone = (voters: number | string): PricingZone => {
-  const people = clampVoters(voters)
-  if (people <= FREE_TIER.maxVoters) return 'free'
-  if (people <= QUOTE_RECOMMENDED_ABOVE) return 'standard'
-  if (people <= QUOTE_REQUIRED_ABOVE) return 'dedicated'
-  return 'quote'
-}
-
-/** One line per band the list spans, for the summary breakdown and the printed estimate. */
-export const bandBreakdown = (voters: number | string): BandLine[] => {
-  const people = clampVoters(voters)
-  if (people > QUOTE_REQUIRED_ABOVE) return []
-
-  const lines: BandLine[] = []
-  let from = 1
-  for (const band of VOTER_BANDS) {
-    if (people < from) break
-    const to = Math.min(people, band.upTo)
-    const inBand = to - from + 1
-    if (inBand > 0) {
-      lines.push({
-        from,
-        to,
-        people: inBand,
-        rateHundredthsOfCent: band.rateHundredthsOfCent,
-        subtotalHundredths: inBand * band.rateHundredthsOfCent,
-      })
-    }
-    from = band.upTo + 1
-  }
-  return lines
-}
-
-/**
- * The price of the vote itself. Every band subtotal stays in hundredths of a cent and the sum is
- * rounded to cents exactly once. Rounding per band would turn 1,001 people into 358.12 instead of
- * the correct 358.13.
- */
-export const graduatedTotalCents = (voters: number | string): number =>
-  Math.round(bandBreakdown(voters).reduce((total, line) => total + line.subtotalHundredths, 0) / 100)
-
-export const addonsBreakdown = (voters: number | string, addons: Addons = {}): AddonLine[] => {
-  const people = clampVoters(voters)
-  return (Object.keys(ADDONS) as AddonKey[])
-    .filter((key) => addons[key])
-    .map((key) => {
-      const definition = ADDONS[key]
-      const quantity = definition.perVoter ? people : 1
-      return {
-        key,
-        quantity,
-        unitCents: definition.unitCents,
-        oneTime: definition.oneTime,
-        subtotalCents: quantity * definition.unitCents,
-      }
-    })
-}
-
 export const vatCents = (amountCents: number): number => Math.round(amountCents * VAT_RATE)
 
 export const perPersonHundredthsOfCent = (totalCents: number, voters: number): number =>
   voters > 0 ? Math.round((totalCents * 100) / voters) : 0
 
-export const computeEstimate = (voters: number | string, addons: Addons = {}): Estimate => {
-  const people = clampVoters(voters)
-  const zone = pricingZone(people)
-  // Above the quote threshold no figure is published at all.
-  const priceAvailable = zone !== 'quote'
+const amountOf = (quote: PricingQuote, kinds: readonly PricingLineKind[]): number =>
+  quote.lines.filter((line) => kinds.includes(line.kind)).reduce((sum, line) => sum + line.amountCents, 0)
 
-  // Free zone: the vote itself is always free, but add-ons are still charged.
-  const bands = zone === 'free' || !priceAvailable ? [] : bandBreakdown(people)
-  const voterPriceCents = zone === 'free' || !priceAvailable ? 0 : graduatedTotalCents(people)
-  const addonLines = priceAvailable ? addonsBreakdown(people, addons) : []
+/**
+ * Maps a GET /pricing answer onto the calculator. The zone follows the answer: no price at all is the
+ * quote zone, a recommended conversation the dedicated one, a free base line the free one.
+ */
+export const estimateFromQuote = (voters: number, quote: PricingQuote): Estimate => {
+  const voterPriceCents = amountOf(quote, ['base'])
+  const zone: PricingZone = quote.quoteRequired
+    ? 'quote'
+    : quote.quoteRecommended
+      ? 'dedicated'
+      : voterPriceCents === 0
+        ? 'free'
+        : 'standard'
 
-  const totalThisVoteCents =
-    voterPriceCents + addonLines.filter((line) => !line.oneTime).reduce((sum, line) => sum + line.subtotalCents, 0)
-  const oneTimeCents = addonLines.filter((line) => line.oneTime).reduce((sum, line) => sum + line.subtotalCents, 0)
-  const grandTotalCents = totalThisVoteCents + oneTimeCents
+  const addons = [...PER_VOTE_ADDONS, ...ONE_TIME_ADDONS].flatMap((key): AddonLine[] => {
+    const kind = ADDON_API_KINDS[key]
+    if (!quote.lines.some((line) => line.kind === kind)) return []
+    return [{ key, oneTime: ONE_TIME_ADDONS.includes(key), subtotalCents: amountOf(quote, [kind]) }]
+  })
+
+  const oneTimeCents = amountOf(
+    quote,
+    ONE_TIME_ADDONS.map((key) => ADDON_API_KINDS[key])
+  )
+  const totalThisVoteCents = quote.totalCents - oneTimeCents
 
   return {
-    voters: people,
+    voters,
     zone,
-    priceAvailable,
-    bands,
+    priceAvailable: !quote.quoteRequired,
     voterPriceCents,
-    addons: addonLines,
+    addons,
+    minimumChargeCents: amountOf(quote, ['minimumCharge']),
     totalThisVoteCents,
     oneTimeCents,
-    perPersonHundredthsOfCent: perPersonHundredthsOfCent(totalThisVoteCents, people),
-    vatRate: VAT_RATE,
+    perPersonHundredthsOfCent: perPersonHundredthsOfCent(totalThisVoteCents, voters),
     vatCents: vatCents(totalThisVoteCents),
-    totalThisVoteWithVatCents: totalThisVoteCents + vatCents(totalThisVoteCents),
-    grandTotalCents,
-    grandVatCents: vatCents(grandTotalCents),
-    grandTotalWithVatCents: grandTotalCents + vatCents(grandTotalCents),
   }
 }
+
+/** People in the price-list request: at 100, the SMS line in cents reads as its rate in hundredths of a cent. */
+export const PRICE_LIST_VOTERS = 100
+export const ALL_ADDONS: Addons = { sms: true, certificate: true, branding: true, domain: true }
+
+/** Unit prices for the add-on rows: the SMS rate per person in hundredths of a cent, the rest in cents. */
+export type AddonPrices = Partial<Record<AddonKey, number>>
+
+export const addonPricesFromQuote = (quote: PricingQuote): AddonPrices =>
+  Object.fromEntries(
+    estimateFromQuote(PRICE_LIST_VOTERS, quote).addons.map((line) => [
+      line.key,
+      line.key === 'sms' ? perPersonHundredthsOfCent(line.subtotalCents, PRICE_LIST_VOTERS) : line.subtotalCents,
+    ])
+  )

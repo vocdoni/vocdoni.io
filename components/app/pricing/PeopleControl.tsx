@@ -19,8 +19,8 @@ interface PeopleControlProps {
 }
 
 /** Tick labels shown below sm; the rest keep their tick but drop the label on narrow tracks. */
-const TICK_VISIBLE_MOBILE = new Set([50, 1000, 15000, 50000])
-/** Band edges too close to a neighbour for a label at any width (50 and 100 are 2% of the track apart). */
+const TICK_VISIBLE_MOBILE = new Set([25, 1000, 15000, 50000])
+/** Band edges too close to a neighbour for a label at any width (25 and 100 are under 4% of the track apart). */
 const TICK_LABEL_HIDDEN = new Set([100, 500])
 
 export function PeopleControl({ state, locale }: PeopleControlProps) {
@@ -54,20 +54,22 @@ export function PeopleControl({ state, locale }: PeopleControlProps) {
     setIsFocused(true)
   }
 
-  // aria-valuetext from the current estimate.
+  // aria-valuetext from the current estimate; only the count while its price is still on its way.
+  const people = formatPeople(state.voters, locale)
+  const current = estimate?.voters === state.voters ? estimate : null
   const ariaValueText =
-    estimate.zone === 'quote'
+    current?.zone === 'quote'
       ? t('pricing.calculator.slider_value_quote', 'More than {{limit}} people, on request', {
           limit: formatPeople(QUOTE_REQUIRED_ABOVE, locale),
         })
-      : estimate.zone === 'free' && estimate.totalThisVoteCents === 0
-        ? t('pricing.calculator.slider_value_free', '{{people}} people, free', {
-            people: formatPeople(state.voters, locale),
-          })
-        : t('pricing.calculator.slider_value', '{{people}} people, {{total}} plus VAT', {
-            people: formatPeople(state.voters, locale),
-            total: formatCurrency(estimate.totalThisVoteCents, locale),
-          })
+      : !current
+        ? t('pricing.calculator.slider_value_people', '{{people}} people', { people })
+        : current.zone === 'free' && current.totalThisVoteCents === 0
+          ? t('pricing.calculator.slider_value_free', '{{people}} people, free', { people })
+          : t('pricing.calculator.slider_value', '{{people}} people, {{total}} plus VAT', {
+              people,
+              total: formatCurrency(current.totalThisVoteCents, locale),
+            })
 
   const inputId = 'pricing-people-input'
   const helperId = 'pricing-people-helper'

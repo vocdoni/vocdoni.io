@@ -4188,6 +4188,7 @@
       "slider_label": "Combien de personnes peuvent voter",
       "slider_value": "{{people}} personnes, {{total}} hors TVA",
       "slider_value_free": "{{people}} personnes, gratuit",
+      "slider_value_people": "{{people}} personnes",
       "slider_value_quote": "Plus de {{limit}} personnes, sur demande",
       "tick_more": "{{limit}}+"
     },
@@ -4216,20 +4217,22 @@
       "total": "Total pour ce vote : {{total}} hors TVA. {{perPerson}} par personne."
     },
     "panel": {
-      "band_line": "{{from}} - {{to}} à {{rate}} par personne",
       "free": "Gratuit",
-      "how_text": "Chaque tarif ne s'applique qu'aux personnes de sa tranche : plus la liste est grande, moins vous payez par personne.",
-      "how_title": "Comment ce tarif est calculé",
       "line_branding": "Votre logo et vos couleurs",
       "line_certificate": "Rapport de résultats signé (PDF)",
       "line_domain": "Votre propre adresse web",
+      "line_minimum_charge": "Montant minimum",
       "line_sms": "Codes SMS, {{people}} × {{unit}}",
       "line_vote": "Vote, {{people}} personnes",
+      "loading": "Calcul de votre tarif en cours",
+      "minimum_charge_note": "Un vote payant coûte au moins {{minimum}}.",
       "on_request": "Sur demande",
       "one_time_note": "Payé une fois, pas à chaque vote.",
       "one_time_title": "Frais uniques",
       "per_person": "{{price}} par personne pouvant voter",
       "title": "Votre tarif",
+      "unavailable": "Tarif indisponible",
+      "unavailable_body": "Nous ne pouvons pas afficher le tarif pour le moment. Demandez-le et nous vous envoyons le montant sous un jour ouvré.",
       "vat_suffix": "+ TVA",
       "with_vat": "≈ {{total}} avec 21 % de TVA (Espagne)"
     },
@@ -4277,7 +4280,7 @@
     "zones": {
       "dedicated": "Un vote de cette taille passe généralement par un échange. Le tarif ci-dessus reste valable, et vous disposez d'un contact dédié.",
       "dedicated_badge": "Vote de grande taille",
-      "free": "Ce vote est gratuit. Les votes jusqu'à 50 personnes sont toujours gratuits ; à partir de 51 personnes, toute la liste est facturée, soit {{price}} pour 51.",
+      "free": "Ce vote est gratuit. Les votes jusqu'à 25 personnes sont toujours gratuits.",
       "quote": "Dites-nous ce dont vous avez besoin et nous vous envoyons un montant sous un jour ouvré."
     }
   },

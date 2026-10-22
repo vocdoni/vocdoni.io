@@ -3,7 +3,8 @@
 import { useTranslation } from 'react-i18next'
 
 import { Checkbox } from '@/components/ui/checkbox'
-import { ADDONS, ONE_TIME_ADDONS, PER_VOTE_ADDONS, type AddonKey } from '@/lib/pricing/constants'
+import type { AddonPrices } from '@/lib/pricing/compute'
+import { ONE_TIME_ADDONS, PER_VOTE_ADDONS, type AddonKey } from '@/lib/pricing/constants'
 import { formatCurrency, formatRate } from '@/lib/pricing/format'
 
 import type { PricingEstimateState } from './usePricingEstimate'
@@ -17,6 +18,7 @@ interface AddonRowProps {
   addonKey: AddonKey
   checked: boolean
   onCheckedChange: (key: AddonKey, checked: boolean) => void
+  prices: AddonPrices | null
   locale: string
 }
 
@@ -34,24 +36,27 @@ function AddonTitle({ addonKey }: { addonKey: AddonKey }) {
   }
 }
 
-function AddonPrice({ addonKey, locale }: { addonKey: AddonKey; locale: string }) {
+function AddonPrice({ addonKey, prices, locale }: { addonKey: AddonKey; prices: AddonPrices | null; locale: string }) {
   const { t } = useTranslation()
-  const definition = ADDONS[addonKey]
+  // Prices come from the backend; until they arrive (or if they never do) the row shows none.
+  const unit = prices?.[addonKey]
+  if (unit === undefined) return null
   switch (addonKey) {
     case 'sms': {
-      const price = formatRate(definition.unitCents * 100, locale)
+      // In hundredths of a cent per person.
+      const price = formatRate(unit, locale)
       return <>{t('pricing.addons.sms.price', '{{price}} per person on your list', { price })}</>
     }
     case 'certificate': {
-      const price = formatCurrency(definition.unitCents, locale)
+      const price = formatCurrency(unit, locale)
       return <>{t('pricing.addons.certificate.price', '{{price}} per vote', { price })}</>
     }
     case 'branding': {
-      const price = formatCurrency(definition.unitCents, locale)
+      const price = formatCurrency(unit, locale)
       return <>{t('pricing.addons.branding.price', '{{price}} once', { price })}</>
     }
     case 'domain': {
-      const price = formatCurrency(definition.unitCents, locale)
+      const price = formatCurrency(unit, locale)
       return <>{t('pricing.addons.domain.price', '{{price}} once', { price })}</>
     }
   }
@@ -92,7 +97,7 @@ function AddonDescription({ addonKey }: { addonKey: AddonKey }) {
   }
 }
 
-function AddonRow({ addonKey, checked, onCheckedChange, locale }: AddonRowProps) {
+function AddonRow({ addonKey, checked, onCheckedChange, prices, locale }: AddonRowProps) {
   const { t } = useTranslation()
   const isSms = addonKey === 'sms'
   // The whole row is the label; the title names the checkbox and the description describes it.
@@ -114,7 +119,7 @@ function AddonRow({ addonKey, checked, onCheckedChange, locale }: AddonRowProps)
       </span>
 
       <span className='text-right text-sm tabular-nums text-muted-foreground group-has-[[data-state=checked]]:text-foreground'>
-        <AddonPrice addonKey={addonKey} locale={locale} />
+        <AddonPrice addonKey={addonKey} prices={prices} locale={locale} />
       </span>
 
       <span id={descriptionId} className='col-start-2 col-end-4 text-sm text-muted-foreground'>
@@ -150,6 +155,7 @@ export function AddonRows({ state, locale }: AddonRowsProps) {
               addonKey={key}
               checked={state.addons[key] === true}
               onCheckedChange={state.toggleAddon}
+              prices={state.addonPrices}
               locale={locale}
             />
           ))}
@@ -168,6 +174,7 @@ export function AddonRows({ state, locale }: AddonRowsProps) {
               addonKey={key}
               checked={state.addons[key] === true}
               onCheckedChange={state.toggleAddon}
+              prices={state.addonPrices}
               locale={locale}
             />
           ))}

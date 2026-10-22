@@ -46,6 +46,17 @@ vi.mock('motion/react', async (importOriginal) => {
 import PricingSection from '@/components/app/pricing/PricingSection'
 import { trackAnalyticsEvent } from '@/lib/analytics'
 
+import { PRICING_FIXTURES, fixtureKey, mockPricingFetch } from '../lib/pricing-fixtures'
+
+let fetchMock: ReturnType<typeof mockPricingFetch>
+
+/** The `voters` of every price request the calculator sent, leaving out the add-on price list. */
+const requestedVoters = () =>
+  fetchMock.mock.calls
+    .map(([url]) => fixtureKey(url))
+    .filter((key) => key !== '100 smsTwoFA signedCertificate branding customUrl')
+    .map((key) => Number(key.split(' ')[0]))
+
 // Globals expected by PricingRequestForm at render time
 function stubGlobals() {
   vi.stubGlobal('EMAILJS_PUBLIC_KEY', 'pk-test')
@@ -90,11 +101,29 @@ describe('PricingSection', () => {
   beforeEach(() => {
     stubGlobals()
     vi.clearAllMocks()
+    fetchMock = mockPricingFetch()
+    vi.stubGlobal('fetch', fetchMock)
   })
 
   it('renders the section with id="pricing"', () => {
     setup()
     expect(document.getElementById('pricing')).toBeInTheDocument()
+  })
+
+  it('shows a loading state, and no figure, until the backend answers', async () => {
+    setup()
+    expect(screen.getByText('Working out your price')).toBeInTheDocument()
+    expect(screen.queryByText(/€/)).not.toBeInTheDocument()
+    await waitFor(() => expect(screen.getAllByText('€109').length).toBeGreaterThanOrEqual(1))
+    expect(screen.queryByText('Working out your price')).not.toBeInTheDocument()
+  })
+
+  it('shows the add-on unit prices the backend sends', async () => {
+    setup()
+    await waitFor(() => expect(screen.getByText('€0.05 per person on your list')).toBeInTheDocument())
+    expect(screen.getByText('€39 per vote')).toBeInTheDocument()
+    expect(screen.getByText('€149 once')).toBeInTheDocument()
+    expect(screen.getByText('€99 once')).toBeInTheDocument()
   })
 
   it('default 200 people shows €109, per-person rate and VAT line', async () => {
@@ -105,32 +134,39 @@ describe('PricingSection', () => {
     expect(screen.getByText('≈ €131.89 with 21% VAT (Spain)')).toBeInTheDocument()
   })
 
-  it('typing "1.200" switches to 1,200 people and shows €383', async () => {
+  it('typing "1.200" asks for 1,200 people only once typing settles, and shows €383', async () => {
     const { user } = setup()
     const input = getPeopleInput()
     await user.clear(input)
     await user.type(input, '1.200')
     await waitFor(() => expect(screen.getAllByText('€383').length).toBeGreaterThanOrEqual(1), { timeout: 3000 })
+    // The debounce swallowed the counts in between (1, 12, 120).
+    expect(requestedVoters()).toContain(1200)
+    expect(requestedVoters()).not.toContain(12)
+    expect(requestedVoters()).not.toContain(120)
   })
 
-  it('typing "50" switches to free zone: shows Free, no + VAT, Create a free account link', async () => {
+  it('typing "20" switches to free zone: shows Free, no + VAT, Create a free account link', async () => {
     const { user } = setup()
     const input = getPeopleInput()
     await user.clear(input)
-    await user.type(input, '50')
+    await user.type(input, '20')
     await user.tab() // blur to stabilise
     await waitFor(() => expect(screen.getAllByText('Free').length).toBeGreaterThanOrEqual(1), { timeout: 3000 })
     expect(screen.queryByText('+ VAT')).not.toBeInTheDocument()
     expect(screen.getByRole('link', { name: /Create a free account/ })).toBeInTheDocument()
   })
 
-  it('typing "51" shows €33.66', async () => {
+  it('shows the minimum charge as its own line on a small vote with text messages', async () => {
     const { user } = setup()
     const input = getPeopleInput()
     await user.clear(input)
-    await user.type(input, '51')
+    await user.type(input, '10')
     await user.tab()
-    await waitFor(() => expect(screen.getAllByText('€33.66').length).toBeGreaterThanOrEqual(1), { timeout: 3000 })
+    await user.click(screen.getByRole('checkbox', { name: /Verification codes by text message/ }))
+    await waitFor(() => expect(screen.getByText('Minimum charge')).toBeInTheDocument(), { timeout: 3000 })
+    expect(screen.getByText('A vote with a charge costs at least €1.')).toBeInTheDocument()
+    expect(screen.getAllByText('€1').length).toBeGreaterThanOrEqual(1)
   })
 
   it('typing "50001" shows On request and Request a quote button', async () => {
@@ -145,6 +181,7 @@ describe('PricingSection', () => {
 
   it('clearing the input keeps the last estimate (€109) while still focused', async () => {
     const { user } = setup()
+    await waitFor(() => expect(screen.getAllByText('€109').length).toBeGreaterThanOrEqual(1))
     const input = getPeopleInput()
     await user.clear(input)
     // Input is focused and empty; voters still 200 → estimate unchanged
@@ -182,10 +219,11 @@ describe('PricingSection', () => {
     })
   })
 
-  it('names the slider thumb and reads the estimate as its value text', () => {
+  it('names the slider thumb and reads the estimate as its value text', async () => {
     setup()
     const slider = screen.getByRole('slider', { name: 'How many people can vote' })
-    expect(slider).toHaveAttribute('aria-valuetext', '200 people, €109 plus VAT')
+    expect(slider).toHaveAttribute('aria-valuetext', '200 people')
+    await waitFor(() => expect(slider).toHaveAttribute('aria-valuetext', '200 people, €109 plus VAT'))
   })
 
   it('slider ArrowRight from 200 people changes voters to 210', async () => {
@@ -193,7 +231,7 @@ describe('PricingSection', () => {
     const slider = screen.getByRole('slider')
     await user.click(slider)
     await user.keyboard('{ArrowRight}')
-    // 210 people: 100 x 0.66 + 110 x 0.43 = 11,330 cents, shown with two decimals
+    // 11,330 cents from the backend, shown with two decimals
     await waitFor(() => expect(screen.getAllByText('€113.30').length).toBeGreaterThanOrEqual(1), { timeout: 3000 })
   })
 
@@ -207,6 +245,7 @@ describe('PricingSection', () => {
 
   it('clicking Request this price reveals the form, focuses name field, and fires analytics', async () => {
     const { user } = setup()
+    await waitFor(() => expect(screen.getAllByText('€109').length).toBeGreaterThanOrEqual(1))
     // In standard zone (200 people) the primary CTA is a Button
     const requestBtn = screen.getByRole('button', { name: 'Request this price' })
     await user.click(requestBtn)
@@ -215,5 +254,59 @@ describe('PricingSection', () => {
     // Name input should receive focus via requestAnimationFrame → setFocus('name')
     await waitFor(() => expect(screen.getByLabelText(/Your name/)).toHaveFocus(), { timeout: 2000 })
     expect(trackAnalyticsEvent).toHaveBeenCalledWith(expect.objectContaining({ name: 'pricing_request_opened' }))
+  })
+
+  it('reports pricing_changed with the backend total after a change, not on load', async () => {
+    const { user } = setup()
+    await waitFor(() => expect(screen.getAllByText('€109').length).toBeGreaterThanOrEqual(1))
+    expect(trackAnalyticsEvent).not.toHaveBeenCalledWith(expect.objectContaining({ name: 'pricing_changed' }))
+    await user.click(screen.getByRole('checkbox', { name: /Verification codes by text message/ }))
+    await waitFor(() =>
+      expect(trackAnalyticsEvent).toHaveBeenCalledWith({
+        name: 'pricing_changed',
+        props: expect.objectContaining({ people: 200, total_cents: 11900, addon_sms: true, source: 'addon' }),
+      })
+    )
+  })
+
+  it('ignores a stale answer that lands after a newer one', async () => {
+    // The answer for 200 people is held back, and ignores the abort, until the one for 1,200 is on screen.
+    let release200: () => void = () => {}
+    let signal200: AbortSignal | undefined
+    const serve = mockPricingFetch()
+    fetchMock = vi.fn(async (url: string, init?: RequestInit) => {
+      if (fixtureKey(url) !== '200') return serve(url)
+      signal200 = init?.signal ?? undefined
+      await new Promise<void>((resolve) => (release200 = resolve))
+      return serve(url)
+    })
+    vi.stubGlobal('fetch', fetchMock)
+
+    const { user } = setup()
+    await waitFor(() => expect(requestedVoters()).toContain(200))
+    const input = getPeopleInput()
+    await user.clear(input)
+    await user.type(input, '1200')
+    await waitFor(() => expect(screen.getAllByText('€383').length).toBeGreaterThanOrEqual(1), { timeout: 3000 })
+    expect(signal200?.aborted).toBe(true)
+
+    release200()
+    await new Promise((resolve) => setTimeout(resolve, 50))
+    expect(screen.getAllByText('€383').length).toBeGreaterThanOrEqual(1)
+    expect(screen.queryByText('€109')).not.toBeInTheDocument()
+  })
+
+  it('shows "price unavailable" and keeps the request path when the backend cannot answer', async () => {
+    vi.stubGlobal(
+      'fetch',
+      vi.fn(async () => new Response('{}', { status: 503 }))
+    )
+    const { user } = setup()
+    await waitFor(() => expect(screen.getByText('Price unavailable')).toBeInTheDocument())
+    expect(screen.queryByText(/€/)).not.toBeInTheDocument()
+    expect(screen.getByText(/We cannot show the price right now/)).toBeInTheDocument()
+    await user.click(screen.getByRole('button', { name: 'Request this price' }))
+    await waitFor(() => expect(screen.getByLabelText(/Your name/)).toBeInTheDocument())
+    expect(screen.getByText('200 people')).toBeInTheDocument()
   })
 })

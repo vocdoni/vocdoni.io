@@ -4188,6 +4188,7 @@
       "slider_label": "Cuántas personas pueden votar",
       "slider_value": "{{people}} personas, {{total}} más IVA",
       "slider_value_free": "{{people}} personas, gratis",
+      "slider_value_people": "{{people}} personas",
       "slider_value_quote": "Más de {{limit}} personas, a consultar",
       "tick_more": "{{limit}}+"
     },
@@ -4216,20 +4217,22 @@
       "total": "Total de esta votación: {{total}} más IVA. {{perPerson}} por persona."
     },
     "panel": {
-      "band_line": "{{from}} - {{to}} a {{rate}} cada una",
       "free": "Gratis",
-      "how_text": "Cada precio se aplica solo a las personas dentro de ese tramo, por lo que las listas más grandes pagan menos por persona.",
-      "how_title": "Cómo se calcula",
       "line_branding": "Tu logo y colores",
       "line_certificate": "Informe de resultados firmado (PDF)",
       "line_domain": "Tu propia dirección web",
+      "line_minimum_charge": "Importe mínimo",
       "line_sms": "Códigos por SMS, {{people}} × {{unit}}",
       "line_vote": "Votación, {{people}} personas",
+      "loading": "Calculando tu precio",
+      "minimum_charge_note": "Una votación con coste cuesta como mínimo {{minimum}}.",
       "on_request": "A consultar",
       "one_time_note": "Se paga una vez, no con cada votación.",
       "one_time_title": "Pago único",
       "per_person": "{{price}} por persona que puede votar",
       "title": "Tu precio",
+      "unavailable": "Precio no disponible",
+      "unavailable_body": "Ahora mismo no podemos mostrar el precio. Solicítalo y te enviamos la cifra en un día hábil.",
       "vat_suffix": "+ IVA",
       "with_vat": "≈ {{total}} con el 21% de IVA (España)"
     },
@@ -4277,7 +4280,7 @@
     "zones": {
       "dedicated": "Una votación de este tamaño suele requerir una conversación. El precio de arriba se mantiene y tendrás una persona de contacto asignada.",
       "dedicated_badge": "Votación grande",
-      "free": "Esta votación es gratuita. Las votaciones con hasta 50 personas siempre son gratuitas; a partir de 51 personas se cobra toda la lista, lo que equivale a {{price}} para 51.",
+      "free": "Esta votación es gratuita. Las votaciones con hasta 25 personas siempre son gratuitas.",
       "quote": "Cuéntanos qué necesitas y te enviamos un precio en un día hábil."
     }
   },

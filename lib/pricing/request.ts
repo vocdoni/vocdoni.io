@@ -1,5 +1,5 @@
 import { PRICING_CONTACT_EMAIL, QUOTE_REQUIRED_ABOVE } from '@/lib/pricing/constants'
-import { type Estimate } from '@/lib/pricing/compute'
+import { type Addons, type Estimate } from '@/lib/pricing/compute'
 import { QUOTE_STOP } from '@/lib/pricing/ladder'
 import { buildReference } from '@/lib/pricing/reference'
 
@@ -9,6 +9,16 @@ export type PricingRequestValues = {
   organization: string
   message: string
   website: string
+}
+
+/**
+ * What the visitor asks about: the count and add-ons they chose and, when the backend answered, its price.
+ * `estimate` is null when the price could not be fetched; the request still goes out, without a figure.
+ */
+export type RequestedPrice = {
+  voters: number
+  addons: Addons
+  estimate: Estimate | null
 }
 
 export type PricingRequestContext = {
@@ -39,28 +49,33 @@ function fmtPeople(count: number): string {
  * Builds a plain-text English description of the estimate for the sales team email.
  * No HTML, no CRLF injection risk (all values are numbers or controlled strings).
  */
-export const describeEstimate = (estimate: Estimate, context: PricingRequestContext): string => {
+export const describeEstimate = (
+  { voters, addons, estimate }: RequestedPrice,
+  context: PricingRequestContext
+): string => {
   const lines: string[] = []
-  if (estimate.zone === 'quote') {
+  if (estimate?.zone === 'quote') {
     // Keep the typed count: it is the number sales needs to quote. The slider's terminal stop is a
     // sentinel, not a count, so it reads as "more than 50,000".
     const limit = fmtPeople(QUOTE_REQUIRED_ABOVE)
     const people =
-      estimate.voters === QUOTE_STOP
-        ? `more than ${limit}`
-        : `${fmtPeople(estimate.voters)} (more than ${limit}: on request)`
+      voters === QUOTE_STOP ? `more than ${limit}` : `${fmtPeople(voters)} (more than ${limit}: on request)`
     lines.push(`People who can vote: ${people}`)
     lines.push('Zone: quote')
     lines.push('Add-ons: n/a')
     lines.push('Total for this vote: on request')
   } else {
-    lines.push(`People who can vote: ${fmtPeople(estimate.voters)}`)
-    lines.push(`Zone: ${estimate.zone}`)
-    const addonKeys = estimate.addons.map((a) => a.key).join(', ') || 'none'
+    lines.push(`People who can vote: ${fmtPeople(voters)}`)
+    lines.push(`Zone: ${estimate ? estimate.zone : 'unknown'}`)
+    const addonKeys = (Object.keys(addons) as (keyof Addons)[]).filter((key) => addons[key]).join(', ') || 'none'
     lines.push(`Add-ons: ${addonKeys}`)
-    lines.push(`Total for this vote: ${fmtEur(estimate.totalThisVoteCents)} + VAT`)
-    lines.push(`VAT 21%: ${fmtEur(estimate.vatCents)}`)
-    lines.push(`One-time setup: ${fmtEur(estimate.oneTimeCents)}`)
+    if (estimate) {
+      lines.push(`Total for this vote: ${fmtEur(estimate.totalThisVoteCents)} + VAT`)
+      lines.push(`VAT 21%: ${fmtEur(estimate.vatCents)}`)
+      lines.push(`One-time setup: ${fmtEur(estimate.oneTimeCents)}`)
+    } else {
+      lines.push('Total for this vote: the calculator could not get a price, please quote')
+    }
   }
   lines.push(`Locale: ${context.locale}`)
   lines.push(`Page: ${context.pageUrl}`)
@@ -71,12 +86,14 @@ export const describeEstimate = (estimate: Estimate, context: PricingRequestCont
  * Builds the email subject line.
  * Format: "Pricing request VOC-2610-K7P3: 1,200 people, EUR 383.00 + VAT"
  * For the quote zone: "Pricing request VOC-...: more than 50,000 people, on request"
+ * Without a price: "Pricing request VOC-...: 1,200 people, price unavailable"
  */
-export const buildPricingSubject = (estimate: Estimate, reference: string): string => {
-  if (estimate.zone === 'quote') {
+export const buildPricingSubject = ({ voters, estimate }: RequestedPrice, reference: string): string => {
+  if (estimate?.zone === 'quote') {
     return `Pricing request ${reference}: more than ${fmtPeople(QUOTE_REQUIRED_ABOVE)} people, on request`
   }
-  return `Pricing request ${reference}: ${fmtPeople(estimate.voters)} people, ${fmtEur(estimate.totalThisVoteCents)} + VAT`
+  const price = estimate ? `${fmtEur(estimate.totalThisVoteCents)} + VAT` : 'price unavailable'
+  return `Pricing request ${reference}: ${fmtPeople(voters)} people, ${price}`
 }
 
 /** Collapses \r and \n to a single space, for use in single-line email fields. */
@@ -91,7 +108,7 @@ function collapseCrlf(value: string): string {
  */
 export const buildPricingEmailParams = (
   values: PricingRequestValues,
-  estimate: Estimate,
+  request: RequestedPrice,
   context: PricingRequestContext,
   token: string,
   now: Date = new Date()
@@ -105,8 +122,8 @@ export const buildPricingEmailParams = (
   'g-recaptcha-response': string
 } => {
   const reference = context.reference || buildReference(now)
-  const subject = buildPricingSubject(estimate, reference)
-  const estimateBlock = describeEstimate(estimate, context)
+  const subject = buildPricingSubject(request, reference)
+  const estimateBlock = describeEstimate(request, context)
   const userMessage = values.message.replace(/\r\n/g, '\n').replace(/\r/g, '\n')
   const message = userMessage ? `${userMessage}\n\n${estimateBlock}` : estimateBlock
 
@@ -127,11 +144,11 @@ export const buildPricingEmailParams = (
  */
 export const buildPricingMailto = (
   values: PricingRequestValues,
-  estimate: Estimate,
+  request: RequestedPrice,
   context: PricingRequestContext
 ): string => {
-  const subject = buildPricingSubject(estimate, context.reference)
-  const estimateBlock = describeEstimate(estimate, context)
+  const subject = buildPricingSubject(request, context.reference)
+  const estimateBlock = describeEstimate(request, context)
   const userMessage = values.message.replace(/\r\n/g, '\n').replace(/\r/g, '\n')
   const body = userMessage ? `${userMessage}\n\n${estimateBlock}` : estimateBlock
 

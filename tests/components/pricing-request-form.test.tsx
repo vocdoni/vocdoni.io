@@ -63,8 +63,11 @@ vi.mock('motion/react', async (importOriginal) => {
 
 // Must come after vi.mock calls
 import { PricingRequestForm } from '@/components/app/pricing/PricingRequestForm'
-import { computeEstimate } from '@/lib/pricing/compute'
+import { estimateFromQuote } from '@/lib/pricing/compute'
+import type { RequestedPrice } from '@/lib/pricing/request'
 import { send } from '@emailjs/browser'
+
+import { PRICING_FIXTURES } from '../lib/pricing-fixtures'
 
 const sendMock = vi.mocked(send)
 
@@ -92,13 +95,17 @@ function stubGlobals() {
   Element.prototype.scrollIntoView = vi.fn()
 }
 
-const estimate = computeEstimate(1200, {})
+const request: RequestedPrice = {
+  voters: 1200,
+  addons: {},
+  estimate: estimateFromQuote(1200, PRICING_FIXTURES['1200']),
+}
 
 type OnSentCallback = (info: { reference: string; hasMessage: boolean }) => void
 
 function setup(onSent?: OnSentCallback) {
   const user = userEvent.setup()
-  render(<PricingRequestForm estimate={estimate} locale='en' open onSent={onSent} />)
+  render(<PricingRequestForm request={request} locale='en' open onSent={onSent} />)
   return { user }
 }
 
@@ -116,7 +123,7 @@ describe('PricingRequestForm', () => {
   })
 
   it('renders nothing when open={false}', () => {
-    render(<PricingRequestForm estimate={estimate} locale='en' open={false} />)
+    render(<PricingRequestForm request={request} locale='en' open={false} />)
     expect(screen.queryByLabelText(/Your name/)).not.toBeInTheDocument()
   })
 
@@ -180,6 +187,18 @@ describe('PricingRequestForm', () => {
     await waitFor(() => expect(screen.getByText('Request received')).toBeInTheDocument(), { timeout: 3000 })
     expect(sendMock).not.toHaveBeenCalled()
     expect(onSent).not.toHaveBeenCalled()
+  })
+
+  it('sends a request without a price when the calculator could not get one', async () => {
+    const user = userEvent.setup()
+    render(<PricingRequestForm request={{ voters: 1200, addons: {}, estimate: null }} locale='en' open />)
+    expect(screen.queryByText(/\+ VAT/)).not.toBeInTheDocument()
+    await fillForm(user)
+    await user.click(screen.getByRole('button', { name: /Send request/ }))
+    await user.click(await screen.findByTestId('recaptcha'))
+    await waitFor(() => expect(sendMock).toHaveBeenCalledTimes(1))
+    const [, , params] = sendMock.mock.calls[0]
+    expect((params as Record<string, string>).subject).toMatch(/: 1,200 people, price unavailable$/)
   })
 
   it('when send rejects, shows Send it by email with a mailto: href', async () => {

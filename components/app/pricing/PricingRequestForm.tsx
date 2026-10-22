@@ -14,7 +14,6 @@ import { Textarea } from '@/components/ui/textarea'
 import { useAppAuthUrl } from '@/hooks/useAppAuthUrl'
 import { getContactFormConfigError } from '@/lib/contactForm'
 import { setCookieConsent } from '@/lib/cookieConsent'
-import { type Estimate } from '@/lib/pricing/compute'
 import { formatCurrency, formatPeople } from '@/lib/pricing/format'
 import { buildReference } from '@/lib/pricing/reference'
 import {
@@ -22,6 +21,7 @@ import {
   buildPricingMailto,
   type PricingRequestContext,
   type PricingRequestValues,
+  type RequestedPrice,
 } from '@/lib/pricing/request'
 import { useIsClient } from '@/lib/useIsClient'
 import { cn } from '@/lib/utils'
@@ -29,7 +29,7 @@ import { cn } from '@/lib/utils'
 type SubmissionStatus = 'idle' | 'loading' | 'success' | 'error' | 'captcha_error'
 
 type PricingRequestFormProps = {
-  estimate: Estimate
+  request: RequestedPrice
   locale: string
   open: boolean
   /** Bumped by the section on every "request" click, so a finished form can be opened again. */
@@ -37,7 +37,8 @@ type PricingRequestFormProps = {
   onSent?: (info: { reference: string; hasMessage: boolean }) => void
 }
 
-export function PricingRequestForm({ estimate, locale, open, openCount = 0, onSent }: PricingRequestFormProps) {
+export function PricingRequestForm({ request, locale, open, openCount = 0, onSent }: PricingRequestFormProps) {
+  const { estimate } = request
   const { t } = useTranslation()
   const [status, setStatus] = useState<SubmissionStatus>('idle')
   const [showRecaptcha, setShowRecaptcha] = useState(false)
@@ -78,7 +79,7 @@ export function PricingRequestForm({ estimate, locale, open, openCount = 0, onSe
     if (!data || !ctx) return
 
     try {
-      const params = buildPricingEmailParams(data, estimate, ctx, token)
+      const params = buildPricingEmailParams(data, request, ctx, token)
       await send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, params, EMAILJS_PUBLIC_KEY)
       setStatus('success')
       reset()
@@ -134,7 +135,7 @@ export function PricingRequestForm({ estimate, locale, open, openCount = 0, onSe
 
   if (!open) return null
 
-  const isQuote = estimate.zone === 'quote'
+  const isQuote = estimate?.zone === 'quote'
   const title = isQuote
     ? t('pricing.request.title_quote', 'Request a quote')
     : t('pricing.request.title', 'Request this price')
@@ -170,7 +171,7 @@ export function PricingRequestForm({ estimate, locale, open, openCount = 0, onSe
             >
               {t('pricing.request.book_call', 'Book a call')}
             </CalBookingDialog>
-            {estimate.zone === 'free' && (
+            {estimate?.zone === 'free' && (
               <Button size='lg' className='w-full sm:w-auto has-[>svg]:px-6' asChild>
                 <Link href={signupUrl} ctaId='pricing_request_signup' target='_blank' variant='unstyled'>
                   {t('pricing.request.create_account', 'Create your free account')}
@@ -185,7 +186,7 @@ export function PricingRequestForm({ estimate, locale, open, openCount = 0, onSe
 
   // Error state: replaces the form with mailto fallback
   if (status === 'error' && formData && pendingContext) {
-    const mailto = buildPricingMailto(formData, estimate, pendingContext)
+    const mailto = buildPricingMailto(formData, request, pendingContext)
     return (
       <div id='pricing-request' className='rounded-card border border-border bg-background p-5 sm:p-8'>
         <div className='flex flex-col gap-5'>
@@ -214,8 +215,9 @@ export function PricingRequestForm({ estimate, locale, open, openCount = 0, onSe
   }
 
   // Chips: configuration summary shown above the form
-  const showTotalChip = estimate.priceAvailable && (estimate.zone !== 'free' || estimate.totalThisVoteCents > 0)
-  const showOneTimeChip = estimate.oneTimeCents > 0
+  const showTotalChip =
+    !!estimate && estimate.priceAvailable && (estimate.zone !== 'free' || estimate.totalThisVoteCents > 0)
+  const showOneTimeChip = !!estimate && estimate.oneTimeCents > 0
 
   const chipClass = 'rounded-full border border-border bg-secondary px-3 py-1 text-sm tabular-nums'
 
@@ -237,7 +239,7 @@ export function PricingRequestForm({ estimate, locale, open, openCount = 0, onSe
         <div className='flex flex-wrap gap-2'>
           <span className={chipClass}>
             {t('pricing.request.chip_people', '{{people}} people', {
-              people: formatPeople(estimate.voters, locale),
+              people: formatPeople(request.voters, locale),
             })}
           </span>
           {showTotalChip && (

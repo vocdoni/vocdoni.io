@@ -4188,6 +4188,7 @@
       "slider_label": "Wie viele Personen können abstimmen",
       "slider_value": "{{people}} Personen, {{total}} zzgl. MwSt.",
       "slider_value_free": "{{people}} Personen, kostenlos",
+      "slider_value_people": "{{people}} Personen",
       "slider_value_quote": "Mehr als {{limit}} Personen, auf Anfrage",
       "tick_more": "{{limit}}+"
     },
@@ -4216,20 +4217,22 @@
       "total": "Gesamtbetrag für diese Abstimmung: {{total}} zzgl. MwSt. {{perPerson}} pro Person."
     },
     "panel": {
-      "band_line": "{{from}} - {{to}} à {{rate}} pro Person",
       "free": "Kostenlos",
-      "how_text": "Jeder Preis gilt nur für die Personen in diesem Bereich, daher zahlen größere Listen weniger pro Person.",
-      "how_title": "So wird das berechnet",
       "line_branding": "Dein Logo und deine Farben",
       "line_certificate": "Signierter Ergebnisbericht (PDF)",
       "line_domain": "Deine eigene Webadresse",
+      "line_minimum_charge": "Mindestbetrag",
       "line_sms": "SMS-Codes, {{people}} × {{unit}}",
       "line_vote": "Abstimmung, {{people}} Personen",
+      "loading": "Dein Preis wird berechnet",
+      "minimum_charge_note": "Eine kostenpflichtige Abstimmung kostet mindestens {{minimum}}.",
       "on_request": "Auf Anfrage",
       "one_time_note": "Wird einmal bezahlt, nicht bei jeder Abstimmung.",
       "one_time_title": "Einmalige Einrichtung",
       "per_person": "{{price}} pro Person, die abstimmen kann",
       "title": "Dein Preis",
+      "unavailable": "Preis nicht verfügbar",
+      "unavailable_body": "Wir können den Preis gerade nicht anzeigen. Frag ihn an, und wir schicken ihn dir innerhalb eines Geschäftstages.",
       "vat_suffix": "+ MwSt.",
       "with_vat": "≈ {{total}} mit 21 % MwSt. (Spanien)"
     },
@@ -4277,7 +4280,7 @@
     "zones": {
       "dedicated": "Eine Abstimmung dieser Größe braucht normalerweise ein Gespräch. Der Preis oben gilt weiterhin, und du bekommst eine feste Ansprechperson.",
       "dedicated_badge": "Große Abstimmung",
-      "free": "Diese Abstimmung ist kostenlos. Abstimmungen mit bis zu 50 Personen sind immer kostenlos; ab 51 Personen wird die ganze Liste berechnet, bei 51 sind das {{price}}.",
+      "free": "Diese Abstimmung ist kostenlos. Abstimmungen mit bis zu 25 Personen sind immer kostenlos.",
       "quote": "Sag uns, was du brauchst, und wir schicken dir innerhalb eines Geschäftstages einen Preis."
     }
   },

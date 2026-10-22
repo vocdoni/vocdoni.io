@@ -1,15 +1,18 @@
-import { FREE_TIER, QUOTE_REQUIRED_ABOVE, VOTER_BANDS } from '@/lib/pricing/constants'
+import { QUOTE_REQUIRED_ABOVE } from '@/lib/pricing/constants'
 
 /** The last stop on the slider; one above the quote threshold, representing "more than 50,000". */
 export const QUOTE_STOP = QUOTE_REQUIRED_ABOVE + 1 // 50001
 
 /**
- * The slider ladder. Steps:
- *   1..50 by 1, 55..100 by 5, 110..500 by 10, 525..1000 by 25,
+ * The slider ladder: finer steps where a few people change the price most. Each segment ends on an edge
+ * of the published price list (free up to 25, then 100, 500, 1,000, 5,000, 15,000 and 50,000), which
+ * the slider marks with a tick. The edges are layout only; every price comes from the backend.
+ * Steps:
+ *   1..25 by 1, 30..100 by 5, 110..500 by 10, 525..1000 by 25,
  *   1050..5000 by 50, 5100..15000 by 100, 15250..50000 by 250, then QUOTE_STOP.
  */
 const LADDER_SEGMENTS = [
-  { upTo: 50, step: 1 },
+  { upTo: 25, step: 1 },
   { upTo: 100, step: 5 },
   { upTo: 500, step: 10 },
   { upTo: 1000, step: 25 },
@@ -18,21 +21,12 @@ const LADDER_SEGMENTS = [
   { upTo: 50000, step: 250 },
 ] as const
 
-// Verify that segment upTo values align with FREE_TIER.maxVoters and every band boundary.
-const expectedUpTos = [FREE_TIER.maxVoters, ...VOTER_BANDS.map((b) => b.upTo)]
-const actualUpTos = LADDER_SEGMENTS.map((s) => s.upTo)
-for (let i = 0; i < expectedUpTos.length; i++) {
-  if (actualUpTos[i] !== expectedUpTos[i]) {
-    throw new Error(`Ladder segment ${i} upTo ${actualUpTos[i]} does not match expected ${expectedUpTos[i]}`)
-  }
-}
-
 function buildLadder(): readonly number[] {
   const stops: number[] = []
   let prevUpTo = 0
   for (const { upTo, step } of LADDER_SEGMENTS) {
     // Each segment starts at prevUpTo + thisStep so the first stop aligns with the step grid.
-    // e.g. after the 1-step segment that ends at 50, the 5-step segment starts at 55.
+    // e.g. after the 1-step segment that ends at 25, the 5-step segment starts at 30.
     const from = prevUpTo + step
     for (let v = from; v <= upTo; v += step) {
       stops.push(v)
@@ -46,12 +40,10 @@ function buildLadder(): readonly number[] {
 export const LADDER: readonly number[] = buildLadder()
 
 /**
- * Indexes into LADDER of the band-edge stops (50, 100, 500, 1000, 5000, 15000, 50000).
+ * Indexes into LADDER of the band-edge stops (25, 100, 500, 1000, 5000, 15000, 50000).
  * Used to render tick marks and drive PageUp/PageDown navigation.
  */
-export const bandEdgeIndexes: readonly number[] = [FREE_TIER.maxVoters, ...VOTER_BANDS.map((b) => b.upTo)].map((v) =>
-  LADDER.indexOf(v)
-) as readonly number[]
+export const bandEdgeIndexes: readonly number[] = LADDER_SEGMENTS.map(({ upTo }) => LADDER.indexOf(upTo))
 
 /**
  * Returns the ladder index for the stop nearest to `voters`.

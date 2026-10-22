@@ -4189,6 +4189,7 @@
       "slider_label": "How many people can vote",
       "slider_value": "{{people}} people, {{total}} plus VAT",
       "slider_value_free": "{{people}} people, free",
+      "slider_value_people": "{{people}} people",
       "slider_value_quote": "More than {{limit}} people, on request",
       "tick_more": "{{limit}}+"
     },
@@ -4217,20 +4218,22 @@
       "total": "Total for this vote: {{total}} plus VAT. {{perPerson}} per person."
     },
     "panel": {
-      "band_line": "{{from}} - {{to}} at {{rate}} each",
       "free": "Free",
-      "how_text": "Each price applies only to the people inside that range, so bigger lists pay less per person.",
-      "how_title": "How this is worked out",
       "line_branding": "Your logo and colours",
       "line_certificate": "Signed results report (PDF)",
       "line_domain": "Your own web address",
+      "line_minimum_charge": "Minimum charge",
       "line_sms": "Text-message codes, {{people}} × {{unit}}",
       "line_vote": "Vote, {{people}} people",
+      "loading": "Working out your price",
+      "minimum_charge_note": "A vote with a charge costs at least {{minimum}}.",
       "on_request": "On request",
       "one_time_note": "Paid once, not with every vote.",
       "one_time_title": "One-time setup",
       "per_person": "{{price}} per person who can vote",
       "title": "Your price",
+      "unavailable": "Price unavailable",
+      "unavailable_body": "We cannot show the price right now. Request it and we send you the figure within one business day.",
       "vat_suffix": "+ VAT",
       "with_vat": "≈ {{total}} with 21% VAT (Spain)"
     },
@@ -4278,7 +4281,7 @@
     "zones": {
       "dedicated": "A vote this size usually needs a conversation. The price above holds, and you get a dedicated contact.",
       "dedicated_badge": "Large vote",
-      "free": "This vote is free. Votes with up to 50 people are always free; from 51 people the whole list is priced, which is {{price}} for 51.",
+      "free": "This vote is free. Votes with up to 25 people are always free.",
       "quote": "Tell us what you need and we send a figure within one business day."
     }
   },
