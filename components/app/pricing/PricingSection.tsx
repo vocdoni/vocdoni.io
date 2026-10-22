@@ -115,7 +115,7 @@ export default function PricingSection() {
             title={t('pricing.title', 'Pay once per vote. No subscription.')}
             lede={t(
               'pricing.lede',
-              'The price depends on how many people can vote, not on how many turn up. Votes with up to 50 people are free, and anonymous, verifiable voting is always included.'
+              'The price depends on how many people can vote, not on how many turn up. Votes with up to 25 people are free, and anonymous, verifiable voting is always included.'
             )}
           />
         </MotionPreset>

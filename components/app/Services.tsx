@@ -12,7 +12,7 @@ export default function Services() {
   const appSignupUrl = useAppAuthUrl()
 
   const bullets = [
-    t('app_landing.cta.free', 'Free for votes with up to 50 people'),
+    t('app_landing.cta.free', 'Free for votes with up to 25 people'),
     t('app_landing.cta.credit_card', 'No credit card required'),
     t('app_landing.cta.pricing', 'Prices published, pay per vote'),
   ]
@@ -32,7 +32,7 @@ export default function Services() {
               <p className='mt-4 max-w-2xl text-lg leading-8 text-muted-foreground'>
                 {t(
                   'app_landing.cta.description',
-                  'Run a free vote with up to 50 people, see how it works with your own members, and pay per vote only when your list grows.'
+                  'Run a free vote with up to 25 people, see how it works with your own members, and pay per vote only when your list grows.'
                 )}
               </p>
               <div className='mt-8 flex flex-col gap-3 sm:flex-row sm:items-center'>
