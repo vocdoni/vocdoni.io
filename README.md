@@ -95,6 +95,7 @@ Create a `.env.local` file to override any variable locally. All of the followin
 | `POSTHOG_KEY` | Public PostHog browser-ingestion key. Must be the **same** `phc_` key as app.vocdoni.io |
 | `POSTHOG_HOST` | PostHog browser-ingestion host |
 | `PLAUSIBLE_DOMAIN` | Plausible Analytics domain |
+| `PRICING_API_URL` | SaaS backend the pricing calculator reads `GET /pricing` from (defaults to production, allowlisted in the CSP) |
 | `RECAPTCHA_SITE_KEY` | reCAPTCHA v3 site key |
 | `SITE_URL` | Public base URL (used for canonical tags and sitemaps) |
 | `NOINDEX` | Set to `true` on non-production deploys to keep them out of search indexes |

@@ -7,6 +7,8 @@ declare const NOINDEX: boolean
 // Product URLs (app + integrator dashboard) defined in vite.config.ts
 declare const APP_URL: string
 declare const PLATFORM_URL: string
+// SaaS backend serving the public price list (GET /pricing), defined in vite.config.ts
+declare const PRICING_API_URL: string
 declare const GTM_ID: string
 declare const POSTHOG_KEY: string
 declare const POSTHOG_HOST: string

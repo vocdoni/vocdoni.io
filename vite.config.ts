@@ -12,13 +12,15 @@ import { docsMarkdownPlugin } from './plugins/docs-markdown'
 import { keystaticApiPlugin } from './plugins/keystatic-api'
 import { legacyRedirectsPlugin } from './plugins/legacy-redirects'
 import { vikeSitemapPlugin } from './plugins/vike-sitemap'
-import { DEFAULT_POSTHOG_HOST, wellKnownPlugin } from './plugins/well-known'
+import { DEFAULT_POSTHOG_HOST, DEFAULT_PRICING_API_URL, wellKnownPlugin } from './plugins/well-known'
 
 const viteconfig = ({ mode }: ConfigEnv) => {
   process.env = { ...process.env, ...loadEnv(mode, process.cwd(), '') }
 
   // Shared by the POSTHOG_HOST define and the CSP connect-src in _headers, so they cannot drift.
   const posthogHost = process.env.POSTHOG_HOST || DEFAULT_POSTHOG_HOST
+  // Same for the pricing calculator's API (lib/pricing/api.ts): the define and the CSP share it.
+  const pricingApiUrl = process.env.PRICING_API_URL || DEFAULT_PRICING_API_URL
 
   let commitSha = 'unknown'
   try {
@@ -62,6 +64,7 @@ const viteconfig = ({ mode }: ConfigEnv) => {
         locales,
         noindex,
         posthogHost,
+        pricingApiUrl,
       }),
       ardPlugin({
         hostname: siteUrl,
@@ -95,6 +98,7 @@ const viteconfig = ({ mode }: ConfigEnv) => {
       NOINDEX: JSON.stringify(noindex),
       APP_URL: JSON.stringify(process.env.APP_URL || 'https://app.vocdoni.io'),
       PLATFORM_URL: JSON.stringify(process.env.PLATFORM_URL || 'https://platform.vocdoni.io'),
+      PRICING_API_URL: JSON.stringify(pricingApiUrl),
       PLAUSIBLE_DOMAIN: JSON.stringify(process.env.PLAUSIBLE_DOMAIN || ''),
       GTM_ID: JSON.stringify(process.env.GTM_ID || ''),
       POSTHOG_KEY: JSON.stringify(process.env.POSTHOG_KEY || ''),
