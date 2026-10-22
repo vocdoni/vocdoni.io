@@ -254,8 +254,8 @@ export function EstimatePanel({ state, locale, onRequest }: EstimatePanelProps) 
           </div>
         )}
 
-        {/* Zone slot */}
-        {zone === 'free' && (
+        {/* Zone slot: "this vote is free" only while nothing is charged (add-ons still are) */}
+        {isFreeNoCharge && (
           <div className='mt-4 flex gap-2 text-sm text-surface-dark-foreground/80'>
             <CheckIcon className='mt-0.5 size-4 shrink-0' aria-hidden />
             <span>{t('pricing.zones.free', 'This vote is free. Votes with up to 25 people are always free.')}</span>
