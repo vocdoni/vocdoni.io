@@ -23,7 +23,9 @@ import { reportSectionView } from '@/lib/sectionView'
 
 export default function PricingSection() {
   const { t } = useTranslation()
-  const locale = (usePageContext().locale as string) ?? 'en'
+  const pageContext = usePageContext()
+  const locale = (pageContext.locale as string) ?? 'en'
+  const isHydration = 'isHydration' in pageContext && pageContext.isHydration === true
   const state = usePricingEstimate()
   // Counted rather than boolean so a second click scrolls again and reopens a finished form.
   const [requestOpenCount, setRequestOpenCount] = useState(0)
@@ -48,6 +50,35 @@ export default function PricingSection() {
     )
     observer.observe(el)
     return () => observer.disconnect()
+  }, [])
+
+  // Opening /app#pricing directly: the browser jumps to the section before everything above it has its
+  // final height (images, fonts, and in dev the CSS), so it lands a little off target. Once the page has
+  // loaded, line it up again, unless the visitor has scrolled already. Only on the first render of a page
+  // load: client-side navigation scrolls to the hash after rendering and lands correctly on its own.
+  useEffect(() => {
+    const el = sectionRef.current
+    if (!el || !isHydration || window.location.hash !== `#${el.id}`) return
+    let cancelled = false
+    const cancel = () => {
+      cancelled = true
+    }
+    const userEvents = ['wheel', 'touchstart', 'keydown', 'mousedown'] as const
+    userEvents.forEach((type) => window.addEventListener(type, cancel, { passive: true, once: true }))
+    const loaded =
+      document.readyState === 'complete'
+        ? Promise.resolve()
+        : new Promise((resolve) => window.addEventListener('load', resolve, { once: true }))
+    Promise.all([loaded, document.fonts?.ready]).then(() =>
+      requestAnimationFrame(() => {
+        // 'instant' overrides the page's smooth scroll-behavior: this is a correction, not a movement.
+        if (!cancelled) el.scrollIntoView({ block: 'start', behavior: 'instant' })
+      })
+    )
+    return () => {
+      cancel()
+      userEvents.forEach((type) => window.removeEventListener(type, cancel))
+    }
   }, [])
 
   // pricing_changed once a new price arrives (the hook already debounces the requests); the default
@@ -112,10 +143,10 @@ export default function PricingSection() {
             size='section'
             align='center'
             eyebrow={t('pricing.eyebrow', 'Pricing')}
-            title={t('pricing.title', 'Pay once per vote. No subscription.')}
+            title={t('pricing.title', 'Clear pricing for every vote.')}
             lede={t(
               'pricing.lede',
-              'The price depends on how many people can vote, not on how many turn up. Votes with up to 25 people are free, and anonymous, verifiable voting is always included.'
+              'Free for up to 25 people, with anonymous, verifiable voting always included. These prices apply to the Vocdoni App and to integrations; with integrations, email codes are charged separately.'
             )}
           />
         </MotionPreset>
@@ -139,7 +170,7 @@ export default function PricingSection() {
 
         <MotionPreset fade slide={{ direction: 'up', offset: 24 }} delay={0.15} transition={{ duration: 0.5 }}>
           <div className='mt-12 lg:mt-16'>
-            <IncludedList />
+            <IncludedList onRequest={handleRequest} />
           </div>
         </MotionPreset>
 

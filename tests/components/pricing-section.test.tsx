@@ -126,12 +126,12 @@ describe('PricingSection', () => {
     expect(screen.getByText('€99 once')).toBeInTheDocument()
   })
 
-  it('default 200 people shows €109, per-person rate and VAT line', async () => {
+  it('default 200 people shows €109 and the per-person rate, without a VAT-included figure', async () => {
     setup()
     // There are two €109 occurrences: the spring figure and the vote breakdown row
     await waitFor(() => expect(screen.getAllByText('€109').length).toBeGreaterThanOrEqual(1))
     expect(screen.getByText('€0.545 per person who can vote')).toBeInTheDocument()
-    expect(screen.getByText('≈ €131.89 with 21% VAT (Spain)')).toBeInTheDocument()
+    expect(screen.queryByText(/with 21% VAT/)).not.toBeInTheDocument()
   })
 
   it('typing "1.200" asks for 1,200 people only once typing settles, and shows €383', async () => {

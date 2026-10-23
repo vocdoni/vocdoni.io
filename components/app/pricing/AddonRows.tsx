@@ -22,7 +22,7 @@ interface AddonRowProps {
   locale: string
 }
 
-function AddonTitle({ addonKey }: { addonKey: AddonKey }) {
+export function AddonTitle({ addonKey }: { addonKey: AddonKey }) {
   const { t } = useTranslation()
   switch (addonKey) {
     case 'sms':
@@ -79,7 +79,7 @@ function AddonDescription({ addonKey }: { addonKey: AddonKey }) {
         <>
           {t(
             'pricing.addons.certificate.description',
-            'A PDF that proves the published result matches the recorded votes, to attach to your minutes.'
+            'A PDF with the full record of your vote: how it ran, the results and how anyone can verify them. Ready to attach to your minutes.'
           )}
         </>
       )
@@ -88,12 +88,19 @@ function AddonDescription({ addonKey }: { addonKey: AddonKey }) {
         <>
           {t(
             'pricing.addons.branding.description',
-            'Your branding on the voting page and emails, with no Vocdoni logo, for every future vote.'
+            'Your branding on the voting page and emails, for every future vote.'
           )}
         </>
       )
     case 'domain':
-      return <>{t('pricing.addons.domain.description', 'People vote at an address like vote.yourorganisation.org.')}</>
+      return (
+        <>
+          {t(
+            'pricing.addons.domain.description',
+            'People vote at an address like yourorganisation.vocdoni.vote. A domain of your own is also possible, on request.'
+          )}
+        </>
+      )
   }
 }
 

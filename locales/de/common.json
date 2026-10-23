@@ -4157,17 +4157,17 @@
   "pricing": {
     "addons": {
       "branding": {
-        "description": "Dein Branding auf der Abstimmungsseite und in E-Mails, ohne Vocdoni-Logo, für jede zukünftige Abstimmung.",
+        "description": "Dein Branding auf der Abstimmungsseite und in E-Mails, für jede zukünftige Abstimmung.",
         "price": "{{price}} einmalig",
         "title": "Dein Logo und deine Farben"
       },
       "certificate": {
-        "description": "Ein PDF, das beweist, dass das veröffentlichte Ergebnis mit den aufgezeichneten Stimmen übereinstimmt, zum Anhängen an dein Protokoll.",
+        "description": "Ein PDF mit dem vollständigen Protokoll deiner Abstimmung: wie sie abgelaufen ist, die Ergebnisse und wie alle sie überprüfen können. Bereit zum Anhängen an dein Sitzungsprotokoll.",
         "price": "{{price}} pro Abstimmung",
         "title": "Signierter Ergebnisbericht (PDF)"
       },
       "domain": {
-        "description": "Wählende stimmen unter einer Adresse wie abstimmung.deineorganisation.de ab.",
+        "description": "Wählende stimmen unter einer Adresse wie deineorganisation.vocdoni.vote ab. Eine eigene Domain ist auf Anfrage ebenfalls möglich.",
         "price": "{{price}} einmalig",
         "title": "Deine eigene Webadresse"
       },
@@ -4202,15 +4202,37 @@
     },
     "eyebrow": "Preise",
     "included": {
-      "item_1": "Niemand kann einen Stimmzettel mit der Person verknüpfen, die ihn abgegeben hat",
-      "item_2": "Jede wählende Person kann prüfen, dass ihre Stimme gezählt wurde",
-      "item_3": "Ergebnisse, die jeder überprüfen kann, in einem öffentlichen Register",
-      "item_4": "Wählende identifizieren sich mit einem Code, der per E-Mail gesendet wird (keine App, kein Konto)",
-      "item_5": "So viele Fragen, wie du brauchst, und Live-Ergebnisse",
-      "item_6": "Die Abstimmungsseite in der Sprache deiner Wählenden",
-      "title": "Alles inbegriffen"
+      "custom": {
+        "body": "Das ist die Basis jeder Abstimmung. Individuelle Funktionen, andere Anmeldearten für Wählende oder alles, was deine Abstimmung sonst braucht: frag uns, wir setzen es um.",
+        "cta": "Frag uns",
+        "title": "Du brauchst mehr?"
+      },
+      "organisers": {
+        "item_1": "So viele Fragen, wie du brauchst, mit Einfach- oder Mehrfachauswahl",
+        "item_2": "Gewichtete Abstimmung nach dem Stimmgewicht jedes Mitglieds",
+        "item_3": "Importiere deine Wählerliste aus einer Tabelle",
+        "item_4": "Live-Ergebnisse oder Ergebnisse erst nach Abstimmungsende",
+        "item_5": "Live-Beteiligung, solange die Abstimmung läuft",
+        "item_6": "Sofort starten oder planen, pausieren oder vorzeitig beenden",
+        "title": "Werkzeuge für Organisierende"
+      },
+      "security": {
+        "item_1": "Niemand kann einen Stimmzettel mit der Person verknüpfen, die ihn abgegeben hat",
+        "item_2": "Jede wählende Person kann prüfen, dass ihre Stimme gezählt wurde",
+        "item_3": "Ergebnisse, die jeder überprüfen kann",
+        "item_4": "Niemand, nicht einmal Vocdoni, kann das Ergebnis ändern",
+        "title": "Sicher und überprüfbar"
+      },
+      "subtitle": "Jede Abstimmung enthält all das, ohne Zusatzkosten.",
+      "title": "Alles inbegriffen",
+      "voters": {
+        "item_1": "Wählende melden sich mit den Zugangsdaten an, die du festlegst, optional mit einem Code per E-Mail",
+        "item_2": "Funktioniert auf jedem Smartphone, Tablet oder Computer",
+        "item_3": "Die Abstimmungsseite in der Sprache deiner Wählenden",
+        "title": "Einfach für Wählende"
+      }
     },
-    "lede": "Der Preis richtet sich nach der Zahl der stimmberechtigten Personen, nicht nach der Beteiligung. Abstimmungen mit bis zu 25 Personen sind kostenlos, und anonymes, verifizierbares Abstimmen ist immer inbegriffen.",
+    "lede": "Kostenlos bis 25 Personen, mit anonymer, überprüfbarer Abstimmung immer inklusive. Diese Preise gelten für die Vocdoni App und für Integrationen; bei Integrationen werden E-Mail-Codes separat berechnet.",
     "live": {
       "free": "Diese Abstimmung ist kostenlos.",
       "quote": "Mehr als {{limit}} Personen: auf Anfrage.",
@@ -4231,23 +4253,32 @@
       "one_time_title": "Einmalige Einrichtung",
       "per_person": "{{price}} pro Person, die abstimmen kann",
       "title": "Dein Preis",
+      "total_note": "Die Einrichtung bezahlst du nur einmal. Deine Organisation behält sie für alle zukünftigen Abstimmungen.",
+      "total_sum": "{{vote}} für diese Abstimmung + {{setup}} einmalige Einrichtung",
+      "total_title": "Gesamt, Einrichtung inklusive",
       "unavailable": "Preis nicht verfügbar",
       "unavailable_body": "Wir können den Preis gerade nicht anzeigen. Frag ihn an, und wir schicken ihn dir innerhalb eines Geschäftstages.",
-      "vat_suffix": "+ MwSt.",
-      "with_vat": "≈ {{total}} mit 21 % MwSt. (Spanien)"
+      "vat_suffix": "+ MwSt."
     },
     "request": {
       "book_call": "Gespräch vereinbaren",
       "captcha_error": "reCAPTCHA-Überprüfung fehlgeschlagen. Bitte versuch es erneut.",
-      "chip_one_time": "Einmalige Einrichtung {{total}}",
+      "chip_full_total": "Gesamt {{total}} + MwSt.",
       "chip_people": "{{people}} Personen",
-      "chip_total": "{{total}} + MwSt.",
+      "country": "Land",
+      "country_placeholder": "Wähle dein Land",
       "create_account": "Kostenloses Konto erstellen",
       "email": "E-Mail",
       "error_body": "Schicke sie stattdessen per E-Mail; wir haben alles schon für dich ausgefüllt.",
-      "error_cta": "Per E-Mail senden",
+      "error_copied": "Kopiert",
+      "error_copy": "Text kopieren",
+      "error_copy_hint": "Nutzt du einen anderen E-Mail-Dienst? Kopiere den Text und sende ihn an {{email}}.",
+      "error_cta": "Andere E-Mail-App",
+      "error_gmail": "In Gmail öffnen",
+      "error_outlook": "In Outlook öffnen",
       "error_title": "Wir konnten deine Anfrage von hier aus nicht senden",
       "errors": {
+        "country_required": "Wähle dein Land",
         "email_invalid": "Gib eine gültige E-Mail-Adresse ein",
         "email_required": "Gib deine E-Mail ein",
         "name_required": "Gib deinen Namen ein",
@@ -4258,7 +4289,7 @@
       "message_placeholder": "Termine, mehrere Abstimmungen in diesem Jahr, Fragen zu deiner Liste...",
       "name": "Dein Name",
       "organization": "Organisation",
-      "privacy": "Vocdoni verwendet diese Angaben nur, um dein Angebot zu erstellen und deine Anfrage zu beantworten. <plink>Datenschutzerklärung</plink>.",
+      "privacy": "Mit dem Absenden dieser Anfrage akzeptierst du die <plink>Datenschutzerklärung</plink>. Vocdoni verwendet diese Angaben nur, um dein Angebot zu erstellen und deine Anfrage zu beantworten.",
       "retry": "Erneut versuchen",
       "sending": "Wird gesendet...",
       "submit": "Anfrage senden",
@@ -4268,14 +4299,9 @@
       "title": "Diesen Preis anfragen",
       "title_quote": "Angebot anfragen"
     },
-    "title": "Zahle einmal pro Abstimmung. Kein Abo.",
+    "title": "Klare Preise für jede Abstimmung.",
     "trust": {
-      "dpa": "Auftragsverarbeitungsvertrag",
-      "payment": "Online-Zahlung kommt bald. Bis dahin bestätigt jemand bei Vocdoni deinen Preis, dann zahlst du per Karte oder Überweisung und bekommst eine Rechnung.",
-      "prices": "Preise in EUR ohne MwSt. EU-Unternehmen mit gültiger USt-IdNr. werden im Reverse-Charge-Verfahren abgerechnet; Kunden außerhalb der EU zahlen keine EU-MwSt.",
-      "privacy": "Datenschutzerklärung",
-      "terms": "AGB",
-      "vat_id": "USt-IdNr. {{id}}"
+      "prices": "Preise in EUR ohne MwSt. EU-Unternehmen mit gültiger USt-IdNr. werden im Reverse-Charge-Verfahren abgerechnet; Kunden außerhalb der EU zahlen keine EU-MwSt."
     },
     "zones": {
       "dedicated": "Eine Abstimmung dieser Größe braucht normalerweise ein Gespräch. Der Preis oben gilt weiterhin, und du bekommst eine feste Ansprechperson.",

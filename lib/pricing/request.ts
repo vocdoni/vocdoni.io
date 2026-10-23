@@ -1,12 +1,21 @@
-import { PRICING_CONTACT_EMAIL, QUOTE_REQUIRED_ABOVE } from '@/lib/pricing/constants'
+import {
+  ONE_TIME_ADDONS,
+  PER_VOTE_ADDONS,
+  PRICING_CONTACT_EMAIL,
+  QUOTE_REQUIRED_ABOVE,
+  type AddonKey,
+} from '@/lib/pricing/constants'
 import { type Addons, type Estimate } from '@/lib/pricing/compute'
 import { QUOTE_STOP } from '@/lib/pricing/ladder'
+import { countryName } from '@/lib/pricing/countries'
 import { buildReference } from '@/lib/pricing/reference'
 
 export type PricingRequestValues = {
   name: string
   email: string
   organization: string
+  /** ISO code from the (required) country dropdown. Optional here so callers without a form can omit it. */
+  country?: string
   message: string
   website: string
 }
@@ -40,6 +49,24 @@ function fmtEur(cents: number): string {
     .replace(/[\u00a0\u202f]/g, ' ') // Intl emits a non-breaking space after the code; plain text wants ASCII
 }
 
+/** The add-on names the visitor saw in the calculator (English, like the rest of the sales email). */
+const ADDON_EMAIL_NAMES: Record<AddonKey, string> = {
+  sms: 'Verification codes by text message',
+  certificate: 'Signed results report (PDF)',
+  branding: 'Your logo and colours',
+  domain: 'Your own web address',
+}
+
+/** The requested add-ons by name, in calculator order. */
+function addonNames(addons: Addons): string {
+  return (
+    [...PER_VOTE_ADDONS, ...ONE_TIME_ADDONS]
+      .filter((key) => addons[key])
+      .map((key) => ADDON_EMAIL_NAMES[key])
+      .join(', ') || 'none'
+  )
+}
+
 /** Formats an integer count with commas for use in the English sales email. */
 function fmtPeople(count: number): string {
   return new Intl.NumberFormat('en').format(count)
@@ -63,18 +90,18 @@ export const describeEstimate = (
     lines.push(`People who can vote: ${people}`)
     lines.push('Zone: quote')
     lines.push('Add-ons: n/a')
-    lines.push('Total for this vote: on request')
+    lines.push('Total: on request')
   } else {
     lines.push(`People who can vote: ${fmtPeople(voters)}`)
     lines.push(`Zone: ${estimate ? estimate.zone : 'unknown'}`)
-    const addonKeys = (Object.keys(addons) as (keyof Addons)[]).filter((key) => addons[key]).join(', ') || 'none'
-    lines.push(`Add-ons: ${addonKeys}`)
+    lines.push(`Add-ons: ${addonNames(addons)}`)
     if (estimate) {
-      lines.push(`Total for this vote: ${fmtEur(estimate.totalThisVoteCents)} + VAT`)
-      lines.push(`VAT 21%: ${fmtEur(estimate.vatCents)}`)
-      lines.push(`One-time setup: ${fmtEur(estimate.oneTimeCents)}`)
+      // The same total the form's pill shows: this vote plus any one-time setup.
+      lines.push(`Total: ${fmtEur(estimate.totalCents)} + VAT`)
+      lines.push(`  This vote: ${fmtEur(estimate.totalThisVoteCents)}`)
+      if (estimate.oneTimeCents > 0) lines.push(`  One-time setup: ${fmtEur(estimate.oneTimeCents)}`)
     } else {
-      lines.push('Total for this vote: the calculator could not get a price, please quote')
+      lines.push('Total: the calculator could not get a price, please quote')
     }
   }
   lines.push(`Locale: ${context.locale}`)
@@ -84,7 +111,7 @@ export const describeEstimate = (
 
 /**
  * Builds the email subject line.
- * Format: "Pricing request VOC-2610-K7P3: 1,200 people, EUR 383.00 + VAT"
+ * Format: "Pricing request VOC-2610-K7P3: 1,200 people, EUR 383.00 + VAT" (the full total, setup included)
  * For the quote zone: "Pricing request VOC-...: more than 50,000 people, on request"
  * Without a price: "Pricing request VOC-...: 1,200 people, price unavailable"
  */
@@ -92,8 +119,13 @@ export const buildPricingSubject = ({ voters, estimate }: RequestedPrice, refere
   if (estimate?.zone === 'quote') {
     return `Pricing request ${reference}: more than ${fmtPeople(QUOTE_REQUIRED_ABOVE)} people, on request`
   }
-  const price = estimate ? `${fmtEur(estimate.totalThisVoteCents)} + VAT` : 'price unavailable'
+  const price = estimate ? `${fmtEur(estimate.totalCents)} + VAT` : 'price unavailable'
   return `Pricing request ${reference}: ${fmtPeople(voters)} people, ${price}`
+}
+
+/** Puts the visitor's country, in English, above the estimate block. */
+function withCountry(values: PricingRequestValues, block: string): string {
+  return values.country ? `Country: ${countryName(values.country, 'en')} (${values.country})\n${block}` : block
 }
 
 /** Collapses \r and \n to a single space, for use in single-line email fields. */
@@ -123,7 +155,7 @@ export const buildPricingEmailParams = (
 } => {
   const reference = context.reference || buildReference(now)
   const subject = buildPricingSubject(request, reference)
-  const estimateBlock = describeEstimate(request, context)
+  const estimateBlock = withCountry(values, describeEstimate(request, context))
   const userMessage = values.message.replace(/\r\n/g, '\n').replace(/\r/g, '\n')
   const message = userMessage ? `${userMessage}\n\n${estimateBlock}` : estimateBlock
 
@@ -142,15 +174,57 @@ export const buildPricingEmailParams = (
  * Builds a prefilled mailto: fallback URL for when EmailJS fails.
  * Both subject and body are encodeURIComponent-encoded.
  */
+/** The subject and body the fallback links prefill: the same text the EmailJS request would carry. */
+export const buildPricingEmailDraft = (
+  values: PricingRequestValues,
+  request: RequestedPrice,
+  context: PricingRequestContext
+): { to: string; subject: string; body: string } => {
+  const subject = buildPricingSubject(request, context.reference)
+  const estimateBlock = withCountry(values, describeEstimate(request, context))
+  const userMessage = values.message.replace(/\r\n/g, '\n').replace(/\r/g, '\n')
+  const body = userMessage ? `${userMessage}\n\n${estimateBlock}` : estimateBlock
+  return { to: PRICING_CONTACT_EMAIL, subject, body }
+}
+
+/** Opens the visitor's mail app (only works when the device has one set as default). */
 export const buildPricingMailto = (
   values: PricingRequestValues,
   request: RequestedPrice,
   context: PricingRequestContext
 ): string => {
-  const subject = buildPricingSubject(request, context.reference)
-  const estimateBlock = describeEstimate(request, context)
-  const userMessage = values.message.replace(/\r\n/g, '\n').replace(/\r/g, '\n')
-  const body = userMessage ? `${userMessage}\n\n${estimateBlock}` : estimateBlock
+  const { to, subject, body } = buildPricingEmailDraft(values, request, context)
+  return `mailto:${to}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
+}
 
-  return `mailto:${PRICING_CONTACT_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
+/** Opens a prefilled compose window in Gmail on the web (the visitor must be signed in). */
+export const buildPricingGmailUrl = (
+  values: PricingRequestValues,
+  request: RequestedPrice,
+  context: PricingRequestContext
+): string => {
+  const { to, subject, body } = buildPricingEmailDraft(values, request, context)
+  const params = new URLSearchParams({ view: 'cm', fs: '1', to, su: subject, body })
+  return `https://mail.google.com/mail/?${params.toString()}`
+}
+
+/** Opens a prefilled compose window in Outlook on the web (Microsoft 365 accounts). */
+export const buildPricingOutlookUrl = (
+  values: PricingRequestValues,
+  request: RequestedPrice,
+  context: PricingRequestContext
+): string => {
+  const { to, subject, body } = buildPricingEmailDraft(values, request, context)
+  const params = new URLSearchParams({ to, subject, body })
+  return `https://outlook.office.com/mail/deeplink/compose?${params.toString()}`
+}
+
+/** Plain text to paste into any other mail service: the subject line first, then the body. */
+export const buildPricingCopyText = (
+  values: PricingRequestValues,
+  request: RequestedPrice,
+  context: PricingRequestContext
+): string => {
+  const { subject, body } = buildPricingEmailDraft(values, request, context)
+  return `${subject}\n\n${body}`
 }

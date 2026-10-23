@@ -4158,17 +4158,17 @@
   "pricing": {
     "addons": {
       "branding": {
-        "description": "Your branding on the voting page and emails, with no Vocdoni logo, for every future vote.",
+        "description": "Your branding on the voting page and emails, for every future vote.",
         "price": "{{price}} once",
         "title": "Your logo and colours"
       },
       "certificate": {
-        "description": "A PDF that proves the published result matches the recorded votes, to attach to your minutes.",
+        "description": "A PDF with the full record of your vote: how it ran, the results and how anyone can verify them. Ready to attach to your minutes.",
         "price": "{{price}} per vote",
         "title": "Signed results report (PDF)"
       },
       "domain": {
-        "description": "People vote at an address like vote.yourorganisation.org.",
+        "description": "People vote at an address like yourorganisation.vocdoni.vote. A domain of your own is also possible, on request.",
         "price": "{{price}} once",
         "title": "Your own web address"
       },
@@ -4203,15 +4203,37 @@
     },
     "eyebrow": "Pricing",
     "included": {
-      "item_1": "Nobody can link a ballot to the person who cast it",
-      "item_2": "Every voter can check their own vote was counted",
-      "item_3": "Results anyone can verify, on a public record",
-      "item_4": "Voters identify themselves with a code sent by email (no app, no account)",
-      "item_5": "As many questions as you need, and live results",
-      "item_6": "The voting page in your voters' own language",
-      "title": "Everything included"
+      "custom": {
+        "body": "This is the base every vote gets. Custom features, other ways for voters to sign in or anything specific your vote needs: ask us and we build it.",
+        "cta": "Ask us",
+        "title": "Need something more?"
+      },
+      "organisers": {
+        "item_1": "As many questions as you need, single or multiple choice",
+        "item_2": "Weighted voting, using each member's voting power",
+        "item_3": "Import your voter list from a spreadsheet",
+        "item_4": "Live results, or results hidden until the vote ends",
+        "item_5": "Live turnout while the vote is open",
+        "item_6": "Start now or schedule it, and pause or end it early",
+        "title": "Tools for organisers"
+      },
+      "security": {
+        "item_1": "Nobody can link a ballot to the person who cast it",
+        "item_2": "Every voter can check their own vote was counted",
+        "item_3": "Results anyone can verify",
+        "item_4": "No one, not even Vocdoni, can change the result",
+        "title": "Secure and verifiable"
+      },
+      "subtitle": "Every vote comes with all of this, at no extra cost.",
+      "title": "Everything included",
+      "voters": {
+        "item_1": "Voters sign in with the credentials you choose, plus an optional code by email",
+        "item_2": "Works on any phone, tablet or computer",
+        "item_3": "The voting page in your voters' own language",
+        "title": "Simple for voters"
+      }
     },
-    "lede": "The price depends on how many people can vote, not on how many turn up. Votes with up to 25 people are free, and anonymous, verifiable voting is always included.",
+    "lede": "Free for up to 25 people, with anonymous, verifiable voting always included. These prices apply to the Vocdoni App and to integrations; with integrations, email codes are charged separately.",
     "live": {
       "free": "This vote is free.",
       "quote": "More than {{limit}} people: on request.",
@@ -4232,23 +4254,32 @@
       "one_time_title": "One-time setup",
       "per_person": "{{price}} per person who can vote",
       "title": "Your price",
+      "total_note": "You pay the setup only once. Your organisation keeps it for all its future votes.",
+      "total_sum": "{{vote}} for this vote + {{setup}} one-time setup",
+      "total_title": "Total, setup included",
       "unavailable": "Price unavailable",
       "unavailable_body": "We cannot show the price right now. Request it and we send you the figure within one business day.",
-      "vat_suffix": "+ VAT",
-      "with_vat": "≈ {{total}} with 21% VAT (Spain)"
+      "vat_suffix": "+ VAT"
     },
     "request": {
       "book_call": "Book a call",
       "captcha_error": "reCAPTCHA verification failed. Please try again.",
-      "chip_one_time": "One-time setup {{total}}",
+      "chip_full_total": "Total {{total}} + VAT",
       "chip_people": "{{people}} people",
-      "chip_total": "{{total}} + VAT",
+      "country": "Country",
+      "country_placeholder": "Select your country",
       "create_account": "Create your free account",
       "email": "Email",
       "error_body": "Send it by email instead; we have filled it in for you.",
-      "error_cta": "Send it by email",
+      "error_copied": "Copied",
+      "error_copy": "Copy text",
+      "error_copy_hint": "Using another email? Copy the text and send it to {{email}}.",
+      "error_cta": "Other email app",
+      "error_gmail": "Open in Gmail",
+      "error_outlook": "Open in Outlook",
       "error_title": "We could not send your request from here",
       "errors": {
+        "country_required": "Select your country",
         "email_invalid": "Enter a valid email address",
         "email_required": "Enter your email",
         "name_required": "Enter your name",
@@ -4259,7 +4290,7 @@
       "message_placeholder": "Dates, several votes this year, questions about your list...",
       "name": "Your name",
       "organization": "Organisation",
-      "privacy": "Vocdoni uses these details only to prepare your estimate and answer your request. <plink>Privacy policy</plink>.",
+      "privacy": "By sending this request you accept the <plink>privacy policy</plink>. Vocdoni uses these details only to prepare your estimate and answer your request.",
       "retry": "Try again",
       "sending": "Sending...",
       "submit": "Send request",
@@ -4269,14 +4300,9 @@
       "title": "Request this price",
       "title_quote": "Request a quote"
     },
-    "title": "Pay once per vote. No subscription.",
+    "title": "Clear pricing for every vote.",
     "trust": {
-      "dpa": "Data processing agreement",
-      "payment": "Paying online is on the way. For now a person at Vocdoni confirms your price, then you pay by card or bank transfer with an invoice.",
-      "prices": "Prices in EUR without VAT. EU businesses with a valid VAT number are invoiced under the reverse charge; customers outside the EU pay no EU VAT.",
-      "privacy": "Privacy policy",
-      "terms": "Terms",
-      "vat_id": "VAT ID {{id}}"
+      "prices": "Prices in EUR without VAT. EU businesses with a valid VAT number are invoiced under the reverse charge; customers outside the EU pay no EU VAT."
     },
     "zones": {
       "dedicated": "A vote this size usually needs a conversation. The price above holds, and you get a dedicated contact.",

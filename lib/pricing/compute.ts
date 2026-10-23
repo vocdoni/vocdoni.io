@@ -1,12 +1,5 @@
 import { ADDON_API_KINDS, type PricingLineKind, type PricingQuote } from '@/lib/pricing/api'
-import {
-  MAX_VOTERS,
-  ONE_TIME_ADDONS,
-  PER_VOTE_ADDONS,
-  VAT_RATE,
-  type AddonKey,
-  type PricingZone,
-} from '@/lib/pricing/constants'
+import { MAX_VOTERS, ONE_TIME_ADDONS, PER_VOTE_ADDONS, type AddonKey, type PricingZone } from '@/lib/pricing/constants'
 
 export type Addons = Partial<Record<AddonKey, boolean>>
 
@@ -31,10 +24,10 @@ export type Estimate = {
   totalThisVoteCents: number
   /** Setup add-ons, billed once per organisation. Never folded into the line above. */
   oneTimeCents: number
+  /** The backend's total: this vote plus the one-time setup. */
+  totalCents: number
   /** totalThisVoteCents / voters, in hundredths of a cent, for the "x per person" line. */
   perPersonHundredthsOfCent: number
-  /** VAT on totalThisVoteCents. The secondary line under the vote total. */
-  vatCents: number
 }
 
 /**
@@ -72,8 +65,6 @@ export const clampVoters = (value: number | string): number => {
   if (whole < 1) return 1
   return Math.min(whole, MAX_VOTERS)
 }
-
-export const vatCents = (amountCents: number): number => Math.round(amountCents * VAT_RATE)
 
 export const perPersonHundredthsOfCent = (totalCents: number, voters: number): number =>
   voters > 0 ? Math.round((totalCents * 100) / voters) : 0
@@ -116,8 +107,8 @@ export const estimateFromQuote = (voters: number, quote: PricingQuote): Estimate
     minimumChargeCents: amountOf(quote, ['minimumCharge']),
     totalThisVoteCents,
     oneTimeCents,
+    totalCents: quote.totalCents,
     perPersonHundredthsOfCent: perPersonHundredthsOfCent(totalThisVoteCents, voters),
-    vatCents: vatCents(totalThisVoteCents),
   }
 }
 

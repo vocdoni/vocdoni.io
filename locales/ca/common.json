@@ -4157,17 +4157,17 @@
   "pricing": {
     "addons": {
       "branding": {
-        "description": "La vostra imatge de marca a la pàgina de votació i als correus, sense el logotip de Vocdoni, per a totes les votacions futures.",
+        "description": "La vostra imatge de marca a la pàgina de votació i als correus, per a totes les votacions futures.",
         "price": "{{price}} un sol cop",
         "title": "El vostre logotip i colors"
       },
       "certificate": {
-        "description": "Un PDF que acredita que el resultat publicat coincideix amb els vots registrats, per adjuntar-lo a l'acta.",
+        "description": "Un PDF amb el registre complet de la vostra votació: com s'ha desenvolupat, els resultats i com qualsevol persona els pot verificar. A punt per adjuntar-lo a l'acta.",
         "price": "{{price}} per votació",
         "title": "Informe de resultats signat (PDF)"
       },
       "domain": {
-        "description": "Les persones voten a una adreça com vot.lavostraorganitzacio.org.",
+        "description": "Les persones voten a una adreça com lavostraorganitzacio.vocdoni.vote. També podeu fer servir un domini propi, sota petició.",
         "price": "{{price}} un sol cop",
         "title": "La vostra pròpia adreça web"
       },
@@ -4182,7 +4182,7 @@
     },
     "calculator": {
       "decrease": "Menys persones",
-      "helper": "Podríeu afegir persones a la vostra llista més endavant? Compteu unes quantes de més ara, per si de cas.",
+      "helper": "Creieu que afegireu persones a la llista més endavant? Compteu-ne unes quantes de més ara, per si de cas.",
       "increase": "Més persones",
       "people_label": "Quantes persones poden votar?",
       "slider_label": "Quantes persones poden votar",
@@ -4202,15 +4202,37 @@
     },
     "eyebrow": "Preus",
     "included": {
-      "item_1": "Ningú no pot vincular una papereta amb la persona que l'ha emesa",
-      "item_2": "Cada votant pot comprovar que el seu vot s'ha comptat",
-      "item_3": "Resultats que tothom pot verificar, en un registre públic",
-      "item_4": "Els votants s'identifiquen amb un codi enviat per correu electrònic (sense app, sense compte)",
-      "item_5": "Tantes preguntes com necessiteu, i resultats en directe",
-      "item_6": "La pàgina de votació en la llengua dels vostres votants",
-      "title": "Tot inclòs"
+      "custom": {
+        "body": "Aquesta és la base que inclou cada votació. Funcionalitats a mida, altres maneres d'identificar els votants o qualsevol necessitat concreta: demaneu-nos-ho i ho fem.",
+        "cta": "Pregunteu-nos",
+        "title": "Necessiteu alguna cosa més?"
+      },
+      "organisers": {
+        "item_1": "Tantes preguntes com necessiteu, de resposta única o múltiple",
+        "item_2": "Vot ponderat, segons el pes de vot de cada membre",
+        "item_3": "Importeu la llista de votants des d'un full de càlcul",
+        "item_4": "Resultats en directe o ocults fins al final de la votació",
+        "item_5": "Participació en directe mentre la votació és oberta",
+        "item_6": "Comenceu ara o programeu-la, i atureu-la o acabeu-la abans",
+        "title": "Eines per organitzar"
+      },
+      "security": {
+        "item_1": "Ningú no pot vincular una papereta amb la persona que l'ha emesa",
+        "item_2": "Cada votant pot comprovar que el seu vot s'ha comptat",
+        "item_3": "Resultats que tothom pot verificar",
+        "item_4": "Ningú, ni tan sols Vocdoni, pot canviar el resultat",
+        "title": "Segura i verificable"
+      },
+      "subtitle": "Cada votació inclou tot això, sense cap cost addicional.",
+      "title": "Tot inclòs",
+      "voters": {
+        "item_1": "Els votants s'identifiquen amb les credencials que trieu, i opcionalment amb un codi per correu",
+        "item_2": "Funciona en qualsevol mòbil, tauleta o ordinador",
+        "item_3": "La pàgina de votació en la llengua dels vostres votants",
+        "title": "Fàcil per a qui vota"
+      }
     },
-    "lede": "El preu depèn de quantes persones poden votar, no de quantes hi participen. Les votacions fins a 25 persones són gratuïtes, i el vot anònim i verificable sempre està inclòs.",
+    "lede": "Gratis fins a 25 persones, amb vot anònim i verificable sempre inclòs. Aquests preus valen per a Vocdoni App i per a integracions; en les integracions, els codis per correu es cobren a part.",
     "live": {
       "free": "Aquesta votació és gratuïta.",
       "quote": "Més de {{limit}} persones: a consultar.",
@@ -4231,23 +4253,32 @@
       "one_time_title": "Pagament únic",
       "per_person": "{{price}} per persona que pot votar",
       "title": "El vostre preu",
+      "total_note": "Els extres de pagament únic es paguen un sol cop i la vostra organització els conserva per a totes les votacions futures.",
+      "total_sum": "{{vote}} per aquesta votació + {{setup}} de pagament únic",
+      "total_title": "Total amb el pagament únic inclòs",
       "unavailable": "Preu no disponible",
       "unavailable_body": "Ara mateix no podem mostrar el preu. Demaneu-lo i us enviem la xifra en un dia hàbil.",
-      "vat_suffix": "+ IVA",
-      "with_vat": "≈ {{total}} amb el 21% d'IVA (Espanya)"
+      "vat_suffix": "+ IVA"
     },
     "request": {
       "book_call": "Programeu una trucada",
       "captcha_error": "La verificació reCAPTCHA ha fallat. Si us plau, torneu-ho a intentar.",
-      "chip_one_time": "Pagament únic {{total}}",
+      "chip_full_total": "Total {{total}} + IVA",
       "chip_people": "{{people}} persones",
-      "chip_total": "{{total}} + IVA",
+      "country": "País",
+      "country_placeholder": "Seleccioneu el vostre país",
       "create_account": "Creeu el vostre compte gratuït",
       "email": "Correu electrònic",
       "error_body": "Envieu-la per correu electrònic; ja us l'hem omplerta.",
-      "error_cta": "Envieu-la per correu",
+      "error_copied": "Copiat",
+      "error_copy": "Copiar el text",
+      "error_copy_hint": "Feu servir un altre correu? Copieu el text i envieu-lo a {{email}}.",
+      "error_cta": "Una altra app de correu",
+      "error_gmail": "Obrir a Gmail",
+      "error_outlook": "Obrir a Outlook",
       "error_title": "No hem pogut enviar la vostra sol·licitud des d'aquí",
       "errors": {
+        "country_required": "Seleccioneu el vostre país",
         "email_invalid": "Adreça de correu electrònic no vàlida",
         "email_required": "El correu electrònic és obligatori",
         "name_required": "El nom és obligatori",
@@ -4258,7 +4289,7 @@
       "message_placeholder": "Dates, diverses votacions aquest any, preguntes sobre la vostra llista...",
       "name": "El vostre nom",
       "organization": "Organització",
-      "privacy": "Vocdoni utilitza aquestes dades només per preparar el vostre pressupost i respondre a la vostra sol·licitud. <plink>Política de privacitat</plink>.",
+      "privacy": "En enviar aquesta sol·licitud accepteu la <plink>política de privacitat</plink>. Vocdoni utilitza aquestes dades només per preparar el vostre pressupost i respondre a la vostra sol·licitud.",
       "retry": "Torneu-ho a intentar",
       "sending": "Enviant...",
       "submit": "Envieu la sol·licitud",
@@ -4268,14 +4299,9 @@
       "title": "Demaneu aquest preu",
       "title_quote": "Demaneu un pressupost"
     },
-    "title": "Pagueu un cop per votació. Sense subscripció.",
+    "title": "Preus clars per a cada votació.",
     "trust": {
-      "dpa": "Acord d'encàrrec de tractament",
-      "payment": "El pagament en línia arribarà aviat. De moment, una persona de Vocdoni us confirma el preu i després pagueu amb targeta o per transferència bancària, amb factura.",
-      "prices": "Preus en EUR sense IVA. Les empreses de la UE amb un número d'IVA vàlid reben la factura amb inversió del subjecte passiu; els clients fora de la UE no paguen l'IVA de la UE.",
-      "privacy": "Política de privacitat",
-      "terms": "Condicions",
-      "vat_id": "NIF-IVA {{id}}"
+      "prices": "Preus en EUR sense IVA. Les empreses de la UE amb un número d'IVA vàlid reben la factura amb inversió del subjecte passiu; els clients fora de la UE no paguen l'IVA de la UE."
     },
     "zones": {
       "dedicated": "Una votació d'aquesta mida normalment necessita una conversa. El preu indicat es manté, i tindreu una persona de contacte dedicada.",

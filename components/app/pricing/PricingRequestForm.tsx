@@ -1,10 +1,11 @@
-import { CheckIcon, Loader2Icon, MailIcon, SendIcon } from 'lucide-react'
+import { CheckIcon, CopyIcon, ExternalLinkIcon, Loader2Icon, MailIcon, SendIcon } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
 import ReCAPTCHA from 'react-google-recaptcha'
 import { useForm } from 'react-hook-form'
 import { Trans, useTranslation } from 'react-i18next'
 import { send } from '@emailjs/browser'
 
+import { AddonTitle } from '@/components/app/pricing/AddonRows'
 import { CalBookingDialog } from '@/components/CalBookingDialog'
 import { Link } from '@/components/Link'
 import { Button, buttonVariants } from '@/components/ui/button'
@@ -15,10 +16,15 @@ import { useAppAuthUrl } from '@/hooks/useAppAuthUrl'
 import { getContactFormConfigError } from '@/lib/contactForm'
 import { setCookieConsent } from '@/lib/cookieConsent'
 import { formatCurrency, formatPeople } from '@/lib/pricing/format'
+import { ONE_TIME_ADDONS, PER_VOTE_ADDONS, PRICING_CONTACT_EMAIL } from '@/lib/pricing/constants'
+import { countryOptions, guessCountry } from '@/lib/pricing/countries'
 import { buildReference } from '@/lib/pricing/reference'
 import {
+  buildPricingCopyText,
   buildPricingEmailParams,
+  buildPricingGmailUrl,
   buildPricingMailto,
+  buildPricingOutlookUrl,
   type PricingRequestContext,
   type PricingRequestValues,
   type RequestedPrice,
@@ -45,6 +51,7 @@ export function PricingRequestForm({ request, locale, open, openCount = 0, onSen
   const [formData, setFormData] = useState<PricingRequestValues | null>(null)
   const [pendingContext, setPendingContext] = useState<PricingRequestContext | null>(null)
   const [reference, setReference] = useState<string | null>(null)
+  const [copied, setCopied] = useState(false)
   const recaptchaRef = useRef<ReCAPTCHA>(null)
   const isClient = useIsClient()
   const signupUrl = useAppAuthUrl('signup')
@@ -54,6 +61,8 @@ export function PricingRequestForm({ request, locale, open, openCount = 0, onSen
     handleSubmit,
     reset,
     setFocus,
+    getValues,
+    setValue,
     formState: { errors },
   } = useForm<PricingRequestValues>()
 
@@ -71,7 +80,9 @@ export function PricingRequestForm({ request, locale, open, openCount = 0, onSen
     // Opened again after a successful send: start a fresh request for the current configuration.
     setStatus((current) => (current === 'success' ? 'idle' : current))
     requestAnimationFrame(() => setFocus('name'))
-  }, [open, openCount, setFocus])
+    // Start the dropdown on the country the browser's languages point to; the visitor can change it.
+    if (!getValues('country')) setValue('country', guessCountry(navigator.languages ?? [navigator.language]))
+  }, [open, openCount, setFocus, getValues, setValue])
 
   const sendEmail = async (token: string) => {
     const data = formData
@@ -184,9 +195,20 @@ export function PricingRequestForm({ request, locale, open, openCount = 0, onSen
     )
   }
 
-  // Error state: replaces the form with mailto fallback
+  // Error state: replaces the form with ways to send the same request by email
   if (status === 'error' && formData && pendingContext) {
     const mailto = buildPricingMailto(formData, request, pendingContext)
+    const gmailUrl = buildPricingGmailUrl(formData, request, pendingContext)
+    const outlookUrl = buildPricingOutlookUrl(formData, request, pendingContext)
+    const copyText = async () => {
+      try {
+        await navigator.clipboard.writeText(buildPricingCopyText(formData, request, pendingContext))
+        setCopied(true)
+        window.setTimeout(() => setCopied(false), 2500)
+      } catch {
+        // No clipboard access: the address stays on screen to copy by hand.
+      }
+    }
     return (
       <div id='pricing-request' className='rounded-card border border-border bg-background p-5 sm:p-8'>
         <div className='flex flex-col gap-5'>
@@ -200,12 +222,37 @@ export function PricingRequestForm({ request, locale, open, openCount = 0, onSen
           </div>
           <div className='flex flex-col gap-3 sm:flex-row sm:flex-wrap'>
             <Button size='lg' className='w-full sm:w-auto has-[>svg]:px-6' asChild>
-              <a href={mailto}>
-                <MailIcon className='size-4' />
-                {t('pricing.request.error_cta', 'Send it by email')}
+              <a href={gmailUrl} target='_blank' rel='noopener noreferrer'>
+                <ExternalLinkIcon className='size-4' aria-hidden />
+                {t('pricing.request.error_gmail', 'Open in Gmail')}
               </a>
             </Button>
-            <Button size='lg' variant='outline' className='w-full sm:w-auto' onClick={() => setStatus('idle')}>
+            <Button size='lg' variant='outline' className='w-full sm:w-auto' asChild>
+              <a href={outlookUrl} target='_blank' rel='noopener noreferrer'>
+                <ExternalLinkIcon className='size-4' aria-hidden />
+                {t('pricing.request.error_outlook', 'Open in Outlook')}
+              </a>
+            </Button>
+            <Button size='lg' variant='outline' className='w-full sm:w-auto' asChild>
+              <a href={mailto}>
+                <MailIcon className='size-4' aria-hidden />
+                {t('pricing.request.error_cta', 'Other email app')}
+              </a>
+            </Button>
+          </div>
+          <div className='flex flex-col gap-2 rounded-md bg-secondary p-4 text-sm sm:flex-row sm:items-center sm:justify-between'>
+            <p className='text-muted-foreground'>
+              {t('pricing.request.error_copy_hint', 'Using another email? Copy the text and send it to {{email}}.', {
+                email: PRICING_CONTACT_EMAIL,
+              })}
+            </p>
+            <Button variant='outline' size='sm' className='shrink-0' onClick={copyText}>
+              {copied ? <CheckIcon className='size-4' aria-hidden /> : <CopyIcon className='size-4' aria-hidden />}
+              {copied ? t('pricing.request.error_copied', 'Copied') : t('pricing.request.error_copy', 'Copy text')}
+            </Button>
+          </div>
+          <div>
+            <Button variant='ghost' size='sm' className='-ml-3 text-muted-foreground' onClick={() => setStatus('idle')}>
               {t('pricing.request.retry', 'Try again')}
             </Button>
           </div>
@@ -214,10 +261,9 @@ export function PricingRequestForm({ request, locale, open, openCount = 0, onSen
     )
   }
 
-  // Chips: configuration summary shown above the form
-  const showTotalChip =
-    !!estimate && estimate.priceAvailable && (estimate.zone !== 'free' || estimate.totalThisVoteCents > 0)
-  const showOneTimeChip = !!estimate && estimate.oneTimeCents > 0
+  // Chips: what the visitor asked for, then the full total (this vote plus any one-time setup)
+  const requestedAddons = [...PER_VOTE_ADDONS, ...ONE_TIME_ADDONS].filter((key) => request.addons[key])
+  const showTotalChip = !!estimate && estimate.priceAvailable && estimate.totalCents > 0
 
   const chipClass = 'rounded-full border border-border bg-secondary px-3 py-1 text-sm tabular-nums'
 
@@ -242,17 +288,15 @@ export function PricingRequestForm({ request, locale, open, openCount = 0, onSen
               people: formatPeople(request.voters, locale),
             })}
           </span>
-          {showTotalChip && (
-            <span className={chipClass}>
-              {t('pricing.request.chip_total', '{{total}} + VAT', {
-                total: formatCurrency(estimate.totalThisVoteCents, locale),
-              })}
+          {requestedAddons.map((key) => (
+            <span key={key} className={chipClass}>
+              <AddonTitle addonKey={key} />
             </span>
-          )}
-          {showOneTimeChip && (
-            <span className={chipClass}>
-              {t('pricing.request.chip_one_time', 'One-time setup {{total}}', {
-                total: formatCurrency(estimate.oneTimeCents, locale),
+          ))}
+          {showTotalChip && (
+            <span className={cn(chipClass, 'border-primary/30 bg-primary/10 font-medium text-foreground')}>
+              {t('pricing.request.chip_full_total', 'Total {{total}} + VAT', {
+                total: formatCurrency(estimate.totalCents, locale),
               })}
             </span>
           )}
@@ -307,8 +351,8 @@ export function PricingRequestForm({ request, locale, open, openCount = 0, onSen
               )}
             </div>
 
-            {/* Organisation (full width) */}
-            <div className='flex flex-col gap-1.5 sm:col-span-2'>
+            {/* Organisation */}
+            <div className='flex flex-col gap-1.5'>
               <Label htmlFor='pricing-req-org'>{t('pricing.request.organization', 'Organisation')} *</Label>
               <Input
                 type='text'
@@ -324,6 +368,34 @@ export function PricingRequestForm({ request, locale, open, openCount = 0, onSen
               {errors.organization && (
                 <span id='pricing-req-org-error' role='alert' className='text-xs text-destructive'>
                   {errors.organization.message}
+                </span>
+              )}
+            </div>
+
+            {/* Country */}
+            <div className='flex flex-col gap-1.5'>
+              <Label htmlFor='pricing-req-country'>{t('pricing.request.country', 'Country')} *</Label>
+              <select
+                id='pricing-req-country'
+                aria-required='true'
+                aria-invalid={errors.country ? 'true' : undefined}
+                aria-describedby={errors.country ? 'pricing-req-country-error' : undefined}
+                autoComplete='country'
+                className='flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-base ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 md:text-sm'
+                {...register('country', {
+                  required: t('pricing.request.errors.country_required', 'Select your country'),
+                })}
+              >
+                <option value=''>{t('pricing.request.country_placeholder', 'Select your country')}</option>
+                {countryOptions(locale).map(({ code, name }) => (
+                  <option key={code} value={code}>
+                    {name}
+                  </option>
+                ))}
+              </select>
+              {errors.country && (
+                <span id='pricing-req-country-error' role='alert' className='text-xs text-destructive'>
+                  {errors.country.message}
                 </span>
               )}
             </div>
@@ -352,7 +424,7 @@ export function PricingRequestForm({ request, locale, open, openCount = 0, onSen
             <p className='text-xs text-muted-foreground sm:col-span-2'>
               <Trans
                 i18nKey='pricing.request.privacy'
-                defaults='Vocdoni uses these details only to prepare your estimate and answer your request. <plink>Privacy policy</plink>.'
+                defaults='By sending this request you accept the <plink>privacy policy</plink>. Vocdoni uses these details only to prepare your estimate and answer your request.'
                 components={{
                   plink: <Link href='/privacy' />,
                 }}

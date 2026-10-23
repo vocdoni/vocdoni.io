@@ -2,8 +2,11 @@ import { describe, expect, it } from 'vitest'
 import { estimateFromQuote, type Addons } from '@/lib/pricing/compute'
 import { REFERENCE_PATTERN, buildReference } from '@/lib/pricing/reference'
 import {
+  buildPricingCopyText,
   buildPricingEmailParams,
+  buildPricingGmailUrl,
   buildPricingMailto,
+  buildPricingOutlookUrl,
   buildPricingSubject,
   describeEstimate,
   type RequestedPrice,
@@ -67,13 +70,27 @@ describe('describeEstimate', () => {
     const output = describeEstimate(request, context)
     expect(output).toContain('People who can vote: 1,200')
     expect(output).toContain('Zone: standard')
-    expect(output).toContain('Add-ons: sms, certificate')
-    // 38300 (vote) + 6000 (SMS) + 3900 (report) = 48200 cents
-    expect(output).toContain('Total for this vote: EUR 482.00 + VAT')
-    expect(output).toContain('VAT 21%: EUR 101.22')
-    expect(output).toContain('One-time setup: EUR 0.00')
+    expect(output).toContain('Add-ons: Verification codes by text message, Signed results report (PDF)')
+    // 38300 (vote) + 6000 (SMS) + 3900 (report) = 48200 cents, no setup
+    expect(output).toContain('Total: EUR 482.00 + VAT\n  This vote: EUR 482.00\n')
+    expect(output).not.toContain('One-time setup')
+    expect(output).not.toContain('VAT 21%')
     expect(output).toContain('Locale: ca')
     expect(output).toContain('Page: https://vocdoni.io/ca/app#pricing')
+  })
+
+  it('splits the total into this vote and the one-time setup, and puts the full total in the subject', () => {
+    const request: RequestedPrice = {
+      voters: 200,
+      addons: { sms: true, branding: true },
+      estimate: estimateFromQuote(200, makeQuote({ base: 10900, smsTwoFA: 1000, branding: 14900 })),
+    }
+    const output = describeEstimate(request, context)
+    expect(output).toContain('Add-ons: Verification codes by text message, Your logo and colours')
+    expect(output).toContain('Total: EUR 268.00 + VAT\n  This vote: EUR 119.00\n  One-time setup: EUR 149.00')
+    expect(buildPricingSubject(request, 'VOC-2610-K7P3')).toBe(
+      'Pricing request VOC-2610-K7P3: 200 people, EUR 268.00 + VAT'
+    )
   })
 
   it('contains no HTML', () => {
@@ -97,8 +114,8 @@ describe('a request without a price', () => {
     const output = describeEstimate(request, context)
     expect(output).toContain('People who can vote: 1,200')
     expect(output).toContain('Zone: unknown')
-    expect(output).toContain('Add-ons: sms\n')
-    expect(output).toContain('Total for this vote: the calculator could not get a price, please quote')
+    expect(output).toContain('Add-ons: Verification codes by text message\n')
+    expect(output).toContain('Total: the calculator could not get a price, please quote')
     expect(output).not.toContain('EUR')
   })
 
@@ -147,11 +164,44 @@ describe('buildPricingEmailParams', () => {
     expect(params.message).toContain('People who can vote: 1,200')
   })
 
+  it('puts the country, in English, above the estimate block', () => {
+    const params = buildPricingEmailParams({ ...values, country: 'DE' }, request, context, 'token123')
+    expect(params.message).toContain('Hello\n\nCountry: Germany (DE)\nPeople who can vote: 1,200')
+  })
+
   it('collapses CRLF in single-line fields', () => {
     const v = { ...values, name: 'Jane\r\nSmith' }
     const params = buildPricingEmailParams(v, request, context, 'token123')
     expect(params.name).toBe('Jane Smith')
     expect(params.name).not.toContain('\n')
+  })
+})
+
+describe('webmail and copy fallbacks', () => {
+  const request = priced(1200)
+  const context = { reference: 'VOC-2610-K7P3', locale: 'en', pageUrl: 'https://vocdoni.io/en/app#pricing' }
+  const values = { name: 'Jane', email: 'jane@example.com', organization: 'Org', message: 'Hi', website: '' }
+
+  it('prefills a Gmail compose window with the same subject and body', () => {
+    const url = new URL(buildPricingGmailUrl(values, request, context))
+    expect(url.origin + url.pathname).toBe('https://mail.google.com/mail/')
+    expect(url.searchParams.get('view')).toBe('cm')
+    expect(url.searchParams.get('to')).toBe('contact@vocdoni.org')
+    expect(url.searchParams.get('su')).toBe(buildPricingSubject(request, 'VOC-2610-K7P3'))
+    expect(url.searchParams.get('body')).toContain('Hi\n\nPeople who can vote: 1,200')
+  })
+
+  it('prefills an Outlook compose window with the same subject and body', () => {
+    const url = new URL(buildPricingOutlookUrl(values, request, context))
+    expect(url.origin + url.pathname).toBe('https://outlook.office.com/mail/deeplink/compose')
+    expect(url.searchParams.get('to')).toBe('contact@vocdoni.org')
+    expect(url.searchParams.get('subject')).toBe(buildPricingSubject(request, 'VOC-2610-K7P3'))
+    expect(url.searchParams.get('body')).toContain('People who can vote: 1,200')
+  })
+
+  it('copies the subject line, a blank line, then the body', () => {
+    const text = buildPricingCopyText(values, request, context)
+    expect(text.startsWith(`${buildPricingSubject(request, 'VOC-2610-K7P3')}\n\nHi\n\n`)).toBe(true)
   })
 })
 

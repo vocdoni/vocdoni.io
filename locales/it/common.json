@@ -4157,17 +4157,17 @@
   "pricing": {
     "addons": {
       "branding": {
-        "description": "Il tuo marchio sulla pagina di voto e nelle email, senza il logo Vocdoni, per ogni votazione futura.",
+        "description": "Il tuo marchio sulla pagina di voto e nelle email, per ogni votazione futura.",
         "price": "{{price}} una tantum",
         "title": "Il tuo logo e i tuoi colori"
       },
       "certificate": {
-        "description": "Un PDF che dimostra che il risultato pubblicato corrisponde ai voti registrati, da allegare al tuo verbale.",
+        "description": "Un PDF con il resoconto completo della tua votazione: come si è svolta, i risultati e come chiunque può verificarli. Pronto da allegare al tuo verbale.",
         "price": "{{price}} per votazione",
         "title": "Report firmato dei risultati (PDF)"
       },
       "domain": {
-        "description": "Le persone votano a un indirizzo come voto.tuaorganizzazione.org.",
+        "description": "Le persone votano a un indirizzo come tuaorganizzazione.vocdoni.vote. Su richiesta puoi usare anche un tuo dominio.",
         "price": "{{price}} una tantum",
         "title": "Un indirizzo web tutto tuo"
       },
@@ -4202,15 +4202,37 @@
     },
     "eyebrow": "Prezzi",
     "included": {
-      "item_1": "Nessuno può collegare un voto a chi l'ha espresso",
-      "item_2": "Ogni elettore può verificare che il suo voto sia stato conteggiato",
-      "item_3": "Risultati che chiunque può verificare, su un registro pubblico",
-      "item_4": "Gli elettori si identificano con un codice inviato via email (niente app, niente account)",
-      "item_5": "Tutte le domande che ti servono e risultati in diretta",
-      "item_6": "La pagina di voto nella lingua dei tuoi elettori",
-      "title": "Tutto incluso"
+      "custom": {
+        "body": "Questa è la base di ogni votazione. Funzionalità su misura, altri modi di accesso per chi vota o qualsiasi esigenza specifica: chiedicelo e lo realizziamo.",
+        "cta": "Chiedici",
+        "title": "Ti serve qualcosa in più?"
+      },
+      "organisers": {
+        "item_1": "Tutte le domande che ti servono, a scelta singola o multipla",
+        "item_2": "Voto ponderato, in base al peso di voto di ogni membro",
+        "item_3": "Importa la tua lista di elettori da un foglio di calcolo",
+        "item_4": "Risultati in diretta o nascosti fino alla fine della votazione",
+        "item_5": "Affluenza in diretta mentre la votazione è aperta",
+        "item_6": "Inizia subito o programmala, e mettila in pausa o chiudila prima",
+        "title": "Strumenti per chi organizza"
+      },
+      "security": {
+        "item_1": "Nessuno può collegare un voto a chi l'ha espresso",
+        "item_2": "Ogni elettore può verificare che il suo voto sia stato conteggiato",
+        "item_3": "Risultati che chiunque può verificare",
+        "item_4": "Nessuno, nemmeno Vocdoni, può modificare il risultato",
+        "title": "Sicura e verificabile"
+      },
+      "subtitle": "Ogni votazione include tutto questo, senza costi aggiuntivi.",
+      "title": "Tutto incluso",
+      "voters": {
+        "item_1": "Gli elettori accedono con le credenziali che scegli tu, e se vuoi con un codice via email",
+        "item_2": "Funziona su qualsiasi telefono, tablet o computer",
+        "item_3": "La pagina di voto nella lingua dei tuoi elettori",
+        "title": "Semplice per chi vota"
+      }
     },
-    "lede": "Il prezzo dipende da quante persone possono votare, non da quante partecipano. Le votazioni fino a 25 persone sono gratuite, e il voto anonimo e verificabile è sempre incluso.",
+    "lede": "Gratis fino a 25 persone, con voto anonimo e verificabile sempre incluso. Questi prezzi valgono per Vocdoni App e per le integrazioni; nelle integrazioni, i codici via email si pagano a parte.",
     "live": {
       "free": "Questa votazione è gratuita.",
       "quote": "Più di {{limit}} persone: su richiesta.",
@@ -4231,23 +4253,32 @@
       "one_time_title": "Configurazione una tantum",
       "per_person": "{{price}} per persona che può votare",
       "title": "Il tuo prezzo",
+      "total_note": "La configurazione la paghi una sola volta. La tua organizzazione la mantiene per tutte le votazioni future.",
+      "total_sum": "{{vote}} per questa votazione + {{setup}} di configurazione una tantum",
+      "total_title": "Totale, configurazione inclusa",
       "unavailable": "Prezzo non disponibile",
       "unavailable_body": "Al momento non possiamo mostrare il prezzo. Richiedilo e ti invieremo la cifra entro un giorno lavorativo.",
-      "vat_suffix": "+ IVA",
-      "with_vat": "≈ {{total}} con IVA al 21% (Spagna)"
+      "vat_suffix": "+ IVA"
     },
     "request": {
       "book_call": "Prenota una chiamata",
       "captcha_error": "Verifica reCAPTCHA fallita. Riprova.",
-      "chip_one_time": "Una tantum {{total}}",
+      "chip_full_total": "Totale {{total}} + IVA",
       "chip_people": "{{people}} persone",
-      "chip_total": "{{total}} + IVA",
+      "country": "Paese",
+      "country_placeholder": "Seleziona il tuo paese",
       "create_account": "Crea il tuo account gratuito",
       "email": "Email",
       "error_body": "Invialo via email: l'abbiamo già compilato per te.",
-      "error_cta": "Invia via email",
+      "error_copied": "Copiato",
+      "error_copy": "Copia il testo",
+      "error_copy_hint": "Usi un'altra email? Copia il testo e invialo a {{email}}.",
+      "error_cta": "Un'altra app di posta",
+      "error_gmail": "Apri in Gmail",
+      "error_outlook": "Apri in Outlook",
       "error_title": "Non siamo riusciti a inviare la tua richiesta da qui",
       "errors": {
+        "country_required": "Seleziona il tuo paese",
         "email_invalid": "Inserisci un indirizzo email valido",
         "email_required": "Inserisci la tua email",
         "name_required": "Inserisci il tuo nome",
@@ -4258,7 +4289,7 @@
       "message_placeholder": "Date, diverse votazioni quest'anno, domande sulla tua lista...",
       "name": "Il tuo nome",
       "organization": "Organizzazione",
-      "privacy": "Vocdoni usa questi dati solo per preparare il tuo preventivo e rispondere alla tua richiesta. <plink>Politica sulla privacy</plink>.",
+      "privacy": "Inviando questa richiesta accetti l'<plink>informativa sulla privacy</plink>. Vocdoni usa questi dati solo per preparare il tuo preventivo e rispondere alla tua richiesta.",
       "retry": "Riprova",
       "sending": "Invio in corso...",
       "submit": "Invia richiesta",
@@ -4268,14 +4299,9 @@
       "title": "Richiedi questo prezzo",
       "title_quote": "Richiedi un preventivo"
     },
-    "title": "Un pagamento per votazione. Niente abbonamenti.",
+    "title": "Prezzi chiari per ogni votazione.",
     "trust": {
-      "dpa": "Accordo sul trattamento dei dati",
-      "payment": "I pagamenti online sono in arrivo. Per ora una persona di Vocdoni conferma il tuo prezzo, poi paghi con carta o bonifico e ricevi la fattura.",
-      "prices": "Prezzi in EUR senza IVA. Le aziende dell'UE con partita IVA valida ricevono la fattura con inversione contabile; i clienti fuori dall'UE non pagano l'IVA europea.",
-      "privacy": "Politica sulla privacy",
-      "terms": "Condizioni",
-      "vat_id": "Partita IVA {{id}}"
+      "prices": "Prezzi in EUR senza IVA. Le aziende dell'UE con partita IVA valida ricevono la fattura con inversione contabile; i clienti fuori dall'UE non pagano l'IVA europea."
     },
     "zones": {
       "dedicated": "Una votazione di queste dimensioni di solito richiede una conversazione. Il prezzo indicato resta valido, e avrai un contatto dedicato.",

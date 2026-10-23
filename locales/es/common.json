@@ -4157,17 +4157,17 @@
   "pricing": {
     "addons": {
       "branding": {
-        "description": "Tu marca en la página de votación y los correos, sin el logo de Vocdoni, para todas tus futuras votaciones.",
+        "description": "Tu marca en la página de votación y los correos, para todas tus futuras votaciones.",
         "price": "{{price}} pago único",
         "title": "Tu logo y colores"
       },
       "certificate": {
-        "description": "Un PDF que demuestra que el resultado publicado coincide con los votos registrados, para adjuntar al acta.",
+        "description": "Un PDF con el registro completo de tu votación: cómo se desarrolló, los resultados y cómo cualquiera puede verificarlos. Listo para adjuntar al acta.",
         "price": "{{price}} por votación",
         "title": "Informe de resultados firmado (PDF)"
       },
       "domain": {
-        "description": "La gente vota en una dirección como voto.tuorganizacion.org.",
+        "description": "La gente vota en una dirección como tuorganizacion.vocdoni.vote. También puedes usar un dominio propio, bajo petición.",
         "price": "{{price}} pago único",
         "title": "Tu propia dirección web"
       },
@@ -4182,7 +4182,7 @@
     },
     "calculator": {
       "decrease": "Menos personas",
-      "helper": "¿Podrías añadir personas a tu lista más adelante? Cuenta unas cuantas más ahora, por si acaso.",
+      "helper": "¿Crees que añadirás personas a tu lista más adelante? Cuenta unas cuantas más ahora, por si acaso.",
       "increase": "Más personas",
       "people_label": "¿Cuántas personas pueden votar?",
       "slider_label": "Cuántas personas pueden votar",
@@ -4202,15 +4202,37 @@
     },
     "eyebrow": "Precios",
     "included": {
-      "item_1": "Nadie puede vincular un voto a la persona que lo emitió",
-      "item_2": "Cada votante puede comprobar que su voto ha sido contabilizado",
-      "item_3": "Resultados que cualquiera puede verificar, en un registro público",
-      "item_4": "Los votantes se identifican con un código enviado por correo electrónico (sin app, sin cuenta)",
-      "item_5": "Tantas preguntas como necesites y resultados en directo",
-      "item_6": "La página de votación en el idioma de tus votantes",
-      "title": "Todo incluido"
+      "custom": {
+        "body": "Esta es la base que incluye cada votación. Funcionalidades a medida, otras formas de identificar a quien vota o cualquier necesidad concreta: pídenoslo y lo hacemos.",
+        "cta": "Pregúntanos",
+        "title": "¿Necesitas algo más?"
+      },
+      "organisers": {
+        "item_1": "Tantas preguntas como necesites, de opción única o múltiple",
+        "item_2": "Voto ponderado, según el peso de voto de cada miembro",
+        "item_3": "Importa tu lista de votantes desde una hoja de cálculo",
+        "item_4": "Resultados en directo u ocultos hasta el final de la votación",
+        "item_5": "Participación en directo mientras la votación está abierta",
+        "item_6": "Empieza ya o prográmala, y pausa o termina antes de tiempo",
+        "title": "Herramientas para organizar"
+      },
+      "security": {
+        "item_1": "Nadie puede vincular un voto a la persona que lo emitió",
+        "item_2": "Cada votante puede comprobar que su voto ha sido contabilizado",
+        "item_3": "Resultados que cualquiera puede verificar",
+        "item_4": "Nadie, ni siquiera Vocdoni, puede cambiar el resultado",
+        "title": "Segura y verificable"
+      },
+      "subtitle": "Cada votación incluye todo esto, sin coste adicional.",
+      "title": "Todo incluido",
+      "voters": {
+        "item_1": "Quien vota se identifica con las credenciales que elijas, y opcionalmente con un código por correo",
+        "item_2": "Funciona en cualquier móvil, tableta u ordenador",
+        "item_3": "La página de votación en el idioma de tus votantes",
+        "title": "Fácil para quien vota"
+      }
     },
-    "lede": "El precio depende de cuántas personas pueden votar, no de cuántas participan. Las votaciones de hasta 25 personas son gratis, y la votación anónima y verificable siempre está incluida.",
+    "lede": "Gratis hasta 25 personas, con voto anónimo y verificable siempre incluido. Estos precios valen para Vocdoni App y para integraciones; en las integraciones, los códigos por correo se cobran aparte.",
     "live": {
       "free": "Esta votación es gratuita.",
       "quote": "Más de {{limit}} personas: a consultar.",
@@ -4231,23 +4253,32 @@
       "one_time_title": "Pago único",
       "per_person": "{{price}} por persona que puede votar",
       "title": "Tu precio",
+      "total_note": "Los extras de pago único se pagan una sola vez y tu organización los conserva para todas sus futuras votaciones.",
+      "total_sum": "{{vote}} por esta votación + {{setup}} de pago único",
+      "total_title": "Total con el pago único incluido",
       "unavailable": "Precio no disponible",
       "unavailable_body": "Ahora mismo no podemos mostrar el precio. Solicítalo y te enviamos la cifra en un día hábil.",
-      "vat_suffix": "+ IVA",
-      "with_vat": "≈ {{total}} con el 21% de IVA (España)"
+      "vat_suffix": "+ IVA"
     },
     "request": {
       "book_call": "Reserva una llamada",
       "captcha_error": "La verificación reCAPTCHA ha fallado. Por favor, inténtalo de nuevo.",
-      "chip_one_time": "Pago único {{total}}",
+      "chip_full_total": "Total {{total}} + IVA",
       "chip_people": "{{people}} personas",
-      "chip_total": "{{total}} + IVA",
+      "country": "País",
+      "country_placeholder": "Selecciona tu país",
       "create_account": "Crea tu cuenta gratuita",
       "email": "Correo electrónico",
       "error_body": "Mejor envíalo por correo electrónico; ya lo hemos rellenado por ti.",
-      "error_cta": "Enviar por correo electrónico",
+      "error_copied": "Copiado",
+      "error_copy": "Copiar texto",
+      "error_copy_hint": "¿Usas otro correo? Copia el texto y envíalo a {{email}}.",
+      "error_cta": "Otra app de correo",
+      "error_gmail": "Abrir en Gmail",
+      "error_outlook": "Abrir en Outlook",
       "error_title": "No hemos podido enviar tu solicitud desde aquí",
       "errors": {
+        "country_required": "Selecciona tu país",
         "email_invalid": "Introduce una dirección de correo válida",
         "email_required": "Introduce tu correo electrónico",
         "name_required": "Introduce tu nombre",
@@ -4258,7 +4289,7 @@
       "message_placeholder": "Fechas, varias votaciones este año, preguntas sobre tu lista...",
       "name": "Tu nombre",
       "organization": "Organización",
-      "privacy": "Vocdoni utiliza estos datos únicamente para preparar tu presupuesto y responder a tu solicitud. <plink>Política de privacidad</plink>.",
+      "privacy": "Al enviar esta solicitud aceptas la <plink>política de privacidad</plink>. Vocdoni utiliza estos datos únicamente para preparar tu presupuesto y responder a tu solicitud.",
       "retry": "Intentar de nuevo",
       "sending": "Enviando...",
       "submit": "Enviar solicitud",
@@ -4268,14 +4299,9 @@
       "title": "Solicita este precio",
       "title_quote": "Pide presupuesto"
     },
-    "title": "Paga una vez por votación. Sin suscripción.",
+    "title": "Precios claros para cada votación.",
     "trust": {
-      "dpa": "Acuerdo de tratamiento de datos",
-      "payment": "Pronto se podrá pagar en línea. Por ahora, alguien de Vocdoni confirma tu precio y pagas con tarjeta o por transferencia bancaria, con factura.",
-      "prices": "Precios en EUR sin IVA. Las empresas de la UE con un número de IVA válido reciben la factura con inversión del sujeto pasivo; los clientes fuera de la UE no pagan IVA europeo.",
-      "privacy": "Política de privacidad",
-      "terms": "Términos",
-      "vat_id": "NIF-IVA {{id}}"
+      "prices": "Precios en EUR sin IVA. Las empresas de la UE con un número de IVA válido reciben la factura con inversión del sujeto pasivo; los clientes fuera de la UE no pagan IVA europeo."
     },
     "zones": {
       "dedicated": "Una votación de este tamaño suele requerir una conversación. El precio de arriba se mantiene y tendrás una persona de contacto asignada.",

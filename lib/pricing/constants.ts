@@ -19,9 +19,6 @@ export const ONE_TIME_ADDONS: readonly AddonKey[] = ['branding', 'domain'] as co
  */
 export const QUOTE_REQUIRED_ABOVE = 50000
 
-/** Spanish VAT. Shown as a secondary figure only; invoices may apply the reverse charge. */
-export const VAT_RATE = 0.21
-
 /** The number the input starts on, as an example rather than a claim. */
 export const DEFAULT_VOTERS = 200
 
@@ -29,10 +26,3 @@ export const DEFAULT_VOTERS = 200
 export const MAX_VOTERS = 1_000_000
 
 export const PRICING_CONTACT_EMAIL = 'contact@vocdoni.org'
-
-/** Shown in the trust footnote. Empty values are hidden; the owner fills the VAT id and the DPA URL. */
-export const PRICING_LEGAL: { entityName: string; vatId: string; dpaUrl: string } = {
-  entityName: 'Vocdoni',
-  vatId: '',
-  dpaUrl: '',
-}

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { MAX_VOTERS, VAT_RATE } from '@/lib/pricing/constants'
+import { MAX_VOTERS } from '@/lib/pricing/constants'
 import {
   addonPricesFromQuote,
   clampVoters,
@@ -7,13 +7,12 @@ import {
   normaliseDigits,
   parseVoters,
   perPersonHundredthsOfCent,
-  vatCents,
 } from '@/lib/pricing/compute'
 
 import { PRICING_FIXTURES, QUOTE_ONLY, makeQuote } from './pricing-fixtures'
 
 describe('estimateFromQuote', () => {
-  it('maps a priced answer onto the vote total, per-person rate and VAT', () => {
+  it('maps a priced answer onto the vote total and per-person rate', () => {
     const estimate = estimateFromQuote(200, PRICING_FIXTURES['200'])
     expect(estimate).toMatchObject({
       voters: 200,
@@ -25,7 +24,6 @@ describe('estimateFromQuote', () => {
       totalThisVoteCents: 10900,
       oneTimeCents: 0,
       perPersonHundredthsOfCent: 5450,
-      vatCents: 2289,
     })
   })
 
@@ -39,7 +37,7 @@ describe('estimateFromQuote', () => {
     ])
     expect(estimate.totalThisVoteCents).toBe(48200)
     expect(estimate.oneTimeCents).toBe(14900)
-    expect(estimate.vatCents).toBe(10122)
+    expect(estimate.totalCents).toBe(63100)
     expect(estimate.perPersonHundredthsOfCent).toBe(4017)
   })
 
@@ -157,16 +155,6 @@ describe('clampVoters', () => {
 
   it('clamps above MAX_VOTERS', () => {
     expect(clampVoters(2_000_000)).toBe(MAX_VOTERS)
-  })
-})
-
-describe('vatCents', () => {
-  it('applies the Spanish 21% rate to integer cents', () => {
-    expect(VAT_RATE).toBe(0.21)
-    expect(vatCents(38300)).toBe(8043)
-    expect(vatCents(10900)).toBe(2289)
-    expect(vatCents(48200)).toBe(10122)
-    expect(vatCents(0)).toBe(0)
   })
 })
 

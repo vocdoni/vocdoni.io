@@ -113,6 +113,7 @@ async function fillForm(user: ReturnType<typeof userEvent.setup>) {
   await user.type(screen.getByLabelText(/Your name/), 'Test User')
   await user.type(screen.getByLabelText(/Organisation/), 'Test Org')
   await user.type(screen.getByLabelText(/Email/), 'test@example.com')
+  await user.selectOptions(screen.getByLabelText(/Country/), 'ES')
 }
 
 describe('PricingRequestForm', () => {
@@ -134,6 +135,15 @@ describe('PricingRequestForm', () => {
       const alerts = screen.getAllByRole('alert')
       expect(alerts.length).toBeGreaterThanOrEqual(3)
     })
+  })
+
+  it('does not send without a country', async () => {
+    const { user } = setup()
+    await fillForm(user)
+    await user.selectOptions(screen.getByLabelText(/Country/), '')
+    await user.click(screen.getByRole('button', { name: /Send request/ }))
+    expect(await screen.findByText('Select your country', { selector: '[role=alert]' })).toBeInTheDocument()
+    expect(screen.queryByTestId('recaptcha')).not.toBeInTheDocument()
   })
 
   it('filling required fields and submitting shows the reCAPTCHA stub', async () => {
@@ -161,6 +171,7 @@ describe('PricingRequestForm', () => {
     const [, , params] = sendMock.mock.calls[0]
     expect((params as Record<string, string>).subject).toMatch(/^Pricing request VOC-\d{4}-[23456789A-HJ-NP-Z]{4}: /)
     expect((params as Record<string, string>).message).toContain('People who can vote: 1,200')
+    expect((params as Record<string, string>).message).toContain('Country: Spain (ES)')
 
     await waitFor(() => expect(screen.getByText('Request received')).toBeInTheDocument(), { timeout: 3000 })
     expect(screen.getByText(/Your reference: VOC-/)).toBeInTheDocument()
@@ -201,7 +212,7 @@ describe('PricingRequestForm', () => {
     expect((params as Record<string, string>).subject).toMatch(/: 1,200 people, price unavailable$/)
   })
 
-  it('when send rejects, shows Send it by email with a mailto: href', async () => {
+  it('when send rejects, offers Gmail, Outlook, a mailto: link and a copy button', async () => {
     sendMock.mockRejectedValueOnce(new Error('network error'))
     const { user } = setup()
     await fillForm(user)
@@ -209,11 +220,26 @@ describe('PricingRequestForm', () => {
     await waitFor(() => expect(screen.getByTestId('recaptcha')).toBeInTheDocument(), { timeout: 3000 })
     await user.click(screen.getByTestId('recaptcha'))
 
-    // The error state renders a link "Send it by email" (exact text) and a paragraph with longer text
-    await waitFor(() => expect(screen.getByRole('link', { name: 'Send it by email' })).toBeInTheDocument(), {
+    await waitFor(() => expect(screen.getByRole('link', { name: 'Other email app' })).toBeInTheDocument(), {
       timeout: 3000,
     })
-    const mailtoLink = screen.getByRole('link', { name: 'Send it by email' })
-    expect(mailtoLink).toHaveAttribute('href', expect.stringMatching(/^mailto:/))
+    expect(screen.getByRole('link', { name: 'Other email app' })).toHaveAttribute(
+      'href',
+      expect.stringMatching(/^mailto:contact@vocdoni\.org\?/)
+    )
+    expect(screen.getByRole('link', { name: 'Open in Gmail' })).toHaveAttribute(
+      'href',
+      expect.stringMatching(/^https:\/\/mail\.google\.com\/mail\/\?view=cm/)
+    )
+    expect(screen.getByRole('link', { name: 'Open in Outlook' })).toHaveAttribute(
+      'href',
+      expect.stringMatching(/^https:\/\/outlook\.office\.com\/mail\/deeplink\/compose\?/)
+    )
+
+    const writeText = vi.fn().mockResolvedValue(undefined)
+    Object.defineProperty(navigator, 'clipboard', { value: { writeText }, configurable: true })
+    await user.click(screen.getByRole('button', { name: 'Copy text' }))
+    expect(writeText).toHaveBeenCalledWith(expect.stringMatching(/^Pricing request VOC-.*\n\n.*People who can vote/s))
+    expect(await screen.findByRole('button', { name: 'Copied' })).toBeInTheDocument()
   })
 })

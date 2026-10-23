@@ -82,9 +82,9 @@ export function EstimatePanel({ state, locale, onRequest }: EstimatePanelProps) 
 
   const isFreeNoCharge = zone === 'free' && cents === 0
   const isQuote = zone === 'quote'
-  const showVatLine = !!estimate && !isFreeNoCharge && !isQuote && cents > 0
-  const showPerPerson = showVatLine
+  const showPerPerson = !!estimate && !isFreeNoCharge && !isQuote && cents > 0
   const hasOneTime = oneTimeCents > 0
+  const showGrandTotal = !!estimate && hasOneTime && !isQuote && cents > 0
 
   const signupUrl = useAppAuthUrl('signup')
 
@@ -137,18 +137,11 @@ export function EstimatePanel({ state, locale, onRequest }: EstimatePanelProps) 
           )}
         </div>
 
-        {/* Per-person and with-VAT lines */}
+        {/* Per-person line */}
         {showPerPerson && (
           <p className='mt-2 tabular-nums text-base text-surface-dark-foreground/70'>
             {t('pricing.panel.per_person', '{{price}} per person who can vote', {
               price: formatRate(estimate.perPersonHundredthsOfCent, locale),
-            })}
-          </p>
-        )}
-        {showVatLine && (
-          <p className='text-sm text-surface-dark-foreground/70'>
-            {t('pricing.panel.with_vat', '≈ {{total}} with 21% VAT (Spain)', {
-              total: formatCurrency(totalThisVoteCents + estimate.vatCents, locale),
             })}
           </p>
         )}
@@ -248,8 +241,36 @@ export function EstimatePanel({ state, locale, onRequest }: EstimatePanelProps) 
                 </div>
               )}
             </div>
-            <p className='mt-2 text-sm text-surface-dark-foreground/70'>
-              {t('pricing.panel.one_time_note', 'Paid once, not with every vote.')}
+            {/* The total box below explains the same thing in more detail */}
+            {!showGrandTotal && (
+              <p className='mt-2 text-sm text-surface-dark-foreground/70'>
+                {t('pricing.panel.one_time_note', 'Paid once, not with every vote.')}
+              </p>
+            )}
+          </div>
+        )}
+
+        {/* Grand total: only adds information when both the vote and the setup carry a charge */}
+        {showGrandTotal && (
+          <div className='mt-4 rounded-md bg-surface-dark-foreground/[0.07] p-4'>
+            <p className='text-sm font-medium'>{t('pricing.panel.total_title', 'Total, setup included')}</p>
+            <p className='mt-1 flex items-baseline gap-1.5'>
+              <span className='text-2xl font-medium tabular-nums'>{formatCurrency(estimate.totalCents, locale)}</span>
+              <span className='text-xs font-semibold uppercase tracking-[0.11em] text-surface-dark-foreground/70'>
+                {t('pricing.panel.vat_suffix', '+ VAT')}
+              </span>
+            </p>
+            <p className='mt-1 text-sm tabular-nums text-surface-dark-foreground/70'>
+              {t('pricing.panel.total_sum', '{{vote}} for this vote + {{setup}} one-time setup', {
+                vote: formatCurrency(totalThisVoteCents, locale),
+                setup: formatCurrency(oneTimeCents, locale),
+              })}
+            </p>
+            <p className='mt-3 text-sm text-surface-dark-foreground/80'>
+              {t(
+                'pricing.panel.total_note',
+                'You pay the setup only once. Your organisation keeps it for all its future votes.'
+              )}
             </p>
           </div>
         )}
