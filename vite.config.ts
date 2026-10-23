@@ -12,9 +12,14 @@ import { docsMarkdownPlugin } from './plugins/docs-markdown'
 import { keystaticApiPlugin } from './plugins/keystatic-api'
 import { legacyRedirectsPlugin } from './plugins/legacy-redirects'
 import { vikeSitemapPlugin } from './plugins/vike-sitemap'
-import { DEFAULT_POSTHOG_HOST, wellKnownPlugin } from './plugins/well-known'
+import {
+  DEFAULT_POSTHOG_HOST,
+  DEFAULT_PRICING_API_URL,
+  DEV_PRICING_API_URL,
+  wellKnownPlugin,
+} from './plugins/well-known'
 
-const viteconfig = ({ mode }: ConfigEnv) => {
+const viteconfig = ({ command, mode }: ConfigEnv) => {
   process.env = { ...process.env, ...loadEnv(mode, process.cwd(), '') }
 
   // Shared by the POSTHOG_HOST define and the CSP connect-src in _headers, so they cannot drift.
@@ -34,6 +39,13 @@ const viteconfig = ({ mode }: ConfigEnv) => {
   // Only the production deploy is indexable. The dev site and PR previews are production deploys of
   // their own Netlify site, so Netlify does not noindex them for us - the build has to.
   const noindex = process.env.NOINDEX === 'true'
+
+  // The pricing calculator's API (lib/pricing/api.ts): the define and the CSP share it. Only the
+  // production deploy (the indexable one) reads the production backend; the dev site and PR previews
+  // read the development backend, so they show what is about to ship, and so does the local dev server.
+  // PRICING_API_URL overrides all of them.
+  const pricingApiUrl =
+    process.env.PRICING_API_URL || (noindex || command === 'serve' ? DEV_PRICING_API_URL : DEFAULT_PRICING_API_URL)
 
   return defineConfig({
     plugins: [
@@ -62,6 +74,7 @@ const viteconfig = ({ mode }: ConfigEnv) => {
         locales,
         noindex,
         posthogHost,
+        pricingApiUrl,
       }),
       ardPlugin({
         hostname: siteUrl,
@@ -95,6 +108,7 @@ const viteconfig = ({ mode }: ConfigEnv) => {
       NOINDEX: JSON.stringify(noindex),
       APP_URL: JSON.stringify(process.env.APP_URL || 'https://app.vocdoni.io'),
       PLATFORM_URL: JSON.stringify(process.env.PLATFORM_URL || 'https://platform.vocdoni.io'),
+      PRICING_API_URL: JSON.stringify(pricingApiUrl),
       PLAUSIBLE_DOMAIN: JSON.stringify(process.env.PLAUSIBLE_DOMAIN || ''),
       GTM_ID: JSON.stringify(process.env.GTM_ID || ''),
       POSTHOG_KEY: JSON.stringify(process.env.POSTHOG_KEY || ''),

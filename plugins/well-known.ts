@@ -47,6 +47,8 @@ interface Options {
   noindex?: boolean
   /** PostHog ingestion origin, allowlisted in the CSP connect-src. Defaults to the EU cluster. */
   posthogHost?: string
+  /** SaaS backend the pricing calculator fetches from, allowlisted in the CSP connect-src. */
+  pricingApiUrl?: string
 }
 
 // --- pure builders (unit-tested) --------------------------------------------
@@ -98,13 +100,17 @@ const block = (path: string, headers: string[]) => [path, ...headers].join('\n')
 //    mirrors, llms.txt and the ARD manifests exist precisely to be fetched from other origins.
 
 export const DEFAULT_POSTHOG_HOST = 'https://eu.i.posthog.com'
+/** Production SaaS backend: the pricing calculator of the production deploy quotes its prices. */
+export const DEFAULT_PRICING_API_URL = 'https://saas-api-lts.vocdoni.net'
+/** Development SaaS backend: the dev site and PR previews (every non-indexed deploy) quote its prices. */
+export const DEV_PRICING_API_URL = 'https://saas-api-dev.vocdoni.net'
 
 // Enforced, not report-only: the site is fully prerendered with a finite set of integrations, and
 // every origin below is traced to the code that loads it. `'unsafe-inline'` in script-src is
 // unavoidable - Vike injects the hydration payload as an inline <script>, and hashes cannot work
 // because this file is emitted at closeBundle, before prerender writes the HTML. Corollary:
 // anything GTM is later configured to inject must be allowlisted here first, or it will not load.
-function buildContentSecurityPolicy(posthogHost: string): string {
+function buildContentSecurityPolicy(posthogHost: string, pricingApiUrl: string): string {
   const googleAnalytics = 'https://www.googletagmanager.com https://*.google-analytics.com'
   return [
     "default-src 'self'",
@@ -120,8 +126,9 @@ function buildContentSecurityPolicy(posthogHost: string): string {
     "font-src 'self'",
     // PostHog ingestion (lib/analytics.ts), Plausible events, GA4 hits, the contact form
     // (@emailjs/browser), the Cal.com embed's data fetches, and the developer-docs version
-    // selector's dynamic stage-content fetching (raw.githubusercontent.com and api.github.com).
-    `connect-src 'self' ${posthogHost} https://plausible.io https://api.emailjs.com ${googleAnalytics} https://*.analytics.google.com https://app.cal.com https://raw.githubusercontent.com https://api.github.com`,
+    // selector's dynamic stage-content fetching (raw.githubusercontent.com and api.github.com), and
+    // the pricing calculator's price list (lib/pricing/api.ts).
+    `connect-src 'self' ${posthogHost} ${new URL(pricingApiUrl).origin} https://plausible.io https://api.emailjs.com ${googleAnalytics} https://*.analytics.google.com https://app.cal.com https://raw.githubusercontent.com https://api.github.com`,
     // YouTube embeds (the facade uses -nocookie), the Cal.com booking dialog, the reCAPTCHA
     // widget and GTM's noscript pixel.
     'frame-src https://www.youtube-nocookie.com https://www.youtube.com https://www.google.com https://www.googletagmanager.com https://app.cal.com https://cal.com',
@@ -135,8 +142,8 @@ function buildContentSecurityPolicy(posthogHost: string): string {
   ].join('; ')
 }
 
-const securityHeaders = (posthogHost: string) => [
-  `  Content-Security-Policy: ${buildContentSecurityPolicy(posthogHost)}`,
+const securityHeaders = (posthogHost: string, pricingApiUrl: string) => [
+  `  Content-Security-Policy: ${buildContentSecurityPolicy(posthogHost, pricingApiUrl)}`,
   '  X-Frame-Options: DENY',
   '  X-Content-Type-Options: nosniff',
   '  Referrer-Policy: strict-origin-when-cross-origin',
@@ -147,7 +154,12 @@ const securityHeaders = (posthogHost: string) => [
 
 // Link headers mirroring the <link rel> tags in lib/seo-head.tsx, so the RFC 8288 header check
 // passes on every Netlify deploy.
-export function buildNetlifyHeaders(noindex = false, posthogHost = DEFAULT_POSTHOG_HOST, defaultLocale = 'en'): string {
+export function buildNetlifyHeaders(
+  noindex = false,
+  posthogHost = DEFAULT_POSTHOG_HOST,
+  defaultLocale = 'en',
+  pricingApiUrl = DEFAULT_PRICING_API_URL
+): string {
   const links = [
     '</.well-known/api-catalog>; rel="api-catalog"',
     `</${defaultLocale}/developers/docs>; rel="service-doc"`,
@@ -160,7 +172,7 @@ export function buildNetlifyHeaders(noindex = false, posthogHost = DEFAULT_POSTH
     '</.well-known/ard.json>; rel="ard"',
     '</.well-known/ai-catalog.json>; rel="ai-catalog"',
   ]
-  const headers = [...links.map((l) => `  Link: ${l}`), ...securityHeaders(posthogHost)]
+  const headers = [...links.map((l) => `  Link: ${l}`), ...securityHeaders(posthogHost, pricingApiUrl)]
   // Dev and preview deploys are production deploys of their own Netlify site, so Netlify does not
   // add this for us. Only the production branch is indexable.
   if (noindex) headers.unshift('  X-Robots-Tag: noindex, nofollow')
@@ -235,7 +247,8 @@ export function artifactsFor(options: Options): Artifact[] {
       file: '_headers',
       contentType: TEXT,
       devServable: false,
-      build: () => buildNetlifyHeaders(options.noindex, options.posthogHost, options.defaultLocale),
+      build: () =>
+        buildNetlifyHeaders(options.noindex, options.posthogHost, options.defaultLocale, options.pricingApiUrl),
     },
   ]
 }

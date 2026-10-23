@@ -9,6 +9,7 @@ import {
 } from 'lucide-react'
 
 import { Container } from '@/components/Container'
+import { PricingLink } from '@/components/app/pricing/PricingLink'
 import { Link } from '@/components/Link'
 import { useAppAuthUrl } from '@/hooks/useAppAuthUrl'
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
@@ -17,7 +18,8 @@ import { Card, CardContent } from '@/components/ui/card'
 import { MotionPreset } from '@/components/ui/motion-preset'
 
 export type SolutionFeature = { title: string; description: string }
-export type SolutionFaqItem = { question: string; answer: string }
+/** `link_label` turns the item into a pointer to the pricing calculator, shown below the answer. */
+export type SolutionFaqItem = { question: string; answer: string; link_label?: string }
 export type SolutionLogo = { src: string; alt: string }
 
 export interface SolutionContent {
@@ -129,6 +131,7 @@ export function SolutionPage({ icon: Icon, content, logos, caseStudyHref, signup
                   {content.cta_secondary}
                 </Link>
               </Button>
+              <PricingLink ctaId='solution_hero_pricing' />
             </MotionPreset>
 
             {trustBadges.length > 0 && (
@@ -283,6 +286,11 @@ export function SolutionPage({ icon: Icon, content, logos, caseStudyHref, signup
                 </AccordionTrigger>
                 <AccordionContent className='text-muted-foreground pb-5 text-base leading-7'>
                   {item.answer}
+                  {item.link_label && (
+                    <div className='mt-3'>
+                      <PricingLink ctaId='solution_faq_pricing' label={item.link_label} className='-mx-2' />
+                    </div>
+                  )}
                 </AccordionContent>
               </AccordionItem>
             ))}

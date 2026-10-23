@@ -7,7 +7,7 @@ export const metaDefaults = {
   'meta.index.title': t('meta.index.title', 'Secure, legally valid online voting for organizations | Vocdoni'),
   'meta.index.description': t(
     'meta.index.description',
-    'Vocdoni is open-source online voting software for associations and organizations. Secure, legally valid, verifiable elections. Free plan, no credit card.'
+    'Vocdoni is open-source online voting software for associations and organizations. Secure, legally valid, verifiable elections. Free for votes with up to 25 people, no credit card.'
   ),
   'meta.contact.title': t('meta.contact.title', 'Contact - Vocdoni'),
   'meta.contact.description': t(

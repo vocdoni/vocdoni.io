@@ -2,6 +2,7 @@ import { ArrowLeftIcon, ArrowRightIcon, CheckCircle2Icon, ExternalLinkIcon } fro
 import { useTranslation } from 'react-i18next'
 
 import { Container } from '@/components/Container'
+import { PricingLink } from '@/components/app/pricing/PricingLink'
 import { Link } from '@/components/Link'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
@@ -183,6 +184,7 @@ export function CaseStudyPage({ content, logo, image, blogHref, solutionHref }: 
                 </Link>
               </Button>
             )}
+            <PricingLink ctaId='case_study_pricing' />
           </div>
           <div className='mt-8'>
             <Link
