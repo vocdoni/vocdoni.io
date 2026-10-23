@@ -19,7 +19,7 @@ import {
   wellKnownPlugin,
 } from './plugins/well-known'
 
-const viteconfig = ({ mode }: ConfigEnv) => {
+const viteconfig = ({ command, mode }: ConfigEnv) => {
   process.env = { ...process.env, ...loadEnv(mode, process.cwd(), '') }
 
   // Shared by the POSTHOG_HOST define and the CSP connect-src in _headers, so they cannot drift.
@@ -42,8 +42,10 @@ const viteconfig = ({ mode }: ConfigEnv) => {
 
   // The pricing calculator's API (lib/pricing/api.ts): the define and the CSP share it. Only the
   // production deploy (the indexable one) reads the production backend; the dev site and PR previews
-  // read the development backend, so they show what is about to ship. PRICING_API_URL overrides both.
-  const pricingApiUrl = process.env.PRICING_API_URL || (noindex ? DEV_PRICING_API_URL : DEFAULT_PRICING_API_URL)
+  // read the development backend, so they show what is about to ship, and so does the local dev server.
+  // PRICING_API_URL overrides all of them.
+  const pricingApiUrl =
+    process.env.PRICING_API_URL || (noindex || command === 'serve' ? DEV_PRICING_API_URL : DEFAULT_PRICING_API_URL)
 
   return defineConfig({
     plugins: [

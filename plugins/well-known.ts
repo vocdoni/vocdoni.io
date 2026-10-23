@@ -101,7 +101,7 @@ const block = (path: string, headers: string[]) => [path, ...headers].join('\n')
 
 export const DEFAULT_POSTHOG_HOST = 'https://eu.i.posthog.com'
 /** Production SaaS backend: the pricing calculator of the production deploy quotes its prices. */
-export const DEFAULT_PRICING_API_URL = 'https://saas-api-prod.vocdoni.net'
+export const DEFAULT_PRICING_API_URL = 'https://saas-api-lts.vocdoni.net'
 /** Development SaaS backend: the dev site and PR previews (every non-indexed deploy) quote its prices. */
 export const DEV_PRICING_API_URL = 'https://saas-api-dev.vocdoni.net'
 

@@ -20,7 +20,7 @@ afterEach(() => {
 describe('pricingUrl', () => {
   it('targets the production backend by default and sends every add-on flag', () => {
     const url = new URL(pricingUrl(1200, { sms: true, domain: true }))
-    expect(url.origin + url.pathname).toBe('https://saas-api-prod.vocdoni.net/pricing')
+    expect(url.origin + url.pathname).toBe('https://saas-api-lts.vocdoni.net/pricing')
     expect(Object.fromEntries(url.searchParams)).toEqual({
       voters: '1200',
       smsTwoFA: 'true',

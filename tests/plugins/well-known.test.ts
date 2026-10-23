@@ -115,10 +115,10 @@ describe('buildNetlifyHeaders', () => {
   })
 
   it('allowlists the pricing API origin in the CSP connect-src', () => {
-    expect(buildNetlifyHeaders()).toContain(' https://saas-api-prod.vocdoni.net ')
+    expect(buildNetlifyHeaders()).toContain(' https://saas-api-lts.vocdoni.net ')
     const out = buildNetlifyHeaders(false, undefined, 'en', 'https://saas-api-stg.example.net/v1')
     expect(out).toContain(' https://saas-api-stg.example.net ')
-    expect(out).not.toContain('saas-api-prod')
+    expect(out).not.toContain('saas-api-lts')
   })
 
   it('is a well-formed _headers file: path lines flush left, header lines indented', () => {
