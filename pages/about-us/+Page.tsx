@@ -65,6 +65,14 @@ export default function AboutUsPage() {
                     {t('about_us.structure.association_title', 'Vocdoni Association')}
                   </p>
                   <p className='text-muted-foreground text-sm leading-relaxed'>{t('about_us.structure.non_profit')}</p>
+                  <Link
+                    href='/about-us/vocdoni-association'
+                    variant='inlineIcon'
+                    className='text-primary mt-3 text-sm font-medium hover:underline underline-offset-4'
+                  >
+                    {t('about_us.structure.association_link', 'Learn about the Association')}
+                    <ArrowRight className='size-3.5' aria-hidden='true' />
+                  </Link>
                 </div>
               </div>
             </div>

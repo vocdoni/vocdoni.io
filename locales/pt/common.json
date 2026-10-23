@@ -3098,6 +3098,125 @@
     "title": "Soluções de votação online para todos os tipos de organização"
   },
   "about_us": {
+    "association": {
+      "ahead": {
+        "eyebrow": "Olhar para o futuro",
+        "p1": "A infraestrutura de votação digital não deve ser uma caixa negra em que as comunidades se limitam a confiar. Deve estar aberta ao escrutínio, ser concebida para proteger a privacidade e ser construída de forma a que a sua integridade possa ser verificada. A Vocdoni Association está comprometida com estes princípios.",
+        "title": "Uma base aberta para o futuro das decisões coletivas"
+      },
+      "breadcrumb_current": "Vocdoni Association",
+      "breadcrumb_label": "Trilho de navegação",
+      "breadcrumb_parent": "Sobre nós",
+      "closing": {
+        "description": "Leia o artigo do protocolo, analise o código e descubra como uma infraestrutura de votação digital aberta pode apoiar decisões coletivas mais fiáveis.",
+        "title": "Ajude a construir um ecossistema de votação aberto"
+      },
+      "cta": {
+        "code": "Explorar o código aberto",
+        "github": "Ver o código-fonte no GitHub",
+        "paper": "Ler o artigo do protocolo",
+        "protocol": "Explorar o DAVINCI"
+      },
+      "ecosystem": {
+        "diagram": {
+          "applications": "Aplicações",
+          "applications_description": "Ferramentas de votação criadas sobre o protocolo",
+          "association_description": "Zela pela missão do protocolo",
+          "association_title": "Vocdoni Association",
+          "caption": "Uma visão conceptual dos papéis em torno do protocolo, não um diagrama da sua arquitetura técnica.",
+          "communities": "Organizações e comunidades",
+          "communities_description": "Realizam as suas votações com o que o ecossistema cria",
+          "integrations": "Integrações",
+          "integrations_description": "Votação dentro de plataformas existentes",
+          "protocol_description": "Bases técnicas partilhadas e abertas",
+          "protocol_title": "Protocolo aberto Vocdoni",
+          "services": "Serviços",
+          "services_description": "Eleições geridas e apoio profissional"
+        },
+        "eyebrow": "Um protocolo aberto, um ecossistema partilhado",
+        "p1": "O Vocdoni foi concebido como um protocolo aberto, e não como um produto de votação fechado. A próxima geração do protocolo, o DAVINCI, dá continuidade a esta visão com um design e especificações técnicas documentados publicamente.",
+        "p2": "Isto permite que diferentes organizações, programadores e prestadores de serviços criem aplicações e integrações adaptadas às suas próprias necessidades, apoiando-se em bases técnicas partilhadas.",
+        "p3": "A Associação cuida da abertura e da integridade dessas bases, para que o ecossistema possa continuar a crescer sobre terreno firme.",
+        "title": "Um protocolo. Muitas possibilidades."
+      },
+      "hero": {
+        "intro": "A Vocdoni Association é uma organização sem fins lucrativos sediada na Suíça, dedicada a salvaguardar a integridade, a abertura e o desenvolvimento a longo prazo do protocolo de votação Vocdoni.",
+        "mission": "A nossa missão é garantir que o nosso protocolo continua aberto, seguro, privado e verificável, proporcionando uma infraestrutura partilhada de votação digital ao serviço do interesse público.",
+        "title": "Salvaguardar o nosso protocolo de votação aberto"
+      },
+      "mission": {
+        "eyebrow": "Dois papéis complementares",
+        "p1": "A natureza sem fins lucrativos da Associação reflete um compromisso fundamental: a integridade e a abertura do protocolo a longo prazo devem manter-se no centro do seu desenvolvimento.",
+        "p2": "Um ecossistema sustentável inclui produtos comerciais, serviços profissionais e integrações que levam a tecnologia a utilizadores reais. Estes apoiam a adoção e o desenvolvimento contínuo, enquanto o protocolo continua a ser uma base aberta que qualquer pessoa pode examinar, utilizar e sobre a qual pode construir.",
+        "p3": "A Associação existe para manter essa distinção clara e o protocolo fiel ao seu propósito de interesse público.",
+        "roles": {
+          "association": {
+            "items": {
+              "open_source": "Apoia o seu desenvolvimento em código aberto",
+              "openness": "Salvaguarda a abertura e a integridade do protocolo",
+              "purpose": "Mantém o protocolo alinhado com o seu propósito de interesse público"
+            },
+            "title": "A Vocdoni Association"
+          },
+          "ecosystem": {
+            "items": {
+              "products": "Criam produtos e aplicações sobre o protocolo",
+              "services": "Oferecem integrações e serviços geridos",
+              "support": "Prestam apoio profissional às organizações que realizam votações"
+            },
+            "title": "Fornecedores comerciais"
+          },
+          "note": "Os dois papéis complementam-se. Utilizar o protocolo, ler o seu código ou construir sobre ele não exige comprar serviços a nenhuma empresa em particular."
+        },
+        "title": "Uma missão sem fins lucrativos, um ecossistema aberto"
+      },
+      "safeguards": {
+        "cards": {
+          "continuity": {
+            "description": "Apoiar a evolução do protocolo a longo prazo, para que possa continuar a servir as comunidades, independentemente das organizações que criem aplicações e serviços sobre ele.",
+            "title": "Continuidade a longo prazo"
+          },
+          "integrity": {
+            "description": "Manter o design central e as bases técnicas do protocolo coerentes, fiáveis e sólidos.",
+            "title": "Integridade do protocolo"
+          },
+          "open_source": {
+            "description": "Apoiar o desenvolvimento contínuo do código aberto, para que se mantenha transparente, colaborativo e aberto ao escrutínio técnico independente.",
+            "title": "Desenvolvimento em código aberto"
+          },
+          "privacy": {
+            "description": "Preservar a privacidade e a segurança como princípios de design fundamentais, incluindo o sigilo do voto, a resistência à censura e ao controlo indevido e a integridade do processo de votação.",
+            "title": "Privacidade e segurança"
+          }
+        },
+        "eyebrow": "Áreas de responsabilidade",
+        "intro": "Um protocolo aberto é mais do que código publicado. Precisa de cuidado contínuo, de um desenvolvimento responsável e de um compromisso duradouro com os princípios que o tornam fiável.",
+        "note": "Estas são as áreas de responsabilidade em que a Associação trabalha. Cada organização ou fornecedor que opera o protocolo continua a ser responsável pela sua própria implementação.",
+        "title": "Proteger as bases de uma votação fiável"
+      },
+      "why": {
+        "cards": {
+          "everyone": {
+            "description": "Uma infraestrutura de votação digital segura deve ser acessível a organizações e comunidades de todas as dimensões, independentemente da sua localização ou dos seus recursos financeiros.",
+            "title": "Feita para todos"
+          },
+          "open": {
+            "description": "O protocolo e as suas bases de código aberto podem ser examinados, estudados e usados como ponto de partida para novos desenvolvimentos, o que permite transparência e escrutínio independente.",
+            "title": "Aberto desde a conceção"
+          },
+          "verification": {
+            "description": "A confiança deve assentar em propriedades técnicas verificáveis e em processos transparentes, e não apenas em promessas feitas por um prestador de serviços.",
+            "title": "Confiança através da verificação"
+          }
+        },
+        "eyebrow": "Porque existe a Associação",
+        "p1": "A participação democrática depende da capacidade de tomar decisões coletivas em que as pessoas possam confiar.",
+        "p2": "A votação digital pode tornar a participação mais acessível, mas apenas se a infraestrutura subjacente for transparente, segura e verificável de forma independente.",
+        "p3": "A Vocdoni Association existe para proteger essas bases. Enquanto organização sem fins lucrativos, preserva o protocolo como um bem comum digital aberto: uma infraestrutura partilhada que qualquer pessoa pode utilizar, examinar e melhorar.",
+        "p4": "Isso significa desenvolvê-lo no interesse público, em vez de o tratar como um ativo proprietário controlado por uma única empresa.",
+        "title": "Tecnologia para o bem comum"
+      }
+    },
     "content_description": "Desde 2018, a Vocdoni (do esperanto, «dar voz») permite às organizações realizar eleições com integridade matemática. Oferecemos uma infraestrutura de votação aberta e verificável de forma independente, transferindo a confiança das promessas do fornecedor para uma prova pública.",
     "content_title": "A confiança não é uma promessa. É uma propriedade estrutural.",
     "description": "De câmaras municipais e partidos políticos a associações e cooperativas, a Vocdoni (do esperanto, «dar voz») nasceu para nivelar as condições de partida. O nosso objetivo é simples: oferecer tecnologia de votação digital segura e verificável a qualquer organização, independentemente da sua dimensão.",
@@ -3150,6 +3269,7 @@
       }
     },
     "structure": {
+      "association_link": "Conhecer a Associação",
       "association_title": "Vocdoni Association",
       "for_profit": "Uma entidade com fins lucrativos dedicada a tornar a tecnologia segura de votação digital acessível e escalável a organizações de qualquer tipo em todo o mundo.",
       "global_title": "Vocdoni Global",
@@ -3762,6 +3882,7 @@
   "footer": {
     "company": {
       "about": "Sobre nós",
+      "association": "Vocdoni Association",
       "blog": "Blog",
       "case_studies": "Estudos de caso",
       "contact": "Contacto",
@@ -3873,6 +3994,10 @@
   },
   "meta": {
     "about_us": {
+      "association": {
+        "description": "A Vocdoni Association é uma organização suíça sem fins lucrativos que salvaguarda a abertura, a integridade, a privacidade e o futuro do protocolo Vocdoni.",
+        "title": "Vocdoni Association - salvaguardar o protocolo de votação aberto"
+      },
       "description": "Conheça a equipa que constrói uma infraestrutura de votação digital verificável e de código aberto para organizações que precisam de decisões fiáveis.",
       "title": "Sobre a Vocdoni - infraestrutura de votação online de código aberto"
     },

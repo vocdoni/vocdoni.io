@@ -169,6 +169,29 @@ describe('Head meta tags', () => {
     )
   })
 
+  it('names the association page breadcrumb from locale copy, not the URL slug or the full title', () => {
+    const html = renderHead({
+      locale: 'ca',
+      urlLogical: '/about-us/vocdoni-association',
+      config: { title: 'Vocdoni Association - salvaguardem el protocol de votació obert' },
+      initialI18nStore: {
+        ca: {
+          common: {
+            navbar: { about: 'Sobre nosaltres' },
+            about_us: { structure: { association_title: 'Vocdoni Association' } },
+          },
+        },
+      },
+    })
+
+    expect(node(html, 'AboutPage')).toBeDefined()
+    expect(node(html, 'BreadcrumbList')!.itemListElement.map((item: { name: string }) => item.name)).toEqual([
+      'Vocdoni',
+      'Sobre nosaltres',
+      'Vocdoni Association',
+    ])
+  })
+
   it('falls back to the English entity description when the i18n store has no identity copy', () => {
     const html = renderHead({ locale: 'en', urlLogical: '/', config: { title: 'Vocdoni' } })
     expect(node(html, 'Organization')!.description).toContain(

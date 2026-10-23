@@ -187,6 +187,12 @@ export const CURATED_SECTIONS: CuratedSection[] = [
     id: 'company',
     blocks: [
       { type: 'route', route: '/about-us', titleKey: 'meta.about_us.title', noteKey: 'llms.notes.company.about' },
+      {
+        type: 'route',
+        route: '/about-us/vocdoni-association',
+        titleKey: 'meta.about_us.association.title',
+        noteKey: 'llms.notes.company.association',
+      },
       { type: 'route', route: '/use-cases', titleKey: 'meta.use_cases.title', noteKey: 'llms.notes.company.use_cases' },
       { type: 'route', route: '/blog', titleKey: 'meta.blog_index.title', noteKey: 'llms.notes.company.blog' },
       { type: 'route', route: '/privacy', titleKey: 'meta.privacy.title', noteKey: 'llms.notes.company.privacy' },
