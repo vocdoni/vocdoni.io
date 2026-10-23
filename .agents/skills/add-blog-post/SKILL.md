@@ -38,7 +38,7 @@ excerpt: "One or two sentences with the headline figure."
 coverImage: /blog/images/YYYY/MM/header_vocdoni_<org>.webp
 coverAlt: "<same as title>"
 authors:
-  - ferran
+  - jordi-pinyana
 categories:
   - success-stories
 featured: false
