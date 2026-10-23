@@ -3099,6 +3099,125 @@
     "title": "Online voting solutions for every kind of organization"
   },
   "about_us": {
+    "association": {
+      "ahead": {
+        "eyebrow": "Looking ahead",
+        "p1": "Digital voting infrastructure should not be a black box that communities must simply trust. It should be open to scrutiny, designed to protect privacy, and built so that its integrity can be verified. The Vocdoni Association is committed to these principles.",
+        "title": "An open foundation for the future of collective decisions"
+      },
+      "breadcrumb_current": "Vocdoni Association",
+      "breadcrumb_label": "Breadcrumb",
+      "breadcrumb_parent": "About us",
+      "closing": {
+        "description": "Read the protocol paper, examine the code, and discover how open digital voting infrastructure can support more trustworthy collective decisions.",
+        "title": "Help build an open voting ecosystem"
+      },
+      "cta": {
+        "code": "Explore the open-source code",
+        "github": "View the source code on GitHub",
+        "paper": "Read the protocol paper",
+        "protocol": "Explore DAVINCI"
+      },
+      "ecosystem": {
+        "diagram": {
+          "applications": "Applications",
+          "applications_description": "Voting tools built on the protocol",
+          "association_description": "Looks after the protocol's mission",
+          "association_title": "Vocdoni Association",
+          "caption": "A conceptual view of roles around the protocol, not a diagram of its technical architecture.",
+          "communities": "Organizations and communities",
+          "communities_description": "Run their votes on what the ecosystem builds",
+          "integrations": "Integrations",
+          "integrations_description": "Voting inside existing platforms",
+          "protocol_description": "Shared, open technical foundations",
+          "protocol_title": "Open Vocdoni protocol",
+          "services": "Services",
+          "services_description": "Managed elections and professional support"
+        },
+        "eyebrow": "An open protocol, a shared ecosystem",
+        "p1": "Vocdoni is designed as an open protocol, not a closed voting product. The next generation of the protocol, DAVINCI, builds on this vision with a publicly documented design and technical specifications.",
+        "p2": "This makes it possible for different organizations, developers, and service providers to build applications and integrations that meet their own needs while drawing on shared technical foundations.",
+        "p3": "The Association looks after the openness and integrity of those foundations, so the ecosystem can keep growing on solid ground.",
+        "title": "One protocol. Many possibilities."
+      },
+      "hero": {
+        "intro": "The Vocdoni Association is a non-profit organization based in Switzerland, dedicated to safeguarding the integrity, openness, and long-term development of the Vocdoni voting protocol.",
+        "mission": "Our mission is to ensure that our protocol remains open, secure, private, and verifiable, providing shared infrastructure for digital voting that serves the public interest.",
+        "title": "Safeguarding our open voting protocol"
+      },
+      "mission": {
+        "eyebrow": "Two complementary roles",
+        "p1": "The Association's non-profit nature reflects a fundamental commitment: the long-term integrity and openness of the protocol must remain central to its development.",
+        "p2": "A sustainable ecosystem includes commercial products, professional services, and integrations that bring the technology to real-world users. They support adoption and continued development, while the protocol remains an open foundation that anyone can inspect, use, and build on.",
+        "p3": "The Association exists to keep that distinction clear and the protocol true to its public-interest purpose.",
+        "roles": {
+          "association": {
+            "items": {
+              "open_source": "Supports its open-source development",
+              "openness": "Safeguards the openness and integrity of the protocol",
+              "purpose": "Keeps the protocol aligned with its public-interest purpose"
+            },
+            "title": "The Vocdoni Association"
+          },
+          "ecosystem": {
+            "items": {
+              "products": "Build products and applications on the protocol",
+              "services": "Offer integrations and managed services",
+              "support": "Provide professional support to the organizations that run votes"
+            },
+            "title": "Commercial providers"
+          },
+          "note": "The two roles complement each other. Using the protocol, reading its code, or building on it does not require buying services from any particular company."
+        },
+        "title": "A non-profit mission, an open ecosystem"
+      },
+      "safeguards": {
+        "cards": {
+          "continuity": {
+            "description": "Supporting the protocol's long-term evolution so it can continue serving communities, regardless of which organizations build applications and services on top of it.",
+            "title": "Long-term continuity"
+          },
+          "integrity": {
+            "description": "Keeping the protocol's core design and technical foundations consistent, reliable, and sound.",
+            "title": "Protocol integrity"
+          },
+          "open_source": {
+            "description": "Supporting the ongoing development of the open-source code, so it stays transparent, collaborative, and open to independent technical scrutiny.",
+            "title": "Open-source development"
+          },
+          "privacy": {
+            "description": "Preserving privacy and security as fundamental design principles, including ballot secrecy, resistance to censorship and undue control, and the integrity of the voting process.",
+            "title": "Privacy and security"
+          }
+        },
+        "eyebrow": "Areas of responsibility",
+        "intro": "An open protocol is more than published code. It needs ongoing care, responsible development, and a lasting commitment to the principles that make it trustworthy.",
+        "note": "These are the areas of responsibility the Association works on. Each organization or provider running the protocol remains responsible for its own deployment.",
+        "title": "Protecting the foundations of trustworthy voting"
+      },
+      "why": {
+        "cards": {
+          "everyone": {
+            "description": "Secure digital voting infrastructure should be accessible to organizations and communities of all sizes, regardless of their location or financial resources.",
+            "title": "Built for everyone"
+          },
+          "open": {
+            "description": "The protocol and its open-source foundations can be inspected, studied, and built upon, enabling transparency and independent scrutiny.",
+            "title": "Open by design"
+          },
+          "verification": {
+            "description": "Trust should be supported by verifiable technical properties and transparent processes, not solely by promises made by a service provider.",
+            "title": "Trust through verification"
+          }
+        },
+        "eyebrow": "Why the Association exists",
+        "p1": "Democratic participation depends on the ability to make collective decisions that people can trust.",
+        "p2": "Digital voting can make participation more accessible, but only if the underlying infrastructure is transparent, secure, and independently verifiable.",
+        "p3": "The Vocdoni Association exists to protect those foundations. As a non-profit, it preserves the protocol as an open digital commons: shared infrastructure that anyone can use, inspect, and improve.",
+        "p4": "That means developing it in the public interest, rather than treating it as a proprietary asset controlled by a single company.",
+        "title": "Technology for the common good"
+      }
+    },
     "content_description": "Since 2018, Vocdoni (Esperanto for 'to give voice') has empowered organizations to run elections with mathematical integrity. We provide open, independently verifiable voting infrastructure, shifting trust from vendor promises to public proof.",
     "content_title": "Trust is not a promise. It is a structural property.",
     "description": "From city councils and political parties to associations and cooperatives, Vocdoni (Esperanto for 'to give voice') was built to level the playing field. Our goal is simple: deliver secure, verifiable digital voting technology to any organization, regardless of its size.",
@@ -3151,6 +3270,7 @@
       }
     },
     "structure": {
+      "association_link": "Learn about the Association",
       "association_title": "Vocdoni Association",
       "for_profit": "A for-profit entity dedicated to making secure digital voting technology accessible and scalable to organizations of any kind worldwide.",
       "global_title": "Vocdoni Global",
@@ -3763,6 +3883,7 @@
   "footer": {
     "company": {
       "about": "About us",
+      "association": "Vocdoni Association",
       "blog": "Blog",
       "case_studies": "Case studies",
       "contact": "Contact",
@@ -3874,6 +3995,10 @@
   },
   "meta": {
     "about_us": {
+      "association": {
+        "description": "The Vocdoni Association is a Swiss non-profit safeguarding the openness, integrity, privacy, and long-term development of the Vocdoni voting protocol.",
+        "title": "Vocdoni Association - safeguarding our open voting protocol"
+      },
       "description": "Meet the team building open source, verifiable digital voting infrastructure for organizations that need trustworthy decisions.",
       "title": "About Vocdoni - open source online voting infrastructure"
     },
