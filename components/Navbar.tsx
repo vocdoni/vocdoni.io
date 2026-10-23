@@ -148,6 +148,9 @@ const PanelLabel = ({ className, children }: { className?: string; children: Rea
   </p>
 )
 
+/* Logical paths (locale stripped) whose header shows no primary CTA. */
+const NO_CTA_PATHS = new Set(['/about-us/vocdoni-association'])
+
 /* Thin divider between top-level nav entries. */
 const NavDivider = () => <li aria-hidden='true' className='h-3 w-px shrink-0 self-center bg-foreground/15' />
 
@@ -164,6 +167,8 @@ export function Navbar() {
   const appSigninUrl = useAppAuthUrl('signin')
   const ctaHref = inDevelopers ? DEVELOPERS_DASHBOARD_URL : appSigninUrl
   const ctaLabel = inDevelopers ? t('navbar.dashboard_button', 'API Dashboard') : t('navbar.app_button')
+  // Pages that speak for the non-profit, not the product, carry no sign-in CTA.
+  const showCta = !NO_CTA_PATHS.has(pageContext.urlLogical)
 
   const productFeatures = React.useMemo(() => buildProductFeatures(t), [t])
   const resourcesItems = React.useMemo(() => buildResourcesItems(t), [t])
@@ -487,39 +492,43 @@ export function Navbar() {
                   </div>
 
                   {/* Footer App Button */}
-                  <div className='p-6 border-t border-border mt-auto'>
-                    <Button asChild variant='dark' className='w-full'>
-                      <Link
-                        href={ctaHref}
-                        target='_blank'
-                        rel='noopener noreferrer'
-                        variant='unstyled'
-                        ctaId={inDevelopers ? undefined : 'navbar_mobile_signin'}
-                        onClick={() => setIsOpen(false)}
-                      >
-                        {ctaLabel}
-                      </Link>
-                    </Button>
-                  </div>
+                  {showCta && (
+                    <div className='p-6 border-t border-border mt-auto'>
+                      <Button asChild variant='dark' className='w-full'>
+                        <Link
+                          href={ctaHref}
+                          target='_blank'
+                          rel='noopener noreferrer'
+                          variant='unstyled'
+                          ctaId={inDevelopers ? undefined : 'navbar_mobile_signin'}
+                          onClick={() => setIsOpen(false)}
+                        >
+                          {ctaLabel}
+                        </Link>
+                      </Button>
+                    </div>
+                  )}
                 </div>
               </SheetContent>
             </Sheet>
           </div>
 
           {/* Primary CTA (hidden on mobile) */}
-          <div className='hidden xl:block'>
-            <Button asChild variant='dark' size='sm' className='px-5'>
-              <Link
-                href={ctaHref}
-                target='_blank'
-                rel='noopener noreferrer'
-                variant='unstyled'
-                ctaId={inDevelopers ? undefined : 'navbar_desktop_signin'}
-              >
-                {ctaLabel}
-              </Link>
-            </Button>
-          </div>
+          {showCta && (
+            <div className='hidden xl:block'>
+              <Button asChild variant='dark' size='sm' className='px-5'>
+                <Link
+                  href={ctaHref}
+                  target='_blank'
+                  rel='noopener noreferrer'
+                  variant='unstyled'
+                  ctaId={inDevelopers ? undefined : 'navbar_desktop_signin'}
+                >
+                  {ctaLabel}
+                </Link>
+              </Button>
+            </div>
+          )}
         </div>
       </div>
     </header>
