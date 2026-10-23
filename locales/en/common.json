@@ -1719,7 +1719,8 @@
           },
           {
             "answer": "Yes. Votes with up to 25 people are free, with no credit card. Above that, you pay once per vote and the price scales affordably as you grow.",
-            "question": "Is there a free option for small organizations?"
+            "question": "Is there a free option for small organizations?",
+            "link_label": "Work out the price of your vote"
           },
           {
             "answer": "Yes. Each member can confirm their vote was counted and anyone can verify the final tally, which protects the legitimacy of the decision.",
@@ -2992,7 +2993,12 @@
             ],
             "cta": "Become a partner"
           }
-        ]
+        ],
+        "pricing": {
+          "title": "What it costs",
+          "description": "Votes through the module use the same per-vote prices as the Vocdoni App. For integrations, email verification codes are billed separately.",
+          "link_label": "See what a vote costs"
+        }
       },
       "faq": {
         "eyebrow": "questions",
@@ -3220,7 +3226,8 @@
       "items": [
         {
           "answer": "Yes. Every vote with up to 25 people is free, with no card. Above that you pay once per vote, priced on how many people can vote; the calculator on this page shows the exact figure.",
-          "question": "Can I really run a free vote?"
+          "question": "Can I really run a free vote?",
+          "link_label": "Work out the price of your vote"
         },
         {
           "answer": "One person can usually create and launch a vote in under 30 minutes.",
@@ -3711,6 +3718,7 @@
       },
       "free": {
         "answer": "Yes. Votes with up to 25 people are free, with no credit card and no time limit. Above that, you pay once per vote; prices are on the Vocdoni App page and need no sales call.",
+        "link_label": "Work out the price of your vote",
         "question": "Is Vocdoni free?"
       },
       "gdpr": {
@@ -4093,6 +4101,10 @@
         "description": "Secure, transparent and verifiable digital voting system for any organization.",
         "title": "Digital voting platform"
       },
+      "pricing": {
+        "description": "Work out what your vote costs in a minute, with no sales call.",
+        "title": "Pricing"
+      },
       "sdk": {
         "description": "Integrate a secure voting layer into your existing applications easily.",
         "title": "SDK & API"
@@ -4234,6 +4246,10 @@
       }
     },
     "lede": "Free for up to 25 people, with anonymous, verifiable voting always included. These prices apply to the Vocdoni App and to integrations; with integrations, email codes are charged separately.",
+    "links": {
+      "callout": "Planning a vote? Work out what it costs in a minute.",
+      "see_pricing": "See pricing"
+    },
     "live": {
       "free": "This vote is free.",
       "quote": "More than {{limit}} people: on request.",

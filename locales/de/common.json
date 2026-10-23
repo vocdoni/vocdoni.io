@@ -1719,7 +1719,8 @@
           },
           {
             "answer": "Ja. Abstimmungen mit bis zu 25 Personen sind kostenlos, ohne Kreditkarte. Darüber zahlst du einmalig pro Abstimmung, und die Preise bleiben auch beim Wachstum bezahlbar.",
-            "question": "Gibt es eine kostenlose Option für kleine Organisationen?"
+            "question": "Gibt es eine kostenlose Option für kleine Organisationen?",
+            "link_label": "Berechne den Preis deiner Abstimmung"
           },
           {
             "answer": "Ja. Jedes Mitglied kann bestätigen, dass seine Stimme gezählt wurde, und alle können die endgültige Auszählung prüfen. Das schützt die Legitimität der Entscheidung.",
@@ -2991,7 +2992,12 @@
             ],
             "cta": "Partner werden"
           }
-        ]
+        ],
+        "pricing": {
+          "title": "Was es kostet",
+          "description": "Abstimmungen über das Modul kosten dasselbe pro Abstimmung wie in der Vocdoni App. Bei Integrationen werden Bestätigungscodes per E-Mail separat abgerechnet.",
+          "link_label": "Sieh dir an, was eine Abstimmung kostet"
+        }
       },
       "faq": {
         "eyebrow": "Fragen",
@@ -3219,7 +3225,8 @@
       "items": [
         {
           "answer": "Ja. Jede Abstimmung mit bis zu 25 Personen ist kostenlos, ohne Karte. Darüber hinaus zahlst du einmalig pro Abstimmung, basierend auf der Anzahl der stimmberechtigten Personen; der Rechner auf dieser Seite zeigt den genauen Betrag.",
-          "question": "Kann ich wirklich kostenlos eine Abstimmung durchführen?"
+          "question": "Kann ich wirklich kostenlos eine Abstimmung durchführen?",
+          "link_label": "Berechne den Preis deiner Abstimmung"
         },
         {
           "answer": "Eine einzelne Person kann eine Abstimmung in der Regel in unter 30 Minuten erstellen und starten.",
@@ -3710,6 +3717,7 @@
       },
       "free": {
         "answer": "Ja. Abstimmungen mit bis zu 25 Personen sind kostenlos, ohne Kreditkarte und ohne Zeitlimit. Darüber hinaus zahlst du einmalig pro Abstimmung; die Preise findest du auf der Vocdoni-App-Seite, kein Vertriebsgespräch nötig.",
+        "link_label": "Berechne den Preis deiner Abstimmung",
         "question": "Ist Vocdoni kostenlos?"
       },
       "gdpr": {
@@ -4092,6 +4100,10 @@
         "description": "Sicheres, transparentes und verifizierbares digitales Wahlsystem für jede Organisation.",
         "title": "Digitale Wahlplattform"
       },
+      "pricing": {
+        "description": "Berechne in einer Minute, was deine Abstimmung kostet, ohne Verkaufsgespräch.",
+        "title": "Preise"
+      },
       "sdk": {
         "description": "Integriere eine sichere Wahlebene unkompliziert in deine bestehenden Anwendungen.",
         "title": "SDK und API"
@@ -4233,6 +4245,10 @@
       }
     },
     "lede": "Kostenlos bis 25 Personen, mit anonymer, überprüfbarer Abstimmung immer inklusive. Diese Preise gelten für die Vocdoni App und für Integrationen; bei Integrationen werden E-Mail-Codes separat berechnet.",
+    "links": {
+      "callout": "Du planst eine Abstimmung? Berechne in einer Minute, was sie kostet.",
+      "see_pricing": "Preise ansehen"
+    },
     "live": {
       "free": "Diese Abstimmung ist kostenlos.",
       "quote": "Mehr als {{limit}} Personen: auf Anfrage.",

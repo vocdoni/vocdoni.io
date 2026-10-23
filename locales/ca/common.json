@@ -1719,7 +1719,8 @@
           },
           {
             "answer": "Sí. Les votacions amb fins a 25 persones són gratuïtes, sense targeta de crèdit. Per sobre d'això, es paga una vegada per votació i el preu escala de manera assequible a mesura que creixeu.",
-            "question": "Hi ha una opció gratuïta per a organitzacions petites?"
+            "question": "Hi ha una opció gratuïta per a organitzacions petites?",
+            "link_label": "Calculeu el preu de la vostra votació"
           },
           {
             "answer": "Sí. Cada membre pot confirmar que el seu vot s'ha comptat i qualsevol pot verificar el recompte final, cosa que protegeix la legitimitat de la decisió.",
@@ -2991,7 +2992,12 @@
             ],
             "cta": "Feu-vos socis"
           }
-        ]
+        ],
+        "pricing": {
+          "title": "Quant costa",
+          "description": "Les votacions amb el mòdul tenen els mateixos preus per votació que Vocdoni App. En les integracions, els codis de verificació per correu es facturen a part.",
+          "link_label": "Mireu quant costa una votació"
+        }
       },
       "faq": {
         "eyebrow": "preguntes",
@@ -3219,7 +3225,8 @@
       "items": [
         {
           "answer": "Sí. Tota votació fins a 25 persones és gratuïta, sense targeta. Per sobre d'això pagueu una vegada per votació, en funció del nombre de persones que poden votar; la calculadora d'aquesta pàgina mostra la xifra exacta.",
-          "question": "De debò puc organitzar una votació gratis?"
+          "question": "De debò puc organitzar una votació gratis?",
+          "link_label": "Calculeu el preu de la vostra votació"
         },
         {
           "answer": "Una sola persona pot crear i publicar una votació en menys de 30 minuts.",
@@ -3710,6 +3717,7 @@
       },
       "free": {
         "answer": "Sí. Totes les votacions amb fins a 25 persones són gratuïtes, sense targeta de crèdit i sense límit de temps. Per sobre d'això, es paga una vegada per votació; els preus estan a la pàgina de l'aplicació Vocdoni i no cal cap trucada comercial.",
+        "link_label": "Calculeu el preu de la vostra votació",
         "question": "Vocdoni és gratis?"
       },
       "gdpr": {
@@ -4092,6 +4100,10 @@
         "description": "Sistema de votació digital segur, transparent i verificable per a qualsevol organització.",
         "title": "Plataforma de votació digital"
       },
+      "pricing": {
+        "description": "Calculeu quant costa la vostra votació en un minut, sense trucades comercials.",
+        "title": "Preus"
+      },
       "sdk": {
         "description": "Integreu fàcilment una capa de vot segur a les vostres aplicacions existents.",
         "title": "SDK i API"
@@ -4233,6 +4245,10 @@
       }
     },
     "lede": "Gratis fins a 25 persones, amb vot anònim i verificable sempre inclòs. Aquests preus valen per a Vocdoni App i per a integracions; en les integracions, els codis per correu es cobren a part.",
+    "links": {
+      "callout": "Prepareu una votació? Calculeu quant costa en un minut.",
+      "see_pricing": "Veure preus"
+    },
     "live": {
       "free": "Aquesta votació és gratuïta.",
       "quote": "Més de {{limit}} persones: a consultar.",

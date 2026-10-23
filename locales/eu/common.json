@@ -1719,7 +1719,8 @@
           },
           {
             "answer": "Bai. 25 pertsonara arteko botazioak doakoak dira, kreditu-txartelik gabe. Hortik gora, botaziko behin ordaintzen da eta prezioa modu eskuragarrian eskalatzen da hazten zaren heinean.",
-            "question": "Ba al dago doako aukerarik erakunde txikientzat?"
+            "question": "Ba al dago doako aukerarik erakunde txikientzat?",
+            "link_label": "Kalkulatu zure bozketaren prezioa"
           },
           {
             "answer": "Bai. Kide bakoitzak bere botoa zenbatu dela egiaztatu dezake, eta edonork egiaztatu dezake azken zenbaketa; horrek erabakiaren zilegitasuna babesten du.",
@@ -2991,7 +2992,12 @@
             ],
             "cta": "Bihurtu bazkide"
           }
-        ]
+        ],
+        "pricing": {
+          "title": "Zenbat kostatzen den",
+          "description": "Moduluaren bidezko bozketek Vocdoni Appen bozketa bakoitzeko prezio berak dituzte. Integrazioetan, e-postaz bidalitako egiaztapen-kodeak aparte fakturatzen dira.",
+          "link_label": "Ikusi zenbat kostatzen den bozketa bat"
+        }
       },
       "faq": {
         "eyebrow": "galderak",
@@ -3219,7 +3225,8 @@
       "items": [
         {
           "answer": "Bai. 25 pertsonara arteko edozein botazio doakoa da, txartelik gabe. Hortik gora botaziko behin ordaintzen da, boto eman dezaketen pertsona kopuruaren arabera; orri honetako kalkulagailuak kopuru zehatza erakusten du.",
-          "question": "Benetan egin dezaket doako bozketa bat?"
+          "question": "Benetan egin dezaket doako bozketa bat?",
+          "link_label": "Kalkulatu zure bozketaren prezioa"
         },
         {
           "answer": "Pertsona bakar batek, normalean, 30 minutu baino gutxiagoan bozketa bat sortu eta abiarazi dezake.",
@@ -3710,6 +3717,7 @@
       },
       "free": {
         "answer": "Bai. 25 pertsonara arteko botazioak doakoak dira, kreditu-txartelik eta epe-mugarik gabe. Hortik gora, botaziko behin ordaintzen da; prezioak Vocdoni aplikazioaren orrian daude argitaratuta eta ez da salmenta-deirik behar.",
+        "link_label": "Kalkulatu zure bozketaren prezioa",
         "question": "Vocdoni doakoa al da?"
       },
       "gdpr": {
@@ -4092,6 +4100,10 @@
         "description": "Organizazio guztientzako boto-emate digital segurua, gardena eta egiaztagarria.",
         "title": "Boto-emate digitalaren plataforma"
       },
+      "pricing": {
+        "description": "Kalkulatu zure bozketak zenbat kostatzen duen minutu batean, salmenta-deirik gabe.",
+        "title": "Prezioak"
+      },
       "sdk": {
         "description": "Erraztasunez integratu boto-emate geruza segurua zure aplikazioetan.",
         "title": "SDKa & APIa"
@@ -4233,6 +4245,10 @@
       }
     },
     "lede": "Doan 25 pertsonara arte, bozketa anonimo eta egiaztagarria beti barne. Prezio hauek Vocdoni Apperako eta integrazioetarako dira; integrazioetan, e-postaz bidalitako kodeak aparte kobratzen dira.",
+    "links": {
+      "callout": "Bozketa bat prestatzen ari zara? Kalkulatu zenbat kostatzen den minutu batean.",
+      "see_pricing": "Ikusi prezioak"
+    },
     "live": {
       "free": "Bozketa hau doakoa da.",
       "quote": "{{limit}} pertsona baino gehiago: eskaera bidez.",

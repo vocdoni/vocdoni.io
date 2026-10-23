@@ -1719,7 +1719,8 @@
           },
           {
             "answer": "Sim. As votações com até 25 pessoas são gratuitas, sem cartão de crédito. Acima disso, paga-se uma vez por votação e o preço ajusta-se a custos acessíveis à medida que cresce.",
-            "question": "Há uma opção gratuita para organizações pequenas?"
+            "question": "Há uma opção gratuita para organizações pequenas?",
+            "link_label": "Calcule o preço da sua votação"
           },
           {
             "answer": "Sim. Cada membro pode confirmar que o voto foi contado e qualquer pessoa pode verificar a contagem final, o que protege a legitimidade da decisão.",
@@ -2991,7 +2992,12 @@
             ],
             "cta": "Tornem-se parceiros"
           }
-        ]
+        ],
+        "pricing": {
+          "title": "Quanto custa",
+          "description": "As votações através do módulo têm os mesmos preços por votação que a Vocdoni App. Nas integrações, os códigos de verificação por email são faturados à parte.",
+          "link_label": "Veja quanto custa uma votação"
+        }
       },
       "faq": {
         "eyebrow": "perguntas",
@@ -3219,7 +3225,8 @@
       "items": [
         {
           "answer": "Sim. Toda votação até 25 pessoas é gratuita, sem cartão. Acima disso paga uma vez por votação, com base no número de pessoas que podem votar; a calculadora nesta página mostra o valor exato.",
-          "question": "Posso mesmo realizar uma votação gratuita?"
+          "question": "Posso mesmo realizar uma votação gratuita?",
+          "link_label": "Calcule o preço da sua votação"
         },
         {
           "answer": "Uma só pessoa pode normalmente criar e lançar uma votação em menos de 30 minutos.",
@@ -3710,6 +3717,7 @@
       },
       "free": {
         "answer": "Sim. As votações com até 25 pessoas são gratuitas, sem cartão de crédito e sem limite de tempo. Acima disso, paga-se uma vez por votação; os preços estão na página da aplicação Vocdoni e não é necessária nenhuma chamada comercial.",
+        "link_label": "Calcule o preço da sua votação",
         "question": "A Vocdoni é gratuita?"
       },
       "gdpr": {
@@ -4092,6 +4100,10 @@
         "description": "Sistema de votação digital seguro, transparente e verificável para qualquer organização.",
         "title": "Plataforma de votação digital"
       },
+      "pricing": {
+        "description": "Calcule quanto custa a sua votação num minuto, sem chamadas comerciais.",
+        "title": "Preços"
+      },
       "sdk": {
         "description": "Integre facilmente uma camada de votação segura nas suas aplicações existentes.",
         "title": "SDK e API"
@@ -4233,6 +4245,10 @@
       }
     },
     "lede": "Grátis até 25 pessoas, com voto anónimo e verificável sempre incluído. Estes preços aplicam-se à Vocdoni App e às integrações; nas integrações, os códigos por email são cobrados à parte.",
+    "links": {
+      "callout": "Está a preparar uma votação? Calcule quanto custa num minuto.",
+      "see_pricing": "Ver preços"
+    },
     "live": {
       "free": "Esta votação é gratuita.",
       "quote": "Mais de {{limit}} pessoas: sob consulta.",

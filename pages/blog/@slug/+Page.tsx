@@ -1,3 +1,4 @@
+import { PricingCallout } from '@/components/app/pricing/PricingLink'
 import { AuthorBio } from '@/components/blog/AuthorBio'
 import { BlogArticle } from '@/components/blog/BlogArticle'
 import { BlogTOC } from '@/components/blog/BlogTOC'
@@ -49,6 +50,8 @@ export default function BlogPostPage() {
               </div>
 
               <AuthorBio authors={post.authors} />
+
+              <PricingCallout ctaId='blog_post_pricing' className='mt-10' />
             </div>
 
             <BlogTOC html={post.html} />

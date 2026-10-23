@@ -6,6 +6,8 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/
 import { Button } from '@/components/ui/button'
 import { useTranslation } from 'react-i18next'
 
+import { PricingLink } from '@/components/app/pricing/PricingLink'
+
 export default function HomeFAQ() {
   const { t } = useTranslation()
   const appSignupUrl = useAppAuthUrl()
@@ -14,7 +16,11 @@ export default function HomeFAQ() {
     { question: t('faq.items.anonymity.question'), answer: t('faq.items.anonymity.answer') },
     { question: t('faq.items.setup.question'), answer: t('faq.items.setup.answer') },
     { question: t('faq.items.authentication.question'), answer: t('faq.items.authentication.answer') },
-    { question: t('faq.items.free.question'), answer: t('faq.items.free.answer') },
+    {
+      question: t('faq.items.free.question'),
+      answer: t('faq.items.free.answer'),
+      pricingLink: t('faq.items.free.link_label', 'Work out the price of your vote'),
+    },
     { question: t('faq.items.switch.question'), answer: t('faq.items.switch.answer') },
     { question: t('faq.items.dispute.question'), answer: t('faq.items.dispute.answer') },
     { question: t('faq.items.gdpr.question'), answer: t('faq.items.gdpr.answer') },
@@ -61,6 +67,11 @@ export default function HomeFAQ() {
               </AccordionTrigger>
               <AccordionContent className='pb-6 text-base leading-7 text-muted-foreground'>
                 {faq.answer}
+                {'pricingLink' in faq && faq.pricingLink && (
+                  <div className='mt-3'>
+                    <PricingLink ctaId='home_faq_pricing' label={faq.pricingLink} className='-mx-2' />
+                  </div>
+                )}
               </AccordionContent>
             </AccordionItem>
           ))}

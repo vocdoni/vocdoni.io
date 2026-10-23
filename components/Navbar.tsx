@@ -62,6 +62,12 @@ const buildProductFeatures = (t: (key: string) => string): ProductFeature[] => [
     description: t('navbar.product_features.decidim.description'),
   },
   {
+    title: t('navbar.product_features.pricing.title'),
+    kind: 'link',
+    href: '/app#pricing',
+    description: t('navbar.product_features.pricing.description'),
+  },
+  {
     title: t('navbar.product_features.custom_projects.title'),
     kind: 'booking',
     triggerAriaLabel: 'Open custom project booking',

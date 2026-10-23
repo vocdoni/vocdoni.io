@@ -1,3 +1,4 @@
+import { PricingLink } from '@/components/app/pricing/PricingLink'
 import { CensusCard, ResultsCard, VotingCard } from '@/components/HeroCards'
 import HeroVerticals from '@/components/HeroVerticals'
 import { Link } from '@/components/Link'
@@ -91,6 +92,7 @@ const Hero = () => {
                   </svg>
                   {t('hero.cta_secondary', 'Talk to an expert')}
                 </Link>
+                <PricingLink ctaId='home_hero_pricing' />
               </div>
             </MotionPreset>
 
