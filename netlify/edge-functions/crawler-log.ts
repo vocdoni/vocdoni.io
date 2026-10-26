@@ -19,10 +19,11 @@ const netlifyEnv = (name: string): string | undefined =>
  * Why an edge function: bots never run JavaScript, so the browser SDK never sees them, and the site
  * is fully prerendered with no runtime server. The edge is the one place every request passes.
  *
- * Why the `netlify-agent-category` prefilter in the declaration below: Netlify classifies each
- * request and sets this header to e.g. `crawler;ai` or `ai-agent`. Browsers never carry it, so no
- * human request is routed through here, and Netlify overrides any client-supplied value on deployed
- * sites, so it cannot be spoofed to opt in.
+ * Why the `netlify-agent-category` prefilter in the declaration below: Netlify classifies every
+ * request and sets this header to `<category>[;<sub-category>]`, e.g. `browser`, `crawler;ai`,
+ * `crawler;seo` or `ai-agent;user`. Only values matching `(ai-agent|crawler)` are routed here, so
+ * no human request is, and Netlify overrides any client-supplied value on deployed sites, so it
+ * cannot be spoofed to opt in.
  *
  * Why this always returns `undefined`: the request then continues down the normal chain and the
  * static response keeps everything `_headers` adds (Netlify skips custom headers for a URL answered
@@ -42,13 +43,17 @@ const netlifyEnv = (name: string): string | undefined =>
  * Note there is no `import type { Config }` from `@netlify/edge-functions`: the declaration is a
  * plain object literal so the bundle has no npm dependency to resolve and the bundler can read it
  * statically. The header pattern must equal `CRAWLER_AGENT_CATEGORY_PATTERN` (a test asserts it).
+ *
+ * Ordering: inline-declared edge functions matching the same path run in alphabetical order of
+ * file name, so this runs before `markdown-negotiation.ts` and a negotiated markdown fetch is
+ * logged before the twin is served. Keep the file names sorted that way.
  */
 export default async (request: Request, context: EdgeContext): Promise<undefined> => {
   const apiKey = netlifyEnv('POSTHOG_KEY')
   if (!apiKey) return
-  const url = new URL(request.url)
-  if (!shouldReport(request.method, url.pathname)) return
   try {
+    const url = new URL(request.url)
+    if (!shouldReport(request.method, url.pathname)) return
     const event = await buildHttpLogEvent(
       {
         url: request.url,

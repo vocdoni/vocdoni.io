@@ -69,7 +69,8 @@ take precedence.
 
 `netlify/edge-functions/crawler-log.ts` reports each page fetch by a crawler or AI agent to PostHog as a `$http_log`
 event, sent to `<POSTHOG_HOST>/i/v0/e/`. It runs only for `GET` requests of documents (extensionless paths and `.html`,
-`.md`, `.txt`, `.xml`, `.json`) whose `netlify-agent-category` header is `ai-agent` or `crawler`, and it skips static
+`.md`, `.txt`, `.xml`, `.json`) whose `netlify-agent-category` header starts with `ai-agent` or `crawler` (for example
+`crawler;ai` or `ai-agent;user`; human browsers are categorised `browser` and never reach it), and it skips static
 assets. It is enabled by setting `POSTHOG_KEY` and, optionally, `POSTHOG_HOST` (default `https://eu.i.posthog.com`) as
 environment variables on the Netlify site with the Functions scope, on the production site only. The GitHub Actions
 build variables do not reach edge functions, so setting them there does nothing for crawler logging. The function never

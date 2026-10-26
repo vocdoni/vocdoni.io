@@ -112,6 +112,18 @@ describe('crawler-log edge function', () => {
     expect(finished).toBe(true)
   })
 
+  it('reports without $ip when the context has no ip', async () => {
+    stubEnv({ POSTHOG_KEY: 'phc_test' })
+    const fetchSpy = stubFetch()
+    const ctx = { waitUntil: vi.fn() }
+
+    expect(await crawlerLog(request(), ctx)).toBeUndefined()
+
+    const body = JSON.parse(String(fetchSpy.mock.calls[0][1]?.body))
+    expect(body.properties).not.toHaveProperty('$ip')
+    expect(body.distinct_id).toMatch(/^http_log_[0-9a-f]{32}$/)
+  })
+
   it('still returns undefined when the fetch rejects', async () => {
     stubEnv({ POSTHOG_KEY: 'phc_test' })
     stubFetch(async () => {
