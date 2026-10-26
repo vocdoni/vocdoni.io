@@ -92,8 +92,8 @@ Create a `.env.local` file to override any variable locally. All of the followin
 | `EMAILJS_SERVICE_ID` | EmailJS service ID |
 | `EMAILJS_TEMPLATE_ID` | EmailJS template ID |
 | `GTM_ID` | Google Tag Manager container ID |
-| `POSTHOG_KEY` | Public PostHog browser-ingestion key. Must be the **same** `phc_` key as app.vocdoni.io |
-| `POSTHOG_HOST` | PostHog browser-ingestion host |
+| `POSTHOG_KEY` | Public PostHog browser-ingestion key. Must be the **same** `phc_` key as app.vocdoni.io. Also set it on the Netlify site with the Functions scope for crawler logging ([details](docs/deployment.md#crawler-logging)) |
+| `POSTHOG_HOST` | PostHog browser-ingestion host. Also set it on the Netlify site (Functions scope) for crawler logging |
 | `PLAUSIBLE_DOMAIN` | Plausible Analytics domain |
 | `RECAPTCHA_SITE_KEY` | reCAPTCHA v3 site key |
 | `SITE_URL` | Public base URL (used for canonical tags and sitemaps) |
