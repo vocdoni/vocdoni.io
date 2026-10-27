@@ -443,7 +443,7 @@ Removing a member the CSP has **already signed for**, while a question of the pr
 voting closes on those questions the removal succeeds. This is the same protection that guards
 [memberbase removals](/developers/docs/census#kept-in-sync-with-the-memberbase). Pruning a
 question's eligibility list to empty [opens it to the whole census](#changing-a-questions-eligibility),
-so a `maxCensusSize` increase may be enqueued as an async [job](/developers/docs/jobs) - the `202`
+so a `maxCensusSize` increase may be enqueued as an async [job](/developers/docs/jobs#census-update-jobs) - the `202`
 case above. Both endpoints omit `errors` unless something went wrong; on `PUT` it lists the ids that
 could not be added, on `DELETE` the questions whose resize could not be enqueued.
 
@@ -476,7 +476,7 @@ curl "${auth[@]}" -X PUT "$B/processes/$PROCESS/questions/$QID/census" \
 > response of `eligible: 0` therefore means the question is open to everyone.
 
 Because reopening a restricted question can multiply its electorate beyond what its election was
-sized for on chain, a `maxCensusSize` increase is enqueued as an async [job](/developers/docs/jobs)
+sized for on chain, a `maxCensusSize` increase is enqueued as an async [job](/developers/docs/jobs#census-update-jobs)
 whenever the question needs more room than it was published with - the `202` case above.
 
 Removing a member the CSP has **already signed for**, while a question of the process is still

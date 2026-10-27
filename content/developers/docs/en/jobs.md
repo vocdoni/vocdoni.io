@@ -82,8 +82,8 @@ while True:
 - `org_members` - bulk member import.
 - `publish_voting_process` - publishing a process (its census and one election per question, in one batch).
 - `set_process_status` - changing a question's status.
-- `set_process_census` - raising the on-chain `maxCensusSize` of a process's elections after its
-  census grew. See [Census-update jobs](#census-update-jobs).
+- `set_process_census` - raising the on-chain `maxCensusSize` of live elections that need more room.
+  See [Census-update jobs](#census-update-jobs).
 - `relay_vote` - relaying a single vote to the protocol.
 - `relay_votes` - relaying a batch of votes (`POST /votes`) to the protocol.
 
@@ -104,11 +104,19 @@ accepted:
 
 ## Census-update jobs
 
-Growing a published census - directly with
-[`PUT /processes/{processId}/census`](/developers/docs/voting-processes#growing-the-census), or through
-a [memberbase addition](/developers/docs/census#kept-in-sync-with-the-memberbase) - enqueues a
-`set_process_census` job that resizes each affected election on chain. Like a status-change job, its
-`result.questions` reports one entry per question, in target order:
+A `set_process_census` job raises the on-chain `maxCensusSize` of live elections that need more room
+than they were published with. It is enqueued by:
+
+- [growing a process census](/developers/docs/voting-processes#growing-the-census) (`PUT /processes/{processId}/census`);
+- [reopening or widening a question's eligibility list](/developers/docs/voting-processes#changing-a-questions-eligibility),
+  including removals that prune a list to empty (`DELETE /processes/{processId}/census`, or deleting a
+  member or removing them from a group);
+- [memberbase additions](/developers/docs/census#kept-in-sync-with-the-memberbase) that grow a live
+  census - one job can then span several processes built on the same group.
+
+The process endpoints return its id as `jobId`; member and group endpoints return any such ids in
+`censusJobIds`. No job is enqueued when no election needs to grow. `result.questions` holds one entry
+per question the job targeted (`questionId`, `status`, and `error` or `noOp` when they apply):
 
 ```jsonc
 { "jobId": "e5f6a7...", "type": "set_process_census", "status": "failed",
@@ -123,7 +131,8 @@ a [memberbase addition](/developers/docs/census#kept-in-sync-with-the-memberbase
   longer open (`READY` or `PAUSED`) on chain - it ended while the job was queued, for example.
 - Every target is attempted, even after one fails, so the other resizes still apply. The job ends
   `failed` if **any** attempted resize failed, and its error names each failed question.
-- On success `result.status` is `completed`.
+- On success `result.status` is `completed`. A `set_process_status` job reports its questions in the
+  same `result.questions` shape.
 
 ## The members-job
 

@@ -174,10 +174,11 @@ processes:
 
 - **Additions propagate.** A member added to the group a live census was built from (including new
   members landing in an auto "All members" group) joins that census and can vote; the affected
-  elections are resized on chain automatically. Elections that are still live (`READY` or `PAUSED`)
-  are always resized; one that already ended on chain is skipped rather than failing the
-  [census-update job](/developers/docs/jobs#census-update-jobs). Additions are gated by your plan's
-  census quota.
+  elections are resized on chain automatically, through a
+  [census-update job](/developers/docs/jobs#census-update-jobs) whose id the member or group response
+  returns in `censusJobIds`. Only elections still `READY` or `PAUSED` are resized; one that already
+  ended on chain is skipped rather than failing the job. Additions are gated by your plan's census
+  quota.
 - **Removals cascade, but voters are protected.** Deleting a member or removing them from a group
   strips them from the affected censuses and question eligibility lists, so the credential service
   stops signing for them. If the CSP has **already signed** for the member on a question that is
