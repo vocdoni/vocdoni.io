@@ -391,9 +391,12 @@ ongoing. Changes to the memberbase itself also cascade into live censuses - see
 
 After publishing you can add more members to the census - `PUT /processes/{processId}/census` adds
 existing organization members and raises each affected election's `maxCensusSize` so they can vote.
-Members are added synchronously; the on-chain resize runs as an async job (`jobId`). Questions with an
+Members are added synchronously; the on-chain resize runs as an async [job](/developers/docs/jobs#census-update-jobs)
+(`jobId`). Only questions that are still `READY` or `PAUSED` are resized, and questions with an
 [eligibility subset](/developers/docs/census#per-question-eligibility) keep their fixed size and are
-unaffected.
+unaffected. When no election needs to grow - every question already ended on chain, say, or already
+has the room - the members are still added and the call answers `200` with **no `jobId`**; otherwise
+it answers `202` with the `jobId` to poll.
 
 - **PUT** `/processes/{processId}/census`
 
@@ -409,7 +412,8 @@ if (jobId) await client.jobs.waitFor(jobId) // the on-chain resize
 :::
 
 ```jsonc
-{ "added": 2, "jobId": "e5f6a7..." }   // poll /jobs/{jobId} for the resize
+{ "added": 2, "jobId": "e5f6a7..." }   // 202 - resize enqueued, poll /jobs/{jobId}
+{ "added": 2 }                          // 200 - no election to grow, nothing to poll
 ```
 
 ### Removing members from the census

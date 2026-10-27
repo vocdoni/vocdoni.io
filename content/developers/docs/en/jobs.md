@@ -30,8 +30,8 @@ const job = await client.jobs.get(jobId) // a single poll; see below to poll to 
 
 ```jsonc
 { "jobId": "a1b2c3...",
-  "type": "publish_voting_process",   // org_members | publish_voting_process |
-                                      //   set_process_status | relay_vote | relay_votes
+  "type": "publish_voting_process",   // org_members | publish_voting_process | set_process_status |
+                                      //   set_process_census | relay_vote | relay_votes
   "status": "completed",              // pending | completed | failed
   "result": { "status": "READY",      // on status change: the new status
               "processId": "",        // on relay_vote: the target on-chain election id (the
@@ -82,6 +82,8 @@ while True:
 - `org_members` - bulk member import.
 - `publish_voting_process` - publishing a process (its census and one election per question, in one batch).
 - `set_process_status` - changing a question's status.
+- `set_process_census` - raising the on-chain `maxCensusSize` of a process's elections after its
+  census grew. See [Census-update jobs](#census-update-jobs).
 - `relay_vote` - relaying a single vote to the protocol.
 - `relay_votes` - relaying a batch of votes (`POST /votes`) to the protocol.
 
@@ -99,6 +101,29 @@ accepted:
       { "processId": "4e77...", "nullifier": "b209...", "voteID": "b209...", "status": "completed" },
       { "processId": "c015...", "nullifier": "33fa...", "status": "failed", "error": "vote already exists" } ] } }
 ```
+
+## Census-update jobs
+
+Growing a published census - directly with
+[`PUT /processes/{processId}/census`](/developers/docs/voting-processes#growing-the-census), or through
+a [memberbase addition](/developers/docs/census#kept-in-sync-with-the-memberbase) - enqueues a
+`set_process_census` job that resizes each affected election on chain. Like a status-change job, its
+`result.questions` reports one entry per question, in target order:
+
+```jsonc
+{ "jobId": "e5f6a7...", "type": "set_process_census", "status": "failed",
+  "errors": ["1 of 2 census resizes failed: question 66b2...: <chain error>"],
+  "result": { "questions": [
+      { "questionId": "66b1...", "status": "completed" },
+      { "questionId": "66b2...", "status": "failed", "error": "<chain error>" },
+      { "questionId": "66b3...", "status": "completed", "noOp": true } ] } }
+```
+
+- **`noOp: true`** means no transaction was sent: the election already had the room, or it was no
+  longer open (`READY` or `PAUSED`) on chain - it ended while the job was queued, for example.
+- Every target is attempted, even after one fails, so the other resizes still apply. The job ends
+  `failed` if **any** attempted resize failed, and its error names each failed question.
+- On success `result.status` is `completed`.
 
 ## The members-job
 
