@@ -2966,7 +2966,29 @@
             "description": "Cada voto devolve um código de recibo com link para o explorador público. Os associados recuperam o seu depois e confirmam que o voto foi contado, sem revelá-lo e sem serem vinculados a ele."
           }
         ],
-        "media_caption": "O monitoramento da administração: status, comparecimento e resultados por pergunta."
+        "media_caption": "O monitoramento da administração: status, comparecimento e resultados por pergunta.",
+        "results_media_caption": "A página da eleição quando a votação encerra: o resultado publicado de cada pergunta, legível por qualquer pessoa sem passar pela administração.",
+        "steps_title": "E o que um associado realmente faz",
+        "steps": [
+          {
+            "title": "Abre a eleição no Decidim",
+            "description": "A eleição fica no espaço participativo que ele já usa, com as perguntas e o período de votação. Quando a votação abre, o botão Voto o leva à página de votação servida pela sua própria instância."
+          },
+          {
+            "title": "Se identifica, não se cadastra",
+            "description": "Ele prova que está na lista de votantes com os campos que você escolheu: número de registro, e-mail, documento. Se você exigir, um código de uso único por e-mail ou SMS confirma que é ele. Esses dados vão para a rede de votação, nunca para o seu banco de dados."
+          },
+          {
+            "title": "Vota",
+            "description": "Uma pergunta por tela, uma revisão das respostas, e a cédula é lacrada no navegador dele antes de sair. Nada do voto passa pelo seu Decidim."
+          },
+          {
+            "title": "Fica com um recibo",
+            "description": "Cada pergunta devolve um código de recibo que prova que o voto foi registrado sem revelá-lo. Ele pode voltar à eleição, se identificar de novo e vê-lo quando quiser."
+          }
+        ],
+        "steps_media_caption": "O que um associado vê no celular, da página da eleição no Decidim ao recibo.",
+        "footnote": "Os associados nunca saem do seu Decidim nem criam uma segunda conta: a página de votação é servida pela sua própria instância, e toda a votação acontece no navegador que eles já têm aberto."
       },
       "legal": {
         "eyebrow": "garantias e proteção de dados",
@@ -3112,6 +3134,30 @@
         "cta_primary": "Fale com a gente",
         "cta_secondary": "Ver o código no GitHub",
         "note": "Software livre, sem compromisso. Se o Decidim do seu cliente ainda não estiver na 0.33, diremos a data realista."
+      },
+      "mockups": {
+        "organization": "Cooperativa Les Fonts",
+        "process": "Assembleia geral 2026",
+        "title": "Eleição do conselho diretor 2026-2030",
+        "description": "Eleição do conselho diretor para o mandato 2026-2030 e aprovação das contas anuais de 2025.",
+        "questions": [
+          {
+            "title": "Conselho diretor, mandato 2026-2030",
+            "choices": [
+              "Laia Bosch Vila",
+              "Oriol Mas Puig",
+              "Voto em branco"
+            ]
+          },
+          {
+            "title": "Aprovação das contas anuais de 2025",
+            "choices": [
+              "Sim",
+              "Não",
+              "Abstenção"
+            ]
+          }
+        ]
       }
     },
     "mockups": {
@@ -3157,6 +3203,58 @@
         "voting_in_progress": "Votação em andamento",
         "voting_settings": "Configurações de votação",
         "voting_status": "Status da votação"
+      },
+      "decidim": {
+        "active_voting_until": "Ativar votação até: {{end_date}}",
+        "answers": "Respostas",
+        "back_to_election": "Voltar para a eleição",
+        "calendar": "Calendário",
+        "cancel": "Cancelar",
+        "census_size": "Existem atualmente {{people}} pessoas elegíveis para votar nesta eleição (isso pode mudar em um censo dinâmico).",
+        "components": "Componentes",
+        "continue": "Continuar",
+        "copy": "Copiar",
+        "dark_theme": "Tema escuro",
+        "election_questions": "Perguntas eleitorais",
+        "election_status": "Status da eleição",
+        "elections": "Eleições",
+        "email_address": "Endereço de e-mail",
+        "end_time": "Hora de término:",
+        "home": "Início",
+        "identify_body": "Para abrir sua cédula, precisamos verificar que você está no censo desta eleição. Esses dados são enviados à rede de votação; este site nunca os armazena.",
+        "identify_title": "Identifique-se",
+        "membership_number": "Número de registro",
+        "next": "Próxima",
+        "percentage": "Porcentagem",
+        "pick_one": "Escolha uma opção.",
+        "privacy_note": "Sua identidade serve apenas para provar que você pode votar. Ela nunca é vinculada à sua cédula.",
+        "processes": "Processos",
+        "progress_choose": "Escolher",
+        "progress_identify": "Identificar",
+        "progress_receipt": "Recibo",
+        "progress_review": "Revisar",
+        "question_counter": "Pergunta {{current}} de {{total}}",
+        "receipt_body": "Cada recibo abaixo prova que um voto foi registrado na rede de votação. Ele não revela o que você votou.",
+        "receipt_code": "Código do recibo",
+        "receipt_return_note": "Você pode ver esses recibos de novo quando quiser: volte a esta eleição e identifique-se novamente.",
+        "results": "Resultados",
+        "results_real_time": "Resultados disponíveis em tempo real",
+        "results_subtitle_after_end": "A eleição terminou. Agora você pode ver os resultados.",
+        "send_code_legend": "Para onde enviamos seu código?",
+        "start_time": "Horário de início:",
+        "status_ongoing": "Em andamento",
+        "tab_census": "Censo",
+        "tab_dashboard": "Painel de Controle",
+        "tab_main": "Principal",
+        "tab_questions": "Questões",
+        "tab_security": "Segurança",
+        "total": "Total",
+        "total_label": "TOTAL:",
+        "vote": "Voto",
+        "vote_recorded": "Seu voto foi registrado",
+        "votes": "Votos",
+        "votes_count": "{{votes}} votos",
+        "voting_began": "Votação iniciada em: {{start_date}}"
       }
     }
   },

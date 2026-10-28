@@ -13,6 +13,10 @@ import { VerticalSectionIndex, type VerticalIndexItem } from '@/components/solut
 import { VerticalGuarantees } from '@/components/solutions/vertical/VerticalGuarantees'
 import { VerticalTrustBand } from '@/components/solutions/vertical/VerticalTrustBand'
 import type { VerticalContent } from '@/components/solutions/vertical/types'
+import { DecidimDashboardMockup } from '@/components/solutions/mockups/DecidimDashboardMockup'
+import { DecidimElectionPageMockup } from '@/components/solutions/mockups/DecidimElectionPageMockup'
+import { DecidimVoterJourneyMockup } from '@/components/solutions/mockups/DecidimVoterJourneyMockup'
+import type { DecidimMockupCopy, DecidimMockupFigures } from '@/components/solutions/mockups/decidim-types'
 import logoDecidim from '@/assets/logos/logo_decidim_colour.webp'
 import logoOmnium from '@/assets/logos/logo_omnium_colour.webp'
 import logoErc from '@/assets/logos/erc.webp'
@@ -53,6 +57,29 @@ const LOGOS = [
 ]
 
 /**
+ * The election the Decidim mockups picture: a cooperative's council election
+ * run inside its own Decidim over three days, with the accounts approved on
+ * the same ballot. Numbers live here, words in `solutions.decidim.mockups`.
+ */
+const FIGURES: DecidimMockupFigures = {
+  census: 1284,
+  start: new Date(2026, 5, 18, 17, 0),
+  end: new Date(2026, 5, 21, 21, 0),
+  liveResults: [
+    [331, 241, 39],
+    [548, 41, 22],
+  ],
+  results: [
+    [498, 371, 58],
+    [812, 73, 42],
+  ],
+  selectedChoice: 0,
+  memberNumber: '2041',
+  email: 'm.roca@example.org',
+  receipt: '0x7c2e91d4a0b35f68c1e7d2a94b8f0c3e5a61d7f2b9c84e03a7d15f6c2b8e94a1',
+}
+
+/**
  * Composed from the vertical kit's sections directly rather than through
  * `VerticalPage`, because this page differs from the organization verticals in
  * shape, not just copy: it opens with a partner band, has no case study and no
@@ -67,7 +94,7 @@ const LOGOS = [
  */
 export default function Page() {
   const { t } = useTranslation()
-  const content = t('solutions.decidim', { returnObjects: true }) as VerticalContent
+  const content = t('solutions.decidim', { returnObjects: true }) as VerticalContent<DecidimMockupCopy>
 
   // The partner band is deliberately not indexed: it is a credential, not a
   // section the reader navigates to.
@@ -92,9 +119,9 @@ export default function Page() {
         appHref={CONTACT_URL}
         secondaryHref={REPO_URL}
         ctaId={`${CTA_PREFIX}_hero`}
-        // No Decidim screenshot exists yet, and the reserved media panel beside
-        // the headline would be an empty box promising nothing.
-        layout='centered'
+        // The admin's Dashboard tab on voting day, drawn: the one screen that
+        // shows the module inside Decidim's own admin, Security tab included.
+        media={<DecidimDashboardMockup copy={content?.mockups} figures={FIGURES} label={content?.how?.media_caption} />}
       />
 
       <VerticalPartnerBand
@@ -111,7 +138,29 @@ export default function Page() {
 
       <VerticalComparison comparison={content?.comparison} pageId={CTA_PREFIX} />
 
-      <VerticalHowItRuns how={content?.how} pageId={CTA_PREFIX} />
+      {/* After close, the election page itself: the count anyone can read
+          without the admin. Beside the member's steps, the member's phone, from
+          the Vote button in Decidim to the receipt the voting page hands back. */}
+      <VerticalHowItRuns
+        how={content?.how}
+        pageId={CTA_PREFIX}
+        media={{
+          results: (
+            <DecidimElectionPageMockup
+              copy={content?.mockups}
+              figures={FIGURES}
+              label={content?.how?.results_media_caption ?? content?.how?.media_caption}
+            />
+          ),
+          ballot: (
+            <DecidimVoterJourneyMockup
+              copy={content?.mockups}
+              figures={FIGURES}
+              label={content?.how?.steps_media_caption}
+            />
+          ),
+        }}
+      />
 
       <VerticalLegal legal={content?.legal} pageId={CTA_PREFIX} appHref={CONTACT_URL} ctaId={`${CTA_PREFIX}_legal`} />
 
