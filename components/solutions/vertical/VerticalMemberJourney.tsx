@@ -18,17 +18,8 @@ interface VerticalMemberJourneyProps {
 const DWELL_MS = 8000
 
 /**
- * The member's four steps and the phone that shows each of them, as one
- * object: pick a step and the phone shows that screen, leave it alone and
- * both advance together. The steps are the tabs, so there is no second set
- * of dots under the phone.
- *
- * Rotation runs only while the section is on screen and the phone sits beside
- * the list (lg and up): stacked, advancing would move the phone under the
- * reader. Hover and focus pause it, a click or key press keeps the choice.
- *
- * Readers who prefer reduced motion get no auto-advance and start on the
- * ballot, the one screen that stands on its own.
+ * The member's steps as tabs driving the phone beside them. Rotation needs the section on screen and the
+ * phone beside the list (lg+), or advancing would move it under the reader; reduced motion starts on the ballot.
  */
 export function VerticalMemberJourney({ title, steps, footnote, phone }: VerticalMemberJourneyProps) {
   const reducedMotion = useReducedMotion()
@@ -48,8 +39,8 @@ export function VerticalMemberJourney({ title, steps, footnote, phone }: Vertica
   const panelId = `${baseId}-panel`
 
   useEffect(() => {
-    if (reducedMotion) setIndex(2)
-  }, [reducedMotion])
+    if (reducedMotion) setIndex(Math.min(2, Math.max(cycle - 1, 0)))
+  }, [reducedMotion, cycle])
 
   useEffect(() => {
     if (reducedMotion || paused || !inView || cycle === 0) return
@@ -119,7 +110,7 @@ export function VerticalMemberJourney({ title, steps, footnote, phone }: Vertica
                   type='button'
                   role='tab'
                   aria-selected={active}
-                  aria-controls={panelId}
+                  aria-controls={phone ? panelId : undefined}
                   aria-labelledby={`${baseId}-title-${i}`}
                   aria-describedby={`${baseId}-description-${i}`}
                   tabIndex={active ? 0 : -1}
@@ -172,9 +163,9 @@ export function VerticalMemberJourney({ title, steps, footnote, phone }: Vertica
         </div>
 
         <div
-          id={panelId}
-          role='tabpanel'
-          aria-labelledby={tabId(index)}
+          id={phone ? panelId : undefined}
+          role={phone ? 'tabpanel' : undefined}
+          aria-labelledby={phone ? tabId(index) : undefined}
           className='mx-auto w-full max-w-[15rem] lg:sticky lg:top-24 lg:mx-0 lg:max-w-none lg:self-start'
         >
           {phone}
