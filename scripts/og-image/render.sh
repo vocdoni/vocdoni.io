@@ -17,21 +17,12 @@ while [ $# -gt 0 ]; do
   esac
 done
 
-if [ -z "${CHROME:-}" ]; then
-  for candidate in google-chrome google-chrome-stable chromium chromium-browser '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome'; do
-    if command -v "$candidate" >/dev/null 2>&1; then CHROME="$candidate"; break; fi
-  done
-fi
-[ -n "${CHROME:-}" ] || { echo "Google Chrome or Chromium not found, set CHROME=<path>" >&2; exit 1; }
+. "$ROOT/scripts/lib/screenshot.sh"
 
 tmp="$(mktemp -d)"
 trap 'rm -rf "$tmp"' EXIT
 
-"$CHROME" --headless=new --disable-gpu --hide-scrollbars --force-device-scale-factor=1 \
-  --allow-file-access-from-files --virtual-time-budget=3000 --window-size=1200,630 \
-  --screenshot="$tmp/og.png" "file://$ROOT/scripts/og-image/template.html" >"$tmp/chrome.log" 2>&1 ||
-  { cat "$tmp/chrome.log" >&2; echo "$CHROME failed" >&2; exit 1; }
-[ -s "$tmp/og.png" ] || { cat "$tmp/chrome.log" >&2; echo "$CHROME wrote no screenshot" >&2; exit 1; }
+screenshot "file://$ROOT/scripts/og-image/template.html" 1200 630 "$tmp/og.png"
 
 case "$out" in /*) dest="$out" ;; *) dest="$ROOT/$out" ;; esac
 mkdir -p "$(dirname "$dest")"

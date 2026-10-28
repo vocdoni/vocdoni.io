@@ -45,12 +45,7 @@ while [ $# -gt 0 ]; do
 done
 [ ${#partners[@]} -gt 0 ] && [ -n "$out" ] && [ -n "$variant" ] && [ -n "$c1" ] && [ -n "$c2" ] || { echo "usage: $0 --partner <logo> [--partner <logo> ...] --out <file.webp> --variant <variant> --c1 <#hex> --c2 <#hex> [--eyebrow ...] [--title ...] [--stat ...] [--label ...] [--highlight ...] [--photo ...] [--filter ...] [--fit ...] [--motif ...] [--badge ...]" >&2; exit 1; }
 
-if [ -z "${CHROME:-}" ]; then
-  for candidate in google-chrome google-chrome-stable chromium chromium-browser '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome'; do
-    if command -v "$candidate" >/dev/null 2>&1; then CHROME="$candidate"; break; fi
-  done
-fi
-[ -n "${CHROME:-}" ] || { echo "Google Chrome or Chromium not found, set CHROME=<path>" >&2; exit 1; }
+. "$ROOT/scripts/lib/screenshot.sh"
 command -v cwebp >/dev/null || { echo "cwebp is required (libwebp)" >&2; exit 1; }
 
 urlencode() { python3 -c 'import sys, urllib.parse; print(urllib.parse.quote(sys.argv[1]))' "$1"; }
@@ -67,11 +62,7 @@ for highlight in "${highlights[@]+"${highlights[@]}"}"; do query="$query&highlig
 tmp="$(mktemp -d)"
 trap 'rm -rf "$tmp"' EXIT
 
-"$CHROME" --headless=new --disable-gpu --hide-scrollbars --force-device-scale-factor=1 \
-  --allow-file-access-from-files --virtual-time-budget=3000 --window-size=1685,920 \
-  --screenshot="$tmp/cover.png" "file://$ROOT/scripts/blog-cover/template.html?$query" >"$tmp/chrome.log" 2>&1 ||
-  { cat "$tmp/chrome.log" >&2; echo "$CHROME failed" >&2; exit 1; }
-[ -s "$tmp/cover.png" ] || { cat "$tmp/chrome.log" >&2; echo "$CHROME wrote no screenshot" >&2; exit 1; }
+screenshot "file://$ROOT/scripts/blog-cover/template.html?$query" 1685 920 "$tmp/cover.png"
 
 case "$out" in /*) dest="$out" ;; *) dest="$ROOT/$out" ;; esac
 mkdir -p "$(dirname "$dest")"
