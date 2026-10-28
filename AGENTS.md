@@ -30,7 +30,7 @@ procedures in `.agents/skills/` (symlinked from `.claude/skills/`).
   shadcn-studio MCP when it is available.
 - Never create revision folders or files (`*V2`, `*V3`, `new-*`, `legacy-*`). `components/app/ValuePropsV3.tsx` is a
   temporary exception to merge later.
-- Visual language and tokens: `DESIGN.md` and `docs/design-system.md`.
+- Brand (name, voice, logo, palette): `BRAND.md`. Visual language and tokens: `DESIGN.md` and `docs/design-system.md`.
 
 ## Copy
 
