@@ -1,82 +1,60 @@
-import { CheckIcon, GlobeIcon, MenuIcon, SearchIcon, UserIcon } from 'lucide-react'
+import { CheckIcon, ChevronDownIcon, ChevronUpIcon, GlobeIcon, MenuIcon, SearchIcon, UserIcon } from 'lucide-react'
+import type { LucideIcon } from 'lucide-react'
 import type { ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
 
+import { formatDecidimShort } from '@/components/solutions/mockups/decidim-types'
 import { cn } from '@/lib/utils'
 
 /**
  * Small pieces shared by the Decidim screens, each a copy of one Decidim
  * pattern measured on a live instance: the `.label` chip, the admin `.card`,
- * the `.button` in its filled and outlined forms, the results' `.percent-bar`,
- * and the voting page's trail, choice card and field as `vote.css` draws them.
+ * the public `.button`, the results' `.percent-bar` and `.card-accordion`, and
+ * the voting page's trail, choice card and field as `vote.css` draws them.
  * Sized in `em` so they scale with the frame.
  */
 
-type LabelTone = 'success' | 'neutral' | 'warning'
+type LabelTone = 'success' | 'neutral'
 
 const LABEL_TONE: Record<LabelTone, string> = {
   success: 'bg-decidim-success-fill text-decidim-success',
   neutral: 'bg-decidim-panel text-decidim-ink-soft',
-  warning: 'bg-decidim-warning-fill text-decidim-warning',
 }
 
-/** Decidim's `.label`: a 4px-radius chip whose text is the AA-safe variant of its fill. */
+/**
+ * Decidim's `.label`: a 4px-radius chip whose text is the AA-safe variant of its fill.
+ * `truncate` lets a long text shrink and end in an ellipsis instead of pushing the chip out.
+ */
 export function DecidimLabel({
   tone,
+  truncate = false,
   className,
   children,
 }: {
   tone: LabelTone
+  truncate?: boolean
   className?: string
   children: ReactNode
 }) {
   return (
     <span
       className={cn(
-        'inline-flex shrink-0 items-center rounded-[0.3em] px-[0.6em] py-[0.3em] text-[0.8em] leading-none font-semibold whitespace-nowrap',
+        'inline-flex items-center rounded-[0.3em] px-[0.6em] py-[0.3em] text-[0.8em] leading-none font-semibold whitespace-nowrap',
+        truncate ? 'min-w-0' : 'shrink-0',
         LABEL_TONE[tone],
         className
       )}
     >
-      {children}
+      {truncate ? <span className='truncate'>{children}</span> : children}
     </span>
   )
 }
 
-/** The admin's `.button__sm`: `button__secondary` filled, `button__transparent-secondary` outlined. */
-export function DecidimAdminButton({
-  variant = 'filled',
-  icon,
-  className,
-  children,
-}: {
-  variant?: 'filled' | 'outline'
-  icon?: ReactNode
-  className?: string
-  children: ReactNode
-}) {
-  return (
-    <span
-      className={cn(
-        'flex h-[2.2em] shrink-0 items-center justify-center gap-[0.4em] rounded-[0.3em] border px-[0.9em] text-[0.8em] font-semibold whitespace-nowrap',
-        variant === 'filled'
-          ? 'bg-decidim-admin-accent border-decidim-admin-accent text-white'
-          : 'bg-decidim-page border-decidim-admin-accent text-decidim-admin-accent',
-        className
-      )}
-    >
-      {icon}
-      <span className='truncate'>{children}</span>
-    </span>
-  )
-}
-
-type ButtonVariant = 'filled' | 'outline' | 'brand' | 'quiet'
+type ButtonVariant = 'filled' | 'brand' | 'quiet'
 
 const BUTTON_VARIANT: Record<ButtonVariant, string> = {
   /** `.button__secondary` on the election page: the organization's secondary as a fill. */
   filled: 'bg-decidim-secondary border-decidim-secondary text-white',
-  outline: 'bg-decidim-page border-decidim-secondary text-decidim-secondary',
   /** The voting page's primary action: the brand as a fill, near-black text on it. */
   brand: 'bg-decidim-primary border-decidim-primary text-decidim-primary-ink',
   /** The voting page's way back: a box, an edge and text. */
@@ -112,12 +90,10 @@ export function DecidimButton({
 /** The admin `.card`: a 1px border, 4px radius, and a divider carrying the title in bold. */
 export function DecidimCard({
   title,
-  action,
   className,
   children,
 }: {
   title: string
-  action?: ReactNode
   className?: string
   children: ReactNode
 }) {
@@ -125,7 +101,6 @@ export function DecidimCard({
     <div className={cn('border-decidim-admin-border bg-decidim-page flex flex-col rounded-[0.3em] border', className)}>
       <div className='flex shrink-0 items-center justify-between gap-[1em] px-[1em] pt-[0.5em] pb-[0.25em]'>
         <p className='truncate text-[0.95em] leading-snug font-bold'>{title}</p>
-        {action}
       </div>
       <div className='min-h-0 px-[1em] pb-[0.5em]'>{children}</div>
     </div>
@@ -271,17 +246,6 @@ export function DecidimSeal() {
   )
 }
 
-/** Decidim's mark, as its admin sidebar draws it: two bars and a dot. */
-export function DecidimMark({ className }: { className?: string }) {
-  return (
-    <span className={cn('flex items-end gap-[0.16em]', className)}>
-      <span className='h-[0.75em] w-[0.38em] rounded-[0.12em] bg-current' />
-      <span className='h-[1.15em] w-[0.38em] rounded-[0.12em] bg-current' />
-      <span className='size-[0.38em] rounded-full bg-current' />
-    </span>
-  )
-}
-
 /**
  * The public site's header: the organization's name on the left and, on a
  * desktop, the search box, the language chooser, the account and the menu.
@@ -340,6 +304,85 @@ export function DecidimFlash({ lines, className }: { lines: string[]; className?
           {line}
         </span>
       ))}
+    </div>
+  )
+}
+
+/** The voting window's flash: when voting began and when it closes, the same lines on the election page and the phone. */
+export function DecidimVotingWindow({ start, end, className }: { start: Date; end: Date; className?: string }) {
+  const { t } = useTranslation()
+  return (
+    <DecidimFlash
+      lines={[
+        t('solutions.mockups.decidim.voting_began', 'Voting began on: {{start_date}}', {
+          start_date: formatDecidimShort(start),
+        }),
+        t('solutions.mockups.decidim.active_voting_until', 'Active voting until: {{end_date}}', {
+          end_date: formatDecidimShort(end),
+        }),
+      ]}
+      className={className}
+    />
+  )
+}
+
+/** A section heading of the page or the phone: an icon in the primary, then the title. `className` sets its size. */
+export function DecidimSectionTitle({
+  icon: Icon,
+  className,
+  children,
+}: {
+  icon: LucideIcon
+  className?: string
+  children: ReactNode
+}) {
+  return (
+    <p className={cn('flex items-center gap-[0.5em] text-[1.3em] font-semibold', className)}>
+      <Icon className='text-decidim-primary size-[1em] shrink-0' />
+      <span className='truncate'>{children}</span>
+    </p>
+  )
+}
+
+/**
+ * Decidim's `.card-accordion`: an 8px-radius card whose title is a link in the
+ * secondary. A closed row on the phone is `compact`, its title wrapping to two
+ * lines rather than truncating.
+ */
+export function DecidimAccordion({
+  title,
+  open,
+  compact = false,
+  children,
+}: {
+  title: string
+  open: boolean
+  compact?: boolean
+  children?: ReactNode
+}) {
+  return (
+    <div
+      className={cn(
+        'border-decidim-edge border',
+        compact ? 'rounded-[0.425em]' : 'rounded-[0.5em]',
+        open && 'flex min-h-0 flex-col'
+      )}
+    >
+      <div
+        className={cn(
+          'text-decidim-secondary flex items-center justify-between font-semibold',
+          compact ? 'gap-[0.8em] px-[0.9em] py-[0.7em] text-[0.85em]' : 'gap-[1em] px-[1em] py-[0.8em] text-[0.95em]',
+          open && 'border-decidim-rule border-b'
+        )}
+      >
+        <span className={compact ? 'line-clamp-2 leading-snug' : 'truncate'}>{title}</span>
+        {open ? (
+          <ChevronUpIcon className='size-[1.1em] shrink-0' />
+        ) : (
+          <ChevronDownIcon className='size-[1.1em] shrink-0' />
+        )}
+      </div>
+      {open && <div className='flex flex-col gap-[0.8em] px-[1em] py-[0.8em]'>{children}</div>}
     </div>
   )
 }

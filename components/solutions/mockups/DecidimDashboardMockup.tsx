@@ -1,9 +1,7 @@
 import {
   ChartColumnIcon,
-  EyeIcon,
   FileTextIcon,
   HouseIcon,
-  LayoutGridIcon,
   MessageSquareTextIcon,
   ShieldIcon,
   UsersRoundIcon,
@@ -12,12 +10,7 @@ import type { ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { AppMockupFrame } from '@/components/solutions/mockups/AppMockupFrame'
-import {
-  DecidimAdminButton,
-  DecidimCard,
-  DecidimLabel,
-  DecidimMark,
-} from '@/components/solutions/mockups/decidim-parts'
+import { DecidimCard, DecidimLabel } from '@/components/solutions/mockups/decidim-parts'
 import {
   type DecidimMockupCopy,
   type DecidimMockupFigures,
@@ -27,14 +20,10 @@ import {
 import { cn } from '@/lib/utils'
 
 interface DecidimDashboardMockupProps {
-  /** `live`: voting open, the count updating. `results`: after close, results published. */
-  state: 'live' | 'results'
   copy?: DecidimMockupCopy
   figures: DecidimMockupFigures
   /** Accessible name of the picture; pass the figure caption. */
   label?: string
-  /** `close` is for the hero column: no sidebar, larger type. */
-  density?: 'full' | 'close'
   className?: string
 }
 
@@ -43,29 +32,17 @@ interface DecidimDashboardMockupProps {
 const COUNT_MARK = '\u0000'
 
 /**
- * The election's Dashboard tab in Decidim's admin, drawn rather than
- * photographed: the admin's two bars, "Edit election" with its five tabs
- * (Security is the one the module adds), the Election status and Calendar
- * cards, and the Results card with its per-question table and the census
- * line. Everything here is what decidim-elections renders; the only thing the
- * module changes on this screen is the tab.
+ * The election's Dashboard tab in Decidim's admin while voting is open, cut for
+ * the hero column. Security is the one tab the module adds; the rest is what
+ * decidim-elections renders.
  */
-export function DecidimDashboardMockup({
-  state,
-  copy,
-  figures,
-  label,
-  density = 'full',
-  className,
-}: DecidimDashboardMockupProps) {
+export function DecidimDashboardMockup({ copy, figures, label, className }: DecidimDashboardMockupProps) {
   const { t, i18n } = useTranslation()
   if (!copy) return null
 
-  const live = state === 'live'
-  const close = density === 'close'
   const number = new Intl.NumberFormat(i18n.language)
   const question = copy.questions[0]
-  const counts = (live ? figures.liveResults : figures.results)[0] ?? []
+  const counts = figures.liveResults[0] ?? []
   const total = counts.reduce((sum, n) => sum + n, 0)
   const censusSentence = t(
     'solutions.mockups.decidim.census_size',
@@ -74,63 +51,17 @@ export function DecidimDashboardMockup({
   ).split(COUNT_MARK)
 
   return (
-    <AppMockupFrame
-      variant='window'
-      product='decidim'
-      label={label}
-      scale={close ? 'close' : 'default'}
-      className={className}
-    >
-      {/* The admin's sidebar: the mark and the spaces, Processes current. */}
-      {!close && (
-        <aside className='bg-decidim-admin-nav flex w-[3.6em] shrink-0 flex-col items-center gap-[1.2em] py-[0.9em] text-white'>
-          <DecidimMark className='text-[1.1em]' />
-          <RailItem icon={<LayoutGridIcon className='size-[1em]' />} current />
-          <RailItem icon={<UsersRoundIcon className='size-[1em]' />} />
-          <RailItem icon={<MessageSquareTextIcon className='size-[1em]' />} />
-          <RailItem icon={<FileTextIcon className='size-[1em]' />} />
-        </aside>
-      )}
-
+    <AppMockupFrame variant='window' product='decidim' label={label} scale='close' className={className}>
       <div className='bg-decidim-admin-bg flex min-w-0 flex-1 flex-col'>
-        {/* The organization bar and the breadcrumb bar. The hero column has
-            room for one: the breadcrumb, which names the election's place. */}
-        {!close && (
-          <div className='bg-decidim-admin-bar text-decidim-ink flex h-[1.7em] shrink-0 items-center justify-between px-[1.1em] text-[0.8em] font-semibold'>
-            <span className='truncate'>{copy.organization}</span>
-            <span className='flex items-center gap-[0.5em] font-normal'>
-              <EyeIcon className='size-[1em]' />
-              <span className='bg-decidim-ink/20 size-[1.2em] rounded-full' />
-            </span>
-          </div>
-        )}
         <div className='bg-decidim-admin-nav flex h-[1.7em] shrink-0 items-center gap-[0.5em] px-[1.1em] text-[0.75em] text-white'>
           <HouseIcon className='size-[1.1em] shrink-0' />
           <Crumb>{t('solutions.mockups.decidim.processes', 'Processes')}</Crumb>
-          <Crumb className='truncate'>{copy.process}</Crumb>
+          <Crumb truncate>{copy.process}</Crumb>
           <Crumb>{t('solutions.mockups.decidim.components', 'Components')}</Crumb>
           <Crumb>{t('solutions.mockups.decidim.elections', 'Elections')}</Crumb>
         </div>
 
-        <div
-          className={cn(
-            'bg-decidim-page flex min-h-0 flex-1 flex-col overflow-hidden',
-            close ? 'gap-[0.6em] p-[0.9em]' : 'gap-[0.9em] p-[1.2em]'
-          )}
-        >
-          {/* The page title and the way to the public page: the hero column
-              is too short for them, and the tabs already name the screen. */}
-          {!close && (
-            <div className='flex items-center justify-between gap-[1em]'>
-              <p className='truncate text-[1.25em] font-bold'>
-                {t('solutions.mockups.decidim.edit_election', 'Edit election')}
-              </p>
-              <DecidimAdminButton variant='outline' icon={<EyeIcon className='size-[1.1em]' />}>
-                {t('solutions.mockups.decidim.see_election', 'See election')}
-              </DecidimAdminButton>
-            </div>
-          )}
-
+        <div className='bg-decidim-page flex min-h-0 flex-1 flex-col gap-[0.6em] overflow-hidden p-[0.9em]'>
           {/* Main, Questions, Census, Security, Dashboard: the four upstream
               tabs and the one the module adds between Census and Dashboard. */}
           <div className='border-decidim-admin-tab text-decidim-ink-soft flex gap-[1.5em] border-b-2 text-[0.78em] leading-snug'>
@@ -149,25 +80,13 @@ export function DecidimDashboardMockup({
             </Tab>
           </div>
 
-          <div className={cn('grid grid-cols-2', close ? 'gap-[0.7em]' : 'gap-[0.9em]')}>
+          <div className='grid grid-cols-2 gap-[0.7em]'>
             <DecidimCard title={t('solutions.mockups.decidim.election_status', 'Election status')}>
               <p className='truncate text-[0.9em] leading-snug'>{copy.title}</p>
-              {!close && (
-                <p className='mt-[0.3em] truncate text-[0.8em] leading-snug'>
-                  <span className='font-semibold'>{t('solutions.mockups.decidim.census_label', 'Census:')}</span>{' '}
-                  {t('solutions.mockups.decidim.census_type', 'Registered participants (dynamic)')}
-                </p>
-              )}
               <div className='mt-[0.4em] flex flex-wrap gap-[0.4em]'>
-                <DecidimLabel tone='success'>
-                  {live
-                    ? t('solutions.mockups.decidim.status_ongoing', 'Ongoing')
-                    : t('solutions.mockups.decidim.status_finished', 'Finished')}
-                </DecidimLabel>
-                <DecidimLabel tone='neutral' className='truncate'>
-                  {live
-                    ? t('solutions.mockups.decidim.results_real_time', 'Results available in real time')
-                    : t('solutions.mockups.decidim.results_after_end', 'Results available after the election ends')}
+                <DecidimLabel tone='success'>{t('solutions.mockups.decidim.status_ongoing', 'Ongoing')}</DecidimLabel>
+                <DecidimLabel tone='neutral' truncate>
+                  {t('solutions.mockups.decidim.results_real_time', 'Results available in real time')}
                 </DecidimLabel>
               </div>
             </DecidimCard>
@@ -182,12 +101,6 @@ export function DecidimDashboardMockup({
                   label={t('solutions.mockups.decidim.end_time', 'End time:')}
                   value={formatDecidimShort(figures.end)}
                 />
-                {!live && (
-                  <Field
-                    label={t('solutions.mockups.decidim.results_published_at', 'Results published at')}
-                    value={formatDecidimShort(figures.end)}
-                  />
-                )}
               </div>
             </DecidimCard>
           </div>
@@ -196,14 +109,6 @@ export function DecidimDashboardMockup({
             title={t('solutions.mockups.decidim.results', 'Results')}
             className='min-h-0 flex-1 overflow-hidden'
           >
-            {live && !close && (
-              <p className='mb-[0.6em] truncate text-[0.8em]'>
-                {t(
-                  'solutions.mockups.decidim.results_shown_automatically',
-                  'Results are displayed automatically during the election.'
-                )}
-              </p>
-            )}
             {question && (
               <div className='border-decidim-admin-border rounded-[0.3em] border px-[0.8em] pt-[0.4em] pb-[0.2em]'>
                 <p className='truncate text-[0.9em] font-semibold'>{question.title}</p>
@@ -253,37 +158,16 @@ export function DecidimDashboardMockup({
             </p>
           </DecidimCard>
         </div>
-
-        {/* The sticky action bar: End election while voting is open. Left out
-            of the hero column, where the results table needs the height. */}
-        {live && !close && (
-          <div className='border-decidim-admin-border bg-decidim-page flex shrink-0 justify-end border-t px-[1.2em] py-[0.35em]'>
-            <DecidimAdminButton>{t('solutions.mockups.decidim.end_election', 'End election')}</DecidimAdminButton>
-          </div>
-        )}
       </div>
     </AppMockupFrame>
   )
 }
 
-function RailItem({ icon, current = false }: { icon: ReactNode; current?: boolean }) {
-  return (
-    <span
-      className={cn(
-        'flex size-[2em] items-center justify-center rounded-[0.3em]',
-        current ? 'bg-white/15 text-white' : 'text-white/70'
-      )}
-    >
-      {icon}
-    </span>
-  )
-}
-
-function Crumb({ className, children }: { className?: string; children: ReactNode }) {
+function Crumb({ truncate = false, children }: { truncate?: boolean; children: ReactNode }) {
   return (
     <>
       <span className='opacity-50'>/</span>
-      <span className={cn('shrink-0', className)}>{children}</span>
+      <span className={cn(truncate ? 'min-w-0 truncate' : 'shrink-0')}>{children}</span>
     </>
   )
 }

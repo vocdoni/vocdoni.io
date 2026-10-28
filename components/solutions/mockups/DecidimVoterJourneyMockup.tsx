@@ -1,24 +1,22 @@
-import { ChevronDownIcon, ChevronLeftIcon, CircleHelpIcon } from 'lucide-react'
+import { ChevronLeftIcon, CircleHelpIcon } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 
 import {
+  DecidimAccordion,
   DecidimButton,
   DecidimChoice,
   DecidimDecorator,
   DecidimField,
-  DecidimFlash,
   DecidimHeader,
   DecidimMenuBar,
   DecidimNote,
   DecidimSeal,
+  DecidimSectionTitle,
   DecidimTrail,
   DecidimVoteTopbar,
+  DecidimVotingWindow,
 } from '@/components/solutions/mockups/decidim-parts'
-import {
-  type DecidimMockupCopy,
-  type DecidimMockupFigures,
-  formatDecidimShort,
-} from '@/components/solutions/mockups/decidim-types'
+import type { DecidimMockupCopy, DecidimMockupFigures } from '@/components/solutions/mockups/decidim-types'
 import { PhoneJourney } from '@/components/solutions/mockups/PhoneJourney'
 
 /** The four moments of a member's vote, in the order of the page's four steps. */
@@ -81,34 +79,17 @@ function Screen({
           <span>{t('solutions.mockups.decidim.elections', 'Elections')}</span>
         </DecidimMenuBar>
         <div className='flex min-h-0 flex-1 flex-col gap-[0.9em] overflow-hidden px-[1.1em] pt-[1em]'>
-          <DecidimFlash
-            lines={[
-              t('solutions.mockups.decidim.voting_began', 'Voting began on: {{start_date}}', {
-                start_date: formatDecidimShort(figures.start),
-              }),
-              t('solutions.mockups.decidim.active_voting_until', 'Active voting until: {{end_date}}', {
-                end_date: formatDecidimShort(figures.end),
-              }),
-            ]}
-            className='text-[0.72em]'
-          />
+          <DecidimVotingWindow start={figures.start} end={figures.end} className='text-[0.72em]' />
           <div>
             <p className='text-[1.4em] leading-tight font-bold text-balance'>{copy.title}</p>
             <DecidimDecorator />
           </div>
           <p className='text-decidim-ink-soft line-clamp-2 text-[0.85em] leading-snug'>{copy.description}</p>
-          <p className='flex items-center gap-[0.5em] text-[1.05em] font-semibold'>
-            <CircleHelpIcon className='text-decidim-primary size-[1em] shrink-0' />
-            <span className='truncate'>{t('solutions.mockups.decidim.election_questions', 'Election questions')}</span>
-          </p>
+          <DecidimSectionTitle icon={CircleHelpIcon} className='text-[1.05em]'>
+            {t('solutions.mockups.decidim.election_questions', 'Election questions')}
+          </DecidimSectionTitle>
           {copy.questions.map((item) => (
-            <div
-              key={item.title}
-              className='border-decidim-edge text-decidim-secondary flex items-center justify-between gap-[0.8em] rounded-[0.5em] border px-[0.9em] py-[0.7em] text-[0.85em] font-semibold'
-            >
-              <span className='line-clamp-2 leading-snug'>{item.title}</span>
-              <ChevronDownIcon className='size-[1.1em] shrink-0' />
-            </div>
+            <DecidimAccordion key={item.title} title={item.title} open={false} compact />
           ))}
         </div>
         <div className='border-decidim-rule bg-decidim-page shrink-0 border-t px-[1.1em] py-[0.8em]'>

@@ -80,12 +80,13 @@ describe('Decidim solutions page', () => {
   })
 
   it('draws the Decidim screens: the admin dashboard with the Security tab, and the member journey', () => {
-    expect(html).toContain('decidim-mockup')
     // The one tab the module adds to decidim-elections' admin.
     expect(html).toContain('Security')
     expect(html).toContain('And what a member actually does')
-    // The phone renders its first screen on the server; the election's title is on every screen.
-    expect(html).toContain(en.solutions.decidim.mockups.title)
+    expect(html).toContain('decidim-mockup')
+    // Only the phone's election screen lists the questions under this heading; the
+    // desktop election page draws its questions as results, not as a list to open.
+    expect(html).toContain(en.solutions.mockups.decidim.election_questions)
   })
 
   it('carries no pricing ask, since commercial terms are agreed in conversation', () => {

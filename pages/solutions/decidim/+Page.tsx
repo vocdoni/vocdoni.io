@@ -63,8 +63,6 @@ const LOGOS = [
  */
 const FIGURES: DecidimMockupFigures = {
   census: 1284,
-  liveVotes: 611,
-  finalVotes: 927,
   start: new Date(2026, 5, 18, 17, 0),
   end: new Date(2026, 5, 21, 21, 0),
   liveResults: [
@@ -123,15 +121,7 @@ export default function Page() {
         ctaId={`${CTA_PREFIX}_hero`}
         // The admin's Dashboard tab on voting day, drawn: the one screen that
         // shows the module inside Decidim's own admin, Security tab included.
-        media={
-          <DecidimDashboardMockup
-            state='live'
-            density='close'
-            copy={content?.mockups}
-            figures={FIGURES}
-            label={content?.how?.media_caption}
-          />
-        }
+        media={<DecidimDashboardMockup copy={content?.mockups} figures={FIGURES} label={content?.how?.media_caption} />}
       />
 
       <VerticalPartnerBand
@@ -157,7 +147,6 @@ export default function Page() {
         media={{
           results: (
             <DecidimElectionPageMockup
-              state='results'
               copy={content?.mockups}
               figures={FIGURES}
               label={content?.how?.results_media_caption ?? content?.how?.media_caption}
