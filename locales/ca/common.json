@@ -1176,8 +1176,8 @@
         ],
         "pricing": {
           "title": "Quant costa",
-          "description": "Hi ha un pla gratuït sense límit de temps i sense targeta, i els plans de pagament es tarifen per nombre de socis. Aquests preus són públics, així que un tresorer voluntari pot posar una xifra davant la junta sense agendar cap trucada. Les assemblees gestionades, la personalització i qualsevol altra cosa que necessiteu al damunt es pressuposten per votació, segons la mida del registre i el que impliqui el procés.",
-          "link_label": "Mira on comencen els preus"
+          "description": "Tota votació fins a 25 persones és gratuïta, sense targeta. Per sobre d'això pagueu una vegada per votació, en funció del nombre de persones que poden votar, i els preus són públics, de manera que un tresorer voluntari pot posar una xifra davant la junta sense agendar cap trucada. Les assemblees gestionades, la personalització i qualsevol altra cosa que necessiteu al damunt es pressuposten per votació.",
+          "link_label": "Mira quant costa una votació"
         }
       },
       "faq": {
@@ -1219,7 +1219,7 @@
           },
           {
             "question": "Som una associació de voluntaris. És assumible, i dona molta feina?",
-            "answer": "Hi ha un pla gratuït sense límit de temps, i els plans de pagament es tarifen per nombre de socis, així que una associació petita paga poc o res. Sobre la feina, compareu-ho amb l'assemblea que celebreu avui: la sala, la impressió, el franqueig, les delegacions revisades a mà i la tarda dedicada a comptar. Una persona munta una votació en una tarda i, l'any que ve, reobre la configuració d'enguany en comptes de refer-la de memòria."
+            "answer": "Les votacions amb fins a 25 persones són gratuïtes, sense límit de temps, i per sobre d'això es paga una vegada per votació, en funció del nombre de persones que poden votar, de manera que una associació petita paga poc o res. Sobre la feina, compareu-ho amb l'assemblea que celebreu avui: la sala, la impressió, el franqueig, les delegacions revisades a mà i la tarda dedicada a comptar. Una persona munta una votació en una tarda i, l'any que ve, reobre la configuració d'enguany en comptes de refer-la de memòria."
           }
         ]
       },
@@ -1313,7 +1313,7 @@
           {
             "size": "Fins a uns 1.000 socis",
             "title": "Una associació local que ho resol en una tarda",
-            "description": "No necessiteu un projecte ni una partida pressupostària. Una persona crea la votació, puja el registre i envia l'enllaç, amb el pla gratuït o una subscripció petita.",
+            "description": "No necessiteu un projecte ni una partida pressupostària. Una persona crea la votació, puja el registre i envia l'enllaç. Les votacions amb fins a 25 persones són gratuïtes; per sobre es paga una vegada per votació.",
             "points": [
               "En marxa la mateixa setmana",
               "Tots els mètodes de vot, inclosos el ponderat i el delegat",
@@ -1751,8 +1751,9 @@
             "question": "Com es protegeix la privadesa dels votants en risc?"
           },
           {
-            "answer": "Sí. Podeu organitzar una votació gratuïta per a fins a 100 membres sense targeta de crèdit, i els plans de pagament escalen de manera assequible a mesura que creixeu.",
-            "question": "Hi ha una opció gratuïta per a organitzacions petites?"
+            "answer": "Sí. Les votacions amb fins a 25 persones són gratuïtes, sense targeta de crèdit. Per sobre d'això, es paga una vegada per votació i el preu escala de manera assequible a mesura que creixeu.",
+            "question": "Hi ha una opció gratuïta per a organitzacions petites?",
+            "link_label": "Calculeu el preu de la vostra votació"
           },
           {
             "answer": "Sí. Cada membre pot confirmar que el seu vot s'ha comptat i qualsevol pot verificar el recompte final, cosa que protegeix la legitimitat de la decisió.",
@@ -1775,7 +1776,7 @@
           "title": "Privadesa forta i resistència a la coacció"
         },
         {
-          "description": "Organitzeu una votació gratuïta per a fins a 100 membres i escaleu de manera assequible a mesura que creix el vostre moviment.",
+          "description": "Les votacions amb fins a 25 persones són gratuïtes. Es paga una vegada per votació a mesura que creix el vostre moviment.",
           "title": "Gratis per començar, assequible per escalar"
         },
         {
@@ -2243,8 +2244,8 @@
         ],
         "pricing": {
           "title": "Quant costa",
-          "description": "Hi ha un pla gratuït sense límit de temps i sense targeta, i els plans de pagament es tarifen per nombre de membres. Aquests preus són públics, així que podeu veure on comença sense agendar cap trucada. Les eleccions gestionades, la personalització i qualsevol altra cosa que necessiteu al damunt es pressuposten per procés, segons la mida del cens i el que impliqui el procés.",
-          "link_label": "Mira on comencen els preus"
+          "description": "Tota votació fins a 25 persones és gratuïta, sense targeta. Per sobre d'això pagueu una vegada per votació, en funció del nombre de persones que poden votar, i els preus són públics, de manera que podeu veure la xifra exacta sense agendar cap trucada. Les eleccions gestionades, la personalització i qualsevol altra cosa que necessiteu al damunt es pressuposten per elecció.",
+          "link_label": "Mira quant costa una votació"
         }
       },
       "faq": {
@@ -2380,7 +2381,7 @@
           {
             "size": "Fins a uns 1.000",
             "title": "Un col·legi local que ho resol en una tarda",
-            "description": "No necessiteu un projecte. Una persona crea la votació, puja el cens i envia l'enllaç, amb el pla gratuït o una subscripció petita.",
+            "description": "No necessiteu un projecte. Una persona crea la votació, puja el cens i envia l'enllaç. Les votacions amb fins a 25 persones són gratuïtes; per sobre es paga una vegada per votació.",
             "points": [
               "En marxa la mateixa setmana",
               "Tots els mètodes de vot, inclosos el vot ponderat i el delegat",
@@ -3079,7 +3080,12 @@
             ],
             "cta": "Feu-vos socis"
           }
-        ]
+        ],
+        "pricing": {
+          "title": "Quant costa",
+          "description": "Les votacions amb el mòdul tenen els mateixos preus per votació que Vocdoni App. En les integracions, els codis de verificació per correu es facturen a part.",
+          "link_label": "Mireu quant costa una votació"
+        }
       },
       "faq": {
         "eyebrow": "preguntes",
@@ -3414,10 +3420,10 @@
     "cta": {
       "checklist_title": "Què obteniu des del primer dia",
       "credit_card": "Sense targeta de crèdit",
-      "description": "Organitzeu una votació real amb el pla gratuït, comproveu com funciona amb els vostres propis membres i passeu a un pla de pagament només quan necessiteu més escala.",
+      "description": "Feu una votació gratuïta fins a 25 persones, comproveu com funciona amb els vostres propis membres i pagueu per votació només quan la vostra llista creixi.",
       "eyebrow": "Comenceu sense fricció",
-      "free": "Votació gratuïta fins a 100 membres",
-      "pricing": "Preus públics per a organitzacions més grans",
+      "free": "Gratuït per a votacions fins a 25 persones",
+      "pricing": "Preus publicats, pagueu per votació",
       "primary": "Comenceu gratis",
       "secondary": "Vegeu els preus",
       "title": "La vostra propera votació pot estar en marxa avui"
@@ -3427,8 +3433,9 @@
       "eyebrow": "PMF",
       "items": [
         {
-          "answer": "Sí. Podeu organitzar una votació gratis fins a 100 membres, sense targeta de crèdit.",
-          "question": "De debò puc organitzar una votació gratis?"
+          "answer": "Sí. Tota votació fins a 25 persones és gratuïta, sense targeta. Per sobre d'això pagueu una vegada per votació, en funció del nombre de persones que poden votar; la pàgina de preus mostra la xifra exacta.",
+          "question": "De debò puc organitzar una votació gratis?",
+          "link_label": "Calculeu el preu de la vostra votació"
         },
         {
           "answer": "Una sola persona pot crear i publicar una votació en menys de 30 minuts.",
@@ -3542,6 +3549,11 @@
         }
       ],
       "title": "Feu que votar sigui més fàcil per a l'equip i per als membres"
+    },
+    "pricing_teaser": {
+      "body": "A partir d'aquí, un preu per votació que veieu abans de començar.",
+      "cta": "Calculeu el vostre preu",
+      "title": "Gratis fins a 25 persones."
     },
     "social_proof": {
       "case_study": {
@@ -3918,7 +3930,8 @@
         "question": "Què passa si un membre impugna el resultat?"
       },
       "free": {
-        "answer": "Sí, fins a 100 membres, sense targeta de crèdit i sense límit de temps. Podeu celebrar avui mateix una elecció real i veure com funciona abans de comprometre-us. Els preus per a organitzacions més grans són públics al nostre web. No cal cap trucada comercial.",
+        "answer": "Sí. Totes les votacions amb fins a 25 persones són gratuïtes, sense targeta de crèdit i sense límit de temps. Per sobre d'això, es paga una vegada per votació; els preus estan a la pàgina de preus i no cal cap trucada comercial.",
+        "link_label": "Calculeu el preu de la vostra votació",
         "question": "Vocdoni és gratis?"
       },
       "gdpr": {
@@ -4178,7 +4191,7 @@
       }
     },
     "index": {
-      "description": "Vocdoni és programari de vot en línia de codi obert per a associacions i organitzacions. Eleccions segures, verificables i legalment vàlides. Pla gratuït.",
+      "description": "Vocdoni és programari de vot en línia de codi obert per a associacions i organitzacions. Eleccions segures, verificables i legalment vàlides. Gratuït per a votacions de fins a 25 persones, sense targeta.",
       "title": "Vot en línia segur i legalment vàlid | Vocdoni"
     },
     "learn_index": {
@@ -4218,6 +4231,10 @@
         "description": "Què signifiquen el vot verificable i la verificabilitat d'extrem a extrem, per què importen i com votants i observadors poden comprovar un resultat sense confiar en la plataforma.",
         "title": "El vot verificable, explicat | Vocdoni"
       }
+    },
+    "pricing": {
+      "description": "Consulteu què costa la vostra votació abans de començar. Gratis fins a 25 persones i, a partir d'aquí, un sol preu per votació, amb vot anònim i verificable sempre inclòs.",
+      "title": "Preus: pagueu per votació, gratis fins a 25 persones | Vocdoni"
     },
     "privacy": {
       "description": "Descobriu com Vocdoni recopila, utilitza i protegeix les vostres dades personals i la vostra privacitat.",
@@ -4288,6 +4305,7 @@
     "contact": "Contacte",
     "dashboard_button": "API Dashboard",
     "logo_aria_label": "Vocdoni - aneu a la pàgina d'inici",
+    "pricing": "Preus",
     "product_features": {
       "custom_projects": {
         "description": "Solucions de governança personalitzades per a necessitats específiques.",
@@ -4361,6 +4379,206 @@
     "app_preview": {
       "option_a": "Opció a",
       "option_b": "Opció b"
+    }
+  },
+  "pricing": {
+    "addons": {
+      "branding": {
+        "description": "La vostra imatge de marca a la pàgina de votació i als correus, per a totes les votacions futures.",
+        "price": "{{price}} un sol cop",
+        "title": "El vostre logotip i colors"
+      },
+      "certificate": {
+        "description": "Un PDF amb el registre complet de la vostra votació: com s'ha desenvolupat, els resultats i com qualsevol persona els pot verificar. A punt per adjuntar-lo a l'acta.",
+        "price": "{{price}} per votació",
+        "title": "Informe de resultats signat (PDF)"
+      },
+      "domain": {
+        "description": "Les persones voten a una adreça com lavostraorganitzacio.vocdoni.vote. També podeu fer servir un domini propi, sota petició.",
+        "price": "{{price}} un sol cop",
+        "title": "La vostra pròpia adreça web"
+      },
+      "one_time_title": "Es cobra un sol cop per organització",
+      "per_vote_title": "Per afegir a aquesta votació",
+      "sms": {
+        "description": "Envieu el codi per SMS en comptes del correu electrònic, o per tots dos canals. Els codis per correu electrònic sempre estan inclosos.",
+        "note": "Cost estimat a Europa. El cost final per SMS pot variar segons el país.",
+        "price": "{{price}} per persona de la vostra llista",
+        "title": "Codis de verificació per SMS"
+      }
+    },
+    "calculator": {
+      "decrease": "Menys persones",
+      "helper": "Creieu que afegireu persones a la llista més endavant? Compteu-ne unes quantes de més ara, per si de cas.",
+      "increase": "Més persones",
+      "people_label": "Quantes persones poden votar?",
+      "slider_label": "Quantes persones poden votar",
+      "slider_value_free_one": "{{people}} persona, gratuït",
+      "slider_value_free_other": "{{people}} persones, gratuït",
+      "slider_value_one": "{{people}} persona, {{total}} més IVA",
+      "slider_value_other": "{{people}} persones, {{total}} més IVA",
+      "slider_value_people_one": "{{people}} persona",
+      "slider_value_people_other": "{{people}} persones",
+      "slider_value_quote": "Més de {{limit}} persones, a consultar",
+      "tick_more": "{{limit}}+"
+    },
+    "cta": {
+      "create_account": "Creeu un compte gratuït",
+      "no_commitment": "Sense compromís. Responem en un dia hàbil.",
+      "repeat_hint": "Feu diverses votacions aquest any? Digueu-nos-ho a la sol·licitud.",
+      "request_price": "Demaneu aquest preu",
+      "request_quote": "Demaneu un pressupost",
+      "talk": "Parleu amb nosaltres"
+    },
+    "eyebrow": "Preus",
+    "faq": {
+      "items": [
+        {
+          "answer": "Per tothom que pot votar: les persones de la vostra llista per a aquella votació, tant si acaben votant com si no. Per això sabeu el preu abans de començar.",
+          "question": "Pago per tothom de la llista o només per qui vota?"
+        },
+        {
+          "answer": "Les votacions de fins a 25 persones són gratuïtes, sense límit de temps i sense targeta. Els extres, com els codis per SMS, es cobren igualment encara que la votació sigui gratuïta.",
+          "question": "Què és gratis?"
+        },
+        {
+          "answer": "Sí. Qualsevol pagament és com a mínim d'1 €. Per exemple, una votació gratuïta amb uns quants codis per SMS s'arrodoneix a 1 €.",
+          "question": "Hi ha un import mínim?"
+        },
+        {
+          "answer": "El vostre logotip i colors i la vostra adreça web pròpia es paguen una sola vegada per organització. Els conserveu per a totes les votacions futures i no els tornareu a pagar.",
+          "question": "Què és el pagament únic?"
+        },
+        {
+          "answer": "No, els preus que veieu són sense IVA.",
+          "question": "Els preus inclouen l'IVA?"
+        },
+        {
+          "answer": "Sí. Aquests preus valen per a Vocdoni App i per a les integracions. L'única diferència és que, amb una integració, els codis de verificació per correu es cobren a part.",
+          "question": "Valen els mateixos preus si integrem Vocdoni a la nostra plataforma?"
+        },
+        {
+          "answer": "Les votacions d'aquesta mida tenen un preu a mida. Expliqueu-nos què necessiteu i us enviem una xifra en un dia laborable.",
+          "question": "I si poden votar més de 50.000 persones?"
+        }
+      ],
+      "title": "Preguntes sobre preus"
+    },
+    "included": {
+      "custom": {
+        "body": "Aquesta és la base que inclou cada votació. Funcionalitats a mida, altres maneres d'identificar els votants o qualsevol necessitat concreta: demaneu-nos-ho i ho fem.",
+        "cta": "Pregunteu-nos",
+        "title": "Necessiteu alguna cosa més?"
+      },
+      "organisers": {
+        "item_1": "Tantes preguntes com necessiteu, de resposta única o múltiple",
+        "item_2": "Vot ponderat, segons el pes de vot de cada membre",
+        "item_3": "Importeu la llista de votants des d'un full de càlcul",
+        "item_4": "Resultats en directe o ocults fins al final de la votació",
+        "item_5": "Participació en directe mentre la votació és oberta",
+        "item_6": "Comenceu ara o programeu-la, i atureu-la o acabeu-la abans",
+        "title": "Eines per organitzar"
+      },
+      "security": {
+        "item_1": "Ningú no pot vincular una papereta amb la persona que l'ha emesa",
+        "item_2": "Cada votant pot comprovar que el seu vot s'ha comptat",
+        "item_3": "Resultats que tothom pot verificar",
+        "item_4": "Ningú, ni tan sols Vocdoni, pot canviar el resultat",
+        "title": "Segura i verificable"
+      },
+      "subtitle": "Cada votació inclou tot això, sense cap cost addicional.",
+      "title": "Tot inclòs",
+      "voters": {
+        "item_1": "Els votants s'identifiquen amb les credencials que trieu, i opcionalment amb un codi per correu",
+        "item_2": "Funciona en qualsevol mòbil, tauleta o ordinador",
+        "item_3": "La pàgina de votació en la llengua dels vostres votants",
+        "title": "Fàcil per a qui vota"
+      }
+    },
+    "lede": "La majoria d'empreses de vot digital no publiquen els seus preus; nosaltres sí, i sabeu el que pagareu abans de començar. Gratis fins a 25 persones, amb vot anònim i verificable sempre inclòs. Vàlid per a Vocdoni App i integracions (en les integracions, els codis per correu van a part).",
+    "links": {
+      "callout": "Prepareu una votació? Calculeu quant costa en un minut.",
+      "see_pricing": "Veure preus"
+    },
+    "live": {
+      "free": "Aquesta votació és gratuïta.",
+      "quote": "Més de {{limit}} persones: a consultar.",
+      "total": "Total per a aquesta votació: {{total}} més IVA. {{perPerson}} per persona.",
+      "total_with_setup": "Total amb el pagament únic inclòs: {{total}} més IVA."
+    },
+    "panel": {
+      "free": "Gratuït",
+      "line_branding": "El vostre logotip i colors",
+      "line_certificate": "Informe de resultats signat (PDF)",
+      "line_domain": "La vostra pròpia adreça web",
+      "line_minimum_charge": "Import mínim",
+      "line_sms": "Codis per SMS, {{people}} × {{unit}}",
+      "line_vote_one": "Votació, {{people}} persona",
+      "line_vote_other": "Votació, {{people}} persones",
+      "loading": "Calculant el vostre preu",
+      "minimum_charge_note": "Qualsevol pagament és com a mínim de {{minimum}}.",
+      "on_request": "A consultar",
+      "one_time_note": "Els extres de pagament únic es paguen un sol cop i la vostra organització els conserva per a totes les votacions futures.",
+      "one_time_title": "Pagament únic",
+      "one_time_total": "Total del pagament únic",
+      "per_person": "{{price}} per persona que pot votar",
+      "per_person_vote": "{{price}} per persona que pot votar, en aquesta votació",
+      "this_vote_title": "Aquesta votació",
+      "this_vote_total": "Total d'aquesta votació",
+      "title": "El vostre preu",
+      "unavailable": "Preu no disponible",
+      "unavailable_body": "Ara mateix no podem mostrar el preu. Demaneu-lo i us enviem la xifra en un dia hàbil.",
+      "vat_suffix": "+ IVA"
+    },
+    "request": {
+      "book_call": "Programeu una trucada",
+      "captcha_error": "La verificació reCAPTCHA ha fallat. Si us plau, torneu-ho a intentar.",
+      "chip_full_total": "Total {{total}} + IVA",
+      "chip_people_one": "{{people}} persona",
+      "chip_people_other": "{{people}} persones",
+      "country": "País",
+      "country_placeholder": "Seleccioneu el vostre país",
+      "create_account": "Creeu el vostre compte gratuït",
+      "email": "Correu electrònic",
+      "error_body": "Envieu-la per correu electrònic; ja us l'hem omplerta.",
+      "error_copied": "Copiat",
+      "error_copy": "Copiar el text",
+      "error_copy_hint": "Feu servir un altre correu? Copieu el text i envieu-lo a {{email}}.",
+      "error_cta": "Una altra app de correu",
+      "error_gmail": "Obrir a Gmail",
+      "error_outlook": "Obrir a Outlook",
+      "error_title": "No hem pogut enviar la vostra sol·licitud des d'aquí",
+      "errors": {
+        "country_required": "Seleccioneu el vostre país",
+        "email_invalid": "Adreça de correu electrònic no vàlida",
+        "email_required": "El correu electrònic és obligatori",
+        "name_required": "El nom és obligatori",
+        "organization_required": "L'organització és obligatòria"
+      },
+      "intro": "Digueu-nos qui sou i us respondrem amb un pressupost per escrit, normalment en un dia hàbil.",
+      "message": "Qualsevol cosa que hàgim de saber (opcional)",
+      "message_placeholder": "Dates, diverses votacions aquest any, preguntes sobre la vostra llista...",
+      "name": "El vostre nom",
+      "organization": "Organització",
+      "privacy": "En enviar aquesta sol·licitud accepteu la <plink>política de privacitat</plink>. Vocdoni utilitza aquestes dades només per preparar el vostre pressupost i respondre a la vostra sol·licitud.",
+      "retry": "Torneu-ho a intentar",
+      "sending": "Enviant...",
+      "submit": "Envieu la sol·licitud",
+      "success_reference": "La vostra referència: {{reference}}",
+      "success_reply": "L'equip de Vocdoni escriurà a {{email}} en un dia hàbil.",
+      "success_title": "Sol·licitud rebuda",
+      "title": "Demaneu aquest preu",
+      "title_quote": "Demaneu un pressupost"
+    },
+    "title": "Preus clars per a cada votació.",
+    "trust": {
+      "prices": "Preus en EUR sense IVA. Les empreses de la UE amb un número d'IVA vàlid reben la factura amb inversió del subjecte passiu; els clients fora de la UE no paguen l'IVA de la UE."
+    },
+    "zones": {
+      "dedicated": "Una votació d'aquesta mida normalment necessita una conversa. El preu indicat es manté, i tindreu una persona de contacte dedicada.",
+      "dedicated_badge": "Votació gran",
+      "free": "Aquesta votació és gratuïta. Les votacions fins a 25 persones sempre són gratuïtes.",
+      "quote": "Digueu-nos què necessiteu i us enviem una xifra en un dia hàbil."
     }
   },
   "steps_section": {
@@ -4484,7 +4702,7 @@
   "use_cases_page": {
     "bottom_cta": {
       "cta_secondary": "Parleu amb el nostre equip",
-      "trust_footer": "No cal targeta de crèdit · Pla gratuït, sense límit de temps"
+      "trust_footer": "Gratuït per a votacions de fins a 25 persones · Sense targeta"
     },
     "grid_cta": {
       "trust_line": "Organitzacions de tot el món confien en Vocdoni"

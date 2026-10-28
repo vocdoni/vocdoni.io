@@ -114,6 +114,13 @@ describe('buildNetlifyHeaders', () => {
     expect(out).not.toContain('eu.i.posthog.com')
   })
 
+  it('allowlists the pricing API origin in the CSP connect-src', () => {
+    expect(buildNetlifyHeaders()).toContain(' https://saas-api-dev.vocdoni.net ')
+    const out = buildNetlifyHeaders(false, undefined, 'en', 'https://saas-api-stg.example.net/v1')
+    expect(out).toContain(' https://saas-api-stg.example.net ')
+    expect(out).not.toContain('saas-api-dev')
+  })
+
   it('is a well-formed _headers file: path lines flush left, header lines indented', () => {
     for (const out of [buildNetlifyHeaders(), buildNetlifyHeaders(true)]) {
       expect(out.endsWith('\n')).toBe(true)

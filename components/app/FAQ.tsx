@@ -1,11 +1,14 @@
 import { useTranslation } from 'react-i18next'
 
+import { PricingLink } from '@/components/app/pricing/PricingLink'
 import { Container } from '@/components/Container'
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
 
 type FaqItem = {
   question: string
   answer: string
+  /** Set on the price question: a link to the calculator below the answer. */
+  link_label?: string
 }
 
 export default function FAQ() {
@@ -13,7 +16,7 @@ export default function FAQ() {
   const items = (t('app_landing.faq.items', { returnObjects: true }) as FaqItem[]) || []
 
   return (
-    <section className='bg-muted/35 py-20 sm:py-24'>
+    <section className='bg-background py-20 sm:py-24'>
       <Container className='max-w-4xl'>
         <div className='mx-auto max-w-3xl text-center'>
           <p className='text-sm font-medium uppercase tracking-[0.2em] text-primary/80'>
@@ -42,6 +45,11 @@ export default function FAQ() {
               </AccordionTrigger>
               <AccordionContent className='pb-5 text-base leading-7 text-muted-foreground'>
                 {item.answer}
+                {item.link_label && (
+                  <div className='mt-3'>
+                    <PricingLink ctaId='app_faq_pricing' label={item.link_label} className='-mx-2' />
+                  </div>
+                )}
               </AccordionContent>
             </AccordionItem>
           ))}

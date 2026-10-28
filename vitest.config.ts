@@ -10,6 +10,7 @@ export default defineConfig({
   define: {
     APP_URL: JSON.stringify(process.env.APP_URL || 'https://app.vocdoni.io'),
     PLATFORM_URL: JSON.stringify(process.env.PLATFORM_URL || 'https://platform.vocdoni.io'),
+    SAAS_URL: JSON.stringify('https://saas-api-dev.vocdoni.net'),
     NOINDEX: JSON.stringify(false),
   },
   test: {

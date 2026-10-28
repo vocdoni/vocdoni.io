@@ -59,6 +59,7 @@ describe('classifyPath', () => {
     expect(classifyPath('/solutions')).toEqual({ pageType: 'solutions_index' })
     expect(classifyPath('/use-cases')).toEqual({ pageType: 'use_cases' })
     expect(classifyPath('/contact')).toEqual({ pageType: 'contact' })
+    expect(classifyPath('/pricing')).toEqual({ pageType: 'pricing' })
     expect(classifyPath('/privacy')).toEqual({ pageType: 'legal' })
     expect(classifyPath('/developers')).toEqual({ pageType: 'developers' })
     expect(classifyPath('/something-new')).toEqual({ pageType: 'other' })

@@ -1176,8 +1176,8 @@
         ],
         "pricing": {
           "title": "What it costs",
-          "description": "There is a free plan with no time limit and no card, and paid plans are priced by the number of members. Those prices are published, so a volunteer treasurer can put a figure in front of the board without booking a call. Managed assemblies, customisation and anything else you need on top are quoted per vote, on the size of your register and what the process involves.",
-          "link_label": "See where pricing starts"
+          "description": "Every vote with up to 25 people is free, with no card. Above that you pay once per vote, priced on how many people can vote, and the prices are published, so a volunteer treasurer can put a figure in front of the board without booking a call. Managed assemblies, customisation and anything else you need on top are quoted per vote.",
+          "link_label": "See what a vote costs"
         }
       },
       "faq": {
@@ -1219,7 +1219,7 @@
           },
           {
             "question": "We are a volunteer-run association. Is this affordable, and is it a lot of work?",
-            "answer": "There is a free plan with no time limit, and paid plans are priced by the number of members, so a small association pays little or nothing. On effort, compare it with the assembly you run today: the venue, the printing, the postage, the proxy forms checked by hand and the evening spent counting. One person can set up a vote in an afternoon, and next year you reopen this year's configuration instead of rebuilding it from memory."
+            "answer": "Votes with up to 25 people are free, with no time limit, and above that you pay once per vote, priced on how many people can vote, so a small association pays little or nothing. On effort, compare it with the assembly you run today: the venue, the printing, the postage, the proxy forms checked by hand and the evening spent counting. One person can set up a vote in an afternoon, and next year you reopen this year's configuration instead of rebuilding it from memory."
           }
         ]
       },
@@ -1313,7 +1313,7 @@
           {
             "size": "Up to about 1,000 members",
             "title": "A local association running it in an afternoon",
-            "description": "You do not need a project or a budget line. One person creates the vote, uploads the register and sends the link, on the free plan or a small subscription.",
+            "description": "You do not need a project or a budget line. One person creates the vote, uploads the register and sends the link. Votes with up to 25 people are free; above that you pay once per vote.",
             "points": [
               "Live the same week",
               "Every voting method, weighted and delegate voting included",
@@ -1751,8 +1751,9 @@
             "question": "How do you protect at-risk voters' privacy?"
           },
           {
-            "answer": "Yes. You can run a free vote for up to 100 members with no credit card, and paid plans scale affordably as you grow.",
-            "question": "Is there a free option for small organizations?"
+            "answer": "Yes. Votes with up to 25 people are free, with no credit card. Above that, you pay once per vote and the price scales affordably as you grow.",
+            "question": "Is there a free option for small organizations?",
+            "link_label": "Work out the price of your vote"
           },
           {
             "answer": "Yes. Each member can confirm their vote was counted and anyone can verify the final tally, which protects the legitimacy of the decision.",
@@ -1775,7 +1776,7 @@
           "title": "Strong privacy and coercion resistance"
         },
         {
-          "description": "Run a free vote for up to 100 members and scale affordably as your movement grows.",
+          "description": "Votes with up to 25 people are free. Pay once per vote as your movement grows.",
           "title": "Free to start, affordable to scale"
         },
         {
@@ -2244,8 +2245,8 @@
         ],
         "pricing": {
           "title": "What it costs",
-          "description": "There is a free plan with no time limit and no card, and paid plans are priced by the number of members. Those prices are published, so you can see where it starts without booking a call. Managed elections, customisation and anything else you need on top are quoted per election, on the size of your roll and what the process involves.",
-          "link_label": "See where pricing starts"
+          "description": "Every vote with up to 25 people is free, with no card. Above that you pay once per vote, priced on how many people can vote, and the prices are published, so you can see the exact figure without booking a call. Managed elections, customisation and anything else you need on top are quoted per election.",
+          "link_label": "See what a vote costs"
         }
       },
       "faq": {
@@ -2381,7 +2382,7 @@
           {
             "size": "Up to about 1,000",
             "title": "A local body running it in an afternoon",
-            "description": "You do not need a project. One person creates the vote, uploads the roll and sends the link, on the free plan or a small subscription.",
+            "description": "You do not need a project. One person creates the vote, uploads the roll and sends the link. Votes with up to 25 people are free; above that you pay once per vote.",
             "points": [
               "Live the same week",
               "Every voting method, weighted and delegate voting included",
@@ -3080,7 +3081,12 @@
             ],
             "cta": "Become a partner"
           }
-        ]
+        ],
+        "pricing": {
+          "title": "What it costs",
+          "description": "Votes through the module use the same per-vote prices as the Vocdoni App. For integrations, email verification codes are billed separately.",
+          "link_label": "See what a vote costs"
+        }
       },
       "faq": {
         "eyebrow": "questions",
@@ -3415,10 +3421,10 @@
     "cta": {
       "checklist_title": "What you get from day one",
       "credit_card": "No credit card required",
-      "description": "Run a real vote on the free plan, see how it works with your own members, and only move to a paid plan when your organization needs more scale.",
+      "description": "Run a free vote with up to 25 people, see how it works with your own members, and pay per vote only when your list grows.",
       "eyebrow": "Start without friction",
-      "free": "Free vote for up to 100 members",
-      "pricing": "Public pricing for larger organizations",
+      "free": "Free for votes with up to 25 people",
+      "pricing": "Prices published, pay per vote",
       "primary": "Start for free",
       "secondary": "See pricing",
       "title": "Your next vote can be live today"
@@ -3428,8 +3434,9 @@
       "eyebrow": "FAQ",
       "items": [
         {
-          "answer": "Yes. You can run a free vote for up to 100 members, with no credit card required.",
-          "question": "Can I really run a free vote?"
+          "answer": "Yes. Every vote with up to 25 people is free, with no card. Above that you pay once per vote, priced on how many people can vote; the pricing page shows the exact figure.",
+          "question": "Can I really run a free vote?",
+          "link_label": "Work out the price of your vote"
         },
         {
           "answer": "One person can usually create and launch a vote in under 30 minutes.",
@@ -3543,6 +3550,11 @@
         }
       ],
       "title": "Make voting easier for organizers and members"
+    },
+    "pricing_teaser": {
+      "body": "Above that, one price per vote that you see before you start.",
+      "cta": "Work out your price",
+      "title": "Free for up to 25 people."
     },
     "social_proof": {
       "case_study": {
@@ -3919,7 +3931,8 @@
         "question": "What if a member disputes the result?"
       },
       "free": {
-        "answer": "Yes, for up to 100 members, with no credit card and no time limit. You can run a real election today and see how it works before committing. Pricing for larger organizations is public on our website. No sales call required.",
+        "answer": "Yes. Votes with up to 25 people are free, with no credit card and no time limit. Above that, you pay once per vote; prices are on the pricing page and need no sales call.",
+        "link_label": "Work out the price of your vote",
         "question": "Is Vocdoni free?"
       },
       "gdpr": {
@@ -4179,7 +4192,7 @@
       }
     },
     "index": {
-      "description": "Vocdoni is open-source online voting software for associations and organizations. Secure, legally valid, verifiable elections. Free plan, no credit card.",
+      "description": "Vocdoni is open-source online voting software for associations and organizations. Secure, legally valid, verifiable elections. Free for votes with up to 25 people, no credit card.",
       "title": "Secure, legally valid online voting for organizations | Vocdoni"
     },
     "learn_index": {
@@ -4219,6 +4232,10 @@
         "description": "What verifiable voting and end-to-end verifiability mean, why they matter, and how voters and observers can check an election result without trusting the platform.",
         "title": "Verifiable voting explained | Vocdoni"
       }
+    },
+    "pricing": {
+      "description": "See what your vote costs before you start. Free for up to 25 people, then one price per vote, with anonymous, verifiable voting always included.",
+      "title": "Pricing: pay per vote, free up to 25 people | Vocdoni"
     },
     "privacy": {
       "description": "Learn how Vocdoni collects, uses, and protects your personal data and privacy.",
@@ -4289,6 +4306,7 @@
     "contact": "Contact",
     "dashboard_button": "API Dashboard",
     "logo_aria_label": "Vocdoni - go to homepage",
+    "pricing": "Pricing",
     "product_features": {
       "custom_projects": {
         "description": "Tailor-made governance solutions for specific needs and requirements.",
@@ -4362,6 +4380,206 @@
     "app_preview": {
       "option_a": "Option a",
       "option_b": "Option b"
+    }
+  },
+  "pricing": {
+    "addons": {
+      "branding": {
+        "description": "Your branding on the voting page and emails, for every future vote.",
+        "price": "{{price}} once",
+        "title": "Your logo and colours"
+      },
+      "certificate": {
+        "description": "A PDF with the full record of your vote: how it ran, the results and how anyone can verify them. Ready to attach to your minutes.",
+        "price": "{{price}} per vote",
+        "title": "Signed results report (PDF)"
+      },
+      "domain": {
+        "description": "People vote at an address like yourorganisation.vocdoni.vote. A domain of your own is also possible, on request.",
+        "price": "{{price}} once",
+        "title": "Your own web address"
+      },
+      "one_time_title": "Charged once for your organisation",
+      "per_vote_title": "Add to this vote",
+      "sms": {
+        "description": "Send the code by text message instead of, or as well as, by email. Codes by email are always included.",
+        "note": "Estimated cost in Europe. The final cost per text message can vary by country.",
+        "price": "{{price}} per person on your list",
+        "title": "Verification codes by text message"
+      }
+    },
+    "calculator": {
+      "decrease": "Fewer people",
+      "helper": "Might you add people to your list later? Count a few extra now, just in case.",
+      "increase": "More people",
+      "people_label": "How many people can vote?",
+      "slider_label": "How many people can vote",
+      "slider_value_free_one": "{{people}} person, free",
+      "slider_value_free_other": "{{people}} people, free",
+      "slider_value_one": "{{people}} person, {{total}} plus VAT",
+      "slider_value_other": "{{people}} people, {{total}} plus VAT",
+      "slider_value_people_one": "{{people}} person",
+      "slider_value_people_other": "{{people}} people",
+      "slider_value_quote": "More than {{limit}} people, on request",
+      "tick_more": "{{limit}}+"
+    },
+    "cta": {
+      "create_account": "Create a free account",
+      "no_commitment": "No commitment. We reply within one business day.",
+      "repeat_hint": "Running several votes this year? Tell us in the request.",
+      "request_price": "Request this price",
+      "request_quote": "Request a quote",
+      "talk": "Talk to us"
+    },
+    "eyebrow": "Pricing",
+    "faq": {
+      "items": [
+        {
+          "answer": "For everyone who can vote: the people on your voter list for that vote, whether or not they end up voting. That is why you know the price before you start.",
+          "question": "Do I pay for everyone on the list or only for those who vote?"
+        },
+        {
+          "answer": "Votes with up to 25 people are free, with no time limit and no card. Add-ons, such as text-message codes, are still charged even when the vote is free.",
+          "question": "What is free?"
+        },
+        {
+          "answer": "Yes. Any payment is at least €1. For example, a free vote with a few text-message codes is rounded up to €1.",
+          "question": "Is there a minimum amount?"
+        },
+        {
+          "answer": "Your logo and colours and your own web address are paid once per organisation. You keep them for all your future votes and never pay for them again.",
+          "question": "What is the one-time setup?"
+        },
+        {
+          "answer": "No, the prices you see do not include VAT.",
+          "question": "Do prices include VAT?"
+        },
+        {
+          "answer": "Yes. These prices apply to the Vocdoni App and to integrations. The only difference is that, with an integration, email verification codes are charged separately.",
+          "question": "Do the same prices apply if we integrate Vocdoni into our platform?"
+        },
+        {
+          "answer": "Votes of that size are priced to fit. Tell us what you need and we send you a figure within one business day.",
+          "question": "What if more than 50,000 people can vote?"
+        }
+      ],
+      "title": "Pricing questions"
+    },
+    "included": {
+      "custom": {
+        "body": "This is the base every vote gets. Custom features, other ways for voters to sign in or anything specific your vote needs: ask us and we build it.",
+        "cta": "Ask us",
+        "title": "Need something more?"
+      },
+      "organisers": {
+        "item_1": "As many questions as you need, single or multiple choice",
+        "item_2": "Weighted voting, using each member's voting power",
+        "item_3": "Import your voter list from a spreadsheet",
+        "item_4": "Live results, or results hidden until the vote ends",
+        "item_5": "Live turnout while the vote is open",
+        "item_6": "Start now or schedule it, and pause or end it early",
+        "title": "Tools for organisers"
+      },
+      "security": {
+        "item_1": "Nobody can link a ballot to the person who cast it",
+        "item_2": "Every voter can check their own vote was counted",
+        "item_3": "Results anyone can verify",
+        "item_4": "No one, not even Vocdoni, can change the result",
+        "title": "Secure and verifiable"
+      },
+      "subtitle": "Every vote comes with all of this, at no extra cost.",
+      "title": "Everything included",
+      "voters": {
+        "item_1": "Voters sign in with the credentials you choose, plus an optional code by email",
+        "item_2": "Works on any phone, tablet or computer",
+        "item_3": "The voting page in your voters' own language",
+        "title": "Simple for voters"
+      }
+    },
+    "lede": "Most digital voting providers do not publish their prices; we do, and you know what you will pay before you start. Free for up to 25 people, with anonymous, verifiable voting always included. Valid for the Vocdoni App and integrations (with integrations, email codes are charged separately).",
+    "links": {
+      "callout": "Planning a vote? Work out what it costs in a minute.",
+      "see_pricing": "See pricing"
+    },
+    "live": {
+      "free": "This vote is free.",
+      "quote": "More than {{limit}} people: on request.",
+      "total": "Total for this vote: {{total}} plus VAT. {{perPerson}} per person.",
+      "total_with_setup": "Total, setup included: {{total}} plus VAT."
+    },
+    "panel": {
+      "free": "Free",
+      "line_branding": "Your logo and colours",
+      "line_certificate": "Signed results report (PDF)",
+      "line_domain": "Your own web address",
+      "line_minimum_charge": "Minimum charge",
+      "line_sms": "Text-message codes, {{people}} × {{unit}}",
+      "line_vote_one": "Vote, {{people}} person",
+      "line_vote_other": "Vote, {{people}} people",
+      "loading": "Working out your price",
+      "minimum_charge_note": "Any payment is at least {{minimum}}.",
+      "on_request": "On request",
+      "one_time_note": "You pay the setup only once. Your organisation keeps it for all its future votes.",
+      "one_time_title": "One-time setup",
+      "one_time_total": "Total one-time setup",
+      "per_person": "{{price}} per person who can vote",
+      "per_person_vote": "{{price}} per person who can vote, for this vote",
+      "this_vote_title": "This vote",
+      "this_vote_total": "Total for this vote",
+      "title": "Your price",
+      "unavailable": "Price unavailable",
+      "unavailable_body": "We cannot show the price right now. Request it and we send you the figure within one business day.",
+      "vat_suffix": "+ VAT"
+    },
+    "request": {
+      "book_call": "Book a call",
+      "captcha_error": "reCAPTCHA verification failed. Please try again.",
+      "chip_full_total": "Total {{total}} + VAT",
+      "chip_people_one": "{{people}} person",
+      "chip_people_other": "{{people}} people",
+      "country": "Country",
+      "country_placeholder": "Select your country",
+      "create_account": "Create your free account",
+      "email": "Email",
+      "error_body": "Send it by email instead; we have filled it in for you.",
+      "error_copied": "Copied",
+      "error_copy": "Copy text",
+      "error_copy_hint": "Using another email? Copy the text and send it to {{email}}.",
+      "error_cta": "Other email app",
+      "error_gmail": "Open in Gmail",
+      "error_outlook": "Open in Outlook",
+      "error_title": "We could not send your request from here",
+      "errors": {
+        "country_required": "Select your country",
+        "email_invalid": "Enter a valid email address",
+        "email_required": "Enter your email",
+        "name_required": "Enter your name",
+        "organization_required": "Enter your organisation"
+      },
+      "intro": "Tell us who you are and we reply with a written estimate, usually within one business day.",
+      "message": "Anything we should know (optional)",
+      "message_placeholder": "Dates, several votes this year, questions about your list...",
+      "name": "Your name",
+      "organization": "Organisation",
+      "privacy": "By sending this request you accept the <plink>privacy policy</plink>. Vocdoni uses these details only to prepare your estimate and answer your request.",
+      "retry": "Try again",
+      "sending": "Sending...",
+      "submit": "Send request",
+      "success_reference": "Your reference: {{reference}}",
+      "success_reply": "The Vocdoni team will write to {{email}} within one business day.",
+      "success_title": "Request received",
+      "title": "Request this price",
+      "title_quote": "Request a quote"
+    },
+    "title": "Clear pricing for every vote.",
+    "trust": {
+      "prices": "Prices in EUR without VAT. EU businesses with a valid VAT number are invoiced under the reverse charge; customers outside the EU pay no EU VAT."
+    },
+    "zones": {
+      "dedicated": "A vote this size usually needs a conversation. The price above holds, and you get a dedicated contact.",
+      "dedicated_badge": "Large vote",
+      "free": "This vote is free. Votes with up to 25 people are always free.",
+      "quote": "Tell us what you need and we send a figure within one business day."
     }
   },
   "steps_section": {
@@ -4485,7 +4703,7 @@
   "use_cases_page": {
     "bottom_cta": {
       "cta_secondary": "Talk to our team",
-      "trust_footer": "No credit card required · Free plan, no time limit"
+      "trust_footer": "Free for votes with up to 25 people · No credit card"
     },
     "grid_cta": {
       "trust_line": "Organizations worldwide trust Vocdoni"

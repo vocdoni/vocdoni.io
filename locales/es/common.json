@@ -1176,8 +1176,8 @@
         ],
         "pricing": {
           "title": "Cuánto cuesta",
-          "description": "Hay un plan gratuito sin límite de tiempo y sin tarjeta, y los planes de pago se tarifican por número de socios. Esos precios son públicos, así que un tesorero voluntario puede poner una cifra delante de la junta sin agendar ninguna llamada. Las asambleas gestionadas, la personalización y cualquier otra cosa que necesitéis por encima se presupuestan por votación, según el tamaño del registro y lo que implique el proceso.",
-          "link_label": "Mira dónde empiezan los precios"
+          "description": "Toda votación con hasta 25 personas es gratuita, sin tarjeta. Por encima de eso pagas una vez por votación, en función del número de personas que pueden votar, y los precios son públicos, así que un tesorero voluntario puede poner una cifra delante de la junta sin agendar ninguna llamada. Las asambleas gestionadas, la personalización y cualquier otra cosa que necesitéis por encima se presupuestan por votación.",
+          "link_label": "Mira cuánto cuesta una votación"
         }
       },
       "faq": {
@@ -1219,7 +1219,7 @@
           },
           {
             "question": "Somos una asociación de voluntarios. ¿Es asumible, y da mucho trabajo?",
-            "answer": "Hay un plan gratuito sin límite de tiempo, y los planes de pago se tarifican por número de socios, así que una asociación pequeña paga poco o nada. Sobre el trabajo, comparadlo con la asamblea que celebráis hoy: la sala, la impresión, el franqueo, las delegaciones revisadas a mano y la tarde dedicada a contar. Una persona monta una votación en una tarde y, el año que viene, reabre la configuración de este año en vez de rehacerla de memoria."
+            "answer": "Las votaciones con hasta 25 personas son gratuitas, sin límite de tiempo, y por encima de eso se paga una vez por votación, en función del número de personas que pueden votar, de modo que una asociación pequeña paga poco o nada. Sobre el trabajo, comparadlo con la asamblea que celebráis hoy: la sala, la impresión, el franqueo, las delegaciones revisadas a mano y la tarde dedicada a contar. Una persona monta una votación en una tarde y, el año que viene, reabre la configuración de este año en vez de rehacerla de memoria."
           }
         ]
       },
@@ -1313,7 +1313,7 @@
           {
             "size": "Hasta unos 1.000 socios",
             "title": "Una asociación local que lo resuelve en una tarde",
-            "description": "No necesitáis un proyecto ni una partida presupuestaria. Una persona crea la votación, sube el registro y envía el enlace, con el plan gratuito o una suscripción pequeña.",
+            "description": "No necesitáis un proyecto ni una partida presupuestaria. Una persona crea la votación, sube el registro y envía el enlace. Las votaciones con hasta 25 personas son gratuitas; por encima de eso se paga una vez por votación.",
             "points": [
               "En marcha la misma semana",
               "Todos los métodos de voto, incluidos el ponderado y el delegado",
@@ -1751,8 +1751,9 @@
             "question": "¿Cómo se protege la privacidad de los votantes en riesgo?"
           },
           {
-            "answer": "Sí. Puedes organizar una votación gratuita para hasta 100 miembros sin tarjeta de crédito, y los planes de pago escalan de forma asequible a medida que creces.",
-            "question": "¿Hay una opción gratuita para organizaciones pequeñas?"
+            "answer": "Sí. Las votaciones con hasta 25 personas son gratuitas, sin tarjeta de crédito. Por encima de eso, se paga una vez por votación y el precio escala de forma asequible a medida que creces.",
+            "question": "¿Hay una opción gratuita para organizaciones pequeñas?",
+            "link_label": "Calcula el precio de tu votación"
           },
           {
             "answer": "Sí. Cada miembro puede confirmar que su voto se contó y cualquiera puede verificar el recuento final, lo que protege la legitimidad de la decisión.",
@@ -1775,7 +1776,7 @@
           "title": "Privacidad fuerte y resistencia a la coacción"
         },
         {
-          "description": "Organiza una votación gratuita para hasta 100 miembros y escala de forma asequible a medida que crece tu movimiento.",
+          "description": "Las votaciones con hasta 25 personas son gratuitas. Paga una vez por votación a medida que crece tu movimiento.",
           "title": "Gratis para empezar, asequible para escalar"
         },
         {
@@ -2243,8 +2244,8 @@
         ],
         "pricing": {
           "title": "Cuánto cuesta",
-          "description": "Hay un plan gratuito sin límite de tiempo y sin tarjeta, y los planes de pago se tarifican por número de miembros. Esos precios son públicos, así que podéis ver dónde empieza sin agendar ninguna llamada. Las elecciones gestionadas, la personalización y cualquier otra cosa que necesitéis por encima se presupuestan por proceso, según el tamaño del censo y lo que implique el proceso.",
-          "link_label": "Mira dónde empiezan los precios"
+          "description": "Toda votación con hasta 25 personas es gratuita, sin tarjeta. Por encima de eso pagas una vez por votación, en función del número de personas que pueden votar, y los precios son públicos, así que podéis ver la cifra exacta sin agendar ninguna llamada. Las elecciones gestionadas, la personalización y cualquier otra cosa que necesitéis por encima se presupuestan por elección.",
+          "link_label": "Mira cuánto cuesta una votación"
         }
       },
       "faq": {
@@ -2380,7 +2381,7 @@
           {
             "size": "Hasta unos 1.000",
             "title": "Un colegio local que lo resuelve en una tarde",
-            "description": "No necesitáis un proyecto. Una persona crea la votación, sube el censo y envía el enlace, con el plan gratuito o una suscripción pequeña.",
+            "description": "No necesitáis un proyecto. Una persona crea la votación, sube el censo y envía el enlace. Las votaciones con hasta 25 personas son gratuitas; por encima de eso se paga una vez por votación.",
             "points": [
               "En marcha la misma semana",
               "Todos los métodos de voto, incluidos el voto ponderado y el delegado",
@@ -3079,7 +3080,12 @@
             ],
             "cta": "Hazte socio"
           }
-        ]
+        ],
+        "pricing": {
+          "title": "Cuánto cuesta",
+          "description": "Las votaciones con el módulo tienen los mismos precios por votación que Vocdoni App. En las integraciones, los códigos de verificación por correo se facturan aparte.",
+          "link_label": "Mira cuánto cuesta una votación"
+        }
       },
       "faq": {
         "eyebrow": "preguntas",
@@ -3414,10 +3420,10 @@
     "cta": {
       "checklist_title": "Lo que obtienes desde el primer día",
       "credit_card": "Sin tarjeta de crédito",
-      "description": "Organiza una votación real con el plan gratuito, comprueba cómo funciona con tus propios miembros y solo pasa a un plan de pago cuando necesites más escala.",
+      "description": "Organiza una votación gratuita con hasta 25 personas, comprueba cómo funciona con tus propios miembros y paga por votación solo cuando tu lista crezca.",
       "eyebrow": "Empieza sin fricción",
-      "free": "Votación gratis hasta 100 miembros",
-      "pricing": "Precios públicos para organizaciones más grandes",
+      "free": "Gratis para votaciones de hasta 25 personas",
+      "pricing": "Precios publicados, paga por votación",
       "primary": "Empieza gratis",
       "secondary": "Ver precios",
       "title": "Tu próxima votación puede estar en marcha hoy"
@@ -3427,8 +3433,9 @@
       "eyebrow": "FAQ",
       "items": [
         {
-          "answer": "Sí. Puedes organizar una votación gratis hasta 100 miembros, sin tarjeta de crédito.",
-          "question": "¿De verdad puedo organizar una votación gratis?"
+          "answer": "Sí. Toda votación con hasta 25 personas es gratuita, sin tarjeta. Por encima de eso pagas una vez por votación, en función del número de personas que pueden votar; la página de precios muestra la cifra exacta.",
+          "question": "¿De verdad puedo organizar una votación gratis?",
+          "link_label": "Calcula el precio de tu votación"
         },
         {
           "answer": "Una sola persona puede crear y lanzar una votación en menos de 30 minutos.",
@@ -3542,6 +3549,11 @@
         }
       ],
       "title": "Haz que votar sea más fácil para el equipo y para los miembros"
+    },
+    "pricing_teaser": {
+      "body": "Por encima, un precio por votación que ves antes de empezar.",
+      "cta": "Calcula tu precio",
+      "title": "Gratis hasta 25 personas."
     },
     "social_proof": {
       "case_study": {
@@ -3918,7 +3930,8 @@
         "question": "¿Qué pasa si un miembro impugna el resultado?"
       },
       "free": {
-        "answer": "Sí, hasta 100 miembros, sin tarjeta de crédito y sin límite de tiempo. Puedes celebrar hoy una elección real y comprobar cómo funciona antes de comprometerte. Los precios para organizaciones más grandes son públicos en nuestra web. Sin llamadas comerciales.",
+        "answer": "Sí. Toda votación con hasta 25 personas es gratuita, sin tarjeta de crédito y sin límite de tiempo. Por encima de eso se paga una vez por votación; los precios están en la página de precios y no se necesita ninguna llamada comercial.",
+        "link_label": "Calcula el precio de tu votación",
         "question": "¿Es Vocdoni gratis?"
       },
       "gdpr": {
@@ -4178,7 +4191,7 @@
       }
     },
     "index": {
-      "description": "Vocdoni es software de voto en línea de código abierto para asociaciones y organizaciones. Elecciones seguras, verificables y legalmente válidas. Plan gratuito.",
+      "description": "Vocdoni es software de voto en línea de código abierto para asociaciones y organizaciones. Elecciones seguras, verificables y legalmente válidas. Gratis para votaciones de hasta 25 personas, sin tarjeta.",
       "title": "Voto en línea seguro y legalmente válido | Vocdoni"
     },
     "learn_index": {
@@ -4218,6 +4231,10 @@
         "description": "Qué significan el voto verificable y la verificabilidad de extremo a extremo, por qué importan y cómo votantes y observadores pueden comprobar un resultado sin confiar en la plataforma.",
         "title": "El voto verificable, explicado | Vocdoni"
       }
+    },
+    "pricing": {
+      "description": "Consulta lo que cuesta tu votación antes de empezar. Gratis hasta 25 personas y, a partir de ahí, un único precio por votación, con voto anónimo y verificable siempre incluido.",
+      "title": "Precios: paga por votación, gratis hasta 25 personas | Vocdoni"
     },
     "privacy": {
       "description": "Conoce cómo Vocdoni recopila, utiliza y protege tus datos personales y tu privacidad.",
@@ -4288,6 +4305,7 @@
     "contact": "Contacto",
     "dashboard_button": "API Dashboard",
     "logo_aria_label": "Vocdoni - ir a la página de inicio",
+    "pricing": "Precios",
     "product_features": {
       "custom_projects": {
         "description": "Soluciones de gobernanza personalizadas para necesidades específicas.",
@@ -4361,6 +4379,206 @@
     "app_preview": {
       "option_a": "Opción a",
       "option_b": "Opción b"
+    }
+  },
+  "pricing": {
+    "addons": {
+      "branding": {
+        "description": "Tu marca en la página de votación y los correos, para todas tus futuras votaciones.",
+        "price": "{{price}} pago único",
+        "title": "Tu logo y colores"
+      },
+      "certificate": {
+        "description": "Un PDF con el registro completo de tu votación: cómo se desarrolló, los resultados y cómo cualquiera puede verificarlos. Listo para adjuntar al acta.",
+        "price": "{{price}} por votación",
+        "title": "Informe de resultados firmado (PDF)"
+      },
+      "domain": {
+        "description": "La gente vota en una dirección como tuorganizacion.vocdoni.vote. También puedes usar un dominio propio, bajo petición.",
+        "price": "{{price}} pago único",
+        "title": "Tu propia dirección web"
+      },
+      "one_time_title": "Se cobra una sola vez por organización",
+      "per_vote_title": "Añadir a esta votación",
+      "sms": {
+        "description": "Envía el código por SMS, además del correo electrónico o en su lugar. Los códigos por correo siempre están incluidos.",
+        "note": "Coste estimado en Europa. El coste final por SMS puede variar según el país.",
+        "price": "{{price}} por persona de tu lista",
+        "title": "Códigos de verificación por SMS"
+      }
+    },
+    "calculator": {
+      "decrease": "Menos personas",
+      "helper": "¿Crees que añadirás personas a tu lista más adelante? Cuenta unas cuantas más ahora, por si acaso.",
+      "increase": "Más personas",
+      "people_label": "¿Cuántas personas pueden votar?",
+      "slider_label": "Cuántas personas pueden votar",
+      "slider_value_free_one": "{{people}} persona, gratis",
+      "slider_value_free_other": "{{people}} personas, gratis",
+      "slider_value_one": "{{people}} persona, {{total}} más IVA",
+      "slider_value_other": "{{people}} personas, {{total}} más IVA",
+      "slider_value_people_one": "{{people}} persona",
+      "slider_value_people_other": "{{people}} personas",
+      "slider_value_quote": "Más de {{limit}} personas, a consultar",
+      "tick_more": "{{limit}}+"
+    },
+    "cta": {
+      "create_account": "Crea una cuenta gratuita",
+      "no_commitment": "Sin compromiso. Respondemos en un día hábil.",
+      "repeat_hint": "¿Vas a organizar varias votaciones este año? Cuéntanoslo en la solicitud.",
+      "request_price": "Solicita este precio",
+      "request_quote": "Pide presupuesto",
+      "talk": "Habla con nosotros"
+    },
+    "eyebrow": "Precios",
+    "faq": {
+      "items": [
+        {
+          "answer": "Por todas las que pueden votar: las personas de tu lista de votantes para esa votación, voten finalmente o no. Por eso sabes el precio antes de empezar.",
+          "question": "¿Pago por todas las personas de la lista o solo por las que votan?"
+        },
+        {
+          "answer": "Las votaciones de hasta 25 personas son gratuitas, sin límite de tiempo y sin tarjeta. Los extras, como los códigos por SMS, se cobran igualmente aunque la votación sea gratuita.",
+          "question": "¿Qué es gratis?"
+        },
+        {
+          "answer": "Sí. Cualquier pago es de al menos 1 €. Por ejemplo, una votación gratuita con unos pocos códigos por SMS se redondea a 1 €.",
+          "question": "¿Hay un importe mínimo?"
+        },
+        {
+          "answer": "Tu logotipo, tus colores y tu propia dirección web se pagan una sola vez por organización. Los conservas para todas tus votaciones futuras y no vuelves a pagarlos.",
+          "question": "¿Qué es el pago único?"
+        },
+        {
+          "answer": "No, los precios que ves no incluyen el IVA.",
+          "question": "¿Los precios incluyen el IVA?"
+        },
+        {
+          "answer": "Sí. Estos precios valen para Vocdoni App y para las integraciones. La única diferencia es que, con una integración, los códigos de verificación por correo se cobran aparte.",
+          "question": "¿Valen los mismos precios si integramos Vocdoni en nuestra plataforma?"
+        },
+        {
+          "answer": "Las votaciones de ese tamaño tienen un precio a medida. Cuéntanos lo que necesitas y te enviamos una cifra en un día hábil.",
+          "question": "¿Y si pueden votar más de 50.000 personas?"
+        }
+      ],
+      "title": "Preguntas sobre precios"
+    },
+    "included": {
+      "custom": {
+        "body": "Esta es la base que incluye cada votación. Funcionalidades a medida, otras formas de identificar a quien vota o cualquier necesidad concreta: pídenoslo y lo hacemos.",
+        "cta": "Pregúntanos",
+        "title": "¿Necesitas algo más?"
+      },
+      "organisers": {
+        "item_1": "Tantas preguntas como necesites, de opción única o múltiple",
+        "item_2": "Voto ponderado, según el peso de voto de cada miembro",
+        "item_3": "Importa tu lista de votantes desde una hoja de cálculo",
+        "item_4": "Resultados en directo u ocultos hasta el final de la votación",
+        "item_5": "Participación en directo mientras la votación está abierta",
+        "item_6": "Empieza ya o prográmala, y pausa o termina antes de tiempo",
+        "title": "Herramientas para organizar"
+      },
+      "security": {
+        "item_1": "Nadie puede vincular un voto a la persona que lo emitió",
+        "item_2": "Cada votante puede comprobar que su voto ha sido contabilizado",
+        "item_3": "Resultados que cualquiera puede verificar",
+        "item_4": "Nadie, ni siquiera Vocdoni, puede cambiar el resultado",
+        "title": "Segura y verificable"
+      },
+      "subtitle": "Cada votación incluye todo esto, sin coste adicional.",
+      "title": "Todo incluido",
+      "voters": {
+        "item_1": "Quien vota se identifica con las credenciales que elijas, y opcionalmente con un código por correo",
+        "item_2": "Funciona en cualquier móvil, tableta u ordenador",
+        "item_3": "La página de votación en el idioma de tus votantes",
+        "title": "Fácil para quien vota"
+      }
+    },
+    "lede": "La mayoría de empresas de voto digital no publican sus precios; nosotros sí, y sabes lo que pagarás antes de empezar. Gratis hasta 25 personas, con voto anónimo y verificable siempre incluido. Válido para Vocdoni App e integraciones (en las integraciones, los códigos por correo van aparte).",
+    "links": {
+      "callout": "¿Preparas una votación? Calcula cuánto cuesta en un minuto.",
+      "see_pricing": "Ver precios"
+    },
+    "live": {
+      "free": "Esta votación es gratuita.",
+      "quote": "Más de {{limit}} personas: a consultar.",
+      "total": "Total de esta votación: {{total}} más IVA. {{perPerson}} por persona.",
+      "total_with_setup": "Total con el pago único incluido: {{total}} más IVA."
+    },
+    "panel": {
+      "free": "Gratis",
+      "line_branding": "Tu logo y colores",
+      "line_certificate": "Informe de resultados firmado (PDF)",
+      "line_domain": "Tu propia dirección web",
+      "line_minimum_charge": "Importe mínimo",
+      "line_sms": "Códigos por SMS, {{people}} × {{unit}}",
+      "line_vote_one": "Votación, {{people}} persona",
+      "line_vote_other": "Votación, {{people}} personas",
+      "loading": "Calculando tu precio",
+      "minimum_charge_note": "Cualquier pago es de al menos {{minimum}}.",
+      "on_request": "A consultar",
+      "one_time_note": "Los extras de pago único se pagan una sola vez y tu organización los conserva para todas sus futuras votaciones.",
+      "one_time_title": "Pago único",
+      "one_time_total": "Total del pago único",
+      "per_person": "{{price}} por persona que puede votar",
+      "per_person_vote": "{{price}} por persona que puede votar, en esta votación",
+      "this_vote_title": "Esta votación",
+      "this_vote_total": "Total de esta votación",
+      "title": "Tu precio",
+      "unavailable": "Precio no disponible",
+      "unavailable_body": "Ahora mismo no podemos mostrar el precio. Solicítalo y te enviamos la cifra en un día hábil.",
+      "vat_suffix": "+ IVA"
+    },
+    "request": {
+      "book_call": "Reserva una llamada",
+      "captcha_error": "La verificación reCAPTCHA ha fallado. Por favor, inténtalo de nuevo.",
+      "chip_full_total": "Total {{total}} + IVA",
+      "chip_people_one": "{{people}} persona",
+      "chip_people_other": "{{people}} personas",
+      "country": "País",
+      "country_placeholder": "Selecciona tu país",
+      "create_account": "Crea tu cuenta gratuita",
+      "email": "Correo electrónico",
+      "error_body": "Mejor envíalo por correo electrónico; ya lo hemos rellenado por ti.",
+      "error_copied": "Copiado",
+      "error_copy": "Copiar texto",
+      "error_copy_hint": "¿Usas otro correo? Copia el texto y envíalo a {{email}}.",
+      "error_cta": "Otra app de correo",
+      "error_gmail": "Abrir en Gmail",
+      "error_outlook": "Abrir en Outlook",
+      "error_title": "No hemos podido enviar tu solicitud desde aquí",
+      "errors": {
+        "country_required": "Selecciona tu país",
+        "email_invalid": "Introduce una dirección de correo válida",
+        "email_required": "Introduce tu correo electrónico",
+        "name_required": "Introduce tu nombre",
+        "organization_required": "Introduce tu organización"
+      },
+      "intro": "Dinos quién eres y te respondemos con un presupuesto por escrito, normalmente en un día hábil.",
+      "message": "Algo que debamos saber (opcional)",
+      "message_placeholder": "Fechas, varias votaciones este año, preguntas sobre tu lista...",
+      "name": "Tu nombre",
+      "organization": "Organización",
+      "privacy": "Al enviar esta solicitud aceptas la <plink>política de privacidad</plink>. Vocdoni utiliza estos datos únicamente para preparar tu presupuesto y responder a tu solicitud.",
+      "retry": "Intentar de nuevo",
+      "sending": "Enviando...",
+      "submit": "Enviar solicitud",
+      "success_reference": "Tu referencia: {{reference}}",
+      "success_reply": "El equipo de Vocdoni te escribirá a {{email}} en un día hábil.",
+      "success_title": "Solicitud recibida",
+      "title": "Solicita este precio",
+      "title_quote": "Pide presupuesto"
+    },
+    "title": "Precios claros para cada votación.",
+    "trust": {
+      "prices": "Precios en EUR sin IVA. Las empresas de la UE con un número de IVA válido reciben la factura con inversión del sujeto pasivo; los clientes fuera de la UE no pagan IVA europeo."
+    },
+    "zones": {
+      "dedicated": "Una votación de este tamaño suele requerir una conversación. El precio de arriba se mantiene y tendrás una persona de contacto asignada.",
+      "dedicated_badge": "Votación grande",
+      "free": "Esta votación es gratuita. Las votaciones con hasta 25 personas siempre son gratuitas.",
+      "quote": "Cuéntanos qué necesitas y te enviamos un precio en un día hábil."
     }
   },
   "steps_section": {
@@ -4484,7 +4702,7 @@
   "use_cases_page": {
     "bottom_cta": {
       "cta_secondary": "Hablar con nuestro equipo",
-      "trust_footer": "No se requiere tarjeta de crédito · Plan gratuito, sin límite de tiempo"
+      "trust_footer": "Gratis para votaciones de hasta 25 personas · Sin tarjeta de crédito"
     },
     "grid_cta": {
       "trust_line": "Organizaciones de todo el mundo confían en Vocdoni"

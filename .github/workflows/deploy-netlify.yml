@@ -10,7 +10,7 @@ name: Deploy to Netlify
 # Each environment must define:
 #   secret    NETLIFY_SITE_ID
 #   variables NETLIFY_SITE_NAME, SITE_URL, GTM_ID, PLAUSIBLE_DOMAIN, RECAPTCHA_SITE_KEY
-#   variables POSTHOG_KEY (production only), POSTHOG_HOST (optional)
+#   variables POSTHOG_KEY (production only), POSTHOG_HOST (optional), SAAS_URL (optional)
 # NETLIFY_AUTH_TOKEN and the EMAILJS_* variables are repository-wide.
 
 on:
@@ -109,6 +109,9 @@ jobs:
           POSTHOG_KEY: ${{ vars.POSTHOG_KEY }}
           POSTHOG_HOST: ${{ vars.POSTHOG_HOST }}
           RECAPTCHA_SITE_KEY: ${{ vars.RECAPTCHA_SITE_KEY }}
+          # SaaS backend the pricing calculator quotes from. Set per GitHub environment; unset or empty
+          # falls back to the development backend.
+          SAAS_URL: ${{ vars.SAAS_URL }}
           SITE_URL: ${{ steps.netlify_url.outputs.site_url }}
           # Only the production branch is indexable. Dev and preview deploys are production deploys
           # of their own Netlify site, so Netlify does not noindex them for us.

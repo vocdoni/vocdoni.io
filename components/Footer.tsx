@@ -1,4 +1,5 @@
 import gdprLogo from '@/assets/gdpr.webp'
+import { PRICING_HREF } from '@/components/app/pricing/PricingLink'
 import { Link } from '@/components/Link'
 import { BlueskyIcon, DiscordIcon, GitHubIcon, XIcon } from '@/components/ui/brand-icons'
 import type { TFunction } from 'i18next'
@@ -12,7 +13,7 @@ type FooterLink = { label: string; href: string; external?: boolean; highlight?:
 
 const buildProductLinks = (t: TFunction): FooterLink[] => [
   { label: t('footer.product.voting_platform', 'Voting platform'), href: APP_URL, external: true },
-  { label: t('footer.product.pricing', 'Pricing'), href: `${APP_URL}/plans`, external: true },
+  { label: t('footer.product.pricing', 'Pricing'), href: PRICING_HREF },
   { label: t('footer.product.sdk_api', 'SDK & API'), href: '/developers' },
   { label: t('footer.product.decidim', 'Decidim Secure Elections'), href: getSolutionVertical('decidim').href },
   { label: t('footer.product.documentation', 'Documentation'), href: '/developers/docs' },

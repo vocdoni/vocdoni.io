@@ -6,6 +6,7 @@ import { useAppAuthUrl } from '@/hooks/useAppAuthUrl'
 import { MemberJourneyMockup } from '@/components/solutions/mockups/MemberJourneyMockup'
 import { ProcessConsoleMockup } from '@/components/solutions/mockups/ProcessConsoleMockup'
 import type { MockupFigures } from '@/components/solutions/mockups/types'
+import { PRICING_HREF } from '@/components/app/pricing/PricingLink'
 import { VerticalPage } from '@/components/solutions/vertical/VerticalPage'
 import type { VerticalContent } from '@/components/solutions/vertical/types'
 import { getAssociationsProof } from '@/lib/solutions/verticalProof'
@@ -24,7 +25,7 @@ import logoArxivers from '@/assets/logos/logo_arxivers_colour.webp'
  * `ctaId` below - hence the `associations` prefix.
  */
 const APP_SIGNUP_TYPE = 'associations'
-const PRICING_URL = `${APP_URL}/plans`
+const PRICING_URL = PRICING_HREF
 
 const CASE_STUDY_HREF = '/case-studies/omnium-cultural'
 const BLOG_HREF =

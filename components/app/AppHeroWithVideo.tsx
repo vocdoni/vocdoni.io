@@ -1,6 +1,8 @@
 import { ArrowRight, PlayCircleIcon, ScaleIcon, ShieldCheckIcon } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 
+import { PricingLink } from '@/components/app/pricing/PricingLink'
+
 import CleanYoutubePlayer from '@/components/app/CleanYoutubePlayer'
 import { Container } from '@/components/Container'
 import { Link } from '@/components/Link'
@@ -77,6 +79,8 @@ export default function AppHeroWithVideo() {
                 </a>
               </Button>
             </MotionPreset>
+
+            <PricingLink ctaId='app_hero_pricing' className='-mx-2 -mt-2' />
 
             <MotionPreset
               component='div'

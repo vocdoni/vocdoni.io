@@ -128,6 +128,13 @@ export const AnalyticsEvents = {
   DemoRequested: 'demo_requested',
   DemoBooked: 'demo_booked',
   SectionViewed: 'section_view',
+  PricingChanged: 'pricing_changed',
+  PricingRequestOpened: 'pricing_request_opened',
+  PricingRequestSent: 'pricing_request_sent',
+  PricingRequestStarted: 'pricing_request_started',
+  PricingRequestInvalid: 'pricing_request_invalid',
+  PricingRequestFailed: 'pricing_request_failed',
+  PricingRequestFallbackUsed: 'pricing_request_fallback_used',
 } as const
 
 export type AnalyticsEventName = (typeof AnalyticsEvents)[keyof typeof AnalyticsEvents]
@@ -161,6 +168,7 @@ export type PageType =
   | 'developers'
   | 'contact'
   | 'app'
+  | 'pricing'
   | 'about'
   | 'legal'
   | 'other'
@@ -200,6 +208,8 @@ export function classifyPath(path: string): PageInfo {
       return { pageType: 'contact' }
     case 'app':
       return { pageType: 'app' }
+    case 'pricing':
+      return { pageType: 'pricing' }
     case 'about-us':
       return { pageType: 'about' }
     case 'privacy':

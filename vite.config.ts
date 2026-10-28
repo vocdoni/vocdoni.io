@@ -12,7 +12,7 @@ import { docsMarkdownPlugin } from './plugins/docs-markdown'
 import { keystaticApiPlugin } from './plugins/keystatic-api'
 import { legacyRedirectsPlugin } from './plugins/legacy-redirects'
 import { vikeSitemapPlugin } from './plugins/vike-sitemap'
-import { DEFAULT_POSTHOG_HOST, wellKnownPlugin } from './plugins/well-known'
+import { DEFAULT_POSTHOG_HOST, DEFAULT_SAAS_URL, wellKnownPlugin } from './plugins/well-known'
 
 const viteconfig = ({ mode }: ConfigEnv) => {
   process.env = { ...process.env, ...loadEnv(mode, process.cwd(), '') }
@@ -34,6 +34,10 @@ const viteconfig = ({ mode }: ConfigEnv) => {
   // Only the production deploy is indexable. The dev site and PR previews are production deploys of
   // their own Netlify site, so Netlify does not noindex them for us - the build has to.
   const noindex = process.env.NOINDEX === 'true'
+
+  // The pricing calculator's API (lib/pricing/api.ts): the define and the CSP share it. SAAS_URL
+  // sets it per build (CI sets it per GitHub environment); unset or empty, it is the development backend.
+  const saasUrl = process.env.SAAS_URL || DEFAULT_SAAS_URL
 
   return defineConfig({
     plugins: [
@@ -62,6 +66,7 @@ const viteconfig = ({ mode }: ConfigEnv) => {
         locales,
         noindex,
         posthogHost,
+        saasUrl,
       }),
       ardPlugin({
         hostname: siteUrl,
@@ -95,6 +100,7 @@ const viteconfig = ({ mode }: ConfigEnv) => {
       NOINDEX: JSON.stringify(noindex),
       APP_URL: JSON.stringify(process.env.APP_URL || 'https://app.vocdoni.io'),
       PLATFORM_URL: JSON.stringify(process.env.PLATFORM_URL || 'https://platform.vocdoni.io'),
+      SAAS_URL: JSON.stringify(saasUrl),
       PLAUSIBLE_DOMAIN: JSON.stringify(process.env.PLAUSIBLE_DOMAIN || ''),
       GTM_ID: JSON.stringify(process.env.GTM_ID || ''),
       POSTHOG_KEY: JSON.stringify(process.env.POSTHOG_KEY || ''),
