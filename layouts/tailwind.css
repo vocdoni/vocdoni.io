@@ -254,7 +254,7 @@
   --font-mono: var(--font-mono);
   --font-serif: var(--font-serif);
   /* Vocdoni App is set in Inter; only product mockups use it. */
-  --font-app: 'Inter Variable', system-ui, sans-serif;
+  --font-app: 'Inter Variable', 'Noto Sans Devanagari Variable', system-ui, sans-serif;
 
   --radius-sm: calc(var(--radius) - 6px);
   --radius-md: calc(var(--radius) - 4px);
