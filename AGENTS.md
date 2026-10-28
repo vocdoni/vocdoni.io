@@ -11,7 +11,7 @@ procedures in `.agents/skills/` (symlinked from `.claude/skills/`).
 - `content/`: Markdoc content. The blog is `content/blog/`, the developer docs `content/developers/docs/`.
 - `locales/<lang>/common.json`: i18n resources; the served locales are defined in `locales/index.ts`.
 - `assets/` (imported, hashed) and `public/` (copied as-is). `scripts/`: maintenance, guardrails, the blog cover
-  template. `tests/`: Vitest, mirroring source domains.
+  template and the default share card (`scripts/og-image/`). `tests/`: Vitest, mirroring source domains.
 
 ## Commands
 

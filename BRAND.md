@@ -12,8 +12,8 @@ part that holds outside the codebase too.
   services. It started in 2018; the legal operator is Synergize S.L.
 - Default promise (the site title): "Secure digital voting you can trust". The product promise on the homepage: "Run
   secure, verifiable elections for your organization".
-- Products are named by what they are, in sentence case: "Vocdoni App" (the voting platform), "SDK & API" (for
-  developers), "Decidim Secure Elections" (the Decidim integration). The underlying protocol is DAVINCI
+- Products are named by what they are: "Vocdoni App" (the voting platform, a product name, so both words capitalized),
+  "SDK & API" (for developers), "Decidim Secure Elections" (the Decidim integration). The underlying protocol is DAVINCI
   ([davinci.vote](https://davinci.vote)).
 - Official profiles: [GitHub](https://github.com/vocdoni), [X](https://x.com/vocdoni),
   [LinkedIn](https://www.linkedin.com/company/vocdoni), plus Bluesky and Discord (linked from the footer).
@@ -31,21 +31,23 @@ Secure digital voting is serious and trust-critical, but Vocdoni speaks like a c
   SDK) and "Vocdoni" are capitalized.
 - **No em dash character.** Use a spaced hyphen (`-`) or restructure the sentence.
 - Copy ships in every locale the site serves; nothing is written for English only (see [`docs/i18n.md`](docs/i18n.md)).
+  The one exception is the default share card (see Imagery), a single image for every locale.
 
 ## Logo
 
 The logo is a **mark** (a wide chevron, the ballot box, with a slanted block dropping into it, the ballot) next to the
 lowercase geometric **wordmark** `vocdoni`. Both are flat, single-color shapes: no gradients, outlines, shadows or
-effects.
+effects. The ballot leans to the right (its top edge rises to the right); an older, mirrored mark with the ballot
+leaning left is retired and must not be reused.
 
 | Version           | Source                                          | Use                                                                                                                  |
 | ----------------- | ----------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- |
 | Horizontal lockup | `components/Logo.tsx` (`VocdoniLogo`)           | Default. Site navbar (at `xl`), mobile menu and footer                                                               |
-| Mark only         | `VocdoniLogo minimal`                           | Tight spaces: the navbar below `xl`, avatars, the favicon                                                            |
+| Mark only         | `VocdoniLogo minimal`                           | Tight spaces: the navbar below `xl`                                                                                  |
 | Lockup, light ink | `public/images/vocdoni_logotype_full_blank.svg` | Transparent background, white fill: dark surfaces, blog covers, the ARD logo URL                                     |
 | Lockup on a panel | `public/images/vocdoni_logotype_full_white.svg` | White logo on its own dark `#0d1118` rectangle, for places that cannot set a background (README dark/light swap)     |
 | Wordmark only     | `assets/images/vocdoni.webp`                    | Black wordmark, 2762x557 px. The schema.org organization logo                                                        |
-| Favicon           | `assets/favicon.ico`                            | The mark, black on transparent, 16 and 32 px                                                                         |
+| Favicon           | `assets/favicon.ico`                            | The mark, black on transparent, 16, 32 and 48 px                                                                     |
 | Share card        | `assets/images/og-default.png`                  | Default `og:image`, 1200x630: ink lockup, the tagline and a results card on cream. Rendered from `scripts/og-image/` |
 
 Despite their names, both `public/images` files are **white** logos: `_blank` has no background, `_white` carries a
@@ -53,17 +55,17 @@ dark one.
 
 ### Rules
 
-- **One color.** On cream or white surfaces the logo takes the warm ink (`--foreground`, `#202019`); on dark surfaces it
-  is cream or white. `VocdoniLogo` inherits `currentColor`, so set the color through the text color, never by editing
+- **One color.** On light surfaces the logo is dark: the warm ink (`--foreground`, `#202019`) on the site, black in
+  the raster files above. On dark surfaces it is cream or white. `VocdoniLogo` inherits `currentColor`, so set the color through the text color, never by editing
   the paths. Never Vocdoni green, signal yellow, or two colors at once.
 - **Keep the geometry.** Do not stretch, rotate, re-letter the wordmark, swap the mark and wordmark, or set "vocdoni" in
   another typeface as a stand-in for the logo.
-- **Size.** The site sets the lockup at 28-32px high (`h-7`/`h-8`). When the lockup would get much narrower than that,
+- **Size.** The site sets the lockup at 34-40px high (`h-7`/`h-8`, on this project's custom spacing scale). When the lockup would get much narrower than that,
   use the mark alone instead of shrinking the wordmark.
 - **Room.** Keep clear space around the logo of at least the height of the mark's falling block, and do not place it on
   busy photography without a solid or darkened backdrop (the blog covers dim the photo first).
-- **Partner and client logos** appear next to Vocdoni's only in their own context (logo marquees, case studies), never
-  locked up with the Vocdoni logo.
+- **Partner and client logos** sit next to Vocdoni's only in a `vocdoni × partner` lockup, as on the blog covers, with
+  the partner's own disc and colors untouched. Elsewhere (logo marquees, case studies) they appear on their own.
 
 ### Not the Vocdoni logo
 
@@ -85,11 +87,12 @@ sRGB conversions for tools that cannot take OKLCH.
 | Vocdoni green | `oklch(0.47 0.085 158)`  | `#296948` | The brand accent: links, icons, chips, in-page CTAs    |
 | Signal yellow | `oklch(0.93 0.11 102)`   | `#f6eb93` | Punctuation only: the dot before a section label       |
 
-On dark backgrounds (the blog covers, dark mode) the green lightens to `oklch(0.62 0.09 158)` (`#539771`) and the
-background deepens to `oklch(0.17 0.012 106)` (`#10100a`).
+On dark backgrounds the green lightens to `oklch(0.62 0.09 158)` (`#539771`). The background is
+`oklch(0.22 0.012 106)` (`#1b1b15`) in the site's dark palette and a deeper `oklch(0.17 0.012 106)` (`#10100a`) on
+the blog covers.
 
 Green carries meaning, so keep it scarce: a page is mostly cream and ink. Yellow is never a surface, a button or text.
-Grays, pure white and pure black do not appear on Vocdoni surfaces.
+Grays, pure white and pure black do not appear on the site's surfaces.
 
 ## Typography
 
