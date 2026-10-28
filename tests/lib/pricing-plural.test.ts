@@ -21,6 +21,7 @@ describe('people strings in ca', () => {
       fallbackLng: false,
       resources: { ca: { translation: caCommon } },
       interpolation: { escapeValue: false },
+      showSupportNotice: false,
     })
   })
 

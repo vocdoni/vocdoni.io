@@ -29,6 +29,7 @@ function createI18nSync(lng: string, resources: any) {
     interpolation: { escapeValue: false },
     react: { useSuspense: false },
     initImmediate: false,
+    showSupportNotice: false,
   })
   return i
 }
