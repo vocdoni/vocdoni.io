@@ -10,13 +10,14 @@ part that holds outside the codebase too.
   wordmark is all lowercase (`vocdoni`); text never imitates it.
 - Vocdoni provides open-source online voting software for associations and organizations, plus managed election
   services. It started in 2018; the legal operator is Synergize S.L.
-- Default promise (the site title): "Secure digital voting you can trust". The product promise on the homepage: "Run
-  secure, verifiable elections for your organization".
-- Products are named by what they are: "Vocdoni App" (the voting platform, a product name, so both words capitalized),
-  "SDK & API" (for developers), "Decidim Secure Elections" (the Decidim integration). The underlying protocol is DAVINCI
-  ([davinci.vote](https://davinci.vote)).
+- Tagline: "Secure digital voting you can trust" (the default page title is "Vocdoni - secure digital voting you can
+  trust"). The product promise on the homepage: "Run secure, verifiable elections for your organization".
+- Products are named by what they are, in sentence case: "Vocdoni app" (the voting platform; some older copy still says
+  "Vocdoni App"), "SDK & API" (for developers), "Decidim Secure Elections" (the Decidim integration). The underlying
+  protocol is DAVINCI ([davinci.vote](https://davinci.vote)).
 - Official profiles: [GitHub](https://github.com/vocdoni), [X](https://x.com/vocdoni),
-  [LinkedIn](https://www.linkedin.com/company/vocdoni), plus Bluesky and Discord (linked from the footer).
+  [LinkedIn](https://www.linkedin.com/company/vocdoni), plus Bluesky, Discord and [Telegram](https://t.me/vocdoni)
+  (linked from the footer).
 
 ## Voice
 
@@ -48,9 +49,9 @@ you find it in an old file or image, replace it with the current one, never copy
 | Horizontal lockup | `components/Logo.tsx` (`VocdoniLogo`)           | Default. Site navbar (at `xl`), mobile menu and footer                                                               |
 | Mark only         | `VocdoniLogo minimal`                           | Tight spaces: the navbar below `xl`                                                                                  |
 | Lockup, light ink | `public/images/vocdoni_logotype_full_blank.svg` | Transparent background, white fill: dark surfaces, blog covers, the ARD logo URL                                     |
-| Lockup on a panel | `public/images/vocdoni_logotype_full_white.svg` | White logo on its own dark `#0d1118` rectangle, for places that cannot set a background (README dark/light swap)     |
+| Lockup on a panel | `public/images/vocdoni_logotype_full_white.svg` | White logo on its own dark ink `#1f1f18` rectangle, for places that cannot set a background (README dark/light swap) |
 | Wordmark only     | `assets/images/vocdoni.webp`                    | Black wordmark, 2762x557 px. The schema.org organization logo                                                        |
-| Favicon           | `assets/favicon.ico`                            | The mark, black on transparent, 16, 32 and 48 px                                                                     |
+| Favicon           | `assets/favicon.ico`                            | The mark, black on a white disc, 16, 32 and 48 px                                                                    |
 | Share card        | `assets/images/og-default.png`                  | Default `og:image`, 1200x630: ink lockup, the tagline and a results card on cream. Rendered from `scripts/og-image/` |
 
 Despite their names, both `public/images` files are **white** logos: `_blank` has no background, `_white` carries a
@@ -74,7 +75,7 @@ dark one.
 ### Not the Vocdoni logo
 
 `components/illustrations/logo.tsx` (and its copy in `assets/svg/logo.tsx`) is a different round black mark with white
-strokes. The site uses it only inside the drawn Vocdoni App screens (`components/solutions/mockups/`), as part of
+strokes. The site uses it only inside the drawn Vocdoni app screens (`components/solutions/mockups/`), as part of
 reproducing the product's UI. Do not use it to represent Vocdoni as a brand.
 
 ## Color
