@@ -1,0 +1,11 @@
+/* The site's self-hosted fonts for the image templates (scripts/blog-cover/, scripts/og-image/). */
+@font-face {
+  font-family: 'Hanken Grotesk';
+  font-weight: 100 900;
+  src: url(../../public/fonts/files/hanken-grotesk-latin-wght-normal.woff2) format('woff2-variations');
+}
+@font-face {
+  font-family: 'Fraunces';
+  font-weight: 100 900;
+  src: url(../../public/fonts/files/fraunces-latin-full-normal.woff2) format('woff2-variations');
+}
