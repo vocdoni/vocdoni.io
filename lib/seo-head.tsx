@@ -3,7 +3,8 @@ import { DEVELOPERS_SKILLS_URL, DEVELOPERS_SWAGGER_URL } from '@/lib/developers'
 import { getCompatibilityRedirectTarget } from '@/lib/localeRedirect'
 import { localeDefault, locales } from '@/locales'
 import type { PageContext } from 'vike/types'
-import ogImageDefault from '../assets/images/vocdoni.webp'
+import ogImageDefault from '../assets/images/og-default.png'
+import organizationLogo from '../assets/images/vocdoni.webp'
 
 const normalizePath = (path: string) => {
   if (!path) return '/'
@@ -312,7 +313,7 @@ export function HeadTags(pageContext: PageContext) {
   const ogImageUrl = toAbsoluteUrl(siteUrl, image) || undefined
   // The brand logo, NOT the page's social image: a case study's cover art is not
   // Vocdoni's logo, and telling search engines otherwise changes the logo per page.
-  const organizationLogoUrl = toAbsoluteUrl(siteUrl, ogImageDefault) || undefined
+  const organizationLogoUrl = toAbsoluteUrl(siteUrl, organizationLogo) || undefined
   const ogType = isBlogPost ? 'article' : 'website'
 
   // Raw-markdown companion for agents, emitted by plugins/blog-markdown.ts and

@@ -81,6 +81,13 @@ describe('Head meta tags', () => {
     expect(html).toContain('property="og:image" content="https://vocdoni.io/assets/static/vocdoni.webp"')
   })
 
+  it('defaults og:image to the share card while the organization logo stays the wordmark', () => {
+    const html = renderHead({ locale: 'en', urlLogical: '/' })
+
+    expect(html).toMatch(/property="og:image" content="https:\/\/vocdoni\.io\/[^"]*og-default[^"]*\.png"/)
+    expect(node(html, 'Organization')?.logo.url).toMatch(/vocdoni[^/]*\.webp$/)
+  })
+
   it('uses prefixed canonical and x-default URLs for the default locale', () => {
     const html = renderHead({
       locale: 'en',

@@ -38,14 +38,15 @@ The logo is a **mark** (a wide chevron, the ballot box, with a slanted block dro
 lowercase geometric **wordmark** `vocdoni`. Both are flat, single-color shapes: no gradients, outlines, shadows or
 effects.
 
-| Version           | Source                                          | Use                                                                                                              |
-| ----------------- | ----------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
-| Horizontal lockup | `components/Logo.tsx` (`VocdoniLogo`)           | Default. Site navbar (at `xl`), mobile menu and footer                                                           |
-| Mark only         | `VocdoniLogo minimal`                           | Tight spaces: the navbar below `xl`, avatars, the favicon                                                        |
-| Lockup, light ink | `public/images/vocdoni_logotype_full_blank.svg` | Transparent background, white fill: dark surfaces, blog covers, the ARD logo URL                                 |
-| Lockup on a panel | `public/images/vocdoni_logotype_full_white.svg` | White logo on its own dark `#0d1118` rectangle, for places that cannot set a background (README dark/light swap) |
-| Wordmark only     | `assets/images/vocdoni.webp`                    | Black wordmark, 2762x557 px. The default `og:image` and the schema.org organization logo                         |
-| Favicon           | `assets/favicon.ico`                            | The mark, black on transparent, 16 and 32 px                                                                     |
+| Version           | Source                                          | Use                                                                                                                  |
+| ----------------- | ----------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- |
+| Horizontal lockup | `components/Logo.tsx` (`VocdoniLogo`)           | Default. Site navbar (at `xl`), mobile menu and footer                                                               |
+| Mark only         | `VocdoniLogo minimal`                           | Tight spaces: the navbar below `xl`, avatars, the favicon                                                            |
+| Lockup, light ink | `public/images/vocdoni_logotype_full_blank.svg` | Transparent background, white fill: dark surfaces, blog covers, the ARD logo URL                                     |
+| Lockup on a panel | `public/images/vocdoni_logotype_full_white.svg` | White logo on its own dark `#0d1118` rectangle, for places that cannot set a background (README dark/light swap)     |
+| Wordmark only     | `assets/images/vocdoni.webp`                    | Black wordmark, 2762x557 px. The schema.org organization logo                                                        |
+| Favicon           | `assets/favicon.ico`                            | The mark, black on transparent, 16 and 32 px                                                                         |
+| Share card        | `assets/images/og-default.png`                  | Default `og:image`, 1200x630: ink lockup, the tagline and a results card on cream. Rendered from `scripts/og-image/` |
 
 Despite their names, both `public/images` files are **white** logos: `_blank` has no background, `_white` carries a
 dark one.
@@ -114,5 +115,5 @@ grotesk is the most recognizable part of the brand after the logo; use the same 
 - Photography is warm-toned and human: hands, assemblies, real organizations voting.
 - Images sit in rounded panels with a hairline outline.
 - Blog covers are rendered from the `scripts/blog-cover/` template (dark ink background, cream Fraunces title, green
-  accents, white logo), never made by hand. Social share images default to the wordmark (`assets/images/vocdoni.webp`)
-  when a page has no image of its own.
+  accents, white logo), never made by hand. A page with no image of its own shares `assets/images/og-default.png`,
+  rendered from `scripts/og-image/` (`scripts/og-image/render.sh`); edit the template and re-render, never the PNG.
