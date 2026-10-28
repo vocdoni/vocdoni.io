@@ -1,3 +1,4 @@
+import { PricingLink } from '@/components/app/pricing/PricingLink'
 import { Container } from '@/components/Container'
 import { Link } from '@/components/Link'
 import { Button } from '@/components/ui/button'
@@ -77,6 +78,7 @@ function Hero() {
                 </Link>
               </Button>
             </div>
+            <PricingLink ctaId='developers_hero_pricing' className='-mx-2 mt-3' />
           </div>
           <div className='min-w-0 lg:pl-4'>
             <CodeBlock

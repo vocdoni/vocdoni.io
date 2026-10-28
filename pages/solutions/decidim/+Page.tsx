@@ -17,6 +17,7 @@ import { DecidimDashboardMockup } from '@/components/solutions/mockups/DecidimDa
 import { DecidimElectionPageMockup } from '@/components/solutions/mockups/DecidimElectionPageMockup'
 import { DecidimVoterJourneyMockup } from '@/components/solutions/mockups/DecidimVoterJourneyMockup'
 import type { DecidimMockupCopy, DecidimMockupFigures } from '@/components/solutions/mockups/decidim-types'
+import { PRICING_HREF } from '@/components/app/pricing/PricingLink'
 import logoDecidim from '@/assets/logos/logo_decidim_colour.webp'
 import logoOmnium from '@/assets/logos/logo_omnium_colour.webp'
 import logoErc from '@/assets/logos/erc.webp'
@@ -33,8 +34,10 @@ import logoCec from '@/assets/logos/logo_cec_colour.webp'
  *
  * Nothing on this page can be self-served today: Decidim 0.33 is unreleased,
  * the module is installed from source, and an integrator API key has to be
- * asked for. Commercial terms are agreed in conversation, so the page carries
- * no pricing and no link to the plans.
+ * asked for. Votes through the module use the public per-vote prices (email
+ * codes are billed separately for integrations), so the engagement section
+ * links to the pricing calculator; partner terms are still agreed in
+ * conversation.
  */
 const CONTACT_URL = '/contact?type=decidim'
 const REPO_URL = 'https://github.com/vocdoni/decidim-secure_elections'
@@ -172,7 +175,7 @@ export default function Page() {
         pageId={CTA_PREFIX}
         appHref={CONTACT_URL}
         ctaId={`${CTA_PREFIX}_engagement`}
-        pricingHref={CONTACT_URL}
+        pricingHref={PRICING_HREF}
         pricingCtaId={`${CTA_PREFIX}_pricing`}
       />
 

@@ -144,6 +144,7 @@ const buildBreadcrumbSchema = (siteUrl: string, locale: string, urlLogical: stri
 // Route slugs are kebab-case; i18n keys are snake_case.
 const getFaqItemsKey = (urlLogical: string) => {
   if (urlLogical === '/app') return 'app_landing.faq.items'
+  if (urlLogical === '/pricing') return 'pricing.faq.items'
   const toKey = (slug: string) => slug.replace(/-/g, '_')
   if (urlLogical.startsWith('/solutions/')) {
     const slug = urlLogical.split('/')[2]

@@ -246,8 +246,9 @@ describe('Head meta tags', () => {
               faq: {
                 items: [
                   {
-                    question: '¿Puedo ejecutar una votación gratis?',
-                    answer: 'Sí. Puedes ejecutar una votación gratis para hasta 100 miembros.',
+                    question: '¿De verdad puedo organizar una votación gratis?',
+                    answer:
+                      'Sí. Toda votación con hasta 25 personas es gratuita, sin tarjeta. Por encima de eso pagas una vez por votación, en función del número de personas que pueden votar; la página de precios muestra la cifra exacta.',
                   },
                 ],
               },
@@ -263,8 +264,33 @@ describe('Head meta tags', () => {
     expect(app.isAccessibleForFree).toBe(true)
     expect(app.publisher).toEqual({ '@id': 'https://vocdoni.io/#organization' })
     expect(html).toContain('"@type":"FAQPage"')
-    expect(html).toContain('"name":"¿Puedo ejecutar una votación gratis?"')
-    expect(html).toContain('"text":"Sí. Puedes ejecutar una votación gratis para hasta 100 miembros."')
+    expect(html).toContain('"name":"¿De verdad puedo organizar una votación gratis?"')
+    expect(html).toContain(
+      '"text":"Sí. Toda votación con hasta 25 personas es gratuita, sin tarjeta. Por encima de eso pagas una vez por votación, en función del número de personas que pueden votar; la página de precios muestra la cifra exacta."'
+    )
+  })
+
+  it('adds FAQPage schema for the pricing page from the pricing questions', () => {
+    const html = renderHead({
+      locale: 'en',
+      urlLogical: '/pricing',
+      config: { title: 'Pricing | Vocdoni' },
+      initialI18nStore: {
+        en: {
+          common: {
+            pricing: {
+              faq: {
+                items: [{ question: 'Do prices include VAT?', answer: 'No, the prices you see do not include VAT.' }],
+              },
+            },
+          },
+        },
+      },
+    })
+
+    expect(html).toContain('"@type":"FAQPage"')
+    expect(html).toContain('"name":"Do prices include VAT?"')
+    expect(html).toContain('"text":"No, the prices you see do not include VAT."')
   })
 
   it('advertises the single English llms.txt index from every locale', () => {

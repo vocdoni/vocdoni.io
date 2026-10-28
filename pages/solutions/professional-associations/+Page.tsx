@@ -6,6 +6,7 @@ import { useAppAuthUrl } from '@/hooks/useAppAuthUrl'
 import { MemberJourneyMockup } from '@/components/solutions/mockups/MemberJourneyMockup'
 import { ProcessConsoleMockup } from '@/components/solutions/mockups/ProcessConsoleMockup'
 import type { MockupFigures } from '@/components/solutions/mockups/types'
+import { PRICING_HREF } from '@/components/app/pricing/PricingLink'
 import { VerticalPage } from '@/components/solutions/vertical/VerticalPage'
 import type { VerticalContent } from '@/components/solutions/vertical/types'
 import { getProfessionalAssociationsProof } from '@/lib/solutions/verticalProof'
@@ -25,7 +26,7 @@ import imageCoib from '@/assets/images/success/coib_experience.webp'
  * hence the `pro_associations` prefix.
  */
 const APP_SIGNUP_TYPE = 'professional-associations'
-const PRICING_URL = `${APP_URL}/plans`
+const PRICING_URL = PRICING_HREF
 
 const CASE_STUDY_HREF = '/case-studies/coib'
 const BLOG_HREF =

@@ -1,6 +1,7 @@
 import AppHeroWithVideo from '@/components/app/AppHeroWithVideo'
 import FAQ from '@/components/app/FAQ'
 import Features from '@/components/app/Features'
+import PricingTeaser from '@/components/app/PricingTeaser'
 import Services from '@/components/app/Services'
 import SocialProof from '@/components/app/SocialProof'
 import TargetUsersV3 from '@/components/app/TargetUsers'
@@ -20,6 +21,7 @@ export default function Page() {
       <StepsSection />
       <Technology />
       <SocialProof />
+      <PricingTeaser />
       <FAQ />
       <Services />
     </div>

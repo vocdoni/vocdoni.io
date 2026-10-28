@@ -1,6 +1,7 @@
 import { CircleCheckIcon, XCircleIcon } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 
+import { PricingLink } from '@/components/app/pricing/PricingLink'
 import { Section } from '@/components/Section'
 import { SectionHeader } from '@/components/SectionHeader'
 import { MotionPreset } from '@/components/ui/motion-preset'
@@ -172,6 +173,9 @@ const ComparisonSection = ({
             ))}
           </div>
         </div>
+      </div>
+      <div className='mt-10 text-center'>
+        <PricingLink ctaId='home_comparison_pricing' />
       </div>
     </Section>
   )

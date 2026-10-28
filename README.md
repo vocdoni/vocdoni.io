@@ -95,6 +95,7 @@ Create a `.env.local` file to override any variable locally. All of the followin
 | `POSTHOG_KEY` | Public PostHog browser-ingestion key. Must be the **same** `phc_` key as app.vocdoni.io. Also set it on the Netlify site with the Functions scope for crawler logging ([details](docs/deployment.md#crawler-logging)) |
 | `POSTHOG_HOST` | PostHog browser-ingestion host, optional (defaults to the EU cluster). If you override it, set the same value on the Netlify site (Functions scope) so crawler logging reports to the same host |
 | `PLAUSIBLE_DOMAIN` | Plausible Analytics domain |
+| `SAAS_URL` | SaaS backend base URL, the same `SAAS_URL` as vocdoni-app; the pricing calculator reads `GET /pricing` from it. Defaults to the development backend; production sets it in its GitHub environment (allowlisted in the CSP) |
 | `RECAPTCHA_SITE_KEY` | reCAPTCHA v3 site key |
 | `SITE_URL` | Public base URL (used for canonical tags and sitemaps) |
 | `NOINDEX` | Set to `true` on non-production deploys to keep them out of search indexes |
@@ -103,19 +104,20 @@ Create a `.env.local` file to override any variable locally. All of the followin
 
 Everything deploys to Netlify from a single workflow (`.github/workflows/deploy-netlify.yml`). The Netlify site, its public URL and every build-time value come from the GitHub environment the trigger selects, so the workflow never hardcodes a site:
 
-| Trigger | Environment | Result |
-|---|---|---|
-| Push to `lts` | `production` | Production deploy at `vocdoni.io`. The only indexable deploy. |
-| Push to `main` | `develop` | Production deploy of the dev site, shipped with `X-Robots-Tag: noindex`. |
-| Pull request | `pull request` | Deploy preview at `deploy-preview-<n>--<site>.netlify.app`, also noindexed. |
+| Trigger        | Environment    | Result                                                                      |
+| -------------- | -------------- | --------------------------------------------------------------------------- |
+| Push to `lts`  | `production`   | Production deploy at `vocdoni.io`. The only indexable deploy.               |
+| Push to `main` | `develop`      | Production deploy of the dev site, shipped with `X-Robots-Tag: noindex`.    |
+| Pull request   | `pull request` | Deploy preview at `deploy-preview-<n>--<site>.netlify.app`, also noindexed. |
 
-Every environment defines the `NETLIFY_SITE_ID` secret, which decides *where* the deploy lands. Alongside it:
+Every environment defines the `NETLIFY_SITE_ID` secret, which decides _where_ the deploy lands. Alongside it:
 
 - `SITE_URL` - branch pushes only (`production`, `develop`). The public base URL the build bakes into canonical tags, `og:image` and the sitemap. PR previews compute their own, so the variable is unread there.
-- `NETLIFY_SITE_NAME` - PR previews only. The site's Netlify *name* (the `dev-vocdoni-io` in `dev-vocdoni-io.netlify.app`), used purely as a string to spell that preview's base URL: `https://deploy-preview-<n>--<NETLIFY_SITE_NAME>.netlify.app`.
+- `NETLIFY_SITE_NAME` - PR previews only. The site's Netlify _name_ (the `dev-vocdoni-io` in `dev-vocdoni-io.netlify.app`), used purely as a string to spell that preview's base URL: `https://deploy-preview-<n>--<NETLIFY_SITE_NAME>.netlify.app`.
 
 `NETLIFY_SITE_ID` and `NETLIFY_SITE_NAME` address the same site from opposite directions: the id decides which site receives the upload, the name only spells the hostname the build will advertise. Nothing cross-checks them, so pointing them at different sites still deploys successfully - the files just land on one site while every canonical tag, `og:image` and sitemap entry names another.
-- `GTM_ID`, `PLAUSIBLE_DOMAIN`, `POSTHOG_KEY`, `RECAPTCHA_SITE_KEY` - build-time values. Leaving any of the analytics variables unset cleanly disables that script, which is what you want outside production; `POSTHOG_HOST` is optional and defaults to the EU cluster. `RECAPTCHA_SITE_KEY` should be set everywhere or the contact form returns `config_error` on submit.
+
+- `GTM_ID`, `PLAUSIBLE_DOMAIN`, `POSTHOG_KEY`, `RECAPTCHA_SITE_KEY` - build-time values. Leaving any of the analytics variables unset cleanly disables that script, which is what you want outside production; `POSTHOG_HOST` is optional and defaults to the EU cluster. `RECAPTCHA_SITE_KEY` should be set everywhere or the contact form returns `config_error` on submit. `SAAS_URL` is optional and defaults to the development backend; the production environment must set it to `https://saas-api-lts.vocdoni.net`, or production quotes prices from dev.
 
 `NETLIFY_AUTH_TOKEN` and the `EMAILJS_*` variables are repository-wide. A missing `SITE_URL` on a branch push, or `NETLIFY_SITE_NAME` on a PR, fails the job rather than baking a wrong canonical URL.
 

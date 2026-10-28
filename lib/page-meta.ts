@@ -7,12 +7,17 @@ export const metaDefaults = {
   'meta.index.title': t('meta.index.title', 'Secure, legally valid online voting for organizations | Vocdoni'),
   'meta.index.description': t(
     'meta.index.description',
-    'Vocdoni is open-source online voting software for associations and organizations. Secure, legally valid, verifiable elections. Free plan, no credit card.'
+    'Vocdoni is open-source online voting software for associations and organizations. Secure, legally valid, verifiable elections. Free for votes with up to 25 people, no credit card.'
   ),
   'meta.contact.title': t('meta.contact.title', 'Contact - Vocdoni'),
   'meta.contact.description': t(
     'meta.contact.description',
     'Talk to Vocdoni about secure online voting, verifiable elections, pricing, demos, and custom digital governance projects.'
+  ),
+  'meta.pricing.title': t('meta.pricing.title', 'Pricing: pay per vote, free up to 25 people | Vocdoni'),
+  'meta.pricing.description': t(
+    'meta.pricing.description',
+    'See what your vote costs before you start. Free for up to 25 people, then one price per vote, with anonymous, verifiable voting always included.'
   ),
   'blog.eyebrow': t('blog.eyebrow', 'Vocdoni blog'),
   'meta.blog_index.title': t('meta.blog_index.title', 'Vocdoni blog - insights on secure digital voting'),

@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next'
 
 import { Container } from '@/components/Container'
 import { Link } from '@/components/Link'
+import { PRICING_HREF } from '@/components/app/pricing/PricingLink'
 import { useAppAuthUrl } from '@/hooks/useAppAuthUrl'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
@@ -12,9 +13,9 @@ export default function Services() {
   const appSignupUrl = useAppAuthUrl()
 
   const bullets = [
-    t('app_landing.cta.free', 'Free vote for up to 100 members'),
+    t('app_landing.cta.free', 'Free for votes with up to 25 people'),
     t('app_landing.cta.credit_card', 'No credit card required'),
-    t('app_landing.cta.pricing', 'Public pricing for larger organizations'),
+    t('app_landing.cta.pricing', 'Prices published, pay per vote'),
   ]
 
   return (
@@ -32,7 +33,7 @@ export default function Services() {
               <p className='mt-4 max-w-2xl text-lg leading-8 text-muted-foreground'>
                 {t(
                   'app_landing.cta.description',
-                  'Run a real vote on the free plan, see how it works with your own members, and only move to a paid plan when your organization needs more scale.'
+                  'Run a free vote with up to 25 people, see how it works with your own members, and pay per vote only when your list grows.'
                 )}
               </p>
               <div className='mt-8 flex flex-col gap-3 sm:flex-row sm:items-center'>
@@ -43,7 +44,7 @@ export default function Services() {
                   </Link>
                 </Button>
                 <Button asChild variant='outline' size='lg'>
-                  <Link href={`${APP_URL}/plans`} variant='unstyled' ctaId='app_services_pricing'>
+                  <Link href={PRICING_HREF} variant='unstyled' ctaId='app_services_pricing'>
                     {t('app_landing.cta.secondary', 'See pricing')}
                   </Link>
                 </Button>

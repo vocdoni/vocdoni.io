@@ -314,6 +314,15 @@ export function Navbar() {
 
             <NavDivider />
 
+            {/* Pricing */}
+            <NavigationMenuItem>
+              <Link href='/pricing' variant='unstyled' className={navigationMenuTriggerStyle()}>
+                {t('navbar.pricing', 'Pricing')}
+              </Link>
+            </NavigationMenuItem>
+
+            <NavDivider />
+
             {/* About Us */}
             <NavigationMenuItem>
               <Link href='/about-us' variant='unstyled' className={navigationMenuTriggerStyle()}>
@@ -467,6 +476,9 @@ export function Navbar() {
                     <div className='flex flex-col'>
                       <Link href='/use-cases' variant='navbarStatic' onClick={() => setIsOpen(false)}>
                         {t('navbar.use_cases')}
+                      </Link>
+                      <Link href='/pricing' variant='navbarStatic' onClick={() => setIsOpen(false)}>
+                        {t('navbar.pricing', 'Pricing')}
                       </Link>
                       <Link href='/about-us' variant='navbarStatic' onClick={() => setIsOpen(false)}>
                         {t('navbar.about')}
