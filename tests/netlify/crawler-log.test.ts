@@ -1,6 +1,6 @@
 import { afterEach, describe, expect, it, vi } from 'vitest'
 
-import crawlerLog from '@/netlify/edge-functions/crawler-log.ts'
+import crawlerLog, { config } from '@/netlify/edge-functions/crawler-log.ts'
 
 // The edge function runs on Deno, but everything it touches (Request/Headers/fetch/URL/crypto) is a web
 // standard Node also implements, so the shell is exercised here with a stubbed fetch and `Netlify.env`.
@@ -47,6 +47,10 @@ describe('crawler-log edge function', () => {
 
     expect(await crawlerLog(request(), context())).toBeUndefined()
     expect(fetchSpy).not.toHaveBeenCalled()
+  })
+
+  it('is declared for GET only, the one place non-GET requests are filtered', () => {
+    expect(config.method).toEqual(['GET'])
   })
 
   it('skips assets', async () => {
