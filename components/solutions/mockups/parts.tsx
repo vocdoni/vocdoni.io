@@ -94,7 +94,9 @@ export function AppChoice({
 export function AppResultRow({ label, votes, total }: { label: string; votes: number; total: number }) {
   const { t, i18n } = useTranslation()
   const share = total > 0 ? (votes / total) * 100 : 0
-  const percent = new Intl.NumberFormat(i18n.language, { maximumFractionDigits: 1 }).format(share) + '%'
+  const percent = new Intl.NumberFormat(i18n.language, { style: 'percent', maximumFractionDigits: 1 }).format(
+    share / 100
+  )
   return (
     <div className='bg-app-track relative h-[2em] overflow-hidden rounded-[0.4em]'>
       <div className='bg-app-range absolute inset-y-0 left-0' style={{ width: `${share}%` }} />
@@ -139,13 +141,42 @@ export function AppOutlineButton({
   )
 }
 
+const SOLID_BUTTON_SIZE = {
+  sm: 'h-[2.6em] text-[0.9em]',
+  md: 'h-[2.8em] text-[0.9em]',
+  lg: 'h-[3em] text-[0.95em]',
+} as const
+
+/** The primary action of the phone ("Identify", "Vote"): a solid, full-width button. */
+export function AppSolidButton({
+  size,
+  className,
+  children,
+}: {
+  size: keyof typeof SOLID_BUTTON_SIZE
+  className?: string
+  children: ReactNode
+}) {
+  return (
+    <div
+      className={cn(
+        'bg-app-solid text-app-solid-fg flex items-center justify-center rounded-[0.5em] font-medium',
+        SOLID_BUTTON_SIZE[size],
+        className
+      )}
+    >
+      {children}
+    </div>
+  )
+}
+
 export const formatSchedule = (lang: string, start: Date, end: Date) => {
   const fmt = new Intl.DateTimeFormat(lang, { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' })
   return { begin: fmt.format(start), end: fmt.format(end) }
 }
 
 export const formatScheduleFields = (lang: string, start: Date, end: Date) => {
-  const date = new Intl.DateTimeFormat(lang, { day: 'numeric', month: 'long', year: 'numeric' })
+  const date = new Intl.DateTimeFormat(lang, { day: 'numeric', month: 'long' })
   const time = new Intl.DateTimeFormat(lang, { hour: '2-digit', minute: '2-digit' })
   return {
     startDate: date.format(start),

@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next'
 import Logo from '@/components/illustrations/logo'
 import { AppMockupFrame } from '@/components/solutions/mockups/AppMockupFrame'
 import { useMemberJourney } from '@/components/solutions/mockups/journey-context'
-import { AppChoice, AppTabs, AppTag, formatSchedule } from '@/components/solutions/mockups/parts'
+import { AppChoice, AppSolidButton, AppTabs, AppTag, formatSchedule } from '@/components/solutions/mockups/parts'
 import type { MockupFigures, VerticalMockupCopy } from '@/components/solutions/mockups/types'
 import { cn } from '@/lib/utils'
 
@@ -32,16 +32,22 @@ interface MemberJourneyMockupProps {
  * sees: the notice, the one-time code, the ballot and the receipt. One screen
  * per step of the list beside it, so the picture and the prose advance
  * together. Auto-advances unless the reader prefers reduced motion; the dots
- * under the phone always allow picking a screen by hand.
+ * under the phone let a reader pick a screen, but not when a journey drives it.
  */
 export function MemberJourneyMockup({ copy, figures, label, className }: MemberJourneyMockupProps) {
   const reducedMotion = useReducedMotion()
   const journey = useMemberJourney()
-  const [ownIndex, setOwnIndex] = useState(reducedMotion ? 2 : 0)
+  // Starts on the first screen so the prerendered HTML matches the first client render;
+  // reduced-motion readers jump to the ballot once mounted.
+  const [ownIndex, setOwnIndex] = useState(0)
   const [paused, setPaused] = useState(false)
   const controlled = journey !== null
   const index = controlled ? journey.index : ownIndex
   const setIndex = controlled ? journey.setIndex : setOwnIndex
+
+  useEffect(() => {
+    if (reducedMotion) setOwnIndex(2)
+  }, [reducedMotion])
 
   useEffect(() => {
     if (controlled || reducedMotion || paused) return
@@ -122,11 +128,7 @@ function PhoneScreen({
     return (
       <div className='flex h-full flex-col gap-[0.7em] px-[1.1em] pt-[2.8em] pb-[0.9em]'>
         <PhoneHeader organization={copy.organization} />
-        <p className='mt-[0.3em] text-[1.3em] leading-tight font-medium text-balance'>{copy.title}</p>
-        <div className='flex items-center gap-[0.6em]'>
-          <AppTag tone='green'>{t('solutions.mockups.app.ongoing', 'Ongoing')}</AppTag>
-          <span className='text-app-faint truncate text-[0.65em] font-medium italic'>{scheduleText}</span>
-        </div>
+        <PhoneTitle title={copy.title} scheduleText={scheduleText} />
         <AppTabs active='questions' className='w-full *:flex-1 *:text-center' />
         {question && (
           <div className='border-app-border flex flex-col gap-[0.6em] rounded-[0.6em] border p-[0.8em]'>
@@ -147,9 +149,7 @@ function PhoneScreen({
               })}
             </span>
           </div>
-          <div className='bg-app-solid text-app-solid-fg flex h-[2.6em] items-center justify-center rounded-[0.5em] text-[0.9em] font-medium'>
-            {t('solutions.mockups.app.identify', 'Identify')}
-          </div>
+          <AppSolidButton size='sm'>{t('solutions.mockups.app.identify', 'Identify')}</AppSolidButton>
         </div>
       </div>
     )
@@ -190,9 +190,7 @@ function PhoneScreen({
             <CircleCheckIcon className='text-app-green-fg size-[1.2em] shrink-0' />
             <span className='truncate'>{t('solutions.mockups.app.code_sent', 'Verification code sent')}</span>
           </p>
-          <div className='bg-app-solid text-app-solid-fg flex h-[2.8em] items-center justify-center rounded-[0.5em] text-[0.9em] font-medium'>
-            {t('solutions.mockups.app.identify', 'Identify')}
-          </div>
+          <AppSolidButton size='md'>{t('solutions.mockups.app.identify', 'Identify')}</AppSolidButton>
         </div>
       </div>
     )
@@ -202,11 +200,7 @@ function PhoneScreen({
   return (
     <div className='flex h-full flex-col gap-[0.7em] px-[1.1em] pt-[2.8em] pb-[0.9em]'>
       <PhoneHeader organization={copy.organization} />
-      <p className='mt-[0.3em] text-[1.3em] leading-tight font-medium text-balance'>{copy.title}</p>
-      <div className='flex items-center gap-[0.6em]'>
-        <AppTag tone='green'>{t('solutions.mockups.app.ongoing', 'Ongoing')}</AppTag>
-        <span className='text-app-faint truncate text-[0.65em] font-medium italic'>{scheduleText}</span>
-      </div>
+      <PhoneTitle title={copy.title} scheduleText={scheduleText} />
 
       {voted ? (
         // The inline alert the voter sees after casting: green, centred, with
@@ -242,11 +236,25 @@ function PhoneScreen({
       )}
 
       {!voted && (
-        <div className='bg-app-solid text-app-solid-fg mt-auto flex h-[3em] shrink-0 items-center justify-center rounded-[0.5em] text-[0.95em] font-medium'>
+        <AppSolidButton size='lg' className='mt-auto shrink-0'>
           {t('solutions.mockups.app.vote', 'Vote')}
-        </div>
+        </AppSolidButton>
       )}
     </div>
+  )
+}
+
+/** The title, the "Ongoing" tag and the schedule under the phone's header. */
+function PhoneTitle({ title, scheduleText }: { title: string; scheduleText: string }) {
+  const { t } = useTranslation()
+  return (
+    <>
+      <p className='mt-[0.3em] text-[1.3em] leading-tight font-medium text-balance'>{title}</p>
+      <div className='flex items-center gap-[0.6em]'>
+        <AppTag tone='green'>{t('solutions.mockups.app.ongoing', 'Ongoing')}</AppTag>
+        <span className='text-app-faint truncate text-[0.65em] font-medium'>{scheduleText}</span>
+      </div>
+    </>
   )
 }
 

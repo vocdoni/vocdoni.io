@@ -69,8 +69,11 @@ export function ProcessConsoleMockup({
   const turnout = turnoutPercent(votes, figures.census)
   const schedule = formatSchedule(i18n.language, figures.start, figures.end)
   const dates = formatScheduleFields(i18n.language, figures.start, figures.end)
-  const turnoutLabel =
-    new Intl.NumberFormat(i18n.language, { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(turnout) + '%'
+  const turnoutLabel = new Intl.NumberFormat(i18n.language, {
+    style: 'percent',
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  }).format(turnout / 100)
 
   return (
     <AppMockupFrame variant='window' label={label} scale={close ? 'close' : 'default'} className={className}>
@@ -104,7 +107,7 @@ export function ProcessConsoleMockup({
         </div>
         <div>
           <p className='text-[1.4em] leading-tight font-medium text-balance'>{copy.title}</p>
-          <p className='text-app-faint mt-[0.4em] truncate text-[0.75em] font-medium italic'>
+          <p className='text-app-faint mt-[0.4em] truncate text-[0.75em] font-medium'>
             {t('solutions.mockups.app.schedule_range', 'Voting from {{begin}} to {{end}}', schedule)}
           </p>
         </div>
