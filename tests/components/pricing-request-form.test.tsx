@@ -4,7 +4,7 @@ import '@testing-library/jest-dom/vitest'
 import React from 'react'
 import { fireEvent, render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { describe, it, expect, vi, beforeEach } from 'vitest'
+import { describe, it, expect, vi, beforeEach, onTestFinished } from 'vitest'
 
 import { makeMockT } from './helpers/i18n-mock'
 
@@ -230,6 +230,8 @@ describe('PricingRequestForm', () => {
 
   it('when send rejects, offers Gmail, Outlook, a mailto: link and a copy button', async () => {
     sendMock.mockRejectedValueOnce(new Error('network error'))
+    const consoleError = vi.spyOn(console, 'error').mockImplementation(() => {})
+    onTestFinished(() => consoleError.mockRestore())
     const { user } = setup()
     await fillForm(user)
     await user.click(screen.getByRole('button', { name: /Send request/ }))
@@ -239,6 +241,8 @@ describe('PricingRequestForm', () => {
     await waitFor(() => expect(screen.getByRole('link', { name: 'Other email app' })).toBeInTheDocument(), {
       timeout: 3000,
     })
+    expect(consoleError).toHaveBeenCalledTimes(1)
+    expect(consoleError).toHaveBeenCalledWith('[Pricing Request] EmailJS send error:', expect.any(Error))
     expect(screen.getByRole('link', { name: 'Other email app' })).toHaveAttribute(
       'href',
       expect.stringMatching(/^mailto:contact@vocdoni\.org\?/)
