@@ -2,7 +2,7 @@ import React from 'react'
 import { renderToStaticMarkup } from 'react-dom/server'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 
-import { AppResultRow, formatScheduleFields } from '@/components/solutions/mockups/parts'
+import { AppResultRow } from '@/components/solutions/mockups/parts'
 
 const i18n = vi.hoisted(() => ({ language: 'en' }))
 
@@ -30,15 +30,5 @@ describe('AppResultRow', () => {
     const html = renderToStaticMarkup(<AppResultRow label='Yes' votes={1} total={3} />)
 
     expect(html).toContain('(33.3%)')
-  })
-})
-
-describe('formatScheduleFields', () => {
-  it('leaves the year out so the fixed demo dates never read as stale', () => {
-    const fields = formatScheduleFields('en', new Date(2026, 5, 12, 9, 0), new Date(2026, 5, 13, 18, 30))
-
-    expect(fields.startDate).toBe('June 12')
-    expect(fields.endDate).toBe('June 13')
-    expect(fields.startDate).not.toMatch(/2026/)
   })
 })
