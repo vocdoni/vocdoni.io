@@ -17,6 +17,7 @@ type PartialPageContext = {
     image?: string
   }
   initialI18nStore?: Record<string, { common: Record<string, unknown> }>
+  data?: { post: Record<string, unknown> }
 }
 
 const renderHead = (pageContext: PartialPageContext) => renderToStaticMarkup(<HeadTags {...(pageContext as any)} />)
@@ -94,6 +95,29 @@ describe('Head meta tags', () => {
 
     expect(article?.image).toMatch(/og-default[^/]*\.png$/)
     expect(article?.publisher.logo.url).toBe(node(html, 'Organization')?.logo.url)
+  })
+
+  it('keeps the wordmark as the blog post publisher logo while the cover is the post image', () => {
+    const html = renderHead({
+      locale: 'en',
+      urlLogical: '/blog/some-post',
+      data: {
+        post: {
+          frontmatter: {
+            title: 'Some post',
+            coverImage: '/blog/images/2026/01/header_erc_vocdoni.webp',
+            publishedDate: '2026-01-01',
+          },
+          authors: [],
+          usedLocale: 'en',
+          availableLocales: ['en'],
+        },
+      },
+    })
+    const posting = node(html, 'BlogPosting')
+
+    expect(posting?.image).toEqual(['https://vocdoni.io/blog/images/2026/01/header_erc_vocdoni.webp'])
+    expect(posting?.publisher.logo.url).toBe(node(html, 'Organization')?.logo.url)
   })
 
   it('uses prefixed canonical and x-default URLs for the default locale', () => {

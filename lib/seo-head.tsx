@@ -190,6 +190,9 @@ const buildFaqSchema = (pageContext: PageContext, locale: string, itemsKey: stri
   }
 }
 
+// Named, not positional: the page image and the publisher logo are both optional URLs, and swapping them type-checks.
+type SchemaImages = { image?: string; logo?: string }
+
 const buildArticleSchema = (
   urlLogical: string,
   siteUrl: string,
@@ -197,8 +200,7 @@ const buildArticleSchema = (
   locale: string,
   title?: string,
   description?: string,
-  image?: string,
-  logo?: string
+  { image, logo }: SchemaImages = {}
 ) => {
   if (!urlLogical.startsWith('/learn/') || urlLogical === '/learn') return null
 
@@ -245,8 +247,7 @@ const buildBlogPostingSchema = (
   post: BlogPostSeo,
   siteUrl: string,
   canonicalUrl: string,
-  image?: string,
-  logo?: string
+  { image, logo }: SchemaImages = {}
 ) => {
   const published = toIsoDate(post.frontmatter.publishedDate)
   const modified = toIsoDate(post.frontmatter.updatedDate) ?? published
@@ -510,17 +511,13 @@ export function HeadTags(pageContext: PageContext) {
     moduleSourceSchema,
     moduleAppSchema,
     faqItemsKey ? buildFaqSchema(pageContext, locale, faqItemsKey) : null,
-    buildArticleSchema(
-      urlLogical,
-      siteUrl,
-      canonicalUrl,
-      locale,
-      title ?? undefined,
-      description ?? undefined,
-      ogImageUrl,
-      organizationLogoUrl
-    ),
-    isBlogPost ? buildBlogPostingSchema(blogPost!, siteUrl, canonicalUrl, ogImageUrl, organizationLogoUrl) : null,
+    buildArticleSchema(urlLogical, siteUrl, canonicalUrl, locale, title ?? undefined, description ?? undefined, {
+      image: ogImageUrl,
+      logo: organizationLogoUrl,
+    }),
+    isBlogPost
+      ? buildBlogPostingSchema(blogPost!, siteUrl, canonicalUrl, { image: ogImageUrl, logo: organizationLogoUrl })
+      : null,
   ].filter(Boolean)
 
   if (isCompatibilityRedirect) {
