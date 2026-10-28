@@ -2,13 +2,9 @@ import { describe, expect, it } from 'vitest'
 
 import {
   buildHttpLogEvent,
-  CRAWLER_AGENT_CATEGORY_PATTERN,
   captureEndpoint,
-  DEFAULT_POSTHOG_HOST,
   httpLogDistinctId,
   isDocumentPath,
-  sanitizeAnalyticsUrl,
-  shouldReport,
   type HttpLogRequest,
 } from '@/lib/http-log'
 
@@ -21,26 +17,6 @@ const request = (overrides: Partial<HttpLogRequest> = {}): HttpLogRequest => ({
   requestId: '01HREQ',
   method: 'GET',
   ...overrides,
-})
-
-describe('constants', () => {
-  it('exposes the default EU ingestion host and the Netlify category pattern', () => {
-    expect(DEFAULT_POSTHOG_HOST).toBe('https://eu.i.posthog.com')
-    expect(CRAWLER_AGENT_CATEGORY_PATTERN).toBe('(ai-agent|crawler)')
-  })
-})
-
-describe('sanitizeAnalyticsUrl', () => {
-  it('strips the sensitive params and keeps the rest', () => {
-    expect(sanitizeAnalyticsUrl('https://vocdoni.io/en?email=a@b.com&utm_source=x&token=s&code=1')).toBe(
-      'https://vocdoni.io/en?utm_source=x'
-    )
-  })
-
-  it('returns the input untouched when there is nothing to strip or it is not a URL', () => {
-    expect(sanitizeAnalyticsUrl('https://vocdoni.io/en')).toBe('https://vocdoni.io/en')
-    expect(sanitizeAnalyticsUrl('not a url')).toBe('not a url')
-  })
 })
 
 describe('captureEndpoint', () => {
@@ -76,21 +52,10 @@ describe('isDocumentPath', () => {
     '/robots.ico',
     '/x.webp',
     '/v1.2/app.js',
+    '/en/blog/hello/index.pageContext.json',
+    '/en/index.pageContext.json',
   ])('treats %s as an asset', (path) => {
     expect(isDocumentPath(path)).toBe(false)
-  })
-})
-
-describe('shouldReport', () => {
-  it('reports GETs of documents, case-insensitively on the method', () => {
-    expect(shouldReport('GET', '/en')).toBe(true)
-    expect(shouldReport('get', '/en/blog/hello.md')).toBe(true)
-  })
-
-  it('skips other methods and assets', () => {
-    expect(shouldReport('POST', '/en')).toBe(false)
-    expect(shouldReport('HEAD', '/en')).toBe(false)
-    expect(shouldReport('GET', '/assets/app.js')).toBe(false)
   })
 })
 

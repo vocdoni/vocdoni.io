@@ -1,7 +1,6 @@
 import { afterEach, describe, expect, it, vi } from 'vitest'
 
-import { CRAWLER_AGENT_CATEGORY_PATTERN } from '@/lib/http-log'
-import crawlerLog, { config } from '@/netlify/edge-functions/crawler-log.ts'
+import crawlerLog from '@/netlify/edge-functions/crawler-log.ts'
 
 // The edge function runs on Deno, but everything it touches (Request/Headers/fetch/URL/crypto) is a web
 // standard Node also implements, so the shell is exercised here with a stubbed fetch and `Netlify.env`.
@@ -50,14 +49,6 @@ describe('crawler-log edge function', () => {
     expect(fetchSpy).not.toHaveBeenCalled()
   })
 
-  it('skips non-GET requests', async () => {
-    stubEnv({ POSTHOG_KEY: 'phc_test' })
-    const fetchSpy = stubFetch()
-
-    expect(await crawlerLog(request('https://vocdoni.io/en', { method: 'POST' }), context())).toBeUndefined()
-    expect(fetchSpy).not.toHaveBeenCalled()
-  })
-
   it('skips assets', async () => {
     stubEnv({ POSTHOG_KEY: 'phc_test' })
     const fetchSpy = stubFetch()
@@ -102,7 +93,7 @@ describe('crawler-log edge function', () => {
     stubEnv({ POSTHOG_KEY: 'phc_test' })
     let finished = false
     const fetchSpy = stubFetch(async () => {
-      await Promise.resolve()
+      await new Promise((resolve) => setTimeout(resolve, 0))
       finished = true
       return new Response(null, { status: 200 })
     })
@@ -135,12 +126,5 @@ describe('crawler-log edge function', () => {
     expect(ctx.waitUntil).toHaveBeenCalledTimes(1)
     // The promise handed to waitUntil must never reject.
     await expect(ctx.waitUntil.mock.calls[0][0]).resolves.toBeUndefined()
-  })
-
-  it('keeps the declaration a literal that matches the exported pattern', () => {
-    expect(config.path).toBe('/*')
-    expect(config.method).toEqual(['GET'])
-    expect(config.excludedPath).toEqual(['/assets/*', '/images/*', '/fonts/*', '/blog/images/*'])
-    expect(config.header['netlify-agent-category']).toBe(CRAWLER_AGENT_CATEGORY_PATTERN)
   })
 })

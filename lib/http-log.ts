@@ -10,9 +10,6 @@
 
 export const DEFAULT_POSTHOG_HOST = 'https://eu.i.posthog.com'
 
-/** Regex Netlify matches against the `netlify-agent-category` request header. */
-export const CRAWLER_AGENT_CATEGORY_PATTERN = '(ai-agent|crawler)'
-
 /** Query params that may carry PII; stripped from `$current_url` and `$referrer`. Same list the browser SDK uses. */
 export const SENSITIVE_QUERY_PARAMS = ['email', 'token', 'code'] as const
 
@@ -41,17 +38,16 @@ export function captureEndpoint(host: string): string {
 
 const DOCUMENT_EXTENSIONS = new Set(['html', 'md', 'txt', 'xml', 'json'])
 
-/** Documents only: extensionless paths, `.html`, `.md`, `.txt`, `.xml`, `.json`. Any other extension is an asset. */
+/**
+ * Documents only: extensionless paths, `.html`, `.md`, `.txt`, `.xml`, `.json`. Any other extension is an asset.
+ * Vike's `*.pageContext.json` client-navigation payloads are not documents: the page itself is logged.
+ */
 export function isDocumentPath(pathname: string): boolean {
   const lastSegment = pathname.slice(pathname.lastIndexOf('/') + 1)
+  if (lastSegment.endsWith('.pageContext.json')) return false
   const dot = lastSegment.lastIndexOf('.')
   if (dot === -1) return true
   return DOCUMENT_EXTENSIONS.has(lastSegment.slice(dot + 1).toLowerCase())
-}
-
-/** GET (case-insensitive) of a document. */
-export function shouldReport(method: string, pathname: string): boolean {
-  return method.toUpperCase() === 'GET' && isDocumentPath(pathname)
 }
 
 export interface HttpLogRequest {

@@ -1,4 +1,4 @@
-import { buildHttpLogEvent, captureEndpoint, DEFAULT_POSTHOG_HOST, shouldReport } from '../../lib/http-log.ts'
+import { buildHttpLogEvent, captureEndpoint, DEFAULT_POSTHOG_HOST, isDocumentPath } from '../../lib/http-log.ts'
 
 /** The slice of Netlify's Context this function uses; the package is deliberately not a dependency. */
 interface EdgeContext {
@@ -42,7 +42,7 @@ const netlifyEnv = (name: string): string | undefined =>
  *
  * Note there is no `import type { Config }` from `@netlify/edge-functions`: the declaration is a
  * plain object literal so the bundle has no npm dependency to resolve and the bundler can read it
- * statically. The header pattern must equal `CRAWLER_AGENT_CATEGORY_PATTERN` (a test asserts it).
+ * statically.
  *
  * Ordering: inline-declared edge functions matching the same path run in alphabetical order of
  * file name, so this runs before `markdown-negotiation.ts` and a negotiated markdown fetch is
@@ -53,7 +53,7 @@ export default async (request: Request, context: EdgeContext): Promise<undefined
   if (!apiKey) return
   try {
     const url = new URL(request.url)
-    if (!shouldReport(request.method, url.pathname)) return
+    if (!isDocumentPath(url.pathname)) return
     const event = await buildHttpLogEvent(
       {
         url: request.url,
