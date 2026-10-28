@@ -14,6 +14,7 @@ afterEach(() => {
 
 /** Renders the hook once its mount-time add-on price list has landed, so that update happens inside waitFor. */
 async function renderSettled() {
+  vi.stubGlobal('fetch', mockPricingFetch())
   const hook = renderHook(() => usePricingEstimate())
   await waitFor(() => expect(hook.result.current.addonPrices).not.toBeNull())
   return hook
@@ -21,7 +22,6 @@ async function renderSettled() {
 
 describe('usePricingEstimate.stepDown', () => {
   it('steps from a typed count above 50,000 down to 50,000, not to the sentinel', async () => {
-    vi.stubGlobal('fetch', mockPricingFetch())
     const { result } = await renderSettled()
     act(() => result.current.setVoters(60000, 'input'))
     act(() => result.current.stepDown())
@@ -29,7 +29,6 @@ describe('usePricingEstimate.stepDown', () => {
   })
 
   it('steps from the slider terminal down to 50,000 as well', async () => {
-    vi.stubGlobal('fetch', mockPricingFetch())
     const { result } = await renderSettled()
     act(() => result.current.setLadderIndex(LADDER.length - 1))
     act(() => result.current.stepDown())
@@ -37,7 +36,6 @@ describe('usePricingEstimate.stepDown', () => {
   })
 
   it('keeps the typed count on stepUp above 50,000 rather than moving to the sentinel', async () => {
-    vi.stubGlobal('fetch', mockPricingFetch())
     const { result } = await renderSettled()
     act(() => result.current.setVoters(60000, 'input'))
     act(() => result.current.stepUp())

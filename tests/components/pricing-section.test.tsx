@@ -94,6 +94,9 @@ function setup() {
   return { user }
 }
 
+/** Waits for the add-on price list fetched on mount, so its update lands inside the test rather than after it. */
+const addonPricesLoaded = () => screen.findByText('€0.05 per person on your list')
+
 function getPeopleInput() {
   return screen.getByRole('textbox', { name: 'How many people can vote?' })
 }
@@ -110,7 +113,7 @@ describe('PricingSection', () => {
     render(<PricingSection />)
     expect(screen.getByRole('heading', { level: 1, name: 'Clear pricing for every vote.' })).toBeInTheDocument()
     expect(screen.getAllByRole('heading', { level: 1 })).toHaveLength(1)
-    await screen.findByText('€0.05 per person on your list')
+    await addonPricesLoaded()
   })
 
   it('reports the section view as the pricing page', async () => {
@@ -129,13 +132,13 @@ describe('PricingSection', () => {
     setup()
     callback([{ isIntersecting: true } as IntersectionObserverEntry], {} as IntersectionObserver)
     expect(reportSectionView).toHaveBeenCalledWith('pricing', 'pricing')
-    await screen.findByText('€0.05 per person on your list')
+    await addonPricesLoaded()
   })
 
   it('renders the section with id="pricing"', async () => {
     setup()
     expect(document.getElementById('pricing')).toBeInTheDocument()
-    await screen.findByText('€0.05 per person on your list')
+    await addonPricesLoaded()
   })
 
   it('shows a loading state, and no figure, until the backend answers', async () => {

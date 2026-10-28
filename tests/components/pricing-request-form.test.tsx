@@ -241,6 +241,7 @@ describe('PricingRequestForm', () => {
     await waitFor(() => expect(screen.getByRole('link', { name: 'Other email app' })).toBeInTheDocument(), {
       timeout: 3000,
     })
+    expect(consoleError).toHaveBeenCalledTimes(1)
     expect(consoleError).toHaveBeenCalledWith('[Pricing Request] EmailJS send error:', expect.any(Error))
     expect(screen.getByRole('link', { name: 'Other email app' })).toHaveAttribute(
       'href',
