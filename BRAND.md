@@ -24,11 +24,11 @@ Secure digital voting is serious and trust-critical, but Vocdoni speaks like a c
 
 - **Plain and concrete.** Say what happens to the voter or the organizer ("members vote from their phone, results are
   verifiable") rather than how impressive the technology is.
-- **Confident, not loud.** No superlatives or hype words, and exclamation marks only in quoted testimonials or a UI success message. Let verifiability, privacy and track record
-  carry the claim.
+- **Confident, not loud.** No superlatives or hype words, and exclamation marks only in quoted testimonials or a UI
+  success message. Let verifiability, privacy and track record carry the claim.
 - **Human.** Address organizations and their members directly; show real organizations and real assemblies.
-- **Sentence case everywhere**, including headings, buttons and menus. Only the first word, proper nouns, acronyms (GDPR,
-  SDK) and "Vocdoni" are capitalized.
+- **Sentence case everywhere**, including headings, buttons and menus. Only the first word, proper nouns, acronyms
+  (GDPR, SDK) and "Vocdoni" are capitalized.
 - **No em dash character.** Use a spaced hyphen (`-`) or restructure the sentence.
 - Copy ships in every locale the site serves; nothing is written for English only (see [`docs/i18n.md`](docs/i18n.md)).
   The one exception is the default share card (see Imagery), a single image for every locale.
@@ -37,8 +37,11 @@ Secure digital voting is serious and trust-critical, but Vocdoni speaks like a c
 
 The logo is a **mark** (a wide chevron, the ballot box, with a slanted block dropping into it, the ballot) next to the
 lowercase geometric **wordmark** `vocdoni`. Both are flat, single-color shapes: no gradients, outlines, shadows or
-effects. The ballot leans to the right (its top edge rises to the right); an older, mirrored mark with the ballot
-leaning left is retired and must not be reused.
+effects. The ballot leans to the right (its top edge rises to the right).
+
+`components/Logo.tsx` is the source of truth: the `public/images` SVGs carry its exact paths, and every other logo file
+must match it. The previous logo, with a mirrored ballot leaning left and a lighter, narrower wordmark, is retired. If
+you find it in an old file or image, replace it with the current one, never copy it.
 
 | Version           | Source                                          | Use                                                                                                                  |
 | ----------------- | ----------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- |
@@ -55,13 +58,14 @@ dark one.
 
 ### Rules
 
-- **One color.** On light surfaces the logo is dark: the warm ink (`--foreground`, `#202019`) on the site, black in
-  the raster files above. On dark surfaces it is cream or white. `VocdoniLogo` inherits `currentColor`, so set the color through the text color, never by editing
-  the paths. Never Vocdoni green, signal yellow, or two colors at once.
+- **One color.** On light surfaces the logo is dark: the warm ink (`--foreground`, `#202019`) on the site and the share
+  card, black in `vocdoni.webp` and the favicon. On dark surfaces it is cream or white. `VocdoniLogo` inherits
+  `currentColor`, so set the color through the text color, never by editing the paths. Never Vocdoni green, signal
+  yellow, or two colors at once.
 - **Keep the geometry.** Do not stretch, rotate, re-letter the wordmark, swap the mark and wordmark, or set "vocdoni" in
   another typeface as a stand-in for the logo.
-- **Size.** The site sets the lockup at 34-40px high (`h-7`/`h-8`, on this project's custom spacing scale). When the lockup would get much narrower than that,
-  use the mark alone instead of shrinking the wordmark.
+- **Size.** The site sets the lockup at 34-40px high (`h-7`/`h-8`, on this project's custom spacing scale). When the
+  lockup would get much narrower than that, use the mark alone instead of shrinking the wordmark.
 - **Room.** Keep clear space around the logo of at least the height of the mark's falling block, and do not place it on
   busy photography without a solid or darkened backdrop (the blog covers dim the photo first).
 - **Partner and client logos** sit next to Vocdoni's only in a `vocdoni × partner` lockup, as on the blog covers, with
