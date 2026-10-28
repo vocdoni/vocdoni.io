@@ -1066,7 +1066,7 @@
           },
           {
             "title": "Se identifica, no se registra",
-            "description": "Un código de un solo uso por SMS o correo confirma que es el socio que está en el registro. No hay cuenta que crear, ni aplicación que instalar, ni número de socio que buscar."
+            "description": "Se identifica con las credenciales que decide la asociación: número de socio, DNI, correo o cualquier campo del registro. Si lo queréis, un código de un solo uso por SMS o correo confirma que es ese socio. No hay cuenta que crear, ni aplicación que instalar."
           },
           {
             "title": "Vota",
@@ -1078,7 +1078,8 @@
           }
         ],
         "steps_media_caption": "Lo que ve un socio en su móvil, desde la convocatoria hasta el justificante.",
-        "footnote": "La mayoría de socios terminan en menos de dos minutos, con el navegador que ya tienen abierto. Si una parte de vuestra masa social está realmente desconectada, el punto asistido funciona sobre el mismo registro, así que nadie queda excluido y nadie vota dos veces. La barrera casi nunca es el socio: es un número de móvil que falta en un registro que nadie ha limpiado en años. Por eso revisamos vuestros datos de contacto antes de abrir nada."
+        "footnote": "La mayoría de socios terminan en menos de dos minutos, con el navegador que ya tienen abierto. Si una parte de vuestra masa social está realmente desconectada, el punto asistido funciona sobre el mismo registro, así que nadie queda excluido y nadie vota dos veces. La barrera casi nunca es el socio: es un número de móvil que falta en un registro que nadie ha limpiado en años. Por eso revisamos vuestros datos de contacto antes de abrir nada.",
+        "results_media_caption": "Cuando se cierra la asamblea: el resultado de cada punto, el informe electoral y el enlace al explorador, listos para el acta."
       },
       "comparison": {
         "eyebrow": "frente a las alternativas",
@@ -1365,6 +1366,38 @@
             "label": "Para el escéptico de la sala",
             "description": "Cómo se compara esto con la asamblea que celebráis hoy, línea por línea.",
             "anchor": "comparison"
+          }
+        ]
+      },
+      "mockups": {
+        "organization": "Ateneu del Vallès",
+        "title": "Asamblea general ordinaria 2026",
+        "questions": [
+          {
+            "title": "Aprobación de las cuentas anuales 2025",
+            "choices": [
+              "Sí",
+              "No",
+              "Abstención"
+            ]
+          },
+          {
+            "title": "Renovación de la junta: presidencia",
+            "choices": [
+              "Laia Soler Grau",
+              "Marc Puig Font",
+              "Voto en blanco"
+            ]
+          }
+        ],
+        "participants": [
+          {
+            "name": "Clara Bosch Vila",
+            "credential": "N.º 931"
+          },
+          {
+            "name": "Oriol Camps Riu",
+            "credential": "N.º 1540"
           }
         ]
       }
@@ -2100,7 +2133,7 @@
           },
           {
             "title": "Se identifica, no se registra",
-            "description": "Un código de un solo uso por SMS o correo confirma que es el colegiado que está en el censo. No hay cuenta que crear, ni aplicación que instalar, ni número de colegiado que buscar."
+            "description": "Se identifica con las credenciales que decide el colegio: número de colegiado, DNI, correo o cualquier campo del censo. Si lo queréis, un código de un solo uso por SMS o correo confirma que es ese colegiado. No hay cuenta que crear, ni aplicación que instalar."
           },
           {
             "title": "Vota",
@@ -2112,7 +2145,8 @@
           }
         ],
         "steps_media_caption": "Lo que ve un colegiado en su móvil, desde la convocatoria hasta el justificante.",
-        "footnote": "La mayoría de colegiados terminan en menos de dos minutos, con el navegador que ya tienen abierto. Si una parte del censo está realmente desconectada, el punto asistido funciona sobre el mismo censo electoral, así que nadie queda excluido y nadie vota dos veces. La barrera casi nunca es el colegiado: es un número de móvil que falta en vuestra base de datos. Por eso revisamos vuestros datos de contacto antes de abrir nada."
+        "footnote": "La mayoría de colegiados terminan en menos de dos minutos, con el navegador que ya tienen abierto. Si una parte del censo está realmente desconectada, el punto asistido funciona sobre el mismo censo electoral, así que nadie queda excluido y nadie vota dos veces. La barrera casi nunca es el colegiado: es un número de móvil que falta en vuestra base de datos. Por eso revisamos vuestros datos de contacto antes de abrir nada.",
+        "results_media_caption": "Cuando se cierra la votación: el resultado de cada cargo, el informe electoral y el enlace al explorador, listos para el acta."
       },
       "comparison": {
         "eyebrow": "frente a las alternativas",
@@ -2399,6 +2433,38 @@
             "label": "Para el escéptico de la junta",
             "description": "Cómo se compara esto con el proceso que hacéis hoy, línea por línea.",
             "anchor": "comparison"
+          }
+        ]
+      },
+      "mockups": {
+        "organization": "Colegio de Ingenieros Civiles",
+        "title": "Elecciones a la junta de gobierno 2026",
+        "questions": [
+          {
+            "title": "Decano o decana del colegio, mandato 2026-2030",
+            "choices": [
+              "Marta Vidal Puig",
+              "Jordi Serra Camps",
+              "Voto en blanco"
+            ]
+          },
+          {
+            "title": "Modificación del reglamento electoral",
+            "choices": [
+              "Sí",
+              "No",
+              "Abstención"
+            ]
+          }
+        ],
+        "participants": [
+          {
+            "name": "Núria Ferrer Solà",
+            "credential": "N.º 4812"
+          },
+          {
+            "name": "Pau Riera Mas",
+            "credential": "N.º 2207"
           }
         ]
       }
@@ -3046,6 +3112,51 @@
         "cta_primary": "Habla con nosotros",
         "cta_secondary": "Consulta el código en GitHub",
         "note": "Software libre, sin compromiso. Si el Decidim de tu cliente aún no está en 0.33, te diremos la fecha realista."
+      }
+    },
+    "mockups": {
+      "app": {
+        "additional_actions": "Acciones adicionales",
+        "anonymous": "Anónimo",
+        "authentication": "Autenticación",
+        "awaiting_results": "A la espera de resultados",
+        "census_size": "Tamaño del censo",
+        "check_participants": "Comprobar participantes",
+        "code_sent": "Código de verificación enviado",
+        "election_report": "Informe electoral (PDF)",
+        "end_date": "Fecha de finalización",
+        "end_time": "Hora de finalización",
+        "enter_code": "Introduce el código de verificación",
+        "hidden_until_end": "Ocultos hasta el final",
+        "identify": "Identificarse",
+        "member_number": "Número de miembro",
+        "not_voted": "No ha votado",
+        "ongoing": "En curso",
+        "process_id": "ID del proceso",
+        "questions": "Preguntas",
+        "questions_and_results": "Preguntas y resultados",
+        "results": "Resultados",
+        "results_available": "Resultados disponibles",
+        "results_status": "Resultados",
+        "results_visibility": "Visibilidad de los resultados",
+        "schedule": "Calendario",
+        "schedule_range": "Votación desde {{ begin }} hasta {{ end }}",
+        "search_census": "Buscar en el censo…",
+        "start_date": "Fecha de inicio",
+        "start_time": "Hora de inicio",
+        "total_votes": "Total de votos",
+        "turnout": "Participación",
+        "verify_hint": "Para verificar tu voto, puedes usar este identificador único: {{ id }}",
+        "view_in_explorer": "Ver en el explorador",
+        "vote": "Votar",
+        "vote_cast": "¡Tu voto se ha emitido correctamente!",
+        "voted": "Ha votado",
+        "voter_anonymity": "Anonimato del votante",
+        "voters": "{{votes}} votantes",
+        "votes_row": "{{votes}} votos ({{ percent }})",
+        "voting_in_progress": "Votación en curso",
+        "voting_settings": "Ajustes de votación",
+        "voting_status": "Estado de la votación"
       }
     }
   },

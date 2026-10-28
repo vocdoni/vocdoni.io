@@ -3,6 +3,9 @@ import { useTranslation } from 'react-i18next'
 import { usePageContext } from 'vike-react/usePageContext'
 
 import { useAppAuthUrl } from '@/hooks/useAppAuthUrl'
+import { MemberJourneyMockup } from '@/components/solutions/mockups/MemberJourneyMockup'
+import { ProcessConsoleMockup } from '@/components/solutions/mockups/ProcessConsoleMockup'
+import type { MockupFigures } from '@/components/solutions/mockups/types'
 import { VerticalPage } from '@/components/solutions/vertical/VerticalPage'
 import type { VerticalContent } from '@/components/solutions/vertical/types'
 import { getAssociationsProof } from '@/lib/solutions/verticalProof'
@@ -48,6 +51,28 @@ const CASE_STUDIES: Record<string, { logo: string; image?: string; href: string;
   Omnium: { logo: logoOmnium, href: CASE_STUDY_HREF, blogHref: BLOG_HREF },
 }
 
+/**
+ * The assembly the product mockups picture: an annual general assembly of an
+ * association with a few thousand members, one evening of voting. Numbers live
+ * here, words in `solutions.associations.mockups`.
+ */
+const FIGURES: MockupFigures = {
+  census: 4280,
+  liveVotes: 1537,
+  finalVotes: 2961,
+  start: new Date(2026, 5, 18, 17, 0),
+  end: new Date(2026, 5, 18, 21, 0),
+  results: [
+    [2588, 219, 154],
+    [1712, 1035, 214],
+  ],
+  selectedChoice: 0,
+  memberNumber: '0931',
+  code: '730256',
+  processId: '0x5b17…a9d3',
+  voteId: '0x9e2c…47f0',
+}
+
 export default function Page() {
   const { t } = useTranslation()
   const pageContext = usePageContext()
@@ -85,6 +110,28 @@ export default function Page() {
         stakes: quoteFor(proof.quotes.stakes),
         how: quoteFor(proof.quotes.how),
         proof: quoteFor(proof.quotes.proof),
+      }}
+      media={{
+        console: (
+          <ProcessConsoleMockup
+            state='live'
+            density='close'
+            copy={content?.mockups}
+            figures={FIGURES}
+            label={content?.how?.media_caption}
+          />
+        ),
+        results: (
+          <ProcessConsoleMockup
+            state='results'
+            copy={content?.mockups}
+            figures={FIGURES}
+            label={content?.how?.results_media_caption ?? content?.how?.media_caption}
+          />
+        ),
+        ballot: (
+          <MemberJourneyMockup copy={content?.mockups} figures={FIGURES} label={content?.how?.steps_media_caption} />
+        ),
       }}
       resourceLinks={[
         { href: CASE_STUDY_HREF },

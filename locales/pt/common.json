@@ -1066,7 +1066,7 @@
           },
           {
             "title": "Identifica-se, não se regista",
-            "description": "Um código de utilização única por SMS ou email confirma que é o associado que consta do registo. Não há conta para criar, nem aplicação para instalar, nem número de associado para procurar."
+            "description": "Identifica-se com as credenciais que a associação decidir: número de sócio, documento de identificação, email ou qualquer campo do registo. Se quiserem, um código de utilização única por SMS ou email confirma que é esse sócio. Sem conta para criar, sem aplicação para instalar."
           },
           {
             "title": "Vota",
@@ -1078,7 +1078,8 @@
           }
         ],
         "steps_media_caption": "O que um associado vê no telemóvel, desde a convocatória até ao comprovativo.",
-        "footnote": "A maioria dos associados termina em menos de dois minutos, no navegador que já tem aberto. Se uma parte dos vossos associados estiver mesmo sem ligação, o ponto assistido funciona sobre o mesmo registo, por isso ninguém fica excluído e ninguém vota duas vezes. O obstáculo quase nunca é o associado: é um número de telemóvel em falta num registo que ninguém limpa há anos. Por isso verificamos os vossos contactos antes de abrir seja o que for."
+        "footnote": "A maioria dos associados termina em menos de dois minutos, no navegador que já tem aberto. Se uma parte dos vossos associados estiver mesmo sem ligação, o ponto assistido funciona sobre o mesmo registo, por isso ninguém fica excluído e ninguém vota duas vezes. O obstáculo quase nunca é o associado: é um número de telemóvel em falta num registo que ninguém limpa há anos. Por isso verificamos os vossos contactos antes de abrir seja o que for.",
+        "results_media_caption": "Quando a assembleia encerra: o resultado de cada proposta, o relatório eleitoral e a ligação para o explorador, prontos para a ata."
       },
       "comparison": {
         "eyebrow": "face às alternativas",
@@ -1365,6 +1366,38 @@
             "label": "Para o cético da sala",
             "description": "Como isto se compara com a assembleia que realizam hoje, linha a linha.",
             "anchor": "comparison"
+          }
+        ]
+      },
+      "mockups": {
+        "organization": "Ateneu del Vallès",
+        "title": "Assembleia geral ordinária 2026",
+        "questions": [
+          {
+            "title": "Aprovação das contas anuais de 2025",
+            "choices": [
+              "Sim",
+              "Não",
+              "Abstenção"
+            ]
+          },
+          {
+            "title": "Renovação da direção: presidência",
+            "choices": [
+              "Laia Soler Grau",
+              "Marc Puig Font",
+              "Voto em branco"
+            ]
+          }
+        ],
+        "participants": [
+          {
+            "name": "Clara Bosch Vila",
+            "credential": "N.º 931"
+          },
+          {
+            "name": "Oriol Camps Riu",
+            "credential": "N.º 1540"
           }
         ]
       }
@@ -2100,7 +2133,7 @@
           },
           {
             "title": "Identifica-se, não se regista",
-            "description": "Um código de utilização única por SMS ou email confirma que é o membro que consta do caderno. Não há conta para criar, nem aplicação para instalar, nem número de membro para procurar."
+            "description": "Identifica-se com as credenciais que a ordem decidir: número de membro, documento de identificação, email ou qualquer campo da lista. Se quiserem, um código de utilização única por SMS ou email confirma que é esse membro. Sem conta para criar, sem aplicação para instalar."
           },
           {
             "title": "Vota",
@@ -2112,7 +2145,8 @@
           }
         ],
         "steps_media_caption": "O que um membro vê no telemóvel, desde a convocatória até ao comprovativo.",
-        "footnote": "A maioria dos membros termina em menos de dois minutos, no navegador que já tem aberto. Se uma parte do caderno estiver mesmo sem ligação, o ponto assistido funciona sobre o mesmo caderno eleitoral, por isso ninguém fica excluído e ninguém vota duas vezes. O obstáculo quase nunca é o membro: é um número de telemóvel em falta na vossa base de dados. Por isso verificamos os vossos contactos antes de abrir seja o que for."
+        "footnote": "A maioria dos membros termina em menos de dois minutos, no navegador que já tem aberto. Se uma parte do caderno estiver mesmo sem ligação, o ponto assistido funciona sobre o mesmo caderno eleitoral, por isso ninguém fica excluído e ninguém vota duas vezes. O obstáculo quase nunca é o membro: é um número de telemóvel em falta na vossa base de dados. Por isso verificamos os vossos contactos antes de abrir seja o que for.",
+        "results_media_caption": "Quando a votação encerra: o resultado de cada cargo, o relatório eleitoral e a ligação para o explorador, prontos para a ata."
       },
       "comparison": {
         "eyebrow": "face às alternativas",
@@ -2399,6 +2433,38 @@
             "label": "Para o cético da direção",
             "description": "Como isto se compara com o processo que fazem hoje, linha a linha.",
             "anchor": "comparison"
+          }
+        ]
+      },
+      "mockups": {
+        "organization": "Ordem dos Engenheiros Civis",
+        "title": "Eleição do conselho diretivo 2026",
+        "questions": [
+          {
+            "title": "Bastonário ou bastonária da ordem, mandato 2026-2030",
+            "choices": [
+              "Marta Vidal Puig",
+              "Jordi Serra Camps",
+              "Voto em branco"
+            ]
+          },
+          {
+            "title": "Alteração do regulamento eleitoral",
+            "choices": [
+              "Sim",
+              "Não",
+              "Abstenção"
+            ]
+          }
+        ],
+        "participants": [
+          {
+            "name": "Núria Ferrer Solà",
+            "credential": "N.º 4812"
+          },
+          {
+            "name": "Pau Riera Mas",
+            "credential": "N.º 2207"
           }
         ]
       }
@@ -3046,6 +3112,51 @@
         "cta_primary": "Falem connosco",
         "cta_secondary": "Consultar o código no GitHub",
         "note": "Software livre, sem compromisso. Se o Decidim do vosso cliente ainda não estiver na 0.33, dir-vos-emos a data realista."
+      }
+    },
+    "mockups": {
+      "app": {
+        "additional_actions": "Ações adicionais",
+        "anonymous": "Anónimo",
+        "authentication": "Autenticação",
+        "awaiting_results": "À espera dos resultados",
+        "census_size": "Número de participantes",
+        "check_participants": "Verificar participantes",
+        "code_sent": "Código de verificação enviado",
+        "election_report": "Relatório eleitoral (PDF)",
+        "end_date": "Data de fim",
+        "end_time": "Hora de fim",
+        "enter_code": "Introduz o código de verificação",
+        "hidden_until_end": "Ocultos até ao fim",
+        "identify": "Identificar-se",
+        "member_number": "Número de membro",
+        "not_voted": "Não votou",
+        "ongoing": "Em curso",
+        "process_id": "ID do processo",
+        "questions": "Perguntas",
+        "questions_and_results": "Perguntas e resultados",
+        "results": "Resultados",
+        "results_available": "Resultados disponíveis",
+        "results_status": "Resultados",
+        "results_visibility": "Visibilidade dos resultados",
+        "schedule": "Calendário",
+        "schedule_range": "Votação de {{ begin }} a {{ end }}",
+        "search_census": "Introduz os dados do votante…",
+        "start_date": "Data de início",
+        "start_time": "Hora de início",
+        "total_votes": "Total de votos",
+        "turnout": "Participação",
+        "verify_hint": "Para verificares o teu voto, podes utilizar este identificador único: {{ id }}",
+        "view_in_explorer": "Ver no explorador",
+        "vote": "Votar",
+        "vote_cast": "O teu voto foi registado com sucesso!",
+        "voted": "Votou",
+        "voter_anonymity": "Anonimato dos votantes",
+        "voters": "{{votes}} votantes",
+        "votes_row": "{{votes}} votos ({{ percent }})",
+        "voting_in_progress": "Votação em curso",
+        "voting_settings": "Definições de votação",
+        "voting_status": "Estado da votação"
       }
     }
   },
