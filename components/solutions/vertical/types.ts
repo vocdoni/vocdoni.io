@@ -148,7 +148,8 @@ export interface VerticalContent {
     title: string
     intro: string
     features: VerticalItem[]
-    /** Caption for the electoral board console on voting day (hero visual). */
+    /** Label for the electoral board console on voting day, the hero visual's
+     *  aria-label. Also the results caption's fallback. */
     media_caption: string
     /** Caption for the console after close: results, report, explorer. Falls
      *  back to `media_caption` for a vertical that has not written one. */

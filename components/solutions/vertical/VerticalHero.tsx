@@ -17,8 +17,6 @@ interface VerticalHeroProps {
   ctaId: string
   /** Product visual. The slot holds its space whether or not the asset exists. */
   media?: VerticalMediaSlot
-  /** Optional: the hero visual usually speaks for itself, so no caption by default. */
-  mediaCaption?: string
   /**
    * `split` reserves the second column for the product visual even before the
    * asset exists, so dropping it in later moves nothing. `centered` is for a
@@ -49,7 +47,6 @@ export function VerticalHero({
   secondaryHref,
   ctaId,
   media,
-  mediaCaption,
   layout = 'split',
 }: VerticalHeroProps) {
   const centered = layout === 'centered'
@@ -117,7 +114,7 @@ export function VerticalHero({
               its space where a real screenshot is coming. */}
           {!centered && (
             <MotionPreset fade slide={{ direction: 'up', offset: 16 }} delay={0.3} transition={{ duration: 0.5 }}>
-              <VerticalMedia asset={asset} caption={mediaCaption} ratio='wide'>
+              <VerticalMedia asset={asset} ratio='wide'>
                 {node}
               </VerticalMedia>
             </MotionPreset>
