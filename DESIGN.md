@@ -1,6 +1,6 @@
 # Vocdoni design
 
-The design reference for [vocdoni.io](https://vocdoni.io): what the site looks like, why it looks that way, and the rules to follow when extending it. Token-level source of truth is `layouts/tailwind.css` (Tailwind v4, CSS-first via `@theme`); a compact token reference also lives in [`docs/design-system.md`](docs/design-system.md).
+The design reference for [vocdoni.io](https://vocdoni.io): what the site looks like, why it looks that way, and the rules to follow when extending it. Token-level source of truth is `layouts/tailwind.css` (Tailwind v4, CSS-first via `@theme`); a compact token reference also lives in [`docs/design-system.md`](docs/design-system.md). The brand itself (name, voice, logo usage, palette outside the site) is in [`BRAND.md`](BRAND.md).
 
 ## Identity
 

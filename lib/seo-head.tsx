@@ -3,7 +3,8 @@ import { DEVELOPERS_SKILLS_URL, DEVELOPERS_SWAGGER_URL } from '@/lib/developers'
 import { getCompatibilityRedirectTarget } from '@/lib/localeRedirect'
 import { localeDefault, locales } from '@/locales'
 import type { PageContext } from 'vike/types'
-import ogImageDefault from '../assets/images/vocdoni.webp'
+import ogImageDefault from '../assets/images/og-default.png'
+import organizationLogo from '../assets/images/vocdoni.webp'
 
 const normalizePath = (path: string) => {
   if (!path) return '/'
@@ -189,6 +190,9 @@ const buildFaqSchema = (pageContext: PageContext, locale: string, itemsKey: stri
   }
 }
 
+// Named, not positional: the page image and the publisher logo are both optional URLs, and swapping them type-checks.
+type SchemaImages = { image?: string; logo?: string }
+
 const buildArticleSchema = (
   urlLogical: string,
   siteUrl: string,
@@ -196,7 +200,7 @@ const buildArticleSchema = (
   locale: string,
   title?: string,
   description?: string,
-  image?: string
+  { image, logo }: SchemaImages = {}
 ) => {
   if (!urlLogical.startsWith('/learn/') || urlLogical === '/learn') return null
 
@@ -214,7 +218,7 @@ const buildArticleSchema = (
       '@type': 'Organization',
       name: 'Vocdoni',
       url: siteUrl,
-      ...(image ? { logo: { '@type': 'ImageObject', url: image } } : {}),
+      ...(logo ? { logo: { '@type': 'ImageObject', url: logo } } : {}),
     },
   }
 }
@@ -239,7 +243,12 @@ const toIsoDate = (value?: string) => {
   return Number.isNaN(date.getTime()) ? undefined : date.toISOString()
 }
 
-const buildBlogPostingSchema = (post: BlogPostSeo, siteUrl: string, canonicalUrl: string, image?: string) => {
+const buildBlogPostingSchema = (
+  post: BlogPostSeo,
+  siteUrl: string,
+  canonicalUrl: string,
+  { image, logo }: SchemaImages = {}
+) => {
   const published = toIsoDate(post.frontmatter.publishedDate)
   const modified = toIsoDate(post.frontmatter.updatedDate) ?? published
   const authors = post.authors.length
@@ -266,7 +275,7 @@ const buildBlogPostingSchema = (post: BlogPostSeo, siteUrl: string, canonicalUrl
       '@type': 'Organization',
       name: 'Vocdoni',
       url: siteUrl,
-      ...(image ? { logo: { '@type': 'ImageObject', url: image } } : {}),
+      ...(logo ? { logo: { '@type': 'ImageObject', url: logo } } : {}),
     },
   }
 }
@@ -312,7 +321,7 @@ export function HeadTags(pageContext: PageContext) {
   const ogImageUrl = toAbsoluteUrl(siteUrl, image) || undefined
   // The brand logo, NOT the page's social image: a case study's cover art is not
   // Vocdoni's logo, and telling search engines otherwise changes the logo per page.
-  const organizationLogoUrl = toAbsoluteUrl(siteUrl, ogImageDefault) || undefined
+  const organizationLogoUrl = toAbsoluteUrl(siteUrl, organizationLogo) || undefined
   const ogType = isBlogPost ? 'article' : 'website'
 
   // Raw-markdown companion for agents, emitted by plugins/blog-markdown.ts and
@@ -502,16 +511,13 @@ export function HeadTags(pageContext: PageContext) {
     moduleSourceSchema,
     moduleAppSchema,
     faqItemsKey ? buildFaqSchema(pageContext, locale, faqItemsKey) : null,
-    buildArticleSchema(
-      urlLogical,
-      siteUrl,
-      canonicalUrl,
-      locale,
-      title ?? undefined,
-      description ?? undefined,
-      ogImageUrl
-    ),
-    isBlogPost ? buildBlogPostingSchema(blogPost!, siteUrl, canonicalUrl, ogImageUrl) : null,
+    buildArticleSchema(urlLogical, siteUrl, canonicalUrl, locale, title ?? undefined, description ?? undefined, {
+      image: ogImageUrl,
+      logo: organizationLogoUrl,
+    }),
+    isBlogPost
+      ? buildBlogPostingSchema(blogPost!, siteUrl, canonicalUrl, { image: ogImageUrl, logo: organizationLogoUrl })
+      : null,
   ].filter(Boolean)
 
   if (isCompatibilityRedirect) {
