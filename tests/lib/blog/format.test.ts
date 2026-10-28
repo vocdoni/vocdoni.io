@@ -12,7 +12,7 @@ describe('blog format helpers', () => {
 
   it('derives up to two uppercase initials', () => {
     expect(authorInitials('Jordi Pinyana')).toBe('JP')
-    expect(authorInitials('Ferran')).toBe('F')
+    expect(authorInitials('Lucas')).toBe('L')
     expect(authorInitials('Pau Escrich Garcia')).toBe('PE')
   })
 })
