@@ -1,4 +1,5 @@
 import type { CaptureResult } from 'posthog-js'
+import { sanitizeAnalyticsUrl } from '@/lib/http-log'
 
 /**
  * `vocdoni.io` and `app.vocdoni.io` report into a single PostHog project: the
@@ -243,26 +244,7 @@ export function resolveCtaTarget(href: string, urls: ProductUrls): CtaTarget {
   return 'internal'
 }
 
-// Query params that may carry PII. The marketing site does not create them, but
-// campaign links and inbound redirects do, and the scrubber matches the app's so
-// both sites strip the same things.
-const SENSITIVE_QUERY_PARAMS = ['email', 'token', 'code']
-
-export function sanitizeAnalyticsUrl(url: string): string {
-  try {
-    const parsed = new URL(url)
-    let changed = false
-    for (const param of SENSITIVE_QUERY_PARAMS) {
-      if (parsed.searchParams.has(param)) {
-        parsed.searchParams.delete(param)
-        changed = true
-      }
-    }
-    return changed ? parsed.toString() : url
-  } catch {
-    return url
-  }
-}
+export { sanitizeAnalyticsUrl }
 
 export const posthogBeforeSend = (event: CaptureResult | null): CaptureResult | null => {
   if (!event) return null

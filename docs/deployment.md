@@ -64,3 +64,16 @@ uploads with `netlify deploy --no-build`, which bundles them; that is why the de
 than a deploy action. Keep edge functions as a thin shell over a pure, unit-tested module in `lib/`, and keep
 `netlify.toml` free of redirect and header rules: those are generated into `dist/client` and toml rules would silently
 take precedence.
+
+### Crawler logging
+
+`netlify/edge-functions/crawler-log.ts` reports each page fetch by a crawler or AI agent to PostHog as a `$http_log`
+event, sent to `<POSTHOG_HOST>/i/v0/e/`. It runs only for `GET` requests of documents (extensionless paths and `.html`,
+`.md`, `.txt`, `.xml`, `.json`, except Vike's `*.pageContext.json` navigation payloads) whose `netlify-agent-category`
+header contains `ai-agent` or `crawler` (for example `crawler;ai` or `ai-agent;user`; human browsers are categorised
+`browser` and never reach it), and it skips static assets. It is enabled by setting `POSTHOG_KEY` and, optionally,
+`POSTHOG_HOST` (default `https://eu.i.posthog.com`) as environment variables on the Netlify site with the Functions scope,
+on the production site only. Netlify applies env var changes only to deploys made afterwards, so after setting or
+changing them, redeploy (or wait for the next `lts` deploy) for logging to start. The GitHub Actions build variables do
+not reach edge functions, so setting them there does nothing for crawler logging. The function never changes the
+response, and it reports no `status_code` by design: it runs before the response exists.

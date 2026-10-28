@@ -10,6 +10,7 @@ import {
 } from '../lib/developers'
 import { buildLlmsFull, buildLlmsIndex, type LlmsContent, type LlmsContext, loadLlmsContent } from '../lib/llms/build'
 import { llmsFileName, stripSlash } from '../lib/llms/routes'
+import { DEFAULT_POSTHOG_HOST } from '../lib/http-log'
 
 /**
  * Emits the agent-discovery artifacts into the client build output (and serves the
@@ -97,7 +98,7 @@ const block = (path: string, headers: string[]) => [path, ...headers].join('\n')
 //  - Cross-Origin-Resource-Policy is `cross-origin` on purpose: og:images, the raw-markdown
 //    mirrors, llms.txt and the ARD manifests exist precisely to be fetched from other origins.
 
-export const DEFAULT_POSTHOG_HOST = 'https://eu.i.posthog.com'
+export { DEFAULT_POSTHOG_HOST }
 
 // Enforced, not report-only: the site is fully prerendered with a finite set of integrations, and
 // every origin below is traced to the code that loads it. `'unsafe-inline'` in script-src is
