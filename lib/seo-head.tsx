@@ -197,7 +197,8 @@ const buildArticleSchema = (
   locale: string,
   title?: string,
   description?: string,
-  image?: string
+  image?: string,
+  logo?: string
 ) => {
   if (!urlLogical.startsWith('/learn/') || urlLogical === '/learn') return null
 
@@ -215,7 +216,7 @@ const buildArticleSchema = (
       '@type': 'Organization',
       name: 'Vocdoni',
       url: siteUrl,
-      ...(image ? { logo: { '@type': 'ImageObject', url: image } } : {}),
+      ...(logo ? { logo: { '@type': 'ImageObject', url: logo } } : {}),
     },
   }
 }
@@ -240,7 +241,13 @@ const toIsoDate = (value?: string) => {
   return Number.isNaN(date.getTime()) ? undefined : date.toISOString()
 }
 
-const buildBlogPostingSchema = (post: BlogPostSeo, siteUrl: string, canonicalUrl: string, image?: string) => {
+const buildBlogPostingSchema = (
+  post: BlogPostSeo,
+  siteUrl: string,
+  canonicalUrl: string,
+  image?: string,
+  logo?: string
+) => {
   const published = toIsoDate(post.frontmatter.publishedDate)
   const modified = toIsoDate(post.frontmatter.updatedDate) ?? published
   const authors = post.authors.length
@@ -267,7 +274,7 @@ const buildBlogPostingSchema = (post: BlogPostSeo, siteUrl: string, canonicalUrl
       '@type': 'Organization',
       name: 'Vocdoni',
       url: siteUrl,
-      ...(image ? { logo: { '@type': 'ImageObject', url: image } } : {}),
+      ...(logo ? { logo: { '@type': 'ImageObject', url: logo } } : {}),
     },
   }
 }
@@ -510,9 +517,10 @@ export function HeadTags(pageContext: PageContext) {
       locale,
       title ?? undefined,
       description ?? undefined,
-      ogImageUrl
+      ogImageUrl,
+      organizationLogoUrl
     ),
-    isBlogPost ? buildBlogPostingSchema(blogPost!, siteUrl, canonicalUrl, ogImageUrl) : null,
+    isBlogPost ? buildBlogPostingSchema(blogPost!, siteUrl, canonicalUrl, ogImageUrl, organizationLogoUrl) : null,
   ].filter(Boolean)
 
   if (isCompatibilityRedirect) {

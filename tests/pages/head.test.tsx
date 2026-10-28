@@ -85,7 +85,15 @@ describe('Head meta tags', () => {
     const html = renderHead({ locale: 'en', urlLogical: '/' })
 
     expect(html).toMatch(/property="og:image" content="https:\/\/vocdoni\.io\/[^"]*og-default[^"]*\.png"/)
-    expect(node(html, 'Organization')?.logo.url).toMatch(/vocdoni[^/]*\.webp$/)
+    expect(node(html, 'Organization')?.logo.url).toMatch(/\/vocdoni(\.[\w-]+)?\.webp$/)
+  })
+
+  it('keeps the wordmark as the article publisher logo while the share card is the article image', () => {
+    const html = renderHead({ locale: 'en', urlLogical: '/learn/quorum-meaning-for-online-voting' })
+    const article = node(html, 'Article')
+
+    expect(article?.image).toMatch(/og-default[^/]*\.png$/)
+    expect(article?.publisher.logo.url).toBe(node(html, 'Organization')?.logo.url)
   })
 
   it('uses prefixed canonical and x-default URLs for the default locale', () => {
