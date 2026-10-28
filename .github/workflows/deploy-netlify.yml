@@ -103,8 +103,9 @@ jobs:
           EMAILJS_TEMPLATE_ID: ${{ vars.EMAILJS_TEMPLATE_ID }}
           GTM_ID: ${{ vars.GTM_ID }}
           PLAUSIBLE_DOMAIN: ${{ vars.PLAUSIBLE_DOMAIN }}
-          # Public browser-ingestion key. Leaving it unset disables PostHog entirely, which is what
-          # you want outside production. POSTHOG_HOST is optional and defaults to the EU cluster.
+          # Public browser-ingestion key. Leaving it unset disables PostHog in the browser (nothing is loaded),
+          # which is what you want outside production. Crawler logging is configured separately on Netlify
+          # (docs/deployment.md#crawler-logging). POSTHOG_HOST is optional and defaults to the EU cluster.
           POSTHOG_KEY: ${{ vars.POSTHOG_KEY }}
           POSTHOG_HOST: ${{ vars.POSTHOG_HOST }}
           RECAPTCHA_SITE_KEY: ${{ vars.RECAPTCHA_SITE_KEY }}
