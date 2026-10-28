@@ -34,14 +34,16 @@ export function AppMockupFrame({ variant, label, scale = 'default', className, c
       <div
         role='img'
         aria-label={label}
-        className={cn(
-          'app-mockup font-app @container bg-surface-dark pointer-events-none aspect-[9/16] w-full rounded-[2.6em] p-[0.5em] text-[clamp(6px,3.8cqw,10.5px)] shadow-xl select-none',
-          className
-        )}
+        className={cn('app-mockup font-app @container pointer-events-none aspect-[9/16] w-full select-none', className)}
       >
-        <div aria-hidden='true' className='bg-app-bg text-app-fg relative h-full overflow-hidden rounded-[2.1em]'>
-          <div className='bg-surface-dark absolute top-[0.6em] left-1/2 h-[1.3em] w-[4.6em] -translate-x-1/2 rounded-full' />
-          {children}
+        <div
+          aria-hidden='true'
+          className='bg-surface-dark h-full w-full rounded-[2.6em] p-[0.5em] text-[clamp(6px,3.8cqw,10.5px)] shadow-xl'
+        >
+          <div className='bg-app-bg text-app-fg relative h-full overflow-hidden rounded-[2.1em]'>
+            <div className='bg-surface-dark absolute top-[0.6em] left-1/2 h-[1.3em] w-[4.6em] -translate-x-1/2 rounded-full' />
+            {children}
+          </div>
         </div>
       </div>
     )
@@ -53,23 +55,25 @@ export function AppMockupFrame({ variant, label, scale = 'default', className, c
       aria-label={label}
       className={cn(
         'app-mockup font-app @container image-outline rounded-card bg-app-bg text-app-fg pointer-events-none flex aspect-[16/10] w-full flex-col overflow-hidden select-none',
-        scale === 'close' ? 'text-[clamp(7px,2.05cqw,14px)]' : 'text-[clamp(6px,1.5cqw,13px)]',
         className
       )}
     >
       <div
         aria-hidden='true'
-        className='bg-app-menu border-app-border flex h-[2.4em] shrink-0 items-center gap-[0.45em] border-b px-[1em]'
+        className={cn(
+          'flex min-h-0 flex-1 flex-col',
+          scale === 'close' ? 'text-[clamp(7px,2.05cqw,14px)]' : 'text-[clamp(6px,1.5cqw,13px)]'
+        )}
       >
-        <span className='bg-app-border size-[0.7em] rounded-full' />
-        <span className='bg-app-border size-[0.7em] rounded-full' />
-        <span className='bg-app-border size-[0.7em] rounded-full' />
-        <span className='bg-app-bg border-app-border text-app-faint mx-auto flex h-[1.5em] w-[40%] items-center justify-center rounded-[0.4em] border text-[0.7em]'>
-          {APP_HOST}
-        </span>
-      </div>
-      <div aria-hidden='true' className='flex min-h-0 flex-1'>
-        {children}
+        <div className='bg-app-menu border-app-border flex h-[2.4em] shrink-0 items-center gap-[0.45em] border-b px-[1em]'>
+          <span className='bg-app-border size-[0.7em] rounded-full' />
+          <span className='bg-app-border size-[0.7em] rounded-full' />
+          <span className='bg-app-border size-[0.7em] rounded-full' />
+          <span className='bg-app-bg border-app-border text-app-faint mx-auto flex h-[1.5em] w-[40%] items-center justify-center rounded-[0.4em] border text-[0.7em]'>
+            {APP_HOST}
+          </span>
+        </div>
+        <div className='flex min-h-0 flex-1'>{children}</div>
       </div>
     </div>
   )
