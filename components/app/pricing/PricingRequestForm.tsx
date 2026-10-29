@@ -33,7 +33,7 @@ import {
 import { useIsClient } from '@/lib/useIsClient'
 import { cn } from '@/lib/utils'
 
-type SubmissionStatus = 'idle' | 'loading' | 'success' | 'error' | 'captcha_required'
+type SubmissionStatus = 'idle' | 'loading' | 'success' | 'error' | 'captcha_error'
 
 type PricingRequestFormProps = {
   request: RequestedPrice
@@ -48,10 +48,7 @@ export function PricingRequestForm({ request, locale, open, openCount = 0, onSen
   const { estimate } = request
   const { t } = useTranslation()
   const [status, setStatus] = useState<SubmissionStatus>('idle')
-  /** The reCAPTCHA token from the checkbox above the send button; null until ticked, and again once it expires. */
-  const [recaptchaToken, setRecaptchaToken] = useState<string | null>(null)
-  /** The reCAPTCHA widget could not load (blocked, offline): sending through EmailJS is impossible. */
-  const [recaptchaFailed, setRecaptchaFailed] = useState(false)
+  const [showRecaptcha, setShowRecaptcha] = useState(false)
   const [formData, setFormData] = useState<PricingRequestValues | null>(null)
   const [pendingContext, setPendingContext] = useState<PricingRequestContext | null>(null)
   const [reference, setReference] = useState<string | null>(null)
@@ -96,36 +93,38 @@ export function PricingRequestForm({ request, locale, open, openCount = 0, onSen
     if (!getValues('country')) setValue('country', defaultCountry(locale))
   }, [open, openCount, setFocus, getValues, setValue, locale])
 
-  const resetRecaptcha = () => {
-    recaptchaRef.current?.reset()
-    setRecaptchaToken(null)
-  }
+  const sendEmail = async (token: string) => {
+    const data = formData
+    const ctx = pendingContext
+    if (!data || !ctx) return
 
-  const sendEmail = async (data: PricingRequestValues, ctx: PricingRequestContext, token: string) => {
     try {
       const params = buildPricingEmailParams(data, request, ctx, token)
       await send(EMAILJS_SERVICE_ID, EMAILJS_PRICING_TEMPLATE_ID, params, EMAILJS_PUBLIC_KEY)
       setStatus('success')
       reset()
-      resetRecaptcha()
+      setShowRecaptcha(false)
+      recaptchaRef.current?.reset()
       onSent?.({ reference: ctx.reference, hasMessage: !!data.message, country: data.country ?? '' })
     } catch (error) {
       console.error('[Pricing Request] EmailJS send error:', error)
       track(AnalyticsEvents.PricingRequestFailed, { reason: 'send_error' })
       setStatus('error')
-      resetRecaptcha()
+      setShowRecaptcha(false)
+      recaptchaRef.current?.reset()
     }
   }
 
-  // Ticking the box only stores the token; the send button sends. An expired token comes back as null.
   const onRecaptchaChange = (token: string | null) => {
-    setRecaptchaToken(token)
-    if (token) setStatus((current) => (current === 'captcha_required' ? 'idle' : current))
-  }
-
-  const onRecaptchaErrored = () => {
-    console.error('[Pricing Request] reCAPTCHA could not load')
-    setRecaptchaFailed(true)
+    if (token) {
+      void sendEmail(token)
+      return
+    }
+    console.error('[Pricing Request] reCAPTCHA verification failed')
+    track(AnalyticsEvents.PricingRequestFailed, { reason: 'captcha' })
+    setStatus('captcha_error')
+    setShowRecaptcha(false)
+    recaptchaRef.current?.reset()
   }
 
   const onSubmit = (data: PricingRequestValues) => {
@@ -140,10 +139,8 @@ export function PricingRequestForm({ request, locale, open, openCount = 0, onSen
     const pageUrl = window.location.href.split('#')[0]
     const ctx: PricingRequestContext = { reference: ref, locale, pageUrl }
 
-    // Nothing can be sent from here: offer the email fallbacks with the request filled in.
-    const unavailable = configError ? `missing_${configError}` : recaptchaFailed ? 'captcha_unavailable' : null
-    if (unavailable) {
-      track(AnalyticsEvents.PricingRequestFailed, { reason: unavailable })
+    if (configError) {
+      track(AnalyticsEvents.PricingRequestFailed, { reason: `missing_${configError}` })
       setReference(ref)
       setPendingContext(ctx)
       setFormData(data)
@@ -151,18 +148,12 @@ export function PricingRequestForm({ request, locale, open, openCount = 0, onSen
       return
     }
 
-    if (!recaptchaToken) {
-      track(AnalyticsEvents.PricingRequestInvalid, { fields: 'recaptcha' })
-      setStatus('captcha_required')
-      return
-    }
-
     setCookieConsent(true)
     setReference(ref)
     setPendingContext(ctx)
     setFormData(data)
+    setShowRecaptcha(true)
     setStatus('loading')
-    void sendEmail(data, ctx, recaptchaToken)
   }
 
   if (!open) return null
@@ -467,22 +458,20 @@ export function PricingRequestForm({ request, locale, open, openCount = 0, onSen
               />
             </p>
 
-            {/* reCAPTCHA checkbox above the send button (client only) */}
-            {RECAPTCHA_SITE_KEY && isClient && !configError && !recaptchaFailed && (
-              <div className='flex flex-col gap-2 sm:col-span-2'>
-                <ReCAPTCHA
-                  ref={recaptchaRef}
-                  sitekey={RECAPTCHA_SITE_KEY}
-                  hl={locale === 'pt-br' ? 'pt-BR' : locale}
-                  onChange={onRecaptchaChange}
-                  onExpired={() => setRecaptchaToken(null)}
-                  onErrored={onRecaptchaErrored}
-                />
-                {status === 'captcha_required' && (
-                  <span role='alert' className='text-xs text-destructive'>
-                    {t('pricing.request.captcha_required', 'Tick the "I\'m not a robot" box before sending.')}
-                  </span>
-                )}
+            {/* Inline status messages */}
+            {status === 'captcha_error' && (
+              <div
+                className='rounded-md border border-border bg-secondary p-3 text-sm text-destructive sm:col-span-2'
+                role='alert'
+              >
+                {t('pricing.request.captcha_error', 'reCAPTCHA verification failed. Please try again.')}
+              </div>
+            )}
+
+            {/* reCAPTCHA (deferred, client only) */}
+            {RECAPTCHA_SITE_KEY && isClient && showRecaptcha && (
+              <div className='sm:col-span-2'>
+                <ReCAPTCHA ref={recaptchaRef} sitekey={RECAPTCHA_SITE_KEY} onChange={onRecaptchaChange} />
               </div>
             )}
 

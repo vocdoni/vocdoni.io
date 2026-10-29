@@ -29,19 +29,14 @@ vi.mock('@emailjs/browser', () => ({
 
 vi.mock('react-google-recaptcha', () => ({
   default: React.forwardRef(function MockReCAPTCHA(
-    props: { onChange: (token: string) => void; onErrored?: () => void },
+    props: { onChange: (token: string) => void },
     _ref: React.ForwardedRef<unknown>
   ) {
     React.useImperativeHandle(_ref, () => ({ reset: () => {} }))
     return (
-      <>
-        <button type='button' data-testid='recaptcha' onClick={() => props.onChange('token')}>
-          captcha
-        </button>
-        <button type='button' data-testid='recaptcha-error' onClick={() => props.onErrored?.()}>
-          captcha error
-        </button>
-      </>
+      <button type='button' data-testid='recaptcha' onClick={() => props.onChange('token')}>
+        captcha
+      </button>
     )
   }),
 }))
@@ -163,45 +158,23 @@ describe('PricingRequestForm', () => {
     await user.selectOptions(screen.getByLabelText(/Country/), '')
     await user.click(screen.getByRole('button', { name: /Send request/ }))
     expect(await screen.findByText('Select your country', { selector: '[role=alert]' })).toBeInTheDocument()
-    expect(sendMock).not.toHaveBeenCalled()
+    expect(screen.queryByTestId('recaptcha')).not.toBeInTheDocument()
   })
 
-  it('shows the reCAPTCHA checkbox above the send button and asks for it before sending', async () => {
-    const { user } = setup()
-    expect(screen.getByTestId('recaptcha')).toBeInTheDocument()
-    await fillForm(user)
-    await user.click(screen.getByRole('button', { name: /Send request/ }))
-    expect(await screen.findByText('Tick the "I\'m not a robot" box before sending.')).toBeInTheDocument()
-    expect(sendMock).not.toHaveBeenCalled()
-    // Ticking it clears the message; sending then goes through.
-    await user.click(screen.getByTestId('recaptcha'))
-    expect(screen.queryByText('Tick the "I\'m not a robot" box before sending.')).not.toBeInTheDocument()
-    await user.click(screen.getByRole('button', { name: /Send request/ }))
-    await waitFor(() => expect(sendMock).toHaveBeenCalledTimes(1))
-  })
-
-  it('offers the email fallbacks when the reCAPTCHA cannot load', async () => {
-    const consoleError = vi.spyOn(console, 'error').mockImplementation(() => {})
-    onTestFinished(() => consoleError.mockRestore())
+  it('filling required fields and submitting shows the reCAPTCHA stub', async () => {
     const { user } = setup()
     await fillForm(user)
-    await user.click(screen.getByTestId('recaptcha-error'))
     await user.click(screen.getByRole('button', { name: /Send request/ }))
-    expect(await screen.findByRole('link', { name: 'Open in Gmail' })).toBeInTheDocument()
-    expect(sendMock).not.toHaveBeenCalled()
-    expect(trackAnalyticsEvent).toHaveBeenCalledWith({
-      name: 'pricing_request_failed',
-      props: expect.objectContaining({ reason: 'captcha_unavailable' }),
-    })
-    expect(consoleError).toHaveBeenCalledWith('[Pricing Request] reCAPTCHA could not load')
+    await waitFor(() => expect(screen.getByTestId('recaptcha')).toBeInTheDocument(), { timeout: 3000 })
   })
 
-  it('ticking the captcha then sending calls send with correct subject and message, then shows success', async () => {
+  it('clicking captcha calls send with correct subject and message, then shows success state', async () => {
     const onSent = vi.fn<OnSentCallback>()
     const { user } = setup(onSent)
     await fillForm(user)
-    await user.click(screen.getByTestId('recaptcha'))
     await user.click(screen.getByRole('button', { name: /Send request/ }))
+    await waitFor(() => expect(screen.getByTestId('recaptcha')).toBeInTheDocument(), { timeout: 3000 })
+    await user.click(screen.getByTestId('recaptcha'))
 
     await waitFor(
       () => {
@@ -248,8 +221,8 @@ describe('PricingRequestForm', () => {
     render(<PricingRequestForm request={{ voters: 1200, addons: {}, estimate: null }} locale='en' open />)
     expect(screen.queryByText(/\+ VAT/)).not.toBeInTheDocument()
     await fillForm(user)
-    await user.click(screen.getByTestId('recaptcha'))
     await user.click(screen.getByRole('button', { name: /Send request/ }))
+    await user.click(await screen.findByTestId('recaptcha'))
     await waitFor(() => expect(sendMock).toHaveBeenCalledTimes(1))
     const [, , params] = sendMock.mock.calls[0]
     expect((params as Record<string, string>).subject).toMatch(/: 1,200 people, price unavailable$/)
@@ -261,8 +234,9 @@ describe('PricingRequestForm', () => {
     onTestFinished(() => consoleError.mockRestore())
     const { user } = setup()
     await fillForm(user)
-    await user.click(screen.getByTestId('recaptcha'))
     await user.click(screen.getByRole('button', { name: /Send request/ }))
+    await waitFor(() => expect(screen.getByTestId('recaptcha')).toBeInTheDocument(), { timeout: 3000 })
+    await user.click(screen.getByTestId('recaptcha'))
 
     await waitFor(() => expect(screen.getByRole('link', { name: 'Other email app' })).toBeInTheDocument(), {
       timeout: 3000,
@@ -302,9 +276,8 @@ describe('PricingRequestForm', () => {
     setCookieConsent(false)
     const { user } = setup()
     await fillForm(user)
-    await user.click(screen.getByTestId('recaptcha'))
     await user.click(screen.getByRole('button', { name: /Send request/ }))
-    await waitFor(() => expect(sendMock).toHaveBeenCalledTimes(1))
+    expect(await screen.findByTestId('recaptcha')).toBeInTheDocument()
     expect(getCookieConsent()).toBe('accepted')
   })
 
@@ -318,8 +291,8 @@ describe('PricingRequestForm', () => {
       const user = userEvent.setup()
       const { unmount } = render(<PricingRequestForm request={free} locale='en' open />)
       await fillForm(user)
-      await user.click(screen.getByTestId('recaptcha'))
       await user.click(screen.getByRole('button', { name: /Send request/ }))
+      await user.click(await screen.findByTestId('recaptcha'))
       expect(await screen.findByText('Request received')).toBeInTheDocument()
       return unmount
     }
