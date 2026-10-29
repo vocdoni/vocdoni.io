@@ -181,6 +181,8 @@ describe('PricingRequestForm', () => {
   })
 
   it('offers the email fallbacks when the reCAPTCHA cannot load', async () => {
+    const consoleError = vi.spyOn(console, 'error').mockImplementation(() => {})
+    onTestFinished(() => consoleError.mockRestore())
     const { user } = setup()
     await fillForm(user)
     await user.click(screen.getByTestId('recaptcha-error'))
@@ -191,6 +193,7 @@ describe('PricingRequestForm', () => {
       name: 'pricing_request_failed',
       props: expect.objectContaining({ reason: 'captcha_unavailable' }),
     })
+    expect(consoleError).toHaveBeenCalledWith('[Pricing Request] reCAPTCHA could not load')
   })
 
   it('ticking the captcha then sending calls send with correct subject and message, then shows success', async () => {
@@ -299,8 +302,9 @@ describe('PricingRequestForm', () => {
     setCookieConsent(false)
     const { user } = setup()
     await fillForm(user)
+    await user.click(screen.getByTestId('recaptcha'))
     await user.click(screen.getByRole('button', { name: /Send request/ }))
-    expect(await screen.findByTestId('recaptcha')).toBeInTheDocument()
+    await waitFor(() => expect(sendMock).toHaveBeenCalledTimes(1))
     expect(getCookieConsent()).toBe('accepted')
   })
 
@@ -314,8 +318,8 @@ describe('PricingRequestForm', () => {
       const user = userEvent.setup()
       const { unmount } = render(<PricingRequestForm request={free} locale='en' open />)
       await fillForm(user)
+      await user.click(screen.getByTestId('recaptcha'))
       await user.click(screen.getByRole('button', { name: /Send request/ }))
-      await user.click(await screen.findByTestId('recaptcha'))
       expect(await screen.findByText('Request received')).toBeInTheDocument()
       return unmount
     }
