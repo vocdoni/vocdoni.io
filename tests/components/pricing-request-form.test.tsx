@@ -295,8 +295,9 @@ describe('PricingRequestForm', () => {
     setCookieConsent(false)
     const { user } = setup()
     await fillForm(user)
+    await user.click(screen.getByTestId('recaptcha'))
     await user.click(screen.getByRole('button', { name: /Send request/ }))
-    expect(await screen.findByTestId('recaptcha')).toBeInTheDocument()
+    await waitFor(() => expect(sendMock).toHaveBeenCalledTimes(1))
     expect(getCookieConsent()).toBe('accepted')
   })
 
@@ -310,8 +311,8 @@ describe('PricingRequestForm', () => {
       const user = userEvent.setup()
       const { unmount } = render(<PricingRequestForm request={free} locale='en' open />)
       await fillForm(user)
+      await user.click(screen.getByTestId('recaptcha'))
       await user.click(screen.getByRole('button', { name: /Send request/ }))
-      await user.click(await screen.findByTestId('recaptcha'))
       expect(await screen.findByText('Request received')).toBeInTheDocument()
       return unmount
     }
