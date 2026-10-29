@@ -13,7 +13,7 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
 import { useAppAuthUrl } from '@/hooks/useAppAuthUrl'
-import { getContactFormConfigError } from '@/lib/contactForm'
+import { getContactFormConfigError, recaptchaLanguage } from '@/lib/contactForm'
 import { AnalyticsEvents, trackAnalyticsEvent, type AnalyticsEventName } from '@/lib/analytics'
 import { setCookieConsent } from '@/lib/cookieConsent'
 import { formatCurrency, formatPeople, pluralCount } from '@/lib/pricing/format'
@@ -128,12 +128,19 @@ export function PricingRequestForm({ request, locale, open, openCount = 0, onSen
   }
 
   // The widget could not load (blocked, offline): nothing can be sent from here, so offer the email fallbacks
-  // with the request filled in instead of spinning on "Sending...".
+  // with the request filled in instead of spinning on "Sending...". Nothing is kept: "Try again" mounts the
+  // widget afresh on the next send.
   const onRecaptchaErrored = () => {
     console.error('[Pricing Request] reCAPTCHA could not load')
     track(AnalyticsEvents.PricingRequestFailed, { reason: 'captcha_unavailable' })
     setShowRecaptcha(false)
     setStatus('error')
+  }
+
+  // react-async-script reports a blocked or failed `recaptcha/api.js` through this callback (with `errored`);
+  // `onErrored` is grecaptcha's own error-callback and never fires when the script itself does not load.
+  const onRecaptchaScriptLoad = (state?: { errored?: boolean }) => {
+    if (state?.errored) onRecaptchaErrored()
   }
 
   const onSubmit = (data: PricingRequestValues) => {
@@ -483,7 +490,8 @@ export function PricingRequestForm({ request, locale, open, openCount = 0, onSen
                 <ReCAPTCHA
                   ref={recaptchaRef}
                   sitekey={RECAPTCHA_SITE_KEY}
-                  hl={locale === 'pt-br' ? 'pt-BR' : locale}
+                  hl={recaptchaLanguage(locale)}
+                  asyncScriptOnLoad={onRecaptchaScriptLoad}
                   onChange={onRecaptchaChange}
                   onErrored={onRecaptchaErrored}
                 />

@@ -204,7 +204,7 @@ describe('PricingRequestForm', () => {
     })
   })
 
-  it('offers the email fallbacks when the reCAPTCHA cannot load after pressing send', async () => {
+  it('offers the email fallbacks when grecaptcha reports an error after pressing send', async () => {
     const consoleError = vi.spyOn(console, 'error').mockImplementation(() => {})
     onTestFinished(() => consoleError.mockRestore())
     const { user } = setup()
