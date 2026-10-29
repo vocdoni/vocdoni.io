@@ -4534,6 +4534,7 @@
     "request": {
       "book_call": "Book a call",
       "captcha_error": "reCAPTCHA verification failed. Please try again.",
+      "captcha_unavailable_hint": "The security check could not load, for example because of a content blocker. Reload the page to try again.",
       "chip_full_total": "Total {{total}} + VAT",
       "chip_people_one": "{{people}} person",
       "chip_people_other": "{{people}} people",
@@ -4562,6 +4563,7 @@
       "name": "Your name",
       "organization": "Organisation",
       "privacy": "By sending this request you accept the <plink>privacy policy</plink>. Vocdoni uses these details only to prepare your estimate and answer your request.",
+      "reload": "Reload the page",
       "retry": "Try again",
       "sending": "Sending...",
       "submit": "Send request",

@@ -42,3 +42,9 @@ export function buildEmailJsParams(data: ContactFormValues, token: string, now: 
     'g-recaptcha-response': token,
   }
 }
+
+/** reCAPTCHA `hl` codes where the site locale differs: plain `pt` would load Brazilian strings. */
+const RECAPTCHA_LANGUAGE: Record<string, string> = { pt: 'pt-PT', 'pt-br': 'pt-BR' }
+
+/** The reCAPTCHA widget language for a site locale. */
+export const recaptchaLanguage = (locale: string): string => RECAPTCHA_LANGUAGE[locale] ?? locale

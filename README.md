@@ -90,7 +90,8 @@ Create a `.env.local` file to override any variable locally. All of the followin
 |---|---|
 | `EMAILJS_PUBLIC_KEY` | EmailJS public key (contact form) |
 | `EMAILJS_SERVICE_ID` | EmailJS service ID |
-| `EMAILJS_TEMPLATE_ID` | EmailJS template ID |
+| `EMAILJS_TEMPLATE_ID` | EmailJS template ID for the contact form |
+| `EMAILJS_PRICING_TEMPLATE_ID` | EmailJS template ID for the /pricing request form (separate from the contact form) |
 | `GTM_ID` | Google Tag Manager container ID |
 | `POSTHOG_KEY` | Public PostHog browser-ingestion key. Must be the **same** `phc_` key as app.vocdoni.io. Also set it on the Netlify site with the Functions scope for crawler logging ([details](docs/deployment.md#crawler-logging)) |
 | `POSTHOG_HOST` | PostHog browser-ingestion host, optional (defaults to the EU cluster). If you override it, set the same value on the Netlify site (Functions scope) so crawler logging reports to the same host |

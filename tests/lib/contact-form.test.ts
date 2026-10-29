@@ -5,6 +5,7 @@ import {
   getContactFormConfigError,
   type ContactFormConfig,
   type ContactFormValues,
+  recaptchaLanguage,
 } from '@/lib/contactForm'
 
 describe('contact form helpers', () => {
@@ -93,5 +94,14 @@ describe('contact form helpers', () => {
     })
 
     vi.useRealTimers()
+  })
+})
+
+describe('recaptchaLanguage', () => {
+  it('maps the Portuguese locales to their reCAPTCHA variants and passes the rest through', () => {
+    expect(recaptchaLanguage('pt')).toBe('pt-PT')
+    expect(recaptchaLanguage('pt-br')).toBe('pt-BR')
+    expect(recaptchaLanguage('ca')).toBe('ca')
+    expect(recaptchaLanguage('en')).toBe('en')
   })
 })

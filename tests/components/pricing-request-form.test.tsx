@@ -29,14 +29,19 @@ vi.mock('@emailjs/browser', () => ({
 
 vi.mock('react-google-recaptcha', () => ({
   default: React.forwardRef(function MockReCAPTCHA(
-    props: { onChange: (token: string) => void },
+    props: { onChange: (token: string) => void; onErrored?: () => void },
     _ref: React.ForwardedRef<unknown>
   ) {
     React.useImperativeHandle(_ref, () => ({ reset: () => {} }))
     return (
-      <button type='button' data-testid='recaptcha' onClick={() => props.onChange('token')}>
-        captcha
-      </button>
+      <>
+        <button type='button' data-testid='recaptcha' onClick={() => props.onChange('token')}>
+          captcha
+        </button>
+        <button type='button' data-testid='recaptcha-error' onClick={() => props.onErrored?.()}>
+          captcha error
+        </button>
+      </>
     )
   }),
 }))
@@ -76,7 +81,7 @@ const sendMock = vi.mocked(send)
 function stubGlobals() {
   vi.stubGlobal('EMAILJS_PUBLIC_KEY', 'pk-test')
   vi.stubGlobal('EMAILJS_SERVICE_ID', 'svc-test')
-  vi.stubGlobal('EMAILJS_TEMPLATE_ID', 'tmpl-test')
+  vi.stubGlobal('EMAILJS_PRICING_TEMPLATE_ID', 'tmpl-pricing-test')
   vi.stubGlobal('RECAPTCHA_SITE_KEY', 'rckey-test')
   vi.stubGlobal(
     'IntersectionObserver',
@@ -197,6 +202,22 @@ describe('PricingRequestForm', () => {
       hasMessage: false,
       country: 'ES',
     })
+  })
+
+  it('offers the email fallbacks when grecaptcha reports an error after pressing send', async () => {
+    const consoleError = vi.spyOn(console, 'error').mockImplementation(() => {})
+    onTestFinished(() => consoleError.mockRestore())
+    const { user } = setup()
+    await fillForm(user)
+    await user.click(screen.getByRole('button', { name: /Send request/ }))
+    await user.click(await screen.findByTestId('recaptcha-error'))
+    expect(await screen.findByRole('link', { name: 'Open in Gmail' })).toBeInTheDocument()
+    expect(sendMock).not.toHaveBeenCalled()
+    expect(trackAnalyticsEvent).toHaveBeenCalledWith({
+      name: 'pricing_request_failed',
+      props: expect.objectContaining({ reason: 'captcha_unavailable' }),
+    })
+    expect(consoleError).toHaveBeenCalledWith('[Pricing Request] reCAPTCHA could not load')
   })
 
   it('a filled honeypot field reaches success state without calling send or onSent', async () => {

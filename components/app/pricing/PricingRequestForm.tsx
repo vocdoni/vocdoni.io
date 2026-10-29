@@ -13,7 +13,7 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
 import { useAppAuthUrl } from '@/hooks/useAppAuthUrl'
-import { getContactFormConfigError } from '@/lib/contactForm'
+import { getContactFormConfigError, recaptchaLanguage } from '@/lib/contactForm'
 import { AnalyticsEvents, trackAnalyticsEvent, type AnalyticsEventName } from '@/lib/analytics'
 import { setCookieConsent } from '@/lib/cookieConsent'
 import { formatCurrency, formatPeople, pluralCount } from '@/lib/pricing/format'
@@ -53,6 +53,8 @@ export function PricingRequestForm({ request, locale, open, openCount = 0, onSen
   const [pendingContext, setPendingContext] = useState<PricingRequestContext | null>(null)
   const [reference, setReference] = useState<string | null>(null)
   const [copied, setCopied] = useState(false)
+  /** recaptcha/api.js failed to load. react-async-script caches that failure until the page reloads. */
+  const [recaptchaScriptFailed, setRecaptchaScriptFailed] = useState(false)
   const recaptchaRef = useRef<ReCAPTCHA>(null)
   /** Whether this opening of the form has already reported `pricing_request_started`. */
   const startedRef = useRef(false)
@@ -78,7 +80,7 @@ export function PricingRequestForm({ request, locale, open, openCount = 0, onSen
     emailJs: {
       publicKey: EMAILJS_PUBLIC_KEY,
       serviceId: EMAILJS_SERVICE_ID,
-      templateId: EMAILJS_TEMPLATE_ID,
+      templateId: EMAILJS_PRICING_TEMPLATE_ID,
     },
     recaptchaSiteKey: RECAPTCHA_SITE_KEY,
   })
@@ -100,7 +102,7 @@ export function PricingRequestForm({ request, locale, open, openCount = 0, onSen
 
     try {
       const params = buildPricingEmailParams(data, request, ctx, token)
-      await send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, params, EMAILJS_PUBLIC_KEY)
+      await send(EMAILJS_SERVICE_ID, EMAILJS_PRICING_TEMPLATE_ID, params, EMAILJS_PUBLIC_KEY)
       setStatus('success')
       reset()
       setShowRecaptcha(false)
@@ -125,6 +127,26 @@ export function PricingRequestForm({ request, locale, open, openCount = 0, onSen
     setStatus('captcha_error')
     setShowRecaptcha(false)
     recaptchaRef.current?.reset()
+  }
+
+  // The widget could not load (blocked, offline): nothing can be sent from here, so offer the email fallbacks
+  // with the request filled in instead of spinning on "Sending...". After grecaptcha's own error-callback,
+  // "Try again" mounts the widget afresh on the next send.
+  const onRecaptchaErrored = () => {
+    console.error('[Pricing Request] reCAPTCHA could not load')
+    track(AnalyticsEvents.PricingRequestFailed, { reason: 'captcha_unavailable' })
+    setShowRecaptcha(false)
+    setStatus('error')
+  }
+
+  // react-async-script reports a blocked or failed `recaptcha/api.js` through this callback (with `errored`);
+  // `onErrored` is grecaptcha's own error-callback and never fires when the script itself does not load.
+  // That failure stays in react-async-script's module-level cache, so a remount reports it again at once
+  // and injects no new script: only a page reload retries, which the fallback offers.
+  const onRecaptchaScriptLoad = (state?: { errored?: boolean }) => {
+    if (!state?.errored) return
+    setRecaptchaScriptFailed(true)
+    onRecaptchaErrored()
   }
 
   const onSubmit = (data: PricingRequestValues) => {
@@ -235,6 +257,14 @@ export function PricingRequestForm({ request, locale, open, openCount = 0, onSen
             <p className='text-sm text-muted-foreground'>
               {t('pricing.request.error_body', 'Send it by email instead; we have filled it in for you.')}
             </p>
+            {recaptchaScriptFailed && (
+              <p className='text-sm text-muted-foreground'>
+                {t(
+                  'pricing.request.captcha_unavailable_hint',
+                  'The security check could not load, for example because of a content blocker. Reload the page to try again.'
+                )}
+              </p>
+            )}
           </div>
           <div className='flex flex-col gap-3 sm:flex-row sm:flex-wrap'>
             <Button size='lg' className='w-full sm:w-auto has-[>svg]:px-6' asChild>
@@ -268,9 +298,25 @@ export function PricingRequestForm({ request, locale, open, openCount = 0, onSen
             </Button>
           </div>
           <div>
-            <Button variant='ghost' size='sm' className='-ml-3 text-muted-foreground' onClick={() => setStatus('idle')}>
-              {t('pricing.request.retry', 'Try again')}
-            </Button>
+            {recaptchaScriptFailed ? (
+              <Button
+                variant='ghost'
+                size='sm'
+                className='-ml-3 text-muted-foreground'
+                onClick={() => window.location.reload()}
+              >
+                {t('pricing.request.reload', 'Reload the page')}
+              </Button>
+            ) : (
+              <Button
+                variant='ghost'
+                size='sm'
+                className='-ml-3 text-muted-foreground'
+                onClick={() => setStatus('idle')}
+              >
+                {t('pricing.request.retry', 'Try again')}
+              </Button>
+            )}
           </div>
         </div>
       </div>
@@ -471,7 +517,14 @@ export function PricingRequestForm({ request, locale, open, openCount = 0, onSen
             {/* reCAPTCHA (deferred, client only) */}
             {RECAPTCHA_SITE_KEY && isClient && showRecaptcha && (
               <div className='sm:col-span-2'>
-                <ReCAPTCHA ref={recaptchaRef} sitekey={RECAPTCHA_SITE_KEY} onChange={onRecaptchaChange} />
+                <ReCAPTCHA
+                  ref={recaptchaRef}
+                  sitekey={RECAPTCHA_SITE_KEY}
+                  hl={recaptchaLanguage(locale)}
+                  asyncScriptOnLoad={onRecaptchaScriptLoad}
+                  onChange={onRecaptchaChange}
+                  onErrored={onRecaptchaErrored}
+                />
               </div>
             )}
 

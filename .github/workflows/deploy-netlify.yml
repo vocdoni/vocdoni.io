@@ -101,6 +101,7 @@ jobs:
           EMAILJS_PUBLIC_KEY: ${{ vars.EMAILJS_PUBLIC_KEY }}
           EMAILJS_SERVICE_ID: ${{ vars.EMAILJS_SERVICE_ID }}
           EMAILJS_TEMPLATE_ID: ${{ vars.EMAILJS_TEMPLATE_ID }}
+          EMAILJS_PRICING_TEMPLATE_ID: ${{ vars.EMAILJS_PRICING_TEMPLATE_ID }}
           GTM_ID: ${{ vars.GTM_ID }}
           PLAUSIBLE_DOMAIN: ${{ vars.PLAUSIBLE_DOMAIN }}
           # Public browser-ingestion key. Leaving it unset disables PostHog in the browser (nothing is loaded),
