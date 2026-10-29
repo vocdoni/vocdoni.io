@@ -81,7 +81,7 @@ export function PricingRequestForm({ request, locale, open, openCount = 0, onSen
     emailJs: {
       publicKey: EMAILJS_PUBLIC_KEY,
       serviceId: EMAILJS_SERVICE_ID,
-      templateId: EMAILJS_TEMPLATE_ID,
+      templateId: EMAILJS_PRICING_TEMPLATE_ID,
     },
     recaptchaSiteKey: RECAPTCHA_SITE_KEY,
   })
@@ -104,7 +104,7 @@ export function PricingRequestForm({ request, locale, open, openCount = 0, onSen
   const sendEmail = async (data: PricingRequestValues, ctx: PricingRequestContext, token: string) => {
     try {
       const params = buildPricingEmailParams(data, request, ctx, token)
-      await send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, params, EMAILJS_PUBLIC_KEY)
+      await send(EMAILJS_SERVICE_ID, EMAILJS_PRICING_TEMPLATE_ID, params, EMAILJS_PUBLIC_KEY)
       setStatus('success')
       reset()
       resetRecaptcha()

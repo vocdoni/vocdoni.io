@@ -16,6 +16,8 @@ declare const POSTHOG_HOST: string
 declare const EMAILJS_PUBLIC_KEY: string
 declare const EMAILJS_SERVICE_ID: string
 declare const EMAILJS_TEMPLATE_ID: string
+// The pricing request form has its own template, so it never overwrites the contact form's
+declare const EMAILJS_PRICING_TEMPLATE_ID: string
 // reCAPTCHA configuration variable defined in vite.config.ts
 declare const RECAPTCHA_SITE_KEY: string
 // Wasaaaapp

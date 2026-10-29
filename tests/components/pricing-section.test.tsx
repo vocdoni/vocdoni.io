@@ -62,7 +62,7 @@ const requestedVoters = () =>
 function stubGlobals() {
   vi.stubGlobal('EMAILJS_PUBLIC_KEY', 'pk-test')
   vi.stubGlobal('EMAILJS_SERVICE_ID', 'svc-test')
-  vi.stubGlobal('EMAILJS_TEMPLATE_ID', 'tmpl-test')
+  vi.stubGlobal('EMAILJS_PRICING_TEMPLATE_ID', 'tmpl-pricing-test')
   vi.stubGlobal('RECAPTCHA_SITE_KEY', 'rckey-test')
   vi.stubGlobal(
     'IntersectionObserver',
