@@ -127,6 +127,15 @@ export function PricingRequestForm({ request, locale, open, openCount = 0, onSen
     recaptchaRef.current?.reset()
   }
 
+  // The widget could not load (blocked, offline): nothing can be sent from here, so offer the email fallbacks
+  // with the request filled in instead of spinning on "Sending...".
+  const onRecaptchaErrored = () => {
+    console.error('[Pricing Request] reCAPTCHA could not load')
+    track(AnalyticsEvents.PricingRequestFailed, { reason: 'captcha_unavailable' })
+    setShowRecaptcha(false)
+    setStatus('error')
+  }
+
   const onSubmit = (data: PricingRequestValues) => {
     // Honeypot: non-empty means a bot; silently succeed without sending
     if (data.website) {
@@ -471,7 +480,13 @@ export function PricingRequestForm({ request, locale, open, openCount = 0, onSen
             {/* reCAPTCHA (deferred, client only) */}
             {RECAPTCHA_SITE_KEY && isClient && showRecaptcha && (
               <div className='sm:col-span-2'>
-                <ReCAPTCHA ref={recaptchaRef} sitekey={RECAPTCHA_SITE_KEY} onChange={onRecaptchaChange} />
+                <ReCAPTCHA
+                  ref={recaptchaRef}
+                  sitekey={RECAPTCHA_SITE_KEY}
+                  hl={locale === 'pt-br' ? 'pt-BR' : locale}
+                  onChange={onRecaptchaChange}
+                  onErrored={onRecaptchaErrored}
+                />
               </div>
             )}
 
