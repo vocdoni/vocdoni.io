@@ -83,6 +83,11 @@ describe('PricingRequestForm with the real reCAPTCHA loader', () => {
 
     expect(await screen.findByRole('link', { name: 'Open in Gmail' })).toBeInTheDocument()
     expect(send).not.toHaveBeenCalled()
+    // react-async-script caches the failed script until a reload, so "Try again" would fail at once:
+    // the fallback explains it and offers a reload instead.
+    expect(screen.getByText(/The security check could not load/)).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: 'Reload the page' })).toBeInTheDocument()
+    expect(screen.queryByRole('button', { name: 'Try again' })).not.toBeInTheDocument()
     expect(trackAnalyticsEvent).toHaveBeenCalledWith({
       name: 'pricing_request_failed',
       props: expect.objectContaining({ reason: 'captcha_unavailable' }),
