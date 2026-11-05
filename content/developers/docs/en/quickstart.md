@@ -25,7 +25,8 @@ browser by the SDK. The Quickstart proves the full server-side path up to readin
 > shown only once - store it safely.
 
 > [!NOTE] One managed organization on the free tier
-> The free tier allows **one managed organization**. Delete it (see
+> Staging enforces no integrator quota, so you can rerun the Quickstart there freely. In production the
+> free tier allows **one managed organization**: delete it (see
 > [Managed organizations](/developers/docs/managed-organizations)) or request more quota to run the
 > Quickstart repeatedly.
 

@@ -13,10 +13,10 @@ All endpoints share one base URL. Authenticated endpoints expect an `Authorizati
 
 The SaaS API runs in two independent environments. Accounts, organizations and API keys exist in only one of them, so you sign up separately on each dashboard, and a key from one will not authenticate against the other. The examples in these docs call {{EXAMPLES_ENVIRONMENT}} (`{{API_BASE_URL}}`).
 
-| Environment | Dashboard (sign up here) | API base URL | Use it for |
+| Environment | API base URL | Dashboard (sign up here) | Use it for |
 | --- | --- | --- | --- |
-| Staging | [Staging dashboard]({{STAGING_DASHBOARD_URL}}) | `{{STAGING_API_BASE_URL}}` | Wiring up and testing your integration against the latest build. Treat its data as disposable. |
-| Production | [Production dashboard]({{PRODUCTION_DASHBOARD_URL}}) | `{{PRODUCTION_API_BASE_URL}}` | Live elections. |
+| Staging | `{{STAGING_API_BASE_URL}}` | [Staging dashboard]({{STAGING_DASHBOARD_URL}}) | Wiring up and testing your integration against the latest build. Treat its data as disposable. |
+| Production | `{{PRODUCTION_API_BASE_URL}}` | [Production dashboard]({{PRODUCTION_DASHBOARD_URL}}) | Live elections. |
 
 :::code-tabs
 

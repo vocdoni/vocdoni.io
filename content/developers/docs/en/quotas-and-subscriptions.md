@@ -64,7 +64,7 @@ before you provision more.
 
 > [!NOTE] Reading the limits
 > A `0` limit means **unlimited**. `enabled: false` means integrator features aren't turned on for your
-> plan - enable integrator access or upgrade from the API Dashboard of the environment you call.
+> plan - enable integrator access or upgrade from the [production API Dashboard]({{PRODUCTION_DASHBOARD_URL}}).
 
 > [!NOTE] How processes are counted
 > A [process](/developers/docs/voting-processes) counts as **one** published process against
@@ -87,9 +87,9 @@ the cascade also rolls back your usage counters. See
 with Vocdoni**. After the agreement, your negotiated allowances - how many managed organizations and
 published processes you can run, how many votes you can relay, and your email/SMS OTP budget - are
 provisioned on your integrator account and surface in `GET /integrator`. There is no self-serve
-upgrade for integrator quotas: to raise a limit, talk to the Vocdoni team through the API Dashboard of the
-environment you call (see [environments](/developers/docs/api-conventions#environments)) or your account
-contact, and the new values take effect once your plan is updated.
+upgrade for integrator quotas: to raise a limit, talk to the Vocdoni team through the
+[production API Dashboard]({{PRODUCTION_DASHBOARD_URL}}) or your account contact, and the new values take
+effect once your plan is updated.
 
 > [!TIP] Check headroom before you provision
 > Read `GET /integrator` and compare each limit with its `usage` counter before creating an org,

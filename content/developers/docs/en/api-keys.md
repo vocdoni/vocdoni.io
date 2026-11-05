@@ -66,7 +66,8 @@ explicitly.
 
 ## Managing keys
 
-Review and revoke keys in the API Dashboard of the environment you call. The same operations are
+Review and revoke keys in the API Dashboard of the environment you call (see
+[environments](/developers/docs/api-conventions#environments)). The same operations are
 available programmatically for multi-tenant provisioning. They are **session-only**: an API key cannot
 manage keys, so authenticate as an admin user (`POST /auth/login`) and send that session token instead
 of a `vsk_` key.
