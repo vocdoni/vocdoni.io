@@ -547,10 +547,52 @@ await client.jobs.waitFor(bulk.jobId)
 > Each question tallies independently. See [Results](/developers/docs/results) for the per-question
 > response shape and how finality works.
 
+## Extending the end date
+
+An admin can move the end date of a published process **later**. It is free, and it runs as an
+asynchronous [job](/developers/docs/jobs#end-date-jobs) that extends every open (`READY` or `PAUSED`)
+question on chain; closed questions keep their outcome and are skipped. Admin only: a JWT, or an API
+key with `voting:write` whose user is an Admin.
+
+- **PUT** `/processes/{processId}/endDate`
+
+```bash
+curl "${auth[@]}" -X PUT "$B/processes/$PROCESS/endDate" -d '{"endDate":"2027-07-05T18:00:00Z"}'
+# -> 202 { "jobId": "c3d4e5..." }   poll /jobs/{jobId}
+```
+
+> [!NOTE] Not in the SDK yet
+> `@vocdoni/api-client` does not wrap this endpoint yet. Call it with any HTTP client, sending your
+> bearer token, and poll the job with `client.jobs.waitFor(jobId, { timeoutMs: 10 * 60_000 })`: it
+> mines one transaction per open question, about a minute each, so the 60 s default is too short.
+
+`endDate` is RFC 3339 (any offset; stored in UTC, truncated to seconds). The request is refused with a
+`400` unless:
+
+- the new end is at least **5 minutes after the current end** (sending the current end again is an
+  accepted no-op);
+- it is at most the plan's maximum process duration (`organization.maxDaysDuration` in the plan)
+  after the process's `startDate`. For a managed organization the integrator's plan sets the limit;
+- it arrives at least **5 minutes plus 1 minute per open question** before the current end. The one
+  exception is a repair: an `endDate` that an open question already ends at on chain, left behind by
+  a partially failed job, is accepted even later.
+
+The stored `endDate` changes only when every question was extended. On a partial failure the job
+fails with `n of m questions failed; send the same endDate again to finish the rest`: send the same
+request again and the questions already done are no-ops. Other errors:
+
+- `400` also for a malformed body or `endDate`, a process that is not published, or one with no open
+  question left to extend;
+- `401` (not an admin) and `404` (no such process);
+- `500`: no job was created, so retrying is safe;
+- `503`: `50303` another transaction of the organization is in progress, or `50301` the transaction
+  queue is full.
+
 ## Gotchas
 
 - A process is a **draft** until you publish it; edits are allowed only while `published: false`.
-- Publish and status changes are **jobs** - read the outcome from `/jobs/{jobId}`, not the POST body.
+- Publish, status changes and end date extensions are **jobs** - read the outcome from
+  `/jobs/{jobId}`, not the POST body.
 - Address the process by its **`processId`** everywhere server-side. A question's **`upstreamId`** is
   only needed client-side, when a voter signs a ballot for that question.
 - The inline census id is internal - you never send or receive it. See [Census](/developers/docs/census).

@@ -31,9 +31,11 @@ const job = await client.jobs.get(jobId) // a single poll; see below to poll to 
 ```jsonc
 { "jobId": "a1b2c3...",
   "type": "publish_voting_process",   // org_members | publish_voting_process | set_process_status |
-                                      //   set_process_census | relay_vote | relay_votes
+                                      //   set_process_census | set_process_end_date | relay_vote |
+                                      //   relay_votes
   "status": "completed",              // pending | completed | failed
-  "result": { "status": "READY",      // on status change: the new status
+  "result": { "status": "READY",      // on status change: the new status; on an end date
+                                      //   change: the requested end date
               "processId": "",        // on relay_vote: the target on-chain election id (the
                                       //   question's upstreamId), readable while pending
               "nullifier": "",        // on relay_vote: the vote nullifier (readable while pending)
@@ -82,6 +84,8 @@ while True:
 - `org_members` - bulk member import.
 - `publish_voting_process` - publishing a process (its census and one election per question, in one batch).
 - `set_process_status` - changing a question's status.
+- `set_process_end_date` - [extending the end date](/developers/docs/voting-processes#extending-the-end-date)
+  of a published process. See [End date jobs](#end-date-jobs).
 - `set_process_census` - raising the on-chain `maxCensusSize` of live elections that need more room.
   See [Census-update jobs](#census-update-jobs).
 - `relay_vote` - relaying a single vote to the protocol.
@@ -133,6 +137,30 @@ per question the job targeted (`questionId`, `status`, and `error` or `noOp` whe
   `failed` if **any** attempted resize failed, and its error names each failed question.
 - On success `result.status` is `completed`. A `set_process_status` job reports its questions in the
   same `result.questions` shape.
+
+## End date jobs
+
+A `set_process_end_date` job extends every open question of a process to the requested end date. Its
+`result.status` is that date (applied only if the job completed), and `result.questions` holds one
+entry per open question in the census-update shape:
+
+```jsonc
+{ "jobId": "c3d4e5...", "type": "set_process_end_date", "status": "failed",
+  "errors": ["1 of 2 questions failed; send the same endDate again to finish the rest"],
+  "result": { "status": "2027-07-05T18:00:00Z", "questions": [
+      { "questionId": "66b1...", "status": "completed" },
+      { "questionId": "66b2...", "status": "failed", "error": "<chain error>" } ] } }
+```
+
+- **`noOp: true`** marks a question that needed no transaction: it is still open and already ends at
+  the requested date (an earlier run extended it), or it was found closed on chain (the reason is in
+  `error`, and its stored status is corrected).
+- The job can fail **before sending anything**: when it cannot extend every question safely, when the
+  stored end date changed after the request was validated (the error names the current one and asks
+  for a new request), or when no open question is left. Read the per-question entries rather than
+  matching on the error text.
+- The process's stored `endDate`, which voter authentication checks, moves only when the job
+  completes. After a partial failure, send the same `endDate` again to finish the rest.
 
 ## The members-job
 
