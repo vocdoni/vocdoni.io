@@ -155,7 +155,8 @@ const { authToken } = await client.elections.authStep0(processId, {
   in an hour with the same other credentials, step 0 answers `400` (error code `40017`) with
   `data.retryAfter`, the seconds until the hour resets - even to the right password. So anyone who
   knows a voter's other auth fields can lock them out for the hour: prefer auth fields that are not
-  public, or add a 2FA field.
+  public. A 2FA field only raises the bar: those 10 then count per contact too, but 100 failures across
+  any contacts still lock the voter out, and 10 do when the contact is known.
 - A **malformed** one (not 64 lowercase hex, such as the plaintext) is `400` (error code `40005`)
   "invalid password format", and a **missing** one `400` (error code `40005`) "missing required auth
   data".
