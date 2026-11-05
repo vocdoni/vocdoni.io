@@ -18,7 +18,8 @@ Results are **public** (no auth) and available both while a process runs (a live
 ends (final). Because each question is its own election, results come back **per question**. The one
 exception is the free-text [memos](#voter-memos) on an open-value question, which are returned to a
 manager/admin only. The results payload does not say when a question ended early: read `endedAt` on
-the [process or question](/developers/docs/voting-processes#reading-a-process) instead.
+the [process or question](/developers/docs/voting-processes#reading-a-process) instead, or let the SDK's
+`resolveEndDate` and `questionsEndedAt` helpers pick the right date.
 
 ## Reading results
 

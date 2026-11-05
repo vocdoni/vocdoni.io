@@ -276,6 +276,23 @@ The values are stored, so the list carries them too - except for an older vote e
 them only once its detail (`GET /processes/{processId}`) or one of its questions
 (`GET /processes/{processId}/questions/{questionId}`) has been read.
 
+With the SDK, `resolveEndDate(process)` from `@vocdoni/api-client` (2.4.0 and later) applies that rule
+and returns a `Date`; it also falls back to `endDate` when `endedAt` is unparseable or earlier than
+`startDate` (a process cancelled before it began), and returns `undefined` when no date parses.
+Questions have no `endDate`: `questionsEndedAt(questions)` returns the latest `endedAt` of a set of
+questions, but only once every one of them was ended early; a question that runs to its scheduled
+end never gets an `endedAt`, so fall back to the process end. The raw `endedAt` and `endDate` stay on
+the response.
+
+```ts
+import { questionsEndedAt, resolveEndDate } from '@vocdoni/api-client'
+
+const process = await client.elections.get(processId)
+const closesAt = resolveEndDate(process) // Date | undefined
+const secret = process.questions.filter((q) => q.secretUntilTheEnd)
+const secretClosedAt = questionsEndedAt(secret) ?? closesAt
+```
+
 The `census` object also carries response-only **`size`** (eligible-voter count, on every read) and
 **`totalWeight`** (the sum of members' weights - equals `size` for a non-weighted census), the
 denominator for turning weighted results into percentages. `totalWeight` is resolved only on the
