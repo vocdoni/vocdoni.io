@@ -16,7 +16,7 @@ export const DEVELOPERS_DASHBOARD_URL =
 // The SaaS environments. Accounts, organizations and API keys exist in only one of them. Both
 // dashboards are literal (not PLATFORM_URL) so a CTA override can't mislabel the production row.
 export const DEVELOPERS_ENVIRONMENTS = {
-  staging: { dashboardUrl: 'https://app-stg.vocdoni.io/integrators', apiBaseUrl: 'https://saas-api-stg.vocdoni.net' },
+  staging: { dashboardUrl: 'https://platform-stg.vocdoni.io', apiBaseUrl: 'https://saas-api-stg.vocdoni.net' },
   production: { dashboardUrl: 'https://platform.vocdoni.io', apiBaseUrl: 'https://saas-api-lts.vocdoni.net' },
 } as const
 
