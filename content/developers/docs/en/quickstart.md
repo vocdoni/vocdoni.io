@@ -21,7 +21,8 @@ browser by the SDK. The Quickstart proves the full server-side path up to readin
 > [environments](/developers/docs/api-conventions#environments)). To run this whole flow the key needs the
 > `managed:write`, `managed:read`, `quota:read`, `members:write` and `voting:write` scopes - see
 > [API keys](/developers/docs/api-keys). Every request carries `Authorization: Bearer <your-api-key>`; the
-> key *is* your integrator identity, so the integrator endpoints take no address in the path. The key is shown only once - store it safely.
+> key *is* your integrator identity, so the integrator endpoints take no address in the path. The key is
+> shown only once - store it safely.
 
 > [!NOTE] One managed organization on the free tier
 > The free tier allows **one managed organization**. Delete it (see

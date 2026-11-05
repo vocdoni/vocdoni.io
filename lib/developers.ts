@@ -13,10 +13,11 @@ export const DEVELOPERS_DOCS_BASE = '/developers/docs'
 export const DEVELOPERS_DASHBOARD_URL =
   typeof PLATFORM_URL !== 'undefined' ? PLATFORM_URL : process.env.PLATFORM_URL || 'https://platform.vocdoni.io'
 
-// The SaaS environments. Accounts, organizations and API keys exist in only one of them.
+// The SaaS environments. Accounts, organizations and API keys exist in only one of them. Both
+// dashboards are literal (not PLATFORM_URL) so a CTA override can't mislabel the production row.
 export const DEVELOPERS_ENVIRONMENTS = {
   staging: { dashboardUrl: 'https://app-stg.vocdoni.io/integrators', apiBaseUrl: 'https://saas-api-stg.vocdoni.net' },
-  production: { dashboardUrl: DEVELOPERS_DASHBOARD_URL, apiBaseUrl: 'https://saas-api-lts.vocdoni.net' },
+  production: { dashboardUrl: 'https://platform.vocdoni.io', apiBaseUrl: 'https://saas-api-lts.vocdoni.net' },
 } as const
 
 // The environment the docs examples call. Staging while the API is in alpha.

@@ -42,6 +42,7 @@ describe('resolveTokens', () => {
     expect(map.STAGING_DASHBOARD_URL).toBe(DEVELOPERS_ENVIRONMENTS.staging.dashboardUrl)
     expect(map.STAGING_API_BASE_URL).toBe(DEVELOPERS_ENVIRONMENTS.staging.apiBaseUrl)
     expect(map.PRODUCTION_DASHBOARD_URL).toBe(DEVELOPERS_ENVIRONMENTS.production.dashboardUrl)
+    expect(map.PRODUCTION_DASHBOARD_URL).toBe('https://platform.vocdoni.io')
     expect(map.PRODUCTION_API_BASE_URL).toBe('https://saas-api-lts.vocdoni.net')
     expect(map.EXAMPLES_ENVIRONMENT).toBe(DEVELOPERS_EXAMPLES_ENVIRONMENT)
     expect(map.EXAMPLES_DASHBOARD_URL).toBe(DEVELOPERS_EXAMPLES_DASHBOARD_URL)
