@@ -9,7 +9,12 @@ import {
   resolveTokens,
   tokenMap,
 } from '@/lib/docs/markdown'
-import { DEVELOPERS_API_BASE_URL, DEVELOPERS_SDK_URL, DEVELOPERS_SWAGGER_URL } from '@/lib/developers'
+import {
+  DEVELOPERS_API_BASE_URL,
+  DEVELOPERS_ENVIRONMENTS,
+  DEVELOPERS_SDK_URL,
+  DEVELOPERS_SWAGGER_URL,
+} from '@/lib/developers'
 
 describe('resolveTokens', () => {
   it('resolves known tokens from lib/developers.ts', () => {
@@ -33,6 +38,19 @@ describe('resolveTokens', () => {
   it('points production at the live dashboard and API', () => {
     expect(tokenMap().PRODUCTION_DASHBOARD_URL).toBe('https://platform.vocdoni.io')
     expect(tokenMap().PRODUCTION_API_BASE_URL).toBe('https://saas-api-lts.vocdoni.net')
+  })
+
+  it('takes the environment-dependent tokens from the environment it is given', () => {
+    expect(tokenMap('staging')).toMatchObject({
+      API_BASE_URL: DEVELOPERS_ENVIRONMENTS.staging.apiBaseUrl,
+      EXAMPLES_DASHBOARD_URL: 'https://platform-stg.vocdoni.io',
+      EXAMPLES_ENVIRONMENT: 'staging',
+    })
+    expect(tokenMap()).toMatchObject({
+      API_BASE_URL: DEVELOPERS_ENVIRONMENTS.production.apiBaseUrl,
+      EXAMPLES_DASHBOARD_URL: 'https://platform.vocdoni.io',
+      EXAMPLES_ENVIRONMENT: 'production',
+    })
   })
 
   it('leaves no unresolved token in any shipped doc', () => {
@@ -233,6 +251,27 @@ describe('compile - tables, slugs, code, links', () => {
     const html = compile('[a](/en/developers/docs/census)', { locale: 'en' })
     expect(html).toContain('href="/en/developers/docs/census"')
     expect(html).not.toContain('/en/en/')
+  })
+})
+
+describe('loadDoc with a token map', () => {
+  const files: DocFileMap = {
+    '/content/developers/docs/en/quickstart.md':
+      '---\ntitle: Quickstart\ngroup: get_started\norder: 1\nreference:\n  title: Next\n  items:\n    - title: Dashboard\n      href: "{{EXAMPLES_DASHBOARD_URL}}"\n---\n## Step\nCall {{API_BASE_URL}}/processes',
+  }
+
+  it('resolves the body and the reference hrefs with the given tokens', () => {
+    const doc = loadDoc('quickstart', 'en', files, { tokens: tokenMap('staging') })
+
+    expect(doc?.html).toContain(`${DEVELOPERS_ENVIRONMENTS.staging.apiBaseUrl}/processes`)
+    expect(doc?.frontmatter.reference?.items[0].href).toBe('https://platform-stg.vocdoni.io')
+  })
+
+  it('defaults to the production tokens', () => {
+    const doc = loadDoc('quickstart', 'en', files)
+
+    expect(doc?.html).toContain(`${DEVELOPERS_ENVIRONMENTS.production.apiBaseUrl}/processes`)
+    expect(doc?.frontmatter.reference?.items[0].href).toBe('https://platform.vocdoni.io')
   })
 })
 

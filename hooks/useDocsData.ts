@@ -27,9 +27,8 @@ import { useData } from 'vike-react/useData'
 // ---------------------------------------------------------------------------
 
 /**
- * Identity of one remote load. A result is only accepted while the key it was
- * requested under is still the current one, so a slow response for a page (or
- * version, or locale) the reader has already left is dropped.
+ * Identity of one remote load; a result for a page, version or locale the reader already left is dropped.
+ * The environment is left out because each branch-backed version's branch fixes it.
  */
 export const docsRequestKey = (branch: string, slug: string, locale: string): string => `${branch} ${slug} ${locale}`
 
@@ -71,6 +70,7 @@ function useDocsDataValue(): DocsData {
   const { version } = useDocsVersion()
 
   const branch = version.branch
+  const environment = version.environment
   const isRemote = isRemoteVersion(version)
   const slug = baked.doc.slug
   const locale = baked.doc.locale
@@ -89,7 +89,7 @@ function useDocsDataValue(): DocsData {
 
     // Dynamic so the markdown pipeline stays out of the entry chunk.
     import('@/lib/docs/remote-load')
-      .then(({ loadRemoteDocsData }) => loadRemoteDocsData(branch, slug, locale))
+      .then(({ loadRemoteDocsData }) => loadRemoteDocsData(branch, slug, locale, environment))
       .then((data) => {
         if (cancelled) return
         setState({ key, loading: false, data, error: null })
@@ -106,7 +106,7 @@ function useDocsDataValue(): DocsData {
     return () => {
       cancelled = true
     }
-  }, [branch, key, slug, locale])
+  }, [branch, environment, key, slug, locale])
 
   // Ignore anything left over from a previous slug/version/locale: at this
   // point in the render the effect that replaces it has not run yet.

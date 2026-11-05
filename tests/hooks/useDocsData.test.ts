@@ -1,5 +1,22 @@
-import { docsRequestKey } from '@/hooks/useDocsData'
-import { describe, expect, it } from 'vitest'
+// @vitest-environment jsdom
+
+import { DocsDataProvider, docsRequestKey } from '@/hooks/useDocsData'
+import { loadRemoteDocsData } from '@/lib/docs/remote-load'
+import { render, waitFor } from '@testing-library/react'
+import * as React from 'react'
+import { describe, expect, it, vi } from 'vitest'
+
+const version = vi.hoisted(() => ({ current: { id: 'stage', branch: 'stage', environment: 'staging' } }))
+
+vi.mock('@/hooks/useDocsVersion', () => ({
+  useDocsVersion: () => ({ version: version.current, setVersionId: () => {} }),
+}))
+vi.mock('vike-react/useData', () => ({
+  useData: () => ({ doc: { slug: 'quickstart', locale: 'en' }, nav: [] }),
+}))
+vi.mock('@/lib/docs/remote-load', () => ({
+  loadRemoteDocsData: vi.fn(async () => ({ doc: null, nav: [] })),
+}))
 
 // The hook accepts a remote result only while the key it was requested under is
 // still current, which is what keeps a slow response for an abandoned page,
@@ -18,5 +35,15 @@ describe('docsRequestKey', () => {
 
   it('does not collide across slugs that share a prefix', () => {
     expect(docsRequestKey('stage', 'census', 'en')).not.toBe(docsRequestKey('stage', 'census-api', 'en'))
+  })
+})
+
+describe('DocsDataProvider', () => {
+  it('loads a remote version with the environment of that version', async () => {
+    version.current = { id: 'stage', branch: 'stage', environment: 'staging' }
+
+    render(React.createElement(DocsDataProvider, null, null))
+
+    await waitFor(() => expect(loadRemoteDocsData).toHaveBeenCalledWith('stage', 'quickstart', 'en', 'staging'))
   })
 })

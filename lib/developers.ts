@@ -20,10 +20,13 @@ export const DEVELOPERS_ENVIRONMENTS = {
   production: { dashboardUrl: 'https://platform.vocdoni.io', apiBaseUrl: 'https://saas-api-lts.vocdoni.net' },
 } as const
 
-// The environment the docs examples call. Staging while the API is in alpha.
-export const DEVELOPERS_EXAMPLES_ENVIRONMENT: keyof typeof DEVELOPERS_ENVIRONMENTS = 'staging'
-export const DEVELOPERS_API_BASE_URL = DEVELOPERS_ENVIRONMENTS[DEVELOPERS_EXAMPLES_ENVIRONMENT].apiBaseUrl
-export const DEVELOPERS_EXAMPLES_DASHBOARD_URL = DEVELOPERS_ENVIRONMENTS[DEVELOPERS_EXAMPLES_ENVIRONMENT].dashboardUrl
+export type DevelopersEnvironment = keyof typeof DEVELOPERS_ENVIRONMENTS
+
+// The environment the baked docs, the landing hero samples and the API discovery files use.
+// The Stage docs version switches its own tokens to staging (see lib/docs/tokens.ts).
+export const DEVELOPERS_DEFAULT_ENVIRONMENT: DevelopersEnvironment = 'production'
+export const DEVELOPERS_API_BASE_URL = DEVELOPERS_ENVIRONMENTS[DEVELOPERS_DEFAULT_ENVIRONMENT].apiBaseUrl
+export const DEVELOPERS_EXAMPLES_DASHBOARD_URL = DEVELOPERS_ENVIRONMENTS[DEVELOPERS_DEFAULT_ENVIRONMENT].dashboardUrl
 
 // External developer resources.
 export const DEVELOPERS_SDK_URL = 'https://github.com/vocdoni/vocdoni-integrator-sdk'

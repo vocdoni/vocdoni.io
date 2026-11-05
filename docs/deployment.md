@@ -49,6 +49,8 @@ are in the CSP `connect-src`; a new one needs `buildContentSecurityPolicy` updat
 - Only the markdown comes from the branch. The compiler, the `{{TOKEN}}` values (`lib/docs/tokens.ts`), the nav taxonomy
   and every bit of UI come from the deployed build, so a stage page that uses a token or a `:::` directive added on the
   branch renders with this build's behaviour. Ship pipeline changes to `main` before relying on them in stage content.
+  The environment-dependent tokens (`API_BASE_URL`, `EXAMPLES_*`) follow the selected version's `environment`
+  (`lib/docs/versions.ts`): Production shows production, Stage shows staging.
 - Stage-only pages are not navigable yet. A slug that exists on the branch but was never prerendered here has no route,
   so the sidebar renders it as an inert entry with a "new" badge and the pager skips it. Phase 2 is a Netlify rewrite
   that serves those URLs from the docs shell; until it lands, a new page is only readable once it reaches `main`.
