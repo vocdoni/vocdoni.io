@@ -26,6 +26,8 @@ export const DEVELOPERS_SKILLS_URL = 'https://github.com/vocdoni/skills'
 export const DEVELOPERS_SDK_DOCS_URL = 'https://vocdoni.io/en/developers'
 export const DEVELOPERS_GITHUB_URL = 'https://github.com/vocdoni'
 export const DEVELOPERS_PROTOCOL_URL = 'https://davinci.vote'
+// The DAVINCI paper on the IACR ePrint Archive.
+export const DEVELOPERS_PROTOCOL_PAPER_URL = 'https://eprint.iacr.org/2026/2282'
 export const DEVELOPERS_SWAGGER_URL = 'https://vocdoni.github.io/saas-backend/swagger.yaml'
 export const DEVELOPERS_STATUS_URL = 'https://status.vocdoni.io'
 
