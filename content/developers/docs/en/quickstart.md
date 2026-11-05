@@ -14,12 +14,14 @@ browser by the SDK. The Quickstart proves the full server-side path up to readin
 [Casting votes](/developers/docs/casting-votes) for the rest.
 
 > [!NOTE] Before you start
-> Create an account in the [API Dashboard](https://platform.vocdoni.io) and mint an **API key** under
-> your integrator organization. To run this whole flow the key needs the `managed:write`, `managed:read`,
-> `quota:read`, `members:write` and `voting:write` scopes - see [API keys](/developers/docs/api-keys).
-> Every request carries `Authorization: Bearer <your-api-key>`; the key *is* your integrator identity,
-> so the integrator endpoints take no address in the path. The key is shown only once - store it safely.
-> For the base URL and environments, see [API conventions](/developers/docs/api-conventions).
+> The examples call the {{EXAMPLES_ENVIRONMENT}} API, so create your account in the
+> [{{EXAMPLES_ENVIRONMENT}} API Dashboard]({{EXAMPLES_DASHBOARD_URL}}) and mint an **API key** under your
+> integrator organization there. Accounts and keys exist in only one environment: an account on the other
+> one will not work here, so sign up separately on each (see
+> [environments](/developers/docs/api-conventions#environments)). To run this whole flow the key needs the
+> `managed:write`, `managed:read`, `quota:read`, `members:write` and `voting:write` scopes - see
+> [API keys](/developers/docs/api-keys). Every request carries `Authorization: Bearer <your-api-key>`; the
+> key *is* your integrator identity, so the integrator endpoints take no address in the path. The key is shown only once - store it safely.
 
 > [!NOTE] One managed organization on the free tier
 > The free tier allows **one managed organization**. Delete it (see

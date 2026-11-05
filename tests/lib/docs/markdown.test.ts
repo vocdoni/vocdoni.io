@@ -9,7 +9,14 @@ import {
   resolveTokens,
   tokenMap,
 } from '@/lib/docs/markdown'
-import { DEVELOPERS_API_BASE_URL, DEVELOPERS_SDK_URL, DEVELOPERS_SWAGGER_URL } from '@/lib/developers'
+import {
+  DEVELOPERS_API_BASE_URL,
+  DEVELOPERS_ENVIRONMENTS,
+  DEVELOPERS_EXAMPLES_DASHBOARD_URL,
+  DEVELOPERS_EXAMPLES_ENVIRONMENT,
+  DEVELOPERS_SDK_URL,
+  DEVELOPERS_SWAGGER_URL,
+} from '@/lib/developers'
 
 describe('resolveTokens', () => {
   it('resolves known tokens from lib/developers.ts', () => {
@@ -28,6 +35,24 @@ describe('resolveTokens', () => {
 
   it('tokenMap exposes the developer constants', () => {
     expect(tokenMap().API_BASE_URL).toBe(DEVELOPERS_API_BASE_URL)
+  })
+
+  it('tokenMap exposes the per-environment dashboard and API tokens', () => {
+    const map = tokenMap()
+    expect(map.STAGING_DASHBOARD_URL).toBe(DEVELOPERS_ENVIRONMENTS.staging.dashboardUrl)
+    expect(map.STAGING_API_BASE_URL).toBe(DEVELOPERS_ENVIRONMENTS.staging.apiBaseUrl)
+    expect(map.PRODUCTION_DASHBOARD_URL).toBe(DEVELOPERS_ENVIRONMENTS.production.dashboardUrl)
+    expect(map.PRODUCTION_API_BASE_URL).toBe('https://saas-api-lts.vocdoni.net')
+    expect(map.EXAMPLES_ENVIRONMENT).toBe(DEVELOPERS_EXAMPLES_ENVIRONMENT)
+    expect(map.EXAMPLES_DASHBOARD_URL).toBe(DEVELOPERS_EXAMPLES_DASHBOARD_URL)
+  })
+
+  it('takes the examples dashboard and API base URL from the same environment entry', () => {
+    const environment = DEVELOPERS_ENVIRONMENTS[DEVELOPERS_EXAMPLES_ENVIRONMENT]
+    expect(DEVELOPERS_EXAMPLES_DASHBOARD_URL).toBe(environment.dashboardUrl)
+    expect(DEVELOPERS_API_BASE_URL).toBe(environment.apiBaseUrl)
+    expect(tokenMap().EXAMPLES_DASHBOARD_URL).toBe(environment.dashboardUrl)
+    expect(tokenMap().API_BASE_URL).toBe(environment.apiBaseUrl)
   })
 })
 

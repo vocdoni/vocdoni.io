@@ -13,9 +13,16 @@ export const DEVELOPERS_DOCS_BASE = '/developers/docs'
 export const DEVELOPERS_DASHBOARD_URL =
   typeof PLATFORM_URL !== 'undefined' ? PLATFORM_URL : process.env.PLATFORM_URL || 'https://platform.vocdoni.io'
 
-// SaaS API base URL surfaced in the docs/examples. Points at staging while the
-// API is in alpha; switch to https://saas-api-prod.vocdoni.net for production.
-export const DEVELOPERS_API_BASE_URL = 'https://saas-api-stg.vocdoni.net'
+// The SaaS environments. Accounts, organizations and API keys exist in only one of them.
+export const DEVELOPERS_ENVIRONMENTS = {
+  staging: { dashboardUrl: 'https://app-stg.vocdoni.io/integrators', apiBaseUrl: 'https://saas-api-stg.vocdoni.net' },
+  production: { dashboardUrl: DEVELOPERS_DASHBOARD_URL, apiBaseUrl: 'https://saas-api-lts.vocdoni.net' },
+} as const
+
+// The environment the docs examples call. Staging while the API is in alpha.
+export const DEVELOPERS_EXAMPLES_ENVIRONMENT: keyof typeof DEVELOPERS_ENVIRONMENTS = 'staging'
+export const DEVELOPERS_API_BASE_URL = DEVELOPERS_ENVIRONMENTS[DEVELOPERS_EXAMPLES_ENVIRONMENT].apiBaseUrl
+export const DEVELOPERS_EXAMPLES_DASHBOARD_URL = DEVELOPERS_ENVIRONMENTS[DEVELOPERS_EXAMPLES_ENVIRONMENT].dashboardUrl
 
 // External developer resources.
 export const DEVELOPERS_SDK_URL = 'https://github.com/vocdoni/vocdoni-integrator-sdk'

@@ -10,7 +10,8 @@ the server resolves your integrator organization from it, which is why the integ
 address in the path. Each key carries a set of **scopes** and an optional expiry, and can be revoked at
 any time.
 
-Create your keys in the [API Dashboard](https://platform.vocdoni.io); API keys can only be created
+Create your keys in the API Dashboard of the environment you call (see
+[environments](/developers/docs/api-conventions#environments)); API keys can only be created
 under integrator organizations. The full secret is shown only once, at creation - store it in your
 secret manager immediately. Afterwards only the key metadata (id, prefix, scopes and timestamps) is
 available.
@@ -59,13 +60,13 @@ logging in with email/password carries these implicitly; an API key must be gran
 explicitly.
 
 > [!TIP] Least privilege
-> Grant the minimum scopes a workload needs, use a separate key per environment, set an expiry where
-> you can, and rotate keys periodically. Revoke immediately any key that may be compromised. The
-> available scopes are shown in the API Dashboard during key creation.
+> Grant the minimum scopes a workload needs, use a separate key per environment (each environment needs
+> its own account), set an expiry where you can, and rotate keys periodically. Revoke immediately any key
+> that may be compromised. The available scopes are shown in the API Dashboard during key creation.
 
 ## Managing keys
 
-Review and revoke keys in the [API Dashboard](https://platform.vocdoni.io). The same operations are
+Review and revoke keys in the API Dashboard of the environment you call. The same operations are
 available programmatically for multi-tenant provisioning. They are **session-only**: an API key cannot
 manage keys, so authenticate as an admin user (`POST /auth/login`) and send that session token instead
 of a `vsk_` key.
