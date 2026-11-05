@@ -150,7 +150,12 @@ const { authToken } = await client.elections.authStep0(processId, {
 ```
 
 - A **wrong password** answers exactly like an unknown participant - `401` (error code `40802`), same
-  body - and spends the same failed-attempt budget, so a caller cannot tell which credential was wrong.
+  body - so a caller cannot tell which credential was wrong.
+- Failed logins are capped per process and per set of credentials, the password left out: after 10
+  in an hour with the same other credentials, step 0 answers `400` (error code `40017`) with
+  `data.retryAfter`, the seconds until the hour resets - even to the right password. So anyone who
+  knows a voter's other auth fields can lock them out for the hour: prefer auth fields that are not
+  public, or add a 2FA field.
 - A **malformed** one (not 64 lowercase hex, such as the plaintext) is `400` (error code `40005`)
   "invalid password format", and a **missing** one `400` (error code `40005`) "missing required auth
   data".

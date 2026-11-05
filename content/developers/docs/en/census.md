@@ -183,8 +183,9 @@ A usable census answers a bare `200`; an unusable one is a `400` (error code `40
 lists the offending member ids in `duplicates`, `missingData` and, for an explicit `memberIds` list,
 `notFound`. The same code also answers a malformed request - a census with neither `authFields` nor
 `twoFaFields`, one whose only credential is `password`, an unknown group or a malformed member id - and
-then `data` carries no lists, so check for them before reading them. The dry-run is stricter than creating the process: members with missing
-data fail it, while `POST /processes` leaves them out of the census and goes ahead.
+then `data` carries no lists, so check for them before reading them. The dry-run is stricter than
+creating the process: members with missing data fail it, while `POST /processes` leaves them out of the
+census and goes ahead.
 
 ## Kept in sync with the memberbase
 

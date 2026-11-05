@@ -41,6 +41,10 @@ password = lowercase_hex(SHA-256(UTF-8(
 canonicalAddress(a) = "0x" + lowercase(a without any leading "0x")
 ```
 
+`trim` is JavaScript's `String.prototype.trim()`: it strips the ECMAScript whitespace and line
+terminators, U+FEFF included, from both ends. Other languages' trims strip a different set, so match it
+exactly or a password with unusual leading or trailing characters hashes differently on each side.
+
 The organization address is part of the hash, so the same password hashes differently in each
 organization. Normalizing to NFC makes an accented password hash alike in whichever Unicode form it
 was typed. Test vector: organization `0x00000000000000000000000000000000000000AA` (or
@@ -52,26 +56,49 @@ was typed. Test vector: organization `0x00000000000000000000000000000000000000AA
 ```ts
 async function memberPasswordHash(orgAddress: string, password: string): Promise<string> {
   const org = '0x' + orgAddress.toLowerCase().replace(/^0x/, '')
-  const data = new TextEncoder().encode(`vocdoni-member-password:${org}:${password.trim().normalize('NFC')}`)
+  // a wrong address still yields a valid-looking hash, and every login would then fail
+  if (!/^0x[0-9a-f]{40}$/.test(org)) throw new Error(`not an organization address: ${orgAddress}`)
+  const pw = password.trim().normalize('NFC')
+  // the hash of "" is a valid credential: send no password (or "" to clear it) instead
+  if (!pw) throw new Error('empty password')
+  const data = new TextEncoder().encode(`vocdoni-member-password:${org}:${pw}`)
   const digest = await crypto.subtle.digest('SHA-256', data)
   return [...new Uint8Array(digest)].map((b) => b.toString(16).padStart(2, '0')).join('')
 }
 ```
 ```python
-import hashlib, unicodedata
+import hashlib, re, unicodedata
+
+# what JavaScript's String.prototype.trim() strips; Python's str.strip() strips a different set
+JS_WHITESPACE = (
+    "\t\n\v\f\r \u00a0\u1680\u2000\u2001\u2002\u2003\u2004\u2005\u2006\u2007\u2008\u2009\u200a"
+    "\u2028\u2029\u202f\u205f\u3000\ufeff"
+)
 
 def member_password_hash(org_address: str, password: str) -> str:
     org = "0x" + org_address.lower().removeprefix("0x")
-    data = f"vocdoni-member-password:{org}:{unicodedata.normalize('NFC', password.strip())}"
-    return hashlib.sha256(data.encode()).hexdigest()
+    # a wrong address still yields a valid-looking hash, and every login would then fail
+    if not re.fullmatch(r"0x[0-9a-f]{40}", org):
+        raise ValueError(f"not an organization address: {org_address!r}")
+    pw = unicodedata.normalize("NFC", password.strip(JS_WHITESPACE))
+    # the hash of "" is a valid credential: send no password (or "" to clear it) instead
+    if not pw:
+        raise ValueError("empty password")
+    return hashlib.sha256(f"vocdoni-member-password:{org}:{pw}".encode()).hexdigest()
 ```
 :::
 
-- Anything other than 64 lowercase hex characters is refused: a bulk add fails as a whole with `400`
-  (error code `40037`), an upsert with `400` (error code `40004`).
+- `password` takes a hash of 64 lowercase hex characters or `""` (no password). Anything else is
+  refused: a bulk add fails as a whole with `400` (error code `40037`), an upsert with `400` (error code
+  `40004`).
+- Never hash an empty password: the hash of `""` is a valid value that anyone can compute. Leave
+  `password` out for members who have none, so a password census reports them in `missingData`.
 - Reads never return the password, only `hasPassword: true` when one is set.
 - On an [update](#updating-and-deleting-members), `""` clears the password and leaving `password` out
-  keeps it.
+  keeps it. Clearing the password of a member already in a live password census keeps them in it, but
+  they can no longer log in until a new one is set.
+- The hash logs a voter in just like the password, and as a single SHA-256 it is quick to brute-force
+  for a weak password. Store, log and transmit it as carefully as the password itself.
 
 > [!WARNING] Set passwords before creating the process
 > A member who has no password when the census is built is left out of it (reported in `missingData`),
