@@ -51,20 +51,19 @@ was typed. Test vector: organization `0x00000000000000000000000000000000000000AA
 `00000000000000000000000000000000000000aa`) and password `s3cret` give
 `2f7e83a0b19a82fa9a5dc6ecc6ff44ec82679ea87012a7187bd3313366bf277e`.
 
+In TypeScript, `hashMemberPassword(orgAddress, password)` from `@vocdoni/api-client` (2.7.0 on) does
+all of this. It uses Web Crypto, so it runs in browsers on a secure (HTTPS) page and in Node 22 or
+later. In other languages, implement the formula as the Python version below does.
+
 :::code-tabs[hash a member password]
 
 ```ts
-async function memberPasswordHash(orgAddress: string, password: string): Promise<string> {
-  const org = '0x' + orgAddress.toLowerCase().replace(/^0x/, '')
-  // a wrong address still yields a valid-looking hash, and every login would then fail
-  if (!/^0x[0-9a-f]{40}$/.test(org)) throw new Error(`not an organization address: ${orgAddress}`)
-  const pw = password.trim().normalize('NFC')
-  // the hash of "" is a valid credential: send no password (or "" to clear it) instead
-  if (!pw) throw new Error('empty password')
-  const data = new TextEncoder().encode(`vocdoni-member-password:${org}:${pw}`)
-  const digest = await crypto.subtle.digest('SHA-256', data)
-  return [...new Uint8Array(digest)].map((b) => b.toString(16).padStart(2, '0')).join('')
-}
+import { hashMemberPassword } from '@vocdoni/api-client' // from 2.7.0
+
+// Throws on an empty password (its hash is a valid, guessable credential: leave `password` out
+// instead) and on an address that is not 0x + 40 hex (the hash would never match at login).
+const password = await hashMemberPassword(org, 's3cret')
+await client.organizations.upsertMember(org, { id: memberId, password })
 ```
 ```python
 import hashlib, re, unicodedata

@@ -142,10 +142,12 @@ without the `0x`, which the hash's canonical form adds back. The plaintext never
 device.
 
 ```ts
+import { hashMemberPassword } from '@vocdoni/api-client' // from 2.7.0
+
 const { orgAddress } = await client.elections.get(processId)
 const { authToken } = await client.elections.authStep0(processId, {
   memberNumber: 'A-101',
-  password: await memberPasswordHash(orgAddress, typedPassword), // see Member passwords
+  password: await hashMemberPassword(orgAddress, typedPassword),
 })
 ```
 
