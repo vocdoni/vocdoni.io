@@ -157,6 +157,9 @@ const { authToken } = await client.elections.authStep0(processId, {
   knows a voter's other auth fields can lock them out for the hour: prefer auth fields that are not
   public. A 2FA field only raises the bar: those 10 then count per contact too, but 100 failures across
   any contacts still lock the voter out, and 10 do when the contact is known.
+- Always pair `password` with another auth field, even on a 2FA census. With `password` as the only
+  auth field, that 100-failure cap is keyed on no field at all, so it is shared by every voter: 100
+  junk logins with made-up contacts lock the whole process out for the hour.
 - A **malformed** one (not 64 lowercase hex, such as the plaintext) is `400` (error code `40005`)
   "invalid password format", and a **missing** one `400` (error code `40005`) "missing required auth
   data".

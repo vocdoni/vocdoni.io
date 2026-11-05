@@ -91,6 +91,10 @@ other auth field or a 2FA field** next to it:
 "census": { "authFields": ["memberNumber", "password"], "groupId": "<group>" }
 ```
 
+Prefer another auth field over a 2FA field alone: with `password` as the only auth field, failed logins
+are capped once for the whole process rather than per voter (see
+[Password censuses](/developers/docs/casting-votes#password-censuses)).
+
 A census whose only credential is `password` is refused with `400` (error code `40037`, message
 "password needs another credential or a 2FA field") by `POST /processes`, `PUT /processes/{processId}`
 and [`POST /processes/census/validation`](#validating-a-census).
