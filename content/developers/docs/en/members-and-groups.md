@@ -57,9 +57,8 @@ fi
 ```ts
 const { jobId } = await client.organizations.addMembers(
   org,
-  // weight defaults to 1. The API expects it as a string ("2"); the SDK types it as a number, and
-  // sending a number fails with 400 - omit it or cast a string until the SDK type is fixed.
-  [{ name: 'Alice', surname: 'Doe', email: 'alice@example.org', memberNumber: 'A-101' }],
+  // weight is a decimal string ("2") and defaults to 1 (typed as a string since @vocdoni/api-client 2.4.0)
+  [{ name: 'Alice', surname: 'Doe', email: 'alice@example.org', memberNumber: 'A-101', weight: '1' }],
   { async: true },
 )
 // Polls the members-job until progress 100. A members-job never reports `failed`: if a row cannot be
@@ -194,13 +193,16 @@ curl "${auth[@]}" -X PUT "$B/organizations/$ORG/members" \
 curl "${auth[@]}" -X DELETE "$B/organizations/$ORG/members" -d '{"ids":["<memberId>"]}'
 ```
 ```ts
-// Fields left out, weight included, keep their stored values. To change the weight, send a string: the
-// SDK types it as a number, and a number fails with 400, so cast ('2' as unknown as number) until the SDK
-// type is fixed.
+// Fields left out, weight included, keep their stored values. To change the weight, send it as a
+// string: weight: '2'.
 await client.organizations.upsertMember(org, { id: memberId, memberNumber: 'A-101', email: 'alice@example.org' })
 await client.organizations.deleteMembers(org, { ids: [memberId] })
 ```
 :::
+
+The `PUT` answers `{ "id": "..." }`. When it creates a member it can also return `censusJobIds`, the
+[census-update jobs](/developers/docs/jobs#census-update-jobs) that make room for them in live
+elections (poll each one), and `errors`, the live censuses they could not join.
 
 Member and group changes **cascade to the censuses of ongoing processes** - the memberbase is the
 source of truth (see [Census](/developers/docs/census#kept-in-sync-with-the-memberbase)). Two
