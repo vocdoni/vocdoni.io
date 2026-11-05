@@ -130,7 +130,8 @@ processId = post("/processes", {
 The census is built when the draft is created, and two kinds of member are handled there rather than
 at publish:
 
-- **Members missing the data to log in** - an empty or whitespace-only `authFields` value, or no
+- **Members missing the data to log in** - an empty or whitespace-only `authFields` value, no
+  [password](/developers/docs/census#password-credential) when the census requires one, or no
   channel at all for the `twoFaFields` - could never authenticate, so they are **left out** of the
   census and their member ids come back in `missingData`. The draft is still created; fix their data
   and update the draft (or, once published, [grow the census](#growing-the-census)), or ignore them.
@@ -138,6 +139,11 @@ at publish:
 - **Members the census cannot tell apart** - the same login data as another member, including values
   that differ only by case, or as a participant already in the census - are refused: the request
   fails with `400` (error code `40037`) and their ids in `data.duplicates`, and nothing is created.
+
+A census whose only credential is `password` is refused outright with `400` (error code `40037`) - it
+needs another auth field or a 2FA field next to it. Setting a member's password after the census is
+built does not add them by itself (update the draft or grow the census, as above), so **set passwords
+before creating the process**.
 
 > [!NOTE] Not in the SDK yet
 > `client.elections.create()` resolves to the `processId` alone and `client.elections.update()` to

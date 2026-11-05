@@ -19,7 +19,8 @@ process, then **signs and relays a ballot per question** they are eligible for.
 ## The flow
 
 1. **Authenticate once** - the voter presents whatever the census requires: identity `authFields`
-   and/or a one-time code sent to their `email`/`phone` (a 2FA census needs no auth fields). Success
+   (including a [member password](#password-censuses)) and/or a one-time code sent to their
+   `email`/`phone` (a 2FA census needs no auth fields). Success
    yields a token bound to the process. Leaving a required auth field or the contact for the code
    empty is refused with `400` (error code `40005`).
 2. **Sign per question** - for each question, the credential service (CSP) signs the
@@ -131,6 +132,33 @@ read its tally from [Results](/developers/docs/results).
 > pending token. Confirm it before signing:
 > `client.elections.authStep1(processId, { authToken, authData: ['123456'] })`. Need a new code?
 > `client.elections.resend(processId, { authToken })`.
+
+### Password censuses
+
+When the census `authFields` include `password`, step 0 also takes `password`: the same
+[client hash](/developers/docs/members-and-groups#member-passwords) the organization set, computed
+from what the voter types and the process's `orgAddress`. The public process read returns that address
+without the `0x`, which the hash's canonical form adds back. The plaintext never leaves the voter's
+device.
+
+```ts
+const { orgAddress } = await client.elections.get(processId)
+const { authToken } = await client.elections.authStep0(processId, {
+  memberNumber: 'A-101',
+  password: await memberPasswordHash(orgAddress, typedPassword), // see Member passwords
+})
+```
+
+- A **wrong password** answers exactly like an unknown participant - `401` (error code `40802`), same
+  body - and spends the same failed-attempt budget, so a caller cannot tell which credential was wrong.
+- A **malformed** one (not 64 lowercase hex, such as the plaintext) is `400` (error code `40005`)
+  "invalid password format", and a **missing** one `400` (error code `40005`) "missing required auth
+  data".
+- Password checks are rationed server-wide: a busy server answers `503` (error code `50302`) without
+  spending any of the budget, so retry later.
+
+`AuthRequest.password` and `OrgMember.hasPassword` are typed from `@vocdoni/api-types` 2.4.0, and
+`auth0` from `@vocdoni/react-providers` forwards `password` unchanged.
 
 ### Encrypted questions
 
@@ -506,7 +534,8 @@ transaction with an EIP-191 `personal_sign` signature. The
 ```bash
 # a) Authenticate (step 0) - send exactly the fields the census requires (authFields and/or the
 #    email/phone used for the code). Here an auth-only census by memberNumber; a mail census would
-#    send { "email": "voter@example.org" }. Auth-only censuses are verified here and there is no code.
+#    send { "email": "voter@example.org" }, and a password census adds "password": "<client hash>".
+#    Auth-only censuses are verified here and there is no code.
 curl -X POST "$B/processes/$PROCESS/auth/0" \
   -H "Content-Type: application/json" \
   -d '{ "memberNumber": "A-101" }'

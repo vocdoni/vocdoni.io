@@ -24,13 +24,67 @@ fields. Provide whatever your authentication strategy needs; you do not have to 
 | `nationalId` | string | National identity document, when used to authenticate. |
 | `birthDate` | string | Date of birth in YYYY-MM-DD format. |
 | `weight` | string | Vote weight for weighted censuses. A string, e.g. `"1"`. Defaults to 1. |
+| `password` | string | Write-only. The [client hash](#member-passwords) of the member's password, never the plaintext. |
+| `hasPassword` | boolean | Read-only. `true` when the member has a password; ignored on writes. |
 | `other` | object | Custom key-value fields specific to your organization. |
+
+## Member passwords
+
+A member password is a secret the organization gives each voter, for a census that requires it as a
+[credential](/developers/docs/census#password-credential). The plaintext never reaches the API: you send
+the **client hash** in `password`, and the voter app sends the same hash, computed from what the voter
+types, when they [log in](/developers/docs/casting-votes#password-censuses).
+
+```text
+password = lowercase_hex(SHA-256(UTF-8(
+  "vocdoni-member-password:" + canonicalAddress(orgAddress) + ":" + NFC(trim(password)))))
+canonicalAddress(a) = "0x" + lowercase(a without any leading "0x")
+```
+
+The organization address is part of the hash, so the same password hashes differently in each
+organization. Normalizing to NFC makes an accented password hash alike in whichever Unicode form it
+was typed. Test vector: organization `0x00000000000000000000000000000000000000AA` (or
+`00000000000000000000000000000000000000aa`) and password `s3cret` give
+`2f7e83a0b19a82fa9a5dc6ecc6ff44ec82679ea87012a7187bd3313366bf277e`.
+
+:::code-tabs[hash a member password]
+
+```ts
+async function memberPasswordHash(orgAddress: string, password: string): Promise<string> {
+  const org = '0x' + orgAddress.toLowerCase().replace(/^0x/, '')
+  const data = new TextEncoder().encode(`vocdoni-member-password:${org}:${password.trim().normalize('NFC')}`)
+  const digest = await crypto.subtle.digest('SHA-256', data)
+  return [...new Uint8Array(digest)].map((b) => b.toString(16).padStart(2, '0')).join('')
+}
+```
+```python
+import hashlib, unicodedata
+
+def member_password_hash(org_address: str, password: str) -> str:
+    org = "0x" + org_address.lower().removeprefix("0x")
+    data = f"vocdoni-member-password:{org}:{unicodedata.normalize('NFC', password.strip())}"
+    return hashlib.sha256(data.encode()).hexdigest()
+```
+:::
+
+- Anything other than 64 lowercase hex characters is refused: a bulk add fails as a whole with `400`
+  (error code `40037`), an upsert with `400` (error code `40004`).
+- Reads never return the password, only `hasPassword: true` when one is set.
+- On an [update](#updating-and-deleting-members), `""` clears the password and leaving `password` out
+  keeps it.
+
+> [!WARNING] Set passwords before creating the process
+> A member who has no password when the census is built is left out of it (reported in `missingData`),
+> and setting the password later does not add them. See
+> [Creating a process](/developers/docs/voting-processes#creating-a-process).
 
 ## Adding members
 
 Member imports are **bulk**. Add `?async=true` (`{ async: true }` in the SDK) to run them as a job: the
 call returns a `jobId`, and you poll a members-job until it reports `progress: 100`. Without it the call
-imports synchronously and answers `{ "added": N }` with no `jobId`.
+imports synchronously and answers `{ "added": N }` with no `jobId` - unless the members carry more than
+150 phones and passwords between them, which are slow to hash: then the import runs as a job anyway and
+answers with a `jobId`, so always check for one.
 
 - **POST** `/organizations/{address}/members`
 
@@ -179,6 +233,7 @@ An update merges what you send onto the stored member:
 - `other` is replaced as a whole: send every custom field you want to keep, `{}` to clear them all, or
   leave `other` out to keep them.
 - Phone numbers are never returned in plaintext, so leave `phone` out unless you are changing it.
+  Neither is the password: leave `password` out to keep it, or send `""` to clear it.
 - The whole member is normalized again on every update (names and ids trimmed, email lowercased), so
   fields you did not send can change format.
 
@@ -203,6 +258,9 @@ await client.organizations.deleteMembers(org, { ids: [memberId] })
 The `PUT` answers `{ "id": "..." }`. When it creates a member it can also return `censusJobIds`, the
 [census-update jobs](/developers/docs/jobs#census-update-jobs) that make room for them in live
 elections (poll each one), and `errors`, the live censuses they could not join.
+
+Hashing a phone or a password is rationed server-wide, so a busy server answers the `PUT` with `503`
+(error code `50302`) and a `Retry-After` header, and writes nothing: retry after the delay.
 
 Member and group changes **cascade to the censuses of ongoing processes** - the memberbase is the
 source of truth (see [Census](/developers/docs/census#kept-in-sync-with-the-memberbase)). Two
@@ -264,3 +322,5 @@ group = post(f"/organizations/{org}/groups",
 - Delete is `DELETE /organizations/{addr}/members` (**plural**), with `{ "ids": [...] }`.
 - For an **auth-only** census, each `memberNumber` must be **unique** - it becomes the voting
   credential (see [Census](/developers/docs/census)).
+- `password` takes the [client hash](#member-passwords), never the plaintext. Set it before creating
+  the process: members without one are left out of a password census.
