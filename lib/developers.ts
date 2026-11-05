@@ -13,9 +13,20 @@ export const DEVELOPERS_DOCS_BASE = '/developers/docs'
 export const DEVELOPERS_DASHBOARD_URL =
   typeof PLATFORM_URL !== 'undefined' ? PLATFORM_URL : process.env.PLATFORM_URL || 'https://platform.vocdoni.io'
 
-// SaaS API base URL surfaced in the docs/examples. Points at staging while the
-// API is in alpha; switch to https://saas-api-prod.vocdoni.net for production.
-export const DEVELOPERS_API_BASE_URL = 'https://saas-api-stg.vocdoni.net'
+// The SaaS environments. Accounts, organizations and API keys exist in only one of them. Both
+// dashboards are literal (not PLATFORM_URL) so a CTA override can't mislabel the production row.
+export const DEVELOPERS_ENVIRONMENTS = {
+  staging: { dashboardUrl: 'https://platform-stg.vocdoni.io', apiBaseUrl: 'https://saas-api-stg.vocdoni.net' },
+  production: { dashboardUrl: 'https://platform.vocdoni.io', apiBaseUrl: 'https://saas-api-lts.vocdoni.net' },
+} as const
+
+export type DevelopersEnvironment = keyof typeof DEVELOPERS_ENVIRONMENTS
+
+// The environment the baked docs, the landing hero samples and the API discovery files use.
+// The Stage docs version switches its own tokens to staging (see lib/docs/tokens.ts).
+export const DEVELOPERS_DEFAULT_ENVIRONMENT: DevelopersEnvironment = 'production'
+export const DEVELOPERS_API_BASE_URL = DEVELOPERS_ENVIRONMENTS[DEVELOPERS_DEFAULT_ENVIRONMENT].apiBaseUrl
+export const DEVELOPERS_EXAMPLES_DASHBOARD_URL = DEVELOPERS_ENVIRONMENTS[DEVELOPERS_DEFAULT_ENVIRONMENT].dashboardUrl
 
 // External developer resources.
 export const DEVELOPERS_SDK_URL = 'https://github.com/vocdoni/vocdoni-integrator-sdk'

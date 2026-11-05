@@ -6,11 +6,15 @@
 // (separately wired) fetch layer for that behaviour. This module only
 // declares the registry; it does not fetch anything.
 
+import type { DevelopersEnvironment } from '@/lib/developers'
+
 export interface DocsVersion {
   id: string
   labelKey: string
   labelDefault: string
   branch?: string
+  // The SaaS environment the version's examples and {{TOKEN}} API URLs point at.
+  environment: DevelopersEnvironment
 }
 
 // GitHub repo slug the remote (branch-backed) versions are fetched from.
@@ -21,12 +25,14 @@ export const DOCS_VERSIONS: DocsVersion[] = [
     id: 'production',
     labelKey: 'developers.docs.version.production',
     labelDefault: 'Production',
+    environment: 'production',
   },
   {
     id: 'stage',
     labelKey: 'developers.docs.version.stage',
     labelDefault: 'Stage',
     branch: 'stage',
+    environment: 'staging',
   },
 ]
 

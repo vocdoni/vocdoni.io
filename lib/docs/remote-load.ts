@@ -1,6 +1,8 @@
 import type { DocsNav } from '@/components/developers/docs-nav'
+import type { DevelopersEnvironment } from '@/lib/developers'
 import { buildDocsNav, listDocsMeta, loadDoc, type LoadedDoc } from '@/lib/docs/pipeline'
 import { fetchRemoteDocFiles, type FetchRemoteDocsOptions, rawDocUrl, remoteDocPath } from '@/lib/docs/remote'
+import { tokenMap } from '@/lib/docs/tokens'
 import type { Locale } from '@/locales'
 
 // ---------------------------------------------------------------------------
@@ -24,18 +26,19 @@ export interface RemoteDocsData {
 }
 
 /**
- * Fetches a branch's documentation, compiles the requested page and rebuilds
- * the navigation from its frontmatter. Rejects with a `DocsRemoteError` when the
- * branch cannot be listed or downloaded.
+ * Fetches a branch's documentation, compiles the requested page with `{{TOKEN}}` URLs for `environment` and
+ * rebuilds the nav from its frontmatter. Rejects with a `DocsRemoteError` when the branch cannot be listed or
+ * downloaded.
  */
 export async function loadRemoteDocsData(
   branch: string,
   slug: string,
   locale: Locale,
+  environment: DevelopersEnvironment,
   options: FetchRemoteDocsOptions = {}
 ): Promise<RemoteDocsData> {
   const files = await fetchRemoteDocFiles(branch, options)
-  const doc = loadDoc(slug, locale, files)
+  const doc = loadDoc(slug, locale, files, { tokens: tokenMap(environment) })
   const nav = buildDocsNav(locale, listDocsMeta(files))
 
   return {

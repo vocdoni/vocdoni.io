@@ -3,6 +3,7 @@ import {
   type DocFileMap,
   type DocMeta,
   listDocsMeta as listDocsMetaFrom,
+  type LoadDocOptions,
   loadDoc as loadDocFrom,
   type LoadedDoc,
 } from '@/lib/docs/pipeline'
@@ -37,8 +38,13 @@ export function allDocSlugs(files: DocFileMap = DOC_FILES): string[] {
 
 // Loads one doc for a locale, falling back to English when the localized file
 // is missing. Returns null when neither exists.
-export function loadDoc(slug: string, locale: Locale, files: DocFileMap = DOC_FILES): LoadedDoc | null {
-  return loadDocFrom(slug, locale, files)
+export function loadDoc(
+  slug: string,
+  locale: Locale,
+  files: DocFileMap = DOC_FILES,
+  options: LoadDocOptions = {}
+): LoadedDoc | null {
+  return loadDocFrom(slug, locale, files, options)
 }
 
 // Frontmatter-only metadata for every slug across locales, used to build the

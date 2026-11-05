@@ -816,7 +816,7 @@ export interface DocFrontmatter {
   skill?: string
 }
 
-function parseReference(value: unknown): DocReference | undefined {
+function parseReference(value: unknown, tokens?: Record<string, string>): DocReference | undefined {
   if (!value || typeof value !== 'object') return undefined
   const r = value as Record<string, unknown>
   if (typeof r.title !== 'string' || !Array.isArray(r.items)) return undefined
@@ -826,7 +826,7 @@ function parseReference(value: unknown): DocReference | undefined {
     if (!entry || typeof entry !== 'object') continue
     const it = entry as Record<string, unknown>
     if (typeof it.title !== 'string' || typeof it.href !== 'string') continue
-    const href = resolveTokens(it.href)
+    const href = resolveTokens(it.href, tokens)
     items.push({
       title: it.title,
       description: typeof it.description === 'string' ? it.description : undefined,
@@ -884,9 +884,19 @@ export function allDocSlugs(files: DocFileMap): string[] {
     .sort()
 }
 
+export interface LoadDocOptions {
+  // Token values for this load; the default map (production) when omitted.
+  tokens?: Record<string, string>
+}
+
 // Loads one doc for a locale, falling back to English when the localized file
 // is missing. Returns null when neither exists.
-export function loadDoc(slug: string, locale: Locale, files: DocFileMap): LoadedDoc | null {
+export function loadDoc(
+  slug: string,
+  locale: Locale,
+  files: DocFileMap,
+  options: LoadDocOptions = {}
+): LoadedDoc | null {
   const byLocale = indexFiles(files)
   const localized = byLocale.get(locale)?.get(slug)
   const usedLocale: Locale = localized !== undefined ? locale : localeDefault
@@ -900,7 +910,7 @@ export function loadDoc(slug: string, locale: Locale, files: DocFileMap): Loaded
     description: typeof data.description === 'string' ? data.description : undefined,
     group: typeof data.group === 'string' ? data.group : undefined,
     order: typeof data.order === 'number' ? data.order : undefined,
-    reference: parseReference(data.reference),
+    reference: parseReference(data.reference, options.tokens),
     skill: typeof data.skill === 'string' ? data.skill : undefined,
   }
 
@@ -909,7 +919,7 @@ export function loadDoc(slug: string, locale: Locale, files: DocFileMap): Loaded
     locale,
     usedLocale,
     frontmatter,
-    html: compile(content, { locale }),
+    html: compile(content, { locale, tokens: options.tokens }),
     // Mirror the page route: /<locale>/developers/docs/<slug>.md (overview at
     // /<locale>/developers/docs.md). Emitted per-locale by the build plugin, so
     // we use the requested locale even on en-fallback pages.

@@ -1,4 +1,4 @@
-import { DEVELOPERS_API_BASE_URL } from '@/lib/developers'
+import { DEVELOPERS_API_BASE_URL, DEVELOPERS_EXAMPLES_DASHBOARD_URL } from '@/lib/developers'
 import { highlightCode } from '@/lib/docs/highlight-code'
 import type { CodeSample } from '@/components/developers/CodeBlock'
 
@@ -8,7 +8,7 @@ import type { CodeSample } from '@/components/developers/CodeBlock'
 
 const quickstartSdk = `import { VocdoniApiClient } from "@vocdoni/api-client"
 
-// 1. Your scoped API key from platform.vocdoni.io (no login step)
+// 1. Your scoped API key from ${DEVELOPERS_EXAMPLES_DASHBOARD_URL} (no login step)
 const client = new VocdoniApiClient({ apiUrl: "${DEVELOPERS_API_BASE_URL}", authToken: "vsk_your_api_key" })
 
 // 2. Create a voting process for your organization
@@ -21,7 +21,7 @@ await client.elections.create({
   },
 })`
 
-const quickstartCurl = `# 1. Your scoped API key from platform.vocdoni.io (no login step)
+const quickstartCurl = `# 1. Your scoped API key from ${DEVELOPERS_EXAMPLES_DASHBOARD_URL} (no login step)
 export TOKEN=vsk_your_api_key
 
 # 2. Create a voting process for your organization
@@ -36,7 +36,7 @@ curl -X POST ${DEVELOPERS_API_BASE_URL}/organizations/$ORG/processes \\
     }
   }'`
 
-const quickstartJs = `// 1. Your scoped API key from platform.vocdoni.io (no login step)
+const quickstartJs = `// 1. Your scoped API key from ${DEVELOPERS_EXAMPLES_DASHBOARD_URL} (no login step)
 const token = process.env.VOCDONI_API_KEY // "vsk_..."
 
 // 2. Create a voting process for your organization

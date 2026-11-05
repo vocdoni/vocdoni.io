@@ -6,19 +6,23 @@
 // alias and `import.meta.glob` are not available. Keep it that way.
 
 import {
-  DEVELOPERS_API_BASE_URL,
   DEVELOPERS_DASHBOARD_URL,
+  DEVELOPERS_DEFAULT_ENVIRONMENT,
+  DEVELOPERS_ENVIRONMENTS,
   DEVELOPERS_GITHUB_URL,
   DEVELOPERS_PROTOCOL_URL,
   DEVELOPERS_SDK_DOCS_URL,
   DEVELOPERS_SDK_URL,
   DEVELOPERS_STATUS_URL,
   DEVELOPERS_SWAGGER_URL,
+  type DevelopersEnvironment,
 } from '../developers'
 
-export function tokenMap(): Record<string, string> {
+// `environment` drives the tokens that describe the API the examples call (API_BASE_URL, EXAMPLES_*).
+// The baked docs use the default; the Stage docs version passes staging.
+export function tokenMap(environment: DevelopersEnvironment = DEVELOPERS_DEFAULT_ENVIRONMENT): Record<string, string> {
   return {
-    API_BASE_URL: DEVELOPERS_API_BASE_URL,
+    API_BASE_URL: DEVELOPERS_ENVIRONMENTS[environment].apiBaseUrl,
     SWAGGER_URL: DEVELOPERS_SWAGGER_URL,
     DASHBOARD_URL: DEVELOPERS_DASHBOARD_URL,
     SDK_URL: DEVELOPERS_SDK_URL,
@@ -26,6 +30,12 @@ export function tokenMap(): Record<string, string> {
     GITHUB_URL: DEVELOPERS_GITHUB_URL,
     PROTOCOL_URL: DEVELOPERS_PROTOCOL_URL,
     STATUS_URL: DEVELOPERS_STATUS_URL,
+    STAGING_DASHBOARD_URL: DEVELOPERS_ENVIRONMENTS.staging.dashboardUrl,
+    STAGING_API_BASE_URL: DEVELOPERS_ENVIRONMENTS.staging.apiBaseUrl,
+    PRODUCTION_DASHBOARD_URL: DEVELOPERS_ENVIRONMENTS.production.dashboardUrl,
+    PRODUCTION_API_BASE_URL: DEVELOPERS_ENVIRONMENTS.production.apiBaseUrl,
+    EXAMPLES_DASHBOARD_URL: DEVELOPERS_ENVIRONMENTS[environment].dashboardUrl,
+    EXAMPLES_ENVIRONMENT: environment,
   }
 }
 

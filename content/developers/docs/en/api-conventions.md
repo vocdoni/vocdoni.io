@@ -7,18 +7,16 @@ order: 5
 
 ## Base URL and authentication
 
-All endpoints share one base URL. Authenticated endpoints expect an `Authorization` header carrying your scoped API key as a bearer token. Create the key in the [API Dashboard](https://platform.vocdoni.io); it is prefixed `vsk_` and grants only the [scopes](/developers/docs/api-keys) you select.
+All endpoints share one base URL. Authenticated endpoints expect an `Authorization` header carrying your scoped API key as a bearer token. Create the key in the API Dashboard of the environment you call (see [environments](#environments)); it is prefixed `vsk_` and grants only the [scopes](/developers/docs/api-keys) you select.
 
 ### Environments
 
-The SaaS API runs in two independent environments. Use the base URL for the one you target - the examples in these docs use `{{API_BASE_URL}}` as a stand-in.
+The SaaS API runs in two independent environments. Accounts, organizations and API keys exist in only one of them, so you sign up separately on each dashboard, and a key from one will not authenticate against the other. The examples in these docs call {{EXAMPLES_ENVIRONMENT}} (`{{API_BASE_URL}}`). The docs version selector switches them: the Production version shows production URLs and the Stage version shows staging ones.
 
-| Environment | Base URL | Use it for |
-| --- | --- | --- |
-| Staging | `https://saas-api-stg.vocdoni.net` | Wiring up and testing your integration against the latest build. Treat its data as disposable. |
-| Production | `https://saas-api-prod.vocdoni.net` | Live elections. |
-
-API keys are scoped to a single environment: create your key in the [API Dashboard](https://platform.vocdoni.io) for the environment you are calling, and a staging key will not authenticate against production.
+| Environment | API base URL | Dashboard (sign up here) | Use it for |
+| --- | --- | --- | --- |
+| Staging | `{{STAGING_API_BASE_URL}}` | [Staging dashboard]({{STAGING_DASHBOARD_URL}}) | Wiring up and testing your integration against the latest build. Treat its data as disposable. |
+| Production | `{{PRODUCTION_API_BASE_URL}}` | [Production dashboard]({{PRODUCTION_DASHBOARD_URL}}) | Live elections. |
 
 :::code-tabs
 
