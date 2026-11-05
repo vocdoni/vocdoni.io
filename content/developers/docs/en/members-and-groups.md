@@ -24,13 +24,93 @@ fields. Provide whatever your authentication strategy needs; you do not have to 
 | `nationalId` | string | National identity document, when used to authenticate. |
 | `birthDate` | string | Date of birth in YYYY-MM-DD format. |
 | `weight` | string | Vote weight for weighted censuses. A string, e.g. `"1"`. Defaults to 1. |
+| `password` | string | Write-only. The [client hash](#member-passwords) of the member's password, never the plaintext. |
+| `hasPassword` | boolean | Read-only. `true` when the member has a password; ignored on writes. |
 | `other` | object | Custom key-value fields specific to your organization. |
+
+## Member passwords
+
+A member password is a secret the organization gives each voter, for a census that requires it as a
+[credential](/developers/docs/census#password-credential). The plaintext never reaches the API: you send
+the **client hash** in `password`, and the voter app sends the same hash, computed from what the voter
+types, when they [log in](/developers/docs/casting-votes#password-censuses).
+
+```text
+password = lowercase_hex(SHA-256(UTF-8(
+  "vocdoni-member-password:" + canonicalAddress(orgAddress) + ":" + NFC(trim(password)))))
+canonicalAddress(a) = "0x" + lowercase(a without any leading "0x")
+```
+
+`trim` is JavaScript's `String.prototype.trim()`: it strips the ECMAScript whitespace and line
+terminators, U+FEFF included, from both ends. Other languages' trims strip a different set, so match it
+exactly or a password with unusual leading or trailing characters hashes differently on each side.
+
+The organization address is part of the hash, so the same password hashes differently in each
+organization. Normalizing to NFC makes an accented password hash alike in whichever Unicode form it
+was typed. Test vector: organization `0x00000000000000000000000000000000000000AA` (or
+`00000000000000000000000000000000000000aa`) and password `s3cret` give
+`2f7e83a0b19a82fa9a5dc6ecc6ff44ec82679ea87012a7187bd3313366bf277e`.
+
+In TypeScript, `hashMemberPassword(orgAddress, password)` from `@vocdoni/api-client` (2.7.0 on) does
+all of this. It uses Web Crypto, so it runs in browsers on a secure (HTTPS) page and in Node 22 or
+later. In other languages, implement the formula as the Python version below does.
+
+:::code-tabs[hash a member password]
+
+```ts
+import { hashMemberPassword } from '@vocdoni/api-client' // from 2.7.0
+
+// Throws on an empty password (its hash is a valid, guessable credential: leave `password` out
+// instead) and on an address that is not 0x + 40 hex (the hash would never match at login).
+const password = await hashMemberPassword(org, 's3cret')
+await client.organizations.upsertMember(org, { id: memberId, password })
+```
+```python
+import hashlib, re, unicodedata
+
+# what JavaScript's String.prototype.trim() strips; Python's str.strip() strips a different set
+JS_WHITESPACE = (
+    "\t\n\v\f\r \u00a0\u1680\u2000\u2001\u2002\u2003\u2004\u2005\u2006\u2007\u2008\u2009\u200a"
+    "\u2028\u2029\u202f\u205f\u3000\ufeff"
+)
+
+def member_password_hash(org_address: str, password: str) -> str:
+    org = "0x" + org_address.lower().removeprefix("0x")
+    # a wrong address still yields a valid-looking hash, and every login would then fail
+    if not re.fullmatch(r"0x[0-9a-f]{40}", org):
+        raise ValueError(f"not an organization address: {org_address!r}")
+    pw = unicodedata.normalize("NFC", password.strip(JS_WHITESPACE))
+    # the hash of "" is a valid credential: send no password (or "" to clear it) instead
+    if not pw:
+        raise ValueError("empty password")
+    return hashlib.sha256(f"vocdoni-member-password:{org}:{pw}".encode()).hexdigest()
+```
+:::
+
+- `password` takes a hash of 64 lowercase hex characters or `""` (no password). Anything else is
+  refused: a bulk add fails as a whole with `400` (error code `40037`), an upsert with `400` (error code
+  `40004`).
+- Never hash an empty password: the hash of `""` is a valid value that anyone can compute. Leave
+  `password` out for members who have none, so a password census reports them in `missingData`.
+- Reads never return the password, only `hasPassword: true` when one is set.
+- On an [update](#updating-and-deleting-members), `""` clears the password and leaving `password` out
+  keeps it. Clearing the password of a member already in a live password census keeps them in it, but
+  they can no longer log in until a new one is set.
+- The hash logs a voter in just like the password, and as a single SHA-256 it is quick to brute-force
+  for a weak password. Store, log and transmit it as carefully as the password itself.
+
+> [!WARNING] Set passwords before creating the process
+> A member who has no password when the census is built is left out of it (reported in `missingData`),
+> and setting the password later does not add them. See
+> [Creating a process](/developers/docs/voting-processes#creating-a-process).
 
 ## Adding members
 
 Member imports are **bulk**. Add `?async=true` (`{ async: true }` in the SDK) to run them as a job: the
 call returns a `jobId`, and you poll a members-job until it reports `progress: 100`. Without it the call
-imports synchronously and answers `{ "added": N }` with no `jobId`.
+imports synchronously and answers `{ "added": N }` with no `jobId` - unless the members carry more than
+150 phones and passwords between them, which are slow to hash: then the import runs as a job anyway and
+answers with a `jobId`, so always check for one.
 
 - **POST** `/organizations/{address}/members`
 
@@ -179,6 +259,7 @@ An update merges what you send onto the stored member:
 - `other` is replaced as a whole: send every custom field you want to keep, `{}` to clear them all, or
   leave `other` out to keep them.
 - Phone numbers are never returned in plaintext, so leave `phone` out unless you are changing it.
+  Neither is the password: leave `password` out to keep it, or send `""` to clear it.
 - The whole member is normalized again on every update (names and ids trimmed, email lowercased), so
   fields you did not send can change format.
 
@@ -203,6 +284,9 @@ await client.organizations.deleteMembers(org, { ids: [memberId] })
 The `PUT` answers `{ "id": "..." }`. When it creates a member it can also return `censusJobIds`, the
 [census-update jobs](/developers/docs/jobs#census-update-jobs) that make room for them in live
 elections (poll each one), and `errors`, the live censuses they could not join.
+
+Hashing a phone or a password is rationed server-wide, so a busy server answers the `PUT` with `503`
+(error code `50302`) and a `Retry-After` header, and writes nothing: retry after the delay.
 
 Member and group changes **cascade to the censuses of ongoing processes** - the memberbase is the
 source of truth (see [Census](/developers/docs/census#kept-in-sync-with-the-memberbase)). Two
@@ -264,3 +348,5 @@ group = post(f"/organizations/{org}/groups",
 - Delete is `DELETE /organizations/{addr}/members` (**plural**), with `{ "ids": [...] }`.
 - For an **auth-only** census, each `memberNumber` must be **unique** - it becomes the voting
   credential (see [Census](/developers/docs/census)).
+- `password` takes the [client hash](#member-passwords), never the plaintext. Set it before creating
+  the process: members without one are left out of a password census.

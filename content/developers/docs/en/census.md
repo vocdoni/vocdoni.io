@@ -61,7 +61,7 @@ combined with any of them:
 | `sms` | `["phone"]` | SMS OTP |
 | `sms_or_mail` | `["email","phone"]` | voter's choice |
 
-- `authFields` options: `name`, `surname`, `memberNumber`, `nationalId`, `birthDate`.
+- `authFields` options: `name`, `surname`, `memberNumber`, `nationalId`, `birthDate`, `password`.
 - `twoFaFields` options: `email`, `phone`.
 
 > [!WARNING] Every voter needs complete, unique login data
@@ -71,12 +71,37 @@ combined with any of them:
 > fail with `400` (error code `40037`) and their ids in `data.duplicates`. Members missing the data
 > instead - an empty or whitespace-only auth field, or no 2FA channel - are **left out** of the census
 > and listed in the response's `missingData`; they cannot log in and do not count toward the census
-> size. See [Creating a process](/developers/docs/voting-processes#creating-a-process), and
+> size. A [password](#password-credential) is the exception to uniqueness: it is a secret, not an
+> identifier, so members may share one. See
+> [Creating a process](/developers/docs/voting-processes#creating-a-process), and
 > [validate the census](#validating-a-census) first to catch both.
 
 > [!NOTE] Weighted voting
 > Set `"weighted": true` to make each member's `weight` count as their vote weight - use it for
 > shareholder meetings or any vote where members do not count equally.
+
+### Password credential
+
+Add `password` to `authFields` to make voters also present the
+[member password](/developers/docs/members-and-groups#member-passwords) the organization set for them.
+It checks a voter's identity but never finds them on its own, so the census needs **at least one
+other auth field or a 2FA field** next to it:
+
+```jsonc
+"census": { "authFields": ["memberNumber", "password"], "groupId": "<group>" }
+```
+
+Prefer another auth field over a 2FA field alone: with `password` as the only auth field, failed logins
+are capped once for the whole process rather than per voter (see
+[Password censuses](/developers/docs/casting-votes#password-censuses)).
+
+A census whose only credential is `password` is refused with `400` (error code `40037`, message
+"password needs another credential or a 2FA field") by `POST /processes`, `PUT /processes/{processId}`
+and [`POST /processes/census/validation`](#validating-a-census).
+
+Members without a password when the census is built are left out, like any member with missing data,
+and listed in `missingData`. Setting their password later does not add them by itself, as for any other
+auth field, so **set passwords before creating the process**.
 
 ## Anonymous voting
 
@@ -161,9 +186,10 @@ await client.elections.validateCensus({
 A usable census answers a bare `200`; an unusable one is a `400` (error code `40037`) whose `data`
 lists the offending member ids in `duplicates`, `missingData` and, for an explicit `memberIds` list,
 `notFound`. The same code also answers a malformed request - a census with neither `authFields` nor
-`twoFaFields`, an unknown group or a malformed member id - and then `data` carries no lists, so check
-for them before reading them. The dry-run is stricter than creating the process: members with missing
-data fail it, while `POST /processes` leaves them out of the census and goes ahead.
+`twoFaFields`, one whose only credential is `password`, an unknown group or a malformed member id - and
+then `data` carries no lists, so check for them before reading them. The dry-run is stricter than
+creating the process: members with missing data fail it, while `POST /processes` leaves them out of the
+census and goes ahead.
 
 ## Kept in sync with the memberbase
 

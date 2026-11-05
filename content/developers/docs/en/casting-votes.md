@@ -19,7 +19,8 @@ process, then **signs and relays a ballot per question** they are eligible for.
 ## The flow
 
 1. **Authenticate once** - the voter presents whatever the census requires: identity `authFields`
-   and/or a one-time code sent to their `email`/`phone` (a 2FA census needs no auth fields). Success
+   (including a [member password](#password-censuses)) and/or a one-time code sent to their
+   `email`/`phone` (a 2FA census needs no auth fields). Success
    yields a token bound to the process. Leaving a required auth field or the contact for the code
    empty is refused with `400` (error code `40005`).
 2. **Sign per question** - for each question, the credential service (CSP) signs the
@@ -131,6 +132,44 @@ read its tally from [Results](/developers/docs/results).
 > pending token. Confirm it before signing:
 > `client.elections.authStep1(processId, { authToken, authData: ['123456'] })`. Need a new code?
 > `client.elections.resend(processId, { authToken })`.
+
+### Password censuses
+
+When the census `authFields` include `password`, step 0 also takes `password`: the same
+[client hash](/developers/docs/members-and-groups#member-passwords) the organization set, computed
+from what the voter types and the process's `orgAddress`. The public process read returns that address
+without the `0x`, which the hash's canonical form adds back. The plaintext never leaves the voter's
+device.
+
+```ts
+import { hashMemberPassword } from '@vocdoni/api-client' // from 2.7.0
+
+const { orgAddress } = await client.elections.get(processId)
+const { authToken } = await client.elections.authStep0(processId, {
+  memberNumber: 'A-101',
+  password: await hashMemberPassword(orgAddress, typedPassword),
+})
+```
+
+- A **wrong password** answers exactly like an unknown participant - `401` (error code `40802`), same
+  body - so a caller cannot tell which credential was wrong.
+- Failed logins are capped per process and per set of credentials, the password left out: after 10
+  in an hour with the same other credentials, step 0 answers `400` (error code `40017`) with
+  `data.retryAfter`, the seconds until the hour resets - even to the right password. So anyone who
+  knows a voter's other auth fields can lock them out for the hour: prefer auth fields that are not
+  public. A 2FA field only raises the bar: those 10 then count per contact too, but 100 failures across
+  any contacts still lock the voter out, and 10 do when the contact is known.
+- Always pair `password` with another auth field, even on a 2FA census. With `password` as the only
+  auth field, that 100-failure cap is keyed on no field at all, so it is shared by every voter: 100
+  junk logins with made-up contacts lock the whole process out for the hour.
+- A **malformed** one (not 64 lowercase hex, such as the plaintext) is `400` (error code `40005`)
+  "invalid password format", and a **missing** one `400` (error code `40005`) "missing required auth
+  data".
+- Password checks are rationed server-wide: a busy server answers `503` (error code `50302`) without
+  spending any of the budget, so retry later.
+
+`AuthRequest.password` and `OrgMember.hasPassword` are typed from `@vocdoni/api-types` 2.4.0, and
+`auth0` from `@vocdoni/react-providers` forwards `password` unchanged.
 
 ### Encrypted questions
 
@@ -506,7 +545,8 @@ transaction with an EIP-191 `personal_sign` signature. The
 ```bash
 # a) Authenticate (step 0) - send exactly the fields the census requires (authFields and/or the
 #    email/phone used for the code). Here an auth-only census by memberNumber; a mail census would
-#    send { "email": "voter@example.org" }. Auth-only censuses are verified here and there is no code.
+#    send { "email": "voter@example.org" }, and a password census adds "password": "<client hash>".
+#    Auth-only censuses are verified here and there is no code.
 curl -X POST "$B/processes/$PROCESS/auth/0" \
   -H "Content-Type: application/json" \
   -d '{ "memberNumber": "A-101" }'
