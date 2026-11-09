@@ -201,6 +201,15 @@ export default function Footer() {
           <Link variant='footerLegal' href='/privacy#cookies'>
             {t('footer.legal.cookies')}
           </Link>
+          {/* Plain anchor: Link would prefix the static PDF path with the locale */}
+          <a
+            href='/legal/sgi-policy.pdf'
+            target='_blank'
+            rel='noopener noreferrer'
+            className='text-muted-foreground hover:text-foreground transition-colors'
+          >
+            {t('footer.legal.sgi_policy', 'Information security and management policy')}
+          </a>
         </div>
 
         {/* Separator */}
