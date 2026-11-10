@@ -10,11 +10,10 @@ vi.mock('react-i18next', () => ({
   }),
 }))
 
+const pageContext = vi.hoisted(() => ({ locale: 'en', urlLogical: '/' }))
+
 vi.mock('vike-react/usePageContext', () => ({
-  usePageContext: () => ({
-    locale: 'en',
-    urlLogical: '/',
-  }),
+  usePageContext: () => pageContext,
 }))
 
 vi.mock('@/components/LanguageSwitcher', () => ({
@@ -81,5 +80,17 @@ describe('Navbar', () => {
     const html = renderToStaticMarkup(<Navbar />)
 
     expect(html).toContain(`href="${APP_URL}/en/account/signin?ref=navbar_desktop_signin"`)
+  })
+
+  it('hides the sign-in button on the Vocdoni Association page', () => {
+    pageContext.urlLogical = '/about-us/vocdoni-association'
+    try {
+      const html = renderToStaticMarkup(<Navbar />)
+      expect(html).not.toContain('navbar_desktop_signin')
+      expect(html).not.toContain('navbar_mobile_signin')
+      expect(html).not.toContain('navbar.app_button')
+    } finally {
+      pageContext.urlLogical = '/'
+    }
   })
 })

@@ -93,7 +93,7 @@ const getLocalizedValue = (pageContext: PageContext, locale: string, key: string
 }
 
 const getPageSchemaType = (urlLogical: string) => {
-  if (urlLogical === '/about-us') return 'AboutPage'
+  if (urlLogical === '/about-us' || urlLogical === '/about-us/vocdoni-association') return 'AboutPage'
   if (urlLogical === '/contact') return 'ContactPage'
   return 'WebPage'
 }
@@ -105,6 +105,13 @@ const cleanTitle = (title?: string) => {
   return stripBrandSuffix(title) || 'Vocdoni'
 }
 
+// Breadcrumb names that come from locale copy instead of the URL slug or the page title: a slug
+// renders in English on every locale, and a full title is too long to read as a trail step.
+const BREADCRUMB_NAME_KEYS: Record<string, string> = {
+  '/about-us': 'navbar.about',
+  '/about-us/vocdoni-association': 'about_us.structure.association_title',
+}
+
 const getBreadcrumbName = (segment: string, title?: string) => {
   if (title) return cleanTitle(title)
   return segment
@@ -114,8 +121,20 @@ const getBreadcrumbName = (segment: string, title?: string) => {
     .join(' ')
 }
 
-const buildBreadcrumbSchema = (siteUrl: string, locale: string, urlLogical: string, title?: string) => {
+const buildBreadcrumbSchema = (
+  pageContext: PageContext,
+  siteUrl: string,
+  locale: string,
+  urlLogical: string,
+  title?: string
+) => {
   if (urlLogical === '/') return null
+
+  const localizedName = (path: string) => {
+    const key = BREADCRUMB_NAME_KEYS[`/${path}`]
+    const value = key ? getLocalizedValue(pageContext, locale, key) : undefined
+    return typeof value === 'string' && value ? value : undefined
+  }
 
   const segments = urlLogical.split('/').filter(Boolean)
   return {
@@ -133,7 +152,9 @@ const buildBreadcrumbSchema = (siteUrl: string, locale: string, urlLogical: stri
         return {
           '@type': 'ListItem',
           position: index + 2,
-          name: index === segments.length - 1 ? getBreadcrumbName(segment, title) : getBreadcrumbName(segment),
+          name:
+            localizedName(path) ??
+            (index === segments.length - 1 ? getBreadcrumbName(segment, title) : getBreadcrumbName(segment)),
           item: `${siteUrl}/${locale}/${path}`,
         }
       }),
@@ -506,7 +527,7 @@ export function HeadTags(pageContext: PageContext) {
     organizationSchema,
     websiteSchema,
     pageSchema,
-    buildBreadcrumbSchema(siteUrl, locale, urlLogical, title ?? undefined),
+    buildBreadcrumbSchema(pageContext, siteUrl, locale, urlLogical, title ?? undefined),
     appSchema,
     moduleSourceSchema,
     moduleAppSchema,
