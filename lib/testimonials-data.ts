@@ -28,6 +28,7 @@ import logoGranollersRound from '@/assets/logos/logo_primaries_granollers_round.
 import logoIntersindicalRound from '@/assets/logos/logo_intersindical_round.webp'
 import logoUstecRound from '@/assets/logos/logo_ustec_round.webp'
 import logoFoodcoopRound from '@/assets/logos/logo_foodcoop_round.webp'
+import logoAfaCollserolaRound from '@/assets/logos/logo_afa_collserola_round.webp'
 
 export type Testimonial = {
   name: string
@@ -268,6 +269,19 @@ export function getTestimonialsData(t: TFunction): Testimonial[] {
       platformName: 'Foodcoop BCN',
       platformImage: logoFoodcoopRound,
       logo: logoFoodcoopRound,
+    },
+    {
+      name: 'Alba Fernández',
+      handle: t('testimonials_marquee.items.17.handle', 'Board member · AFA Collserola'),
+      rating: 5,
+      title: t('testimonials_marquee.items.17.title', 'Remote voting so every family can take part'),
+      content: t(
+        'testimonials_marquee.items.17.content',
+        "At the Escola Collserola parents' association (AFA), we wanted the board election to reach every family, not just those who could come to the assembly. Every family has its own circumstances: work hours, young children, travel... With Vocdoni we made it possible for everyone to vote remotely, simply and securely."
+      ),
+      platformName: 'AFA Collserola',
+      platformImage: logoAfaCollserolaRound,
+      logo: logoAfaCollserolaRound,
     },
   ]
 }
