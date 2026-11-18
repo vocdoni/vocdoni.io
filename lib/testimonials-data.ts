@@ -277,7 +277,7 @@ export function getTestimonialsData(t: TFunction): Testimonial[] {
       title: t('testimonials_marquee.items.17.title', 'Remote voting so every family can take part'),
       content: t(
         'testimonials_marquee.items.17.content',
-        "At the Escola Collserola parents' association (AFA), we wanted the board election to reach every family, not just those who could come to the assembly. Every family has its own circumstances: work hours, young children, travel... With Vocdoni we made it possible for everyone to vote remotely, simply and securely."
+        "At the Escola Collserola families' association (AFA), we wanted the board election to reach every family, not just those who could come to the assembly. Every family has its own circumstances: work hours, young children, travel... With Vocdoni we made it possible for everyone to vote remotely, simply and securely."
       ),
       platformName: 'AFA Collserola',
       platformImage: logoAfaCollserolaRound,
