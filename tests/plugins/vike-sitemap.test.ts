@@ -3,27 +3,27 @@ import { describe, expect, it } from 'vitest'
 import { buildRobotsTxt, buildSitemapXml } from '@/plugins/vike-sitemap'
 
 describe('vike sitemap plugin', () => {
-  it('emits canonical locale-prefixed URLs with reciprocal hreflang alternates', () => {
+  it('emits canonical trailing-slash locale-prefixed URLs with reciprocal hreflang alternates', () => {
     const xml = buildSitemapXml('https://vocdoni.io', [{ baseRoute: '/use-cases', locales: ['ca', 'en', 'es'] }], 'en')
 
-    expect(xml).toContain('<loc>https://vocdoni.io/en/use-cases</loc>')
-    expect(xml).toContain('<loc>https://vocdoni.io/es/use-cases</loc>')
-    expect(xml).toContain('<loc>https://vocdoni.io/ca/use-cases</loc>')
+    expect(xml).toContain('<loc>https://vocdoni.io/en/use-cases/</loc>')
+    expect(xml).toContain('<loc>https://vocdoni.io/es/use-cases/</loc>')
+    expect(xml).toContain('<loc>https://vocdoni.io/ca/use-cases/</loc>')
     expect(xml).not.toContain('<loc>https://vocdoni.io/use-cases</loc>')
-    expect(xml).toContain('<xhtml:link rel="alternate" hreflang="ca" href="https://vocdoni.io/ca/use-cases" />')
-    expect(xml).toContain('<xhtml:link rel="alternate" hreflang="en" href="https://vocdoni.io/en/use-cases" />')
-    expect(xml).toContain('<xhtml:link rel="alternate" hreflang="x-default" href="https://vocdoni.io/en/use-cases" />')
+    expect(xml).toContain('<xhtml:link rel="alternate" hreflang="ca" href="https://vocdoni.io/ca/use-cases/" />')
+    expect(xml).toContain('<xhtml:link rel="alternate" hreflang="en" href="https://vocdoni.io/en/use-cases/" />')
+    expect(xml).toContain('<xhtml:link rel="alternate" hreflang="x-default" href="https://vocdoni.io/en/use-cases/" />')
   })
 
   it('advertises only the locales a post actually exists in', () => {
     const xml = buildSitemapXml('https://vocdoni.io', [{ baseRoute: '/blog/only-catalan', locales: ['ca'] }], 'en')
 
     // Only the Catalan URL is listed, and it is the x-default (no English source).
-    expect(xml).toContain('<loc>https://vocdoni.io/ca/blog/only-catalan</loc>')
+    expect(xml).toContain('<loc>https://vocdoni.io/ca/blog/only-catalan/</loc>')
     expect(xml).not.toContain('https://vocdoni.io/en/blog/only-catalan')
     expect(xml).not.toContain('https://vocdoni.io/es/blog/only-catalan')
     expect(xml).toContain(
-      '<xhtml:link rel="alternate" hreflang="x-default" href="https://vocdoni.io/ca/blog/only-catalan" />'
+      '<xhtml:link rel="alternate" hreflang="x-default" href="https://vocdoni.io/ca/blog/only-catalan/" />'
     )
   })
 
@@ -37,7 +37,7 @@ describe('vike sitemap plugin', () => {
       'en'
     )
 
-    const appBlock = xml.split('<loc>https://vocdoni.io/en/app</loc>')[1].split('</url>')[0]
+    const appBlock = xml.split('<loc>https://vocdoni.io/en/app/</loc>')[1].split('</url>')[0]
     expect(appBlock).not.toContain('<lastmod>')
     expect(xml.match(/<lastmod>2026-03-24<\/lastmod>/g)).toHaveLength(2)
     expect(xml).not.toMatch(/<lastmod>\d{4}-\d{2}-\d{2}T/)

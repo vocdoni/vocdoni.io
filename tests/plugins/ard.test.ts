@@ -86,14 +86,14 @@ describe('buildAiCatalogDocument', () => {
     expect(urls).toContain('https://vocdoni.io/.well-known/api-catalog')
     expect(urls).toContain('https://vocdoni.io/llms.txt')
     expect(urls).toContain('https://vocdoni.io/.well-known/agent-skills/index.json')
-    expect(urls).toContain('https://vocdoni.io/en/developers/docs')
+    expect(urls).toContain('https://vocdoni.io/en/developers/docs/')
     expect(urls).toContain('https://vocdoni.io/blog/rss.xml')
-    expect(doc.host.documentationUrl).toBe('https://vocdoni.io/en/developers')
+    expect(doc.host.documentationUrl).toBe('https://vocdoni.io/en/developers/')
   })
 
   it('points the raw markdown docs entry at the default locale', () => {
     const md = buildAiCatalogDocument('https://vocdoni.io', 'ca').entries.find((e) => e.type === 'text/markdown')
-    expect(md?.url).toBe('https://vocdoni.io/ca/developers/docs.md')
+    expect(md?.url).toBe('https://vocdoni.io/ca/developers/docs.md') // raw markdown URL: no trailing slash
   })
 
   it('advertises the deploy host, not the production domain, on preview deploys', () => {

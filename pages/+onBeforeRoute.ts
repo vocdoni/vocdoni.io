@@ -39,8 +39,11 @@ const onBeforeRoute = (pageContext: PageContext) => {
 
   const { urlPathnameWithoutLocale, locale, hasLocalePrefix } = extractLocale(urlOriginal)
 
-  // Create urlLogical without the locale prefix for routing
-  const urlLogical = urlPathnameWithoutLocale
+  // Strip one trailing slash so a client-side navigation to /en/pricing/ gives
+  // urlLogical = '/pricing' exactly as /en/pricing does. The root '/' is left
+  // unchanged, and the prerender urlOriginal values are not affected.
+  const rawLogical = urlPathnameWithoutLocale
+  const urlLogical = rawLogical !== '/' && rawLogical.endsWith('/') ? rawLogical.slice(0, -1) : rawLogical
 
   return {
     pageContext: {

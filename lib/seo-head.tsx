@@ -1,6 +1,7 @@
 import { stripBrandSuffix } from '@/lib/brand'
 import { DEVELOPERS_SKILLS_URL, DEVELOPERS_SWAGGER_URL } from '@/lib/developers'
 import { getCompatibilityRedirectTarget } from '@/lib/localeRedirect'
+import { withTrailingSlash } from '@/lib/url-form'
 import { localeDefault, locales } from '@/locales'
 import type { PageContext } from 'vike/types'
 import ogImageDefault from '../assets/images/og-default.png'
@@ -14,7 +15,8 @@ const normalizePath = (path: string) => {
 
 const withLocalePrefix = (locale: string, urlLogical: string) => {
   const normalized = normalizePath(urlLogical)
-  return normalized === '/' ? `/${locale}` : `/${locale}${normalized}`
+  const bare = normalized === '/' ? `/${locale}` : `/${locale}${normalized}`
+  return withTrailingSlash(bare)
 }
 
 const hasLocalePrefix = (urlPathname: string) => {
@@ -126,7 +128,7 @@ const buildBreadcrumbSchema = (siteUrl: string, locale: string, urlLogical: stri
         '@type': 'ListItem',
         position: 1,
         name: 'Vocdoni',
-        item: `${siteUrl}/${locale}`,
+        item: `${siteUrl}/${locale}/`,
       },
       ...segments.map((segment, index) => {
         const path = segments.slice(0, index + 1).join('/')
@@ -134,7 +136,7 @@ const buildBreadcrumbSchema = (siteUrl: string, locale: string, urlLogical: stri
           '@type': 'ListItem',
           position: index + 2,
           name: index === segments.length - 1 ? getBreadcrumbName(segment, title) : getBreadcrumbName(segment),
-          item: `${siteUrl}/${locale}/${path}`,
+          item: `${siteUrl}/${locale}/${path}/`,
         }
       }),
     ],
@@ -593,7 +595,7 @@ export function HeadTags(pageContext: PageContext) {
       {/* Agent discovery pointers (RFC 8288 relations). Static site: emitted as <link>
           elements since production cannot set HTTP Link headers. See plugins/well-known.ts. */}
       <link rel='api-catalog' href='/.well-known/api-catalog' />
-      <link rel='service-doc' href={`${siteUrl}/${localeDefault}/developers/docs`} />
+      <link rel='service-doc' href={`${siteUrl}/${localeDefault}/developers/docs/`} />
       <link rel='service-desc' href={DEVELOPERS_SWAGGER_URL} />
       <link rel='related' title='Vocdoni agent skills' href={DEVELOPERS_SKILLS_URL} />
       <link rel='alternate' type='text/plain' href='/llms.txt' />

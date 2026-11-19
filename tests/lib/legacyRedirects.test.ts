@@ -33,10 +33,14 @@ const REAL_URLS = new Set(
 
 // Matches any configured locale, not just two-letter ones: `pt-br` is a real locale
 // and renamed-route redirects target every locale the old URL was served in.
+// Trailing slash is stripped from the result since REAL_BASE_ROUTES are slashless.
 const stripLocale = (url: string) => {
   for (const locale of locales) {
-    if (url === `/${locale}`) return '/'
-    if (url.startsWith(`/${locale}/`)) return url.slice(locale.length + 1)
+    if (url === `/${locale}` || url === `/${locale}/`) return '/'
+    if (url.startsWith(`/${locale}/`)) {
+      const rest = url.slice(locale.length + 1)
+      return rest.endsWith('/') ? rest.slice(0, -1) : rest
+    }
   }
   return null
 }
@@ -65,17 +69,17 @@ describe('LEGACY_REDIRECTS source of truth', () => {
     }
   })
 
-  it('maps each legacy path to its current destination', () => {
+  it('maps each legacy path to its current destination (trailing-slash form)', () => {
     const map = Object.fromEntries(LEGACY_REDIRECTS.map((r) => [r.from, r.to]))
-    expect(map['/product']).toBe('/en/app') // unprefixed -> default locale
-    expect(map['/es/product']).toBe('/es/app')
-    expect(map['/advantages']).toBe('/en')
-    expect(map['/es/advantages']).toBe('/es')
-    expect(map['/docs']).toBe('/en/developers')
-    expect(map['/es/docs']).toBe('/es/developers')
-    expect(map['/footer']).toBe('/en')
-    expect(map['/api']).toBe('/en') // internal only - never an external site
-    expect(map['/politica-priv-14fruites']).toBe('/en/privacy')
+    expect(map['/product']).toBe('/en/app/') // unprefixed -> default locale
+    expect(map['/es/product']).toBe('/es/app/')
+    expect(map['/advantages']).toBe('/en/')
+    expect(map['/es/advantages']).toBe('/es/')
+    expect(map['/docs']).toBe('/en/developers/')
+    expect(map['/es/docs']).toBe('/es/developers/')
+    expect(map['/footer']).toBe('/en/')
+    expect(map['/api']).toBe('/en/') // internal only - never an external site
+    expect(map['/politica-priv-14fruites']).toBe('/en/privacy/')
   })
 
   it('keeps the language for active locales and collapses inactive ones to the default', () => {

@@ -16,7 +16,7 @@ describe('buildApiCatalog', () => {
     const entry = doc.linkset[0]
     expect(entry.anchor).toBe(DEVELOPERS_API_BASE_URL)
     expect(entry['service-desc'][0].href).toBe(DEVELOPERS_SWAGGER_URL)
-    expect(entry['service-doc'][0].href).toBe('https://vocdoni.io/en/developers/docs')
+    expect(entry['service-doc'][0].href).toBe('https://vocdoni.io/en/developers/docs/')
     expect(entry.status[0].href).toBe(DEVELOPERS_STATUS_URL)
   })
 })
@@ -28,7 +28,7 @@ describe('buildNetlifyHeaders', () => {
     expect(out).toContain('Link: </.well-known/api-catalog>; rel="api-catalog"')
     expect(out).toContain(`Link: <${DEVELOPERS_SKILLS_URL}>; rel="related"`)
     expect(out).toContain(`Link: <${DEVELOPERS_SWAGGER_URL}>; rel="service-desc"`)
-    expect(out).toContain('Link: </en/developers/docs>; rel="service-doc"')
+    expect(out).toContain('Link: </en/developers/docs/>; rel="service-doc"')
     expect(out).not.toContain('Link: </developers/docs>; rel="service-doc"')
     expect(out).not.toContain('noindex, nofollow')
   })

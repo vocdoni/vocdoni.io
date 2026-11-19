@@ -64,14 +64,18 @@ function buildRss(host: string, defaultLocale: string, posts: FeedItem[]): strin
       // Link to the post's actual content locale (its canonical URL), not the
       // default locale, so posts that only exist in another language aren't
       // pointed at a fallback URL.
-      const url = escapeXml(`${site}/${post.locale}/blog/${post.slug}`)
+      // <link> uses the trailing-slash form Netlify serves; <guid> stays byte-for-byte
+      // unchanged so feed readers don't re-announce every post as new (a changed guid
+      // triggers "new item" in every reader that has already seen the feed).
+      const guidUrl = escapeXml(`${site}/${post.locale}/blog/${post.slug}`)
+      const linkUrl = escapeXml(`${site}/${post.locale}/blog/${post.slug}/`)
       const date = new Date(post.publishedDate)
       const pubDate = Number.isNaN(date.getTime()) ? '' : date.toUTCString()
       return [
         '    <item>',
         `      <title>${escapeXml(post.title)}</title>`,
-        `      <link>${url}</link>`,
-        `      <guid isPermaLink="true">${url}</guid>`,
+        `      <link>${linkUrl}</link>`,
+        `      <guid isPermaLink="true">${guidUrl}</guid>`,
         pubDate ? `      <pubDate>${pubDate}</pubDate>` : '',
         post.excerpt ? `      <description>${escapeXml(post.excerpt)}</description>` : '',
         '    </item>',
@@ -86,7 +90,7 @@ function buildRss(host: string, defaultLocale: string, posts: FeedItem[]): strin
     '<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">',
     '  <channel>',
     '    <title>Vocdoni blog</title>',
-    `    <link>${site}/${defaultLocale}/blog</link>`,
+    `    <link>${site}/${defaultLocale}/blog/</link>`,
     '    <description>Insights on secure digital voting from Vocdoni.</description>',
     `    <language>${defaultLocale}</language>`,
     `    <atom:link href="${site}/blog/rss.xml" rel="self" type="application/rss+xml" />`,

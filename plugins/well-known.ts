@@ -63,7 +63,7 @@ export function buildApiCatalog(hostname: string, defaultLocale = 'en'): string 
       {
         anchor: DEVELOPERS_API_BASE_URL,
         'service-desc': [{ href: DEVELOPERS_SWAGGER_URL, type: 'application/yaml' }],
-        'service-doc': [{ href: `${host}/${defaultLocale}/developers/docs`, type: 'text/html' }],
+        'service-doc': [{ href: `${host}/${defaultLocale}/developers/docs/`, type: 'text/html' }],
         status: [{ href: DEVELOPERS_STATUS_URL, type: 'text/html' }],
       },
     ],
@@ -161,7 +161,7 @@ export function buildNetlifyHeaders(
 ): string {
   const links = [
     '</.well-known/api-catalog>; rel="api-catalog"',
-    `</${defaultLocale}/developers/docs>; rel="service-doc"`,
+    `</${defaultLocale}/developers/docs/>; rel="service-doc"`,
     `<${DEVELOPERS_SWAGGER_URL}>; rel="service-desc"`,
     `<${DEVELOPERS_SKILLS_URL}>; rel="related"`,
     '</llms.txt>; rel="alternate"; type="text/plain"',

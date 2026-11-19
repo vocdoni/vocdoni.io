@@ -1,6 +1,7 @@
-// Relative import (not the `@` alias): this module is also loaded by `vite.config.ts` at config-load
+// Relative imports (not the `@` alias): this module is also loaded by `vite.config.ts` at config-load
 // time, where Vite's esbuild bundler does not resolve tsconfig path aliases.
 import { localeDefault, locales } from '../locales'
+import { withTrailingSlash } from './url-form'
 
 /**
  * Single source of truth for legacy URL redirects (issue #70).
@@ -46,8 +47,9 @@ const LEGACY_PATHS: Record<string, string> = {
   footer: '/', // stray footer link -> landing page
 }
 
-/** Turn a logical destination (e.g. `/`, `/app`, `/developers`) into a locale-prefixed final URL. */
-const localize = (logical: string, lang: string) => (logical === '/' ? `/${lang}` : `/${lang}${logical}`)
+/** Turn a logical destination (e.g. `/`, `/app`, `/developers`) into a locale-prefixed trailing-slash URL. */
+const localize = (logical: string, lang: string) =>
+  withTrailingSlash(logical === '/' ? `/${lang}` : `/${lang}${logical}`)
 
 /**
  * Routes renamed on the CURRENT site, old logical path -> new logical path.
@@ -81,8 +83,8 @@ function buildRedirects(): LegacyRedirect[] {
 
   // One-offs observed in Google Search Console. Internal-only: never redirect to an external site.
   redirects.push(
-    { from: '/api', to: `/${localeDefault}` }, // API base used to live here; send users home to re-find it
-    { from: '/politica-priv-14fruites', to: `/${localeDefault}/privacy` } // old client-specific privacy page
+    { from: '/api', to: withTrailingSlash(`/${localeDefault}`) }, // API base used to live here; send users home to re-find it
+    { from: '/politica-priv-14fruites', to: withTrailingSlash(`/${localeDefault}/privacy`) } // old client-specific privacy page
   )
 
   return redirects

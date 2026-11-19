@@ -105,7 +105,7 @@ describe('llms.txt covers the site', () => {
   })
 
   it('links all three products', () => {
-    for (const route of ['/en/app', '/en/contact', '/en/developers']) expect(indexPaths).toContain(route)
+    for (const route of ['/en/app/', '/en/contact/', '/en/developers/']) expect(indexPaths).toContain(route)
   })
 
   it('has no duplicate URLs', () => {

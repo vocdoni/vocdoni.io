@@ -3,6 +3,7 @@ import path from 'node:path'
 import type { Plugin } from 'vite'
 
 import { discoverBlogCategories, discoverPageRoutes, discoverPosts } from '../lib/llms/routes'
+import { withTrailingSlash } from '../lib/url-form'
 
 type Options = {
   hostname: string
@@ -25,7 +26,7 @@ export interface SitemapRoute {
 }
 
 function withLocalePrefix(locale: string, route: string) {
-  return route === '/' ? `/${locale}` : `/${locale}${route}`
+  return withTrailingSlash(route === '/' ? `/${locale}` : `/${locale}${route}`)
 }
 
 export function buildSitemapXml(hostname: string, routes: SitemapRoute[], defaultLocale: string) {

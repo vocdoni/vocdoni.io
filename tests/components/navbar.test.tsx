@@ -70,9 +70,9 @@ describe('Navbar', () => {
     expect(html).toContain('target="_blank"')
     // Resources -> Documentation and Solutions -> SDK & API both route to the
     // internal developers section.
-    expect(html).toContain('href="/en/developers"')
+    expect(html).toContain('href="/en/developers/"')
     expect(html).not.toContain('href="/guides"')
-    expect(html).toContain('href="/en/about-us"')
+    expect(html).toContain('href="/en/about-us/"')
     expect(html).not.toContain('href="/en/about/mission"')
     expect(html).toContain('Open custom project booking')
   })

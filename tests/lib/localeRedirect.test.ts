@@ -49,15 +49,15 @@ describe('resolvePreferredLocale', () => {
 })
 
 describe('buildLocaleRedirectTarget', () => {
-  it('builds locale-prefixed redirect URLs and preserves query strings and hashes', () => {
-    expect(buildLocaleRedirectTarget('/privacy', 'es', '?preview=1', '#faq')).toBe('/es/privacy?preview=1#faq')
-    expect(buildLocaleRedirectTarget('/', 'en', '?preview=1', '#hero')).toBe('/en?preview=1#hero')
+  it('builds locale-prefixed trailing-slash redirect URLs and preserves query strings and hashes', () => {
+    expect(buildLocaleRedirectTarget('/privacy', 'es', '?preview=1', '#faq')).toBe('/es/privacy/?preview=1#faq')
+    expect(buildLocaleRedirectTarget('/', 'en', '?preview=1', '#hero')).toBe('/en/?preview=1#hero')
   })
 })
 
 describe('getCompatibilityRedirectTarget', () => {
-  it('uses the default locale for noscript fallback redirects', () => {
-    expect(getCompatibilityRedirectTarget('/privacy')).toBe('/en/privacy')
-    expect(getCompatibilityRedirectTarget('/')).toBe('/en')
+  it('uses the default locale for noscript fallback redirects with trailing slash', () => {
+    expect(getCompatibilityRedirectTarget('/privacy')).toBe('/en/privacy/')
+    expect(getCompatibilityRedirectTarget('/')).toBe('/en/')
   })
 })

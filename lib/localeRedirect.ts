@@ -1,3 +1,4 @@
+import { withTrailingSlash } from './url-form'
 import { localeDefault, locales, type Locale } from '@/locales'
 
 export const LOCALE_PREFERENCE_KEY = 'vocdoni-locale-preference'
@@ -34,8 +35,8 @@ export function resolvePreferredLocale(
 
 export function buildLocaleRedirectTarget(logicalPath: string, locale: string, search = '', hash = '') {
   const normalizedPath = normalizeLogicalPath(logicalPath)
-  const pathname = normalizedPath === '/' ? `/${locale}` : `/${locale}${normalizedPath}`
-  return `${pathname}${search}${hash}`
+  const bare = normalizedPath === '/' ? `/${locale}` : `/${locale}${normalizedPath}`
+  return `${withTrailingSlash(bare)}${search}${hash}`
 }
 
 export function getCompatibilityRedirectTarget(logicalPath: string, locale: Locale = localeDefault) {
