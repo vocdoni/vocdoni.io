@@ -109,21 +109,21 @@ describe('discoverBlogCategories', () => {
 })
 
 describe('path builders', () => {
-  it('prefixes routes with the locale, collapsing the homepage', () => {
-    expect(localePath('en', '/')).toBe('/en')
-    expect(localePath('ca', '/solutions/ngos')).toBe('/ca/solutions/ngos')
+  it('prefixes routes with the locale using trailing-slash form', () => {
+    expect(localePath('en', '/')).toBe('/en/')
+    expect(localePath('ca', '/solutions/ngos')).toBe('/ca/solutions/ngos/')
   })
 
-  it('maps the docs overview to the section root', () => {
-    expect(docPath('en', 'overview')).toBe('/en/developers/docs')
-    expect(docPath('en', 'census')).toBe('/en/developers/docs/census')
-    expect(rawDocPath('en', 'overview')).toBe('/en/developers/docs.md')
+  it('maps the docs overview to the section root with trailing slash', () => {
+    expect(docPath('en', 'overview')).toBe('/en/developers/docs/')
+    expect(docPath('en', 'census')).toBe('/en/developers/docs/census/')
+    expect(rawDocPath('en', 'overview')).toBe('/en/developers/docs.md') // raw markdown: no trailing slash
     expect(rawDocPath('es', 'census')).toBe('/es/developers/docs/census.md')
   })
 
-  it('builds blog paths', () => {
-    expect(rawPostPath('en', 'referendum-bellpuig')).toBe('/en/blog/referendum-bellpuig.md')
-    expect(blogCategoryPath('de', 'technology')).toBe('/de/blog/category/technology')
+  it('builds blog paths with trailing slash', () => {
+    expect(rawPostPath('en', 'referendum-bellpuig')).toBe('/en/blog/referendum-bellpuig.md') // raw markdown: no trailing slash
+    expect(blogCategoryPath('de', 'technology')).toBe('/de/blog/category/technology/')
   })
 
   it('names the default locale file llms.txt and every other llms-<locale>.txt', () => {

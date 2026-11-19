@@ -50,13 +50,13 @@ describe('Head meta tags', () => {
       config: { title: 'Privacy Policy - Vocdoni' },
     })
 
-    expect(html).toContain('rel="canonical" href="https://vocdoni.io/es/privacy"')
-    expect(html).toContain('rel="alternate" hrefLang="en" href="https://vocdoni.io/en/privacy"')
-    expect(html).toContain('rel="alternate" hrefLang="es" href="https://vocdoni.io/es/privacy"')
-    expect(html).toContain('rel="alternate" hrefLang="x-default" href="https://vocdoni.io/en/privacy"')
+    expect(html).toContain('rel="canonical" href="https://vocdoni.io/es/privacy/"')
+    expect(html).toContain('rel="alternate" hrefLang="en" href="https://vocdoni.io/en/privacy/"')
+    expect(html).toContain('rel="alternate" hrefLang="es" href="https://vocdoni.io/es/privacy/"')
+    expect(html).toContain('rel="alternate" hrefLang="x-default" href="https://vocdoni.io/en/privacy/"')
     expect(html).toContain('meta name="language" content="es"')
     expect(html).toContain('property="og:locale" content="es"')
-    expect(html).toContain('property="og:url" content="https://vocdoni.io/es/privacy"')
+    expect(html).toContain('property="og:url" content="https://vocdoni.io/es/privacy/"')
   })
 
   it('falls back to initialLocale when locale is missing', () => {
@@ -66,8 +66,8 @@ describe('Head meta tags', () => {
       config: { title: 'Vocdoni - Tecnología de votación blockchain' },
     })
 
-    expect(html).toContain('rel="canonical" href="https://vocdoni.io/es"')
-    expect(html).toContain('rel="alternate" hrefLang="x-default" href="https://vocdoni.io/en"')
+    expect(html).toContain('rel="canonical" href="https://vocdoni.io/es/"')
+    expect(html).toContain('rel="alternate" hrefLang="x-default" href="https://vocdoni.io/en/"')
     expect(html).toContain('meta name="language" content="es"')
     expect(html).toContain('property="og:locale" content="es"')
   })
@@ -127,10 +127,10 @@ describe('Head meta tags', () => {
       config: { title: 'Privacy Policy - Vocdoni' },
     })
 
-    expect(html).toContain('rel="canonical" href="https://vocdoni.io/en/privacy"')
-    expect(html).toContain('rel="alternate" hrefLang="en" href="https://vocdoni.io/en/privacy"')
-    expect(html).toContain('rel="alternate" hrefLang="x-default" href="https://vocdoni.io/en/privacy"')
-    expect(html).toContain('property="og:url" content="https://vocdoni.io/en/privacy"')
+    expect(html).toContain('rel="canonical" href="https://vocdoni.io/en/privacy/"')
+    expect(html).toContain('rel="alternate" hrefLang="en" href="https://vocdoni.io/en/privacy/"')
+    expect(html).toContain('rel="alternate" hrefLang="x-default" href="https://vocdoni.io/en/privacy/"')
+    expect(html).toContain('property="og:url" content="https://vocdoni.io/en/privacy/"')
   })
 
   it('derives locale and logical path from the rendered URL when custom context is missing', () => {
@@ -139,13 +139,13 @@ describe('Head meta tags', () => {
       config: { title: "Casos d'ús - Vocdoni" },
     })
 
-    expect(html).toContain('rel="canonical" href="https://vocdoni.io/ca/use-cases"')
-    expect(html).toContain('rel="alternate" hrefLang="en" href="https://vocdoni.io/en/use-cases"')
-    expect(html).toContain('rel="alternate" hrefLang="ca" href="https://vocdoni.io/ca/use-cases"')
-    expect(html).toContain('rel="alternate" hrefLang="x-default" href="https://vocdoni.io/en/use-cases"')
+    expect(html).toContain('rel="canonical" href="https://vocdoni.io/ca/use-cases/"')
+    expect(html).toContain('rel="alternate" hrefLang="en" href="https://vocdoni.io/en/use-cases/"')
+    expect(html).toContain('rel="alternate" hrefLang="ca" href="https://vocdoni.io/ca/use-cases/"')
+    expect(html).toContain('rel="alternate" hrefLang="x-default" href="https://vocdoni.io/en/use-cases/"')
     expect(html).toContain('meta name="language" content="ca"')
     expect(html).toContain('property="og:locale" content="ca"')
-    expect(html).toContain('property="og:url" content="https://vocdoni.io/ca/use-cases"')
+    expect(html).toContain('property="og:url" content="https://vocdoni.io/ca/use-cases/"')
   })
 
   it('adds noindex and a refresh target for unprefixed compatibility URLs', () => {
@@ -155,7 +155,7 @@ describe('Head meta tags', () => {
     })
 
     expect(html).toContain('meta name="robots" content="noindex,follow"')
-    expect(html).toContain('http-equiv="refresh" content="0;url=/en/app"')
+    expect(html).toContain('http-equiv="refresh" content="0;url=/en/app/"')
     expect(html).not.toContain('rel="canonical"')
   })
 
@@ -265,9 +265,9 @@ describe('Head meta tags', () => {
 
     expect(aboutHtml).toContain('"@type":"AboutPage"')
     expect(aboutHtml).toContain('"@type":"BreadcrumbList"')
-    expect(aboutHtml).toContain('"item":"https://vocdoni.io/en/about-us"')
+    expect(aboutHtml).toContain('"item":"https://vocdoni.io/en/about-us/"')
     expect(contactHtml).toContain('"@type":"ContactPage"')
-    expect(contactHtml).toContain('"item":"https://vocdoni.io/ca/contact"')
+    expect(contactHtml).toContain('"item":"https://vocdoni.io/ca/contact/"')
   })
 
   it('adds SoftwareApplication and FAQPage schema for the app page', () => {
@@ -342,8 +342,8 @@ describe('Head meta tags', () => {
 
   it('points machine-readable service discovery at the canonical English docs route', () => {
     const html = renderHead({ locale: 'es', urlLogical: '/app', config: { title: 'Vocdoni' } })
-    expect(html).toContain('rel="service-doc" href="https://vocdoni.io/en/developers/docs"')
-    expect(html).not.toContain('rel="service-doc" href="https://vocdoni.io/developers/docs"')
+    expect(html).toContain('rel="service-doc" href="https://vocdoni.io/en/developers/docs/"')
+    expect(html).not.toContain('rel="service-doc" href="https://vocdoni.io/developers/docs/"')
   })
 
   it('keeps the Organization logo stable when a page has its own social image', () => {

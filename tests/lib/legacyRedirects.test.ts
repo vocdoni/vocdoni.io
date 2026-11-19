@@ -3,7 +3,7 @@ import { dirname, join, relative, sep } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { describe, expect, it } from 'vitest'
 
-import { buildNetlifyRedirects, LEGACY_REDIRECTS } from '@/lib/legacyRedirects'
+import { buildNetlifyRedirects, buildRootRedirects, LEGACY_REDIRECTS } from '@/lib/legacyRedirects'
 import { localeDefault, locales } from '@/locales'
 
 const PAGES_DIR = join(dirname(fileURLToPath(import.meta.url)), '../../pages')
@@ -33,10 +33,14 @@ const REAL_URLS = new Set(
 
 // Matches any configured locale, not just two-letter ones: `pt-br` is a real locale
 // and renamed-route redirects target every locale the old URL was served in.
+// Trailing slash is stripped from the result since REAL_BASE_ROUTES are slashless.
 const stripLocale = (url: string) => {
   for (const locale of locales) {
-    if (url === `/${locale}`) return '/'
-    if (url.startsWith(`/${locale}/`)) return url.slice(locale.length + 1)
+    if (url === `/${locale}` || url === `/${locale}/`) return '/'
+    if (url.startsWith(`/${locale}/`)) {
+      const rest = url.slice(locale.length + 1)
+      return rest.endsWith('/') ? rest.slice(0, -1) : rest
+    }
   }
   return null
 }
@@ -65,17 +69,17 @@ describe('LEGACY_REDIRECTS source of truth', () => {
     }
   })
 
-  it('maps each legacy path to its current destination', () => {
+  it('maps each legacy path to its current destination (trailing-slash form)', () => {
     const map = Object.fromEntries(LEGACY_REDIRECTS.map((r) => [r.from, r.to]))
-    expect(map['/product']).toBe('/en/app') // unprefixed -> default locale
-    expect(map['/es/product']).toBe('/es/app')
-    expect(map['/advantages']).toBe('/en')
-    expect(map['/es/advantages']).toBe('/es')
-    expect(map['/docs']).toBe('/en/developers')
-    expect(map['/es/docs']).toBe('/es/developers')
-    expect(map['/footer']).toBe('/en')
-    expect(map['/api']).toBe('/en') // internal only - never an external site
-    expect(map['/politica-priv-14fruites']).toBe('/en/privacy')
+    expect(map['/product']).toBe('/en/app/') // unprefixed -> default locale
+    expect(map['/es/product']).toBe('/es/app/')
+    expect(map['/advantages']).toBe('/en/')
+    expect(map['/es/advantages']).toBe('/es/')
+    expect(map['/docs']).toBe('/en/developers/')
+    expect(map['/es/docs']).toBe('/es/developers/')
+    expect(map['/footer']).toBe('/en/')
+    expect(map['/api']).toBe('/en/') // internal only - never an external site
+    expect(map['/politica-priv-14fruites']).toBe('/en/privacy/')
   })
 
   it('keeps the language for active locales and collapses inactive ones to the default', () => {
@@ -99,5 +103,54 @@ describe('buildNetlifyRedirects', () => {
     // longest `from` first, so a shorter prefix can never shadow a more specific rule
     const lengths = lines.map((line) => line.split(/\s+/)[0].length)
     expect(lengths).toEqual([...lengths].sort((a, b) => b - a))
+  })
+})
+
+describe('buildRootRedirects', () => {
+  it('emits a 302! rule for every locale and an unconditional en fallback', () => {
+    const output = buildRootRedirects()
+    const lines = output.split('\n').filter((l) => l && !l.startsWith('#'))
+    // Every locale except the default gets a Language= condition.
+    for (const locale of locales) {
+      if (locale === localeDefault) continue
+      expect(lines).toContain(`/  /${locale}/  302!  Language=${locale}`)
+    }
+    // The default locale gets an unconditional rule (no Language= condition).
+    expect(lines).toContain(`/  /${localeDefault}/  302!`)
+  })
+
+  it('places pt-br before pt so the sub-locale matches first', () => {
+    const output = buildRootRedirects()
+    const lines = output.split('\n').filter((l) => l.startsWith('/  /'))
+    const ptBrIdx = lines.findIndex((l) => l.includes('/pt-br/'))
+    const ptIdx = lines.findIndex((l) => l.includes('/pt/'))
+    expect(ptBrIdx).toBeGreaterThanOrEqual(0)
+    expect(ptIdx).toBeGreaterThanOrEqual(0)
+    expect(ptBrIdx).toBeLessThan(ptIdx)
+  })
+
+  it('places the unconditional default-locale rule last', () => {
+    const output = buildRootRedirects()
+    const lines = output.split('\n').filter((l) => l.startsWith('/  /'))
+    const last = lines[lines.length - 1]
+    expect(last).toBe(`/  /${localeDefault}/  302!`)
+    // The unconditional rule has no Language= condition.
+    expect(last).not.toContain('Language=')
+  })
+
+  it('targets trailing-slash locale roots', () => {
+    const output = buildRootRedirects()
+    const lines = output.split('\n').filter((l) => l.startsWith('/  /'))
+    for (const line of lines) {
+      const parts = line.trim().split(/\s+/)
+      // e.g. ["/", "/en/", "302!"] or ["/", "/pt-br/", "302!", "Language=pt-br"]
+      expect(parts[1]).toMatch(/^\/[a-z-]+\/$/)
+    }
+  })
+
+  it('uses 302! (forced 302) so Netlify does not serve the index.html at /', () => {
+    const output = buildRootRedirects()
+    const lines = output.split('\n').filter((l) => l.startsWith('/  /'))
+    for (const line of lines) expect(line).toContain('302!')
   })
 })

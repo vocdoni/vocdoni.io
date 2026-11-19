@@ -1,4 +1,5 @@
 import { locales, type Locale } from '@/locales'
+import { withTrailingSlash } from './url-form'
 
 const normalizePath = (value: string) => {
   if (!value) return '/'
@@ -24,15 +25,15 @@ export function getLocalizedPath(path: string, locale: Locale) {
   const normalized = normalizePath(path)
 
   if (hasLocalePrefix(normalized)) {
-    return normalized
+    return withTrailingSlash(normalized)
   }
 
   if (normalized === '/') {
-    return `/${locale}`
+    return withTrailingSlash(`/${locale}`)
   }
 
   const trimmed = normalized.startsWith('/') ? normalized.slice(1) : normalized
-  return `/${locale}/${trimmed}`
+  return withTrailingSlash(`/${locale}/${trimmed}`)
 }
 
 export function stripLocaleFromPath(path: string) {

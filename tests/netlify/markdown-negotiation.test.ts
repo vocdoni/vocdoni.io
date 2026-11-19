@@ -64,6 +64,17 @@ describe('markdown-negotiation edge function', () => {
     expect(fetchSpy).not.toHaveBeenCalled()
   })
 
+  it('serves the markdown twin for a trailing-slash URL', async () => {
+    const fetchSpy = stubFetch(() => twinResponse('# Hello\n'))
+
+    const response = await negotiate(request('https://vocdoni.io/en/blog/hello-world/', 'text/markdown'))
+
+    expect(fetchSpy).toHaveBeenCalledTimes(1)
+    // markdownTwinFor strips the trailing slash before mapping to the .md twin
+    expect(String(fetchSpy.mock.calls[0][0])).toBe('https://vocdoni.io/en/blog/hello-world.md')
+    expect(response?.status).toBe(200)
+  })
+
   it('falls through when the twin does not exist rather than propagating the 404', async () => {
     stubFetch(() => new Response('not found', { status: 404 }))
 
@@ -72,8 +83,15 @@ describe('markdown-negotiation edge function', () => {
 })
 
 describe('markdown-negotiation declaration', () => {
-  it('only matches the three page shapes that have a twin', () => {
-    expect(config.path).toEqual(['/:locale/blog/:slug', '/:locale/developers/docs', '/:locale/developers/docs/:slug'])
+  it('only matches the three page shapes that have a twin, in both slash and no-slash form', () => {
+    expect(config.path).toEqual([
+      '/:locale/blog/:slug',
+      '/:locale/blog/:slug/',
+      '/:locale/developers/docs',
+      '/:locale/developers/docs/',
+      '/:locale/developers/docs/:slug',
+      '/:locale/developers/docs/:slug/',
+    ])
   })
 
   it('never runs for a request that did not mention markdown, so _headers is not shadowed', () => {

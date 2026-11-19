@@ -18,6 +18,11 @@ export function useLocaleDetection(currentLocale: string, urlLogical: string) {
     // Only run on client side
     if (!isClient) return
 
+    // Backfill the nf_lang cookie for visitors who saved a preference before the cookie
+    // existed, so the Netlify root redirect honours the saved choice on their next visit.
+    const savedPreference = getLocalePreference()
+    if (savedPreference) setLocalePreference(savedPreference)
+
     const currentPath = window.location.pathname
     const isDefaultLocalePath = currentPath === `/${localeDefault}` || currentPath.startsWith(`/${localeDefault}/`)
 
@@ -26,7 +31,6 @@ export function useLocaleDetection(currentLocale: string, urlLogical: string) {
     if (currentLocale !== localeDefault || isDefaultLocalePath) return
 
     // Check if user has already set a preference (manual selection or previous auto-detection)
-    const savedPreference = getLocalePreference()
     if (savedPreference) {
       // Redirect to stored preference when landing on default locale again
       const targetPath = `/${savedPreference}${urlLogical === '/' ? '/' : urlLogical}`

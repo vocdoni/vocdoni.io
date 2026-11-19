@@ -172,19 +172,19 @@ export async function discoverBlogCategories(root: string, allLocales: readonly 
 
 export const stripSlash = (s: string) => s.replace(/\/+$/, '')
 
-export const localePath = (locale: string, route: string) => (route === '/' ? `/${locale}` : `/${locale}${route}`)
+export const localePath = (locale: string, route: string) => (route === '/' ? `/${locale}/` : `/${locale}${route}/`)
 
 export const docPath = (locale: string, slug: string) =>
-  slug === OVERVIEW_SLUG ? `/${locale}/developers/docs` : `/${locale}/developers/docs/${slug}`
+  slug === OVERVIEW_SLUG ? `/${locale}/developers/docs/` : `/${locale}/developers/docs/${slug}/`
 
 export const rawDocPath = (locale: string, slug: string) =>
   slug === OVERVIEW_SLUG ? `/${locale}/developers/docs.md` : `/${locale}/developers/docs/${slug}.md`
 
-export const postPath = (locale: string, slug: string) => `/${locale}/blog/${slug}`
+export const postPath = (locale: string, slug: string) => `/${locale}/blog/${slug}/`
 
 export const rawPostPath = (locale: string, slug: string) => `/${locale}/blog/${slug}.md`
 
-export const blogCategoryPath = (locale: string, slug: string) => `/${locale}/blog/category/${slug}`
+export const blogCategoryPath = (locale: string, slug: string) => `/${locale}/blog/category/${slug}/`
 
 /** `llms.txt` for the default locale, `llms-<locale>.txt` for any other. */
 export const llmsFileName = (locale: string, defaultLocale: string) =>

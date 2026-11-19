@@ -66,7 +66,8 @@ function CompatibilityRedirectLayout({ urlLogical }: { urlLogical: string }) {
       const targetLocale = resolvePreferredLocale(savedLocale, browserLanguages, config.locales, config.defaultLocale);
       const buildRedirectTarget = (logicalPath, locale, search = '', hash = '') => {
         const pathname = logicalPath === '/' ? '/' + locale : '/' + locale + logicalPath;
-        return pathname + search + hash;
+        const withSlash = pathname.endsWith('/') ? pathname : pathname + '/';
+        return withSlash + search + hash;
       };
       const targetUrl = buildRedirectTarget(config.logicalPath, targetLocale, window.location.search, window.location.hash);
       window.location.replace(targetUrl);

@@ -53,7 +53,7 @@ describe('Hero layout spacing', () => {
     const html = renderToStaticMarkup(<Hero />)
 
     for (const slug of ['professional-associations', 'associations', 'political-parties', 'municipalities']) {
-      expect(html).toContain(`href="/en/solutions/${slug}"`)
+      expect(html).toContain(`href="/en/solutions/${slug}/"`)
     }
     for (const label of [
       'Professional associations',
@@ -65,7 +65,7 @@ describe('Hero layout spacing', () => {
     ]) {
       expect(html).toContain(label)
     }
-    expect(html).toContain('href="/en/solutions"')
+    expect(html).toContain('href="/en/solutions/"')
 
     const primaryIndex = html.indexOf('data-hero-cta="primary"')
     expect(primaryIndex).toBeGreaterThan(-1)

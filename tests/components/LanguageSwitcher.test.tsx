@@ -35,23 +35,23 @@ describe('LanguageSwitcher', () => {
     mockedUrlLogical = '/es/about'
     mockedLocale = 'es'
     const html = renderToStaticMarkup(<LanguageSwitcher />)
-    expect(html).toContain('href="/en/about"')
-    expect(html).toContain('href="/es/about"')
+    expect(html).toContain('href="/en/about/"')
+    expect(html).toContain('href="/es/about/"')
   })
 
   it('links to default locale root without prefix', () => {
     mockedUrlLogical = '/es'
     mockedLocale = 'es'
     const html = renderToStaticMarkup(<LanguageSwitcher />)
-    expect(html).toContain('href="/en"')
-    expect(html).toContain('href="/es"')
+    expect(html).toContain('href="/en/"')
+    expect(html).toContain('href="/es/"')
   })
 
   it('keeps pointer cursor on language items', () => {
     mockedUrlLogical = '/es'
     mockedLocale = 'es'
     const html = renderToStaticMarkup(<LanguageSwitcher />)
-    const classMatch = html.match(/href="\/en"\s+class="([^"]+)"/)
+    const classMatch = html.match(/href="\/en\/"\s+class="([^"]+)"/)
     expect(classMatch).not.toBeNull()
     const classList = classMatch ? classMatch[1] : ''
     const cursorClasses = classList.match(/cursor-[^\s"]+/g) || []

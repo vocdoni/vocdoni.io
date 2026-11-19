@@ -60,7 +60,17 @@ export default async (request: Request): Promise<Response | undefined> => {
 }
 
 export const config = {
-  path: ['/:locale/blog/:slug', '/:locale/developers/docs', '/:locale/developers/docs/:slug'],
+  // Each page shape is listed in both the slash and no-slash form so the edge function
+  // handles requests regardless of whether the visitor arrived via the canonical
+  // trailing-slash URL or the equivalent slashless form.
+  path: [
+    '/:locale/blog/:slug',
+    '/:locale/blog/:slug/',
+    '/:locale/developers/docs',
+    '/:locale/developers/docs/',
+    '/:locale/developers/docs/:slug',
+    '/:locale/developers/docs/:slug/',
+  ],
   // The twins themselves are plain static files and must never be negotiated again.
   excludedPath: '/*.md',
   // GET only: Netlify's edge-function manifest schema allows GET/POST/PUT/PATCH/DELETE/OPTIONS,

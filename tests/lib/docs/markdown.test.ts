@@ -242,14 +242,14 @@ describe('compile - tables, slugs, code, links', () => {
 
   it('localizes internal links and leaves external/anchor links alone', () => {
     const html = compile('[a](/developers/docs/census) [b](https://x.dev) [c](#frag)', { locale: 'es' })
-    expect(html).toContain('href="/es/developers/docs/census"')
+    expect(html).toContain('href="/es/developers/docs/census/"')
     expect(html).toContain('href="https://x.dev"')
     expect(html).toContain('href="#frag"')
   })
 
   it('does not double-prefix already-localized links', () => {
     const html = compile('[a](/en/developers/docs/census)', { locale: 'en' })
-    expect(html).toContain('href="/en/developers/docs/census"')
+    expect(html).toContain('href="/en/developers/docs/census/"')
     expect(html).not.toContain('/en/en/')
   })
 })
