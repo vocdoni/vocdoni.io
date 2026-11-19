@@ -21,6 +21,13 @@ const LADDER_SEGMENTS = [
   { upTo: 50000, step: 250 },
 ] as const
 
+/**
+ * The published price-list edges in ascending order: the voter counts at which a new band starts.
+ * Free up to 25, then priced at 100, 500, 1,000, 5,000, 15,000 and 50,000; above 50,000 is on request.
+ * Derived from LADDER_SEGMENTS so the two never drift apart.
+ */
+export const PRICE_LIST_EDGES: readonly number[] = LADDER_SEGMENTS.map(({ upTo }) => upTo)
+
 function buildLadder(): readonly number[] {
   const stops: number[] = []
   let prevUpTo = 0
