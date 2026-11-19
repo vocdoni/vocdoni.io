@@ -28,7 +28,7 @@ export default function PricingFaq() {
               <AccordionTrigger className='text-left text-base font-medium sm:text-lg'>
                 {item.question}
               </AccordionTrigger>
-              <AccordionContent className='pb-5 text-base leading-7 text-muted-foreground'>
+              <AccordionContent forceMount className='pb-5 text-base leading-7 text-muted-foreground'>
                 {item.answer}
               </AccordionContent>
             </AccordionItem>

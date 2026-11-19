@@ -65,7 +65,7 @@ export default function HomeFAQ() {
               <AccordionTrigger className='py-5 text-left text-base font-medium sm:text-lg hover:no-underline'>
                 {faq.question}
               </AccordionTrigger>
-              <AccordionContent className='pb-6 text-base leading-7 text-muted-foreground'>
+              <AccordionContent forceMount className='pb-6 text-base leading-7 text-muted-foreground'>
                 {faq.answer}
                 {'pricingLink' in faq && faq.pricingLink && (
                   <div className='mt-3'>
