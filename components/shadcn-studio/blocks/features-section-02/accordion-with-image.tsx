@@ -94,7 +94,9 @@ const AccordionWithImage = () => {
                     <span className='text-base'>{item.title}</span>
                   </span>
                 </AccordionTrigger>
-                <AccordionContent className='text-muted-foreground px-5 text-base'>{item.description}</AccordionContent>
+                <AccordionContent forceMount className='text-muted-foreground px-5 text-base'>
+                  {item.description}
+                </AccordionContent>
               </AccordionItem>
             ))}
           </Accordion>

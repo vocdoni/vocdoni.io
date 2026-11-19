@@ -284,7 +284,7 @@ export function SolutionPage({ icon: Icon, content, logos, caseStudyHref, signup
                 <AccordionTrigger className='text-left text-base font-medium sm:text-lg'>
                   {item.question}
                 </AccordionTrigger>
-                <AccordionContent className='text-muted-foreground pb-5 text-base leading-7'>
+                <AccordionContent forceMount className='text-muted-foreground pb-5 text-base leading-7'>
                   {item.answer}
                   {item.link_label && (
                     <div className='mt-3'>

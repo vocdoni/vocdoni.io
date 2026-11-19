@@ -29,7 +29,7 @@ export function VerticalFaq({ faq, pageId }: { faq: VerticalContent['faq']; page
               <AccordionTrigger className='text-left text-base font-medium sm:text-lg'>
                 {item.question}
               </AccordionTrigger>
-              <AccordionContent className='text-muted-foreground pb-5 text-base leading-7'>
+              <AccordionContent forceMount className='text-muted-foreground pb-5 text-base leading-7'>
                 {item.answer}
               </AccordionContent>
             </AccordionItem>
