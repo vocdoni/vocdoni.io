@@ -3,7 +3,7 @@ import { dirname, join, relative, sep } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { describe, expect, it } from 'vitest'
 
-import { buildNetlifyRedirects, LEGACY_REDIRECTS } from '@/lib/legacyRedirects'
+import { buildNetlifyRedirects, buildRootRedirects, LEGACY_REDIRECTS } from '@/lib/legacyRedirects'
 import { localeDefault, locales } from '@/locales'
 
 const PAGES_DIR = join(dirname(fileURLToPath(import.meta.url)), '../../pages')
@@ -103,5 +103,54 @@ describe('buildNetlifyRedirects', () => {
     // longest `from` first, so a shorter prefix can never shadow a more specific rule
     const lengths = lines.map((line) => line.split(/\s+/)[0].length)
     expect(lengths).toEqual([...lengths].sort((a, b) => b - a))
+  })
+})
+
+describe('buildRootRedirects', () => {
+  it('emits a 302! rule for every locale and an unconditional en fallback', () => {
+    const output = buildRootRedirects()
+    const lines = output.split('\n').filter((l) => l && !l.startsWith('#'))
+    // Every locale except the default gets a Language= condition.
+    for (const locale of locales) {
+      if (locale === localeDefault) continue
+      expect(lines).toContain(`/  /${locale}/  302!  Language=${locale}`)
+    }
+    // The default locale gets an unconditional rule (no Language= condition).
+    expect(lines).toContain(`/  /${localeDefault}/  302!`)
+  })
+
+  it('places pt-br before pt so the sub-locale matches first', () => {
+    const output = buildRootRedirects()
+    const lines = output.split('\n').filter((l) => l.startsWith('/  /'))
+    const ptBrIdx = lines.findIndex((l) => l.includes('/pt-br/'))
+    const ptIdx = lines.findIndex((l) => l.includes('/pt/'))
+    expect(ptBrIdx).toBeGreaterThanOrEqual(0)
+    expect(ptIdx).toBeGreaterThanOrEqual(0)
+    expect(ptBrIdx).toBeLessThan(ptIdx)
+  })
+
+  it('places the unconditional default-locale rule last', () => {
+    const output = buildRootRedirects()
+    const lines = output.split('\n').filter((l) => l.startsWith('/  /'))
+    const last = lines[lines.length - 1]
+    expect(last).toBe(`/  /${localeDefault}/  302!`)
+    // The unconditional rule has no Language= condition.
+    expect(last).not.toContain('Language=')
+  })
+
+  it('targets trailing-slash locale roots', () => {
+    const output = buildRootRedirects()
+    const lines = output.split('\n').filter((l) => l.startsWith('/  /'))
+    for (const line of lines) {
+      const parts = line.trim().split(/\s+/)
+      // e.g. ["/", "/en/", "302!"] or ["/", "/pt-br/", "302!", "Language=pt-br"]
+      expect(parts[1]).toMatch(/^\/[a-z-]+\/$/)
+    }
+  })
+
+  it('uses 302! (forced 302) so Netlify does not serve the index.html at /', () => {
+    const output = buildRootRedirects()
+    const lines = output.split('\n').filter((l) => l.startsWith('/  /'))
+    for (const line of lines) expect(line).toContain('302!')
   })
 })

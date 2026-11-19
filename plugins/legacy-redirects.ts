@@ -1,7 +1,7 @@
 import { promises as fs } from 'node:fs'
 import path from 'node:path'
 import type { Plugin } from 'vite'
-import { buildNetlifyRedirects } from '../lib/legacyRedirects'
+import { buildNetlifyRedirects, buildRootRedirects } from '../lib/legacyRedirects'
 
 /**
  * Emits the Netlify `_redirects` file into the client build output from the single source of truth
@@ -29,7 +29,10 @@ export function legacyRedirectsPlugin(): Plugin {
       ran = true
 
       await fs.mkdir(clientOutDir, { recursive: true })
-      await fs.writeFile(path.join(clientOutDir, '_redirects'), buildNetlifyRedirects(), 'utf8')
+      // Root redirect block first so it is checked before the legacy rules (more-specific-first
+      // ordering within legacy rules is handled by buildNetlifyRedirects).
+      const content = buildRootRedirects() + '\n' + buildNetlifyRedirects()
+      await fs.writeFile(path.join(clientOutDir, '_redirects'), content, 'utf8')
     },
   }
 }

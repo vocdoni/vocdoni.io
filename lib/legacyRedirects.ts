@@ -102,3 +102,32 @@ export function buildNetlifyRedirects(redirects: LegacyRedirect[] = LEGACY_REDIR
   const lines = [...redirects].sort(bySpecificity).map(({ from, to }) => `${from}  ${to}  301`)
   return `${header}${lines.join('\n')}\n`
 }
+
+/**
+ * Render the root language redirect block for the Netlify `_redirects` file.
+ *
+ * Rules:
+ * - pt-br comes before pt: Netlify's Language condition matches `pt` for any pt-* browser, so the
+ *   more specific sub-locale rule must win first.
+ * - Every other non-default locale gets a `302!` rule with a `Language=<locale>` condition.
+ * - The default locale (en) gets an unconditional `302!` rule last so it catches all remaining
+ *   visitors, including those without an Accept-Language header.
+ * - The `!` force is required because the root `/` has an `index.html`; without it Netlify serves
+ *   the file and skips the redirect rule.
+ * - `nf_lang` cookie: setLocalePreference (lib/localeDetection.ts) writes `nf_lang=<locale>` when
+ *   the visitor explicitly picks a language in the UI. Netlify reads this cookie before evaluating
+ *   the Language condition, so a saved preference always wins at `/`.
+ */
+export function buildRootRedirects(): string {
+  const header =
+    '# Root language redirect - generated from lib/legacyRedirects.ts. Do not edit by hand.\n' +
+    '# nf_lang cookie (set by setLocalePreference) overrides the Language condition for returning visitors.\n\n'
+
+  // Sub-locales (e.g. pt-br) first so they match before the base-language rule (e.g. pt).
+  const withCondition = [
+    ...locales.filter((l) => l.includes('-')),
+    ...locales.filter((l) => l !== localeDefault && !l.includes('-')),
+  ]
+  const lines = [...withCondition.map((l) => `/  /${l}/  302!  Language=${l}`), `/  /${localeDefault}/  302!`]
+  return `${header}${lines.join('\n')}\n`
+}

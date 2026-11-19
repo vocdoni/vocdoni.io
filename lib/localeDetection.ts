@@ -68,8 +68,13 @@ export function getLocalePreference(): Locale | null {
 }
 
 /**
- * Saves the locale preference to localStorage.
- * This prevents auto-detection from running on subsequent visits.
+ * Saves the locale preference to localStorage and to the `nf_lang` cookie.
+ *
+ * The `nf_lang` cookie is read by Netlify before evaluating the `Language` condition
+ * on the bare-root redirect (`/`), so a visitor who has explicitly picked a language
+ * in the UI will always land in that language even when arriving at `/`. This is a
+ * strictly functional preference cookie: it stores only the locale code (e.g. `en`,
+ * `pt-br`) and contains no personal data.
  */
 export function setLocalePreference(locale: Locale): void {
   if (typeof window === 'undefined') {
@@ -81,5 +86,13 @@ export function setLocalePreference(locale: Locale): void {
   } catch (error) {
     // localStorage might not be available (private browsing, etc.)
     console.warn('Failed to save locale preference to localStorage:', error)
+  }
+
+  try {
+    // max-age=31536000 = 1 year. SameSite=Lax is the safe default for a first-party
+    // preference cookie; Secure ensures it is only sent over HTTPS on production.
+    document.cookie = `nf_lang=${locale}; path=/; max-age=31536000; SameSite=Lax; Secure`
+  } catch {
+    // Should not throw in normal use, but guard anyway.
   }
 }
