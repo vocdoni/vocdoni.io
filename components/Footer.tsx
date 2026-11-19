@@ -42,6 +42,7 @@ const buildSolutionsLinks = (t: TFunction): FooterLink[] => [
 
 const buildCompanyLinks = (t: TFunction): FooterLink[] => [
   { label: t('footer.company.about', 'About us'), href: '/about-us' },
+  { label: t('footer.company.association', 'Vocdoni Association'), href: '/about-us/vocdoni-association' },
   { label: t('footer.company.use_cases', 'Use cases'), href: '/use-cases' },
   { label: t('footer.company.case_studies', 'Case studies'), href: '/case-studies' },
   { label: t('footer.company.learn', 'Learn'), href: '/learn' },

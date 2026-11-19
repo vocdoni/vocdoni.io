@@ -30,6 +30,14 @@ export const metaDefaults = {
     'meta.about_us.description',
     'Meet the team building open source, verifiable digital voting infrastructure for organizations that need trustworthy decisions.'
   ),
+  'meta.about_us.association.title': t(
+    'meta.about_us.association.title',
+    'Vocdoni Association - safeguarding our open voting protocol'
+  ),
+  'meta.about_us.association.description': t(
+    'meta.about_us.association.description',
+    'The Vocdoni Association is a Swiss non-profit safeguarding the openness, integrity, privacy, and long-term development of the Vocdoni voting protocol.'
+  ),
   'meta.privacy.title': t('meta.privacy.title', 'Privacy policy - Vocdoni'),
   'meta.privacy.description': t(
     'meta.privacy.description',
