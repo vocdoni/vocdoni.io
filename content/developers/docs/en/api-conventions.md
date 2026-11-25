@@ -86,6 +86,22 @@ Errors return a consistent shape with an application code, the HTTP status and a
 }
 ```
 
+### Scheduled maintenance
+
+When a maintenance window is configured, every response carries `X-Maintenance-Window: <from>/<until>` (RFC 3339) until it ends. `GET /info` also returns `maintenance: { "from": "...", "until": "..." }` while the window is pending, so your integration can detect it before it starts.
+
+Inside the window every write (`POST`, `PUT`, `DELETE`) answers `503` with error code `50304` and a `Retry-After` header (in seconds) pointing past the window end. Both `X-Maintenance-Window` and `Retry-After` are CORS-exposed.
+
+```json
+{
+  "code": 50304,
+  "httpstatus": 503,
+  "error": "the service is under scheduled maintenance, please try again later"
+}
+```
+
+Reads pass through. A small set of writes stay reachable during the window: login and token refresh, read-only POSTs (process check, vote verification, vote weight and sign-info, census validation), and the support ticket. The Stripe webhook and SMS status callback are blocked; both providers retry once the window ends.
+
 ## Multilanguage strings
 
 Every human-readable metadata string - election titles and descriptions, question titles, choice titles, and other display text - is a **multilanguage string**, not a plain string. It is an object keyed by [ISO 639-1](https://en.wikipedia.org/wiki/List_of_ISO_639_language_codes) language code, plus a special `default` key used as the fallback when the reader's language is missing.
