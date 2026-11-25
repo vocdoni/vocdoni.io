@@ -75,14 +75,12 @@ List endpoints accept `page` and `limit` query parameters and wrap results with 
 
 ## Errors
 
-Errors return a consistent shape with an application code, the HTTP status and a message. Use `httpstatus` for control flow and `code` for precise handling.
+Errors return a consistent shape with an application code and a message, sent with the matching HTTP status. Use the response status for control flow and `code` for precise handling.
 
 ```json
 {
   "code": 40001,
-  "httpstatus": 400,
-  "error": "invalid census id",
-  "logLevel": "debug"
+  "error": "invalid census id"
 }
 ```
 
@@ -95,7 +93,6 @@ Inside the window every write (`POST`, `PUT`, `DELETE`) answers `503` with error
 ```json
 {
   "code": 50304,
-  "httpstatus": 503,
   "error": "the service is under scheduled maintenance, please try again later"
 }
 ```
