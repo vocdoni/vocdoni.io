@@ -56,6 +56,7 @@ Rules of thumb:
 - The call always returns `200`, even for failures - branch on the **`status`** field.
 - `completed`: read `result`. `failed`: **fail fast** (don't keep polling); read `errors` for the
   reason (per-row import detail needs a manager/admin session). Anything else: keep polling (every ~2s is plenty).
+- A chain job (`publish_voting_process`, `set_process_status`, `set_process_end_date`, `set_process_census`, `relay_vote`, `relay_votes`) may stay `pending` through a [scheduled maintenance window](/developers/docs/api-conventions#scheduled-maintenance). Do not time it out - it will run as soon as the window ends.
 
 :::code-tabs[poll to completion]
 

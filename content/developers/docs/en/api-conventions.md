@@ -75,16 +75,29 @@ List endpoints accept `page` and `limit` query parameters and wrap results with 
 
 ## Errors
 
-Errors return a consistent shape with an application code, the HTTP status and a message. Use `httpstatus` for control flow and `code` for precise handling.
+Errors return a consistent shape with an application code and a message, sent with the matching HTTP status. Use the response status for control flow and `code` for precise handling.
 
 ```json
 {
   "code": 40001,
-  "httpstatus": 400,
-  "error": "invalid census id",
-  "logLevel": "debug"
+  "error": "invalid census id"
 }
 ```
+
+### Scheduled maintenance
+
+When a maintenance window is configured, every response carries `X-Maintenance-Window: <from>/<until>` (RFC 3339) until it ends. `GET /info` also returns `maintenance: { "from": "...", "until": "..." }` while the window is pending, so your integration can detect it before it starts.
+
+Inside the window every write (`POST`, `PUT`, `DELETE`) answers `503` with error code `50304` and a `Retry-After` header (in seconds) pointing past the window end. Both `X-Maintenance-Window` and `Retry-After` are CORS-exposed.
+
+```json
+{
+  "code": 50304,
+  "error": "the service is under scheduled maintenance, please try again later"
+}
+```
+
+Reads pass through. A small set of writes stay reachable during the window: login and token refresh, read-only POSTs (process check, vote verification, vote weight and sign-info, census validation), and the support ticket. The Stripe webhook and SMS status callback are blocked; both providers retry once the window ends.
 
 ## Multilanguage strings
 
